@@ -1,10 +1,5 @@
 {
-  "_depComponent": [
-    "c-fastclick",
-    "c-cache",
-    "c-url",
-    "c-base",
-    "c-timer"
+  "_depComponent": [   
   ],
   "author": "zhenn",
   "babel": {

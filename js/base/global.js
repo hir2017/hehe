@@ -1,7 +1,7 @@
 /**
  * 全局模块
  */
-import Cache from 'c-cache';
+import Cache from '../lib/cache';
 import Events from './events';
 import lang from '../lang';
 
@@ -52,7 +52,7 @@ const slangs = {
  * 缓存对象
  */
 const cache = new Cache({
-    prefix: 'upex'
+    prefix: 'primex'
 });
 
 /**

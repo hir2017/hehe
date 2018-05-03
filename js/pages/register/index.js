@@ -10,7 +10,7 @@ import React, {Component} from 'react';
 import { observer, inject } from 'mobx-react';
 import { Icon, message } from 'antd';
 import {  Link , browserHistory} from 'react-router';
-import Timer from 'c-timer';
+import Timer from '../../lib/timer';
 import Header from '../../mods/header';
 import Footer from '../../mods/footer';
 import countryCode from '../../mods/register/country-code';
@@ -25,6 +25,7 @@ class Register extends Component {
     componentDidMount() {
         // 组件加载完调用图片验证码
         this.props.registerStore.fetchPicCaptcha();
+        console.log(Timer);
     }
 
     componentWillUnmount(){

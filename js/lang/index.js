@@ -43,4 +43,4 @@ let _lang = {
     }
 };
 
-module.exports = _lang;
+export default  _lang;
