@@ -1,30 +1,35 @@
-// css文件中不要使用import
 import '../css/reset.css';
-import '../css/whatever.css';
+import '../css/common.css';
+import '../css/index.css';
+import '../css/login-register.css';
 
 import './lib/object.assign';
 import './lib/promise';
 import React, {Component} from 'react';
 import ReactDOM, {render} from 'react-dom';
-import { Router, Route, hashHistory, useRouterHistory} from 'react-router';
+import { Router, Route, hashHistory, browserHistory, useRouterHistory} from 'react-router';
+import { observer, Provider } from 'mobx-react';
+import { message } from 'antd';
 
-// 异步加载模块，打包独立的chunk文件
-const Home  = (location, cb) => {
-    require.ensure([], require => {
-        cb(null, require('./home').default);
-    }, 'home');
-};
+import './base/global';
+import routes from './routes';
 
+import stores, { commonStore } from './stores/index';
+
+@observer 
 class App extends Component {
-    
+	static onUpdate() {
+		commonStore.updatePathName(this.state.location.pathname);
+	}
     render() {
         return (
-            <Router history={hashHistory}>
-                <Route path="/" getComponent={Home} />
-                <Route path="*" getComponent={Home} />
-            </Router>    
+        	<div className={`app-page ${commonStore.language}`}  key={commonStore.language} data-theme={commonStore.theme} >
+                <Provider {...stores}>
+            	   <Router history={browserHistory} routes={routes} onUpdate={App.onUpdate}></Router>
+                </Provider>
+            </div>
         );
     }
 }
 
-render(<App />, $('#wrap')[0]); 
+render(<App/>, document.getElementById('wrap'));

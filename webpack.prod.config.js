@@ -25,12 +25,14 @@ var output = {
     publicPath: '/',
 };
 
+console.log('++++++++++++++++++++++++++++');
+console.log(env);
 // 声明cssloader
 var cssLoader = {
     test: /\.(css|less)$/,
     use: [
         'style-loader',
-        'css-loader',
+        'css-loader?minimize=true',
         'postcss-loader',
         'less-loader'
     ]
@@ -40,22 +42,6 @@ var extractCSS = new ExtractTextPlugin({
     allChunks: true,
     filename: '[name].css'
 });
-
-// 为product环境打包时
-if (env == 'product') {
-    // 定制cdn路径
-    output.publicPath = '//' + cdnDomain + '/' + gitlabGroup + '/' + projectName + '/' + projectVersion + '/assets/';
-    cssLoader.loader = extractCSS.extract(['css-loader', 'postcss-loader', 'less-loader']);
-    delete cssLoader.use;
-}
-
-if (env == 'stage') {
-     // 定制cdn路径
-    output.publicPath = '/' + gitlabGroup + '/' + projectName + '/' + projectVersion + '/assets/';
-    cssLoader.loader = extractCSS.extract(['css-loader', 'postcss-loader', 'less-loader']);
-    delete cssLoader.use;
-}
-
 
 var config = {
     entry: {
@@ -126,17 +112,25 @@ var config = {
     // server配置
     // sudo webpack-dev-server
     devServer: {
-        historyApiFallback: true,//不跳转
+        historyApiFallback: true, //不跳转
         contentBase: './',  // 服务根目录
         color: true,  // 命令行是否彩色
         inline: true, // 项目文件保存自动编译文件模块
         host: '0.0.0.0', //  使用IP访问
         port: 80 // 启动端口
     },
-    
+
     // 插件
     plugins: [
         extractCSS,
+        new webpack.optimize.UglifyJsPlugin({
+            compress: {
+                warnings: false
+            },
+            output: {
+                comments: false,
+            }
+        }),
         new StringReplacePlugin(),
         new webpack.optimize.CommonsChunkPlugin({
             name: "commons",
@@ -152,7 +146,6 @@ var config = {
             chunks: ['app']
         })
     ]
-
 };
 
 module.exports = config;

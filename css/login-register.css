@@ -1,0 +1,174 @@
+.register-wrapper {
+    background-color: #f0f0f0;
+}
+
+.register-main {
+    width: 520px;
+    background-color: #fff;
+    margin: 30px auto 0;
+}
+
+.register-main .register-mode-tabs {
+    height: 50px;
+}
+
+.register-main .register-mode-tab {
+    float: left;
+    width: 50%;
+    text-align: center;
+    line-height: 50px;
+    background-color: #f0f0f0;
+    cursor: pointer;
+}
+
+.register-main .register-mode-tab.selected {
+    background-color: #fff;
+}
+
+.register-mode-content {
+    width: 380px;
+    margin: 30px auto;
+    padding-bottom: 30px;
+}
+
+.register-mode-content .input-wrapper{
+	margin-bottom: 20px;
+	position: relative;
+}
+
+.register-mode-content .input-box{
+	height: 40px;
+    position: relative;
+}
+
+.register-mode-content .input-box input{
+	width: 100%;
+    height: 40px;
+    border: 1px solid #cccccc;
+    border-radius: 2px;
+    outline: none;
+    font-size: 16px;
+    padding-left: 40px;
+}
+
+.register-mode-content .input-box.input-phone{
+	padding-left: 80px;
+}
+
+.register-mode-content .input-box select {
+    height: 40px;
+    width: 100%;
+    outline: none;
+    background-color: transparent;
+    border-right: 1px solid #cccccc;
+}
+
+.register-mode-content .input-box i{
+	position: absolute;
+    font-size: 20px;
+    left: 10px;
+    top: 10px;
+}
+
+.register-mode-content .warn{
+	position: absolute;
+	height: 20px;
+    line-height: 20px;
+    font-size: 12px;
+    position: absolute;
+    left: 10px;
+    bottom: -20px;
+    color: #b14d43 !important;
+}
+
+.register-mode-content .input-box .area-code{
+	position: absolute;
+    top: 0px;
+    left: 0;
+    width: 80px;
+    height: 40px;
+    display: inline-block;
+    text-align: center;
+    border: 1px solid #cccccc;
+    border-right: 0 none;
+    text-align: center;
+    line-height: 40px;
+    font-size: 14px;
+    border-radius: 2px 0 0 2px;
+}
+
+.register-mode-content .input-box.yz-box{
+	width: 260px;
+}
+
+.register-mode-content .input-box.useryz-box{
+	width: 230px;
+}
+
+.register-mode-content .input-box .codeimg{
+	position: absolute;
+	right: -120px;
+	top: 0;
+	display: inline-block;
+	width: 120px;
+	height: 40px;
+    vertical-align: top;
+    background-color: #ededed;
+}
+
+.register-mode-content .input-box .codeimg img{
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+.register-mode-content .input-box .yzcode{
+	position: absolute;
+	right: -150px;
+	top: 0;
+	width: 150px;
+    height: 40px;
+    vertical-align: top;
+    background-color: #ededed;
+}
+
+.register-mode-content .input-box .yzcode button{
+	width: 100%;
+    height: 40px;
+    line-height: 40px;
+    font-size: 14px;
+    text-align: center;
+    border: 0 none;
+    outline: none;
+    background-color: #49a9ee;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 0px 2px 2px 0px;
+}
+
+.register-mode-content .input-box .yzcode button.disabled{
+	background-color: rgb(204, 204, 204);
+}
+
+.register-mode-content .input-box.user-protocol input{
+	width: 20px;
+    height: 18px;
+    text-indent: 0;
+    vertical-align: middle;
+}
+.register-mode-content .submit-btn{
+	width: 100%;
+    height: 40px;
+    line-height: 40px;
+    font-size: 18px;
+    text-align: center;
+    border: 0 none;
+    outline: none;
+    background-color: #49a9ee;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 2px;
+}
+
+.register-mode-content .submit-btn.disabled{
+	background-color: rgb(204, 204, 204);
+}
