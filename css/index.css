@@ -1,6 +1,188 @@
 .home-wrapper{
-	background: #f0f0f0;
+	background: #fff;
 }
-.home-main {
+.home-content{
 	min-height: 500px;
+	background-color: #fff;
 }
+/**
+ * banner广告位
+ */
+.banner-wrapper{
+	background-color: #141414;
+}
+.banner-wrapper .slider{
+	overflow: hidden;
+    position: relative;
+    height: 320px;
+    min-width: 1200px;
+    background-size: cover;
+    background-position: 50%;
+    margin: 0 auto;
+}
+
+.banner-wrapper .ant-carousel .slick-slide img{
+	margin: 0 auto;
+	display: block;
+}
+.loginguide-wrapper{
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	background-color: #141414;
+	color: #fff;
+}
+.loginguide-wrapper li{
+	display: inline-block;
+	margin-right: 10px;
+}
+/**
+ * 网站特性介绍
+ */
+.features-wrapper{
+	height: 380px;
+	background-color: #000000;
+}
+.features-wrapper ul{
+	padding-top: 120px;
+}
+.features-wrapper li{
+	float: left;
+	width: 25%;
+	text-align: center;
+	color: #fff;
+}
+
+.features-wrapper li .title{
+	margin-top: 10px;
+	font-size: 14px;
+}
+
+.features-wrapper li .desc{
+	font-size: 12px;
+	margin-top: 10px;
+}
+
+.features-wrapper .download-btn{
+	width: 300px;
+	height: 50px;
+	line-height: 50px;
+	font-size: 14px;
+	color: #fff;
+	background-color: #9b00e2;
+	margin: 60px auto;
+	border-radius: 50px;
+	text-align: center;
+}
+/**
+ * 热门币种列表
+ */
+.hot-markets{
+	height: 120px;
+	margin-top: 20px;
+	background-color: #666;
+}
+/**
+ * 货币行情
+ */
+.index-markets{
+	height: 570px;
+	margin-top: 20px;
+	background-color: #ccc;
+}
+/**
+ * 币圈资讯
+ */
+.module-box{
+	width: 1200px;
+	margin: 0 auto 20px;
+}
+.module-item{
+	float: left;
+	margin-right: 10px;
+	min-height: 260px;
+}
+.module-item:last-child{
+	margin-right: 0;
+}
+
+.module-item .title{
+	height: 40px;
+	line-height: 40px;
+	font-size: 16px;
+	margin-bottom: 20px;
+}
+
+.btcnews-wrapper{
+	width: 780px;
+}
+.btcnews-wrapper .content{
+	overflow: hidden;
+}
+
+.btcnews-wrapper .pic{
+	float: left;
+	width: 400px;
+	height: 200px;
+	margin-right: 10px;
+	border-radius: 4px;
+	background-color: #f0f0f0;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center center;
+}
+
+.btcnews-wrapper .list{
+	float: right;
+	width: 370px;
+}
+
+.btcnews-wrapper .list li{
+	font-size: 14px;
+	overflow: hidden;
+	margin-bottom: 10px;
+	height: 30px;
+	line-height: 30px;
+	width: 100%;
+	overflow : hidden;
+  	text-overflow : ellipsis;
+  	white-space : nowrap;
+}
+
+.btcnews-wrapper .list li a,
+.btcnews-wrapper .list li a:hover{
+	color: #000;
+}
+
+/**
+ * 最新公告
+ */
+.announce-wrapper{
+	width: 400px;
+}
+
+.announce-wrapper li{
+	font-size: 14px;
+	overflow: hidden;
+	margin-bottom: 10px;
+	height: 30px;
+	line-height: 30px;
+}
+
+.announce-wrapper li .info{
+	float: left;
+	width: 280px;
+	overflow : hidden;
+  	text-overflow : ellipsis;
+  	white-space : nowrap;
+}
+
+.announce-wrapper li a,
+.announce-wrapper li a:hover{
+	color: #000;
+}
+.announce-wrapper li .time{
+	float: right;
+	width: 90px;
+}
+

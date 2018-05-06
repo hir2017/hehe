@@ -6,6 +6,7 @@
 
 import React, {Component} from 'react';
 import { observer, inject } from 'mobx-react';
+import { Link } from 'react-router';
 
 @observer
 class Footer extends Component {
@@ -13,7 +14,23 @@ class Footer extends Component {
  		return (
  			<div className="app-footer">
  				<div className="footer-box">
- 					
+ 					<ul>
+ 						<li>
+ 							<Link to="/about">{ UPEX.lang.template('关于我们')}</Link>
+ 						</li>
+ 						<li>
+ 							<Link to="/contact">{ UPEX.lang.template('联系我们')}</Link>
+ 						</li>
+ 						<li>
+ 							<Link to="/careers">{ UPEX.lang.template('招贤纳士')}</Link>
+ 						</li>
+ 						<li>
+ 							<Link to="/cooperation">{ UPEX.lang.template('商务合作')}</Link>
+ 						</li>
+ 						<li>
+ 							<Link to="/feedback">{ UPEX.lang.template('帮助与反馈')}</Link>
+ 						</li>
+ 					</ul>
  				</div>
  			</div>
  		);

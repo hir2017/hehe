@@ -1,5 +1,17 @@
 const countryCode = [
     {
+        "en": "China",
+        "zh": "中国",
+        "locale": "CN",
+        "code": 86
+    },
+    {
+        "en": "Taiwan",
+        "zh": "台湾省",
+        "locale": "TW",
+        "code": 886
+    },
+    {
         "en": "Angola",
         "zh": "安哥拉",
         "locale": "AO",
@@ -53,12 +65,12 @@ const countryCode = [
         "locale": "AM",
         "code": 374
     },
-    {
-        "en": "Ascension",
-        "zh": "阿森松",
-        "locale": " ",
-        "code": 247
-    },
+    // {
+    //     "en": "Ascension",
+    //     "zh": "阿森松",
+    //     "locale": " ",
+    //     "code": 247
+    // },
     {
         "en": "Australia",
         "zh": "澳大利亚",
@@ -191,12 +203,12 @@ const countryCode = [
         "locale": "CA",
         "code": 1
     },
-    {
-        "en": "Cayman Is.",
-        "zh": "开曼群岛",
-        "locale": " ",
-        "code": 1345
-    },
+    // {
+    //     "en": "Cayman Is.",
+    //     "zh": "开曼群岛",
+    //     "locale": " ",
+    //     "code": 1345
+    // },
     {
         "en": "Central African Republic",
         "zh": "中非共和国",
@@ -214,12 +226,6 @@ const countryCode = [
         "zh": "智利",
         "locale": "CL",
         "code": 56
-    },
-    {
-        "en": "China",
-        "zh": "中国",
-        "locale": "CN",
-        "code": 86
     },
     {
         "en": "Colombia",
@@ -479,12 +485,12 @@ const countryCode = [
         "locale": "IT",
         "code": 39
     },
-    {
-        "en": "Ivory Coast",
-        "zh": "科特迪瓦",
-        "locale": " ",
-        "code": 225
-    },
+    // {
+    //     "en": "Ivory Coast",
+    //     "zh": "科特迪瓦",
+    //     "locale": " ",
+    //     "code": 225
+    // },
     {
         "en": "Jamaica",
         "zh": "牙买加",
@@ -635,18 +641,18 @@ const countryCode = [
         "locale": "MT",
         "code": 356
     },
-    {
-        "en": "Mariana Is",
-        "zh": "马里亚那群岛",
-        "locale": " ",
-        "code": 1670
-    },
-    {
-        "en": "Martinique",
-        "zh": "马提尼克",
-        "locale": " ",
-        "code": 596
-    },
+    // {
+    //     "en": "Mariana Is",
+    //     "zh": "马里亚那群岛",
+    //     "locale": " ",
+    //     "code": 1670
+    // },
+    // {
+    //     "en": "Martinique",
+    //     "zh": "马提尼克",
+    //     "locale": " ",
+    //     "code": 596
+    // },
     {
         "en": "Mauritius",
         "zh": "毛里求斯",
@@ -713,12 +719,12 @@ const countryCode = [
         "locale": "NP",
         "code": 977
     },
-    {
-        "en": "Netheriands Antilles",
-        "zh": "荷属安的列斯",
-        "locale": " ",
-        "code": 599
-    },
+    // {
+    //     "en": "Netheriands Antilles",
+    //     "zh": "荷属安的列斯",
+    //     "locale": " ",
+    //     "code": 599
+    // },
     {
         "en": "Netherlands",
         "zh": "荷兰",
@@ -833,12 +839,12 @@ const countryCode = [
         "locale": "QA",
         "code": 974
     },
-    {
-        "en": "Reunion",
-        "zh": "留尼旺",
-        "locale": " ",
-        "code": 262
-    },
+    // {
+    //     "en": "Reunion",
+    //     "zh": "留尼旺",
+    //     "locale": " ",
+    //     "code": 262
+    // },
     {
         "en": "Romania",
         "zh": "罗马尼亚",
@@ -863,18 +869,18 @@ const countryCode = [
         "locale": "VC",
         "code": 1784
     },
-    {
-        "en": "Samoa Eastern",
-        "zh": "东萨摩亚(美)",
-        "locale": " ",
-        "code": 684
-    },
-    {
-        "en": "Samoa Western",
-        "zh": "西萨摩亚",
-        "locale": " ",
-        "code": 685
-    },
+    // {
+    //     "en": "Samoa Eastern",
+    //     "zh": "东萨摩亚(美)",
+    //     "locale": " ",
+    //     "code": 684
+    // },
+    // {
+    //     "en": "Samoa Western",
+    //     "zh": "西萨摩亚",
+    //     "locale": " ",
+    //     "code": 685
+    // },
     {
         "en": "San Marino",
         "zh": "圣马力诺",
@@ -960,18 +966,6 @@ const countryCode = [
         "code": 94
     },
     {
-        "en": "St.Lucia",
-        "zh": "圣卢西亚",
-        "locale": "LC",
-        "code": 1758
-    },
-    {
-        "en": "St.Vincent",
-        "zh": "圣文森特",
-        "locale": "VC",
-        "code": 1784
-    },
-    {
         "en": "Sudan",
         "zh": "苏丹",
         "locale": "SD",
@@ -1006,12 +1000,6 @@ const countryCode = [
         "zh": "叙利亚",
         "locale": "SY",
         "code": 963
-    },
-    {
-        "en": "Taiwan",
-        "zh": "台湾省",
-        "locale": "TW",
-        "code": 886
     },
     {
         "en": "Tajikstan",
@@ -1127,24 +1115,24 @@ const countryCode = [
         "locale": "YE",
         "code": 967
     },
-    {
-        "en": "Yugoslavia",
-        "zh": "南斯拉夫",
-        "locale": "YU",
-        "code": 381
-    },
+    // {
+    //     "en": "Yugoslavia",
+    //     "zh": "南斯拉夫",
+    //     "locale": "YU",
+    //     "code": 381
+    // },
     {
         "en": "Zimbabwe",
         "zh": "津巴布韦",
         "locale": "ZW",
         "code": 263
     },
-    {
-        "en": "Zaire",
-        "zh": "扎伊尔",
-        "locale": "ZR",
-        "code": 243
-    },
+    // {
+    //     "en": "Zaire",
+    //     "zh": "扎伊尔",
+    //     "locale": "ZR",
+    //     "code": 243
+    // },
     {
         "en": "Zambia",
         "zh": "赞比亚",

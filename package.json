@@ -54,7 +54,8 @@
   "googleFileExport": "module.exports",
   "googleSpreadsheetId": "1SAiY0rhwJl01xfA6BZdS53z1JJwg0XvEEEYCiv6mrNM",
   "googleWorksheet": [
-    "website"
+    "website",
+    "ountryCode"
   ],
   "license": "ISC",
   "main": "index.js",

@@ -1,0 +1,76 @@
+{
+    "attachment": [
+        {
+            "announceId": 301,
+            "title": "【最新消息】CHAOEX 2018年4月交易盈利報告",
+            "content": null,
+            "desc": "",
+            "authorName": null,
+            "authorId": null,
+            "publishTime": "2018-05-05 10:36:00.0",
+            "createTime": null,
+            "outofTime": null,
+            "status": null,
+            "local": null,
+            "linkId": null
+        },
+        {
+            "announceId": 299,
+            "title": "【最新消息】關於以太錢包維護公告",
+            "content": null,
+            "desc": "",
+            "authorName": null,
+            "authorId": null,
+            "publishTime": "2018-05-04 18:44:00.0",
+            "createTime": null,
+            "outofTime": null,
+            "status": null,
+            "local": null,
+            "linkId": null
+        },
+        {
+            "announceId": 297,
+            "title": "【最新消息】CHAOEX關於WICC交易贏金條活動的公告  ",
+            "content": null,
+            "desc": "",
+            "authorName": null,
+            "authorId": null,
+            "publishTime": "2018-05-03 13:13:00.0",
+            "createTime": null,
+            "outofTime": null,
+            "status": null,
+            "local": null,
+            "linkId": null
+        },
+        {
+            "announceId": 298,
+            "title": "【最新消息】CHAOEX關於WICC交易贏金條活動的公告  ",
+            "content": null,
+            "desc": "",
+            "authorName": null,
+            "authorId": null,
+            "publishTime": "2018-05-03 13:13:00.0",
+            "createTime": null,
+            "outofTime": null,
+            "status": null,
+            "local": null,
+            "linkId": null
+        },
+        {
+            "announceId": 399,
+            "title": "【最新消息】CHAOEX關於WICC交易贏金條活動的公告  ",
+            "content": null,
+            "desc": "",
+            "authorName": null,
+            "authorId": null,
+            "publishTime": "2018-05-03 13:13:00.0",
+            "createTime": null,
+            "outofTime": null,
+            "status": null,
+            "local": null,
+            "linkId": null
+        }
+    ],
+    "message": null,
+    "status": 200
+}

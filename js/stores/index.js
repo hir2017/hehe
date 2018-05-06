@@ -1,17 +1,19 @@
 import CommonStore from './common';
 import AuthStore from './auth';
-import RegisterrStore from './register';
+import UserStore from './user';
+import CaptchaStore from './captcha';
+import HotMarketStore from './hotmarkets';
+import AnnounceStore from './announce';
 
-
-const commonStore = new CommonStore();
-const authStore = new AuthStore();
-const registerStore = new RegisterrStore();
-
-const stores = {
-    commonStore,
-    authStore,
-    registerStore
+class RootStore {
+    constructor() {
+        this.commonStore = new CommonStore(this);
+        this.authStore = new AuthStore(this);
+        this.captchaStore = new CaptchaStore(this);
+        this.userStore = new UserStore(this);
+        this.hotMarketStore = new HotMarketStore(this);
+        this.announceStore = new AnnounceStore();
+    }
 }
 
-export { commonStore };
-export default stores;
+export default RootStore;

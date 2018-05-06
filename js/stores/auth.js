@@ -6,12 +6,22 @@ class AuthStore {
 
 	constructor() {
         var handler = autorun(() => {
-            UPEX.cache.setCache('uid', this.uid);
-            UPEX.cache.setCache('token', this.token);
+        	if(this.uid) {
+        		UPEX.cache.setCache('uid', this.uid);        			
+        	} else {
+        		UPEX.cache.removeCache('uid');        			
+        	}
+
+        	if (this.token) {
+        		UPEX.cache.setCache('token', this.token);        			
+        	} else {
+        		UPEX.cache.removeCache('token');        			
+        	}
         });
     }
 
-	@computed get isLogin() {
+	@computed 
+	get isLogin() {
 		return this.uid && this.token;
 	}
 

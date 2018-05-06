@@ -29,19 +29,26 @@ Timer.prototype = Object.assign({
         this.options = Object.assign({}, defaultOptions, cfg);
 
         this.toListenPointed = false;
-    },
 
-    // 开始倒计时
-    start(time) {
-        clearTimeout(this.countDown);
-
-        if (time <= 0) {
-            return;
-        }
-        this.options.remainTime = time;
+        this.toHook();
         this.startCountDown();
     },
 
+    /**
+     * dom钩子
+     * @param void
+     * @return void
+     */
+    toHook: function() {
+        var self = this,
+            selector = self.options.selector;
+
+        self.dayWrap = $(selector.day);
+        self.hourWrap = $(selector.hour);
+        self.minuteWrap = $(selector.minute);
+        self.secondWrap = $(selector.second);
+
+    },
     /**
      * 分割剩余时间，天、时、分、秒
      * @param time {number} 时间,单位s
@@ -66,6 +73,15 @@ Timer.prototype = Object.assign({
             second: second >= 0 ? second : 0
         }
 
+    },
+
+    /**
+     * 是否需要某个时间维度
+     * @param key {string} 时间维度,day.
+     * @return boolean
+     */
+    isNeed: function(key) {
+        return this[key + 'Wrap'].length > 0
     },
 
     /**
@@ -110,28 +126,11 @@ Timer.prototype = Object.assign({
      */
     render(result) {
         var self = this;
-        var selector = this.options.selector;
-
-        let dayWrap = $(selector.day);
-        let hourWrap = $(selector.hour);
-        let minuteWrap = $(selector.minute);
-        let secondWrap = $(selector.second);
-
-        if (dayWrap.length > 0) {
-            dayWrap.html(result.day);
-        }
-
-        if (hourWrap.length > 0) {
-            hourWrap.html(result.hour);
-        }
-
-        if (minuteWrap.length > 0) {
-            minuteWrap.html(result.minute);
-        }
-
-        if (secondWrap.length > 0) {
-            secondWrap.html(result.second);
-        }
+        
+        self.isNeed('day') && self.dayWrap.html(result.day);
+        self.isNeed('hour') && self.hourWrap.html(result.hour);
+        self.isNeed('minute') && self.minuteWrap.html(result.minute);
+        self.isNeed('second') && self.secondWrap.html(result.second);
     },
 
     /**
@@ -186,9 +185,6 @@ Timer.prototype = Object.assign({
 
             self.options.isEnd = isEnd;
 
-
-            // self.set('isEnd', isEnd);
-
             if (isEnd) {
                 self.emit('end');
                 return;
@@ -200,6 +196,7 @@ Timer.prototype = Object.assign({
                 });
                 self.toListenPointed = true;
             }
+
             // 重新呼叫此方法启动演示器
             self.startCountDown(true);
         }, flag ? 1000 : 0);

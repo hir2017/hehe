@@ -5,28 +5,47 @@
  */
 import React, {Component} from 'react';
 import { observer, inject } from 'mobx-react';
-import Header from '../../mods/header';
-import Footer from '../../mods/footer';
+import Banner from '../../mods/banner';
+import LoginGuide from '../../mods/loginguide';
+import Features from '../../mods/features';
+import AnnounceList from '../../mods/announcelist';
+import BtcNews from '../../mods/btcnews';
+import HotMarkets from '../../mods/hotmarkets';
+import IndexMarkets from '../../mods/indexmarkets';
 
+const list = [require('../../../images/banner1.png'),require('../../../images/banner1.png'), require('../../../images/banner1.png')];
 
-@inject('commonStore')
+@inject('authStore', 'announceStore')
 @observer
 class Home extends Component {
     constructor(props){
     	super(props);
     }
+
+    componentDidMount() {
+        // 最新公告数据获取
+        this.props.announceStore.fetch(5);
+    }
+
     render() {
-        let commonStore = this.props.commonStore;
+    	let { authStore, announceStore } = this.props;
 
         return (
-            <div className="home-wrapper tobottom-footer" style={{ minHeight: commonStore.windowDimensions.height}}>
-            	<Header/>
-                <div className="home-main">
-                    { UPEX.lang.template('页面内容')}
-                    { commonStore.language }
+            <div className="home-wrapper">
+            	{ !authStore.isLogin ? <LoginGuide/> : null }
+                <Banner list={list}/>
+                <HotMarkets/>
+                <IndexMarkets/>
+                <div className="module-box clearfix">
+                	<div className="module-item">
+                		<BtcNews />
+                	</div>
+                	<div className="module-item">
+                		<AnnounceList list={announceStore.list}/>
+                	</div>
                 </div>
-                <Footer/>
-            </div> 
+                <Features/>
+            </div>
         );
     }
 }

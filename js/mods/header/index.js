@@ -50,6 +50,9 @@ class HeaderView extends Component {
 								</ul>
 							) : ( 
 								<ul>
+									<li className="help">
+										<Link to="/help">{ UPEX.lang.template('帮助中心')}</Link>
+									</li>
 									<li className="login">
 										<Link to="/login">{ UPEX.lang.template('登录')}</Link>
 									</li>

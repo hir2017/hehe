@@ -14,17 +14,25 @@ import { message } from 'antd';
 import './base/global';
 import routes from './routes';
 
-import stores, { commonStore } from './stores/index';
+import RootStore from './stores/index';
+
+const rootStore = new RootStore();
 
 @observer 
 class App extends Component {
 	static onUpdate() {
-		commonStore.updatePathName(this.state.location.pathname);
+		rootStore.commonStore.updatePathName(this.state.location.pathname);
+        window.scrollTo(0,0);
 	}
     render() {
         return (
-        	<div className={`app-page ${commonStore.language}`}  key={commonStore.language} data-theme={commonStore.theme} >
-                <Provider {...stores}>
+        	<div 
+                key={rootStore.commonStore.language} 
+                className={`app-page ${rootStore.commonStore.language}`}  
+                data-theme={rootStore.commonStore.theme} 
+                data-path={rootStore.commonStore.currentPathName}
+            >
+                <Provider {...rootStore}>
             	   <Router history={browserHistory} routes={routes} onUpdate={App.onUpdate}></Router>
                 </Provider>
             </div>

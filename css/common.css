@@ -4,7 +4,7 @@ html {
 }
 
 #wrap {
-    background: #fff;
+    background: #f8f7fc;
     min-width: 1200px;
     min-height: 100%;
 }
@@ -12,22 +12,23 @@ html {
 .app-page {
     position: relative;
 }
-.app-page[data-theme="dark"] {
-    
-}
-.app-page[data-theme="light"] {
-    
-}
+
+.app-page[data-theme="dark"] {}
+
+.app-page[data-theme="light"] {}
+
 /**
  * 页面头部
  */
 
 .app-header {
     height: 50px;
-    background-color: #22262e;
+    background-color: #270238;
     color: #fff;
 }
-
+.app-page[data-path="/home"] .app-header{
+    background-color: #141414;
+}
 .header-box {
     padding: 0 20px;
     font-size: 14px;
@@ -38,11 +39,13 @@ html {
     text-decoration: none;
     color: #fff;
 }
-.header-box .logo{
+
+.header-box .logo {
     float: left;
     width: 120px;
     height: 50px;
 }
+
 .header-box .logo a {
     width: 120px;
     height: 50px;
@@ -57,20 +60,22 @@ html {
 .header-box .header-box-l {
     float: left;
 }
-.header-box .header-box-l li{
+
+.header-box .header-box-l li {
     float: left;
     margin-right: 30px;
     line-height: 50px;
 }
 
-.header-box .header-box-r{
+.header-box .header-box-r {
     float: right;
 }
 
-.header-box .header-box-r ul{
+.header-box .header-box-r ul {
     float: left;
 }
-.header-box .header-box-r li{
+
+.header-box .header-box-r li {
     float: left;
     margin-right: 30px;
     line-height: 50px;
@@ -80,9 +85,10 @@ html {
     line-height: 50px;
 }
 
-.header-box .theme-menu label{
+.header-box .theme-menu label {
     margin-right: 10px;
 }
+
 .header-box .language-menu {
     position: relative;
     height: 50px;
@@ -115,30 +121,62 @@ html {
 .header-box .language-menu-list dd:last-child {
     border-bottom: 0 none;
 }
-.header-box .language-menu-list dd.selected{
+
+.header-box .language-menu-list dd.selected {
     color: #fb7e3e;
 }
+
 
 /**
  * 页脚
  */
-.tobottom-footer{
+
+.tobottom-footer {
     position: relative;
-    padding-bottom: 100px;
+    padding-bottom: 60px;
     box-sizing: border-box;
 }
+
 .app-footer {
     position: absolute;
     bottom: 0;
     left: 0;
     right: 0;
     min-width: 1200px;
-    min-height: 100px;
+    min-height: 60px;
     box-sizing: border-box;
-    padding: 10px 0;
-    background-color: #22262e;
+    background-color: #270238;
 }
+
+
 
 .app-footer .footer-box {
     width: 1200px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.app-footer .footer-box li {
+    display: inline-block;
+    padding: 0 30px;
+    line-height: 60px;
+    font-size: 14px;
+}
+
+.app-footer .footer-box li a,
+.app-footer .footer-box li a:hover {
+    color: #fff;
+}
+
+.app-footer .footer-box li a:hover {
+    text-decoration: underline;
+}
+
+.app-page[data-path="/home"] .app-footer{
+    background-color: #f8f8f8;
+}
+
+.app-page[data-path="/home"] .footer-box li a,
+.app-page[data-path="/home"] .footer-box li a:hover {
+    color: #b3b3b3;
 }

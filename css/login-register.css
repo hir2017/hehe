@@ -1,38 +1,64 @@
-.register-wrapper {
-    background-color: #f0f0f0;
+.register-wrapper {    
+    padding-top: 100px;
+    padding-bottom: 60px;
 }
-
-.register-main {
+.register-wrapper .register-form {
+    position: relative;
     width: 520px;
+    margin: 0 auto;
     background-color: #fff;
-    margin: 30px auto 0;
+    border-radius: 4px;
+    box-shadow: 0px 0px 4px rgba(0,0,0,0.3);
+}
+.register-wrapper .register-mode-tabs {
+    height: 40px;
+    width: 400px;
+    margin: 0 auto;
 }
 
-.register-main .register-mode-tabs {
-    height: 50px;
-}
-
-.register-main .register-mode-tab {
+.register-wrapper .register-form li {
     float: left;
     width: 50%;
-    text-align: center;
-    line-height: 50px;
-    background-color: #f0f0f0;
-    cursor: pointer;
 }
 
-.register-main .register-mode-tab.selected {
-    background-color: #fff;
+.register-wrapper .register-mode-tab{
+    display: block;
+    width: 90%;
+    margin: 0 auto;
+    text-align: center;
+    line-height: 40px;
+    background-color: #cccccc;
+    cursor: pointer;
+    border-radius: 30px;
+    color: #fff;
+}
+
+.register-wrapper .register-mode-tab.selected {
+    background-color: #9b00e2;
 }
 
 .register-mode-content {
     width: 380px;
-    margin: 30px auto;
+    margin: 30px auto 0;
     padding-bottom: 30px;
 }
 
+.register-wrapper .title{
+    height: 70px;
+    line-height: 70px;
+    font-size: 16px;
+    text-align: center;
+}
+
+.register-wrapper .subtitle{
+    margin-top: 10px;
+    font-size: 14px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
 .register-mode-content .input-wrapper{
-	margin-bottom: 20px;
+	margin-bottom: 23px;
 	position: relative;
 }
 
@@ -50,7 +76,9 @@
     font-size: 16px;
     padding-left: 40px;
 }
-
+.register-mode-content .input-box input.wrong{
+    border-color: #da161a;
+}
 .register-mode-content .input-box.input-phone{
 	padding-left: 80px;
 }
@@ -70,13 +98,13 @@
     top: 10px;
 }
 
-.register-mode-content .warn{
+.register-mode-content .input-wrapper .warn{
 	position: absolute;
 	height: 20px;
     line-height: 20px;
     font-size: 12px;
     position: absolute;
-    left: 10px;
+    left: 0;
     bottom: -20px;
     color: #b14d43 !important;
 }
@@ -148,7 +176,10 @@
 .register-mode-content .input-box .yzcode button.disabled{
 	background-color: rgb(204, 204, 204);
 }
-
+.register-mode-content .input-box.user-protocol{
+    height: 20px;
+    line-height: 20px;
+}
 .register-mode-content .input-box.user-protocol input{
 	width: 20px;
     height: 18px;
@@ -171,4 +202,24 @@
 
 .register-mode-content .submit-btn.disabled{
 	background-color: rgb(204, 204, 204);
+}
+
+.register-mode-content .error-tip{
+    height: 20px;
+    line-height: 20px;
+    font-size: 12px;
+    color: #b14d43 !important;
+    margin-bottom: 10px;
+}
+
+.register-mode-content .warn-tip{
+    height: 30px;
+    line-height: 30px;
+    font-size: 14px;
+    color: #b14d43 !important;
+}
+.register-icon{
+    position: absolute;
+    right: 0;
+    bottom: -40px;
 }
