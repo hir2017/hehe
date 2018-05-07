@@ -1,0 +1,33 @@
+[
+    {
+        "sequence": 1,
+        "flag": 0,
+        "createTime": "2017-08-25 14:15:18",
+        "id": 1,
+        "asset": "BNBBTC"
+    },
+    {
+        "sequence": 3,
+        "createTime": "2017-10-19 11:38:49",
+        "id": 13,
+        "asset": "EOSBTC"
+    },
+    {
+        "sequence": 4,
+        "createTime": "2017-08-26 02:50:48",
+        "id": 4,
+        "asset": "TRXBTC"
+    },
+    {
+        "sequence": 5,
+        "createTime": "2017-10-19 11:39:02",
+        "id": 14,
+        "asset": "NANOBTC"
+    },
+    {
+        "sequence": 6,
+        "createTime": "2017-10-19 11:39:40",
+        "id": 15,
+        "asset": "ONTBTC"
+    }
+]
