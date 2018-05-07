@@ -76,8 +76,17 @@ export function queryPhone(phone) {
     })).then(res => res.data);
 }
 
-// 发送验证码。邮箱验证和手机验证码都用该API。TODO check
+// 发送验证码，新用户注册。邮箱验证和手机验证码都用该API。TODO check
 export function sendEmailForRegister(data) {
+    return axios.post(`${UPEX.config.host}/user/sendEmailForRegister`, qs.stringify({
+        email: data.account,
+        imgcode: data.imgcode,
+        codeid: data.codeid
+    })).then(res => res.data);
+}
+
+// 发送验证码，找回密码。邮箱验证和手机验证码都用该API。TODO check
+export function sendMail(data) {
     return axios.post(`${UPEX.config.host}/user/sendMail`, qs.stringify({
         email: data.account,
         imgcode: data.imgcode,

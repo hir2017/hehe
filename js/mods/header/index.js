@@ -6,6 +6,7 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router';
 import { observer, inject } from 'mobx-react';
+import { Popover } from 'antd';
 import LanguageSwitchView from './language';
 import ThemeSwitchView from './theme';
 
@@ -15,7 +16,20 @@ import ThemeSwitchView from './theme';
 class HeaderView extends Component {
 	render() {
 		let { authStore } = this.props;
-		
+		const assets = (
+	        <dl>
+	          	<dd className="logined-header">
+	            	<Link className="logined-header-link" to="/payorwithdraw">{ UPEX.lang.template('充值&提现') }</Link>
+	          	</dd>
+	          	<dd className="logined-header">
+	            	<Link className="logined-header-link" to="/payrecord">{ UPEX.lang.template('充值记录') }</Link>
+	          	</dd>
+	           	<dd className="logined-header">
+	            	<Link className="logined-header-link" to="/withdrawrecord">{ UPEX.lang.template('提现记录')}</Link>
+	            </dd>
+	        </dl>
+	    )
+
 		return (
 			<div className="app-header">
 				<div className="header-box clearfix">
@@ -44,15 +58,14 @@ class HeaderView extends Component {
 									<li>
 										<Link to="/order">{ UPEX.lang.template('订单明细')}</Link>
 									</li>
-									<li>
-										<Link to="/asset">{ UPEX.lang.template('我的资产')}</Link>
+									<li ref="assets">
+										<Popover content={assets} placement="bottom" getPopupContainer={this.refs.assets}>
+											{ UPEX.lang.template('我的资产')}
+										</Popover>
 									</li>
 								</ul>
 							) : ( 
 								<ul>
-									<li className="help">
-										<Link to="/help">{ UPEX.lang.template('帮助中心')}</Link>
-									</li>
 									<li className="login">
 										<Link to="/login">{ UPEX.lang.template('登录')}</Link>
 									</li>
@@ -64,6 +77,9 @@ class HeaderView extends Component {
 							)
 						}
 						<ul>
+							<li className="help">
+								<Link to="/help">{ UPEX.lang.template('帮助中心')}</Link>
+							</li>
 							<li>
 								<ThemeSwitchView/>
 							</li>

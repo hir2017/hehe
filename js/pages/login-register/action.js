@@ -2,6 +2,7 @@ import { message } from 'antd';
 import { sendEmailForRegister, resetPwd, userRegister, queryPhone, userLogin } from '../../stores/api';
 import { browserHistory } from 'react-router';
 import Timer from '../../lib/timer';
+import md5 from '../../base/md5';
 
 export default (store) => {
     return {
@@ -57,8 +58,8 @@ export default (store) => {
         },
 
         onChangeAgreeCheckBox(e) {
-
             let checked = e.currentTarget.checked == true;
+
             store.setAgress(checked);
         },
 
@@ -165,7 +166,6 @@ export default (store) => {
 
         submitRegister() {
             let { verifyInfoBeforeSubmit } = store;
-
             //  验证表单信息
             if (!verifyInfoBeforeSubmit.pass) {
                 message.error(verifyInfoBeforeSubmit.message);
@@ -215,13 +215,14 @@ export default (store) => {
                         // 可用，未被占用
                         store.changeHasPhoneTo(false);
                     } else {
+                        message.error(data.message);
                         store.changeHasPhoneTo(true);
                     }
                 })
         },
 
         checkUser() {
-            if (store.email && store.pwd && store.imgcode) {
+            if (store.account && store.pwd && store.imgcode) {
                 return true;
             } else {
                 return false;
@@ -231,14 +232,14 @@ export default (store) => {
         userLogin() {
             return userLogin({
                 email: store.account,
-                pwd: store.pwd,
+                pwd: md5(store.pwd + UPEX.config.salt),
                 imgcode: store.imgcode,
                 codeid: store.codeid
             }).then((data) => {
 
                 switch (data.status) {
                     case 200:
-                        authStore.update({
+                        store.authStore.update({
                             uid: data.attachment.uid,
                             token: data.attachment.token
                         });

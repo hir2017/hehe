@@ -129,6 +129,7 @@ const host = 'http://13.251.85.35/polarisex';
 const uploadHost = host + '/upload/upload';
 const uploadImgHost = host + '/user/uploadImageSingle';
 const websocketHost = 'ws://13.251.85.35';
+const salt = 'dig?F*ckDang5PaSsWOrd&%(polarisex0160630).'
 
 const config = {
     channel: '',
@@ -150,6 +151,7 @@ const config = {
     uploadHost,
     uploadImgHost,
     host,
+    salt
 }
 
 /**

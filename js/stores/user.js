@@ -10,7 +10,7 @@ class LoginInfoBaseStore {
     @observable vercode = ''; // 邮箱验证码或者短信验证码
     @observable imgcode = ''; // 图片验证码
     @observable inviteId = ''; // 邀请码
-    @observable agress = false; // 同意协议
+    @observable agree = false; // 同意协议
     @observable sendingcode = false;
     @observable validImgCode = true; // 图片验证码
     @observable validVercode = true; // 邮箱or手机验证码
@@ -246,7 +246,7 @@ class LoginInfoBaseStore {
 
     @action
     setAgress(value) {
-        this.agress = value;
+        this.agree = value;
     }
 
     @action

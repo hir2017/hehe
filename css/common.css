@@ -93,7 +93,7 @@ html {
     position: relative;
     height: 50px;
     line-height: 50px;
-    padding: 0 5px;
+    min-width: 90px;
     text-align: center;
     box-sizing: border-box;
     cursor: pointer;
