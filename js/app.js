@@ -11,7 +11,7 @@ import { Router, Route, hashHistory, browserHistory, useRouterHistory} from 'rea
 import { observer, Provider } from 'mobx-react';
 import { message } from 'antd';
 
-import './base/global';
+import './global';
 import routes from './routes';
 
 import RootStore from './stores/index';

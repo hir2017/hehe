@@ -1,5 +1,5 @@
 import { observable, autorun, computed, action } from 'mobx';
-import { getAnnounceList } from './api';
+import { getAnnounceList } from '../api/http';
 
 class NewsStore {
     @observable list = [];

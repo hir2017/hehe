@@ -1,9 +1,9 @@
 /**
  * 全局模块
  */
-import Cache from '../lib/cache';
-import Events from './events';
-import lang from '../lang';
+import Cache from './lib/cache';
+import Events from './lib/events';
+import lang from './lang';
 
 let win = window;
 let ua = navigator.userAgent;

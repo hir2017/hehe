@@ -1,8 +1,8 @@
 import { message } from 'antd';
-import { sendEmailForRegister, sendMail, resetPwd, userRegister, queryPhone, userLogin } from '../../stores/api';
+import { sendEmailForRegister, sendMail, resetPwd, userRegister, queryPhone, userLogin } from '../../api/http';
 import { browserHistory } from 'react-router';
 import Timer from '../../lib/timer';
-import md5 from '../../base/md5';
+import md5 from '../../lib/md5';
 
 export default (store) => {
     return {

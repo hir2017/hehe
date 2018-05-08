@@ -1,4 +1,4 @@
-import events from '../../base/events';
+import events from '../events';
 
 let defaultOptions = {
     isEnd: false,

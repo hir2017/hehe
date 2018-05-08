@@ -2,7 +2,7 @@
  * 图片验证码
  */
 import { observable, action } from 'mobx';
-import { fetchPicCaptcha } from './api';
+import { fetchPicCaptcha } from '../api/http';
 
 class CaptchaStore {
 	@observable codeid = ''; // 图片验证码uuid
