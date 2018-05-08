@@ -125,12 +125,12 @@ export function resetPwd(data) {
         vercode: data.vercode,
         imgcode: data.imgcode,
         codeid: data.codeid
-    }))
+    })).then(res => res.data);
 }
 
 // 获取最新公告列表
 export function getAnnounceList(pageSize) {
     return axios.post(`${UPEX.config.host}/announce/list`, qs.stringify({
         num: pageSize
-    }))
+    })).then(res => res.data);
 }

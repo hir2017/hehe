@@ -7,7 +7,7 @@
 import React, {Component} from 'react';
 import { observer, inject } from 'mobx-react';
 import { Tabs , Icon , Popover } from 'antd';
-import {  Link } from 'react-router';
+import {  Link , browserHistory } from 'react-router';
 import countryCode from '../../mods/register/country-code';
 import toAction from './action';
 
@@ -51,7 +51,10 @@ class Login extends Component {
                             // TODO 每次重新加载清除
                             // sessionStorage.removeItem('baseCurrencyId')
                             // sessionStorage.removeItem('currencyId')
-                            history.back();
+                            // history.back();
+                            setTimeout(() => {
+                                browserHistory.push('/home');
+                            }, 100)
                             break;
                         case 5555:
                             break;
@@ -178,7 +181,7 @@ class Login extends Component {
                             </div>
                             <div className="input-wrapper">
                                 <div className="login-input">
-                                    <button className="submit-btn login-btn" onClick={ this.handleLogin }>{ UPEX.lang.template('注册') }</button>
+                                    <button className="submit-btn login-btn" onClick={ this.handleLogin }>{ UPEX.lang.template('登录') }</button>
                                 </div>
                             </div>
                             <div className="login-extra clearfix">

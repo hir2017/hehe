@@ -8,8 +8,6 @@ import { Link } from 'react-router';
 import { observer, inject } from 'mobx-react';
 import { Popover } from 'antd';
 import LanguageSwitchView from './language';
-import ThemeSwitchView from './theme';
-
 
 @inject('authStore')
 @observer
@@ -79,9 +77,6 @@ class HeaderView extends Component {
 						<ul>
 							<li className="help">
 								<Link to="/help">{ UPEX.lang.template('帮助中心')}</Link>
-							</li>
-							<li>
-								<ThemeSwitchView/>
 							</li>
 							<li ref="lang">
 								<LanguageSwitchView root={()=>this.refs.lang}/>

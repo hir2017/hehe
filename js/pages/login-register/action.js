@@ -1,5 +1,5 @@
 import { message } from 'antd';
-import { sendEmailForRegister, resetPwd, userRegister, queryPhone, userLogin } from '../../stores/api';
+import { sendEmailForRegister, sendMail, resetPwd, userRegister, queryPhone, userLogin } from '../../stores/api';
 import { browserHistory } from 'react-router';
 import Timer from '../../lib/timer';
 import md5 from '../../base/md5';
@@ -72,7 +72,7 @@ export default (store) => {
         },
 
         // 验证用户信息
-        sendVercode() {
+        sendVercode(type) {
             let { verifyInfoBeforeSendCode } = store;
 
             //  验证表单信息
@@ -84,8 +84,11 @@ export default (store) => {
             if (store.sendingcode) {
                 return;
             }
+
+            let fetchFn = type == 'resetpwd' ? sendMail : sendEmailForRegister;
+            
             // 发送手机／邮件验证码
-            sendEmailForRegister({
+            fetchFn({
                 account: store.account,
                 imgcode: store.imgcode,
                 codeid: store.codeid
@@ -116,6 +119,7 @@ export default (store) => {
                         store.changeImgCodeTo(false);
                         this.getImgCaptcha();
                         break;
+                    case 414: // 邮箱已经绑定
                     default:
                         // 其他错误
                         message.error(data.message);
@@ -140,7 +144,6 @@ export default (store) => {
                 imgcode: store.imgcode,
                 codeid: store.codeid
             }).then((data) => {
-
                 switch (data.status) {
                     case 200:
                         message.success(UPEX.lang.template('成功，将跳转登录页面'));
@@ -156,6 +159,7 @@ export default (store) => {
                         store.changeValidVercodeTo(false);
                         this.getImgCaptcha();
                         break;
+                    case 402: // 验证码过期
                     default:
                         // 其他错误
                         message.error(data.message);
@@ -186,8 +190,13 @@ export default (store) => {
             }).then((data) => {
                 switch (data.status) {
                     case 200:
+                        this.changeSendingCodeTo(false);
                         message.success(UPEX.lang.template('成功，将跳转登录页面'));
-                        browserHistory.push('/login');
+                       
+                        setTimeout(() => {
+                            browserHistory.push('/login');
+                        }, 100)
+
                         break;
                     case 403:
                         store.changeValidVercodeTo(false);

@@ -28,7 +28,7 @@ class ResetPassword extends Component {
     }
 
     sendVercode=(e)=>{
-        this.action.sendVercode();
+        this.action.sendVercode('resetpwd');
     }
 
     submit=(e) =>{
