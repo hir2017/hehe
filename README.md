@@ -470,4 +470,7 @@ response:
 	plugins: ['transform-remove-strict-mode', 'transform-decorators-legacy', ["import", [{ "libraryName": "antd", "style": "css" }]]]
 * 注册的时候，密码不加密，登录的时候前端md5加密
 
+* TODO 谷歌二次确认，在用户中心开启了谷歌校验之后
+* 用户uid\ usertoken的有效期
+
 ## changelog

@@ -5,17 +5,17 @@
  */
 import React, {Component} from 'react';
 import { observer, inject } from 'mobx-react';
-import Banner from '../../mods/banner';
-import LoginGuide from '../../mods/loginguide';
-import Features from '../../mods/features';
-import AnnounceList from '../../mods/announcelist';
-import BtcNews from '../../mods/btcnews';
-import HotMarkets from '../../mods/hotmarkets';
-import IndexMarkets from '../../mods/indexmarkets';
+import Banner from '../../mods/home/banner';
+import LoginGuide from '../../mods/home/loginguide';
+import Features from '../../mods/home/features';
+import AnnounceList from '../../mods/home/announcelist';
+import BtcNews from '../../mods/home/btcnews';
+import HotMarkets from '../../mods/home/hotmarkets';
+import IndexMarkets from '../../mods/home/indexmarkets';
 
 const list = [require('../../../images/banner1.png'),require('../../../images/banner1.png'), require('../../../images/banner1.png')];
 
-@inject('authStore', 'announceStore')
+@inject('authStore', 'announceStore', 'homeStore')
 @observer
 class Home extends Component {
     constructor(props){
@@ -25,6 +25,7 @@ class Home extends Component {
     componentDidMount() {
         // 最新公告数据获取
         this.props.announceStore.fetch(5);
+        this.props.homeStore.getAllCoins();
     }
 
     render() {

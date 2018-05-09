@@ -13,7 +13,7 @@ class NewsStore {
         getAnnounceList(count)
             .then((data) => {
                 data = require('../mock/notice.json');
-                console.log(data)
+                
                 if (data.status == 200) {
                     this.list = data.attachment;
                 }
