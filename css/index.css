@@ -256,7 +256,9 @@
 .btcnews-wrapper .list li a:hover{
 	color: #303030;
 }
-
+.btcnews-wrapper .list li a:hover{
+	text-decoration: underline;
+}
 /**
  * 最新公告
  */
@@ -283,6 +285,9 @@
 .announce-wrapper li a,
 .announce-wrapper li a:hover{
 	color: #000;
+}
+.announce-wrapper li a:hover{
+	text-decoration: underline;
 }
 .announce-wrapper li .time{
 	float: right;
