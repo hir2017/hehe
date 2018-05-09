@@ -2,6 +2,7 @@ import '../css/reset.css';
 import '../css/common.css';
 import '../css/index.css';
 import '../css/login-register.css';
+import '../css/announcement.css';
 
 import './lib/object.assign';
 import './lib/promise';

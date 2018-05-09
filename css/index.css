@@ -1,18 +1,23 @@
-.home-wrapper{
-	background: #fff;
+.home-wrapper {
+    background: #fff;
 }
-.home-content{
-	min-height: 500px;
-	background-color: #fff;
+
+.home-content {
+    min-height: 500px;
+    background-color: #fff;
 }
+
+
 /**
  * banner广告位
  */
-.banner-wrapper{
-	background-color: #141414;
+
+.banner-wrapper {
+    background-color: #141414;
 }
-.banner-wrapper .slider{
-	overflow: hidden;
+
+.banner-wrapper .slider {
+    overflow: hidden;
     position: relative;
     height: 340px;
     min-width: 1300px;
@@ -21,276 +26,248 @@
     margin: 0 auto;
 }
 
-.banner-wrapper .ant-carousel .slick-slide img{
-	margin: 0 auto;
-	display: block;
+.banner-wrapper .ant-carousel .slick-slide img {
+    margin: 0 auto;
+    display: block;
 }
-.loginguide-wrapper{
-	height: 30px;
-	line-height: 30px;
-	text-align: center;
-	background-color: #141414;
-	color: #fff;
+
+.loginguide-wrapper {
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    background-color: #141414;
+    color: #fff;
 }
-.loginguide-wrapper li{
-	display: inline-block;
-	margin-right: 10px;
+
+.loginguide-wrapper li {
+    display: inline-block;
+    margin-right: 10px;
 }
+
+
 /**
  * 网站特性介绍
  */
-.features-wrapper{
-	height: 380px;
-	background: #000 url('../images/features-bg.jpg') no-repeat center center;
-	background-size: 1920px 380px;
-}
-.features-wrapper ul{
-	padding-top: 100px;
-}
-.features-wrapper li{
-	float: left;
-	width: 25%;
-	text-align: center;
-	color: #fff;
+
+.features-wrapper {
+    height: 380px;
+    background: #000 url('../images/features-bg.jpg') no-repeat center center;
+    background-size: 1920px 380px;
 }
 
-.features-wrapper li i{
-	width: 60px;
-	height: 60px;
-	display: inline-block;
-}
-.features-wrapper li i.icon-bank{
-	background: url('../images/features-icon1.png') no-repeat center center;
-	background-size: 100% 100%;
-}
-.features-wrapper li i.icon-clock{
-	background: url('../images/features-icon2.png') no-repeat center center;
-	background-size: 100% 100%;
-}
-.features-wrapper li i.icon-team{
-	background:  url('../images/features-icon3.png') no-repeat center center;
-	background-size: 100% 100%;
-}
-.features-wrapper li i.icon-coin{
-	background: url('../images/features-icon4.png') no-repeat center center;
-	background-size: 100% 100%;
-}
-.features-wrapper li .title{
-	margin-top: 10px;
-	font-size: 18px;
+.features-wrapper ul {
+    padding-top: 100px;
 }
 
-.features-wrapper li .desc{
-	font-size: 12px;
-	margin-top: 10px;
+.features-wrapper li {
+    float: left;
+    width: 25%;
+    text-align: center;
+    color: #fff;
 }
 
-.features-wrapper .download-btn{
-	width: 300px;
-	height: 48px;
-	line-height: 48px;
-	font-size: 20px;
-	color: #fff;
-	background-color: #e6bc1d;
-	margin: 40px auto 0;
-	border-radius: 50px;
-	text-align: center;
+.features-wrapper li i {
+    width: 60px;
+    height: 60px;
+    display: inline-block;
 }
+
+.features-wrapper li i.icon-bank {
+    background: url('../images/features-icon1.png') no-repeat center center;
+    background-size: 100% 100%;
+}
+
+.features-wrapper li i.icon-clock {
+    background: url('../images/features-icon2.png') no-repeat center center;
+    background-size: 100% 100%;
+}
+
+.features-wrapper li i.icon-team {
+    background: url('../images/features-icon3.png') no-repeat center center;
+    background-size: 100% 100%;
+}
+
+.features-wrapper li i.icon-coin {
+    background: url('../images/features-icon4.png') no-repeat center center;
+    background-size: 100% 100%;
+}
+
+.features-wrapper li .title {
+    margin-top: 10px;
+    font-size: 18px;
+}
+
+.features-wrapper li .desc {
+    font-size: 12px;
+    margin-top: 10px;
+}
+
+.features-wrapper .download-btn {
+    width: 300px;
+    height: 48px;
+    line-height: 48px;
+    font-size: 20px;
+    color: #fff;
+    background-color: #e6bc1d;
+    margin: 40px auto 0;
+    border-radius: 50px;
+    text-align: center;
+}
+
+
 /**
  * 推荐的热门币种列表
  */
-.hot-markets{
-	height: 100px;
-	width: 1300px;
-	margin: 10px auto 0;
+
+.hot-markets {
+    height: 100px;
+    width: 1300px;
+    margin: 10px auto 0;
 }
 
-.hot-markets li{
-	float: left;
-	width: 20%;
+.hot-markets li {
+    float: left;
+    width: 20%;
 }
 
-.hot-markets .recommend-item{
-	display: block;
-	position: relative;
-	width: 244px;
-	height: 100px;
-	border:  1px solid transparent;
-	box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.06);
-	border-radius: 4px;
-	box-sizing: border-box;
-	padding: 10px;
+.hot-markets .recommend-item {
+    display: block;
+    position: relative;
+    width: 244px;
+    height: 100px;
+    border: 1px solid transparent;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.06);
+    border-radius: 4px;
+    box-sizing: border-box;
+    padding: 10px;
 }
-.hot-markets .recommend-item:hover{
-	text-decoration: none;
-	border-color: rgba(224,251,200,1);
+
+.hot-markets .recommend-item:hover {
+    text-decoration: none;
+    border-color: rgba(224, 251, 200, 1);
 }
-.recommend-item-name{
-	position: relative;
-	font-size: 16px;
-	color: #333333;
-	z-index: 2;
+
+.recommend-item-name {
+    position: relative;
+    font-size: 16px;
+    color: #333333;
+    z-index: 2;
 }
-.recommend-item-price{
-	position: relative;
-	font-size: 18px;
-	margin-top: 5px;
-	z-index: 2;
+
+.recommend-item-price {
+    position: relative;
+    font-size: 18px;
+    margin-top: 5px;
+    z-index: 2;
 }
+
 .recommend-item-volume {
-	position: relative;
-	margin-top: 5px;
-	color: #666666;
-	font-size: 12px;
-	z-index: 2;
+    position: relative;
+    margin-top: 5px;
+    color: #666666;
+    font-size: 12px;
+    z-index: 2;
 }
-.recommend-item-change{
-	position: absolute;
-	right: 0;
-	top: 10px;
-	height: 20px;
-	line-height: 20px;
-	text-align: center;
-	color: #fff;
-	min-width: 70px;
-	font-size: 14px;
-	border-radius: 20px 0 0 20px;
+
+.recommend-item-change {
+    position: absolute;
+    right: 0;
+    top: 10px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    color: #fff;
+    min-width: 70px;
+    font-size: 14px;
+    border-radius: 20px 0 0 20px;
 }
+
+
 /* 正 */
-.recommend-item.positive .recommend-item-change{
-	background-color: #00b56a;
+
+.recommend-item.positive .recommend-item-change {
+    background-color: #00b56a;
 }
-.recommend-item.positive .recommend-item-price{
-	color: #00b56a;
+
+.recommend-item.positive .recommend-item-price {
+    color: #00b56a;
 }
+
+
 /* 负 */
-.recommend-item.negative  .recommend-item-change{
-	background-color: #ff4d40;
+
+.recommend-item.negative .recommend-item-change {
+    background-color: #ff4d40;
 }
-.recommend-item.negative .recommend-item-price{
-	color: #ff4d40;
+
+.recommend-item.negative .recommend-item-price {
+    color: #ff4d40;
 }
-.recommend-item-kline{
-	line-height: normal;
+
+.recommend-item-kline {
+    line-height: normal;
     position: absolute;
     left: 0;
     bottom: 0px;
 }
 
-.recommend-item-kline svg{
-	display: block;
-	width: 100%;
+.recommend-item-kline svg {
+    display: block;
+    width: 100%;
     height: 40px;
 }
+
+
 /**
  * 货币行情
  */
-.index-markets{
-	height: 570px;
-	margin-top: 10px;
-	background-color: #ccc;
-}
-/**
- * 币圈资讯
- */
-.module-box{
-	width: 1300px;
-	margin: 0 auto 20px;
-}
-.module-item{
-	float: left;
-	margin-right: 10px;
-	min-height: 260px;
-}
-.module-item:last-child{
-	margin-right: 0;
+
+.index-markets {
+    height: 570px;
+    margin-top: 10px;
+    background-color: #ccc;
 }
 
-.module-item .title{
-	height: 40px;
-	line-height: 40px;
-	font-size: 18px;
-	margin-bottom: 10px;
-	color: #333333;
-	font-weight: normal;
-}
-
-.btcnews-wrapper{
-	width: 800px;
-}
-.btcnews-wrapper .content{
-	overflow: hidden;
-}
-
-.btcnews-wrapper .pic{
-	float: left;
-	width: 400px;
-	height: 220px;
-	margin-right: 10px;
-	border-radius: 4px;
-	background-color: #f0f0f0;
-	background-repeat: no-repeat;
-	background-size: cover;
-	background-position: center center;
-}
-
-.btcnews-wrapper .list{
-	float: left;
-	width: 390px;
-	padding-top: 10px;
-}
-
-.btcnews-wrapper .list li{
-	font-size: 16px;
-	overflow: hidden;
-	margin-bottom: 10px;
-	height: 30px;
-	line-height: 30px;
-	width: 100%;
-	overflow : hidden;
-  	text-overflow : ellipsis;
-  	white-space : nowrap;
-}
-
-.btcnews-wrapper .list li a,
-.btcnews-wrapper .list li a:hover{
-	color: #303030;
-}
-.btcnews-wrapper .list li a:hover{
-	text-decoration: underline;
-}
 /**
  * 最新公告
  */
-.announce-wrapper{
-	width: 400px;
+
+.announcement-wrapper {
+    width: 1300px;
+    margin: 0 auto;
 }
 
-.announce-wrapper li{
-	font-size: 16px;
-	overflow: hidden;
-	margin-bottom: 10px;
-	height: 30px;
-	line-height: 30px;
+.announcement-wrapper ul {
+    padding-top: 10px;
 }
 
-.announce-wrapper li .info{
+.announcement-wrapper li {
 	float: left;
-	width: 280px;
-	overflow : hidden;
-  	text-overflow : ellipsis;
-  	white-space : nowrap;
+    font-size: 16px;
+    overflow: hidden;
+    height: 30px;
+    line-height: 30px;
+    margin-right: 20px;
 }
 
-.announce-wrapper li a,
-.announce-wrapper li a:hover{
-	color: #000;
-}
-.announce-wrapper li a:hover{
-	text-decoration: underline;
-}
-.announce-wrapper li .time{
-	float: right;
-	width: 90px;
+.announcement-wrapper li .info {
+    float: left;
+    width: 320px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
+.announcement-wrapper li a,
+.announcement-wrapper li a:hover {
+    color: #000;
+}
+
+.announcement-wrapper li a:hover {
+    text-decoration: underline;
+}
+
+.announcement-wrapper li .time {
+    float: right;
+    width: 90px;
+}

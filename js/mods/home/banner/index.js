@@ -14,12 +14,14 @@ class Banner extends Component {
 		list: []
 	}
 	render() {
+		let list = this.props.list;
+
 		return (
 			<div className="banner-wrapper">
 				<div className="slider"  ref='banner'>
-                    <Carousel autoplay>
+                    <Carousel autoplay dots={ list.length > 1 ? true : false}>
                     	{
-                    		this.props.list.map((item, index)=>{
+                    		list.map((item, index)=>{
                     			return (
                     				<div className="slider-item" key={index}>
 			                            <img src={item} />                              

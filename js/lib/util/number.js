@@ -30,7 +30,38 @@ const NumberUtil = {
         return str.replace(/(\d+)(\.\d+)?/g, function(num, a, b) {
             return (a.length > 3 ? (a.indexOf(separator) < 0 || a.indexOf(separator) > 3 ? a.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,") : a) : a) + (b || '');
         });
+    },
+    /**
+     * 将一维数组转为二维数组
+     * @param { array } data 数组
+     * @param { number } rowNum 数组的长度
+     */
+    splitData(data, rowNum) {
+        let result = [];
+        let rowArr = [];
+        let len = data.length;
+        let rest = len % rowNum; // 余数 
+        
+        if (rest !== 0) {
+            len = data.length - rest;
+        }
+
+        for (let i = 0; i < len; i++) {
+            rowArr.push(data[i])
+            
+            if ((i + 1) % rowNum === 0) { 
+                result.push(rowArr)
+                rowArr = []
+            }
+        }
+
+        if (data.length > len) {
+            result.push(data.slice(len))
+        }
+
+        return result
     }
+
 };
 
 export default NumberUtil;

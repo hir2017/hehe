@@ -2,7 +2,7 @@ import CommonStore from './common';
 import AuthStore from './auth';
 import UserStore from './user';
 import CaptchaStore from './captcha';
-import AnnounceStore from './announce';
+import AnnouncementStore from './announcement';
 import HomeStore from './home';
 
 class RootStore {
@@ -11,7 +11,7 @@ class RootStore {
         this.authStore = new AuthStore(this);
         this.captchaStore = new CaptchaStore(this);
         this.userStore = new UserStore(this);
-        this.announceStore = new AnnounceStore(this);
+        this.announcementStore = new AnnouncementStore(this);
         this.homeStore = new HomeStore(this);
     }
 }
