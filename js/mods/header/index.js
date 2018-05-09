@@ -2,6 +2,18 @@
  * @fileoverview 页头
  * @author 陈立英
  * @date 2018-04-26
+ * 订单明细：
+ 	* 当前委托
+ 	* 委托历史
+ 	* 已成交订单
+ * 我的资产
+	* 充值&提现
+	* 充值记录
+	* 提现记录
+ * 个人信息
+	* 安全设置
+	* FAQ
+	* 注册
  */
 import React, {Component} from 'react';
 import { Link } from 'react-router';
@@ -14,6 +26,7 @@ import LanguageSwitchView from './language';
 class HeaderView extends Component {
 	render() {
 		let { authStore } = this.props;
+
 		const assets = (
 	        <dl>
 	          	<dd className="logined-header">
@@ -28,12 +41,16 @@ class HeaderView extends Component {
 	        </dl>
 	    )
 
+
+
+
+
 		return (
 			<div className="app-header">
 				<div className="header-box clearfix">
 					<h1 className="logo">
 						<Link to="/">
-							<img src="http://h.cdn.pengpengla.com/up/uplive-pc/2.7.10/assets/5df741ca8873ae5900ebe53c77d50eed.png"/>
+							<img src="http://g.cdn.pengpengla.com/oauthgame/html5/20180509/5f46a342df497aa7b71af141c20724a1.png"/>
 						</Link>
 					</h1>
 					<div className="header-box-l">
@@ -58,7 +75,9 @@ class HeaderView extends Component {
 									</li>
 									<li ref="assets">
 										<Popover content={assets} placement="bottom" getPopupContainer={this.refs.assets}>
+											<Link to="/assets">
 											{ UPEX.lang.template('我的资产')}
+											</Link>
 										</Popover>
 									</li>
 								</ul>

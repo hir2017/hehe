@@ -1,33 +1,17 @@
 [
     {
-        "sequence": 1,
-        "flag": 0,
-        "createTime": "2017-08-25 14:15:18",
-        "id": 1,
-        "asset": "BNBBTC"
+        "currencyName": "BTC"
     },
     {
-        "sequence": 3,
-        "createTime": "2017-10-19 11:38:49",
-        "id": 13,
-        "asset": "EOSBTC"
+        "currencyName": "EOS"
     },
     {
-        "sequence": 4,
-        "createTime": "2017-08-26 02:50:48",
-        "id": 4,
-        "asset": "TRXBTC"
+        "currencyName": "ETH"
     },
     {
-        "sequence": 5,
-        "createTime": "2017-10-19 11:39:02",
-        "id": 14,
-        "asset": "NANOBTC"
+        "currencyName": "NANO"
     },
     {
-        "sequence": 6,
-        "createTime": "2017-10-19 11:39:40",
-        "id": 15,
-        "asset": "ONTBTC"
+        "currencyName": "ONT"
     }
 ]

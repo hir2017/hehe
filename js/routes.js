@@ -27,7 +27,7 @@ const routes = (
         	<IndexRedirect to='home'/>
         	<Route path="home" component={Home}/>
         	<Route path="index" component={Home}/>
-	        <Route path="trade" component={TradeCenter}/>
+	        <Route path="trade(/:code)" component={TradeCenter}/>
 	        <Route path="login" component={Login}/>
 	        <Route path="register" component={Register}/>
 	        <Route path="resetpwd" component={ResetPwd}/>
