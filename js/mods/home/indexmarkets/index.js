@@ -6,12 +6,21 @@
 
 import React, {Component} from 'react';
 import { observer, inject } from 'mobx-react';
+import CoinList from './coinList';
+import CoinInfo from './CoinInfo';
 
 @observer
 class HotMarkets extends Component{
 	render() {
 		return (
-			<div className="index-markets"></div>
+			<div className="index-markets">
+			  <div className="index-markets-left">
+				  <CoinInfo />
+				</div>
+				<div className="index-markets-right">
+				  <CoinList />
+				</div>
+			</div>
 		);
 	}
 }
