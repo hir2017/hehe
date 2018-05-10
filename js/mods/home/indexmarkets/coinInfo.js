@@ -9,7 +9,6 @@ import { observer, inject } from 'mobx-react';
 import Line from './chart'
 import klineCoin from '../../../../images/kline-coin.jpg'
 
-@observer
 class CoinInfo extends Component {
   render() {
     return (

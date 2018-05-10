@@ -9,8 +9,17 @@ import { observer, inject } from 'mobx-react';
 import { Input, Icon } from 'antd';
 import Table from './table'
 
-@observer
 class CoinList extends Component {
+
+  constructor () {
+    super()
+    this.changgeHandle = this.changgeHandle.bind(this)
+  }
+
+  changgeHandle (e) {
+    this.props.filterCoin(e.target.value)
+  }
+
   render() {
     return (
       <div className="coin-list">
@@ -20,13 +29,14 @@ class CoinList extends Component {
           </span>
           <span>
             <Input
+              onChange={this.changgeHandle}
               placeholder={UPEX.lang.template('搜索数字币')}
               prefix={<Icon type="search" style={{ color: 'rgba(0,0,0,.25)' }} />}
             />
           </span>
         </div>
         <div>
-          <Table />
+          <Table coins={this.props.coins}/>
         </div>
       </div>
     );

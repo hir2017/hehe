@@ -6,7 +6,7 @@
 import React from 'react';
 import { Icon } from 'antd'
 
-export default () => {
+export default ({coins}) => {
   return (
     <div className="ant-table ant-table-large ant-table-fixed-header ant-table-scroll-position-left">
       <div className="ant-table-content">
@@ -14,11 +14,11 @@ export default () => {
           <div className="ant-table-header">
             <table className="">
               <colgroup>
-                <col style={{width: '172px',minWidth: '172px;'}}/>
-                <col style={{width: '172px',minWidth: '172px;'}}/>
-                <col style={{width: '172px',minWidth: '172px;'}}/>
-                <col style={{width: '172px',minWidth: '172px;'}}/>
-                <col style={{width: '172px',minWidth: '172px;'}}/>
+                <col style={{width: '172px',minWidth: '172px'}}/>
+                <col style={{width: '172px',minWidth: '172px'}}/>
+                <col style={{width: '172px',minWidth: '172px'}}/>
+                <col style={{width: '172px',minWidth: '172px'}}/>
+                <col style={{width: '172px',minWidth: '172px'}}/>
               </colgroup>
               <thead className="ant-table-thead">
                 <tr>
@@ -34,103 +34,26 @@ export default () => {
           <div className="ant-table-body">
             <table className="">
               <colgroup>
-                <col style={{width: '172px',minWidth: '172px;'}}/>
-                <col style={{width: '172px',minWidth: '172px;'}}/>
-                <col style={{width: '172px',minWidth: '172px;'}}/>
-                <col style={{width: '172px',minWidth: '172px;'}}/>
-                <col style={{width: '172px',minWidth: '172px;'}}/>
+                <col style={{width: '172px',minWidth: '172px'}}/>
+                <col style={{width: '172px',minWidth: '172px'}}/>
+                <col style={{width: '172px',minWidth: '172px'}}/>
+                <col style={{width: '172px',minWidth: '172px'}}/>
+                <col style={{width: '172px',minWidth: '172px'}}/>
               </colgroup>
               <tbody className="ant-table-tbody">
-                <tr>
-                  <td>January</td>
-                  <td>$100</td>
-                  <td>$100</td>
-                  <td>$100</td>
-                  <td>
-                    <Icon type="star-o" />
-                  </td>
-                </tr>
-                <tr>
-                  <td>January</td>
-                  <td>$100</td>
-                  <td>$100</td>
-                  <td>$100</td>
-                  <td>
-                    <Icon type="star-o" />
-                  </td>
-                </tr>
-                <tr>
-                  <td>January</td>
-                  <td>$100</td>
-                  <td>$100</td>
-                  <td>$100</td>
-                  <td>
-                    <Icon type="star-o" />
-                  </td>
-                </tr>
-                <tr>
-                  <td>January</td>
-                  <td>$100</td>
-                  <td>$100</td>
-                  <td>$100</td>
-                  <td>
-                    <Icon type="star-o" />
-                  </td>
-                </tr>
-                <tr>
-                  <td>January</td>
-                  <td>$100</td>
-                  <td>$100</td>
-                  <td>$100</td>
-                  <td>
-                    <Icon type="star-o" />
-                  </td>
-                </tr>
-                <tr>
-                  <td>January</td>
-                  <td>$100</td>
-                  <td>$100</td>
-                  <td>$100</td>
-                  <td>
-                    <Icon type="star-o" />
-                  </td>
-                </tr>
-                <tr>
-                  <td>January</td>
-                  <td>$100</td>
-                  <td>$100</td>
-                  <td>$100</td>
-                  <td>
-                    <Icon type="star-o" />
-                  </td>
-                </tr>
-                <tr>
-                  <td>January</td>
-                  <td>$100</td>
-                  <td>$100</td>
-                  <td>$100</td>
-                  <td>
-                    <Icon type="star-o" />
-                  </td>
-                </tr>
-                <tr>
-                  <td>January</td>
-                  <td>$100</td>
-                  <td>$100</td>
-                  <td>$100</td>
-                  <td>
-                    <Icon type="star-o" />
-                  </td>
-                </tr>
-                <tr>
-                  <td>January</td>
-                  <td>$100</td>
-                  <td>$100</td>
-                  <td>$100</td>
-                  <td>
-                    <Icon type="star-o" />
-                  </td>
-                </tr>
+                {
+                  coins.map((item, index) => {
+                    return <tr key={item.id}>
+                    <td>{ item.currencyNameEn }</td>
+                    <td>{ item.price }</td>
+                    <td>{ item.hours24Chang }</td>
+                    <td>{ item.hours24Count }</td>
+                    <td>
+                      <Icon type="star-o" />
+                    </td>
+                  </tr>
+                  })
+                }
               </tbody>
             </table>
           </div>

@@ -19,7 +19,8 @@ const list = [require('../../../images/banner1.png'),require('../../../images/ba
 @observer
 class Home extends Component {
     constructor(props){
-    	super(props);
+        super(props);
+        this.filterCoin = this.filterCoin.bind(this)
     }
 
     componentDidMount() {
@@ -28,15 +29,19 @@ class Home extends Component {
         this.props.homeStore.getAllCoins();
     }
 
+    filterCoin (name) {
+        this.props.homeStore.filterCoin(name)
+    }
+
     render() {
-    	let { authStore, announceStore } = this.props;
+        let { authStore, announceStore, homeStore } = this.props;
 
         return (
             <div className="home-wrapper">
             	{ !authStore.isLogin ? <LoginGuide/> : null }
                 <Banner list={list}/>
                 <HotMarkets/>
-                <IndexMarkets/>
+                <IndexMarkets filterCoin={this.filterCoin} coins={homeStore.allCoins}/>
                 <div className="module-box clearfix">
                 	<div className="module-item">
                 		<BtcNews />
