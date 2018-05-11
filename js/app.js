@@ -3,6 +3,7 @@ import '../css/common.css';
 import '../css/index.css';
 import '../css/login-register.css';
 import '../css/announcement.css';
+import '../css/trade.css';
 
 import './lib/object.assign';
 import './lib/promise';
@@ -30,7 +31,6 @@ class App extends Component {
         	<div 
                 key={rootStore.commonStore.language} 
                 className={`app-page ${rootStore.commonStore.language}`}  
-                data-theme={rootStore.commonStore.theme} 
                 data-path={rootStore.commonStore.currentPathName}
             >
                 <Provider {...rootStore}>

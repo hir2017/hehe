@@ -41,15 +41,15 @@ const NumberUtil = {
         let rowArr = [];
         let len = data.length;
         let rest = len % rowNum; // 余数 
-        
+
         if (rest !== 0) {
             len = data.length - rest;
         }
 
         for (let i = 0; i < len; i++) {
             rowArr.push(data[i])
-            
-            if ((i + 1) % rowNum === 0) { 
+
+            if ((i + 1) % rowNum === 0) {
                 result.push(rowArr)
                 rowArr = []
             }
@@ -60,8 +60,17 @@ const NumberUtil = {
         }
 
         return result
-    }
+    },
 
+    formatPrice(value, num) {
+        let ret = 0;
+
+        if (typeof value !== 'undefined') {
+            ret = value.toFixed(num);
+        }
+
+        return ret;
+    }
 };
 
 export default NumberUtil;

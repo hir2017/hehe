@@ -14,15 +14,29 @@ class News extends Component {
     }
 
     render() {
-        return (
-            <div className="tobottom-footer" style={{ minHeight: this.props.commonStore.windowDimensions.height}}>
-            	<Header/>
-                <div className="app-content">
-                    { this.props.children }
+        let commonStore = this.props.commonStore;
+        
+        if (commonStore.isTradeCenter) {
+            return (
+                <div>
+                    <Header/>
+                    <div className="app-content">
+                        { this.props.children }
+                    </div>
                 </div>
-                <Footer/>
-            </div> 
-        );
+            );
+        } else {
+            return (
+                <div className="tobottom-footer" style={{ minHeight: commonStore.windowDimensions.height }}>
+                    <Header/>
+                    <div className="app-content">
+                        { this.props.children }
+                    </div>
+
+                    <Footer/>
+                </div> 
+            );
+        }
     }
 }
 

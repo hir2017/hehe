@@ -1,0 +1,180 @@
+.trade-wrapper {
+    padding: 0 10px;
+    margin: 0 auto;
+    color: #000;
+    box-sizing: border-box;
+    background-color: #f8f8fb;
+}
+
+
+
+.trade-main {
+    padding-right: 540px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+
+/**
+ * 图表模块
+ */
+.trade-main-chart {
+    min-height: 270px;
+    overflow: hidden;
+    position: relative;
+}
+
+.trade-main-chart .chart-box {
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.06);
+    position: relative;
+    height: 100%;
+    padding-top: 52px;
+    width: 100%;
+    border-bottom: 10px solid #f8f8fb;
+}
+
+/**
+ * 币种信息
+ */
+
+.trade-current-coin {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 42px;
+    line-height: 42px;
+    margin-bottom: 10px;
+    background-color: #fff;
+    color: #333333;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.06);
+}
+
+.trade-current-coin ul {
+    padding: 0 10px;
+}
+
+.trade-current-coin li {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 10px;
+}
+
+.trade-current-coin li label,
+.trade-current-coin li em {
+    display: inline-block;
+    vertical-align: middle;
+}
+.trade-current-coin li em{
+    padding: 0 5px;
+}
+
+/* 正 */
+.trade-current-coin li.positive em {
+    color: #00b56a;
+}
+
+/* 负 */
+
+.trade-current-coin li.negative em {
+    color: #ff4d40;
+}
+
+.trade-current-coin li.coin {
+    font-size: 18px;
+}
+
+
+.trade-current-coin li.coin label {
+    width: 45px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.trade-current-coin li.coin em {
+    padding: 0 10px;
+    display: inline-block;
+    vertical-align: middle;
+}
+.trade-current-coin .theme-menu{
+    position: absolute;
+    right: 10px;
+    top: 0;
+    line-height: 42px;
+}
+.trade-current-coin .theme-menu label {
+    margin-right: 10px;
+}
+
+
+
+/**
+ * 币种K线图
+ */
+
+.trade-current-iframe {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.06);
+}
+
+.trade-current-iframe iframe {
+    margin-top: 2px;
+}
+
+.trade-main-order {
+    position: relative;
+    background-color: #fff;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.06);
+}
+
+.trade-main-order .order-box {}
+
+.trade-extra {
+    padding:  10px 0;
+    float: right;
+    position: relative;
+}
+
+.trade-extra-content {
+    width: 530px;
+    position: relative;
+}
+
+.trade-extra-list {
+    background-color: #fff;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.06);
+    overflow: hidden;
+}
+
+.trade-extra-handle {
+    min-height: 280px;
+    margin-top: 10px;
+    box-sizing: border-box;
+    background-color: #fff;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.06);
+}
+
+.trade-extra .handle-box {
+    height: 100px
+}
+
+/**
+ * 暗色
+ */
+.trade-wrapper[data-theme="dark"]{
+    background-color: #131314;
+}
+
+.trade-wrapper[data-theme="dark"] .trade-current-iframe,
+.trade-wrapper[data-theme="dark"] .trade-extra-list,
+.trade-wrapper[data-theme="dark"] .trade-extra-handle,
+.trade-wrapper[data-theme="dark"] .trade-main-order,
+.trade-wrapper[data-theme="dark"] .trade-current-coin{
+    background-color: #090600;
+    color: #fff;
+}
+.trade-wrapper[data-theme="dark"] .trade-main-chart .chart-box {
+    border-bottom: 10px solid #131314;
+}

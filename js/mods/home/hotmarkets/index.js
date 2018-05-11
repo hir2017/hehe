@@ -17,7 +17,7 @@ class HotMarkets extends Component{
 
 	render() {
 		let { hotCoins } = this.props.homeStore;
-		console.log(hotCoins);
+		
 		return (
 			<div className="hot-markets">
 				<ul>

@@ -11,7 +11,7 @@ const getWindowDimensions = () => {
 }
 
 class CommonStore {
-    @observable currentPathName;
+    @observable currentPathName = '';
     // 当前语言
     @observable language = UPEX.cache.getCache('lang') || UPEX.config.defaultLanguage;
     // 页面主题。浅色：light；深色：dark
@@ -38,7 +38,7 @@ class CommonStore {
     }
     
     @computed get isTradeCenter() {
-        return this.currentPathName === '/trade';
+        return this.currentPathName.indexOf('/trade') > -1;
     }
 
     @action
@@ -53,7 +53,7 @@ class CommonStore {
 
     @action 
     updatePathName = (url)=>{
-        this.currentPathName =  url;
+        this.currentPathName = url;
     }
 }
 

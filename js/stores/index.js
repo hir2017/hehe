@@ -4,6 +4,7 @@ import UserStore from './user';
 import CaptchaStore from './captcha';
 import AnnouncementStore from './announcement';
 import HomeStore from './home';
+import tradeStore from './trade';
 
 class RootStore {
     constructor() {
@@ -13,6 +14,7 @@ class RootStore {
         this.userStore = new UserStore(this);
         this.announcementStore = new AnnouncementStore(this);
         this.homeStore = new HomeStore(this);
+        this.tradeStore = new tradeStore(this);
     }
 }
 

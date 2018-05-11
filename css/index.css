@@ -37,6 +37,7 @@
     text-align: center;
     background-color: #141414;
     color: #fff;
+    font-size: 14px;
 }
 
 .loginguide-wrapper li {
@@ -193,9 +194,7 @@
     color: #00b56a;
 }
 
-
 /* 负 */
-
 .recommend-item.negative .recommend-item-change {
     background-color: #ff4d40;
 }

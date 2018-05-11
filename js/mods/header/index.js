@@ -70,7 +70,7 @@ class HeaderView extends Component {
 	    );
 
 		return (
-			<div className="app-header">
+			<div className="app-header" id="J_AppHeader">
 				<div className="header-box clearfix">
 					<h1 className="logo">
 						<Link to="/">
