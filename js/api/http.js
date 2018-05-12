@@ -134,9 +134,17 @@ export function getAnnounceList(pageSize) {
         num: pageSize
     })).then(res => res.data);
 }
+
 // 获取公告详情
 export function getAnnounceDetail(id) {
     return axios.post(`${UPEX.config.host}/announce/getInfo`, qs.stringify({
         announceId: id
     })).then(res => res.data);
+}
+
+/**
+ *  基本币种列表
+ */
+export function getBaseCoin(){
+    return axios.post(`${UPEX.config.host}/coin/coins`).then(res => res.data);
 }

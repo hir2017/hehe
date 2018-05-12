@@ -4,6 +4,8 @@
  */
 import { observable, computed, autorun, action } from 'mobx';
 import { socket, baseCurrencyId } from '../api/socket';
+import { getBaseCoin } from '../api/http';
+
 import NumberUtil from '../lib/util/number';
 
 class TradeStore {
@@ -11,6 +13,11 @@ class TradeStore {
     @observable theme = 'light';
     @observable coinInfo = {};
     @observable coinRealTime = [];
+    @observable loginedMarkets = {};
+    @observable entrust = {};
+    @observable pointPrice = 4;
+    originMarkets = {};
+    
 
     constructor(stores) {
         this.commonStore = stores.commonStore;
@@ -43,40 +50,40 @@ class TradeStore {
 
     @computed
     get currentCoinChangeRate() {
-        
+
         if (typeof this.coinInfo.changeRate !== 'undefined') {
-            return (this.coinInfo.changeRate > 0 ? '+' : '-') + this.coinInfo.changeRate + '%';    
+            return (this.coinInfo.changeRate >= 0 ? '+' : '-') + this.coinInfo.changeRate.toFixed(2) + '%';
         } else {
-            return '';
-        } 
+            return '0.00%';
+        }
     }
 
     @computed
-    get changeRateStatus() {  
-        
+    get changeRateStatus() {
+
         if (typeof this.coinInfo.changeRate !== 'undefined') {
-            return (this.coinInfo.changeRate > 0 ? 'positive' : 'negative');
+            return (this.coinInfo.changeRate >= 0 ? 'positive' : 'negative');
         } else {
-            return '';
-        } 
+            return 'positive';
+        }
     }
 
     @computed
-    get currentCoinLowPrice(){
+    get currentCoinLowPrice() {
         return NumberUtil.formatPrice(this.coinInfo.lowPrice, 4);
     }
 
     @computed
-    get currentCoinHighPrice(){
+    get currentCoinHighPrice() {
         return NumberUtil.formatPrice(this.coinInfo.highPrice, 4);
     }
 
     @computed
-    get currentCoinVolume(){
+    get currentCoinVolume() {
         return NumberUtil.formatPrice(this.coinInfo.volume, 4);
     }
 
-    @computed 
+    @computed
     get currentAmount() {
         return NumberUtil.formatPrice(this.coinInfo.currentAmount, 4);
     }
@@ -84,6 +91,51 @@ class TradeStore {
     @action
     changeThemeTo = (value) => {
         this.theme = value;
+    }
+
+    @action 
+    filterByName=(value)=>{
+        let loginedMarkets = JSON.parse(JSON.stringify(this.originMarkets));
+        
+        value = value.toLowerCase();
+
+        if (value) {
+            loginedMarkets.forEach((obj, index) => {
+                // 遍历
+                let tradeCoins = [];
+                
+                obj.tradeCoins.forEach((item, index)=>{                    
+                    if (item.currencyNameEn.toLowerCase().indexOf(value) > -1) {
+                        tradeCoins[tradeCoins.length] = item;
+                    }
+                })
+
+                obj.tradeCoins = tradeCoins;
+            });
+        }
+
+        this.loginedMarkets = loginedMarkets;
+    }
+    /**
+     * 根据当前成交价排序
+     */
+    @action
+    sortByCurrentAmount() {
+
+    }
+    /**
+     * 根据涨跌幅度排序
+     */
+    @action 
+    stortByChangeRate(){
+
+    }
+    /**
+     * 根据成交量排序
+     */
+    @action
+    stortByVolume(){
+
     }
     /**
      * 首页查看交易币
@@ -95,7 +147,7 @@ class TradeStore {
             baseCurrencyId: 1,
             tradeCurrencyId: 2
         });
-        socket.on('loginAfterChangeTradeCoin', (data)=>{
+        socket.on('loginAfterChangeTradeCoin', (data) => {
             console.log('+++++++++++++++++++++++++');
             console.log('loginAfterChangeTradeCoin', data);
             this.coinInfo = data.currentTradeCoin;
@@ -112,11 +164,114 @@ class TradeStore {
             tradeCurrencyId: 2
         });
 
-        socket.on('tradeHistory', (data)=>{
-            console.log('+++++++++++++++++++++++++');
+        socket.on('tradeHistory', (data) => {
+            console.log('+++++++++++++');
             console.log('tradeHistory', data);
         })
     }
+    /**
+     * 行情通知
+     */
+    @action
+    quoteNotify() {
+        socket.emit('quoteNotify')
+        socket.on('quoteNotify', (data) => {
+            console.log('+++++++++++++');
+            console.log('quoteNotify', data);
+        })
+    }
+    /**
+     * 获取基础币列表
+     */
+    @action
+    getTradeCoinsOfBaseCoin() {
+
+    }
+
+    /**
+     * 获取基本币种
+     */
+    @action
+    getBaseCoin() {
+        getBaseCoin().then((data) => {
+            console.log('++++++++++++');
+        })
+    }
+    /**
+     * 登录后显示首页行情
+     */
+    @action
+    getLoginedMarket() {
+        socket.off('loginAfter')
+        socket.emit('loginAfter', { baseCurrencyId: baseCurrencyId })
+        socket.on('loginAfter', (data) => {
+            console.log('+++++++++++++');
+            console.log('loginAfter', data);
+            parseLoginedMarkets(data);
+            // 拷贝存储数组
+            this.originMarkets = JSON.parse(JSON.stringify(data));
+            this.loginedMarkets = data;            
+        })
+    }
+    /**
+     * 委托队列: 买队列, 卖队列
+     */
+    @action
+    getEntrust(){
+        socket.emit('entrust', {
+            baseCurrencyId: 1,
+            tradeCurrencyId: 2
+        });
+        socket.on('entrust', (data) => {
+            console.log('+++++++++++++');
+            console.log('entrust', data);
+            this.entrust = data;
+        });
+    }
+}
+
+
+function parseLoginedMarkets(loginedMarkets){
+    loginedMarkets.forEach((obj, index) => {
+        // 遍历，1. 按成交量降序排列，2. 按最新成交价降序排序
+        obj.tradeCoins.map((item, index)=>{
+            // 24小时涨跌幅
+            item.changeRate = (item.changeRate >= 0 ? '+' : '-') + item.changeRate.toFixed(2) + '%';
+            // 最新成交价
+            item.currentAmount = item.currentAmount.toFixed(item.pointPrice);
+            // 最高价
+            item.highPrice = item.highPrice.toFixed(item.pointPrice);
+            // 最低价
+            item.lowPrice = item.lowPrice.toFixed(item.pointPrice);
+            // 24小时成交数量
+            item.volume = item.volume.toFixed(item.pointPrice);
+
+            if (index == 0) {
+                this.pointPrice = item.pointPrice;
+            }
+        })
+        // .sort(function(objA, objB) {
+        //     const preItem = parseFloat(objA.amount.toFixed(objA.pointPrice))
+        //     const nowItem = parseFloat(objB.amount.toFixed(objB.pointPrice))
+            
+        //     if (preItem < nowItem) {
+        //         return true;
+        //     } else {
+        //         if (preItem == nowItem) {
+        //             const _preItem = parseFloat(objA.currentAmount.toFixed(objA.pointPrice))
+        //             const _nowItem = parseFloat(objB.currentAmount.toFixed(objB.pointPrice))
+                    
+        //             if (_preItem < _nowItem) {
+        //                 return 1;
+        //             } else {
+        //                 return -1;
+        //             }
+        //         }
+
+        //         return -1;
+        //     }
+        // });
+    })
 }
 
 export default TradeStore;

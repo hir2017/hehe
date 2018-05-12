@@ -14,12 +14,14 @@
     padding-top: 10px;
 }
 
+
+
 /**
  * 图表模块
  */
+
 .trade-main-chart {
     min-height: 270px;
-    overflow: hidden;
     position: relative;
 }
 
@@ -31,6 +33,8 @@
     width: 100%;
     border-bottom: 10px solid #f8f8fb;
 }
+
+
 
 /**
  * 币种信息
@@ -64,14 +68,20 @@
     display: inline-block;
     vertical-align: middle;
 }
-.trade-current-coin li em{
+
+.trade-current-coin li em {
     padding: 0 5px;
 }
 
+
+
 /* 正 */
+
 .trade-current-coin li.positive em {
     color: #00b56a;
 }
+
+
 
 /* 负 */
 
@@ -95,15 +105,118 @@
     display: inline-block;
     vertical-align: middle;
 }
-.trade-current-coin .theme-menu{
+
+.trade-current-coin .theme-menu {
     position: absolute;
     right: 10px;
     top: 0;
     line-height: 42px;
 }
+
 .trade-current-coin .theme-menu label {
     margin-right: 10px;
 }
+
+.trade-current-coin .coin-list {
+    width: 414px;
+    height: 358px;
+}
+
+.trade-current-coin .coin-list-hd {
+    padding: 10px 0
+}
+
+.trade-current-coin .coin-list-hd .search {
+    width: 214px;
+    height: 28px;
+    border: 1px solid #d9d9d9;
+    float: left;
+    margin-right: 10px;
+}
+
+.trade-current-coin .coin-list-hd .tab {
+    float: left;
+    height: 28px;
+    line-height: 28px;
+}
+
+.trade-current-coin .coin-list-hd input {
+    width: 180px;
+    height: 26px;
+    line-height: 26px;
+    color: #333;
+    border: 0 none;
+    outline: 0 none;
+    text-indent: 10px;
+}
+
+.trade-current-coin .coin-list-hd .anticon-search {
+    width: 30px;
+}
+
+.trade-current-coin .coin-list-bd {
+    margin-top: 10px;
+}
+
+.trade-current-coin .coin-list-bd ul.list-hd .price,
+.trade-current-coin .coin-list-bd ul.list-hd .rate,
+.trade-current-coin .coin-list-bd ul.list-hd .volume {
+    cursor: pointer;
+}
+
+.trade-current-coin .coin-list-bd ul.list {
+    max-height: 260px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 100%;
+}
+
+.trade-current-coin .coin-list-bd ul.list li:hover {
+    background-color: #f8f8fb;
+}
+
+.trade-current-coin .coin-list-bd li {
+    overflow: hidden;
+    width: 100%;
+    height: 34px;
+    line-height: 34px;
+    font-size: 14px;
+    border-bottom: 1px solid #cccccc;
+}
+
+.trade-current-coin .coin-list-bd .cell {
+    float: left;
+}
+
+.trade-current-coin .coin-list-bd .cell.name {
+    width: 20%;
+    text-align: left;
+}
+
+.trade-current-coin .coin-list-bd .cell.price {
+    width: 30%;
+    text-align: left;
+}
+
+.trade-current-coin .coin-list-bd .cell.rate {
+    width: 14%;
+    text-align: center;
+}
+
+.trade-current-coin .coin-list-bd .rate[data-status="0"] {
+    color: #ff3380;
+}
+
+.trade-current-coin .coin-list-bd .rate[data-status="1"] {
+    color: #00d02c;
+}
+
+.trade-current-coin .coin-list-bd .cell.volume {
+    width: 36%;
+    text-align: right;
+}
+
+
 
 
 
@@ -132,7 +245,7 @@
 .trade-main-order .order-box {}
 
 .trade-extra {
-    padding:  10px 0;
+    padding: 10px 0;
     float: right;
     position: relative;
 }
@@ -147,6 +260,97 @@
     box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.06);
     overflow: hidden;
 }
+.trade-current-amount{
+    height: 30px;
+    line-height: 30px;
+    color: #00d02c;
+}
+.trade-extra-list .list-box-l{
+    float: left;
+    width: 264px;
+    position: relative;
+    height: 100%;
+}
+.trade-extra-list .list-box-l .list-box-hd{
+    height: 42px;
+    line-height: 42px;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.06);
+    padding: 0 10px;
+}
+.trade-extra-list .list-box-l .list-box-bd{
+    padding: 0 10px;
+}
+.trade-extra-list .list-box-l .list-box-hd li{
+    float: left;
+    width: 30px;
+    height: 42px;
+    cursor: pointer;
+}
+.trade-extra-list .list-box-l .list-box-hd li.all{
+    background: url('../images/icon-all.png') no-repeat center center;
+    background-size: 16px 16px;
+}
+
+.trade-extra-list .list-box-l .list-box-hd li.buy{
+    background: url('../images/icon-buy.png') no-repeat center center;
+    background-size: 16px 16px;
+    
+}
+.trade-extra-list .list-box-l .list-box-hd li.sell{
+    background: url('../images/icon-sell.png') no-repeat center center;
+    background-size: 16px 16px;
+}
+.trade-extra-list .list-box-l .table-hd{
+    height: 26px;
+    line-height: 26px;
+}
+.trade-extra-list .list-box-l .price{
+    width: 30%;
+    float: left;
+}
+.trade-extra-list .list-box-l .number{
+    width: 30%;
+    float: left;
+}
+.trade-extra-list .list-box-l .total-price{
+    width: 40%;
+    float: left;
+}
+/**
+ * 实时行情
+ */
+.trade-extra-list .list-box-r .table-hd{
+    height: 26px;
+    line-height: 26px;
+}
+.trade-extra-list .list-box-r .time{
+    width: 30%;
+    float: left;
+    text-align: left;
+}
+.trade-extra-list .list-box-r .price{
+    width: 30%;
+    float: left;
+    text-align: center;
+}
+.trade-extra-list .list-box-r .number{
+    width: 40%;
+    float: left;
+    text-align: right;
+}
+/**
+ * 买盘
+ */
+.trade-buyorder{
+
+}
+
+.trade-extra-list .list-box-r{
+    float: right;
+    width: 264px;
+    position: relative;
+    height: 100%;
+}
 
 .trade-extra-handle {
     min-height: 280px;
@@ -160,10 +364,13 @@
     height: 100px
 }
 
+
+
 /**
  * 暗色
  */
-.trade-wrapper[data-theme="dark"]{
+
+.trade-wrapper[data-theme="dark"] {
     background-color: #131314;
 }
 
@@ -171,10 +378,11 @@
 .trade-wrapper[data-theme="dark"] .trade-extra-list,
 .trade-wrapper[data-theme="dark"] .trade-extra-handle,
 .trade-wrapper[data-theme="dark"] .trade-main-order,
-.trade-wrapper[data-theme="dark"] .trade-current-coin{
+.trade-wrapper[data-theme="dark"] .trade-current-coin {
     background-color: #090600;
     color: #fff;
 }
+
 .trade-wrapper[data-theme="dark"] .trade-main-chart .chart-box {
     border-bottom: 10px solid #131314;
 }

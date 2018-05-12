@@ -1,0 +1,72 @@
+[
+  {
+    "id": 1,
+    "currencyNameEn": "btc",
+    "price": "50000",
+    "hours24Chang": "5%",
+    "hours24Count": "5000000"
+  },
+  {
+    "id": 2,
+    "currencyNameEn": "btc1",
+    "price": "50000",
+    "hours24Chang": "5%",
+    "hours24Count": "5000000"
+  },
+  {
+    "id": 3,
+    "currencyNameEn": "btc2",
+    "price": "50000",
+    "hours24Chang": "5%",
+    "hours24Count": "5000000"
+  },
+  {
+    "id": 4,
+    "currencyNameEn": "btc2",
+    "price": "50000",
+    "hours24Chang": "5%",
+    "hours24Count": "5000000"
+  },
+  {
+    "id": 5,
+    "currencyNameEn": "btc2",
+    "price": "50000",
+    "hours24Chang": "5%",
+    "hours24Count": "5000000"
+  },
+  {
+    "id": 6,
+    "currencyNameEn": "btc2",
+    "price": "50000",
+    "hours24Chang": "5%",
+    "hours24Count": "5000000"
+  },
+  {
+    "id": 7,
+    "currencyNameEn": "btc1",
+    "price": "50000",
+    "hours24Chang": "5%",
+    "hours24Count": "5000000"
+  },
+  {
+    "id": 8,
+    "currencyNameEn": "btc1",
+    "price": "50000",
+    "hours24Chang": "5%",
+    "hours24Count": "5000000"
+  },
+  {
+    "id": 9,
+    "currencyNameEn": "btc1",
+    "price": "50000",
+    "hours24Chang": "5%",
+    "hours24Count": "5000000"
+  },
+  {
+    "id": 10,
+    "currencyNameEn": "btc3",
+    "price": "50000",
+    "hours24Chang": "5%",
+    "hours24Count": "5000000"
+  }
+]

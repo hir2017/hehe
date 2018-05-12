@@ -5,8 +5,12 @@ class HomeStore {
     @observable allCoins = [];
     @observable hotCoins = [];
 
+    cacheCoins = []
+
     @action
     getAllCoins() {
+        this.allCoins = require('../mock/coins.json')
+        this.cacheCoins = this.allCoins
         socket.emit('indexAllCoins', { type: 1 })
         socket.on('indexAllCoins', function(data) {
             console.log('data', data);
@@ -15,18 +19,52 @@ class HomeStore {
                     item.update = false;
                 })
 
-                this.allCoins = data.attachment;
+                // this.allCoins = data.attachment;
             }
         })
 
     }
 
     @action
+    filterCoin (name) {
+
+        if(!name) {
+            this.allCoins = this.cacheCoins
+            return
+        }
+
+        if(this.allCoins.length === 0) {
+            this.allCoins = this.cacheCoins
+        }
+
+        const res = Array.from(this.allCoins).filter((item) => {
+            return item.currencyNameEn === name
+        })
+        
+        this.allCoins = res
+    }
+
+
+    currencyCombination (data) {
+        const coinArray = []
+        for (const item of data) {
+            console.log(item, 'item')
+            coinArray.push(item.info)
+            for (const childItem of item.tradeCoins) {
+                coinArray.push(childItem)
+            }
+        }
+        return coinArray
+    }
+
+    @action
     getHomeLoginedData(id = baseCurrencyId) {
+        const context = this
         socket.off('loginAfter')
         socket.emit('loginAfter', { baseCurrencyId: id })
         socket.on('loginAfter', function(data) {
-            console.log('+++++++++++++loginAfter', data);
+            const res = context.currencyCombination(data)
+            console.log(res)
         })
     }
 

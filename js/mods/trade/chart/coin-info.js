@@ -32,13 +32,12 @@ class CurrentCoinInfo extends Component {
         return (
             <div className="trade-current-coin">
                 <ul>
-                    <li className="coin">
-                        <Popover content={<TradeCoinList/>} placement="bottomLeft" trigger="click">
+                    <li className="coin" ref="coin">
+                        <Popover content={<TradeCoinList/>} placement="bottomLeft" trigger="click" getPopupContainer={()=>this.refs.coin}>
                             <label>{ store.coinInfo.currencyNameEn }</label>
-                            <Icon type="caret-down"/>
+                            <Icon type="caret-down" style={{ fontSize: 14, color: '#c5c5c5' }} />
                         </Popover>
                         <em>{ store.currentAmount }</em>
-
                     </li>
                     <li className={ store.changeRateStatus }>
                         <label>{ UPEX.lang.template('涨幅') }</label>

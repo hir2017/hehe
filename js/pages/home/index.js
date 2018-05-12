@@ -23,7 +23,8 @@ const list = [
 @observer
 class Home extends Component {
     constructor(props){
-    	super(props);
+        super(props);
+        this.filterCoin = this.filterCoin.bind(this)
     }
 
     componentDidMount() {
@@ -32,8 +33,12 @@ class Home extends Component {
         this.props.homeStore.getAllCoins();
     }
 
+    filterCoin (name) {
+        this.props.homeStore.filterCoin(name)
+    }
+
     render() {
-    	let { authStore } = this.props;
+        let { authStore, announceStore, homeStore } = this.props;
 
         return (
             <div className="home-wrapper">
@@ -41,7 +46,7 @@ class Home extends Component {
                 <Banner list={list}/>
                 <AnnouncementList/>
                 <HotMarkets/>
-                <IndexMarkets/>
+                <IndexMarkets filterCoin={this.filterCoin} coins={homeStore.allCoins}/>
                 <Features/>
             </div>
         );
