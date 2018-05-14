@@ -3,8 +3,8 @@
  * TODO 第二个版本，优化自适应方案
  */
 import { observable, computed, autorun, action } from 'mobx';
-import { socket, baseCurrencyId } from '../api/socket';
-import { getBaseCoin } from '../api/http';
+import { socket } from '../api/socket';
+import { getBaseCoin , getUserOrderList } from '../api/http';
 
 import NumberUtil from '../lib/util/number';
 
@@ -14,38 +14,41 @@ class TradeStore {
     @observable coinInfo = {};
     @observable coinRealTime = [];
     @observable loginedMarkets = {};
-    @observable entrust = {};
     @observable pointPrice = 4;
+    @observable baseCurrencyId = 1;
+    @observable currencyId = 2;
     originMarkets = {};
     
 
     constructor(stores) {
         this.commonStore = stores.commonStore;
+        this.entrustStore = stores.tradeEntrustStore;
+        this.orderStore = stores.tradeOrderStore;
         this.headerHeight = 60;
         this.space = 10;
-        this.handleHeight = 280; // 操作区域高度 280
-        this.minKlineHeight = 270; // K线图最小高度270
+        this.handleHeight = 320; // 操作区域高度 280
+        this.minChartHeight = 270; // K线图最小高度270
         this.minContentHeight = 270;
     }
 
     @computed
     get contentHeight() {
-        return Math.max(this.commonStore.windowDimensions.height - this.headerHeight, this.minContentHeight);
+        return Math.max(this.commonStore.windowDimensions.height - this.headerHeight - this.space * 2, this.minContentHeight);
     }
 
     @computed
     get extraOrderHeight() {
-        return Math.max(this.contentHeight - this.space * 3 - this.handleHeight, 0);
+        return Math.max(this.contentHeight - this.handleHeight, 0);
     }
 
     @computed
     get iframeHeight() {
-        return Math.max(this.contentHeight - this.handleHeight, this.minKlineHeight);
+        return Math.max(this.contentHeight - this.handleHeight, this.minChartHeight);
     }
 
     @computed
     get mainOrderHeight() {
-        return Math.max(this.contentHeight - this.iframeHeight - this.space * 2, 0);
+        return Math.max(this.contentHeight - this.iframeHeight, 0);
     }
 
     @computed
@@ -144,12 +147,13 @@ class TradeStore {
     getTradeCoinData() {
         socket.off('loginAfterChangeTradeCoin');
         socket.emit('loginAfterChangeTradeCoin', {
-            baseCurrencyId: 1,
-            tradeCurrencyId: 2
+            baseCurrencyId: this.baseCurrencyId,
+            tradeCurrencyId: this.currencyId
         });
         socket.on('loginAfterChangeTradeCoin', (data) => {
             console.log('+++++++++++++++++++++++++');
             console.log('loginAfterChangeTradeCoin', data);
+            
             this.coinInfo = data.currentTradeCoin;
             this.coinRealTime = data.currentTradeCoinRealTime;
         });
@@ -160,14 +164,23 @@ class TradeStore {
     @action
     getTradeHistory() {
         socket.emit('tradeHistory', {
-            baseCurrencyId: 1,
-            tradeCurrencyId: 2
+            baseCurrencyId: this.baseCurrencyId,
+            tradeCurrencyId: this.currencyId
         });
 
         socket.on('tradeHistory', (data) => {
             console.log('+++++++++++++');
             console.log('tradeHistory', data);
         })
+    }
+    @action
+    getEntrust(){
+        this.entrustStore.getEntrust(this.baseCurrencyId, this.currencyId);
+    }
+
+    @action
+    getUserOrderList(){
+        this.orderStore.getUserOrderList(this.baseCurrencyId, this.currencyId);
     }
     /**
      * 行情通知
@@ -203,30 +216,15 @@ class TradeStore {
     @action
     getLoginedMarket() {
         socket.off('loginAfter')
-        socket.emit('loginAfter', { baseCurrencyId: baseCurrencyId })
+        socket.emit('loginAfter', { baseCurrencyId: this.baseCurrencyId })
         socket.on('loginAfter', (data) => {
             console.log('+++++++++++++');
             console.log('loginAfter', data);
-            parseLoginedMarkets(data);
+            // parseLoginedMarkets(data);
             // 拷贝存储数组
             this.originMarkets = JSON.parse(JSON.stringify(data));
             this.loginedMarkets = data;            
         })
-    }
-    /**
-     * 委托队列: 买队列, 卖队列
-     */
-    @action
-    getEntrust(){
-        socket.emit('entrust', {
-            baseCurrencyId: 1,
-            tradeCurrencyId: 2
-        });
-        socket.on('entrust', (data) => {
-            console.log('+++++++++++++');
-            console.log('entrust', data);
-            this.entrust = data;
-        });
     }
 }
 

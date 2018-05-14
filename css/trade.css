@@ -16,6 +16,11 @@
 
 
 
+
+
+
+
+
 /**
  * 图表模块
  */
@@ -29,10 +34,15 @@
     box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.06);
     position: relative;
     height: 100%;
-    padding-top: 52px;
+    padding-top: 42px;
     width: 100%;
-    border-bottom: 10px solid #f8f8fb;
+    /* border-bottom: 10px solid #f8f8fb; */
 }
+
+
+
+
+
 
 
 
@@ -47,10 +57,10 @@
     top: 0;
     height: 42px;
     line-height: 42px;
-    margin-bottom: 10px;
     background-color: #fff;
     color: #333333;
-    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.06);
+    border-bottom: 2px solid rgba(0, 0, 0, 0.06);
+    z-index: 2;
 }
 
 .trade-current-coin ul {
@@ -75,11 +85,21 @@
 
 
 
+
+
+
+
+
 /* 正 */
 
 .trade-current-coin li.positive em {
     color: #00b56a;
 }
+
+
+
+
+
 
 
 
@@ -220,6 +240,11 @@
 
 
 
+
+
+
+
+
 /**
  * 币种K线图
  */
@@ -260,109 +285,475 @@
     box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.06);
     overflow: hidden;
 }
-.trade-current-amount{
+
+.trade-current-amount {
     height: 30px;
     line-height: 30px;
     color: #00d02c;
+    padding: 0 15px;
 }
-.trade-extra-list .list-box-l{
+
+.trade-extra-list .list-box-l {
     float: left;
-    width: 264px;
+    width: 50%;
     position: relative;
     height: 100%;
 }
-.trade-extra-list .list-box-l .list-box-hd{
+
+.trade-extra-list .list-box-l .list-box-hd {
     height: 42px;
     line-height: 42px;
-    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.06);
-    padding: 0 10px;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.06);
 }
-.trade-extra-list .list-box-l .list-box-bd{
-    padding: 0 10px;
-}
-.trade-extra-list .list-box-l .list-box-hd li{
+
+.trade-extra-list .list-box-l .list-box-hd li {
     float: left;
-    width: 30px;
+    width: 40px;
     height: 42px;
     cursor: pointer;
+    border-bottom: 2px solid transparent;
 }
-.trade-extra-list .list-box-l .list-box-hd li.all{
+
+.trade-extra-list .list-box-l .list-box-hd li.all {
     background: url('../images/icon-all.png') no-repeat center center;
     background-size: 16px 16px;
 }
 
-.trade-extra-list .list-box-l .list-box-hd li.buy{
+.trade-extra-list .list-box-l .list-box-hd li.buy {
     background: url('../images/icon-buy.png') no-repeat center center;
     background-size: 16px 16px;
-    
 }
-.trade-extra-list .list-box-l .list-box-hd li.sell{
+
+.trade-extra-list .list-box-l .list-box-hd li.sell {
     background: url('../images/icon-sell.png') no-repeat center center;
     background-size: 16px 16px;
 }
-.trade-extra-list .list-box-l .table-hd{
-    height: 26px;
-    line-height: 26px;
+
+.trade-extra-list .list-box-l .list-box-hd li.selected {
+    border-bottom: 2px solid #e6bc1d;
 }
-.trade-extra-list .list-box-l .price{
+
+.trade-extra-list .list-box-l .table-hd {
+    height: 30px;
+    line-height: 30px;
+    font-size: 12px;
+    color: #666666;
+    padding: 0 15px;
+}
+
+.trade-extra-list .list-box-l .table-bd {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+}
+
+.trade-extra-list .list-box-l .trade-buy-box,
+.trade-extra-list .list-box-l .trade-sell-box {
+    position: relative;
+    -webkit-box-flex: 1;
+}
+
+.trade-extra-list .list-box-l .trade-buy {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    overflow-y: auto;
+}
+
+.trade-extra-list .list-box-l .trade-sell {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.trade-extra-list .list-box-l .trade-buy ul,
+.trade-extra-list .list-box-l .trade-sell ul {
+    padding: 0 15px;
+}
+
+.trade-extra-list .list-box-l .price {
     width: 30%;
     float: left;
 }
-.trade-extra-list .list-box-l .number{
+
+.trade-extra-list .list-box-l .number {
     width: 30%;
     float: left;
+    text-align: right;
 }
-.trade-extra-list .list-box-l .total-price{
-    width: 40%;
-    float: left;
-}
-/**
- * 实时行情
- */
-.trade-extra-list .list-box-r .table-hd{
-    height: 26px;
-    line-height: 26px;
-}
-.trade-extra-list .list-box-r .time{
-    width: 30%;
-    float: left;
-    text-align: left;
-}
-.trade-extra-list .list-box-r .price{
-    width: 30%;
-    float: left;
-    text-align: center;
-}
-.trade-extra-list .list-box-r .number{
+
+.trade-extra-list .list-box-l .total {
     width: 40%;
     float: left;
     text-align: right;
 }
+
+
+
+
+
+
 /**
- * 买盘
+ * 实时行情
  */
-.trade-buyorder{
 
-}
-
-.trade-extra-list .list-box-r{
+.trade-extra-list .list-box-r {
+    /* border-left: 10px solid rgba(0, 0, 0, 0.06); */
     float: right;
-    width: 264px;
+    width: 50%;
     position: relative;
     height: 100%;
 }
 
+.trade-extra-list .list-box-r .trade-realtime {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.trade-extra-list .list-box-r .table-hd {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 42px;
+    line-height: 42px;
+    width: 100%;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.06);
+    padding: 0 15px;
+    z-index: 2;
+    background: #fff;
+}
+
+.trade-extra-list .list-box-r .table-bd {
+    height: 96%;
+    overflow: hidden;
+    overflow-y: auto;
+}
+
+.trade-extra-list .list-box-r .table-bd ul {
+    padding: 50px 15px 10px;
+}
+
+.trade-extra-list .list-box-r .time {
+    width: 30%;
+    float: left;
+    text-align: left;
+}
+
+.trade-extra-list .list-box-r .price {
+    width: 30%;
+    float: left;
+    text-align: right;
+}
+
+.trade-extra-list .list-box-r .number {
+    width: 40%;
+    float: left;
+    text-align: right;
+}
+
+.trade-extra-list .trade-buy {}
+
+.trade-extra-list .trade-sell {}
+
 .trade-extra-handle {
-    min-height: 280px;
-    margin-top: 10px;
+    min-height: 320px;
+    /* margin-top: 10px; */
     box-sizing: border-box;
     background-color: #fff;
     box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.06);
 }
 
-.trade-extra .handle-box {
-    height: 100px
+
+/**
+ * trade-form
+ */
+
+.trade-form {
+    color: #666666;
 }
+
+.trade-form-hd {
+    height: 42px;
+    line-height: 42px;
+    padding: 0 10px;
+    border-bottom: 2px solid #f8f8fb;
+}
+
+.trade-form-hd em {
+    padding: 0 5px;
+}
+
+.trade-form-hd .recharge {
+    position: absolute;
+    right: 5px;
+    top: 0;
+    height: 42px;
+    line-height: 42px;
+    color: #e6bc1d;
+}
+
+.trade-form-l,
+.trade-form-r {
+    position: relative;
+    float: left;
+    width: 50%;
+}
+
+.trade-form-bd ul {
+    padding: 10px;
+}
+
+.trade-form-bd em {
+    padding: 0 5px;
+}
+
+.trade-form-bd label {
+    line-height: 16px;
+}
+
+.trade-form-bd .btn {
+    border-radius: 4px;
+    width: 240px;
+    height: 34px;
+    line-height: 34px;
+    text-align: center;
+    color: #fff;
+}
+
+.trade-form-bd .btn.buy {
+    background-color: rgb(0, 208, 44);
+}
+
+.trade-form-bd .btn.sell {
+    background-color: rgb(255, 51, 128);
+}
+
+.trade-form-bd .input-box{
+    position: relative;
+    border:  1px solid rgb(204, 204, 204);
+    border-radius: 2px;
+    padding-left: 5px;
+    padding-right: 30px;
+    height: 30px;
+    line-height: 30px;
+    margin-bottom: 5px;
+}
+
+.trade-form-bd .input-box i{
+    position: absolute;
+    right: 1px;
+    top: 0;
+    padding: 0 3px;
+    height: 30px;
+    line-height: 30px;
+    font-style: normal;
+}
+.trade-form-bd .input-box input{
+    border:  0 none;
+    background: none;
+    height: 26px;
+    line-height: 26px;
+    outline: 0 none;
+    width: 100%;
+}
+
+
+
+
+
+/**
+ * 我的订单模块
+ */
+
+.tradeorder-wrapper {
+    height: 100%;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-flex-wrap: nowrap;
+    -ms-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+}
+
+.tradeorder-wrapper .mini-tip {
+    text-align: center;
+    padding-top: 20px;
+}
+
+.tradeorder-hd {
+    width: 100%;
+    height: 42px;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.06);
+}
+
+.tradeorder-hd ul {
+    height: 42px;
+    line-height: 42px;
+    padding: 0 10px;
+    font-size: 16px;
+    overflow: hidden;
+}
+
+.tradeorder-hd li {
+    float: left;
+    padding: 0 10px;
+    cursor: pointer;
+    height: 41px;
+}
+
+.tradeorder-hd li.selected {
+    border-bottom: 2px solid #e6bc1d;
+    color: #e6bc1d;
+}
+
+.tradeorder-hd .extra {
+    position: absolute;
+    right: 10px;
+    top: 0;
+    height: 42px;
+    line-height: 42px;
+    font-size: 14px;
+}
+
+.tradeorder-hd .extra label {
+    padding: 0 10px;
+}
+
+.tradeorder-bd {
+    position: relative;
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    -webkit-box-ordinal-group: 1;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-flex-wrap: nowrap;
+    -ms-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+}
+
+.tradeorder-table-hd {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 34px;
+    z-index: 2;
+    line-height: 34px;
+    background: #fff;
+}
+
+.tradeorder-table-hd ul {
+    padding: 0 10px;
+}
+
+.tradeorder-table-hd li {
+    display: inline-block;
+    font-size: 14px;
+}
+
+.tradeorder-table-bd {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    overflow-y: auto;
+    padding-top: 34px;
+    box-sizing: border-box;
+}
+
+.tradeorder-table-bd ul {
+    padding: 0 10px;
+}
+
+.tradeorder-table-bd dl {
+    width: 100%;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.tradeorder-table-bd dl dd {
+    /* width: 11%; */
+    word-wrap: break-word;
+    word-break: break-all;
+    line-height: 16px;
+    padding: 10px 0;
+}
+
+.tradeorder-table-bd li:hover {
+    background-color: #f8f8fb;
+}
+
+.tradeorder-bd .time {
+    width: 11%;
+}
+
+.tradeorder-bd .type {
+    width: 8%;
+}
+
+.tradeorder-bd .type .buy {
+    color: #00d02c;
+}
+
+.tradeorder-bd .type .sell {
+    color: #ff3380;
+}
+
+.tradeorder-bd .name {
+    width: 8%;
+}
+
+.tradeorder-bd .number {
+    width: 15%;
+}
+
+.tradeorder-bd .price {
+    width: 15%;
+}
+
+.tradeorder-bd .total {
+    width: 15%;
+}
+
+.tradeorder-bd .rate {
+    width: 10%;
+}
+
+.tradeorder-bd .status {
+    width: 10%;
+}
+
+.tradeorder-bd .action {
+    width: 8%;
+}
+
+
+
 
 
 
@@ -385,4 +776,16 @@
 
 .trade-wrapper[data-theme="dark"] .trade-main-chart .chart-box {
     border-bottom: 10px solid #131314;
+}
+
+.trade-wrapper[data-theme="dark"] .tradeorder-table-hd {
+    background-color: #090600;
+}
+
+.trade-wrapper[data-theme="dark"] .tradeorder-table-bd li:hover {
+    background-color: #221f1a;
+}
+
+.trade-wrapper[data-theme="dark"] .tradeorder-hd {
+    border-bottom: 2px solid #131314;
 }

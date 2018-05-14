@@ -145,6 +145,15 @@ export function getAnnounceDetail(id) {
 /**
  *  基本币种列表
  */
-export function getBaseCoin(){
+export function getBaseCoin() {
     return axios.post(`${UPEX.config.host}/coin/coins`).then(res => res.data);
+}
+/**
+ * 交易中心委托
+ */
+export function getUserOrderList(data) {
+    return axios.post(`${UPEX.config.host}/user/showOrderList`, qs.stringify({
+        currencyId: data.tradeCurrencyId,
+        baseCurrencyId: data.baseCurrencyId
+    })).then(res => res.data);
 }

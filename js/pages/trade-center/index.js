@@ -10,17 +10,31 @@ import ChartInfo from '../../mods/trade/chart/chart-info';
 import BuyOrder from '../../mods/trade/order/buy-order';
 import SellOrder from '../../mods/trade/order/sell-order';
 import RealTime from '../../mods/trade/order/real-time';
+import MyOrder from '../../mods/trade/myorder/index';
+import TradeForm from '../../mods/trade/form/index';
 
-@inject('tradeStore')
+@inject('tradeStore', 'authStore')
 @observer
 class TradeCenter extends Component {
-    componentWillMount() {
-        let store = this.props.tradeStore;
+    static defaultProps = {
+        entrustTab: ['all', 'buy', 'sell']
+    }
 
-        store.getTradeCoinData();
-        store.getTradeHistory();
-        store.getLoginedMarket();
-        store.getEntrust();
+    componentWillMount() {
+        let { tradeStore, authStore} = this.props;
+
+        tradeStore.getTradeCoinData();
+        tradeStore.getTradeHistory();
+        tradeStore.getLoginedMarket();
+        tradeStore.getEntrust();
+        
+        if (authStore.isLogin) {
+            tradeStore.getUserOrderList();
+        }
+    }
+
+    onChangeEntrustType=(type)=>{
+        this.props.tradeStore.entrustStore.setType(type);
     }
 
     render() {
@@ -34,21 +48,39 @@ class TradeCenter extends Component {
                             <div className="list-box-l">
                                 <div className="list-box-hd">
                                     <ul className="tab">
-                                        <li className="all"></li>
-                                        <li className="buy"></li>
-                                        <li className="sell"></li>
+                                        {
+                                           ['all', 'buy', 'sell'].map((item, index)=>{
+                                                let cls = store.entrustStore.type == item ? `${item} selected`: item;
+
+                                                return (
+                                                    <li className={cls} key={item} onClick={this.onChangeEntrustType.bind(this, item)}></li>
+                                                )
+                                           })
+                                        }
                                     </ul>
                                 </div>
-                                <div className="list-box-bd">
+                                <div className="list-box-bd" style={{ height: store.extraOrderHeight - 42}}>
                                     <div className="table-hd">
                                         <div className="price">{ UPEX.lang.template('价格')}</div>
                                         <div className="number">{ UPEX.lang.template('数量')}</div>
-                                        <div className="total-price">{ UPEX.lang.template('金额')}</div>
+                                        <div className="total">{ UPEX.lang.template('金额')}</div>
                                     </div>
-                                    <div className="table-bd">
-                                        <BuyOrder/>
+                                    <div className="table-bd" style={{ height: store.extraOrderHeight - 72}}>
+                                        {
+                                            store.entrustStore.type !==  'sell' ? (
+                                                <div className="trade-buy-box">
+                                                    <BuyOrder/>
+                                                </div>
+                                            ) : null
+                                        }
                                         <div className="trade-current-amount">{store.currentAmount}</div>
-                                        <SellOrder/>
+                                        {
+                                            store.entrustStore.type !==  'buy' ? (
+                                                <div className="trade-sell-box">
+                                                    <SellOrder/>
+                                                </div>
+                                            ) : null
+                                        }
                                     </div>
                                 </div>
                             </div>
@@ -59,9 +91,7 @@ class TradeCenter extends Component {
             			</div>
             			
             			<div className="trade-extra-handle">
-            				<div className="handle-box">
-            					
-            				</div>
+            				<TradeForm/>
             			</div>
             		</div>
             	</div>
@@ -73,7 +103,7 @@ class TradeCenter extends Component {
                         </div>
             		</div>
             		<div className="trade-main-order" id="tradeMainOrder" style={{ height: store.mainOrderHeight}}>
-            			<div className="order-box"></div>
+            			<MyOrder/>
             		</div>
             	</div>
             </div> 

@@ -11,7 +11,7 @@ import Features from '../../mods/home/features';
 import AnnouncementList from '../../mods/home/announcementlist';
 import BtcNews from '../../mods/home/btcnews';
 import HotMarkets from '../../mods/home/hotmarkets';
-import IndexMarkets from '../../mods/home/indexmarkets';
+// import IndexMarkets from '../../mods/home/indexmarkets';
 
 const list = [
     require('../../../images/banner1.png'),
@@ -46,7 +46,9 @@ class Home extends Component {
                 <Banner list={list}/>
                 <AnnouncementList/>
                 <HotMarkets/>
-                <IndexMarkets filterCoin={this.filterCoin} coins={homeStore.allCoins}/>
+                {
+                    // <IndexMarkets filterCoin={this.filterCoin} coins={homeStore.allCoins}/>
+                }
                 <Features/>
             </div>
         );
