@@ -50,7 +50,7 @@ class CoinList extends Component {
           </span>
         </div>
         <div>
-          <Table coins={this.props.coins}/>
+          <Table sortCoin={this.props.sortCoin} coins={this.props.coins}/>
         </div>
       </div>
     );

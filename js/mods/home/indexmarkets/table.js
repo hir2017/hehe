@@ -22,12 +22,14 @@ export default class extends React.Component {
     }
   }
 
-  sortHandle (e) {
+  sortHandle (e, field) {
     const className = e.target.className
     if (className === 'anticon anticon-caret-down') {
       e.target.className = 'anticon anticon-caret-up'
+      this.props.sortCoin(field, 'asc')
     } else {
       e.target.className = 'anticon anticon-caret-down'
+      this.props.sortCoin(field, 'desc')
     }
   }
 
@@ -49,12 +51,12 @@ export default class extends React.Component {
                   <tr>
                     <th>{UPEX.lang.template('币种')}</th>
                     <th>{UPEX.lang.template('最新价')}(TDW)
-                      <Icon onClick={this.sortHandle} type="caret-down" />
+                      <Icon onClick={(e) => this.sortHandle(e, 'currentAmount')} type="caret-down" />
                     </th>
                     <th>24h{UPEX.lang.template('涨跌')}
-                      <Icon onClick={this.sortHandle} type="caret-down" /></th>
+                      <Icon onClick={(e) => this.sortHandle(e, 'changeRate')} type="caret-down" /></th>
                     <th>24h{UPEX.lang.template('成交量')}
-                      <Icon onClick={this.sortHandle} type="caret-down" />
+                      <Icon onClick={(e) => this.sortHandle(e, 'volume')} type="caret-down" />
                     </th>
                     <th>{UPEX.lang.template('收藏')}</th>
                   </tr>
@@ -75,9 +77,9 @@ export default class extends React.Component {
                     this.props.coins.map((item, index) => {
                       return <tr key={item.id}>
                         <td>{item.currencyNameEn}</td>
-                        <td>{item.price}</td>
-                        <td>{item.hours24Chang}</td>
-                        <td>{item.hours24Count}</td>
+                        <td>{item.currentAmount}</td>
+                        <td>{item.changeRate}</td>
+                        <td>{item.volume}</td>
                         <td>
                           <Icon onClick={this.collecthandle} type="star-o" />
                         </td>

@@ -9,17 +9,28 @@ class HomeStore {
 
     @action
     getAllCoins() {
-        this.allCoins = require('../mock/coins.json')
-        this.cacheCoins = this.allCoins
+        // this.allCoins = require('../mock/coins.json')
+        // this.cacheCoins = this.allCoins
+        const ctx = this
         socket.off('list')
         socket.emit('list')
         socket.on('list', function(data) {
-            console.log('data', data);
-            if (data.type === 1) {
-                // this.allCoins = data.attachment;
-            }
+            ctx.allCoins = data[0].tradeCoins;
+            ctx.cacheCoins = data[0].tradeCoins;
         })
 
+    }
+
+    @action
+    sortCoins (field, type) {
+        console.log(type, 'type')
+        this.allCoins = this.allCoins.sort((a, b) => {
+            if (type === 'asc') {
+                return a[field] - b[field]
+            } else {
+                return b[field] - a[field]
+            }
+        })
     }
 
     @action
