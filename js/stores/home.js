@@ -11,14 +11,11 @@ class HomeStore {
     getAllCoins() {
         this.allCoins = require('../mock/coins.json')
         this.cacheCoins = this.allCoins
-        socket.emit('indexAllCoins', { type: 1 })
-        socket.on('indexAllCoins', function(data) {
+        socket.off('list')
+        socket.emit('list')
+        socket.on('list', function(data) {
             console.log('data', data);
             if (data.type === 1) {
-                data.attachment.forEach((item) => {
-                    item.update = false;
-                })
-
                 // this.allCoins = data.attachment;
             }
         })
