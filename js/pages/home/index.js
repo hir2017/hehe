@@ -46,7 +46,7 @@ class Home extends Component {
                 <Banner list={list}/>
                 <HotMarkets/>
                 <IndexMarkets sortCoin={this.sortCoin} filterCoin={this.filterCoin} coins={homeStore.allCoins}/>
-                <div className="module-box clearfix">
+                <div style={{display: 'none'}} className="module-box clearfix">
                 	<div className="module-item">
                 		<BtcNews />
                 	</div>
