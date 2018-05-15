@@ -1,8 +1,6 @@
 import { observable, autorun, computed, action, configure, flow } from 'mobx';
 import { socket, baseCurrencyId } from '../api/socket';
 
-configure({ enforceActions: true })
-
 class HomeStore {
     @observable allCoins = [];
     @observable hotCoins = [];
