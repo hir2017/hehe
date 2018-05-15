@@ -1,5 +1,7 @@
-import { observable, autorun, computed, action } from 'mobx';
+import { observable, autorun, computed, action, configure, flow } from 'mobx';
 import { socket, baseCurrencyId } from '../api/socket';
+
+configure({ enforceActions: true })
 
 class HomeStore {
     @observable allCoins = [];
@@ -15,11 +17,16 @@ class HomeStore {
         socket.off('list')
         socket.emit('list')
         socket.on('list', function(data) {
-            ctx.allCoins = data[0].tradeCoins;
-            ctx.cacheCoins = data[0].tradeCoins;
-            ctx.hotCoins = ctx.recommendCoins(data[0].tradeCoins);
+            ctx.getAllCoinsSuccess (data)
         })
 
+    }
+
+    @action.bound
+    getAllCoinsSuccess (data) {
+        this.allCoins = data[0].tradeCoins;
+        this.cacheCoins = data[0].tradeCoins;
+        this.hotCoins = this.recommendCoins(data[0].tradeCoins);
     }
 
     @action
