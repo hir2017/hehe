@@ -20,9 +20,9 @@ export default class extends React.Component {
     const className = e.target.className
     if (className === 'anticon anticon-star') {
       e.target.className = 'anticon anticon-star-o'
+      this.props.homeStore.cancleCollectCoins(item);
     } else {
       e.target.className = 'anticon anticon-star'
-      console.log(item)
       this.props.homeStore.collectCoins(item);
     }
   }

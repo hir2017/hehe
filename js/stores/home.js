@@ -1,6 +1,6 @@
 import { observable, autorun, computed, action, configure, flow } from 'mobx';
 import { socket, baseCurrencyId } from '../api/socket';
-import { addOptional } from '../api/http'
+import { addOptional, cancleOptional } from '../api/http'
 
 class HomeStore {
     @observable allCoins = [];
@@ -79,6 +79,13 @@ class HomeStore {
 
     async collectCoins (data) {
         const res = await addOptional (data)
+        if (res.status !== 200) {
+            console.error(res.message)
+        }
+    }
+
+    async cancleCollectCoins (data) {
+        const res = await cancleOptional (data)
         if (res.status !== 200) {
             console.error(res.message)
         }

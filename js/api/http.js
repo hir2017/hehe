@@ -167,3 +167,14 @@ export async function addOptional (data) {
     }))
     return res.data
 }
+/**
+ * 取消收藏
+ */
+
+ export async function cancleOptional (data) {
+    const res = await axios.post(`${UPEX.config.host}/optional/cancleOptional`, qs.stringify({
+        tradeCurrencyId: data.currencyId,
+        baseCurrencyId: data.baseCurrencyId
+    }))
+    return res.data
+ }
