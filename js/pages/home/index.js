@@ -32,6 +32,7 @@ class Home extends Component {
         // 最新公告数据获取
         this.props.announcementStore.fetch(6);
         this.props.homeStore.getAllCoins();
+        this.props.homeStore.getCollectCoinsList();
     }
 
     filterCoin (name) {

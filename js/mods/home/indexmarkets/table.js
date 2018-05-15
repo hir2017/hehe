@@ -5,7 +5,10 @@
  */
 import React from 'react';
 import { Icon } from 'antd'
+import { observer, inject } from 'mobx-react';
 
+@inject('homeStore')
+@observer
 export default class extends React.Component {
 
   constructor () {
@@ -13,12 +16,14 @@ export default class extends React.Component {
     this.collecthandle = this.collecthandle.bind(this)
   }
 
-  collecthandle (e) {
+  collecthandle (e, item) {
     const className = e.target.className
     if (className === 'anticon anticon-star') {
       e.target.className = 'anticon anticon-star-o'
+      this.props.homeStore.cancleCollectCoins(item);
     } else {
       e.target.className = 'anticon anticon-star'
+      this.props.homeStore.collectCoins(item);
     }
   }
 
@@ -30,6 +35,19 @@ export default class extends React.Component {
     } else {
       e.target.className = 'anticon anticon-caret-down'
       this.props.sortCoin(field, 'desc')
+    }
+  }
+
+  collectIcon (data) {
+    const collectCoinsList = this.props.homeStore.collectCoinsList
+    const res = collectCoinsList.some((item) => {
+      return item.tradeCurrencyId === data.currencyId && item.baseCurrencyId === data.baseCurrencyId
+    })
+
+    if(res) {
+      return <Icon onClick={(e) => this.collecthandle(e,data)} type="star" />
+    } else {
+      return <Icon onClick={(e) => this.collecthandle(e,data)} type="star-o" />
     }
   }
 
@@ -81,7 +99,9 @@ export default class extends React.Component {
                         <td>{item.changeRate}</td>
                         <td>{item.volume}</td>
                         <td>
-                          <Icon onClick={this.collecthandle} type="star-o" />
+                          {
+                            this.collectIcon(item)
+                          }
                         </td>
                       </tr>
                     })

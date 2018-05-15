@@ -1,9 +1,11 @@
-import { observable, autorun, computed, action } from 'mobx';
+import { observable, autorun, computed, action, configure, flow } from 'mobx';
 import { socket, baseCurrencyId } from '../api/socket';
+import { addOptional, cancleOptional, listOptional } from '../api/http'
 
 class HomeStore {
     @observable allCoins = [];
     @observable hotCoins = [];
+    @observable collectCoinsList = [];
 
     cacheCoins = []
 
@@ -15,11 +17,16 @@ class HomeStore {
         socket.off('list')
         socket.emit('list')
         socket.on('list', function(data) {
-            ctx.allCoins = data[0].tradeCoins;
-            ctx.cacheCoins = data[0].tradeCoins;
-            ctx.hotCoins = ctx.recommendCoins(data[0].tradeCoins);
+            ctx.getAllCoinsSuccess (data)
         })
 
+    }
+
+    @action.bound
+    getAllCoinsSuccess (data) {
+        this.allCoins = data[0].tradeCoins;
+        this.cacheCoins = data[0].tradeCoins;
+        this.hotCoins = this.recommendCoins(data[0].tradeCoins);
     }
 
     @action
@@ -45,10 +52,26 @@ class HomeStore {
             this.allCoins = this.cacheCoins
         }
 
-        const res = Array.from(this.allCoins).filter((item) => {
+        const res = this.allCoins.filter((item) => {
             return item.currencyNameEn === name
         })
         
+        this.allCoins = res
+    }
+
+    @action
+    filterCollectCoins (checked) {
+        const data = this.collectCoinsList
+        if(!checked) {
+            this.allCoins = this.cacheCoins
+            return
+        }
+        const res = this.allCoins.filter((item) => {
+            return data.some((_item) => {
+                return _item.tradeCurrencyId === item.currencyId && _item.baseCurrencyId === item.baseCurrencyId
+            })
+        })
+
         this.allCoins = res
     }
 
@@ -69,6 +92,34 @@ class HomeStore {
         return data.filter((item) => {
             return item.recommend === 1
         })
+    }
+
+    async collectCoins (data) {
+        const res = await addOptional (data)
+        if (res.status !== 200) {
+            console.error(res.message)
+        } else {
+            this.getCollectCoinsList()
+        }
+    }
+
+    async cancleCollectCoins (data) {
+        const res = await cancleOptional (data)
+        if (res.status !== 200) {
+            console.error(res.message)
+        } else {
+            this.getCollectCoinsList()
+        }
+    }
+
+    @action
+    async getCollectCoinsList () {
+        const res = await listOptional ()
+        if (res.status !== 200) {
+            console.error(res.message)
+        } else {
+            this.collectCoinsList = res.attachment
+        }
     }
 }
 
