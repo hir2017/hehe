@@ -38,6 +38,19 @@ export default class extends React.Component {
     }
   }
 
+  collectIcon (data) {
+    const collectCoinsList = this.props.homeStore.collectCoinsList
+    const res = collectCoinsList.some((item) => {
+      return item.tradeCurrencyId === data.currencyId && item.baseCurrencyId === data.baseCurrencyId
+    })
+
+    if(res) {
+      return <Icon onClick={(e) => this.collecthandle(e,data)} type="star" />
+    } else {
+      return <Icon onClick={(e) => this.collecthandle(e,data)} type="star-o" />
+    }
+  }
+
   render() {
     return (
       <div className="ant-table ant-table-large ant-table-fixed-header ant-table-scroll-position-left">
@@ -86,7 +99,9 @@ export default class extends React.Component {
                         <td>{item.changeRate}</td>
                         <td>{item.volume}</td>
                         <td>
-                          <Icon onClick={(e) => this.collecthandle(e,item)} type="star-o" />
+                          {
+                            this.collectIcon(item)
+                          }
                         </td>
                       </tr>
                     })

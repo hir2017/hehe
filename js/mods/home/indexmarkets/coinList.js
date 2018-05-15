@@ -9,6 +9,8 @@ import { observer, inject } from 'mobx-react';
 import { Input, Icon } from 'antd';
 import Table from './table'
 
+@inject('homeStore')
+@observer
 class CoinList extends Component {
 
   constructor () {
@@ -28,6 +30,8 @@ class CoinList extends Component {
   collectHandle (e) {
     this.setState({
       checked: !this.state.checked
+    }, () => {
+      this.props.homeStore.filterCollectCoins(this.state.checked);
     })
   }
 

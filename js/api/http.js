@@ -178,3 +178,11 @@ export async function addOptional (data) {
     }))
     return res.data
  }
+ /**
+  * 收藏列表
+  */
+
+  export async function listOptional () {
+    const res = await axios.post(`${UPEX.config.host}/optional/listOptional`)
+    return res.data
+  }
