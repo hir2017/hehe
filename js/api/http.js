@@ -157,3 +157,13 @@ export function getUserOrderList(data) {
         baseCurrencyId: data.baseCurrencyId
     })).then(res => res.data);
 }
+/**
+ * 添加收藏
+ */
+export async function addOptional (data) {
+    const res = await axios.post(`${UPEX.config.host}/optional/optional`, qs.stringify({
+        tradeCurrencyId: data.currencyId,
+        baseCurrencyId: data.baseCurrencyId
+    }))
+    return res.data
+}

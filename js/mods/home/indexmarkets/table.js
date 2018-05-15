@@ -5,7 +5,10 @@
  */
 import React from 'react';
 import { Icon } from 'antd'
+import { observer, inject } from 'mobx-react';
 
+@inject('homeStore')
+@observer
 export default class extends React.Component {
 
   constructor () {
@@ -13,12 +16,14 @@ export default class extends React.Component {
     this.collecthandle = this.collecthandle.bind(this)
   }
 
-  collecthandle (e) {
+  collecthandle (e, item) {
     const className = e.target.className
     if (className === 'anticon anticon-star') {
       e.target.className = 'anticon anticon-star-o'
     } else {
       e.target.className = 'anticon anticon-star'
+      console.log(item)
+      this.props.homeStore.collectCoins(item);
     }
   }
 
@@ -81,7 +86,7 @@ export default class extends React.Component {
                         <td>{item.changeRate}</td>
                         <td>{item.volume}</td>
                         <td>
-                          <Icon onClick={this.collecthandle} type="star-o" />
+                          <Icon onClick={(e) => this.collecthandle(e,item)} type="star-o" />
                         </td>
                       </tr>
                     })
