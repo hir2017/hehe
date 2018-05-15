@@ -100,9 +100,10 @@
  * 推荐的热门币种列表
  */
 .hot-markets{
-	height: 100px;
+	height: 105px;
 	width: 1300px;
 	margin: 10px auto 0;
+	overflow: hidden;
 }
 
 .hot-markets li{
@@ -238,7 +239,6 @@
 	width: 70px;
 	height:20px;
 	line-height: 20px;
-	background-color: #00b56a;
 	border-radius: 20px 0 0 20px;
 	margin-top: 25px;
 	text-align: center;

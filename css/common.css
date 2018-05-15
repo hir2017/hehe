@@ -181,3 +181,9 @@ html {
 .app-page[data-path="/home"] .footer-box li a:hover {
     color: #b3b3b3;
 }
+.redBgc {
+    background-color: #ff4d40;
+}
+.greedBgc {
+    background-color: #00b56a;
+}

@@ -14,7 +14,7 @@ class HotCoin extends Component {
 		let height = node.height();
 
 		klineChart.setData({
-			data: this.props.data.klines,
+			data: this.props.data.hours24TrendList,
 			width: width,
 			height: height
 		});
@@ -30,9 +30,9 @@ class HotCoin extends Component {
 		let data = this.props.data;
 		return (
 			<a  href="javscript:voiid(0)" className={ data.changeRate > 0 ? 'recommend-item positive' : 'recommend-item negative' }>
-				<div className="recommend-item-name">{ data.currencyName }</div>
+				<div className="recommend-item-name">{ data.currencyNameEn }</div>
 				<div className="recommend-item-price">NT$ { data.currentAmount }</div>
-				<div className="recommend-item-volume">{ UPEX.lang.template('成交额 {num}', { num : data.volume })}</div>
+				<div className="recommend-item-volume">{ UPEX.lang.template('成交额 {num}', { num : data.amount })}</div>
 				<div className="recommend-item-change">{ data.changeRate || 0 } % </div>
 				<div className="recommend-item-kline" ref="kline">
 					<svg  version="1.1" xmlns="http://www.w3.org/2000/svg">

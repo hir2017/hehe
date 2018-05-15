@@ -34,7 +34,7 @@ export default class CoinInfo extends Component {
         nameLocation: 'center',
         type: 'category',
         boundaryGap: false,
-        data: ['7:00', '9:00', '11:00', '12:00', '14:00'],
+        // data: ['7:00', '9:00', '11:00', '12:00', '14:00'],
         axisLine: {
           lineStyle: {
             color: '#c5c5c5',
@@ -47,7 +47,7 @@ export default class CoinInfo extends Component {
         show: false
       },
       series: [{
-        data: [820, 932, 901, 934, 1290, 1330, 1320],
+        data: this.props.hours24TrendList,// [820, 932, 901, 934, 1290, 1330, 1320],
         type: 'line',
         itemStyle: {
           color: '#9bbff7'
