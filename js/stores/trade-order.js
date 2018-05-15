@@ -23,7 +23,7 @@ class TradeOrder {
             baseCurrencyId: baseCurrencyId,
             tradeCurrencyId: currencyId
         }).then((data) => {
-            data = require('../mock/order-list.json');
+            // data = require('../mock/order-list.json');
             this.openOrderList = parseOpenOrderList(data.attachment.tradeFail);
             this.historyOrderList = parseHistoryOrderList(data.attachment.tradeSuccess);
             this.isFetching = false;
