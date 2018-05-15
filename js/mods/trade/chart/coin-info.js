@@ -45,8 +45,8 @@ class CurrentTradeCoinInfo extends Component {
             <div className="trade-current-coin">
                 <ul>
                     <li className="coin" ref="coin">
-                        <Popover content={<TradeCoinList/>} placement="bottomLeft" trigger="click" getPopupContainer={()=>this.refs.coin}>
-                            <label>{ store.currentTradeCoin.currencyNameEn }</label>
+                        <Popover content={<TradeCoinList/>} placement="bottomLeft" trigger="click" getPopupContainer={()=>this.refs.coin} overlayClassName={ store.theme === 'dark' ? 'popover-tradecoins-dark' : 'popover-tradecoins-light'}>
+                            <label>{ store.currentTradeCoin.currencyNameEn }/{store.currentTradeCoin.baseCurrencyNameEn}</label>
                             <Icon type="caret-down" style={arrowCls} />
                         </Popover>
                         <em>{ store.currentAmount }</em>

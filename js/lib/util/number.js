@@ -101,7 +101,7 @@ const NumberUtil = {
         }
 
         if (!number) {
-            return '0.00';
+            return 0;
         }
         let length = parseInt(num, 10);
         
@@ -120,7 +120,7 @@ const NumberUtil = {
         }
         
         if (!number) {
-            return '0.00';
+            return 0;
         }
         let length = parseInt(num, 10);
         
