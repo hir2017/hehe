@@ -1,0 +1,148 @@
+{
+    "currentTradeCoin":
+    {
+        "amount": 3579806.77815936,
+        "amountHighLimit": 9999,
+        "amountLowLimit": 0,
+        "baseCurrencyId": "22",
+        "baseCurrencyNameEn": "CODE",
+        "buyFee": 0,
+        "changeAmount": 1139.701,
+        "changeRate": 2.04,
+        "closePrice": 56871.235,
+        "coinCode": "1",
+        "currencyId": "1",
+        "currencyName": "BitCoin",
+        "currencyNameEn": "BTC",
+        "current": 333,
+        "Amount": 56871.235,
+        "entrustPriceMax": 99999999,
+        "entrustPriceMin": 0,
+        "entrustScale": 300,
+        "highPrice": 57227.0513,
+        "hours24TrendList": [
+            [1526223600000, 56466],
+            [1526220000000, 56466],
+            [1526216400000, 56211],
+            [1526212800000, 55986]
+        ],
+        "icoUrl": "coinimg/btc.png",
+        "id": 23,
+        "kycBuy":
+        {
+            "feeType": 2,
+            "buyOrSell": 1,
+            "feeKyc1": 0.001,
+            "feeKyc2": 0.001,
+            "feeKyc3": 0.001
+        },
+        "kycSell":
+        {
+            "feeType": 2,
+            "buyOrSell": 2,
+            "feeKyc1": 0.001,
+            "feeKyc2": 0.001,
+            "feeKyc3": 0.001
+        },
+        "lowPrice": 55215.7,
+        "openPrice": 55947.3453,
+        "pointNum": 4,
+        "pointPrice": 4,
+        "previousPrice": 56871.235,
+        "relationId": "21",
+        "relationStatus": 1,
+        "rmbScale": 56871.24,
+        "sellFee": 0.002,
+        "volume": 64.0497,
+        "yesterClosePirce": 55731.534
+    },
+    "currentTradeCoinRealTime": [
+    {
+        "current": 59289,
+        "createTime": "2018-05-11 02:32:00"
+    },
+    {
+        "current": 59289,
+        "createTime": "2018-05-11 03:42:00"
+    },
+    {
+        "current": 59533.454,
+        "createTime": "2018-05-11 03:45:00"
+    },
+    {
+        "current": 59533.454,
+        "createTime": "2018-05-11 03:46:00"
+    },
+    {
+        "current": 59533.454,
+        "createTime": "2018-05-11 04:28:00"
+    },
+    {
+        "current": 59533.454,
+        "createTime": "2018-05-11 04:35:00"
+    },
+    {
+        "current": 59864.12,
+        "createTime": "2018-05-11 04:36:00"
+    },
+    {
+        "current": 59864.12,
+        "createTime": "2018-05-11 05:12:00"
+    },
+    {
+        "current": 59956.71,
+        "createTime": "2018-05-11 05:19:00"
+    },
+    {
+        "current": 59535,
+        "createTime": "2018-05-11 05:20:00"
+    },
+    {
+        "current": 59535,
+        "createTime": "2018-05-11 05:21:00"
+    },
+    {
+        "current": 59767,
+        "createTime": "2018-05-11 06:51:00"
+    },
+    {
+        "current": 59767,
+        "createTime": "2018-05-11 07:18:00"
+    },
+    {
+        "current": 59864.12,
+        "createTime": "2018-05-11 07:23:00"
+    },
+    {
+        "current": 59864.12,
+        "createTime": "2018-05-11 07:24:00"
+    },
+    {
+        "current": 59533.454,
+        "createTime": "2018-05-11 08:11:00"
+    },
+    {
+        "current": 59289,
+        "createTime": "2018-05-11 08:12:00"
+    },
+    {
+        "current": 58391.35,
+        "createTime": "2018-05-11 08:13:00"
+    },
+    {
+        "current": 58391.35,
+        "createTime": "2018-05-11 08:14:00"
+    },
+    {
+        "current": 58619.34,
+        "createTime": "2018-05-11 09:11:00"
+    },
+    {
+        "current": 58391.35,
+        "createTime": "2018-05-11 09:12:00"
+    },
+    {
+        "current": 58391.35,
+        "createTime": "2018-05-11 09:13:00"
+    }]
+}

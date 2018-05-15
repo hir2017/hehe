@@ -1,12 +1,31 @@
 body,
 html {
-    overflow-x: hidden;
+    min-width: 1200px;
 }
 
 #wrap {
     background: #f8f7fc;
-    min-width: 1300px;
     min-height: 100%;
+}
+
+#wrap .fade{
+    transition: all .2s ease-in 1s;
+    -webkit-transition: all .2s ease-in 1s;
+    -moz-transition: all .2s ease-in 1s;
+    -ms-transition: all .2s ease-in 1s;
+    -o-transition: all .2s ease-in 1s;
+
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -ms-backface-visibility: hidden;
+    -o-backface-visibility: hidden;
+
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    -moz-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    -o-transform: translateZ(0);
 }
 
 .app-page {
@@ -23,7 +42,7 @@ html {
 
 .app-header {
     height: 60px;
-    background-color: #090600;
+    background-color: #141414;
     color: #fff;
 }
 .app-page[data-path="/home"] .app-header{
@@ -142,7 +161,7 @@ html {
     bottom: 0;
     left: 0;
     right: 0;
-    min-width: 1300px;
+    min-width: 100%;
     min-height: 60px;
     box-sizing: border-box;
     background-color: #090600;
@@ -151,7 +170,7 @@ html {
 
 
 .app-footer .footer-box {
-    width: 1300px;
+    width: 100%;
     text-align: center;
     margin:  0 auto;
 }
@@ -180,6 +199,14 @@ html {
 .app-page[data-path="/home"] .footer-box li a,
 .app-page[data-path="/home"] .footer-box li a:hover {
     color: #b3b3b3;
+}
+
+
+.app-page[data-path="/login"],
+.app-page[data-path="/register"],
+.app-page[data-path="/resetpwd"]{
+    background: #141414 url('../images/login-bg.jpg') no-repeat center bottom;
+    background-size: 1976px 786px;
 }
 .redBgc {
     background-color: #ff4d40;

@@ -69,6 +69,20 @@
             "status": null,
             "local": null,
             "linkId": null
+        },
+        {
+            "announceId": 369,
+            "title": "【最新消息】CHAOEX關於WICC交易贏金條活動的公告  ",
+            "content": null,
+            "desc": "",
+            "authorName": null,
+            "authorId": null,
+            "publishTime": "2018-05-03 13:13:00.0",
+            "createTime": null,
+            "outofTime": null,
+            "status": null,
+            "local": null,
+            "linkId": null
         }
     ],
     "message": null,

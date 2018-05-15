@@ -12,6 +12,7 @@ import Feedback from './pages/feedback';
 import Download from './pages/download';
 import ContactUs from './pages/contact';
 import Cooperation from './pages/cooperation';
+import AnnouncementPreview  from './pages/announcement/preview';
 
 
 import Login from './pages/login-register/login';
@@ -31,6 +32,7 @@ const routes = (
 	        <Route path="login" component={Login}/>
 	        <Route path="register" component={Register}/>
 	        <Route path="resetpwd" component={ResetPwd}/>
+	        <Route path="announcement/:announcementId" component={AnnouncementPreview} />
 	        <Route path="help" component={Help}/>
 	        <Route path="about" component={AboutUs}/>
 	        <Route path="news" component={News}/>

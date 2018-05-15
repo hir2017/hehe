@@ -1,4 +1,4 @@
-export const baseCurrencyId = '22'
+export const baseCurrencyId = '1'
 
 export const baseCurrencyNameEn = 'CODE'
 
@@ -8,4 +8,4 @@ export const tradeCurrencyName = ''
 
 export const tradeCurrencyNameEn = 'BTC'
 
-export const tradeCurrencyId = '1'
+export const tradeCurrencyId = '2'

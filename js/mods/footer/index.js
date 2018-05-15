@@ -12,7 +12,7 @@ import { Link } from 'react-router';
 class Footer extends Component {
  	render() {
  		return (
- 			<div className="app-footer">
+ 			<div className="app-footer" id="J_AppFooter">
  				<div className="footer-box">
  					<ul>
  						<li>

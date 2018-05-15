@@ -1,0 +1,907 @@
+.trade-wrapper {
+    padding: 0 10px;
+    margin: 0 auto;
+    color: #000;
+    box-sizing: border-box;
+    background-color: #f8f8fb;
+}
+
+
+
+.trade-main {
+    padding-right: 540px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+
+
+/**
+ * 图表模块
+ */
+
+.trade-main-chart {
+    min-height: 270px;
+    position: relative;
+}
+
+.trade-main-chart .chart-box {
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.06);
+    position: relative;
+    height: 100%;
+    padding-top: 42px;
+    width: 100%;
+    /* border-bottom: 10px solid #f8f8fb; */
+}
+
+
+/**
+ * 币种信息
+ */
+
+.trade-current-coin {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 42px;
+    line-height: 42px;
+    background-color: #fff;
+    color: #333333;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.06);
+    z-index: 3;
+    font-size: 14px;
+}
+
+.trade-current-coin ul {
+    padding: 0 10px;
+}
+
+.trade-current-coin li {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 10px;
+}
+
+.trade-current-coin li label,
+.trade-current-coin li em {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.trade-current-coin li em {
+    padding: 0 5px;
+}
+
+/* 正 */
+
+.trade-current-coin li.positive em {
+    color: #00b56a;
+}
+
+/* 负 */
+
+.trade-current-coin li.negative em {
+    color: #ff4d40;
+}
+
+.trade-current-coin li.coin {
+    font-size: 18px;
+    color: #333333;
+}
+
+
+.trade-current-coin li.coin label {
+    width: 45px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.trade-current-coin li.coin i{
+    cursor: pointer;
+}
+
+.trade-current-coin .ant-switch-checked{
+    border-color: #ff3380;
+    background-color: #ff3380;
+}
+
+.trade-current-coin li.coin em {
+    padding: 0 10px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.trade-current-coin .theme-menu {
+    position: absolute;
+    right: 10px;
+    top: 0;
+    line-height: 42px;
+}
+
+.trade-current-coin .theme-menu label {
+    margin-right: 10px;
+}
+
+.trade-current-coin .coin-list {
+    width: 414px;
+    height: 358px;
+}
+
+.trade-current-coin .coin-list-hd {
+    padding: 10px 0
+}
+
+.trade-current-coin .coin-list-hd .search {
+    width: 214px;
+    height: 28px;
+    border: 1px solid #d9d9d9;
+    float: left;
+    margin-right: 10px;
+}
+
+.trade-current-coin .coin-list-hd .tab {
+    float: left;
+    height: 28px;
+    line-height: 28px;
+}
+
+.trade-current-coin .coin-list-hd input {
+    width: 180px;
+    height: 26px;
+    line-height: 26px;
+    color: #333;
+    border: 0 none;
+    outline: 0 none;
+    text-indent: 10px;
+}
+
+.trade-current-coin .coin-list-hd .anticon-search {
+    width: 30px;
+}
+
+.trade-current-coin .coin-list-bd {
+    margin-top: 10px;
+}
+
+.trade-current-coin .coin-list-bd ul.list-hd .price,
+.trade-current-coin .coin-list-bd ul.list-hd .rate,
+.trade-current-coin .coin-list-bd ul.list-hd .volume {
+    cursor: pointer;
+}
+
+.trade-current-coin .coin-list-bd ul.list {
+    max-height: 260px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 100%;
+}
+
+.trade-current-coin .coin-list-bd ul.list li:hover {
+    background-color: #f8f8fb;
+}
+
+.trade-current-coin .coin-list-bd li {
+    overflow: hidden;
+    width: 100%;
+    height: 34px;
+    line-height: 34px;
+    font-size: 14px;
+    border-bottom: 1px solid #cccccc;
+}
+
+.trade-current-coin .coin-list-bd .cell {
+    float: left;
+}
+
+.trade-current-coin .coin-list-bd .cell.star {
+    width: 16%;
+    text-align: center;
+}
+
+.trade-current-coin .coin-list-bd .cell.name {
+    width: 25%;
+    text-align: left;
+}
+
+.trade-current-coin .coin-list-bd .cell.price {
+    width: 25%;
+    text-align: left;
+}
+
+.trade-current-coin .coin-list-bd .cell.rate {
+    width: 14%;
+    text-align: center;
+}
+
+.trade-current-coin .coin-list-bd .cell.volume {
+    width: 20%;
+    text-align: right;
+}
+
+.trade-current-coin .coin-list-bd .rate[data-status="0"] {
+    color: #ff3380;
+}
+
+.trade-current-coin .coin-list-bd .rate[data-status="1"] {
+    color: #00d02c;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * 币种K线图
+ */
+
+.trade-current-iframe {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.06);
+}
+
+.trade-current-iframe iframe {
+    margin-top: 2px;
+}
+
+.trade-main-order {
+    position: relative;
+    background-color: #fff;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.06);
+    color: #666666;
+}
+
+.trade-main-order .order-box {}
+
+.trade-extra {
+    padding: 10px 0;
+    float: right;
+    position: relative;
+}
+
+.trade-extra-content {
+    width: 530px;
+    position: relative;
+}
+
+.trade-extra-list {
+    overflow: hidden;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.06);
+}
+
+.trade-current-amount {
+    height: 30px;
+    line-height: 30px;
+    color: #00d02c;
+    padding: 0 15px;
+    background: #f8f8fb;
+    font-size: 18px;
+}
+
+.trade-extra-list .list-box-l {
+    float: left;
+    width: 260px;
+    position: relative;
+    height: 100%;
+    background-color: #fff;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.06);
+}
+
+.trade-extra-list .list-box-l .list-box-hd {
+    height: 42px;
+    line-height: 42px;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.06);
+}
+
+.trade-extra-list .list-box-l .list-box-hd li {
+    float: left;
+    width: 40px;
+    height: 42px;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+}
+
+.trade-extra-list .list-box-l .list-box-hd li.all {
+    background: url('../images/icon-all.png') no-repeat center center;
+    background-size: 16px 16px;
+}
+
+.trade-extra-list .list-box-l .list-box-hd li.buy {
+    background: url('../images/icon-buy.png') no-repeat center center;
+    background-size: 16px 16px;
+}
+
+.trade-extra-list .list-box-l .list-box-hd li.sell {
+    background: url('../images/icon-sell.png') no-repeat center center;
+    background-size: 16px 16px;
+}
+
+.trade-extra-list .list-box-l .list-box-hd li.selected {
+    border-bottom: 2px solid #e6bc1d;
+}
+
+.trade-extra-list .list-box-l .table-hd {
+    height: 30px;
+    line-height: 30px;
+    font-size: 12px;
+    color: #666666;
+    padding: 0 15px;
+}
+
+.trade-extra-list .list-box-l .table-bd {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    color: #999;
+}
+
+.trade-extra-list .list-box-l .trade-buy-box,
+.trade-extra-list .list-box-l .trade-sell-box {
+    position: relative;
+    -webkit-box-flex: 1;
+}
+
+.trade-extra-list .list-box-l .trade-buy {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    overflow-y: auto;
+}
+
+.trade-extra-list .list-box-l .trade-sell {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.trade-extra-list .list-box-l .trade-buy li,
+.trade-extra-list .list-box-l .trade-sell li {
+    position: relative;
+    padding: 0 15px;
+    height: 21px;
+    line-height: 21px;
+}
+
+.trade-extra-list .list-box-l .trade-buy li:hover {
+    background: rgba(6, 255, 0, 0.14);
+}
+
+.trade-extra-list .list-box-l .trade-sell li:hover {
+    background: rgba(255, 51, 128, 0.14);
+    
+}
+
+.trade-extra-list .list-box-l li[data-type="buy"] .price {
+    color: #00d02c;
+}
+
+.trade-extra-list .list-box-l li[data-type="sell"] .price {
+    
+    color: #ff3380;
+}
+
+.trade-extra-list .list-box-l li .cell {
+    cursor: pointer;
+    position: relative;
+    z-index: 2;
+}
+
+.trade-extra-list .list-box-l li .cell:hover {
+    font-weight: bold;
+}
+
+.trade-extra-list .list-box-l .price {
+    width: 30%;
+    float: left;
+}
+
+.trade-extra-list .list-box-l .number {
+    width: 30%;
+    float: left;
+    text-align: right;
+}
+
+.trade-extra-list .list-box-l .total {
+    width: 40%;
+    float: left;
+    text-align: right;
+}
+
+.trade-extra-list .list-box-l .bar {
+    height: 22px;
+    line-height: 22px;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.trade-extra-list .list-box-l li[data-type="buy"] .bar {
+    background: rgba(6, 255, 0, 0.3);
+}
+
+.trade-extra-list .list-box-l li[data-type="sell"] .bar {
+    
+    background: rgba(255, 51, 128, 0.3);
+}
+
+
+
+
+
+
+
+/**
+ * 实时行情
+ */
+
+.trade-extra-list .list-box-r {
+    float: right;
+    width: 260px;
+    position: relative;
+    height: 100%;
+    background-color: #fff;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.06);
+}
+
+.trade-extra-list .list-box-r .trade-history {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.trade-extra-list .list-box-r .table-hd {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 42px;
+    line-height: 42px;
+    width: 100%;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.06);
+    padding: 0 15px;
+    z-index: 2;
+    background: #fff;
+    color: #666666;
+}
+
+.trade-extra-list .list-box-r .table-bd {
+    height: 100%;
+    overflow: hidden;
+    overflow-y: auto;
+    color: #999999;
+}
+
+.trade-extra-list .list-box-r .table-bd ul {
+    padding: 50px 0 10px;
+}
+
+.trade-extra-list .list-box-r .table-bd ul li {
+    line-height: 22px;
+    height: 22px;
+    padding: 0 15px;
+    cursor: pointer;
+}
+
+.trade-extra-list .list-box-r .table-bd ul li:hover {
+    background: #f8f8fb;
+}
+
+
+.trade-extra-list .list-box-r .time {
+    width: 30%;
+    float: left;
+    text-align: left;
+}
+
+.trade-extra-list .list-box-r .price {
+    width: 35%;
+    float: left;
+    text-align: right;
+}
+
+.trade-extra-list .list-box-r .number {
+    width: 35%;
+    float: left;
+    text-align: right;
+}
+
+.trade-extra-list .list-box-r .table-bd ul li[data-type="buy"] .price {
+    color: #00d02c;
+}
+
+.trade-extra-list .list-box-r .table-bd ul li[data-type="sell"] .price {
+    color: #ff3380;
+}
+
+.trade-extra-list .trade-buy {}
+
+.trade-extra-list .trade-sell {}
+
+.trade-extra-handle {
+    min-height: 300px;
+    margin-top: 10px;
+    box-sizing: border-box;
+    background-color: #fff;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.06);
+}
+
+
+
+
+/**
+ * trade-form
+ */
+
+.trade-form {
+    color: #666666;
+}
+
+.trade-form-hd {
+    height: 42px;
+    line-height: 42px;
+    padding: 0 10px;
+    border-bottom: 2px solid #f8f8fb;
+    font-size: 14px;
+}
+
+.trade-form-hd em {
+    padding: 0 5px;
+}
+
+.trade-form-hd a,
+.trade-form-hd a:hover {
+    color: #e6bc1d;
+    padding: 0 3px;
+}
+
+.trade-form-hd .recharge {
+    position: absolute;
+    right: 5px;
+    top: 0;
+    height: 42px;
+    line-height: 42px;
+    color: #e6bc1d;
+}
+
+.trade-form-l,
+.trade-form-r {
+    position: relative;
+    float: left;
+    width: 50%;
+}
+
+.trade-form-bd ul {
+    padding: 10px;
+}
+
+.trade-form-bd ul li {
+    overflow: hidden;
+}
+
+
+.trade-form-bd em {
+    padding: 0 5px;
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: middle;
+}
+
+.trade-form-bd label {
+    line-height: 16px;
+    height: 26px;
+    line-height: 26px;
+    width: 60px;
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: middle;
+}
+
+.trade-form-bd .btn {
+    border-radius: 4px;
+    width: 240px;
+    height: 34px;
+    line-height: 34px;
+    text-align: center;
+    color: #fff;
+    margin-top: 10px;
+}
+
+.trade-form-bd .btn:disabled {
+    cursor: not-allowed;
+    color: #fff;
+    background-color: #d1d3df !important;
+}
+
+.trade-form-bd .btn.buy {
+    background-color: rgb(0, 208, 44);
+}
+
+.trade-form-bd .btn.sell {
+    background-color: rgb(255, 51, 128);
+}
+
+.trade-form-bd .input-box {
+    display: inline-block;
+    position: relative;
+    border: 1px solid rgb(204, 204, 204);
+    border-radius: 2px;
+    padding-left: 5px;
+    padding-right: 30px;
+    height: 30px;
+    line-height: 30px;
+    margin-bottom: 5px;
+    width: 180px;
+    float: right;
+}
+
+.trade-form-bd .input-box i {
+    position: absolute;
+    right: 1px;
+    top: 0;
+    padding: 0 3px;
+    height: 30px;
+    line-height: 30px;
+    font-style: normal;
+}
+
+.trade-form-bd .input-box input {
+    border: 0 none;
+    background: none;
+    height: 26px;
+    line-height: 26px;
+    outline: 0 none;
+    width: 100%;
+}
+
+.trade-form-bd .slider-box {
+    padding: 10px;
+}
+
+
+
+
+
+/**
+ * 我的订单模块
+ */
+
+.tradeorder-wrapper {
+    height: 100%;
+    margin-top: 10px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-flex-wrap: nowrap;
+    -ms-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+}
+
+.tradeorder-wrapper .mini-tip {
+    text-align: center;
+    padding-top: 20px;
+}
+
+.tradeorder-hd {
+    width: 100%;
+    height: 42px;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.06);
+}
+
+.tradeorder-hd ul {
+    height: 42px;
+    line-height: 42px;
+    padding: 0 10px;
+    font-size: 16px;
+    overflow: hidden;
+}
+
+.tradeorder-hd li {
+    float: left;
+    padding: 0 10px;
+    cursor: pointer;
+    height: 41px;
+}
+
+.tradeorder-hd li.selected {
+    border-bottom: 2px solid #e6bc1d;
+    color: #e6bc1d;
+}
+
+.tradeorder-hd .extra {
+    position: absolute;
+    right: 10px;
+    top: 0;
+    height: 42px;
+    line-height: 42px;
+    font-size: 14px;
+}
+
+.tradeorder-hd .extra label {
+    padding: 0 10px;
+}
+
+.tradeorder-bd {
+    position: relative;
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    -webkit-box-ordinal-group: 1;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-flex-wrap: nowrap;
+    -ms-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+}
+
+.tradeorder-table-hd {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 34px;
+    z-index: 2;
+    line-height: 34px;
+    background: #fff;
+}
+
+.tradeorder-table-hd ul {
+    padding: 0 10px;
+}
+
+.tradeorder-table-hd li {
+    display: inline-block;
+    font-size: 14px;
+}
+
+.tradeorder-table-bd {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    overflow-y: auto;
+    padding-top: 34px;
+    box-sizing: border-box;
+}
+
+.tradeorder-table-bd ul {
+    padding: 0 10px;
+}
+
+.tradeorder-table-bd dl {
+    width: 100%;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.tradeorder-table-bd dl dd {
+    /* width: 11%; */
+    word-wrap: break-word;
+    word-break: break-all;
+    line-height: 16px;
+    padding: 10px 0;
+}
+
+.tradeorder-table-bd li:hover {
+    background-color: #f8f8fb;
+}
+
+.tradeorder-bd .time {
+    width: 11%;
+}
+
+.tradeorder-bd .type {
+    width: 8%;
+}
+
+.tradeorder-bd .type .buy {
+    color: #00d02c;
+}
+
+.tradeorder-bd .type .sell {
+    color: #ff3380;
+}
+
+.tradeorder-bd .name {
+    width: 8%;
+}
+
+.tradeorder-bd .number {
+    width: 15%;
+}
+
+.tradeorder-bd .price {
+    width: 15%;
+}
+
+.tradeorder-bd .total {
+    width: 15%;
+}
+
+.tradeorder-bd .rate {
+    width: 10%;
+}
+
+.tradeorder-bd .status {
+    width: 10%;
+}
+
+.tradeorder-bd .action {
+    width: 8%;
+}
+
+
+
+
+
+
+
+
+/**
+ * 暗色
+ */
+
+.trade-wrapper[data-theme="dark"] {
+    background-color: #131314;
+}
+
+.trade-wrapper[data-theme="dark"] .trade-current-iframe,
+.trade-wrapper[data-theme="dark"] .trade-extra-list,
+.trade-wrapper[data-theme="dark"] .trade-extra-handle,
+.trade-wrapper[data-theme="dark"] .trade-main-order,
+.trade-wrapper[data-theme="dark"] .trade-current-coin {
+    background-color: #090600;
+    color: #fff;
+}
+
+.trade-wrapper[data-theme="dark"] .trade-current-coin li.coin{
+    color: #fff;
+}
+
+.trade-wrapper[data-theme="dark"] .trade-main-chart .chart-box {
+    border-bottom: 10px solid #131314;
+}
+
+.trade-wrapper[data-theme="dark"] .tradeorder-table-hd {
+    background-color: #090600;
+}
+
+.trade-wrapper[data-theme="dark"] .tradeorder-table-bd li:hover {
+    background-color: #221f1a;
+}
+
+.trade-wrapper[data-theme="dark"] .tradeorder-hd {
+    border-bottom: 2px solid #131314;
+}

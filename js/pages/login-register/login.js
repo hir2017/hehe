@@ -130,7 +130,6 @@ class Login extends Component {
                             store.mode == 'email' ? (
                                 <div className="input-wrapper" key='email'>
                                     <div className="input-box">
-                                        <Icon type="mail"/>
                                         <input
                                             type="text" 
                                             placeholder={ UPEX.lang.template('邮箱') }
@@ -153,7 +152,6 @@ class Login extends Component {
                         }
                         <div className="input-wrapper">
                             <div className="input-box">
-                                <Icon type="lock"/>
                                 <input
                                     type="password" 
                                     placeholder={ UPEX.lang.template('密码') }
@@ -163,7 +161,6 @@ class Login extends Component {
                         </div>
                         <div className="input-wrapper">
                             <div className="input-box yz-box">
-                                <Icon type="safety"/>
                                 <input
                                     type="text" 
                                     placeholder={ UPEX.lang.template('验证码') }
@@ -183,7 +180,7 @@ class Login extends Component {
                                 <button className="submit-btn login-btn" onClick={ this.handleLogin }>{ UPEX.lang.template('登录') }</button>
                             </div>
                         </div>
-                        <div className="login-extra clearfix">
+                        <div className="register-extra clearfix">
                             <div className="fl forget-pwd">
                                 <Link to="/resetpwd">{ UPEX.lang.template('忘记密码?') }</Link>
                             </div>
@@ -193,7 +190,7 @@ class Login extends Component {
                         </div>
                     </div>
                 </div>
-                <div className="register-icon">
+                <div className="register-icon hidden">
                     <Popover placement="bottom" content={wechatContent} trigger="click"></Popover>
                     <Popover placement="bottom" content={tgContent} trigger="click"></Popover>
                     <span>{ UPEX.lang.template('官方服务、交流') }</span>

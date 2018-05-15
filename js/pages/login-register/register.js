@@ -97,7 +97,6 @@ class Register extends Component {
                             store.mode == 'email' ? (
                                 <div className="input-wrapper" key="email">
                                     <div className="input-box">
-                                        <Icon type="mail"/>
                                         <input
                                             type="text" 
                                             ref="email"
@@ -127,7 +126,6 @@ class Register extends Component {
                         }
                         <div className="input-wrapper">
                             <div className="input-box">
-                                <Icon type="lock"/>
                                 <input
                                     type="password" 
                                     ref="pwd"
@@ -140,7 +138,6 @@ class Register extends Component {
                         </div>
                         <div className="input-wrapper">
                             <div className="input-box">
-                                <Icon type="lock"/>
                                 <input
                                     type="password" 
                                     ref="twicepwd"
@@ -153,7 +150,6 @@ class Register extends Component {
                         </div>
                         <div className="input-wrapper">
                             <div className="input-box yz-box">
-                                <Icon type="safety"/>
                                 <input 
                                     type="text" 
                                     ref="picCode" 
@@ -169,7 +165,6 @@ class Register extends Component {
                         </div>
                         <div className="input-wrapper">
                             <div className="input-box useryz-box">
-                                <Icon type="safety"/>
                                 <input 
                                     type="text" 
                                     ref="vercode" 
@@ -189,7 +184,6 @@ class Register extends Component {
 
                         <div className="input-wrapper">
                             <div className="input-box">
-                                <Icon type="code-o"/>
                                 <input 
                                     type="text" 
                                     ref="invitecode"
@@ -218,8 +212,7 @@ class Register extends Component {
                         </div>
 
                         <div className="register-extra">
-                            { UPEX.lang.template('已有帐户？')}
-                            <Link to="/login"> { UPEX.lang.template('登录')}</Link>
+                            <Link to="/login"> { UPEX.lang.template('我有账号，去登录')}</Link>
                         </div>
                     </div>
                 </div>

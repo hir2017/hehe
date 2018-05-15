@@ -87,7 +87,6 @@ class ResetPassword extends Component {
                             store.mode == 'email' ? (
                                 <div className="input-wrapper" key='email'>
                                     <div className="input-box">
-                                        <Icon type="mail"/>
                                         <input
                                             type="text" 
                                             placeholder={ UPEX.lang.template('邮箱') }
@@ -112,7 +111,6 @@ class ResetPassword extends Component {
                         }
                         <div className="input-wrapper">
                             <div className="input-box yz-box">
-                                <Icon type="safety"/>
                                 <input
                                     type="text" 
                                     placeholder={ UPEX.lang.template('图片验证') }
@@ -127,7 +125,6 @@ class ResetPassword extends Component {
                         </div>
                         <div className="input-wrapper">
                             <div className="input-box useryz-box">
-                                <Icon type="safety"/>
                                 <input 
                                     type="text" 
                                     ref="vercode" 
@@ -146,7 +143,6 @@ class ResetPassword extends Component {
                         </div>
                         <div className="input-wrapper">
                             <div className="input-box">
-                                <Icon type="lock"/>
                                 <input
                                     type="password" 
                                     ref="pwd"
@@ -159,7 +155,6 @@ class ResetPassword extends Component {
                         </div>
                         <div className="input-wrapper">
                             <div className="input-box">
-                                <Icon type="lock"/>
                                 <input
                                     type="password" 
                                     ref="twicepwd"

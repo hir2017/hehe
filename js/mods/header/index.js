@@ -13,7 +13,7 @@
  * 个人信息
 	* 安全设置
 	* FAQ
-	* 注册
+	* 推出
  */
 import React, {Component} from 'react';
 import { Link } from 'react-router';
@@ -27,7 +27,7 @@ class HeaderView extends Component {
 	render() {
 		let { authStore } = this.props;
 
-		const assets = (
+		const assetmenu = (
 	        <dl>
 	          	<dd className="logined-header">
 	            	<Link className="logined-header-link" to="/payorwithdraw">{ UPEX.lang.template('充值&提现') }</Link>
@@ -39,14 +39,38 @@ class HeaderView extends Component {
 	            	<Link className="logined-header-link" to="/withdrawrecord">{ UPEX.lang.template('提现记录')}</Link>
 	            </dd>
 	        </dl>
-	    )
+	    );
 
+	    const ordermenu = (
+	    	<dl>
+	          	<dd className="logined-header">
+	            	<Link className="logined-header-link" to="/order/current">{ UPEX.lang.template('当前委托') }</Link>
+	          	</dd>
+	          	<dd className="logined-header">
+	            	<Link className="logined-header-link" to="/order/history">{ UPEX.lang.template('委托历史') }</Link>
+	          	</dd>
+	           	<dd className="logined-header">
+	            	<Link className="logined-header-link" to="/order/complete">{ UPEX.lang.template('已成交订单')}</Link>
+	            </dd>
+	        </dl>
+	    );
 
-
-
+	    const usermenu = (
+	    	<dl>
+	          	<dd className="logined-header">
+	            	<Link className="logined-header-link" to="/user/settings">{ UPEX.lang.template('安全设置') }</Link>
+	          	</dd>
+	          	<dd className="logined-header">
+	            	<Link className="logined-header-link" to="/user/faq">{ UPEX.lang.template('FAQ') }</Link>
+	          	</dd>
+	           	<dd className="logined-header">
+	            	{ UPEX.lang.template('退出')}
+	            </dd>
+	        </dl>
+	    );
 
 		return (
-			<div className="app-header">
+			<div className="app-header" id="J_AppHeader">
 				<div className="header-box clearfix">
 					<h1 className="logo">
 						<Link to="/">
@@ -70,13 +94,22 @@ class HeaderView extends Component {
 						{
 							authStore.isLogin ? (
 								<ul>
-									<li>
-										<Link to="/order">{ UPEX.lang.template('订单明细')}</Link>
+									<li ref="order">
+										<Popover content={ordermenu} placement="bottom" getPopupContainer={this.refs.order}>
+											<Link to="/order">{ UPEX.lang.template('订单明细')}</Link>
+										</Popover>
 									</li>
 									<li ref="assets">
-										<Popover content={assets} placement="bottom" getPopupContainer={this.refs.assets}>
+										<Popover content={assetmenu} placement="bottom" getPopupContainer={this.refs.assets}>
 											<Link to="/assets">
 											{ UPEX.lang.template('我的资产')}
+											</Link>
+										</Popover>
+									</li>
+									<li ref="userinfo">
+										<Popover content={usermenu} placement="bottom" getPopupContainer={this.refs.userinfo}>
+											<Link to="/user">
+											{ UPEX.lang.template('个人信息')}
 											</Link>
 										</Popover>
 									</li>

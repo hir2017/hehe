@@ -1,0 +1,231 @@
+{
+    "baseCurrencyId": 1,
+    "entrustScale": 15000,
+    "buy": [
+        {
+            "current": 54131,
+            "number": 0.007
+        },
+        {
+            "current": 54003.8387,
+            "number": 0.213
+        },
+        {
+            "current": 53821,
+            "number": 0.0028
+        },
+        {
+            "current": 53578.52,
+            "number": 0.0023
+        },
+
+        {
+            "current": 53368.2687,
+            "number": 0.0021
+        },
+        {
+            "current": 53124.5246,
+            "number": 0.0063
+        },
+        {
+            "current": 52961.3567,
+            "number": 0.0055
+        },
+        {
+            "current": 52757.8246,
+            "number": 0.0061
+        },
+        {
+            "current": 52549.2357,
+            "number": 0.0941
+        },
+        {
+            "current": 52237.8465,
+            "number": 0.0154
+        },
+        {
+            "current": 52103.6517,
+            "number": 0.0679
+        },
+        {
+            "current": 52000,
+            "number": 0.0628
+        },
+        {
+            "current": 51986,
+            "number": 0.0063
+        },
+        {
+            "current": 50636.8456,
+            "number": 0.0014
+        },
+        {
+            "current": 49852.5245,
+            "number": 0.0033
+        },
+        {
+            "current": 49528.7845,
+            "number": 0.0014
+        },
+        {
+            "current": 49267.5245,
+            "number": 0.0033
+        },
+        {
+            "current": 48957.8245,
+            "number": 0.0036
+        },
+        {
+            "current": 48639.5245,
+            "number": 0.0145
+        },
+        {
+            "current": 48336.5245,
+            "number": 0.025
+        },
+        {
+            "current": 48014.4564,
+            "number": 0.0036
+        },
+        {
+            "current": 47896.5245,
+            "number": 0.2524
+        },
+        {
+            "current": 1,
+            "number": 20
+        },
+        {
+            "current": 0.1,
+            "number": 1
+        },
+        {
+            "current": 0.0088,
+            "number": 1
+        }
+    ],
+    "sell": [
+
+        {
+            "current": 54188,
+            "number": 0.0078
+        },
+        {
+            "current": 54388,
+            "number": 0.0104
+        },
+        {
+            "current": 54457.6345,
+            "number": 0.0117
+        },
+        {
+            "current": 55193.8516,
+            "number": 0.0019
+        },
+        {
+            "current": 55567.8245,
+            "number": 0.0014
+        },
+        {
+            "current": 56113.7678,
+            "number": 0.0021
+        },
+        {
+            "current": 56428.6518,
+            "number": 0.0028
+        },
+        {
+            "current": 56613,
+            "number": 0.0018
+        },
+        {
+            "current": 56837,
+            "number": 0.0009
+        },
+        {
+            "current": 57227.0513,
+            "number": 0.0032
+        },
+        {
+            "current": 57854.4564,
+            "number": 0.0003
+        },
+        {
+            "current": 58152.453,
+            "number": 0.0015
+        },
+        {
+            "current": 58391.35,
+            "number": 0.0013
+        },
+        {
+            "current": 58619.34,
+            "number": 0.0033
+        },
+        {
+            "current": 58921.354,
+            "number": 0.0033
+        },
+        {
+            "current": 59100,
+            "number": 0.0077
+        },
+        {
+            "current": 59289,
+            "number": 0.0031
+        },
+        {
+            "current": 59402,
+            "number": 0.0015
+        },
+        {
+            "current": 59533.454,
+            "number": 0.0162
+        },
+        {
+            "current": 59864.12,
+            "number": 0.0063
+        },
+        {
+            "current": 60463.8465,
+            "number": 0.0003
+        },
+        {
+            "current": 60646,
+            "number": 0.0023
+        },
+        {
+            "current": 60756,
+            "number": 0.0113
+        },
+        {
+            "current": 60893,
+            "number": 0.0015
+        },
+        {
+            "current": 61031,
+            "number": 0.0079
+        },
+        {
+            "current": 61327.9524,
+            "number": 0.0035
+        },
+        {
+            "current": 61745.5246,
+            "number": 0.0036
+        },
+        {
+            "current": 62035,
+            "number": 0.0084
+        },
+        {
+            "current": 62614.5246,
+            "number": 0.0092
+        },
+        {
+            "current": 62955.5246,
+            "number": 0.0048
+        }
+    ],
+    "tradeCurrencyId": 1
+}
