@@ -11,9 +11,6 @@ import Item from './item';
 @inject('homeStore')
 @observer
 class HotMarkets extends Component{
-	componentDidMount() {
-		this.props.homeStore.fetchHotMarkets();
-	}
 
 	render() {
 		let { hotCoins } = this.props.homeStore;

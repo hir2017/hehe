@@ -24,7 +24,12 @@ class CoinInfo extends Component {
               <span>{coin.currencyNameEn}</span>
               <span>{coin.currentAmount}</span>
             </span>
-            <span className="coinInfo-content-percent">{coin.changeRate}</span>
+            <span className={ coin.changeRate > 0 
+              ? 'coinInfo-content-percent greedBgc' 
+              : 'coinInfo-content-percent redBgc' }
+              >
+              {coin.changeRate}%
+            </span>
           </div>
           <div className="coinInfo-content-item">
             <span>

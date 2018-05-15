@@ -208,3 +208,9 @@ html {
     background: #141414 url('../images/login-bg.jpg') no-repeat center bottom;
     background-size: 1976px 786px;
 }
+.redBgc {
+    background-color: #ff4d40;
+}
+.greedBgc {
+    background-color: #00b56a;
+}

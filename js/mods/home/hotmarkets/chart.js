@@ -18,7 +18,7 @@ class ChartData {
 
         // 遍历数组，查找最大的值, 最小值
         for (let i = 0; i < len; i++) {
-            var closePrice = Number(data[i]);
+            var closePrice = Number(data[i][1]);
 
             this.max = Math.max(closePrice, this.max);
             this.min = Math.min(closePrice, this.min);
@@ -43,7 +43,7 @@ class ChartData {
 
         this.data.forEach((item, i) =>{
 
-            let closePrice = Number(item);
+            let closePrice = Number(item[1]);
 
             if (i == 0) {
                 arr.push("M" + this.getX(i) + " " + this.getY(closePrice || 1));
@@ -62,7 +62,8 @@ class ChartData {
         arr.push("M0 " + this.height);
 
         this.data.forEach((item, i) =>{
-            let closePrice = Number(item);
+            let closePrice = Number(item[1]);
+            
             arr.push("L" + this.getX(i) + " " + this.getY(closePrice || 1));
             n = this.getX(i);
         });
