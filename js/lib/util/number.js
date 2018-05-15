@@ -62,15 +62,6 @@ const NumberUtil = {
         return result
     },
 
-    formatPrice(value, num) {
-        let ret = 0;
-
-        if (typeof value !== 'undefined') {
-            ret = value.toFixed(num);
-        }
-
-        return ret;
-    },
     uuid(len, radix) {
         var chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split('');
         var uuid = [],
@@ -100,57 +91,44 @@ const NumberUtil = {
 
         return uuid.join('');
     },
-
+    /**
+     * @param { String|Number } number [要处理的数字]
+     * @param { Number } num 保留小数点后几位
+     */
     formatNumber(number, num) {
-        if (number === '敬请期待') return '敬请期待'
-        if (!number) return '0.00'
-        let index = parseInt(num);
-        if (/\./.test(`${number}`)) {
-            let arr = `${number}`.split('.'),
-                result = toThousands(arr[0])
-            if (arr[1].length >= index) {
-                return `${result}.` + `${arr[1]}`.slice(0, index)
-            }
+        if (number === '敬请期待') {
+            return '敬请期待';
+        }
 
-            let prics = arr[1]
-            for (let i = 0; i < index - arr[1].length; i++) {
-                prics += '0'
-            }
-            return number = `${result}.${prics}`
+        if (!number) {
+            return '0.00';
         }
-        let result = toThousands(number)
-        number = `${result}.`
-        for (let j = 0; j < index; j++) {
-            number += '0'
-        }
-        return number.replace(/(\.*$)/g, "")
+        let length = parseInt(num, 10);
+        
+        number = Number(number);
+
+        number = number.toFixed(length); // 保留小时后几位
+
+        number = this.separate(number); // ,分隔符号数字
+
+        return number;
     },
 
     initNumber(number, num) {
-        if (number === '敬请期待') return '敬请期待'
-        if (!number) return '0.00'
+        if (number === '敬请期待') {
+            return '敬请期待';
+        }
         
-        let index = parseInt(num);
-
-        if (/\./.test(`${number}`)) {
-            let arr = `${number}`.split('.')
-            if (arr[1].length >= index) {
-                return `${arr[0]}.` + `${arr[1]}`.slice(0, index)
-            }
-
-            let prics = arr[1]
-            for (let i = 0; i < index - arr[1].length; i++) {
-                prics += '0'
-            }
-            return number = `${arr[0]}.${prics}`
+        if (!number) {
+            return '0.00';
         }
+        let length = parseInt(num, 10);
+        
+        number = Number(number);
 
-        number = `${number}.`
+        number = number.toFixed(length);
 
-        for (let j = 0; j < index; j++) {
-            number += '0'
-        }
-        return number.replace(/(\.*$)/g, "")
+        return number;
     }
 };
 

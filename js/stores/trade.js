@@ -85,22 +85,22 @@ class TradeStore {
 
     @computed
     get currentCoinLowPrice() {
-        return NumberUtil.formatPrice(this.currentTradeCoin.lowPrice, 4);
+        return NumberUtil.formatNumber(this.currentTradeCoin.lowPrice, this.pointPrice);
     }
 
     @computed
     get currentCoinHighPrice() {
-        return NumberUtil.formatPrice(this.currentTradeCoin.highPrice, 4);
+        return NumberUtil.formatNumber(this.currentTradeCoin.highPrice, this.pointPrice);
     }
 
     @computed
     get currentCoinVolume() {
-        return NumberUtil.formatPrice(this.currentTradeCoin.volume, 4);
+        return NumberUtil.formatNumber(this.currentTradeCoin.volume, this.pointPrice);
     }
 
     @computed
     get currentAmount() {
-        return NumberUtil.formatPrice(this.currentTradeCoin.currentAmount, 4);
+        return NumberUtil.formatNumber(this.currentTradeCoin.currentAmount, this.pointNum);
     }
     // 最佳买入价格
     @computed

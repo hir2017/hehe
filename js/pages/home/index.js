@@ -25,6 +25,7 @@ class Home extends Component {
     constructor(props){
         super(props);
         this.filterCoin = this.filterCoin.bind(this)
+        this.sortCoin = this.sortCoin.bind(this)
     }
 
     componentDidMount() {
@@ -37,18 +38,19 @@ class Home extends Component {
         this.props.homeStore.filterCoin(name)
     }
 
+    sortCoin (field, type) {
+        this.props.homeStore.sortCoins(field, type)
+    }
+
     render() {
         let { authStore, announceStore, homeStore } = this.props;
-
         return (
             <div className="home-wrapper">
             	{ !authStore.isLogin ? <LoginGuide/> : null }
                 <Banner list={list}/>
                 <AnnouncementList/>
                 <HotMarkets/>
-                {
-                    <IndexMarkets filterCoin={this.filterCoin} coins={homeStore.allCoins}/>
-                }
+                <IndexMarkets sortCoin={this.sortCoin} filterCoin={this.filterCoin} coins={homeStore.allCoins}/>
                 <Features/>
             </div>
         );

@@ -5,7 +5,7 @@
  */
 import React, {Component} from 'react';
 import { observer, inject } from 'mobx-react';
-import { Icon } from 'antd';
+import { Icon, Checkbox } from 'antd';
 
 @inject('tradeStore')
 @observer 
@@ -42,15 +42,16 @@ class CoinList extends Component {
 				<div className="coin-list-hd clearfix">
 					<div className="search">
 						<Icon type="search" />
-						<input type="text" onChange={this.handleSearch}placeholder={UPEX.lang.template('搜索数字币')}/>
+						<input type="text" onChange={this.handleSearch} placeholder={UPEX.lang.template('搜索数字币')}/>
 					</div>
 					<div className="tab">
-						<label>{ UPEX.lang.template('自选')}</label>
+						<Checkbox value={UPEX.lang.template('收藏')}/>
 					</div>
 				</div>
 				<div className="coin-list-bd">
 					<ul className="list-hd">
 						<li className="clearfix">
+							<div className="cell star">{ UPEX.lang.template('收藏')}</div>
 							<div className="cell name">{UPEX.lang.template('币种')}<Icon type="arrow-up" /></div>
 							<div className="cell price" onClick={this.sortByCurrentAmount}>{UPEX.lang.template('价格')}</div>
 							<div className="cell rate" onClick={this.sortByChangeRate}>{UPEX.lang.template('涨跌')}</div>
@@ -62,9 +63,10 @@ class CoinList extends Component {
 							store.loginedMarkets && store.loginedMarkets[0].tradeCoins.map ((item, index)=>{
 								return (
 									<li key={item.id} className="clearfix">
+										<div className="cell star"><Icon type="star-o" /></div>
 										<div className="cell name">{item.currencyNameEn}</div>
 										<div className="cell price">{item.currentAmount}</div>
-										<div className="cell rate" data-status={item.changeRate.indexOf('+') > -1 ? 1 : 0}>{item.changeRate}</div>
+										<div className="cell rate">{item.changeRate}</div>
 										<div className="cell volume">{item.volume}</div>
 									</li>
 								)

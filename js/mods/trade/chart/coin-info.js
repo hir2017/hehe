@@ -28,14 +28,26 @@ class CurrentTradeCoinInfo extends Component {
     render() {
         let store = this.props.tradeStore;
         let checked = store.theme === 'dark';
+        let arrowCls = {}
 
+        if (store.theme === 'dark') {
+            arrowCls =  {
+                fontSize: 14, 
+                color: '#fff'
+            }
+        } else {
+            arrowCls =  {
+                fontSize: 14, 
+                color:'#333333'
+            }
+        }
         return (
             <div className="trade-current-coin">
                 <ul>
                     <li className="coin" ref="coin">
                         <Popover content={<TradeCoinList/>} placement="bottomLeft" trigger="click" getPopupContainer={()=>this.refs.coin}>
                             <label>{ store.currentTradeCoin.currencyNameEn }</label>
-                            <Icon type="caret-down" style={{ fontSize: 14, color: '#c5c5c5' }} />
+                            <Icon type="caret-down" style={arrowCls} />
                         </Popover>
                         <em>{ store.currentAmount }</em>
                     </li>

@@ -48,7 +48,8 @@
     background-color: #fff;
     color: #333333;
     border-bottom: 2px solid rgba(0, 0, 0, 0.06);
-    z-index: 2;
+    z-index: 3;
+    font-size: 14px;
 }
 
 .trade-current-coin ul {
@@ -71,29 +72,11 @@
     padding: 0 5px;
 }
 
-
-
-
-
-
-
-
-
-
 /* 正 */
 
 .trade-current-coin li.positive em {
     color: #00b56a;
 }
-
-
-
-
-
-
-
-
-
 
 /* 负 */
 
@@ -103,6 +86,7 @@
 
 .trade-current-coin li.coin {
     font-size: 18px;
+    color: #333333;
 }
 
 
@@ -110,6 +94,15 @@
     width: 45px;
     text-align: center;
     cursor: pointer;
+}
+
+.trade-current-coin li.coin i{
+    cursor: pointer;
+}
+
+.trade-current-coin .ant-switch-checked{
+    border-color: #ff3380;
+    background-color: #ff3380;
 }
 
 .trade-current-coin li.coin em {
@@ -200,19 +193,29 @@
     float: left;
 }
 
+.trade-current-coin .coin-list-bd .cell.star {
+    width: 16%;
+    text-align: center;
+}
+
 .trade-current-coin .coin-list-bd .cell.name {
-    width: 20%;
+    width: 25%;
     text-align: left;
 }
 
 .trade-current-coin .coin-list-bd .cell.price {
-    width: 30%;
+    width: 25%;
     text-align: left;
 }
 
 .trade-current-coin .coin-list-bd .cell.rate {
     width: 14%;
     text-align: center;
+}
+
+.trade-current-coin .coin-list-bd .cell.volume {
+    width: 20%;
+    text-align: right;
 }
 
 .trade-current-coin .coin-list-bd .rate[data-status="0"] {
@@ -223,10 +226,7 @@
     color: #00d02c;
 }
 
-.trade-current-coin .coin-list-bd .cell.volume {
-    width: 36%;
-    text-align: right;
-}
+
 
 
 
@@ -509,13 +509,13 @@
 }
 
 .trade-extra-list .list-box-r .price {
-    width: 30%;
+    width: 35%;
     float: left;
     text-align: right;
 }
 
 .trade-extra-list .list-box-r .number {
-    width: 40%;
+    width: 35%;
     float: left;
     text-align: right;
 }
@@ -883,6 +883,10 @@
 .trade-wrapper[data-theme="dark"] .trade-main-order,
 .trade-wrapper[data-theme="dark"] .trade-current-coin {
     background-color: #090600;
+    color: #fff;
+}
+
+.trade-wrapper[data-theme="dark"] .trade-current-coin li.coin{
     color: #fff;
 }
 

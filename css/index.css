@@ -194,6 +194,7 @@
 .index-markets{
 	height: 570px;
 	margin-top: 10px;
+	margin-bottom: 20px;
 	width: 1300px;
 	margin-left: auto;
 	margin-right: auto;
@@ -349,6 +350,9 @@
 .index-markets .coin-line-box {
 	height: 280px;
 	width: 400px;
+}
+.index-markets .anticon-star {
+	color: #e6bc1d;
 }
 /**
  * 币圈资讯

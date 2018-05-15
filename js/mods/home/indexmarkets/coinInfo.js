@@ -11,6 +11,8 @@ import klineCoin from '../../../../images/kline-coin.jpg'
 
 class CoinInfo extends Component {
   render() {
+    const coins = this.props.coins
+    const coin = coins.length > 0 ? coins[0] : {}
     return (
       <div>
         <div className="coinInfo-title">
@@ -19,29 +21,29 @@ class CoinInfo extends Component {
         <div className="coinInfo-content">
           <div>
             <span className="coinInfo-content-name-box">
-              <span>BTC</span>
-              <span>0.01613939</span>
+              <span>{coin.currencyNameEn}</span>
+              <span>{coin.currentAmount}</span>
             </span>
-            <span className="coinInfo-content-percent">+6.31%</span>
+            <span className="coinInfo-content-percent">{coin.changeRate}</span>
           </div>
           <div className="coinInfo-content-item">
             <span>
               <span className="coinInfo-content-lable">{UPEX.lang.template('成交量')}</span>
-              <span>11.67</span>
+              <span>{coin.volume}</span>
             </span>
             <span>
               <span className="coinInfo-content-lable">24h{UPEX.lang.template('最高价')}</span>
-              <span>11.67</span>
+              <span>{coin.highPrice}</span>
             </span>
           </div>
           <div className="coinInfo-content-item">
             <span>
               <span className="coinInfo-content-lable">{UPEX.lang.template('成交额')}</span>
-              <span>11.67</span>
+              <span>{coin.amount}</span>
             </span>
             <span>
-              <span className="coinInfo-content-lable">24h{UPEX.lang.template('低高价')}</span>
-              <span>11.67</span>
+              <span className="coinInfo-content-lable">24h{UPEX.lang.template('最低价')}</span>
+              <span>{coin.lowPrice}</span>
             </span>
           </div>
         </div>
@@ -54,7 +56,7 @@ class CoinInfo extends Component {
             </span>
           </div>
           <div>
-            <Line/>
+            <Line hours24TrendList={coin.hours24TrendList}/>
           </div>
         </div>
       </div>

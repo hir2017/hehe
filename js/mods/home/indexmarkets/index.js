@@ -11,14 +11,14 @@ import CoinInfo from './CoinInfo';
 
 class HotMarkets extends Component{
 	render() {
-		const { coins, filterCoin } = this.props
+		const { coins, filterCoin, sortCoin } = this.props
 		return (
 			<div className="index-markets">
 			  <div className="index-markets-left">
 				  <CoinInfo coins={coins}/>
 				</div>
 				<div className="index-markets-right">
-				  <CoinList filterCoin={filterCoin} coins={coins}/>
+				  <CoinList sortCoin={sortCoin} filterCoin={filterCoin} coins={coins}/>
 				</div>
 			</div>
 		);
