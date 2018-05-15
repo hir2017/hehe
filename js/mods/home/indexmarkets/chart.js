@@ -14,10 +14,8 @@ require('echarts/lib/component/title');
 
 export default class CoinInfo extends Component {
 
-  componentDidMount() {
-    var myChart = echarts.init(document.getElementById('home-coin-line'));
-    // 绘制图表
-    myChart.setOption({
+  option (hours24TrendList) {
+    return {
       tooltip: {
         trigger: 'axis',
         axisPointer: {
@@ -47,7 +45,7 @@ export default class CoinInfo extends Component {
         show: false
       },
       series: [{
-        data: this.props.hours24TrendList,// [820, 932, 901, 934, 1290, 1330, 1320],
+        data: hours24TrendList,// [820, 932, 901, 934, 1290, 1330, 1320],
         type: 'line',
         itemStyle: {
           color: '#9bbff7'
@@ -71,7 +69,26 @@ export default class CoinInfo extends Component {
         }
         }
       }]
-    });
+    }
+  }
+
+  componentDidUpdate() {
+    const { hours24TrendList } = this.props
+    let charts = document.getElementById('home-coin-line')
+    if(!echarts.getInstanceByDom(charts)) {            
+        const _myCharts = echarts.init(charts)
+        // 初始化价格趋势图
+        _myCharts.setOption(this.option(hours24TrendList))
+    }else{
+        echarts.getInstanceByDom(charts).setOption(this.option(hours24TrendList))
+    }
+}
+
+  componentDidMount() {
+    const { hours24TrendList } = this.props
+    var myChart = echarts.init(document.getElementById('home-coin-line'));
+    // 绘制图表
+    myChart.setOption(this.option(hours24TrendList));
   }
 
   render() {
