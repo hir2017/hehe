@@ -7,6 +7,17 @@ import { socket } from '../api/socket';
 class EntrustStore {
     @observable entrust = {};
     @observable type = 'all';
+    originEntrust = {};
+
+    constructor() {
+        var handler = autorun(() => {
+            if (this.type == 'all') {
+                if (this.originEntrust.sell.length > 10) {
+
+                }
+            }
+        });
+    }
 
     @action
     getEntrust(baseCurrencyId, currencyId) {
@@ -18,18 +29,17 @@ class EntrustStore {
             data = require('../mock/entrust.json');
             console.log('+++++++++++++');
             console.log('entrust', data);
-            this.entrust = parseData(data);
+            this.originEntrust = JSON.parse(JSON.stringify(data));
+            this.entrust = data;
         });
     }
 
-    @action
-    setType(type) {
-        this.type = type;
-    }
+
+
+   
 }
 
-function parseData(data){
-    
+function parseData(data) {
 
     return data;
 }

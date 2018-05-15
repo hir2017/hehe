@@ -10,7 +10,7 @@ import TradeCoinList from './coin-list';
 
 @inject('tradeStore')
 @observer
-class CurrentCoinInfo extends Component {
+class CurrentTradeCoinInfo extends Component {
     constructor(props){
     	super(props);
     }
@@ -34,7 +34,7 @@ class CurrentCoinInfo extends Component {
                 <ul>
                     <li className="coin" ref="coin">
                         <Popover content={<TradeCoinList/>} placement="bottomLeft" trigger="click" getPopupContainer={()=>this.refs.coin}>
-                            <label>{ store.coinInfo.currencyNameEn }</label>
+                            <label>{ store.currentTradeCoin.currencyNameEn }</label>
                             <Icon type="caret-down" style={{ fontSize: 14, color: '#c5c5c5' }} />
                         </Popover>
                         <em>{ store.currentAmount }</em>
@@ -68,4 +68,4 @@ class CurrentCoinInfo extends Component {
     }
 }
 
-export default CurrentCoinInfo;
+export default CurrentTradeCoinInfo;

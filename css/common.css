@@ -42,7 +42,7 @@ html {
 
 .app-header {
     height: 60px;
-    background-color: #090600;
+    background-color: #141414;
     color: #fff;
 }
 .app-page[data-path="/home"] .app-header{
@@ -199,4 +199,12 @@ html {
 .app-page[data-path="/home"] .footer-box li a,
 .app-page[data-path="/home"] .footer-box li a:hover {
     color: #b3b3b3;
+}
+
+
+.app-page[data-path="/login"],
+.app-page[data-path="/register"],
+.app-page[data-path="/resetpwd"]{
+    background: #141414 url('../images/login-bg.jpg') no-repeat center bottom;
+    background-size: 1976px 786px;
 }

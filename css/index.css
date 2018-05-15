@@ -197,6 +197,7 @@
 	width: 1300px;
 	margin-left: auto;
 	margin-right: auto;
+    margin-bottom: 20px;
 }
 .index-markets-left,.index-markets-right {
 	display: inline-block;
@@ -397,16 +398,6 @@
     height: 40px;
 }
 
-
-/**
- * 货币行情
- */
-
-.index-markets {
-    height: 570px;
-    margin-top: 10px;
-    background-color: #ccc;
-}
 
 /**
  * 最新公告

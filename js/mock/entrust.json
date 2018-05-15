@@ -1,5 +1,6 @@
 {
     "baseCurrencyId": 1,
+    "entrustScale": 15000,
     "buy": [
         {
             "current": 54131,

@@ -1,53 +1,52 @@
 .register-wrapper {    
-    padding-top: 100px;
-    padding-bottom: 60px;
+    padding-top: 80px;
+    padding-bottom: 100px;
 }
 .register-wrapper .register-form {
     position: relative;
     width: 520px;
     margin: 0 auto;
-    background-color: #fff;
-    border-radius: 4px;
-    box-shadow: 0px 0px 4px rgba(0,0,0,0.3);
+    color: #fff;
 }
 .register-wrapper .register-mode-tabs {
     height: 40px;
     width: 380px;
     margin: 0 auto;
+    text-align: right;
 }
 
 .register-wrapper .register-form li {
-    float: left;
-    width: 50%;
+    display: inline-block;
 }
 
 .register-wrapper .register-mode-tab{
     display: block;
-    width: 90%;
     margin: 0 auto;
     text-align: center;
     line-height: 40px;
-    background-color: #cccccc;
-    cursor: pointer;
-    border-radius: 30px;
     color: #fff;
+    padding: 0 10px;
+    background: none;
+    font-size: 16px;
 }
 
 .register-wrapper .register-mode-tab.selected {
-    background-color: #9b00e2;
+    color: #e6bc1d;
 }
 
 .register-mode-content {
     width: 380px;
-    margin: 30px auto 0;
+    margin: 0 auto;
     padding-bottom: 30px;
 }
 
 .register-wrapper .title{
-    height: 70px;
-    line-height: 70px;
-    font-size: 16px;
-    text-align: center;
+    width: 380px;
+    margin: 0 auto;
+    height: 40px;
+    line-height: 40px;
+    font-size: 24px;
+    text-align: left;
 }
 
 .register-wrapper .subtitle{
@@ -70,17 +69,19 @@
 .register-mode-content .input-box input{
 	width: 100%;
     height: 40px;
-    border: 1px solid #cccccc;
+    border: 0 none;
+    border-bottom: 1px solid #5b5b5b;
     border-radius: 2px;
     outline: none;
     font-size: 16px;
-    padding-left: 40px;
+    padding-left: 10px;
+    background: none;
 }
 .register-mode-content .input-box input.wrong{
     border-color: #da161a;
 }
 .register-mode-content .input-box.input-phone{
-	padding-left: 80px;
+	padding-left: 40px;
 }
 
 .register-mode-content .input-box select {
@@ -88,14 +89,7 @@
     width: 100%;
     outline: none;
     background-color: transparent;
-    border-right: 1px solid #cccccc;
-}
-
-.register-mode-content .input-box i{
-	position: absolute;
-    font-size: 20px;
-    left: 10px;
-    top: 10px;
+    border: 1px solid #5b5b5b;
 }
 
 .register-mode-content .input-wrapper .warn{
@@ -106,18 +100,18 @@
     position: absolute;
     left: 0;
     bottom: -20px;
-    color: #b14d43 !important;
+    color: #ff3245 !important;
 }
 
 .register-mode-content .input-box .area-code{
 	position: absolute;
     top: 0px;
     left: 0;
-    width: 80px;
+    width: 40px;
     height: 40px;
     display: inline-block;
     text-align: center;
-    border: 1px solid #cccccc;
+    border-bottom: 1px solid #5b5b5b;
     border-right: 0 none;
     text-align: center;
     line-height: 40px;
@@ -156,7 +150,6 @@
 	width: 150px;
     height: 40px;
     vertical-align: top;
-    background-color: #ededed;
 }
 
 .register-mode-content .input-box .yzcode button{
@@ -167,10 +160,10 @@
     text-align: center;
     border: 0 none;
     outline: none;
-    background-color: #49a9ee;
+    background-color: #e6bc1d;
     color: #fff;
     cursor: pointer;
-    border-radius: 0px 2px 2px 0px;
+    border-radius: 40px;
 }
 
 .register-mode-content .input-box .yzcode button.disabled{
@@ -186,22 +179,28 @@
     text-indent: 0;
     vertical-align: middle;
 }
+.register-mode-content .input-box.user-protocol a,
+.register-mode-content .input-box.user-protocol a:hover{
+    color: #e6bc1d;
+    text-decoration: underline;
+}
 .register-mode-content .submit-btn{
 	width: 100%;
     height: 40px;
     line-height: 40px;
     font-size: 18px;
     text-align: center;
-    border: 0 none;
+    border: 1px solid #e6bc1d;
     outline: none;
-    background-color: #49a9ee;
-    color: #fff;
+    background-color: transparent;
+    color: #e6bc1d;
     cursor: pointer;
-    border-radius: 2px;
+    border-radius: 40px;
 }
 
 .register-mode-content .submit-btn.disabled{
-	background-color: rgb(204, 204, 204);
+	color: #cccccc;
+    border: 1px solid #cccccc;
 }
 
 .register-mode-content .error-tip{
@@ -222,4 +221,12 @@
     position: absolute;
     right: 0;
     bottom: -40px;
+}
+
+.register-extra{
+    text-align: center;
+}
+.register-extra a,
+.register-extra a:hover{
+    color: #e6bc1d;
 }

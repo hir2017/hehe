@@ -4,22 +4,31 @@
 import React, {Component} from 'react';
 import { observer, inject } from 'mobx-react';
 
-@inject('tradeEntrustStore')
+@inject('tradeStore')
 @observer
 class BuyOrder extends Component {
+	haneleClickOrder(item){
+		let store = this.props.tradeStore;
+
+		store.setDealBuyPrice(item.current); // 买入价格
+		store.setDealSellPrice(item.current); // 卖出价格
+	}
 	render() {
-		let store = this.props.tradeEntrustStore;
+		let store = this.props.tradeStore;
 
 		return (
 			<div className="trade-buy">
 				<ul className="list">
 					{ 
-						store.entrust && store.entrust.buy && store.entrust.buy.map((item, index)=>{
+						store.newEntrustData.buy.map((item, index)=>{
+							const depth = parseInt((item.number * item.current / store.entrustScale).toFixed(store.pointNum));
+							
 							return (
-								<li key={index}>
-									<div className="cell price">{item.current.toFixed(store.pointPrice)}</div>
+								<li key={index} data-type="buy" onClick={this.haneleClickOrder.bind(this, item)}>
+									<div className="cell price">{item.current}</div>
 									<div className="cell number">{item.number}</div>
-									<div className="cell total">{(item.number * item.current).toFixed(store.pointPrice)}</div>
+									<div className="cell total">{item.total || 0}</div>
+									<div className="bar" style={{ width: `${item.depth}%` }}></div>
 								</li>
 							)
 						})

@@ -45,10 +45,6 @@ class MyOrder extends Component {
 							})
 						}
 					</ul>
-					<div className="extra">
-						<input id="hideOtherCoin" type="checkbox" onChange={this.onChange}/>
-						<label htmlFor="hideOtherCoin">{ UPEX.lang.template('隐藏其他货币交易') }</label>
-					</div>
 				</div>
 				<div className="tradeorder-bd">
 					{

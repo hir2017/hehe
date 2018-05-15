@@ -6,7 +6,6 @@ import AnnouncementStore from './announcement';
 import HomeStore from './home';
 import TradeStore from './trade';
 import TradeOrderStore from './trade-order';
-import TradeEntrustStore from './trade-entrust';
 
 class RootStore {
     constructor() {
@@ -17,7 +16,6 @@ class RootStore {
         this.announcementStore = new AnnouncementStore(this);
         this.homeStore = new HomeStore(this);
         this.tradeOrderStore  = new TradeOrderStore(this);
-        this.tradeEntrustStore =  new TradeEntrustStore(this);
         this.tradeStore = new TradeStore(this);
     }
 }

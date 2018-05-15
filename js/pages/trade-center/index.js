@@ -9,11 +9,11 @@ import TradeCoinInfo from '../../mods/trade/chart/coin-info';
 import ChartInfo from '../../mods/trade/chart/chart-info';
 import BuyOrder from '../../mods/trade/order/buy-order';
 import SellOrder from '../../mods/trade/order/sell-order';
-import RealTime from '../../mods/trade/order/real-time';
+import HistoryOrder from '../../mods/trade/order/history-order';
 import MyOrder from '../../mods/trade/myorder/index';
 import TradeForm from '../../mods/trade/form/index';
 
-@inject('tradeStore', 'authStore')
+@inject('tradeStore')
 @observer
 class TradeCenter extends Component {
     static defaultProps = {
@@ -21,20 +21,28 @@ class TradeCenter extends Component {
     }
 
     componentWillMount() {
-        let { tradeStore, authStore} = this.props;
+        let { tradeStore } = this.props;
 
-        tradeStore.getTradeCoinData();
-        tradeStore.getTradeHistory();
+        let timer;
+        let fetchTradeCoinData=()=>{
+            tradeStore.getTradeCoinData();
+            clearTimeout(timer);
+
+            timer = setTimeout(()=>{
+                fetchTradeCoinData();
+            }, 3 * 1000)
+        }
+        
+        fetchTradeCoinData(); // 3秒钟查询一次
         tradeStore.getLoginedMarket();
         tradeStore.getEntrust();
-        
-        if (authStore.isLogin) {
-            tradeStore.getUserOrderList();
-        }
+        tradeStore.getTradeHistory();
+        tradeStore.getUserAccount();
+        tradeStore.getUserOrderList();
     }
 
     onChangeEntrustType=(type)=>{
-        this.props.tradeStore.entrustStore.setType(type);
+        this.props.tradeStore.setType(type);
     }
 
     render() {
@@ -50,7 +58,7 @@ class TradeCenter extends Component {
                                     <ul className="tab">
                                         {
                                            ['all', 'buy', 'sell'].map((item, index)=>{
-                                                let cls = store.entrustStore.type == item ? `${item} selected`: item;
+                                                let cls = store.type == item ? `${item} selected`: item;
 
                                                 return (
                                                     <li className={cls} key={item} onClick={this.onChangeEntrustType.bind(this, item)}></li>
@@ -61,23 +69,23 @@ class TradeCenter extends Component {
                                 </div>
                                 <div className="list-box-bd" style={{ height: store.extraOrderHeight - 42}}>
                                     <div className="table-hd">
-                                        <div className="price">{ UPEX.lang.template('价格')}</div>
-                                        <div className="number">{ UPEX.lang.template('数量')}</div>
-                                        <div className="total">{ UPEX.lang.template('金额')}</div>
+                                        <div className="price">{ UPEX.lang.template('价格')}({ store.currentTradeCoin.baseCurrencyNameEn})</div>
+                                        <div className="number">{ UPEX.lang.template('数量')}({ store.currentTradeCoin.currencyNameEn})</div>
+                                        <div className="total">{ UPEX.lang.template('金额')}({ store.currentTradeCoin.baseCurrencyNameEn})</div>
                                     </div>
                                     <div className="table-bd" style={{ height: store.extraOrderHeight - 72}}>
                                         {
-                                            store.entrustStore.type !==  'sell' ? (
+                                            store.type !== 'buy' ? (
                                                 <div className="trade-buy-box">
-                                                    <BuyOrder/>
+                                                    <SellOrder/>
                                                 </div>
                                             ) : null
                                         }
                                         <div className="trade-current-amount">{store.currentAmount}</div>
                                         {
-                                            store.entrustStore.type !==  'buy' ? (
+                                            store.type !==  'sell' ? (
                                                 <div className="trade-sell-box">
-                                                    <SellOrder/>
+                                                    <BuyOrder/>
                                                 </div>
                                             ) : null
                                         }
@@ -85,7 +93,7 @@ class TradeCenter extends Component {
                                 </div>
                             </div>
                             <div className="list-box-r">
-                                <RealTime/>
+                                <HistoryOrder/>
                             </div>
                             
             			</div>

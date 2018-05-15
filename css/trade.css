@@ -15,12 +15,6 @@
 }
 
 
-
-
-
-
-
-
 /**
  * 图表模块
  */
@@ -38,12 +32,6 @@
     width: 100%;
     /* border-bottom: 10px solid #f8f8fb; */
 }
-
-
-
-
-
-
 
 
 /**
@@ -90,11 +78,15 @@
 
 
 
+
+
 /* 正 */
 
 .trade-current-coin li.positive em {
     color: #00b56a;
 }
+
+
 
 
 
@@ -245,6 +237,8 @@
 
 
 
+
+
 /**
  * 币种K线图
  */
@@ -265,6 +259,7 @@
     position: relative;
     background-color: #fff;
     box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.06);
+    color: #666666;
 }
 
 .trade-main-order .order-box {}
@@ -281,9 +276,8 @@
 }
 
 .trade-extra-list {
-    background-color: #fff;
-    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.06);
     overflow: hidden;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.06);
 }
 
 .trade-current-amount {
@@ -291,13 +285,17 @@
     line-height: 30px;
     color: #00d02c;
     padding: 0 15px;
+    background: #f8f8fb;
+    font-size: 18px;
 }
 
 .trade-extra-list .list-box-l {
     float: left;
-    width: 50%;
+    width: 260px;
     position: relative;
     height: 100%;
+    background-color: #fff;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.06);
 }
 
 .trade-extra-list .list-box-l .list-box-hd {
@@ -344,6 +342,7 @@
 .trade-extra-list .list-box-l .table-bd {
     display: -webkit-box;
     -webkit-box-orient: vertical;
+    color: #999;
 }
 
 .trade-extra-list .list-box-l .trade-buy-box,
@@ -370,9 +369,40 @@
     overflow-y: auto;
 }
 
-.trade-extra-list .list-box-l .trade-buy ul,
-.trade-extra-list .list-box-l .trade-sell ul {
+.trade-extra-list .list-box-l .trade-buy li,
+.trade-extra-list .list-box-l .trade-sell li {
+    position: relative;
     padding: 0 15px;
+    height: 21px;
+    line-height: 21px;
+}
+
+.trade-extra-list .list-box-l .trade-buy li:hover {
+    background: rgba(6, 255, 0, 0.14);
+}
+
+.trade-extra-list .list-box-l .trade-sell li:hover {
+    background: rgba(255, 51, 128, 0.14);
+    
+}
+
+.trade-extra-list .list-box-l li[data-type="buy"] .price {
+    color: #00d02c;
+}
+
+.trade-extra-list .list-box-l li[data-type="sell"] .price {
+    
+    color: #ff3380;
+}
+
+.trade-extra-list .list-box-l li .cell {
+    cursor: pointer;
+    position: relative;
+    z-index: 2;
+}
+
+.trade-extra-list .list-box-l li .cell:hover {
+    font-weight: bold;
 }
 
 .trade-extra-list .list-box-l .price {
@@ -392,6 +422,24 @@
     text-align: right;
 }
 
+.trade-extra-list .list-box-l .bar {
+    height: 22px;
+    line-height: 22px;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.trade-extra-list .list-box-l li[data-type="buy"] .bar {
+    background: rgba(6, 255, 0, 0.3);
+}
+
+.trade-extra-list .list-box-l li[data-type="sell"] .bar {
+    
+    background: rgba(255, 51, 128, 0.3);
+}
+
+
 
 
 
@@ -402,14 +450,15 @@
  */
 
 .trade-extra-list .list-box-r {
-    /* border-left: 10px solid rgba(0, 0, 0, 0.06); */
     float: right;
-    width: 50%;
+    width: 260px;
     position: relative;
     height: 100%;
+    background-color: #fff;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.06);
 }
 
-.trade-extra-list .list-box-r .trade-realtime {
+.trade-extra-list .list-box-r .trade-history {
     width: 100%;
     height: 100%;
     overflow: hidden;
@@ -427,17 +476,31 @@
     padding: 0 15px;
     z-index: 2;
     background: #fff;
+    color: #666666;
 }
 
 .trade-extra-list .list-box-r .table-bd {
-    height: 96%;
+    height: 100%;
     overflow: hidden;
     overflow-y: auto;
+    color: #999999;
 }
 
 .trade-extra-list .list-box-r .table-bd ul {
-    padding: 50px 15px 10px;
+    padding: 50px 0 10px;
 }
+
+.trade-extra-list .list-box-r .table-bd ul li {
+    line-height: 22px;
+    height: 22px;
+    padding: 0 15px;
+    cursor: pointer;
+}
+
+.trade-extra-list .list-box-r .table-bd ul li:hover {
+    background: #f8f8fb;
+}
+
 
 .trade-extra-list .list-box-r .time {
     width: 30%;
@@ -457,17 +520,27 @@
     text-align: right;
 }
 
+.trade-extra-list .list-box-r .table-bd ul li[data-type="buy"] .price {
+    color: #00d02c;
+}
+
+.trade-extra-list .list-box-r .table-bd ul li[data-type="sell"] .price {
+    color: #ff3380;
+}
+
 .trade-extra-list .trade-buy {}
 
 .trade-extra-list .trade-sell {}
 
 .trade-extra-handle {
-    min-height: 320px;
-    /* margin-top: 10px; */
+    min-height: 300px;
+    margin-top: 10px;
     box-sizing: border-box;
     background-color: #fff;
     box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.06);
 }
+
+
 
 
 /**
@@ -483,10 +556,17 @@
     line-height: 42px;
     padding: 0 10px;
     border-bottom: 2px solid #f8f8fb;
+    font-size: 14px;
 }
 
 .trade-form-hd em {
     padding: 0 5px;
+}
+
+.trade-form-hd a,
+.trade-form-hd a:hover {
+    color: #e6bc1d;
+    padding: 0 3px;
 }
 
 .trade-form-hd .recharge {
@@ -509,12 +589,26 @@
     padding: 10px;
 }
 
+.trade-form-bd ul li {
+    overflow: hidden;
+}
+
+
 .trade-form-bd em {
     padding: 0 5px;
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: middle;
 }
 
 .trade-form-bd label {
     line-height: 16px;
+    height: 26px;
+    line-height: 26px;
+    width: 60px;
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: middle;
 }
 
 .trade-form-bd .btn {
@@ -524,6 +618,13 @@
     line-height: 34px;
     text-align: center;
     color: #fff;
+    margin-top: 10px;
+}
+
+.trade-form-bd .btn:disabled {
+    cursor: not-allowed;
+    color: #fff;
+    background-color: #d1d3df !important;
 }
 
 .trade-form-bd .btn.buy {
@@ -534,18 +635,21 @@
     background-color: rgb(255, 51, 128);
 }
 
-.trade-form-bd .input-box{
+.trade-form-bd .input-box {
+    display: inline-block;
     position: relative;
-    border:  1px solid rgb(204, 204, 204);
+    border: 1px solid rgb(204, 204, 204);
     border-radius: 2px;
     padding-left: 5px;
     padding-right: 30px;
     height: 30px;
     line-height: 30px;
     margin-bottom: 5px;
+    width: 180px;
+    float: right;
 }
 
-.trade-form-bd .input-box i{
+.trade-form-bd .input-box i {
     position: absolute;
     right: 1px;
     top: 0;
@@ -554,13 +658,18 @@
     line-height: 30px;
     font-style: normal;
 }
-.trade-form-bd .input-box input{
-    border:  0 none;
+
+.trade-form-bd .input-box input {
+    border: 0 none;
     background: none;
     height: 26px;
     line-height: 26px;
     outline: 0 none;
     width: 100%;
+}
+
+.trade-form-bd .slider-box {
+    padding: 10px;
 }
 
 
@@ -573,6 +682,7 @@
 
 .tradeorder-wrapper {
     height: 100%;
+    margin-top: 10px;
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
@@ -751,6 +861,8 @@
 .tradeorder-bd .action {
     width: 8%;
 }
+
+
 
 
 

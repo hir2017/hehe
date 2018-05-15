@@ -36,5 +36,5 @@ const webchat = {
 	}
 }
 
-export { socket , baseCurrencyId }
+export { socket , baseCurrencyId ,  tradeCurrencyId}
 export default webchat;
