@@ -328,6 +328,10 @@
 	font-size: 14px;
 	color: #666666;
 }
+.index-markets table td a {
+    color: #333333;
+    display: block;
+}
 .index-markets table td:first-child {
 	text-align: center;
 	color: #333333;

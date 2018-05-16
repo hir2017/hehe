@@ -6,6 +6,7 @@
 import React from 'react';
 import { Icon } from 'antd'
 import { observer, inject } from 'mobx-react';
+import { Link } from 'react-router'
 
 @inject('homeStore')
 @observer
@@ -94,7 +95,11 @@ export default class extends React.Component {
                   {
                     this.props.coins.map((item, index) => {
                       return <tr key={item.id}>
-                        <td>{item.currencyNameEn}</td>
+                        <td>
+                          <Link to={{ pathname: '/trade', query: { currencyId: item.currencyId, baseCurrencyId: item.baseCurrencyId } }}>
+                          {item.currencyNameEn}
+                          </Link>
+                        </td>
                         <td>{item.currentAmount}</td>
                         <td>{item.changeRate}</td>
                         <td>{item.volume}</td>
