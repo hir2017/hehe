@@ -6,13 +6,15 @@
 
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
+import { Link } from 'react-router'
 import Line from './chart'
 import klineCoin from '../../../../images/kline-coin.jpg'
 
+@inject('homeStore')
+@observer
 class CoinInfo extends Component {
   render() {
-    const coins = this.props.coins
-    const coin = coins.length > 0 ? coins[0] : {}
+    const coin = this.props.homeStore.coin
     return (
       <div>
         <div className="coinInfo-title">
@@ -56,8 +58,10 @@ class CoinInfo extends Component {
           <div className="coinInfo-line-title">
             <span>{UPEX.lang.template('实时行情')}</span>
             <span>
-              <img src={klineCoin} />
-              {UPEX.lang.template('K线')}
+              <Link to={{ pathname: '/trade', query: { currencyId: coin.currencyId, baseCurrencyId: coin.baseCurrencyId } }}>
+                <img src={klineCoin} />
+                {UPEX.lang.template('K线')}
+              </Link>
             </span>
           </div>
           <div>

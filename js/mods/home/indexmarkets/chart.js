@@ -4,6 +4,7 @@
  * @date 2018-05-10
  */
 import React, { Component } from 'react';
+var dayjs = require('dayjs');
 // 引入 ECharts 主模块
 var echarts = require('echarts/lib/echarts');
 // 引入图
@@ -14,7 +15,7 @@ require('echarts/lib/component/title');
 
 export default class CoinInfo extends Component {
 
-  option (hours24TrendList) {
+  option (hours24TrendList = []) {
     return {
       tooltip: {
         trigger: 'axis',
@@ -32,7 +33,9 @@ export default class CoinInfo extends Component {
         nameLocation: 'center',
         type: 'category',
         boundaryGap: false,
-        // data: ['7:00', '9:00', '11:00', '12:00', '14:00'],
+        data: hours24TrendList.map((item) => {
+          return dayjs(item[0]).format('HH:mm');
+        }),// ['7:00', '9:00', '11:00', '12:00', '14:00'],
         axisLine: {
           lineStyle: {
             color: '#c5c5c5',
@@ -45,7 +48,9 @@ export default class CoinInfo extends Component {
         show: false
       },
       series: [{
-        data: hours24TrendList,// [820, 932, 901, 934, 1290, 1330, 1320],
+        data: hours24TrendList.map((item) => {
+          return item[1]
+        }),// [820, 932, 901, 934, 1290, 1330, 1320],
         type: 'line',
         itemStyle: {
           color: '#9bbff7'

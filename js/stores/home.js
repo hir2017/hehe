@@ -1,11 +1,13 @@
 import { observable, autorun, computed, action, configure, flow } from 'mobx';
 import { socket, baseCurrencyId } from '../api/socket';
 import { addOptional, cancleOptional, listOptional } from '../api/http'
+import Select from 'antd';
 
 class HomeStore {
     @observable allCoins = [];
     @observable hotCoins = [];
     @observable collectCoinsList = [];
+    @observable coin = {}
 
     cacheCoins = []
 
@@ -24,6 +26,7 @@ class HomeStore {
 
     @action.bound
     getAllCoinsSuccess (data) {
+        this.coin = data[0].tradeCoins[0]
         this.allCoins = data[0].tradeCoins;
         this.cacheCoins = data[0].tradeCoins;
         this.hotCoins = this.recommendCoins(data[0].tradeCoins);
@@ -52,11 +55,19 @@ class HomeStore {
             this.allCoins = this.cacheCoins
         }
 
-        const res = this.allCoins.filter((item) => {
-            return item.currencyNameEn === name
+        const res = this.cacheCoins.filter((item) => {
+            return item.currencyNameEn.toLowerCase().includes(name.toLowerCase())
         })
         
         this.allCoins = res
+    }
+
+    @action
+    selectCoin (baseID, id) {
+        const res = this.allCoins.filter((item) => {
+            return item.baseCurrencyId === baseID && item.currencyId === id
+        })
+        this.coin = res[0]
     }
 
     @action
