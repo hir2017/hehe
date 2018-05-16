@@ -22,6 +22,10 @@ const rootStore = new RootStore();
 
 @observer 
 class App extends Component {
+    static createElement(Component, props) {
+        // 确保传入了所有的 props！
+        return <Component {...props}/>
+    }
 	static onUpdate() {
 		rootStore.commonStore.updatePathName(this.state.location.pathname);
         window.scrollTo(0,0);
@@ -34,7 +38,7 @@ class App extends Component {
                 data-path={rootStore.commonStore.currentPathName}
             >
                 <Provider {...rootStore}>
-            	   <Router history={browserHistory} routes={routes} onUpdate={App.onUpdate}></Router>
+            	   <Router history={browserHistory} routes={routes} onUpdate={App.onUpdate} createElement={App.createElement}></Router>
                 </Provider>
             </div>
         );

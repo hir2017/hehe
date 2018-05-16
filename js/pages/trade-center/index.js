@@ -16,6 +16,15 @@ import TradeForm from '../../mods/trade/form/index';
 @inject('tradeStore')
 @observer
 class TradeCenter extends Component {
+    render() { 
+        // 用于切换交易币时内容切换
+        return <TradeContent key={this.props.tradeStore.currencyId}/>
+    }
+}
+
+@inject('tradeStore')
+@observer
+class TradeContent extends Component {
     static defaultProps = {
         entrustTab: ['all', 'buy', 'sell']
     }
@@ -49,7 +58,7 @@ class TradeCenter extends Component {
     	let store = this.props.tradeStore;
         
         return (
-            <div className="trade-wrapper" style={{ height: store.contentHeight}} data-theme={store.theme}>
+            <div className="trade-wrapper" style={{ height: store.contentHeight + 30}} data-theme={store.theme}>
             	<div className="trade-extra">
             		<div className="trade-extra-content">
             			<div className="trade-extra-list clearfix" style={{ height: store.extraOrderHeight}}>
@@ -81,7 +90,7 @@ class TradeCenter extends Component {
                                                 </div>
                                             ) : null
                                         }
-                                        <div className="trade-current-amount">{store.currentAmount}</div>
+                                        <div className={ store.currentCoinChangeRate.indexOf('+') >= 0 ? 'trade-current-amount greenrate': 'trade-current-amount redrate'}>{store.currentAmount}</div>
                                         {
                                             store.type !==  'sell' ? (
                                                 <div className="trade-sell-box">

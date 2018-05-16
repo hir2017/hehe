@@ -9,7 +9,6 @@ import { observer, inject } from 'mobx-react';
 class BuyOrder extends Component {
 	haneleClickOrder(item){
 		let store = this.props.tradeStore;
-
 		store.setDealBuyPrice(item.current); // 买入价格
 		store.setDealSellPrice(item.current); // 卖出价格
 	}
@@ -21,8 +20,6 @@ class BuyOrder extends Component {
 				<ul className="list">
 					{ 
 						store.newEntrustData.buy.map((item, index)=>{
-							const depth = parseInt((item.number * item.current / store.entrustScale).toFixed(store.pointNum));
-							
 							return (
 								<li key={index} data-type="buy" onClick={this.haneleClickOrder.bind(this, item)}>
 									<div className="cell price">{item.current}</div>

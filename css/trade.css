@@ -15,6 +15,7 @@
 }
 
 
+
 /**
  * 图表模块
  */
@@ -32,6 +33,7 @@
     width: 100%;
     /* border-bottom: 10px solid #f8f8fb; */
 }
+
 
 
 /**
@@ -72,11 +74,13 @@
     padding: 0 5px;
 }
 
+
 /* 正 */
 
 .trade-current-coin li.positive em {
     color: #00b56a;
 }
+
 
 /* 负 */
 
@@ -91,16 +95,16 @@
 
 
 .trade-current-coin li.coin label {
-    width: 45px;
+    padding: 0 3px;
     text-align: center;
     cursor: pointer;
 }
 
-.trade-current-coin li.coin i{
+.trade-current-coin li.coin i {
     cursor: pointer;
 }
 
-.trade-current-coin .ant-switch-checked{
+.trade-current-coin .ant-switch-checked {
     border-color: #ff3380;
     background-color: #ff3380;
 }
@@ -124,7 +128,7 @@
 
 .trade-current-coin .coin-list {
     width: 414px;
-    height: 358px;
+    min-height: 128px;
 }
 
 .trade-current-coin .coin-list-hd {
@@ -140,7 +144,7 @@
 }
 
 .trade-current-coin .coin-list-hd .tab {
-    float: left;
+    float: right;
     height: 28px;
     line-height: 28px;
 }
@@ -153,6 +157,7 @@
     border: 0 none;
     outline: 0 none;
     text-indent: 10px;
+    background: none;
 }
 
 .trade-current-coin .coin-list-hd .anticon-search {
@@ -163,24 +168,29 @@
     margin-top: 10px;
 }
 
-.trade-current-coin .coin-list-bd ul.list-hd .price,
-.trade-current-coin .coin-list-bd ul.list-hd .rate,
-.trade-current-coin .coin-list-bd ul.list-hd .volume {
+.trade-current-coin .coin-list-bd dl.list-hd .price,
+.trade-current-coin .coin-list-bd dl.list-hd .rate,
+.trade-current-coin .coin-list-bd dl.list-hd .volume {
     cursor: pointer;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
-.trade-current-coin .coin-list-bd ul.list {
+.trade-current-coin .coin-list-bd dl.list {
     max-height: 260px;
     overflow-y: auto;
     overflow-x: hidden;
     width: 100%;
 }
 
-.trade-current-coin .coin-list-bd ul.list li:hover {
+.trade-current-coin .coin-list-bd dl.list dd:hover {
     background-color: #f8f8fb;
 }
 
-.trade-current-coin .coin-list-bd li {
+.trade-current-coin .coin-list-bd dd,
+.trade-current-coin .coin-list-bd dt {
     overflow: hidden;
     width: 100%;
     height: 34px;
@@ -199,7 +209,7 @@
 }
 
 .trade-current-coin .coin-list-bd .cell.name {
-    width: 25%;
+    width: 15%;
     text-align: left;
 }
 
@@ -214,7 +224,7 @@
 }
 
 .trade-current-coin .coin-list-bd .cell.volume {
-    width: 20%;
+    width: 25%;
     text-align: right;
 }
 
@@ -226,16 +236,24 @@
     color: #00d02c;
 }
 
+.trade-current-coin .popover-tradecoins-dark .ant-popover-inner{
+    background-color: #1c1e20;
+}
+.trade-current-coin .popover-tradecoins-dark .coin-list {
+    color: #fff;
+}
 
+.trade-current-coin .popover-tradecoins-dark .coin-list-bd dl.list dd:hover{
+    background-color: rgba(248, 248, 251, 0.18);
+}
 
+.trade-current-coin .popover-tradecoins-dark .ant-checkbox-wrapper{
+    color: #fff;
+}
 
-
-
-
-
-
-
-
+.trade-current-coin .coin-list-hd .popover-tradecoins-dark input{
+    color: #fff;
+}
 
 
 
@@ -283,7 +301,6 @@
 .trade-current-amount {
     height: 30px;
     line-height: 30px;
-    color: #00d02c;
     padding: 0 15px;
     background: #f8f8fb;
     font-size: 18px;
@@ -301,6 +318,7 @@
 .trade-extra-list .list-box-l .list-box-hd {
     height: 42px;
     line-height: 42px;
+    background-color: #fff;
     border-bottom: 2px solid rgba(0, 0, 0, 0.06);
 }
 
@@ -369,6 +387,13 @@
     overflow-y: auto;
 }
 
+.trade-extra-list .list-box-l .trade-sell ul{
+    position: absolute;
+    width: 100%;
+    bottom: 2px;
+    left: 0;
+}
+
 .trade-extra-list .list-box-l .trade-buy li,
 .trade-extra-list .list-box-l .trade-sell li {
     position: relative;
@@ -383,7 +408,6 @@
 
 .trade-extra-list .list-box-l .trade-sell li:hover {
     background: rgba(255, 51, 128, 0.14);
-    
 }
 
 .trade-extra-list .list-box-l li[data-type="buy"] .price {
@@ -391,7 +415,7 @@
 }
 
 .trade-extra-list .list-box-l li[data-type="sell"] .price {
-    
+
     color: #ff3380;
 }
 
@@ -423,8 +447,7 @@
 }
 
 .trade-extra-list .list-box-l .bar {
-    height: 22px;
-    line-height: 22px;
+    height: 100%;
     position: absolute;
     right: 0;
     top: 0;
@@ -435,9 +458,10 @@
 }
 
 .trade-extra-list .list-box-l li[data-type="sell"] .bar {
-    
+
     background: rgba(255, 51, 128, 0.3);
 }
+
 
 
 
@@ -477,6 +501,7 @@
     z-index: 2;
     background: #fff;
     color: #666666;
+    font-size: 12px;
 }
 
 .trade-extra-list .list-box-r .table-bd {
@@ -539,6 +564,7 @@
     background-color: #fff;
     box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.06);
 }
+
 
 
 
@@ -671,6 +697,7 @@
 .trade-form-bd .slider-box {
     padding: 10px;
 }
+
 
 
 
@@ -869,6 +896,7 @@
 
 
 
+
 /**
  * 暗色
  */
@@ -883,11 +911,33 @@
 .trade-wrapper[data-theme="dark"] .trade-main-order,
 .trade-wrapper[data-theme="dark"] .trade-current-coin {
     background-color: #090600;
-    color: #fff;
+    color: rgba(255, 255, 255, 0.6);
 }
 
-.trade-wrapper[data-theme="dark"] .trade-current-coin li.coin{
-    color: #fff;
+.trade-wrapper[data-theme="dark"] .trade-extra-list .list-box-r,
+.trade-wrapper[data-theme="dark"] .trade-extra-list .list-box-l {
+    background-color: #090600;
+}
+
+.trade-wrapper[data-theme="dark"] .trade-extra-list .list-box-r .table-bd ul li:hover{
+    background-color: rgba(248, 248, 251, 0.18);
+}
+.trade-wrapper[data-theme="dark"] .trade-extra-list .list-box-l .table-bd,
+.trade-wrapper[data-theme="dark"] .trade-extra-list .list-box-r .table-bd{
+    color: rgba(255, 255, 255, 0.6);
+}
+.trade-wrapper[data-theme="dark"] .trade-current-coin li.coin {
+    color: rgba(255, 255, 255, 0.6);
+}
+.trade-wrapper[data-theme="dark"] .trade-current-amount{
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+.trade-wrapper[data-theme="dark"] .trade-extra-list .list-box-r .table-hd,
+.trade-wrapper[data-theme="dark"] .trade-extra-list .list-box-l .list-box-hd,
+.trade-wrapper[data-theme="dark"] .trade-form-hd{
+    background-color: #090600;
+    border-bottom: 2px solid #131314; 
 }
 
 .trade-wrapper[data-theme="dark"] .trade-main-chart .chart-box {
@@ -904,4 +954,7 @@
 
 .trade-wrapper[data-theme="dark"] .tradeorder-hd {
     border-bottom: 2px solid #131314;
+}
+.trade-wrapper[data-theme="dark"] .trade-form{
+    color: rgba(255, 255, 255, 0.8);
 }
