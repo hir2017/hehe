@@ -52,8 +52,8 @@ class HomeStore {
             this.allCoins = this.cacheCoins
         }
 
-        const res = this.allCoins.filter((item) => {
-            return item.currencyNameEn === name
+        const res = this.cacheCoins.filter((item) => {
+            return item.currencyNameEn.toLowerCase().includes(name.toLowerCase())
         })
         
         this.allCoins = res
