@@ -17,6 +17,11 @@ export default class extends React.Component {
     this.collecthandle = this.collecthandle.bind(this)
   }
 
+  state = {
+    sort: '',
+    sortField: ''
+  }
+
   collecthandle (e, item) {
     const className = e.target.className
     if (className === 'anticon anticon-star') {
@@ -29,13 +34,21 @@ export default class extends React.Component {
   }
 
   sortHandle (e, field) {
-    const className = e.target.className
-    if (className === 'anticon anticon-caret-down') {
-      e.target.className = 'anticon anticon-caret-up'
-      this.props.sortCoin(field, 'asc')
-    } else {
-      e.target.className = 'anticon anticon-caret-down'
-      this.props.sortCoin(field, 'desc')
+    this.setState({
+      sortField: field
+    })
+    if(!this.state.sort || this.state.sort === 'asc') {
+      this.setState({
+        sort: 'desc'
+      },() => {
+        this.props.sortCoin(field, 'desc')
+      })
+    } else if(this.state.sort === 'desc') {
+      this.setState({
+        sort: 'asc'
+      },() => {
+        this.props.sortCoin(field, 'asc')
+      })
     }
   }
 
@@ -50,6 +63,13 @@ export default class extends React.Component {
     } else {
       return <Icon onClick={(e) => this.collecthandle(e,data)} type="star-o" />
     }
+  }
+
+  sortIcon (show, sort) {
+    if(!show || !sort) return null
+    return sort === 'desc'
+    ? <Icon type="caret-down" />
+    : <Icon type="caret-up" />
   }
 
   selectCoin (baseID, id) {
@@ -73,13 +93,20 @@ export default class extends React.Component {
                 <thead className="ant-table-thead">
                   <tr>
                     <th>{UPEX.lang.template('币种')}</th>
-                    <th>{UPEX.lang.template('最新价')}(TDW)
-                      <Icon onClick={(e) => this.sortHandle(e, 'currentAmount')} type="caret-down" />
+                    <th onClick={(e) => this.sortHandle(e, 'currentAmount')}>{UPEX.lang.template('最新价')}(TDW)
+                      {
+                        this.sortIcon(this.state.sortField==='currentAmount', this.state.sort)
+                      }
                     </th>
-                    <th>24h{UPEX.lang.template('涨跌')}
-                      <Icon onClick={(e) => this.sortHandle(e, 'changeRate')} type="caret-down" /></th>
-                    <th>24h{UPEX.lang.template('成交量')}
-                      <Icon onClick={(e) => this.sortHandle(e, 'volume')} type="caret-down" />
+                    <th onClick={(e) => this.sortHandle(e, 'changeRate')}>24h{UPEX.lang.template('涨跌')}
+                      {
+                        this.sortIcon(this.state.sortField==='changeRate', this.state.sort)
+                      }  
+                    </th>
+                    <th onClick={(e) => this.sortHandle(e, 'volume')}>24h{UPEX.lang.template('成交量')}
+                      {
+                        this.sortIcon(this.state.sortField==='volume', this.state.sort)
+                      }
                     </th>
                     <th>{UPEX.lang.template('收藏')}</th>
                   </tr>
