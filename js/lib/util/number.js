@@ -107,7 +107,7 @@ const NumberUtil = {
         
         number = Number(number);
 
-        number = number.toFixed(length); // 保留小时后几位
+        number = number.toFixed(length); // 保留小时后N位，四舍五入
 
         number = this.separate(number); // ,分隔符号数字
 

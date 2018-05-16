@@ -47,11 +47,12 @@ class TradeContent extends Component {
         tradeStore.getEntrust();
         tradeStore.getTradeHistory();
         tradeStore.getUserAccount();
+        tradeStore.getPersonalTradingPwd();
         tradeStore.getUserOrderList();
     }
 
     onChangeEntrustType=(type)=>{
-        this.props.tradeStore.setType(type);
+        this.props.tradeStore.setType(type);    
     }
 
     render() {

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { observer, inject } from 'mobx-react';
 import { browserHistory, Link} from 'react-router';
-import { Slider, Tooltip } from 'antd';
+import { Slider, Tooltip , message } from 'antd';
 
 @inject('tradeStore', 'authStore')
 @observer
@@ -40,6 +40,18 @@ class TradeForm extends Component{
 		let value = e.currentTarget.value.trim();
 
 		this.props.tradeStore.setDealSellNum(value);
+	}
+
+	onChangeSellPwd=(e)=>{
+		let value = e.currentTarget.value.trim();
+
+		this.props.tradeStore.setTradeSellPassword(value);
+	}
+
+	onChangeBuyPwd=(e)=>{
+		let value = e.currentTarget.value.trim();
+
+		this.props.tradeStore.setTradeBuyPassword(value);
 	}	
 	// 失去焦点的时候验证填入的价格
 	checkTradePrice=(type, e)=>{
@@ -52,7 +64,22 @@ class TradeForm extends Component{
 		let value = e.currentTarget.value.trim();
 
 		this.props.tradeStore.checkTradeNumber(value, type);
-	}	
+	}
+	
+	submitOrder(type){
+		if (this.props.tradeStore.tradePasswordStatus ==  1) {
+            // 启用交易密码
+            let pwd = type == 'buy' ? this.props.tradeStore.tradeBuyPassword : this.props.tradeStore.tradeSellPassword;
+            
+            if (!pwd) {
+            	message.error(UPEX.lang.template('请输入交易密码'));
+            } else {
+            	this.props.tradeStore.createTradeOrder(type);	
+            }
+        } else {
+        	this.props.tradeStore.createTradeOrder(type);
+        }
+	}
 
 	render() {
 		let store = this.props.tradeStore;
@@ -73,7 +100,7 @@ class TradeForm extends Component{
 							authStore.isLogin ? (
 								<div>
 									<label>{UPEX.lang.template('可用')}</label>
-									<em>{ store.personalAccount.baseCoinBalance }</em>
+									<em>{ store.baseCoinBalance }</em>
 									<label>{ store.currentTradeCoin.baseCurrencyNameEn}</label>
 									<div className="recharge" onClick={this.goRecharge}>{UPEX.lang.template('充值')}</div>
 								</div>
@@ -92,7 +119,7 @@ class TradeForm extends Component{
 							authStore.isLogin ? (
 								<div>
 									<label>{UPEX.lang.template('可用')}</label>
-									<em>{ store.personalAccount.tradeCoinBalance }</em>
+									<em>{ store.tradeCoinBalance }</em>
 									<label>{ store.currentTradeCoin.currencyNameEn }</label>
 									<div className="recharge" onClick={this.goRecharge}>{UPEX.lang.template('充币')}</div>
 								</div>
@@ -156,16 +183,31 @@ class TradeForm extends Component{
 				                        />
 			                        </div>
 								</li>
+								{
+									 store.tradePasswordStatus == 1 ? (
+									 	<li>
+											<label>{UPEX.lang.template('交易密码')}</label>
+											<div className="input-box">
+												<input
+													type="number"
+													min="0"
+													value={store.tradeBuyPassword}
+													onChange={this.onChangeBuyPwd}
+												/>
+											</div>
+										</li>
+									 ) : null
+								}
 								<li className="hidden">
 									<label>{UPEX.lang.template('手续费')}</label>
 									<em>{ store.dealBuyFee }({store.currentTradeCoin.currencyNameEn})</em>
 								</li>
 								<li>
 									<label>{UPEX.lang.template('金额')}</label>
-									<em>{ store.dealBuyTotalAmount }({store.currentTradeCoin.currencyNameEn})</em>
+									<em>{ store.dealBuyTotalAmount }({store.currentTradeCoin.baseCurrencyNameEn})</em>
 								</li>
 								<li>
-									<button className="btn buy" disabled={ authStore.isLogin ? false : true}>{UPEX.lang.template('买入')}</button>
+									<button className="btn buy" disabled={ authStore.isLogin ? false : true} onClick={this.submitOrder.bind(this, 'buy')}>{UPEX.lang.template('买入')}</button>
 								</li>
 							</ul>
 						</div>
@@ -215,17 +257,32 @@ class TradeForm extends Component{
 				                            disabled={authStore.isLogin ? false : true}
 				                        />
 			                        </div>
-								</li>
+								</li>	
+								{
+									 store.tradePasswordStatus == 1 ? (
+									 	<li>
+											<label>{UPEX.lang.template('交易密码')}</label>
+											<div className="input-box">
+												<input
+													type="number"
+													min="0"
+													value={store.tradeSellPassword}
+													onChange={this.onChangeSellPwd}
+												/>
+											</div>
+										</li>
+									 ) : null
+								}
 								<li className="hidden">
 									<label>{UPEX.lang.template('手续费')}</label>
 									<em>{ store.dealSellFee }({store.currentTradeCoin.currencyNameEn})</em>
 								</li>
 								<li>
 									<label>{UPEX.lang.template('金额')}</label>
-									<em>{ store.dealSellTotalAmount}({store.currentTradeCoin.currencyNameEn})</em>
+									<em>{ store.dealSellTotalAmount}({store.currentTradeCoin.baseCurrencyNameEn})</em>
 								</li>
 								<li>
-									<button className="btn sell" disabled={ authStore.isLogin ? false : true}>{UPEX.lang.template('卖出')}</button>
+									<button className="btn sell" disabled={ authStore.isLogin ? false : true} onClick={this.submitOrder.bind(this, 'sell')}>{UPEX.lang.template('卖出')}</button>
 								</li>
 							</ul>
 						</div>

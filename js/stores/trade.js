@@ -2,10 +2,10 @@
  * 交易中心
  * TODO 第二个版本，优化自适应方案
  */
-import { observable, computed, autorun, action } from 'mobx';
+import { observable, computed, autorun, action, runInAction } from 'mobx';
 import { socket, tradeCurrencyId, baseCurrencyId } from '../api/socket';
-import { getBaseCoin, getUserOrderList } from '../api/http';
-import NP from 'number-precision'
+import { getBaseCoin, getUserOrderList, submitOrder, getPersonalTradingPwd } from '../api/http';
+import NP from 'number-precision';
 import NumberUtil from '../lib/util/number';
 import TimeUtil from '../lib/util/date';
 
@@ -31,6 +31,9 @@ class TradeStore {
     @observable tradeNumberErr = '';
     @observable sortByKey = ''; // 按{key}排序
     @observable sortByType = 'desc'; // 排序方式，升序:asc, 降序: desc
+    @observable tradeBuyPassword = '';
+    @observable tradeSellPassword = '';
+    @observable tradePasswordStatus = 2; // 交易
 
     originMarkets = {};
 
@@ -40,7 +43,7 @@ class TradeStore {
         this.orderStore = stores.tradeOrderStore;
         this.headerHeight = 60;
         this.space = 10;
-        this.handleHeight = 300; // 操作区域高度 280
+        this.handleHeight = 330; // 操作区域高度 280
         this.minChartHeight = 270; // K线图最小高度270
         this.minContentHeight = 270;
 
@@ -115,7 +118,7 @@ class TradeStore {
 
         price = price ? price : this.currentTradeCoin.currentAmount;
 
-        return price || 0;
+        return NumberUtil.initNumber(price || 0, this.pointPrice);
     }
 
     // 最佳卖出价格
@@ -125,7 +128,7 @@ class TradeStore {
 
         price = price ? price : this.currentTradeCoin.currentAmount;
 
-        return price || 0;
+        return NumberUtil.initNumber(price || 0, this.pointPrice);
     }
 
     @computed
@@ -203,6 +206,20 @@ class TradeStore {
         return this.entrust.entrustScale;
     }
 
+    @computed
+    get baseCoinBalance(){
+        let ret = NumberUtil.initNumber(this.personalAccount.baseCoinBalance, this.pointPrice);
+
+        return ret;
+    }
+
+    @computed
+    get tradeCoinBalance(){
+        let ret = NumberUtil.initNumber(this.personalAccount.tradeCoinBalance, this.pointPrice);
+
+        return ret;
+    }
+
     /**
      * 买入总金额
      */
@@ -269,8 +286,6 @@ class TradeStore {
 
     @action
     setDealBuyNum(value) {
-        const { baseCoinBalance, tradeCoinBalance } = this.personalAccount;
-
         this.dealBuyNum = value;
     }
 
@@ -284,7 +299,7 @@ class TradeStore {
         this.type = type;
     }
 
-    @action 
+    @action
     setCurrencyId(id) {
         this.currencyId = id;
     }
@@ -401,9 +416,10 @@ class TradeStore {
         socket.on('loginAfterChangeTradeCoin', (data) => {
             console.log('+++++++++++++++++++++++++');
             console.log('loginAfterChangeTradeCoin', data);
-
-            this.currentTradeCoin = data.currentTradeCoin;
-            this.currentTradeCoinRealTime = data.currentTradeCoinRealTime;
+            runInAction('get loginAfterChangeTradeCoin', () => {
+                this.currentTradeCoin = data.currentTradeCoin;
+                this.currentTradeCoinRealTime = data.currentTradeCoinRealTime;
+            })
         });
     }
     /**
@@ -419,7 +435,9 @@ class TradeStore {
         socket.on('tradeHistory', (data) => {
             console.log('+++++++++++++');
             console.log('tradeHistory', data);
-            this.tradeHistory = data;
+            runInAction('get tradeHistory data', () => {
+                this.tradeHistory = data;
+            })
         })
     }
 
@@ -447,7 +465,9 @@ class TradeStore {
             // data = require('../mock/entrust.json');
             console.log('+++++++++++++');
             console.log('entrust', data);
-            this.entrust = data;
+            runInAction('get entrust', () => {
+                this.entrust = data;
+            })
         });
     }
 
@@ -462,7 +482,6 @@ class TradeStore {
             item.current = NumberUtil.initNumber(item.current, this.pointPrice); // 价格
             item.number = NumberUtil.initNumber(item.number, this.pointNum); // 数量
             item.depth = (item.number * item.current / this.entrustScale).toFixed(this.pointNum) * 100;
-            console.log(item.depth);
         })
 
         sell.forEach((item, index) => {
@@ -522,15 +541,32 @@ class TradeStore {
         socket.on('loginAfter', (data) => {
             console.log('+++++++++++++');
             console.log('loginAfter', data);
-            parseLoginedMarkets(data);
-            // 拷贝存储数组
-            this.originMarkets = JSON.parse(JSON.stringify(data));
-            this.loginedMarkets = data;
-            
-            // 默认按交易币24H成交量降序排序
-            if(!this.sortByKey) {
-                this.sortByCondition('volume');
-            }
+            runInAction('get loginAfter', () => {
+                this.parseLoginedMarkets(data);
+                // 拷贝存储数组
+                this.originMarkets = JSON.parse(JSON.stringify(data));
+                this.loginedMarkets = data;
+            })
+        })
+    }
+    // 格式化交易币信息
+    @action
+    parseLoginedMarkets(loginedMarkets) {
+        loginedMarkets.forEach((obj, index) => {
+            // 遍历，1. 按成交量降序排列，2. 按最新成交价降序排序
+            obj.tradeCoins.map((item, index) => {
+                // 24小时涨跌幅
+                item.changeRate = Number(item.changeRate);
+                item.changeRate = (item.changeRate >= 0 ? '+' : '') + item.changeRate.toFixed(2) + '%';
+                // 最新成交价
+                item.currentAmount = NumberUtil.initNumber(item.currentAmount, item.pointPrice);
+                // 最高价
+                item.highPrice = NumberUtil.initNumber(item.highPrice, item.pointPrice);
+                // 最低价
+                item.lowPrice = NumberUtil.initNumber(item.lowPrice, item.pointPrice);
+                // 24小时成交数量
+                item.volume = NumberUtil.formatNumber(item.volume, item.pointNum);
+            })
         })
     }
     /**
@@ -548,31 +584,96 @@ class TradeStore {
             baseCurrencyId: this.baseCurrencyId
         })
         socket.off('userAccount')
-        socket.on('userAccount', function(data) {
-            console.log('+++++++++++++userAccount', data);
-            this.personalAccount = data;
+        socket.on('userAccount', (data) => {
+            runInAction('get userAccount', () => {
+                console.log('+++++++++++++userAccount', data);
+                this.personalAccount = data;
+            })
         })
     }
+
+    /**
+     *  获取用户交易密码设置状态
+     */
+    @action
+    getPersonalTradingPwd() {
+        if (!this.authStore.isLogin) {
+            return;
+        }
+
+        getPersonalTradingPwd().then((data) => {
+            this.tradePasswordStatus = data.attachment.enabled; // 1: 启用 ; 2: 不启用
+        })
+    }
+
+    @action
+    setTradeBuyPassword(value){
+        this.tradeBuyPassword = value;
+    }
+
+    @action
+    setTradeSellPassword(value){
+        this.tradeSellPassword = value;
+    }
+
+    // 创建订单
+    @action
+    createTradeOrder(type) {
+        let data = {};
+
+        if (type == 'buy') {
+            data = {
+                buyOrSell: 1,
+                currencyId: this.currencyId,
+                baseCurrencyId: this.baseCurrencyId,
+                fdPassword: this.tradeBuyPassword,
+                num: this.dealBuyNum,
+                price: this.dealBuyPrice,
+                source: 1,
+                type: 1
+            }
+        } else {
+            data = {
+                buyOrSell: 2,
+                baseCurrencyId: this.baseCurrencyId,
+                currencyId: this.currencyId,
+                fdPassword: this.tradeSellPassword,
+                num: this.dealSellNum,
+                price: this.dealSellPrice,
+                source: 1,
+                type: 1
+            }
+        } 
+
+        submitOrder(data)
+            .then((data) => {
+                runInAction('order', () => {
+                    if (data.status !== 200) {
+                        return;
+                    }
+                    // 重启获取新用户账号信息
+                    this.getUserAccount();
+                    this.getUserOrderList();
+
+                    if (type == 'buy') {
+                        this.setDealBuyPrice('');
+                        this.setDealBuyNum('');
+                        this.setTradeBuyPassword('');
+                    } else {
+                        this.setDealSellPrice('');
+                        this.setDealSellNum('');
+                        this.setTradeSellPassword('');
+                    }
+                })
+            }).catch(() => {
+                runInAction(() => {
+                    alert('下单失败');
+                })
+            })
+    }
+
+
 }
 
-// 格式化交易币信息
-function parseLoginedMarkets(loginedMarkets) {
-    loginedMarkets.forEach((obj, index) => {
-        // 遍历，1. 按成交量降序排列，2. 按最新成交价降序排序
-        obj.tradeCoins.map((item, index) => {
-            // 24小时涨跌幅
-            item.changeRate = Number(item.changeRate);
-            item.changeRate = (item.changeRate >= 0 ? '+' : '') + item.changeRate.toFixed(2) + '%';
-            // 最新成交价
-            item.currentAmount = item.currentAmount.toFixed(item.pointPrice);
-            // 最高价
-            item.highPrice = item.highPrice.toFixed(item.pointPrice);
-            // 最低价
-            item.lowPrice = item.lowPrice.toFixed(item.pointPrice);
-            // 24小时成交数量
-            item.volume = NumberUtil.formatNumber(item.volume, item.pointNum); // 数量
-        })
-    })
-}
 
 export default TradeStore;

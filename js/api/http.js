@@ -48,8 +48,7 @@ axios.interceptors.response.use(function(res) {
     if (status == 9999) {
         let nowTime = +new Date();
 
-        UPEX.cache.removeCache('token');
-        UPEX.cache.removeCache('uid');
+        $.channel.emit('authorizeinvalid');
 
         if (nowTime - preTime > 600000) {
             preTime = nowTime;
@@ -158,9 +157,24 @@ export function getUserOrderList(data) {
     })).then(res => res.data);
 }
 /**
+ * 生成委托单 -> 限价买/卖
+ */
+export function submitOrder(data) {
+    return axios.post(`${UPEX.config.host}/order/order`, qs.stringify({
+        ...data
+    })).then(res => res.data);
+}
+
+
+// 获取用户交易密码设置状态
+export function getPersonalTradingPwd() {
+    return axios.post(`${UPEX.config.host}/user/selectFdPwdEnabled`).then(res => res.data);
+}
+
+/**
  * 添加收藏
  */
-export async function addOptional (data) {
+export async function addOptional(data) {
     const res = await axios.post(`${UPEX.config.host}/optional/optional`, qs.stringify({
         tradeCurrencyId: data.currencyId,
         baseCurrencyId: data.baseCurrencyId
@@ -171,18 +185,18 @@ export async function addOptional (data) {
  * 取消收藏
  */
 
- export async function cancleOptional (data) {
+export async function cancleOptional(data) {
     const res = await axios.post(`${UPEX.config.host}/optional/cancleOptional`, qs.stringify({
         tradeCurrencyId: data.currencyId,
         baseCurrencyId: data.baseCurrencyId
     }))
     return res.data
- }
- /**
-  * 收藏列表
-  */
+}
+/**
+ * 收藏列表
+ */
 
-  export async function listOptional () {
+export async function listOptional() {
     const res = await axios.post(`${UPEX.config.host}/optional/listOptional`)
     return res.data
-  }
+}

@@ -1,19 +1,21 @@
 /**
  * 图片验证码
  */
-import { observable, action } from 'mobx';
+import { observable, action, runInAction } from 'mobx';
 import { fetchPicCaptcha } from '../api/http';
 
 class CaptchaStore {
-	@observable codeid = ''; // 图片验证码uuid
-	@observable captcha = ''; // 图片验证码    
+    @observable codeid = ''; // 图片验证码uuid
+    @observable captcha = ''; // 图片验证码    
 
-	@action
-    fetch(){
+    @action
+    fetch() {
         fetchPicCaptcha()
             .then((data) => {
-                this.captcha = 'data:image/png;base64,' + data.attachment.IMGCode;
-                this.codeid = data.attachment.codeUUID;
+                runInAction('get pic captcha success',() => {
+                    this.captcha = 'data:image/png;base64,' + data.attachment.IMGCode;
+                    this.codeid = data.attachment.codeUUID;
+                })
             })
     }
 }

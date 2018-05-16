@@ -30,6 +30,16 @@ class App extends Component {
 		rootStore.commonStore.updatePathName(this.state.location.pathname);
         window.scrollTo(0,0);
 	}
+    componentDidMount(){
+        // 授权失效，清除状态
+        $.channel.on('authorizeinvalid', ()=>{
+            rootStore.authStore.update({
+                uid: '',
+                token: ''
+            });
+        });
+    }
+
     render() {
         return (
         	<div 

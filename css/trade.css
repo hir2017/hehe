@@ -558,7 +558,7 @@
 .trade-extra-list .trade-sell {}
 
 .trade-extra-handle {
-    min-height: 300px;
+    min-height: 330px;
     margin-top: 10px;
     box-sizing: border-box;
     background-color: #fff;
@@ -612,7 +612,7 @@
 }
 
 .trade-form-bd ul {
-    padding: 10px;
+    padding: 5px 10px;
 }
 
 .trade-form-bd ul li {
@@ -695,7 +695,7 @@
 }
 
 .trade-form-bd .slider-box {
-    padding: 10px;
+    padding: 10px 5px;
 }
 
 

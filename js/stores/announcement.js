@@ -1,11 +1,11 @@
-import { observable, autorun, computed, action } from 'mobx';
+import { observable, autorun, computed, action, runInAction } from 'mobx';
 import { getAnnounceList, getAnnounceDetail } from '../api/http';
 import NumberUtil from '../lib/util/number';
 
 class AnnouncementStore {
     @observable list = [];
-    @observable isLoading = false; 
-    @observable detail = {};   
+    @observable isLoading = false;
+    @observable detail = {};
 
     @action
     fetch(count) {
@@ -14,13 +14,13 @@ class AnnouncementStore {
 
         getAnnounceList(count)
             .then((data) => {
-                data = require('../mock/notice.json');
-                
-                if (data.status == 200) {
-                    this.list = data.attachment;
-                }
+                runInAction('get announcement success', () => {
+                    if (data.status == 200) {
+                        this.list = data.attachment;
+                    }
 
-                this.isLoading = false;
+                    this.isLoading = false;
+                })
             }).catch((err) => {
                 console.log('Error loading announcement', err.message);
             })
@@ -29,22 +29,21 @@ class AnnouncementStore {
     @action
     fetchInfo(id) {
         getAnnounceDetail(id)
-            .then((data)=>{
-                data = require('../mock/notice-detail.json');
-
-                if ( data.status == 200) {
-                    this.detail = data.attachment;
-                }
-                console.log('getAnnounceDetail', data);
+            .then((data) => {
+                runInAction('get announcement detail success', () => {
+                    if (data.status == 200) {
+                        this.detail = data.attachment;
+                    }
+                })
             })
     }
 
-    @computed 
+    @computed
     get getLength() {
         return this.list.length;
     }
 
-    @computed 
+    @computed
     get formatedList() {
         return NumberUtil.splitData(this.list, 3);
     }
