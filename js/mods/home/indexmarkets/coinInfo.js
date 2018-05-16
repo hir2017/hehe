@@ -10,10 +10,11 @@ import { Link } from 'react-router'
 import Line from './chart'
 import klineCoin from '../../../../images/kline-coin.jpg'
 
+@inject('homeStore')
+@observer
 class CoinInfo extends Component {
   render() {
-    const coins = this.props.coins
-    const coin = coins.length > 0 ? coins[0] : {}
+    const coin = this.props.homeStore.coin
     return (
       <div>
         <div className="coinInfo-title">

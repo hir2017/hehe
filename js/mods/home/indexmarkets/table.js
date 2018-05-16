@@ -52,6 +52,10 @@ export default class extends React.Component {
     }
   }
 
+  selectCoin (baseID, id) {
+    this.props.homeStore.selectCoin(baseID, id)
+  }
+
   render() {
     return (
       <div className="ant-table ant-table-large ant-table-fixed-header ant-table-scroll-position-left">
@@ -100,9 +104,9 @@ export default class extends React.Component {
                           {item.currencyNameEn}
                           </Link>
                         </td>
-                        <td>{item.currentAmount}</td>
-                        <td>{item.changeRate}</td>
-                        <td>{item.volume}</td>
+                        <td onClick={() => {this.selectCoin(item.baseCurrencyId, item.currencyId)}}>{item.currentAmount}</td>
+                        <td onClick={() => {this.selectCoin(item.baseCurrencyId, item.currencyId)}}>{item.changeRate}</td>
+                        <td onClick={() => {this.selectCoin(item.baseCurrencyId, item.currencyId)}}>{item.volume}</td>
                         <td>
                           {
                             this.collectIcon(item)

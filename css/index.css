@@ -313,11 +313,12 @@
 	color: #999999;
 	font-size: 18px;
 	border-bottom: 1px solid #e7ebf1;
+
 }
 .index-markets table th i {
 	font-size: 12px;
-  vertical-align: 4px;
-  margin-left: 5px;
+    vertical-align: 4px;
+    margin-left: 5px;
 	cursor: pointer;
 }
 .index-markets table th:first-child {
@@ -336,9 +337,20 @@
 	text-align: center;
 	color: #333333;
 }
+.index-markets table td:last-child i {
+    cursor: pointer;
+}
 .index-markets table td:last-child {
 	font-size: 20px;
-	cursor: pointer;
+}
+.index-markets table td:nth-child(2) {
+    cursor: pointer;
+}
+.index-markets table td:nth-child(3) {
+    cursor: pointer;
+}
+.index-markets table td:nth-child(4) {
+    cursor: pointer;
 }
 .index-markets .coinInfo-content-item {
 	height: 45px;
