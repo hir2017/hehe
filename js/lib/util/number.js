@@ -173,6 +173,4 @@ const NumberUtil = {
     }
 };
 
-window.NumberUtil = NumberUtil;
-
 export default NumberUtil;
