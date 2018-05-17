@@ -777,6 +777,11 @@
     padding-top: 20px;
 }
 
+.tradeorder-wrapper .mini-tip a,
+.tradeorder-wrapper .mini-tip a:hover{
+    color: #e6bc1d;
+}
+
 .tradeorder-hd {
     width: 100%;
     height: 42px;

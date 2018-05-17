@@ -13,9 +13,16 @@ import md5 from '../lib/md5';
 class TradeStore {
     // 页面主题。浅色：light；深色：dark
     @observable theme = 'light';
+    // 委托中的订单&已完成的订单
+    @observable tabIndex = 0;
+    @observable isFetchingOrderList = true;
+    @observable openOrderList = []; // 委托中订单 == 当前委托
+    @observable historyOrderList = []; // 历史订单 == 已完成订单
+
     @observable currentTradeCoin = {};
     @observable currentTradeCoinRealTime = [];
     @observable loginedMarkets = {};
+
     @observable type = 'all'; // 买盘buy、卖盘sell
     @observable tradeHistory = { content: [] };
     @observable personalAccount = { baseCoinBalance: 0, tradeCoinBalance: 0 };
@@ -34,20 +41,21 @@ class TradeStore {
     @observable validSellNum = true;
     @observable tradePriceErr = '';
     @observable tradeNumberErr = '';
-    @observable sortByKey = ''; // 按{key}排序
-    @observable sortByType = 'desc'; // 排序方式，升序:asc, 降序: desc
     @observable tradeBuyPassword = '';
     @observable tradeSellPassword = '';
     @observable tradePasswordStatus = 2; // 交易.  1：需要交易密码；2：不需要交易密码
     @observable isSubmiting = 0;
     @observable hasSettingDealPwd = false; // 是否设置交易密码
 
+    @observable sortByKey = ''; // 按{key}排序
+    @observable sortByType = 'desc'; // 排序方式，升序:asc, 降序: desc
+   
+
     originMarkets = {};
 
     constructor(stores) {
         this.commonStore = stores.commonStore;
         this.authStore = stores.authStore;
-        this.orderStore = stores.tradeOrderStore;
         this.headerHeight = 60;
         this.space = 10;
         this.maxHandleHeight = 330; // 操作区域高度 280
@@ -556,7 +564,47 @@ class TradeStore {
         if (!this.authStore.isLogin) {
             return;
         }
-        this.orderStore.getUserOrderList(this.baseCurrencyId, this.currencyId);
+
+        getUserOrderList({
+            baseCurrencyId: this.baseCurrencyId,
+            tradeCurrencyId: this.currencyId
+        }).then((data) => {
+            // data = require('../mock/order-list.json');
+            runInAction(() => {
+                this.openOrderList = this.parseOpenOrderList(data.attachment.tradeFail);
+                this.historyOrderList = this.parseHistoryOrderList(data.attachment.tradeSuccess);
+                this.isFetchingOrderList = false;
+            })
+        }).catch(() => {
+            runInAction(() => {
+                this.isFetchingOrderList = false;
+            })
+        })
+    }
+
+    @action
+    parseOpenOrderList(arr) {
+        arr.forEach((item, index) => {
+            item.orderTime = TimeUtil.formatDate(item.orderTime, 'HH:mm:ss');
+        })
+
+        return arr;
+    }
+
+    @action
+    parseHistoryOrderList(arr) {
+        arr.forEach((item, index) => {
+            item.orderTime = TimeUtil.formatDate(item.orderTime, 'HH:mm:ss');
+        })
+
+        return arr;
+    }
+    /**
+     * 设置Tab索引值
+     */
+    @action
+    setTabIndex(index) {
+        this.tabIndex = index;
     }
     /**
      * 行情通知

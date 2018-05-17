@@ -3,8 +3,9 @@
  */
 import React, {Component} from 'react';
 import { observer, inject } from 'mobx-react';
+import { Link } from 'react-router';
 
-@inject('authStore','tradeOrderStore')
+@inject('authStore','tradeStore')
 @observer
 class OpenOrder extends Component{
 	handleCancel(orderNo){
@@ -12,12 +13,12 @@ class OpenOrder extends Component{
 	}
 	
 	render(){
-		let store = this.props.tradeOrderStore;
+		let store = this.props.tradeStore;
 		let $content;
 
 		if (!this.props.authStore.isLogin) {
 			$content = <div className="mini-tip">{ UPEX.lang.template('登录后可查看已完成订单')}</div>
-		} else if(store.isFetching){
+		} else if(store.isFetchingOrderList){
 			$content = <div className="mini-tip">{ UPEX.lang.template('正在加载')}</div>
 		} else if(store.openOrderList.length == 0) {
 			$content = <div className="mini-tip">{ UPEX.lang.template('暂无委托中订单') }</div>;

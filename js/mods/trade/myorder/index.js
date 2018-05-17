@@ -6,7 +6,7 @@ import { observer, inject } from 'mobx-react';
 import OpenOrder from './open-order';
 import HistoryOrder from './history-order';
 
-@inject('tradeOrderStore')
+@inject('tradeStore')
 @observer
 class MyOrder extends Component {
 	constructor(props){
@@ -18,19 +18,13 @@ class MyOrder extends Component {
 			title: UPEX.lang.template('已完成订单')
 		}]
 	}
-	onChange=(e)=>{
-		// true隐藏，false不隐藏
-		let checked = e.currentTarget.checked == true;
-
-		this.props.tradeOrderStore.filterOtherCurrency(checked);
-	}
 
 	handleClickTab(index){
-		this.props.tradeOrderStore.setTabIndex(index);
+		this.props.tradeStore.setTabIndex(index);
 	}
 
 	render() {
-		let store = this.props.tradeOrderStore;
+		let store = this.props.tradeStore;
 
 		return (
 			<div className="tradeorder-wrapper">
