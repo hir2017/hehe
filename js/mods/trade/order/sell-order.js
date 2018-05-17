@@ -27,7 +27,7 @@ class SellOrder extends Component {
 									<div className="cell price">{item.current}</div>
 									<div className="cell number">{item.number}</div>
 									<div className="cell total">{item.total || 0}</div>
-									<div className="bar" style={{ width: `${item.depth}%` }}></div>
+									<div className="bar" style={{ width: `${item.depth}` }}></div>
 								</li>
 							)
 						})

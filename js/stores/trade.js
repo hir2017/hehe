@@ -33,7 +33,7 @@ class TradeStore {
     @observable sortByType = 'desc'; // 排序方式，升序:asc, 降序: desc
     @observable tradeBuyPassword = '';
     @observable tradeSellPassword = '';
-    @observable tradePasswordStatus = 1; // 交易
+    @observable tradePasswordStatus = 2; // 交易
 
     originMarkets = {};
 
@@ -485,15 +485,15 @@ class TradeStore {
         let sell = data.sell || [];
 
         buy.forEach((item, index) => {
+            item.depth = NumberUtil.asPercent(item.number * item.current / this.entrustScale, this.pointNum);
             item.current = NumberUtil.initNumber(item.current, this.pointPrice); // 价格
             item.number = NumberUtil.initNumber(item.number, this.pointNum); // 数量
-            item.depth = (item.number * item.current / this.entrustScale).toFixed(this.pointNum) * 100;
         })
 
         sell.forEach((item, index) => {
+            item.depth = NumberUtil.asPercent(item.number * item.current / this.entrustScale, this.pointNum);
             item.current = NumberUtil.initNumber(item.current, this.pointPrice); // 价格
             item.number = NumberUtil.initNumber(item.number, this.pointNum); // 数量
-            item.depth = (item.number * item.current / this.entrustScale).toFixed(this.pointNum) * 100;
         })
 
         data.buy = buy;

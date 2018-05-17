@@ -167,7 +167,7 @@ const NumberUtil = {
      * 百分数
      */
     asPercent(value, decimals = 0) {
-        value *= 100;
+        value = 100 * value;
 
         return value.toFixed(decimals) + '%'
     }
