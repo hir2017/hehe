@@ -11,6 +11,7 @@ class TradeForm extends Component{
 	}
 
 	onChangeBuySlider=(num)=>{
+		console.log(num);
 		this.props.tradeStore.setBuySliderValue(num);
 	}
 
@@ -66,19 +67,19 @@ class TradeForm extends Component{
 		this.props.tradeStore.checkTradeNumber(value, type);
 	}
 	
-	submitOrder(type){
-		if (this.props.tradeStore.tradePasswordStatus ==  1) {
-            // 启用交易密码
-            let pwd = type == 'buy' ? this.props.tradeStore.tradeBuyPassword : this.props.tradeStore.tradeSellPassword;
-            
-            if (!pwd) {
-            	message.error(UPEX.lang.template('请输入交易密码'));
-            } else {
-            	this.props.tradeStore.createTradeOrder(type);	
-            }
-        } else {
-        	this.props.tradeStore.createTradeOrder(type);
-        }
+	submitOrder=(type) =>{
+		let { verifyInfoBeforeSubmit , createTradeOrder } = this.props.tradeStore;
+		let result = verifyInfoBeforeSubmit(type);
+		
+		if (result.pass) {
+			createTradeOrder(type).done(()=>{
+	        	// 下单成功
+	        }).fail((data)=>{
+	        	message.error(data.message);
+	        })
+		} else {
+			message.error(result['message']);
+		}
 	}
 
 	render() {
@@ -176,7 +177,7 @@ class TradeForm extends Component{
 										<Slider 
 										 	tipFormatter={null}
 										 	marks={sliderMarks}
-										 	step={null}
+										 	tipFormatter={(value)=>`${value}%`}
 				                            onChange={this.onChangeBuySlider} 
 				                            value={store.buySliderValue}
 				                            disabled={authStore.isLogin ? false : true}
@@ -251,7 +252,7 @@ class TradeForm extends Component{
 										 	defaultValue={0} 
 										 	tipFormatter={null}
 										 	marks={sliderMarks}
-										 	step={null}
+										 	tipFormatter={(value)=>`${value}%`}
 				                            onChange={this.onChangeSellSlider} 
 				                            value={store.sellSliderValue}
 				                            disabled={authStore.isLogin ? false : true}

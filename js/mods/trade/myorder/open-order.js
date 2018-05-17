@@ -25,6 +25,16 @@ class OpenOrder extends Component{
 				<ul>
 					{
 						store.openOrderList.map((item, index)=>{
+							let status;
+
+							if (item.status == 2) {
+								status = UPEX.lang.template('全部成交')
+							} else if (item.status == 1) {
+								status = UPEX.lang.template('部分成交');
+							} else {
+								status = UPEX.lang.template('未成交');
+							}
+
 							return (
 								<li key={index}>
 									<dl>
@@ -34,8 +44,8 @@ class OpenOrder extends Component{
 										<dd className="number">{item.num}</dd>
 										<dd className="price">{item.price}</dd>
 										<dd className="total">{'委托金额'}</dd>
-										<dd className="rate">{'33%'}</dd>
-										<dd className="status">{item.status == 1 ? UPEX.lang.template('未成交'): UPEX.lang.template('部分成交')}</dd>
+										<dd className="rate">{'成交率'}</dd>
+										<dd className="status">{status}</dd>
 										<dd className="action" onClick={this.handleCancel.bind(this, item.orderNo)}>{ UPEX.lang.template('撤单')}</dd>
 									</dl>
 								</li>

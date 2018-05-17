@@ -133,28 +133,21 @@ const NumberUtil = {
      */
     asDecimal(number, decimals = 2, roundtag = 'floor') {
         number = (number + '').replace(/[^0-9+-Ee.]/g, '');
-        roundtag = roundtag || "floor"; 
+        roundtag = roundtag || "floor";
 
         var n = !isFinite(+number) ? 0 : +number,
             prec = !isFinite(+decimals) ? 0 : Math.abs(decimals),
-            sep =  ',',
             dec = '.',
             s = '';
 
-        var toFixedFix = function(n, prec) {
+        var toFixedFix = (n, prec) =>{
 
             var k = Math.pow(10, prec);
-            console.log();
 
-            return '' + parseFloat(Math[roundtag](parseFloat((n * k).toFixed(prec * 2))).toFixed(prec * 2)) / k;
+            return '' + parseFloat(Math[roundtag](parseFloat(this.mul(n, k).toFixed(prec * 2))).toFixed(prec * 2)) / k;
         };
 
         s = (prec ? toFixedFix(n, prec) : '' + Math.round(n)).split('.');
-        var re = /(-?\d+)(\d{3})/;
-
-        while (re.test(s[0])) {
-            s[0] = s[0].replace(re, "$1" + sep + "$2");
-        }
 
         if ((s[1] || '').length < prec) {
             s[1] = s[1] || '';
@@ -170,7 +163,35 @@ const NumberUtil = {
         value = 100 * value;
 
         return value.toFixed(decimals) + '%'
-    }
+    },
+
+    /**
+     * 浮点数乘法运算（消除bug）
+     * @name mul
+     * @memberOf tool
+     */
+    mul: function(num1, num2) {
+        var reg = /\./i;
+        if (!reg.test(num1) && !reg.test(num2)) {
+            return num1 * num2;
+        }
+        var len = 0,
+            str1 = num1.toString(),
+            str2 = num2.toString();
+        if (str1.indexOf('.') >= 0) {
+            len += str1.split('.')[1].length;
+        }
+        if (str2.indexOf('.') >= 0) {
+            len += str2.split('.')[1].length;
+        }
+        return Number(str1.replace('.', '')) * Number(str2.replace('.', '')) / Math.pow(10, len);
+
+        　　
+    },
+
+
 };
+
+window.NumberUtil = NumberUtil;
 
 export default NumberUtil;

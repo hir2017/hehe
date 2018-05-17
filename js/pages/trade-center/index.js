@@ -48,6 +48,7 @@ class TradeContent extends Component {
         tradeStore.getTradeHistory();
         tradeStore.getUserAccount();
         tradeStore.getPersonalTradingPwd();
+        tradeStore.getPersonalInfo();
         tradeStore.getUserOrderList();
     }
 

@@ -16,6 +16,7 @@
 
 
 
+
 /**
  * 图表模块
  */
@@ -33,6 +34,7 @@
     width: 100%;
     /* border-bottom: 10px solid #f8f8fb; */
 }
+
 
 
 
@@ -75,11 +77,13 @@
 }
 
 
+
 /* 正 */
 
 .trade-current-coin li.positive em {
     color: #00b56a;
 }
+
 
 
 /* 负 */
@@ -236,24 +240,26 @@
     color: #00d02c;
 }
 
-.trade-current-coin .popover-tradecoins-dark .ant-popover-inner{
+.trade-current-coin .popover-tradecoins-dark .ant-popover-inner {
     background-color: #1c1e20;
 }
+
 .trade-current-coin .popover-tradecoins-dark .coin-list {
     color: #fff;
 }
 
-.trade-current-coin .popover-tradecoins-dark .coin-list-bd dl.list dd:hover{
+.trade-current-coin .popover-tradecoins-dark .coin-list-bd dl.list dd:hover {
     background-color: rgba(248, 248, 251, 0.18);
 }
 
-.trade-current-coin .popover-tradecoins-dark .ant-checkbox-wrapper{
+.trade-current-coin .popover-tradecoins-dark .ant-checkbox-wrapper {
     color: #fff;
 }
 
-.trade-current-coin .coin-list-hd .popover-tradecoins-dark input{
+.trade-current-coin .coin-list-hd .popover-tradecoins-dark input {
     color: #fff;
 }
+
 
 
 
@@ -385,7 +391,7 @@
     width: 100%;
 }
 
-.trade-extra-list .list-box-l .trade-sell ul{
+.trade-extra-list .list-box-l .trade-sell ul {
     position: absolute;
     width: 100%;
     bottom: 0;
@@ -461,6 +467,7 @@
 
     background: rgba(255, 51, 128, 0.3);
 }
+
 
 
 
@@ -569,6 +576,7 @@
 
 
 
+
 /**
  * trade-form
  */
@@ -610,9 +618,11 @@
     float: left;
     width: 50%;
 }
-.trade-form-bd{
+
+.trade-form-bd {
     font-size: 12px;
 }
+
 .trade-form-bd ul {
     padding: 5px 10px;
 }
@@ -699,18 +709,46 @@
     padding: 0 10px 10px;
 }
 
-.trade-form-bd .ant-slider{
+.trade-form .ant-slider {
     font-size: 12px;
     margin-bottom: 10px;
 }
-.trade-form-bd .ant-slider-mark{
+
+.trade-form .ant-slider-mark {
     font-size: 12px;
 }
 
-.trade-form-bd .ant-slider-rail{
-    height: 2px;
+.trade-form .ant-slider-mark-text-active {
+    color: #e6bc1d;
 }
 
+.trade-form .ant-slider-handle,
+.trade-form .ant-slider-dot-active {
+    border-color: #e6bc1d;
+}
+
+.trade-form .ant-slider-track {
+    background-color: #e6bc1d;
+}
+
+.trade-form .ant-slider:hover .ant-slider-track {
+    background-color: #e6bc1d;
+}
+
+.trade-form .ant-slider-handle:not(.ant-tooltip-open) {
+    border-color: #e6bc1d;
+}
+
+.trade-form .ant-slider-handle:focus {
+    border-color: #e6bc1d;
+    -webkit-box-shadow: 0 0 0 5px #e6bc1d;
+    -moz-box-shadow: 0 0 0 5px #e6bc1d;
+    box-shadow: 0 0 0 5px #e6bc1d;
+}
+
+.trade-form .ant-slider:hover .ant-slider-handle:not(.ant-tooltip-open) {
+    border-color: #e6bc1d;
+}
 
 
 /**
@@ -907,6 +945,7 @@
 
 
 
+
 /**
  * 暗色
  */
@@ -929,25 +968,28 @@
     background-color: #090600;
 }
 
-.trade-wrapper[data-theme="dark"] .trade-extra-list .list-box-r .table-bd ul li:hover{
+.trade-wrapper[data-theme="dark"] .trade-extra-list .list-box-r .table-bd ul li:hover {
     background-color: rgba(248, 248, 251, 0.18);
 }
+
 .trade-wrapper[data-theme="dark"] .trade-extra-list .list-box-l .table-bd,
-.trade-wrapper[data-theme="dark"] .trade-extra-list .list-box-r .table-bd{
+.trade-wrapper[data-theme="dark"] .trade-extra-list .list-box-r .table-bd {
     color: rgba(255, 255, 255, 0.6);
 }
+
 .trade-wrapper[data-theme="dark"] .trade-current-coin li.coin {
     color: rgba(255, 255, 255, 0.6);
 }
-.trade-wrapper[data-theme="dark"] .trade-current-amount{
+
+.trade-wrapper[data-theme="dark"] .trade-current-amount {
     background-color: rgba(255, 255, 255, 0.08);
 }
 
 .trade-wrapper[data-theme="dark"] .trade-extra-list .list-box-r .table-hd,
 .trade-wrapper[data-theme="dark"] .trade-extra-list .list-box-l .list-box-hd,
-.trade-wrapper[data-theme="dark"] .trade-form-hd{
+.trade-wrapper[data-theme="dark"] .trade-form-hd {
     background-color: #090600;
-    border-bottom: 2px solid #131314; 
+    border-bottom: 2px solid #131314;
 }
 
 .trade-wrapper[data-theme="dark"] .trade-main-chart .chart-box {
@@ -965,6 +1007,7 @@
 .trade-wrapper[data-theme="dark"] .tradeorder-hd {
     border-bottom: 2px solid #131314;
 }
-.trade-wrapper[data-theme="dark"] .trade-form{
+
+.trade-wrapper[data-theme="dark"] .trade-form {
     color: rgba(255, 255, 255, 0.8);
 }

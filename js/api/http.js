@@ -170,6 +170,12 @@ export function submitOrder(data) {
 export function getPersonalTradingPwd() {
     return axios.post(`${UPEX.config.host}/user/selectFdPwdEnabled`).then(res => res.data);
 }
+/**
+ *
+ */
+export function hasSettingDealPwd(){
+    return axios.post(`${UPEX.config.host}/user/personalInfo`).then(res => res.data);
+}
 
 /**
  * 添加收藏

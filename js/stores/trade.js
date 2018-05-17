@@ -4,10 +4,11 @@
  */
 import { observable, computed, autorun, action, runInAction } from 'mobx';
 import { socket, tradeCurrencyId, baseCurrencyId } from '../api/socket';
-import { getBaseCoin, getUserOrderList, submitOrder, getPersonalTradingPwd } from '../api/http';
+import { getBaseCoin, getUserOrderList, submitOrder, getPersonalTradingPwd, hasSettingDealPwd } from '../api/http';
 import NP from 'number-precision';
 import NumberUtil from '../lib/util/number';
 import TimeUtil from '../lib/util/date';
+import md5 from '../lib/md5';
 
 class TradeStore {
     // 页面主题。浅色：light；深色：dark
@@ -27,13 +28,19 @@ class TradeStore {
     @observable dealSellNum = 0; // 卖出数量
     @observable buySliderValue = 0;
     @observable sellSliderValue = 0;
+    @observable validBuyPrice = true;
+    @observable validBuyNum = true;
+    @observable validSellPrice = true;
+    @observable validSellNum = true;
     @observable tradePriceErr = '';
     @observable tradeNumberErr = '';
     @observable sortByKey = ''; // 按{key}排序
     @observable sortByType = 'desc'; // 排序方式，升序:asc, 降序: desc
     @observable tradeBuyPassword = '';
     @observable tradeSellPassword = '';
-    @observable tradePasswordStatus = 2; // 交易
+    @observable tradePasswordStatus = 2; // 交易.  1：需要交易密码；2：不需要交易密码
+    @observable isSubmiting = 0;
+    @observable hasSettingDealPwd = false; // 是否设置交易密码
 
     originMarkets = {};
 
@@ -54,8 +61,8 @@ class TradeStore {
     }
 
     @computed
-    get handleHeight(){
-        return this.tradePasswordStatus ==  1 ? this.maxHandleHeight : this.minHandleHeight;
+    get handleHeight() {
+        return this.tradePasswordStatus == 1 ? this.maxHandleHeight : this.minHandleHeight;
     }
 
     @computed
@@ -213,14 +220,14 @@ class TradeStore {
     }
 
     @computed
-    get baseCoinBalance(){
+    get baseCoinBalance() {
         let ret = NumberUtil.initNumber(this.personalAccount.baseCoinBalance, this.pointPrice);
 
         return ret;
     }
 
     @computed
-    get tradeCoinBalance(){
+    get tradeCoinBalance() {
         let ret = NumberUtil.initNumber(this.personalAccount.tradeCoinBalance, this.pointPrice);
 
         return ret;
@@ -282,21 +289,63 @@ class TradeStore {
 
     @action
     setBuySliderValue(value) {
+        let baseCoinBalance = Number(this.baseCoinBalance.replace(/\,/gi, ''));
+        let num = baseCoinBalance * value / 100;
+
+        this.dealBuyNum = NumberUtil.initNumber(num, this.pointNum);
         this.buySliderValue = value;
     }
 
     @action
     setSellSliderValue(value) {
+        let baseCoinBalance = Number(this.baseCoinBalance.replace(/\,/gi, ''));
+        let num = baseCoinBalance * value / 100;
+        
+        this.dealSellNum = NumberUtil.initNumber(num, this.pointNum);
         this.sellSliderValue = value;
     }
 
     @action
     setDealBuyNum(value) {
+        let baseCoinBalance = Number(this.baseCoinBalance.replace(/\,/gi, ''));
+        let result;
+        let precent;
+
+        if (baseCoinBalance === 0) {
+            result = 0;
+        } else {
+            precent = value / baseCoinBalance * 100;
+
+            if (precent > 100) {
+                precent = 100;
+            } else if (precent < 0) {
+                precent = 0;
+            }
+        }
+
+        this.buySliderValue = precent;
         this.dealBuyNum = value;
     }
 
     @action
     setDealSellNum(value) {
+        let baseCoinBalance = Number(this.baseCoinBalance.replace(/\,/gi, ''));
+        let result;
+        let precent;
+
+        if (baseCoinBalance === 0) {
+            result = 0;
+        } else {
+            precent = value / baseCoinBalance * 100;
+
+            if (precent > 100) {
+                precent = 100;
+            } else if (precent < 0) {
+                precent = 0;
+            }
+        }
+
+        this.sellSliderValue = precent;
         this.dealSellNum = value;
     }
 
@@ -599,6 +648,26 @@ class TradeStore {
     }
 
     /**
+     * 获取账号信息
+     */
+    @action
+    getPersonalInfo() {
+        if (!this.authStore.isLogin) {
+            return;
+        }
+        hasSettingDealPwd().then((data) => {
+            runInAction(() => {
+                if (data.attachment.isValidatePass === 1) {
+                    // 已设置交易密码
+                    this.hasSettingDealPwd = true;
+                } else {
+                    this.hasSettingDealPwd = false;
+                }
+            })
+        })
+    }
+
+    /**
      *  获取用户交易密码设置状态
      */
     @action
@@ -613,48 +682,129 @@ class TradeStore {
     }
 
     @action
-    setTradeBuyPassword(value){
+    setTradeBuyPassword(value) {
         this.tradeBuyPassword = value;
     }
 
     @action
-    setTradeSellPassword(value){
+    setTradeSellPassword(value) {
         this.tradeSellPassword = value;
     }
 
+    // 提交买入订单验证
+    @action.bound
+    verifyInfoBeforeSubmit(type) {
+        let result = {
+            pass: true,
+            message: ''
+        };
+        let price;
+        let num;
+        let validPrice;
+        let validNum;
+        let password;
+
+        if (type == 'buy') {
+            price = this.dealBuyPrice;
+            num = this.dealBuyNum;
+            validPrice = this.validBuyPrice;
+            validNum = this.validBuyNum;
+            password = this.tradeBuyPassword;
+        } else {
+            price = this.dealSellPrice;
+            num = this.dealSellNum;
+            validPrice = this.validSellPrice;
+            validNum = this.validSellNum;
+            password = this.tradeSellPassword;;
+        }
+
+        console.log(price, num, validPrice, validNum, password);
+
+        if (!price) {
+            result = {
+                pass: false,
+                message: UPEX.lang.template('请输入价格')
+            }
+        } else if (!num) {
+            result = {
+                pass: false,
+                message: UPEX.lang.template('请输入数量')
+            }
+        } else if (!validPrice) {
+            result = {
+                pass: false,
+                message: UPEX.lang.template('价格输入错误')
+            }
+        } else if (!validNum) {
+            result = {
+                pass: false,
+                message: UPEX.lang.template('数量输入错误')
+            }
+        }
+
+        // 必须填写交易密码
+        if (this.tradePasswordStatus == 1 && !password) {
+            result = {
+                pass: false,
+                message: UPEX.lang.template('请输入交易密码')
+            }
+        }
+
+        return result;
+    }
+
     // 创建订单
-    @action
+    @action.bound
     createTradeOrder(type) {
         let data = {};
+        let defer = $.Deferred();
+
+        // 防止多次提交
+        if (this.isSubmiting) {
+            return;
+        }
+
+        this.isSubmiting = 1;
+
 
         if (type == 'buy') {
             data = {
                 buyOrSell: 1,
                 currencyId: this.currencyId,
                 baseCurrencyId: this.baseCurrencyId,
-                fdPassword: this.tradeBuyPassword,
+                fdPassword: '',
                 num: this.dealBuyNum,
                 price: this.dealBuyPrice,
                 source: 1,
                 type: 1
+            }
+
+            if (this.tradePasswordStatus == 1) {
+                data.fdPassword = md5(this.tradeBuyPassword + UPEX.config.salt);
             }
         } else {
             data = {
                 buyOrSell: 2,
                 baseCurrencyId: this.baseCurrencyId,
                 currencyId: this.currencyId,
-                fdPassword: this.tradeSellPassword,
+                fdPassword: '',
                 num: this.dealSellNum,
                 price: this.dealSellPrice,
                 source: 1,
                 type: 1
             }
-        } 
+
+            if (this.tradePasswordStatus == 1) {
+                data.fdPassword = md5(this.tradeSellPassword + UPEX.config.salt);
+            }
+        }
 
         submitOrder(data)
             .then((data) => {
+                this.isSubmiting = 0;
                 runInAction('order', () => {
                     if (data.status !== 200) {
+                        defer.reject(data)
                         return;
                     }
                     // 重启获取新用户账号信息
@@ -672,10 +822,13 @@ class TradeStore {
                     }
                 })
             }).catch(() => {
+                this.isSubmiting = 0;
                 runInAction(() => {
-                    alert('下单失败');
+                    defer.reject()
                 })
             })
+
+        return defer.promise();
     }
 
 
