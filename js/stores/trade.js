@@ -33,7 +33,7 @@ class TradeStore {
     @observable sortByType = 'desc'; // 排序方式，升序:asc, 降序: desc
     @observable tradeBuyPassword = '';
     @observable tradeSellPassword = '';
-    @observable tradePasswordStatus = 2; // 交易
+    @observable tradePasswordStatus = 1; // 交易
 
     originMarkets = {};
 
@@ -43,13 +43,19 @@ class TradeStore {
         this.orderStore = stores.tradeOrderStore;
         this.headerHeight = 60;
         this.space = 10;
-        this.handleHeight = 330; // 操作区域高度 280
+        this.maxHandleHeight = 330; // 操作区域高度 280
+        this.minHandleHeight = 280; // 操作区域高度 280
         this.minChartHeight = 270; // K线图最小高度270
         this.minContentHeight = 270;
 
         this.handlerEntrust = autorun(() => {
 
         })
+    }
+
+    @computed
+    get handleHeight(){
+        return this.tradePasswordStatus ==  1 ? this.maxHandleHeight : this.minHandleHeight;
     }
 
     @computed

@@ -375,23 +375,23 @@
     width: 100%;
     height: 100%;
     left: 0;
-    overflow-y: auto;
 }
 
 .trade-extra-list .list-box-l .trade-sell {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
     height: 100%;
-    overflow-y: auto;
+    width: 100%;
 }
 
 .trade-extra-list .list-box-l .trade-sell ul{
-    /* position: absolute;
+    position: absolute;
     width: 100%;
-    bottom: 2px;
-    left: 0; */
+    bottom: 0;
+    left: 0;
+    max-height: 100%;
+    overflow-y: auto;
 }
 
 .trade-extra-list .list-box-l .trade-buy li,
@@ -558,7 +558,7 @@
 .trade-extra-list .trade-sell {}
 
 .trade-extra-handle {
-    min-height: 330px;
+    min-height: 280px;
     margin-top: 10px;
     box-sizing: border-box;
     background-color: #fff;
@@ -610,13 +610,16 @@
     float: left;
     width: 50%;
 }
-
+.trade-form-bd{
+    font-size: 12px;
+}
 .trade-form-bd ul {
     padding: 5px 10px;
 }
 
 .trade-form-bd ul li {
     overflow: hidden;
+    margin-bottom: 5px;
 }
 
 
@@ -631,7 +634,6 @@
     line-height: 16px;
     height: 26px;
     line-height: 26px;
-    width: 60px;
     display: inline-block;
     overflow: hidden;
     vertical-align: middle;
@@ -644,7 +646,6 @@
     line-height: 34px;
     text-align: center;
     color: #fff;
-    margin-top: 10px;
 }
 
 .trade-form-bd .btn:disabled {
@@ -695,11 +696,20 @@
 }
 
 .trade-form-bd .slider-box {
-    padding: 10px 5px;
+    padding: 0 10px 10px;
 }
 
+.trade-form-bd .ant-slider{
+    font-size: 12px;
+    margin-bottom: 10px;
+}
+.trade-form-bd .ant-slider-mark{
+    font-size: 12px;
+}
 
-
+.trade-form-bd .ant-slider-rail{
+    height: 2px;
+}
 
 
 

@@ -108,7 +108,7 @@ class TradeContent extends Component {
                             
             			</div>
             			
-            			<div className="trade-extra-handle">
+            			<div className="trade-extra-handle" style={{ height: store.handleHeight }}>
             				<TradeForm/>
             			</div>
             		</div>
