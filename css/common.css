@@ -4,7 +4,7 @@ html {
 }
 
 #wrap {
-    background: #f8f7fc;
+    background: #fff;
     min-height: 100%;
 }
 
@@ -100,6 +100,7 @@ html {
     line-height: 60px;
 }
 
+
 .header-box .theme-menu {
     line-height: 60px;
 }
@@ -128,6 +129,29 @@ html {
     vertical-align: middle;
     padding: 0 3px;
 }
+
+
+.header-box .pop-menu-list dd {
+    position: relative;
+    padding: 6px 0;
+    cursor: pointer;
+    font-size: 14px;
+    border-bottom: 1px solid #e2e2e2;
+}
+
+.header-box .pop-menu-list dd a,
+.header-box .pop-menu-list dd a:hover{
+    color: rgba(0, 0, 0, 0.65);
+}
+
+.header-box .pop-menu-list dd:last-child {
+    border-bottom: 0 none;
+}
+
+.header-box .pop-menu-list dd.selected {
+    color: #fb7e3e;
+}
+
 
 .header-box .language-menu-list dd {
     position: relative;

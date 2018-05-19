@@ -171,7 +171,7 @@ export function getPersonalTradingPwd() {
     return axios.post(`${UPEX.config.host}/user/selectFdPwdEnabled`).then(res => res.data);
 }
 /**
- *
+ * 账号信息
  */
 export function hasSettingDealPwd(){
     return axios.post(`${UPEX.config.host}/user/personalInfo`).then(res => res.data);

@@ -21,6 +21,8 @@ import ResetPwd from './pages/login-register/resetpwd';
 
 import Home from './pages/home';
 import TradeCenter from './pages/trade-center';
+import Assets from './pages/assets';
+import UserInfo from './pages/user';
 
 const routes = (
     <Route>
@@ -29,6 +31,8 @@ const routes = (
         	<Route path="home" component={Home}/>
         	<Route path="index" component={Home}/>
 	        <Route path="trade(/:code)" component={TradeCenter}/>
+	        <Route path="assets" component={Assets}/>
+	        <Route path="user" component={UserInfo}/>
 	        <Route path="login" component={Login}/>
 	        <Route path="register" component={Register}/>
 	        <Route path="resetpwd" component={ResetPwd}/>

@@ -134,26 +134,20 @@ const NumberUtil = {
     asDecimal(number, decimals = 2, roundtag = 'floor') {
         number = (number + '').replace(/[^0-9+-Ee.]/g, '');
         roundtag = roundtag || "floor";
-
         var n = !isFinite(+number) ? 0 : +number,
             prec = !isFinite(+decimals) ? 0 : Math.abs(decimals),
             dec = '.',
             s = '';
-
         var toFixedFix = (n, prec) =>{
-
             var k = Math.pow(10, prec);
-
             return '' + parseFloat(Math[roundtag](parseFloat(this.mul(n, k).toFixed(prec * 2))).toFixed(prec * 2)) / k;
         };
-
         s = (prec ? toFixedFix(n, prec) : '' + Math.round(n)).split('.');
 
         if ((s[1] || '').length < prec) {
             s[1] = s[1] || '';
             s[1] += new Array(prec - s[1].length + 1).join('0');
         }
-
         return s.join(dec);
     },
     /**

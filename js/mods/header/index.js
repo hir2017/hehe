@@ -28,7 +28,7 @@ class HeaderView extends Component {
 		let { authStore } = this.props;
 
 		const assetmenu = (
-	        <dl>
+	        <dl className="pop-menu-list">
 	          	<dd className="logined-header">
 	            	<Link className="logined-header-link" to="/payorwithdraw">{ UPEX.lang.template('充值&提现') }</Link>
 	          	</dd>
@@ -42,7 +42,7 @@ class HeaderView extends Component {
 	    );
 
 	    const ordermenu = (
-	    	<dl>
+	    	<dl className="pop-menu-list">
 	          	<dd className="logined-header">
 	            	<Link className="logined-header-link" to="/order/current">{ UPEX.lang.template('当前委托') }</Link>
 	          	</dd>
@@ -56,7 +56,7 @@ class HeaderView extends Component {
 	    );
 
 	    const usermenu = (
-	    	<dl>
+	    	<dl className="pop-menu-list">
 	          	<dd className="logined-header">
 	            	<Link className="logined-header-link" to="/user/settings">{ UPEX.lang.template('安全设置') }</Link>
 	          	</dd>
@@ -95,19 +95,19 @@ class HeaderView extends Component {
 							authStore.isLogin ? (
 								<ul>
 									<li ref="order">
-										<Popover content={ordermenu} placement="bottom" getPopupContainer={this.refs.order}>
+										<Popover content={ordermenu} placement="bottom" getPopupContainer={()=>this.refs.order}>
 											<Link to="/order">{ UPEX.lang.template('订单明细')}</Link>
 										</Popover>
 									</li>
 									<li ref="assets">
-										<Popover content={assetmenu} placement="bottom" getPopupContainer={this.refs.assets}>
+										<Popover content={assetmenu} placement="bottom" getPopupContainer={()=>this.refs.assets}>
 											<Link to="/assets">
 											{ UPEX.lang.template('我的资产')}
 											</Link>
 										</Popover>
 									</li>
 									<li ref="userinfo">
-										<Popover content={usermenu} placement="bottom" getPopupContainer={this.refs.userinfo}>
+										<Popover content={usermenu} placement="bottom" getPopupContainer={()=>this.refs.userinfo}>
 											<Link to="/user">
 											{ UPEX.lang.template('个人信息')}
 											</Link>

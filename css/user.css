@@ -1,0 +1,46 @@
+.user-wrapper {
+	position: relative;
+    width: 1330px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.user-menu {
+    padding-bottom: 9000px;
+    margin-bottom: -9000px;
+    border-right: 1px solid #f4f4f4;
+    width: 200px;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.user-menu-box {
+    padding: 20px;
+}
+
+.user-menu-box h2 {
+    font-size: 18px;
+    color: #333333;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e7ebf1;
+}
+
+.user-menu-box ul {
+    margin-bottom: 10px;
+}
+
+.user-menu-box ul li {
+    padding: 10px 0;
+}
+
+.user-main {
+    width: 1130px;
+    margin: 10px 0;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.user-main-box {
+    padding: 20px;
+}
