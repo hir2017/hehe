@@ -24,6 +24,7 @@ import TradeCenter from './pages/trade-center';
 import Assets from './pages/assets';
 import UserInfo from './pages/user';
 import EssentialInformation from './pages/user/essentialInformation'
+import IdentityAuthentication from './pages/user/identityAuthentication'
 
 const routes = (
     <Route>
@@ -35,6 +36,7 @@ const routes = (
 	        <Route path="assets" component={Assets}/>
 	        <Route path="user" component={UserInfo}>
 					  <IndexRoute component={EssentialInformation}/>
+						<Route path="authentication" component={IdentityAuthentication} />
 					</Route>
 	        <Route path="login" component={Login}/>
 	        <Route path="register" component={Register}/>

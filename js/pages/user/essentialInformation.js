@@ -6,7 +6,7 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import Info from '../../mods/essentialInformation/info'
-import List from '../../mods/essentialInformation/loginedList'
+import List from '../../mods/essentialInformation/logined-list'
 @observer
 class Information extends Component {
     render() {

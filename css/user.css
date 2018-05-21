@@ -53,7 +53,9 @@
 .user-main-box {
     padding: 20px;
 }
-
+/**
+ * 基本信息
+ */ 
 .user-main-box .info-box .info-title {
     font-size: 18px;
     color: #333333;
@@ -187,4 +189,54 @@
 }
 .user-main-box table td {
     text-align: center;
+}
+/**
+ * 身份认证
+ */
+.user-main-box .authentication-title {
+    color: #333333;
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+.user-main-box .authentication-content {
+    padding-left: 220px;
+}
+.user-main-box .authentication .step {
+    display: inline-block;
+}
+
+.user-main-box .authentication .step > span {
+    display: block;
+    text-align: center;
+}
+.user-main-box .authentication .line {
+    display: inline-block;
+    vertical-align: 30px;
+    width: 200px;
+    text-align: center;
+    color: #999999;
+    font-size: 14px;
+    font-weight: 500;
+}
+.user-main-box .authentication-content .item {
+    margin-top: 30px;
+}
+.user-main-box .authentication-content .one-item {
+    margin-top: 40px;
+}
+.user-main-box .authentication-content .item > span {
+    display: inline-block;
+}
+.user-main-box .authentication-content .item .lable {
+    margin-right: 20px;
+    vertical-align: 28px;
+}
+.user-main-box .authentication-content .item input {
+    width: 190px;
+}
+.user-main-box .authentication-content .item .message {
+    color: #999999;
+    font-size: 12px;
+    display: block;
+    margin-top: 5px;
 }
