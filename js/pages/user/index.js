@@ -35,7 +35,11 @@ class UserPage extends Component {
 	        			</div>
 	        		</div>
 	        		<div className="user-main">
-	        			<div className="user-main-box"></div>
+	        			<div className="user-main-box">
+								  {
+										this.props.children
+									}
+								</div>
 	        		</div>
 	        	</div>
         	</div>
