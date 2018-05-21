@@ -134,6 +134,7 @@ const uploadImgHost = host + '/user/uploadImageSingle';
 const websocketHost = 'ws://www.acex.tw';
 // const websocketHost = 'ws://54.169.140.238/';
 const salt = 'dig?F*ckDang5PaSsWOrd&%(polarisex0160630).'
+const imgHost = 'http://www.acex.tw/source/';
 
 const config = {
     channel: '',
@@ -154,6 +155,7 @@ const config = {
     websocketHost,
     uploadHost,
     uploadImgHost,
+    imgHost,
     host,
     salt
 }

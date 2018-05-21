@@ -31,18 +31,13 @@ html {
 .app-page {
     position: relative;
 }
-
-.app-page[data-theme="dark"] {}
-
-.app-page[data-theme="light"] {}
-
 /**
  * 页面头部
  */
 
 .app-header {
     height: 60px;
-    background-color: #141414;
+    background-color: #090600;
     color: #fff;
 }
 .app-page[data-path="/home"] .app-header{

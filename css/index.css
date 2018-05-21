@@ -45,6 +45,11 @@
     margin-right: 10px;
 }
 
+.loginguide-wrapper li a,
+.loginguide-wrapper li a:hover{
+    color: #e6bc1d;
+}
+
 
 /**
  * 网站特性介绍

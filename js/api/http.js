@@ -178,6 +178,15 @@ export function hasSettingDealPwd(){
 }
 
 /**
+ * 资产列表
+ */
+export function getCoinAccount(type = 1){
+    return axios.post(`${UPEX.config.host}/coin/customerCoinAccount`, qs.stringify({
+        type
+    })).then(res => res.data);
+}
+
+/**
  * 添加收藏
  */
 export async function addOptional(data) {

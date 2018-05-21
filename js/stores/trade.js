@@ -725,7 +725,9 @@ class TradeStore {
         }
 
         getPersonalTradingPwd().then((data) => {
-            this.tradePasswordStatus = data.attachment.enabled; // 1: 启用 ; 2: 不启用
+            runInAction(()=>{
+                this.tradePasswordStatus = data.attachment.enabled; // 1: 启用 ; 2: 不启用    
+            })
         })
     }
 
