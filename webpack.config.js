@@ -131,7 +131,7 @@ var config = {
         color: true,  // 命令行是否彩色
         inline: true, // 项目文件保存自动编译文件模块
         host: '0.0.0.0', //  使用IP访问
-        port: 81 // 启动端口
+        port: 80 // 启动端口
     },
     
     // 插件
