@@ -5,6 +5,23 @@ import { Checkbox, Icon } from 'antd';
 @inject('assetsStore')
 @observer
 class List extends Component {
+	handleSearch=(e)=>{
+
+        let el = $(e.currentTarget);
+        let val = el.val();
+        
+        this.timer && clearTimeout(this.timer);
+        this.timer = setTimeout(()=>{
+        	this.props.assetsStore.filterByName(val);
+        }, 100);
+	}
+
+	onChangeCheckBox=(e)=>{
+        let checked = e.target.checked == true;
+
+        this.props.assetsStore.filterZeroAmount(checked);
+	}
+
 	render() {
 		let store = this.props.assetsStore;
 		let $content;
@@ -28,7 +45,7 @@ class List extends Component {
 										<dd className="total">{item.amount}</dd>
 										<dd className="balance">{item.cashAmount}</dd>
 										<dd className="freeze">{item.freezeAmount}</dd>
-										<dd className="value">{}</dd>
+										<dd className="value">{item.btc_value}</dd>
 										<dd className="actions">
 											<button>{UPEX.lang.template('充币')}</button>
 											<button>{UPEX.lang.template('提币')}</button>
@@ -51,7 +68,7 @@ class List extends Component {
 						<input type="text" onChange={this.handleSearch} placeholder={UPEX.lang.template('搜索数字币')}/>
 					</div>
 					<div className="filter-radio">
-						<Checkbox>{UPEX.lang.template('隐藏资产为０的货币')}</Checkbox>
+						<Checkbox onChange={ this.onChangeCheckBox } >{UPEX.lang.template('隐藏资产为０的货币')}</Checkbox>
 					</div>
 				</div>
 				<div className="assets-result-list">

@@ -90,6 +90,7 @@
     font-size: 36px;
     display: inline-block;
     vertical-align: middle;
+    line-height: 51px;
 }
 
 .assets-amount .actions {
@@ -110,6 +111,11 @@
     margin-right: 30px;
 }
 
+.assets-amount .btn a,
+.assets-amount .btn a:hover{
+    color: #fff;
+}
+
 .assets-record {
     width: 500px;
     margin-right: -500px;
@@ -128,6 +134,12 @@
     text-align: center;
     margin-right: 30px;
 }
+
+.assets-record .btn a,
+.assets-record .btn a:hover{
+    color: #fff;
+}
+
 
 
 /**
@@ -198,7 +210,7 @@
 }
 
 .assets-result-list .name {
-    width: 15%;
+    width: 10%;
 }
 
 .assets-result-list .name img {
@@ -231,7 +243,7 @@
 }
 
 .assets-result-list .actions {
-    width: 10%;
+    width: 15%;
 }
 
 .assets-result-list li:hover {
@@ -243,4 +255,90 @@
     background: none;
     margin-right: 10px;
     color: #5581d8;
+}
+
+
+/**
+ * 提币记录
+ */
+
+.assets-coinrecord {
+    width: 1330px;
+    margin: 20px auto;
+}
+
+.assets-coinrecord-hd {
+    width: 100%;
+    padding-left: 300px;
+    box-sizing: border-box;
+    height: 40px;
+    line-height: 40px;
+}
+
+.assets-coinrecord-hd h2 {
+    font-size: 26px;
+    float: left;
+    width: 300px;
+    margin-left: -300px;
+}
+
+.assets-coinrecord-select{
+    float: right;
+    text-align: right;
+    width: 100%;
+    color: rgba(255, 255, 255, 0.7)
+}
+
+.assets-coinrecord-select .ant-select {
+    padding: 0 3px;
+    min-width: 85px;
+}
+
+
+.assets-record-list {
+    margin-top: 30px;
+    border-top: 1px solid #e7ebf1;
+    padding-top: 20px;
+}
+.assets-record-list table {
+    width: 100%;
+    color: #999999;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.assets-record-list dd {
+    display: inline-block;
+    line-height: 24px;
+    padding: 10px 0;
+    color: #333333;
+    font-size: 14px;
+}
+
+.assets-record-list .status {
+    width: 15%;
+}
+
+
+.assets-record-list .name {
+    width: 20%;
+}
+
+.assets-record-list .num {
+    width: 20%;
+}
+
+.assets-record-list .time {
+    width: 20%;
+}
+
+.assets-record-list .address {
+    width: 25%;
+}
+
+.assets-record-list li{
+    border-bottom: 1px solid #f2f2f2;
+}
+.assets-record-list li:hover {
+    background: #fffbeb;
 }

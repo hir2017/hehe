@@ -187,6 +187,23 @@ export function getCoinAccount(type = 1){
 }
 
 /**
+ * 充币提币记录
+ */
+export function getSelectTakeList(data){
+    return axios.post(`${UPEX.config.host}/coin/selectTakeList`, qs.stringify({
+        ...data
+    })).then(res => res.data);
+}
+
+/**
+ * 委托历史记录
+ */
+export function getOrderListByCustomer(data){
+    return axios.post(`${UPEX.config.host}/user/trOrderListByCustomer`, qs.stringify({
+        ...data
+    })).then(res => res.data);
+}
+/**
  * 添加收藏
  */
 export async function addOptional(data) {

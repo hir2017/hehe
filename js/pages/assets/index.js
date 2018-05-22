@@ -16,10 +16,7 @@ class AssetsPage extends Component {
 
         store.getUserCoinAccount();
     }
-
-	handleChange=(value)=>{
-
-	}
+    
     render() {
         return (
         	<div className="assets-wrapper">

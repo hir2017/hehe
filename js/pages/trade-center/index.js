@@ -17,8 +17,9 @@ import TradeForm from '../../mods/trade/form/index';
 @observer
 class TradeCenter extends Component {
     render() { 
+        let store = this.props.tradeStore;
         // 用于切换交易币时内容切换
-        return <TradeContent key={this.props.tradeStore.currencyId}/>
+        return <TradeContent key={`${store.currencyId}`}/>
     }
 }
 
@@ -118,7 +119,7 @@ class TradeContent extends Component {
             		<div className="trade-main-chart" id="tradeMainKline" style={{ height: store.iframeHeight }}>
                         <div className="chart-box">
                             <TradeCoinInfo/>
-                            <ChartInfo/>
+                            <ChartInfo key={store.theme}/>
                         </div>
             		</div>
             		<div className="trade-main-order" id="tradeMainOrder" style={{ height: store.mainOrderHeight}}>
