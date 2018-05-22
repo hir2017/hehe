@@ -25,7 +25,7 @@ export default class Steps extends Component {
           <span>
             <img src={oneStep} />
           </span>
-          <span>基本信息</span>
+          <span>{UPEX.lang.template('基本信息')}</span>
         </div>
         {
           this.line()
@@ -34,7 +34,7 @@ export default class Steps extends Component {
           <span>
             <img src={twoStep} />
           </span>
-          <span>身份认证</span>
+          <span>{UPEX.lang.template('身份认证')}</span>
         </div>
         {
           this.line()
@@ -43,7 +43,7 @@ export default class Steps extends Component {
           <span>
             <img src={threeStep} />
           </span>
-          <span>安成认证</span>
+          <span>{UPEX.lang.template('安成认证')}</span>
         </div>
       </div>
     )

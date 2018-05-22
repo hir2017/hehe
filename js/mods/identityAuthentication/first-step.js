@@ -79,13 +79,13 @@ export default class FirstStep extends Component {
         </div>
         <div className="item">
           <Checkbox>
-            <span className="checkbox-text">勾選選礦表示您同意我們的</span>
-            <span className="checkbox-text"><Link>用戶條款</Link></span>
-            <span className="checkbox-text"><Link>隱私條款</Link></span>
+            <span className="checkbox-text">{UPEX.lang.template('勾選選礦表示您同意我們的')}</span>
+            <span className="checkbox-text"><Link>{UPEX.lang.template('用戶條款')}</Link></span>
+            <span className="checkbox-text"><Link>{UPEX.lang.template('隱私條款')}</Link></span>
           </Checkbox>
         </div>
         <div className="submit">
-          <Button>下一步</Button>
+          <Button>{UPEX.lang.template('下一步')}</Button>
         </div>
       </div>
     )

@@ -5,7 +5,8 @@
  */
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
-import OneStep from '../../mods/identityAuthentication/first-step'
+import FirstStep from '../../mods/identityAuthentication/first-step'
+import SecondStep from '../../mods/identityAuthentication/second-step'
 
 @observer
 class IdentityAuthentication extends Component {
@@ -16,7 +17,8 @@ class IdentityAuthentication extends Component {
               {UPEX.lang.template('身份认证')}
             </div>
             <div className="authentication-content">
-              <OneStep />
+              {/*<OneStep />*/}
+              <SecondStep />
             </div>
           </div>
         )
