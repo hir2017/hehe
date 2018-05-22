@@ -7,6 +7,8 @@ import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import FirstStep from '../../mods/identityAuthentication/first-step'
 import SecondStep from '../../mods/identityAuthentication/second-step'
+import ThirdStep from '../../mods/identityAuthentication/third-step'
+import FourthStep from '../../mods/identityAuthentication/fourth-step'
 
 @observer
 class IdentityAuthentication extends Component {
@@ -18,7 +20,7 @@ class IdentityAuthentication extends Component {
             </div>
             <div className="authentication-content">
               {/*<OneStep />*/}
-              <SecondStep />
+              <FourthStep />
             </div>
           </div>
         )

@@ -342,3 +342,65 @@
     font-weight: bold;
     vertical-align: bottom;
 }
+.user-main-box .authentication-content .await-examine {
+    margin-top: 150px;
+}
+.user-main-box .authentication-content .await-examine > span {
+    display: block;
+}
+.user-main-box .authentication-content .await-examine > span:first-child {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333333;
+    margin-bottom: 10px;
+}
+.user-main-box .authentication-content .success-title {
+    color: #999999;
+    font-size: 20px;
+    margin-top: 50px;
+}
+.user-main-box .authentication-content .success-user-info {
+    margin-top: 35px;
+    background-color: #fdfdfd;
+    border-radius: 8px;
+    border: 1px solid #eeeeee;
+    height: 120px;
+    width: 560px;
+    padding-left: 30px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    font-size: 16px;
+    color: #333333;
+}
+.user-main-box .authentication-content .success-user-info > div {
+    margin-bottom: 5px;
+}
+.user-main-box .authentication-content .success-prompt {
+    margin-top: 20px;
+    font-size: 12px;
+    color: #999999;
+}
+.user-main-box .authentication-content .success-money {
+    margin-top: 50px;
+    font-size: 22px;
+    color: #999999;
+}
+.user-main-box .authentication-content .success-money .money {
+    font-size: 40px;
+    color: #333333;
+}
+.user-main-box .authentication-content .success-money-title {
+    font-size: 14px;
+    color: #999999;
+}
+.user-main-box .authentication-content .success-money-message {
+    font-size: 12px;
+    color: #999999;
+    margin-top: 70px;
+}
+.user-main-box .authentication-content .submit {
+    margin-bottom: 30px;
+}
+.user-main-box .authentication-content .submit button {
+    margin-top: 20px;
+}
