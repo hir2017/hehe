@@ -231,6 +231,9 @@
     margin-right: 20px;
     vertical-align: 28px;
 }
+.user-main-box .authentication-content .time-lable {
+    vertical-align: initial !important;
+}
 .user-main-box .authentication-content .item input {
     width: 190px;
 }
@@ -239,4 +242,36 @@
     font-size: 12px;
     display: block;
     margin-top: 5px;
+}
+.user-main-box .authentication-content .time-control .ant-select {
+    margin-right: 15px;
+}
+.user-main-box .authentication-content .time-control .ant-select-selection-selected-value {
+    width: 90px;
+    text-align: center;
+    padding-right: 0px;
+}
+.user-main-box .authentication-content .error-message {
+    margin-left: 15px;
+}
+.user-main-box .authentication-content .checkbox-text {
+    font-size: 14px;
+    color: #999999;
+    margin-right: 5px;
+}
+.user-main-box .authentication-content .checkbox-text a {
+    color: #e6bc1d;
+    text-decoration-line: underline;
+}
+.user-main-box .authentication-content .submit button {
+    min-width: 100px;
+    height: 35px;
+    background-color: #e6bc1d;
+    color: #fff;
+    margin-top: 40px;
+    outline: none;
+}
+
+.user-main-box .authentication-content .submit button:hover {
+    border-color: none;
 }
