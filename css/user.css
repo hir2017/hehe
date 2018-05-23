@@ -471,3 +471,100 @@
 .user-main-box .bank-list-box {
     border-top: 1px solid #ccc;
 }
+/**
+ * 密码设置
+ */
+.user-main-box .password-setting-title {
+    font-size: 18px;
+    color: #333333;
+}
+
+ .user-main-box .password-setting-box {
+     padding-left: 120px;
+     padding-top: 65px;
+ }
+ .user-main-box .password-change > span:first-child {
+     width: 300px;
+     color: #333333;
+     font-size: 18px;
+     display: inline-block;
+ }
+
+ .user-main-box .password-change > button {
+     width: 80px;
+     color: #fff;
+     background-color: #e6bc1d;
+ }
+ .user-main-box .password {
+     display: inline-block;
+     vertical-align: top;
+     padding-right: 60px;
+     position: relative;
+ }
+ .user-main-box .password:first-child::after {
+     content: '';
+     width: 1px;
+     background-color: #ccc;
+     position: absolute;
+     right: 0px;
+     top: 25px;
+     height: 145px;
+ }
+ .user-main-box .trading-password {
+    padding-left: 60px;
+    padding-right: 0px;
+ }
+ .user-main-box .password > div {
+     margin-top: 15px;
+ }
+ .user-main-box .password-message {
+     height: 40px;
+     color: #999999;
+     font-size: 14px;
+ }
+ .user-main-box .password-leve .leve-lable {
+     color: #333333;
+     font-size: 12px;
+     margin-right: 20px;
+ }
+ .user-main-box .password-leve .leve {
+    color: #999999;
+    font-size: 12px;
+}
+.user-main-box .password-leve .leve-show {
+    margin-top: 15px;
+    width: 380px;
+    background-color: #f0f0f0;
+    height: 15px;
+    border-radius: 7px;
+}
+.user-main-box .password-leve .leve1 {
+    display: inline-block;
+    width: 100%;
+    background-color: #7edd92;
+    height: 15px;
+    border-radius: 7px;
+}
+.user-main-box .password-leve .leve2 {
+    display: inline-block;
+    width: 25%;
+    background-color: #f66e6e;
+    height: 15px;
+    border-radius: 7px;
+}
+.user-main-box .trading-password .password-message {
+    width: 280px;
+}
+.user-main-box .trading-password .switch > span {
+    margin-right: 10px;
+}
+.user-main-box .trading-password .switch {
+    font-size: 12px;
+    color: #999999;
+    margin-left: 170px;
+}
+.user-main-box .password-setting-box .message {
+    margin-top: 40px;
+    color: #999999;
+    font-size: 12px;
+}

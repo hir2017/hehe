@@ -26,6 +26,7 @@ import UserInfo from './pages/user';
 import EssentialInformation from './pages/user/essentialInformation'
 import IdentityAuthentication from './pages/user/identityAuthentication'
 import BankInfo from './pages/user/bankInfo'
+import PasswordSetting from './pages/user/passwordSetting'
 
 const routes = (
     <Route>
@@ -39,6 +40,7 @@ const routes = (
 					  <IndexRoute component={EssentialInformation}/>
 						<Route path="authentication" component={IdentityAuthentication} />
 						<Route path="bankInfo" component={BankInfo} />
+						<Route path="passwordSetting" component={PasswordSetting} />
 					</Route>
 	        <Route path="login" component={Login}/>
 	        <Route path="register" component={Register}/>

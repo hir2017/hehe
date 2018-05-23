@@ -35,7 +35,11 @@ class UserPage extends Component {
 		        			</ul>
 		        			<h2>{ UPEX.lang.template('安全设置')}</h2>
 		        			<ul>
-		        				<li>{UPEX.lang.template('密码设置')}</li>
+										<li>
+										  <Link to="/user/passwordSetting">
+												{UPEX.lang.template('密码设置')}
+											</Link>
+										</li>
 		        				<li>{UPEX.lang.template('手机绑定')}</li>
 		        				<li>{UPEX.lang.template('电子邮箱绑定')}</li>
 		        				<li>{UPEX.lang.template('Google验证器')}</li>
