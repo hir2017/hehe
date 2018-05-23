@@ -14,6 +14,15 @@ const Option = Select.Option
 @observer
 export default class FirstStep extends Component {
 
+  constructor () {
+    super()
+    this.next = this.next.bind(this)
+  }
+
+  next () {
+    this.props.changeStep(2)
+  }
+
   render() {
     return (
       <div>
@@ -85,7 +94,7 @@ export default class FirstStep extends Component {
           </Checkbox>
         </div>
         <div className="submit">
-          <Button>{UPEX.lang.template('下一步')}</Button>
+          <Button onClick={this.next}>{UPEX.lang.template('下一步')}</Button>
         </div>
       </div>
     )

@@ -15,6 +15,15 @@ import IDcard01 from '../../../images/IDcard01.png'
 @observer
 export default class FirstStep extends Component {
 
+  constructor () {
+    super()
+    this.next = this.next.bind(this)
+  }
+
+  next () {
+    this.props.changeStep(3)
+  }
+
   render() {
     return (
       <div>
@@ -70,7 +79,7 @@ export default class FirstStep extends Component {
           {UPEX.lang.template('上传的文件格式必须是')}.jpg&nbsp;&nbsp;&nbsp;&nbsp;.png&nbsp;&nbsp;&nbsp;&nbsp;.jpeg
         </div>
         <div className="submit">
-          <Button>{UPEX.lang.template('提交审核')}</Button>
+          <Button onClick={this.next}>{UPEX.lang.template('提交审核')}</Button>
         </div>
       </div>
     )

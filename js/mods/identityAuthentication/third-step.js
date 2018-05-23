@@ -11,6 +11,15 @@ import Steps from './steps'
 @observer
 export default class ThirdStep extends Component {
 
+  constructor () {
+    super()
+    this.next = this.next.bind(this)
+  }
+
+  next () {
+    this.props.changeStep(1)
+  }
+
   render() {
     return (
       <div>
@@ -21,7 +30,7 @@ export default class ThirdStep extends Component {
         </div>
         <div>
           <div className="submit">
-            <Button>{UPEX.lang.template('撤回重新提交')}</Button>
+            <Button onClick={this.next}>{UPEX.lang.template('撤回重新提交')}</Button>
           </div>
         </div>
       </div>
