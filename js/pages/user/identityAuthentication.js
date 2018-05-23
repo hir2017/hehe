@@ -1,5 +1,5 @@
 /**
- * @fileoverview  用户个人信息
+ * @fileoverview  身份认证
  * @author xia xiang feng
  * @date 2018-05-21
  */

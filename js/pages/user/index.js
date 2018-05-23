@@ -27,7 +27,11 @@ class UserPage extends Component {
 											  {UPEX.lang.template('身份认证')}
 											</Link>
 										</li>
-		        				<li>{UPEX.lang.template('银行卡信息')}</li>
+										<li>
+										  <Link to="/user/bankInfo">
+												{UPEX.lang.template('银行卡信息')}
+											</Link>
+										</li>
 		        			</ul>
 		        			<h2>{ UPEX.lang.template('安全设置')}</h2>
 		        			<ul>

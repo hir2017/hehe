@@ -25,6 +25,7 @@ import Assets from './pages/assets';
 import UserInfo from './pages/user';
 import EssentialInformation from './pages/user/essentialInformation'
 import IdentityAuthentication from './pages/user/identityAuthentication'
+import BankInfo from './pages/user/bankInfo'
 
 const routes = (
     <Route>
@@ -37,6 +38,7 @@ const routes = (
 	        <Route path="user" component={UserInfo}>
 					  <IndexRoute component={EssentialInformation}/>
 						<Route path="authentication" component={IdentityAuthentication} />
+						<Route path="bankInfo" component={BankInfo} />
 					</Route>
 	        <Route path="login" component={Login}/>
 	        <Route path="register" component={Register}/>
