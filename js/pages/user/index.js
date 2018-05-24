@@ -40,8 +40,16 @@ class UserPage extends Component {
 												{UPEX.lang.template('密码设置')}
 											</Link>
 										</li>
-		        				<li>{UPEX.lang.template('手机绑定')}</li>
-		        				<li>{UPEX.lang.template('电子邮箱绑定')}</li>
+										<li>
+											<Link to="/user/bindingPhone">
+												{UPEX.lang.template('手机绑定')}
+											</Link>
+										</li>
+										<li>
+											<Link to="/user/bindingEmail">
+											  {UPEX.lang.template('电子邮箱绑定')}
+											</Link>
+										</li>
 		        				<li>{UPEX.lang.template('Google验证器')}</li>
 		        			</ul>
 		        			<h2>{ UPEX.lang.template('其它')}</h2>

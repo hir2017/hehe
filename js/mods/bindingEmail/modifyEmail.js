@@ -14,28 +14,31 @@ export default class ModifyPassword extends Component {
     return (
       <div>
         <div className="modify-password-title">
-          {UPEX.lang.template('修改登錄密碼')}
+          {UPEX.lang.template('修改绑定邮箱')}
         </div>
         <div className="modify-password-box">
           <div className="item">
-            <span className="lable">{UPEX.lang.template('登陆密码')}</span>
+            <span className="lable">{UPEX.lang.template('新邮箱')}</span>
             <input className="input" />
           </div>
           <div className="item">
-            <span className="lable">{UPEX.lang.template('新登陆密码')}</span>
-            <input className="input" />
-          </div>
-          <div className="item">
-            <span className="lable">{UPEX.lang.template('确认密码')}</span>
+            <span className="lable">google{UPEX.lang.template('验证码')}</span>
             <input className="input" />
           </div>
           <div>
             <div className="item v-code">
-              <span className="lable">{UPEX.lang.template('短信验证码')}</span>
+              <span className="lable">{UPEX.lang.template('邮箱验证码')}</span>
               <input className="input" />
             </div>
             <div className="item v-code-button">
               {UPEX.lang.template('发送验证码')}
+            </div>
+            <div className="item v-code">
+              <span className="lable">{UPEX.lang.template('短信确认码')}</span>
+              <input className="input" />
+            </div>
+            <div className="item v-code-button">
+              {UPEX.lang.template('发送确认码')}
             </div>
           </div>
           <div className="massage">
