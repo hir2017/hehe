@@ -27,6 +27,9 @@ import EssentialInformation from './pages/user/essentialInformation'
 import IdentityAuthentication from './pages/user/identityAuthentication'
 import BankInfo from './pages/user/bankInfo'
 import PasswordSetting from './pages/user/passwordSetting'
+import ModifyPassword from './mods/passwordSetting/modifyPassword'
+import ModifyTraddingPassword from './mods/passwordSetting/modifyTradingPassword'
+import SettingTraddingPassword from './mods/passwordSetting/settingTradingPassword'
 
 const routes = (
     <Route>
@@ -41,6 +44,9 @@ const routes = (
 						<Route path="authentication" component={IdentityAuthentication} />
 						<Route path="bankInfo" component={BankInfo} />
 						<Route path="passwordSetting" component={PasswordSetting} />
+						<Route path="modifyPassword" component={ModifyPassword} />
+						<Route path="modifyTraddingPassword" component={ModifyTraddingPassword} />
+						<Route path="settingTraddingPassword" component={SettingTraddingPassword} />
 					</Route>
 	        <Route path="login" component={Login}/>
 	        <Route path="register" component={Register}/>

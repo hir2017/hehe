@@ -6,6 +6,7 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import { Button, Switch } from 'antd'
+import { Link } from 'react-router'
 
 @observer
 export default class BindingBank extends Component {
@@ -15,7 +16,9 @@ export default class BindingBank extends Component {
         <div className="password">
           <div className="password-change">
             <span>{UPEX.lang.template('登录密码')}</span>
-            <Button>{UPEX.lang.template('修改')}</Button>
+            <Button>
+              <Link to="/user/modifyPassword">{UPEX.lang.template('修改')}</Link>
+            </Button>
           </div>
           <div className="password-message">
             {UPEX.lang.template('用于用户的登录验证')}
@@ -34,7 +37,9 @@ export default class BindingBank extends Component {
         <div className="password trading-password">
           <div className="password-change">
             <span>{UPEX.lang.template('交易密码')}</span>
-            <Button>{UPEX.lang.template('修改')}</Button>
+            <Button>
+              <Link to="/user/modifyTraddingPassword">{UPEX.lang.template('修改')}</Link>
+            </Button>
           </div>
           <div className="password-message">
           {UPEX.lang.template('用於交易、綁定\解綁銀行卡\充幣提現等資金 操作，需要嚴格保密')}

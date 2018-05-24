@@ -494,6 +494,9 @@
      width: 80px;
      color: #fff;
      background-color: #e6bc1d;
+ } 
+ .user-main-box .password-change > button  a {
+     display: block;
  }
  .user-main-box .password {
      display: inline-block;
@@ -567,4 +570,70 @@
     margin-top: 40px;
     color: #999999;
     font-size: 12px;
+}
+/**
+ * 密码修改
+ */
+.user-main-box .modify-password-title {
+    color: #333333;
+    font-size: 18px;
+}
+.user-main-box .modify-password-box {
+    width: 360px;
+    margin: auto;
+    padding-top: 95px;
+}
+.user-main-box .modify-password-box .item {
+    width: 360px;
+    height: 40px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+}
+
+.user-main-box .modify-password-box .lable {
+    font-size: 14px;
+    color: #333333;
+    padding-left: 10px;
+    padding-right: 10px;
+    display: inline-block;
+    height: 40px;
+    line-height: 40px;
+    box-sizing: border-box;
+}
+.user-main-box .modify-password-box .input {
+    border: none;
+    outline: none;
+    padding-left: 5px;
+    border-left: 1px solid #ccc;
+}
+.user-main-box .modify-password-box .massage {
+    font-size: 12px;
+    color: #999999;
+}
+.user-main-box .modify-password-box .massage a {
+    color: #999999;
+    text-decoration-line: underline;
+}
+.user-main-box .modify-password-box button {
+    width: 360px;
+    background-color: #e6bc1d;
+    color: #fff;
+    height: 40px;
+    border-radius: 8px;
+    margin-top: 40px;
+}
+.user-main-box .modify-password-box .v-code {
+    width: 250px;
+    display: inline-block;
+    margin-right: 10px;
+}
+.user-main-box .modify-password-box .v-code-button {
+    width: 100px;
+    text-align: center;
+    height: 40px;
+    line-height: 40px;
+    display: inline-block;
+    cursor: pointer;
 }
