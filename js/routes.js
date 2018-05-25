@@ -36,6 +36,8 @@ import SettingPhone from './mods/bindingPhone/bindingPhone'
 import BindingEmail from './pages/user/bindingEmail'
 import ModifyEmail from './mods/bindingEmail/modifyEmail'
 import SettingEmail from './mods/bindingEmail/bindingEmail'
+import GoogleAuth from './pages/user/googleAuthenticator'
+import RebindingGoogle from './mods/bindingGoogle/reBinding'
 
 const routes = (
     <Route>
@@ -59,6 +61,8 @@ const routes = (
 						<Route path="bindingEmail" component={BindingEmail} />
 						<Route path="modifyEmail" component={ModifyEmail} />
 						<Route path="settingEmail" component={SettingEmail} />
+						<Route path="google" component={GoogleAuth} />
+						<Route path="rebindingGoogle" component={RebindingGoogle} />
 					</Route>
 	        <Route path="login" component={Login}/>
 	        <Route path="register" component={Register}/>

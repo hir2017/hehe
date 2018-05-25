@@ -246,3 +246,7 @@ html {
     color: #bf0000;
     font-size: 12px;
 }
+
+button > a {
+    display: block;
+}

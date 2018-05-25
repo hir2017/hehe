@@ -710,3 +710,124 @@
 .user-main-box  .binding-phone-right li:last-child {
     width: 300px;
 }
+/**
+ * google 认证
+ */
+.user-main-box .google-auth-title {
+    color: #333333;
+    font-size: 18px;
+}
+.user-main-box .google-no-binding-phone {
+    padding-top: 200px;
+    text-align: center;
+}
+.user-main-box .google-no-binding-phone > span {
+    font-size: 18px;
+    color: #333333;
+}
+.user-main-box .google-no-binding-phone button {
+    width: 120px;
+    height: 30px;
+    font-size: 14px;
+    color: #fff;
+    margin-top: 20px;
+    background-color: #e6bc1d;
+}
+.user-main-box .google-auth-message {
+    font-size: 14px;
+    color: #999999;
+    margin-top: 80px;
+    margin-bottom: 30px;
+}
+.user-main-box .google-auth-box {
+    width: 540px;
+    margin: auto;
+}
+.user-main-box .google-auth-left {
+    display: inline-block;   
+    vertical-align: top;
+    margin-right: 20px;
+}
+
+.user-main-box .google-auth-left img {
+    display: block;
+    height: 150px;
+    width: 150px;
+}
+
+.user-main-box .google-auth-left > div {
+    font-size: 14px;
+    color: #333333;
+    margin-top: 10px;
+}
+.user-main-box  .google-auth-right {
+    display: inline-block;   
+    vertical-align: top;
+}
+.user-main-box  .google-auth-right > div {
+    padding-top: 5px;
+}
+.user-main-box  .google-auth-right .info a {
+    font-size: 14px;
+    color: #999999;
+    text-decoration: underline;
+    text-underline-position: under;
+}
+
+.user-main-box .google-auth-right button {
+    margin-top: 20px;
+}
+.user-main-box .google {
+    text-decoration: underline;
+    text-underline-position: under;
+}
+.user-main-box .google-info-link a {
+    color: #e6bc1d;
+    text-decoration: underline;
+    text-underline-position: under;
+}
+.user-main-box .reBinding-left > div {
+    display: inline-block;
+    padding-left: 10px;
+    padding-top: 10px;
+    vertical-align: top;
+}
+.user-main-box .reBinding-left img {
+    height: 150px;
+    width: 150px;
+    display: inline-block;
+}
+.user-main-box .reBinding-right {
+    display: inline-block;
+}
+.user-main-box .reBinding-right > div {
+    padding-top: 0px;
+}
+.user-main-box .reBinding-left .key-title {
+    font-size: 14px;
+    color: #333333;
+}
+.user-main-box .reBinding-left .key {
+    font-size: 20px;
+    color: #333333;
+    font-weight: 600;
+    margin-top: 10px;
+}
+.user-main-box .reBinding-left .key-message {
+    font-size: 14px;
+    color: #999999;
+    margin-top: 40px;
+}
+
+.user-main-box .reBinding-right button {
+    margin-left: 0px;
+    margin-top: 20px;
+    width: 100%;
+    height: 40px;
+}
+.user-main-box .reBinding-right .info a {
+    font-size: 14px;
+    color: #999999;
+    text-decoration: underline;
+    text-underline-position: under;
+}
