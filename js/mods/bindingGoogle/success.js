@@ -34,7 +34,7 @@ export default class Success extends Component {
             <li className="google-info-link">
               {UPEX.lang.template('使用Google认证请详细阅读')}
               &nbsp;&nbsp;&nbsp;&nbsp;
-              <Link to="">
+              <Link to="/user/googleGuide">
                 {UPEX.lang.template('使用指南')}
               </Link>
             </li>

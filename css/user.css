@@ -871,3 +871,29 @@
     color: #cfcfcf;
     transform: translate(-50%, -50%);
 }
+.google-guide-img-box .download {
+    text-align: center;
+    color: #999999;
+    font-size: 14px;
+    margin-top: 20px;
+}
+.google-guide-img-box .download > span {
+    height: 40px;
+    line-height: 40px;
+    width: 150px;
+    display: inline-block;
+    background-color: #fafafa;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    border-radius: 8px;
+    margin-right: 20px;
+}
+.google-guide-img-box .download i {
+    margin-right: 10px;
+    font-size: 25px;
+    color: #333333;
+    vertical-align: -2px;
+}
+.user-main-box .slick-dots {
+    display: none !important;
+}

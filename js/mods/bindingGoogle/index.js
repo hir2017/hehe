@@ -36,7 +36,7 @@ class Google extends Component {
                 {UPEX.lang.template('发送验证码')}
               </div>
               <div className="info">
-                <Link to="">
+                <Link to="/user/googleGuide">
                   Google{UPEX.lang.template('验证器使用教程')}
                 </Link>
               </div>

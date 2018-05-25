@@ -36,16 +36,25 @@ class GoogleGuide extends Component {
         <Carousel ref="carousel">
           <div className="google-guide-img-box">
             <img src={google1} />
+            <div>
+              <div className="download">{UPEX.lang.template('下載并安裝Google驗證器')}</div>
+              <div className="download">
+                <span><Icon type="apple" />ios{UPEX.lang.template('下载按钮')}</span>
+                <span><Icon type="android" />{UPEX.lang.template('安卓下载按钮')}</span>
+              </div>
+            </div>
             <span onClick={this.next} className="right"><Icon type="right" /></span>
           </div>
           <div className="google-guide-img-box">
             <span onClick={this.previous} className="left"><Icon type="left" /></span>
             <img src={google2} />
+            <div className="download">{UPEX.lang.template('扫描页面上的二维码，并用纸记录下16位密码，以防丢失恢复使用')}</div>
             <span onClick={this.next} className="right"><Icon type="right" /></span>
           </div>
           <div className="google-guide-img-box">
             <span onClick={this.previous} className="left"><Icon type="left" /></span>
             <img src={google3} />
+            <div className="download">{UPEX.lang.template('输入google验证器上的六位数字获取并输入短信验证码')}</div>
           </div>
         </Carousel>
       </div>
