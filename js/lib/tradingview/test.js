@@ -378,71 +378,71 @@ function(e) {
 			})
 		},
 		e.prototype.getQuotes = function(e, t, r) {
-			this._quotesProvider.getQuotes(e).then(t).
-			catch(r)
+			// this._quotesProvider.getQuotes(e).then(t).
+			// catch(r)
 		},
 		e.prototype.subscribeQuotes = function(e, t, r, s) {
-			this._quotesPulseProvider.subscribeQuotes(e, t, r, s)
+			// this._quotesPulseProvider.subscribeQuotes(e, t, r, s)
 		},
 		e.prototype.unsubscribeQuotes = function(e) {
-			this._quotesPulseProvider.unsubscribeQuotes(e)
+			// this._quotesPulseProvider.unsubscribeQuotes(e)
 		},
 		e.prototype.calculateHistoryDepth = function(e, t, r) {},
 		e.prototype.getMarks = function(e, t, r, s, o) {
-			if (this._configuration.supports_marks) {
-				var i = {
-					symbol: e.ticker || "",
-					from: t,
-					to: r,
-					resolution: o
-				};
-				this._send("marks", i).then(function(e) {
-					if (!Array.isArray(e)) {
-						for (var t = [], r = 0; r < e.id.length; ++r) t.push({
-							id: l(e, "id", r),
-							time: l(e, "time", r),
-							color: l(e, "color", r),
-							text: l(e, "text", r),
-							label: l(e, "label", r),
-							labelFontColor: l(e, "labelFontColor", r),
-							minSize: l(e, "minSize", r)
-						});
-						e = t
-					}
-					s(e)
-				}).
-				catch(function(e) {
-					n("UdfCompatibleDatafeed: Request marks failed: " + c(e)),
-					s([])
-				})
-			}
+			// if (this._configuration.supports_marks) {
+			// 	var i = {
+			// 		symbol: e.ticker || "",
+			// 		from: t,
+			// 		to: r,
+			// 		resolution: o
+			// 	};
+			// 	this._send("marks", i).then(function(e) {
+			// 		if (!Array.isArray(e)) {
+			// 			for (var t = [], r = 0; r < e.id.length; ++r) t.push({
+			// 				id: l(e, "id", r),
+			// 				time: l(e, "time", r),
+			// 				color: l(e, "color", r),
+			// 				text: l(e, "text", r),
+			// 				label: l(e, "label", r),
+			// 				labelFontColor: l(e, "labelFontColor", r),
+			// 				minSize: l(e, "minSize", r)
+			// 			});
+			// 			e = t
+			// 		}
+			// 		s(e)
+			// 	}).
+			// 	catch(function(e) {
+			// 		n("UdfCompatibleDatafeed: Request marks failed: " + c(e)),
+			// 		s([])
+			// 	})
+			// }
 		},
 		e.prototype.getTimescaleMarks = function(e, t, r, s, o) {
-			if (this._configuration.supports_timescale_marks) {
-				var i = {
-					symbol: e.ticker || "",
-					from: t,
-					to: r,
-					resolution: o
-				};
-				this._send("timescale_marks", i).then(function(e) {
-					if (!Array.isArray(e)) {
-						for (var t = [], r = 0; r < e.id.length; ++r) t.push({
-							id: l(e, "id", r),
-							time: l(e, "time", r),
-							color: l(e, "color", r),
-							label: l(e, "label", r),
-							tooltip: l(e, "tooltip", r)
-						});
-						e = t
-					}
-					s(e)
-				}).
-				catch(function(e) {
-					n("UdfCompatibleDatafeed: Request timescale marks failed: " + c(e)),
-					s([])
-				})
-			}
+			// if (this._configuration.supports_timescale_marks) {
+			// 	var i = {
+			// 		symbol: e.ticker || "",
+			// 		from: t,
+			// 		to: r,
+			// 		resolution: o
+			// 	};
+			// 	this._send("timescale_marks", i).then(function(e) {
+			// 		if (!Array.isArray(e)) {
+			// 			for (var t = [], r = 0; r < e.id.length; ++r) t.push({
+			// 				id: l(e, "id", r),
+			// 				time: l(e, "time", r),
+			// 				color: l(e, "color", r),
+			// 				label: l(e, "label", r),
+			// 				tooltip: l(e, "tooltip", r)
+			// 			});
+			// 			e = t
+			// 		}
+			// 		s(e)
+			// 	}).
+			// 	catch(function(e) {
+			// 		n("UdfCompatibleDatafeed: Request timescale marks failed: " + c(e)),
+			// 		s([])
+			// 	})
+			// }
 		},
 		e.prototype.getServerTime = function(r) {
 			this._configuration.supports_time && this._send("time").then(function(e) {
@@ -454,27 +454,27 @@ function(e) {
 			})
 		},
 		e.prototype.searchSymbols = function(t, e, r, s) {
-			if (this._configuration.supports_search) {
-				var o = {
-					limit: 30,
-					query: t.toUpperCase(),
-					type: r,
-					exchange: e
-				};
-				this._send("search", o).then(function(e) {
-					if (void 0 !== e.s) return n("UdfCompatibleDatafeed: search symbols error=" + e.errmsg),
-					void s([]);
-					s(e)
-				}).
-				catch(function(e) {
-					n("UdfCompatibleDatafeed: Search symbols for '" + t + "' failed. Error=" + c(e)),
-					s([])
-				})
-			} else {
-				if (null === this._symbolsStorage) throw new Error("UdfCompatibleDatafeed: inconsistent configuration (symbols storage)");
-				this._symbolsStorage.searchSymbols(t, e, r, 30).then(s).
-				catch(s.bind(null, []))
-			}
+			// if (this._configuration.supports_search) {
+			// 	var o = {
+			// 		limit: 30,
+			// 		query: t.toUpperCase(),
+			// 		type: r,
+			// 		exchange: e
+			// 	};
+			// 	this._send("search", o).then(function(e) {
+			// 		if (void 0 !== e.s) return n("UdfCompatibleDatafeed: search symbols error=" + e.errmsg),
+			// 		void s([]);
+			// 		s(e)
+			// 	}).
+			// 	catch(function(e) {
+			// 		n("UdfCompatibleDatafeed: Search symbols for '" + t + "' failed. Error=" + c(e)),
+			// 		s([])
+			// 	})
+			// } else {
+			// 	if (null === this._symbolsStorage) throw new Error("UdfCompatibleDatafeed: inconsistent configuration (symbols storage)");
+			// 	this._symbolsStorage.searchSymbols(t, e, r, 30).then(s).
+			// 	catch(s.bind(null, []))
+			// }
 		},
 		e.prototype.resolveSymbol = function(e, t, r) {
 			n("Resolve requested");

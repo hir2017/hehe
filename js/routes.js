@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route , IndexRedirect} from 'react-router';
+import { Route , IndexRedirect, IndexRoute} from 'react-router';
 
 import Layout from './pages/layout';
 
@@ -26,6 +26,8 @@ import CoinRecord from './pages/assets/record-coin';
 import FiatRecord from './pages/assets/record-fiat';
 import UserInfo from './pages/user';
 import Order from './pages/order';
+import EssentialInformation from './pages/user/essentialInformation'
+import IdentityAuthentication from './pages/user/identityAuthentication'
 
 const routes = (
     <Route>
@@ -39,6 +41,10 @@ const routes = (
 	        <Route path="fiatrecord" component={FiatRecord}/>
 	        <Route path="order" component={Order}/>
 	        <Route path="user" component={UserInfo}/>
+	        <Route path="user" component={UserInfo}>
+			  	<IndexRoute component={EssentialInformation}/>
+				<Route path="authentication" component={IdentityAuthentication} />
+			</Route>
 	        <Route path="login" component={Login}/>
 	        <Route path="register" component={Register}/>
 	        <Route path="resetpwd" component={ResetPwd}/>

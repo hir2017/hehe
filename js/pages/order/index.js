@@ -6,9 +6,11 @@
 import '../../../css/order.css';
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
+import HistoryOrderList from '../../mods/assets/order-history';
+import OpenOrderList from '../../mods/assets/order-open';
+import SuccessOrderList from '../../mods/assets/order-success';
 
-
-@inject('orderStore')
+@inject('orderStore', 'commonStore')
 @observer
 class UserPage extends Component {
 	constructor(props){
@@ -30,13 +32,31 @@ class UserPage extends Component {
 		]
 	}
 
+	componentDidMount() {
+		this.props.commonStore.getAllCoinPoint();
+		this.props.orderStore.getPersonalTradingPwd();
+	}
+
 	handleClickTab=(item, e)=>{
 		this.props.orderStore.setTabIndex(item.index);
 	}
 
     render() {
     	let store = this.props.orderStore;
+    	let $content;
 
+    	switch(store.tabIndex) {
+    		case 0:
+    			$content = <OpenOrderList/>;
+    			break;
+    		case 1:
+    			$content = <HistoryOrderList/>;
+    			break;
+    		case 2:
+    			$content = <SuccessOrderList/>;
+    			break;
+    	}
+    	
         return (
         	<div className="order-wrapper">
         		<div className="order-body-inner clearfix">
@@ -57,17 +77,7 @@ class UserPage extends Component {
 	        			</div>
 	        		</div>
 	        		<div className="order-main">
-	        			<div className="order-main-box">
-	        				<div className="filter-box">
-	        					<ul>
-	        						<li></li>
-	        						<li></li>
-	        						<li></li>
-	        						<li></li>
-	        						<li></li>
-	        					</ul>
-	        				</div>
-	        			</div>
+	        			{ this.props.commonStore.coinPointReady ? $content : null }
 	        		</div>
 	        	</div>
         	</div>

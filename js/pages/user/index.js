@@ -4,6 +4,7 @@
  * @date 2018-05-19
  */
 import React, { Component } from 'react';
+import { Link } from 'react-router'
 import { observer, inject } from 'mobx-react';
 
 @observer
@@ -16,8 +17,16 @@ class UserPage extends Component {
 	        			<div className="user-menu-box">
 		        			<h2>{ UPEX.lang.template('个人信息')}</h2>
 		        			<ul>
-		        				<li>{UPEX.lang.template('基础资料')}</li>
-		        				<li>{UPEX.lang.template('身份认证')}</li>
+										<li>
+											<Link to="/user">
+												{UPEX.lang.template('基础资料')}
+											</Link>
+											</li>
+										<li>
+											<Link to="/user/authentication">
+											  {UPEX.lang.template('身份认证')}
+											</Link>
+										</li>
 		        				<li>{UPEX.lang.template('银行卡信息')}</li>
 		        			</ul>
 		        			<h2>{ UPEX.lang.template('安全设置')}</h2>
@@ -35,7 +44,11 @@ class UserPage extends Component {
 	        			</div>
 	        		</div>
 	        		<div className="user-main">
-	        			<div className="user-main-box"></div>
+	        			<div className="user-main-box">
+								  {
+										this.props.children
+									}
+								</div>
 	        		</div>
 	        	</div>
         	</div>

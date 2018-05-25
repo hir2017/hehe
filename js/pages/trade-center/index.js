@@ -5,8 +5,7 @@
  */
 import React, {Component} from 'react';
 import { observer, inject } from 'mobx-react';
-import TradeCoinInfo from '../../mods/trade/chart/coin-info';
-import ChartInfo from '../../mods/trade/chart/chart-info';
+import TVChartContainer from '../../mods/trade/kline/tv-chart';
 import BuyOrder from '../../mods/trade/order/buy-order';
 import SellOrder from '../../mods/trade/order/sell-order';
 import HistoryOrder from '../../mods/trade/order/history-order';
@@ -16,10 +15,18 @@ import TradeForm from '../../mods/trade/form/index';
 @inject('tradeStore')
 @observer
 class TradeCenter extends Component {
+    componentWillMount(){
+        this.props.tradeStore.getAllCoinPoint();
+    }
+    
     render() { 
         let store = this.props.tradeStore;
         // 用于切换交易币时内容切换
-        return <TradeContent key={`${store.currencyId}`}/>
+        if (store.coinPointReady) {
+            return <TradeContent key={`${store.currencyId}`}/>    
+        } else {
+            return null;
+        }
     }
 }
 
@@ -117,10 +124,7 @@ class TradeContent extends Component {
             	</div>
             	<div className="trade-main">
             		<div className="trade-main-chart" id="tradeMainKline" style={{ height: store.iframeHeight }}>
-                        <div className="chart-box">
-                            <TradeCoinInfo/>
-                            <ChartInfo key={store.theme}/>
-                        </div>
+                         <TVChartContainer/>
             		</div>
             		<div className="trade-main-order" id="tradeMainOrder" style={{ height: store.mainOrderHeight}}>
             			<MyOrder/>

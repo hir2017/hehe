@@ -151,9 +151,10 @@ export function getBaseCoin() {
  * 交易中心委托
  */
 export function getUserOrderList(data) {
+    data = data || {};
+
     return axios.post(`${UPEX.config.host}/user/showOrderList`, qs.stringify({
-        currencyId: data.tradeCurrencyId,
-        baseCurrencyId: data.baseCurrencyId
+        ...data  
     })).then(res => res.data);
 }
 /**
@@ -200,6 +201,20 @@ export function getSelectTakeList(data){
  */
 export function getOrderListByCustomer(data){
     return axios.post(`${UPEX.config.host}/user/trOrderListByCustomer`, qs.stringify({
+        ...data
+    })).then(res => res.data);
+}
+/**
+ * 币种列表
+ */
+export function getAllCoinPoint(){
+    return axios.post(`${UPEX.config.host}/coin/coinPoint`).then(res => res.data);
+}
+/**
+ * 撤销订单
+ */
+export function cancelOrder(data){
+    return axios.post(`${UPEX.config.host}/order/cancel`, qs.stringify({
         ...data
     })).then(res => res.data);
 }

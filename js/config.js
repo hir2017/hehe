@@ -1,11 +1,11 @@
-export const baseCurrencyId = '1'
+export const baseCurrencyId = '111110'
 
-export const baseCurrencyNameEn = 'CODE'
+export const baseCurrencyNameEn = 'TWD'
 
 export const baseCurrencyName = ''
 
-export const tradeCurrencyName = ''
+export const tradeCurrencyName = '比特币'
 
 export const tradeCurrencyNameEn = 'BTC'
 
-export const tradeCurrencyId = '2'
+export const tradeCurrencyId = '1'

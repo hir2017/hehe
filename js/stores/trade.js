@@ -4,7 +4,7 @@
  */
 import { observable, computed, autorun, action, runInAction } from 'mobx';
 import { socket, tradeCurrencyId, baseCurrencyId } from '../api/socket';
-import { getBaseCoin, getUserOrderList, submitOrder, getPersonalTradingPwd, hasSettingDealPwd } from '../api/http';
+import { getBaseCoin, getUserOrderList, submitOrder, getPersonalTradingPwd, hasSettingDealPwd , getAllCoinPoint} from '../api/http';
 import NP from 'number-precision';
 import NumberUtil from '../lib/util/number';
 import TimeUtil from '../lib/util/date';
@@ -12,7 +12,7 @@ import md5 from '../lib/md5';
 
 class TradeStore {
     // 页面主题。浅色：light；深色：dark
-    @observable theme = 'light';
+    @observable theme = UPEX.cache.getCache('theme') || 'light';
     // 委托中的订单&已完成的订单
     @observable tabIndex = 0;
     @observable isFetchingOrderList = true;
@@ -21,7 +21,10 @@ class TradeStore {
 
     @observable currentTradeCoin = {};
     @observable currentTradeCoinRealTime = [];
+    @observable currentTradeCoinReady = false;
     @observable loginedMarkets = {};
+    @observable allCoinPoint = [];
+    @observable coinPointReady = false;
 
     @observable type = 'all'; // 买盘buy、卖盘sell
     @observable tradeHistory = { content: [] };
@@ -284,6 +287,7 @@ class TradeStore {
     @action
     changeThemeTo = (value) => {
         this.theme = value;
+        UPEX.cache.setCache('theme', value) ;
     }
 
     @action
@@ -801,6 +805,18 @@ class TradeStore {
         }
 
         return result;
+    }
+
+    @action
+    getAllCoinPoint() {
+        socket.emit('coinPoint');
+
+        socket.on('coinPoint', (data)=>{
+            runInAction('get all coin point', ()=>{
+                this.allCoinPoint = data;
+                this.coinPointReady = true;
+            })
+        })
     }
 
     // 创建订单
