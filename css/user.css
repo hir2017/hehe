@@ -831,3 +831,43 @@
     text-decoration: underline;
     text-underline-position: under;
 }
+.google-guide-img-box {
+    padding-top: 60px;
+    position: relative;
+}
+.google-guide-img-box img {
+    margin: auto;
+}
+.google-guide-img-box .left {
+    width: 60px;
+    height: 60px;
+    top: 50%;
+    position: absolute;
+    left: 60px;
+    transform: translateY(-50%);
+    background-color: #f8f8f8;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.google-guide-img-box .right {
+    width: 60px;
+    height: 60px;
+    top: 50%;
+    position: absolute;
+    right: 60px;
+    transform: translateY(-50%);
+    background-color: #f8f8f8;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.google-guide-img-box .left i,
+.google-guide-img-box .right i {
+    font-size: 30px;
+    top: 50%;
+    position: absolute;
+    left: 50%;
+    color: #cfcfcf;
+    transform: translate(-50%, -50%);
+}
