@@ -9,7 +9,7 @@ import { Button } from 'antd'
 import Steps from './steps'
 
 @observer
-export default class ThirdStep extends Component {
+export default class FourthStep extends Component {
 
   render() {
     return (

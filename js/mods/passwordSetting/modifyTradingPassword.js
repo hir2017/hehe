@@ -9,7 +9,7 @@ import { Button } from 'antd'
 import { Link } from 'react-router'
 
 @observer
-export default class ModifyPassword extends Component {
+export default class ModifyTradingPassword extends Component {
   render() {
     return (
       <div>

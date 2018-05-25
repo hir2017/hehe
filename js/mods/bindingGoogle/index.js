@@ -9,7 +9,7 @@ import { Button } from 'antd'
 import { Link } from 'react-router'
 
 @observer
-class BankInfo extends Component {
+class Google extends Component {
   render() {
     return (
       <div className="google-auth-box">
@@ -51,4 +51,4 @@ class BankInfo extends Component {
   }
 }
 
-export default BankInfo;
+export default Google;

@@ -8,7 +8,7 @@ import { observer, inject } from 'mobx-react';
 import BindingEmail from '../../mods/bindingEmail'
 
 @observer
-class BankInfo extends Component {
+class BindingEmailPage extends Component {
     render() {
         return (
           <div>
@@ -21,4 +21,4 @@ class BankInfo extends Component {
       }
   }
   
-export default BankInfo;
+export default BindingEmailPage;

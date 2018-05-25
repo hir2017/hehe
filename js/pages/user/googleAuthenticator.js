@@ -11,7 +11,7 @@ import BindingGoogle from '../../mods/bindingGoogle'
 import Success from '../../mods/bindingGoogle/success'
 
 @observer
-class BankInfo extends Component {
+class GoogleAuthenticator extends Component {
   render() {
     return (
       <div>
@@ -36,4 +36,4 @@ class BankInfo extends Component {
   }
 }
 
-export default BankInfo;
+export default GoogleAuthenticator;

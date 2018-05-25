@@ -9,7 +9,7 @@ import { Button, Switch } from 'antd'
 import { Link } from 'react-router'
 
 @observer
-export default class BindingBank extends Component {
+export default class Phone extends Component {
   render() {
     return (
       <div className="binding-phone-content">

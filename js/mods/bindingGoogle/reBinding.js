@@ -9,7 +9,7 @@ import { Button, Switch } from 'antd'
 import { Link } from 'react-router'
 
 @observer
-export default class Success extends Component {
+export default class ReBinding extends Component {
   render() {
     return (
       <div>

@@ -8,7 +8,7 @@ import { observer, inject } from 'mobx-react';
 import Password from '../../mods/passwordSetting'
 
 @observer
-class BankInfo extends Component {
+class PasswordSetting extends Component {
     render() {
         return (
           <div>
@@ -21,4 +21,4 @@ class BankInfo extends Component {
       }
   }
   
-export default BankInfo;
+export default PasswordSetting;
