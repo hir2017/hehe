@@ -897,3 +897,63 @@
 .user-main-box .slick-dots {
     display: none !important;
 }
+/**
+ * 问题反馈
+ */
+.user-main-box .question-title {
+    color: #333333;
+    font-size: 18px;
+}
+.user-main-box .question-left,
+.user-main-box .question-right {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.user-main-box .question-left {
+    margin-left: 50px;
+    width: 700px;
+    margin-top: 30px;
+    position: relative;
+}
+.user-main-box .upload-box {
+    margin-top: 20px;
+    position: relative;
+}
+.user-main-box .upload-message {
+    position: absolute;
+    top: 120px;
+    font-size: 14px;
+}
+.user-main-box .upload-message > span:first-child {
+    color: #1890ff;
+}
+
+.user-main-box .question-left .submit {
+    position: absolute;
+    top: 340px;
+    right: 130px;
+}
+
+.user-main-box .question-left .submit button {
+    width: 100px;
+    height: 30px;
+    background-color: #e6bc1d;
+    color: #fff;
+}
+.user-main-box .question-right .info {
+    width: 280px;
+    margin-left: 40px;
+    margin-top: 50px;
+    font-size: 14px;
+    color: #333333;
+}
+
+.user-main-box .question-right a {
+    text-decoration: underline;
+    text-underline-position: under;
+    margin-left: 40px;
+    margin-top: 30px;
+    display: block;
+    color: #5581d8;
+}

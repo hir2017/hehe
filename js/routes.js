@@ -39,6 +39,7 @@ import SettingEmail from './mods/bindingEmail/bindingEmail'
 import GoogleAuth from './pages/user/googleAuthenticator'
 import RebindingGoogle from './mods/bindingGoogle/reBinding'
 import GoogleGuide from './pages/user/googleGuide'
+import Question from './pages/user/problemFeedback'
 
 const routes = (
     <Route>
@@ -65,6 +66,7 @@ const routes = (
 						<Route path="google" component={GoogleAuth} />
 						<Route path="rebindingGoogle" component={RebindingGoogle} />
 						<Route path="googleGuide" component={GoogleGuide} />
+						<Route path="question" component={Question} />
 					</Route>
 	        <Route path="login" component={Login}/>
 	        <Route path="register" component={Register}/>
