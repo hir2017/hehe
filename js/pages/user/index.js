@@ -63,7 +63,11 @@ class UserPage extends Component {
 												{UPEX.lang.template('问题反馈')}
 											</Link>
 										</li>
-		        				<li>{UPEX.lang.template('反馈列表')}</li>
+										<li>
+											<Link to="/user/questionList">
+												{UPEX.lang.template('反馈列表')}
+											</Link>
+										</li>
 		        			</ul>
 	        			</div>
 	        		</div>

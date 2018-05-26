@@ -957,3 +957,66 @@
     display: block;
     color: #5581d8;
 }
+/**
+ * 问题列表
+ */
+.user-main-box .question-search {
+    position: relative;
+    padding-left: 40px;
+    margin-top: 30px;
+}
+.user-main-box .question-search i {
+    position: absolute;
+    left: 50px;
+    top: 10px;
+    z-index: 1000;
+    color:#999999;
+}
+.user-main-box .question-search input {
+    padding-left: 30px;
+    width: 930px;
+    font-size: 12px;
+    color: #666666;
+    background-color: #f2f2f2;
+}
+.user-main-box .question-search > span {
+    margin-left: 30px;
+    font-size: 12px;
+    color: #666666;
+    cursor: pointer;
+}
+.user-main-box .question-content {
+    padding-left: 20px;
+    padding-top: 50px;
+}
+.user-main-box .question-content li {
+    height: 50px;
+    line-height: 50px;
+    border-bottom: 1px solid #ccc;
+    padding-left: 20px;
+}
+
+.user-main-box .question-content li:nth-child(odd) {
+    background-color: #f8f8fb;
+}
+
+.user-main-box .question-content li > span {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.user-main-box .question-content li > span:first-child {
+    width: 80%;
+    overflow: hidden;
+}
+
+.user-main-box .question-content li > span:nth-child(2) {
+    width: 10%;
+}
+.user-main-box .question-content li > span:nth-child(3) {
+    width: 10%;
+}
+.user-main-box .question-page {
+    text-align: center;
+    padding-top: 50px;
+}
