@@ -6,6 +6,12 @@ import PopupTradePwd from './tradepwd';
 @inject('orderStore')
 @observer
 class List extends Component {
+	constructor(props){
+		super(props);
+
+		this.currentOrderNo = '';
+	}
+
 	componentDidMount() {
 		this.props.orderStore.getOpenOrderList();
 	}
@@ -15,20 +21,30 @@ class List extends Component {
 			pageNo
 		});
 	}
-
 	/**
 	 * 点击撤单，判断是否需要的填写交易密码
 	 */
 	handleCancel=(orderNo)=>{
-		let { tradePasswordStatus,  cancelOrder} = this.props.orderStore;
+		let { tradePasswordStatus } = this.props.orderStore;
+		this.currentOrderNo = orderNo;
 
-		if (tradePasswordStatus ==  1) {
+		if (tradePasswordStatus == 1) {
 			this.refs.popup.setState({
 				visible: true
-			})
+			});
 		} else {
-			message.error(verifyCancelOrder.message);
+	        this.handelCancelOrder();
 		}
+	}
+
+	handelCancelOrder=(e)=>{
+		let { cancelOrder } = this.props.orderStore;
+
+		cancelOrder(this.currentOrderNo).then((data)=>{
+        	if (data.status == 200) {
+
+        	}
+        })
 	}
 
 	render() {
@@ -113,7 +129,7 @@ class List extends Component {
 						{ $content }
 					</div>
 				</div>
-				<PopupTradePwd ref="popup"/>
+				<PopupTradePwd ref="popup" onSubmit={this.handelCancelOrder}/>
 			</div>
 		)
 	}

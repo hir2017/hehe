@@ -1,7 +1,7 @@
 import { observable, computed, autorun, action, runInAction } from 'mobx';
 import { getCoinAccount  } from '../api/http';
 
-class Assets {
+class Account {
 	@observable accountData = {};
 	@observable isFetchingList = true;
     @observable visibleMoney = false;
@@ -11,7 +11,7 @@ class Assets {
     }
 
     @computed
-    get list(){
+    get list() {
     	return this.accountData.coinList;
     }
     @computed
@@ -83,4 +83,4 @@ class Assets {
     }
 }
 
-export default Assets;
+export default Account;

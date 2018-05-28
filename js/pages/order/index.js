@@ -6,9 +6,7 @@
 import '../../../css/order.css';
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
-import HistoryOrderList from '../../mods/assets/order-history';
-import OpenOrderList from '../../mods/assets/order-open';
-import SuccessOrderList from '../../mods/assets/order-success';
+import { browserHistory } from 'react-router';
 
 @inject('orderStore', 'commonStore')
 @observer
@@ -19,17 +17,20 @@ class UserPage extends Component {
 		this.tabs = [
 			{
 				index: 0,
+				path: 'open',
 				title: UPEX.lang.template('当前委托')
 			},
 			{
 				index: 1,
+				path: 'history',
 				title: UPEX.lang.template('历史委托')
 			},
 			{
 				index: 2,
+				path: 'success',
 				title: UPEX.lang.template('已成交')
 			},
-		]
+		];
 	}
 
 	componentDidMount() {
@@ -38,25 +39,22 @@ class UserPage extends Component {
 	}
 
 	handleClickTab=(item, e)=>{
-		this.props.orderStore.setTabIndex(item.index);
+		browserHistory.push('/order/' + item.path)
 	}
 
     render() {
     	let store = this.props.orderStore;
-    	let $content;
 
-    	switch(store.tabIndex) {
-    		case 0:
-    			$content = <OpenOrderList/>;
-    			break;
-    		case 1:
-    			$content = <HistoryOrderList/>;
-    			break;
-    		case 2:
-    			$content = <SuccessOrderList/>;
-    			break;
-    	}
-    	
+    	let path = location.pathname.split('/').pop();
+
+		let target = this.tabs.filter((item)=>{
+			return item.path === path;
+		})[0];
+
+		if (!target) {
+			target = this.tabs[0];
+		}
+
         return (
         	<div className="order-wrapper">
         		<div className="order-body-inner clearfix">
@@ -66,7 +64,7 @@ class UserPage extends Component {
 		        			<ul>
 		        				{
 		        					this.tabs.map((item, index)=>{
-		        						let cls = item.index == store.tabIndex ? 'selected' : '';
+		        						let cls = item.index == target.index ? 'selected' : '';
 
 		        						return (
 		        							<li className={cls} key={index} onClick={this.handleClickTab.bind(this, item)}>{ item.title }</li>
@@ -77,7 +75,7 @@ class UserPage extends Component {
 	        			</div>
 	        		</div>
 	        		<div className="order-main">
-	        			{ this.props.commonStore.coinPointReady ? $content : null }
+	        			{ this.props.commonStore.coinPointReady ? this.props.children : null }
 	        		</div>
 	        	</div>
         	</div>

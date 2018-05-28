@@ -5,7 +5,7 @@ import '../css/login-register.css';
 import '../css/announcement.css';
 import '../css/trade.css';
 import '../css/user.css';
-import '../css/assets.css';
+import '../css/account.css';
 
 import './lib/object.assign';
 import './lib/promise';

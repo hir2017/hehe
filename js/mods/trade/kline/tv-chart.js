@@ -11,6 +11,7 @@ import '../../../lib/tradingview/charting_library.min';
 import '../../../lib/tradingview/polyfills';
 // import '../../../lib/tradingview/test';
 import  UDFCompatibleDatafeed from './tv-jsapi';
+import DepthChart from '../depth/index';
 
 @inject('tradeStore','commonStore')
 @observer
@@ -18,11 +19,15 @@ class TVChartContainer extends Component {
 	static defaultProps = {
 
 	}
-
 	constructor(props){
 		super(props);
         // 分钟线；天线；月线
         this.timeline = [{
+            slug: "1min",
+            resolution: "1", // 1分钟
+            chartType: 3,
+            text: UPEX.lang.template('分时')
+        },{
             slug: "1min",
             resolution: "1", // 1分钟
             chartType: 1,
@@ -102,6 +107,10 @@ class TVChartContainer extends Component {
                 areadown: "rgba(122, 152, 247, .02)"
             }
         }
+
+        this.state = {
+            chart: 'kline' 
+        }
 	}
 
     componentDidMount(){
@@ -136,7 +145,7 @@ class TVChartContainer extends Component {
             // 商品间额
             interval: interval,
             // 指定要包含widget的DOM元素id
-            container_id: "acex-chart",
+            container_id: "kline-chart",
             // 本地化处理,zh中文，zh_TW台湾繁体
             locale: locale,
             // 图表的初始时区
@@ -267,7 +276,8 @@ class TVChartContainer extends Component {
                             
                             UPEX.cache.setCache('kline/resolution', {
                                 resolution: item.resolution,
-                                chartType: item.chartType || 1
+                                chartType: item.chartType || 1,
+                                slug: item.slug
                             });
 				        })
 				        .append($('<span>' + item.text + '</span>'));
@@ -381,7 +391,8 @@ class TVChartContainer extends Component {
 	}
 
 	getIntervalByPeriod() {
-        let currentPeroid = this.timeline[0];
+        let cachePeriod = UPEX.cache.getCache('kline/resolution');  
+        let currentPeroid = cachePeriod ? cachePeriod : this.timeline[0];
         let slug = currentPeroid.slug;
         var result = slug.match(/^(\d+)(s|min|hour|day|mon|week|year)$/);
         var num = result[1];
@@ -477,6 +488,12 @@ class TVChartContainer extends Component {
         return t.url;
     }
 
+    showChart=(type)=>{
+        this.setState({
+            chart: type
+        });
+    }
+
     render() {
     	let store = this.props.tradeStore;
         let checked = store.theme === 'dark';
@@ -497,7 +514,7 @@ class TVChartContainer extends Component {
         return (
         	<div className="chart-box">
                 <div className="trade-current-coin">
-	                <ul>
+	                <ul className="info-list">
 	                    <li className="coin" ref="coin">
 	                        <Popover content={<TradeCoinList/>} placement="bottomLeft" trigger="click" getPopupContainer={()=>this.refs.coin} overlayClassName={ store.theme === 'dark' ? 'popover-tradecoins-dark' : 'popover-tradecoins-light'}>
 	                            <label>{ store.currentTradeCoin.currencyNameEn }/{store.currentTradeCoin.baseCurrencyNameEn}</label>
@@ -522,6 +539,20 @@ class TVChartContainer extends Component {
 	                        <em>{ store.currentCoinVolume }</em>
 	                    </li>
 	                </ul>
+                    <ul className="chart-menu">
+                        <li 
+                            onClick={this.showChart.bind(this, 'kline')}
+                            className={ this.state.chart == 'kline' ? 'selected' : ''}
+                        >
+                            {UPEX.lang.template('K线图')}
+                        </li>
+                        <li 
+                            onClick={this.showChart.bind(this, 'depth')}
+                            className={ this.state.chart == 'depth' ? 'selected' : ''}
+                        >
+                            {UPEX.lang.template('深度图')}
+                        </li>
+                    </ul>
 	                <div className="theme-menu">
 	                    <label>{ checked ? UPEX.lang.template('开灯') : UPEX.lang.template('关灯') }</label>
 	                    <Switch 
@@ -531,9 +562,19 @@ class TVChartContainer extends Component {
 	                </div>
 	            </div>
                 <div
-					id="acex-chart"
-					className="trade-current-iframe"
+					id="kline-chart"
+                    ref="kline"
+                    className='trade-kline-chart'
+                    data-show={this.state.chart == 'kline' ? 'show': 'hide'}
 				/>
+                <div 
+                    id="depth-chart"
+                    ref="depth"
+                    className='trade-depth-chart'
+                    data-show={this.state.chart == 'depth' ? 'show': 'hide'}
+                >
+                   <DepthChart/>
+                </div>
             </div>
         );
     }

@@ -241,3 +241,8 @@ html {
 .greenrate {
     color: #00d02c;
 }
+
+.error-message {
+    color: #bf0000;
+    font-size: 12px;
+}

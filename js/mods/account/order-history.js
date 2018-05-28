@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
 import { observer, inject } from 'mobx-react';
 import {  Select, DatePicker, Pagination} from 'antd';
-
 const Option = Select.Option;
-
+import PopupTradePwd from './tradepwd';
 
 @inject('orderStore')
 @observer
@@ -54,12 +53,29 @@ class List extends Component {
 		this.props.orderStore.getHistoryOrderList(params);
 	}
 	/**
+	/**
 	 * 点击撤单，判断是否需要的填写交易密码
 	 */
 	handleCancel=(orderNo)=>{
-		
+		let { tradePasswordStatus } = this.props.orderStore;
+		this.currentOrderNo = orderNo;
+
+		if (tradePasswordStatus == 1) {
+			this.refs.popup.setState({
+				visible: true
+			});
+		} else {
+	        this.handelCancelOrder();
+		}
 	}
 
+	handelCancelOrder=(e)=>{
+		let { cancelOrder } = this.props.orderStore;
+
+		cancelOrder(this.currentOrderNo).then((data)=>{
+        	
+        })
+	}
 
 	render() {
 		let store = this.props.orderStore;
@@ -194,6 +210,7 @@ class List extends Component {
 						{ $content }
 					</div>
 				</div>
+				<PopupTradePwd ref="popup" onSubmit={this.handelCancelOrder}/>
 			</div>
 		)
 	}

@@ -5,25 +5,25 @@
  */
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
-import List from '../../mods/assets/assets-list';
-import Info from '../../mods/assets/assets-info';
+import List from '../../mods/account/assets-list';
+import Info from '../../mods/account/account-info';
 
-@inject('assetsStore')
+@inject('accountStore')
 @observer
-class AssetsPage extends Component {
+class AccountPage extends Component {
     componentDidMount(){
-        let store = this.props.assetsStore;
+        let store = this.props.accountStore;
 
         store.getUserCoinAccount();
     }
     
     render() {
         return (
-        	<div className="assets-wrapper">
-        		<div className="assets-hd">
+        	<div className="account-wrapper">
+        		<div className="account-hd">
         			<Info/>
         		</div>
-        		<div className="assets-bd">
+        		<div className="account-bd">
                     <List/>
                 </div>
         	</div>
@@ -31,4 +31,4 @@ class AssetsPage extends Component {
     }
 }
 
-export default AssetsPage;
+export default AccountPage;

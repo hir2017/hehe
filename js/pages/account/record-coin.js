@@ -8,13 +8,13 @@ import { observer, inject } from 'mobx-react';
 import { Select } from 'antd';
 const Option = Select.Option;
 
-import RecordList from '../../mods/assets/record-all';
+import RecordList from '../../mods/account/record-coin';
 
-@inject('assetsStore')
+@inject('accountStore')
 @observer
 class RecordPage extends Component {
     componentDidMount(){
-        let store = this.props.assetsStore;
+        let store = this.props.accountStore;
 
         store.getUserCoinAccount();
     }
@@ -25,10 +25,10 @@ class RecordPage extends Component {
 
     render() {
         return (
-        	<div className="assets-coinrecord">
-                <div className="assets-coinrecord-hd">
+        	<div className="account-coinrecord">
+                <div className="account-coinrecord-hd">
                 	<h2>{ UPEX.lang.template('充提币记录')}</h2>
-                	<div className="assets-coinrecord-select">
+                	<div className="account-coinrecord-select">
 						<Select defaultValue="all" onChange={this.handleChange}>
 					    	<Option value="all">{ UPEX.lang.template('全部记录')}</Option>
 					    	<Option value="recharge">{ UPEX.lang.template('充值记录')}</Option>
@@ -37,7 +37,7 @@ class RecordPage extends Component {
 					    </Select>
 					</div>
                 </div>
-                <div className="assets-coinrecord-bd">
+                <div className="account-coinrecord-bd">
                 	<RecordList/>
                 </div>
         	</div>

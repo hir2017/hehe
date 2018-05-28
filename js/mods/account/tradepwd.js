@@ -1,8 +1,19 @@
+/**
+ * 交易密码。
+ */
 import React, {Component} from 'react';
 import { Modal,message} from 'antd';
+import { observer, inject } from 'mobx-react';
+
+@inject('orderStore')
+@observer
 class PopupTradePwd extends Component{
-    constructor(props){
-        super(props);
+    static defaultProps  = {
+        onSubmit: ()=>{}
+    }
+    
+    constructor(props) {
+        super(props); 
 
         this.state = {
             visible: false,
@@ -17,11 +28,21 @@ class PopupTradePwd extends Component{
     }
 
     handleSubmit =(e)=>{
+        let value = this.refs.input.value.trim();
 
+        if (value) {
+            this.props.onSubmit(value);
+        }
+    }
+
+    onChangeBuyPwd=(e)=>{
+        let value = e.currentTarget.value.trim();
+
+        this.props.orderStore.setTradePassword(value);
     }
 
     onBlur=(e)=>{
-        let value = this.refs.input.value.trim()
+        let value = this.refs.input.value.trim();
         
         if (!value) {
             this.setState({
@@ -51,7 +72,7 @@ class PopupTradePwd extends Component{
                                 onBlur={this.onBlur.bind(this)}
                             />
                         </div>
-                        <p className="warn-tip">{ !this.state.validPwd ? `*${UPEX.lang.template('密码错误')}` : null }</p>
+                        <p className="warn-tip">{ !this.state.validPwd  ? `*${UPEX.lang.template('密码错误')}` : null }</p>
                     </div>
                     <button className="submit" onClick={this.handleSubmit.bind(this)}>{UPEX.lang.template('提交')}</button>
                 </div>

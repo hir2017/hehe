@@ -1,18 +1,18 @@
-.assets-wrapper {
+.account-wrapper {
     min-height: 640px;
 }
 
-.assets-hd {
+.account-hd {
     height: 240px;
     background: #090600 url('../images/assets-bg.jpg') no-repeat center bottom;
     background-size: 1920px 240px;
 }
 
-.assets-hd-box {
+.account-hd-box {
     padding: 30px 20px 20px;
 }
 
-.assets-title {
+.account-title {
     width: 100%;
     padding-left: 300px;
     box-sizing: border-box;
@@ -20,7 +20,7 @@
     line-height: 40px;
 }
 
-.assets-title h2 {
+.account-title h2 {
     font-size: 26px;
     color: #fff;
     float: left;
@@ -28,41 +28,41 @@
     margin-left: -300px;
 }
 
-.assets-count {
+.account-count {
     float: right;
     text-align: right;
     width: 100%;
     color: rgba(255, 255, 255, 0.7)
 }
 
-.assets-count .ant-select {
+.account-count .ant-select {
     padding: 0 3px;
     min-width: 85px;
 }
 
-.assets-count em {
+.account-count em {
     padding: 0 3px;
 }
 
-.assets-content {
+.account-content {
     margin-top: 60px;
     padding-right: 500px;
 }
 
 
-.assets-amount {
+.account-amount {
     float: left;
     width: 100%;
 }
 
-.assets-amount .amount {
+.account-amount .amount {
     color: #fff;
     display: inline-block;
     margin-right: 40px;
     line-height: 50px;
 }
 
-.assets-amount i {
+.account-amount i {
     cursor: pointer;
     width: 30px;
     height: 30px;
@@ -73,32 +73,32 @@
     background-size: 30px 30px;
 }
 
-.assets-amount i.close {
+.account-amount i.close {
     background: url('../images/icon-eye-close.png') no-repeat center center;
     background-size: 30px 30px;
 }
 
 
-.assets-amount label {
+.account-amount label {
     font-size: 16px;
     display: inline-block;
     vertical-align: middle;
     margin-right: 10px;
 }
 
-.assets-amount em {
+.account-amount em {
     font-size: 36px;
     display: inline-block;
     vertical-align: middle;
     line-height: 51px;
 }
 
-.assets-amount .actions {
+.account-amount .actions {
     display: inline-block;
     margin-top: 5px;
 }
 
-.assets-amount .btn {
+.account-amount .btn {
     border: 0 none;
     width: 100px;
     height: 40px;
@@ -111,18 +111,18 @@
     margin-right: 30px;
 }
 
-.assets-amount .btn a,
-.assets-amount .btn a:hover{
+.account-amount .btn a,
+.account-amount .btn a:hover{
     color: #fff;
 }
 
-.assets-record {
+.account-record {
     width: 500px;
     margin-right: -500px;
     float: right;
 }
 
-.assets-record .btn {
+.account-record .btn {
     border: 0 none;
     width: 220px;
     height: 50px;
@@ -135,8 +135,8 @@
     margin-right: 30px;
 }
 
-.assets-record .btn a,
-.assets-record .btn a:hover{
+.account-record .btn a,
+.account-record .btn a:hover{
     color: #fff;
 }
 
@@ -146,18 +146,18 @@
  * 列表
  */
 
-.assets-list {
+.account-list {
     width: 1330px;
     margin: 20px auto;
 }
 
-.assets-filter-box {
+.account-filter-box {
     height: 30px;
     margin-bottom: 10px;
     overflow: hidden;
 }
 
-.assets-filter-box .filter-input {
+.account-filter-box .filter-input {
     width: 214px;
     height: 28px;
     border: 1px solid #d9d9d9;
@@ -166,7 +166,7 @@
 }
 
 
-.assets-filter-box .filter-input input {
+.account-filter-box .filter-input input {
     width: 180px;
     height: 26px;
     line-height: 26px;
@@ -177,24 +177,24 @@
     background: none;
 }
 
-.assets-filter-box .filter-input .anticon-search {
+.account-filter-box .filter-input .anticon-search {
     width: 30px;
     height: 28px;
     line-height: 28px;
 }
 
-.assets-filter-box .filter-radio {
+.account-filter-box .filter-radio {
     float: left;
     height: 30px;
     line-height: 30px;
 }
 
-.assets-result-list .mini-tip {
+.account-result-list .mini-tip {
     margin-top: 30px;
     text-align: center;
 }
 
-.assets-result-list table {
+.account-result-list table {
     width: 100%;
     color: #999999;
     font-size: 16px;
@@ -209,11 +209,11 @@
     font-size: 14px;
 }
 
-.assets-result-list .name {
+.account-result-list .name {
     width: 10%;
 }
 
-.assets-result-list .name img {
+.account-result-list .name img {
     display: inline-block;
     vertical-align: middle;
     width: 23px;
@@ -221,36 +221,36 @@
     margin: 0 4px;
 }
 
-.assets-result-list .name span {
+.account-result-list .name span {
     display: inline-block;
     vertical-align: middle;
 }
 
-.assets-result-list .total {
+.account-result-list .total {
     width: 20%;
 }
 
-.assets-result-list .balance {
+.account-result-list .balance {
     width: 20%;
 }
 
-.assets-result-list .freeze {
+.account-result-list .freeze {
     width: 20%;
 }
 
-.assets-result-list .value {
+.account-result-list .value {
     width: 15%;
 }
 
-.assets-result-list .actions {
+.account-result-list .actions {
     width: 15%;
 }
 
-.assets-result-list li:hover {
+.account-result-list li:hover {
     background: #fffbeb;
 }
 
-.assets-result-list ul .actions button {
+.account-result-list ul .actions button {
     border: 0 none;
     background: none;
     margin-right: 10px;
@@ -262,12 +262,12 @@
  * 提币记录
  */
 
-.assets-coinrecord {
+.account-coinrecord {
     width: 1330px;
     margin: 20px auto;
 }
 
-.assets-coinrecord-hd {
+.account-coinrecord-hd {
     width: 100%;
     padding-left: 300px;
     box-sizing: border-box;
@@ -275,39 +275,39 @@
     line-height: 40px;
 }
 
-.assets-coinrecord-hd h2 {
+.account-coinrecord-hd h2 {
     font-size: 26px;
     float: left;
     width: 300px;
     margin-left: -300px;
 }
 
-.assets-coinrecord-select{
+.account-coinrecord-select{
     float: right;
     text-align: right;
     width: 100%;
     color: rgba(255, 255, 255, 0.7)
 }
 
-.assets-coinrecord-select .ant-select {
+.account-coinrecord-select .ant-select {
     padding: 0 3px;
     min-width: 85px;
 }
 
 
-.assets-record-list {
+.account-record-list {
     margin-top: 30px;
     border-top: 1px solid #e7ebf1;
     padding-top: 20px;
 }
-.assets-record-list table {
+.account-record-list table {
     width: 100%;
     color: #999999;
     font-size: 16px;
     box-sizing: border-box;
 }
 
-.assets-record-list dd {
+.account-record-list dd {
     display: inline-block;
     line-height: 24px;
     padding: 10px 0;
@@ -315,30 +315,30 @@
     font-size: 14px;
 }
 
-.assets-record-list .status {
+.account-record-list .status {
     width: 15%;
 }
 
 
-.assets-record-list .name {
+.account-record-list .name {
     width: 20%;
 }
 
-.assets-record-list .num {
+.account-record-list .num {
     width: 20%;
 }
 
-.assets-record-list .time {
+.account-record-list .time {
     width: 20%;
 }
 
-.assets-record-list .address {
+.account-record-list .address {
     width: 25%;
 }
 
-.assets-record-list li{
+.account-record-list li{
     border-bottom: 1px solid #f2f2f2;
 }
-.assets-record-list li:hover {
+.account-record-list li:hover {
     background: #fffbeb;
 }

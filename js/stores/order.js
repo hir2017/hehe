@@ -1,9 +1,9 @@
 import { observable, autorun, computed, action, runInAction } from 'mobx';
-import { getOrderListByCustomer, getUserOrderList , getPersonalTradingPwd} from '../api/http';
+import { getOrderListByCustomer, getUserOrderList , getPersonalTradingPwd, cancelOrder} from '../api/http';
 import TimeUtil from '../lib/util/date';
+import md5 from '../lib/md5';
 
 class Order {
-    @observable tabIndex = 0; // 0 当前委托；1：历史委托；3：已成交
     @observable orderlist = []; // 订单列表
     @observable tradePasswordStatus = 2; // 交易.  1：需要交易密码；2：不需要交易密码
     @observable tradePassword = '';
@@ -49,11 +49,6 @@ class Order {
     constructor(stores) {
         this.commonStore = stores.commonStore;
         this.authStore = stores.authStore;
-    }
-
-    @action
-    setTabIndex(index) {
-        this.tabIndex = index;
     }
 
     @action
@@ -174,9 +169,21 @@ class Order {
 
         getPersonalTradingPwd().then((data) => {
             runInAction(()=>{
-                this.tradePasswordStatus = data.attachment.enabled; // 1: 启用 ; 2: 不启用    
+                if (data.status ==  200) {
+                    this.tradePasswordStatus = data.attachment.enabled; // 1: 启用 ; 2: 不启用        
+                }
             })
         })
+    }
+
+    @action
+    setTradePassword(password) {
+        this.tradePassword = password;
+    }
+
+    @computed
+    get md5TradePassword(){
+        return md5(this.tradePassword + UPEX.config.salt);
     }
 
     // 提交撤单验证
@@ -200,8 +207,16 @@ class Order {
     }
 
     @action
-    cancelOrder(orderNo) {
+    cancelOrder(orderNo, currencyId) {
+        return cancelOrder({
+            source: 1,
+            fdPassword: this.tradePasswordStatus == 1 ? this.md5TradePassword : '',
+            orderNo: orderNo,
+            currencyId: ''
 
+        }).then((data)=>{
+           
+        });
     }
 }
 

@@ -14,20 +14,35 @@ import ContactUs from './pages/contact';
 import Cooperation from './pages/cooperation';
 import AnnouncementPreview  from './pages/announcement/preview';
 
-
 import Login from './pages/login-register/login';
 import Register from './pages/login-register/register';
 import ResetPwd from './pages/login-register/resetpwd';
 
 import Home from './pages/home';
 import TradeCenter from './pages/trade-center';
-import Assets from './pages/assets';
-import CoinRecord from './pages/assets/record-coin';
-import FiatRecord from './pages/assets/record-fiat';
+import Assets from './pages/account/index';
+import CoinRecord from './pages/account/record-coin';
+import FiatRecord from './pages/account/record-fiat';
 import UserInfo from './pages/user';
+// 订单相关
 import Order from './pages/order';
+import OpenOrderList from './mods/account/order-open';
+import HistoryOrderList from './mods/account/order-history';
+import SuccessOrderList from './mods/account/order-success';
+
 import EssentialInformation from './pages/user/essentialInformation'
 import IdentityAuthentication from './pages/user/identityAuthentication'
+import BankInfo from './pages/user/bankInfo'
+import PasswordSetting from './pages/user/passwordSetting'
+import ModifyPassword from './mods/passwordSetting/modifyPassword'
+import ModifyTraddingPassword from './mods/passwordSetting/modifyTradingPassword'
+import SettingTraddingPassword from './mods/passwordSetting/settingTradingPassword'
+import BindingPhone from './pages/user/bindingPhone'
+import ModifyPhone from './mods/bindingPhone/modifyPhone'
+import SettingPhone from './mods/bindingPhone/bindingPhone'
+import BindingEmail from './pages/user/bindingEmail'
+import ModifyEmail from './mods/bindingEmail/modifyEmail'
+import SettingEmail from './mods/bindingEmail/bindingEmail'
 
 const routes = (
     <Route>
@@ -39,11 +54,26 @@ const routes = (
 	        <Route path="assets" component={Assets}/>
 	        <Route path="coinrecord" component={CoinRecord}/>
 	        <Route path="fiatrecord" component={FiatRecord}/>
-	        <Route path="order" component={Order}/>
-	        <Route path="user" component={UserInfo}/>
+	        <Route path="order" component={Order}>
+	        	<IndexRoute component={OpenOrderList}/>
+	        	<Route path="open" component={OpenOrderList} />
+	        	<Route path="history" component={HistoryOrderList} />
+	        	<Route path="success" component={SuccessOrderList} />
+	        </Route>
 	        <Route path="user" component={UserInfo}>
 			  	<IndexRoute component={EssentialInformation}/>
 				<Route path="authentication" component={IdentityAuthentication} />
+				<Route path="bankInfo" component={BankInfo} />
+				<Route path="passwordSetting" component={PasswordSetting} />
+				<Route path="modifyPassword" component={ModifyPassword} />
+				<Route path="modifyTraddingPassword" component={ModifyTraddingPassword} />
+				<Route path="settingTraddingPassword" component={SettingTraddingPassword} />
+				<Route path="bindingPhone" component={BindingPhone} />
+				<Route path="modifyPhone" component={ModifyPhone} />
+				<Route path="settingPhone" component={SettingPhone} />
+				<Route path="bindingEmail" component={BindingEmail} />
+				<Route path="modifyEmail" component={ModifyEmail} />
+				<Route path="settingEmail" component={SettingEmail} />
 			</Route>
 	        <Route path="login" component={Login}/>
 	        <Route path="register" component={Register}/>

@@ -1,0 +1,53 @@
+
+.trade-depth-chart {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    visibility: hidden;
+    background: #fff;
+}
+
+.trade-wrapper[data-theme="dark"] .trade-depth-chart{
+    background: #090600;
+}
+
+.trade-depth-chart[data-show="hide"]{
+    visibility: hidden;
+}
+
+.trade-depth-chart[data-show="show"]{
+    visibility: visible;
+}
+
+
+.depth-chart {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+}
+
+.depth-chart .custom-tooltip {
+    font-size: 12px;
+    background: #fff;
+    padding: 10px;
+    border: 1px solid #444;
+    border-radius: 4px;
+}
+
+.depth-chart .recharts-responsive-container:nth-child(2) {
+    left: -10px;
+
+    .recharts-xAxis .recharts-cartesian-axis-tick:first-child {
+        display: none;
+    }
+}
+
+.depth-chart.is-empty .recharts-area-dots {
+    display: none;
+}
