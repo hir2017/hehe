@@ -13,7 +13,7 @@ import IDcard0 from '../../../images/IDcard0.png'
 import IDcard01 from '../../../images/IDcard01.png'
 
 @observer
-export default class FirstStep extends Component {
+export default class SecondStep extends Component {
 
   constructor () {
     super()

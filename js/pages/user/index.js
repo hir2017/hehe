@@ -50,12 +50,24 @@ class UserPage extends Component {
 											  {UPEX.lang.template('电子邮箱绑定')}
 											</Link>
 										</li>
-		        				<li>{UPEX.lang.template('Google验证器')}</li>
+										<li>
+											<Link to="/user/google">
+												{UPEX.lang.template('Google验证器')}
+											</Link>
+											</li>
 		        			</ul>
 		        			<h2>{ UPEX.lang.template('其它')}</h2>
 		        			<ul>
-		        				<li>{UPEX.lang.template('问题反馈')}</li>
-		        				<li>{UPEX.lang.template('反馈列表')}</li>
+										<li>
+											<Link to="/user/question">
+												{UPEX.lang.template('问题反馈')}
+											</Link>
+										</li>
+										<li>
+											<Link to="/user/questionList">
+												{UPEX.lang.template('反馈列表')}
+											</Link>
+										</li>
 		        			</ul>
 	        			</div>
 	        		</div>

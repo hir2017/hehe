@@ -13,7 +13,7 @@ require('echarts/lib/chart/line');
 require('echarts/lib/component/tooltip');
 require('echarts/lib/component/title');
 
-export default class CoinInfo extends Component {
+export default class extends Component {
 
   option (hours24TrendList = []) {
     return {

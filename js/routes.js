@@ -43,6 +43,11 @@ import SettingPhone from './mods/bindingPhone/bindingPhone'
 import BindingEmail from './pages/user/bindingEmail'
 import ModifyEmail from './mods/bindingEmail/modifyEmail'
 import SettingEmail from './mods/bindingEmail/bindingEmail'
+import GoogleAuth from './pages/user/googleAuthenticator'
+import RebindingGoogle from './mods/bindingGoogle/reBinding'
+import GoogleGuide from './pages/user/googleGuide'
+import Question from './pages/user/problemFeedback'
+import QuestionList from './pages/user/feedbackList'
 
 const routes = (
     <Route>
@@ -61,7 +66,7 @@ const routes = (
 	        	<Route path="success" component={SuccessOrderList} />
 	        </Route>
 	        <Route path="user" component={UserInfo}>
-			  	<IndexRoute component={EssentialInformation}/>
+			 	<IndexRoute component={EssentialInformation}/>
 				<Route path="authentication" component={IdentityAuthentication} />
 				<Route path="bankInfo" component={BankInfo} />
 				<Route path="passwordSetting" component={PasswordSetting} />
@@ -74,6 +79,11 @@ const routes = (
 				<Route path="bindingEmail" component={BindingEmail} />
 				<Route path="modifyEmail" component={ModifyEmail} />
 				<Route path="settingEmail" component={SettingEmail} />
+				<Route path="google" component={GoogleAuth} />
+				<Route path="rebindingGoogle" component={RebindingGoogle} />
+				<Route path="googleGuide" component={GoogleGuide} />
+				<Route path="question" component={Question} />
+				<Route path="questionList" component={QuestionList} />
 			</Route>
 	        <Route path="login" component={Login}/>
 	        <Route path="register" component={Register}/>
