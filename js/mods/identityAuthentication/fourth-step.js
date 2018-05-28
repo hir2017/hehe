@@ -14,7 +14,7 @@ export default class FourthStep extends Component {
   render() {
     return (
       <div>
-        <Steps />
+        <Steps step={4}/>
         <div className="success-title">
           <span>{UPEX.lang.template('您已完成安全認證！')}</span>
         </div>

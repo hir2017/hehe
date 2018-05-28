@@ -26,7 +26,7 @@ export default class FirstStep extends Component {
   render() {
     return (
       <div>
-        <Steps />
+        <Steps step={1}/>
         <div className="item one-item">
           <span className="lable">
             {UPEX.lang.template('真实姓名')}
