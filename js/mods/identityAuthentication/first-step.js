@@ -8,6 +8,7 @@ import { Link } from 'react-router'
 import { observer, inject } from 'mobx-react';
 import { Input, Select, Checkbox, Button } from 'antd'
 import Steps from './steps'
+import dayjs from 'dayjs'
 
 const Option = Select.Option
 
@@ -17,6 +18,62 @@ export default class FirstStep extends Component {
   constructor () {
     super()
     this.next = this.next.bind(this)
+    this.nameChange = this.nameChange.bind(this)
+    this.yearChange = this.yearChange.bind(this)
+  }
+
+  state = {
+    name: '',
+    year: '',
+    birthday: '',
+    idCardType: '',
+    idCard: ''
+  }
+
+  years () {
+    let count = 100
+    const yearA = []
+    while(count) {
+      const year = dayjs().subtract(100 - count, 'year').format('YYYY')
+      yearA.push(year)
+      count--
+    }
+    return yearA
+  }
+
+  months () {
+    let count = 12
+    const monthA = []
+    while(count) {
+      let month = count--
+      if (month < 10) month = `0${month}`
+      monthA.push(month)
+    }
+    return monthA
+  }
+
+  days () {
+    let count = 30
+    const monthA = []
+    while(count) {
+      let month = count--
+      if (month < 10) month = `0${month}`
+      monthA.push(month)
+    }
+    return monthA
+  }
+
+  nameChange (e) {
+    this.setState({
+      name: e.target.value
+    })
+  }
+
+  yearChange (val) {
+    console.log(val)
+    this.setState({
+      year: val
+    })
   }
 
   next () {
@@ -32,7 +89,7 @@ export default class FirstStep extends Component {
             {UPEX.lang.template('真实姓名')}
           </span>
           <span className="input">
-            <Input />
+            <Input onChange={this.nameChange}/>
             <span></span>
             <span className="message">
               *{UPEX.lang.template('填写之姓名必须与日后提领的银行账户名相同')}
@@ -45,14 +102,32 @@ export default class FirstStep extends Component {
           </span>
           <span className="input">
             <span className="time-control">
-              <Select defaultValue="2018" style={{ width: 130 }}>
-                <Option value="2018">2018&nbsp;&nbsp;&nbsp;&nbsp;{UPEX.lang.template('年')}</Option>
+              <Select showSearch 
+                placeholder={UPEX.lang.template('可以输入年')}
+                onChange={this.yearChange} style={{ width: 130 }}>
+                {
+                  this.years().map((item, index) => {
+                    return  <Option key={index} value={item}>{item}&nbsp;&nbsp;&nbsp;&nbsp;{UPEX.lang.template('年')}</Option>
+                  })
+                }
               </Select>
-              <Select defaultValue="12" style={{ width: 110 }}>
-                <Option value="12">12&nbsp;&nbsp;&nbsp;&nbsp;{UPEX.lang.template('月')}</Option>
+              <Select 
+                placeholder={UPEX.lang.template('请选择月')}
+                style={{ width: 110 }}>
+                {
+                  this.months().map((item, index) => {
+                    return <Option key={index} value={item}>{item}&nbsp;&nbsp;&nbsp;&nbsp;{UPEX.lang.template('月')}</Option>
+                  })
+                }
               </Select>
-              <Select defaultValue="18" style={{ width: 110 }}>
-                <Option value="18">18&nbsp;&nbsp;&nbsp;&nbsp;{UPEX.lang.template('日')}</Option>
+              <Select 
+                placeholder={UPEX.lang.template('请选择日')}
+                style={{ width: 110 }}>
+                {
+                  this.days().map((item, index) => {
+                    return <Option key={index} value={item}>{item}&nbsp;&nbsp;&nbsp;&nbsp;{UPEX.lang.template('日')}</Option>
+                  })
+                }
               </Select>
             </span>
             <span></span>
