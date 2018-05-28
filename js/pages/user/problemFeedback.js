@@ -48,6 +48,7 @@ export default class extends Component {
               listType="picture-card"
               fileList={fileList}
               onChange={this.handleChange}
+              accept="image/jpg,image/Jpeg,image/bmp,image/png,image/gif"
             >
               { fileList.length >= 3 ? null : this.uploadButton }
             </Upload>
