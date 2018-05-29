@@ -315,3 +315,25 @@ export function personalInfo(){
         size: 10
     }).then(res => res.data);
  }
+
+ /**
+  * 发送验证码
+  */
+
+ export function sendCodeInUserCenter (type) {
+    return axios.post(`${UPEX.config.host}/user/sendMailInUserCenter`, {
+        type: type,
+    }).then(res => res.data);
+ }
+
+ /**
+  * 设置修改交易密码
+  */
+
+ export function bindFdPwd (newFdPassWord, vercode, oldFdPassWord = '') {
+    return axios.post(`${UPEX.config.host}/user/bindFdPwd`, {
+        newFdPassWord: newFdPassWord,
+        oldFdPassWord: oldFdPassWord,// 如果首次设置可以不传.传个空串
+        vercode: vercode,
+    }).then(res => res.data);
+ }
