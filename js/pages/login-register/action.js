@@ -3,6 +3,7 @@ import { sendEmailForRegister, sendMail, resetPwd, userRegister, queryPhone, use
 import { browserHistory } from 'react-router';
 import Timer from '../../lib/timer';
 import md5 from '../../lib/md5';
+import countryCode from '../../mods/register/country-code';
 
 export default (store) => {
     return {
@@ -10,9 +11,10 @@ export default (store) => {
             store.changeModeTo(mode);
         },
 
-        onAreaCodeChange(value, e) {
-            store.setAreaCode(value);
+        onAreaCodeChange(code, e) {
+            store.setAreaCode(code);
         },
+        
         onChangeEmail(e) {
             let value = e.currentTarget.value.trim();
 
