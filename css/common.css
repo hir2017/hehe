@@ -254,3 +254,12 @@ button > a {
 .disabled {
     background-color: #ccc !important;
 }
+
+.send-v-code-button {
+    width: 100px;
+    text-align: center;
+    height: 40px;
+    line-height: 40px;
+    display: inline-block;
+    cursor: pointer;
+}
