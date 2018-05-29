@@ -8,7 +8,6 @@ import { observer, inject } from 'mobx-react';
 import { Tabs , Icon , Popover , Select} from 'antd';
 import {  Link } from 'react-router';
 import toAction from './action';
-import countryCode from '../../mods/register/country-code';
 const Option = Select.Option;
 
 @inject('userStore')

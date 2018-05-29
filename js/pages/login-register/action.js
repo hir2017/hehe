@@ -3,7 +3,6 @@ import { sendEmailForRegister, sendMail, resetPwd, userRegister, queryPhone, use
 import { browserHistory } from 'react-router';
 import Timer from '../../lib/timer';
 import md5 from '../../lib/md5';
-import countryCode from '../../mods/register/country-code';
 
 export default (store) => {
     return {
