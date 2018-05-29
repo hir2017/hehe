@@ -13,9 +13,9 @@ class LoginInfoBaseStore {
     @observable inviteId = ''; // 邀请码
     @observable agree = false; // 同意协议
     @observable selectedCountry = {
-        areacode: '86',
-        code: 'CN',
-        name: 'China'
+        areacode: '886',
+        code: 'TW',
+        name: 'Taiwan'
     }; // 选中的国家区域
     @observable sendingcode = false;
     @observable validImgCode = true; // 图片验证码

@@ -92,11 +92,11 @@
     width: 100%;
     outline: none;
     background-color: transparent;
-    border: 1px solid #5b5b5b;
     border-radius: 4px;
 }
 .register-mode-content .input-box .ant-select-selection{
     color: #cccccc;
+    border: 1px solid #5b5b5b;
     background-color: transparent;
 }
 .register-mode-content .input-box .ant-select-selection--single,
@@ -181,6 +181,7 @@
 .register-mode-content .input-box .yzcode button.disabled{
 	background-color: rgb(204, 204, 204);
 }
+
 .register-mode-content .input-box.user-protocol{
     height: 20px;
     line-height: 20px;
@@ -215,8 +216,8 @@
 }
 
 .register-mode-content .submit-btn.disabled{
-	color: #cccccc;
-    border: 1px solid #cccccc;
+	color: #5b5b5b;
+    border: 1px solid #5b5b5b;
 }
 
 .register-mode-content .error-tip{

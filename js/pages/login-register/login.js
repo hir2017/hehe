@@ -140,8 +140,7 @@ class Login extends Component {
                                 </div>
                             ) : (
                                 <div className="input-wrapper" key='phone'>
-                                    <div className="input-box input-phone">
-                                        <span className="area-code">+{store.areaCode}</span>
+                                    <div className="input-box">
                                         <input
                                             type="text" 
                                             placeholder={ UPEX.lang.template('手机') }
