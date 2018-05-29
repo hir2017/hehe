@@ -30,14 +30,36 @@
     box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.06);
     position: relative;
     height: 100%;
-    padding-top: 42px;
+    padding-top: 84px;
     width: 100%;
     /* border-bottom: 10px solid #f8f8fb; */
 }
 
+.trade-main-chart .chart-menu{
+    position: absolute;
+    top: 42px;
+    left: 0;
+    width: 100%;
+    height: 42px;
+    line-height: 42px;
+    padding: 0 10px;
+    font-size: 16px;
+    overflow: hidden;
+    background-color: #fff;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.06);
+}
 
+.trade-main-chart .chart-menu li{
+    float: left;
+    padding: 0 10px;
+    cursor: pointer;
+    height: 40px;
+}
 
-
+.trade-main-chart .chart-menu .selected{
+    border-bottom: 2px solid #e6bc1d;
+    color: #e6bc1d;
+}
 /**
  * 币种信息
  */
@@ -119,20 +141,6 @@
     vertical-align: middle;
 }
 
-.trade-current-coin .chart-menu{
-    position: absolute;
-    right: 40px;
-    bottom: -42px;
-}
-
-.trade-current-coin .chart-menu li{
-    color: #333;
-    cursor: pointer;
-}
-
-.trade-current-coin .chart-menu .selected{
-    color: #e6bc1d
-}
 
 .trade-current-coin .theme-menu {
     position: absolute;
@@ -289,10 +297,11 @@
     background-color: #fff;
     box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.06);
     left: 0;
+    display: block;
 }
 
 .trade-kline-chart[data-show="hide"]{
-    left: -200%;
+    display: none;
 }
 
 
@@ -990,9 +999,15 @@
 .trade-wrapper[data-theme="dark"] .trade-extra-list,
 .trade-wrapper[data-theme="dark"] .trade-extra-handle,
 .trade-wrapper[data-theme="dark"] .trade-main-order,
-.trade-wrapper[data-theme="dark"] .trade-current-coin {
+.trade-wrapper[data-theme="dark"] .trade-current-coin{
     background-color: #090600;
     color: rgba(255, 255, 255, 0.6);
+}
+
+.trade-wrapper[data-theme="dark"] .trade-main-chart .chart-menu {
+    background-color: #090600;
+    color: rgba(255, 255, 255, 0.6);
+    border-bottom: 2px solid #131314;
 }
 
 .trade-wrapper[data-theme="dark"] .trade-extra-list .list-box-r,
@@ -1025,7 +1040,7 @@
 }
 
 
-.trade-wrapper[data-theme="dark"] .tradeorder-table-hd {
+.trade-wrapper[data-theme="dark"] .tradeorder-table-hd{
     background-color: #090600;
 }
 

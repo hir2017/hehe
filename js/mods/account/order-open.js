@@ -3,7 +3,7 @@ import { observer, inject } from 'mobx-react';
 import { Checkbox, Icon, Pagination, message } from 'antd';
 import PopupTradePwd from './tradepwd';
 
-@inject('orderStore')
+@inject('commonStore','orderStore')
 @observer
 class List extends Component {
 	constructor(props){
@@ -13,6 +13,7 @@ class List extends Component {
 	}
 
 	componentDidMount() {
+		this.props.commonStore.getAllCoinPoint();
 		this.props.orderStore.getOpenOrderList();
 	}
 
@@ -90,7 +91,7 @@ class List extends Component {
 							})
 						}
 					</ul>
-					<Pagination defaultCurrent={1} total={50} onChange={this.onChangePagination.bind(this)} />
+					<Pagination defaultCurrent={1} total={store.totalOpenPage} onChange={this.onChangePagination.bind(this)} />
 				</div>
 			)
 		}

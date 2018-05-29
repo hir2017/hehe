@@ -2,11 +2,11 @@ import React, {Component} from 'react';
 import { observer, inject } from 'mobx-react';
 import { Checkbox, Icon } from 'antd';
 
-@inject('assetsStore')
+@inject('accountStore')
 @observer
 class List extends Component {
 	render() {
-		let store = this.props.assetsStore;
+		let store = this.props.accountStore;
 		let $content;
 		
 		if(store.isFetchingList){
@@ -36,7 +36,7 @@ class List extends Component {
 		}
 
 		return (
-			<div className="assets-record-list">
+			<div className="account-record-list">
 				<div className="table-hd">
 					<table>
 						<tbody>

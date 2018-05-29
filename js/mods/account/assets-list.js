@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { observer, inject } from 'mobx-react';
 import { Checkbox, Icon } from 'antd';
 
-@inject('assetsStore')
+@inject('accountStore')
 @observer
 class List extends Component {
 	handleSearch=(e)=>{
@@ -12,18 +12,18 @@ class List extends Component {
         
         this.timer && clearTimeout(this.timer);
         this.timer = setTimeout(()=>{
-        	this.props.assetsStore.filterByName(val);
+        	this.props.accountStore.filterByName(val);
         }, 100);
 	}
 
 	onChangeCheckBox=(e)=>{
         let checked = e.target.checked == true;
 
-        this.props.assetsStore.filterZeroAmount(checked);
+        this.props.accountStore.filterZeroAmount(checked);
 	}
 
 	render() {
-		let store = this.props.assetsStore;
+		let store = this.props.accountStore;
 		let $content;
 		
 		if(store.isFetchingList){
@@ -61,8 +61,8 @@ class List extends Component {
 		}
 
 		return (
-			<div className="assets-list">
-				<div className="assets-filter-box">
+			<div className="account-list">
+				<div className="account-filter-box">
 					<div className="filter-input">
 						<Icon type="search" />
 						<input type="text" onChange={this.handleSearch} placeholder={UPEX.lang.template('搜索数字币')}/>
@@ -71,7 +71,7 @@ class List extends Component {
 						<Checkbox onChange={ this.onChangeCheckBox } >{UPEX.lang.template('隐藏资产为０的货币')}</Checkbox>
 					</div>
 				</div>
-				<div className="assets-result-list">
+				<div className="account-result-list">
 					<div className="table-hd">
 						<table>
 							<tbody>

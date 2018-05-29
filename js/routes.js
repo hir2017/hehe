@@ -20,9 +20,12 @@ import ResetPwd from './pages/login-register/resetpwd';
 
 import Home from './pages/home';
 import TradeCenter from './pages/trade-center';
+// 我的资产
 import Assets from './pages/account/index';
 import CoinRecord from './pages/account/record-coin';
 import FiatRecord from './pages/account/record-fiat';
+import Recharge from './pages/account/recharge';
+import Withdrawal from  './pages/account/withdrawal';
 import UserInfo from './pages/user';
 // 订单相关
 import Order from './pages/order';
@@ -49,6 +52,7 @@ import GoogleGuide from './pages/user/googleGuide'
 import Question from './pages/user/problemFeedback'
 import QuestionList from './pages/user/feedbackList'
 
+
 const routes = (
     <Route>
         <Route path="/" component={ Layout }>
@@ -59,6 +63,8 @@ const routes = (
 	        <Route path="assets" component={Assets}/>
 	        <Route path="coinrecord" component={CoinRecord}/>
 	        <Route path="fiatrecord" component={FiatRecord}/>
+	        <Route path="Recharge" component={Recharge}/>
+	        <Route path="withdrawal" component={Withdrawal}/>
 	        <Route path="order" component={Order}>
 	        	<IndexRoute component={OpenOrderList}/>
 	        	<Route path="open" component={OpenOrderList} />

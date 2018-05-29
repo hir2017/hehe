@@ -4,10 +4,11 @@ import {  Select, DatePicker, Pagination} from 'antd';
 const Option = Select.Option;
 import PopupTradePwd from './tradepwd';
 
-@inject('orderStore')
+@inject('commonStore','orderStore')
 @observer
 class List extends Component {
 	componentDidMount() {
+		this.props.commonStore.getAllCoinPoint();
 		this.props.orderStore.getHistoryOrderList();
 	}
 
@@ -40,7 +41,7 @@ class List extends Component {
 	onChangeCurrency=(value)=>{
 		let params = {
 			pageNo: 1,
-			currencyId: value
+			currencyId: Number(value)
 		}
 		this.props.orderStore.getHistoryOrderList(params);
 	}
@@ -48,7 +49,15 @@ class List extends Component {
 	onChangeBuyOrSell=(value)=>{
 		let params = {
 			pageNo: 1,
-			buyOrSell: value
+			buyOrSell: Number(value)
+		}
+		this.props.orderStore.getHistoryOrderList(params);
+	}
+
+	onChangeStatus=(value)=>{
+		let params = {
+			pageNo: 1,
+			status: Number(value)
 		}
 		this.props.orderStore.getHistoryOrderList(params);
 	}
@@ -138,7 +147,7 @@ class List extends Component {
 							})
 						}
 					</ul>
-					<Pagination defaultCurrent={1} total={50} onChange={this.onChangePagination.bind(this)} />
+					<Pagination defaultCurrent={1} total={store.totalHistoryPage} onChange={this.onChangePagination.bind(this)} />
 				</div>
 			)
 		}
@@ -152,13 +161,18 @@ class List extends Component {
     					<ul>
     						<li>
     							<label>{UPEX.lang.template('币种')}</label>
-    							<Select defaultValue="0">
+    							<Select defaultValue="0" onChange={this.onChangeCurrency}>
     								<Option value="0">{UPEX.lang.template('全部')}</Option>
+    								{
+    									this.props.commonStore.productList['TWD'].map((item)=>{
+    										return <Option value={item.currencyId}>{item.currencyNameEn}</Option>
+    									})
+    								}
     							</Select>
     						</li>
     						<li>
     							<label>{UPEX.lang.template('类型')}</label>
-    							<Select defaultValue="0">
+    							<Select defaultValue="0" onChange={this.onChangeBuyOrSell}>
     								<Option value="0">{UPEX.lang.template('全部')}</Option>
     								<Option value="1">{UPEX.lang.template('买')}</Option>
     								<Option value="2">{UPEX.lang.template('卖')}</Option>
@@ -166,10 +180,11 @@ class List extends Component {
     						</li>
     						<li>
     							<label>{UPEX.lang.template('状态')}</label>
-    							<Select defaultValue="10">
-    								<Option value="10">{UPEX.lang.template('全部')}</Option>
+    							<Select defaultValue="12" onChange={this.onChangeStatus}>
+    								<Option value="12">{UPEX.lang.template('全部')}</Option>
     								<Option value="2">{UPEX.lang.template('全部成交')}</Option>
-    								<Option value="4">{UPEX.lang.template('撤单')}</Option>
+    								<Option value="4">{UPEX.lang.template('全部撤单')}</Option>
+    								<Option value="5">{UPEX.lang.template('部分成交后撤单')}</Option>
     							</Select>
     						</li>
     						<li>

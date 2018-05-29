@@ -539,20 +539,6 @@ class TVChartContainer extends Component {
 	                        <em>{ store.currentCoinVolume }</em>
 	                    </li>
 	                </ul>
-                    <ul className="chart-menu">
-                        <li 
-                            onClick={this.showChart.bind(this, 'kline')}
-                            className={ this.state.chart == 'kline' ? 'selected' : ''}
-                        >
-                            {UPEX.lang.template('K线图')}
-                        </li>
-                        <li 
-                            onClick={this.showChart.bind(this, 'depth')}
-                            className={ this.state.chart == 'depth' ? 'selected' : ''}
-                        >
-                            {UPEX.lang.template('深度图')}
-                        </li>
-                    </ul>
 	                <div className="theme-menu">
 	                    <label>{ checked ? UPEX.lang.template('开灯') : UPEX.lang.template('关灯') }</label>
 	                    <Switch 
@@ -561,20 +547,35 @@ class TVChartContainer extends Component {
 	                    />
 	                </div>
 	            </div>
+                <ul className="chart-menu">
+                    <li 
+                        onClick={this.showChart.bind(this, 'kline')}
+                        className={ this.state.chart == 'kline' ? 'selected' : ''}
+                    >
+                        {UPEX.lang.template('K线图')}
+                    </li>
+                    <li 
+                        onClick={this.showChart.bind(this, 'depth')}
+                        className={ this.state.chart == 'depth' ? 'selected' : ''}
+                    >
+                        {UPEX.lang.template('深度图')}
+                    </li>
+                </ul>
                 <div
-					id="kline-chart"
+                    id="kline-chart"
                     ref="kline"
                     className='trade-kline-chart'
                     data-show={this.state.chart == 'kline' ? 'show': 'hide'}
-				/>
-                <div 
-                    id="depth-chart"
-                    ref="depth"
-                    className='trade-depth-chart'
-                    data-show={this.state.chart == 'depth' ? 'show': 'hide'}
-                >
-                   <DepthChart/>
-                </div>
+                />
+                {
+                    this.state.chart == 'depth' ? (
+                        <div 
+                            className='trade-depth-chart'
+                        >
+                           <DepthChart/>
+                        </div>
+                    ) : null
+                }
             </div>
         );
     }

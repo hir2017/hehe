@@ -84,6 +84,22 @@ class CommonStore {
             })
         })
     }
+
+    @computed
+    get productList(){
+        let result = {};
+        
+        this.allCoinPoint.forEach((item, index)=>{
+            if(!result[item.baseCurrencyNameEn]) {
+                result[item.baseCurrencyNameEn] = [];
+            }
+
+            result[item.baseCurrencyNameEn].push(item);
+        })
+
+        return result;
+    }
+
     /**
      *
      */

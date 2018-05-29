@@ -134,7 +134,7 @@ const websocketHost = 'ws://13.251.85.35/';
 // const websocketHost = 'ws://www.acex.tw';
 // const websocketHost = 'ws://54.169.140.238/';
 const salt = 'dig?F*ckDang5PaSsWOrd&%(polarisex0160630).'
-const imgHost = 'http://www.acex.tw/source/';
+const imgHost = 'http://13.251.85.35/';
 
 const config = {
     channel: '',

@@ -4,10 +4,11 @@ import {  Select, DatePicker, Pagination } from 'antd';
 
 const Option = Select.Option;
 
-@inject('orderStore')
+@inject('commonStore','orderStore')
 @observer
 class List extends Component {
 	componentDidMount() {
+		this.props.commonStore.getAllCoinPoint();
 		this.props.orderStore.getSuccessOrderList();
 	}
 

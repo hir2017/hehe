@@ -201,14 +201,16 @@
     box-sizing: border-box;
 }
 
-.assets-result-list dd {
+.account-result-list dd {
     display: inline-block;
     line-height: 24px;
     padding: 10px 0;
     color: #333333;
     font-size: 14px;
 }
-
+.account-result-list li {
+    border-top: 1px solid #f2f2f2;
+}
 .account-result-list .name {
     width: 10%;
 }
@@ -244,6 +246,7 @@
 
 .account-result-list .actions {
     width: 15%;
+    text-align: center;
 }
 
 .account-result-list li:hover {
@@ -337,7 +340,7 @@
 }
 
 .account-record-list li{
-    border-bottom: 1px solid #f2f2f2;
+    border-top: 1px solid #f2f2f2;
 }
 .account-record-list li:hover {
     background: #fffbeb;

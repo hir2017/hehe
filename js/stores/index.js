@@ -7,6 +7,7 @@ import HomeStore from './home';
 import TradeStore from './trade';
 import AccountStore from './account';
 import OrderStore from './order';
+import RechargeStore from './recharge'
 
 class RootStore {
     constructor() {
@@ -19,6 +20,7 @@ class RootStore {
         this.tradeStore = new TradeStore(this);
         this.accountStore = new AccountStore(this);
         this.orderStore = new OrderStore(this);
+        this.rechargeStore = new RechargeStore(this);
     }
 }
 

@@ -8,10 +8,11 @@
  */
 import React, {Component} from 'react';
 import { observer, inject } from 'mobx-react';
-import { Icon, message } from 'antd';
+import { Icon, message, Select , Checkbox} from 'antd';
 import {  Link , browserHistory } from 'react-router';
 import countryCode from '../../mods/register/country-code';
 import toAction from './action';
+const Option = Select.Option;
 
 @inject('userStore')
 @observer
@@ -47,7 +48,9 @@ class Register extends Component {
         let store = this.props.userStore;
         let action = this.action;
 
-        console.log(store.agress);
+        let item = countryCode.filter((item, index)=>{
+            return item.code === store.areaCode;
+        })
 
         return (
             <div className="register-wrapper">
@@ -82,13 +85,13 @@ class Register extends Component {
                             store.mode == 'email' ? null : (
                                 <div className="input-wrapper">
                                     <div className="input-box">
-                                        <select onChange={ action.onAreaCodeChange } value={store.areaCode}>
+                                        <Select onChange={ action.onAreaCodeChange } defaultValue={item[0].code}>
                                             {
                                                 countryCode.map((cur,index)=>{
-                                                    return <option value={cur.code} key={cur.locale}>{ UPEX.lang.template(cur.locale)}</option>
+                                                    return <Option value={cur.code} key={index}>{ UPEX.lang.template(cur.locale)}</Option>
                                                 })
                                             }
-                                        </select>
+                                        </Select>
                                     </div>
                                 </div>
                             )
@@ -195,12 +198,9 @@ class Register extends Component {
 
                         <div className="input-wrapper">
                             <div className="input-box user-protocol">
-                                <input 
-                                    ref="checkboxBtn"
-                                    type="checkbox"
-                                    onChange={ action.onChangeAgreeCheckBox } 
-                                />
-                                <label>{ UPEX.lang.template('我已阅读并同意')} </label>
+                                <Checkbox onChange={ action.onChangeAgreeCheckBox }>
+                                    { UPEX.lang.template('我已阅读并同意')}
+                                </Checkbox>
                                 <a target='_blank' href="#">《{ UPEX.lang.template('服务条款')}》</a>
                             </div>
                         </div>

@@ -1,0 +1,13 @@
+.recharge-wrapper{
+	width: 1200px;
+	margin: 0 auto;
+	padding: 20px 0;
+}
+
+.recharge-wrapper h2{
+	color: #333333;
+	font-size: 26px;
+	padding: 20px 0;
+	font-weight: normal;
+	border-bottom: 1px solid #e7ebf1;
+}
