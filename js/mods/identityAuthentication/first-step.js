@@ -12,6 +12,7 @@ import dayjs from 'dayjs'
 
 const Option = Select.Option
 
+@inject('userInfoStore')
 @observer
 export default class FirstStep extends Component {
 
@@ -20,14 +21,26 @@ export default class FirstStep extends Component {
     this.next = this.next.bind(this)
     this.nameChange = this.nameChange.bind(this)
     this.yearChange = this.yearChange.bind(this)
+    this.monthChange = this.monthChange.bind(this)
+    this.dayChange = this.dayChange.bind(this)
+    this.idCardTypeChange = this.idCardTypeChange.bind(this)
+    this.idCardChange = this.idCardChange.bind(this)
+    this.checkHandel = this.checkHandel.bind(this)
   }
 
   state = {
     name: '',
+    nameMes: '',
     year: '',
+    month: '',
+    day: '',
     birthday: '',
+    birthdayMes: '',
     idCardType: '',
-    idCard: ''
+    idCardTypeMes: '',
+    idCard: '',
+    idCardMes: '',
+    check: false
   }
 
   years () {
@@ -65,19 +78,85 @@ export default class FirstStep extends Component {
 
   nameChange (e) {
     this.setState({
-      name: e.target.value
+      name: e.target.value,
+      nameMes: ''
     })
   }
 
   yearChange (val) {
-    console.log(val)
     this.setState({
       year: val
     })
   }
 
+  monthChange (val) {
+    this.setState({
+      month: val
+    })
+  }
+
+  dayChange (val) {
+    this.setState({
+      day: val,
+      birthdayMes: ''
+    })
+  }
+
+  idCardTypeChange (val) {
+    this.setState({
+      idCardType: val,
+      idCardTypeMes: ''
+    })
+  }
+
+  idCardChange (e) {
+    this.setState({
+      idCard: e.target.value,
+      idCardMes: ''
+    })
+  }
+
+  checkHandel (e) {
+    this.setState({
+      check: e.target.checked
+    })
+  }
+
   next () {
-    this.props.changeStep(2)
+    let valid = true
+    if (!this.state.name) {
+      this.setState({
+        nameMes: UPEX.lang.template('*真实姓名不能为空')
+      })
+      valid = false
+    }
+    if (!this.state.year || !this.state.month || !this.state.day) {
+      this.setState({
+        birthdayMes: UPEX.lang.template('*请完善出生日期')
+      })
+      valid = false
+    }
+    if (!this.state.idCardType) {
+      this.setState({
+        idCardTypeMes: UPEX.lang.template('*请选择证件类型')
+      })
+      valid = false
+    }
+    if (!this.state.idCard) {
+      this.setState({
+        idCardMes: UPEX.lang.template('*证件号码不能为空')
+      })
+      valid = false
+    }
+    if (valid) {
+      this.props.userInfoStore.addIdentityInfo({
+        name: this.state.name,
+        birthday: this.state.year + '-' + this.state.month + '-' + this.state.day,
+        idType: this.state.idCardType,
+        idNumber: this.state.idCard
+      })
+      this.props.changeStep(2)
+    }
   }
 
   render() {
@@ -90,7 +169,7 @@ export default class FirstStep extends Component {
           </span>
           <span className="input">
             <Input onChange={this.nameChange}/>
-            <span></span>
+            <span className="error-message">{this.state.nameMes}</span>
             <span className="message">
               *{UPEX.lang.template('填写之姓名必须与日后提领的银行账户名相同')}
             </span>
@@ -113,6 +192,7 @@ export default class FirstStep extends Component {
               </Select>
               <Select 
                 placeholder={UPEX.lang.template('请选择月')}
+                onChange={this.monthChange}
                 style={{ width: 110 }}>
                 {
                   this.months().map((item, index) => {
@@ -122,6 +202,7 @@ export default class FirstStep extends Component {
               </Select>
               <Select 
                 placeholder={UPEX.lang.template('请选择日')}
+                onChange={this.dayChange}
                 style={{ width: 110 }}>
                 {
                   this.days().map((item, index) => {
@@ -130,7 +211,7 @@ export default class FirstStep extends Component {
                 }
               </Select>
             </span>
-            <span></span>
+            <span className="error-message">{this.state.birthdayMes}</span>
             <span className="message">
             </span>
           </span>
@@ -140,10 +221,12 @@ export default class FirstStep extends Component {
             {UPEX.lang.template('证件类型')}
           </span>
           <span className="input">
-            <Select defaultValue="台湾身份证" style={{ width: 190 }}>
+            <Select style={{ width: 190 }}
+              onChange={this.idCardTypeChange}
+              placeholder={UPEX.lang.template('请选择')}>
               <Option value="台湾身份证">台湾身份证</Option>
             </Select>
-            <span></span>
+            <span className="error-message">{this.state.idCardTypeMes}</span>
             <span className="message">
               *{UPEX.lang.template('目前暫時只開放給擁有台灣身分證的用戶使用')}
             </span>
@@ -154,22 +237,26 @@ export default class FirstStep extends Component {
             {UPEX.lang.template('证件号码')}
           </span>
           <span className="input">
-            <Input />
-            <span className="error-message">*{UPEX.lang.template('请输入正确内容')}</span>
+            <Input onChange={this.idCardChange}/>
+            <span className="error-message">{this.state.idCardMes}</span>
             <span className="message">
               *{UPEX.lang.template('為保證款項可能有退還的情形，因此請填寫真實身分證字號')}
             </span>
           </span>
         </div>
         <div className="item">
-          <Checkbox>
+          <Checkbox onChange={this.checkHandel}>
             <span className="checkbox-text">{UPEX.lang.template('勾選選礦表示您同意我們的')}</span>
             <span className="checkbox-text"><Link>{UPEX.lang.template('用戶條款')}</Link></span>
             <span className="checkbox-text"><Link>{UPEX.lang.template('隱私條款')}</Link></span>
           </Checkbox>
         </div>
         <div className="submit">
-          <Button onClick={this.next}>{UPEX.lang.template('下一步')}</Button>
+        {
+          this.state.check 
+          ? <Button onClick={this.next}>{UPEX.lang.template('下一步')}</Button>
+          : <Button className="disabled" disabled>{UPEX.lang.template('下一步')}</Button>
+        }
         </div>
       </div>
     )

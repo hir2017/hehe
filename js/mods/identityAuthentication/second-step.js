@@ -12,6 +12,7 @@ import IDcard1 from '../../../images/IDcard1.png'
 import IDcard0 from '../../../images/IDcard0.png'
 import IDcard01 from '../../../images/IDcard01.png'
 
+@inject('userInfoStore')
 @observer
 export default class SecondStep extends Component {
 

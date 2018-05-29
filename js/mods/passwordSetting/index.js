@@ -8,16 +8,28 @@ import { observer, inject } from 'mobx-react';
 import { Button, Switch } from 'antd'
 import { Link } from 'react-router'
 
+@inject('userInfoStore')
 @observer
 export default class BindingBank extends Component {
+
+  componentWillMount() {
+    this.props.userInfoStore.getUserInfo()
+  }
+
   render() {
+    const userInfo = this.props.userInfoStore.userInfo || {}
     return (
       <div className="password-setting-box">
         <div className="password">
           <div className="password-change">
             <span>{UPEX.lang.template('登录密码')}</span>
             <Button>
-              <Link to="/user/modifyPassword">{UPEX.lang.template('修改')}</Link>
+              {
+                userInfo.phone
+                ? <Link to="/user/modifyPassword">{UPEX.lang.template('修改')}</Link>
+                : <Link to="/user/settingPhone">{UPEX.lang.template('绑定手机')}</Link>
+              }
+              
             </Button>
           </div>
           <div className="password-message">
@@ -38,7 +50,13 @@ export default class BindingBank extends Component {
           <div className="password-change">
             <span>{UPEX.lang.template('交易密码')}</span>
             <Button>
-              <Link to="/user/modifyTraddingPassword">{UPEX.lang.template('修改')}</Link>
+              {
+                userInfo.phone
+                ? !userInfo.isValidatePass
+                ? <Link to="/user/settingTraddingPassword">{UPEX.lang.template('添加')}</Link>
+                : <Link to="/user/modifyTraddingPassword">{UPEX.lang.template('修改')}</Link>
+                : <Link to="/user/settingPhone">{UPEX.lang.template('绑定手机')}</Link>
+              }
             </Button>
           </div>
           <div className="password-message">
