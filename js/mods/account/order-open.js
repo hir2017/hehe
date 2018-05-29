@@ -52,7 +52,6 @@ class List extends Component {
 		let store = this.props.orderStore;
 		let $content;
 		
-
 		if (store.isFetchingOpenList){
 			$content = <div className="mini-tip">{UPEX.lang.template('正在加载')}</div>
 		} else if(store.openOrderList.length == 0) {

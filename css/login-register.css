@@ -19,8 +19,24 @@
     display: inline-block;
 }
 
+.register-wrapper .register-form li:after{
+    content: '';
+    display: inline-block;
+    vertical-align: middle;
+    height: 14px;
+    width: 1px;
+    background: #fff;
+}
+
+.register-wrapper .register-form li:last-child:after{
+    display: none;
+}
+
+
+
 .register-wrapper .register-mode-tab{
-    display: block;
+    display: inline-block;
+    vertical-align: middle;
     margin: 0 auto;
     text-align: center;
     line-height: 40px;
@@ -36,7 +52,7 @@
 
 .register-mode-content {
     width: 380px;
-    margin: 0 auto;
+    margin: 10px auto;
     padding-bottom: 30px;
 }
 
@@ -232,7 +248,7 @@
     height: 30px;
     line-height: 30px;
     font-size: 14px;
-    color: #b14d43 !important;
+    color: #ff3245 !important;
 }
 .register-icon{
     position: absolute;

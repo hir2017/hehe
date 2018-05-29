@@ -172,9 +172,10 @@ class Login extends Component {
                                 </div>
                             </div>
                         </div>
-                        <div className="warn">
+                        <div className="error-tip">
                             { this.state.loginErrorText ? this.state.loginErrorText : '' }
                         </div>
+
                         <div className="input-wrapper">
                             <div className="login-input">
                                 <button className="submit-btn login-btn" onClick={ this.handleLogin }>{ UPEX.lang.template('登录') }</button>
