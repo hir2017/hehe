@@ -8,7 +8,6 @@ import React, {Component} from 'react';
 import { observer, inject } from 'mobx-react';
 import { Tabs , Icon , Popover, Select } from 'antd';
 import {  Link , browserHistory } from 'react-router';
-import countryCode from '../../mods/register/country-code';
 import toAction from './action';
 const Option = Select.Option;
 
@@ -82,8 +81,10 @@ class Login extends Component {
         let store = this.props.userStore;
         let action = this.action;
 
-        let item = countryCode.filter((item, index)=>{
-            return item.code === store.areaCode;
+        let options = [];
+
+        $.map(store.countries, (item, key)=>{
+            options[options.length] = <Option value={key} key={key}>{UPEX.lang.template(key)}(+{item.areacode})</Option>
         })
 
         return (
@@ -119,12 +120,8 @@ class Login extends Component {
                             store.mode == 'email' ? null : (
                                 <div className="input-wrapper">
                                     <div className="input-box">
-                                        <Select onChange={ action.onAreaCodeChange } defaultValue={item[0].code}>
-                                            {
-                                                countryCode.map((cur,index)=>{
-                                                    return <Option value={cur.code} key={index}>{ UPEX.lang.template(cur.locale)}</Option>
-                                                })
-                                            }
+                                        <Select onChange={ action.onAreaCodeChange } defaultValue={store.selectedCountry.code}>
+                                            { options }
                                         </Select>
                                     </div>
                                 </div>

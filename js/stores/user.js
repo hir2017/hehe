@@ -1,25 +1,34 @@
 import { observable, computed, autorun, action } from 'mobx';
+import Countries from '../mods/select-country/country-list';
 
 class LoginInfoBaseStore {
+    @observable countries = Countries;
     @observable mode = 'email'; // 注册方式，邮箱：email；手机：phone
     @observable email = ''; // 邮箱
     @observable phone = ''; // 手机
-    @observable areaCode = 86;
     @observable pwd = ''; // 密码
     @observable twicepwd = ''; // 确认密码
     @observable vercode = ''; // 邮箱验证码或者短信验证码
     @observable imgcode = ''; // 图片验证码
     @observable inviteId = ''; // 邀请码
     @observable agree = false; // 同意协议
+    @observable selectedCountry = {
+        areacode: '86',
+        code: 'CN',
+        name: 'China'
+    }; // 选中的国家区域
     @observable sendingcode = false;
     @observable validImgCode = true; // 图片验证码
     @observable validVercode = true; // 邮箱or手机验证码
     @observable hasPhone = false; // 手机是否已经被占用
+    
 
     constructor(stores) {
         this.captchaStore = stores.captchaStore;
         this.authStore = stores.authStore;
     }
+
+
 
     @computed
     get captcha() {
@@ -229,9 +238,14 @@ class LoginInfoBaseStore {
         this.phone = value;
     }
 
+    @computed
+    get areaCode(){
+        return this.selectedCountry.areacode;
+    }
+
     @action
     setAreaCode(code) {
-        this.areaCode = code;
+        this.selectedCountry = this.countries[code];
     }
 
     @action
