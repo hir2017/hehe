@@ -33,7 +33,7 @@ class Info extends Component {
   }
 
   gradeImg () {
-    const userInfo = this.props.userInfoStore.userInfo
+    const userInfo = this.props.userInfoStore.userInfo || {}
     if (userInfo.isAuthPrimary == 2) {
       return {img: gradeA, grade: 'A'}
     }
@@ -47,7 +47,7 @@ class Info extends Component {
   }
   
   render() {
-    const userInfo = this.props.userInfoStore.userInfo
+    const userInfo = this.props.userInfoStore.userInfo || {}
     return (
       <div className="info-box">
         <div className="info-title">

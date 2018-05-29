@@ -15,7 +15,7 @@ export default class List extends Component {
   }
 
   render() {
-    const loginRecord = this.props.userInfoStore.loginRecord
+    const loginRecord = this.props.userInfoStore.loginRecord || []
     return (
       <div>
         <div className="ant-table ant-table-large ant-table-fixed-header ant-table-scroll-position-left">
