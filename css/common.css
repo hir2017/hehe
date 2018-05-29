@@ -250,3 +250,7 @@ html {
 button > a {
     display: block;
 }
+
+.disabled {
+    background-color: #ccc !important;
+}
