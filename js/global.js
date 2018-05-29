@@ -12,7 +12,7 @@ let IS_INIT = false; // 是否已经初始化
 // 支持的网站语言
 const slangs = {
     // 网站语言是按照list的顺序展示的
-    list: ['zh-TW', 'en-US'],
+    list: ['zh-CN', 'zh-TW', 'en-US'],
     cfg: {
         "zh-CN": {
             option: '简体中文',
@@ -134,7 +134,7 @@ const websocketHost = 'ws://13.251.85.35';
 // const websocketHost = 'ws://www.acex.tw';
 // const websocketHost = 'ws://54.169.140.238/';
 const salt = 'dig?F*ckDang5PaSsWOrd&%(polarisex0160630).'
-const imgHost = 'http://www.acex.tw/source/';
+const imgHost = 'http://13.251.85.35/';
 
 const config = {
     channel: '',

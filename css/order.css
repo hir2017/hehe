@@ -1,0 +1,335 @@
+.order-wrapper {
+    position: relative;
+    min-width: 1150px;
+    margin: 0 auto;
+    padding: 10px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.order-body-inner {
+    padding-left: 230px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.order-menu {
+    float: left;
+    width: 230px;
+    margin-left: -230px;
+}
+
+.order-menu-box {
+    padding: 20px;
+}
+
+.order-menu-box h2 {
+    font-size: 18px;
+    color: #333333;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e7ebf1;
+}
+
+.order-menu-box ul {
+    margin-bottom: 10px;
+}
+
+.order-menu-box ul li {
+    position: relative;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.order-menu-box ul li.selected:before {
+    content: '';
+    height: 14px;
+    width: 3px;
+    background: #e6bc1d;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    margin-top: -7px;
+}
+
+.order-main {
+    float: right;
+    width: 100%;
+    margin: 10px 0;
+    min-height: 620px;
+    box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.06);
+}
+
+.order-main-box {
+    padding: 0 20px 20px;
+}
+
+.order-header {
+    height: 50px;
+    line-height: 50px;
+    padding-left: 200px;
+}
+
+.order-header h2 {
+    float: left;
+    font-size: 18px;
+    width: 200px;
+    margin-left: -200px;
+    text-align: left;
+}
+
+.order-header .filter-box {
+    width: 100%;
+    text-align: right;
+}
+
+
+.order-header .filter-box ul {
+    white-space: nowrap;
+}
+
+.order-header .filter-box li {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 10px;
+}
+
+.order-header label {
+    padding: 0 3px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.order-header .ant-select {
+    min-width: 100px;
+}
+
+.order-header .filter-box li button {
+    min-width: 108px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    border: 1px solid #d8d9dd;
+    color: #666666;
+    border-radius: 30px;
+}
+
+.order-table {
+    margin-top: 20px;
+}
+
+
+.order-table .mini-tip {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.order-table table {
+    width: 100%;
+    color: #999999;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.order-table table th {
+    padding: 10px 0;
+}
+
+
+.order-table dd {
+    display: inline-block;
+    word-wrap: break-word;
+    word-break: break-all;
+    line-height: 16px;
+    padding: 12px 0;
+    min-height: 40px;
+    color: #333333;
+    font-size: 14px;
+}
+
+.order-table .list li {
+    border-top: 1px solid #f2f2f2;
+}
+
+.order-table .list li:hover {
+    background: #fffbeb;
+}
+
+.order-table .ant-pagination {
+    margin-top: 20px;
+    text-align: center;
+}
+
+
+/**
+ * 委托中
+ */
+
+.order-main-box .open-list-table .time {
+    width: 15%;
+}
+
+.order-main-box .open-list-table .name {
+    width: 10%;
+    text-align: center;
+}
+
+.order-main-box .open-list-table .num {
+    width: 15%;
+    text-align: center;
+}
+
+.order-main-box .open-list-table .price {
+    width: 10%;
+}
+
+.order-main-box .open-list-table .inorout {
+    width: 10%;
+}
+
+.order-main-box .open-list-table .rate {
+    width: 10%;
+}
+
+.order-main-box .open-list-table .amount {
+    width: 10%;
+}
+
+.order-main-box .open-list-table .status {
+    width: 10%;
+}
+
+.order-main-box .open-list-table .action {
+    width: 10%;
+}
+
+.order-main-box .open-list-table .action button {
+    background: none;
+    border: 0 none;
+    color: #5581d8;
+    display: inline-block;
+}
+
+
+/**
+ * 已成交订单
+ */
+
+.order-main-box .success-list-table .time {
+    width: 15%;
+}
+
+.order-main-box .success-list-table .name {
+    width: 10%;
+    text-align: center;
+}
+
+.order-main-box .success-list-table .num {
+    width: 15%;
+    text-align: center;
+}
+
+.order-main-box .success-list-table .inorout {
+    width: 10%;
+}
+
+.order-main-box .success-list-table .tradeprice {
+    width: 20%;
+}
+
+.order-main-box .success-list-table .fee {
+    width: 15%;
+}
+
+.order-main-box .success-list-table .amount {
+    width: 15%;
+}
+
+
+
+/**
+ * 历史委托
+ */
+
+.order-main-box .history-list-table .time {
+    width: 15%;
+}
+
+.order-main-box .history-list-table .name {
+    width: 10%;
+    text-align: center;
+}
+
+.order-main-box .history-list-table .num {
+    width: 15%;
+    text-align: center;
+}
+
+.order-main-box .history-list-table .price {
+    width: 15%;
+}
+
+.order-main-box .history-list-table .inorout {
+    width: 10%;
+}
+
+.order-main-box .history-list-table .tradeprice {
+    width: 15%;
+}
+
+.order-main-box .history-list-table .status {
+    width: 10%;
+}
+
+.order-main-box .history-list-table .action {
+    width: 10%;
+}
+
+.order-main-box .history-list-table .action button {
+    background: none;
+    border: 0 none;
+    color: #5581d8;
+    display: inline-block;
+}
+
+.popup-trade-password {}
+
+.popup-trade-password .input-box {
+    border: 1px solid rgb(216, 217, 221);
+    outline: 0 none;
+    height: 42px;
+    margin: 0 auto;
+    width: 362px;
+}
+
+.popup-trade-password .input-box input {
+    border: 0 none;
+    background: none;
+    outline: 0 none;
+    line-height: 21px;
+    padding: 10px 10px;
+    width: 100%;
+}
+
+.popup-trade-password .warn-tip {
+    color: #ff3380;
+    min-height: 21px;
+    line-height: 21px;
+    font-size: 14px;
+    width: 362px;
+    margin: 0 auto;
+}
+
+.popup-trade-password .submit {
+    width: 100px;
+    height: 36px;
+    line-height: 36px;
+    margin: 10px auto 0;
+    background-color: rgb(230, 188, 29);
+    color: #fff;
+    text-align: center;
+    display: block;
+    border-radius: 4px;
+}

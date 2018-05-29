@@ -41,7 +41,7 @@ class OpenOrder extends Component{
 									<dl>
 										<dd className="time">{item.orderTime}</dd>
 										<dd className="type">{item.buyOrSell == 1 ? <label className="buy">{UPEX.lang.template('买入')}</label>: <label className="sell">{UPEX.lang.template('卖出')}</label> }</dd>
-										<dd className="name">{'币种'}</dd>
+										<dd className="name">{item.currencyNameEn}</dd>
 										<dd className="number">{item.num}</dd>
 										<dd className="price">{item.price}</dd>
 										<dd className="total">{'委托金额'}</dd>

@@ -10,9 +10,7 @@ export default (store) => {
             store.changeModeTo(mode);
         },
 
-        onAreaCodeChange(e) {
-            let value = e.currentTarget.value.trim();
-
+        onAreaCodeChange(value, e) {
             store.setAreaCode(value);
         },
         onChangeEmail(e) {
@@ -58,9 +56,7 @@ export default (store) => {
         },
 
         onChangeAgreeCheckBox(e) {
-            let checked = e.currentTarget.checked == true;
-
-            store.setAgress(checked);
+            store.setAgress(e.target.checked);
         },
 
         changeSendingCodeTo(status) {

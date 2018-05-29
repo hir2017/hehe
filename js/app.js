@@ -5,7 +5,7 @@ import '../css/login-register.css';
 import '../css/announcement.css';
 import '../css/trade.css';
 import '../css/user.css';
-import '../css/assets.css';
+import '../css/account.css';
 
 import './lib/object.assign';
 import './lib/promise';
@@ -28,10 +28,12 @@ class App extends Component {
         // 确保传入了所有的 props！
         return <Component {...props}/>
     }
-	static onUpdate() {
+	
+    static onUpdate() {
 		rootStore.commonStore.updatePathName(this.state.location.pathname);
         window.scrollTo(0,0);
 	}
+
     componentDidMount(){
         // 授权失效，清除状态
         $.channel.on('authorizeinvalid', ()=>{

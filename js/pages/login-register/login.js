@@ -6,10 +6,11 @@
  */
 import React, {Component} from 'react';
 import { observer, inject } from 'mobx-react';
-import { Tabs , Icon , Popover } from 'antd';
+import { Tabs , Icon , Popover, Select } from 'antd';
 import {  Link , browserHistory } from 'react-router';
 import countryCode from '../../mods/register/country-code';
 import toAction from './action';
+const Option = Select.Option;
 
 const wechatContent = (
     <div className="wechat"></div>
@@ -81,6 +82,9 @@ class Login extends Component {
         let store = this.props.userStore;
         let action = this.action;
 
+        let item = countryCode.filter((item, index)=>{
+            return item.code === store.areaCode;
+        })
 
         return (
             <div className="register-wrapper">
@@ -115,13 +119,13 @@ class Login extends Component {
                             store.mode == 'email' ? null : (
                                 <div className="input-wrapper">
                                     <div className="input-box">
-                                        <select onChange={ action.onAreaCodeChange } value={store.areaCode}>
+                                        <Select onChange={ action.onAreaCodeChange } defaultValue={item[0].code}>
                                             {
                                                 countryCode.map((cur,index)=>{
-                                                    return <option value={cur.code} key={cur.locale}>{ UPEX.lang.template(cur.locale)}</option>
+                                                    return <Option value={cur.code} key={index}>{ UPEX.lang.template(cur.locale)}</Option>
                                                 })
                                             }
-                                        </select>
+                                        </Select>
                                     </div>
                                 </div>
                             )
@@ -172,7 +176,7 @@ class Login extends Component {
                                 </div>
                             </div>
                         </div>
-                        <div className="error-tip">
+                        <div className="warn">
                             { this.state.loginErrorText ? this.state.loginErrorText : '' }
                         </div>
                         <div className="input-wrapper">

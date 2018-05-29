@@ -44,13 +44,13 @@ class HeaderView extends Component {
 	    const ordermenu = (
 	    	<dl className="pop-menu-list">
 	          	<dd className="logined-header">
-	            	<Link className="logined-header-link" to="/order/current">{ UPEX.lang.template('当前委托') }</Link>
+	            	<Link className="logined-header-link" to="/order/open">{ UPEX.lang.template('当前委托') }</Link>
 	          	</dd>
 	          	<dd className="logined-header">
 	            	<Link className="logined-header-link" to="/order/history">{ UPEX.lang.template('委托历史') }</Link>
 	          	</dd>
 	           	<dd className="logined-header">
-	            	<Link className="logined-header-link" to="/order/complete">{ UPEX.lang.template('已成交订单')}</Link>
+	            	<Link className="logined-header-link" to="/order/success">{ UPEX.lang.template('已成交订单')}</Link>
 	            </dd>
 	        </dl>
 	    );

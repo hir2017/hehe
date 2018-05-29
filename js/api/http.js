@@ -1,6 +1,7 @@
 import axios from "axios";
 import qs from "qs";
 import { hashHistory, browserHistory } from 'react-router';
+import { message } from 'antd';
 
 axios.interceptors.request.use(function(config) {
     const token = UPEX.cache.getCache('token');
@@ -151,9 +152,10 @@ export function getBaseCoin() {
  * 交易中心委托
  */
 export function getUserOrderList(data) {
+    data = data || {};
+
     return axios.post(`${UPEX.config.host}/user/showOrderList`, qs.stringify({
-        currencyId: data.tradeCurrencyId,
-        baseCurrencyId: data.baseCurrencyId
+        ...data  
     })).then(res => res.data);
 }
 /**
@@ -186,6 +188,73 @@ export function getCoinAccount(type = 1){
     })).then(res => res.data);
 }
 
+/**
+ * 充币提币记录
+ */
+export function getSelectTakeList(data){
+    return axios.post(`${UPEX.config.host}/coin/selectTakeList`, qs.stringify({
+        ...data
+    })).then(res => res.data);
+}
+
+
+/**
+ * 币种列表
+ */
+export function getAllCoinPoint(){
+    return axios.post(`${UPEX.config.host}/coin/coinPoint`).then(res => res.data);
+}
+/**
+ * 我的订单 —— 委托历史记录
+ */
+export function getOrderListByCustomer(data){
+    return axios.post(`${UPEX.config.host}/user/trOrderListByCustomer`, qs.stringify({
+        ...data
+    })).then(res => res.data);
+}
+/**
+ * 我的订单 —— 委托中订单
+ */
+export function getUserOpenOrderList(data){
+    return axios.post(`${UPEX.config.host}/user/getOrderList`, qs.stringify({
+        ...data
+    })).then(res => res.data);
+}
+/**
+ * 我的订单 —— 历史订单
+ */
+export function getUserHistoryOrderList(data){
+    return axios.post(`${UPEX.config.host}/user/trOrderListByCustomer`, qs.stringify({
+        ...data
+    })).then(res => res.data);
+}
+/**
+ * 我的订单 —— 已成交订单
+ * @param {Object} data 
+ * @example {
+    baseCurrencyId: '', // 基础币
+    beginTime: '', // 起始时间
+    buyOrSell:  '', // 买卖
+    currencyId:  '',  // 币种id
+    endTime:  '', // 币种ID
+    size: 2 // 每页数量
+    start: 2, // 页码
+    status: 订单状态
+ }
+ */
+export function getUserSuccessOrderList(data){
+    return axios.post(`${UPEX.config.host}/user/getTradeList`, qs.stringify({
+        ...data
+    })).then(res => res.data);
+}
+/**
+ * 撤销订单
+ */
+export function cancelOrder(data){
+    return axios.post(`${UPEX.config.host}/order/cancel`, qs.stringify({
+        ...data
+    })).then(res => res.data);
+}
 /**
  * 添加收藏
  */

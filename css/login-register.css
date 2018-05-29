@@ -87,14 +87,23 @@
 	padding-left: 40px;
 }
 
-.register-mode-content .input-box select {
+.register-mode-content .input-box .ant-select{
     height: 40px;
     width: 100%;
     outline: none;
     background-color: transparent;
     border: 1px solid #5b5b5b;
+    border-radius: 4px;
 }
-
+.register-mode-content .input-box .ant-select-selection{
+    color: #cccccc;
+    background-color: transparent;
+}
+.register-mode-content .input-box .ant-select-selection--single,
+.register-mode-content .input-box .ant-select-selection__rendered{
+    height: 40px;
+    line-height: 40px;
+}
 .register-mode-content .input-wrapper .warn{
 	position: absolute;
 	height: 20px;
@@ -175,6 +184,10 @@
 .register-mode-content .input-box.user-protocol{
     height: 20px;
     line-height: 20px;
+}
+
+.register-mode-content .input-box.user-protocol .ant-checkbox-wrapper{
+    color: #cccccc;
 }
 .register-mode-content .input-box.user-protocol input{
 	width: 20px;

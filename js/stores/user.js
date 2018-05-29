@@ -4,7 +4,7 @@ class LoginInfoBaseStore {
     @observable mode = 'email'; // 注册方式，邮箱：email；手机：phone
     @observable email = ''; // 邮箱
     @observable phone = ''; // 手机
-    @observable areaCode = '86';
+    @observable areaCode = 86;
     @observable pwd = ''; // 密码
     @observable twicepwd = ''; // 确认密码
     @observable vercode = ''; // 邮箱验证码或者短信验证码

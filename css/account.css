@@ -1,0 +1,347 @@
+.account-wrapper {
+    min-height: 640px;
+}
+
+.account-hd {
+    height: 240px;
+    background: #090600 url('../images/assets-bg.jpg') no-repeat center bottom;
+    background-size: 1920px 240px;
+}
+
+.account-hd-box {
+    padding: 30px 20px 20px;
+}
+
+.account-title {
+    width: 100%;
+    padding-left: 300px;
+    box-sizing: border-box;
+    height: 40px;
+    line-height: 40px;
+}
+
+.account-title h2 {
+    font-size: 26px;
+    color: #fff;
+    float: left;
+    width: 300px;
+    margin-left: -300px;
+}
+
+.account-count {
+    float: right;
+    text-align: right;
+    width: 100%;
+    color: rgba(255, 255, 255, 0.7)
+}
+
+.account-count .ant-select {
+    padding: 0 3px;
+    min-width: 85px;
+}
+
+.account-count em {
+    padding: 0 3px;
+}
+
+.account-content {
+    margin-top: 60px;
+    padding-right: 500px;
+}
+
+
+.account-amount {
+    float: left;
+    width: 100%;
+}
+
+.account-amount .amount {
+    color: #fff;
+    display: inline-block;
+    margin-right: 40px;
+    line-height: 50px;
+}
+
+.account-amount i {
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 10px;
+    background: url('../images/icon-eye.png') no-repeat center center;
+    background-size: 30px 30px;
+}
+
+.account-amount i.close {
+    background: url('../images/icon-eye-close.png') no-repeat center center;
+    background-size: 30px 30px;
+}
+
+
+.account-amount label {
+    font-size: 16px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 10px;
+}
+
+.account-amount em {
+    font-size: 36px;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 51px;
+}
+
+.account-amount .actions {
+    display: inline-block;
+    margin-top: 5px;
+}
+
+.account-amount .btn {
+    border: 0 none;
+    width: 100px;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 40px;
+    background-color: #e6bc1d;
+    color: #fff;
+    font-size: 18px;
+    text-align: center;
+    margin-right: 30px;
+}
+
+.account-amount .btn a,
+.account-amount .btn a:hover{
+    color: #fff;
+}
+
+.account-record {
+    width: 500px;
+    margin-right: -500px;
+    float: right;
+}
+
+.account-record .btn {
+    border: 0 none;
+    width: 220px;
+    height: 50px;
+    line-height: 50px;
+    border-radius: 50px;
+    background-color: rgba(255, 255, 255, 0.3);
+    color: #fff;
+    font-size: 16px;
+    text-align: center;
+    margin-right: 30px;
+}
+
+.account-record .btn a,
+.account-record .btn a:hover{
+    color: #fff;
+}
+
+
+
+/**
+ * 列表
+ */
+
+.account-list {
+    width: 1330px;
+    margin: 20px auto;
+}
+
+.account-filter-box {
+    height: 30px;
+    margin-bottom: 10px;
+    overflow: hidden;
+}
+
+.account-filter-box .filter-input {
+    width: 214px;
+    height: 28px;
+    border: 1px solid #d9d9d9;
+    float: left;
+    margin-right: 10px;
+}
+
+
+.account-filter-box .filter-input input {
+    width: 180px;
+    height: 26px;
+    line-height: 26px;
+    color: #333;
+    border: 0 none;
+    outline: 0 none;
+    text-indent: 10px;
+    background: none;
+}
+
+.account-filter-box .filter-input .anticon-search {
+    width: 30px;
+    height: 28px;
+    line-height: 28px;
+}
+
+.account-filter-box .filter-radio {
+    float: left;
+    height: 30px;
+    line-height: 30px;
+}
+
+.account-result-list .mini-tip {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.account-result-list table {
+    width: 100%;
+    color: #999999;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.account-result-list dd {
+    display: inline-block;
+    line-height: 24px;
+    padding: 10px 0;
+    color: #333333;
+    font-size: 14px;
+}
+.account-result-list li {
+    border-top: 1px solid #f2f2f2;
+}
+.account-result-list .name {
+    width: 10%;
+}
+
+.account-result-list .name img {
+    display: inline-block;
+    vertical-align: middle;
+    width: 23px;
+    height: 23px;
+    margin: 0 4px;
+}
+
+.account-result-list .name span {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.account-result-list .total {
+    width: 20%;
+}
+
+.account-result-list .balance {
+    width: 20%;
+}
+
+.account-result-list .freeze {
+    width: 20%;
+}
+
+.account-result-list .value {
+    width: 15%;
+}
+
+.account-result-list .actions {
+    width: 15%;
+    text-align: center;
+}
+
+.account-result-list li:hover {
+    background: #fffbeb;
+}
+
+.account-result-list ul .actions button {
+    border: 0 none;
+    background: none;
+    margin-right: 10px;
+    color: #5581d8;
+}
+
+
+/**
+ * 提币记录
+ */
+
+.account-coinrecord {
+    width: 1330px;
+    margin: 20px auto;
+}
+
+.account-coinrecord-hd {
+    width: 100%;
+    padding-left: 300px;
+    box-sizing: border-box;
+    height: 40px;
+    line-height: 40px;
+}
+
+.account-coinrecord-hd h2 {
+    font-size: 26px;
+    float: left;
+    width: 300px;
+    margin-left: -300px;
+}
+
+.account-coinrecord-select{
+    float: right;
+    text-align: right;
+    width: 100%;
+    color: rgba(255, 255, 255, 0.7)
+}
+
+.account-coinrecord-select .ant-select {
+    padding: 0 3px;
+    min-width: 85px;
+}
+
+
+.account-record-list {
+    margin-top: 30px;
+    border-top: 1px solid #e7ebf1;
+    padding-top: 20px;
+}
+.account-record-list table {
+    width: 100%;
+    color: #999999;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.account-record-list dd {
+    display: inline-block;
+    line-height: 24px;
+    padding: 10px 0;
+    color: #333333;
+    font-size: 14px;
+}
+
+.account-record-list .status {
+    width: 15%;
+}
+
+
+.account-record-list .name {
+    width: 20%;
+}
+
+.account-record-list .num {
+    width: 20%;
+}
+
+.account-record-list .time {
+    width: 20%;
+}
+
+.account-record-list .address {
+    width: 25%;
+}
+
+.account-record-list li{
+    border-top: 1px solid #f2f2f2;
+}
+.account-record-list li:hover {
+    background: #fffbeb;
+}

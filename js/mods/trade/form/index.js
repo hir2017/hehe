@@ -190,7 +190,7 @@ class TradeForm extends Component{
 											<label>{UPEX.lang.template('交易密码')}</label>
 											<div className="input-box">
 												<input
-													type="number"
+													type="password"
 													min="0"
 													value={store.tradeBuyPassword}
 													onChange={this.onChangeBuyPwd}
@@ -265,7 +265,7 @@ class TradeForm extends Component{
 											<label>{UPEX.lang.template('交易密码')}</label>
 											<div className="input-box">
 												<input
-													type="number"
+													type="password"
 													min="0"
 													value={store.tradeSellPassword}
 													onChange={this.onChangeSellPwd}

@@ -14,15 +14,25 @@ import ContactUs from './pages/contact';
 import Cooperation from './pages/cooperation';
 import AnnouncementPreview  from './pages/announcement/preview';
 
-
 import Login from './pages/login-register/login';
 import Register from './pages/login-register/register';
 import ResetPwd from './pages/login-register/resetpwd';
 
 import Home from './pages/home';
 import TradeCenter from './pages/trade-center';
-import Assets from './pages/assets';
+// 我的资产
+import Assets from './pages/account/index';
+import CoinRecord from './pages/account/record-coin';
+import FiatRecord from './pages/account/record-fiat';
+import Recharge from './pages/account/recharge';
+import Withdrawal from  './pages/account/withdrawal';
 import UserInfo from './pages/user';
+// 订单相关
+import Order from './pages/order';
+import OpenOrderList from './mods/account/order-open';
+import HistoryOrderList from './mods/account/order-history';
+import SuccessOrderList from './mods/account/order-success';
+
 import EssentialInformation from './pages/user/essentialInformation'
 import IdentityAuthentication from './pages/user/identityAuthentication'
 import BankInfo from './pages/user/bankInfo'
@@ -42,6 +52,7 @@ import GoogleGuide from './pages/user/googleGuide'
 import Question from './pages/user/problemFeedback'
 import QuestionList from './pages/user/feedbackList'
 
+
 const routes = (
     <Route>
         <Route path="/" component={ Layout }>
@@ -50,26 +61,36 @@ const routes = (
         	<Route path="index" component={Home}/>
 	        <Route path="trade(/:code)" component={TradeCenter}/>
 	        <Route path="assets" component={Assets}/>
+	        <Route path="coinrecord" component={CoinRecord}/>
+	        <Route path="fiatrecord" component={FiatRecord}/>
+	        <Route path="Recharge" component={Recharge}/>
+	        <Route path="withdrawal" component={Withdrawal}/>
+	        <Route path="order" component={Order}>
+	        	<IndexRoute component={OpenOrderList}/>
+	        	<Route path="open" component={OpenOrderList} />
+	        	<Route path="history" component={HistoryOrderList} />
+	        	<Route path="success" component={SuccessOrderList} />
+	        </Route>
 	        <Route path="user" component={UserInfo}>
-					  <IndexRoute component={EssentialInformation}/>
-						<Route path="authentication" component={IdentityAuthentication} />
-						<Route path="bankInfo" component={BankInfo} />
-						<Route path="passwordSetting" component={PasswordSetting} />
-						<Route path="modifyPassword" component={ModifyPassword} />
-						<Route path="modifyTraddingPassword" component={ModifyTraddingPassword} />
-						<Route path="settingTraddingPassword" component={SettingTraddingPassword} />
-						<Route path="bindingPhone" component={BindingPhone} />
-						<Route path="modifyPhone" component={ModifyPhone} />
-						<Route path="settingPhone" component={SettingPhone} />
-						<Route path="bindingEmail" component={BindingEmail} />
-						<Route path="modifyEmail" component={ModifyEmail} />
-						<Route path="settingEmail" component={SettingEmail} />
-						<Route path="google" component={GoogleAuth} />
-						<Route path="rebindingGoogle" component={RebindingGoogle} />
-						<Route path="googleGuide" component={GoogleGuide} />
-						<Route path="question" component={Question} />
-						<Route path="questionList" component={QuestionList} />
-					</Route>
+			 	<IndexRoute component={EssentialInformation}/>
+				<Route path="authentication" component={IdentityAuthentication} />
+				<Route path="bankInfo" component={BankInfo} />
+				<Route path="passwordSetting" component={PasswordSetting} />
+				<Route path="modifyPassword" component={ModifyPassword} />
+				<Route path="modifyTraddingPassword" component={ModifyTraddingPassword} />
+				<Route path="settingTraddingPassword" component={SettingTraddingPassword} />
+				<Route path="bindingPhone" component={BindingPhone} />
+				<Route path="modifyPhone" component={ModifyPhone} />
+				<Route path="settingPhone" component={SettingPhone} />
+				<Route path="bindingEmail" component={BindingEmail} />
+				<Route path="modifyEmail" component={ModifyEmail} />
+				<Route path="settingEmail" component={SettingEmail} />
+				<Route path="google" component={GoogleAuth} />
+				<Route path="rebindingGoogle" component={RebindingGoogle} />
+				<Route path="googleGuide" component={GoogleGuide} />
+				<Route path="question" component={Question} />
+				<Route path="questionList" component={QuestionList} />
+			</Route>
 	        <Route path="login" component={Login}/>
 	        <Route path="register" component={Register}/>
 	        <Route path="resetpwd" component={ResetPwd}/>
