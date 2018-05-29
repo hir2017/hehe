@@ -23,7 +23,7 @@ export default class ThirdStep extends Component {
   render() {
     return (
       <div>
-        <Steps />
+        <Steps step={3}/>
         <div className="await-examine">
           <span>{UPEX.lang.template('已接受到您的信息，我们正在权力审核中')}……</span>
           <span>{UPEX.lang.template('一般状况下，审核周期为3个工作内')}</span>

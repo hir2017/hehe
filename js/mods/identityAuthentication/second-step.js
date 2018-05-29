@@ -27,7 +27,7 @@ export default class SecondStep extends Component {
   render() {
     return (
       <div>
-        <Steps />
+        <Steps step={2}/>
         <div className="pic-title">{UPEX.lang.template('完成此步骤确认，可获得每日NT$300.000提现额度')}</div>
         <div className="pic-item">
           <span className="pic-item-lable">{UPEX.lang.template('证件正面照')}</span>

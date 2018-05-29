@@ -6,10 +6,16 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 
+@inject('userInfoStore')
 @observer
 export default class List extends Component {
 
+  componentWillMount() {
+    this.props.userInfoStore.getLoginRecord()
+  }
+
   render() {
+    const loginRecord = this.props.userInfoStore.loginRecord || []
     return (
       <div>
         <div className="ant-table ant-table-large ant-table-fixed-header ant-table-scroll-position-left">
@@ -39,41 +45,15 @@ export default class List extends Component {
                     <col style={{ width: '172px', minWidth: '172px' }} />
                   </colgroup>
                   <tbody className="ant-table-tbody">
-                    <tr>
-                      <td>2018-5-20</td>
-                      <td>47.110.120.118</td>
-                      <td>北京市</td>
-                    </tr>
-                    <tr>
-                      <td>2018-5-20</td>
-                      <td>47.110.120.118</td>
-                      <td>北京市</td>
-                    </tr>
-                    <tr>
-                      <td>2018-5-20</td>
-                      <td>47.110.120.118</td>
-                      <td>北京市</td>
-                    </tr>
-                    <tr>
-                      <td>2018-5-20</td>
-                      <td>47.110.120.118</td>
-                      <td>北京市</td>
-                    </tr>
-                    <tr>
-                      <td>2018-5-20</td>
-                      <td>47.110.120.118</td>
-                      <td>北京市</td>
-                    </tr>
-                    <tr>
-                      <td>2018-5-20</td>
-                      <td>47.110.120.118</td>
-                      <td>北京市</td>
-                    </tr>
-                    <tr>
-                      <td>2018-5-20</td>
-                      <td>47.110.120.118</td>
-                      <td>北京市</td>
-                    </tr>
+                    {
+                      loginRecord.map((item) => {
+                        return <tr key={item.id}>
+                          <td>{item.time}</td>
+                          <td>{item.host}</td>
+                          <td>{item.location}</td>
+                        </tr>
+                      })
+                    }
                   </tbody>
                 </table>
               </div>

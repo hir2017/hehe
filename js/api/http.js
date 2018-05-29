@@ -284,3 +284,34 @@ export async function listOptional() {
     const res = await axios.post(`${UPEX.config.host}/optional/listOptional`)
     return res.data
 }
+/**
+ * 用户信息
+ */
+
+export function personalInfo(){
+    return axios.post(`${UPEX.config.host}/user/personalInfo`).then(res => res.data);
+}
+
+/**
+ * 登录记录
+ */
+
+ export function loginRecord () {
+    return axios.post(`${UPEX.config.host}/user/loginRecord`, {
+        type: 2,
+        start: 0,
+        size: 10
+    }).then(res => res.data);
+ }
+
+ /**
+  * 用户认证
+  */
+
+ export function identityAuthentication () {
+    return axios.post(`${UPEX.config.host}/user/submitUserInfo`, {
+        type: 2,
+        start: 0,
+        size: 10
+    }).then(res => res.data);
+ }
