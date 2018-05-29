@@ -1,5 +1,6 @@
 import { observable, action} from 'mobx';
 import { personalInfo, loginRecord, sendCodeInUserCenter, bindFdPwd } from '../api/http'
+import { message } from 'antd'
 
 class UserInfo {
   @observable submit_loading_tpwd = false
@@ -11,6 +12,10 @@ class UserInfo {
     birthday: '',
     idType: '',
     idNumber: '',
+  }
+
+  constructor(stores) {
+    this.captchaStore = stores.captchaStore;
   }
 
 	@action
@@ -34,8 +39,8 @@ class UserInfo {
   }
   
   @action 
-  async sendCode (type) {
-    const res = await sendCodeInUserCenter(type)
+  async sendCode (type, imgCode, imgCodeId) {
+    const res = await sendCodeInUserCenter(type, imgCode, imgCodeId)
     if(res.status !== 200) {
       console.error('sendCode error')
     } else {
@@ -46,11 +51,15 @@ class UserInfo {
   }
 
   @action 
-  async bindTradingPwd (newFdPassWord, vercode) {
+  async bindTradingPwd (newFdPassWord, vercode, imgCode, imgCodeId) {
     this.submit_loading_tpwd = true
-    const res = await bindFdPwd (newFdPassWord, vercode)
+    const res = await bindFdPwd (newFdPassWord, vercode, imgCode, imgCodeId)
     this.submit_loading_tpwd = false
     if(res.status !== 200) {
+      if (res.status === 412) {
+        this.captchaStore.fetch()
+      }
+      message.error(res.message)
       console.error('bindTradingPwd error')
     } 
   }

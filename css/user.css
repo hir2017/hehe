@@ -637,6 +637,12 @@
     display: inline-block;
     cursor: pointer;
 }
+.user-main-box .modify-password-box .v-code-button img {
+    height: 40px;
+    width: 100px;
+    border-radius: 8px;
+    vertical-align: top;
+}
 /**
  * 绑定手机
  */
