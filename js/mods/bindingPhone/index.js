@@ -8,18 +8,31 @@ import { observer, inject } from 'mobx-react';
 import { Button, Switch } from 'antd'
 import { Link } from 'react-router'
 
+@inject('userInfoStore')
 @observer
 export default class Phone extends Component {
+
+  componentWillMount() {
+    this.props.userInfoStore.getUserInfo()
+  }
+
   render() {
+    const userInfo = this.props.userInfoStore.userInfo || {}
     return (
       <div className="binding-phone-content">
         <div className="binding-phone-left">
           <div>
-            <span className="phone">15801297780</span>
+            <span className="phone">{userInfo.phone}</span>
             <Button>
-              <Link to="/user/modifyPhone">
-                {UPEX.lang.template('修改')}
-              </Link>
+              {
+                userInfo.phone
+                ? <Link to="/user/modifyPhone">
+                    {UPEX.lang.template('修改')}
+                  </Link>
+                : <Link to="/user/settingPhone">
+                    {UPEX.lang.template('添加')}
+                  </Link>
+              }
             </Button>
           </div>
           <div className="message">

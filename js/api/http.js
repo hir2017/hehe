@@ -317,12 +317,14 @@ export function personalInfo(){
  }
 
  /**
-  * 发送验证码
+  * 发送验证码 修改密码用
   */
 
- export function sendCodeInUserCenter (type) {
+ export function sendCodeInUserCenter (type, imgCode, imgCodeId) {
     return axios.post(`${UPEX.config.host}/user/sendMailInUserCenter`, {
         type: type,
+        imgcode: imgCode,
+        codeid: imgCodeId
     }).then(res => res.data);
  }
 
@@ -330,10 +332,40 @@ export function personalInfo(){
   * 设置修改交易密码
   */
 
- export function bindFdPwd (newFdPassWord, vercode, oldFdPassWord = '') {
+ export function bindFdPwd (newFdPassWord, vercode, imgCode, imgCodeId, oldFdPassWord = '') {
     return axios.post(`${UPEX.config.host}/user/bindFdPwd`, {
         newFdPassWord: newFdPassWord,
         oldFdPassWord: oldFdPassWord,// 如果首次设置可以不传.传个空串
         vercode: vercode,
+        imgcode: imgCode,
+        codeid: imgCodeId
     }).then(res => res.data);
  }
+
+ /**
+  * 修改登录密码
+  */
+
+ export function resetPwdInUserCenter (newPwd, vercode, imgCode, imgCodeId, oldPwd) {
+    return axios.post(`${UPEX.config.host}/user/resetPwdInUserCenter`, {
+        newPwd: newPwd,
+        oldPwd: oldPwd,// 如果首次设置可以不传.传个空串
+        vercode: vercode,
+        imgcode: imgCode,
+        codeid: imgCodeId
+    }).then(res => res.data);
+ }
+
+ /**
+  * 绑定(更换) 手机号或者邮箱发送验证码
+  */
+
+ export function bindPhoneSendMsg (imgCode, imgCodeId, type, phone = '') {
+    return axios.post(`${UPEX.config.host}/user/bindPhoneSendMsg`, {
+        type: type,
+        phone: phone,
+        imgcode: imgCode,
+        codeid: imgCodeId
+    }).then(res => res.data);
+ }
+

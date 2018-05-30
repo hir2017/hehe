@@ -5,11 +5,11 @@
  */
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
-import { Button } from 'antd'
+import { Button, message } from 'antd'
 
 let time
 
-@inject('userInfoStore')
+@inject('userInfoStore', 'captchaStore')
 @observer
 export default class SettingTradingPassword extends Component {
 
@@ -32,7 +32,16 @@ export default class SettingTradingPassword extends Component {
   }
 
   async sendCode() {
-    const res = await this.props.userInfoStore.sendCode(this.type)
+    if (!this.props.imgCode) {
+      message.error(UPEX.lang.template('图片验证码不能为空'))
+      return
+    }
+    let res
+    if (this.props.bind) {
+      res = await this.props.userInfoStore.bindSendCode(this.props.imgCode, this.props.codeid, this.props.type, this.props.phone)
+    } else {
+      res = await this.props.userInfoStore.sendCode(this.type, this.props.imgCode, this.props.codeid)
+    }
     if (res.status === 200) {
       const ctx = this;
       this.setState({
@@ -40,7 +49,6 @@ export default class SettingTradingPassword extends Component {
       })
       time = setInterval(() => {
         let num = ctx.state.num
-        console.log(num, 'num')
         ctx.setState({
           num: num - 1
         })
@@ -52,6 +60,9 @@ export default class SettingTradingPassword extends Component {
           })
         }
       }, 1000)
+    } else {
+      this.props.captchaStore.fetch()
+      message.error(UPEX.lang.template(res.message))
     }
   }
 

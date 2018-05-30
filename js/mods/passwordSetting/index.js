@@ -24,18 +24,13 @@ export default class BindingBank extends Component {
           <div className="password-change">
             <span>{UPEX.lang.template('登录密码')}</span>
             <Button>
-              {
-                userInfo.phone
-                ? <Link to="/user/modifyPassword">{UPEX.lang.template('修改')}</Link>
-                : <Link to="/user/settingPhone">{UPEX.lang.template('绑定手机')}</Link>
-              }
-              
+              <Link to="/user/modifyPassword">{UPEX.lang.template('修改')}</Link>
             </Button>
           </div>
           <div className="password-message">
             {UPEX.lang.template('用于用户的登录验证')}
           </div>
-          <div className="password-leve">
+          <div style={{display: 'none'}} className="password-leve">
             <div>
               <span className="leve-lable">{UPEX.lang.template('密码强度')}</span>
               <span className="leve">{UPEX.lang.template('强')}</span>
@@ -64,14 +59,14 @@ export default class BindingBank extends Component {
           </div>
           <div className="password-leve">
             <div>
-              <span className="leve-lable">{UPEX.lang.template('密码强度')}</span>
-              <span className="leve">弱</span>
+              <span style={{visibility: 'hidden'}} className="leve-lable">{UPEX.lang.template('密码强度')}</span>
+              <span style={{visibility: 'hidden'}} className="leve">弱</span>
               <span className="switch">
                 {UPEX.lang.template('啟用委託認證')}
                 <Switch />
               </span>
             </div>
-            <div className="leve-show">
+            <div style={{display: 'none'}} className="leve-show">
               <span className="leve2">
               </span>
             </div>
