@@ -24,17 +24,10 @@ import TradeCenter from './pages/trade-center';
 import Assets from './pages/account/index';
 import CoinRecord from './pages/account/record-coin';
 import FiatRecord from './pages/account/record-fiat';
-<<<<<<< HEAD
-
 import FiatRecharge from './pages/account/fiat-recharge';
 import FiatWithdraw from  './pages/account/fiat-withdraw';
 import CoinRecharge from './pages/account/coin-recharge';
 import CoinWithdraw from  './pages/account/coin-withdraw';
-
-=======
-import Recharge from './pages/account/recharge';
-import Withdrawal from './pages/account/withdrawal';
->>>>>>> c5327dbee118eabbc3a33a81d8bef7750b656e87
 import UserInfo from './pages/user';
 // 订单相关
 import Order from './pages/order';
@@ -63,7 +56,6 @@ import QuestionList from './pages/user/feedbackList'
 
 
 const routes = (
-<<<<<<< HEAD
     <Route>
         <Route path="/" component={ Layout }>
         	<IndexRedirect to='home'/>
@@ -91,27 +83,6 @@ const routes = (
 	        </Route>
 	        <Route path="user" component={UserInfo}>
 			 	<IndexRoute component={EssentialInformation}/>
-=======
-	<Route>
-		<Route path="/" component={Layout}>
-			<IndexRedirect to='home' />
-			<Route path="home" component={Home} />
-			<Route path="index" component={Home} />
-			<Route path="trade(/:code)" component={TradeCenter} />
-			<Route path="assets" component={Assets} />
-			<Route path="coinrecord" component={CoinRecord} />
-			<Route path="fiatrecord" component={FiatRecord} />
-			<Route path="Recharge" component={Recharge} />
-			<Route path="withdrawal" component={Withdrawal} />
-			<Route path="order" component={Order}>
-				<IndexRoute component={OpenOrderList} />
-				<Route path="open" component={OpenOrderList} />
-				<Route path="history" component={HistoryOrderList} />
-				<Route path="success" component={SuccessOrderList} />
-			</Route>
-			<Route path="user" component={UserInfo}>
-				<IndexRoute component={EssentialInformation} />
->>>>>>> c5327dbee118eabbc3a33a81d8bef7750b656e87
 				<Route path="authentication" component={IdentityAuthentication} />
 				<Route path="bankInfo" component={BankInfo} />
 				<Route path="passwordSetting" component={PasswordSetting} />
