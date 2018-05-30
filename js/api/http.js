@@ -317,7 +317,7 @@ export function personalInfo(){
  }
 
  /**
-  * 发送验证码
+  * 发送验证码 修改密码用
   */
 
  export function sendCodeInUserCenter (type, imgCode, imgCodeId) {
@@ -351,6 +351,19 @@ export function personalInfo(){
         newPwd: newPwd,
         oldPwd: oldPwd,// 如果首次设置可以不传.传个空串
         vercode: vercode,
+        imgcode: imgCode,
+        codeid: imgCodeId
+    }).then(res => res.data);
+ }
+
+ /**
+  * 绑定(更换) 手机号或者邮箱发送验证码
+  */
+
+ export function bindPhoneSendMsg (imgCode, imgCodeId, type, phone = '') {
+    return axios.post(`${UPEX.config.host}/user/bindPhoneSendMsg`, {
+        type: type,
+        phone: phone,
         imgcode: imgCode,
         codeid: imgCodeId
     }).then(res => res.data);

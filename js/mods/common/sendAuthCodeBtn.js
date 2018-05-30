@@ -36,7 +36,12 @@ export default class SettingTradingPassword extends Component {
       message.error(UPEX.lang.template('图片验证码不能为空'))
       return
     }
-    const res = await this.props.userInfoStore.sendCode(this.type, this.props.imgCode, this.props.codeid)
+    let res
+    if (this.props.bind) {
+      res = await this.props.userInfoStore.bindSendCode(this.props.imgCode, this.props.codeid, this.props.type, this.props.phone)
+    } else {
+      res = await this.props.userInfoStore.sendCode(this.type, this.props.imgCode, this.props.codeid)
+    }
     if (res.status === 200) {
       const ctx = this;
       this.setState({

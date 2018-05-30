@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route , IndexRedirect, IndexRoute} from 'react-router';
+import { Route, IndexRedirect, IndexRoute } from 'react-router';
 
 import Layout from './pages/layout';
 
@@ -12,7 +12,7 @@ import Feedback from './pages/feedback';
 import Download from './pages/download';
 import ContactUs from './pages/contact';
 import Cooperation from './pages/cooperation';
-import AnnouncementPreview  from './pages/announcement/preview';
+import AnnouncementPreview from './pages/announcement/preview';
 
 import Login from './pages/login-register/login';
 import Register from './pages/login-register/register';
@@ -25,7 +25,7 @@ import Assets from './pages/account/index';
 import CoinRecord from './pages/account/record-coin';
 import FiatRecord from './pages/account/record-fiat';
 import Recharge from './pages/account/recharge';
-import Withdrawal from  './pages/account/withdrawal';
+import Withdrawal from './pages/account/withdrawal';
 import UserInfo from './pages/user';
 // 订单相关
 import Order from './pages/order';
@@ -54,25 +54,25 @@ import QuestionList from './pages/user/feedbackList'
 
 
 const routes = (
-    <Route>
-        <Route path="/" component={ Layout }>
-        	<IndexRedirect to='home'/>
-        	<Route path="home" component={Home}/>
-        	<Route path="index" component={Home}/>
-	        <Route path="trade(/:code)" component={TradeCenter}/>
-	        <Route path="assets" component={Assets}/>
-	        <Route path="coinrecord" component={CoinRecord}/>
-	        <Route path="fiatrecord" component={FiatRecord}/>
-	        <Route path="Recharge" component={Recharge}/>
-	        <Route path="withdrawal" component={Withdrawal}/>
-	        <Route path="order" component={Order}>
-	        	<IndexRoute component={OpenOrderList}/>
-	        	<Route path="open" component={OpenOrderList} />
-	        	<Route path="history" component={HistoryOrderList} />
-	        	<Route path="success" component={SuccessOrderList} />
-	        </Route>
-	        <Route path="user" component={UserInfo}>
-			 	<IndexRoute component={EssentialInformation}/>
+	<Route>
+		<Route path="/" component={Layout}>
+			<IndexRedirect to='home' />
+			<Route path="home" component={Home} />
+			<Route path="index" component={Home} />
+			<Route path="trade(/:code)" component={TradeCenter} />
+			<Route path="assets" component={Assets} />
+			<Route path="coinrecord" component={CoinRecord} />
+			<Route path="fiatrecord" component={FiatRecord} />
+			<Route path="Recharge" component={Recharge} />
+			<Route path="withdrawal" component={Withdrawal} />
+			<Route path="order" component={Order}>
+				<IndexRoute component={OpenOrderList} />
+				<Route path="open" component={OpenOrderList} />
+				<Route path="history" component={HistoryOrderList} />
+				<Route path="success" component={SuccessOrderList} />
+			</Route>
+			<Route path="user" component={UserInfo}>
+				<IndexRoute component={EssentialInformation} />
 				<Route path="authentication" component={IdentityAuthentication} />
 				<Route path="bankInfo" component={BankInfo} />
 				<Route path="passwordSetting" component={PasswordSetting} />
@@ -91,22 +91,22 @@ const routes = (
 				<Route path="question" component={Question} />
 				<Route path="questionList" component={QuestionList} />
 			</Route>
-	        <Route path="login" component={Login}/>
-	        <Route path="register" component={Register}/>
-	        <Route path="resetpwd" component={ResetPwd}/>
-	        <Route path="announcement/:announcementId" component={AnnouncementPreview} />
-	        <Route path="help" component={Help}/>
-	        <Route path="about" component={AboutUs}/>
-	        <Route path="news" component={News}/>
-	        <Route path="contact" component={ContactUs}/>
-	        <Route path="feedback" component={Feedback}/>
-	        <Route path="cooperation" component={Cooperation}/>
-	        <Route path="careers" component={Careers}/>
-	        <Route path="download" component={Download}/>
+			<Route path="login" component={Login} />
+			<Route path="register" component={Register} />
+			<Route path="resetpwd" component={ResetPwd} />
+			<Route path="announcement/:announcementId" component={AnnouncementPreview} />
+			<Route path="help" component={Help} />
+			<Route path="about" component={AboutUs} />
+			<Route path="news" component={News} />
+			<Route path="contact" component={ContactUs} />
+			<Route path="feedback" component={Feedback} />
+			<Route path="cooperation" component={Cooperation} />
+			<Route path="careers" component={Careers} />
+			<Route path="download" component={Download} />
 
-        </Route>
-        <Route path="*" component={NotFound}/>
-    </Route>
+		</Route>
+		<Route path="*" component={NotFound} />
+	</Route>
 )
 
 export default routes;

@@ -1,5 +1,9 @@
 import { observable, action } from 'mobx';
-import { personalInfo, loginRecord, sendCodeInUserCenter, bindFdPwd, resetPwdInUserCenter } from '../api/http'
+import { 
+  personalInfo, loginRecord, 
+  sendCodeInUserCenter, 
+  bindFdPwd, resetPwdInUserCenter,
+  bindPhoneSendMsg } from '../api/http'
 import { message } from 'antd'
 
 class UserInfo {
@@ -46,6 +50,16 @@ class UserInfo {
       console.error('sendCode error')
     } else {
       this.showCountDown = true
+    }
+
+    return res
+  }
+
+  @action
+  async bindSendCode(imgCode, imgCodeId, type, phone) {
+    const res = await bindPhoneSendMsg(imgCode, imgCodeId, type, phone)
+    if (res.status !== 200) {
+      console.error('bindSendCode error')
     }
 
     return res
