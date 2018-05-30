@@ -11,7 +11,7 @@ class LoginInfoBaseStore {
     @observable vercode = ''; // 邮箱验证码或者短信验证码
     @observable imgcode = ''; // 图片验证码
     @observable inviteId = ''; // 邀请码
-    @observable agree = false; // 同意协议
+    @observable agree = false; // 同意协议 
     @observable selectedCountry = {
         areacode: '886',
         code: 'TW',
@@ -26,9 +26,15 @@ class LoginInfoBaseStore {
     constructor(stores) {
         this.captchaStore = stores.captchaStore;
         this.authStore = stores.authStore;
+
+        if (UPEX.config.systemLanguage == 'zh-CN') {
+            this.selectedCountry = {
+                areacode: '86',
+                code: 'CN',
+                name: 'China'
+            }; 
+        }
     }
-
-
 
     @computed
     get captcha() {

@@ -3,89 +3,78 @@ import { observer, inject } from 'mobx-react';
 import {  Select, DatePicker, Pagination } from 'antd';
 
 const Option = Select.Option;
+import toAction from './order-action';
 
-@inject('commonStore','orderStore')
+@inject('commonStore','successStore')
 @observer
 class List extends Component {
-	componentDidMount() {
-		this.props.commonStore.getAllCoinPoint();
-		this.props.orderStore.getSuccessOrderList();
+	constructor(props){
+		super(props);
+
+		this.action = toAction(this.props.successStore);
 	}
 
-	onChangePagination(pageNo){
-		let params = {
-			pageNo
-		};
+	componentDidMount() {
+		this.action.getData();
+	}
 
-		this.props.orderStore.getSuccessOrderList(params);
+	onChangePagination(page){
+		this.action.handleFilter('page', {
+			page
+		});
 	}
 	// 开始时间
 	onChangeStartTime(value, dateString){
-		let params = {
-			pageNo: 1,
-			beginTime: dateString === null ? null : dateString
-		};
-
-		this.props.orderStore.getSuccessOrderList(params);
+		this.action.handleFilter('startTime', {
+			beginTime: dateString
+		})
 	}
 	// 结束时间
 	onChangeEndTime(value, dateString) {
-		let params = {
-			pageNo: 1,
-			endTime: dateString === null ? null : dateString
-		};
-
-		this.props.orderStore.getSuccessOrderList(params);
+		this.action.handleFilter('endTime', {
+			endTime: dateString
+		})
 	}
 
 	onChangeCurrency=(value)=>{
-		let params = {
-			pageNo: 1,
+		this.action.handleFilter('currencyId', {
 			currencyId: value
-		}
-		this.props.orderStore.getSuccessOrderList(params);
+		})
 	}
 
 	onChangeBuyOrSell=(value)=>{
-		let params = {
-			pageNo: 1,
+		this.action.handleFilter('buyOrSell', {
 			buyOrSell: value
-		}
-		this.props.orderStore.getSuccessOrderList(params);
+		})
 	}
 
 	render() {
-		let store = this.props.orderStore;
+		let store = this.props.successStore;
 		let $content;
 		
-		if(store.isFetchingSuccessList){
-			$content = <div className="mini-tip">{ UPEX.lang.template('正在加载')}</div>
-		} else if(store.successOrderList.length == 0) {
+		if (!store.isFetching && store.orderList.length == 0) {
 			$content = <div className="mini-tip">{ UPEX.lang.template('暂无数据') }</div>;
 		} else {
 			$content = (
-				<div>
-					<ul className="list">
-						{
-							store.successOrderList.map((item, index)=>{
-								return (
-									<li key={index}>
-										<dl>
-											<dd className="time">{item.orderTime}</dd>
-											<dd className="name">{item.currencyNameEn}</dd>
-											<dd className="num">{item.num}</dd>
-											<dd className="inorout">{item.buyOrSell == 1 ? <label className="buy">{UPEX.lang.template('买入')}</label>: <label className="sell">{UPEX.lang.template('卖出')}</label> }</dd>
-											<dd className="tradeprice">{item.tradePrice}</dd>
-											<dd className="fee">{item.fee}</dd>
-											<dd className="amount">{item.tradeAmount}</dd>
-										</dl>
-									</li>
-								)
-							})
-						}
-					</ul>
-					<Pagination defaultCurrent={1} total={50} onChange={this.onChangePagination.bind(this)} />
-				</div>
+				<ul className="list">
+					{
+						store.orderList.map((item, index)=>{
+							return (
+								<li key={index}>
+									<dl>
+										<dd className="time">{item.orderTime}</dd>
+										<dd className="name">{item.currencyNameEn}</dd>
+										<dd className="num">{item.num}</dd>
+										<dd className="inorout">{item.buyOrSell == 1 ? <label className="buy">{UPEX.lang.template('买入')}</label>: <label className="sell">{UPEX.lang.template('卖出')}</label> }</dd>
+										<dd className="tradeprice">{item.tradePrice}</dd>
+										<dd className="fee">{item.fee}</dd>
+										<dd className="amount">{item.tradeAmount}</dd>
+									</dl>
+								</li>
+							)
+						})
+					}
+				</ul>
 			)
 		}
 
@@ -95,20 +84,6 @@ class List extends Component {
 					<h2>{ UPEX.lang.template('当前委托')}</h2>
 					<div className="filter-box">
     					<ul>
-    						<li>
-    							<label>{UPEX.lang.template('币种')}</label>
-    							<Select defaultValue="0" onChange={this.onChangeCurrency}>
-    								<Option value="0">{UPEX.lang.template('全部')}</Option>
-    							</Select>
-    						</li>
-    						<li>
-    							<label>{UPEX.lang.template('类型')}</label>
-    							<Select defaultValue="0" onChange={this.onChangeBuyOrSell}>
-    								<Option value="0">{UPEX.lang.template('全部')}</Option>
-    								<Option value="1">{UPEX.lang.template('买')}</Option>
-    								<Option value="2">{UPEX.lang.template('卖')}</Option>
-    							</Select>
-    						</li>
     						<li>
     							<label>{UPEX.lang.template('时间')}</label>
     							<DatePicker 
@@ -122,6 +97,25 @@ class List extends Component {
 	                            	placeholder={UPEX.lang.template('选择日期')}
 	                            	allowClear={false}
 	                            />
+    						</li>
+    						<li>
+    							<label>{UPEX.lang.template('币种')}</label>
+    							<Select defaultValue="0" onChange={this.onChangeCurrency}>
+    								<Option value="0">{UPEX.lang.template('全部')}</Option>
+    								{
+    									this.props.commonStore.productList['TWD'].map((item)=>{
+    										return <Option value={item.currencyId}>{item.currencyNameEn}</Option>
+    									})
+    								}
+    							</Select>
+    						</li>
+    						<li>
+    							<label>{UPEX.lang.template('类型')}</label>
+    							<Select defaultValue="0" onChange={this.onChangeBuyOrSell}>
+    								<Option value="0">{UPEX.lang.template('全部')}</Option>
+    								<Option value="1">{UPEX.lang.template('买')}</Option>
+    								<Option value="2">{UPEX.lang.template('卖')}</Option>
+    							</Select>
     						</li>
     					</ul>
 					</div>
@@ -144,6 +138,10 @@ class List extends Component {
 					</div>
 					<div className="table-bd">
 						{ $content }
+						{ store.isFetching ? <div className="mini-loading"></div> : null }
+					</div>
+					<div className="table-ft">
+						{ store.total > 0 ? <Pagination current={store.current} total={store.total} pageSize={store.pageSize} onChange={this.onChangePagination.bind(this)} /> : null }
 					</div>
 				</div>
 			</div>

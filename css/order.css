@@ -122,8 +122,9 @@
 
 
 .order-table .mini-tip {
-    margin-top: 30px;
     text-align: center;
+    min-height: 46px;
+    line-height: 46px;
 }
 
 .order-table table {
@@ -137,6 +138,20 @@
     padding: 10px 0;
 }
 
+.order-table .table-bd {
+    position: relative;
+    min-height: 60px;
+}
+
+.order-table .table-bd  .mini-loading{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: rgba(255,255,255,0.7) url('../images/loading.gif') no-repeat center center;
+    background-size: 60px 60px;
+}
 
 .order-table dd {
     display: inline-block;
@@ -144,7 +159,7 @@
     word-break: break-all;
     line-height: 16px;
     padding: 12px 0;
-    min-height: 40px;
+    min-height: 46px;
     color: #333333;
     font-size: 14px;
 }
@@ -311,6 +326,10 @@
     line-height: 21px;
     padding: 10px 10px;
     width: 100%;
+}
+
+.popup-trade-password .input-box.wrong{
+    border-right: 1px solid #ff3380;
 }
 
 .popup-trade-password .warn-tip {

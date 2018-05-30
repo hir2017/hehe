@@ -1,5 +1,5 @@
 import { observable, computed, autorun, action, runInAction } from 'mobx';
-import { getCoinAccount  } from '../api/http';
+import { getCoinAccount} from '../api/http';
 
 class Account {
 	@observable accountData = {};

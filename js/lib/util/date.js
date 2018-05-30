@@ -135,7 +135,36 @@ const TimeUtil = {
         } else if (val == 1) {
             return '明天'
         }
+    },
+
+    /*
+     * 处理时间，接受一个参数，参数从0开始
+     * 返回值：当前时间的第n天
+     */
+    getBeforeDate(n) {
+        let num = n || 0,
+            d = new Date(),
+            year = d.getFullYear(),
+            mon = d.getMonth() + 1,
+            day = d.getDate(),
+            s = null;
+        
+        if (day <= num) {
+            if (mon > 1) {
+                mon = mon - 1;
+            } else {
+                year = year - 1;
+                mon = 12;
+            }
+        }
+
+        d.setDate(d.getDate() - num);
+        year = d.getFullYear();
+        mon = d.getMonth() + 1;
+        day = d.getDate();
+        s = year + "-" + (mon < 10 ? ('0' + mon) : mon) + "-" + (day < 10 ? ('0' + day) : day);
+        return s;
     }
 }
 
-export default  TimeUtil;
+export default TimeUtil;

@@ -9,7 +9,7 @@ import { Link } from 'react-router';
 class InfoView extends Component {
 	
 	handleAllMoney=(e)=>{
-		this.props.assetsStore.handleVisibleMoney();
+		this.props.accountStore.handleVisibleMoney();
 	}
 
 	render() {
