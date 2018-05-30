@@ -52,10 +52,10 @@ class UserInfo {
   }
 
   @action
-  async bindTradingPwd(newFdPassWord, vercode, imgCode, imgCodeId) {
+  async bindTradingPwd(newFdPassWord, vercode, imgCode, imgCodeId, passWord) {
     try {
       this.submit_loading_tpwd = true
-      const res = await bindFdPwd(newFdPassWord, vercode, imgCode, imgCodeId)
+      const res = await bindFdPwd(newFdPassWord, vercode, imgCode, imgCodeId, passWord)
       this.submit_loading_tpwd = false
       if (res.status !== 200) {
         if (res.status === 412) {
@@ -63,6 +63,8 @@ class UserInfo {
         }
         message.error(res.message)
         console.error('bindTradingPwd error')
+      } else {
+        message.success(UPEX.lang.template('交易密码设置成功'))
       }
     } catch (e) {
       console.error(e)
