@@ -19,15 +19,15 @@ export default class ModifyTradingPassword extends Component {
         <div className="modify-password-box">
           <div className="item">
             <span className="lable">{UPEX.lang.template('交易密码')}</span>
-            <input className="input" />
+            <input type="password" className="input" />
           </div>
           <div className="item">
             <span className="lable">{UPEX.lang.template('新交易密码')}</span>
-            <input className="input" />
+            <input type="password" className="input" />
           </div>
           <div className="item">
             <span className="lable">{UPEX.lang.template('确认密码')}</span>
-            <input className="input" />
+            <input type="password" className="input" />
           </div>
           <div>
             <div className="item v-code">

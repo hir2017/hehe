@@ -643,6 +643,9 @@
     border-radius: 8px;
     vertical-align: top;
 }
+.user-main-box .modify-password-box .new-pwd {
+    position: relative;
+}
 /**
  * 绑定手机
  */
@@ -1026,3 +1029,15 @@
     text-align: center;
     padding-top: 50px;
 }
+
+/**
+ * form 表单项
+ */
+
+.item-left-meassage {
+    position: absolute;
+    white-space: nowrap;
+    top: 8px;
+    left: 380px;
+    font-size: 12px;
+ }

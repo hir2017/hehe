@@ -341,3 +341,18 @@ export function personalInfo(){
         codeid: imgCodeId
     }).then(res => res.data);
  }
+
+ /**
+  * 修改登录密码
+  */
+
+ export function resetPwdInUserCenter (newPwd, vercode, imgCode, imgCodeId, oldPwd) {
+    return axios.post(`${UPEX.config.host}/user/resetPwdInUserCenter`, {
+        newPwd: newPwd,
+        oldPwd: oldPwd,// 如果首次设置可以不传.传个空串
+        vercode: vercode,
+        imgcode: imgCode,
+        codeid: imgCodeId
+    }).then(res => res.data);
+ }
+

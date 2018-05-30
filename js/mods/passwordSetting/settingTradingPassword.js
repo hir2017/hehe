@@ -68,6 +68,11 @@ export default class SettingTradingPassword extends Component {
       message.error(UPEX.lang.template('交易密码不能为空'))
       return
     }
+    const reg = /(?=.*[a-zA-Z])(?=.*[0-9])[0-9A-Za-z+-@_=*]{6,16}/
+    if (this.state.password && !reg.test(this.state.password)) {
+      message.error(UPEX.lang.template('密码由6-18数字、字母和特殊字符组成'))
+      return
+    }
     if (!this.state.comfirmPwd) {
       message.error(UPEX.lang.template('确认密码不能为空'))
       return
@@ -94,13 +99,14 @@ export default class SettingTradingPassword extends Component {
           {UPEX.lang.template('設置交易密碼')}
         </div>
         <div className="modify-password-box">
-          <div className="item">
+          <div className="item new-pwd">
             <span className="lable">{UPEX.lang.template('交易密码')}</span>
-            <input onChange={this.passwordChange} className="input" />
+            <input type="password" onChange={this.passwordChange} className="input" />
+            <span className="item-left-meassage">*密码由6-18数字、字母和特殊字符组成</span>
           </div>
           <div className="item">
             <span className="lable">{UPEX.lang.template('确认密码')}</span>
-            <input onChange={this.comfirmChange} className="input" />
+            <input type="password" onChange={this.comfirmChange} className="input" />
           </div>
           <div>
             <div className="item v-code">
