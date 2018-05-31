@@ -3,7 +3,7 @@ import {
   personalInfo, loginRecord, 
   sendCodeInUserCenter, 
   bindFdPwd, resetPwdInUserCenter,
-  bindPhoneSendMsg } from '../api/http'
+  bindPhoneSendMsg, getSecretKey } from '../api/http'
 import { message } from 'antd'
 
 class UserInfo {
@@ -18,6 +18,8 @@ class UserInfo {
     idType: '',
     idNumber: '',
   }
+  @observable gaSecretKey = {}
+  @observable gaBindSuccess = false
 
   constructor(stores) {
     this.captchaStore = stores.captchaStore;
@@ -105,6 +107,17 @@ class UserInfo {
     } catch (e) {
       console.error(e)
       this.submit_loading_pwd = false
+      message.error('Network Error')
+    }
+  }
+
+  @action
+  async getGaSecretKey () {
+    try {
+      const res = await getSecretKey()
+      this.gaSecretKey = res.attachment
+    } catch (e) {
+      console.error(e)
       message.error('Network Error')
     }
   }

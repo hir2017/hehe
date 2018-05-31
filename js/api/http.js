@@ -369,3 +369,11 @@ export function personalInfo(){
     }).then(res => res.data);
  }
 
+ /**
+  *  此接口只能在启用ga前调用返回数据 否则不返回。
+  */
+
+ export function getSecretKey () {
+    return axios.post(`${UPEX.config.host}/user/getSecretKey`).then(res => res.data);
+ }
+

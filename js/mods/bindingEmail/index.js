@@ -18,6 +18,7 @@ export default class Email extends Component {
 
   render() {
     const userInfo = this.props.userInfoStore.userInfo || {}
+    const checked = userInfo.email ? true : false
     return (
       <div className="binding-phone-content">
         <div className="binding-phone-left">
@@ -35,7 +36,7 @@ export default class Email extends Component {
             {UPEX.lang.template('郵箱用於登錄、提幣及部分安全設置使用。我們也會給您提供 登錄提醒服務')}
           </div>
           <div className="switch">
-            {UPEX.lang.template('登录邮件提醒')}&nbsp;&nbsp;&nbsp;<Switch />
+            {UPEX.lang.template('登录邮件提醒')}&nbsp;&nbsp;&nbsp;<Switch checked={checked}/>
           </div>
         </div>
         <div className="binding-phone-right">

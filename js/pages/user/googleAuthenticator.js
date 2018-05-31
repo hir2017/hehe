@@ -10,27 +10,38 @@ import { Link } from 'react-router'
 import BindingGoogle from '../../mods/bindingGoogle'
 import Success from '../../mods/bindingGoogle/success'
 
+@inject('userInfoStore')
 @observer
 class GoogleAuthenticator extends Component {
+
+  componentWillMount() {
+    this.props.userInfoStore.getUserInfo()
+  }
+
   render() {
+    const userInfo = this.props.userInfoStore.userInfo || {}
+    const gaBindSuccess = this.props.userInfoStore.gaBindSuccess
     return (
       <div>
         <div className="google-auth-title">
           {UPEX.lang.template('google验证器')}
         </div>
-        <BindingGoogle />
-        {/*
-          <div className="google-no-binding-phone">
-            {UPEX.lang.template('添加Google绑定前，请先绑定手机号')}
-            <div>
-              <Button>
-                <Link to="/user/settingPhone">
-                  {UPEX.lang.template('去绑定手机')}
-                </Link>
-              </Button>
+        {
+          userInfo.phone
+            ? gaBindSuccess 
+            ? <BindingGoogle />
+            : <Success />
+            : <div className="google-no-binding-phone">
+              {UPEX.lang.template('添加Google绑定前，请先绑定手机号')}
+              <div>
+                <Button>
+                  <Link to="/user/settingPhone">
+                    {UPEX.lang.template('去绑定手机')}
+                  </Link>
+                </Button>
+              </div>
             </div>
-          </div>
-        */}
+        }
       </div>
     )
   }
