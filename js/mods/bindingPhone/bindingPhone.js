@@ -56,7 +56,7 @@ export default class BindingPhone extends Component {
   submit() {
     const codeid = this.props.captchaStore.codeid
     if (!this.state.phone) {
-      message.error(UPEX.lang.template('新手机号不能为空'))
+      message.error(UPEX.lang.template('手机号不能为空'))
       return
     }
     if (!this.state.vCode) {
@@ -78,7 +78,7 @@ export default class BindingPhone extends Component {
         </div>
         <div className="modify-password-box">
           <div className="item">
-            <span className="lable">{UPEX.lang.template('新手机号')}</span>
+            <span className="lable">{UPEX.lang.template('手机号')}</span>
             <input onChange={this.phoneChange} className="input" />
           </div>
           <div className="item v-code">
@@ -102,7 +102,7 @@ export default class BindingPhone extends Component {
           <div className="item v-code-button">
             <Vcodebutton bind={true} type={2} imgCode={this.state.ivCode} codeid={codeid} />
           </div>
-          <div className="massage">
+          <div className="massage" style={{display: 'none'}}>
             {UPEX.lang.template('不方便接短信？可使用')}&nbsp;&nbsp;&nbsp;&nbsp;<Link>Google{UPEX.lang.template('驗證碼')}</Link>
           </div>
           <div className="submit">

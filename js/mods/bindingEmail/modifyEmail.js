@@ -21,10 +21,6 @@ export default class ModifyEmail extends Component {
             <span className="lable">{UPEX.lang.template('新邮箱')}</span>
             <input className="input" />
           </div>
-          <div className="item">
-            <span className="lable">google{UPEX.lang.template('验证码')}</span>
-            <input className="input" />
-          </div>
           <div>
             <div className="item v-code">
               <span className="lable">{UPEX.lang.template('邮箱验证码')}</span>
@@ -41,7 +37,7 @@ export default class ModifyEmail extends Component {
               {UPEX.lang.template('发送确认码')}
             </div>
           </div>
-          <div className="massage">
+          <div className="massage" style={{display: 'none'}}>
             {UPEX.lang.template('不方便接短信？可使用')}&nbsp;&nbsp;&nbsp;&nbsp;<Link>Google{UPEX.lang.template('驗證碼')}</Link>
           </div>
           <div className="submit">

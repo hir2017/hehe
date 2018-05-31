@@ -22,7 +22,7 @@ export default class Phone extends Component {
       <div className="binding-phone-content">
         <div className="binding-phone-left">
           <div>
-            <span className="phone">{userInfo.phone}</span>
+            <span className="phone">{userInfo.phone || UPEX.lang.template('请添加手机')}</span>
             <Button>
               {
                 userInfo.phone
