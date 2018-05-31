@@ -6,21 +6,24 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router'
 import { observer, inject } from 'mobx-react';
-import { Input, Upload, Icon, Button } from 'antd';
+import { Input, Upload, Icon, Button, message } from 'antd';
 const { TextArea } = Input;
 
+@inject('userInfoStore')
 @observer
 export default class extends Component {
+
+  constructor () {
+    super()
+    this.submit = this.submit.bind(this)
+    this.textAreaChange = this.textAreaChange.bind(this)
+  }
 
   state = {
     previewVisible: false,
     previewImage: '',
-    fileList: [{
-      uid: -1,
-      name: 'xxx.png',
-      status: 'done',
-      url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-    }],
+    fileList: [],
+    text: ''
   };
 
   uploadButton = (
@@ -31,17 +34,32 @@ export default class extends Component {
   )
   
   handleChange = ({ fileList }) => this.setState({ fileList })
+
+  textAreaChange (e) {
+    this.setState({
+      text: e.target.value
+    })
+  }
+
+  submit () {
+    if (!this.state.text) {
+      message.error('請輸入您要反饋的問題')
+      return 
+    }
+
+    this.props.userInfoStore.ask(this.state.text, '')
+  }
   
   render() {
     const { previewVisible, previewImage, fileList } = this.state;
-
+    const loading = this.props.userInfoStore.submit_loading
     return (
       <div>
         <div className="question-title">
           {UPEX.lang.template('問題反饋')}
         </div>
         <div className="question-left">
-          <TextArea placeholder={UPEX.lang.template('請輸入您要反饋的問題')} rows={7} />
+          <TextArea onChange={this.textAreaChange} placeholder={UPEX.lang.template('請輸入您要反饋的問題')} rows={7} />
           <div className="upload-box">
             <Upload
               action="//jsonplaceholder.typicode.com/posts/"
@@ -58,7 +76,7 @@ export default class extends Component {
             </div>
           </div>
           <div className="submit">
-            <Button>{UPEX.lang.template('提交')}</Button>
+            <Button loading={loading} onClick={this.submit}>{UPEX.lang.template('提交')}</Button>
           </div>
         </div>
         <div className="question-right">
@@ -66,7 +84,7 @@ export default class extends Component {
             {UPEX.lang.template('請詳細描述您的問題，客服專員會在四個工作日內回復。請在提問之前瀏覽一下問題列表 ，也許您的問題在列表裡已解決')}
           </div>
           <div>
-            <Link>{UPEX.lang.template('前往问题列表')}</Link>
+            <Link to="/user/questionList">{UPEX.lang.template('前往问题列表')}</Link>
           </div>
         </div>
       </div>

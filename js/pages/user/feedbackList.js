@@ -9,9 +9,21 @@ import { observer, inject } from 'mobx-react';
 import { Input, Upload, Icon, Button, Pagination } from 'antd';
 const { TextArea } = Input;
 
+@inject('userInfoStore')
 @observer
 export default class extends Component {
+
+  componentDidMount() {
+    this.props.userInfoStore.questions(1)
+  }
+
+  pageChange = (page) => {
+    this.props.userInfoStore.questions(page)
+  }
+
   render() {
+    const count = this.props.userInfoStore.questionsLsit.count
+    const questionsLsit = this.props.userInfoStore.questionsLsit.list || []
     return (
       <div>
         <div className="question-title">
@@ -24,25 +36,19 @@ export default class extends Component {
         </div>
         <div className="question-content">
           <ul>
-            <li>
-              <span>體現出問題了，已經申請了，等了三個工作日了，還沒有到賬，還要等麼？打電話問了也沒有結果怎麼辦？</span>
-              <span>已解决</span>
-              <span>2018-4-30</span>
-            </li>
-            <li>
-              <span>體現出問題了，已經申請了，等了三個工作日了，還沒有到賬，還要等麼？打電話問了也沒有結果怎麼辦？</span>
-              <span>已解决</span>
-              <span>2018-4-30</span>
-            </li>
-            <li>
-              <span>體現出問題了，已經申請了，等了三個工作日了，還沒有到賬，還要等麼？打電話問了也沒有結果怎麼辦？</span>
-              <span>已解决</span>
-              <span>2018-4-30</span>
-            </li>
+            {
+              questionsLsit.map((item, index) => {
+                return <li key={index}>
+                  <span>{item.detail}</span>
+                  <span>已解决</span>
+                  <span>{item.createTime}</span>
+                </li>
+              })
+            }
           </ul>
         </div>
         <div className="question-page">
-            <Pagination size="small" total={50} />
+          <Pagination onChange={this.pageChange} size="small" total={count} />
         </div>
       </div>
     )
