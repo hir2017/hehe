@@ -147,7 +147,7 @@ export default class ModifyTradingPassword extends Component {
               <Vcodebutton imgCode={this.state.ivCode} codeid={codeid} type="phone"/>
             </div>
           </div>
-          <div className="massage">
+          <div className="massage" style={{display: 'none'}}>
             {UPEX.lang.template('不方便接短信？可使用')}&nbsp;&nbsp;&nbsp;&nbsp;<Link>Google{UPEX.lang.template('驗證碼')}</Link>
           </div>
           <div className="submit">
