@@ -12,9 +12,11 @@ class CaptchaStore {
     fetch() {
         fetchPicCaptcha()
             .then((data) => {
-                runInAction('get pic captcha success',() => {
-                    this.captcha = 'data:image/png;base64,' + data.attachment.IMGCode;
-                    this.codeid = data.attachment.codeUUID;
+                runInAction('get pic captcha success', () => {
+                    if (data.status == 200) {
+                        this.captcha = 'data:image/png;base64,' + data.attachment.IMGCode;
+                        this.codeid = data.attachment.codeUUID;
+                    }
                 })
             })
     }

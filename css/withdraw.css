@@ -1,0 +1,139 @@
+.account-withdraw{
+	width: 1200px;
+	margin: 0 auto;
+}
+
+.account-withdraw h2{
+	color: #333333;
+	font-size: 26px;
+	padding: 20px 0;
+	font-weight: normal;
+	border-bottom: 1px solid #e7ebf1;
+}
+
+
+.account-withdraw h3 {
+    color: #333333;
+    font-size: 21px;
+    padding: 10px 0;
+    font-weight: normal;
+    border-bottom: 1px solid #e7ebf1;
+}
+
+.withdraw-form {
+    padding-top: 30px;
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+
+.withdraw-form-item {
+    margin-bottom: 10px;
+}
+
+.withdraw-label {
+    display: inline-block;
+    vertical-align: top;
+    min-width: 100px;
+    margin-right: 10px;
+    line-height: 38px;
+}
+
+.withdraw-info {
+    display: inline-block;
+    vertical-align: top;
+}
+
+
+.withdraw-info .ant-select {
+    width: 490px;
+}
+
+
+.withdraw-info .input-box{
+	height: 38px;
+    position: relative;
+    border: 1px solid #d8d9dd;
+    width: 490px;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+.withdraw-info .input-box input{
+	width: 100%;
+    line-height: 18px;
+    border: 0 none;
+    border-radius: 4px;
+    outline: none;
+    font-size: 14px;
+    background: none;
+}
+
+.withdraw-info .ant-select-selection--single,
+.withdraw-info .ant-select-selection__rendered{
+    height: 38px;
+    line-height: 38px;
+}
+
+.withdraw-info .address {
+    min-width: 380px;
+	height: 38px;
+    line-height: 38px;
+    border: 1px solid #d8d9dd;
+    border-radius: 4px;
+    text-indent: 10px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.withdraw-info li{
+	margin-bottom: 10px;
+}
+
+.withdraw-info button {
+    display: inline-block;
+    vertical-align: middle;
+    border: 1px solid #d8d9dd;
+    border-radius: 4px;
+    width: 102px;
+    height: 38px;
+    text-align: center;
+    line-height: 38px;
+    font-size: 14px;
+    color: #5795f1;
+    margin-left: 10px;
+}
+
+.withdraw-info .submit-btn{
+	width: 160px;
+	height: 36px;
+	background-color: #e6bc1d;
+	color: #fff;
+	text-align: center;
+	line-height: 36px;
+	margin-top: 20px;
+	margin-left: 110px;
+}
+
+.withdraw-info .warn{
+	height: 20px;
+    line-height: 20px;
+    font-size: 12px;
+    color: #ff3245 !important;
+}
+.withdraw-info .warmtip {
+	padding-left: 110px;
+}
+.withdraw-info .warmtip h4{
+	margin-bottom: 10px;
+}
+.withdraw-info .warmtip li{
+	list-style-type: disc;
+	font-size: 12px;
+	line-height: 21px;
+	margin: 0;
+}
+
+.withdraw-info .warmtip li em{
+    padding: 0 3px;
+    color: #e6bc1d;
+}

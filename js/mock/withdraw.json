@@ -1,0 +1,107 @@
+{
+    "attachment":
+    {
+        "total": 7,
+        "list": [
+        {
+            "currencyNameEn": "LTC",
+            "amount": 0.00999,
+            "address": "LQNYx8KqNHBE5aeitDejgPfJrySRhxjYPr",
+            "walletWaterSn": "032960816d01d14eb4770dd300614df6d29d09d321e001ee2420e0f431e58082",
+            "currencyName": "Litecoin",
+            "createTime": "2018-05-30 15:50:18.0",
+            "fee": 1.0E-5,
+            "confirms": "Success",
+            "icoUrl": "ltc.png",
+            "initAmount": 0.01,
+            "currencyId": 7,
+            "paidAmount": 0.00999
+        },
+        {
+            "currencyNameEn": "LTC",
+            "amount": 0.0999,
+            "address": "LbiSeuqrQfURNmFk382nYHzxwQ1MQCwVnz",
+            "walletWaterSn": "9a16c0897732e70d1254207d0c5285fefb677bf46758484fcc7dd01868ae345f",
+            "currencyName": "Litecoin",
+            "createTime": "2018-05-30 14:53:19.0",
+            "fee": 1.0E-4,
+            "confirms": "Success",
+            "icoUrl": "ltc.png",
+            "initAmount": 0.1,
+            "currencyId": 7,
+            "paidAmount": 0.0999
+        },
+        {
+            "currencyNameEn": "LTC",
+            "amount": 0.999,
+            "address": "LbiSeuqrQfURNmFk382nYHzxwQ1MQCwVnz",
+            "walletWaterSn": "e73d81242d85148583c569b51ebf34cfdaea0b168fe8fc6ea63186e3743b4ae0",
+            "currencyName": "Litecoin",
+            "createTime": "2018-05-30 14:50:25.0",
+            "fee": 0.001,
+            "confirms": "Success",
+            "icoUrl": "ltc.png",
+            "initAmount": 1.0,
+            "currencyId": 7,
+            "paidAmount": 0.999
+        },
+        {
+            "currencyNameEn": "ETH",
+            "amount": 0.014985,
+            "address": "0x2559ecc6b853033106c038acd62e3084100be542",
+            "walletWaterSn": "0xcdeb8f98ba07bdea7a0c47a8054462ef3f019ab97cdba5107320c55f42c77ada",
+            "currencyName": "Ethereum",
+            "createTime": "2018-05-30 14:29:38.0",
+            "fee": 1.5E-5,
+            "confirms": "Success",
+            "icoUrl": "eth.png",
+            "initAmount": 0.015,
+            "currencyId": 4,
+            "paidAmount": 0.014985
+        },
+        {
+            "currencyNameEn": "ETH",
+            "amount": 0.02997,
+            "address": "0x2559ecc6b853033106c038acd62e3084100be542",
+            "walletWaterSn": "0x742c9778bb59bf8976ec138658272d1e1b768879558331baaae09faabd613144",
+            "currencyName": "Ethereum",
+            "createTime": "2018-05-30 14:28:42.0",
+            "fee": 3.0E-5,
+            "confirms": "Success",
+            "icoUrl": "eth.png",
+            "initAmount": 0.03,
+            "currencyId": 4,
+            "paidAmount": 0.02997
+        },
+        {
+            "currencyNameEn": "ETH",
+            "amount": 0.00999,
+            "address": "0x2559ecc6b853033106c038acd62e3084100be542",
+            "walletWaterSn": "0x55c4b6ed3a6174aba244af1bf03f5b5e5b128f88798ae0b2c7537396ec0055c3",
+            "currencyName": "Ethereum",
+            "createTime": "2018-05-30 12:02:38.0",
+            "fee": 1.0E-5,
+            "confirms": "Success",
+            "icoUrl": "eth.png",
+            "initAmount": 0.01,
+            "currencyId": 4,
+            "paidAmount": 0.00999
+        },
+        {
+            "currencyNameEn": "LTC",
+            "amount": 0.00999,
+            "address": "LVxq84VqHvx6paCcWoKwo6cKGjF56mEmyM",
+            "walletWaterSn": "4e47e83c9b338642d4dbb789ec801aeafa29268b500923cd62d9a0fe6533d0cd",
+            "currencyName": "Litecoin",
+            "createTime": "2018-05-30 10:51:07.0",
+            "fee": 1.0E-5,
+            "confirms": "Success",
+            "icoUrl": "ltc.png",
+            "initAmount": 0.01,
+            "currencyId": 7,
+            "paidAmount": 0.00999
+        }]
+    },
+    "message": null,
+    "status": 200
+}

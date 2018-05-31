@@ -1,5 +1,5 @@
 import { message } from 'antd';
-import { sendEmailForRegister, sendMail, resetPwd, userRegister, queryPhone, userLogin } from '../../api/http';
+import { sendEmailForRegister, sendMail, resetPwd, userRegister, queryPhone, userLogin, userLogin2 } from '../../api/http';
 import { browserHistory } from 'react-router';
 import Timer from '../../lib/timer';
 import md5 from '../../lib/md5';
@@ -29,6 +29,12 @@ export default (store) => {
 
             store.changeImgCodeTo(true);
             store.setImgCode(value);
+        },
+
+        onChangeGoogleCode(e){
+            let value = e.currentTarget.value.trim();
+
+            store.setGoogleCode(value);
         },
 
         onChangePwd(e) {
@@ -235,6 +241,14 @@ export default (store) => {
             }
         },
 
+        checkUser2(){
+            if (store.googlecode) {
+                return true;
+            } else {
+                return false;
+            }
+        },
+
         userLogin() {
             return userLogin({
                 email: store.account,
@@ -254,6 +268,26 @@ export default (store) => {
                         break;
                     default:
                         this.getImgCaptcha();
+                }
+
+                return data;
+            });
+        },
+
+        userLogin2() {
+            return userLogin2({
+                email: store.account,
+                googlecode: store.googlecode
+            }).then((data) => {
+                switch (data.status) {
+                    case 200:
+                        store.authStore.update({
+                            uid: data.attachment.uid,
+                            token: data.attachment.token
+                        });
+                        break;
+                    default:
+                        message.error(data.message);
                 }
 
                 return data;

@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { observer, inject } from 'mobx-react';
 import { Checkbox, Icon } from 'antd';
+import { Link } from 'react-router';
 
 @inject('accountStore')
 @observer
@@ -28,13 +29,13 @@ class List extends Component {
 		
 		if(store.isFetchingList){
 			$content = <div className="mini-tip">{ UPEX.lang.template('正在加载')}</div>
-		} else if(store.list.length == 0) {
+		} else if(store.coinList.length == 0) {
 			$content = <div className="mini-tip">{ UPEX.lang.template('暂无数据') }</div>;
 		} else {
 			$content = (
 				<ul>
 					{
-						store.list.map((item, index)=>{
+						store.coinList.map((item, index)=>{
 							return (
 								<li key={index}>
 									<dl>
@@ -47,9 +48,21 @@ class List extends Component {
 										<dd className="freeze">{item.freezeAmount}</dd>
 										<dd className="value">{item.btc_value}</dd>
 										<dd className="actions">
-											<button>{UPEX.lang.template('充币')}</button>
-											<button>{UPEX.lang.template('提币')}</button>
-											<button>{UPEX.lang.template('交易')}</button>
+											<button>
+												<Link to={`/account/coin/recharge/${item.currencyNameEn}`}>
+												{UPEX.lang.template('充币')}
+												</Link>
+											</button>
+											<button>
+												<Link to={`/account/coin/withdraw/${item.currencyNameEn}`}>
+												{UPEX.lang.template('提币')}
+												</Link>
+											</button>
+											<button>
+												<Link to={{ pathname: '/trade', query: { currencyId: item.currencyId, baseCurrencyId: item.baseCurrencyId } }}>
+												{UPEX.lang.template('交易')}
+												</Link>
+											</button>
 										</dd>
 									</dl>
 								</li>

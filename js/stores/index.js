@@ -11,7 +11,11 @@ import OrderOpenStore from './order-open';
 import OrderHistoryStore from './order-history';
 import OrderSuccessStore from './order-success';
 import RechargeStore from './recharge';
+import AddressStore from './address';
 import UserInfoStore from './userInfo';
+import CoinRechargeRecordStore from './coin-recharge-record';
+import CoinWithdrawRecordStore from './coin-withdraw-record';
+import CoinWithdrawStore from './coin-withdraw';
 
 class RootStore {
     constructor() {
@@ -35,6 +39,10 @@ class RootStore {
         this.openStore = new OrderOpenStore(this);
         this.historyStore = new OrderHistoryStore(this);
         this.successStore = new OrderSuccessStore(this);
+        this.coinRechargeRecordStore = new CoinRechargeRecordStore(this);
+        this.coinWithdrawRecordStore = new CoinWithdrawRecordStore(this);
+        this.coinWithdrawStore = new CoinWithdrawStore(this);
+        this.addressStore = new AddressStore(this);        
 
     }
 }

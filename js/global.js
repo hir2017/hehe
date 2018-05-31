@@ -125,14 +125,14 @@ const SITE_LANGUAGE = (function() {
     return lang;
 })();
 
-const host = 'http://13.251.85.35/polarisex';
+// const host = 'http://13.251.85.35/polarisex';
 // const host = 'http://www.acex.tw/polarisex'
-// const host = 'http://54.169.140.238/polarisex';
+const host = 'http://54.169.140.238/polarisex';
 const uploadHost = host + '/upload/upload';
 const uploadImgHost = host + '/user/uploadImageSingle';
-const websocketHost = 'ws://13.251.85.35';
+// const websocketHost = 'ws://13.251.85.35';
 // const websocketHost = 'ws://www.acex.tw';
-// const websocketHost = 'ws://54.169.140.238/';
+const websocketHost = 'ws://54.169.140.238/';
 const salt = 'dig?F*ckDang5PaSsWOrd&%(polarisex0160630).'
 const imgHost = 'http://13.251.85.35/';
 

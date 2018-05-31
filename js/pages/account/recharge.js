@@ -12,7 +12,7 @@ const Option = Select.Option;
 @observer
 class Recharge extends Component{
 	handleChange=(e)=>{
-
+		this.props.commonStore.getAllCoinPoint();
 	}
 
 	handleRechargeForm=(e)=>{

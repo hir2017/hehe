@@ -12,6 +12,7 @@ class LoginInfoBaseStore {
     @observable imgcode = ''; // 图片验证码
     @observable inviteId = ''; // 邀请码
     @observable agree = false; // 同意协议 
+    @observable googlecode = ''; // 谷歌验证码
     @observable selectedCountry = {
         areacode: '886',
         code: 'TW',
@@ -272,6 +273,11 @@ class LoginInfoBaseStore {
     @action
     setVercode(value) {
         this.vercode = value;
+    }
+
+    @action
+    setGoogleCode(value) {
+        this.googlecode = value;
     }
 }
 

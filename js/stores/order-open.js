@@ -53,6 +53,10 @@ class OrderStore {
         })
 	}
 
+	deleteItem(){
+		
+	}
+
 	@action
 	parseData(arr) {
 		arr.forEach((item, index) => {

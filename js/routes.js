@@ -28,6 +28,7 @@ import FiatRecharge from './pages/account/fiat-recharge';
 import FiatWithdraw from  './pages/account/fiat-withdraw';
 import CoinRecharge from './pages/account/coin-recharge';
 import CoinWithdraw from  './pages/account/coin-withdraw';
+import CoinWithdrawAddress from './pages/account/withdraw-address';
 import UserInfo from './pages/user';
 // 订单相关
 import Order from './pages/order';
@@ -62,17 +63,19 @@ const routes = (
         	<Route path="home" component={Home}/>
         	<Route path="index" component={Home}/>
 	        <Route path="trade(/:code)" component={TradeCenter}/>
-	        <Route path="assets" component={Assets}/>
-	        <Route path="coinrecord" component={CoinRecord}/>
-	        <Route path="fiatrecord" component={FiatRecord}/>
 	        <Route path="account">
+	        	<IndexRoute component={Assets}/>
+	        	<Route path="assets" component={Assets}/>
+	        	<Route path="coinrecord" component={CoinRecord}/>
+	        	<Route path="fiatrecord" component={FiatRecord}/>
 	        	<Route path="balance">
 	        		<Route path="recharge" component={FiatRecharge}/>
 	        		<Route path="withdraw" component={FiatWithdraw}/>
 	        	</Route>
 	        	<Route path="coin">
-	        		<Route path="recharge" component={CoinRecharge}/>
-	        		<Route path="withdraw" component={CoinWithdraw}/>
+	        		<Route path="recharge(/:code)" component={CoinRecharge}/>
+	        		<Route path="withdraw(/:code)" component={CoinWithdraw}/>
+	        		<Route path="withdrawaddress(/:code)" component={CoinWithdrawAddress}/>
 	        	</Route>
 	        </Route>
 	        <Route path="order" component={Order}>

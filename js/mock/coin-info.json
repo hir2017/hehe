@@ -1,0 +1,39 @@
+{
+    "attachment":
+    {
+        "resp":
+        {
+            "addressList": [],
+            "fee": 0.001,
+            "cashAmount": 2.10001E7,
+            "point": 8,
+            "msgCode": "1",
+            "defaultAddress": ""
+        },
+        "detail":
+        {
+            "start": 0,
+            "size": 10,
+            "linkId": 2,
+            "currencyId": 1,
+            "currencyName": "新台币",
+            "actionId": 4,
+            "actionName": "提币",
+            "amountLowLimit": 500.0,
+            "amountHighLimit": 9999999.0,
+            "feeType": 2,
+            "fee": 0.001,
+            "riskHighAmount": 5.0,
+            "status": 1,
+            "actionStatus": 1,
+            "createTime": "2018-05-09 19:28:12.0",
+            "createBy": "admin",
+            "lastEditTime": "2018-05-09 19:44:02.0",
+            "lastEditBy": "admin",
+            "riskSingleDayCumulativeMaximum": 10.0,
+            "riskSingleDayCumulativeMaxtimes": 5
+        }
+    },
+    "message": null,
+    "status": 200
+}
