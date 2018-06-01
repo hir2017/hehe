@@ -1,97 +1,73 @@
 import React, {Component} from 'react';
 import { observer, inject } from 'mobx-react';
 import { Checkbox, Icon, Pagination, message } from 'antd';
-import PopupTradePwd from './tradepwd';
+import toAction from './order-action';
 
-@inject('commonStore','orderStore')
+@inject('commonStore','openStore', 'tradePwdStore')
 @observer
 class List extends Component {
 	constructor(props){
 		super(props);
 
+		this.action = toAction(this.props.openStore, this.props.tradePwdStore);
 		this.currentOrderNo = '';
 	}
 
 	componentDidMount() {
-		this.props.commonStore.getAllCoinPoint();
-		this.props.orderStore.getOpenOrderList();
+		this.action.getData();
 	}
 
-	onChangePagination(pageNo){
-		this.props.orderStore.getOpenOrderList({
-			pageNo
+	onChangePagination(page){
+		this.action.handleFilter('page', {
+			page
 		});
 	}
 	/**
 	 * 点击撤单，判断是否需要的填写交易密码
 	 */
-	handleCancel=(orderNo)=>{
-		let { tradePasswordStatus } = this.props.orderStore;
-		this.currentOrderNo = orderNo;
-
-		if (tradePasswordStatus == 1) {
-			this.refs.popup.setState({
-				visible: true
-			});
-		} else {
-	        this.handelCancelOrder();
-		}
-	}
-
-	handelCancelOrder=(e)=>{
-		let { cancelOrder } = this.props.orderStore;
-
-		cancelOrder(this.currentOrderNo).then((data)=>{
-        	if (data.status == 200) {
-
-        	}
-        })
+	handleCancel=(item)=>{
+		this.action.cancelOrder(item.currencyId , item.orderNo);
 	}
 
 	render() {
-		let store = this.props.orderStore;
+		let store = this.props.openStore;
 		let $content;
-		
-		if (store.isFetchingOpenList){
-			$content = <div className="mini-tip">{UPEX.lang.template('正在加载')}</div>
-		} else if(store.openOrderList.length == 0) {
-			$content = <div className="mini-tip">{UPEX.lang.template('暂无数据')}</div>;
+	
+		if (!store.isFetching && store.orderList.length == 0) {
+			$content = <div className="mini-tip">{UPEX.lang.template('暂无当前委托订单')}</div>;
 		} else {
 			$content = (
-				<div>
-					<ul className="list">
-						{
-							store.openOrderList.map((item, index)=>{
-								let status;
-								switch(item.status) {
-									case 0:
-										status = UPEX.lang.template('未成交');
-										break;
-									case 1:
-										status = UPEX.lang.template('部分成交');
-										break;
-								}
+				<ul className="list">
+					{
+						store.orderList.map((item, index)=>{
+							let status;
+							switch(item.status) {
+								case 0:
+									status = UPEX.lang.template('未成交');
+									break;
+								case 1:
+									status = UPEX.lang.template('部分成交');
+									break;
+							}
 
-								return (
-									<li key={index}>
-										<dl>
-											<dd className="time">{item.orderTime}</dd>
-											<dd className="name">{item.currencyNameEn}</dd>
-											<dd className="num">{`成交数量/${item.num}`}</dd>
-											<dd className="price">{item.price}</dd>
-											<dd className="inorout">{item.buyOrSell == 1 ? <label className="buy">{UPEX.lang.template('买入')}</label>: <label className="sell">{UPEX.lang.template('卖出')}</label> }</dd>
-											<dd className="rate">{'成交率'}</dd>
-											<dd className="amount">{'成交金额'}</dd>
-											<dd className="status">{status}</dd>
-											<dd className="action"><button onClick={this.handleCancel.bind(this, item.orderNo)}>{UPEX.lang.template('撤单')}</button></dd>
-										</dl>
-									</li>
-								)
-							})
-						}
-					</ul>
-					<Pagination defaultCurrent={1} total={store.totalOpenPage} onChange={this.onChangePagination.bind(this)} />
-				</div>
+							return (
+								<li key={index}>
+									<dl>
+										<dd className="time">{item.orderTime}</dd>
+										<dd className="name">{item.currencyNameEn}</dd>
+										<dd className="num">{`${item.tradeNum}/${item.num}`}</dd>
+										<dd className="price">{item.price}</dd>
+										<dd className="inorout">{item.buyOrSell == 1 ? <label className="buy">{UPEX.lang.template('买入')}</label>: <label className="sell">{UPEX.lang.template('卖出')}</label> }</dd>
+										<dd className="rate">{item.tradeRate}</dd>
+										<dd className="amount">{item.tradeAmount}</dd>
+										<dd className="status">{status}</dd>
+										<dd className="action"><button onClick={this.handleCancel.bind(this, item)}>{UPEX.lang.template('撤单')}</button></dd>
+									</dl>
+								</li>
+							)
+						})
+					}
+				</ul>
 			)
 		}
 
@@ -127,9 +103,12 @@ class List extends Component {
 					</div>
 					<div className="table-bd">
 						{ $content }
+						{ store.isFetching ? <div className="mini-loading"></div> : null }
+					</div>
+					<div className="table-ft">
+						{ store.total > 0 ? <Pagination current={store.current} total={store.total} pageSize={store.pageSize} onChange={this.onChangePagination.bind(this)} /> : null }
 					</div>
 				</div>
-				<PopupTradePwd ref="popup" onSubmit={this.handelCancelOrder}/>
 			</div>
 		)
 	}

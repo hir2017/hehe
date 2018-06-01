@@ -8,14 +8,11 @@ import { baseCurrencyId,  tradeCurrencyId } from '../config';
 let host = UPEX.config.websocketHost;
 
 let socket = io(host, {
-    transports: ['websocket'],
-    query: {
-        baseCurrencyId: sessionStorage.getItem('baseCurrencyId') || baseCurrencyId,
-        tradeCurrencyId: sessionStorage.getItem('currencyId') || tradeCurrencyId
-    }
+    transports: ['websocket']
 })
 
 socket.on('connect', () => {
+
 });
 
 socket.on('disconnect', function() {

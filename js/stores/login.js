@@ -1,5 +1,6 @@
 import { observable, computed, autorun, action } from 'mobx';
 import Countries from '../mods/select-country/country-list';
+import { personalInfo } from '../api/http';
 
 class LoginInfoBaseStore {
     @observable countries = Countries;
@@ -11,7 +12,8 @@ class LoginInfoBaseStore {
     @observable vercode = ''; // 邮箱验证码或者短信验证码
     @observable imgcode = ''; // 图片验证码
     @observable inviteId = ''; // 邀请码
-    @observable agree = false; // 同意协议
+    @observable agree = false; // 同意协议 
+    @observable googlecode = ''; // 谷歌验证码
     @observable selectedCountry = {
         areacode: '886',
         code: 'TW',
@@ -21,14 +23,20 @@ class LoginInfoBaseStore {
     @observable validImgCode = true; // 图片验证码
     @observable validVercode = true; // 邮箱or手机验证码
     @observable hasPhone = false; // 手机是否已经被占用
-    
+
 
     constructor(stores) {
         this.captchaStore = stores.captchaStore;
         this.authStore = stores.authStore;
+
+        if (UPEX.config.systemLanguage == 'zh-CN') {
+            this.selectedCountry = {
+                areacode: '86',
+                code: 'CN',
+                name: 'China'
+            };
+        }
     }
-
-
 
     @computed
     get captcha() {
@@ -104,7 +112,7 @@ class LoginInfoBaseStore {
     }
 
     // 发送验证码验证
-    @computed 
+    @computed
     get verifyInfoBeforeSendCode() {
         let mode = this.mode;
         let result = {
@@ -134,7 +142,7 @@ class LoginInfoBaseStore {
     }
 
     // 提交表单验证
-    @computed 
+    @computed
     get verifyInfoBeforeSubmit() {
         let mode = this.mode;
         let result = {
@@ -149,7 +157,7 @@ class LoginInfoBaseStore {
         // 1. 邮箱 or 电话号码
         // 2. 密码 or 二次确认密码
         if ((this.validEmail || this.validPhone) && this.validPwd && this.validTwicePwd && this.validVercode) {
-            
+
             if (mode == 'email') {
                 if (!email) {
                     result.pass = false;
@@ -176,11 +184,11 @@ class LoginInfoBaseStore {
             if (!vercode) {
                 result.pass = false;
                 if (mode == 'email') {
-                    result.message = UPEX.lang.template('请确认邮箱验证码是否正确');    
+                    result.message = UPEX.lang.template('请确认邮箱验证码是否正确');
                 } else {
                     result.message = UPEX.lang.template('请确认手机验证码是否正确');
                 }
-                
+
 
                 return result;
             }
@@ -198,22 +206,22 @@ class LoginInfoBaseStore {
         this.mode = mode;
     }
 
-    @action 
-    changeSendingCodeTo(status){
-    	this.sendingcode = status;
+    @action
+    changeSendingCodeTo(status) {
+        this.sendingcode = status;
     }
 
     @action
-    changeValidVercodeTo(status){
+    changeValidVercodeTo(status) {
         this.validVercode = status;
     }
 
-    @action 
-    changeImgCodeTo(status){
+    @action
+    changeImgCodeTo(status) {
         this.validImgCode = status;
     }
 
-    @action 
+    @action
     changeHasPhoneTo(status) {
         this.hasPhone = status;
     }
@@ -239,7 +247,7 @@ class LoginInfoBaseStore {
     }
 
     @computed
-    get areaCode(){
+    get areaCode() {
         return this.selectedCountry.areacode;
     }
 
@@ -266,6 +274,11 @@ class LoginInfoBaseStore {
     @action
     setVercode(value) {
         this.vercode = value;
+    }
+
+    @action
+    setGoogleCode(value) {
+        this.googlecode = value;
     }
 }
 

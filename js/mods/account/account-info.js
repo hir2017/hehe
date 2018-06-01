@@ -9,7 +9,7 @@ import { Link } from 'react-router';
 class InfoView extends Component {
 	
 	handleAllMoney=(e)=>{
-		this.props.assetsStore.handleVisibleMoney();
+		this.props.accountStore.handleVisibleMoney();
 	}
 
 	render() {
@@ -40,19 +40,19 @@ class InfoView extends Component {
                         </div>
                         <div className="actions">
                             <button className="btn">
-                            	<Link to="/recharge">{ UPEX.lang.template('充值') }</Link>
+                            	<Link to="/account/balance/recharge">{ UPEX.lang.template('充值') }</Link>
                             </button>
                             <button className="btn">
-                            	<Link to="/withdraw">{ UPEX.lang.template('提现') }</Link>
+                            	<Link to="/account/balance/withdraw">{ UPEX.lang.template('提现') }</Link>
                             </button>
                         </div>
                     </div>
                     <div className="account-record">
                         <button className="btn">
-                        	<Link to="/coinrecord">{ UPEX.lang.template('数位资产记录') }</Link>
+                        	<Link to="/account/coinrecord">{ UPEX.lang.template('数位资产记录') }</Link>
                         </button>
                         <button className="btn">
-                        	<Link to="/fiatrecord">{ UPEX.lang.template('法币资金记录') }</Link>
+                        	<Link to="/account/fiatrecord">{ UPEX.lang.template('法币资金记录') }</Link>
                         </button>
                     </div>
 				</div>

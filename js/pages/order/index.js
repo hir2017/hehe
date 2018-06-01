@@ -8,7 +8,7 @@ import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import { browserHistory } from 'react-router';
 
-@inject('orderStore', 'commonStore')
+@inject('tradePwdStore', 'commonStore')
 @observer
 class UserPage extends Component {
 	constructor(props){
@@ -35,7 +35,7 @@ class UserPage extends Component {
 
 	componentDidMount() {
 		this.props.commonStore.getAllCoinPoint();
-		this.props.orderStore.getPersonalTradingPwd();
+		this.props.tradePwdStore.getPersonalTradingPwd();
 	}
 
 	handleClickTab=(item, e)=>{
@@ -43,8 +43,6 @@ class UserPage extends Component {
 	}
 
     render() {
-    	let store = this.props.orderStore;
-
     	let path = location.pathname.split('/').pop();
 
 		let target = this.tabs.filter((item)=>{

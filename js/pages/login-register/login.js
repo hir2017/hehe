@@ -19,16 +19,17 @@ const tgContent = (
     <div className="telegram"></div>
 );
 
-@inject('userStore', 'authStore')
+@inject('loginStore', 'authStore')
 @observer
 class Login extends Component {
     constructor(props){
     	super(props);
 
-        this.action = toAction(this.props.userStore);
+        this.action = toAction(this.props.loginStore);
 
         this.state = {
-            loginErrorText: ''
+            loginErrorText: '',
+            step: 'login' // login: 登录，google: 谷歌认证；phone：手机认证
         }
     }
 
@@ -56,7 +57,10 @@ class Login extends Component {
                                 browserHistory.push('/home');
                             }, 100)
                             break;
-                        case 5555:
+                        case 5555: // 需要进行谷歌认证
+                            this.setState({
+                                step: 'google'
+                            });
                             break;
                         default:
                             this.setState({
@@ -71,6 +75,29 @@ class Login extends Component {
         }
     }
 
+    handleLoginVerifyCode=(e)=>{
+        if (this.action.checkUser2()) {
+            this.action.userLogin2().
+                then((data)=>{
+                    switch(data.status){
+                        case 200:
+                            setTimeout(() => {
+                                browserHistory.push('/home');
+                            }, 100)
+                            break;
+                        default:
+                            this.setState({
+                                loginErrorText: "*" + data.message
+                            }); 
+                    }
+                })
+        } else {
+            this.setState({
+                loginErrorText: UPEX.lang.template('* 请填写谷歌验证码')
+            });
+        }
+    }
+
     keyLogin=(e)=>{
         if (e.keyCode === 13) {
             this.handleLogin()
@@ -78,7 +105,7 @@ class Login extends Component {
     }
 
     render() {
-        let store = this.props.userStore;
+        let store = this.props.loginStore;
         let action = this.action;
 
         let options = [];
@@ -86,6 +113,35 @@ class Login extends Component {
         $.map(store.countries, (item, key)=>{
             options[options.length] = <Option value={key} key={key}>{UPEX.lang.template(key)}(+{item.areacode})</Option>
         })
+
+        if (this.state.step == 'google') {
+            return (
+                <div className="register-wrapper">
+                    <div className="register-form">
+                        <h3 className="title"> { UPEX.lang.template('登录')} </h3>
+                        <div className="register-mode-content">
+                             <div className="input-wrapper">
+                                <div className="input-box">
+                                    <input
+                                        type="password" 
+                                        onInput={ action.onChangeGoogleCode}
+                                        placeholder={ UPEX.lang.template('谷歌验证码') }
+                                    />
+                                </div>
+                            </div>
+                            <div className="error-tip">
+                                { this.state.loginErrorText ? this.state.loginErrorText : '' }
+                            </div>
+                            <div className="input-wrapper">
+                                <div className="login-input">
+                                    <button className="submit-btn login-btn" onClick={ this.handleLoginVerifyCode }>{ UPEX.lang.template('登录') }</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
 
         return (
             <div className="register-wrapper">

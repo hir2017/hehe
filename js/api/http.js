@@ -53,12 +53,10 @@ axios.interceptors.response.use(function(res) {
 
         if (nowTime - preTime > 600000) {
             preTime = nowTime;
-
             message.error(UPEX.lang.template('登录超时，请重新登录'))
         }
 
         browserHistory.push('/login');
-
     }
     return res
 })
@@ -106,7 +104,7 @@ export function userRegister(data) {
     })).then(res => res.data);
 }
 
-// 用户登录
+// 用户登录 - 不需要验证第一步
 export function userLogin(data) {
     return axios.post(`${UPEX.config.host}/user/loginGAFirst`, qs.stringify({
         email: data.email,
@@ -117,6 +115,17 @@ export function userLogin(data) {
     })).then(res => res.data);
 }
 
+/**
+ * 用户登录 － 需要验证第二步
+ */
+
+export function userLogin2(data) {
+    return axios.post(`${UPEX.config.host}/user/loginGASecond`, qs.stringify({
+        clientPassword: data.googlecode,
+        email: data.email,
+        source: 1
+    })).then(res => res.data);
+}
 // 重置密码
 export function resetPwd(data) {
     return axios.post(`${UPEX.config.host}/user/resetPwd`, qs.stringify({
@@ -189,15 +198,99 @@ export function getCoinAccount(type = 1){
 }
 
 /**
- * 充币提币记录
+ * 查询当前币种地址及二维码
  */
-export function getSelectTakeList(data){
+export function selectUserAddress(currentyId){
+    return axios.post(`${UPEX.config.host}/coin/selectUserAddress`, qs.stringify({
+        walletType: 1,
+        currentyId
+    })).then(res => res.data);
+}
+
+/*----------------------------- 提币相关接口：{{------------------------------------*/
+/**
+ * 提币记录
+ */
+export function getCoinWithdrawList(data){
     return axios.post(`${UPEX.config.host}/coin/selectTakeList`, qs.stringify({
         ...data
     })).then(res => res.data);
 }
-
-
+/**
+ * 提币前查询信息接口
+ */
+export function getTakeCoinInfo(currencyId){
+    return axios.post(`${UPEX.config.host}/coin/selectTakeCoin`, qs.stringify({
+        currencyId
+    })).then(res => res.data);
+}
+/**
+ * 删除提币地址接口
+ */
+export function deleteCoinAddress(data){
+    return axios.post(`${UPEX.config.host}/coin/updateCoinAddress`, qs.stringify({
+        currencyId: data.currencyId,
+        walletAddressId: data.walletAddressId
+    })).then(res => res.data);
+}
+/**
+ * 添加提币地址接口
+ */
+export function addCoinAddress(data){
+    return axios.post(`${UPEX.config.host}/coin/insertTakeAddress`, qs.stringify({
+        currencyId: data.currencyId, // 提币地址
+        fdPwd: data.fdPwd, // 交易密码
+        note: data.note, // 令牌
+        address: data.address, // 地址
+    })).then(res => res.data);
+}
+/**
+ * 提币发送手机短信验证码
+ */
+export function takeCoinSendPhoneCode(data){
+    return axios.post(`${UPEX.config.host}/coin/sendSms`, qs.stringify({
+        vercode: data.vercode,
+        codeid: data.codeid
+    })).then(res => res.data);
+}
+/**
+ * 提币发送邮箱短信验证码
+ */
+export function takeCoinSendEmailCode(data){
+    return axios.post(`${UPEX.config.host}/coin/emailTakeCoin`, qs.stringify({
+        vercode: data.vercode,
+        codeid: data.codeid
+    })).then(res => res.data);
+}
+/**
+ * 提币接口
+ */
+export function takeCoin(currencyId){
+    return axios.post(`${UPEX.config.host}/coin/takeCoin`, qs.stringify({
+        currencyId
+    })).then(res => res.data);
+}
+/*-----------------------------}} 提币相关接口：------------------------------------*/
+/**
+ * 提币记录
+ * selectListByUuid
+ * {
+    
+    beginTime
+    endTime
+    currencyId 
+    size
+    start
+    status
+    token
+    uid
+ }
+ */
+export function getCoinRechargeList(data){
+    return axios.post(`${UPEX.config.host}/coin/selectListByUuid`, qs.stringify({
+        ...data
+    })).then(res => res.data);
+}
 /**
  * 币种列表
  */

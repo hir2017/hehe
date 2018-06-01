@@ -1,0 +1,11 @@
+{
+    "attachment":
+    {
+        "confirmNum": 1,
+        "address": "0x88380d78ac0074c0f60943212d518e984b4bb81c",
+        "fee": "0.1%",
+        "msgCode": "1"
+    },
+    "message": null,
+    "status": 200
+}

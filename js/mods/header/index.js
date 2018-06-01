@@ -21,22 +21,25 @@ import { observer, inject } from 'mobx-react';
 import { Popover } from 'antd';
 import LanguageSwitchView from './language';
 
-@inject('authStore')
+@inject('authStore', 'userInfoStore')
 @observer
 class HeaderView extends Component {
+	componentDidMount() {
+		this.props.userInfoStore.getUserInfo();
+	}	
 	render() {
-		let { authStore } = this.props;
+		let { authStore, userInfoStore} = this.props;
 
 		const assetmenu = (
 	        <dl className="pop-menu-list">
 	          	<dd className="logined-header">
-	            	<Link className="logined-header-link" to="/payorwithdraw">{ UPEX.lang.template('充值&提现') }</Link>
+	            	<Link className="logined-header-link" to="/account/assets">{ UPEX.lang.template('充币&提币') }</Link>
 	          	</dd>
 	          	<dd className="logined-header">
-	            	<Link className="logined-header-link" to="/payrecord">{ UPEX.lang.template('充值记录') }</Link>
+	            	<Link className="logined-header-link" to="/account/coinrecord">{ UPEX.lang.template('充币记录') }</Link>
 	          	</dd>
 	           	<dd className="logined-header">
-	            	<Link className="logined-header-link" to="/withdrawrecord">{ UPEX.lang.template('提现记录')}</Link>
+	            	<Link className="logined-header-link" to="/account/coinrecord">{ UPEX.lang.template('提币记录')}</Link>
 	            </dd>
 	        </dl>
 	    );
@@ -101,7 +104,7 @@ class HeaderView extends Component {
 									</li>
 									<li ref="assets">
 										<Popover content={assetmenu} placement="bottom" getPopupContainer={()=>this.refs.assets}>
-											<Link to="/assets">
+											<Link to="/account/assets">
 											{ UPEX.lang.template('我的资产')}
 											</Link>
 										</Popover>

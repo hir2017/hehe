@@ -1,13 +1,117 @@
-.recharge-wrapper{
-	width: 1200px;
-	margin: 0 auto;
-	padding: 20px 0;
+.account-recharge {
+    width: 1200px;
+    margin: 0 auto;
+    padding: 20px 0;
 }
 
-.recharge-wrapper h2{
-	color: #333333;
-	font-size: 26px;
-	padding: 20px 0;
-	font-weight: normal;
-	border-bottom: 1px solid #e7ebf1;
+.account-recharge h2 {
+    color: #333333;
+    font-size: 26px;
+    padding: 20px 0;
+    font-weight: normal;
+    border-bottom: 1px solid #e7ebf1;
+}
+
+.account-recharge h3 {
+    color: #333333;
+    font-size: 21px;
+    padding: 10px 0;
+    font-weight: normal;
+    border-bottom: 1px solid #e7ebf1;
+}
+
+.recharge-form {
+    padding-top: 30px;
+    margin-bottom: 30px;
+}
+
+.recharge-form-item {
+    margin-bottom: 10px;
+}
+
+.recharge-label {
+    display: inline-block;
+    vertical-align: top;
+    min-width: 100px;
+    margin-right: 10px;
+    line-height: 38px;
+}
+
+.recharge-info {
+    display: inline-block;
+    vertical-align: top;
+}
+
+
+.recharge-info .ant-select {
+    width: 490px;
+}
+
+.recharge-info .ant-select-selection--single,
+.recharge-info .ant-select-selection__rendered{
+    height: 38px;
+    line-height: 38px;
+}
+
+.recharge-info .address {
+    min-width: 380px;
+	height: 38px;
+    line-height: 38px;
+    border: 1px solid #d8d9dd;
+    border-radius: 4px;
+    text-indent: 10px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.recharge-info li{
+	margin-bottom: 10px;
+}
+
+.recharge-info button {
+    display: inline-block;
+    vertical-align: middle;
+    border: 1px solid #d8d9dd;
+    border-radius: 4px;
+    width: 102px;
+    height: 38px;
+    text-align: center;
+    line-height: 38px;
+    font-size: 14px;
+    color: #5795f1;
+    margin-left: 10px;
+}
+
+.recharge-info .qrcode{
+	display: inline-block;
+    vertical-align: middle;
+    width: 194px;
+    height: 194px;
+}
+
+.recharge-info .qrcode img{
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-color: #f0f0f0;
+}
+
+.recharge-info .qrcode-label{
+	display: inline-block;
+    vertical-align: middle;
+    padding: 0 10px;
+} 
+.recharge-info .tip h3{
+	margin-bottom: 10px;
+}
+.recharge-info .tip li{
+	list-style-type: disc;
+	font-size: 12px;
+	line-height: 21px;
+	margin: 0;
+}
+
+.recharge-info .tip li em{
+    padding: 0 3px;
+    color: #e6bc1d;
 }

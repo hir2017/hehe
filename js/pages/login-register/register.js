@@ -13,13 +13,13 @@ import {  Link , browserHistory } from 'react-router';
 import toAction from './action';
 const Option = Select.Option;
 
-@inject('userStore')
+@inject('loginStore')
 @observer
 class Register extends Component {
     constructor(props){
         super(props);
 
-        this.action = toAction(this.props.userStore);
+        this.action = toAction(this.props.loginStore);
     }
 
     componentDidMount() {
@@ -44,7 +44,7 @@ class Register extends Component {
     }
 
     render() {
-        let store = this.props.userStore;
+        let store = this.props.loginStore;
         let action = this.action;
 
         let options = [];

@@ -2,11 +2,9 @@
  * 交易密码。
  */
 import React, {Component} from 'react';
+import ReactDOM, {render} from 'react-dom';
 import { Modal,message} from 'antd';
-import { observer, inject } from 'mobx-react';
 
-@inject('orderStore')
-@observer
 class PopupTradePwd extends Component{
     static defaultProps  = {
         onSubmit: ()=>{}
@@ -16,15 +14,12 @@ class PopupTradePwd extends Component{
         super(props); 
 
         this.state = {
-            visible: false,
             validPwd: true
         }
     }
 
     handleCancel=(e)=>{
-        this.setState({
-            visible: false
-        });
+        this.props.onHide();
     }
 
     handleSubmit =(e)=>{
@@ -33,12 +28,6 @@ class PopupTradePwd extends Component{
         if (value) {
             this.props.onSubmit(value);
         }
-    }
-
-    onChangeBuyPwd=(e)=>{
-        let value = e.currentTarget.value.trim();
-
-        this.props.orderStore.setTradePassword(value);
     }
 
     onBlur=(e)=>{
@@ -59,13 +48,13 @@ class PopupTradePwd extends Component{
         return (
             <Modal 
                 title={UPEX.lang.template('输入交易密码')} 
-                visible={this.state.visible} 
+                visible={true} 
                 onCancel={this.handleCancel.bind(this)} 
                 footer={null}
             >
                 <div className="popup-trade-password">
                     <div className="input-area clearfix">
-                        <div className="input-box">
+                        <div className={ !this.state.validPwd ? 'input-box wrong': 'input-box' }>
                             <input 
                                 ref="input"
                                 type="password" 
@@ -81,4 +70,34 @@ class PopupTradePwd extends Component{
     }
 }
 
-export default PopupTradePwd;
+
+module.exports = {
+    create: function (cfg) {
+        cfg = cfg || {};
+        
+        if (this.layer) {
+            this.destroy();
+        }
+        var mountNode = this.createMountNode();
+        
+        this.layer = ReactDOM.render(
+            <PopupTradePwd {...cfg} onHide={this.onHide.bind(this)}/>,
+            mountNode
+        );
+    },
+
+    onHide: function(){
+        this.destroy();
+    },
+    // 创建组件插入的DOM节点
+    createMountNode: function() {
+        this.mountNode = document.createElement("div");
+        $(document.body).append(this.mountNode);
+        return this.mountNode;
+    },
+    destroy : function () {
+        ReactDOM.unmountComponentAtNode(this.mountNode);
+        $(this.mountNode).remove();
+        delete this.layer;
+    }
+};

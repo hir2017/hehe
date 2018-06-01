@@ -21,11 +21,15 @@ import ResetPwd from './pages/login-register/resetpwd';
 import Home from './pages/home';
 import TradeCenter from './pages/trade-center';
 // 我的资产
+import Auth from './mods/authhoc/index';
 import Assets from './pages/account/index';
 import CoinRecord from './pages/account/record-coin';
 import FiatRecord from './pages/account/record-fiat';
-import Recharge from './pages/account/recharge';
-import Withdrawal from './pages/account/withdrawal';
+import FiatRecharge from './pages/account/fiat-recharge';
+import FiatWithdraw from  './pages/account/fiat-withdraw';
+import CoinRecharge from './pages/account/coin-recharge';
+import CoinWithdraw from  './pages/account/coin-withdraw';
+import CoinWithdrawAddress from './pages/account/withdraw-address';
 import UserInfo from './pages/user';
 // 订单相关
 import Order from './pages/order';
@@ -54,25 +58,37 @@ import QuestionList from './pages/user/feedbackList'
 
 
 const routes = (
-	<Route>
-		<Route path="/" component={Layout}>
-			<IndexRedirect to='home' />
-			<Route path="home" component={Home} />
-			<Route path="index" component={Home} />
-			<Route path="trade(/:code)" component={TradeCenter} />
-			<Route path="assets" component={Assets} />
-			<Route path="coinrecord" component={CoinRecord} />
-			<Route path="fiatrecord" component={FiatRecord} />
-			<Route path="Recharge" component={Recharge} />
-			<Route path="withdrawal" component={Withdrawal} />
-			<Route path="order" component={Order}>
-				<IndexRoute component={OpenOrderList} />
-				<Route path="open" component={OpenOrderList} />
-				<Route path="history" component={HistoryOrderList} />
-				<Route path="success" component={SuccessOrderList} />
-			</Route>
-			<Route path="user" component={UserInfo}>
-				<IndexRoute component={EssentialInformation} />
+    <Route>
+        <Route path="/" component={ Layout }>
+        	<IndexRedirect to='home'/>
+        	<Route path="home" component={Home}/>
+        	<Route path="index" component={Home}/>
+	        <Route path="trade(/:code)" component={TradeCenter}/>
+	        
+	        <Route path="account">
+	        	<IndexRoute component={Assets}/>
+	        	<Route path="assets" component={Assets}/>
+	        	<Route path="coinrecord" component={CoinRecord}/>
+	        	<Route path="fiatrecord" component={FiatRecord}/>
+	        	<Route path="balance">
+	        		<Route path="recharge" component={FiatRecharge}/>
+	        		<Route path="withdraw" component={FiatWithdraw}/>
+	        	</Route>
+	        	<Route path="coin">
+	        		<Route path="recharge(/:code)" component={CoinRecharge}/>
+	        		<Route path="withdraw(/:code)" component={CoinWithdraw}/>
+	        		<Route path="withdrawaddress(/:code)" component={CoinWithdrawAddress}/>
+	        	</Route>
+	        </Route>
+	        <Route path="order" component={Order}>
+	        	<IndexRoute component={OpenOrderList}/>
+	        	<Route path="open" component={OpenOrderList} />
+	        	<Route path="history" component={HistoryOrderList} />
+	        	<Route path="success" component={SuccessOrderList} />
+	        </Route>
+	        
+	        <Route path="user" component={UserInfo}>
+			 	<IndexRoute component={EssentialInformation}/>
 				<Route path="authentication" component={IdentityAuthentication} />
 				<Route path="bankInfo" component={BankInfo} />
 				<Route path="passwordSetting" component={PasswordSetting} />
