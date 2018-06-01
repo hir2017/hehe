@@ -29,7 +29,6 @@ var output = {
 var cssLoader = {
     test: /\.(css|less)$/,
     use: [
-        'style-loader',
         'css-loader?minimize=true',
         'postcss-loader',
         'less-loader'

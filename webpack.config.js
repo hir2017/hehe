@@ -17,43 +17,23 @@ var cssmode = package.cssmode;
 var gitlabGroup = package.gitlabGroup;
 var cdnDomain = package.cdnDomain;
 
+const extractCSS = new ExtractTextPlugin({
+    allChunks: true,
+    filename: '[name].css'
+});
+
 // 输出口
 var output = {
-    path: path.resolve(__dirname, "build/assets"),
+    path: path.resolve(__dirname, "build"),
     filename: '[name].js',
     chunkFilename: '[name].[chunkhash:5].chunk.js',
     publicPath: '/',
 };
 
-// 声明cssloader
-var cssLoader = {
-    test: /\.(css|less)$/,
-    use: [
-        'style-loader',
-        'css-loader',
-        'postcss-loader',
-        'less-loader'
-    ]
-};
-
-var extractCSS = new ExtractTextPlugin({
-    allChunks: true,
-    filename: '[name].css'
-});
-
-// 打包时
-if (env == 'product' || env == 'stage') {
-    // 定制cdn路径
-    output.publicPath = '/assets';
-    cssLoader.loader = extractCSS.extract(['css-loader', 'postcss-loader', 'less-loader']);
-    delete cssLoader.use;
-}
-
-
 var config = {
     entry: {
         // 可对应多个入口文件
-        webjsapp: ['babel-polyfill', './js/app.js']
+        webapp: ['babel-polyfill', './js/app.js']
     },
     output: output,
     devtool: 'source-map', // 输出source-map
@@ -79,7 +59,10 @@ var config = {
                 test: /\.vue$/, // vue-loader 加载.vue单文件组件
                 loader: 'vue'
             },
-            cssLoader,
+            {
+                test: /\.(css|less)$/,
+                loader: extractCSS.extract(['css-loader', 'postcss-loader', 'less-loader'])
+            },
             {
                 test: /\.(css|less|jsx?)$/,
                 loader: StringReplacePlugin.replace({
@@ -142,7 +125,7 @@ var config = {
             template: './template/index.html',
             hash: true,
             // 指定要加载的模块
-            chunks: ['webjsapp']
+            chunks: ['webapp']
         })
     ]
 
