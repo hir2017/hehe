@@ -9,7 +9,7 @@ import Steps from './steps'
 import { Button, Icon, Upload, message } from 'antd'
 import upload_pic from '../../../images/upload-pic.png'
 import IDcard1 from '../../../images/IDcard1.png'
-import IDcard0 from '../../../images/IDcard0.png'
+import IDcard0 from '../../../images/IDcard00.png'
 import IDcard01 from '../../../images/IDcard01.png'
 
 @inject('userInfoStore')
