@@ -30,7 +30,6 @@ export default class extends Component {
                 height: '90%'
             }],
             xAxis: {
-                name: UPEX.lang.template('时间'),
                 nameLocation: 'center',
                 type: 'category',
                 boundaryGap: false,

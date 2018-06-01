@@ -41,17 +41,10 @@ var extractCSS = new ExtractTextPlugin({
     filename: '[name].css'
 });
 
-// 为product环境打包时
-if (env == 'product') {
+// 打包时
+if (env == 'product' || env == 'stage') {
     // 定制cdn路径
-    output.publicPath = '//' + cdnDomain + '/' + gitlabGroup + '/' + projectName + '/' + projectVersion + '/assets/';
-    cssLoader.loader = extractCSS.extract(['css-loader', 'postcss-loader', 'less-loader']);
-    delete cssLoader.use;
-}
-
-if (env == 'stage') {
-     // 定制cdn路径
-    output.publicPath = '/' + gitlabGroup + '/' + projectName + '/' + projectVersion + '/assets/';
+    output.publicPath = '/assets';
     cssLoader.loader = extractCSS.extract(['css-loader', 'postcss-loader', 'less-loader']);
     delete cssLoader.use;
 }
@@ -60,7 +53,7 @@ if (env == 'stage') {
 var config = {
     entry: {
         // 可对应多个入口文件
-        app: ['babel-polyfill', './js/app.js']
+        webjsapp: ['babel-polyfill', './js/app.js']
     },
     output: output,
     devtool: 'source-map', // 输出source-map
@@ -149,7 +142,7 @@ var config = {
             template: './template/index.html',
             hash: true,
             // 指定要加载的模块
-            chunks: ['app']
+            chunks: ['webjsapp']
         })
     ]
 
