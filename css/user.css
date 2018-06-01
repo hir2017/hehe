@@ -64,7 +64,12 @@
     color: #333333;
 }
 
-.user-main-box .info-content>div {
+.user-main-box .info-content .info-content-right img {
+    width: 90px;
+    height: 90px;
+}
+
+.user-main-box .info-content > div {
     display: inline-block;
     vertical-align: top;
     width: 50%;
@@ -90,6 +95,7 @@
 .user-main-box .info-content-left .phone {
     font-size: 20px;
     color: #333333;
+    height: 30px;
 }
 
 .user-main-box .info-content-left .login-time {
@@ -229,6 +235,12 @@
     padding-left: 220px;
 }
 
+.user-main-box .authentication-content .ant-upload-list {
+    width: 240px;
+    margin-left: 20px;
+    display: none;
+}
+
 .user-main-box .authentication .step {
     display: inline-block;
 }
@@ -350,6 +362,7 @@
     width: 275px;
     height: 145px;
     margin-right: 50px;
+    cursor: pointer;
 }
 
 .user-main-box .authentication-content .pic-item-message {

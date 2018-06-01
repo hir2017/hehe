@@ -79,7 +79,7 @@ class Info extends Component {
               <div className="certification-grade">
                 <div className="grade">
                   {UPEX.lang.template('安全级别')} {this.gradeImg().grade}
-                      <Link>{UPEX.lang.template('提升安全等级')}</Link>
+                      <Link to="/user/authentication">{UPEX.lang.template('提升安全等级')}</Link>
                 </div>
                 <div className="money">
                   <span>{UPEX.lang.template('提现额度')}：</span>

@@ -6,7 +6,7 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import Steps from './steps'
-import { Button, Icon } from 'antd'
+import { Button, Icon, Upload, message } from 'antd'
 import upload_pic from '../../../images/upload-pic.png'
 import IDcard1 from '../../../images/IDcard1.png'
 import IDcard0 from '../../../images/IDcard0.png'
@@ -16,26 +16,73 @@ import IDcard01 from '../../../images/IDcard01.png'
 @observer
 export default class SecondStep extends Component {
 
-  constructor () {
+  constructor() {
     super()
     this.next = this.next.bind(this)
   }
 
-  next () {
+  next() {
     this.props.changeStep(3)
+  }
+
+  state = {
+    oneUrl: '',
+    twoUrl: '',
+    threeUrl: ''
+  }
+
+  _props = (urlKey) => {
+    const token = UPEX.cache.getCache('token');
+    const uid = UPEX.cache.getCache('uid');
+    const ctx = this;
+    return {
+      accept: "image/jpg,image/Jpeg,image/png",
+      name: 'file',
+      action: UPEX.config.uploadImgHost + '?token=' + token + '&uid=' + uid,
+      headers: {
+        authorization: 'authorization-text',
+      },
+      onChange(info) {
+        if (info.file.status !== 'uploading') {
+          console.log(info.file, info.fileList);
+        }
+        if (info.file.status === 'done') {
+          if (info.file.response.status === 200) {
+            const url = info.file.response.attachment
+            ctx.setState({
+              [urlKey]: url
+            })
+            message.success(`${info.file.name} ${UPEX.lang.template('上传成功')}`);
+          } else {
+            message.error(`${info.file.name} ${UPEX.lang.template('上传失败')}`);
+          }
+        } else if (info.file.status === 'error') {
+          message.error(`${info.file.name} ${UPEX.lang.template('上传失败')}`);
+        }
+      }
+    }
   }
 
   render() {
     return (
       <div>
-        <Steps step={2}/>
+        <Steps step={2} />
         <div className="pic-title">{UPEX.lang.template('完成此步骤确认，可获得每日NT$300.000提现额度')}</div>
         <div className="pic-item">
           <span className="pic-item-lable">{UPEX.lang.template('证件正面照')}</span>
           <span>
-            <img className="pic-item-img" src={upload_pic} />
+            <Upload {...this._props('oneUrl')}>
+              <img className="pic-item-img" src={
+                this.state.oneUrl ? UPEX.config.uploadImgHost + '/' + this.state.oneUrl : upload_pic
+              } />
+            </Upload>
             {/*<span className="pic-item-message">{UPEX.lang.template('上传照片')}</span>*/}
-            <span className="pic-item-error-message error-message">*{UPEX.lang.template('请上传照片')}</span>
+            {
+              !this.state.oneUrl
+              ? <span className="pic-item-error-message error-message">*{UPEX.lang.template('请上传照片')}</span>
+              : <span style={{visibility: 'hidden'}} className="pic-item-error-message error-message">*{UPEX.lang.template('请上传照片')}</span>
+            }
+            
           </span>
           <span>
             <img className="pic-item-img" src={IDcard1} />
@@ -45,9 +92,17 @@ export default class SecondStep extends Component {
         <div className="pic-item">
           <span className="pic-item-lable">{UPEX.lang.template('证件反面照')}</span>
           <span>
-            <img className="pic-item-img" src={upload_pic} />
+            <Upload {...this._props('twoUrl')}>
+              <img className="pic-item-img" src={
+                this.state.twoUrl ? UPEX.config.uploadImgHost + '/' + this.state.twoUrl : upload_pic
+              } />
+            </Upload>
             {/*<span className="pic-item-message">{UPEX.lang.template('上传照片')}</span>*/}
-            <span className="pic-item-error-message error-message">*{UPEX.lang.template('请上传照片')}</span>
+            {
+              !this.state.twoUrl
+              ? <span className="pic-item-error-message error-message">*{UPEX.lang.template('请上传照片')}</span>
+              : <span style={{visibility: 'hidden'}} className="pic-item-error-message error-message">*{UPEX.lang.template('请上传照片')}</span>
+            }
           </span>
           <span>
             <img className="pic-item-img" src={IDcard0} />
@@ -57,9 +112,17 @@ export default class SecondStep extends Component {
         <div className="pic-item">
           <span className="pic-item-lable">{UPEX.lang.template('手持证件照')}</span>
           <span>
-            <img className="pic-item-img" src={upload_pic} />
+            <Upload {...this._props('threeUrl')}>
+              <img className="pic-item-img" src={
+                this.state.threeUrl ? UPEX.config.uploadImgHost + '/' + this.state.threeUrl : upload_pic
+              } />
+            </Upload>
             {/*<span className="pic-item-message">{UPEX.lang.template('上传照片')}</span>*/}
-            <span className="pic-item-error-message error-message">*{UPEX.lang.template('请上传照片')}</span>
+            {
+              !this.state.threeUrl
+              ? <span className="pic-item-error-message error-message">*{UPEX.lang.template('请上传照片')}</span>
+              : <span style={{visibility: 'hidden'}} className="pic-item-error-message error-message">*{UPEX.lang.template('请上传照片')}</span>
+            }
           </span>
           <span>
             <img className="pic-item-img" src={IDcard01} />
@@ -74,7 +137,7 @@ export default class SecondStep extends Component {
           </span>
           <span>
             {UPEX.lang.template('附带“为PrimeX注册会员使用”字条')}
-          </span> 
+          </span>
         </div>
         <div className="pic-format">
           {UPEX.lang.template('上传的文件格式必须是')}.jpg&nbsp;&nbsp;&nbsp;&nbsp;.png&nbsp;&nbsp;&nbsp;&nbsp;.jpeg
@@ -85,5 +148,5 @@ export default class SecondStep extends Component {
       </div>
     )
   }
-  
+
 }
