@@ -55,6 +55,7 @@ import RebindingGoogle from './mods/bindingGoogle/reBinding'
 import GoogleGuide from './pages/user/googleGuide'
 import Question from './pages/user/problemFeedback'
 import QuestionList from './pages/user/feedbackList'
+import EmailSuccess from './mods/bindingEmail/success'
 
 
 const routes = (
@@ -105,6 +106,7 @@ const routes = (
 				<Route path="googleGuide" component={GoogleGuide} />
 				<Route path="question" component={Question} />
 				<Route path="questionList" component={QuestionList} />
+				<Route path="emailSuccess" component={EmailSuccess} />
 			</Route>
 			<Route path="login" component={Login} />
 			<Route path="register" component={Register} />

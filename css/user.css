@@ -1270,3 +1270,81 @@
     left: 380px;
     font-size: 12px;
 }
+
+/**
+ * 绑定成功提示也（邮箱 手机）
+ */
+.user-main-box .bind-success {
+    margin: auto;
+    width: 300px;
+    text-align: center;
+}
+.user-main-box .bind-success .icon {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #f3f3f3;
+    vertical-align: middle;
+    margin-right: 10px;
+}
+.user-main-box .bind-success .icon-text {
+    font-size: 30px;
+    color: #333333;
+    vertical-align: middle;
+}
+
+.user-main-box .bind-success .icon i {
+    font-size: 25px;
+    vertical-align: -11px;
+    color: #e6bc1d;
+    font-weight: 800;
+    margin-left: 5px;
+}
+.user-main-box .bind-success .item:nth-child(1) {
+    margin-top: 180px;
+}
+.user-main-box .bind-success .item:nth-child(2) {
+    margin-top: 15px;
+    font-size: 16px;
+    color: #333333;
+    margin-bottom: 70px;
+}
+
+.user-main-box .bind-success .item:nth-child(2) .email {
+    margin-top: 15px;
+    font-size: 16px;
+    color: #e6bc1d;
+}
+
+.user-main-box .bind-success .item:nth-child(3) {
+    font-size: 14px;
+    color: #999999;
+    margin-bottom: 10px;
+}
+
+.user-main-box .bind-success .item:nth-child(4) a {
+    font-size: 14px;
+    color: #fff;
+    width: 200px;
+    display: inline-block;
+    border-radius: 8px;
+    background-color: #e6bc1d;
+    height: 40px;
+    line-height: 40px;
+    position: relative;
+}
+
+.user-main-box .bind-success .item:nth-child(4) a .icon {
+    position: absolute;
+    right: -10px;
+    top: -7px;
+    background-color: #ff3d66;
+    width: 20px;
+    height: 15px;
+    display: block;
+    border-radius: 4px;
+    font-size: 12px;
+    line-height: 15px;
+    margin-right: 0px;
+}

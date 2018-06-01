@@ -496,3 +496,14 @@ export function personalInfo(){
     }).then(res => res.data);
  }
 
+ /**
+  *  身份认证
+  */
+
+ export function submitUserInfo (info) {
+    return axios.post(`${UPEX.config.host}/user/submitUserInfo`, {
+        ...info
+    }).then(res => res.data);
+ }
+
+
