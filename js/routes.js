@@ -21,6 +21,7 @@ import ResetPwd from './pages/login-register/resetpwd';
 import Home from './pages/home';
 import TradeCenter from './pages/trade-center';
 // 我的资产
+import Auth from './mods/authhoc/index';
 import Assets from './pages/account/index';
 import CoinRecord from './pages/account/record-coin';
 import FiatRecord from './pages/account/record-fiat';
@@ -63,6 +64,7 @@ const routes = (
         	<Route path="home" component={Home}/>
         	<Route path="index" component={Home}/>
 	        <Route path="trade(/:code)" component={TradeCenter}/>
+	        
 	        <Route path="account">
 	        	<IndexRoute component={Assets}/>
 	        	<Route path="assets" component={Assets}/>
@@ -84,6 +86,7 @@ const routes = (
 	        	<Route path="history" component={HistoryOrderList} />
 	        	<Route path="success" component={SuccessOrderList} />
 	        </Route>
+	        
 	        <Route path="user" component={UserInfo}>
 			 	<IndexRoute component={EssentialInformation}/>
 				<Route path="authentication" component={IdentityAuthentication} />

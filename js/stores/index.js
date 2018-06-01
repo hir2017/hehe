@@ -1,6 +1,6 @@
 import CommonStore from './common';
 import AuthStore from './auth';
-import UserStore from './user';
+import LoginStore from './login';
 import CaptchaStore from './captcha';
 import AnnouncementStore from './announcement';
 import HomeStore from './home';
@@ -29,7 +29,7 @@ class RootStore {
         /**
          * 页面级store
          */
-        this.userStore = new UserStore(this);
+        this.loginStore = new LoginStore(this);
         this.announcementStore = new AnnouncementStore(this);
         this.homeStore = new HomeStore(this);
         this.tradeStore = new TradeStore(this);

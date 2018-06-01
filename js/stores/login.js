@@ -1,5 +1,6 @@
 import { observable, computed, autorun, action } from 'mobx';
 import Countries from '../mods/select-country/country-list';
+import { personalInfo } from '../api/http';
 
 class LoginInfoBaseStore {
     @observable countries = Countries;
@@ -22,7 +23,7 @@ class LoginInfoBaseStore {
     @observable validImgCode = true; // 图片验证码
     @observable validVercode = true; // 邮箱or手机验证码
     @observable hasPhone = false; // 手机是否已经被占用
-    
+
 
     constructor(stores) {
         this.captchaStore = stores.captchaStore;
@@ -33,7 +34,7 @@ class LoginInfoBaseStore {
                 areacode: '86',
                 code: 'CN',
                 name: 'China'
-            }; 
+            };
         }
     }
 
@@ -111,7 +112,7 @@ class LoginInfoBaseStore {
     }
 
     // 发送验证码验证
-    @computed 
+    @computed
     get verifyInfoBeforeSendCode() {
         let mode = this.mode;
         let result = {
@@ -141,7 +142,7 @@ class LoginInfoBaseStore {
     }
 
     // 提交表单验证
-    @computed 
+    @computed
     get verifyInfoBeforeSubmit() {
         let mode = this.mode;
         let result = {
@@ -156,7 +157,7 @@ class LoginInfoBaseStore {
         // 1. 邮箱 or 电话号码
         // 2. 密码 or 二次确认密码
         if ((this.validEmail || this.validPhone) && this.validPwd && this.validTwicePwd && this.validVercode) {
-            
+
             if (mode == 'email') {
                 if (!email) {
                     result.pass = false;
@@ -183,11 +184,11 @@ class LoginInfoBaseStore {
             if (!vercode) {
                 result.pass = false;
                 if (mode == 'email') {
-                    result.message = UPEX.lang.template('请确认邮箱验证码是否正确');    
+                    result.message = UPEX.lang.template('请确认邮箱验证码是否正确');
                 } else {
                     result.message = UPEX.lang.template('请确认手机验证码是否正确');
                 }
-                
+
 
                 return result;
             }
@@ -205,22 +206,22 @@ class LoginInfoBaseStore {
         this.mode = mode;
     }
 
-    @action 
-    changeSendingCodeTo(status){
-    	this.sendingcode = status;
+    @action
+    changeSendingCodeTo(status) {
+        this.sendingcode = status;
     }
 
     @action
-    changeValidVercodeTo(status){
+    changeValidVercodeTo(status) {
         this.validVercode = status;
     }
 
-    @action 
-    changeImgCodeTo(status){
+    @action
+    changeImgCodeTo(status) {
         this.validImgCode = status;
     }
 
-    @action 
+    @action
     changeHasPhoneTo(status) {
         this.hasPhone = status;
     }
@@ -246,7 +247,7 @@ class LoginInfoBaseStore {
     }
 
     @computed
-    get areaCode(){
+    get areaCode() {
         return this.selectedCountry.areacode;
     }
 

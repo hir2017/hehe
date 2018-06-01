@@ -1,8 +1,8 @@
 import { observable, computed, autorun, action} from 'mobx';
 
 class AuthStore {
-	@observable uid = UPEX.cache.getCache('uid') || 'zkoGRkbVwVyE4CceKyyd8pE_WHBPVj7n';
-	@observable token = UPEX.cache.getCache('token') || '10021';
+	@observable uid = UPEX.cache.getCache('uid') || '';
+	@observable token = UPEX.cache.getCache('token') || '';
 
 	constructor() {
         var handler = autorun(() => {

@@ -25,8 +25,6 @@ var output = {
     publicPath: '/',
 };
 
-console.log('++++++++++++++++++++++++++++');
-console.log(env);
 // 声明cssloader
 var cssLoader = {
     test: /\.(css|less)$/,

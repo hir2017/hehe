@@ -21,11 +21,14 @@ import { observer, inject } from 'mobx-react';
 import { Popover } from 'antd';
 import LanguageSwitchView from './language';
 
-@inject('authStore')
+@inject('authStore', 'userInfoStore')
 @observer
 class HeaderView extends Component {
+	componentDidMount() {
+		this.props.userInfoStore.getUserInfo();
+	}	
 	render() {
-		let { authStore } = this.props;
+		let { authStore, userInfoStore} = this.props;
 
 		const assetmenu = (
 	        <dl className="pop-menu-list">
