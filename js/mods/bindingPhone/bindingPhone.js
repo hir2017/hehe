@@ -5,11 +5,12 @@
  */
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
-import { Button, message } from 'antd'
+import { Button, message, Select } from 'antd'
 import { Link } from 'react-router'
 import Vcodebutton from '../common/sendAuthCodeBtn'
+const Option = Select.Option;
 
-@inject('userInfoStore', 'captchaStore')
+@inject('userInfoStore', 'captchaStore', 'loginStore')
 @observer
 export default class BindingPhone extends Component {
 
@@ -19,6 +20,7 @@ export default class BindingPhone extends Component {
     this.ivCodeChange = this.ivCodeChange.bind(this)
     this.submit = this.submit.bind(this)
     this.vCodeChange = this.vCodeChange.bind(this)
+    this.onAreaCodeChange = this.onAreaCodeChange.bind(this)
   }
 
   componentWillMount() {
@@ -28,7 +30,14 @@ export default class BindingPhone extends Component {
   state = {
     phone: '',
     vCode: '',
-    ivCode: ''
+    ivCode: '',
+    areacode: ''
+  }
+
+  onAreaCodeChange (val) {
+    this.setState({
+      areacode: this.props.loginStore.countries[val].areacode
+    })
   }
 
   phoneChange(e) {
@@ -71,12 +80,23 @@ export default class BindingPhone extends Component {
     const loading = this.props.userInfoStore.submit_loading
     const codeid = this.props.captchaStore.codeid
     const captcha = this.props.captchaStore.captcha
+    const loginStore = this.props.loginStore
+    let options = [];
+    $.map(loginStore.countries, (item, key) => {
+      options[options.length] = <Option value={key} key={key}>{UPEX.lang.template(key)}(+{item.areacode})</Option>
+    })
+    
     return (
       <div>
         <div className="modify-password-title">
           {UPEX.lang.template('绑定手机')}
         </div>
         <div className="modify-password-box">
+          <div className="item-area">
+            <Select size="large" style={{ width: 360 }} onChange={this.onAreaCodeChange} defaultValue={loginStore.selectedCountry.code}>
+              {options}
+            </Select>
+          </div>
           <div className="item">
             <span className="lable">{UPEX.lang.template('手机号')}</span>
             <input onChange={this.phoneChange} className="input" />
@@ -89,20 +109,13 @@ export default class BindingPhone extends Component {
             <img onClick={this.captchaChange} src={captcha} />
           </div>
           <div className="item v-code">
-            <span className="lable">{UPEX.lang.template('邮箱验证码')}</span>
-            <input className="input" />
-          </div>
-          <div className="item v-code-button">
-            <Vcodebutton bind={true} type={1} imgCode={this.state.ivCode} codeid={codeid} />
-          </div>
-          <div className="item v-code">
             <span className="lable">{UPEX.lang.template('短信确认码')}</span>
             <input onChange={this.vCodeChange} className="input" />
           </div>
           <div className="item v-code-button">
-            <Vcodebutton bind={true} type={2} imgCode={this.state.ivCode} codeid={codeid} />
+            <Vcodebutton phone={this.state.phone} areacode={this.state.areacode} bind={true} type={3} imgCode={this.state.ivCode} codeid={codeid} />
           </div>
-          <div className="massage" style={{display: 'none'}}>
+          <div className="massage" style={{ display: 'none' }}>
             {UPEX.lang.template('不方便接短信？可使用')}&nbsp;&nbsp;&nbsp;&nbsp;<Link>Google{UPEX.lang.template('驗證碼')}</Link>
           </div>
           <div className="submit">

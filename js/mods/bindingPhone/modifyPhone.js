@@ -10,7 +10,7 @@ import { Link } from 'react-router'
 import Vcodebutton from '../common/sendAuthCodeBtn'
 const Option = Select.Option;
 
-@inject('userInfoStore', 'captchaStore', 'userStore')
+@inject('userInfoStore', 'captchaStore', 'loginStore')
 @observer
 export default class ModifyPhone extends Component {
 
@@ -28,7 +28,7 @@ export default class ModifyPhone extends Component {
     this.props.userInfoStore.getUserInfo()
     this.props.captchaStore.fetch()
     this.setState({
-      areacode: this.props.userStore.selectedCountry.areacode
+      areacode: this.props.loginStore.selectedCountry.areacode
     })
   }
 
@@ -41,7 +41,7 @@ export default class ModifyPhone extends Component {
 
   onAreaCodeChange (val) {
     this.setState({
-      areacode: this.props.userStore.countries[val].areacode
+      areacode: this.props.loginStore.countries[val].areacode
     })
   }
 
@@ -86,11 +86,12 @@ export default class ModifyPhone extends Component {
     const loading = this.props.userInfoStore.submit_loading
     const codeid = this.props.captchaStore.codeid
     const captcha = this.props.captchaStore.captcha
-    const userStore = this.props.userStore
+    const loginStore = this.props.loginStore
     let options = [];
-    $.map(userStore.countries, (item, key) => {
+    $.map(loginStore.countries, (item, key) => {
       options[options.length] = <Option value={key} key={key}>{UPEX.lang.template(key)}(+{item.areacode})</Option>
     })
+
     return (
       <div>
         <div className="modify-password-title">
@@ -98,7 +99,7 @@ export default class ModifyPhone extends Component {
         </div>
         <div className="modify-password-box">
           <div className="item-area">
-            <Select size="large" style={{ width: 360 }} onChange={this.onAreaCodeChange} defaultValue={userStore.selectedCountry.code}>
+            <Select size="large" style={{ width: 360 }} onChange={this.onAreaCodeChange} defaultValue={loginStore.selectedCountry.code}>
               {options}
             </Select>
           </div>
@@ -125,7 +126,7 @@ export default class ModifyPhone extends Component {
             <input onChange={this.vCodeChange} className="input" />
           </div>
           <div className="item v-code-button">
-          <Vcodebutton phone={userInfo.phone} areacode={this.state.areacode} bind={true} type={1} imgCode={this.state.ivCode} codeid={codeid} />
+          <Vcodebutton phone='' areacode={this.state.areacode} bind={true} type={1} imgCode={this.state.ivCode} codeid={codeid} />
           </div>
           <div className="massage" style={{ display: 'none' }}>
             {UPEX.lang.template('不方便接短信？可使用')}&nbsp;&nbsp;&nbsp;&nbsp;<Link>Google{UPEX.lang.template('驗證碼')}</Link>
