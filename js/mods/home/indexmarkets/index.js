@@ -9,6 +9,7 @@ import { observer, inject } from 'mobx-react';
 import CoinList from './coinList';
 import CoinInfo from './CoinInfo';
 
+@observer
 class HotMarkets extends Component{
 	render() {
 		const { coins, filterCoin, sortCoin } = this.props

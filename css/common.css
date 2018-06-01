@@ -31,6 +31,15 @@ html {
 .app-page {
     position: relative;
 }
+.app-page .mini-loading{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: rgba(255,255,255,0.7) url('../images/loading.gif') no-repeat center center;
+    background-size: 60px 60px;
+}
 /**
  * 页面头部
  */

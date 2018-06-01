@@ -1,4 +1,4 @@
-import { observable, autorun, computed, action, configure, flow } from 'mobx';
+import { observable, autorun, computed, action, configure, flow, runInAction } from 'mobx';
 import { socket, baseCurrencyId } from '../api/socket';
 import { addOptional, cancleOptional, listOptional } from '../api/http'
 import Select from 'antd';
@@ -7,29 +7,31 @@ class HomeStore {
     @observable allCoins = [];
     @observable hotCoins = [];
     @observable collectCoinsList = [];
-    @observable coin = {}
+    @observable coin = {};
+    @observable isFetchingList = false;
 
     cacheCoins = []
 
     @action
     getAllCoins() {
-        // this.allCoins = require('../mock/coins.json')
-        // this.cacheCoins = this.allCoins
-        const ctx = this
-        socket.off('list')
-        socket.emit('list')
-        socket.on('list', function(data) {
-            ctx.getAllCoinsSuccess (data)
+        this.isFetchingList = true;
+        socket.off('list');
+        socket.emit('list');
+        socket.on('list', (data)=> {
+            runInAction('recommend coins', ()=>{
+                let result = data.filter((item)=>{
+                    return item.info.currencyNameEn === 'TWD'; // 只显示基础币=TWD
+                })[0];
+
+                if (result) {
+                    this.coin = result.tradeCoins[0];
+                    this.allCoins = result.tradeCoins;
+                    this.cacheCoins = result.tradeCoins;
+                    this.hotCoins = this.recommendCoins(result.tradeCoins);
+                }
+                this.isFetchingList = false;
+            })
         })
-
-    }
-
-    @action.bound
-    getAllCoinsSuccess (data) {
-        this.coin = data[0].tradeCoins[0]
-        this.allCoins = data[0].tradeCoins;
-        this.cacheCoins = data[0].tradeCoins;
-        this.hotCoins = this.recommendCoins(data[0].tradeCoins);
     }
 
     @action
@@ -86,7 +88,7 @@ class HomeStore {
         this.allCoins = res
     }
 
-
+    @action
     currencyCombination (data) {
         const coinArray = []
         for (const item of data) {
@@ -99,12 +101,16 @@ class HomeStore {
         return coinArray
     }
 
+    @action
     recommendCoins (data) {
-        return data.filter((item) => {
-            return item.recommend === 1
+        let list =  data.filter((item) => {
+            return item.recommend === 1;
         })
+
+        return list.slice(0, 5);
     }
 
+    @action
     async collectCoins (data) {
         const res = await addOptional (data)
         if (res.status !== 200) {
@@ -114,6 +120,7 @@ class HomeStore {
         }
     }
 
+    @action
     async cancleCollectCoins (data) {
         const res = await cancleOptional (data)
         if (res.status !== 200) {

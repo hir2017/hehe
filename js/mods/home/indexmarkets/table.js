@@ -114,6 +114,7 @@ export default class extends React.Component {
               </table>
             </div>
             <div className="ant-table-body">
+              { this.props.homeStore.isFetchingList == true ? <div className="mini-loading"></div> : null }
               <table className="">
                 <colgroup>
                   <col style={{ width: '172px', minWidth: '172px' }} />
@@ -125,21 +126,23 @@ export default class extends React.Component {
                 <tbody className="ant-table-tbody">
                   {
                     this.props.coins.map((item, index) => {
-                      return <tr key={item.id}>
-                        <td>
-                          <Link to={{ pathname: '/trade', query: { currencyId: item.currencyId, baseCurrencyId: item.baseCurrencyId } }}>
-                          {item.currencyNameEn}
-                          </Link>
-                        </td>
-                        <td onClick={() => {this.selectCoin(item.baseCurrencyId, item.currencyId)}}>{item.currentAmount}</td>
-                        <td onClick={() => {this.selectCoin(item.baseCurrencyId, item.currencyId)}}>{item.changeRate}</td>
-                        <td onClick={() => {this.selectCoin(item.baseCurrencyId, item.currencyId)}}>{item.volume}</td>
-                        <td>
-                          {
-                            this.collectIcon(item)
-                          }
-                        </td>
-                      </tr>
+                      return (
+                          <tr key={item.id}>
+                          <td>
+                            <Link to={{ pathname: '/trade', query: { currencyId: item.currencyId, baseCurrencyId: item.baseCurrencyId } }}>
+                            {item.currencyNameEn}
+                            </Link>
+                          </td>
+                          <td onClick={() => {this.selectCoin(item.baseCurrencyId, item.currencyId)}}>{item.currentAmount}</td>
+                          <td onClick={() => {this.selectCoin(item.baseCurrencyId, item.currencyId)}}>{item.changeRate}</td>
+                          <td onClick={() => {this.selectCoin(item.baseCurrencyId, item.currencyId)}}>{item.volume}</td>
+                          <td>
+                            {
+                              this.collectIcon(item)
+                            }
+                          </td>
+                        </tr>
+                      )
                     })
                   }
                 </tbody>

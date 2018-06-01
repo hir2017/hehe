@@ -28,6 +28,7 @@ class HotCoin extends Component {
 
 	render() {
 		let data = this.props.data;
+		
 		return (
 			<a  href="javscript:voiid(0)" className={ data.changeRate > 0 ? 'recommend-item positive' : 'recommend-item negative' }>
 				<div className="recommend-item-name">{ data.currencyNameEn }</div>
