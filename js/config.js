@@ -1,4 +1,4 @@
-export const baseCurrencyId = '111110'
+export const baseCurrencyId = '1'
 
 export const baseCurrencyNameEn = 'TWD'
 

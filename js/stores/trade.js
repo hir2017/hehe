@@ -3,12 +3,16 @@
  * TODO 第二个版本，优化自适应方案
  */
 import { observable, computed, autorun, action, runInAction } from 'mobx';
-import { socket, tradeCurrencyId, baseCurrencyId } from '../api/socket';
+import { socket } from '../api/socket';
 import { getBaseCoin, getUserOrderList, submitOrder, getPersonalTradingPwd, hasSettingDealPwd , getAllCoinPoint} from '../api/http';
 import NP from 'number-precision';
 import NumberUtil from '../lib/util/number';
 import TimeUtil from '../lib/util/date';
+import Url from '../lib/url';
 import md5 from '../lib/md5';
+
+const baseCurrencyId = Url.query('baseCurrencyId');
+const tradeCurrencyId = Url.query('currencyId');
 
 class TradeStore {
     // 页面主题。浅色：light；深色：dark
