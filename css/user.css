@@ -728,6 +728,10 @@
     padding-top: 95px;
 }
 
+.user-main-box .modify-password-box .item-area {
+    margin-bottom: 20px;
+}
+
 .user-main-box .modify-password-box .item {
     width: 360px;
     height: 40px;
