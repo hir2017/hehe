@@ -3,10 +3,12 @@ import {
   personalInfo, loginRecord, 
   sendCodeInUserCenter, 
   bindFdPwd, resetPwdInUserCenter,
-  bindPhoneSendMsg } from '../api/http'
+  bindPhoneSendMsg, getSecretKey,
+  addAsk, getQuestions } from '../api/http'
 import { message } from 'antd'
 
 class UserInfo {
+  @observable submit_loading = false
   @observable submit_loading_pwd = false
   @observable submit_loading_tpwd = false
   @observable showCountDown = false
@@ -17,6 +19,11 @@ class UserInfo {
     birthday: '',
     idType: '',
     idNumber: '',
+  }
+  @observable gaSecretKey = {}
+  @observable gaBindSuccess = false
+  @observable questionsLsit = {
+    list: []
   }
 
   constructor(stores) {
@@ -108,6 +115,48 @@ class UserInfo {
       message.error('Network Error')
     }
   }
+
+  @action
+  async getGaSecretKey () {
+    try {
+      const res = await getSecretKey()
+      this.gaSecretKey = res.attachment
+    } catch (e) {
+      console.error(e)
+      message.error('Network Error')
+    }
+  }
+
+  @action
+  async ask (detail, urlkey) {
+    try {
+      this.submit_loading = true
+      const res = await addAsk(detail, urlkey)
+      this.submit_loading = false
+      if (res.status !== 200) {
+        message.error(res.message)
+        console.error('ask error')
+      } else {
+        message.success(UPEX.lang.template('问题反馈成功'))
+      }
+    } catch (e) {
+      console.error(e)
+      this.submit_loading = false
+      message.error('Network Error')
+    }
+  }
+
+  @action
+  async questions (page) {
+    try {
+      const res = await getQuestions(page)
+      this.questionsLsit = res.attachment
+    } catch (e) {
+      console.error(e)
+      message.error('Network Error')
+    }
+  }
+
 }
 
 export default UserInfo;

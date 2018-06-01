@@ -95,7 +95,7 @@ export default class ModifyPhone extends Component {
           <div className="item v-code-button">
             <Vcodebutton bind={true} type={1} imgCode={this.state.ivCode} codeid={codeid} />
           </div>
-          <div className="massage">
+          <div className="massage" style={{display: 'none'}}>
             {UPEX.lang.template('不方便接短信？可使用')}&nbsp;&nbsp;&nbsp;&nbsp;<Link>Google{UPEX.lang.template('驗證碼')}</Link>
           </div>
           <div className="submit">

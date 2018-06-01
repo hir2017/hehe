@@ -462,3 +462,37 @@ export function personalInfo(){
     }).then(res => res.data);
  }
 
+ /**
+  *  此接口只能在启用ga前调用返回数据 否则不返回。
+  */
+
+ export function getSecretKey () {
+    return axios.post(`${UPEX.config.host}/user/getSecretKey`).then(res => res.data);
+ }
+
+ /**
+  *  问题反馈
+  */
+
+ export function addAsk (detail, urlkey) {
+    return axios.post(`${UPEX.config.host}/user/ask`, {
+        detail: detail,
+        name: name,
+        phone: '',
+        urlkey: urlkey,
+        type: ''
+    }).then(res => res.data);
+ }
+
+ /**
+  *  问题反馈列表
+  */
+
+ export function getQuestions (pageNumber) {
+    return axios.post(`${UPEX.config.host}/user/questions`, {
+        size: 10,
+        status: 1,
+        start: pageNumber
+    }).then(res => res.data);
+ }
+

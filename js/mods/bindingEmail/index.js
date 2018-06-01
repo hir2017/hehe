@@ -8,25 +8,35 @@ import { observer, inject } from 'mobx-react';
 import { Button, Switch } from 'antd'
 import { Link } from 'react-router'
 
+@inject('userInfoStore')
 @observer
 export default class Email extends Component {
+
+  componentWillMount() {
+    this.props.userInfoStore.getUserInfo()
+  }
+
   render() {
+    const userInfo = this.props.userInfoStore.userInfo || {}
+    const checked = userInfo.email ? true : false
     return (
       <div className="binding-phone-content">
         <div className="binding-phone-left">
           <div>
-            <span className="phone">102*****13@163.com</span>
+            <span className="phone">{userInfo.email || UPEX.lang.template('请添加邮箱')}</span>
             <Button>
-              <Link to="/user/modifyEmail">
-                {UPEX.lang.template('修改')}
-              </Link>
+              {
+                userInfo.email
+                ? null
+                : <Link to="/user/settingEmail"> {UPEX.lang.template('添加')} </Link>
+              }
             </Button>
           </div>
           <div className="message">
             {UPEX.lang.template('郵箱用於登錄、提幣及部分安全設置使用。我們也會給您提供 登錄提醒服務')}
           </div>
           <div className="switch">
-            {UPEX.lang.template('登录邮件提醒')}&nbsp;&nbsp;&nbsp;<Switch />
+            {UPEX.lang.template('登录邮件提醒')}&nbsp;&nbsp;&nbsp;<Switch checked={checked}/>
           </div>
         </div>
         <div className="binding-phone-right">

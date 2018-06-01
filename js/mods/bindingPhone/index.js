@@ -18,11 +18,12 @@ export default class Phone extends Component {
 
   render() {
     const userInfo = this.props.userInfoStore.userInfo || {}
+    const checked = userInfo.phone ? true : false
     return (
       <div className="binding-phone-content">
         <div className="binding-phone-left">
           <div>
-            <span className="phone">{userInfo.phone}</span>
+            <span className="phone">{userInfo.phone || UPEX.lang.template('请添加手机')}</span>
             <Button>
               {
                 userInfo.phone
@@ -39,7 +40,7 @@ export default class Phone extends Component {
             {UPEX.lang.template('提現、修改密碼，及安全設置時接收短信使用')}
           </div>
           <div className="switch">
-            {UPEX.lang.template('啟用委託認證')}&nbsp;&nbsp;&nbsp;<Switch />
+            {UPEX.lang.template('启用登录手机认证')}&nbsp;&nbsp;&nbsp;<Switch checked={checked}/>
           </div>
         </div>
         <div className="binding-phone-right">

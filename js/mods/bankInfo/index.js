@@ -5,11 +5,72 @@
  */
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
-import { Select, Button } from 'antd';
+import { Select, Button, Icon, message, Upload } from 'antd';
+import BankList from './banklist.json'
 const Option = Select.Option;
+
+const props = {
+  name: 'file',
+  action: '//jsonplaceholder.typicode.com/posts/',
+  headers: {
+    authorization: 'authorization-text',
+  },
+  onChange(info) {
+    if (info.file.status !== 'uploading') {
+      console.log(info.file, info.fileList);
+    }
+    if (info.file.status === 'done') {
+      message.success(`${info.file.name} file uploaded successfully`);
+    } else if (info.file.status === 'error') {
+      message.error(`${info.file.name} file upload failed.`);
+    }
+  },
+};
 
 @observer
 export default class BindingBank extends Component {
+
+  constructor () {
+    super()
+    this.bankChange = this.bankChange.bind(this)
+    this.branchesChange = this.branchesChange.bind(this)
+    this.submit = this.submit.bind(this)
+  }
+
+  state = {
+    branches: [],
+    bamckCode: '',
+    branchesCode: ''
+  }
+
+  bankChange (val) {
+    const res = BankList.filter((item) => {
+      return item.code === val
+    })
+
+    this.setState({
+      branches: res[0].branches,
+      bamckCode: val
+    })
+  }
+
+  branchesChange (val) {
+    this.setState({
+      branchesCode: val
+    })
+  }
+
+  submit () {
+    if (!this.state.bamckCode) {
+      message.error('请选择银行')
+      return 
+    }
+    if (!this.state.branchesCode) {
+      message.error('请选择银行分行')
+      return 
+    }
+  }
+
   render() {
     return (
       <div>
@@ -18,15 +79,27 @@ export default class BindingBank extends Component {
             {UPEX.lang.template('开户人')}：**淼
         </div>
           <div className="item">
-            <Select size='large' placeholder={UPEX.lang.template('选择银行')}
+            <Select showSearch size='large' placeholder={UPEX.lang.template('选择银行')}
+              onChange = {this.bankChange}
+              filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
               style={{ width: 400 }}>
-              <Option value="jack">Jack</Option>
+              {
+                BankList.map((item) => {
+                  return <Option key={item.id} value={item.code}>{item.name}</Option>
+                })
+              }
             </Select>
           </div>
           <div className="item">
-            <Select size='large' placeholder={UPEX.lang.template('选择银行分行')}
+            <Select showSearch size='large' placeholder={UPEX.lang.template('选择银行分行')}
+              filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
+              onChange = {this.branchesChange}
               style={{ width: 400 }}>
-              <Option value="jack">Jack</Option>
+              {
+                this.state.branches.map((item, index) => {
+                  return <Option key={index} value={item.code}>{item.name}</Option>
+                })
+              }
             </Select>
           </div>
           <div className="item">
@@ -35,8 +108,16 @@ export default class BindingBank extends Component {
               <input className="input" />
             </div>
           </div>
+          <Upload {...props}>
+          <div className="bank-card-upload-box ">
+            {UPEX.lang.template('上传银行账户簿图片')}
+            <div className="bank-card-upload">
+              <Icon type="plus" />
+            </div>
+          </div>
+          </Upload>
           <div className="item submit">
-            <Button onClick={this.next}>{UPEX.lang.template('提交')}</Button>
+            <Button onClick={this.submit}>{UPEX.lang.template('提交')}</Button>
           </div>
         </div>
         <div className="binding-bank-message">
