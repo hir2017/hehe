@@ -3,15 +3,15 @@ import { Route, IndexRedirect, IndexRoute } from 'react-router';
 
 import Layout from './pages/layout';
 
-import News from './pages/news';
-import Help from './pages/help';
-import AboutUs from './pages/about';
-import Careers from './pages/careers';
-import NotFound from './pages/404';
-import Feedback from './pages/feedback';
-import Download from './pages/download';
-import ContactUs from './pages/contact';
-import Cooperation from './pages/cooperation';
+import News from './pages/others/news';
+import Help from './pages/others/help';
+import AboutUs from './pages/others/about';
+import Careers from './pages/others/careers';
+import NotFound from './pages/others/404';
+import Feedback from './pages/others/feedback';
+import Download from './pages/others/download';
+import ContactUs from './pages/others/contact';
+import Cooperation from './pages/others/cooperation';
 import AnnouncementPreview from './pages/announcement/preview';
 
 import Login from './pages/login-register/login';

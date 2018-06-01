@@ -1,5 +1,5 @@
 .user-wrapper {
-	position: relative;
+    position: relative;
     min-width: 1150px;
     margin: 0 auto;
     padding: 10px;
@@ -8,15 +8,15 @@
     box-sizing: border-box;
 }
 
-.user-body-inner{
-	padding-left: 230px;
-	-webkit-box-sizing: border-box;
+.user-body-inner {
+    padding-left: 230px;
+    -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
 
 .user-menu {
-  	float: left;
+    float: left;
     width: 230px;
     margin-left: -230px;
 }
@@ -43,7 +43,7 @@
 }
 
 .user-main {
-	float: right;
+    float: right;
     width: 100%;
     margin: 10px 0;
     min-height: 620px;
@@ -53,9 +53,12 @@
 .user-main-box {
     padding: 20px;
 }
+
+
 /**
  * 基本信息
- */ 
+ */
+
 .user-main-box .info-box .info-title {
     font-size: 18px;
     color: #333333;
@@ -78,6 +81,7 @@
     padding-right: 45px;
     position: relative;
 }
+
 .user-main-box .info-content-left::after {
     content: '';
     width: 1px;
@@ -87,20 +91,24 @@
     right: 0px;
     top: 40px;
 }
+
 .user-main-box .info-content-left .phone {
     font-size: 20px;
     color: #333333;
     height: 30px;
 }
+
 .user-main-box .info-content-left .login-time {
     font-size: 14px;
     color: #333333;
     margin-top: 10px;
 }
+
 .user-main-box .info-content-left .bind {
     margin-left: 265px;
     margin-top: 5px;
 }
+
 .user-main-box .info-content-left .bind-email {
     display: inline-block;
 }
@@ -109,10 +117,12 @@
     margin-right: 35px;
     display: inline-block;
 }
+
 .user-main-box .info-content-left .bind img {
     display: block;
     margin-left: 9px;
 }
+
 .user-main-box .info-content-left .bind span {
     display: block;
     font-size: 12px;
@@ -123,11 +133,13 @@
     padding-top: 30px;
     padding-left: 50px;
 }
+
 .user-main-box .info-content-right .title {
     color: #999999;
     font-size: 14px;
     margin-bottom: 20px;
 }
+
 .user-main-box .info-content-right .certification-grade {
     display: inline-block;
     padding-left: 15px;
@@ -138,26 +150,30 @@
     color: #333333;
     font-weight: bold;
 }
+
 .user-main-box .certification-grade .grade a {
     font-size: 12px;
     color: #5581d8;
     margin-left: 15px;
 }
-.user-main-box .certification-grade .money > span:first-child {
+
+.user-main-box .certification-grade .money>span:first-child {
     color: #999999;
     font-size: 14px;
 }
-.user-main-box .certification-grade .money > span:last-child {
+
+.user-main-box .certification-grade .money>span:last-child {
     font-size: 20px;
     color: #333333;
     font-weight: bold;
 }
+
 .user-main-box .login-reminding {
     margin-left: 270px;
     margin-top: 25px;
 }
 
-.user-main-box .login-reminding > span:first-child {
+.user-main-box .login-reminding>span:first-child {
     margin-right: 15px;
     font-size: 12px;
     color: #999999;
@@ -171,60 +187,75 @@
     padding-bottom: 45px;
     border-bottom: 1px solid #ccc;
 }
+
 .user-main-box .ant-table {
     margin-top: 50px;
 }
+
 .user-main-box table {
-	width: 100%;
+    width: 100%;
 }
+
 .user-main-box table tr {
-	height: 50px;
+    height: 50px;
     line-height: 50px;
 }
+
 .user-main-box .ant-table-body tr:nth-child(odd) {
-	background-color: #f8f8fb;
+    background-color: #f8f8fb;
 }
+
 .user-main-box .ant-table-body {
-	max-height: 250px;
+    max-height: 250px;
     overflow-y: scroll;
 }
+
 .user-main-box table th {
-	text-align: center;
-	color: #666666;
-	font-size: 16px;
+    text-align: center;
+    color: #666666;
+    font-size: 16px;
 }
+
 .user-main-box table td {
     text-align: center;
 }
+
+
 /**
  * 身份认证
  */
+
 .user-main-box .authentication-title {
     color: #333333;
     font-size: 18px;
     margin-bottom: 20px;
 }
+
 .user-main-box .authentication-content {
     padding-left: 220px;
 }
+
 .user-main-box .authentication-content .ant-upload-list {
     width: 240px;
     margin-left: 20px;
     display: none;
 }
+
 .user-main-box .authentication .step {
     display: inline-block;
 }
 
-.user-main-box .authentication .step > span {
+.user-main-box .authentication .step>span {
     display: block;
     text-align: center;
 }
-.user-main-box .authentication .step > span:last-child {
+
+.user-main-box .authentication .step>span:last-child {
     color: #999999;
     font-size: 12px;
     margin-top: 5px;
 }
+
 .user-main-box .authentication .line {
     display: inline-block;
     vertical-align: 30px;
@@ -234,51 +265,64 @@
     font-size: 14px;
     font-weight: 500;
 }
+
 .user-main-box .authentication-content .item {
     margin-top: 30px;
 }
+
 .user-main-box .authentication-content .one-item {
     margin-top: 40px;
 }
-.user-main-box .authentication-content .item > span {
+
+.user-main-box .authentication-content .item>span {
     display: inline-block;
 }
+
 .user-main-box .authentication-content .item .lable {
     margin-right: 20px;
     vertical-align: 28px;
 }
+
 .user-main-box .authentication-content .time-lable {
     vertical-align: initial !important;
 }
+
 .user-main-box .authentication-content .item input {
     width: 190px;
 }
+
 .user-main-box .authentication-content .item .message {
     color: #999999;
     font-size: 12px;
     display: block;
     margin-top: 5px;
 }
+
 .user-main-box .authentication-content .time-control .ant-select {
     margin-right: 15px;
 }
+
 .user-main-box .authentication-content .time-control .ant-select-selection-selected-value {
     width: 90px;
     text-align: center;
     padding-right: 0px;
 }
+
 .user-main-box .authentication-content .error-message {
     margin-left: 15px;
 }
+
 .user-main-box .authentication-content .checkbox-text {
     font-size: 14px;
     color: #999999;
     margin-right: 5px;
 }
+
 .user-main-box .authentication-content .checkbox-text a {
     color: #e6bc1d;
     text-decoration-line: underline;
 }
+
 .user-main-box .authentication-content .submit button {
     min-width: 100px;
     height: 35px;
@@ -291,23 +335,28 @@
 .user-main-box .authentication-content .submit button:hover {
     border-color: none;
 }
+
 .user-main-box .authentication-content .pic-title {
     font-size: 14px;
     color: #333333;
     margin-top: 50px;
 }
+
 .user-main-box .authentication-content .pic-item {
     margin-top: 30px;
 }
-.user-main-box .authentication-content .pic-item > span {
+
+.user-main-box .authentication-content .pic-item>span {
     display: inline-block;
 }
+
 .user-main-box .authentication-content .pic-item-lable {
     margin-right: 30px;
     vertical-align: 83px;
     color: #333333;
     font-size: 14px;
 }
+
 .user-main-box .authentication-content .pic-item-img {
     display: block;
     width: 275px;
@@ -315,6 +364,7 @@
     margin-right: 50px;
     cursor: pointer;
 }
+
 .user-main-box .authentication-content .pic-item-message {
     width: 275px;
     text-align: center;
@@ -323,6 +373,7 @@
     font-size: 14px;
     color: #999999;
 }
+
 .user-main-box .authentication-content .pic-item-error-message {
     width: 275px;
     text-align: center;
@@ -331,21 +382,25 @@
     margin-top: 5px;
     font-size: 14px;
 }
+
 .user-main-box .authentication-content .pic-items-message {
     margin-left: 100px;
     margin-top: 10px;
     font-size: 14px;
     color: #333333;
 }
-.user-main-box .authentication-content .pic-items-message > span {
+
+.user-main-box .authentication-content .pic-items-message>span {
     display: block;
 }
+
 .user-main-box .authentication-content .pic-format {
     margin-left: 100px;
     margin-top: 30px;
     font-size: 14px;
     color: #999999;
 }
+
 .user-main-box .authentication-content .pic-items-message i {
     margin-left: 10px;
     margin-right: 5px;
@@ -354,23 +409,28 @@
     font-weight: bold;
     vertical-align: bottom;
 }
+
 .user-main-box .authentication-content .await-examine {
     margin-top: 150px;
 }
-.user-main-box .authentication-content .await-examine > span {
+
+.user-main-box .authentication-content .await-examine>span {
     display: block;
 }
-.user-main-box .authentication-content .await-examine > span:first-child {
+
+.user-main-box .authentication-content .await-examine>span:first-child {
     font-size: 20px;
     font-weight: bold;
     color: #333333;
     margin-bottom: 10px;
 }
+
 .user-main-box .authentication-content .success-title {
     color: #999999;
     font-size: 20px;
     margin-top: 50px;
 }
+
 .user-main-box .authentication-content .success-user-info {
     margin-top: 35px;
     background-color: #fdfdfd;
@@ -384,47 +444,59 @@
     font-size: 16px;
     color: #333333;
 }
-.user-main-box .authentication-content .success-user-info > div {
+
+.user-main-box .authentication-content .success-user-info>div {
     margin-bottom: 5px;
 }
+
 .user-main-box .authentication-content .success-prompt {
     margin-top: 20px;
     font-size: 12px;
     color: #999999;
 }
+
 .user-main-box .authentication-content .success-money {
     margin-top: 50px;
     font-size: 22px;
     color: #999999;
 }
+
 .user-main-box .authentication-content .success-money .money {
     font-size: 40px;
     color: #333333;
 }
+
 .user-main-box .authentication-content .success-money-title {
     font-size: 14px;
     color: #999999;
 }
+
 .user-main-box .authentication-content .success-money-message {
     font-size: 12px;
     color: #999999;
     margin-top: 70px;
 }
+
 .user-main-box .authentication-content .submit {
     margin-bottom: 30px;
 }
+
 .user-main-box .authentication-content .submit button {
     margin-top: 20px;
 }
+
+
 /**
  * 银行卡
  */
+
 .user-main-box .bank-message {
     margin-top: 200px;
     text-align: center;
     font-size: 18px;
     color: #333333;
 }
+
 .user-main-box .bank-message a {
     background-color: #e6bc1d;
     padding: 5px;
@@ -437,19 +509,23 @@
     margin: auto;
     margin-top: 20px;
 }
+
 .user-main-box .bank-info-title {
     font-size: 18px;
     color: #333333;
 }
+
 .user-main-box .binding-bank-box {
     padding-left: 125px;
     padding-bottom: 50px;
 }
+
 .user-main-box .binding-bank-box .item {
     height: 40px;
     margin-top: 20px;
     line-height: 40px;
 }
+
 .user-main-box .binding-bank-box .item:first-child {
     height: 20px;
     line-height: 20px;
@@ -475,6 +551,7 @@
     border-radius: 8px;
     border: 1px #ccc dashed;
 }
+
 .user-main-box .binding-bank-box .bank-card-upload i {
     margin-left: 130px;
     font-size: 100px;
@@ -483,11 +560,12 @@
     color: #ccc;
 }
 
-.user-main-box .binding-bank-box .input { 
+.user-main-box .binding-bank-box .input {
     border: none;
     outline: none;
     padding-left: 5px;
 }
+
 .user-main-box .binding-bank-box .input-lable {
     font-size: 14px;
     color: #333333;
@@ -495,16 +573,19 @@
     padding-right: 10px;
     border-right: 1px solid #d9d9d9;
 }
-.user-main-box .binding-bank-box .submit button{
+
+.user-main-box .binding-bank-box .submit button {
     background-color: #e6bc1d;
     width: 100px;
     color: #fff;
 }
+
 .user-main-box .binding-bank-box,
 .user-main-box .binding-bank-message {
     display: inline-block;
     vertical-align: top;
 }
+
 .user-main-box .binding-bank-message {
     display: inline-block;
     width: 460px;
@@ -513,78 +594,93 @@
     margin-top: 20px;
     border-left: 1px solid #d9d9d9;
 }
+
 .user-main-box .binding-bank-message li {
     list-style: initial;
     font-size: 14px;
     color: #999999;
     margin-bottom: 15px;
 }
+
 .user-main-box .bank-list-box {
     border-top: 1px solid #ccc;
 }
+
+
 /**
  * 密码设置
  */
+
 .user-main-box .password-setting-title {
     font-size: 18px;
     color: #333333;
 }
 
- .user-main-box .password-setting-box {
-     padding-left: 120px;
-     padding-top: 65px;
- }
- .user-main-box .password-change > span:first-child {
-     width: 300px;
-     color: #333333;
-     font-size: 18px;
-     display: inline-block;
- }
+.user-main-box .password-setting-box {
+    padding-left: 120px;
+    padding-top: 65px;
+}
 
- .user-main-box .password-change > button {
-     width: 80px;
-     color: #fff;
-     background-color: #e6bc1d;
- } 
- .user-main-box .password-change > button  a {
-     display: block;
- }
- .user-main-box .password {
-     display: inline-block;
-     vertical-align: top;
-     padding-right: 60px;
-     position: relative;
- }
- .user-main-box .password:first-child::after {
-     content: '';
-     width: 1px;
-     background-color: #ccc;
-     position: absolute;
-     right: 0px;
-     top: 25px;
-     height: 145px;
- }
- .user-main-box .trading-password {
+.user-main-box .password-change>span:first-child {
+    width: 300px;
+    color: #333333;
+    font-size: 18px;
+    display: inline-block;
+}
+
+.user-main-box .password-change>button {
+    width: 80px;
+    color: #fff;
+    background-color: #e6bc1d;
+}
+
+.user-main-box .password-change>button a {
+    display: block;
+}
+
+.user-main-box .password {
+    display: inline-block;
+    vertical-align: top;
+    padding-right: 60px;
+    position: relative;
+}
+
+.user-main-box .password:first-child::after {
+    content: '';
+    width: 1px;
+    background-color: #ccc;
+    position: absolute;
+    right: 0px;
+    top: 25px;
+    height: 145px;
+}
+
+.user-main-box .trading-password {
     padding-left: 60px;
     padding-right: 0px;
- }
- .user-main-box .password > div {
-     margin-top: 15px;
- }
- .user-main-box .password-message {
-     height: 40px;
-     color: #999999;
-     font-size: 14px;
- }
- .user-main-box .password-leve .leve-lable {
-     color: #333333;
-     font-size: 12px;
-     margin-right: 20px;
- }
- .user-main-box .password-leve .leve {
+}
+
+.user-main-box .password>div {
+    margin-top: 15px;
+}
+
+.user-main-box .password-message {
+    height: 40px;
+    color: #999999;
+    font-size: 14px;
+}
+
+.user-main-box .password-leve .leve-lable {
+    color: #333333;
+    font-size: 12px;
+    margin-right: 20px;
+}
+
+.user-main-box .password-leve .leve {
     color: #999999;
     font-size: 12px;
 }
+
 .user-main-box .password-leve .leve-show {
     margin-top: 15px;
     width: 380px;
@@ -592,6 +688,7 @@
     height: 15px;
     border-radius: 7px;
 }
+
 .user-main-box .password-leve .leve1 {
     display: inline-block;
     width: 100%;
@@ -599,6 +696,7 @@
     height: 15px;
     border-radius: 7px;
 }
+
 .user-main-box .password-leve .leve2 {
     display: inline-block;
     width: 25%;
@@ -606,37 +704,47 @@
     height: 15px;
     border-radius: 7px;
 }
+
 .user-main-box .trading-password .password-message {
     width: 280px;
 }
-.user-main-box .trading-password .switch > span {
+
+.user-main-box .trading-password .switch>span {
     margin-right: 10px;
 }
+
 .user-main-box .trading-password .switch {
     font-size: 12px;
     color: #999999;
     margin-left: 170px;
 }
+
 .user-main-box .password-setting-box .message {
     margin-top: 40px;
     color: #999999;
     font-size: 12px;
 }
+
+
 /**
  * 密码修改
  */
+
 .user-main-box .modify-password-title {
     color: #333333;
     font-size: 18px;
 }
+
 .user-main-box .modify-password-box {
     width: 360px;
     margin: auto;
     padding-top: 95px;
 }
+
 .user-main-box .modify-password-box .item-area {
     margin-bottom: 20px;
 }
+
 .user-main-box .modify-password-box .item {
     width: 360px;
     height: 40px;
@@ -656,20 +764,24 @@
     line-height: 40px;
     box-sizing: border-box;
 }
+
 .user-main-box .modify-password-box .input {
     border: none;
     outline: none;
     padding-left: 5px;
     border-left: 1px solid #ccc;
 }
+
 .user-main-box .modify-password-box .massage {
     font-size: 12px;
     color: #999999;
 }
+
 .user-main-box .modify-password-box .massage a {
     color: #999999;
     text-decoration-line: underline;
 }
+
 .user-main-box .modify-password-box button {
     width: 360px;
     background-color: #e6bc1d;
@@ -678,11 +790,13 @@
     border-radius: 8px;
     margin-top: 40px;
 }
+
 .user-main-box .modify-password-box .v-code {
     width: 250px;
     display: inline-block;
     margin-right: 10px;
 }
+
 .user-main-box .modify-password-box .v-code-button {
     width: 100px;
     text-align: center;
@@ -691,32 +805,39 @@
     display: inline-block;
     cursor: pointer;
 }
+
 .user-main-box .modify-password-box .v-code-button img {
     height: 40px;
     width: 100px;
     border-radius: 8px;
     vertical-align: top;
 }
+
 .user-main-box .modify-password-box .new-pwd {
     position: relative;
 }
+
+
 /**
  * 绑定手机
  */
- .user-main-box .binding-phone-title {
+
+.user-main-box .binding-phone-title {
     color: #333333;
     font-size: 18px;
- }
- .user-main-box .binding-phone-content {
-     padding-left: 120px;
-     padding-top: 80px;
- }
-.user-main-box .binding-phone-content .phone{
+}
+
+.user-main-box .binding-phone-content {
+    padding-left: 120px;
+    padding-top: 80px;
+}
+
+.user-main-box .binding-phone-content .phone {
     font-size: 16px;
     color: #333333;
 }
 
-.user-main-box .binding-phone-content button{
+.user-main-box .binding-phone-content button {
     font-size: 14px;
     color: #fff;
     width: 80px;
@@ -730,24 +851,29 @@
     color: #999999;
     margin-top: 20px;
 }
+
 .user-main-box .binding-phone-content .switch {
     margin-top: 40px;
     margin-left: 270px;
 }
+
 .user-main-box .binding-phone-content .switch span {
     color: #999999;
     font-size: 12px;
 }
+
 .user-main-box .binding-phone-left,
 .user-main-box .binding-phone-left::after,
-.user-main-box .binding-phone-right{
+.user-main-box .binding-phone-right {
     display: inline-block;
     vertical-align: top;
 }
+
 .user-main-box .binding-phone-left {
     position: relative;
     padding-right: 50px;
 }
+
 .user-main-box .binding-phone-left::after {
     position: absolute;
     top: 10px;
@@ -757,12 +883,13 @@
     height: 110px;
     background-color: #ccc;
 }
-.user-main-box  .binding-phone-right {
+
+.user-main-box .binding-phone-right {
     padding-left: 50px;
     padding-top: 10px;
 }
 
-.user-main-box  .binding-phone-right li {
+.user-main-box .binding-phone-right li {
     width: 400px;
     height: 45px;
     margin-bottom: 20px;
@@ -770,24 +897,30 @@
     color: #999999;
 }
 
-.user-main-box  .binding-phone-right li:last-child {
+.user-main-box .binding-phone-right li:last-child {
     width: 300px;
 }
+
+
 /**
  * google 认证
  */
+
 .user-main-box .google-auth-title {
     color: #333333;
     font-size: 18px;
 }
+
 .user-main-box .google-no-binding-phone {
     padding-top: 200px;
     text-align: center;
 }
-.user-main-box .google-no-binding-phone > span {
+
+.user-main-box .google-no-binding-phone>span {
     font-size: 18px;
     color: #333333;
 }
+
 .user-main-box .google-no-binding-phone button {
     width: 120px;
     height: 30px;
@@ -796,18 +929,21 @@
     margin-top: 20px;
     background-color: #e6bc1d;
 }
+
 .user-main-box .google-auth-message {
     font-size: 14px;
     color: #999999;
     margin-top: 80px;
     margin-bottom: 30px;
 }
+
 .user-main-box .google-auth-box {
     width: 540px;
     margin: auto;
 }
+
 .user-main-box .google-auth-left {
-    display: inline-block;   
+    display: inline-block;
     vertical-align: top;
     margin-right: 20px;
 }
@@ -818,19 +954,22 @@
     width: 150px;
 }
 
-.user-main-box .google-auth-left > div {
+.user-main-box .google-auth-left>div {
     font-size: 14px;
     color: #333333;
     margin-top: 10px;
 }
-.user-main-box  .google-auth-right {
-    display: inline-block;   
+
+.user-main-box .google-auth-right {
+    display: inline-block;
     vertical-align: top;
 }
-.user-main-box  .google-auth-right > div {
+
+.user-main-box .google-auth-right>div {
     padding-top: 5px;
 }
-.user-main-box  .google-auth-right .info a {
+
+.user-main-box .google-auth-right .info a {
     font-size: 14px;
     color: #999999;
     text-decoration: underline;
@@ -840,42 +979,51 @@
 .user-main-box .google-auth-right button {
     margin-top: 20px;
 }
+
 .user-main-box .google {
     text-decoration: underline;
     text-underline-position: under;
 }
+
 .user-main-box .google-info-link a {
     color: #e6bc1d;
     text-decoration: underline;
     text-underline-position: under;
 }
-.user-main-box .reBinding-left > div {
+
+.user-main-box .reBinding-left>div {
     display: inline-block;
     padding-left: 10px;
     padding-top: 10px;
     vertical-align: top;
 }
+
 .user-main-box .reBinding-left img {
     height: 150px;
     width: 150px;
     display: inline-block;
 }
+
 .user-main-box .reBinding-right {
     display: inline-block;
 }
-.user-main-box .reBinding-right > div {
+
+.user-main-box .reBinding-right>div {
     padding-top: 0px;
 }
+
 .user-main-box .reBinding-left .key-title {
     font-size: 14px;
     color: #333333;
 }
+
 .user-main-box .reBinding-left .key {
     font-size: 20px;
     color: #333333;
     font-weight: 600;
     margin-top: 10px;
 }
+
 .user-main-box .reBinding-left .key-message {
     font-size: 14px;
     color: #999999;
@@ -888,19 +1036,23 @@
     width: 100%;
     height: 40px;
 }
+
 .user-main-box .reBinding-right .info a {
     font-size: 14px;
     color: #999999;
     text-decoration: underline;
     text-underline-position: under;
 }
+
 .google-guide-img-box {
     padding-top: 60px;
     position: relative;
 }
+
 .google-guide-img-box img {
     margin: auto;
 }
+
 .google-guide-img-box .left {
     width: 60px;
     height: 60px;
@@ -934,13 +1086,15 @@
     color: #cfcfcf;
     transform: translate(-50%, -50%);
 }
+
 .google-guide-img-box .download {
     text-align: center;
     color: #999999;
     font-size: 14px;
     margin-top: 20px;
 }
-.google-guide-img-box .download > span {
+
+.google-guide-img-box .download>span {
     height: 40px;
     line-height: 40px;
     width: 150px;
@@ -951,22 +1105,28 @@
     border-radius: 8px;
     margin-right: 20px;
 }
+
 .google-guide-img-box .download i {
     margin-right: 10px;
     font-size: 25px;
     color: #333333;
     vertical-align: -2px;
 }
+
 .user-main-box .slick-dots {
     display: none !important;
 }
+
+
 /**
  * 问题反馈
  */
+
 .user-main-box .question-title {
     color: #333333;
     font-size: 18px;
 }
+
 .user-main-box .question-left,
 .user-main-box .question-right {
     display: inline-block;
@@ -979,16 +1139,19 @@
     margin-top: 30px;
     position: relative;
 }
+
 .user-main-box .upload-box {
     margin-top: 20px;
     position: relative;
 }
+
 .user-main-box .upload-message {
     position: absolute;
     top: 120px;
     font-size: 14px;
 }
-.user-main-box .upload-message > span:first-child {
+
+.user-main-box .upload-message>span:first-child {
     color: #1890ff;
 }
 
@@ -1004,6 +1167,7 @@
     background-color: #e6bc1d;
     color: #fff;
 }
+
 .user-main-box .question-right .info {
     width: 280px;
     margin-left: 40px;
@@ -1020,21 +1184,26 @@
     display: block;
     color: #5581d8;
 }
+
+
 /**
  * 问题列表
  */
+
 .user-main-box .question-search {
     position: relative;
     padding-left: 40px;
     margin-top: 30px;
 }
+
 .user-main-box .question-search i {
     position: absolute;
     left: 50px;
     top: 10px;
     z-index: 1000;
-    color:#999999;
+    color: #999999;
 }
+
 .user-main-box .question-search input {
     padding-left: 30px;
     width: 930px;
@@ -1042,16 +1211,19 @@
     color: #666666;
     background-color: #f2f2f2;
 }
-.user-main-box .question-search > span {
+
+.user-main-box .question-search>span {
     margin-left: 30px;
     font-size: 12px;
     color: #666666;
     cursor: pointer;
 }
+
 .user-main-box .question-content {
     padding-left: 20px;
     padding-top: 50px;
 }
+
 .user-main-box .question-content li {
     height: 50px;
     line-height: 50px;
@@ -1063,26 +1235,29 @@
     background-color: #f8f8fb;
 }
 
-.user-main-box .question-content li > span {
+.user-main-box .question-content li>span {
     display: inline-block;
     vertical-align: top;
 }
 
-.user-main-box .question-content li > span:first-child {
+.user-main-box .question-content li>span:first-child {
     width: 70%;
     overflow: hidden;
 }
 
-.user-main-box .question-content li > span:nth-child(2) {
+.user-main-box .question-content li>span:nth-child(2) {
     width: 10%;
 }
-.user-main-box .question-content li > span:nth-child(3) {
+
+.user-main-box .question-content li>span:nth-child(3) {
     width: 20%;
 }
+
 .user-main-box .question-page {
     text-align: center;
     padding-top: 50px;
 }
+
 
 /**
  * form 表单项
@@ -1094,4 +1269,4 @@
     top: 8px;
     left: 380px;
     font-size: 12px;
- }
+}

@@ -8,6 +8,7 @@
 }
 
 
+
 /**
  * banner广告位
  */
@@ -46,10 +47,11 @@
 }
 
 .loginguide-wrapper li a,
-.loginguide-wrapper li a:hover{
+.loginguide-wrapper li a:hover {
     color: #e6bc1d;
     padding: 0 5px;
 }
+
 
 
 /**
@@ -122,15 +124,15 @@
 }
 
 
+
 /**
  * 推荐的热门币种列表
  */
 
-.hot-markets{
-	height: 105px;
-	width: 1300px;
-	margin: 10px auto 0;
-	overflow: hidden;
+.hot-markets {
+    width: 1300px;
+    margin: 10px auto 0;
+    overflow: hidden;
 }
 
 .hot-markets li {
@@ -190,216 +192,269 @@
     border-radius: 20px 0 0 20px;
 }
 
-.recommend-item-kline svg{
-	display: block;
-	width: 100%;
+.recommend-item-kline svg {
+    display: block;
+    width: 100%;
     height: 40px;
 }
+
+
 /**
  * 货币行情
  */
-.index-markets{
-	height: 570px;
-	margin-top: 10px;
-	margin-bottom: 20px;
-	width: 1300px;
-	margin-left: auto;
-	margin-right: auto;
+
+.index-markets {
+    height: 570px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    width: 1300px;
+    margin-left: auto;
+    margin-right: auto;
     margin-bottom: 20px;
 }
-.index-markets-left,.index-markets-right {
-	display: inline-block;
-	vertical-align: top;
-}
-.index-markets-right {
-	margin-left: 20px;
-}
-.index-markets-left {
-	width: 400px;
-}
-.index-markets .coinInfo-title {
-	height: 50px;
-	line-height: 50px;
-	color: #333333;
-	font-size: 18px;
-	box-sizing: border-box;
-}
-.index-markets .coinInfo-content > div:first-child {
-	height: 70px;
-}
-.index-markets .coinInfo-content {
-	height: 160px;
-	border-radius: 4px;
-  box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.06);
-	border: 1px solid transparent;
-	padding-left: 20px;
-	box-sizing: border-box;
-}
-.index-markets .coinInfo-content > div:first-child > span {
-	display: inline-block;
-}
-.index-markets .coinInfo-content-name-box {
-	width: 308px;
-	color: #333333;
-	font-size: 20px;
-}
-.index-markets .coinInfo-content-name-box > span:first-child {
-	margin-right: 10px;
-}
-.index-markets .coinInfo-content-percent {
-	color: #fff;
-	font-size: 14px;
-	width: 70px;
-	height:20px;
-	line-height: 20px;
-	border-radius: 20px 0 0 20px;
-	margin-top: 25px;
-	text-align: center;
-}
-.index-markets .coinInfo-line {
-	margin-top: 20px;
-	height: 340px;
-	border-radius: 4px;
-  box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.06);
-	box-sizing: border-box;
-}
-.index-markets .coinInfo-line-title img {
-	vertical-align: -6px;
-}
-.index-markets .coinInfo-line-title > span {
-	display: inline-block;
-	vertical-align: top;
-	font-size: 14px;
-	height: 60px;
-	line-height: 60px;
-}
-.index-markets .coinInfo-line-title > span:first-child {
-	color: #999999;
-	padding-left: 20px;
-}
-.index-markets .coinInfo-line-title > span:last-child {
-	color: #5991db;
-	float: right;
-	padding-right: 20px;
-	cursor: pointer;
-}
-.index-markets .coin-list-title {
-	height: 50px;
-	line-height: 50px;
-	box-sizing: border-box;
-	text-align: right;
-	padding-left: 550px;
-}
-.index-markets .coin-list-title > span {
-	display: inline-block;
-	vertical-align: top;
-}
-.index-markets .coin-list-title > span:first-child {
-	padding-right: 30px;
-}
-.index-markets .coin-list-title > span:last-child {
-	width: 220px;
-}
-.index-markets table {
-	width: 100%;
-}
-.index-markets table tr {
-	height: 50px;
-	line-height: 50px;
-}
-.index-markets .ant-table-body tr:nth-child(even) {
-	background-color: #f8f8fb;
-}
-.index-markets .ant-table-body {
-	max-height: 470px;
-  overflow-y: scroll;
-}
-.index-markets table th {
-	text-align: center;
-	color: #999999;
-	font-size: 18px;
-	border-bottom: 1px solid #e7ebf1;
 
+.index-markets-left,
+.index-markets-right {
+    display: inline-block;
+    vertical-align: top;
 }
+
+.index-markets-right {
+    margin-left: 20px;
+}
+
+.index-markets-left {
+    width: 400px;
+}
+
+.index-markets .coinInfo-title {
+    height: 50px;
+    line-height: 50px;
+    color: #333333;
+    font-size: 18px;
+    box-sizing: border-box;
+}
+
+.index-markets .coinInfo-content>div:first-child {
+    height: 70px;
+}
+
+.index-markets .coinInfo-content {
+    height: 160px;
+    border-radius: 4px;
+    box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.06);
+    border: 1px solid transparent;
+    padding-left: 20px;
+    box-sizing: border-box;
+}
+
+.index-markets .coinInfo-content>div:first-child>span {
+    display: inline-block;
+}
+
+.index-markets .coinInfo-content-name-box {
+    width: 308px;
+    color: #333333;
+    font-size: 20px;
+}
+
+.index-markets .coinInfo-content-name-box>span:first-child {
+    margin-right: 10px;
+}
+
+.index-markets .coinInfo-content-percent {
+    color: #fff;
+    font-size: 14px;
+    width: 70px;
+    height: 20px;
+    line-height: 20px;
+    border-radius: 20px 0 0 20px;
+    margin-top: 25px;
+    text-align: center;
+}
+
+.index-markets .coinInfo-line {
+    margin-top: 20px;
+    height: 340px;
+    border-radius: 4px;
+    box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.06);
+    box-sizing: border-box;
+}
+
+.index-markets .coinInfo-line-title img {
+    vertical-align: -6px;
+}
+
+.index-markets .coinInfo-line-title>span {
+    display: inline-block;
+    vertical-align: top;
+    font-size: 14px;
+    height: 60px;
+    line-height: 60px;
+}
+
+.index-markets .coinInfo-line-title>span:first-child {
+    color: #999999;
+    padding-left: 20px;
+}
+
+.index-markets .coinInfo-line-title>span:last-child {
+    color: #5991db;
+    float: right;
+    padding-right: 20px;
+    cursor: pointer;
+}
+
+.index-markets .coin-list-title {
+    height: 50px;
+    line-height: 50px;
+    box-sizing: border-box;
+    text-align: right;
+    padding-left: 550px;
+}
+
+.index-markets .coin-list-title>span {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.index-markets .coin-list-title>span:first-child {
+    padding-right: 30px;
+}
+
+.index-markets .coin-list-title>span:last-child {
+    width: 220px;
+}
+
+.index-markets table {
+    width: 100%;
+}
+
+.index-markets table tr {
+    height: 50px;
+    line-height: 50px;
+}
+
+.index-markets .ant-table-body tr:nth-child(even) {
+    background-color: #f8f8fb;
+}
+
+.index-markets .ant-table-body {
+    position: relative;
+    max-height: 470px;
+    overflow-y: scroll;
+    min-height: 300px;
+}
+
+.index-markets table th {
+    text-align: center;
+    color: #999999;
+    font-size: 18px;
+    border-bottom: 1px solid #e7ebf1;
+}
+
 .index-markets table th:nth-child(2) {
     cursor: pointer;
 }
+
 .index-markets table th:nth-child(3) {
     cursor: pointer;
 }
+
 .index-markets table th:nth-child(4) {
     cursor: pointer;
 }
+
 .index-markets table th i {
-	font-size: 12px;
+    font-size: 12px;
     vertical-align: 3px;
     margin-left: 5px;
-	cursor: pointer;
+    cursor: pointer;
 }
+
 .index-markets table th:first-child {
-	text-align: center;
+    text-align: center;
 }
+
 .index-markets table td {
-	text-align: center;
-	font-size: 14px;
-	color: #666666;
+    text-align: center;
+    font-size: 14px;
+    color: #666666;
 }
+
 .index-markets table td a {
     color: #333333;
-    display: block;
+    /* display: block; */
 }
+
 .index-markets table td:first-child {
-	text-align: center;
-	color: #333333;
+    text-align: center;
+    color: #333333;
 }
+
 .index-markets table td:last-child i {
     cursor: pointer;
 }
+
 .index-markets table td:last-child {
-	font-size: 20px;
+    font-size: 20px;
 }
+
 .index-markets table td:nth-child(2) {
     cursor: pointer;
 }
+
 .index-markets table td:nth-child(3) {
     cursor: pointer;
 }
+
 .index-markets table td:nth-child(4) {
     cursor: pointer;
 }
+
 .index-markets .coinInfo-content-item {
-	height: 45px;
-	color: #666666;
+    height: 45px;
+    color: #666666;
 }
-.index-markets .coinInfo-content-item > span {
-	display: inline-block;
-	width: 50%;
+
+.index-markets .coinInfo-content-item>span {
+    display: inline-block;
+    width: 50%;
 }
+
 .index-markets .coinInfo-content-lable {
-	padding-right: 40px;
+    padding-right: 40px;
 }
+
 .index-markets .coin-line-box {
-	height: 280px;
-	width: 400px;
+    height: 280px;
+    width: 400px;
 }
+
 .index-markets .anticon-star {
-	color: #e6bc1d;
+    color: #e6bc1d;
 }
+
+
 /**
  * 币圈资讯
  */
-.module-box{
-	width: 1300px;
-	margin: 0 auto 20px;
+
+.module-box {
+    width: 1300px;
+    margin: 0 auto 20px;
 }
-.module-item{
-	float: left;
-	margin-right: 10px;
-	min-height: 260px;
+
+.module-item {
+    float: left;
+    margin-right: 10px;
+    min-height: 260px;
 }
-.module-item:last-child{
-	margin-right: 0;
+
+.module-item:last-child {
+    margin-right: 0;
 }
+
 
 /* 正 */
 
@@ -411,7 +466,9 @@
     color: #00b56a;
 }
 
+
 /* 负 */
+
 .recommend-item.negative .recommend-item-change {
     background-color: #ff4d40;
 }
@@ -434,6 +491,7 @@
 }
 
 
+
 /**
  * 最新公告
  */
@@ -448,7 +506,7 @@
 }
 
 .announcement-wrapper li {
-	float: left;
+    float: left;
     font-size: 16px;
     overflow: hidden;
     height: 30px;

@@ -28,7 +28,7 @@ class HeaderView extends Component {
 		this.props.userInfoStore.getUserInfo();
 	}	
 	render() {
-		let { authStore, userInfoStore} = this.props;
+		let { authStore, userInfoStore } = this.props;
 
 		const assetmenu = (
 	        <dl className="pop-menu-list">

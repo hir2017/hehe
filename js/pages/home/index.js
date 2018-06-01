@@ -13,7 +13,7 @@ import BtcNews from '../../mods/home/btcnews';
 import HotMarkets from '../../mods/home/hotmarkets';
 import IndexMarkets from '../../mods/home/indexmarkets';
 
-const list = [
+const bannerList = [
     require('../../../images/banner1.png'),
     require('../../../images/banner1.png'), 
     require('../../../images/banner1.png')
@@ -44,13 +44,13 @@ class Home extends Component {
     }
 
     render() {
-        let { authStore, announceStore, homeStore } = this.props;
+        let { authStore, announcementStore, homeStore } = this.props;
         return (
             <div className="home-wrapper">
             	{ !authStore.isLogin ? <LoginGuide/> : null }
-                <Banner list={list}/>
-                <AnnouncementList/>
-                <HotMarkets/>
+                <Banner list={bannerList}/>
+                { announcementStore.formatedList.length > 0 ? <AnnouncementList list={announcementStore.formatedList}/> : null }
+                { homeStore.hotCoins.length > 0 ? <HotMarkets list={homeStore.hotCoins}/> : null }
                 <IndexMarkets sortCoin={this.sortCoin} filterCoin={this.filterCoin} coins={homeStore.allCoins}/>
                 <Features/>
             </div>
