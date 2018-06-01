@@ -119,7 +119,7 @@ export default class ModifyPhone extends Component {
             <input style={{width: 130}} onChange={this.vCodeChange} className="input" />
           </div>
           <div className="item v-code-button">
-            <Vcodebutton phone={this.state.phone} areacode={this.state.areacode} bind={true} type={2} imgCode={this.state.ivCode} codeid={codeid} />
+            <Vcodebutton message="新手机号不能为空" phone={this.state.phone} areacode={this.state.areacode} bind={true} type={2} imgCode={this.state.ivCode} codeid={codeid} />
           </div>
           <div className="item v-code">
             <span className="lable">{UPEX.lang.template('短信确认码')}</span>

@@ -94,7 +94,7 @@ export default class BindingEmail extends Component {
               <input onChange={this.vCodeChange} className="input" />
             </div>
             <div className="item v-code-button">
-              <Vcodebutton bind={true} type={1} imgCode={this.state.ivCode} codeid={codeid} />
+              <Vcodebutton message="邮箱不能为空" phone={this.state.email} areacode='' bind={true} type={3} imgCode={this.state.ivCode} codeid={codeid} />
             </div>
           </div>
           <div className="massage" style={{display: 'none'}}>

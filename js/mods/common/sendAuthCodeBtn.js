@@ -37,7 +37,7 @@ export default class SettingTradingPassword extends Component {
       return
     }
     if ((this.props.type == 2 || this.props.type == 3) && !this.props.phone) {
-      message.error(UPEX.lang.template('新手机号不能为空'))
+      message.error(UPEX.lang.template(this.props.message))
       return
     }
     let res

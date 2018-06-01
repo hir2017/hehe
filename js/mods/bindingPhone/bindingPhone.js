@@ -113,7 +113,7 @@ export default class BindingPhone extends Component {
             <input onChange={this.vCodeChange} className="input" />
           </div>
           <div className="item v-code-button">
-            <Vcodebutton phone={this.state.phone} areacode={this.state.areacode} bind={true} type={3} imgCode={this.state.ivCode} codeid={codeid} />
+            <Vcodebutton message="手机号不能为空" phone={this.state.phone} areacode={this.state.areacode} bind={true} type={3} imgCode={this.state.ivCode} codeid={codeid} />
           </div>
           <div className="massage" style={{ display: 'none' }}>
             {UPEX.lang.template('不方便接短信？可使用')}&nbsp;&nbsp;&nbsp;&nbsp;<Link>Google{UPEX.lang.template('驗證碼')}</Link>
