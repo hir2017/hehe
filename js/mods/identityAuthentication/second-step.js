@@ -22,7 +22,26 @@ export default class SecondStep extends Component {
   }
 
   next() {
-    this.props.changeStep(3)
+    if (!this.state.oneUrl || !this.state.twoUrl || !this.state.threeUrl) {
+      message.error(UPEX.lang.template('请上传照片'))
+      return 
+    }
+    
+    const info = this.props.userInfoStore.identityInfo;
+    const res = this.props.userInfoStore.identityAuthentication({
+      firstName: info.firstName,
+      secondName: info.secondName,
+      birthday: info.birthday,
+      //idType: '',
+      idNumber: info.idNumber,
+      positiveImages: this.state.oneUrl,
+      oppositeImages: this.state.twoUrl,
+      handImages: this.state.threeUrl
+    }) 
+    
+    if (res.status === 200) {
+      this.props.changeStep(3)
+    }
   }
 
   state = {

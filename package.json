@@ -72,8 +72,8 @@
   "scripts": {
     "dev": "sudo webpack-dev-server",
     "product": "NODE_ENV=product webpack -p",
-    "restart": "pm2 restart server.js --name='upexchange-front'  -o ./logs/out.log -e ./logs/error.log && pm2 logs",
-    "start": "pm2 start server.js --name='upexchange-front'  -o ./logs/out.log -e ./logs/error.log && pm2 logs",
+    "restart": "pm2 restart server.js --name='upexchange-front'  -o ./logs/out.log -e ./logs/error.log",
+    "start": "pm2 start server.js --name='upexchange-front'  -o ./logs/out.log -e ./logs/error.log ",
     "stop": "pm2 stop server.js --name='upexchange-front'"
   },
   "version": "1.0.0"
