@@ -10,9 +10,9 @@ import bindPhone from '../../../images/bind-phone.png'
 import unbindPhone from '../../../images/unbind-phone.png'
 import bindEmail from '../../../images/bind-email.png'
 import unbindEmail from '../../../images/unbind-email.png'
-import gradeA from '../../../images/grade-A.png'
-import gradeB from '../../../images/grade-B.png'
-import gradeC from '../../../images/grade-C.png'
+import gradeA from '../../../images/grade-a.png'
+import gradeB from '../../../images/grade-b.png'
+import gradeC from '../../../images/grade-c.png'
 import { Switch } from 'antd';
 
 @inject('userInfoStore')

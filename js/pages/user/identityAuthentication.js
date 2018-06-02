@@ -19,7 +19,7 @@ class IdentityAuthentication extends Component {
   }
 
   state = {
-    step: 2
+    step: 1
   }
 
   changeStep (num) {

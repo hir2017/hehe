@@ -1,10 +1,12 @@
 import { observable, action } from 'mobx';
-import { 
-  personalInfo, loginRecord, 
-  sendCodeInUserCenter, 
+import {
+  personalInfo, loginRecord,
+  sendCodeInUserCenter,
   bindFdPwd, resetPwdInUserCenter,
   bindPhoneSendMsg, getSecretKey,
-  addAsk, getQuestions } from '../api/http'
+  addAsk, getQuestions,
+  submitUserInfo
+} from '../api/http'
 import { message } from 'antd'
 
 class UserInfo {
@@ -15,7 +17,8 @@ class UserInfo {
   @observable userInfo = {}
   @observable loginRecord = []
   @observable identityInfo = {
-    name: '',
+    firstName: '',
+    secondName: '',
     birthday: '',
     idType: '',
     idNumber: '',
@@ -44,7 +47,8 @@ class UserInfo {
 
   @action
   addIdentityInfo(data) {
-    this.identityInfo.name = data.name
+    this.identityInfo.firstName = data.firstName
+    this.identityInfo.secondName = data.secondName
     this.identityInfo.birthday = data.birthday
     this.identityInfo.idType = data.idType
     this.identityInfo.idNumber = data.idNumber
@@ -117,7 +121,7 @@ class UserInfo {
   }
 
   @action
-  async getGaSecretKey () {
+  async getGaSecretKey() {
     try {
       const res = await getSecretKey()
       this.gaSecretKey = res.attachment
@@ -128,7 +132,7 @@ class UserInfo {
   }
 
   @action
-  async ask (detail, urlkey) {
+  async ask(detail, urlkey) {
     try {
       this.submit_loading = true
       const res = await addAsk(detail, urlkey)
@@ -147,10 +151,25 @@ class UserInfo {
   }
 
   @action
-  async questions (page) {
+  async questions(page) {
     try {
       const res = await getQuestions(page)
       this.questionsLsit = res.attachment
+    } catch (e) {
+      console.error(e)
+      message.error('Network Error')
+    }
+  }
+
+  @action
+  async identityAuthentication(info) {
+    try {
+      const res = await submitUserInfo(info)
+      if (res.data.status === 200) {
+        return res.data
+      } else {
+        message.error(res.data.message)
+      }
     } catch (e) {
       console.error(e)
       message.error('Network Error')

@@ -19,7 +19,8 @@ export default class FirstStep extends Component {
   constructor () {
     super()
     this.next = this.next.bind(this)
-    this.nameChange = this.nameChange.bind(this)
+    this.firstNameChange = this.firstNameChange.bind(this)
+    this.secondNameChange = this.secondNameChange.bind(this)
     this.yearChange = this.yearChange.bind(this)
     this.monthChange = this.monthChange.bind(this)
     this.dayChange = this.dayChange.bind(this)
@@ -29,8 +30,10 @@ export default class FirstStep extends Component {
   }
 
   state = {
-    name: '',
-    nameMes: '',
+    firstName: '',
+    firstNameMes: '',
+    secondName: '',
+    secondNameMes: '',
     year: '',
     month: '',
     day: '',
@@ -76,10 +79,17 @@ export default class FirstStep extends Component {
     return monthA
   }
 
-  nameChange (e) {
+  firstNameChange (e) {
     this.setState({
-      name: e.target.value,
-      nameMes: ''
+      firstName: e.target.value,
+      firstNameMes: ''
+    })
+  }
+
+  secondNameChange (e) {
+    this.setState({
+      secondName: e.target.value,
+      secondNameMes: ''
     })
   }
 
@@ -123,34 +133,41 @@ export default class FirstStep extends Component {
   }
 
   next () {
-    let valid = true
-    if (!this.state.name) {
+    let valid1 = true, valid2 = true, valid3 = true, valid4 = true, valid5 = true
+    if (!this.state.firstName) {
       this.setState({
-        nameMes: UPEX.lang.template('*真实姓名不能为空')
+        firstNameMes: UPEX.lang.template('*真实姓氏不能为空')
       })
-      valid = false
+      valid1 = false
+    }
+    if (!this.state.secondName) {
+      this.setState({
+        secondNameMes: UPEX.lang.template('*真实名字不能为空')
+      })
+      valid2 = false
     }
     if (!this.state.year || !this.state.month || !this.state.day) {
       this.setState({
         birthdayMes: UPEX.lang.template('*请完善出生日期')
       })
-      valid = false
+      valid3 = false
     }
     if (!this.state.idCardType) {
       this.setState({
         idCardTypeMes: UPEX.lang.template('*请选择证件类型')
       })
-      valid = false
+      valid4 = false
     }
     if (!this.state.idCard) {
       this.setState({
         idCardMes: UPEX.lang.template('*证件号码不能为空')
       })
-      valid = false
+      valid5 = false
     }
-    if (valid) {
+    if (valid1 && valid2 && valid3 && valid4 && valid5) {
       this.props.userInfoStore.addIdentityInfo({
-        name: this.state.name,
+        firstName: this.state.firstName,
+        secondName: this.state.secondName,
         birthday: this.state.year + '-' + this.state.month + '-' + this.state.day,
         idType: this.state.idCardType,
         idNumber: this.state.idCard
@@ -165,13 +182,25 @@ export default class FirstStep extends Component {
         <Steps step={1}/>
         <div className="item one-item">
           <span className="lable">
-            {UPEX.lang.template('真实姓名')}
+            {UPEX.lang.template('真实姓氏')}
           </span>
           <span className="input">
-            <Input onChange={this.nameChange}/>
-            <span className="error-message">{this.state.nameMes}</span>
+            <Input onChange={this.firstNameChange}/>
+            <span className="error-message">{this.state.firstNameMes}</span>
             <span className="message">
-              *{UPEX.lang.template('填写之姓名必须与日后提领的银行账户名相同')}
+              *{UPEX.lang.template('填写之姓氏必须与日后提领的银行账户名相同')}
+            </span>
+          </span>
+        </div>
+        <div className="item">
+          <span className="lable">
+            {UPEX.lang.template('真实名字')}
+          </span>
+          <span className="input">
+            <Input onChange={this.secondNameChange}/>
+            <span className="error-message">{this.state.secondNameMes}</span>
+            <span className="message">
+              *{UPEX.lang.template('填写之名字必须与日后提领的银行账户名相同')}
             </span>
           </span>
         </div>
