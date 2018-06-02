@@ -593,6 +593,29 @@
     padding-left: 50px;
     margin-top: 20px;
     border-left: 1px solid #d9d9d9;
+    position: relative;
+}
+
+.user-main-box .binding-bank-message img {
+    position: absolute;
+    bottom: -180px;
+}
+.user-main-box .binding-bank-message .banck-card-title {
+    width: 20px;
+    font-size: 14px;
+    color: #999999;
+    position: absolute;
+    bottom: -130px;
+    left: 20px;
+}
+
+.user-main-box .binding-bank-message .banck-card-message {
+    position: absolute;
+    bottom: -220px;
+    width: 210px;
+    font-size: 12px;
+    text-align: center;
+    left: 90px;
 }
 
 .user-main-box .binding-bank-message li {
