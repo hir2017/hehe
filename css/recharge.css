@@ -21,6 +21,7 @@
 }
 
 .recharge-form {
+    position: relative;
     padding-top: 30px;
     margin-bottom: 30px;
 }

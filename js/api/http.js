@@ -126,6 +126,13 @@ export function userLogin2(data) {
         source: 1
     })).then(res => res.data);
 }
+/**
+ * 用户登录 － 退出
+ */
+export function userLogout(){
+    return axios.post(`${UPEX.config.host}//user/logout`).then(res => res.data);
+}
+
 // 重置密码
 export function resetPwd(data) {
     return axios.post(`${UPEX.config.host}/user/resetPwd`, qs.stringify({
@@ -196,7 +203,12 @@ export function getCoinAccount(type = 1){
         type
     })).then(res => res.data);
 }
-
+/**
+ * 我的余额
+ */
+ export function getCNYBalance(){
+    return axios.post(`${UPEX.config.host}/property`).then(res => res.data);
+ }
 /**
  * 查询当前币种地址及二维码
  */

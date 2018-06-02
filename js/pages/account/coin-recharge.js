@@ -110,6 +110,7 @@ class Recharge extends Component{
 							</ul>
 						</div>
 					</div>
+					{ store.isFetching ? <div className="mini-loading"></div> : null }
 				</div>
 				<div className="recharge-record">
 					<h3>{UPEX.lang.template('充币记录')}</h3>

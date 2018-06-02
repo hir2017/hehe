@@ -63,7 +63,7 @@ const routes = (
         	<IndexRedirect to='home'/>
         	<Route path="home" component={Home}/>
         	<Route path="index" component={Home}/>
-	        <Route path="trade(/:code)" component={TradeCenter}/>
+	        <Route path="trade(/:pair)" component={TradeCenter}/>
 	        
 	        <Route path="account">
 	        	<IndexRoute component={Assets}/>
@@ -124,4 +124,7 @@ const routes = (
 	</Route>
 )
 
+export {
+	TradeCenter
+}
 export default routes;

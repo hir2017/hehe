@@ -60,8 +60,8 @@ class OrderStore {
 	@action
 	parseData(arr) {
 		arr.forEach((item, index) => {
-            let pointPrice = this.commonStore.getPointPrice('currencyNameEn', item.currencyNameEn);
-            let pointNum =  this.commonStore.getPointNum('currencyNameEn', item.currencyNameEn);
+            let pointPrice = this.commonStore.getPointPrice(item.currencyNameEn);
+            let pointNum =  this.commonStore.getPointNum(item.currencyNameEn);
             // 时间
             item.orderTime = TimeUtil.formatDate(item.orderTime, 'yyyy-MM-dd HH:mm:ss');
             // 委托价格

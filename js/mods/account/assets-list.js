@@ -27,50 +27,10 @@ class List extends Component {
 		let store = this.props.accountStore;
 		let $content;
 		
-		if(store.isFetchingList){
-			$content = <div className="mini-tip">{ UPEX.lang.template('正在加载')}</div>
-		} else if(store.coinList.length == 0) {
+		if(!store.isFetching && store.coinList.length == 0) {
 			$content = <div className="mini-tip">{ UPEX.lang.template('暂无数据') }</div>;
 		} else {
-			$content = (
-				<ul>
-					{
-						store.coinList.map((item, index)=>{
-							return (
-								<li key={index}>
-									<dl>
-										<dd className="name">
-											<img src={`${UPEX.config.imgHost}${item.icoUrl}`} alt=""/>
-											{item.currencyNameEn}
-										</dd>
-										<dd className="total">{item.amount}</dd>
-										<dd className="balance">{item.cashAmount}</dd>
-										<dd className="freeze">{item.freezeAmount}</dd>
-										<dd className="value">{item.btc_value}</dd>
-										<dd className="actions">
-											<button>
-												<Link to={`/account/coin/recharge/${item.currencyNameEn}`}>
-												{UPEX.lang.template('充币')}
-												</Link>
-											</button>
-											<button>
-												<Link to={`/account/coin/withdraw/${item.currencyNameEn}`}>
-												{UPEX.lang.template('提币')}
-												</Link>
-											</button>
-											<button>
-												<Link to={{ pathname: '/trade', query: { currencyId: item.currencyId, baseCurrencyId: item.baseCurrencyId } }}>
-												{UPEX.lang.template('交易')}
-												</Link>
-											</button>
-										</dd>
-									</dl>
-								</li>
-							)
-						})
-					}
-				</ul>
-			)
+			$content = <AssetsListView coinList={store.coinList}/>
 		}
 
 		return (
@@ -103,10 +63,62 @@ class List extends Component {
 						{
 							$content
 						}
+						{ store.isFetching ? <div className="mini-loading"></div> : null}
 					</div>
 				</div>
 			</div>
 		);
 	}
 }
+
+@observer
+class AssetsListView extends Component {
+	render() {
+		return (
+			<ul>
+				{
+					this.props.coinList.map((item, index)=>{
+						return (
+							<li key={index}>
+								<dl>
+									<dd className="name">
+										<img src={`${item.icoUrl}`} alt=""/>
+										{item.currencyNameEn}
+									</dd>
+									<dd className="total">{item.amount}</dd>
+									<dd className="balance">{item.cashAmount}</dd>
+									<dd className="freeze">{item.freezeAmount}</dd>
+									<dd className="value">{item.btc_value}</dd>
+									<dd className="actions">
+										<button>
+											<Link to={`/account/coin/recharge/${item.currencyNameEn}`}>
+											{UPEX.lang.template('充币')}
+											</Link>
+										</button>
+										<button>
+											<Link to={`/account/coin/withdraw/${item.currencyNameEn}`}>
+											{UPEX.lang.template('提币')}
+											</Link>
+										</button>
+										{
+											item.currencyNameEn !=='TWD' ? (
+												<button>
+													<Link to={`/trade/TWD_${item.currencyNameEn}`}>
+													{UPEX.lang.template('交易')}
+													</Link>
+												</button>
+											) : null
+										}
+									</dd>
+								</dl>
+							</li>
+						)
+					})
+				}
+			</ul>
+		)
+	}
+}
+
+
 export default List;

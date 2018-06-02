@@ -3,6 +3,7 @@
  */
 import { observable, autorun, computed, action, runInAction } from 'mobx';
 import { socket } from '../api/socket';
+import { getBaseCoin } from '../api/http';
 
 const getWindowDimensions = () => {
     return {
@@ -20,8 +21,10 @@ class CommonStore {
     // 窗口尺寸
     @observable.struct windowDimensions = getWindowDimensions();
     // 业务公用的数据
-    @observable allCoinPoint = [];
-    @observable coinPointReady = false;
+    @observable productList = [];
+    @observable productDataReady = false;
+    
+    coinsMap = {}; // { key:{}, key: {} } // 方便获取基础币信息 
 
     constructor() {
         $(window).resize(() => {
@@ -60,58 +63,59 @@ class CommonStore {
         this.currentPathName = url;
     }
     /**
-     * 币种列表、小数位点数
+     * 币种列表、以及币种对应的小数位点数
+     * 按数字币的权重排序
+     * TODO 基础信息缓存
      */
     @action
     getAllCoinPoint() {
-        let allCoinPoint = UPEX.cache.getCache('productlist');
+        let list = UPEX.cache.getCache('productlist');
 
-        if (allCoinPoint) {
-            this.allCoinPoint = allCoinPoint;
-            this.coinPointReady = true;
+        this.productDataReady = false;
+
+        if (list) {
+            this.productList = list;
+            this.coinsMap = this.getCoinsMap(list);
+            this.productDataReady = true;
             return;
         }
 
-        socket.emit('coinPoint');
-
-        socket.on('coinPoint', (data) => {
-            // 有效期1小时
-            if (data.status == 200) {
-
-                UPEX.cache.setCache('productlist', data, 1 * 3600 * 1000);
-
-                runInAction('get all coin point', () => {
-                    this.allCoinPoint = data;
-                    this.coinPointReady = true;
-                })
-            }
+        getBaseCoin().then((data) => {
+            runInAction('get all coin point', () => {
+                if (data.status == 200) {
+                    let list = data.attachment;
+                    
+                    this.productList = list;
+                    this.coinsMap = this.getCoinsMap(list);
+                    UPEX.cache.setCache('productlist', list, 8 * 3600 * 1000);  // 8小时
+                    
+                }
+                this.productDataReady = true;
+            })
+        }).catch(()=>{
+            this.productDataReady = true;
         })
     }
 
-    @computed
-    get productList() {
-        let result = {};
-
-        this.allCoinPoint.forEach((item, index) => {
-            if (!result[item.baseCurrencyNameEn]) {
-                result[item.baseCurrencyNameEn] = [];
-            }
-
-            result[item.baseCurrencyNameEn].push(item);
-        })
-
-        return result;
-    }
-
-    /**
-     *
-     */
     @action
-    getTradeCoin(currencyId, baseCurrencyId) {
+    getCoinsMap(list) {
+        let map = {};
+
+        for (let i = list.length; i--;) {
+            map[list[i].currencyNameEn] = list[i];
+        }
+
+        return map;
+    }
+    /**
+     * 根据ID获取币信息
+     */
+    @action.bound
+    getTradeCoinById(currencyId) {
         let ret;
 
-        let product = this.allCoinPoint.filter(function(item) {
-            return item.currencyId === currencyId && item.baseCurrencyId === baseCurrencyId;
+        let product = this.productList.filter(function(item) {
+            return item.currencyId === currencyId;
         })
 
         ret = product[0];
@@ -119,42 +123,25 @@ class CommonStore {
         return ret;
     }
     /**
+     * 根据币名称获取币信息
+     */
+    @action.bound
+    getTradeCoinByName(name) {
+        return this.coinsMap[name];
+    }
+    /**
      * 价格小数点后几位
      */
-    @action
-    getPointPrice(key, value) {
-        let ret;
-
-        key = key || 'currencyNameEn';
-
-        let product = this.allCoinPoint.filter(function(item) {
-            return item[key] === value;
-        })[0];
-
-        if (product) {
-            ret = product.pointPrice;
-        }
-
-        return ret;
+    @action.bound
+    getPointPrice(name) {
+        return Number(this.coinsMap[name].pointPrice);
     }
     /**
      * 数量小数点后几位
      */
-    @action
+    @action.bound
     getPointNum(key, value) {
-        let ret;
-
-        key = key || 'currencyNameEn';
-
-        let product = this.allCoinPoint.filter(function(item) {
-            return item[key] === value;
-        })[0];
-
-        if (product) {
-            ret = product.pointNum;
-        }
-
-        return ret;
+        return Number(this.coinsMap[name].pointNum);
     }
 }
 

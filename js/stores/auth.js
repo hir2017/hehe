@@ -1,4 +1,5 @@
 import { observable, computed, autorun, action} from 'mobx';
+import { userLogout } from '../api/http';
 
 class AuthStore {
 	@observable uid = UPEX.cache.getCache('uid') || '';
@@ -35,6 +36,15 @@ class AuthStore {
 	clear() {
 		this.uid = '';
 		this.token = '';
+	}
+
+	@action
+	logout() {
+		return userLogout().then((data)=>{
+			if (data.statsu ==  200) {
+				this.clear();
+			}
+		})
 	}
 }
 

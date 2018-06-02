@@ -121,20 +121,22 @@ class TVChartContainer extends Component {
 
 	createTradingView() {
         let self = this;
+        let { getTradeCoinById, getPointPrice } = this.props.commonStore;
 		let theme = this.props.tradeStore.theme;
         let currencyId = this.props.tradeStore.currencyId;
         let baseCurrencyId = this.props.tradeStore.baseCurrencyId;
 		let locale = this.getLocale();
 		let interval = this.getIntervalByPeriod();
-        let currentSymbol = this.props.tradeStore.allCoinPoint.filter(function(item){
-            return  item.currencyId === currencyId && item.baseCurrencyId === baseCurrencyId;
-        })[0];
+        let baseCurrencyNameEn = getTradeCoinById(baseCurrencyId).currencyNameEn;
+        let currencyNameEn = getTradeCoinById(currencyId).currencyNameEn;
 
-        if (!currentSymbol){
+        if (!currencyNameEn){
             throw new Error("no such symbol");
         }
 
-        let currentSymbolName = `${currentSymbol.currencyNameEn}/${currentSymbol.baseCurrencyNameEn}`;
+        interval = '1D';
+
+        let currentSymbolName = `${currencyNameEn}/${baseCurrencyNameEn}`;
         
 		var cfg = {
             debug: true,
@@ -161,7 +163,9 @@ class TVChartContainer extends Component {
                 }]
             },
             datafeed: new UDFCompatibleDatafeed({
-                symbolInfo: currentSymbol,
+                currencyNameEn,
+                baseCurrencyNameEn,
+                pointPrice:  getPointPrice(currencyNameEn),
                 interval: interval,
             }),
             // datafeed: new Datafeeds.UDFCompatibleDatafeed("https://demo_feed.tradingview.com"),
@@ -517,7 +521,7 @@ class TVChartContainer extends Component {
 	                <ul className="info-list">
 	                    <li className="coin" ref="coin">
 	                        <Popover content={<TradeCoinList/>} placement="bottomLeft" trigger="click" getPopupContainer={()=>this.refs.coin} overlayClassName={ store.theme === 'dark' ? 'popover-tradecoins-dark' : 'popover-tradecoins-light'}>
-	                            <label>{ store.currentTradeCoin.currencyNameEn }/{store.currentTradeCoin.baseCurrencyNameEn}</label>
+	                            <label>{ store.currentTradeCoin.currencyNameEn }</label>
 	                            <Icon type="caret-down" style={arrowCls} />
 	                        </Popover>
 	                        <em>{ store.currentAmount }</em>

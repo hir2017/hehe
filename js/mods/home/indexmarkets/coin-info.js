@@ -58,7 +58,7 @@ class CoinInfo extends Component {
           <div className="coinInfo-line-title">
             <span>{UPEX.lang.template('实时行情')}</span>
             <span>
-              <Link to={{ pathname: '/trade', query: { currencyId: coin.currencyId, baseCurrencyId: coin.baseCurrencyId } }}>
+              <Link to={`/trade/${coin.baseCurrencyNameEn}_${coin.currencyNameEn}`}>
                 <img src={klineCoin} />
                 {UPEX.lang.template('K线')}
               </Link>

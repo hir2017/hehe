@@ -3,7 +3,6 @@
  */
 
 import io from 'socket.io-client';
-import { baseCurrencyId,  tradeCurrencyId } from '../config';
 
 let host = UPEX.config.websocketHost;
 
@@ -33,5 +32,5 @@ const webchat = {
 	}
 }
 
-export { socket , baseCurrencyId ,  tradeCurrencyId}
+export { socket }
 export default webchat;
