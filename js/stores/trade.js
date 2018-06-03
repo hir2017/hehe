@@ -904,7 +904,7 @@ class TradeStore {
         return defer.promise();
     }
 
-    @action
+    
     processData(list, type, desc){
         let res = [];
         // Convert to data points

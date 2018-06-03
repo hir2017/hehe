@@ -60,7 +60,7 @@ class OrderStore {
         })
 	}
 
-	@action
+	
 	parseData(arr) {
 		arr.forEach((item, index) => {
             let pointPrice = this.commonStore.getPointPrice(item.currencyNameEn);

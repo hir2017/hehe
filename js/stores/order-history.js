@@ -60,7 +60,7 @@ class OrderStore {
         })
     }
 
-    @action
+    
     parseData(arr) {
         arr.forEach((item, index) => {
             item.orderTime = TimeUtil.formatDate(item.orderTime, 'yyyy-MM-dd HH:mm:ss');
