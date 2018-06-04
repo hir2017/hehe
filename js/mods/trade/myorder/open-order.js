@@ -61,7 +61,7 @@ class OpenOrder extends Component{
 				<div className="tradeorder-table-hd">
 					<ul>
 						<li className="time">{ UPEX.lang.template('时间') }</li>
-						<li className="type">{ UPEX.lang.template('方向') }</li>
+						<li className="type">{ UPEX.lang.template('买卖') }</li>
 						<li className="name">{ UPEX.lang.template('币种') }</li>
 						<li className="number">{ UPEX.lang.template('委托数量') }</li>
 						<li className="price">{ UPEX.lang.template('委托单价') }</li>

@@ -61,6 +61,7 @@
     display: inline-block;
     margin-right: 40px;
     line-height: 50px;
+    padding-left: 50px;
 }
 
 .account-amount i {

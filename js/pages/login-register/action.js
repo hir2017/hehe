@@ -172,7 +172,7 @@ export default (store) => {
         },
 
         submitRegister() {
-            let { verifyInfoBeforeSubmit } = store;
+            let { verifyInfoBeforeSubmit , updateLogining } = store;
             //  验证表单信息
             if (!verifyInfoBeforeSubmit.pass) {
                 message.error(verifyInfoBeforeSubmit.message);
@@ -191,6 +191,7 @@ export default (store) => {
                 imgcode: store.imgcode,
                 codeid: store.codeid
             }).then((data) => {
+                
                 switch (data.status) {
                     case 200:
                         this.changeSendingCodeTo(false);
@@ -210,6 +211,8 @@ export default (store) => {
                         this.getImgCaptcha();
                         break;
                 }
+            }).catch(()=>{
+
             })
         },
 
@@ -250,12 +253,17 @@ export default (store) => {
         },
 
         userLogin() {
+            const { updateLogining } = store;
+            
+            updateLogining(true);
+
             return userLogin({
                 email: store.account,
                 pwd: md5(store.pwd + UPEX.config.salt),
                 imgcode: store.imgcode,
                 codeid: store.codeid
             }).then((data) => {
+                updateLogining(false);
 
                 switch (data.status) {
                     case 200:
@@ -271,7 +279,9 @@ export default (store) => {
                 }
 
                 return data;
-            });
+            }).catch(()=>{
+                updateLogining(false);
+            })
         },
 
         userLogin2() {

@@ -1,5 +1,6 @@
 /**
  * 充币
+ * TODO msgCode=0的情况
  */
 import React, {Component} from 'react';
 import { observer, inject } from 'mobx-react';
@@ -92,6 +93,9 @@ class Recharge extends Component{
 									<button className="copy" id="copy-address">{UPEX.lang.template('复制地址')}</button>
 								</li>
 								<li>
+									{UPEX.lang.template('网络手续费: {fee}', {fee: store.currentCoin.fee || ''})}
+								</li>
+								<li>
 									<div className="qrcode">
 										<img src={`data:image/png;base64,${store.currentCoin.image}`} alt=""/>
 									</div>
@@ -99,10 +103,10 @@ class Recharge extends Component{
 								</li>
 								<li>
 									<div className="tip">
-										<h3>{UPEX.lang.template('温馨提示')}</h3>
+										<h4>{UPEX.lang.template('温馨提示')}</h4>
 										<ul>
-											<li dangerouslySetInnerHTML={{__html: UPEX.lang.template('禁止向非{name}地址充值，除{name}之外的資產，任何充入{name}地址的非{name}資產將不可找回。', { name: store.currentCoin.currencyNameEn}, 1) }}></li>
-											<li dangerouslySetInnerHTML={{__html: UPEX.lang.template('使用{name}地址充值需要{num}個以上網絡確認才能到賬。',{name: store.currentCoin.currencyNameEn, num: store.currentCoin.confirmNum}, 1) }}></li>
+											<li dangerouslySetInnerHTML={{__html: UPEX.lang.template('禁止向非{name}地址充值，除{name}之外的資產，任何充入{name}地址的非{name}資產將不可找回。', { name: store.currentCoin.currencyNameEn || ''}, 1) }}></li>
+											<li dangerouslySetInnerHTML={{__html: UPEX.lang.template('使用{name}地址充值需要{num}個以上網絡確認才能到賬。',{name: store.currentCoin.currencyNameEn || '', num: store.currentCoin.confirmNum || 0}, 1) }}></li>
 											<li dangerouslySetInnerHTML={{__html: UPEX.lang.template('充值完成後，妳可以進入歷史記錄頁面跟蹤進度')}}></li>
 										</ul>
 									</div>

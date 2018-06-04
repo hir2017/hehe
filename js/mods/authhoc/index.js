@@ -3,6 +3,8 @@
  */
 import React, {Component} from 'react';
 import { observer, inject } from 'mobx-react';
+import { browserHistory } from 'react-router';
+import { message } from 'antd';
 
 @inject('authStore')
 @observer
@@ -21,6 +23,10 @@ class Auth extends Component {
         		isLogin: true
         	})
         } else {
+            message.error(UPEX.lang.template('登录超时，请重新登录'));
+
+            browserHistory.push('/login');
+
         	this.setState({
         		isLogin: false
         	});

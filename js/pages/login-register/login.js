@@ -2,7 +2,8 @@
  * @fileoverview 登录页面
  * @author 陈立英
  * @date 2018-04-26
- *  <GaModal email={this.refs.uname}/> ？？？ 谷歌验证器的密码
+ * 开启谷歌登录验证：
+ * 开启手机登录验证：
  */
 import React, {Component} from 'react';
 import { observer, inject } from 'mobx-react';
@@ -49,10 +50,6 @@ class Login extends Component {
                 then((data)=>{
                     switch(data.status){
                         case 200:
-                            // TODO 每次重新加载清除
-                            // sessionStorage.removeItem('baseCurrencyId')
-                            // sessionStorage.removeItem('currencyId')
-                            // history.back();
                             setTimeout(() => {
                                 browserHistory.push('/home');
                             }, 100)
@@ -60,6 +57,11 @@ class Login extends Component {
                         case 5555: // 需要进行谷歌认证
                             this.setState({
                                 step: 'google'
+                            });
+                            break;
+                        case 5557:
+                            this.setState({
+                                step: 'phone'
                             });
                             break;
                         default:
@@ -123,7 +125,7 @@ class Login extends Component {
                              <div className="input-wrapper">
                                 <div className="input-box">
                                     <input
-                                        type="password" 
+                                        type="number" 
                                         onInput={ action.onChangeGoogleCode}
                                         placeholder={ UPEX.lang.template('谷歌验证码') }
                                     />
@@ -234,7 +236,12 @@ class Login extends Component {
 
                         <div className="input-wrapper">
                             <div className="login-input">
-                                <button className="submit-btn login-btn" onClick={ this.handleLogin }>{ UPEX.lang.template('登录') }</button>
+                                {
+                                    store.logining ?  
+                                    <button className="submit-btn login-btn">{ UPEX.lang.template('登录中') }</button>
+                                    : 
+                                    <button className="submit-btn login-btn" onClick={ this.handleLogin }>{ UPEX.lang.template('登录') }</button>
+                                }
                             </div>
                         </div>
                         <div className="register-extra clearfix">
