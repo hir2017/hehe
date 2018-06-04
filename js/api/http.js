@@ -563,6 +563,16 @@ export function closeGoogleAuth (clientPassword, verCode) {
 export function selectAuthLevel () {
     return axios.post(`${UPEX.config.host}/user/selectAuthLevel`).then(res => res.data);
  }
+
+ /**
+ *  身份 认证信息
+ */
+
+export function bindPhone (newPhone, oldPhone, oldVercode, vercode) {
+    return axios.post(`${UPEX.config.host}/user/bindPhone`, {
+        newPhone, oldPhone, oldVercode, vercode
+    }).then(res => res.data);
+ }
  
 
 

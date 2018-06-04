@@ -8,10 +8,12 @@ import { observer, inject } from 'mobx-react';
 import { Button } from 'antd'
 import Steps from './steps'
 
+@inject('userInfoStore')
 @observer
 export default class FourthStep extends Component {
 
   render() {
+    const userInfo = this.props.userInfoStore.userInfo || {}
     return (
       <div>
         <Steps step={4}/>
@@ -19,9 +21,9 @@ export default class FourthStep extends Component {
           <span>{UPEX.lang.template('您已完成安全認證！')}</span>
         </div>
         <div className="success-user-info">
-          <div>{UPEX.lang.template('姓名')}：**倫</div>
-          <div>{UPEX.lang.template('证件类型/证件号码')}： 台灣身份證/M1*******78</div>
-          <div>{UPEX.lang.template('手機號碼')}：13*****6743</div>
+          <div>{UPEX.lang.template('姓名')}：{userInfo.name}</div>
+          <div>{UPEX.lang.template('证件类型/证件号码')}：{UPEX.lang.template('台灣身份證')}/{userInfo.idNumber}</div>
+          <div>{UPEX.lang.template('手機號碼')}：{userInfo.phone}</div>
         </div>
         <div className="success-prompt">
           {UPEX.lang.template('如填写有误需要修改，请 联系客服 support@ace.one 进行修改')}

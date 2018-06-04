@@ -20,7 +20,7 @@ class IdentityAuthentication extends Component {
   }
 
   state = {
-    step: 1
+    step: null
   }
 
   componentWillMount() {
@@ -33,8 +33,8 @@ class IdentityAuthentication extends Component {
     })
   }
 
-  nowStep () {
-    const step = this.state.step
+  nowStep (_step) {
+    const step = _step
     if (step === 1) {
       return <FirstStep changeStep={this.changeStep}/>
     }
@@ -51,7 +51,13 @@ class IdentityAuthentication extends Component {
 
   render() {
     const userInfo = this.props.userInfoStore.userInfo || {}
-    console.log(userInfo)
+    let step = 1
+    if (userInfo.isAuthSenior === 2) {
+      step = 4
+    }
+    if (userInfo.isAuthSenior === 1 || userInfo.isAuthSenior === -1) {
+      step = 3
+    }
     return (
       <div className="authentication">
         <div className="authentication-title">
@@ -59,8 +65,7 @@ class IdentityAuthentication extends Component {
         </div>
         <div className="authentication-content">
           {
-            
-            this.nowStep()
+            this.nowStep(this.state.step || step)
           }
         </div>
       </div>

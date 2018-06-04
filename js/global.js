@@ -140,7 +140,7 @@ switch(Url.query('env')) {
         break;
     case 'stage':
         // 测试环境
-        origin = '54.169.140.238';
+        origin = '13.251.85.35';// '54.169.140.238';
         break;
     default:
         // 默认线上环境
@@ -152,7 +152,7 @@ const host = 'http://' +  origin +'/polarisex';
 const uploadHost = host + '/upload/upload';
 const uploadImgHost =  host + '/user/uploadImageSingle';
 const websocketHost = 'ws://' + origin + '/';
-const imgHost = 'http://p87b2n306.sabkt.gdipper.com';
+const imgHost = 'http://' + origin + '/img';
 
 const config = {
     channel: '',

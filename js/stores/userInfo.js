@@ -8,7 +8,8 @@ import {
   submitUserInfo,
   bindGoogleAuth,
   closeGoogleAuth,
-  selectAuthLevel
+  selectAuthLevel,
+  bindPhone
 } from '../api/http'
 import { message } from 'antd'
 
@@ -217,6 +218,21 @@ class UserInfo {
         console.log(res.data, 'data')
       } else {
         message.error(res.data.message)
+      }
+    } catch (e) {
+      console.error(e)
+      message.error('Network Error')
+    }
+  }
+
+  @action
+  async modifyPhone(newPhone, oldPhone, oldVercode, vercode) {
+    try {
+      const res = await bindPhone(newPhone, oldPhone, oldVercode, vercode)
+      if (res.status === 200) {
+        console.log(res.data, 'data')
+      } else {
+        message.error(res.message)
       }
     } catch (e) {
       console.error(e)

@@ -73,7 +73,7 @@ export default class BindingPhone extends Component {
       return
     }
 
-    // this.props.userInfoStore.resetPwd(this.state.newPwd, this.state.vCode, this.state.ivCode, codeid, pwd)
+    this.props.userInfoStore.modifyPhone(this.state.phone, '', '', this.state.vCode)
   }
 
   render() {
