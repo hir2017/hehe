@@ -485,7 +485,7 @@ export function personalInfo(){
   */
 
  export function getSecretKey () {
-    return axios.post(`${UPEX.config.host}/user/getSecretKey`).then(res => res.data);
+    return axios.post(`${UPEX.config.host}/security/getSecretKey`).then(res => res.data);
  }
 
  /**
@@ -529,7 +529,7 @@ export function personalInfo(){
  */
 
  export function bindGoogleAuth (clientPassword, verCode) {
-    return axios.post(`${UPEX.config.host}/user/bindGoogleAuth`, {
+    return axios.post(`${UPEX.config.host}/security/bindGoogleAuth`, {
         clientPassword, 
         verCode
     }).then(res => res.data);
@@ -540,7 +540,7 @@ export function personalInfo(){
  */
 
 export function closeGoogleAuth (clientPassword, verCode) {
-    return axios.post(`${UPEX.config.host}/user/closeGoogleAuth`, {
+    return axios.post(`${UPEX.config.host}/security/closeGoogleAuth`, {
         clientPassword, 
         verCode
     }).then(res => res.data);
