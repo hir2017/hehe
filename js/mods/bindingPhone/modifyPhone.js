@@ -21,6 +21,7 @@ export default class ModifyPhone extends Component {
     this.ivCodeChange = this.ivCodeChange.bind(this)
     this.submit = this.submit.bind(this)
     this.vCodeChange = this.vCodeChange.bind(this)
+    this.nvCodeChange = this.nvCodeChange.bind(this)
     this.captchaChange = this.captchaChange.bind(this)
   }
 
@@ -36,7 +37,8 @@ export default class ModifyPhone extends Component {
     phone: '',
     vCode: '',
     ivCode: '',
-    areacode: ''
+    areacode: '',
+    nvCode: ''
   }
 
   onAreaCodeChange (val) {
@@ -57,6 +59,12 @@ export default class ModifyPhone extends Component {
     })
   }
 
+  nvCodeChange (e) {
+    this.setState({
+      nvCode: e.target.value
+    })
+  }
+
   ivCodeChange(e) {
     this.setState({
       ivCode: e.target.value
@@ -73,12 +81,16 @@ export default class ModifyPhone extends Component {
       message.error(UPEX.lang.template('新手机号不能为空'))
       return
     }
+    if (!this.state.nvCode) {
+      message.error(UPEX.lang.template('新短信确认码不能为空'))
+      return
+    }
     if (!this.state.vCode) {
-      message.error(UPEX.lang.template('短信验证码不能为空'))
+      message.error(UPEX.lang.template('短信确认码不能为空'))
       return
     }
 
-    // this.props.userInfoStore.resetPwd(this.state.newPwd, this.state.vCode, this.state.ivCode, codeid, pwd)
+    this.props.userInfoStore.modifyPhone(this.state.phone, '18701073624', this.state.vCode, this.state.nvCode)
   }
 
   render() {
@@ -116,7 +128,7 @@ export default class ModifyPhone extends Component {
           </div>
           <div className="item v-code">
             <span className="lable">{UPEX.lang.template('新短信确认码')}</span>
-            <input style={{width: 130}} onChange={this.vCodeChange} className="input" />
+            <input style={{width: 130}} onChange={this.nvCodeChange} className="input" />
           </div>
           <div className="item v-code-button">
             <Vcodebutton message="新手机号不能为空" phone={this.state.phone} areacode={this.state.areacode} bind={true} type={2} imgCode={this.state.ivCode} codeid={codeid} />

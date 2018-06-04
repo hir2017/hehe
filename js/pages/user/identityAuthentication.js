@@ -51,7 +51,7 @@ class IdentityAuthentication extends Component {
 
   render() {
     const userInfo = this.props.userInfoStore.userInfo || {}
-    let step = 4
+    let step = 1
     if (userInfo.isAuthSenior === 2) {
       step = 4
     }
