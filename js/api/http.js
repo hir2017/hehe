@@ -8,7 +8,7 @@ axios.interceptors.request.use(function(config) {
     const uid = UPEX.cache.getCache('uid');
     let local = UPEX.cache.getCache('lang');
 
-    local = local == undefined || local == '' ? 'zh-TW' : local;
+    local = local == undefined || local == '' ? 'zh_TW' : local;
 
     if (!token && !uid) {
         let data = qs.parse(config.data)
@@ -522,5 +522,36 @@ export function personalInfo(){
         ...info
     }).then(res => res.data);
  }
+
+/**
+ *  GA 绑定
+ */
+
+ export function bindGoogleAuth (clientPassword, verCode) {
+    return axios.post(`${UPEX.config.host}/user/bindGoogleAuth`, {
+        clientPassword, 
+        verCode
+    }).then(res => res.data);
+ }
+
+/**
+ *  GA 解绑
+ */
+
+export function closeGoogleAuth (clientPassword, verCode) {
+    return axios.post(`${UPEX.config.host}/user/closeGoogleAuth`, {
+        clientPassword, 
+        verCode
+    }).then(res => res.data);
+ }
+
+ /**
+ *  身份 认证信息
+ */
+
+export function selectAuthLevel () {
+    return axios.post(`${UPEX.config.host}/user/selectAuthLevel`).then(res => res.data);
+ }
+ 
 
 

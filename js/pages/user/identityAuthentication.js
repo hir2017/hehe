@@ -10,6 +10,7 @@ import SecondStep from '../../mods/identityAuthentication/second-step'
 import ThirdStep from '../../mods/identityAuthentication/third-step'
 import FourthStep from '../../mods/identityAuthentication/fourth-step'
 
+@inject('userInfoStore')
 @observer
 class IdentityAuthentication extends Component {
 
@@ -20,6 +21,10 @@ class IdentityAuthentication extends Component {
 
   state = {
     step: 1
+  }
+
+  componentWillMount() {
+    this.props.userInfoStore.getUserInfo()
   }
 
   changeStep (num) {
@@ -45,6 +50,8 @@ class IdentityAuthentication extends Component {
   }
 
   render() {
+    const userInfo = this.props.userInfoStore.userInfo || {}
+    console.log(userInfo)
     return (
       <div className="authentication">
         <div className="authentication-title">
@@ -52,6 +59,7 @@ class IdentityAuthentication extends Component {
         </div>
         <div className="authentication-content">
           {
+            
             this.nowStep()
           }
         </div>

@@ -5,7 +5,10 @@ import {
   bindFdPwd, resetPwdInUserCenter,
   bindPhoneSendMsg, getSecretKey,
   addAsk, getQuestions,
-  submitUserInfo
+  submitUserInfo,
+  bindGoogleAuth,
+  closeGoogleAuth,
+  selectAuthLevel
 } from '../api/http'
 import { message } from 'antd'
 
@@ -167,6 +170,51 @@ class UserInfo {
       const res = await submitUserInfo(info)
       if (res.data.status === 200) {
         return res.data
+      } else {
+        message.error(res.data.message)
+      }
+    } catch (e) {
+      console.error(e)
+      message.error('Network Error')
+    }
+  }
+
+  @action
+  async bindGA(clientPassword, verCode) {
+    try {
+      const res = await bindGoogleAuth(clientPassword, verCode)
+      if (res.data.status === 200) {
+        message.success(res.data.message)
+      } else {
+        message.error(res.data.message)
+      }
+    } catch (e) {
+      console.error(e)
+      message.error('Network Error')
+    }
+  }
+
+  @action
+  async rmBindGA(clientPassword, verCode) {
+    try {
+      const res = await closeGoogleAuth(clientPassword, verCode)
+      if (res.data.status === 200) {
+        message.success(res.data.message)
+      } else {
+        message.error(res.data.message)
+      }
+    } catch (e) {
+      console.error(e)
+      message.error('Network Error')
+    }
+  }
+
+  @action
+  async authInfo() {
+    try {
+      const res = await selectAuthLevel()
+      if (res.data.status === 200) {
+        console.log(res.data, 'data')
       } else {
         message.error(res.data.message)
       }

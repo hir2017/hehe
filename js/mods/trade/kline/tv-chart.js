@@ -383,7 +383,7 @@ class TVChartContainer extends Component {
 			case 'zh-CN':
 				lang = 'zh';
 				break;
-			case 'zh-TW':
+			case 'zh_TW':
 				lang = 'zh_TW';
 				break;
 			case 'en-US':

@@ -1026,7 +1026,10 @@
     width: 150px;
     display: inline-block;
 }
-
+.user-main-box .rm-binding {
+    display: block !important;
+    margin-left: -120px;
+}
 .user-main-box .reBinding-right {
     display: inline-block;
 }
