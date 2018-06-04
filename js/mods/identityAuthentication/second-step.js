@@ -39,7 +39,7 @@ export default class SecondStep extends Component {
       handImages: this.state.threeUrl
     }) 
     
-    if (res.status === 200) {
+    if (res.status !== 200) {
       this.props.changeStep(3)
     }
   }
@@ -92,7 +92,7 @@ export default class SecondStep extends Component {
           <span>
             <Upload {...this._props('oneUrl')}>
               <img className="pic-item-img" src={
-                this.state.oneUrl ? UPEX.config.uploadImgHost + '/' + this.state.oneUrl : upload_pic
+                this.state.oneUrl ? UPEX.config.imgHost + '/' + this.state.oneUrl : upload_pic
               } />
             </Upload>
             {/*<span className="pic-item-message">{UPEX.lang.template('上传照片')}</span>*/}
@@ -113,7 +113,7 @@ export default class SecondStep extends Component {
           <span>
             <Upload {...this._props('twoUrl')}>
               <img className="pic-item-img" src={
-                this.state.twoUrl ? UPEX.config.uploadImgHost + '/' + this.state.twoUrl : upload_pic
+                this.state.twoUrl ? UPEX.config.imgHost + '/' + this.state.twoUrl : upload_pic
               } />
             </Upload>
             {/*<span className="pic-item-message">{UPEX.lang.template('上传照片')}</span>*/}
@@ -133,7 +133,7 @@ export default class SecondStep extends Component {
           <span>
             <Upload {...this._props('threeUrl')}>
               <img className="pic-item-img" src={
-                this.state.threeUrl ? UPEX.config.uploadImgHost + '/' + this.state.threeUrl : upload_pic
+                this.state.threeUrl ? UPEX.config.imgHost + '/' + this.state.threeUrl : upload_pic
               } />
             </Upload>
             {/*<span className="pic-item-message">{UPEX.lang.template('上传照片')}</span>*/}

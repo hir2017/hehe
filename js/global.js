@@ -13,13 +13,13 @@ let IS_INIT = false; // 是否已经初始化
 // 支持的网站语言
 const slangs = {
     // 网站语言是按照list的顺序展示的
-    list: ['zh-CN', 'zh-TW', 'en-US'],
+    list: ['zh-CN', 'zh_TW', 'en-US'],
     cfg: {
         "zh-CN": {
             option: '简体中文',
             text: '简体中文'
         },
-        "zh-TW": {
+        "zh_TW": {
             option: '繁體中文',
             text: '繁體中文',
         },
@@ -102,8 +102,8 @@ const SYSTEM_LANGUAGE = (function() {
  * 网站默认语言
  */
 const SITE_LANGUAGE = (function() {
-    // 用于处理默认网站语言码 => zh-TW
-    const tws = ['zh-SG', 'zh-MO', 'zh-TW'];
+    // 用于处理默认网站语言码 => zh_TW
+    const tws = ['zh-SG', 'zh-MO', 'zh_TW'];
     // 用于处理默认网站语言码 => ar-EG
     const ars = ['ar-AE', 'ar-BH', 'ar-DZ', 'ar-EG', 'ar-IQ', 'ar-JO', 'ar-KW', 'ar-LB', 'ar-LY', 'ar-MA', 'ar-OM', 'ar-QA', 'ar-SA', 'ar-SY', 'ar-TN', 'ar-YE'];
 
@@ -115,7 +115,7 @@ const SITE_LANGUAGE = (function() {
         if (slangs.list.indexOf(systemLanguage) > -1) {
             lang = systemLanguage;
         } else if (tws.indexOf(systemLanguage) > -1) {
-            lang = 'zh-TW';
+            lang = 'zh_TW';
         } else if (ars.indexOf(systemLanguage) > -1) {
             lang = 'ar-EG';
         } else {
@@ -150,8 +150,9 @@ switch(Url.query('env')) {
 
 const host = 'http://' +  origin +'/polarisex';
 const uploadHost = host + '/upload/upload';
-const uploadImgHost = host + '/user/uploadImageSingle';
+const uploadImgHost =  host + '/user/uploadImageSingle';
 const websocketHost = 'ws://' + origin + '/';
+const imgHost = 'http://p87b2n306.sabkt.gdipper.com';
 
 const config = {
     channel: '',
@@ -174,7 +175,8 @@ const config = {
     uploadHost,
     uploadImgHost,
     host,
-    symbols
+    symbols,
+    imgHost
 }
 
 /**

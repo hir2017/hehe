@@ -8,7 +8,7 @@ axios.interceptors.request.use(function(config) {
     const uid = UPEX.cache.getCache('uid');
     let local = UPEX.cache.getCache('lang');
 
-    local = local == undefined || local == '' ? 'zh-TW' : local;
+    local = local == undefined || local == '' ? 'zh_TW' : local;
 
     if (!token && !uid) {
         let data = qs.parse(config.data)
@@ -538,6 +538,14 @@ export function closeGoogleAuth (clientPassword, verCode) {
         clientPassword, 
         verCode
     }).then(res => res.data);
+ }
+
+ /**
+ *  身份 认证信息
+ */
+
+export function selectAuthLevel () {
+    return axios.post(`${UPEX.config.host}/user/selectAuthLevel`).then(res => res.data);
  }
  
 

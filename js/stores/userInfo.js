@@ -7,7 +7,8 @@ import {
   addAsk, getQuestions,
   submitUserInfo,
   bindGoogleAuth,
-  closeGoogleAuth
+  closeGoogleAuth,
+  selectAuthLevel
 } from '../api/http'
 import { message } from 'antd'
 
@@ -199,6 +200,21 @@ class UserInfo {
       const res = await closeGoogleAuth(clientPassword, verCode)
       if (res.data.status === 200) {
         message.success(res.data.message)
+      } else {
+        message.error(res.data.message)
+      }
+    } catch (e) {
+      console.error(e)
+      message.error('Network Error')
+    }
+  }
+
+  @action
+  async authInfo() {
+    try {
+      const res = await selectAuthLevel()
+      if (res.data.status === 200) {
+        console.log(res.data, 'data')
       } else {
         message.error(res.data.message)
       }
