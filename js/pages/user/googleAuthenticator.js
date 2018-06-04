@@ -28,7 +28,7 @@ class GoogleAuthenticator extends Component {
         </div>
         {
           userInfo.phone
-            ? gaBindSuccess 
+            ? !gaBindSuccess 
             ? <BindingGoogle />
             : <Success />
             : <div className="google-no-binding-phone">
