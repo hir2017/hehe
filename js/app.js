@@ -23,7 +23,7 @@ message.config({
 })
 
 import './global';
-import routes from './routes';
+import routes, { TradeCenter } from './routes';
 
 import RootStore from './stores/index';
 
@@ -32,8 +32,28 @@ const rootStore = new RootStore();
 @observer 
 class App extends Component {
     static createElement(Component, props) {
-        // 确保传入了所有的 props！
-        return <Component {...props}/>
+        switch (Component) {
+            case TradeCenter:
+                let  { pair} = props.params;
+
+                if(!pair) {
+                    let coin = UPEX.cache.getCache('currentCoin');
+
+                    if (coin) {
+                        pair = [coin.baseCurrencyNameEn, coin.currencyNameEn].join('_');
+                    } else {
+                       pair = 'TWD_BTC'; 
+                    }
+
+                    props.params.pair = pair;
+                }
+
+                return <Component {...props} key={pair}/>
+                break;
+            default:
+                // 确保传入了所有的 props！
+                return <Component {...props}/>
+        }
     }
 	
     static onUpdate() {

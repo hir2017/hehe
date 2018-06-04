@@ -27,7 +27,9 @@ class UDFCompatibleDatafeed {
         this.serverTime = null;
         this.interval = cfg.interval || '1';
         this.symbol = cfg.symbol || 'AAPL';
-        this.symbolInfo = cfg.symbolInfo;
+        this.currencyNameEn = cfg.currencyNameEn;
+        this.baseCurrencyNameEn = cfg.baseCurrencyNameEn;
+        this.pointPrice = cfg.pointPrice;
         this.timezone = cfg.timezone;
         this.barCache = {}
     }
@@ -47,19 +49,18 @@ class UDFCompatibleDatafeed {
     resolveSymbol(symbolName, onSymbolResolvedCallback, onResolveErrorCallback) {
         var self = this;
 
-       let symbolInfo = this.symbolInfo;
 
         setTimeout(() => {
             try {
                 // 从接口获取商品名称或者代码.
                 onSymbolResolvedCallback({
                     "name": symbolName,
-                    "ticker": [symbolInfo.baseCurrencyNameEn, symbolInfo.currencyNameEn].join('_').toLocaleLowerCase(),
+                    "ticker": [this.baseCurrencyNameEn, this.currencyNameEn].join('_').toLocaleLowerCase(),
                     "timezone": "Asia/Shanghai",
                     "minmov": 1,
                     "session": "24x7",
                     "description": "",
-                    "pricescale": symbolInfo['pointPrice'],
+                    "pricescale": this.pointPrice,
                     "has_intraday": true,
                     "has_daily": !0,
                     "has_weekly_and_monthly": !0

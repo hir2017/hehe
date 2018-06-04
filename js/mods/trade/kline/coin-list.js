@@ -23,7 +23,7 @@ class CoinList extends Component {
 	}
 
 	handleCurrency=(item, e)=>{
-		this.props.tradeStore.setCurrencyId(item.currencyId);
+		browserHistory.push('/trade/' + item.baseCurrencyNameEn + '_' + item.currencyNameEn);
 	}
 
 	sortByCondition(condition){
@@ -67,7 +67,7 @@ class CoinList extends Component {
 					</dl>
 					<dl className="list">
 						{ 
-							store.loginedMarkets && store.loginedMarkets[0].tradeCoins.map ((item, index)=>{
+							store.loginedMarkets && store.loginedMarkets.tradeCoins.map ((item, index)=>{
 								return (
 									<dd key={item.id} className="clearfix">
 										<div className="cell star"><Icon type="star-o" /></div>

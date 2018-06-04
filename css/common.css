@@ -8,7 +8,7 @@ html {
     min-height: 100%;
 }
 
-#wrap .fade{
+#wrap .fade {
     transition: all .2s ease-in 1s;
     -webkit-transition: all .2s ease-in 1s;
     -moz-transition: all .2s ease-in 1s;
@@ -31,15 +31,28 @@ html {
 .app-page {
     position: relative;
 }
-.app-page .mini-loading{
+
+.app-page .mini-loading {
     width: 100%;
     height: 100%;
     position: absolute;
     top: 0;
     left: 0;
-    background: rgba(255,255,255,0.7) url('../images/loading.gif') no-repeat center center;
+    background: rgba(255, 255, 255, 0.7) url('../images/loading.gif') no-repeat center center;
     background-size: 60px 60px;
 }
+
+.app-page .not-found {
+    padding-top: 400px;
+    background: url('../images/404.png') no-repeat center 100px;
+    background-size: 691px 302px;
+    font-weight: bold;
+    text-align: center;
+    font-size: 18px;
+    color: #c5c5c5;
+}
+
+
 /**
  * 页面头部
  */
@@ -49,9 +62,11 @@ html {
     background-color: #090600;
     color: #fff;
 }
-.app-page[data-path="/home"] .app-header{
+
+.app-page[data-path="/home"] .app-header {
     background-color: #141414;
 }
+
 .header-box {
     padding: 0 20px;
     font-size: 16px;
@@ -144,7 +159,7 @@ html {
 }
 
 .header-box .pop-menu-list dd a,
-.header-box .pop-menu-list dd a:hover{
+.header-box .pop-menu-list dd a:hover {
     color: rgba(0, 0, 0, 0.65);
 }
 
@@ -174,6 +189,7 @@ html {
 }
 
 
+
 /**
  * 页脚
  */
@@ -200,7 +216,7 @@ html {
 .app-footer .footer-box {
     width: 100%;
     text-align: center;
-    margin:  0 auto;
+    margin: 0 auto;
 }
 
 .app-footer .footer-box li {
@@ -219,7 +235,7 @@ html {
     text-decoration: underline;
 }
 
-.app-page[data-path="/home"] .app-footer{
+.app-page[data-path="/home"] .app-footer {
     background-color: #f8f8f8;
     color: rgba(51, 51, 51, 0.5);
 }
@@ -232,13 +248,15 @@ html {
 
 .app-page[data-path="/login"],
 .app-page[data-path="/register"],
-.app-page[data-path="/resetpwd"]{
+.app-page[data-path="/resetpwd"] {
     background: #141414 url('../images/login-bg.jpg') no-repeat center bottom;
     background-size: 1976px 786px;
 }
+
 .redBgc {
     background-color: #ff4d40;
 }
+
 .greedBgc {
     background-color: #00b56a;
 }
@@ -256,7 +274,7 @@ html {
     font-size: 12px;
 }
 
-button > a {
+button>a {
     display: block;
 }
 

@@ -129,7 +129,7 @@ export default class extends React.Component {
                       return (
                           <tr key={item.id}>
                           <td>
-                            <Link to={{ pathname: '/trade', query: { currencyId: item.currencyId, baseCurrencyId: item.baseCurrencyId } }}>
+                            <Link to={`/trade/${item.baseCurrencyNameEn}_${item.currencyNameEn}`}>
                             {item.currencyNameEn}
                             </Link>
                           </td>

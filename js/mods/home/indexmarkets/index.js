@@ -6,8 +6,8 @@
 
 import React, {Component} from 'react';
 import { observer, inject } from 'mobx-react';
-import CoinList from './coinList';
-import CoinInfo from './coinInfo';
+import CoinList from './coin-list';
+import CoinInfo from './coin-info';
 
 @observer
 class HotMarkets extends Component{

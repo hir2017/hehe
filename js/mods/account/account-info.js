@@ -14,28 +14,28 @@ class InfoView extends Component {
 
 	render() {
 		let store = this.props.accountStore;
-
+		
 		return (
 			<div className="account-hd-box">
 				<div className="account-title">
 					<h2>{ UPEX.lang.template('我的资产') }</h2>
-					<div className="account-count hidden">
+					<div className="account-count">
 						<label>{ UPEX.lang.template('总资产折合')}</label>
-						<Select defaultValue="TWD" onChange={this.handleChange}>
+						<Select defaultValue="TWD" className="hidden">
 					    	<Option value="TWD">TWD</Option>
 					    	<Option value="CNY">CNY</Option>
 					    	<Option value="HKD">HKD</Option>
 					    	<Option value="USD">USD</Option>
 					    </Select>
 					    <label>≈</label>
-					    <em>NT$3,404,911</em>
+					    <em>{`NT$ ${store.allMoney}`}</em>
 					</div>
 				</div>
 				<div className="account-content clearfix">
                     <div className="account-amount">
                         <div className="amount">
                             <label>{ UPEX.lang.template('可用余额')} </label>
-                            <em>{ store.visibleMoney ? store.allMoney : '******'} </em>
+                            <em>{ store.visibleMoney ? `NT$ ${store.baseCoinInfo.cashAmount}` : '******'} </em>
                             <i className={store.visibleMoney ? 'open': 'close'} onClick={this.handleAllMoney}></i>
                         </div>
                         <div className="actions">

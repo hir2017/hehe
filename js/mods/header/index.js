@@ -98,16 +98,10 @@ class HeaderView extends Component {
 							authStore.isLogin ? (
 								<ul>
 									<li ref="order">
-										<Popover content={ordermenu} placement="bottom" getPopupContainer={()=>this.refs.order}>
-											<Link to="/order">{ UPEX.lang.template('订单明细')}</Link>
-										</Popover>
+										<Link to="/order">{ UPEX.lang.template('订单明细')}</Link>
 									</li>
 									<li ref="assets">
-										<Popover content={assetmenu} placement="bottom" getPopupContainer={()=>this.refs.assets}>
-											<Link to="/account/assets">
-											{ UPEX.lang.template('我的资产')}
-											</Link>
-										</Popover>
+										<Link to="/account/assets">{ UPEX.lang.template('我的资产')}</Link>
 									</li>
 									<li ref="userinfo">
 										<Popover content={usermenu} placement="bottom" getPopupContainer={()=>this.refs.userinfo}>

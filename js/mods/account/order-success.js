@@ -103,8 +103,10 @@ class List extends Component {
     							<Select defaultValue="0" onChange={this.onChangeCurrency}>
     								<Option value="0">{UPEX.lang.template('全部')}</Option>
     								{
-    									this.props.commonStore.productList['TWD'].map((item)=>{
-    										return <Option value={item.currencyId}>{item.currencyNameEn}</Option>
+    									this.props.commonStore.productList.map((item)=>{
+    										if (item.currencyNameEn !== 'TWD') {
+    											return <Option value={item.currencyId} key={item.currencyId}>{item.currencyNameEn}</Option>
+    										}
     									})
     								}
     							</Select>

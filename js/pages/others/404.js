@@ -7,7 +7,7 @@ import React, { Component } from 'react';
 
 const NotFound = (props) => {
   	return (
-		<div className="not-found">404</div>
+		<div className="not-found">{UPEX.lang.template('抱歉，您的网页走丢了')}</div>
 	)
 }
 

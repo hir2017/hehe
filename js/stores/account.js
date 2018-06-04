@@ -3,6 +3,7 @@ import { getCoinAccount, selectUserAddress } from '../api/http';
 
 class Account {
     @observable accountData = {};
+    @observable baseCoinInfo = {};
     @observable isFetching = false;
     @observable visibleMoney = false;
     @observable currentCoin = {
@@ -74,16 +75,33 @@ class Account {
         if (this.isFetching) {
             return;
         }
-
+        this.isFetching = true;
         this.originAccountData = {};
         this.accountData = {};
-        this.isFetching = true;
 
         getCoinAccount().then((data) => {
-            data = require('../mock/assets.json');
+            // data = require('../mock/assets.json');
             runInAction(() => {
                 if (data.status == 200) {
-                    // 拷贝存储数组
+                    // 从数字币列表从筛选出基础币
+                    let coinList = []; // 数字币
+                    let info = {}; // 基础币
+                    let len = data.attachment.coinList.length;
+
+                    for (let i = 0 ; i < len; i++) {
+                        let item = data.attachment.coinList[i];
+
+                        if (item.currencyNameEn == 'TWD') {
+                            info = item;
+                        } else {
+                            coinList[coinList.length] = item;
+                        }
+                    }
+
+                    this.baseCoinInfo = info;
+                    data.attachment.coinList = coinList;
+                    
+                    // 拷贝存储数据
                     this.originAccountData = JSON.parse(JSON.stringify(data.attachment));
                     this.accountData = data.attachment;                    
                     
@@ -94,7 +112,9 @@ class Account {
                 this.isFetching = false;
             })
         }).catch(()=>{
-            this.isFetching = false;
+            runInAction(() => {
+                this.isFetching = false;    
+            })
         })
     }
 

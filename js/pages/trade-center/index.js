@@ -5,6 +5,7 @@
  */
 import React, {Component} from 'react';
 import { observer, inject } from 'mobx-react';
+import Url from '../../lib/url';
 import TVChartContainer from '../../mods/trade/kline/tv-chart';
 import BuyOrder from '../../mods/trade/order/buy-order';
 import SellOrder from '../../mods/trade/order/sell-order';
@@ -12,25 +13,31 @@ import HistoryOrder from '../../mods/trade/order/history-order';
 import MyOrder from '../../mods/trade/myorder/index';
 import TradeForm from '../../mods/trade/form/index';
 
-@inject('tradeStore')
+@inject('commonStore')
 @observer
 class TradeCenter extends Component {
-    componentWillMount(){
-        this.props.tradeStore.getAllCoinPoint();
+    componentWillMount() {
+        let { commonStore } = this.props;
+        commonStore.getAllCoinPoint();
     }
     
     render() { 
-        let store = this.props.tradeStore;
+        let { commonStore } = this.props;
+        
         // 用于切换交易币时内容切换
-        if (store.coinPointReady) {
-            return <TradeContent key={`${store.currencyId}`}/>    
+        if (commonStore.productDataReady) {
+            return <TradeContent {...this.props}/>    
         } else {
-            return null;
+            return (
+                <div className="trade-wrapper">
+                    <div className="mini-loading"></div>;
+                </div>   
+            )
         }
     }
 }
 
-@inject('tradeStore')
+@inject('tradeStore', 'commonStore')
 @observer
 class TradeContent extends Component {
     static defaultProps = {
@@ -38,7 +45,7 @@ class TradeContent extends Component {
     }
 
     componentWillMount() {
-        let { tradeStore } = this.props;
+        let { tradeStore, commonStore } = this.props;
 
         let timer;
         let fetchTradeCoinData=()=>{
@@ -48,6 +55,23 @@ class TradeContent extends Component {
             timer = setTimeout(()=>{
                 fetchTradeCoinData();
             }, 3 * 1000)
+        }
+        // 更新交易币对
+        let pair = this.props.params.pair;
+        
+        if (pair) {
+            let pairArr = pair.split('_');
+            let a = pairArr[0].toUpperCase();
+            let b = pairArr[1].toUpperCase();
+            let baseCurrencyId = commonStore.getTradeCoinByName(a).currencyId;
+            let currencyId = commonStore.getTradeCoinByName(b).currencyId;
+            
+             // 缓存上次浏览器的交易币对
+            UPEX.cache.setCache('currentCoin', {
+                baseCurrencyNameEn: a,
+                currencyNameEn: b
+            })   
+            tradeStore.updateCurrency(baseCurrencyId, currencyId);    
         }
         
         fetchTradeCoinData(); // 3秒钟查询一次
@@ -88,9 +112,9 @@ class TradeContent extends Component {
                                 </div>
                                 <div className="list-box-bd" style={{ height: store.extraOrderHeight - 42}}>
                                     <div className="table-hd">
-                                        <div className="price">{ UPEX.lang.template('价格')}({ store.currentTradeCoin.baseCurrencyNameEn})</div>
-                                        <div className="number">{ UPEX.lang.template('数量')}({ store.currentTradeCoin.currencyNameEn})</div>
-                                        <div className="total">{ UPEX.lang.template('金额')}({ store.currentTradeCoin.baseCurrencyNameEn})</div>
+                                        <div className="price">{ UPEX.lang.template('价格')}</div>
+                                        <div className="number">{ UPEX.lang.template('数量')}</div>
+                                        <div className="total">{ UPEX.lang.template('金额')}</div>
                                     </div>
                                     <div className="table-bd" style={{ height: store.extraOrderHeight - 72}}>
                                         {

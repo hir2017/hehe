@@ -14,8 +14,6 @@ import HotMarkets from '../../mods/home/hotmarkets';
 import IndexMarkets from '../../mods/home/indexmarkets';
 
 const bannerList = [
-    require('../../../images/banner1.png'),
-    require('../../../images/banner1.png'), 
     require('../../../images/banner1.png')
 ];
 

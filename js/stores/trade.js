@@ -4,15 +4,12 @@
  */
 import { observable, computed, autorun, action, runInAction } from 'mobx';
 import { socket } from '../api/socket';
-import { getBaseCoin, getUserOrderList, submitOrder, getPersonalTradingPwd, hasSettingDealPwd , getAllCoinPoint} from '../api/http';
+import { getBaseCoin, getUserOrderList, submitOrder, getPersonalTradingPwd, hasSettingDealPwd } from '../api/http';
 import NP from 'number-precision';
 import NumberUtil from '../lib/util/number';
 import TimeUtil from '../lib/util/date';
 import Url from '../lib/url';
 import md5 from '../lib/md5';
-
-const baseCurrencyId = Url.query('baseCurrencyId');
-const tradeCurrencyId = Url.query('currencyId');
 
 class TradeStore {
     // 页面主题。浅色：light；深色：dark
@@ -27,15 +24,13 @@ class TradeStore {
     @observable currentTradeCoinRealTime = [];
     @observable currentTradeCoinReady = false;
     @observable loginedMarkets = {};
-    @observable allCoinPoint = [];
-    @observable coinPointReady = false;
 
     @observable type = 'all'; // 买盘buy、卖盘sell
     @observable tradeHistory = { content: [] };
     @observable personalAccount = { baseCoinBalance: 0, tradeCoinBalance: 0 };
     @observable entrust = { sell: [], buy: [] };
-    @observable baseCurrencyId = baseCurrencyId;
-    @observable currencyId = tradeCurrencyId;
+    @observable baseCurrencyId = 0;
+    @observable currencyId = 0;
     @observable dealBuyPrice = 0; // 交易买入价格
     @observable dealSellPrice = 0; // 交易卖出价格
     @observable dealBuyNum = 0; // 买入数量
@@ -305,6 +300,12 @@ class TradeStore {
     }
 
     @action
+    updateCurrency(baseCurrencyId, currencyId){
+        this.baseCurrencyId = baseCurrencyId;
+        this.currencyId = currencyId;  
+    }
+
+    @action
     changeThemeTo = (value) => {
         this.theme = value;
         UPEX.cache.setCache('theme', value) ;
@@ -387,11 +388,6 @@ class TradeStore {
     }
 
     @action
-    setCurrencyId(id) {
-        this.currencyId = id;
-    }
-
-    @action
     checkTradePrice(amount, type) {
         const { entrustPriceMax, entrustPriceMin } = this.currentTradeCoin;
         let pass;
@@ -445,18 +441,15 @@ class TradeStore {
         value = value.toLowerCase();
 
         if (value) {
-            loginedMarkets.forEach((obj, index) => {
-                // 遍历
-                let tradeCoins = [];
+             let tradeCoins = [];
 
-                obj.tradeCoins.forEach((item, index) => {
-                    if (item.currencyNameEn.toLowerCase().indexOf(value) > -1) {
-                        tradeCoins[tradeCoins.length] = item;
-                    }
-                })
+            loginedMarkets.tradeCoins.forEach((item, index) => {
+                if (item.currencyNameEn.toLowerCase().indexOf(value) > -1) {
+                    tradeCoins[tradeCoins.length] = item;
+                }
+            })
 
-                obj.tradeCoins = tradeCoins;
-            });
+            loginedMarkets.tradeCoins = tradeCoins;
         }
 
         this.loginedMarkets = loginedMarkets;
@@ -475,15 +468,13 @@ class TradeStore {
             type = 'desc';
         }
 
-        loginedMarkets.forEach((obj, index) => {
-            // 遍历，1. 按成交量降序排列，2. 按最新成交价降序排序
-            obj.tradeCoins.sort((a, b) => {
-                if (type === 'asc') {
-                    return a[field] - b[field];
-                } else {
-                    return b[field] - a[field];
-                }
-            })
+        // 遍历，1. 按成交量降序排列，2. 按最新成交价降序排序
+        loginedMarkets.tradeCoins.sort((a, b) => {
+            if (type === 'asc') {
+                return a[field] - b[field];
+            } else {
+                return b[field] - a[field];
+            }
         })
 
         this.sortByType = type;
@@ -514,6 +505,7 @@ class TradeStore {
      */
     @action
     getTradeHistory() {
+        socket.off('tradeHistory');
         socket.emit('tradeHistory', {
             baseCurrencyId: this.baseCurrencyId,
             tradeCurrencyId: this.currencyId
@@ -543,6 +535,7 @@ class TradeStore {
 
     @action
     getEntrust() {
+        socket.off('entrust');
         socket.emit('entrust', {
             baseCurrencyId: this.baseCurrencyId,
             tradeCurrencyId: this.currencyId
@@ -635,6 +628,7 @@ class TradeStore {
      */
     @action
     quoteNotify() {
+        socket.off('quoteNotify');
         socket.emit('quoteNotify')
         socket.on('quoteNotify', (data) => {
             console.log('+++++++++++++');
@@ -663,37 +657,41 @@ class TradeStore {
      */
     @action
     getLoginedMarket() {
-        socket.off('loginAfter')
+        socket.off('loginAfter');
         socket.emit('loginAfter', { baseCurrencyId: this.baseCurrencyId })
         socket.on('loginAfter', (data) => {
             console.log('+++++++++++++');
             console.log('loginAfter', data);
             runInAction('get loginAfter', () => {
-                this.parseLoginedMarkets(data);
-                // 拷贝存储数组
-                this.originMarkets = JSON.parse(JSON.stringify(data));
-                this.loginedMarkets = data;
+                let result = data.filter((item)=>{
+                    return item.info.currencyNameEn === 'TWD'; // TWD市场
+                })[0];
+
+                if (result) {
+                    this.parseLoginedMarkets(result);
+                    // 拷贝存储数组
+                    this.originMarkets = JSON.parse(JSON.stringify(result));
+                    this.loginedMarkets = result;
+                }
             })
         })
     }
     // 格式化交易币信息
     @action
-    parseLoginedMarkets(loginedMarkets) {
-        loginedMarkets.forEach((obj, index) => {
-            // 遍历，1. 按成交量降序排列，2. 按最新成交价降序排序
-            obj.tradeCoins.map((item, index) => {
-                // 24小时涨跌幅
-                item.changeRate = Number(item.changeRate);
-                item.changeRate = (item.changeRate >= 0 ? '+' : '') + item.changeRate.toFixed(2) + '%';
-                // 最新成交价
-                item.currentAmount = NumberUtil.initNumber(item.currentAmount, item.pointPrice);
-                // 最高价
-                item.highPrice = NumberUtil.initNumber(item.highPrice, item.pointPrice);
-                // 最低价
-                item.lowPrice = NumberUtil.initNumber(item.lowPrice, item.pointPrice);
-                // 24小时成交数量
-                item.volume = NumberUtil.formatNumber(item.volume, item.pointNum);
-            })
+    parseLoginedMarkets(obj) {
+        // 遍历，1. 按成交量降序排列，2. 按最新成交价降序排序
+        obj.tradeCoins.map((item, index) => {
+            // 24小时涨跌幅
+            item.changeRate = Number(item.changeRate);
+            item.changeRate = (item.changeRate >= 0 ? '+' : '') + item.changeRate.toFixed(2) + '%';
+            // 最新成交价
+            item.currentAmount = NumberUtil.initNumber(item.currentAmount, item.pointPrice);
+            // 最高价
+            item.highPrice = NumberUtil.initNumber(item.highPrice, item.pointPrice);
+            // 最低价
+            item.lowPrice = NumberUtil.initNumber(item.lowPrice, item.pointPrice);
+            // 24小时成交数量
+            item.volume = NumberUtil.formatNumber(item.volume, item.pointNum);
         })
     }
     /**
@@ -704,6 +702,7 @@ class TradeStore {
         if (!this.authStore.isLogin) {
             return;
         }
+
         socket.emit('userAccount', {
             token: this.authStore.token,
             uid: this.authStore.uid,
@@ -825,18 +824,6 @@ class TradeStore {
         }
 
         return result;
-    }
-
-    @action
-    getAllCoinPoint() {
-        socket.emit('coinPoint');
-
-        socket.on('coinPoint', (data)=>{
-            runInAction('get all coin point', ()=>{
-                this.allCoinPoint = data;
-                this.coinPointReady = true;
-            })
-        })
     }
 
     // 创建订单

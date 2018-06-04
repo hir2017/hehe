@@ -3,6 +3,7 @@
  */
 import Cache from './lib/cache';
 import Events from './lib/events';
+import Url from './lib/url';
 import lang from './lang';
 
 let win = window;
@@ -125,16 +126,32 @@ const SITE_LANGUAGE = (function() {
     return lang;
 })();
 
-// const host = 'http://13.251.85.35/polarisex';
-// const host = 'http://www.acex.tw/polarisex'
-const host = 'http://54.169.140.238/polarisex';
+const symbols = {
+    'TWD': 'NT$',
+    'CNY': '￥'
+}
+
+let origin;
+// 根据环境获取不同的域名活着IP
+switch(Url.query('env')) {
+    case 'dev':
+        // 开发环境
+        origin = '13.251.85.35';
+        break;
+    case 'stage':
+        // 测试环境
+        origin = '54.169.140.238';
+        break;
+    default:
+        // 默认线上环境
+        origin = '54.169.140.238';
+        break;
+}
+
+const host = 'http://' +  origin +'/polarisex';
 const uploadHost = host + '/upload/upload';
 const uploadImgHost = host + '/user/uploadImageSingle';
-// const websocketHost = 'ws://13.251.85.35';
-// const websocketHost = 'ws://www.acex.tw';
-const websocketHost = 'ws://54.169.140.238/';
-const salt = 'dig?F*ckDang5PaSsWOrd&%(polarisex0160630).'
-const imgHost = 'http://13.251.85.35/';
+const websocketHost = 'ws://' + origin + '/';
 
 const config = {
     channel: '',
@@ -151,13 +168,13 @@ const config = {
     pwdReg: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z\d\S]{8,16}$/,
     // 手机号正则表达式
     phoneReg: /^1[3|4|5|7|8]\d{9}$/,
+    salt: 'dig?F*ckDang5PaSsWOrd&%(polarisex0160630).',
     // websocket域名
     websocketHost,
     uploadHost,
     uploadImgHost,
-    imgHost,
     host,
-    salt
+    symbols
 }
 
 /**

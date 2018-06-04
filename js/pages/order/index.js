@@ -73,7 +73,7 @@ class UserPage extends Component {
 	        			</div>
 	        		</div>
 	        		<div className="order-main">
-	        			{ this.props.commonStore.coinPointReady ? this.props.children : null }
+	        			{ this.props.commonStore.productDataReady ? this.props.children : null }
 	        		</div>
 	        	</div>
         	</div>
