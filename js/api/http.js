@@ -119,11 +119,21 @@ export function userLogin(data) {
 /**
  * 用户登录 － 需要验证第二步
  */
-
 export function userLogin2(data) {
     return axios.post(`${UPEX.config.host}/user/loginGASecond`, qs.stringify({
-        clientPassword: data.googlecode,
-        email: data.email,
+        authType: data.authType,
+        clientPassword: data.clientPassword,
+        emailOrPhone: data.emailOrPhone,
+        source: 1
+    })).then(res => res.data);
+}
+/**
+ * 邮箱登录 －  发送短信验证码
+ */
+export function sendLoginCodeSend(data){
+    return axios.post(`${UPEX.config.host}/user/loginCodeSend`, qs.stringify({
+        authType: data.authType || 1, // 1.手机 2.邮箱
+        emailOrPhone: data.emailOrPhone,
         source: 1
     })).then(res => res.data);
 }

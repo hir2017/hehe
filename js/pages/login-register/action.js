@@ -1,5 +1,5 @@
 import { message } from 'antd';
-import { sendEmailForRegister, sendMail, resetPwd, userRegister, queryPhone, userLogin, userLogin2 } from '../../api/http';
+import { sendEmailForRegister, sendMail, resetPwd, userRegister, queryPhone, userLogin, userLogin2, sendLoginCodeSend } from '../../api/http';
 import { browserHistory } from 'react-router';
 import Timer from '../../lib/timer';
 import md5 from '../../lib/md5';
@@ -56,6 +56,12 @@ export default (store) => {
             store.setVercode(value);
         },
 
+        onChangeLoginVerCode(e){
+            let value = e.currentTarget.value.trim();
+
+            store.setLoginPhoneCode(value);
+        },
+
         onChangeInviteCode(e) {
             let value = e.currentTarget.value.trim();
 
@@ -64,10 +70,6 @@ export default (store) => {
 
         onChangeAgreeCheckBox(e) {
             store.setAgress(e.target.checked);
-        },
-
-        changeSendingCodeTo(status) {
-            store.changeSendingCodeTo(status);
         },
 
         getImgCaptcha() {
@@ -108,10 +110,10 @@ export default (store) => {
                         });
 
                         this.timer.on('end', () => {
-                            this.changeSendingCodeTo(false);
+                            store.changeSendingCodeTo(false);
                         });
 
-                        this.changeSendingCodeTo(true);
+                        store.changeSendingCodeTo(true);
                         store.changeImgCodeTo(true);
                         store.changeValidVercodeTo(true);
 
@@ -194,7 +196,7 @@ export default (store) => {
                 
                 switch (data.status) {
                     case 200:
-                        this.changeSendingCodeTo(false);
+                        store.changeSendingCodeTo(false);
                         message.success(UPEX.lang.template('成功，将跳转登录页面'));
                        
                         setTimeout(() => {
@@ -244,12 +246,21 @@ export default (store) => {
             }
         },
 
-        checkUser2(){
-            if (store.googlecode) {
-                return true;
-            } else {
-                return false;
+        checkUser2(type){
+            if (type == 'phone') {
+                if (store.phonecode) {
+                    return true;
+                } else {
+                    return false;
+                } 
+            } else{
+                if (store.googlecode) {
+                    return true;
+                } else {
+                    return false;
+                }
             }
+           
         },
 
         userLogin() {
@@ -284,10 +295,27 @@ export default (store) => {
             })
         },
 
-        userLogin2() {
+        userLogin2(type) {
+            let authType = 0;
+            let vercode = '';
+
+            switch(type) {
+                case 'google':
+                    authType = 1;
+                    vercode = store.googlecode;
+                    break;
+                case 'phone':
+                    authType = 2;
+                    vercode = store.phonecode;
+                    break;
+                case 'email':
+                    authType = 3;
+                    break;
+            }
             return userLogin2({
-                email: store.account,
-                googlecode: store.googlecode
+                authType,
+                emailOrPhone: store.account,
+                clientPassword: vercode,
             }).then((data) => {
                 switch (data.status) {
                     case 200:
@@ -303,9 +331,47 @@ export default (store) => {
                 return data;
             });
         },
+        /**
+         * 发送验证码
+         */
+        sendLoginCodeSend() {
+            // 发送手机／邮件验证码
+            sendLoginCodeSend({
+                authType: 1,
+                emailOrPhone: store.account,
+            }).then((data) => {
+                switch (data.status) {
+                    case 200:
+                        // 发送成功
+                        let timer = this.timer2 = new Timer({
+                            remainTime: 60,
+                            isDoubleBit: true,
+                            selector: {
+                                second: '[data-second]'
+                            }
+                        });
+
+                        this.timer2.on('end', () => {
+                            store.changeSendingPhoneCodeTo(false);
+                        });
+
+                        store.changeSendingPhoneCodeTo(true);
+
+                        break;
+                    case 412:
+                        // 图片验证码错误
+                        message.error(data.message);
+                        break;
+                    default:
+                        // 其他错误
+                        message.error(data.message);
+                }
+            });
+        },
 
         destroyTimer() {
             this.timer && this.timer.destroy();
+            this.timer2 && this.timer2.destroy();
         }
     }
 }
