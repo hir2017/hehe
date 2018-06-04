@@ -128,6 +128,9 @@ class Account {
      */
     @action
     selectUserAddress(currencyId, currencyNameEn) {
+
+        this.isFetching = true;
+
         selectUserAddress(currencyId)
             .then((data) => {
                 // data = require('../mock/address.json');
@@ -141,7 +144,14 @@ class Account {
                         this.updateCurrentCoin(currentCoin);
                     }
                 })
-            });
+
+                this.isFetching = false;
+            })
+            .catch(()=>{
+                runInAction(() => {
+                    this.isFetching = false;    
+                }) 
+            })
     }
 
     @action
