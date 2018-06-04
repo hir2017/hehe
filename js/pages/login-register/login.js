@@ -50,10 +50,6 @@ class Login extends Component {
                 then((data)=>{
                     switch(data.status){
                         case 200:
-                            // TODO 每次重新加载清除
-                            // sessionStorage.removeItem('baseCurrencyId')
-                            // sessionStorage.removeItem('currencyId')
-                            // history.back();
                             setTimeout(() => {
                                 browserHistory.push('/home');
                             }, 100)
@@ -61,6 +57,11 @@ class Login extends Component {
                         case 5555: // 需要进行谷歌认证
                             this.setState({
                                 step: 'google'
+                            });
+                            break;
+                        case 5557:
+                            this.setState({
+                                step: 'phone'
                             });
                             break;
                         default:

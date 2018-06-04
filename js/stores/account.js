@@ -130,7 +130,7 @@ class Account {
     selectUserAddress(currencyId, currencyNameEn) {
         selectUserAddress(currencyId)
             .then((data) => {
-                data = require('../mock/address.json');
+                // data = require('../mock/address.json');
                 runInAction(() => {
                     if (data.status == 200) {
                         // 拷贝存储数组
