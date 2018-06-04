@@ -20,6 +20,7 @@ import { Link } from 'react-router';
 import { observer, inject } from 'mobx-react';
 import { Popover , message } from 'antd';
 import LanguageSwitchView from './language';
+import { browserHistory } from 'react-router';
 
 @inject('authStore', 'userInfoStore')
 @observer
@@ -32,6 +33,7 @@ class HeaderView extends Component {
 		this.props.authStore.logout().then((data)=>{
 			if (data.status == 200) {
 				message.success(UPEX.lang.template('退出成功'));
+				browserHistory.push('/home');
 			}
 		});
 	}

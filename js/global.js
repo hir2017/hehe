@@ -144,7 +144,7 @@ switch(Url.query('env')) {
         break;
     default:
         // 默认线上环境
-        origin = '54.169.140.238';
+        origin = '13.251.85.35';
         break;
 }
 
