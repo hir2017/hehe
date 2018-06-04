@@ -152,7 +152,7 @@ const host = 'http://' +  origin +'/polarisex';
 const uploadHost = host + '/upload/upload';
 const uploadImgHost =  host + '/user/uploadImageSingle';
 const websocketHost = 'ws://' + origin + '/';
-const imgHost = 'http://p87b2n306.sabkt.gdipper.com';
+const imgHost = 'http://' + origin + '/img';
 
 const config = {
     channel: '',

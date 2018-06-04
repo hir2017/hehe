@@ -90,7 +90,7 @@ export default class ModifyPhone extends Component {
       return
     }
 
-    this.props.userInfoStore.modifyPhone(this.state.phone, '18701073624', this.state.vCode, this.state.nvCode)
+    this.props.userInfoStore.modifyPhone(this.state.phone, '', this.state.vCode, this.state.nvCode)
   }
 
   render() {
