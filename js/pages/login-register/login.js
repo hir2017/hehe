@@ -2,7 +2,8 @@
  * @fileoverview 登录页面
  * @author 陈立英
  * @date 2018-04-26
- *  <GaModal email={this.refs.uname}/> ？？？ 谷歌验证器的密码
+ * 开启谷歌登录验证：
+ * 开启手机登录验证：
  */
 import React, {Component} from 'react';
 import { observer, inject } from 'mobx-react';
