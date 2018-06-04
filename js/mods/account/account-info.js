@@ -20,7 +20,7 @@ class InfoView extends Component {
 				<div className="account-title">
 					<h2>{ UPEX.lang.template('我的资产') }</h2>
 					<div className="account-count">
-						<label>{ UPEX.lang.template('总资产折合')}</label>
+						<label>{ UPEX.lang.template('总资产折合')}TWD</label>
 						<Select defaultValue="TWD" className="hidden">
 					    	<Option value="TWD">TWD</Option>
 					    	<Option value="CNY">CNY</Option>

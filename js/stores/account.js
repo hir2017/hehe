@@ -8,7 +8,8 @@ class Account {
     @observable visibleMoney = false;
     @observable currentCoin = {
         currencyNameEn: '',
-        currencyId: ''
+        currencyId: '',
+        amountLowLimit: 0
     }; // 当前币种
 
     constructor(stores) {

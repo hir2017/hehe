@@ -18,7 +18,7 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router';
 import { observer, inject } from 'mobx-react';
-import { Popover } from 'antd';
+import { Popover , message } from 'antd';
 import LanguageSwitchView from './language';
 
 @inject('authStore', 'userInfoStore')
@@ -27,6 +27,15 @@ class HeaderView extends Component {
 	componentDidMount() {
 		this.props.userInfoStore.getUserInfo();
 	}	
+
+	logout=(e)=>{
+		this.props.authStore.logout().then((data)=>{
+			if (data.status == 200) {
+				message.success(UPEX.lang.template('退出成功'));
+			}
+		});
+	}
+
 	render() {
 		let { authStore, userInfoStore } = this.props;
 
@@ -66,7 +75,7 @@ class HeaderView extends Component {
 	          	<dd className="logined-header">
 	            	<Link className="logined-header-link" to="/user/faq">{ UPEX.lang.template('FAQ') }</Link>
 	          	</dd>
-	           	<dd className="logined-header">
+	           	<dd className="logined-header" onClick={this.logout}>
 	            	{ UPEX.lang.template('退出')}
 	            </dd>
 	        </dl>

@@ -1,4 +1,4 @@
-import { observable, computed, autorun, action} from 'mobx';
+import { observable, computed, autorun, action, runInAction } from 'mobx';
 import { userLogout } from '../api/http';
 
 class AuthStore {
@@ -41,9 +41,12 @@ class AuthStore {
 	@action
 	logout() {
 		return userLogout().then((data)=>{
-			if (data.statsu ==  200) {
-				this.clear();
+			if (data.status == 200) {
+				runInAction('logout success', ()=>{
+					this.clear();
+				})
 			}
+			return data;
 		})
 	}
 }

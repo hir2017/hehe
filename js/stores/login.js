@@ -23,7 +23,7 @@ class LoginInfoBaseStore {
     @observable validImgCode = true; // 图片验证码
     @observable validVercode = true; // 邮箱or手机验证码
     @observable hasPhone = false; // 手机是否已经被占用
-
+    @observable logining = false;
 
     constructor(stores) {
         this.captchaStore = stores.captchaStore;
@@ -199,6 +199,11 @@ class LoginInfoBaseStore {
         }
 
         return result;
+    }
+
+    @action 
+    updateLogining(status){
+        this.logining = status;
     }
 
     @action

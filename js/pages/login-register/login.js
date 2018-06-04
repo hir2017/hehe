@@ -123,7 +123,7 @@ class Login extends Component {
                              <div className="input-wrapper">
                                 <div className="input-box">
                                     <input
-                                        type="password" 
+                                        type="number" 
                                         onInput={ action.onChangeGoogleCode}
                                         placeholder={ UPEX.lang.template('谷歌验证码') }
                                     />
@@ -234,7 +234,12 @@ class Login extends Component {
 
                         <div className="input-wrapper">
                             <div className="login-input">
-                                <button className="submit-btn login-btn" onClick={ this.handleLogin }>{ UPEX.lang.template('登录') }</button>
+                                {
+                                    store.logining ?  
+                                    <button className="submit-btn login-btn">{ UPEX.lang.template('登录中') }</button>
+                                    : 
+                                    <button className="submit-btn login-btn" onClick={ this.handleLogin }>{ UPEX.lang.template('登录') }</button>
+                                }
                             </div>
                         </div>
                         <div className="register-extra clearfix">

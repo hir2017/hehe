@@ -130,7 +130,7 @@ export function userLogin2(data) {
  * 用户登录 － 退出
  */
 export function userLogout(){
-    return axios.post(`${UPEX.config.host}//user/logout`).then(res => res.data);
+    return axios.post(`${UPEX.config.host}/user/logout`).then(res => res.data);
 }
 
 // 重置密码
@@ -211,6 +211,10 @@ export function getCoinAccount(type = 1){
  }
 /**
  * 查询当前币种地址及二维码
+ * @return {
+    
+    msgCode: 充币识别码
+ }
  */
 export function selectUserAddress(currentyId){
     return axios.post(`${UPEX.config.host}/coin/selectUserAddress`, qs.stringify({
@@ -277,9 +281,10 @@ export function takeCoinSendEmailCode(data){
 /**
  * 提币接口
  */
-export function takeCoin(currencyId){
-    return axios.post(`${UPEX.config.host}/coin/takeCoin`, qs.stringify({
-        currencyId
+export function takeCoin(data){
+    return axios.post(`${UPEX.config.host}/coin/takeCoin?address=${data.address}`, qs.stringify({
+        actionId: 4,
+
     })).then(res => res.data);
 }
 /*-----------------------------}} 提币相关接口：------------------------------------*/

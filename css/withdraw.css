@@ -58,6 +58,54 @@
     border-radius: 4px;
 }
 
+.withdraw-info .address-box .select-box{
+    width: 377px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.withdraw-info .address-box .ant-select{
+    width: 100%;
+}
+
+.withdraw-info .address-box  button{
+    display: inline-block;
+    vertical-align: middle;
+    border: 1px solid #d8d9dd;
+    border-radius: 4px;
+    width: 102px;
+    height: 38px;
+    text-align: center;
+    line-height: 38px;
+    font-size: 14px;
+    color: #5795f1;
+    margin-left: 10px;
+}
+
+.withdraw-info .input-box.yz-box{
+    width: 370px;
+}
+
+.withdraw-info .input-box .codeimg{
+    position: absolute;
+    right: -120px;
+    top: 0;
+    display: inline-block;
+    width: 120px;
+    height: 38px;
+    vertical-align: middle;
+    background-color: #ededed;
+} 
+
+.withdraw-info .input-box .codeimg img{
+    width: 100%;
+    height: 100%;
+}
+
+.withdraw-info .input-box.wrong{
+    border:  1px solid #ff3245;
+}
+
 .withdraw-info .input-box input{
 	width: 100%;
     line-height: 18px;
@@ -89,19 +137,6 @@
 	margin-bottom: 10px;
 }
 
-.withdraw-info button {
-    display: inline-block;
-    vertical-align: middle;
-    border: 1px solid #d8d9dd;
-    border-radius: 4px;
-    width: 102px;
-    height: 38px;
-    text-align: center;
-    line-height: 38px;
-    font-size: 14px;
-    color: #5795f1;
-    margin-left: 10px;
-}
 
 .withdraw-info .submit-btn{
 	width: 160px;

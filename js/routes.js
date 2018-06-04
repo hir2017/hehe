@@ -66,7 +66,7 @@ const routes = (
         	<Route path="index" component={Home}/>
 	        <Route path="trade(/:pair)" component={TradeCenter}/>
 	        
-	        <Route path="account">
+	        <Route path="account" component={Auth}>
 	        	<IndexRoute component={Assets}/>
 	        	<Route path="assets" component={Assets}/>
 	        	<Route path="coinrecord" component={CoinRecord}/>
