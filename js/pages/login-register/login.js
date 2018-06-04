@@ -31,6 +31,7 @@ class Login extends Component {
         this.state = {
             loginErrorText: '',
             step: 'login' // login: 登录，google: 谷歌认证；phone：手机认证
+            // step: 'phone'
         }
     }
 
@@ -78,8 +79,9 @@ class Login extends Component {
     }
 
     handleLoginVerifyCode=(e)=>{
-        if (this.action.checkUser2()) {
-            this.action.userLogin2().
+        let { step } =  this.state;
+        if (this.action.checkUser2(step)) {
+            this.action.userLogin2(step).
                 then((data)=>{
                     switch(data.status){
                         case 200:
@@ -95,9 +97,13 @@ class Login extends Component {
                 })
         } else {
             this.setState({
-                loginErrorText: UPEX.lang.template('* 请填写谷歌验证码')
+                loginErrorText: type == 'phone' ? UPEX.lang.template('* 请填写短信验证码') : UPEX.lang.template('* 请填写谷歌验证码')
             });
         }
+    }
+
+    sendLoginVercode=(e)=>{
+        this.action.sendLoginCodeSend();
     }
 
     keyLogin=(e)=>{
@@ -129,6 +135,39 @@ class Login extends Component {
                                         onInput={ action.onChangeGoogleCode}
                                         placeholder={ UPEX.lang.template('谷歌验证码') }
                                     />
+                                </div>
+                            </div>
+                            <div className="error-tip">
+                                { this.state.loginErrorText ? this.state.loginErrorText : '' }
+                            </div>
+                            <div className="input-wrapper">
+                                <div className="login-input">
+                                    <button className="submit-btn login-btn" onClick={ this.handleLoginVerifyCode }>{ UPEX.lang.template('登录') }</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        } else if (this.state.step == 'phone') {
+            return (
+                <div className="register-wrapper">
+                    <div className="register-form">
+                        <h3 className="title"> { UPEX.lang.template('登录')} </h3>
+                        <div className="register-mode-content">
+                             <div className="input-wrapper">
+                                <div className="input-box useryz-box">
+                                    <input
+                                        type="text" 
+                                        onInput={ action.onChangeLoginVerCode}
+                                        placeholder={ UPEX.lang.template('短信验证码') }
+                                    />
+                                    <div className="yzcode">
+                                        <button onClick={ this.sendLoginVercode } className={ store.sendingphonecode ? 'disabled' : ''} >
+                                            <div className={ store.sendingphonecode ? 'code-sending': 'code-sending hidden'}>{ UPEX.lang.template('重发')}（<span data-second="second" ref="second2"></span>s）</div>
+                                            <div className={ store.sendingphonecode ? 'code-txt hidden' : 'code-txt'}>{  UPEX.lang.template('发送验证码') }</div>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                             <div className="error-tip">

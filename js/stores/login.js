@@ -10,6 +10,7 @@ class LoginInfoBaseStore {
     @observable pwd = ''; // 密码
     @observable twicepwd = ''; // 确认密码
     @observable vercode = ''; // 邮箱验证码或者短信验证码
+    @observable phonecode = ''; // 手机验证码
     @observable imgcode = ''; // 图片验证码
     @observable inviteId = ''; // 邀请码
     @observable agree = false; // 同意协议 
@@ -20,6 +21,7 @@ class LoginInfoBaseStore {
         name: 'Taiwan'
     }; // 选中的国家区域
     @observable sendingcode = false;
+    @observable sendingphonecode = false;
     @observable validImgCode = true; // 图片验证码
     @observable validVercode = true; // 邮箱or手机验证码
     @observable hasPhone = false; // 手机是否已经被占用
@@ -217,6 +219,11 @@ class LoginInfoBaseStore {
     }
 
     @action
+    changeSendingPhoneCodeTo(status) {
+        this.sendingphonecode = status;
+    }
+
+    @action
     changeValidVercodeTo(status) {
         this.validVercode = status;
     }
@@ -284,6 +291,11 @@ class LoginInfoBaseStore {
     @action
     setGoogleCode(value) {
         this.googlecode = value;
+    }
+
+    @action
+    setLoginPhoneCode(value){
+        this.phonecode = value;
     }
 }
 
