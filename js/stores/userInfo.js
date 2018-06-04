@@ -184,10 +184,10 @@ class UserInfo {
   async bindGA(clientPassword, verCode) {
     try {
       const res = await bindGoogleAuth(clientPassword, verCode)
-      if (res.data.status === 200) {
-        message.success(res.data.message)
+      if (res.status === 200) {
+        message.success(res.message)
       } else {
-        message.error(res.data.message)
+        message.error(res.message)
       }
     } catch (e) {
       console.error(e)
