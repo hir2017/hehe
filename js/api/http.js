@@ -506,4 +506,27 @@ export function personalInfo(){
     }).then(res => res.data);
  }
 
+/**
+ *  GA 绑定
+ */
+
+ export function bindGoogleAuth (clientPassword, verCode) {
+    return axios.post(`${UPEX.config.host}/user/bindGoogleAuth`, {
+        clientPassword, 
+        verCode
+    }).then(res => res.data);
+ }
+
+/**
+ *  GA 解绑
+ */
+
+export function closeGoogleAuth (clientPassword, verCode) {
+    return axios.post(`${UPEX.config.host}/user/closeGoogleAuth`, {
+        clientPassword, 
+        verCode
+    }).then(res => res.data);
+ }
+ 
+
 

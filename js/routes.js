@@ -51,7 +51,7 @@ import BindingEmail from './pages/user/bindingEmail'
 import ModifyEmail from './mods/bindingEmail/modifyEmail'
 import SettingEmail from './mods/bindingEmail/bindingEmail'
 import GoogleAuth from './pages/user/googleAuthenticator'
-import RebindingGoogle from './mods/bindingGoogle/reBinding'
+import RmbindingGoogle from './mods/bindingGoogle/rmBinding'
 import GoogleGuide from './pages/user/googleGuide'
 import Question from './pages/user/problemFeedback'
 import QuestionList from './pages/user/feedbackList'
@@ -102,7 +102,7 @@ const routes = (
 				<Route path="bindingEmail" component={BindingEmail} />
 				<Route path="settingEmail" component={SettingEmail} />
 				<Route path="google" component={GoogleAuth} />
-				<Route path="rebindingGoogle" component={RebindingGoogle} />
+				<Route path="rmbindingGoogle" component={RmbindingGoogle} />
 				<Route path="googleGuide" component={GoogleGuide} />
 				<Route path="question" component={Question} />
 				<Route path="questionList" component={QuestionList} />
