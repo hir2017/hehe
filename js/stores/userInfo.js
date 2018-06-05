@@ -18,7 +18,8 @@ class UserInfo {
   @observable submit_loading_pwd = false
   @observable submit_loading_tpwd = false
   @observable showCountDown = false
-  @observable userInfo = {}
+  @observable userInfo = {};
+  @observable isFetchingInfo = true;
   @observable loginRecord = []
   @observable identityInfo = {
     firstName: '',
@@ -40,6 +41,7 @@ class UserInfo {
   @action
   async getUserInfo() {
     const res = await personalInfo()
+    this.isFetchingInfo = false;
     this.userInfo = res.attachment
   }
 

@@ -1,4 +1,4 @@
-.account-withdraw{
+.account-withdraw{ 
 	width: 1200px;
 	margin: 0 auto;
 }
@@ -11,6 +11,11 @@
 	border-bottom: 1px solid #e7ebf1;
 }
 
+.account-withdraw .content {
+    position: relative;
+    min-height: 300px;
+}
+
 
 .account-withdraw h3 {
     color: #333333;
@@ -18,6 +23,25 @@
     padding: 10px 0;
     font-weight: normal;
     border-bottom: 1px solid #e7ebf1;
+}
+
+.account-withdraw .userauth-guide h4{
+    padding-top: 60px;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+
+.account-withdraw .userauth-guide button{
+    display: block;
+    width: 160px;
+    height: 36px;
+    background-color: #e6bc1d;
+    color: #fff;
+    text-align: center;
+    line-height: 36px;
+    margin: 0 auto;
+    border-radius: 4px;
 }
 
 .withdraw-form {
@@ -83,18 +107,18 @@
 }
 
 .withdraw-info .input-box.yz-box{
-    width: 370px;
+    width: 360px;
 }
 
 .withdraw-info .input-box .codeimg{
     position: absolute;
-    right: -120px;
+    right: -130px;
     top: 0;
     display: inline-block;
     width: 120px;
     height: 38px;
     vertical-align: middle;
-    background-color: #ededed;
+    background-color: #ededed;    
 } 
 
 .withdraw-info .input-box .codeimg img{
@@ -178,7 +202,6 @@
 .withdraw-info li{
 	margin-bottom: 10px;
 }
-
 
 .withdraw-info .submit-btn{
 	width: 160px;

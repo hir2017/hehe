@@ -37,7 +37,7 @@ class Auth extends Component {
     	if (this.state.isLogin) {
     		return this.props.children;
     	} else {
-    		return null;
+    		return null
     	}
     }
 }

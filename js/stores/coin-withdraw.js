@@ -11,23 +11,24 @@ class CoinWithdrawStore {
         detail: {},
         resp: {}
     };
-    
+
     // 充值币种
     @observable currentCoin = {
         currencyId: '',
         currencyNameEn: ''
     }
     // 地址
-    @observable address = ''; 
+    @observable address = '';
     @observable validAddress = true;
     // 地址备注
     @observable note = '';
     @observable validNote = true;
     // 提币数量
-    @observable amount = ''; 
+    @observable amount = '';
     @observable validAmount = true;
     // 图片验证码
-    @observable vercode = ''; 
+    @observable vercode = '';
+    @observable validImgCode = true;
     // 交易密码
     @observable tradepwd = '';
     @observable validTradePwd = true;
@@ -42,7 +43,7 @@ class CoinWithdrawStore {
     // 图片id
     codeid = '';
 
-     constructor(stores) {
+    constructor(stores) {
         this.captchaStore = stores.captchaStore;
     }
 
@@ -64,30 +65,50 @@ class CoinWithdrawStore {
     updateCurrentCoin(info) {
         this.currentCoin = info;
     }
-    
+
     @action
     setAddress(value) {
         this.address = value;
+
+        if (value) {
+            this.validAddress = true;
+        }
     }
-   
+
     @action
     setNote(value) {
         this.note = value;
+
+        if (value) {
+            this.validNote = true;
+        }
     }
 
     @action
     setAmount(value) {
         this.amount = value;
+
+        if (value) {
+            this.validAmount = true;
+        }
     }
 
     @action
     setVercode(value) {
         this.vercode = value;
+
+        if (value) {
+            this.validImgCode = true;
+        }
     }
 
     @action
     setTradePassword(value) {
         this.tradepwd = value;
+
+        if (value) {
+            this.validTradePwd = true;
+        }
     }
 
     @action.bound
@@ -96,27 +117,31 @@ class CoinWithdrawStore {
     }
 
     @computed
-    get md5TradePassword(){
+    get md5TradePassword() {
         return md5(this.tradepwd + UPEX.config.salt);
     }
 
     @action
     setEmailCode(value) {
         this.emailCode = value;
+
+        if (value) {
+            this.validEmailCode = true;
+        }
     }
 
     @action
-    setGoogleCode(value){
+    setGoogleCode(value) {
         this.googlecode = value;
     }
 
     @action
-    setPhoneCode(value){
+    setPhoneCode(value) {
         this.phonecode = value;
     }
 
     @action
-    changeAuthTypeTo(type){
+    changeAuthTypeTo(type) {
         this.authType = type;
     }
 
@@ -126,6 +151,16 @@ class CoinWithdrawStore {
     }
 
     @action
+    changeImgCodeTo(status) {
+        this.validImgCode = status;
+    }
+
+    @action
+    changeEmailCodeTo(status) {
+        this.validEmailCode = status
+    }
+
+    @action.bound
     verifyBeforeSubmit() {
         var result = {
             pass: true,
@@ -137,17 +172,17 @@ class CoinWithdrawStore {
             this.validNote = false;
         }
 
-        if(!this.address) {
+        if (!this.address) {
             result.pass = false;
             this.validAddress = false;
         }
 
-        if(!this.amount) {
+        if (!this.amount) {
             result.pass = false;
             this.validAmount = false;
         }
 
-        if(!this.tradepwd) {
+        if (!this.tradepwd) {
             result.pass = false;
             this.validTradePwd = false;
         }
@@ -156,7 +191,7 @@ class CoinWithdrawStore {
             result.pass = false;
             this.validEmailCode = false;
         }
-        console.log(result);
+        
         return result;
     }
 
@@ -175,27 +210,18 @@ class CoinWithdrawStore {
             codeid: this.captchaStore.codeid,
             amount: this.amount,
             gAuth: this.google,
-        }).then((data)=>{
+        }).then((data) => {
 
         })
     }
     /**
      * 提币发送邮箱验证码
      */
-    @action
+    @action.bound
     sendEmailCode() {
-        if (this.sendingcode) {
-            return;
-        }
-        takeCoinSendEmailCode({
+        return takeCoinSendEmailCode({
             vercode: this.vercode,
             codeid: this.captchaStore.codeid,
-        }).then((data)=>{
-            runInAction('send email code', ()=>{
-                if (data.status == 200) {
-                    
-                }
-            })
         })
     }
     /**

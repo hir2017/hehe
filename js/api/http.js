@@ -234,6 +234,16 @@ export function selectUserAddress(currentyId){
     })).then(res => res.data);
 }
 
+/*----------------------------- 充值相关接口：{{------------------------------------*/
+
+export function rechargeOrder(){
+    return axios.post(`${UPEX.config.host}/coin/rechargeOrder`, qs.stringify({
+        
+    })).then(res => res.data);
+}
+
+/*----------------------------- 充值相关接口：}}------------------------------------*/
+
 /*----------------------------- 提币相关接口：{{------------------------------------*/
 /**
  * 提币记录
@@ -263,7 +273,7 @@ export function deleteCoinAddress(data){
 /**
  * 添加提币地址接口
  */
-export function addCoinAddress(data){
+export function addWithdrawAddress(data){
     return axios.post(`${UPEX.config.host}/coin/insertTakeAddress`, qs.stringify({
         currencyId: data.currencyId, // 提币地址
         fdPwd: data.fdPwd, // 交易密码
