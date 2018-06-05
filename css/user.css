@@ -1,6 +1,6 @@
 .user-wrapper {
     position: relative;
-    min-width: 1150px;
+    width: 1200px;
     margin: 0 auto;
     padding: 10px;
     -webkit-box-sizing: border-box;
@@ -115,8 +115,8 @@
 }
 
 .user-main-box .info-content-left .bind {
-    margin-left: 265px;
-    margin-top: 5px;
+    margin-top: 10px;
+    text-align: right;
 }
 
 .user-main-box .info-content-left .bind-email {
@@ -650,7 +650,6 @@
 }
 
 .user-main-box .password-setting-box {
-    padding-left: 120px;
     padding-top: 65px;
 }
 
@@ -1303,7 +1302,7 @@
     position: absolute;
     white-space: nowrap;
     top: 8px;
-    left: 380px;
+    left: 367px;
     font-size: 12px;
 }
 

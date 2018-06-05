@@ -34,8 +34,11 @@ class CoinWithdrawStore {
     // 邮箱验证码
     @observable emailCode = '';
     @observable validEmailCode = true;
+    @observable sendingcode = false;
     // google验证码
-    @observable google = '';
+    @observable authType = 'phone'; // 认证方式
+    @observable googlecode = '';
+    @observable phonecode = '';
     // 图片id
     codeid = '';
 
@@ -103,6 +106,26 @@ class CoinWithdrawStore {
     }
 
     @action
+    setGoogleCode(value){
+        this.googlecode = value;
+    }
+
+    @action
+    setPhoneCode(value){
+        this.phonecode = value;
+    }
+
+    @action
+    changeAuthTypeTo(type){
+        this.authType = type;
+    }
+
+    @action
+    changeSendingCodeTo(status) {
+        this.sendingcode = status;
+    }
+
+    @action
     verifyBeforeSubmit() {
         var result = {
             pass: true,
@@ -154,6 +177,25 @@ class CoinWithdrawStore {
             gAuth: this.google,
         }).then((data)=>{
 
+        })
+    }
+    /**
+     * 提币发送邮箱验证码
+     */
+    @action
+    sendEmailCode() {
+        if (this.sendingcode) {
+            return;
+        }
+        takeCoinSendEmailCode({
+            vercode: this.vercode,
+            codeid: this.captchaStore.codeid,
+        }).then((data)=>{
+            runInAction('send email code', ()=>{
+                if (data.status == 200) {
+                    
+                }
+            })
         })
     }
     /**

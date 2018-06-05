@@ -9,7 +9,9 @@
 }
 
 .account-hd-box {
-    padding: 30px 20px 20px;
+    width: 1200px;
+    margin: 0 auto;
+    padding: 30px 0px 20px;
 }
 
 .account-title {
@@ -61,7 +63,6 @@
     display: inline-block;
     margin-right: 40px;
     line-height: 50px;
-    padding-left: 50px;
 }
 
 .account-amount i {
@@ -122,9 +123,12 @@
     width: 500px;
     margin-right: -500px;
     float: right;
+    text-align: right;
 }
 
 .account-record .btn {
+    display: inline-block;
+    margin-left: 20px;
     border: 0 none;
     width: 220px;
     height: 50px;
@@ -134,7 +138,6 @@
     color: #fff;
     font-size: 16px;
     text-align: center;
-    margin-right: 30px;
 }
 
 .account-record .btn a,
@@ -149,7 +152,7 @@
  */
 
 .account-list {
-    width: 1330px;
+    width: 1200px;
     margin: 20px auto;
 }
 
@@ -280,7 +283,7 @@
  */
 
 .account-coinrecord {
-    width: 1330px;
+    width: 1200px;
     margin: 20px auto;
 }
 
@@ -346,7 +349,7 @@
 
 
 .account-record-list .table-bd{
-    min-height: 100px;
+    min-height: 121px;
     position: relative;
 }
 

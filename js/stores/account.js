@@ -20,7 +20,7 @@ class Account {
     get coinList() {
         return this.accountData.coinList || [];
     }
-    
+
     @computed
     get allMoney() {
         return this.accountData.allMoney || '0.00';
@@ -89,7 +89,7 @@ class Account {
                     let info = {}; // 基础币
                     let len = data.attachment.coinList.length;
 
-                    for (let i = 0 ; i < len; i++) {
+                    for (let i = 0; i < len; i++) {
                         let item = data.attachment.coinList[i];
 
                         if (item.currencyNameEn == 'TWD') {
@@ -101,33 +101,36 @@ class Account {
 
                     this.baseCoinInfo = info;
                     data.attachment.coinList = coinList;
-                    
+
                     // 拷贝存储数据
                     this.originAccountData = JSON.parse(JSON.stringify(data.attachment));
-                    this.accountData = data.attachment;                    
-                    
-                    if (typeof callback =='function') {
+                    this.accountData = data.attachment;
+
+                    if (typeof callback == 'function') {
                         callback();
                     }
                 }
                 this.isFetching = false;
             })
-        }).catch(()=>{
+        }).catch(() => {
             runInAction(() => {
-                this.isFetching = false;    
+                this.isFetching = false;
             })
         })
     }
 
     @action
     updateCurrentCoin(data) {
-        this.currentCoin =  data;
+        this.currentCoin = data;
     }
     /**
      * 查询当前币种地址及二维码
      */
     @action
     selectUserAddress(currencyId, currencyNameEn) {
+
+        this.isFetching = true;
+
         selectUserAddress(currencyId)
             .then((data) => {
                 // data = require('../mock/address.json');
@@ -141,7 +144,14 @@ class Account {
                         this.updateCurrentCoin(currentCoin);
                     }
                 })
-            });
+
+                this.isFetching = false;
+            })
+            .catch(() => {
+                runInAction(() => {
+                    this.isFetching = false;
+                })
+            })
     }
 
     @action

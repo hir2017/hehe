@@ -89,8 +89,20 @@ class Withdraw extends Component{
 			case 'emailcode':
 				store.setEmailCode(value);
 				break;
+			case 'googlecode':
+				store.setGoogleCode(value);
+				break;
+			case 'phonecode':
+				store.setPhoneCode(value);
+				break;
 
 		}
+	}
+	/**
+	 * 填写邮箱验证码
+	 */
+	sendEmailCode=(e)=>{
+
 	}
 
 	render() {
@@ -193,36 +205,77 @@ class Withdraw extends Component{
 	                    </div>
 					</div>
 					<div className="withdraw-form-item">
-						<label className="withdraw-label">{UPEX.lang.template('Google认证')}</label>
-						<div className="withdraw-info">
-							<div className="input-box">
-                                <input 
-                                    type="number"
-                                    data-key="google"
-	                                onChange={this.onChangeInput}
-                                />
-                            </div>
-						</div>
-					</div>
-					<div className="withdraw-form-item">
 						<label className="withdraw-label">{UPEX.lang.template('邮箱验证')}</label>
 						<div className="withdraw-info">
-							<div className={`input-box ${store.validEmailCode ? '' : 'wrong'}`}>
-                                <input 
-                                    type="text"
-                                    data-key="emailcode"
-	                                onChange={this.onChangeInput}
-                                />
+							<div className="email-box">
+								<div className={`input-box ${store.validEmailCode ? '' : 'wrong'}`}>
+	                                <input 
+	                                    type="text"
+	                                    data-key="emailcode"
+	                                    placeholder={UPEX.lang.template('填写邮箱验证码')}
+		                                onChange={this.onChangeInput}
+	                                />
+	                            </div>
+                                <button onClick={ this.sendEmailCode } className={ store.sendingcode ? 'disabled' : ''} >
+                                    <div className={ store.sendingcode ? 'code-sending': 'code-sending hidden'}>{ UPEX.lang.template('重发')}（<span data-second="second" ref="second"></span>s）</div>
+                                    <div className={ store.sendingcode ? 'code-txt hidden' : 'code-txt'}>{  UPEX.lang.template('获取验证码') }</div>
+                                </button>
                             </div>
 						</div>
 					</div>
 					<div className="withdraw-form-item">
-						<label className="withdraw-label">{UPEX.lang.template('支付密码')}</label>
+						<label className="withdraw-label">{UPEX.lang.template('认证方式')}</label>
+						<div className="withdraw-info">
+							<ul className="auth-type">
+								<li 
+									onClick={()=>store.changeAuthTypeTo('phone')} 
+									className={store.authType == 'phone' ?  'auth-item selected' : 'auth-item'}
+								>
+									{UPEX.lang.template('手机认证')}
+								</li>
+								<li 
+									onClick={()=>store.changeAuthTypeTo('google')}
+									className={store.authType == 'google' ?  'auth-item selected' : 'auth-item'}
+								>
+									{UPEX.lang.template('Google认证')}
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div className="withdraw-form-item">
+						<label className="withdraw-label"></label>
+						<div className="withdraw-info">
+							{ 
+								store.authType == 'phone' ? (
+									<div className="input-box">
+		                                <input 
+		                                    type="number"
+		                                    data-key="phonecode"
+		                                    placeholder={UPEX.lang.template('填写短信验证码')}
+			                                onChange={this.onChangeInput}
+		                                />
+		                            </div>
+								): (
+									<div className="input-box">
+		                                <input 
+		                                    type="number"
+		                                    data-key="googlecode"
+		                                    placeholder={UPEX.lang.template('填写谷歌验证码')}
+			                                onChange={this.onChangeInput}
+		                                />
+		                            </div>
+								)
+							}
+						</div>
+					</div>
+					<div className="withdraw-form-item">
+						<label className="withdraw-label">{UPEX.lang.template('交易密码')}</label>
 						<div className="withdraw-info">
 							<div className={`input-box ${store.validTradePwd ? '' : 'wrong'}`}>
                                 <input 
                                     type="password" 
                                     data-key="tradepwd"
+                                    placeholder={UPEX.lang.template('填写交易密码')}
 	                                onChange={this.onChangeInput}
                                 />
                             </div>

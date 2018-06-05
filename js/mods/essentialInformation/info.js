@@ -20,34 +20,31 @@ import { Switch } from 'antd';
 class Info extends Component {
 
   constructor () {
-    super ()
-    this.gradeImg = this.gradeImg.bind(this)
+      super ()
+      this.gradeImg = this.gradeImg.bind(this)
   }
 
   componentWillMount() {
-    this.props.userInfoStore.getUserInfo()
-  }
-
-  onChange(checked) {
-    console.log(`switch to ${checked}`);
+      this.props.userInfoStore.getUserInfo()
   }
 
   gradeImg () {
-    const userInfo = this.props.userInfoStore.userInfo || {}
-    if (userInfo.isAuthPrimary == 2) {
-      return {img: gradeA, grade: 'A'}
-    }
-    if (userInfo.isAuthSenior == 2) {
-      return {img: gradeB, grade: 'B'}
-    }
-    if (userInfo.isAuthVideo == 2) {
-      return {img: gradeC, grade: 'C'}
-    }
-    return {}
+      const userInfo = this.props.userInfoStore.userInfo || {}
+      
+      if (userInfo.isAuthPrimary == 2) {
+          return {img: gradeA, grade: 'A'}
+      }
+
+      if (userInfo.isAuthSenior == 2) {
+          return {img: gradeB, grade: 'B'}
+      }
+
+      return {}
   }
   
   render() {
     const userInfo = this.props.userInfoStore.userInfo || {}
+
     return (
       <div className="info-box">
         <div className="info-title">
@@ -85,10 +82,6 @@ class Info extends Component {
                   <span>{UPEX.lang.template('提现额度')}：</span>
                   NT300.00000
                     </div>
-              </div>
-              <div className="login-reminding">
-                {UPEX.lang.template('异地登陆提醒')}
-                <Switch defaultChecked onChange={this.onChange} />
               </div>
             </div>
           </div>

@@ -1,6 +1,6 @@
 .order-wrapper {
     position: relative;
-    min-width: 1150px;
+    width: 1200px;
     margin: 0 auto;
     padding: 10px;
     -webkit-box-sizing: border-box;
@@ -69,14 +69,14 @@
 .order-header {
     height: 50px;
     line-height: 50px;
-    padding-left: 200px;
+    padding-left: 100px;
 }
 
 .order-header h2 {
     float: left;
     font-size: 18px;
-    width: 200px;
-    margin-left: -200px;
+    width: 100px;
+    margin-left: -100px;
     text-align: left;
 }
 
@@ -136,6 +136,7 @@
 
 .order-table table th {
     padding: 10px 0;
+    text-align: center;
 }
 
 .order-table .table-bd {
@@ -152,6 +153,7 @@
     min-height: 46px;
     color: #333333;
     font-size: 14px;
+    text-align: center;
 }
 
 .order-table .list li {
@@ -263,12 +265,12 @@
 }
 
 .order-main-box .history-list-table .name {
-    width: 10%;
+    width: 8%;
     text-align: center;
 }
 
 .order-main-box .history-list-table .num {
-    width: 15%;
+    width: 17%;
     text-align: center;
 }
 
