@@ -59,7 +59,7 @@
 }
 
 .withdraw-info .address-box .select-box{
-    width: 377px;
+    width: 367px;
     display: inline-block;
     vertical-align: middle;
 }
@@ -73,7 +73,7 @@
     vertical-align: middle;
     border: 1px solid #d8d9dd;
     border-radius: 4px;
-    width: 102px;
+    width: 112px;
     height: 38px;
     text-align: center;
     line-height: 38px;
@@ -131,6 +131,48 @@
     text-indent: 10px;
     display: inline-block;
     vertical-align: middle;
+}
+
+.withdraw-info .auth-type{
+    height: 38px;
+}
+
+.withdraw-info .auth-item{
+    display: inline-block;
+    vertical-align: middle;
+    border: 1px solid #d8d9dd;
+    border-radius: 4px;
+    width: 102px;
+    height: 38px;
+    text-align: center;
+    line-height: 38px;
+    font-size: 14px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.withdraw-info .auth-item.selected{
+    color: #fff;
+    background-color: #e6bc1d;
+}
+
+.withdraw-info .email-box .input-box{
+    width: 367px;
+    display: inline-block;
+    vertical-align: middle;
+}
+.withdraw-info .email-box button{
+    display: inline-block;
+    vertical-align: middle;
+    border: 1px solid #d8d9dd;
+    border-radius: 4px;
+    width: 112px;
+    height: 38px;
+    text-align: center;
+    line-height: 38px;
+    font-size: 14px;
+    color: #5795f1;
+    margin-left: 10px;
 }
 
 .withdraw-info li{
