@@ -4,37 +4,34 @@
  * @date 2018-04-26
  */
 
-import React, {Component} from 'react';
-import { observer, inject } from 'mobx-react';
-import { Link } from 'react-router';
+import React, { Component } from "react";
+import { observer, inject } from "mobx-react";
+import { Link } from "react-router";
+
+import NavsView from "./nav-list";
+import InfoView from "./info";
+
 
 @observer
 class Footer extends Component {
- 	render() {
- 		return (
- 			<div className="app-footer" id="J_AppFooter">
- 				<div className="footer-box">
- 					<ul>
- 						<li>
- 							<Link to="/about">{ UPEX.lang.template('关于我们')}</Link>
- 						</li>
- 						<li>
- 							<Link to="/contact">{ UPEX.lang.template('联系我们')}</Link>
- 						</li>
- 						<li>
- 							<Link to="/careers">{ UPEX.lang.template('招贤纳士')}</Link>
- 						</li>
- 						<li>
- 							<Link to="/cooperation">{ UPEX.lang.template('商务合作')}</Link>
- 						</li>
- 						<li>
- 							<Link to="/feedback">{ UPEX.lang.template('帮助与反馈')}</Link>
- 						</li>
- 					</ul>
- 				</div>
- 			</div>
- 		);
- 	}
- }
+    constructor(props) {
+        super(props);
+    }
+    render() {
+        return (
+            <div className="app-footer" id="J_AppFooter">
+                <div className="footer-box">
+                    <div className="footer-box-top clearfix">
+                        <NavsView />
+                        <InfoView />
+                    </div>
+                    <div className="copyright">
+                        {UPEX.lang.template('Copyright ©️ 2017-2018 ACE.com All Rights Reserved')}
+                    </div>
+                </div>
+            </div>
+        );
+    }
+}
 
- export default Footer;
+export default Footer;
