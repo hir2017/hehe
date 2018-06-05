@@ -36,12 +36,20 @@ export default class SettingTradingPassword extends Component {
       message.error(UPEX.lang.template('图片验证码不能为空'))
       return
     }
-    if ((this.props.type == 2 || this.props.type == 3) && !this.props.phone) {
+    if (this.props.newBind && !this.props.emailOrphone) {
+      message.error(UPEX.lang.template(this.props.message))
+      return 
+    }
+    if ((this.props.type == 2 || this.props.type == 3) && !this.props.phone && this.props.bind) {
       message.error(UPEX.lang.template(this.props.message))
       return
     }
     let res
-    if (this.props.bind) {
+    
+    if (this.props.newBind) {
+      const emailOrphone = this.props.areacode + this.props.emailOrphone
+      res = await this.props.userInfoStore.bindPESendCode(this.props.codeid, this.props.imgCode, emailOrphone, this.props.type)
+    } else if (this.props.bind) {
       const phone = this.props.areacode == '86' ? this.props.phone : this.props.areacode + this.props.phone
       res = await this.props.userInfoStore.bindSendCode(this.props.imgCode, this.props.codeid, this.props.type, phone)
     } else {

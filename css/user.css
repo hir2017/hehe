@@ -25,6 +25,16 @@
     padding: 20px;
 }
 
+.user-menu-box a {
+    color: #666666;
+    font-size: 14px;
+}
+
+.user-menu-box a:hover,
+.user-menu-box a:link {
+    text-decoration-line: none;
+}
+
 .user-menu-box h2 {
     font-size: 18px;
     color: #333333;
@@ -232,7 +242,7 @@
 }
 
 .user-main-box .authentication-content {
-    padding-left: 220px;
+    padding-left: 100px;
 }
 
 .user-main-box .authentication-content .ant-upload-list {
@@ -516,8 +526,10 @@
 }
 
 .user-main-box .binding-bank-box {
-    padding-left: 125px;
+    /*padding-left: 125px;*/
+    padding-left: 20px;
     padding-bottom: 50px;
+    padding-right: 30px;
 }
 
 .user-main-box .binding-bank-box .item {
@@ -589,7 +601,7 @@
 .user-main-box .binding-bank-message {
     display: inline-block;
     width: 460px;
-    margin-left: 60px;
+    /*margin-left: 60px;*/
     padding-left: 50px;
     margin-top: 20px;
     border-left: 1px solid #d9d9d9;
@@ -661,6 +673,7 @@
 }
 
 .user-main-box .password {
+    padding-left: 20px;
     display: inline-block;
     vertical-align: top;
     padding-right: 60px;
@@ -850,7 +863,8 @@
 }
 
 .user-main-box .binding-phone-content {
-    padding-left: 120px;
+    /*padding-left: 120px;*/
+    padding-left: 50px;
     padding-top: 80px;
 }
 
@@ -912,7 +926,8 @@
 }
 
 .user-main-box .binding-phone-right li {
-    width: 400px;
+    /*width: 400px;*/
+    width: 250px;
     height: 45px;
     margin-bottom: 20px;
     font-size: 14px;
@@ -920,7 +935,8 @@
 }
 
 .user-main-box .binding-phone-right li:last-child {
-    width: 300px;
+    /*width: 300px;*/
+    width: 250px;
 }
 
 
@@ -1160,7 +1176,8 @@
 
 .user-main-box .question-left {
     margin-left: 50px;
-    width: 700px;
+    /*width: 700px;*/
+    width: 500px;
     margin-top: 30px;
     position: relative;
 }
@@ -1231,7 +1248,8 @@
 
 .user-main-box .question-search input {
     padding-left: 30px;
-    width: 930px;
+    /*width: 930px;*/
+    width: 730px;
     font-size: 12px;
     color: #666666;
     background-color: #f2f2f2;

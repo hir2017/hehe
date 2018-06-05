@@ -9,7 +9,12 @@ import { observer, inject } from 'mobx-react';
 
 @observer
 class UserPage extends Component {
+
+	  activeMenu (url) {
+			return this.props.router.location.pathname.includes(url)
+		}
     render() {
+			
         return (
         	<div className="user-wrapper">
         		<div className="user-body-inner clearfix">
