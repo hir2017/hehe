@@ -25,6 +25,16 @@
     padding: 20px;
 }
 
+.user-menu-box a {
+    color: #666666;
+    font-size: 14px;
+}
+
+.user-menu-box a:hover,
+.user-menu-box a:link {
+    text-decoration-line: none;
+}
+
 .user-menu-box h2 {
     font-size: 18px;
     color: #333333;

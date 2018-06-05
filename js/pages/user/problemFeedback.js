@@ -53,6 +53,8 @@ export default class extends Component {
   render() {
     const { previewVisible, previewImage, fileList } = this.state;
     const loading = this.props.userInfoStore.submit_loading
+    const token = UPEX.cache.getCache('token');
+    const uid = UPEX.cache.getCache('uid');
     return (
       <div>
         <div className="question-title">
@@ -62,7 +64,7 @@ export default class extends Component {
           <TextArea onChange={this.textAreaChange} placeholder={UPEX.lang.template('請輸入您要反饋的問題')} rows={7} />
           <div className="upload-box">
             <Upload
-              action="//jsonplaceholder.typicode.com/posts/"
+              action={UPEX.config.uploadHost + '?token=' + token + '&uid=' + uid}
               listType="picture-card"
               fileList={fileList}
               onChange={this.handleChange}

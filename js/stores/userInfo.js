@@ -9,7 +9,8 @@ import {
   bindGoogleAuth,
   closeGoogleAuth,
   selectAuthLevel,
-  bindPhone
+  bindPhone,
+  bindPhoneOrEmailSendCode
 } from '../api/http'
 import { message } from 'antd'
 
@@ -234,6 +235,17 @@ class UserInfo {
       } else {
         message.error(res.message)
       }
+    } catch (e) {
+      console.error(e)
+      message.error('Network Error')
+    }
+  }
+
+  @action
+  async bindPESendCode(codeid, imgcode, phoneOrEmail, type) {
+    try {
+      const res = await bindPhoneOrEmailSendCode(codeid, imgcode, phoneOrEmail, type)
+      return res
     } catch (e) {
       console.error(e)
       message.error('Network Error')

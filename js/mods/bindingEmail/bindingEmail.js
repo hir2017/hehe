@@ -89,12 +89,18 @@ export default class BindingEmail extends Component {
             <img onClick={this.captchaChange} src={captcha} />
           </div>
           <div>
-            <div className="item v-code">
+            <div className="item">
               <span className="lable">{UPEX.lang.template('邮箱验证码')}</span>
               <input onChange={this.vCodeChange} className="input" />
             </div>
+          </div>
+          <div>
+            <div className="item v-code">
+              <span className="lable">{UPEX.lang.template('短信验证码')}</span>
+              <input onChange={this.vCodeChange} className="input" />
+            </div>
             <div className="item v-code-button">
-              <Vcodebutton message="邮箱不能为空" phone={this.state.email} areacode='' bind={true} type={3} imgCode={this.state.ivCode} codeid={codeid} />
+              <Vcodebutton message="邮箱不能为空" emailOrphone={this.state.email} areacode='' newBind={true} type={1} imgCode={this.state.ivCode} codeid={codeid} />
             </div>
           </div>
           <div className="massage" style={{display: 'none'}}>

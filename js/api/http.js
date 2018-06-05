@@ -573,6 +573,17 @@ export function bindPhone (newPhone, oldPhone, oldVercode, vercode) {
         newPhone, oldPhone, oldVercode, vercode
     }).then(res => res.data);
  }
+
+/**
+ *  绑定手机或邮箱发送验证码
+ *  type=1、手机注册用户;type=2、邮箱注册用户;
+ */
+
+export function bindPhoneOrEmailSendCode (codeid, imgcode, phoneOrEmail, type) {
+    return axios.post(`${UPEX.config.host}/user/bindPhoneOrEmailSendCode`, {
+        codeid, imgcode, phoneOrEmail, type
+    }).then(res => res.data);
+ }
  
 
 
