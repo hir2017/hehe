@@ -58,7 +58,7 @@ class BankInfo extends Component {
               <BindingBank />
               <BankList />
             </div>
-            : userInfo.isValidatePass
+            : !userInfo.isValidatePass
               ? <div className="bank-message">
                 {UPEX.lang.template('请先设置交易密码')}<Link to="/user/settingTraddingPassword">{UPEX.lang.template('设置交易密码')}</Link>
               </div>
