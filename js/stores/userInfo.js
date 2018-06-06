@@ -185,7 +185,9 @@ class UserInfo {
   @action
   async bindGA(clientPassword, verCode) {
     try {
+      this.submit_loading = true
       const res = await bindGoogleAuth(clientPassword, verCode)
+      this.submit_loading = false
       if (res.status === 200) {
         this.gaBindSuccess = true
         message.success(UPEX.lang.template('绑定成功'))
@@ -193,6 +195,7 @@ class UserInfo {
         message.error(res.message)
       }
     } catch (e) {
+      this.submit_loading = false
       console.error(e)
       message.error('Network Error')
     }
@@ -201,7 +204,9 @@ class UserInfo {
   @action
   async rmBindGA(clientPassword, verCode) {
     try {
+      this.submit_loading = true
       const res = await closeGoogleAuth(clientPassword, verCode)
+      this.submit_loading = false
       if (res.status === 200) {
         this.gaBindSuccess = false
         message.success(UPEX.lang.template('解除绑定成功'))
@@ -209,6 +214,7 @@ class UserInfo {
         message.error(res.message)
       }
     } catch (e) {
+      this.submit_loading = false
       console.error(e)
       message.error('Network Error')
     }
