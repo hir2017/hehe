@@ -182,7 +182,7 @@ export function getUserOrderList(data) {
     data = data || {};
 
     return axios.post(`${UPEX.config.host}/user/showOrderList`, qs.stringify({
-        ...data  
+        ...data
     })).then(res => res.data);
 }
 /**
@@ -223,7 +223,7 @@ export function getCoinAccount(type = 1){
 /**
  * 查询当前币种地址及二维码
  * @return {
-    
+
     msgCode: 充币识别码
  }
  */
@@ -303,10 +303,10 @@ export function takeCoin(data){
  * 提币记录
  * selectListByUuid
  * {
-    
+
     beginTime
     endTime
-    currencyId 
+    currencyId
     size
     start
     status
@@ -324,6 +324,44 @@ export function getCoinRechargeList(data){
  */
 export function getAllCoinPoint(){
     return axios.post(`${UPEX.config.host}/coin/coinPoint`).then(res => res.data);
+}
+/**
+ * 充值/提现查询记录
+ * /fund/change
+ * {
+    beginTime
+    endTime
+    size
+    start
+    type
+    token
+    uid
+ }
+ */
+export function getFundChangeList(data){
+    return axios.post(`${UPEX.config.host}/fund/change`, qs.stringify({
+        ...data
+    })).then(res => res.data);
+}
+/**
+ * 提现记录
+ * selectListByUuid
+ * {
+
+    beginTime
+    endTime
+    currencyId
+    size
+    start
+    status
+    token
+    uid
+ }
+ */
+export function getFundWithdrawList(data){
+    return axios.post(`${UPEX.config.host}/fund/withdraw`, qs.stringify({
+        ...data
+    })).then(res => res.data);
 }
 /**
  * 我的订单 —— 委托历史记录
@@ -351,7 +389,7 @@ export function getUserHistoryOrderList(data){
 }
 /**
  * 我的订单 —— 已成交订单
- * @param {Object} data 
+ * @param {Object} data
  * @example {
     baseCurrencyId: '', // 基础币
     beginTime: '', // 起始时间
@@ -540,7 +578,7 @@ export function personalInfo(){
 
  export function bindGoogleAuth (clientPassword, verCode) {
     return axios.post(`${UPEX.config.host}/security/bindGoogleAuth`, {
-        clientPassword, 
+        clientPassword,
         verCode
     }).then(res => res.data);
  }
@@ -551,7 +589,7 @@ export function personalInfo(){
 
 export function closeGoogleAuth (clientPassword, verCode) {
     return axios.post(`${UPEX.config.host}/security/closeGoogleAuth`, {
-        clientPassword, 
+        clientPassword,
         verCode
     }).then(res => res.data);
  }
@@ -584,6 +622,6 @@ export function bindPhoneOrEmailSendCode (codeid, imgcode, phoneOrEmail, type) {
         codeid, imgcode, phoneOrEmail, type
     }).then(res => res.data);
  }
- 
+
 
 

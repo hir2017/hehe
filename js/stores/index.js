@@ -16,6 +16,7 @@ import UserInfoStore from './userInfo';
 import CoinRechargeRecordStore from './coin-recharge-record';
 import CoinWithdrawRecordStore from './coin-withdraw-record';
 import CoinWithdrawStore from './coin-withdraw';
+import FundChangeRecordStore from './fund-change-record';
 
 class RootStore {
     constructor() {
@@ -42,8 +43,8 @@ class RootStore {
         this.coinRechargeRecordStore = new CoinRechargeRecordStore(this);
         this.coinWithdrawRecordStore = new CoinWithdrawRecordStore(this);
         this.coinWithdrawStore = new CoinWithdrawStore(this);
-        this.addressStore = new AddressStore(this);        
-
+        this.addressStore = new AddressStore(this);
+        this.fundChangeRecordStore = new FundChangeRecordStore(this);
     }
 }
 

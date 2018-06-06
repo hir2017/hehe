@@ -52,7 +52,6 @@
     padding-right: 500px;
 }
 
-
 .account-amount {
     float: left;
     width: 100%;
@@ -80,7 +79,6 @@
     background: url('../images/icon-eye-close.png') no-repeat center center;
     background-size: 30px 30px;
 }
-
 
 .account-amount label {
     font-size: 16px;
@@ -115,7 +113,7 @@
 }
 
 .account-amount .btn a,
-.account-amount .btn a:hover{
+.account-amount .btn a:hover {
     color: #fff;
 }
 
@@ -141,11 +139,9 @@
 }
 
 .account-record .btn a,
-.account-record .btn a:hover{
+.account-record .btn a:hover {
     color: #fff;
 }
-
-
 
 /**
  * 列表
@@ -169,7 +165,6 @@
     float: left;
     margin-right: 10px;
 }
-
 
 .account-filter-box .filter-input input {
     width: 180px;
@@ -206,11 +201,9 @@
     box-sizing: border-box;
 }
 
-
-.account-result-list table th{
+.account-result-list table th {
     padding: 10px 0;
 }
-
 
 .account-result-list dd {
     display: inline-block;
@@ -219,11 +212,12 @@
     color: #333333;
     font-size: 14px;
 }
+
 .account-result-list li {
     border-top: 1px solid #f2f2f2;
 }
 
-.account-result-list .table-bd{
+.account-result-list .table-bd {
     position: relative;
     min-height: 300px;
 }
@@ -277,17 +271,18 @@
     color: #5581d8;
 }
 
-
 /**
  * 提币记录
  */
 
-.account-coinrecord {
+.account-coinrecord,
+.account-fiatrecord {
     width: 1200px;
     margin: 20px auto;
 }
 
-.account-coinrecord-hd {
+.account-coinrecord-hd,
+.account-fiatrecord-hd {
     width: 100%;
     padding-left: 300px;
     padding-top: 10px;
@@ -299,21 +294,24 @@
     overflow: hidden;
 }
 
-.account-coinrecord-hd h2 {
+.account-coinrecord-hd h2,
+.account-fiatrecord-hd h2 {
     font-size: 26px;
     float: left;
     width: 300px;
     margin-left: -300px;
 }
 
-.account-coinrecord-select{
+.account-coinrecord-select,
+.account-fiatrecord-select {
     float: right;
     text-align: right;
     width: 100%;
     color: rgba(255, 255, 255, 0.7)
 }
 
-.account-coinrecord-select .ant-select {
+.account-coinrecord-select .ant-select,
+.account-fiatrecord-select .ant-select {
     padding: 0 3px;
     min-width: 85px;
 }
@@ -325,7 +323,7 @@
     box-sizing: border-box;
 }
 
-.account-record-list table th{
+.account-record-list table th {
     padding: 10px 0;
 }
 
@@ -338,21 +336,24 @@
     min-height: 46px;
     color: #333333;
     font-size: 14px;
+    border-bottom: solid 1px #f2f2f2;
 }
 
-
-.account-record-list .mini-tip{
+.account-record-list .mini-tip {
     text-align: center;
     padding: 50px 0;
     font-size: 14px;
 }
 
+.account-record-list .table-hd tr th:nth-child(1),
+.account-record-list .table-bd dl dd:nth-child(1) {
+    padding-left: 10px;
+}
 
-.account-record-list .table-bd{
+.account-record-list .table-bd {
     min-height: 121px;
     position: relative;
 }
-
 
 .account-record-list .ant-pagination {
     margin-top: 20px;
@@ -363,6 +364,9 @@
     width: 15%;
 }
 
+.account-record-list .no {
+    width: 15%;
+}
 
 .account-record-list .name {
     width: 10%;
@@ -380,9 +384,43 @@
     width: 40%;
 }
 
-.account-record-list .list li{
+.account-record-list .swift-no {
+    width: 20%;
+}
+
+.account-record-list .balance {
+    width: 15%;
+}
+
+.account-record-list .pay-method {
+    width: 20%;
+}
+
+.account-record-list .anticon.toggle {
+    float: right;
+    margin-right: 10%;
+    color: #c5c5c5;
+}
+
+.account-record-list .extra-info {
+    width: 100%;
+    display: none;
+    background-color: #f7f7f7;
+}
+
+.account-record-list .extra-info.show {
+    display: block;
+}
+
+.account-record-list .extra-info .text {
+    display: inline-block;
+    padding-right: 30px;
+}
+
+.account-record-list .list li {
     border-top: 1px solid #f2f2f2;
 }
+
 .account-record-list .list li:hover {
     background: #fffbeb;
 }
