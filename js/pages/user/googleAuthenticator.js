@@ -17,14 +17,13 @@ class GoogleAuthenticator extends Component {
   componentWillMount() {
     const userInfo = this.props.userInfoStore.userInfo || {}
     const gaBindSuccess = this.props.userInfoStore.gaBindSuccess
-    userInfo.phone || this.props.userInfoStore.getUserInfo()
+    Object.keys(userInfo).length || this.props.userInfoStore.getUserInfo()
     gaBindSuccess || this.props.userInfoStore.isGoogleAuth()
   }
 
   render() {
     const userInfo = this.props.userInfoStore.userInfo || {}
     const gaBindSuccess = this.props.userInfoStore.gaBindSuccess
-    console.log(gaBindSuccess, 'ga')
     return (
       <div>
         <div className="google-auth-title">

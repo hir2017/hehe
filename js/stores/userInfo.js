@@ -1,4 +1,5 @@
 import { observable, action } from 'mobx';
+import { hashHistory, browserHistory } from 'react-router';
 import {
   personalInfo, loginRecord,
   sendCodeInUserCenter,
@@ -11,7 +12,8 @@ import {
   selectAuthLevel,
   bindPhone,
   bindPhoneOrEmailSendCode,
-  isUsedGoogleAuth
+  isUsedGoogleAuth,
+  bindPhoneOrEmailAction
 } from '../api/http'
 import { message } from 'antd'
 
@@ -160,7 +162,7 @@ class UserInfo {
   async questions(page) {
     try {
       const res = await getQuestions(page)
-      this.questionsLsit = res.attachment
+      this.questionsLsit = res.attachment || {}
     } catch (e) {
       console.error(e)
       message.error('Network Error')
@@ -271,6 +273,29 @@ class UserInfo {
         message.error(res.message)
       }
     } catch (e) {
+      console.error(e)
+      message.error('Network Error')
+    }
+  }
+
+  @action
+  async bindPEAction(EmailCode, phoneCode, phoneOrEmail, type) {
+    try {
+      this.submit_loading = true
+      const res = await bindPhoneOrEmailAction(EmailCode, phoneCode, phoneOrEmail, type)
+      this.submit_loading = false
+      if (res.status === 200) {
+        message.success(UPEX.lang.template('绑定成功'))
+        if(type === 1) {
+          browserHistory.push('/user/emailSuccess');
+        } else if(type === 2) {
+          browserHistory.push('/user/phoneSuccess');
+        }
+      } else {
+        message.error(res.message)
+      }
+    } catch (e) {
+      this.submit_loading = false
       console.error(e)
       message.error('Network Error')
     }
