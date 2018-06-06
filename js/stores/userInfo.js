@@ -119,7 +119,8 @@ class UserInfo {
                 message.error(res.message)
                 console.error('bindTradingPwd error')
             } else {
-                message.success(UPEX.lang.template('交易密码设置成功'))
+                this.getUserInfo()
+                message.success(UPEX.lang.template('设置成功'))
             }
         } catch (e) {
             console.error(e)
