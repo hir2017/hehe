@@ -48,6 +48,7 @@
     padding-top: 30px;
     margin-top: 10px;
     margin-bottom: 30px;
+    padding-left: 100px;
 }
 
 .withdraw-form-item {
@@ -180,12 +181,12 @@
     background-color: #e6bc1d;
 }
 
-.withdraw-info .email-box .input-box{
+.withdraw-info .vercode-box .input-box{
     width: 367px;
     display: inline-block;
     vertical-align: middle;
 }
-.withdraw-info .email-box button{
+.withdraw-info .vercode-box button{
     display: inline-block;
     vertical-align: middle;
     border: 1px solid #d8d9dd;

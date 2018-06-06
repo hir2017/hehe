@@ -291,11 +291,12 @@ export function takeCoinSendPhoneCode(data){
     })).then(res => res.data);
 }
 /**
- * 提币发送邮箱短信验证码
+ * 提币发送邮箱短信验证码: 10分钟有效期，可以错误5次。
  */
 export function takeCoinSendEmailCode(data){
     return axios.post(`${UPEX.config.host}/coin/emailTakeCoin`, qs.stringify({
         vercode: data.vercode,
+        type: data.type, // 1:邮件（默认）2:手机
         codeid: data.codeid
     })).then(res => res.data);
 }
@@ -305,7 +306,17 @@ export function takeCoinSendEmailCode(data){
 export function takeCoin(data){
     return axios.post(`${UPEX.config.host}/coin/takeCoin?address=${data.address}`, qs.stringify({
         actionId: 4,
-
+        msgCode: '',
+        currencyId: data.currencyId,
+        fdPwd: data.fdPwd,
+        note: data.note,
+        address: data.address,
+        emailCode: data.emailCode,
+        phoneCode: data.phoneCode,
+        vercode: data.vercode,
+        codeid: data.codeid,
+        amount: data.amount,
+        gAuth: data.gAuth,
     })).then(res => res.data);
 }
 /*-----------------------------}} 提币相关接口：------------------------------------*/

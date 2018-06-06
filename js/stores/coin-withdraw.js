@@ -1,5 +1,5 @@
 import { observable, computed, autorun, action, runInAction } from 'mobx';
-import { takeCoinSendPhoneCode, takeCoinSendEmailCode, takeCoin, getTakeCoinInfo } from '../api/http';
+import { takeCoin, getTakeCoinInfo } from '../api/http';
 import md5 from '../lib/md5';
 
 class CoinWithdrawStore {
@@ -38,13 +38,14 @@ class CoinWithdrawStore {
     @observable sendingcode = false;
     // google验证码
     @observable authType = 'phone'; // 认证方式
-    @observable googlecode = '';
-    @observable phonecode = '';
+    @observable googleCode = '';
+    @observable phoneCode = '';
     // 图片id
     codeid = '';
 
     constructor(stores) {
         this.captchaStore = stores.captchaStore;
+        this.userInfoStore = stores.userInfoStore;
     }
 
     @action
@@ -59,6 +60,14 @@ class CoinWithdrawStore {
                     }
                 })
             })
+    }
+    @action
+    getNoteByAddress(address){
+        let item = this.addressList.filter((item)=>{
+            return item.address === address;
+        })
+
+        return item[0].note
     }
 
     @action
@@ -132,12 +141,12 @@ class CoinWithdrawStore {
 
     @action
     setGoogleCode(value) {
-        this.googlecode = value;
+        this.googleCode = value;
     }
 
     @action
     setPhoneCode(value) {
-        this.phonecode = value;
+        this.phoneCode = value;
     }
 
     @action
@@ -193,36 +202,6 @@ class CoinWithdrawStore {
         }
         
         return result;
-    }
-
-    /**
-     * 提币
-     */
-    @action
-    takeCoin() {
-        return takeCoin({
-            currencyId: this.currentCoin.currencyId,
-            fdPwd: this.md5TradePassword,
-            note: this.note,
-            address: this.address,
-            emailCode: this.emailCode,
-            vercode: this.vercode,
-            codeid: this.captchaStore.codeid,
-            amount: this.amount,
-            gAuth: this.google,
-        }).then((data) => {
-
-        })
-    }
-    /**
-     * 提币发送邮箱验证码
-     */
-    @action.bound
-    sendEmailCode() {
-        return takeCoinSendEmailCode({
-            vercode: this.vercode,
-            codeid: this.captchaStore.codeid,
-        })
     }
     /**
      * 实际到账金额
