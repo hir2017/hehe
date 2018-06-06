@@ -1,6 +1,7 @@
 import { observable, computed, autorun, action } from 'mobx';
 import Countries from '../mods/select-country/country-list';
 import { personalInfo } from '../api/http';
+import NumberUtil from '../lib/util/number';
 
 class LoginInfoBaseStore {
     @observable countries = Countries;
@@ -54,7 +55,7 @@ class LoginInfoBaseStore {
     get account() {
         let areaCode = this.areaCode == 86 ? '' : this.areaCode;
 
-        return this.mode == 'email' ? this.email : `${areaCode}${this.phone}`;
+        return this.mode == 'email' ? this.email : `${NumberUtil.prefixed(areaCode, 4)}${this.phone}`;
     }
 
     // 检查邮箱是否合法. true合法，false不合法
