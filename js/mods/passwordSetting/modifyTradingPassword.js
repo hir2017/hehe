@@ -106,7 +106,7 @@ export default class ModifyTradingPassword extends Component {
   }
 
   render() {
-    const loading = this.props.userInfoStore.submit_loading_pwd
+    const loading = this.props.userInfoStore.submit_loading_tpwd
     const codeid = this.props.captchaStore.codeid
     const captcha = this.props.captchaStore.captcha
     const userInfo = this.props.userInfoStore.userInfo || {}
@@ -119,7 +119,7 @@ export default class ModifyTradingPassword extends Component {
           <div className="item new-pwd">
             <span className="lable">{UPEX.lang.template('交易密码')}</span>
             <input onChange={this.passwordChange} type="password" className="input" />
-            <span className="item-left-meassage">*密码由6-18数字、字母和特殊字符组成</span>
+            <span className="item-left-meassage">*{UPEX.lang.template('密码由6-18数字、字母和特殊字符组成')}</span>
           </div>
           <div className="item">
             <span className="lable">{UPEX.lang.template('新交易密码')}</span>
