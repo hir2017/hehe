@@ -7,6 +7,8 @@ import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import Info from '../../mods/essentialInformation/info'
 import List from '../../mods/essentialInformation/logined-list'
+
+@inject('userInfoStore')
 @observer
 class Information extends Component {
 
