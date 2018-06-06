@@ -15,12 +15,16 @@ import Success from '../../mods/bindingGoogle/success'
 class GoogleAuthenticator extends Component {
 
   componentWillMount() {
-    this.props.userInfoStore.getUserInfo()
+    const userInfo = this.props.userInfoStore.userInfo || {}
+    const gaBindSuccess = this.props.userInfoStore.gaBindSuccess
+    userInfo.phone || this.props.userInfoStore.getUserInfo()
+    gaBindSuccess || this.props.userInfoStore.isGoogleAuth()
   }
 
   render() {
     const userInfo = this.props.userInfoStore.userInfo || {}
     const gaBindSuccess = this.props.userInfoStore.gaBindSuccess
+    console.log(gaBindSuccess, 'ga')
     return (
       <div>
         <div className="google-auth-title">
@@ -28,7 +32,7 @@ class GoogleAuthenticator extends Component {
         </div>
         {
           userInfo.phone
-            ? !gaBindSuccess 
+            ? !(gaBindSuccess === 1)
             ? <BindingGoogle />
             : <Success />
             : <div className="google-no-binding-phone">

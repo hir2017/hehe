@@ -10,7 +10,8 @@ import {
   closeGoogleAuth,
   selectAuthLevel,
   bindPhone,
-  bindPhoneOrEmailSendCode
+  bindPhoneOrEmailSendCode,
+  isUsedGoogleAuth
 } from '../api/http'
 import { message } from 'antd'
 
@@ -186,7 +187,8 @@ class UserInfo {
     try {
       const res = await bindGoogleAuth(clientPassword, verCode)
       if (res.status === 200) {
-        message.success(res.message)
+        this.gaBindSuccess = true
+        message.success(UPEX.lang.template('绑定成功'))
       } else {
         message.error(res.message)
       }
@@ -200,10 +202,11 @@ class UserInfo {
   async rmBindGA(clientPassword, verCode) {
     try {
       const res = await closeGoogleAuth(clientPassword, verCode)
-      if (res.data.status === 200) {
-        message.success(res.data.message)
+      if (res.status === 200) {
+        this.gaBindSuccess = false
+        message.success(UPEX.lang.template('解除绑定成功'))
       } else {
-        message.error(res.data.message)
+        message.error(res.message)
       }
     } catch (e) {
       console.error(e)
@@ -246,6 +249,21 @@ class UserInfo {
     try {
       const res = await bindPhoneOrEmailSendCode(codeid, imgcode, phoneOrEmail, type)
       return res
+    } catch (e) {
+      console.error(e)
+      message.error('Network Error')
+    }
+  }
+
+  @action
+  async isGoogleAuth() {
+    try {
+      const res = await isUsedGoogleAuth()
+      if (res.status === 200) {
+        this.gaBindSuccess = res.attachment.isUsed
+      } else {
+        message.error(res.message)
+      }
     } catch (e) {
       console.error(e)
       message.error('Network Error')

@@ -584,6 +584,15 @@ export function bindPhoneOrEmailSendCode (codeid, imgcode, phoneOrEmail, type) {
         codeid, imgcode, phoneOrEmail, type
     }).then(res => res.data);
  }
+
+ /**
+ *  查询当前账户谷歌认证
+ *  0未开启 1是开启 2是关闭
+ */
+
+export function isUsedGoogleAuth () {
+    return axios.post(`${UPEX.config.host}/security/isUsedGoogleAuth`).then(res => res.data);
+ }
  
 
 
