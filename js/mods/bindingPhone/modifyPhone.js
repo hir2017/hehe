@@ -77,6 +77,7 @@ export default class ModifyPhone extends Component {
 
   submit() {
     const codeid = this.props.captchaStore.codeid
+    const captcha = this.props.captchaStore.captcha
     if (!this.state.phone) {
       message.error(UPEX.lang.template('新手机号不能为空'))
       return
@@ -90,7 +91,7 @@ export default class ModifyPhone extends Component {
       return
     }
 
-    this.props.userInfoStore.modifyPhone(this.state.phone, '', this.state.vCode, this.state.nvCode)
+    this.props.userInfoStore.modifyPhone(this.state.phone, '', this.state.vCode, this.state.nvCode, codeid, captcha)
   }
 
   render() {

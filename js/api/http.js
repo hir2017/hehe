@@ -565,11 +565,11 @@ export function selectAuthLevel () {
  }
 
  /**
- *  身份 认证信息
+ *  修改绑定修改邮箱
  */
 
-export function bindPhone (newPhone, oldPhone, oldVercode, vercode) {
-    return axios.post(`${UPEX.config.host}/user/bindPhone`, {
+export function bindPhone (newDevice, oldDevice, oldVercode, vercode, codeid, imgcode) {
+    return axios.post(`${UPEX.config.host}/user/modifyPhoneOrEmail`, {
         newPhone, oldPhone, oldVercode, vercode
     }).then(res => res.data);
  }

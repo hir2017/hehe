@@ -8,6 +8,7 @@ import { observer, inject } from 'mobx-react';
 import { Button, message, Select } from 'antd'
 import { Link } from 'react-router'
 import Vcodebutton from '../common/sendAuthCodeBtn'
+import NumberUtil from '../../lib/util/number'
 const Option = Select.Option;
 
 @inject('userInfoStore', 'captchaStore', 'loginStore')
@@ -26,6 +27,9 @@ export default class BindingPhone extends Component {
   }
 
   componentWillMount() {
+    this.setState({
+      areacode: NumberUtil.prefixed(this.props.loginStore.selectedCountry.areacode, 4)
+    })
     this.props.captchaStore.fetch()
   }
 
@@ -39,7 +43,7 @@ export default class BindingPhone extends Component {
 
   onAreaCodeChange (val) {
     this.setState({
-      areacode: this.props.loginStore.countries[val].areacode
+      areacode: NumberUtil.prefixed(this.props.loginStore.countries[val].areacode, 4)
     })
   }
 
@@ -95,7 +99,7 @@ export default class BindingPhone extends Component {
     const loginStore = this.props.loginStore
     let options = [];
     $.map(loginStore.countries, (item, key) => {
-      options[options.length] = <Option value={key} key={key}>{UPEX.lang.template(key)}(+{item.areacode})</Option>
+      options[options.length] = <Option value={key} key={key}>{UPEX.lang.template(key)}(+{NumberUtil.prefixed(item.areacode,4)})</Option>
     })
     
     return (
@@ -105,7 +109,12 @@ export default class BindingPhone extends Component {
         </div>
         <div className="modify-password-box">
           <div className="item-area">
-            <Select size="large" style={{ width: 360 }} onChange={this.onAreaCodeChange} defaultValue={loginStore.selectedCountry.code}>
+            <Select 
+              showSearch 
+              size="large" 
+              style={{ width: 360 }} 
+              onChange={this.onAreaCodeChange} 
+              defaultValue={loginStore.selectedCountry.code}>
               {options}
             </Select>
           </div>
