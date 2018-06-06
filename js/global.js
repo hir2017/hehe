@@ -170,6 +170,7 @@ const config = {
     // 手机号正则表达式
     phoneReg: /^1[3|4|5|7|8]\d{9}$/,
     salt: 'dig?F*ckDang5PaSsWOrd&%(polarisex0160630).',
+    dealSalt: 'dig?F*ckDa2g5PaSsWOrd&%(13lian0160630).',
     // websocket域名
     websocketHost,
     uploadHost,

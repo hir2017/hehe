@@ -282,18 +282,9 @@ export function addWithdrawAddress(data){
     })).then(res => res.data);
 }
 /**
- * 提币发送手机短信验证码
- */
-export function takeCoinSendPhoneCode(data){
-    return axios.post(`${UPEX.config.host}/coin/sendSms`, qs.stringify({
-        vercode: data.vercode,
-        codeid: data.codeid
-    })).then(res => res.data);
-}
-/**
  * 提币发送邮箱短信验证码: 10分钟有效期，可以错误5次。
  */
-export function takeCoinSendEmailCode(data){
+export function takeCoinSendPhoneCode(data){
     return axios.post(`${UPEX.config.host}/coin/emailTakeCoin`, qs.stringify({
         vercode: data.vercode,
         type: data.type, // 1:邮件（默认）2:手机

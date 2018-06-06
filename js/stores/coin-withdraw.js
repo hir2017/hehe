@@ -2,6 +2,10 @@ import { observable, computed, autorun, action, runInAction } from 'mobx';
 import { takeCoin, getTakeCoinInfo } from '../api/http';
 import md5 from '../lib/md5';
 
+window.md5 = md5;
+
+const dealSalt = "dig?F*ckDa2g5PaSsWOrd&%(13lian0160630).";
+
 class CoinWithdrawStore {
     // 提币的地址列表
     @observable addressList = [];
@@ -33,25 +37,26 @@ class CoinWithdrawStore {
     @observable tradepwd = '';
     @observable validTradePwd = true;
     // 邮箱验证码
-    @observable emailCode = '';
-    @observable validEmailCode = true;
     @observable sendingcode = false;
     // google验证码
     @observable googleCode = '';
     @observable phoneCode = '';
+    @observable $submiting = false;
+    @observable authType = 'phone';
     // 图片id
     codeid = '';
 
     constructor(stores) {
         this.captchaStore = stores.captchaStore;
         this.userInfoStore = stores.userInfoStore;
+        this.authStore = stores.authStore;
     }
 
-    @computed 
+    @computed
     get supportAuthTypes() {
         let arr = [];
-        
-        if (this.userInfoStore.userInfo.isAuthGooogle) {
+
+        if (this.userInfoStore.userInfo.isGoogleAuth == 1) {
             arr[arr.length] = 'google';
         }
 
@@ -60,17 +65,6 @@ class CoinWithdrawStore {
         }
 
         return arr;
-    }
-
-    @computed
-    get authType() {
-        if (this.userInfoStore.userInfo.isAuthGooogle) {
-            return 'google';
-        } 
-
-        if (this.userInfoStore.userInfo.isValidatePhone) {
-            return 'phone'
-        }
     }
 
     @action
@@ -86,6 +80,8 @@ class CoinWithdrawStore {
                 })
             })
     }
+
+
     @action
     getNoteByAddress(address) {
         let item = this.addressList.filter((item) => {
@@ -152,16 +148,13 @@ class CoinWithdrawStore {
 
     @computed
     get md5TradePassword() {
-        return md5(this.tradepwd + UPEX.config.salt);
+        // return md5(this.tradepwd + UPEX.config.dealSalt + this.authStore.uid);
+        return '5D7C7493B636EF5B9461A4212EFCE402';
     }
 
-    @action
-    setEmailCode(value) {
-        this.emailCode = value;
-
-        if (value) {
-            this.validEmailCode = true;
-        }
+    @computed
+    get md5FdPwd() {
+        return md5(this.tradepwd + UPEX.config.salt);
     }
 
     @action
@@ -189,11 +182,6 @@ class CoinWithdrawStore {
         this.validImgCode = status;
     }
 
-    @action
-    changeEmailCodeTo(status) {
-        this.validEmailCode = status
-    }
-
     @action.bound
     verifyBeforeSubmit() {
         var result = {
@@ -219,11 +207,6 @@ class CoinWithdrawStore {
         if (!this.tradepwd) {
             result.pass = false;
             this.validTradePwd = false;
-        }
-
-        if (!this.emailCode) {
-            result.pass = false;
-            this.validEmailCode = false;
         }
 
         return result;
@@ -260,8 +243,6 @@ class CoinWithdrawStore {
         this.tradepwd = '';
         this.validTradePwd = true;
         // 邮箱验证码
-        this.emailCode = '';
-        this.validEmailCode = true;
         this.sendingcode = false;
         // google验证码
         this.googleCode = '';
@@ -273,6 +254,11 @@ class CoinWithdrawStore {
     @computed
     withdrawValue() {
 
+    }
+
+    @action
+    changeSubmitingStatusTo(status) {
+        this.$submiting = status;
     }
 
 }

@@ -34,6 +34,10 @@ export default (store) => {
         	store.getImgCaptcha();
         },
 
+        changeAuthType(type){
+            this.authType = type;
+        },
+
         // 输入框选择
         onChangeInput(e) {
             let target = $(e.currentTarget);
@@ -78,7 +82,7 @@ export default (store) => {
             }
             
             // 邮件验证码
-            takeCoinSendEmailCode({
+            takeCoinSendPhoneCode({
             	type: 2,
 	            vercode: store.vercode,
 	            codeid: store.captchaStore.codeid,
@@ -100,8 +104,6 @@ export default (store) => {
 
                         store.changeSendingCodeTo(true);
                         store.changeImgCodeTo(true);
-                        store.changeEmailCodeTo(true);
-
                         break;
                     case 412:
                         // 图片验证码错误
@@ -120,7 +122,8 @@ export default (store) => {
 
         handleSubmit() {
         	const { verifyBeforeSubmit } = store;
-			// if (verifyBeforeSubmit().pass) {
+			
+            if (verifyBeforeSubmit().pass) {
 				takeCoin({
 		            currencyId: store.currentCoin.currencyId,
 		            fdPwd: store.md5TradePassword,
@@ -133,11 +136,19 @@ export default (store) => {
 		            amount: store.amount,
 		            gAuth: store.googleCode,
 		        }).then((data) => {
-
+                    switch (data.status) {
+                        case 0:
+                            message.success(UPEX.lang.template('提币成功'));
+                            store.reset();
+                            break;
+                        default:
+                            store.getImgCaptcha();
+                            message.error(data.message);
+                    }
 		        })
-			// } else 	{
+			} else 	{
 
-			// }
+			}
         },
 
         destroy() {

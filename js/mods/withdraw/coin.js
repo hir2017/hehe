@@ -21,7 +21,7 @@ class WithdrawCoin extends Component {
 	}
 
 	componentDidMount(){
-		let { accountStore } = this.props;
+		let { accountStore , userInfoStore } = this.props;
 
         accountStore.getUserCoinAccount(()=>{
         	const coinNameEn = this.props.params.code;
@@ -44,6 +44,12 @@ class WithdrawCoin extends Component {
         });
 
         this.action.getImgCaptcha();
+
+        if (userInfoStore.userInfo.isGoogleAuth == 1) {
+        	thia.action.changeAuthTypeTo('google');
+        } else if (userInfoStore.userInfo.isValidatePhone) {
+            thia.action.changeAuthTypeTo('phone');
+        }
 	}
 
 	componentWillUnmount(){
@@ -80,16 +86,13 @@ class WithdrawCoin extends Component {
 
 		$addressOptions = store.addressList.map((cur, index) => {
             return <Option key={index} value={`${cur.address}`}>{cur.address}</Option>
-        }) 
-
-		console.log(userInfoStore.userInfo);
-		console.log(store.supportAuthTypes);
+        })
 
 		return (
 			<div>
 				<div className="withdraw-form">
 					<div className="withdraw-form-item">
-						<Alert message={UPEX.lang.template('當前安全等级{level}可提額度(TWD)：{num2}/日',{ level: 323, num2: 3000})} type="warning" showIcon />
+						<Alert message={UPEX.lang.template('當前安全等级{level}可提額度(TWD)：{num}/日',{ level: 'A', num: `${userInfoStore.userInfo.dayLimit || 0}` })} type="warning" showIcon />
 					</div>
 					<div className="withdraw-form-item">
 						<label className="withdraw-label">{UPEX.lang.template('选择币种')}</label>
@@ -186,7 +189,7 @@ class WithdrawCoin extends Component {
 										return (
 											<li 
 												key={item}
-												onClick={()=>store.changeAuthTypeTo(item)} 
+												onClick={()=>action.changeAuthTypeTo(item)} 
 												className={store.authType == item ?  'auth-item selected' : 'auth-item'}
 											>
 												{text}

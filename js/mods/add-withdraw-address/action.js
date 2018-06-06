@@ -59,7 +59,7 @@ export default (store) => {
                 addWithdrawAddress({
                     address: store.address,
                     note: store.note,
-                    fdPwd: store.md5TradePassword,
+                    fdPwd: store.md5FdPwd,
                     currencyId: store.currencyId
                 }).then((data) => {
                 	store.changeSubmitingStatusTo(false);
