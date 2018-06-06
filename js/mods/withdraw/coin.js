@@ -169,25 +169,6 @@ class WithdrawCoin extends Component {
 	                        </div>
 	                    </div>
 					</div>
-					{
-						userInfoStore.userInfo.isValidateEmail ?  (
-							<div className="withdraw-form-item">
-								<label className="withdraw-label">{UPEX.lang.template('邮箱验证')}</label>
-								<div className="withdraw-info">
-									<div className={`input-box ${store.validEmailCode ? '' : 'wrong'}`}>
-		                                <input 
-		                                    type="text"
-		                                    data-key="emailcode"
-		                                    value={store.emailCode}
-		                                    placeholder={UPEX.lang.template('填写邮箱验证码')}
-			                                onChange={action.onChangeInput}
-		                                />
-		                            </div>
-								</div>
-							</div>
-						) : null
-
-					}
 					<div className="withdraw-form-item">
 						<label className="withdraw-label">{UPEX.lang.template('认证方式')}</label>
 						<div className="withdraw-info">

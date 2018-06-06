@@ -53,9 +53,9 @@ class LoginInfoBaseStore {
 
     @computed
     get account() {
-        let areaCode = this.areaCode == 86 ? '' : this.areaCode;
+        let areaCode = this.areaCode == 86 ? '' : NumberUtil.prefixed(this.areaCode, 4);
 
-        return this.mode == 'email' ? this.email : `${NumberUtil.prefixed(areaCode, 4)}${this.phone}`;
+        return this.mode == 'email' ? this.email : `${areaCode}${this.phone}`;
     }
 
     // 检查邮箱是否合法. true合法，false不合法

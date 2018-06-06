@@ -56,9 +56,6 @@ export default (store) => {
                 case 'tradepwd':
                     store.setTradePassword(value);
                     break;
-                case 'emailcode':
-                    store.setEmailCode(value);
-                    break;
                 case 'googlecode':
                     store.setGoogleCode(value);
                     break;
@@ -121,7 +118,7 @@ export default (store) => {
             });
         },
 
-        handleSubmit(){
+        handleSubmit() {
         	const { verifyBeforeSubmit } = store;
 			// if (verifyBeforeSubmit().pass) {
 				takeCoin({
@@ -129,7 +126,7 @@ export default (store) => {
 		            fdPwd: store.md5TradePassword,
 		            note: store.note,
 		            address: store.address,
-		            emailCode: store.emailCode,
+		            // emailCode: store.emailCode,
 		            phoneCode: store.phoneCode,
 		            vercode: store.vercode,
 		            codeid: store.captchaStore.codeid,

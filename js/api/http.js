@@ -311,7 +311,7 @@ export function takeCoin(data){
         fdPwd: data.fdPwd,
         note: data.note,
         // address: data.address,
-        emailCode: data.emailCode,
+        // emailCode: data.emailCode,
         phoneCode: data.phoneCode,
         vercode: data.vercode,
         codeid: data.codeid,
