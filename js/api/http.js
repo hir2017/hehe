@@ -182,7 +182,7 @@ export function getUserOrderList(data) {
     data = data || {};
 
     return axios.post(`${UPEX.config.host}/user/showOrderList`, qs.stringify({
-        ...data  
+        ...data
     })).then(res => res.data);
 }
 /**
@@ -223,7 +223,7 @@ export function getCoinAccount(type = 1){
 /**
  * 查询当前币种地址及二维码
  * @return {
-    
+
     msgCode: 充币识别码
  }
  */
@@ -233,6 +233,16 @@ export function selectUserAddress(currentyId){
         currentyId
     })).then(res => res.data);
 }
+
+/*----------------------------- 充值相关接口：{{------------------------------------*/
+
+export function rechargeOrder(){
+    return axios.post(`${UPEX.config.host}/coin/rechargeOrder`, qs.stringify({
+        
+    })).then(res => res.data);
+}
+
+/*----------------------------- 充值相关接口：}}------------------------------------*/
 
 /*----------------------------- 提币相关接口：{{------------------------------------*/
 /**
@@ -263,7 +273,7 @@ export function deleteCoinAddress(data){
 /**
  * 添加提币地址接口
  */
-export function addCoinAddress(data){
+export function addWithdrawAddress(data){
     return axios.post(`${UPEX.config.host}/coin/insertTakeAddress`, qs.stringify({
         currencyId: data.currencyId, // 提币地址
         fdPwd: data.fdPwd, // 交易密码
@@ -281,11 +291,12 @@ export function takeCoinSendPhoneCode(data){
     })).then(res => res.data);
 }
 /**
- * 提币发送邮箱短信验证码
+ * 提币发送邮箱短信验证码: 10分钟有效期，可以错误5次。
  */
 export function takeCoinSendEmailCode(data){
     return axios.post(`${UPEX.config.host}/coin/emailTakeCoin`, qs.stringify({
         vercode: data.vercode,
+        type: data.type, // 1:邮件（默认）2:手机
         codeid: data.codeid
     })).then(res => res.data);
 }
@@ -295,7 +306,17 @@ export function takeCoinSendEmailCode(data){
 export function takeCoin(data){
     return axios.post(`${UPEX.config.host}/coin/takeCoin?address=${data.address}`, qs.stringify({
         actionId: 4,
-
+        msgCode: '',
+        currencyId: data.currencyId,
+        fdPwd: data.fdPwd,
+        note: data.note,
+        // address: data.address,
+        // emailCode: data.emailCode,
+        phoneCode: data.phoneCode,
+        vercode: data.vercode,
+        codeid: data.codeid,
+        amount: data.amount,
+        gAuth: data.gAuth,
     })).then(res => res.data);
 }
 /*-----------------------------}} 提币相关接口：------------------------------------*/
@@ -303,10 +324,10 @@ export function takeCoin(data){
  * 提币记录
  * selectListByUuid
  * {
-    
+
     beginTime
     endTime
-    currencyId 
+    currencyId
     size
     start
     status
@@ -324,6 +345,44 @@ export function getCoinRechargeList(data){
  */
 export function getAllCoinPoint(){
     return axios.post(`${UPEX.config.host}/coin/coinPoint`).then(res => res.data);
+}
+/**
+ * 充值/提现查询记录
+ * /fund/change
+ * {
+    beginTime
+    endTime
+    size
+    start
+    type
+    token
+    uid
+ }
+ */
+export function getFundChangeList(data){
+    return axios.post(`${UPEX.config.host}/fund/change`, qs.stringify({
+        ...data
+    })).then(res => res.data);
+}
+/**
+ * 提现记录
+ * selectListByUuid
+ * {
+
+    beginTime
+    endTime
+    currencyId
+    size
+    start
+    status
+    token
+    uid
+ }
+ */
+export function getFundWithdrawList(data){
+    return axios.post(`${UPEX.config.host}/fund/withdraw`, qs.stringify({
+        ...data
+    })).then(res => res.data);
 }
 /**
  * 我的订单 —— 委托历史记录
@@ -351,7 +410,7 @@ export function getUserHistoryOrderList(data){
 }
 /**
  * 我的订单 —— 已成交订单
- * @param {Object} data 
+ * @param {Object} data
  * @example {
     baseCurrencyId: '', // 基础币
     beginTime: '', // 起始时间
@@ -540,7 +599,7 @@ export function personalInfo(){
 
  export function bindGoogleAuth (clientPassword, verCode) {
     return axios.post(`${UPEX.config.host}/security/bindGoogleAuth`, {
-        clientPassword, 
+        clientPassword,
         verCode
     }).then(res => res.data);
  }
@@ -551,7 +610,7 @@ export function personalInfo(){
 
 export function closeGoogleAuth (clientPassword, verCode) {
     return axios.post(`${UPEX.config.host}/security/closeGoogleAuth`, {
-        clientPassword, 
+        clientPassword,
         verCode
     }).then(res => res.data);
  }

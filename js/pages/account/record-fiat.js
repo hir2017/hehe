@@ -1,5 +1,5 @@
 /**
- * @fileoverview 充币&提现记录
+ * @fileoverview 充值&提现记录
  * @author 陈立英
  * @date 2018-05-19
  */
@@ -10,38 +10,49 @@ const Option = Select.Option;
 
 import RecordList from '../../mods/account/record-fund';
 
-@inject('accountStore')
+@inject('accountStore', 'fundChangeRecordStore')
 @observer
 class RecordPage extends Component {
-    componentDidMount(){
+    constructor(props) {
+        super(props);
+    }
+
+    componentDidMount() {
         let store = this.props.accountStore;
 
         store.getUserCoinAccount();
     }
 
-    handleChange=(value)=>{
-
-    }
-
     render() {
+        let store = this.props.fundChangeRecordStore
         return (
-        	<div className="account-fiatrecord">
+            <div className="account-fiatrecord">
                 <div className="account-fiatrecord-hd">
-                	<h2>{ UPEX.lang.template('资金变动记录')}</h2>
-                	<div className="account-fiatrecord-select">
-						<Select defaultValue="all" onChange={this.handleChange}>
-					    	<Option value="all">{ UPEX.lang.template('全部记录')}</Option>
-					    	<Option value="recharge">{ UPEX.lang.template('充值记录')}</Option>
-					    	<Option value="trade">{ UPEX.lang.template('交易记录')}</Option>
-					    	<Option value="withdraw">{ UPEX.lang.template('提币记录')}</Option>
-					    </Select>
-					</div>
+                    <h2>{UPEX.lang.template('资金变动记录')}</h2>
+                    <div className="account-fiatrecord-select">
+                        <Select
+                            defaultValue="all"
+                            onChange={val => {
+                                store.setDataType(val)
+                            }}
+                        >
+                            <Option value="all">
+                                {UPEX.lang.template('全部记录')}
+                            </Option>
+                            <Option value="recharge">
+                                {UPEX.lang.template('充值记录')}
+                            </Option>
+                            <Option value="withdraw">
+                                {UPEX.lang.template('提现记录')}
+                            </Option>
+                        </Select>
+                    </div>
                 </div>
                 <div className="account-fiatrecord-bd">
-                	<RecordList/>
+                    <RecordList />
                 </div>
-        	</div>
-        )
+            </div>
+        );
     }
 }
 

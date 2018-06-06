@@ -1,6 +1,7 @@
 import { observable, computed, autorun, action } from 'mobx';
 import Countries from '../mods/select-country/country-list';
 import { personalInfo } from '../api/http';
+import NumberUtil from '../lib/util/number';
 
 class LoginInfoBaseStore {
     @observable countries = Countries;
@@ -52,7 +53,7 @@ class LoginInfoBaseStore {
 
     @computed
     get account() {
-        let areaCode = this.areaCode == 86 ? '' : this.areaCode;
+        let areaCode = this.areaCode == 86 ? '' : NumberUtil.prefixed(this.areaCode, 4);
 
         return this.mode == 'email' ? this.email : `${areaCode}${this.phone}`;
     }

@@ -1,5 +1,4 @@
 import { observable, computed, autorun, action } from 'mobx';
-import { addCoinAddress } from '../api/http';
 import md5 from '../lib/md5';
 
 class AddressStore {    
@@ -10,15 +9,17 @@ class AddressStore {
     @observable validAddress = true;
     @observable validNote = true;
     @observable validPwd = true;
+    @observable $submiting = false;
 
     constructor(stores) {
-        this.authStore = stores.authStore;
+        // this.authStore = stores.authStore;
     }
 
     // 检查密码是否合法
     @action
     checkPwd() {
         let ret = true;
+        
         if (!this.pwd) {
             ret = false;
         }
@@ -55,21 +56,21 @@ class AddressStore {
     }
 
     // 提交表单验证
-    @computed 
-    get verifyInfoBeforeSubmit() {
+    @action 
+    verifyInfoBeforeSubmit() {
         let mode = this.mode;
         let result = {
             pass: true,
             message: ''
         };
 
-        if (!this.checkPwd()) {
+        if (!this.checkAddress()){
             result.pass = false;
             result.message = UPEX.lang.template('提币地址填写错误');
         } else if(!this.checkNote()) {
             result.pass = false;
             result.message = UPEX.lang.template('地址描述填写错误');
-        } else if(!this.validNote()) {
+        } else if(!this.checkPwd()) {
             result.pass = false;
             result.message = UPEX.lang.template('交易密码填写错误');
         } 
@@ -77,20 +78,36 @@ class AddressStore {
         return result;
     }
 
-
     @action
     setAddress(value) {
         this.address = value;
+
+        if (value) {
+            this.validAddress = true;
+        }
     }
 
     @action
     setNote(value) {
         this.note = value;
+
+        if (value) {
+            this.validNote = true;
+        }
     }
 
     @action
     setPwd(value) {
         this.pwd = value;
+
+        if (value) {
+            this.validPwd = true;
+        }
+    }
+
+    @computed
+    get md5TradePassword(){
+        return md5(this.pwd + UPEX.config.salt);
     }
 
     @action
@@ -98,16 +115,9 @@ class AddressStore {
         this.currencyId = value;
     }
 
-    @action 
-    addCoinAddress(){
-        let params = {
-            address: this.address,
-            note: this.node,
-            fdPwd: md5(this.pwd + UPEX.config.config + this.authStore.uid),
-            currencyId: this.currencyId
-        }
-
-        return addCoinAddress(params);
+    @action
+    changeSubmitingStatusTo(status){
+        this.$submiting = status;
     }
 }
 

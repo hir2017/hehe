@@ -1,5 +1,5 @@
 import { observable, computed, autorun, action, runInAction } from 'mobx';
-import { takeCoinSendPhoneCode, takeCoinSendEmailCode, takeCoin, getTakeCoinInfo } from '../api/http';
+import { takeCoin, getTakeCoinInfo } from '../api/http';
 import md5 from '../lib/md5';
 
 class CoinWithdrawStore {
@@ -11,23 +11,24 @@ class CoinWithdrawStore {
         detail: {},
         resp: {}
     };
-    
+
     // 充值币种
     @observable currentCoin = {
         currencyId: '',
         currencyNameEn: ''
     }
     // 地址
-    @observable address = ''; 
+    @observable address = '';
     @observable validAddress = true;
     // 地址备注
     @observable note = '';
     @observable validNote = true;
     // 提币数量
-    @observable amount = ''; 
+    @observable amount = '';
     @observable validAmount = true;
     // 图片验证码
-    @observable vercode = ''; 
+    @observable vercode = '';
+    @observable validImgCode = true;
     // 交易密码
     @observable tradepwd = '';
     @observable validTradePwd = true;
@@ -36,14 +37,40 @@ class CoinWithdrawStore {
     @observable validEmailCode = true;
     @observable sendingcode = false;
     // google验证码
-    @observable authType = 'phone'; // 认证方式
-    @observable googlecode = '';
-    @observable phonecode = '';
+    @observable googleCode = '';
+    @observable phoneCode = '';
     // 图片id
     codeid = '';
 
-     constructor(stores) {
+    constructor(stores) {
         this.captchaStore = stores.captchaStore;
+        this.userInfoStore = stores.userInfoStore;
+    }
+
+    @computed 
+    get supportAuthTypes() {
+        let arr = [];
+        
+        if (this.userInfoStore.userInfo.isAuthGooogle) {
+            arr[arr.length] = 'google';
+        }
+
+        if (this.userInfoStore.userInfo.isValidatePhone) {
+            arr[arr.length] = 'phone';
+        }
+
+        return arr;
+    }
+
+    @computed
+    get authType() {
+        if (this.userInfoStore.userInfo.isAuthGooogle) {
+            return 'google';
+        } 
+
+        if (this.userInfoStore.userInfo.isValidatePhone) {
+            return 'phone'
+        }
     }
 
     @action
@@ -59,35 +86,63 @@ class CoinWithdrawStore {
                 })
             })
     }
+    @action
+    getNoteByAddress(address) {
+        let item = this.addressList.filter((item) => {
+            return item.address === address;
+        })
+
+        return item[0].note
+    }
 
     @action
     updateCurrentCoin(info) {
         this.currentCoin = info;
     }
-    
+
     @action
     setAddress(value) {
         this.address = value;
+
+        if (value) {
+            this.validAddress = true;
+        }
     }
-   
+
     @action
     setNote(value) {
         this.note = value;
+
+        if (value) {
+            this.validNote = true;
+        }
     }
 
     @action
     setAmount(value) {
         this.amount = value;
+
+        if (value) {
+            this.validAmount = true;
+        }
     }
 
     @action
     setVercode(value) {
         this.vercode = value;
+
+        if (value) {
+            this.validImgCode = true;
+        }
     }
 
     @action
     setTradePassword(value) {
         this.tradepwd = value;
+
+        if (value) {
+            this.validTradePwd = true;
+        }
     }
 
     @action.bound
@@ -96,27 +151,31 @@ class CoinWithdrawStore {
     }
 
     @computed
-    get md5TradePassword(){
+    get md5TradePassword() {
         return md5(this.tradepwd + UPEX.config.salt);
     }
 
     @action
     setEmailCode(value) {
         this.emailCode = value;
+
+        if (value) {
+            this.validEmailCode = true;
+        }
     }
 
     @action
-    setGoogleCode(value){
-        this.googlecode = value;
+    setGoogleCode(value) {
+        this.googleCode = value;
     }
 
     @action
-    setPhoneCode(value){
-        this.phonecode = value;
+    setPhoneCode(value) {
+        this.phoneCode = value;
     }
 
     @action
-    changeAuthTypeTo(type){
+    changeAuthTypeTo(type) {
         this.authType = type;
     }
 
@@ -126,6 +185,16 @@ class CoinWithdrawStore {
     }
 
     @action
+    changeImgCodeTo(status) {
+        this.validImgCode = status;
+    }
+
+    @action
+    changeEmailCodeTo(status) {
+        this.validEmailCode = status
+    }
+
+    @action.bound
     verifyBeforeSubmit() {
         var result = {
             pass: true,
@@ -137,17 +206,17 @@ class CoinWithdrawStore {
             this.validNote = false;
         }
 
-        if(!this.address) {
+        if (!this.address) {
             result.pass = false;
             this.validAddress = false;
         }
 
-        if(!this.amount) {
+        if (!this.amount) {
             result.pass = false;
             this.validAmount = false;
         }
 
-        if(!this.tradepwd) {
+        if (!this.tradepwd) {
             result.pass = false;
             this.validTradePwd = false;
         }
@@ -156,47 +225,47 @@ class CoinWithdrawStore {
             result.pass = false;
             this.validEmailCode = false;
         }
-        console.log(result);
+
         return result;
     }
-
     /**
-     * 提币
+     * 重置状态与值
      */
-    @action
-    takeCoin() {
-        return takeCoin({
-            currencyId: this.currentCoin.currencyId,
-            fdPwd: this.md5TradePassword,
-            note: this.note,
-            address: this.address,
-            emailCode: this.emailCode,
-            vercode: this.vercode,
-            codeid: this.captchaStore.codeid,
-            amount: this.amount,
-            gAuth: this.google,
-        }).then((data)=>{
-
-        })
-    }
-    /**
-     * 提币发送邮箱验证码
-     */
-    @action
-    sendEmailCode() {
-        if (this.sendingcode) {
-            return;
+    @action.bound
+    reset() {
+        this.addressList = [];
+        this.amountLowLimit = 0;
+        this.takeCoinInfo = {
+            detail: {},
+            resp: {}
+        };
+        // 充值币种
+        this.currentCoin = {
+            currencyId: '',
+            currencyNameEn: ''
         }
-        takeCoinSendEmailCode({
-            vercode: this.vercode,
-            codeid: this.captchaStore.codeid,
-        }).then((data)=>{
-            runInAction('send email code', ()=>{
-                if (data.status == 200) {
-                    
-                }
-            })
-        })
+        // 地址
+        this.address = '';
+        this.validAddress = true;
+        // 地址备注
+        this.note = '';
+        this.validNote = true;
+        // 提币数量
+        this.amount = '';
+        this.validAmount = true;
+        // 图片验证码
+        this.vercode = '';
+        this.validImgCode = true;
+        // 交易密码
+        this.tradepwd = '';
+        this.validTradePwd = true;
+        // 邮箱验证码
+        this.emailCode = '';
+        this.validEmailCode = true;
+        this.sendingcode = false;
+        // google验证码
+        this.googleCode = '';
+        this.phoneCode = '';
     }
     /**
      * 实际到账金额

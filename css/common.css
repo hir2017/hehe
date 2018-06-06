@@ -32,6 +32,12 @@ html {
     position: relative;
 }
 
+
+.app-page .app-content {
+    position: relative;
+    min-height: 300px;
+}
+
 .app-page .mini-loading {
     width: 100%;
     height: 100%;

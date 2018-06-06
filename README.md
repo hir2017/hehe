@@ -367,7 +367,7 @@ Zepto不支持旧版本的Internet Explorer浏览器(<10)。
 	* 手机
 	
 
-### 修改绑定的手机
+### 修改绑定的手机	
 
 * 修改绑定手机
 	* 选择新手机国家电话区域码select
@@ -760,6 +760,189 @@ KYC2：法币账户总金额 > 60,000TWD
 5、法币提现记录
 
 6、法币充值记录
+
+
+---
+
+### 充值提现用户信息接口
+
+request:
+
+
+	{
+		uid : '',
+		token: '',
+	}
+
+response:
+
+	{
+    	"attachment": {
+    		// 银行卡信息
+    		bankCards: [
+    			{    		
+    				providerId: "12121212dehheehde", // 绑定银行卡key
+    				providerName: "招商银行",
+    				providerSubbranch: "支行", 
+    				providerNo: "1996", // 卡号最后四位
+    				showUserName: "陈立英"
+    			}
+    		],
+			accountAmount: 1000, // 账户TWD余额
+    	},
+	    "message": null,
+    	"status": 200
+	}
+
+
+### 充值下单接口
+
+
+request:
+
+
+	{
+		uid : '',
+		token: '',
+		balance: 0, // 充值金额
+		providerId: "",
+		currencyId: 1			
+			
+	}
+
+
+response: 
+	
+	
+	
+	{
+		"attachment": SYS_CODE: "", // 系統信任碼 ［测试环境参数］
+    		 SHOP_CODE: "", // 厂商信任碼［测试环境参数］
+		     SHOP_ID: '', // 廠商代碼
+    		 ORDER_ID: '', // 订单编号
+    		 ORDER_ITEM: '', // 商品名稱
+    		 AMOUNT: '', // 金额
+    		 CURRENCY: '', // 幣別 TWD
+             CHECK_CODE: '', // 檢查碼 MD5([SYS_CODE, SHOP_ID, ORDER_ID, AMOUNT, SHOP_CODE].join('#'))
+             PAY_TYPE: '', // 預設消費類型
+             SUB_PAY_TYPE: '', // 子消費類型啟用
+             PROD_ID: '', // 金流代碼
+             SHOP_PARA: '', // 廠商自訂參數 {
+			
+		},
+		"message": null,
+    	"status": 200
+	}
+	
+	// 错误
+	// 1. 交易密码错误
+	// 2. 谷歌验证码
+	{
+		
+	}
+
+
+### 提现下单接口
+
+* 通过>=KYC1
+* 设置了交易密码
+
+* 验证码：
+	* 绑定google：谷歌验证码
+	* 未绑定google： 短信验证码	
+
+
+request:
+
+
+	{
+		uid : '',
+		token: '',
+		balance: 0, // 充值金额
+		providerId: "" , // 绑定银行卡key
+		fdPwd: "",
+		code: "" // 谷歌验证码或者短信验证码
+		currencyId: 1 // 1: TWD
+	}
+
+
+response: 
+	
+
+	{
+		"attachment": {},
+		"message": null,
+    	"status": 200
+	}
+	
+	// 错误
+	// 1. 交易密码错误
+	// 2. 谷歌验证码
+	{
+		
+	}
+
+
+
+### 充值记录接口
+
+
+
+### 提现记录接口
+
+
+### 绑定银行卡
+
+* 通过>=KYC1
+* 交易密码设置
+
+request: 
+
+	{
+		uid: '',
+		token: '',
+		bankName: '', //   银行卡
+		bankBranch: '',  // 支行
+		bankNo: '', //银行卡号
+		bankPic: "", //  银行卡图片
+	}
+
+response:
+
+	{
+		"attachment": {},
+		"message": null,
+    	"status": 200
+	}
+	
+
+
+### 银行卡账号纪录
+
+request: 
+
+	{
+		uid: '',
+		token: '',		
+	}
+	
+
+response:
+
+ 	{
+		"attachment": [
+			{
+				createTime: '',
+				bankName: '',
+				bankBranch: '',
+				bankNo: '',
+				status: '',
+				id: '',
+			}
+		],
+		"message": null,
+    	"status": 200
+	}
 
 
 
