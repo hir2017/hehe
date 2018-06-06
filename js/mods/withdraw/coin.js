@@ -58,6 +58,13 @@ class WithdrawCoin extends Component {
 		browserHistory.push('/user/authentication');
 	}
 
+	selectWithdrawCoin=(value)=>{
+    	this.action.initWithdrawCoin({
+    		currencyId: value.key,
+            currencyNameEn: value.label
+    	});
+    }
+
 	render() {
 		let { accountStore , userInfoStore } = this.props;
 		let store = this.props.coinWithdrawStore;
@@ -75,6 +82,9 @@ class WithdrawCoin extends Component {
             return <Option key={index} value={`${cur.address}`}>{cur.address}</Option>
         }) 
 
+		console.log(userInfoStore.userInfo);
+		console.log(store.supportAuthTypes);
+
 		return (
 			<div>
 				<div className="withdraw-form">
@@ -84,7 +94,7 @@ class WithdrawCoin extends Component {
 					<div className="withdraw-form-item">
 						<label className="withdraw-label">{UPEX.lang.template('选择币种')}</label>
 						<div className="withdraw-info">
-							<Select labelInValue value={{ key: store.currentCoin.currencyNameEn}} onChange={action.selectWithdrawCoin}>
+							<Select labelInValue value={{ key: store.currentCoin.currencyNameEn}} onChange={this.selectWithdrawCoin}>
 						    	{ $options }				    	
 						    </Select>
 						</div>
@@ -95,7 +105,7 @@ class WithdrawCoin extends Component {
 							<div className="address-box">
 								<div className="select-box">
 									<Select 
-										defaultValue={UPEX.lang.template('请在下方输入本次提币地址')}
+										defaultValue={UPEX.lang.template('选择提币地址或者在下方输入本次提币地址')}
 										notFoundContent={UPEX.lang.template('无')}
 	                                    onChange={action.selectChangeAddress}
 									>
@@ -150,6 +160,7 @@ class WithdrawCoin extends Component {
 	                                type="text" 
 	                                placeholder={ UPEX.lang.template('图片验证') }
 	                                data-key="vercode"
+	                                value={store.vercode}
 	                                onChange={ action.onChangeInput}
 	                            />
 	                            <div className="codeimg">
@@ -163,20 +174,15 @@ class WithdrawCoin extends Component {
 							<div className="withdraw-form-item">
 								<label className="withdraw-label">{UPEX.lang.template('邮箱验证')}</label>
 								<div className="withdraw-info">
-									<div className="vercode-box">
-										<div className={`input-box ${store.validEmailCode ? '' : 'wrong'}`}>
-			                                <input 
-			                                    type="text"
-			                                    data-key="emailcode"
-			                                    placeholder={UPEX.lang.template('填写邮箱验证码')}
-				                                onChange={action.onChangeInput}
-			                                />
-			                            </div>
-			                            <button onClick={ action.sendEmailCode } className={ store.sendingcode ? 'disabled' : ''} >
-			                                <div className={ store.sendingcode ? 'code-sending': 'code-sending hidden'}>{ UPEX.lang.template('重发')}（<span data-second="second" ref="second"></span>s）</div>
-			                                <div className={ store.sendingcode ? 'code-txt hidden' : 'code-txt'}>{  UPEX.lang.template('获取验证码') }</div>
-			                            </button>
-			                        </div>
+									<div className={`input-box ${store.validEmailCode ? '' : 'wrong'}`}>
+		                                <input 
+		                                    type="text"
+		                                    data-key="emailcode"
+		                                    value={store.emailCode}
+		                                    placeholder={UPEX.lang.template('填写邮箱验证码')}
+			                                onChange={action.onChangeInput}
+		                                />
+		                            </div>
 								</div>
 							</div>
 						) : null
@@ -186,18 +192,27 @@ class WithdrawCoin extends Component {
 						<label className="withdraw-label">{UPEX.lang.template('认证方式')}</label>
 						<div className="withdraw-info">
 							<ul className="auth-type">
-								<li 
-									onClick={()=>store.changeAuthTypeTo('phone')} 
-									className={store.authType == 'phone' ?  'auth-item selected' : 'auth-item'}
-								>
-									{UPEX.lang.template('手机认证')}
-								</li>
-								<li 
-									onClick={()=>store.changeAuthTypeTo('google')}
-									className={store.authType == 'google' ?  'auth-item selected' : 'auth-item'}
-								>
-									{UPEX.lang.template('Google认证')}
-								</li>
+								{
+									store.supportAuthTypes.map((item, index)=>{
+										let text;
+										console.log(item, index);
+										if (item == 'phone') {
+											text = UPEX.lang.template('手机认证');
+										} else if (item == 'google'){
+											text = UPEX.lang.template('Google认证');
+										}
+
+										return (
+											<li 
+												key={item}
+												onClick={()=>store.changeAuthTypeTo(item)} 
+												className={store.authType == item ?  'auth-item selected' : 'auth-item'}
+											>
+												{text}
+											</li>
+										)
+									})
+								}
 							</ul>
 						</div>
 					</div>
@@ -211,6 +226,7 @@ class WithdrawCoin extends Component {
 			                                <input 
 			                                    type="text"
 			                                    data-key="phonecode"
+			                                    value={store.phoneCode}
 			                                    placeholder={UPEX.lang.template('填写短信验证码')}
 				                                onChange={action.onChangeInput}
 			                                />
@@ -225,6 +241,7 @@ class WithdrawCoin extends Component {
 		                                <input 
 		                                    type="number"
 		                                    data-key="googlecode"
+		                                    value={store.googleCode}
 		                                    placeholder={UPEX.lang.template('填写谷歌验证码')}
 			                                onChange={action.onChangeInput}
 		                                />
@@ -240,6 +257,7 @@ class WithdrawCoin extends Component {
 	                            <input 
 	                                type="password" 
 	                                data-key="tradepwd"
+	                                value={store.tradepwd}
 	                                placeholder={UPEX.lang.template('填写交易密码')}
 	                                onChange={action.onChangeInput}
 	                            />

@@ -37,7 +37,6 @@ class CoinWithdrawStore {
     @observable validEmailCode = true;
     @observable sendingcode = false;
     // google验证码
-    @observable authType = 'phone'; // 认证方式
     @observable googleCode = '';
     @observable phoneCode = '';
     // 图片id
@@ -46,6 +45,32 @@ class CoinWithdrawStore {
     constructor(stores) {
         this.captchaStore = stores.captchaStore;
         this.userInfoStore = stores.userInfoStore;
+    }
+
+    @computed 
+    get supportAuthTypes() {
+        let arr = [];
+        
+        if (this.userInfoStore.userInfo.isAuthGooogle) {
+            arr[arr.length] = 'google';
+        }
+
+        if (this.userInfoStore.userInfo.isValidatePhone) {
+            arr[arr.length] = 'phone';
+        }
+
+        return arr;
+    }
+
+    @computed
+    get authType() {
+        if (this.userInfoStore.userInfo.isAuthGooogle) {
+            return 'google';
+        } 
+
+        if (this.userInfoStore.userInfo.isValidatePhone) {
+            return 'phone'
+        }
     }
 
     @action
@@ -62,8 +87,8 @@ class CoinWithdrawStore {
             })
     }
     @action
-    getNoteByAddress(address){
-        let item = this.addressList.filter((item)=>{
+    getNoteByAddress(address) {
+        let item = this.addressList.filter((item) => {
             return item.address === address;
         })
 
@@ -200,8 +225,47 @@ class CoinWithdrawStore {
             result.pass = false;
             this.validEmailCode = false;
         }
-        
+
         return result;
+    }
+    /**
+     * 重置状态与值
+     */
+    @action.bound
+    reset() {
+        this.addressList = [];
+        this.amountLowLimit = 0;
+        this.takeCoinInfo = {
+            detail: {},
+            resp: {}
+        };
+        // 充值币种
+        this.currentCoin = {
+            currencyId: '',
+            currencyNameEn: ''
+        }
+        // 地址
+        this.address = '';
+        this.validAddress = true;
+        // 地址备注
+        this.note = '';
+        this.validNote = true;
+        // 提币数量
+        this.amount = '';
+        this.validAmount = true;
+        // 图片验证码
+        this.vercode = '';
+        this.validImgCode = true;
+        // 交易密码
+        this.tradepwd = '';
+        this.validTradePwd = true;
+        // 邮箱验证码
+        this.emailCode = '';
+        this.validEmailCode = true;
+        this.sendingcode = false;
+        // google验证码
+        this.googleCode = '';
+        this.phoneCode = '';
     }
     /**
      * 实际到账金额

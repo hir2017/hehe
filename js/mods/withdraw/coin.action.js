@@ -5,6 +5,8 @@ import Timer from '../../lib/timer';
 export default (store) => {
     return {
     	initWithdrawCoin(coinInfo) {
+    		store.reset();
+
     		store.updateCurrentCoin({
             	currencyId: coinInfo.currencyId,
             	currencyNameEn: coinInfo.currencyNameEn
@@ -14,10 +16,10 @@ export default (store) => {
     	},
 
         selectWithdrawCoin(value) {
-            store.updateCurrentCoin({
-                currencyId: value.key,
+        	this.initWithdrawCoin({
+        		currencyId: value.key,
                 currencyNameEn: value.label
-            });
+        	});
         },
 
         selectChangeAddress(value){ 
@@ -73,6 +75,10 @@ export default (store) => {
                 store.changeImgCodeTo(false);
                 return;
             }
+
+            if (store.sendingcode) {
+            	return;
+            }
             
             // 邮件验证码
             takeCoinSendEmailCode({
@@ -104,13 +110,13 @@ export default (store) => {
                         // 图片验证码错误
                         message.error(data.message);
                         store.changeImgCodeTo(false);
-                        this.getImgCaptcha();
+                        store.getImgCaptcha();
                         break;
                     case 414: // 邮箱已经绑定
                     default:
                         // 其他错误
                         message.error(data.message);
-                        this.getImgCaptcha();
+                        store.getImgCaptcha();
                 }
             });
         },
