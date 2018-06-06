@@ -623,5 +623,24 @@ export function bindPhoneOrEmailSendCode (codeid, imgcode, phoneOrEmail, type) {
     }).then(res => res.data);
  }
 
+ /**
+ *  查询当前账户谷歌认证
+ *  0未开启 1是开启 2是关闭
+ */
+
+export function isUsedGoogleAuth () {
+    return axios.post(`${UPEX.config.host}/security/isUsedGoogleAuth`).then(res => res.data);
+}
+
+/**
+ *  绑定手机或邮箱发
+ *  type=1、手机注册用户;type=2、邮箱注册用户;
+ */
+
+export function bindPhoneOrEmailAction (EmailCode, phoneCode, phoneOrEmail, type) {
+    return axios.post(`${UPEX.config.host}/user/bindPhoneOrEmailAction`, {
+        EmailCode, phoneCode, phoneOrEmail, type
+    }).then(res => res.data);
+}
 
 

@@ -23,7 +23,6 @@ export default class ReBinding extends Component {
   }
 
   componentWillMount() {
-    this.props.userInfoStore.getGaSecretKey()
     this.props.captchaStore.fetch()
   }
 
@@ -77,7 +76,7 @@ export default class ReBinding extends Component {
     return (
       <div>
         <div className="google-auth-title">
-          {UPEX.lang.template('重置google验证器')}
+          {UPEX.lang.template('解绑google验证器')}
         </div>
         <div className="binding-phone-content">
           <div className="binding-phone-right reBinding-right rm-binding">
@@ -106,7 +105,7 @@ export default class ReBinding extends Component {
                 </Link>
               </div>
               <div>
-                <Button loading={loading} onClick={this.submit}>{UPEX.lang.template('绑定')}</Button>
+                <Button loading={loading} onClick={this.submit}>{UPEX.lang.template('解绑')}</Button>
               </div>
             </div>
           </div>

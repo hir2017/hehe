@@ -22,6 +22,7 @@ export default class BindingPhone extends Component {
     this.vCodeChange = this.vCodeChange.bind(this)
     this.onAreaCodeChange = this.onAreaCodeChange.bind(this)
     this.captchaChange = this.captchaChange.bind(this)
+    this.evCodeChange = this.evCodeChange.bind(this)
   }
 
   componentWillMount() {
@@ -32,7 +33,8 @@ export default class BindingPhone extends Component {
     phone: '',
     vCode: '',
     ivCode: '',
-    areacode: ''
+    areacode: '',
+    evCode: ''
   }
 
   onAreaCodeChange (val) {
@@ -59,12 +61,17 @@ export default class BindingPhone extends Component {
     })
   }
 
+  evCodeChange(e) {
+    this.setState({
+      evCode: e.target.value
+    })
+  }
+
   captchaChange() {
     this.props.captchaStore.fetch()
   }
 
   submit() {
-    const codeid = this.props.captchaStore.codeid
     if (!this.state.phone) {
       message.error(UPEX.lang.template('手机号不能为空'))
       return
@@ -73,8 +80,12 @@ export default class BindingPhone extends Component {
       message.error(UPEX.lang.template('短信验证码不能为空'))
       return
     }
+    if (!this.state.evCode) {
+      message.error(UPEX.lang.template('邮箱验证码不能为空'))
+      return
+    }
 
-    this.props.userInfoStore.modifyPhone(this.state.phone, '', '', this.state.vCode)
+    this.props.userInfoStore.bindPEAction(this.state.evCode, this.state.vCode, this.state.areacode + this.state.phone, 2)
   }
 
   render() {
@@ -115,7 +126,7 @@ export default class BindingPhone extends Component {
           </div>
           <div className="item v-code">
             <span className="lable">{UPEX.lang.template('邮箱确认码')}</span>
-            <input onChange={this.vCodeChange} className="input" />
+            <input onChange={this.evCodeChange} className="input" />
           </div>
           <div className="item v-code-button">
             <Vcodebutton message="手机号不能为空" emailOrphone={this.state.phone} areacode={this.state.areacode} newBind={true} type={2} imgCode={this.state.ivCode} codeid={codeid} />

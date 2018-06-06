@@ -13,7 +13,8 @@ import { Link } from 'react-router'
 export default class Email extends Component {
 
   componentWillMount() {
-    this.props.userInfoStore.getUserInfo()
+    const userInfo = this.props.userInfoStore.userInfo || {}
+    Object.keys(userInfo).length || this.props.userInfoStore.getUserInfo()
   }
 
   render() {
@@ -24,13 +25,11 @@ export default class Email extends Component {
         <div className="binding-phone-left">
           <div>
             <span className="phone">{userInfo.email || UPEX.lang.template('请添加邮箱')}</span>
-            <Button>
               {
                 userInfo.email
                 ? null
-                : <Link to="/user/settingEmail"> {UPEX.lang.template('添加')} </Link>
+                :<Button><Link to="/user/settingEmail"> {UPEX.lang.template('添加')}</Link></Button>
               }
-            </Button>
           </div>
           <div className="message">
             {UPEX.lang.template('郵箱用於登錄、提幣及部分安全設置使用。我們也會給您提供 登錄提醒服務')}

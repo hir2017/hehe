@@ -15,7 +15,7 @@ export default class Success extends Component {
       <div className="binding-phone-content">
         <div className="binding-phone-left">
           <div>
-            <span className="phone google">{UPEX.lang.template('重置 Google验证器')}</span>
+            <span className="phone google">{UPEX.lang.template('解绑 Google验证器')}</span>
             <Button>
               <Link to="/user/rmbindingGoogle">
                 {UPEX.lang.template('解绑')}
