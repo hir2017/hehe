@@ -1,4 +1,5 @@
-import { observable, action, computed } from 'mobx';
+import { observable, action, computed} from 'mobx';
+import { hashHistory, browserHistory } from 'react-router';
 import {
     personalInfo,
     loginRecord,
@@ -14,7 +15,9 @@ import {
     closeGoogleAuth,
     selectAuthLevel,
     bindPhone,
-    bindPhoneOrEmailSendCode
+    bindPhoneOrEmailSendCode,
+    isUsedGoogleAuth,
+    bindPhoneOrEmailAction
 } from '../api/http'
 import { message } from 'antd'
 
@@ -181,7 +184,7 @@ class UserInfo {
     async questions(page) {
         try {
             const res = await getQuestions(page)
-            this.questionsLsit = res.attachment
+            this.questionsLsit = res.attachment || {}
         } catch (e) {
             console.error(e)
             message.error('Network Error')
@@ -206,13 +209,17 @@ class UserInfo {
     @action
     async bindGA(clientPassword, verCode) {
         try {
+            this.submit_loading = true
             const res = await bindGoogleAuth(clientPassword, verCode)
+            this.submit_loading = false
             if (res.status === 200) {
-                message.success(res.message)
+                this.gaBindSuccess = true
+                message.success(UPEX.lang.template('绑定成功'))
             } else {
                 message.error(res.message)
             }
         } catch (e) {
+            this.submit_loading = false
             console.error(e)
             message.error('Network Error')
         }
@@ -221,13 +228,17 @@ class UserInfo {
     @action
     async rmBindGA(clientPassword, verCode) {
         try {
+            this.submit_loading = true
             const res = await closeGoogleAuth(clientPassword, verCode)
-            if (res.data.status === 200) {
-                message.success(res.data.message)
+            this.submit_loading = false
+            if (res.status === 200) {
+                this.gaBindSuccess = false
+                message.success(UPEX.lang.template('解除绑定成功'))
             } else {
-                message.error(res.data.message)
+                message.error(res.message)
             }
         } catch (e) {
+            this.submit_loading = false
             console.error(e)
             message.error('Network Error')
         }
@@ -269,6 +280,44 @@ class UserInfo {
             const res = await bindPhoneOrEmailSendCode(codeid, imgcode, phoneOrEmail, type)
             return res
         } catch (e) {
+            console.error(e)
+            message.error('Network Error')
+        }
+    }
+
+    @action
+    async isGoogleAuth() {
+        try {
+            const res = await isUsedGoogleAuth()
+            if (res.status === 200) {
+                this.gaBindSuccess = res.attachment.isUsed
+            } else {
+                message.error(res.message)
+            }
+        } catch (e) {
+            console.error(e)
+            message.error('Network Error')
+        }
+    }
+
+    @action
+    async bindPEAction(EmailCode, phoneCode, phoneOrEmail, type) {
+        try {
+            this.submit_loading = true
+            const res = await bindPhoneOrEmailAction(EmailCode, phoneCode, phoneOrEmail, type)
+            this.submit_loading = false
+            if (res.status === 200) {
+                message.success(UPEX.lang.template('绑定成功'))
+                if (type === 1) {
+                    browserHistory.push('/user/emailSuccess');
+                } else if (type === 2) {
+                    browserHistory.push('/user/phoneSuccess');
+                }
+            } else {
+                message.error(res.message)
+            }
+        } catch (e) {
+            this.submit_loading = false
             console.error(e)
             message.error('Network Error')
         }

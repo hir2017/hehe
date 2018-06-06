@@ -81,7 +81,12 @@ class Google extends Component {
         </div>
         <div>
           <div className="google-auth-left">
-            <img src={`data:image/png;base64,${gaSecretKey.qrcode}`} />
+          {
+            gaSecretKey.qrcode
+            ? <img src={`data:image/png;base64,${gaSecretKey.qrcode}`} />
+            : <img />
+          }
+            
             <div>{gaSecretKey.secretKey}</div>
           </div>
           <div className="google-auth-right">

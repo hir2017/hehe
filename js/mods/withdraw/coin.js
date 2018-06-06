@@ -195,7 +195,7 @@ class WithdrawCoin extends Component {
 								{
 									store.supportAuthTypes.map((item, index)=>{
 										let text;
-										console.log(item, index);
+										
 										if (item == 'phone') {
 											text = UPEX.lang.template('手机认证');
 										} else if (item == 'google'){

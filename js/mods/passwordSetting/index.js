@@ -13,7 +13,8 @@ import { Link } from 'react-router'
 export default class BindingBank extends Component {
 
   componentWillMount() {
-    this.props.userInfoStore.getUserInfo()
+    const userInfo = this.props.userInfoStore.userInfo || {}
+    Object.keys(userInfo).length || this.props.userInfoStore.getUserInfo()
   }
 
   render() {
