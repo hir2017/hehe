@@ -45,8 +45,10 @@ export default class SettingTradingPassword extends Component {
       return
     }
     let res
-    
-    if (this.props.newBind) {
+    if(this.props.modifyBind) {
+      const phone = this.props.areacode + this.props.phone
+      res = await this.props.userInfoStore.mPhoneSendMsg(phone, this.props.codeid, this.props.imgCode, this.props.type)
+    } else if (this.props.newBind) {
       const emailOrphone = this.props.areacode + this.props.emailOrphone
       res = await this.props.userInfoStore.bindPESendCode(this.props.codeid, this.props.imgCode, emailOrphone, this.props.type)
     } else if (this.props.bind) {

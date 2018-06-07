@@ -17,7 +17,9 @@ import {
     bindPhone,
     bindPhoneOrEmailSendCode,
     isUsedGoogleAuth,
-    bindPhoneOrEmailAction
+    bindPhoneOrEmailAction,
+    modifyPhoneSendMsg,
+    modifyPhoneAction
 } from '../api/http'
 import { message } from 'antd'
 
@@ -291,7 +293,7 @@ class UserInfo {
         try {
             const res = await isUsedGoogleAuth()
             if (res.status === 200) {
-                this.gaBindSuccess = res.attachment.isUsed
+                this.gaBindSuccess = res.attachment.isUsed === 1
             } else {
                 message.error(res.message)
             }
@@ -314,6 +316,35 @@ class UserInfo {
                 } else if (type === 2) {
                     browserHistory.push('/user/phoneSuccess');
                 }
+            } else {
+                message.error(res.message)
+            }
+        } catch (e) {
+            this.submit_loading = false
+            console.error(e)
+            message.error('Network Error')
+        }
+    }
+
+    @action
+    async mPhoneSendMsg(phone, codeid, imgcode, type) {
+        try {
+            const res = await modifyPhoneSendMsg(phone, codeid, imgcode, type)
+            return res
+        } catch (e) {
+            console.error(e)
+            message.error('Network Error')
+        }
+    }
+
+    @action
+    async newModifyPhone(newCode, newPhone, oldCode, type) {
+        try {
+            this.submit_loading = true
+            const res = await modifyPhoneAction(newCode, newPhone, oldCode, type)
+            this.submit_loading = false
+            if (res.status === 200) {
+                message.success(UPEX.lang.template('修改成功'))
             } else {
                 message.error(res.message)
             }
