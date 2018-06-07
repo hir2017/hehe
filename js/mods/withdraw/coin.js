@@ -270,7 +270,7 @@ class WithdrawCoin extends Component {
 								<h4>{UPEX.lang.template('温馨提示')}</h4>
 								<ul>
 									<li dangerouslySetInnerHTML={{__html: UPEX.lang.template('最小提币数量为{count}', { count: `${store.amountLowLimit || 0 }${store.currentCoin.currencyNameEn || ''}`})}}></li>
-									<li dangerouslySetInnerHTML={{__html: UPEX.lang.template('提现完成后，你可以进入历史记录页面跟踪进度')}}></li>
+									<li dangerouslySetInnerHTML={{__html: UPEX.lang.template('提现完成后，你可以进入提币记录页面跟踪进度')}}></li>
 								</ul>
 							</div>
 						</div>
