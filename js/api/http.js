@@ -238,7 +238,7 @@ export function selectUserAddress(currentyId){
 
 export function rechargeOrder(){
     return axios.post(`${UPEX.config.host}/coin/rechargeOrder`, qs.stringify({
-        
+
     })).then(res => res.data);
 }
 
@@ -339,21 +339,16 @@ export function getAllCoinPoint(){
 }
 /**
  * 充值/提现查询记录
- * /fund/change
  * {
-    beginTime
-    endTime
-    size
-    start
     type
-    token
-    uid
+    pageNumber
+    pageSize
  }
  */
 export function getFundChangeList(data){
-    return axios.post(`${UPEX.config.host}/fund/change`, qs.stringify({
-        ...data
-    })).then(res => res.data);
+    return axios.get(`${UPEX.config.host}/rechargeWithdraw/getRechargeWithdrawBillInfo`, {
+        params: data
+    }).then(res => res.data);
 }
 /**
  * 提现记录

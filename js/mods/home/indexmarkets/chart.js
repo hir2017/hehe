@@ -23,7 +23,6 @@ export default class extends Component {
                     type: 'cross'
                 },
                 formatter([data]) {
-                    console.log(data)
                     return [
                         `时间：${data.name}`,
                         `价格：${data.value}`
