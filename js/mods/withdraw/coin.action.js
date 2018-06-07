@@ -146,9 +146,9 @@ export default (store) => {
 		        }).then((data) => {
                     store.changeSubmitingStatusTo(false);
                     switch (data.status) {
-                        case 0:
+                        case 200:
                             message.success(UPEX.lang.template('提币成功'));
-                            store.reset();
+                            store.resetForm();
                             break;
                         default:
                             message.error(data.message);

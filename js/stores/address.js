@@ -107,8 +107,7 @@ class AddressStore {
 
     @computed
     get md5TradePassword(){
-        return md5(this.pwd + UPEX.config.salt);
-        // return md5(this.pwd + UPEX.config.dealSalt + this.authStore.uid);
+        return md5(this.pwd + UPEX.config.dealSalt + this.authStore.uid);
     }
 
     @action
