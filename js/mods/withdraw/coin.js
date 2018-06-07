@@ -20,7 +20,7 @@ class WithdrawCoin extends Component {
 		this.action = toAction(coinWithdrawStore, accountStore);
 	}
 
-	componentDidMount(){
+	componentWillMount(){
 		let { accountStore , userInfoStore } = this.props;
 
         accountStore.getUserCoinAccount(()=>{
@@ -155,7 +155,7 @@ class WithdrawCoin extends Component {
 	                                onChange={action.onChangeInput}
 	                            />
 	                        </div>
-	                        <span className="remain-amount">{UPEX.lang.template('可用:{count}', { count :  `${store.cashAmount || 0 }${store.currentCoin.currencyNameEn || ''}`})}</span>
+	                        <span className="remain-amount">{UPEX.lang.template('可用提币数量:{count}', { count :  `${store.cashAmount || 0 }${store.currentCoin.currencyNameEn || ''}`})}</span>
 						</div>
 					</div>
 					<div className="withdraw-form-item">

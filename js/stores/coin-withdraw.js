@@ -11,7 +11,6 @@ class CoinWithdrawStore {
         detail: {},
         resp: {}
     };
-
     // 充值币种
     @observable currentCoin = {
         currencyId: '',
@@ -199,16 +198,10 @@ class CoinWithdrawStore {
     }
 
     @computed
-    get md5TradePassword() {
-        // console.log(md5(this.tradepwd + UPEX.config.dealSalt + this.authStore.uid));
-        return md5(this.tradepwd + UPEX.config.salt);
-        // return md5(this.tradepwd + UPEX.config.dealSalt + this.authStore.uid);
+    get md5TradePassword() { 
+        return md5(this.tradepwd + UPEX.config.dealSalt + this.authStore.uid);
     }
 
-    @computed
-    get md5FdPwd() {
-        return md5(this.tradepwd + UPEX.config.salt);
-    }
 
     @action
     setGoogleCode(value) {
@@ -274,18 +267,7 @@ class CoinWithdrawStore {
      * 重置状态与值
      */
     @action.bound
-    reset() {
-        this.addressList = [];
-        this.defaultAddress = {};
-        this.takeCoinInfo = {
-            detail: {},
-            resp: {}
-        };
-        // 充值币种
-        this.currentCoin = {
-            currencyId: '',
-            currencyNameEn: ''
-        }
+    resetForm() {
         // 地址
         this.address = '';
         this.validAddress = true;
@@ -306,6 +288,23 @@ class CoinWithdrawStore {
         // google验证码
         this.googleCode = '';
         this.phoneCode = '';
+    }
+
+    @action.bound
+    reset(){
+        this.addressList = [];
+        this.defaultAddress = {};
+        this.takeCoinInfo = {
+            detail: {},
+            resp: {}
+        };
+        // 充值币种
+        this.currentCoin = {
+            currencyId: '',
+            currencyNameEn: ''
+        }
+        
+        this.resetForm();
     }
 
     @action
