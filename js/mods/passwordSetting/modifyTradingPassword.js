@@ -10,7 +10,7 @@ import { Link } from 'react-router'
 import Vcodebutton from '../common/sendAuthCodeBtn'
 import md5 from '../../lib/md5';
 
-@inject('userInfoStore', 'captchaStore')
+@inject('userInfoStore', 'captchaStore', 'authStore')
 @observer
 export default class ModifyTradingPassword extends Component {
 
@@ -101,7 +101,7 @@ export default class ModifyTradingPassword extends Component {
       return
     }
     
-    const pwd = md5(this.state.password + UPEX.config.salt)
+    const pwd = md5(this.state.password + UPEX.config.dealSalt + this.props.authStore.uid);
     this.props.userInfoStore.bindTradingPwd(this.state.newPwd, this.state.vCode, this.state.ivCode, codeid, pwd)
   }
 

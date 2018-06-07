@@ -8,6 +8,10 @@ import md5 from '../lib/md5';
 class TradePwd {
     @observable tradePasswordStatus = 2; // 交易.  1：需要交易密码；2：不需要交易密码
     @observable tradePassword = '';
+
+    constructor(stores) {
+        this.authStore = stores.authStore;
+    }
      /**
      *  获取用户交易密码设置状态
      */
@@ -29,7 +33,7 @@ class TradePwd {
 
     @computed
     get md5TradePassword(){
-        return md5(this.tradePassword + UPEX.config.salt);
+        return md5(this.tradePassword + UPEX.config.dealSalt + this.authStore.uid);
     }
 }
 

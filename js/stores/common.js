@@ -127,7 +127,7 @@ class CommonStore {
      */
     @action.bound
     getTradeCoinByName(name) {
-        return this.coinsMap[name];
+        return this.coinsMap[name] || {};
     }
     /**
      * 价格小数点后几位

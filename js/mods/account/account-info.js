@@ -35,7 +35,7 @@ class InfoView extends Component {
                     <div className="account-amount">
                         <div className="amount">
                             <label>{ UPEX.lang.template('可用余额')} </label>
-                            <em>{ store.visibleMoney ? `NT$ ${store.baseCoinInfo.cashAmount}` : '******'} </em>
+                            <em>{ store.visibleMoney ? `NT$ ${store.baseCoinInfo.cashAmount || 0}` : '******'} </em>
                             <i className={store.visibleMoney ? 'open': 'close'} onClick={this.handleAllMoney}></i>
                         </div>
                         <div className="actions">

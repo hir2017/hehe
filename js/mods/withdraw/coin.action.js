@@ -34,6 +34,10 @@ export default (store) => {
         	store.getImgCaptcha();
         },
 
+        changeAuthTypeTo(type){
+            store.changeAuthTypeTo(type);
+        },
+
         // 输入框选择
         onChangeInput(e) {
             let target = $(e.currentTarget);
@@ -78,7 +82,7 @@ export default (store) => {
             }
             
             // 邮件验证码
-            takeCoinSendEmailCode({
+            takeCoinSendPhoneCode({
             	type: 2,
 	            vercode: store.vercode,
 	            codeid: store.captchaStore.codeid,
@@ -100,8 +104,6 @@ export default (store) => {
 
                         store.changeSendingCodeTo(true);
                         store.changeImgCodeTo(true);
-                        store.changeEmailCodeTo(true);
-
                         break;
                     case 412:
                         // 图片验证码错误
@@ -120,8 +122,17 @@ export default (store) => {
 
         handleSubmit() {
         	const { verifyBeforeSubmit } = store;
-			// if (verifyBeforeSubmit().pass) {
-				takeCoin({
+			
+            if (store.$submiting) {
+                return;
+            }
+
+            let result = verifyBeforeSubmit();
+
+            if (result.pass) {
+                store.changeSubmitingStatusTo(true);
+				
+                takeCoin({
 		            currencyId: store.currentCoin.currencyId,
 		            fdPwd: store.md5TradePassword,
 		            note: store.note,
@@ -133,11 +144,24 @@ export default (store) => {
 		            amount: store.amount,
 		            gAuth: store.googleCode,
 		        }).then((data) => {
-
-		        })
-			// } else 	{
-
-			// }
+                    store.changeSubmitingStatusTo(false);
+                    switch (data.status) {
+                        case 200:
+                            message.success(UPEX.lang.template('提币成功'));
+                            store.resetForm();
+                            break;
+                        default:
+                            message.error(data.message);
+                            store.getImgCaptcha();
+                    }
+		        }).catch(()=>{
+                    store.changeSubmitingStatusTo(false);
+                })
+			} else {
+                if (result.message) {
+                    message.error(result.message);
+                }
+            }
         },
 
         destroy() {

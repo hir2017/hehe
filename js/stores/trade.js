@@ -853,7 +853,7 @@ class TradeStore {
             }
 
             if (this.tradePasswordStatus == 1) {
-                data.fdPassword = md5(this.tradeBuyPassword + UPEX.config.salt);
+                data.fdPassword = md5(this.tradeBuyPassword + UPEX.config.dealSalt + this.authStore.uid);
             }
         } else {
             data = {
@@ -868,7 +868,7 @@ class TradeStore {
             }
 
             if (this.tradePasswordStatus == 1) {
-                data.fdPassword = md5(this.tradeSellPassword + UPEX.config.salt);
+                data.fdPassword = md5(this.tradeSellPassword + UPEX.config.dealSalt + this.authStore.uid);
             }
         }
 
