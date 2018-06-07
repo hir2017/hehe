@@ -286,4 +286,6 @@
     } else {
         $.md5 = md5
     }
+
+    window.md5 = md5;
 }(this))

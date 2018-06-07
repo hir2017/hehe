@@ -34,8 +34,8 @@ export default (store) => {
         	store.getImgCaptcha();
         },
 
-        changeAuthType(type){
-            this.authType = type;
+        changeAuthTypeTo(type){
+            store.changeAuthTypeTo(type);
         },
 
         // 输入框选择
@@ -123,8 +123,16 @@ export default (store) => {
         handleSubmit() {
         	const { verifyBeforeSubmit } = store;
 			
-            if (verifyBeforeSubmit().pass) {
-				takeCoin({
+            if (store.$submiting) {
+                return;
+            }
+
+            let result = verifyBeforeSubmit();
+
+            if (result.pass) {
+                store.changeSubmitingStatusTo(true);
+				
+                takeCoin({
 		            currencyId: store.currentCoin.currencyId,
 		            fdPwd: store.md5TradePassword,
 		            note: store.note,
@@ -136,19 +144,24 @@ export default (store) => {
 		            amount: store.amount,
 		            gAuth: store.googleCode,
 		        }).then((data) => {
+                    store.changeSubmitingStatusTo(false);
                     switch (data.status) {
                         case 0:
                             message.success(UPEX.lang.template('提币成功'));
                             store.reset();
                             break;
                         default:
-                            store.getImgCaptcha();
                             message.error(data.message);
+                            store.getImgCaptcha();
                     }
-		        })
-			} else 	{
-
-			}
+		        }).catch(()=>{
+                    store.changeSubmitingStatusTo(false);
+                })
+			} else {
+                if (result.message) {
+                    message.error(result.message);
+                }
+            }
         },
 
         destroy() {

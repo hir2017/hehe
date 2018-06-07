@@ -2,15 +2,11 @@ import { observable, computed, autorun, action, runInAction } from 'mobx';
 import { takeCoin, getTakeCoinInfo } from '../api/http';
 import md5 from '../lib/md5';
 
-window.md5 = md5;
-
-const dealSalt = "dig?F*ckDa2g5PaSsWOrd&%(13lian0160630).";
-
 class CoinWithdrawStore {
     // 提币的地址列表
     @observable addressList = [];
+    @observable defaultAddress = {};
     // 最小提币数量
-    @observable amountLowLimit = 0;
     @observable takeCoinInfo = {
         detail: {},
         resp: {}
@@ -42,6 +38,7 @@ class CoinWithdrawStore {
     @observable googleCode = '';
     @observable phoneCode = '';
     @observable $submiting = false;
+    @observable isFetching = false;
     @observable authType = 'phone';
     // 图片id
     codeid = '';
@@ -69,16 +66,71 @@ class CoinWithdrawStore {
 
     @action
     getTakeCoinInfo(currencyId) {
+        this.isFetching = true;
+
         getTakeCoinInfo(currencyId)
             .then((data) => {
                 runInAction(() => {
                     if (data.status == 200) {
                         this.takeCoinInfo = data.attachment;
                         this.addressList = data.attachment.resp.addressList;
-                        this.amountLowLimit = data.attachment.detail.amountLowLimit;
+                        this.defaultAddress = data.attachment.resp.defaultAddress;
+
+                        if (this.defaultAddress.address) {
+                            this.address = this.defaultAddress.address;
+                            this.note = this.defaultAddress.note;
+                        }
                     }
+
+                    this.isFetching = false;
                 })
+            }).catch(() => {
+                this.isFetching = false;
             })
+    }
+    /**
+     * 最小提币限额
+     */
+    @computed
+    get amountLowLimit() {
+        if (this.takeCoinInfo.detail) {
+            return this.takeCoinInfo.detail.amountLowLimit || 0;
+        } else {
+            return 0;
+        }
+    }
+
+    /**
+     * 实际到账金额
+     */
+    @computed
+    get withdrawValue() {
+        let { feeType } = this.takeCoinInfo.detail;
+        let { fee, point } = this.takeCoinInfo.resp;
+        let amount = 0;
+
+        if (this.amount) {
+            if (feeType === 1) {
+                // feeType--1是固定2是百分比
+                amount = this.amount - fee;
+            } else {
+                amount = this.amount - this.amount * fee;
+            }
+        }
+
+        return amount;
+    }
+    /**
+     * 可提币
+     */
+    @computed
+    get cashAmount() {
+        if (this.takeCoinInfo.resp) {
+            return this.takeCoinInfo.resp.cashAmount || 0;
+        } else {
+            return 0;
+        }
+
     }
 
 
@@ -148,8 +200,9 @@ class CoinWithdrawStore {
 
     @computed
     get md5TradePassword() {
+        // console.log(md5(this.tradepwd + UPEX.config.dealSalt + this.authStore.uid));
+        return md5(this.tradepwd + UPEX.config.salt);
         // return md5(this.tradepwd + UPEX.config.dealSalt + this.authStore.uid);
-        return '5D7C7493B636EF5B9461A4212EFCE402';
     }
 
     @computed
@@ -204,6 +257,12 @@ class CoinWithdrawStore {
             this.validAmount = false;
         }
 
+        if (this.amount > 0 && this.amount < this.amountLowLimit) {
+            result.pass = false;
+            result.message = UPEX.lang.template('不能少于最小提币数量');
+            this.validAmount = false;
+        }
+
         if (!this.tradepwd) {
             result.pass = false;
             this.validTradePwd = false;
@@ -217,7 +276,7 @@ class CoinWithdrawStore {
     @action.bound
     reset() {
         this.addressList = [];
-        this.amountLowLimit = 0;
+        this.defaultAddress = {};
         this.takeCoinInfo = {
             detail: {},
             resp: {}
@@ -247,13 +306,6 @@ class CoinWithdrawStore {
         // google验证码
         this.googleCode = '';
         this.phoneCode = '';
-    }
-    /**
-     * 实际到账金额
-     */
-    @computed
-    withdrawValue() {
-
     }
 
     @action

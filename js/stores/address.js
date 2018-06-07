@@ -12,7 +12,7 @@ class AddressStore {
     @observable $submiting = false;
 
     constructor(stores) {
-        // this.authStore = stores.authStore;
+        this.authStore = stores.authStore;
     }
 
     // 检查密码是否合法
@@ -108,6 +108,7 @@ class AddressStore {
     @computed
     get md5TradePassword(){
         return md5(this.pwd + UPEX.config.salt);
+        // return md5(this.pwd + UPEX.config.dealSalt + this.authStore.uid);
     }
 
     @action

@@ -46,9 +46,9 @@ class WithdrawCoin extends Component {
         this.action.getImgCaptcha();
 
         if (userInfoStore.userInfo.isGoogleAuth == 1) {
-        	thia.action.changeAuthTypeTo('google');
+        	this.action.changeAuthTypeTo('google');
         } else if (userInfoStore.userInfo.isValidatePhone) {
-            thia.action.changeAuthTypeTo('phone');
+            this.action.changeAuthTypeTo('phone');
         }
 	}
 
@@ -91,6 +91,7 @@ class WithdrawCoin extends Component {
 		return (
 			<div>
 				<div className="withdraw-form">
+					{ store.isFetching ? <div className="mini-loading"></div> : null }
 					<div className="withdraw-form-item">
 						<Alert message={UPEX.lang.template('當前安全等级{level}可提額度(TWD)：{num}/日',{ level: 'A', num: `${userInfoStore.userInfo.dayLimit || 0}` })} type="warning" showIcon />
 					</div>
@@ -108,7 +109,8 @@ class WithdrawCoin extends Component {
 							<div className="address-box">
 								<div className="select-box">
 									<Select 
-										defaultValue={UPEX.lang.template('选择提币地址或者在下方输入本次提币地址')}
+										key={store.currentCoin.currencyNameEn}
+										value={store.defaultAddress.address || UPEX.lang.template('请在下方输入本次提币地址')}
 										notFoundContent={UPEX.lang.template('无')}
 	                                    onChange={action.selectChangeAddress}
 									>
@@ -153,6 +155,7 @@ class WithdrawCoin extends Component {
 	                                onChange={action.onChangeInput}
 	                            />
 	                        </div>
+	                        <span className="remain-amount">{UPEX.lang.template('可用:{count}', { count :  `${store.cashAmount || 0 }${store.currentCoin.currencyNameEn || ''}`})}</span>
 						</div>
 					</div>
 					<div className="withdraw-form-item">
@@ -173,7 +176,7 @@ class WithdrawCoin extends Component {
 	                    </div>
 					</div>
 					<div className="withdraw-form-item">
-						<label className="withdraw-label">{UPEX.lang.template('认证方式')}</label>
+						<label className="withdraw-label">{UPEX.lang.template('验证方式')}</label>
 						<div className="withdraw-info">
 							<ul className="auth-type">
 								{
@@ -181,9 +184,9 @@ class WithdrawCoin extends Component {
 										let text;
 										
 										if (item == 'phone') {
-											text = UPEX.lang.template('手机认证');
+											text = UPEX.lang.template('手机验证');
 										} else if (item == 'google'){
-											text = UPEX.lang.template('Google认证');
+											text = UPEX.lang.template('谷歌验证');
 										}
 
 										return (
@@ -248,6 +251,14 @@ class WithdrawCoin extends Component {
 	                        </div>
 						</div>
 					</div>
+
+					<div className="withdraw-form-item">
+						<label className="withdraw-label"></label>
+						<div className="withdraw-info">
+							{ UPEX.lang.template('实际到账金额:{num}', { num: store.withdrawValue})}
+						</div>
+					</div>
+
 					<div className="withdraw-form-item">
 						<div className="withdraw-info">
 							<button className="submit-btn" onClick={action.handleSubmit}>{UPEX.lang.template('确认提币')}</button>
