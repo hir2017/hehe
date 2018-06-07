@@ -15,7 +15,7 @@ import DepthChart from '../depth/index';
 
 @inject('tradeStore','commonStore')
 @observer
-class TVChartContainer extends Component {    
+class TVChartContainer extends Component {
 	static defaultProps = {
 
 	}
@@ -38,7 +38,7 @@ class TVChartContainer extends Component {
             chartType: 1,
             text: UPEX.lang.template('5min')
         }, {
-            slug: "15min", 
+            slug: "15min",
             resolution: "15", // 15分钟
             chartType: 1,
             text: UPEX.lang.template('15min')
@@ -109,9 +109,13 @@ class TVChartContainer extends Component {
         }
 
         this.state = {
-            chart: 'kline' 
+            chart: 'kline'
         }
-	}
+    }
+    componentWillMount() {
+        // 最新公告数据获取
+        this.props.tradeStore.getCollectCoins();
+    }
 
     componentDidMount(){
         setTimeout(()=>{
@@ -137,7 +141,7 @@ class TVChartContainer extends Component {
         interval = '1D';
 
         let currentSymbolName = `${currencyNameEn}/${baseCurrencyNameEn}`;
-        
+
 		var cfg = {
             debug: true,
             symbol: currentSymbolName, // 商品名称
@@ -209,7 +213,7 @@ class TVChartContainer extends Component {
 
         var callback = ()=>{
         	let widget = window.tvwidget = this.tvwidget = new TradingView.widget(cfg);
-        	
+
         	widget.onChartReady(function() {
                 // 要从菜单中删除现有项目，请在项目文本前面使用减号
                 widget.onContextMenu(function(t, e) {
@@ -244,7 +248,7 @@ class TVChartContainer extends Component {
                         });
                     }
 
-                    widget.selectedIntervalClass = 'interval-' + resolution + '-' + chartType; 
+                    widget.selectedIntervalClass = 'interval-' + resolution + '-' + chartType;
 
                     widget.changingInterval = false;
                 }
@@ -252,7 +256,7 @@ class TVChartContainer extends Component {
                 let currentPeroid = UPEX.cache.getCache('kline/resolution') || self.timeline[0];
 
                 widget.selectedIntervalClass = `interval-${currentPeroid.resolution}-${currentPeroid.chartType}`;
-		        
+
                 // 自定义UI按钮
 		        let buttons = self.timeline.map((item, index)=>{
                     chartType = item.chartType || 1;
@@ -262,22 +266,22 @@ class TVChartContainer extends Component {
                         .addClass(widget.selectedIntervalClass === `interval-${item.resolution}-${item.chartType}` ? 'selected': '')
                         .data('resolution',item.resolution)
                         .data('charttype', item.chartType)
-				        .on('click', function (e) { 
+				        .on('click', function (e) {
 
                             update(item);
 				        	// 设置按钮状态
                             let target = $(e.currentTarget);
-                            
+
                             buttons.forEach(function(item){
                                 let current = widget.selectedIntervalClass === `interval-${item.data('resolution')}-${item.data('charttype')}`;
-                                
+
                                 if (current){
                                     item.addClass('selected');
                                 } else {
                                     item.removeClass('selected');
                                 }
                             })
-                            
+
                             UPEX.cache.setCache('kline/resolution', {
                                 resolution: item.resolution,
                                 chartType: item.chartType || 1,
@@ -316,7 +320,7 @@ class TVChartContainer extends Component {
     //                 });
 
     //                 if (1 * interval != 1 ) {
-                        
+
     //                     UPEX.cache.setCache('kline/resolution', {
     //                         resolution: interval,
     //                         chartType: 1
@@ -369,8 +373,8 @@ class TVChartContainer extends Component {
         if (this.tvwidget) {
         	let overrides = this.getOverridesByTheme(theme);
         	let cssurl = this.getCustomCSSUrlByTheme(theme);
-    		
-    		this.tvwidget.addCustomCSSFile(cssurl);	
+
+    		this.tvwidget.addCustomCSSFile(cssurl);
     		this.tvwidget.applyOverrides(overrides);
     	}
     }
@@ -395,7 +399,7 @@ class TVChartContainer extends Component {
 	}
 
 	getIntervalByPeriod() {
-        let cachePeriod = UPEX.cache.getCache('kline/resolution');  
+        let cachePeriod = UPEX.cache.getCache('kline/resolution');
         let currentPeroid = cachePeriod ? cachePeriod : this.timeline[0];
         let slug = currentPeroid.slug;
         var result = slug.match(/^(\d+)(s|min|hour|day|mon|week|year)$/);
@@ -488,7 +492,7 @@ class TVChartContainer extends Component {
 
     getCustomCSSUrlByTheme(theme){
     	var t = this.defaultThemes[theme];
-        
+
         return t.url;
     }
 
@@ -505,15 +509,15 @@ class TVChartContainer extends Component {
 
         if (store.theme === 'dark') {
             arrowCls =  {
-                fontSize: 14, 
+                fontSize: 14,
                 color: '#fff'
             }
         } else {
             arrowCls =  {
-                fontSize: 14, 
+                fontSize: 14,
                 color:'#333333'
             }
-        }        
+        }
 
         return (
         	<div className="chart-box">
@@ -545,20 +549,20 @@ class TVChartContainer extends Component {
 	                </ul>
 	                <div className="theme-menu">
 	                    <label>{ checked ? UPEX.lang.template('开灯') : UPEX.lang.template('关灯') }</label>
-	                    <Switch 
-	                        onChange={this.switchTheme} 
+	                    <Switch
+	                        onChange={this.switchTheme}
 	                        defaultChecked={ this.props.tradeStore.theme === 'dark'}
 	                    />
 	                </div>
 	            </div>
                 <ul className="chart-menu">
-                    <li 
+                    <li
                         onClick={this.showChart.bind(this, 'kline')}
                         className={ this.state.chart == 'kline' ? 'selected' : ''}
                     >
                         {UPEX.lang.template('K线图')}
                     </li>
-                    <li 
+                    <li
                         onClick={this.showChart.bind(this, 'depth')}
                         className={ this.state.chart == 'depth' ? 'selected' : ''}
                     >
@@ -573,7 +577,7 @@ class TVChartContainer extends Component {
                 />
                 {
                     this.state.chart == 'depth' ? (
-                        <div 
+                        <div
                             className='trade-depth-chart'
                         >
                            <DepthChart/>
