@@ -51,7 +51,7 @@ export default class FirstStep extends Component {
     idCard: '',
     idCardMes: '',
     check: false,
-    resortType: '1',
+    resortType: 1,
     resortTypeOther: '',
     address: '',
     addressMes: '',

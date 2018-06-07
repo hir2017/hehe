@@ -210,10 +210,10 @@ class UserInfo {
     async identityAuthentication(info) {
         try {
             const res = await submitUserInfo(info)
-            if (res.data.status === 200) {
-                return res.data
+            if (res.status === 200) {
+                return res
             } else {
-                message.error(res.data.message)
+                message.error(res.message)
             }
         } catch (e) {
             console.error(e)

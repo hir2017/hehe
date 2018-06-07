@@ -27,8 +27,8 @@ export default class SecondStep extends Component {
       return
     }
 
-    const info = await this.props.userInfoStore.identityInfo;
-    const res = this.props.userInfoStore.identityAuthentication({
+    const info = this.props.userInfoStore.identityInfo;
+    const res = await this.props.userInfoStore.identityAuthentication({
       firstName: info.firstName,
       secondName: info.secondName,
       birthday: info.birthday,
@@ -45,7 +45,7 @@ export default class SecondStep extends Component {
       handImages: this.state.threeUrl
     })
 
-    if (res.status !== 200) {
+    if (res.status === 200) {
       this.props.changeStep(3)
     }
   }
