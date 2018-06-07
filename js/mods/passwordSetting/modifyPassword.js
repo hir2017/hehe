@@ -102,7 +102,7 @@ export default class ModifyPassword extends Component {
       return
     }
     
-    const pwd = md5(this.state.password + UPEX.config.dealSalt + this.authStore.uid);
+    const pwd = md5(this.state.password + UPEX.config.dealSalt + this.props.authStore.uid);
     this.props.userInfoStore.resetPwd(this.state.newPwd, this.state.vCode, this.state.ivCode, codeid, this.state.password)
   }
 
