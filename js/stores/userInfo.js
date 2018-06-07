@@ -37,6 +37,12 @@ class UserInfo {
         birthday: '',
         idType: '',
         idNumber: '',
+        resortType: '',
+        resortTypeOther: '',
+        address: '',
+        postCode: '',
+        profession: '',
+        annualsalary: ''
     }
     @observable gaSecretKey = {}
     @observable gaBindSuccess = false
@@ -84,6 +90,12 @@ class UserInfo {
         this.identityInfo.birthday = data.birthday
         this.identityInfo.idType = data.idType
         this.identityInfo.idNumber = data.idNumber
+        this.identityInfo.resortType = data.resortType,
+        this.identityInfo.resortTypeOther = data.resortTypeOther,
+        this.identityInfo.address = data.address,
+        this.identityInfo.postCode = data.postCode,
+        this.identityInfo.profession = data.profession,
+        this.identityInfo.annualsalary = data.annualsalary
     }
 
     @action
