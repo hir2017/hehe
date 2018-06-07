@@ -33,6 +33,7 @@ export default class FirstStep extends Component {
     this.professionChange = this.professionChange.bind(this)
     this.annualsalaryChange = this.annualsalaryChange.bind(this)
     this.useOfFundsChange = this.useOfFundsChange.bind(this)
+    this.resortTypeOtherChange = this.resortTypeOtherChange.bind(this)
   }
 
   state = {
@@ -50,10 +51,11 @@ export default class FirstStep extends Component {
     idCard: '',
     idCardMes: '',
     check: false,
-    useOfFunds: '1',
+    resortType: '1',
+    resortTypeOther: '',
     address: '',
     addressMes: '',
-    areaCode: '',
+    postCode: '',
     areaCodeMes: '',
     profession: '',
     professionMes: '',
@@ -156,15 +158,15 @@ export default class FirstStep extends Component {
 
   areaCodeChange(e) {
     this.setState({
-      areaCode: e.target.value,
+      postCode: e.target.value,
       areaCodeMes: ''
     })
   }
 
   professionChange(val) {
     this.setState({
-      areaCode: val,
-      areaCodeMes: ''
+      profession: val,
+      professionMes: ''
     })
   }
 
@@ -177,13 +179,19 @@ export default class FirstStep extends Component {
 
   useOfFundsChange(e) {
     this.setState({
-      useOfFunds: e.target.value,
+      resortType: e.target.value,
+    })
+  }
+
+  resortTypeOtherChange (e) {
+    this.setState({
+      resortTypeOther: e.target.value,
     })
   }
 
   next() {
-    let valid1 = true, valid2 = true, valid3 = true, valid3_1 = true, valid3_2 = true, 
-    valid4 = true, valid5 = true, valid6 = true, valid7 = true
+    let valid1 = true, valid2 = true, valid3 = true, valid3_1 = true, valid3_2 = true,
+      valid4 = true, valid5 = true, valid6 = true, valid7 = true
     if (!this.state.firstName) {
       this.setState({
         firstNameMes: UPEX.lang.template('*真实姓氏不能为空')
@@ -208,7 +216,7 @@ export default class FirstStep extends Component {
       })
       valid3_1 = false
     }
-    if (!this.state.areaCode) {
+    if (!this.state.postCode) {
       this.setState({
         areaCodeMes: UPEX.lang.template('*区域号码不能为空')
       })
@@ -244,7 +252,13 @@ export default class FirstStep extends Component {
         secondName: this.state.secondName,
         birthday: this.state.year + '-' + this.state.month + '-' + this.state.day,
         idType: this.state.idCardType,
-        idNumber: this.state.idCard
+        idNumber: this.state.idCard,
+        resortType: this.state.resortType,
+        resortTypeOther: this.state.resortTypeOther,
+        address: this.state.address,
+        postCode: this.state.postCode,
+        profession: this.state.profession,
+        annualsalary: this.state.annualsalary
       })
       this.props.changeStep(2)
     }
@@ -379,14 +393,14 @@ export default class FirstStep extends Component {
             <Select style={{ width: 190 }}
               onChange={this.professionChange}
               placeholder={UPEX.lang.template('請選擇職業')}>
-              <Option value="1">军公教</Option>
-              <Option value="2">专业技术人员</Option>
-              <Option value="3">行政人员</Option>
-              <Option value="4">金融業</Option>
-              <Option value="5">农、林、牧、渔、水利业生产人员</Option>
-              <Option value="6">生产、运输设备操作</Option>
-              <Option value="7">學生</Option>
-              <Option value="8">自由职业者</Option>
+              <Option value={1}>军公教</Option>
+              <Option value={2}>专业技术人员</Option>
+              <Option value={3}>行政人员</Option>
+              <Option value={4}>金融業</Option>
+              <Option value={5}>农、林、牧、渔、水利业生产人员</Option>
+              <Option value={6}>生产、运输设备操作</Option>
+              <Option value={7}>學生</Option>
+              <Option value={8}>自由职业者</Option>
             </Select>
             <span className="error-message">{this.state.professionMes}</span>
             <span className="message">
@@ -402,11 +416,11 @@ export default class FirstStep extends Component {
             <Select style={{ width: 190 }}
               onChange={this.annualsalaryChange}
               placeholder={UPEX.lang.template('请选择')}>
-              <Option value="0">0-50万</Option>
-              <Option value="1">50-100万</Option>
-              <Option value="2">150-200万</Option>
-              <Option value="3">200-250万</Option>
-              <Option value="4">250万以上</Option>
+              <Option value={1}>0-50万</Option>
+              <Option value={2}>50-100万</Option>
+              <Option value={3}>150-200万</Option>
+              <Option value={4}>200-250万</Option>
+              <Option value={5}>250万以上</Option>
             </Select>
             <span className="error-message">{this.state.annualsalaryMes}</span>
             <span className="message">
@@ -419,12 +433,12 @@ export default class FirstStep extends Component {
             {UPEX.lang.template('资金用途')}
           </span>
           <span className="input">
-            <RadioGroup onChange={this.useOfFundsChange} value={this.state.useOfFunds}>
-              <Radio value={'1'}>投資、買賣數位貨幣</Radio>
-              <Radio value={'2'}>儲存數位貨幣</Radio>
-              <Radio value={'3'}>其他</Radio>
+            <RadioGroup onChange={this.useOfFundsChange} value={this.state.resortType}>
+              <Radio value={1}>投資、買賣數位貨幣</Radio>
+              <Radio value={2}>儲存數位貨幣</Radio>
+              <Radio value={3}>其他</Radio>
             </RadioGroup>
-            <Input onChange={this.idCardChange} />
+            <Input onChange={this.resortTypeOtherChange} />
           </span>
         </div>
         <div className="item">

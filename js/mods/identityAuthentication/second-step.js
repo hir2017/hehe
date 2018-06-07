@@ -21,24 +21,30 @@ export default class SecondStep extends Component {
     this.next = this.next.bind(this)
   }
 
-  next() {
+  async next() {
     if (!this.state.oneUrl || !this.state.twoUrl || !this.state.threeUrl) {
       message.error(UPEX.lang.template('请上传照片'))
-      return 
+      return
     }
-    
-    const info = this.props.userInfoStore.identityInfo;
+
+    const info = await this.props.userInfoStore.identityInfo;
     const res = this.props.userInfoStore.identityAuthentication({
       firstName: info.firstName,
       secondName: info.secondName,
       birthday: info.birthday,
-      //idType: '',
+      idType: info.idType,
       idNumber: info.idNumber,
+      resortType: info.resortType,
+      resortTypeOther: info.resortTypeOther,
+      address: info.address,
+      postCode: info.postCode,
+      profession: info.profession,
+      annualsalary: info.annualsalary,
       positiveImages: this.state.oneUrl,
       oppositeImages: this.state.twoUrl,
       handImages: this.state.threeUrl
-    }) 
-    
+    })
+
     if (res.status !== 200) {
       this.props.changeStep(3)
     }
@@ -98,10 +104,10 @@ export default class SecondStep extends Component {
             {/*<span className="pic-item-message">{UPEX.lang.template('上传照片')}</span>*/}
             {
               !this.state.oneUrl
-              ? <span className="pic-item-error-message error-message">*{UPEX.lang.template('请上传照片')}</span>
-              : <span style={{visibility: 'hidden'}} className="pic-item-error-message error-message">*{UPEX.lang.template('请上传照片')}</span>
+                ? <span className="pic-item-error-message error-message">*{UPEX.lang.template('请上传照片')}</span>
+                : <span style={{ visibility: 'hidden' }} className="pic-item-error-message error-message">*{UPEX.lang.template('请上传照片')}</span>
             }
-            
+
           </span>
           <span>
             <img className="pic-item-img" src={IDcard1} />
@@ -119,8 +125,8 @@ export default class SecondStep extends Component {
             {/*<span className="pic-item-message">{UPEX.lang.template('上传照片')}</span>*/}
             {
               !this.state.twoUrl
-              ? <span className="pic-item-error-message error-message">*{UPEX.lang.template('请上传照片')}</span>
-              : <span style={{visibility: 'hidden'}} className="pic-item-error-message error-message">*{UPEX.lang.template('请上传照片')}</span>
+                ? <span className="pic-item-error-message error-message">*{UPEX.lang.template('请上传照片')}</span>
+                : <span style={{ visibility: 'hidden' }} className="pic-item-error-message error-message">*{UPEX.lang.template('请上传照片')}</span>
             }
           </span>
           <span>
@@ -139,8 +145,8 @@ export default class SecondStep extends Component {
             {/*<span className="pic-item-message">{UPEX.lang.template('上传照片')}</span>*/}
             {
               !this.state.threeUrl
-              ? <span className="pic-item-error-message error-message">*{UPEX.lang.template('请上传照片')}</span>
-              : <span style={{visibility: 'hidden'}} className="pic-item-error-message error-message">*{UPEX.lang.template('请上传照片')}</span>
+                ? <span className="pic-item-error-message error-message">*{UPEX.lang.template('请上传照片')}</span>
+                : <span style={{ visibility: 'hidden' }} className="pic-item-error-message error-message">*{UPEX.lang.template('请上传照片')}</span>
             }
           </span>
           <span>
