@@ -23,10 +23,12 @@ export default class ModifyPhone extends Component {
     this.vCodeChange = this.vCodeChange.bind(this)
     this.nvCodeChange = this.nvCodeChange.bind(this)
     this.captchaChange = this.captchaChange.bind(this)
+    this.gaCodeChange = this.gaCodeChange.bind(this)
   }
 
   componentWillMount() {
-    this.props.userInfoStore.getUserInfo()
+    const gaBindSuccess = this.props.userInfoStore.gaBindSuccess
+    gaBindSuccess || this.props.userInfoStore.isGoogleAuth()
     this.props.captchaStore.fetch()
     this.setState({
       areacode: this.props.loginStore.selectedCountry.areacode
@@ -38,10 +40,11 @@ export default class ModifyPhone extends Component {
     vCode: '',
     ivCode: '',
     areacode: '',
-    nvCode: ''
+    nvCode: '',
+    gaCode: ''
   }
 
-  onAreaCodeChange (val) {
+  onAreaCodeChange(val) {
     this.setState({
       areacode: this.props.loginStore.countries[val].areacode
     })
@@ -59,7 +62,7 @@ export default class ModifyPhone extends Component {
     })
   }
 
-  nvCodeChange (e) {
+  nvCodeChange(e) {
     this.setState({
       nvCode: e.target.value
     })
@@ -75,9 +78,16 @@ export default class ModifyPhone extends Component {
     this.props.captchaStore.fetch()
   }
 
+  gaCodeChange(e) {
+    this.setState({
+      gaCode: e.target.value
+    })
+  }
+
   submit() {
     const codeid = this.props.captchaStore.codeid
     const captcha = this.props.captchaStore.captcha
+    const gaBindSuccess = this.props.userInfoStore.gaBindSuccess
     if (!this.state.phone) {
       message.error(UPEX.lang.template('新手机号不能为空'))
       return
@@ -86,16 +96,23 @@ export default class ModifyPhone extends Component {
       message.error(UPEX.lang.template('新短信确认码不能为空'))
       return
     }
-    if (!this.state.vCode) {
+    if (!this.state.vCode && !gaBindSuccess) {
       message.error(UPEX.lang.template('短信确认码不能为空'))
       return
     }
 
-    this.props.userInfoStore.modifyPhone(this.state.phone, '', this.state.vCode, this.state.nvCode, codeid, captcha)
+    if (!this.state.gaCode && gaBindSuccess) {
+      message.error(UPEX.lang.template('谷歌确认码不能为空'))
+      return
+    }
+
+    const type = gaBindSuccess ? 1 : 2
+    const code = gaBindSuccess ? this.state.gaCode : this.state.vCode 
+    this.props.userInfoStore.newModifyPhone(this.state.nvCode, this.state.phone, code, type)
   }
 
   render() {
-    const userInfo = this.props.userInfoStore.userInfo || {}
+    const gaBindSuccess = this.props.userInfoStore.gaBindSuccess
     const loading = this.props.userInfoStore.submit_loading
     const codeid = this.props.captchaStore.codeid
     const captcha = this.props.captchaStore.captcha
@@ -122,24 +139,30 @@ export default class ModifyPhone extends Component {
           </div>
           <div className="item v-code">
             <span className="lable">{UPEX.lang.template('图片验证码')}</span>
-            <input onChange={this.ivCodeChange} onChange={this.ivCodeChange} className="input" />
+            <input onChange={this.ivCodeChange} className="input" />
           </div>
           <div className="item v-code-button">
             <img onClick={this.captchaChange} src={captcha} />
           </div>
+          {
+            gaBindSuccess
+              ? <div className="item">
+                <span className="lable">{UPEX.lang.template('谷歌验证码')}</span>
+                <input onChange={this.gaCodeChange} className="input" />
+              </div>
+              :
+              <div className="item">
+                <span className="lable">{UPEX.lang.template('短信确认码')}</span>
+                <input onChange={this.vCodeChange} className="input" />
+              </div>
+          }
           <div className="item v-code">
             <span className="lable">{UPEX.lang.template('新短信确认码')}</span>
-            <input style={{width: 130}} onChange={this.nvCodeChange} className="input" />
+            <input style={{ width: 130 }} onChange={this.nvCodeChange} className="input" />
           </div>
           <div className="item v-code-button">
-            <Vcodebutton message="新手机号不能为空" phone={this.state.phone} areacode={this.state.areacode} bind={true} type={2} imgCode={this.state.ivCode} codeid={codeid} />
-          </div>
-          <div className="item v-code">
-            <span className="lable">{UPEX.lang.template('短信确认码')}</span>
-            <input onChange={this.vCodeChange} className="input" />
-          </div>
-          <div className="item v-code-button">
-          <Vcodebutton phone='' areacode={this.state.areacode} bind={true} type={1} imgCode={this.state.ivCode} codeid={codeid} />
+            <Vcodebutton message="新手机号不能为空" phone={this.state.phone} areacode={this.state.areacode}
+              modifyBind={true} type={gaBindSuccess ? 1 : 2} imgCode={this.state.ivCode} codeid={codeid} />
           </div>
           <div className="massage" style={{ display: 'none' }}>
             {UPEX.lang.template('不方便接短信？可使用')}&nbsp;&nbsp;&nbsp;&nbsp;<Link>Google{UPEX.lang.template('驗證碼')}</Link>

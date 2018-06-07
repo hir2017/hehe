@@ -650,4 +650,25 @@ export function bindPhoneOrEmailAction (EmailCode, phoneCode, phoneOrEmail, type
     }).then(res => res.data);
 }
 
+/**
+ *  修改手机绑定发送验证码
+ *  type=1:google+新手机，发新手机短信；type=2:旧手机+新手机，发2条手机短信
+ */
+
+export function modifyPhoneSendMsg (phone, codeid, imgcode, type) {
+    return axios.post(`${UPEX.config.host}/user/modifyPhoneSendCode`, {
+        phone, codeid, imgcode, type
+    }).then(res => res.data);
+}
+
+/**
+ *  修改绑定手机
+ *  type=1:验证google和新手机验证码，type=2:验证旧手机，新手机验证码
+ */
+
+export function modifyPhoneAction (newCode, newPhone, oldCode, type) {
+    return axios.post(`${UPEX.config.host}/user/modifyPhoneAction`, {
+        newCode, newPhone, oldCode, type
+    }).then(res => res.data);
+}
 

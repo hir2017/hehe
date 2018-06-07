@@ -6,17 +6,18 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router'
 import { observer, inject } from 'mobx-react';
-import { Input, Select, Checkbox, Button } from 'antd'
+import { Input, Select, Checkbox, Button, Radio } from 'antd'
 import Steps from './steps'
 import dayjs from 'dayjs'
 
 const Option = Select.Option
+const RadioGroup = Radio.Group;
 
 @inject('userInfoStore')
 @observer
 export default class FirstStep extends Component {
 
-  constructor () {
+  constructor() {
     super()
     this.next = this.next.bind(this)
     this.firstNameChange = this.firstNameChange.bind(this)
@@ -27,6 +28,11 @@ export default class FirstStep extends Component {
     this.idCardTypeChange = this.idCardTypeChange.bind(this)
     this.idCardChange = this.idCardChange.bind(this)
     this.checkHandel = this.checkHandel.bind(this)
+    this.addressChange = this.addressChange.bind(this)
+    this.areaCodeChange = this.areaCodeChange.bind(this)
+    this.professionChange = this.professionChange.bind(this)
+    this.annualsalaryChange = this.annualsalaryChange.bind(this)
+    this.useOfFundsChange = this.useOfFundsChange.bind(this)
   }
 
   state = {
@@ -43,13 +49,22 @@ export default class FirstStep extends Component {
     idCardTypeMes: '',
     idCard: '',
     idCardMes: '',
-    check: false
+    check: false,
+    useOfFunds: '1',
+    address: '',
+    addressMes: '',
+    areaCode: '',
+    areaCodeMes: '',
+    profession: '',
+    professionMes: '',
+    annualsalary: '',
+    annualsalaryMes: ''
   }
 
-  years () {
+  years() {
     let count = 100
     const yearA = []
-    while(count) {
+    while (count) {
       const year = dayjs().subtract(100 - count, 'year').format('YYYY')
       yearA.push(year)
       count--
@@ -57,10 +72,10 @@ export default class FirstStep extends Component {
     return yearA
   }
 
-  months () {
+  months() {
     let count = 12
     const monthA = []
-    while(count) {
+    while (count) {
       let month = count--
       if (month < 10) month = `0${month}`
       monthA.push(month)
@@ -68,10 +83,10 @@ export default class FirstStep extends Component {
     return monthA
   }
 
-  days () {
+  days() {
     let count = 30
     const monthA = []
-    while(count) {
+    while (count) {
       let month = count--
       if (month < 10) month = `0${month}`
       monthA.push(month)
@@ -79,61 +94,96 @@ export default class FirstStep extends Component {
     return monthA
   }
 
-  firstNameChange (e) {
+  firstNameChange(e) {
     this.setState({
       firstName: e.target.value,
       firstNameMes: ''
     })
   }
 
-  secondNameChange (e) {
+  secondNameChange(e) {
     this.setState({
       secondName: e.target.value,
       secondNameMes: ''
     })
   }
 
-  yearChange (val) {
+  yearChange(val) {
     this.setState({
       year: val
     })
   }
 
-  monthChange (val) {
+  monthChange(val) {
     this.setState({
       month: val
     })
   }
 
-  dayChange (val) {
+  dayChange(val) {
     this.setState({
       day: val,
       birthdayMes: ''
     })
   }
 
-  idCardTypeChange (val) {
+  idCardTypeChange(val) {
     this.setState({
       idCardType: val,
       idCardTypeMes: ''
     })
   }
 
-  idCardChange (e) {
+  idCardChange(e) {
     this.setState({
       idCard: e.target.value,
       idCardMes: ''
     })
   }
 
-  checkHandel (e) {
+  checkHandel(e) {
     this.setState({
       check: e.target.checked
     })
   }
 
-  next () {
-    let valid1 = true, valid2 = true, valid3 = true, valid4 = true, valid5 = true
+  addressChange(e) {
+    this.setState({
+      address: e.target.value,
+      addressMes: ''
+    })
+  }
+
+  areaCodeChange(e) {
+    this.setState({
+      areaCode: e.target.value,
+      areaCodeMes: ''
+    })
+  }
+
+  professionChange(val) {
+    this.setState({
+      areaCode: val,
+      areaCodeMes: ''
+    })
+  }
+
+  annualsalaryChange(val) {
+    this.setState({
+      annualsalary: val,
+      annualsalaryMes: ''
+    })
+  }
+
+  useOfFundsChange(e) {
+    this.setState({
+      useOfFunds: e.target.value,
+    })
+  }
+
+  next() {
+    let valid1 = true, valid2 = true, valid3 = true, valid3_1 = true, valid3_2 = true, 
+    valid4 = true, valid5 = true, valid6 = true, valid7 = true
     if (!this.state.firstName) {
       this.setState({
         firstNameMes: UPEX.lang.template('*真实姓氏不能为空')
@@ -152,6 +202,18 @@ export default class FirstStep extends Component {
       })
       valid3 = false
     }
+    if (!this.state.address) {
+      this.setState({
+        addressMes: UPEX.lang.template('*请完善地址信息')
+      })
+      valid3_1 = false
+    }
+    if (!this.state.areaCode) {
+      this.setState({
+        areaCodeMes: UPEX.lang.template('*区域号码不能为空')
+      })
+      valid3_2 = false
+    }
     if (!this.state.idCardType) {
       this.setState({
         idCardTypeMes: UPEX.lang.template('*请选择证件类型')
@@ -164,7 +226,19 @@ export default class FirstStep extends Component {
       })
       valid5 = false
     }
-    if (valid1 && valid2 && valid3 && valid4 && valid5) {
+    if (!this.state.profession) {
+      this.setState({
+        professionMes: UPEX.lang.template('*职业不能为空')
+      })
+      valid6 = false
+    }
+    if (!this.state.annualsalary) {
+      this.setState({
+        annualsalaryMes: UPEX.lang.template('*年薪不能为空')
+      })
+      valid7 = false
+    }
+    if (valid1 && valid2 && valid3 && valid3_1 && valid3_2 && valid4 && valid5 && valid6 && valid7) {
       this.props.userInfoStore.addIdentityInfo({
         firstName: this.state.firstName,
         secondName: this.state.secondName,
@@ -179,13 +253,13 @@ export default class FirstStep extends Component {
   render() {
     return (
       <div>
-        <Steps step={1}/>
+        <Steps step={1} />
         <div className="item one-item">
           <span className="lable">
             {UPEX.lang.template('真实姓氏')}
           </span>
           <span className="input">
-            <Input onChange={this.firstNameChange}/>
+            <Input onChange={this.firstNameChange} />
             <span className="error-message">{this.state.firstNameMes}</span>
             <span className="message">
               *{UPEX.lang.template('填写之姓氏必须与日后提领的银行账户名相同')}
@@ -197,7 +271,7 @@ export default class FirstStep extends Component {
             {UPEX.lang.template('真实名字')}
           </span>
           <span className="input">
-            <Input onChange={this.secondNameChange}/>
+            <Input onChange={this.secondNameChange} />
             <span className="error-message">{this.state.secondNameMes}</span>
             <span className="message">
               *{UPEX.lang.template('填写之名字必须与日后提领的银行账户名相同')}
@@ -210,16 +284,16 @@ export default class FirstStep extends Component {
           </span>
           <span className="input">
             <span className="time-control">
-              <Select showSearch 
+              <Select showSearch
                 placeholder={UPEX.lang.template('可以输入年')}
                 onChange={this.yearChange} style={{ width: 130 }}>
                 {
                   this.years().map((item, index) => {
-                    return  <Option key={index} value={item}>{item}&nbsp;&nbsp;&nbsp;&nbsp;{UPEX.lang.template('年')}</Option>
+                    return <Option key={index} value={item}>{item}&nbsp;&nbsp;&nbsp;&nbsp;{UPEX.lang.template('年')}</Option>
                   })
                 }
               </Select>
-              <Select 
+              <Select
                 placeholder={UPEX.lang.template('请选择月')}
                 onChange={this.monthChange}
                 style={{ width: 110 }}>
@@ -229,7 +303,7 @@ export default class FirstStep extends Component {
                   })
                 }
               </Select>
-              <Select 
+              <Select
                 placeholder={UPEX.lang.template('请选择日')}
                 onChange={this.dayChange}
                 style={{ width: 110 }}>
@@ -247,13 +321,37 @@ export default class FirstStep extends Component {
         </div>
         <div className="item">
           <span className="lable">
+            {UPEX.lang.template('住址')}
+          </span>
+          <span className="input">
+            <Input onChange={this.addressChange} />
+            <span className="error-message">{this.state.addressMes}</span>
+            <span className="message">
+              *{UPEX.lang.template('請如實填寫地址，并保證和身份證反面的信息一致')}
+            </span>
+          </span>
+        </div>
+        <div className="item">
+          <span className="lable">
+            {UPEX.lang.template('郵遞區號')}
+          </span>
+          <span className="input">
+            <Input onChange={this.areaCodeChange} />
+            <span className="error-message">{this.state.areaCodeMes}</span>
+            <span className="message">
+              *{UPEX.lang.template('請如實填寫地址，并保證和身份證反面的信息一致')}
+            </span>
+          </span>
+        </div>
+        <div className="item">
+          <span className="lable">
             {UPEX.lang.template('证件类型')}
           </span>
           <span className="input">
             <Select style={{ width: 190 }}
               onChange={this.idCardTypeChange}
               placeholder={UPEX.lang.template('请选择')}>
-              <Option value="台湾身份证">台湾身份证</Option>
+              <Option value="1">台湾身份证</Option>
             </Select>
             <span className="error-message">{this.state.idCardTypeMes}</span>
             <span className="message">
@@ -266,11 +364,67 @@ export default class FirstStep extends Component {
             {UPEX.lang.template('证件号码')}
           </span>
           <span className="input">
-            <Input onChange={this.idCardChange}/>
+            <Input onChange={this.idCardChange} />
             <span className="error-message">{this.state.idCardMes}</span>
             <span className="message">
               *{UPEX.lang.template('為保證款項可能有退還的情形，因此請填寫真實身分證字號')}
             </span>
+          </span>
+        </div>
+        <div className="item">
+          <span className="lable">
+            {UPEX.lang.template('職業')}
+          </span>
+          <span className="input">
+            <Select style={{ width: 190 }}
+              onChange={this.professionChange}
+              placeholder={UPEX.lang.template('請選擇職業')}>
+              <Option value="1">军公教</Option>
+              <Option value="2">专业技术人员</Option>
+              <Option value="3">行政人员</Option>
+              <Option value="4">金融業</Option>
+              <Option value="5">农、林、牧、渔、水利业生产人员</Option>
+              <Option value="6">生产、运输设备操作</Option>
+              <Option value="7">學生</Option>
+              <Option value="8">自由职业者</Option>
+            </Select>
+            <span className="error-message">{this.state.professionMes}</span>
+            <span className="message">
+              *{UPEX.lang.template('目前暫時只開放給擁有台灣身分證的用戶使用')}
+            </span>
+          </span>
+        </div>
+        <div className="item">
+          <span className="lable">
+            {UPEX.lang.template('年薪')}
+          </span>
+          <span className="input">
+            <Select style={{ width: 190 }}
+              onChange={this.annualsalaryChange}
+              placeholder={UPEX.lang.template('请选择')}>
+              <Option value="0">0-50万</Option>
+              <Option value="1">50-100万</Option>
+              <Option value="2">150-200万</Option>
+              <Option value="3">200-250万</Option>
+              <Option value="4">250万以上</Option>
+            </Select>
+            <span className="error-message">{this.state.annualsalaryMes}</span>
+            <span className="message">
+              *{UPEX.lang.template('目前暫時只開放給擁有台灣身分證的用戶使用')}
+            </span>
+          </span>
+        </div>
+        <div className="item">
+          <span className="lable time-lable">
+            {UPEX.lang.template('资金用途')}
+          </span>
+          <span className="input">
+            <RadioGroup onChange={this.useOfFundsChange} value={this.state.useOfFunds}>
+              <Radio value={'1'}>投資、買賣數位貨幣</Radio>
+              <Radio value={'2'}>儲存數位貨幣</Radio>
+              <Radio value={'3'}>其他</Radio>
+            </RadioGroup>
+            <Input onChange={this.idCardChange} />
           </span>
         </div>
         <div className="item">
@@ -281,11 +435,11 @@ export default class FirstStep extends Component {
           </Checkbox>
         </div>
         <div className="submit">
-        {
-          this.state.check 
-          ? <Button onClick={this.next}>{UPEX.lang.template('下一步')}</Button>
-          : <Button className="disabled" disabled>{UPEX.lang.template('下一步')}</Button>
-        }
+          {
+            this.state.check
+              ? <Button onClick={this.next}>{UPEX.lang.template('下一步')}</Button>
+              : <Button className="disabled" disabled>{UPEX.lang.template('下一步')}</Button>
+          }
         </div>
       </div>
     )
