@@ -144,10 +144,10 @@ class UserInfo {
     }
 
     @action
-    async resetPwd(newPassWord, vercode, imgCode, imgCodeId, passWord) {
+    async resetPwd(newPassWord, vercode, imgCode, imgCodeId, passWord, type) {
         try {
             this.submit_loading_pwd = true
-            const res = await resetPwdInUserCenter(newPassWord, vercode, imgCode, imgCodeId, passWord)
+            const res = await resetPwdInUserCenter(newPassWord, vercode, imgCode, imgCodeId, passWord, type)
             this.submit_loading_pwd = false
             if (res.status !== 200) {
                 if (res.status === 412) {

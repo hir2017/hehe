@@ -26,7 +26,7 @@ export default class SettingTradingPassword extends Component {
   get type() {
     switch (this.props.type) {
       case 'phone' : return 2; break;
-      case 'email' : return 1; break;
+      case 'email' : return 3; break;
       default : break;
     }
   }
