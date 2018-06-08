@@ -14,6 +14,13 @@ import CoinCollectBtn from './coin-collect-btn';
 @observer
 class CoinList extends Component {
 
+    constructor(props) {
+        super(props)
+        this.state = {
+            showCollected: false
+        }
+    }
+
     handleSearch = e => {
         let el = $(e.currentTarget);
         let val = el.val();
@@ -36,9 +43,19 @@ class CoinList extends Component {
         this.props.tradeStore.toggleCollectCoins(data, selected)
     }
 
+    // handleToggleCollectAll(e) {
+    //     this.props.tradeStore.toggleCollectCoins(e.target.checked)
+    // }
+
+    handleToggleCollectDisplay(e) {
+        this.setState({
+            showCollected: e.target.checked
+        })
+    }
+
     render() {
         let store = this.props.tradeStore;
-
+        let collectCoins = store.collectCoins
         return (
             <div className="coin-list">
                 <div className="coin-list-hd clearfix">
@@ -47,7 +64,7 @@ class CoinList extends Component {
                         <input type="text" onChange={this.handleSearch} placeholder={UPEX.lang.template('搜索数字币')} />
                     </div>
                     <div className="tab">
-                        <Checkbox>{UPEX.lang.template('收藏')}</Checkbox>
+                        <Checkbox defaultChecked={this.state.showCollected} onChange={this.handleToggleCollectDisplay.bind(this)}>{UPEX.lang.template('收藏')}</Checkbox>
                     </div>
                 </div>
                 <div className="coin-list-bd">
@@ -69,13 +86,14 @@ class CoinList extends Component {
                             </div>
                         </dt>
                     </dl>
-                    <dl className="list">
+                    <dl className={`list ${this.state.showCollected ? 'collected' : ''}`}>
                         {store.loginedMarkets &&
                             store.loginedMarkets.tradeCoins.map((item, index) => {
+                                let selected = collectCoins.indexOf([item.baseCurrencyId, item.currencyId].join('--')) !== -1
                                 return (
-                                    <dd key={item.id} className="clearfix">
+                                    <dd key={item.id} className={`${selected} clearfix`}>
                                         <div className="cell star">
-                                            <CoinCollectBtn val={item} set={store.collectCoins} clickCb={this.handleCollectCoin.bind(this)} />
+                                            <CoinCollectBtn data={item} selected={selected} clickCb={this.handleCollectCoin.bind(this)} />
                                         </div>
                                         <div className="cell name" onClick={this.handleCurrency.bind(this, item)}>
                                             {item.currencyNameEn}

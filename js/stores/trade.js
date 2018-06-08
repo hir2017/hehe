@@ -23,7 +23,8 @@ class TradeStore {
     @observable currentTradeCoin = {};
     @observable currentTradeCoinRealTime = [];
     @observable currentTradeCoinReady = false;
-    @observable loginedMarkets = {
+    @observable
+    loginedMarkets = {
         tradeCoins: []
     };
 
@@ -791,15 +792,24 @@ class TradeStore {
             item.volume = NumberUtil.formatNumber(item.volume, item.pointNum);
         });
     }
-    // 获取收藏货币列表
-    async toggleCollectCoins (data, selected) {
-        let toDo = selected ? cancleOptional : addOptional
-        const res = await toDo(data)
-        if (res.status !== 200) {
-            console.error(res.message)
+    // 切换收藏货币, 参数长度为2是切换一种，为1是切换所有
+    async toggleCollectCoins(...params) {
+        let toDo;
+        if (params.length === 2) {
+            const [data, selected] = params;
+            toDo = selected ? cancleOptional : addOptional;
+            const res = await toDo(data);
+            if (res.status !== 200) {
+                console.error(res.message);
+            }
         } else {
-            this.getCollectCoins()
+            const [selected] = params;
+            toDo = !selected ? cancleOptional : addOptional;
+            const allCoin = this.loginedMarkets.tradeCoins || [];
+            const res = await Promise.all(allCoin.map(item => toDo(item)));
         }
+
+        this.getCollectCoins();
     }
 
     // 获取收藏货币列表
@@ -811,7 +821,7 @@ class TradeStore {
         } else {
             runInAction(() => {
                 this.collectCoins = res.attachment.map(item => [item.baseCurrencyId, item.tradeCurrencyId].join('--'));
-            })
+            });
         }
     }
     /**

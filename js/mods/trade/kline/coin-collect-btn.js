@@ -7,11 +7,11 @@ export default class CoinCollectBtn extends Component {
     }
 
     render() {
-        const {val, set, clickCb} = this.props
-        let selected = set.indexOf([val.baseCurrencyId, val.currencyId].join('--')) !== -1
+        const {data, selected, clickCb} = this.props
+
         return (
             <Icon type={selected ? 'star' : 'star-o'} onClick={(e) => {
-                clickCb(val, selected)
+                clickCb(data, selected)
             }} />
         )
     }
