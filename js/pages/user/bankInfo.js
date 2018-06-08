@@ -59,12 +59,18 @@ class BankInfo extends Component {
               <BindingBank />
               <BankList />
             </div>
+            : userInfo.isValidatePass === 2
+            ? <div className="bank-message">
+                {UPEX.lang.template('请先身份认证')}<Link to="/user/authentication">{UPEX.lang.template('身份认证')}</Link>
+              </div>
             : !userInfo.isValidatePass
               ? <div className="bank-message">
                 {UPEX.lang.template('请先设置交易密码')}<Link to="/user/settingTraddingPassword">{UPEX.lang.template('设置交易密码')}</Link>
               </div>
               : <div>
-                <div className="modify-password-box">
+                <BindingBank />
+                <BankList />
+                {/*<div className="modify-password-box">
                   <div className="item">
                     <span className="lable">{UPEX.lang.template('交易密码')}</span>
                     <input type="password" onChange={this.passwordChange} className="input" />
@@ -72,7 +78,7 @@ class BankInfo extends Component {
                   <div className="submit">
                     <Button onClick={this.submit} style={{marginTop: '0px'}}>{UPEX.lang.template('提交')}</Button>
                   </div>
-                </div>
+                </div>*/}
               </div>
         }
       </div>

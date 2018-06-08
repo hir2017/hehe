@@ -566,6 +566,11 @@
     border: 1px #ccc dashed;
 }
 
+.user-main-box .binding-bank-box .bank-card-upload img {
+    width: 100%;
+    height: 100%;
+}
+
 .user-main-box .binding-bank-box .bank-card-upload i {
     margin-left: 130px;
     font-size: 100px;

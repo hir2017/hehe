@@ -10,78 +10,150 @@ import BankList from './banklist.json'
 import banckCardImg from '../../../images/bank-card.jpg'
 const Option = Select.Option;
 
-const props = {
-  name: 'file',
-  action: '//jsonplaceholder.typicode.com/posts/',
-  headers: {
-    authorization: 'authorization-text',
-  },
-  onChange(info) {
-    if (info.file.status !== 'uploading') {
-      console.log(info.file, info.fileList);
-    }
-    if (info.file.status === 'done') {
-      message.success(`${info.file.name} file uploaded successfully`);
-    } else if (info.file.status === 'error') {
-      message.error(`${info.file.name} file upload failed.`);
-    }
-  },
-};
-
+@inject('userInfoStore', 'authStore')
 @observer
 export default class BindingBank extends Component {
 
-  constructor () {
+  constructor() {
     super()
     this.bankChange = this.bankChange.bind(this)
     this.branchesChange = this.branchesChange.bind(this)
+    this.cardNoChange = this.cardNoChange.bind(this)
+    this.pwdChange = this.pwdChange.bind(this)
     this.submit = this.submit.bind(this)
   }
 
   state = {
     branches: [],
-    bamckCode: '',
-    branchesCode: ''
+    banckCode: '',
+    banck: '',
+    branchesCode: '',
+    branche: '',
+    cardNo: '',
+    password: '',
+    imgUrl: ''
   }
 
-  bankChange (val) {
+  componentDidMount() {
+    // 初始化个人中心数据
+    const userInfo = this.props.userInfoStore.userInfo || {}
+    Object.keys(userInfo).length || this.props.userInfoStore.getUserInfo()
+  }
+
+  _props = () => {
+    const token = UPEX.cache.getCache('token');
+    const uid = UPEX.cache.getCache('uid');
+    const ctx = this;
+    return {
+      accept: "image/jpg,image/Jpeg,image/png",
+      name: 'file',
+      action: UPEX.config.uploadImgHost + '?token=' + token + '&uid=' + uid,
+      headers: {
+        authorization: 'authorization-text',
+      },
+      onChange(info) {
+        if (info.file.status !== 'uploading') {
+          console.log(info.file, info.fileList);
+        }
+        if (info.file.status === 'done') {
+          if (info.file.response.status === 200) {
+            const url = info.file.response.attachment
+            ctx.setState({
+              imgUrl: url
+            })
+            message.success(`${info.file.name} ${UPEX.lang.template('上传成功')}`);
+          } else {
+            message.error(`${info.file.name} ${UPEX.lang.template('上传失败')}`);
+          }
+        } else if (info.file.status === 'error') {
+          message.error(`${info.file.name} ${UPEX.lang.template('上传失败')}`);
+        }
+      },
+    }
+  }
+
+  bankChange(val, e) {
     const res = BankList.filter((item) => {
       return item.code === val
     })
 
     this.setState({
       branches: res[0].branches,
-      bamckCode: val
+      banckCode: val,
+      banck: res[0].name
     })
   }
 
-  branchesChange (val) {
+  branchesChange(val) {
+    const res = BankList.filter((item) => {
+      return item.code === this.state.banckCode
+    })
+    const branche = res[0].branches.filter((item) => {
+      return item.code === val
+    })
     this.setState({
-      branchesCode: val
+      branchesCode: val,
+      branche: branche[0].name
     })
   }
 
-  submit () {
-    if (!this.state.bamckCode) {
+  cardNoChange(e) {
+    this.setState({
+      cardNo: e.target.value
+    })
+  }
+
+  pwdChange(e) {
+    this.setState({
+      password: e.target.value
+    })
+  }
+
+  submit() {
+    if (!this.state.banckCode) {
       message.error('请选择银行')
-      return 
+      return
     }
     if (!this.state.branchesCode) {
       message.error('请选择银行分行')
-      return 
+      return
     }
+    if (!this.state.cardNo) {
+      message.error('银行卡号不能为空')
+      return
+    }
+    if (!this.state.password) {
+      message.error('交易密码不能为空')
+      return
+    }
+    if (!this.state.imgUrl) {
+      message.error('请上传图片')
+      return
+    }
+
+    const pwd = md5(this.state.password + UPEX.config.dealSalt + this.props.authStore.uid);
+
+    this.props.userInfoStore.bindVerifyCard(this.state.cardNo,
+      '',
+      this.state.banck,
+      this.state.branchesCode,
+      this.state.branche,
+      pwd,
+      this.state.imgUrl)
   }
 
   render() {
+    const loading = this.props.userInfoStore.submit_loading
+    const userInfo = this.props.userInfoStore.userInfo || {}
     return (
       <div>
         <div className="binding-bank-box">
           <div className="item">
-            {UPEX.lang.template('开户人')}：**淼
-        </div>
+            {UPEX.lang.template('开户人')}：{userInfo.name}
+          </div>
           <div className="item">
             <Select showSearch size='large' placeholder={UPEX.lang.template('选择银行')}
-              onChange = {this.bankChange}
+              onChange={this.bankChange}
               filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
               style={{ width: 400 }}>
               {
@@ -94,7 +166,7 @@ export default class BindingBank extends Component {
           <div className="item">
             <Select showSearch size='large' placeholder={UPEX.lang.template('选择银行分行')}
               filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
-              onChange = {this.branchesChange}
+              onChange={this.branchesChange}
               style={{ width: 400 }}>
               {
                 this.state.branches.map((item, index) => {
@@ -106,19 +178,29 @@ export default class BindingBank extends Component {
           <div className="item">
             <div className="bank-card-num">
               <span className="input-lable">{UPEX.lang.template('银行账号')}</span>
-              <input className="input" />
+              <input onChange={this.cardNoChange} className="input" />
             </div>
           </div>
-          <Upload {...props}>
-          <div className="bank-card-upload-box ">
-            {UPEX.lang.template('上传银行账户簿图片')}
-            <div className="bank-card-upload">
-              <Icon type="plus" />
+          <div className="item">
+            <div className="bank-card-num">
+              <span className="input-lable">{UPEX.lang.template('交易密码')}</span>
+              <input type="password" onChange={this.pwdChange} className="input" />
             </div>
           </div>
+          <Upload {...this._props()}>
+            <div className="bank-card-upload-box ">
+              {UPEX.lang.template('上传银行账户簿图片')}
+              <div className="bank-card-upload">
+                {
+                  this.state.imgUrl
+                    ? <img src={UPEX.config.imgHost + '/' + this.state.imgUrl} />
+                    : <Icon type="plus" />
+                }
+              </div>
+            </div>
           </Upload>
           <div className="item submit">
-            <Button onClick={this.submit}>{UPEX.lang.template('提交')}</Button>
+            <Button loading={loading} onClick={this.submit}>{UPEX.lang.template('提交')}</Button>
           </div>
         </div>
         <div className="binding-bank-message">
