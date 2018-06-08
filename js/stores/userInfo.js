@@ -22,7 +22,8 @@ import {
     modifyPhoneAction,
     phoneAuthSwitch,
     updateFdPwdEnabled,
-    bindVerifyCardInfo
+    bindVerifyCardInfo,
+    getBindBankCardInfo
 } from '../api/http'
 import { message } from 'antd'
 
@@ -52,6 +53,7 @@ class UserInfo {
     @observable questionsLsit = {
         list: []
     }
+    @observable bankCardList = []
 
     constructor(stores) {
         this.captchaStore = stores.captchaStore;
@@ -430,6 +432,17 @@ class UserInfo {
             }
         } catch (e) {
             this.submit_loading = false
+            console.error(e)
+            message.error('Network Error')
+        }
+    }
+
+    async bankCardInfo() {
+        try {
+            const res = await getBindBankCardInfo()
+            console.log(res, 'res')
+            this.bankCardList = res || []
+        } catch(e) {
             console.error(e)
             message.error('Network Error')
         }

@@ -727,3 +727,14 @@ export function bindVerifyCardInfo (
         tradePwd,
         imgUrl}).then(res => res.data);
 }
+
+/**
+ *  二级密码开启关闭
+ *
+ */
+
+export function getBindBankCardInfo () {
+    return axios.post(`${UPEX.config.host}/card/getBindBankCardInfo`).then(res => res.data);
+}
+
+

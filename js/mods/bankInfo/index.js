@@ -34,12 +34,6 @@ export default class BindingBank extends Component {
     imgUrl: ''
   }
 
-  componentDidMount() {
-    // 初始化个人中心数据
-    const userInfo = this.props.userInfoStore.userInfo || {}
-    Object.keys(userInfo).length || this.props.userInfoStore.getUserInfo()
-  }
-
   _props = () => {
     const token = UPEX.cache.getCache('token');
     const uid = UPEX.cache.getCache('uid');
