@@ -40,6 +40,10 @@ class Login extends Component {
         this.action.getImgCaptcha();
     }
 
+    componentWillUnmount(){
+        this.action.destroy(); 
+    }
+
     handleLogin=()=>{
         if (this.action.checkUser()) {
             

@@ -369,9 +369,10 @@ export default (store) => {
             });
         },
 
-        destroyTimer() {
+        destroy() {
             this.timer && this.timer.destroy();
             this.timer2 && this.timer2.destroy();
+            store.reset();
         }
     }
 }

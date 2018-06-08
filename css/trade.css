@@ -793,10 +793,11 @@
 }
 
 .trade-form .ant-slider-handle:focus {
-    border-color: #e6bc1d;
+    /* border-color: #e6bc1d;
     -webkit-box-shadow: 0 0 0 5px #e6bc1d;
     -moz-box-shadow: 0 0 0 5px #e6bc1d;
-    box-shadow: 0 0 0 5px #e6bc1d;
+    box-shadow: 0 0 0 5px #e6bc1d; */
+    box-shadow: none;
 }
 
 .trade-form .ant-slider:hover .ant-slider-handle:not(.ant-tooltip-open) {

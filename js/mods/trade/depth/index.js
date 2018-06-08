@@ -7,6 +7,7 @@ import React, {Component} from 'react';
 import { observer, inject } from 'mobx-react';
 import {ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts';
 import CustomTooltip from './tooltip';
+import Empty from './empty';
 
 @inject('tradeStore')
 @observer
@@ -19,6 +20,10 @@ class DepthChart extends Component{
 		const maxDepth = Math.max(...getAskDepths(store.depthAsks), ...getBidDepths(store.depthBids));
 
 		const isEmpty = store.depthBids.length === 0 && store.depthAsks.length === 0;
+
+		if (isEmpty) {
+			return <Empty/>
+		}
 
 		return (
 			<div className="depth-chart">		

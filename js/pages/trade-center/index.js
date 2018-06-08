@@ -93,6 +93,10 @@ class TradeContent extends Component {
         }
     }
 
+    componentWillUnMount(){
+        this.props.tradeStore.destorySocket();
+    }
+
     onChangeEntrustType=(type)=>{
         this.props.tradeStore.setType(type);    
     }

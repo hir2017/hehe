@@ -298,6 +298,27 @@ class LoginInfoBaseStore {
     setLoginPhoneCode(value){
         this.phonecode = value;
     }
+
+    @action
+    reset() {
+        this.mode = 'email'; // 注册方式，邮箱：email；手机：phone
+        this.email = ''; // 邮箱
+        this.phone = ''; // 手机
+        this.pwd = ''; // 密码
+        this.twicepwd = ''; // 确认密码
+        this.vercode = ''; // 邮箱验证码或者短信验证码
+        this.phonecode = ''; // 手机验证码
+        this.imgcode = ''; // 图片验证码
+        this.inviteId = ''; // 邀请码
+        this.agree = false; // 同意协议 
+        this.googlecode = ''; // 谷歌验证码
+        this.sendingcode = false;
+        this.sendingphonecode = false;
+        this.validImgCode = true; // 图片验证码
+        this.validVercode = true; // 邮箱or手机验证码
+        this.hasPhone = false; // 手机是否已经被占用
+        this.logining = false;
+    }
 }
 
 export default LoginInfoBaseStore;

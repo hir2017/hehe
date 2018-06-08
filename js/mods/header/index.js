@@ -116,7 +116,7 @@ class HeaderView extends Component {
 									</li>
 									<li ref="userinfo">
 										<ul>
-											<li className="username"><Link to="/user">{ userInfoStore.userInfo.phone }</Link></li>
+											<li className="username"><Link to="/user">{ userInfoStore.userInfo ? userInfoStore.userInfo.phone : '--' }</Link></li>
 											<li>|</li>
 											<li className="logout" onClick={this.logout}>
 								            	{ UPEX.lang.template('退出')}

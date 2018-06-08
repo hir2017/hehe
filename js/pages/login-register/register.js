@@ -28,7 +28,7 @@ class Register extends Component {
     }
 
     componentWillUnmount(){
-        this.action.destroyTimer(); 
+        this.action.destroy(); 
     }
 
     sendVercode=(e)=>{
