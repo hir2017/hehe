@@ -18,6 +18,7 @@ import TradeForm from '../../mods/trade/form/index';
 class TradeCenter extends Component {
     componentWillMount() {
         let { commonStore } = this.props;
+        
         commonStore.getAllCoinPoint();
     }
     

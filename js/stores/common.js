@@ -73,12 +73,12 @@ class CommonStore {
 
         this.productDataReady = false;
 
-        if (list) {
-            this.productList = list;
-            this.coinsMap = this.getCoinsMap(list);
-            this.productDataReady = true;
-            return;
-        }
+        // if (list) {
+        //     this.productList = list;
+        //     this.coinsMap = this.getCoinsMap(list);
+        //     this.productDataReady = true;
+        //     return;
+        // }
 
         getBaseCoin().then((data) => {
             runInAction('get all coin point', () => {
@@ -87,7 +87,7 @@ class CommonStore {
                     
                     this.productList = list;
                     this.coinsMap = this.getCoinsMap(list);
-                    UPEX.cache.setCache('productlist', list, 8 * 3600 * 1000);  // 8小时
+                    UPEX.cache.setCache('productlist', list, 1 * 3600 * 1000);  // 8小时
                     
                 }
                 this.productDataReady = true;

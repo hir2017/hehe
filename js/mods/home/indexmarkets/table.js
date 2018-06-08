@@ -51,6 +51,7 @@ export default class extends React.Component {
         this.setState({
             sortField: field
         });
+
         if (!this.state.sort || this.state.sort === 'asc') {
             this.setState(
                 {
@@ -122,25 +123,28 @@ export default class extends React.Component {
                             <table className="">
                                 <ColGroup />
                                 <tbody className="ant-table-tbody">
-                                    {this.props.coins.map((item, index) => {
-                                        let path = `/trade/${item.baseCurrencyNameEn}_${item.currencyNameEn}`;
-                                        return (
-                                            <tr
-                                                key={item.id}
-                                                onClick={() => {
-                                                    this.selectCoin(item.baseCurrencyId, item.currencyId);
-                                                }}
-                                            >
-                                                <td>
-                                                    <Link to={path}>{item.currencyNameEn}</Link>
-                                                </td>
-                                                <td>{item.currentAmount}</td>
-                                                <td>{item.changeRate}</td>
-                                                <td>{item.volume}</td>
-                                                <td>{this.collectIcon(item)}</td>
-                                            </tr>
-                                        );
-                                    })}
+                                    {
+                                        this.props.coins.map((item, index) => {
+                                            let path = `/trade/${item.baseCurrencyNameEn}_${item.currencyNameEn}`;
+                                            console.log(item)
+                                            return (
+                                                <tr
+                                                    key={item.id}
+                                                    onClick={() => {
+                                                        this.selectCoin(item.baseCurrencyId, item.currencyId);
+                                                    }}
+                                                >
+                                                    <td>
+                                                        <Link to={path}>{item.currencyNameEn}</Link>
+                                                    </td>
+                                                    <td>{item.currentAmount}</td>
+                                                    <td>{item.changeRate}</td>
+                                                    <td>{item.volume}</td>
+                                                    <td>{this.collectIcon(item)}</td>
+                                                </tr>
+                                            );
+                                        })
+                                    }
                                 </tbody>
                             </table>
                         </div>
