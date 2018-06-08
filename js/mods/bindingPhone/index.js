@@ -5,8 +5,9 @@
  */
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
-import { Button, Switch } from 'antd'
+import { Button, Switch, Modal, Input } from 'antd'
 import { Link } from 'react-router'
+import Vcodebutton from '../common/sendAuthCodeBtn'
 
 @inject('userInfoStore')
 @observer
@@ -17,9 +18,31 @@ export default class Phone extends Component {
     Object.keys(userInfo).length || this.props.userInfoStore.getUserInfo()
   }
 
+  phoneSwitch = (checked) => {
+    this.setState({
+      visible: true
+    })
+    // this.props.userInfoStore.phoneSwitch(checked ? 1 : 0)
+  }
+
+  state = {
+    visible: false
+  }
+
+  handleOk = () => {
+
+  }
+
+  cancelHandle = () => {
+    this.setState({
+      visible: false
+    })
+  }
+
   render() {
+    const loading = this.props.userInfoStore.submit_loading
     const userInfo = this.props.userInfoStore.userInfo || {}
-    const checked = userInfo.phone ? true : false
+    const checked = userInfo.isPhoneAuth ? true : false
     return (
       <div className="binding-phone-content">
         <div className="binding-phone-left">
@@ -41,7 +64,7 @@ export default class Phone extends Component {
             {UPEX.lang.template('提現、修改密碼，及安全設置時接收短信使用')}
           </div>
           <div className="switch">
-            {UPEX.lang.template('启用登录手机认证')}&nbsp;&nbsp;&nbsp;<Switch checked={checked}/>
+            {UPEX.lang.template('启用登录手机认证')}&nbsp;&nbsp;&nbsp;<Switch onChange={this.phoneSwitch} loading={loading} checked={checked}/>
           </div>
         </div>
         <div className="binding-phone-right">
@@ -50,6 +73,19 @@ export default class Phone extends Component {
             <li>※{UPEX.lang.template('為了您的資金安全，修改手機綁定后，24小時內不可以提現提幣')}</li>
           </ul>
         </div>
+        <Modal
+          title={UPEX.lang.template('请输入短信验证码')}
+          visible={this.state.visible}
+          onOk={this.handleOk}
+          confirmLoading={loading}
+          onCancel={this.cancelHandle}
+        >
+          <div>
+            <div className="item">
+              <Input addonAfter={<Vcodebutton style={{lineHeight: 'normal', height: 'auto'}}/>} type='password' size="large" placeholder={UPEX.lang.template('请输入交易密码')} />
+            </div>
+          </div>
+        </Modal>
       </div>
     )
   }

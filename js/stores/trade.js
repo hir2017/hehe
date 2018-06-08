@@ -33,7 +33,9 @@ class TradeStore {
     @observable personalAccount = { baseCoinBalance: 0, tradeCoinBalance: 0 };
     @observable entrust = { sell: [], buy: [] };
     @observable baseCurrencyId = 0;
+    @observable baseCurrencyNameEn = '';
     @observable currencyId = 0;
+    @observable currencyNameEn = '';
     @observable dealBuyPrice = 0; // 交易买入价格
     @observable dealSellPrice = 0; // 交易卖出价格
     @observable dealBuyNum = 0; // 买入数量
@@ -400,9 +402,11 @@ class TradeStore {
     }
 
     @action
-    updateCurrency(baseCurrencyId, currencyId) {
-        this.baseCurrencyId = baseCurrencyId;
-        this.currencyId = currencyId;
+    updateCurrency(data) {
+        this.baseCurrencyId = data.baseCurrencyId;
+        this.currencyId = data.currencyId;
+        this.baseCurrencyNameEn = data.baseCurrencyNameEn;
+        this.currencyNameEn = data.currencyNameEn;
     }
 
     @action

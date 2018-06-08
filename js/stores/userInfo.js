@@ -19,7 +19,11 @@ import {
     isUsedGoogleAuth,
     bindPhoneOrEmailAction,
     modifyPhoneSendMsg,
-    modifyPhoneAction
+    modifyPhoneAction,
+    phoneAuthSwitch,
+    updateFdPwdEnabled,
+    bindVerifyCardInfo,
+    getBindBankCardInfo
 } from '../api/http'
 import { message } from 'antd'
 
@@ -49,6 +53,7 @@ class UserInfo {
     @observable questionsLsit = {
         list: []
     }
+    @observable bankCardList = []
 
     constructor(stores) {
         this.captchaStore = stores.captchaStore;
@@ -366,7 +371,82 @@ class UserInfo {
             message.error('Network Error')
         }
     }
+    
+    @action
+    async phoneSwitch(status) {
+        try {
+            this.submit_loading = true
+            const res = await phoneAuthSwitch(status)
+            this.submit_loading = false
+            if (res.status === 200) {
+                message.success(UPEX.lang.template('修改成功'))
+            } else {
+                message.error(res.message)
+            }
+        } catch (e) {
+            this.submit_loading = false
+            console.error(e)
+            message.error('Network Error')
+        }
+    }
 
+    @action
+    async fdPwdSwitch(fdPwd, enabled) {
+        try {
+            this.submit_loading = true
+            const res = await updateFdPwdEnabled(fdPwd, enabled)
+            this.submit_loading = false
+            if (res.status === 200) {
+                message.success(UPEX.lang.template('修改成功'))
+            } else {
+                message.error(res.message)
+            }
+        } catch (e) {
+            this.submit_loading = false
+            console.error(e)
+            message.error('Network Error')
+        }
+    }
+
+    async bindVerifyCard(cardNo,
+        cardName,
+        openBank,
+        branchNo,
+        branchName,
+        tradePwd,
+        imgUrl) {
+        try {
+            this.submit_loading = true
+            const res = await bindVerifyCardInfo(cardNo,
+                cardName,
+                openBank,
+                branchNo,
+                branchName,
+                tradePwd,
+                imgUrl)
+            this.submit_loading = false
+            if (res.status === 200) {
+                message.success(UPEX.lang.template('绑定成功'))
+            } else {
+                message.error(res.message)
+            }
+        } catch (e) {
+            this.submit_loading = false
+            console.error(e)
+            message.error('Network Error')
+        }
+    }
+
+    async bankCardInfo() {
+        try {
+            const res = await getBindBankCardInfo()
+            console.log(res, 'res')
+            this.bankCardList = res || []
+        } catch(e) {
+            console.error(e)
+            message.error('Network Error')
+        }
+    }
 }
 
 export default UserInfo;

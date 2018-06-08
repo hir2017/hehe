@@ -108,7 +108,7 @@ export default class ModifyPhone extends Component {
 
     const type = gaBindSuccess ? 1 : 2
     const code = gaBindSuccess ? this.state.gaCode : this.state.vCode 
-    this.props.userInfoStore.newModifyPhone(this.state.nvCode, this.state.phone, code, type)
+    this.props.userInfoStore.newModifyPhone(this.state.nvCode, this.state.areacode + this.state.phone, code, type)
   }
 
   render() {

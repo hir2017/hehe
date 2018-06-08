@@ -90,7 +90,7 @@ export default class SettingTradingPassword extends Component {
       <div>
         {
           this.state.show
-            ? <div onClick={this.sendCode} className="send-v-code-button">
+            ? <div style={this.props.style || null} onClick={this.sendCode} className="send-v-code-button">
               {UPEX.lang.template('发送验证码')}
             </div>
             : <div className="send-v-code-button">

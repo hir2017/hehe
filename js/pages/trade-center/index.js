@@ -64,7 +64,12 @@ class TradeContent extends Component {
                 currencyNameEn: b
             }) 
 
-            tradeStore.updateCurrency(baseCurrencyId, currencyId);    
+            tradeStore.updateCurrency({
+                baseCurrencyNameEn: a,
+                currencyNameEn: b,
+                baseCurrencyId, 
+                currencyId
+            });    
 
             // 3秒钟查询一次
             let timer;

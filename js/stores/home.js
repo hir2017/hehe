@@ -49,7 +49,7 @@ class HomeStore {
     filterCoin (name) {
 
         if(!name) {
-            this.allCoins = this.cacheCoins
+            this.allCoins = this.cacheCoins;
             return
         }
 
@@ -58,10 +58,12 @@ class HomeStore {
         }
 
         const res = this.cacheCoins.filter((item) => {
-            return item.currencyNameEn.toLowerCase().includes(name.toLowerCase())
+            if (item.currencyNameEn) {
+                return item.currencyNameEn.toLowerCase().includes(name.toLowerCase())
+            }
         })
 
-        this.allCoins = res
+        this.allCoins = res;
     }
 
     @action

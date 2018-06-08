@@ -525,7 +525,7 @@ class TVChartContainer extends Component {
 	                <ul className="info-list">
 	                    <li className="coin" ref="coin">
 	                        <Popover content={<TradeCoinList/>} placement="bottomLeft" trigger="click" getPopupContainer={()=>this.refs.coin} overlayClassName={ store.theme === 'dark' ? 'popover-tradecoins-dark' : 'popover-tradecoins-light'}>
-	                            <label>{ store.currentTradeCoin.currencyNameEn }</label>
+	                            <label>{ store.currencyNameEn }</label>
 	                            <Icon type="caret-down" style={arrowCls} />
 	                        </Popover>
 	                        <em>{ store.currentAmount }</em>

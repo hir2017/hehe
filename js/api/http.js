@@ -107,7 +107,7 @@ export function userRegister(data) {
 // 用户登录 - 不需要验证第一步
 export function userLogin(data) {
     return axios.post(`${UPEX.config.host}/user/loginGAFirst`, qs.stringify({
-        email: data.email, // 兼容旧的代码环境，上线后去掉
+        // email: data.email, // 兼容旧的代码环境，上线后去掉
         emailOrPhone: data.email,
         pwd: data.pwd,
         vercode: data.imgcode,
@@ -686,4 +686,55 @@ export function modifyPhoneAction (newCode, newPhone, oldCode, type) {
         newCode, newPhone, oldCode, type
     }).then(res => res.data);
 }
+
+/**
+ *  手机二级认证开关
+ *
+ */
+
+export function phoneAuthSwitch (status) {
+    return axios.post(`${UPEX.config.host}/user/phoneAuthSwitch`,{status}).then(res => res.data);
+}
+
+/**
+ *  二级密码开启关闭
+ *
+ */
+
+export function updateFdPwdEnabled (fdPwd, enabled) {
+    return axios.post(`${UPEX.config.host}/user/updateFdPwdEnabled`,{fdPwd, enabled}).then(res => res.data);
+}
+
+/**
+ *  银行卡绑定
+ *
+ */
+
+export function bindVerifyCardInfo (
+    cardNo,
+    cardName,
+    openBank,
+    branchNo,
+    branchName,
+    tradePwd,
+    imgUrl) {
+    return axios.post(`${UPEX.config.host}/card/bindVerifyCardInfo`,
+    {   cardNo,
+        cardName,
+        openBank,
+        branchNo,
+        branchName,
+        tradePwd,
+        imgUrl}).then(res => res.data);
+}
+
+/**
+ *  二级密码开启关闭
+ *
+ */
+
+export function getBindBankCardInfo () {
+    return axios.post(`${UPEX.config.host}/card/getBindBankCardInfo`).then(res => res.data);
+}
+
 
