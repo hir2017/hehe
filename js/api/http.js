@@ -107,7 +107,7 @@ export function userRegister(data) {
 // 用户登录 - 不需要验证第一步
 export function userLogin(data) {
     return axios.post(`${UPEX.config.host}/user/loginGAFirst`, qs.stringify({
-        email: data.email, // 兼容旧的代码环境，上线后去掉
+        // email: data.email, // 兼容旧的代码环境，上线后去掉
         emailOrPhone: data.email,
         pwd: data.pwd,
         vercode: data.imgcode,
@@ -236,10 +236,24 @@ export function selectUserAddress(currentyId){
 
 /*----------------------------- 充值相关接口：{{------------------------------------*/
 
-export function rechargeOrder(){
-    return axios.post(`${UPEX.config.host}/coin/rechargeOrder`, qs.stringify({
+export function getUserBankInfo() {
+    return axios.post(`${UPEX.config.host}/rechargeWithdraw/getUserCardInfoAndAmountAndFee`).then(res => res.data);
+}
 
+export function orderFiatRecharge(data){
+    return axios.post(`${UPEX.config.host}/pay/getFrontPageJsonData`, qs.stringify({
+        amount: data.amount,
+        prodId: data.cardId,
+        currencyId: 1 
     })).then(res => res.data);
+}
+
+export function orderFiatWithdraw(data){
+    return axios.post(`${UPEX.config.host}/pay/getFrontPageJsonData`, qs.stringify({
+        amount: data.amount,
+        prodId: data.cardId,
+        currencyId: 1 
+    })).then(res => res.data);x
 }
 
 /*----------------------------- 充值相关接口：}}------------------------------------*/

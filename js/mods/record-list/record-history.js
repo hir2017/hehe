@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { observer, inject } from 'mobx-react';
 import {  Select, DatePicker, Pagination} from 'antd';
 const Option = Select.Option;
-import toAction from './order-action';
+import toAction from './record-action';
 
 @inject('commonStore','historyStore')
 @observer

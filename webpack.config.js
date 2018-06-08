@@ -61,7 +61,7 @@ var config = {
             },
             {
                 test: /\.(css|less)$/,
-                loader: extractCSS.extract(['css-loader', 'postcss-loader', 'less-loader'])
+                loader: extractCSS.extract(['css-loader?minimize=true', 'postcss-loader', 'less-loader'])
             },
             {
                 test: /\.(css|less|jsx?)$/,

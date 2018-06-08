@@ -3,8 +3,8 @@ import { observer, inject } from 'mobx-react';
 import { Select , message , Alert } from 'antd';
 const Option = Select.Option;
 import { Link, browserHistory } from 'react-router';
-import toAction from './coin.action';
-import RecordList from '../account/coin-withdraw-record';
+import toAction from './coin-withdraw-action';
+import RecordList from '../record-list/coin-withdraw-record';
 
 @inject('coinWithdrawStore', 'accountStore', 'userInfoStore')
 @observer
@@ -20,8 +20,18 @@ class WithdrawCoin extends Component {
 		this.action = toAction(coinWithdrawStore, accountStore);
 	}
 
-	componentWillMount(){
-		let { accountStore , userInfoStore } = this.props;
+	componentDidMount(){
+		this.fetchCoinList();
+        this.action.getImgCaptcha();
+        this.initCodeVerifyType();
+	}
+
+	componentWillUnmount(){
+		this.action.destroy();
+	}
+
+	fetchCoinList() {
+		let { accountStore } = this.props;
 
         accountStore.getUserCoinAccount(()=>{
         	const coinNameEn = this.props.params.code;
@@ -42,26 +52,16 @@ class WithdrawCoin extends Component {
             	currencyNameEn: defaultCoin.currencyNameEn
             });
         });
+	}
 
-        this.action.getImgCaptcha();
+	initCodeVerifyType(){
+		let { userInfoStore } = this.props;
 
-        if (userInfoStore.userInfo.isGoogleAuth == 1) {
+		if (userInfoStore.userInfo.isGoogleAuth == 1) {
         	this.action.changeAuthTypeTo('google');
         } else if (userInfoStore.userInfo.isValidatePhone) {
             this.action.changeAuthTypeTo('phone');
         }
-	}
-
-	componentWillUnmount(){
-		this.action.destroy();
-	}
-
-	clickSetTradePwd=(e)=>{
-		browserHistory.push('/user/settingTraddingPassword');
-	}
-
-	clickAuthUserIDCard=(e)=>{
-		browserHistory.push('/user/authentication');
 	}
 
 	selectWithdrawCoin=(value)=>{
@@ -90,23 +90,23 @@ class WithdrawCoin extends Component {
 
 		return (
 			<div>
-				<div className="withdraw-form">
+				<div className="rw-form">
 					{ store.isFetching ? <div className="mini-loading"></div> : null }
-					<div className="withdraw-form-item">
+					<div className="rw-form-item">
 						<Alert message={UPEX.lang.template('當前安全等级{level}可提額度(TWD)：{num}/日',{ level: 'A', num: `${userInfoStore.userInfo.dayLimit || 0}` })} type="warning" showIcon />
 					</div>
-					<div className="withdraw-form-item">
-						<label className="withdraw-label">{UPEX.lang.template('选择币种')}</label>
-						<div className="withdraw-info">
+					<div className="rw-form-item">
+						<label className="rw-form-label">{UPEX.lang.template('选择币种')}</label>
+						<div className="rw-form-info">
 							<Select labelInValue value={{ key: store.currentCoin.currencyNameEn}} onChange={this.selectWithdrawCoin}>
 						    	{ $options }				    	
 						    </Select>
 						</div>
 					</div>
-					<div className="withdraw-form-item">
-						<label className="withdraw-label">{UPEX.lang.template('提币地址')}</label>
-						<div className="withdraw-info">
-							<div className="address-box">
+					<div className="rw-form-item">
+						<label className="rw-form-label">{UPEX.lang.template('提币地址')}</label>
+						<div className="rw-form-info">
+							<div className="select-button-box">
 								<div className="select-box">
 									<Select 
 										key={store.currentCoin.currencyNameEn}
@@ -118,7 +118,7 @@ class WithdrawCoin extends Component {
 		                            </Select>
 	                            </div>	
 	                            <button>
-	                            	<Link to={`/account/coin/withdrawaddress/${store.currentCoin.currencyNameEn}`}>{UPEX.lang.template('添加地址')}</Link>
+	                            	<Link to={`/account/coin/address/${store.currentCoin.currencyNameEn}`}>{UPEX.lang.template('添加地址')}</Link>
 	                            </button>
 	                        </div>
 	                        <div className="address-custom mt10">
@@ -143,9 +143,9 @@ class WithdrawCoin extends Component {
 	                        </div>
 						</div>
 					</div>
-					<div className="withdraw-form-item">
-						<label className="withdraw-label">{UPEX.lang.template('提币数量')}</label>
-						<div className="withdraw-info">
+					<div className="rw-form-item">
+						<label className="rw-form-label">{UPEX.lang.template('提币数量')}</label>
+						<div className="rw-form-info">
 							<div className={`input-box ${store.validAmount ? '' : 'wrong'}`}>
 	                            <input 
 	                                type="number"
@@ -158,27 +158,29 @@ class WithdrawCoin extends Component {
 	                        <span className="remain-amount">{UPEX.lang.template('可用提币数量:{count}', { count :  `${store.cashAmount || 0 }${store.currentCoin.currencyNameEn || ''}`})}</span>
 						</div>
 					</div>
-					<div className="withdraw-form-item">
-						<label className="withdraw-label">{UPEX.lang.template('图片验证码')}</label>
-						<div className="withdraw-info">
-							<div className={`input-box yz-box ${store.validImgCode ? '' : 'wrong'}`}>
-	                            <input 
-	                                type="text" 
-	                                placeholder={ UPEX.lang.template('图片验证') }
-	                                data-key="vercode"
-	                                value={store.vercode}
-	                                onChange={ action.onChangeInput}
-	                            />
-	                            <div className="codeimg">
-	                                <img src={ store.captchaStore.captcha } onClick={ action.getImgCaptcha } alt=""/>
-	                            </div>
-	                        </div>
+					<div className="rw-form-item">
+						<label className="rw-form-label">{UPEX.lang.template('图片验证码')}</label>
+						<div className="rw-form-info">
+							<div className="yz-box">
+								<div className={`input-box ${store.validImgCode ? '' : 'wrong'}`}>
+		                            <input 
+		                                type="text" 
+		                                placeholder={ UPEX.lang.template('图片验证') }
+		                                data-key="vercode"
+		                                value={store.vercode}
+		                                onChange={ action.onChangeInput}
+		                            />
+		                            <div className="codeimg">
+		                                <img src={ store.captchaStore.captcha } onClick={ action.getImgCaptcha } alt=""/>
+		                            </div>
+		                        </div>
+	                       	</div>
 	                    </div>
 					</div>
-					<div className="withdraw-form-item">
-						<label className="withdraw-label">{UPEX.lang.template('验证方式')}</label>
-						<div className="withdraw-info">
-							<ul className="auth-type">
+					<div className="rw-form-item">
+						<label className="rw-form-label">{UPEX.lang.template('验证方式')}</label>
+						<div className="rw-form-info">
+							<ul className="tab-nav">
 								{
 									store.supportAuthTypes.map((item, index)=>{
 										let text;
@@ -193,7 +195,7 @@ class WithdrawCoin extends Component {
 											<li 
 												key={item}
 												onClick={()=>action.changeAuthTypeTo(item)} 
-												className={store.authType == item ?  'auth-item selected' : 'auth-item'}
+												className={store.authType == item ?  'tab-item selected' : 'tab-item'}
 											>
 												{text}
 											</li>
@@ -201,14 +203,9 @@ class WithdrawCoin extends Component {
 									})
 								}
 							</ul>
-						</div>
-					</div>
-					<div className="withdraw-form-item">
-						<label className="withdraw-label"></label>
-						<div className="withdraw-info">
 							{ 
 								store.authType == 'phone' ? (
-									<div className="vercode-box">
+									<div className="input-button-box">
 										<div className="input-box">
 			                                <input 
 			                                    type="text"
@@ -237,9 +234,9 @@ class WithdrawCoin extends Component {
 							}
 						</div>
 					</div>
-					<div className="withdraw-form-item">
-						<label className="withdraw-label">{UPEX.lang.template('交易密码')}</label>
-						<div className="withdraw-info">
+					<div className="rw-form-item">
+						<label className="rw-form-label">{UPEX.lang.template('交易密码')}</label>
+						<div className="rw-form-info">
 							<div className={`input-box ${store.validTradePwd ? '' : 'wrong'}`}>
 	                            <input 
 	                                type="password" 
@@ -252,33 +249,41 @@ class WithdrawCoin extends Component {
 						</div>
 					</div>
 
-					<div className="withdraw-form-item">
-						<label className="withdraw-label"></label>
-						<div className="withdraw-info">
+					<div className="rw-form-item">
+						<label className="rw-form-label"></label>
+						<div className="rw-form-info">
 							{ UPEX.lang.template('实际到账金额:{num}', { num: store.withdrawValue})}
 						</div>
 					</div>
 
-					<div className="withdraw-form-item">
-						<div className="withdraw-info">
-							<button className="submit-btn" onClick={action.handleSubmit}>{UPEX.lang.template('确认提币')}</button>
+					<div className="rw-form-item">
+						<label className="rw-form-label"></label>
+						<div className="rw-form-info">
+							<button className="submit-btn" onClick={action.handleSubmit}>
+								{UPEX.lang.template('确认提币')}
+							</button>
 						</div>
 					</div>	
-					<div className="withdraw-form-item">
-						<div className="withdraw-info">
-							<div className="warmtip">
-								<h4>{UPEX.lang.template('温馨提示')}</h4>
-								<ul>
-									<li dangerouslySetInnerHTML={{__html: UPEX.lang.template('最小提币数量为{count}', { count: `${store.amountLowLimit || 0 }${store.currentCoin.currencyNameEn || ''}`})}}></li>
-									<li dangerouslySetInnerHTML={{__html: UPEX.lang.template('提现完成后，你可以进入提币记录页面跟踪进度')}}></li>
-								</ul>
+					<div className="rw-form-item">
+						<label className="rw-form-label"></label>
+						<div className="rw-form-info">
+							<div className="warmprompt">
+								<h4 className="warmprompt-title">{UPEX.lang.template('温馨提示')}</h4>
+								<div className="warmprompt-content">
+									<ul>
+										<li dangerouslySetInnerHTML={{__html: UPEX.lang.template('最小提币数量为{count}', { count: `${store.amountLowLimit || 0 }${store.currentCoin.currencyNameEn || '--'}`})}}></li>
+										<li dangerouslySetInnerHTML={{__html: UPEX.lang.template('提现完成后，你可以进入提币记录页面跟踪进度')}}></li>
+									</ul>
+								</div>
 							</div>
 						</div>
+					</div>
+					<div className="rw-form-item">
+						<label className="rw-form-label">{UPEX.lang.template('提币记录')}</label>
+						<div className="rw-form-info">
+							<RecordList currencyId={store.currentCoin.currencyId}/>
+						</div>
 					</div>	
-				</div>
-				<div className="withdraw-record">
-					<h3>{UPEX.lang.template('提币记录')}</h3>
-					<RecordList currencyId={store.currentCoin.currencyId}/>
 				</div>
 			</div>
 		)

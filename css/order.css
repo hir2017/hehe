@@ -41,6 +41,7 @@
     position: relative;
     padding: 10px;
     cursor: pointer;
+    font-size: 14px;
 }
 
 .order-menu-box ul li.selected:before {
@@ -130,7 +131,7 @@
 .order-table table {
     width: 100%;
     color: #999999;
-    font-size: 16px;
+    font-size: 14px;
     box-sizing: border-box;
 }
 

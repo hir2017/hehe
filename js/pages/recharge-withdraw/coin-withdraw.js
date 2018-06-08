@@ -4,11 +4,8 @@
  */
 import React, {Component} from 'react';
 import { observer, inject } from 'mobx-react';
-import { Select, message, Alert } from 'antd';
-
-const Option = Select.Option;
-import Timer from '../../lib/timer';
-import WithdrawCoinView from '../../mods/withdraw/coin';
+import { browserHistory } from 'react-router';
+import WithdrawCoinView from '../../mods/recharge-withdraw/coin-withdraw';
 
 @inject('userInfoStore')
 @observer
@@ -18,6 +15,14 @@ class Withdraw extends Component{
         
         // 获取用户信息
         userInfoStore.getUserInfo();
+	}
+
+	clickSetTradePwd=(e)=>{
+		browserHistory.push('/user/settingTraddingPassword');
+	}
+
+	clickAuthUserIDCard=(e)=>{
+		browserHistory.push('/user/authentication');
 	}
 
 	render() {
@@ -38,20 +43,19 @@ class Withdraw extends Component{
 				// 未设置交易密码
 				$content = (
 					<div className="userauth-guide">
-						<h4>{UPEX.lang.template('请您先设置交易密码，否则无法进行提币操作')}</h4>
+						<h4>{UPEX.lang.template('请您先设置交易密码，否则无法进行提币、提现操作')}</h4>
 						<button onClick={this.clickSetTradePwd}>{UPEX.lang.template('设置交易密码')}</button>
 					</div>
 				);
 			} else {
 				$content = <WithdrawCoinView {...this.props}/>
 			}
-
         } else {
         	$content = (<div className="mini-loading"></div>);
         }
 
         return (
-    		<div className="account-withdraw">
+    		<div className="rw-wrapper w-coin-wrapper">
     			<h2 className="title">{UPEX.lang.template('提币')}</h2>
     			<div className="content">{ $content }</div>
     		</div>

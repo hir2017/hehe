@@ -1,5 +1,5 @@
 /**
- * @fileoverview 
+ * @fileoverview  我的资产页面
  * @author 陈立英
  * @date 2018-05-19
  */

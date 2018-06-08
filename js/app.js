@@ -6,8 +6,8 @@ import '../css/announcement.css';
 import '../css/trade.css';
 import '../css/user.css';
 import '../css/account.css';
-import '../css/recharge.css';
-import '../css/withdraw.css';
+import '../css/order.css';
+import '../css/recharge-withdraw.css';
 
 import './lib/object.assign';
 import './lib/promise';
@@ -16,6 +16,7 @@ import ReactDOM, {render} from 'react-dom';
 import { Router, Route, hashHistory, browserHistory, useRouterHistory} from 'react-router';
 import { observer, Provider } from 'mobx-react';
 import { message } from 'antd';
+import Url from './lib/url';
 
 message.config({
     top: 100,

@@ -10,13 +10,13 @@ import TradePwdStore from './tradepwd';
 import OrderOpenStore from './order-open';
 import OrderHistoryStore from './order-history';
 import OrderSuccessStore from './order-success';
-import RechargeStore from './recharge';
 import AddressStore from './address';
 import UserInfoStore from './userInfo';
 import CoinRechargeRecordStore from './coin-recharge-record';
 import CoinWithdrawRecordStore from './coin-withdraw-record';
 import CoinWithdrawStore from './coin-withdraw';
 import FiatRechargeStore from './fiat-recharge';
+import FiatWithdrawStore from './fiat-withdraw';
 import FundChangeRecordStore from './fund-change-record';
 
 class RootStore {
@@ -36,7 +36,6 @@ class RootStore {
         this.homeStore = new HomeStore(this);
         this.tradeStore = new TradeStore(this);
         this.accountStore = new AccountStore(this);
-        this.rechargeStore = new RechargeStore(this);
         this.userInfoStore = new UserInfoStore(this);
         this.openStore = new OrderOpenStore(this);
         this.historyStore = new OrderHistoryStore(this);
@@ -45,6 +44,7 @@ class RootStore {
         this.coinWithdrawRecordStore = new CoinWithdrawRecordStore(this);
         this.coinWithdrawStore = new CoinWithdrawStore(this);
         this.fiatRechargeStore = new FiatRechargeStore(this);
+        this.fiatWithdrawStore = new FiatWithdrawStore(this);
         this.addressStore = new AddressStore(this);
         this.fundChangeRecordStore = new FundChangeRecordStore(this);
     }

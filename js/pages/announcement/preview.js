@@ -1,5 +1,5 @@
 /**
- * @fileoverview  最新消息公告
+ * @fileoverview  最新消息详情
  * @author 陈立英
  * @date 2018-05-09
  */

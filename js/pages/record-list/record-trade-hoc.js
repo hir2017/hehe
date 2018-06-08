@@ -3,14 +3,13 @@
  * @author 陈立英
  * @date 2018-05-19
  */
-import '../../../css/order.css';
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import { browserHistory } from 'react-router';
 
 @inject('tradePwdStore', 'commonStore')
 @observer
-class UserPage extends Component {
+class RecordPage extends Component {
 	constructor(props){
 		super(props);
 
@@ -39,7 +38,7 @@ class UserPage extends Component {
 	}
 
 	handleClickTab=(item, e)=>{
-		browserHistory.push('/order/' + item.path)
+		browserHistory.push('/account/record/' + item.path)
 	}
 
     render() {
@@ -81,4 +80,4 @@ class UserPage extends Component {
     }
 }
 
-export default UserPage;
+export default RecordPage;

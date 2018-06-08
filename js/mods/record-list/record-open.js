@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { observer, inject } from 'mobx-react';
 import { Checkbox, Icon, Pagination, message } from 'antd';
-import toAction from './order-action';
+import toAction from './record-action';
 
 @inject('commonStore','openStore', 'tradePwdStore')
 @observer

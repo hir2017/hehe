@@ -1,0 +1,17 @@
+{
+    "attachment": {
+        // 银行卡信息
+        "bankCards": [
+            {           
+                "providerId": "12121212dehheehde", // 绑定银行卡key
+                "providerName": "招商银行",
+                "providerSubbranch": "支行", 
+                "providerNo": "1996", // 卡号最后四位
+                "showUserName": "陈立英"
+            }
+        ],
+        "accountAmount": 1000, // 账户TWD余额
+    },
+    "message": null,
+    "status": 200
+}
