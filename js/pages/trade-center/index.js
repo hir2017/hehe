@@ -18,7 +18,7 @@ import TradeForm from '../../mods/trade/form/index';
 class TradeCenter extends Component {
     componentWillMount() {
         let { commonStore } = this.props;
-        
+
         commonStore.getAllCoinPoint();
     }
     
@@ -48,18 +48,9 @@ class TradeContent extends Component {
     componentWillMount() {
         let { tradeStore, commonStore } = this.props;
 
-        let timer;
-        let fetchTradeCoinData=()=>{
-            tradeStore.getTradeCoinData();
-            clearTimeout(timer);
-
-            timer = setTimeout(()=>{
-                fetchTradeCoinData();
-            }, 3 * 1000)
-        }
         // 更新交易币对
         let pair = this.props.params.pair;
-        
+
         if (pair) {
             let pairArr = pair.split('_');
             let a = pairArr[0].toUpperCase();
@@ -67,22 +58,34 @@ class TradeContent extends Component {
             let baseCurrencyId = commonStore.getTradeCoinByName(a).currencyId;
             let currencyId = commonStore.getTradeCoinByName(b).currencyId;
             
-             // 缓存上次浏览器的交易币对
+            // 缓存上次浏览器的交易币对
             UPEX.cache.setCache('currentCoin', {
                 baseCurrencyNameEn: a,
                 currencyNameEn: b
-            })   
+            }) 
+
             tradeStore.updateCurrency(baseCurrencyId, currencyId);    
+
+            // 3秒钟查询一次
+            let timer;
+            let fetchTradeCoinData=()=>{
+                tradeStore.getTradeCoinData();
+                clearTimeout(timer);
+
+                timer = setTimeout(()=>{
+                    fetchTradeCoinData();
+                }, 3 * 1000)
+            }
+            fetchTradeCoinData(); 
+
+            tradeStore.getLoginedMarket();
+            tradeStore.getEntrust();
+            tradeStore.getTradeHistory();
+            tradeStore.getUserAccount();
+            tradeStore.getPersonalTradingPwd();
+            tradeStore.getPersonalInfo();
+            tradeStore.getUserOrderList();
         }
-        
-        fetchTradeCoinData(); // 3秒钟查询一次
-        tradeStore.getLoginedMarket();
-        tradeStore.getEntrust();
-        tradeStore.getTradeHistory();
-        tradeStore.getUserAccount();
-        tradeStore.getPersonalTradingPwd();
-        tradeStore.getPersonalInfo();
-        tradeStore.getUserOrderList();
     }
 
     onChangeEntrustType=(type)=>{

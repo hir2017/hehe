@@ -17,6 +17,9 @@ class TradePwd {
      */
     @action
     getPersonalTradingPwd() {
+        if (!this.authStore.isLogin) {
+            return;
+        }
         getPersonalTradingPwd().then((data) => {
             runInAction(()=>{
                 if (data.status ==  200) {
@@ -34,6 +37,12 @@ class TradePwd {
     @computed
     get md5TradePassword(){
         return md5(this.tradePassword + UPEX.config.dealSalt + this.authStore.uid);
+    }
+
+    @action
+    reset(){
+        this.tradePasswordStatus = 2;
+        this.tradePassword = '';
     }
 }
 

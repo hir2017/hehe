@@ -152,14 +152,13 @@ const origin = (function(){
 
     let hostname = location.hostname;
 
-    if (hostname == '13.251.85.35') {
-        origin = '13.251.85.35';
-    } else if (hostname == '54.169.140.238') {
-        origin = '54.169.140.238';
+    if (hostname == '54.169.140.238') {
+        origin = hostname;
     }
 
     return origin;
 })();
+
 
 
 const host = 'http://' +  origin +'/polarisex';

@@ -140,8 +140,18 @@ class CommonStore {
      * 数量小数点后几位
      */
     @action.bound
-    getPointNum(key, value) {
+    getPointNum(name) {
         return Number(this.coinsMap[name].pointNum);
+    }
+
+    @action
+    getBasePointNum() {
+        return this.getPointNum('TWD'); 
+    }
+
+    @action
+    getBasePointPrice() {
+        return this.getPointPrice('TWD'); 
     }
 }
 

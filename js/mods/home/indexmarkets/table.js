@@ -126,7 +126,7 @@ export default class extends React.Component {
                                     {
                                         this.props.coins.map((item, index) => {
                                             let path = `/trade/${item.baseCurrencyNameEn}_${item.currencyNameEn}`;
-                                            console.log(item)
+                                            
                                             return (
                                                 <tr
                                                     key={item.id}
@@ -135,7 +135,7 @@ export default class extends React.Component {
                                                     }}
                                                 >
                                                     <td>
-                                                        <Link to={path}>{item.currencyNameEn}</Link>
+                                                        <Link to={path}>{item.currencyNameEn || '--'}</Link>
                                                     </td>
                                                     <td>{item.currentAmount}</td>
                                                     <td>{item.changeRate}</td>

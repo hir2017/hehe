@@ -4,6 +4,8 @@
  * @date 2018-05-10
  */
 import React, { Component } from 'react';
+import { observer, inject } from 'mobx-react';
+import NumberUtil from '../../../lib/util/number';
 var dayjs = require('dayjs');
 // 引入 ECharts 主模块
 var echarts = require('echarts/lib/echarts');
@@ -13,6 +15,8 @@ require('echarts/lib/chart/line');
 require('echarts/lib/component/tooltip');
 require('echarts/lib/component/title');
 
+@inject('commonStore')
+@observer
 export default class extends Component {
 
     option(hours24TrendList = []) {
@@ -25,7 +29,7 @@ export default class extends Component {
                 formatter([data]) {
                     return [
                         `时间：${data.name}`,
-                        `价格：${data.value}`
+                        `价格：NT$${data.value}`
                     ].join('<br/>')
                 }
             },
@@ -55,7 +59,7 @@ export default class extends Component {
             },
             series: [{
                 data: hours24TrendList.map((item) => {
-                    return item[1]
+                    return item[1];
                 }), // [820, 932, 901, 934, 1290, 1330, 1320],
                 type: 'line',
                 itemStyle: {
