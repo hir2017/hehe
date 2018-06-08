@@ -9,13 +9,13 @@ class List extends Component {
 
     componentDidMount() {
         this.props.fundChangeRecordStore.getData({
-            start: 1
+            pageNumber: 1
         });
     }
 
     onChangePagination(page) {
         this.props.fundChangeRecordStore.getData({
-            start: page
+            pageNumber: page
         });
     }
 

@@ -239,6 +239,14 @@
     text-align: center;
 }
 
+.trade-current-coin .coin-list-bd .list.collected .false {
+    display: none;
+}
+
+.trade-current-coin .coin-list-bd .cell.star .anticon-star{
+    color: #e6bc1d;
+}
+
 .trade-current-coin .coin-list-bd .cell.name {
     width: 15%;
     text-align: left;

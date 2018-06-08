@@ -4,7 +4,7 @@
  */
 import { observable, computed, autorun, action, runInAction } from 'mobx';
 import { socket } from '../api/socket';
-import { getBaseCoin, getUserOrderList, submitOrder, getPersonalTradingPwd, hasSettingDealPwd } from '../api/http';
+import { addOptional, cancleOptional, listOptional, getBaseCoin, getUserOrderList, submitOrder, getPersonalTradingPwd, hasSettingDealPwd } from '../api/http';
 import NP from 'number-precision';
 import NumberUtil from '../lib/util/number';
 import TimeUtil from '../lib/util/date';
@@ -23,7 +23,10 @@ class TradeStore {
     @observable currentTradeCoin = {};
     @observable currentTradeCoinRealTime = [];
     @observable currentTradeCoinReady = false;
-    @observable loginedMarkets = {};
+    @observable
+    loginedMarkets = {
+        tradeCoins: []
+    };
 
     @observable type = 'all'; // 买盘buy、卖盘sell
     @observable tradeHistory = { content: [] };
@@ -51,7 +54,8 @@ class TradeStore {
 
     @observable sortByKey = ''; // 按{key}排序
     @observable sortByType = 'desc'; // 排序方式，升序:asc, 降序: desc
-   
+    // 收藏
+    @observable collectCoins = [];
 
     originMarkets = {};
 
@@ -65,9 +69,7 @@ class TradeStore {
         this.minChartHeight = 270; // K线图最小高度270
         this.minContentHeight = 270;
 
-        this.handlerEntrust = autorun(() => {
-
-        })
+        this.handlerEntrust = autorun(() => {});
     }
 
     @computed
@@ -97,7 +99,6 @@ class TradeStore {
 
     @computed
     get currentCoinChangeRate() {
-
         if (typeof this.currentTradeCoin.changeRate !== 'undefined') {
             return (this.currentTradeCoin.changeRate >= 0 ? '+' : '') + this.currentTradeCoin.changeRate.toFixed(2) + '%';
         } else {
@@ -107,9 +108,8 @@ class TradeStore {
 
     @computed
     get changeRateStatus() {
-
         if (typeof this.currentTradeCoin.changeRate !== 'undefined') {
-            return (this.currentTradeCoin.changeRate >= 0 ? 'positive' : 'negative');
+            return this.currentTradeCoin.changeRate >= 0 ? 'positive' : 'negative';
         } else {
             return 'positive';
         }
@@ -138,17 +138,119 @@ class TradeStore {
     @computed
     get depthAsks() {
         let asks = this.newEntrustData.buy;
-        asks = [["0.07881501",3.33471407],["0.07884405",0.00253781],["0.07885862",2.69808833],["0.07887000",17.3004],["0.07890138",12.835],["0.07890139",4],["0.07891694",0.00253678],["0.07892120",6.43999005],["0.07893979",6.35946285],["0.07894100",0.28699999],["0.07894833",2.99888835],["0.07896692",0.00253632],["0.07897499",0.029258],["0.07898071",0.37468781],["0.07898072",0.00253499],["0.07898917",36.02348691],["0.07898918",59.4979827],["0.07898932",5],["0.07900000",58.43576794],["0.07900544",0.0025362],["0.07900765",19.1446],["0.07900980",0.0025325],["0.07901760",4.2141],["0.07906800",0.22899999],["0.07907702",12.073],["0.07908039",16.8082349],["0.07910000",0.08],["0.07911858",0.0087583],["0.07912264",0.37915823],["0.07913200",0.22899999],["0.07913350",0.013],["0.07913383",0.37933125],["0.07914640",3.17436132],["0.07915598",0.002645],["0.07919600",0.22899999],["0.07925360",0.00142211],["0.07928438",16.5065],["0.07930053",0.00190497],["0.07933254",0.00650756],["0.07939345",0.00304175],["0.07939352",0.012],["0.07940752",0.10738212],["0.07942862",70.5424889],["0.07942863",191.446],["0.07944403",0.01018991],["0.07947398",0.08822542],["0.07951500",0.25899999],["0.07955614",0.00856839],["0.07957341",0.17084821],["0.07958705",0.17343085]];
-        return this.processData(asks, "asks", false)
+        asks = [
+            ['0.07881501', 3.33471407],
+            ['0.07884405', 0.00253781],
+            ['0.07885862', 2.69808833],
+            ['0.07887000', 17.3004],
+            ['0.07890138', 12.835],
+            ['0.07890139', 4],
+            ['0.07891694', 0.00253678],
+            ['0.07892120', 6.43999005],
+            ['0.07893979', 6.35946285],
+            ['0.07894100', 0.28699999],
+            ['0.07894833', 2.99888835],
+            ['0.07896692', 0.00253632],
+            ['0.07897499', 0.029258],
+            ['0.07898071', 0.37468781],
+            ['0.07898072', 0.00253499],
+            ['0.07898917', 36.02348691],
+            ['0.07898918', 59.4979827],
+            ['0.07898932', 5],
+            ['0.07900000', 58.43576794],
+            ['0.07900544', 0.0025362],
+            ['0.07900765', 19.1446],
+            ['0.07900980', 0.0025325],
+            ['0.07901760', 4.2141],
+            ['0.07906800', 0.22899999],
+            ['0.07907702', 12.073],
+            ['0.07908039', 16.8082349],
+            ['0.07910000', 0.08],
+            ['0.07911858', 0.0087583],
+            ['0.07912264', 0.37915823],
+            ['0.07913200', 0.22899999],
+            ['0.07913350', 0.013],
+            ['0.07913383', 0.37933125],
+            ['0.07914640', 3.17436132],
+            ['0.07915598', 0.002645],
+            ['0.07919600', 0.22899999],
+            ['0.07925360', 0.00142211],
+            ['0.07928438', 16.5065],
+            ['0.07930053', 0.00190497],
+            ['0.07933254', 0.00650756],
+            ['0.07939345', 0.00304175],
+            ['0.07939352', 0.012],
+            ['0.07940752', 0.10738212],
+            ['0.07942862', 70.5424889],
+            ['0.07942863', 191.446],
+            ['0.07944403', 0.01018991],
+            ['0.07947398', 0.08822542],
+            ['0.07951500', 0.25899999],
+            ['0.07955614', 0.00856839],
+            ['0.07957341', 0.17084821],
+            ['0.07958705', 0.17343085]
+        ];
+        return this.processData(asks, 'asks', false);
     }
 
     @computed
     get depthBids() {
         let bids = this.newEntrustData.sell;
 
-        bids = [["0.07881500",3.99622048],["0.07880000",7.26978452],["0.07874934",2.916],["0.07874933",2.14457517],["0.07874920",0.03540825],["0.07871813",7.43356254],["0.07871786",36.88],["0.07871612",0.07811163],["0.07870000",0.08],["0.07862449",4.4374],["0.07860000",0.17695408],["0.07859941",0.17321542],["0.07855786",0.00272639],["0.07854670",0.00348589],["0.07854324",3.16227532],["0.07853570",6.35747508],["0.07850113",0.50954678],["0.07850000",0.13207465],["0.07846977",5],["0.07846192",53.08057651],["0.07846191",19.1446],["0.07846190",0.0171589],["0.07846189",0.04],["0.07844372",17.3219],["0.07843011",5.5],["0.07841786",0.07464473],["0.07840468",0.00421893],["0.07838784",5],["0.07838440",0.459],["0.07837375",0.00894273],["0.07837258",0.01180936],["0.07836586",0.033421],["0.07834580",0.22824237],["0.07833876",5.9],["0.07833222",0.00199152],["0.07832004",0.01276812],["0.07831999",0.00773544],["0.07831989",0.06340815],["0.07831774",0.04769014],["0.07831268",0.25064866],["0.07831189",0.00128972],["0.07830020",0.012],["0.07830000",1.40721839],["0.07829880",0.0157],["0.07829804",3],["0.07829736",0.15246467],["0.07829473",7.29542594],["0.07827867",0.23952886],["0.07827380",0.00145152],["0.07827348",0.0573009]]
+        bids = [
+            ['0.07881500', 3.99622048],
+            ['0.07880000', 7.26978452],
+            ['0.07874934', 2.916],
+            ['0.07874933', 2.14457517],
+            ['0.07874920', 0.03540825],
+            ['0.07871813', 7.43356254],
+            ['0.07871786', 36.88],
+            ['0.07871612', 0.07811163],
+            ['0.07870000', 0.08],
+            ['0.07862449', 4.4374],
+            ['0.07860000', 0.17695408],
+            ['0.07859941', 0.17321542],
+            ['0.07855786', 0.00272639],
+            ['0.07854670', 0.00348589],
+            ['0.07854324', 3.16227532],
+            ['0.07853570', 6.35747508],
+            ['0.07850113', 0.50954678],
+            ['0.07850000', 0.13207465],
+            ['0.07846977', 5],
+            ['0.07846192', 53.08057651],
+            ['0.07846191', 19.1446],
+            ['0.07846190', 0.0171589],
+            ['0.07846189', 0.04],
+            ['0.07844372', 17.3219],
+            ['0.07843011', 5.5],
+            ['0.07841786', 0.07464473],
+            ['0.07840468', 0.00421893],
+            ['0.07838784', 5],
+            ['0.07838440', 0.459],
+            ['0.07837375', 0.00894273],
+            ['0.07837258', 0.01180936],
+            ['0.07836586', 0.033421],
+            ['0.07834580', 0.22824237],
+            ['0.07833876', 5.9],
+            ['0.07833222', 0.00199152],
+            ['0.07832004', 0.01276812],
+            ['0.07831999', 0.00773544],
+            ['0.07831989', 0.06340815],
+            ['0.07831774', 0.04769014],
+            ['0.07831268', 0.25064866],
+            ['0.07831189', 0.00128972],
+            ['0.07830020', 0.012],
+            ['0.07830000', 1.40721839],
+            ['0.07829880', 0.0157],
+            ['0.07829804', 3],
+            ['0.07829736', 0.15246467],
+            ['0.07829473', 7.29542594],
+            ['0.07827867', 0.23952886],
+            ['0.07827380', 0.00145152],
+            ['0.07827348', 0.0573009]
+        ];
 
-        return this.processData(bids, "bids", true);
+        return this.processData(bids, 'bids', true);
     }
     // 最佳买入价格
     @computed
@@ -190,16 +292,15 @@ class TradeStore {
 
         switch (authLevel) {
             case 1:
-                ret = feeType === 1 ? `${feeKyc1}` : NP.times(feeKyc1, 100) + "%";
+                ret = feeType === 1 ? `${feeKyc1}` : NP.times(feeKyc1, 100) + '%';
                 break;
             case 2:
-                ret = feeType === 1 ? `${feeKyc2}` : NP.times(feeKyc2, 100) + "%";
+                ret = feeType === 1 ? `${feeKyc2}` : NP.times(feeKyc2, 100) + '%';
                 break;
             case 3:
-                ret = feeType === 1 ? `${feeKyc3}` : NP.times(feeKyc3, 100) + "%"
+                ret = feeType === 1 ? `${feeKyc3}` : NP.times(feeKyc3, 100) + '%';
                 break;
             default:
-
         }
 
         return ret;
@@ -215,16 +316,15 @@ class TradeStore {
 
         switch (authLevel) {
             case 1:
-                ret = feeType === 1 ? `${feeKyc1}` : NP.times(feeKyc1, 100) + "%";
+                ret = feeType === 1 ? `${feeKyc1}` : NP.times(feeKyc1, 100) + '%';
                 break;
             case 2:
-                ret = feeType === 1 ? `${feeKyc2}` : NP.times(feeKyc2, 100) + "%";
+                ret = feeType === 1 ? `${feeKyc2}` : NP.times(feeKyc2, 100) + '%';
                 break;
             case 3:
-                ret = feeType === 1 ? `${feeKyc3}` : NP.times(feeKyc3, 100) + "%"
+                ret = feeType === 1 ? `${feeKyc3}` : NP.times(feeKyc3, 100) + '%';
                 break;
             default:
-
         }
 
         return ret;
@@ -300,16 +400,16 @@ class TradeStore {
     }
 
     @action
-    updateCurrency(baseCurrencyId, currencyId){
+    updateCurrency(baseCurrencyId, currencyId) {
         this.baseCurrencyId = baseCurrencyId;
-        this.currencyId = currencyId;  
+        this.currencyId = currencyId;
     }
 
     @action
-    changeThemeTo = (value) => {
+    changeThemeTo = value => {
         this.theme = value;
-        UPEX.cache.setCache('theme', value) ;
-    }
+        UPEX.cache.setCache('theme', value);
+    };
 
     @action
     setDealBuyPrice(price) {
@@ -323,7 +423,7 @@ class TradeStore {
     @action
     setBuySliderValue(value) {
         let baseCoinBalance = Number(this.baseCoinBalance.replace(/\,/gi, ''));
-        let num = baseCoinBalance * value / 100;
+        let num = (baseCoinBalance * value) / 100;
 
         this.dealBuyNum = NumberUtil.initNumber(num, this.pointNum);
         this.buySliderValue = value;
@@ -332,8 +432,8 @@ class TradeStore {
     @action
     setSellSliderValue(value) {
         let baseCoinBalance = Number(this.baseCoinBalance.replace(/\,/gi, ''));
-        let num = baseCoinBalance * value / 100;
-        
+        let num = (baseCoinBalance * value) / 100;
+
         this.dealSellNum = NumberUtil.initNumber(num, this.pointNum);
         this.sellSliderValue = value;
     }
@@ -347,7 +447,7 @@ class TradeStore {
         if (baseCoinBalance === 0) {
             result = 0;
         } else {
-            precent = value / baseCoinBalance * 100;
+            precent = (value / baseCoinBalance) * 100;
 
             if (precent > 100) {
                 precent = 100;
@@ -369,7 +469,7 @@ class TradeStore {
         if (baseCoinBalance === 0) {
             result = 0;
         } else {
-            precent = value / baseCoinBalance * 100;
+            precent = (value / baseCoinBalance) * 100;
 
             if (precent > 100) {
                 precent = 100;
@@ -393,7 +493,6 @@ class TradeStore {
         let pass;
 
         if (amount < entrustPriceMin || amount > entrustPriceMax) {
-
             this.tradePriceErr = UPEX.lang.template('价格输入必须是{min}~{max}', { min: entrustPriceMin, max: entrustPriceMax });
             pass = false;
         } else {
@@ -416,7 +515,6 @@ class TradeStore {
         let pass;
 
         if (number < amountHighLimit || number > amountLowLimit) {
-
             this.tradeNumberErr = UPEX.lang.template('委託数量过低或超限');
             pass = false;
         } else {
@@ -435,25 +533,25 @@ class TradeStore {
     }
 
     @action
-    filterByName = (value) => {
+    filterByName = value => {
         let loginedMarkets = JSON.parse(JSON.stringify(this.originMarkets));
 
         value = value.toLowerCase();
 
         if (value) {
-             let tradeCoins = [];
+            let tradeCoins = [];
 
             loginedMarkets.tradeCoins.forEach((item, index) => {
                 if (item.currencyNameEn.toLowerCase().indexOf(value) > -1) {
                     tradeCoins[tradeCoins.length] = item;
                 }
-            })
+            });
 
             loginedMarkets.tradeCoins = tradeCoins;
         }
 
         this.loginedMarkets = loginedMarkets;
-    }
+    };
 
     @action
     sortByCondition(field) {
@@ -475,7 +573,7 @@ class TradeStore {
             } else {
                 return b[field] - a[field];
             }
-        })
+        });
 
         this.sortByType = type;
         this.sortByKey = field;
@@ -491,13 +589,13 @@ class TradeStore {
             baseCurrencyId: this.baseCurrencyId,
             tradeCurrencyId: this.currencyId
         });
-        socket.on('loginAfterChangeTradeCoin', (data) => {
+        socket.on('loginAfterChangeTradeCoin', data => {
             console.log('+++++++++++++++++++++++++');
             console.log('loginAfterChangeTradeCoin', data);
             runInAction('get loginAfterChangeTradeCoin', () => {
                 this.currentTradeCoin = data.currentTradeCoin;
                 this.currentTradeCoinRealTime = data.currentTradeCoinRealTime;
-            })
+            });
         });
     }
     /**
@@ -511,13 +609,13 @@ class TradeStore {
             tradeCurrencyId: this.currencyId
         });
 
-        socket.on('tradeHistory', (data) => {
+        socket.on('tradeHistory', data => {
             console.log('+++++++++++++');
             console.log('tradeHistory', data);
             runInAction('get tradeHistory data', () => {
                 this.tradeHistory = data;
-            })
-        })
+            });
+        });
     }
 
     @computed
@@ -528,7 +626,7 @@ class TradeStore {
             item.time = TimeUtil.formatDate(item.time, 'HH:mm:ss'); // 时间
             item.current = NumberUtil.initNumber(item.current, this.pointPrice); // 价格
             item.amount = NumberUtil.formatNumber(item.amount, this.pointNum); // 数量
-        })
+        });
 
         return tradeHistory;
     }
@@ -541,13 +639,13 @@ class TradeStore {
             tradeCurrencyId: this.currencyId
         });
 
-        socket.on('entrust', (data) => {
+        socket.on('entrust', data => {
             // data = require('../mock/entrust.json');
             console.log('+++++++++++++');
             console.log('entrust', data);
             runInAction('get entrust', () => {
                 this.entrust = data;
-            })
+            });
         });
     }
 
@@ -559,16 +657,16 @@ class TradeStore {
         let sell = data.sell || [];
 
         buy.forEach((item, index) => {
-            item.depth = NumberUtil.asPercent(item.number * item.current / this.entrustScale, this.pointNum);
+            item.depth = NumberUtil.asPercent((item.number * item.current) / this.entrustScale, this.pointNum);
             item.current = NumberUtil.initNumber(item.current, this.pointPrice); // 价格
             item.number = NumberUtil.initNumber(item.number, this.pointNum); // 数量
-        })
+        });
 
         sell.forEach((item, index) => {
-            item.depth = NumberUtil.asPercent(item.number * item.current / this.entrustScale, this.pointNum);
+            item.depth = NumberUtil.asPercent((item.number * item.current) / this.entrustScale, this.pointNum);
             item.current = NumberUtil.initNumber(item.current, this.pointPrice); // 价格
             item.number = NumberUtil.initNumber(item.number, this.pointNum); // 数量
-        })
+        });
 
         data.buy = buy;
         data.sell = sell;
@@ -585,25 +683,27 @@ class TradeStore {
         getUserOrderList({
             baseCurrencyId: this.baseCurrencyId,
             tradeCurrencyId: this.currencyId
-        }).then((data) => {
-            // data = require('../mock/order-list.json');
-            runInAction(() => {
-                this.openOrderList = this.parseOpenOrderList(data.attachment.tradeFail);
-                this.historyOrderList = this.parseHistoryOrderList(data.attachment.tradeSuccess);
-                this.isFetchingOrderList = false;
-            })
-        }).catch(() => {
-            runInAction(() => {
-                this.isFetchingOrderList = false;
-            })
         })
+            .then(data => {
+                // data = require('../mock/order-list.json');
+                runInAction(() => {
+                    this.openOrderList = this.parseOpenOrderList(data.attachment.tradeFail);
+                    this.historyOrderList = this.parseHistoryOrderList(data.attachment.tradeSuccess);
+                    this.isFetchingOrderList = false;
+                });
+            })
+            .catch(() => {
+                runInAction(() => {
+                    this.isFetchingOrderList = false;
+                });
+            });
     }
 
     @action
     parseOpenOrderList(arr) {
         arr.forEach((item, index) => {
             item.orderTime = TimeUtil.formatDate(item.orderTime, 'HH:mm:ss');
-        })
+        });
 
         return arr;
     }
@@ -612,7 +712,7 @@ class TradeStore {
     parseHistoryOrderList(arr) {
         arr.forEach((item, index) => {
             item.orderTime = TimeUtil.formatDate(item.orderTime, 'HH:mm:ss');
-        })
+        });
 
         return arr;
     }
@@ -629,28 +729,26 @@ class TradeStore {
     @action
     quoteNotify() {
         socket.off('quoteNotify');
-        socket.emit('quoteNotify')
-        socket.on('quoteNotify', (data) => {
+        socket.emit('quoteNotify');
+        socket.on('quoteNotify', data => {
             console.log('+++++++++++++');
             console.log('quoteNotify', data);
-        })
+        });
     }
     /**
      * 获取基础币列表
      */
     @action
-    getTradeCoinsOfBaseCoin() {
-
-    }
+    getTradeCoinsOfBaseCoin() {}
 
     /**
      * 获取基本币种
      */
     @action
     getBaseCoin() {
-        getBaseCoin().then((data) => {
+        getBaseCoin().then(data => {
             console.log('++++++++++++');
-        })
+        });
     }
     /**
      * 登录后显示首页行情
@@ -658,12 +756,12 @@ class TradeStore {
     @action
     getLoginedMarket() {
         socket.off('loginAfter');
-        socket.emit('loginAfter', { baseCurrencyId: this.baseCurrencyId })
-        socket.on('loginAfter', (data) => {
+        socket.emit('loginAfter', { baseCurrencyId: this.baseCurrencyId });
+        socket.on('loginAfter', data => {
             console.log('+++++++++++++');
             console.log('loginAfter', data);
             runInAction('get loginAfter', () => {
-                let result = data.filter((item)=>{
+                let result = data.filter(item => {
                     return item.info.currencyNameEn === 'TWD'; // TWD市场
                 })[0];
 
@@ -673,8 +771,8 @@ class TradeStore {
                     this.originMarkets = JSON.parse(JSON.stringify(result));
                     this.loginedMarkets = result;
                 }
-            })
-        })
+            });
+        });
     }
     // 格式化交易币信息
     @action
@@ -692,7 +790,39 @@ class TradeStore {
             item.lowPrice = NumberUtil.initNumber(item.lowPrice, item.pointPrice);
             // 24小时成交数量
             item.volume = NumberUtil.formatNumber(item.volume, item.pointNum);
-        })
+        });
+    }
+    // 切换收藏货币, 参数长度为2是切换一种，为1是切换所有
+    async toggleCollectCoins(...params) {
+        let toDo;
+        if (params.length === 2) {
+            const [data, selected] = params;
+            toDo = selected ? cancleOptional : addOptional;
+            const res = await toDo(data);
+            if (res.status !== 200) {
+                console.error(res.message);
+            }
+        } else {
+            const [selected] = params;
+            toDo = !selected ? cancleOptional : addOptional;
+            const allCoin = this.loginedMarkets.tradeCoins || [];
+            const res = await Promise.all(allCoin.map(item => toDo(item)));
+        }
+
+        this.getCollectCoins();
+    }
+
+    // 获取收藏货币列表
+    @action
+    async getCollectCoins() {
+        const res = await listOptional();
+        if (res.status !== 200) {
+            console.error(res.message);
+        } else {
+            runInAction(() => {
+                this.collectCoins = res.attachment.map(item => [item.baseCurrencyId, item.tradeCurrencyId].join('--'));
+            });
+        }
     }
     /**
      * 查询个人币种余额
@@ -708,14 +838,14 @@ class TradeStore {
             uid: this.authStore.uid,
             tradeCurrencyId: this.currencyId,
             baseCurrencyId: this.baseCurrencyId
-        })
-        socket.off('userAccount')
-        socket.on('userAccount', (data) => {
+        });
+        socket.off('userAccount');
+        socket.on('userAccount', data => {
             runInAction('get userAccount', () => {
                 console.log('+++++++++++++userAccount', data);
                 this.personalAccount = data;
-            })
-        })
+            });
+        });
     }
 
     /**
@@ -726,7 +856,7 @@ class TradeStore {
         if (!this.authStore.isLogin) {
             return;
         }
-        hasSettingDealPwd().then((data) => {
+        hasSettingDealPwd().then(data => {
             runInAction(() => {
                 if (data.attachment.isValidatePass === 1) {
                     // 已设置交易密码
@@ -734,8 +864,8 @@ class TradeStore {
                 } else {
                     this.hasSettingDealPwd = false;
                 }
-            })
-        })
+            });
+        });
     }
 
     /**
@@ -747,11 +877,11 @@ class TradeStore {
             return;
         }
 
-        getPersonalTradingPwd().then((data) => {
-            runInAction(()=>{
-                this.tradePasswordStatus = data.attachment.enabled; // 1: 启用 ; 2: 不启用    
-            })
-        })
+        getPersonalTradingPwd().then(data => {
+            runInAction(() => {
+                this.tradePasswordStatus = data.attachment.enabled; // 1: 启用 ; 2: 不启用
+            });
+        });
     }
 
     @action
@@ -788,7 +918,7 @@ class TradeStore {
             num = this.dealSellNum;
             validPrice = this.validSellPrice;
             validNum = this.validSellNum;
-            password = this.tradeSellPassword;;
+            password = this.tradeSellPassword;
         }
 
         console.log(price, num, validPrice, validNum, password);
@@ -797,22 +927,22 @@ class TradeStore {
             result = {
                 pass: false,
                 message: UPEX.lang.template('请输入价格')
-            }
+            };
         } else if (!num) {
             result = {
                 pass: false,
                 message: UPEX.lang.template('请输入数量')
-            }
+            };
         } else if (!validPrice) {
             result = {
                 pass: false,
                 message: UPEX.lang.template('价格输入错误')
-            }
+            };
         } else if (!validNum) {
             result = {
                 pass: false,
                 message: UPEX.lang.template('数量输入错误')
-            }
+            };
         }
 
         // 必须填写交易密码
@@ -820,7 +950,7 @@ class TradeStore {
             result = {
                 pass: false,
                 message: UPEX.lang.template('请输入交易密码')
-            }
+            };
         }
 
         return result;
@@ -839,7 +969,6 @@ class TradeStore {
 
         this.isSubmiting = 1;
 
-
         if (type == 'buy') {
             data = {
                 buyOrSell: 1,
@@ -850,7 +979,7 @@ class TradeStore {
                 price: this.dealBuyPrice,
                 source: 1,
                 type: 1
-            }
+            };
 
             if (this.tradePasswordStatus == 1) {
                 data.fdPassword = md5(this.tradeBuyPassword + UPEX.config.dealSalt + this.authStore.uid);
@@ -865,7 +994,7 @@ class TradeStore {
                 price: this.dealSellPrice,
                 source: 1,
                 type: 1
-            }
+            };
 
             if (this.tradePasswordStatus == 1) {
                 data.fdPassword = md5(this.tradeSellPassword + UPEX.config.dealSalt + this.authStore.uid);
@@ -873,11 +1002,11 @@ class TradeStore {
         }
 
         submitOrder(data)
-            .then((data) => {
+            .then(data => {
                 this.isSubmiting = 0;
                 runInAction('order', () => {
                     if (data.status !== 200) {
-                        defer.reject(data)
+                        defer.reject(data);
                         return;
                     }
                     // 重启获取新用户账号信息
@@ -893,26 +1022,26 @@ class TradeStore {
                         this.setDealSellNum('');
                         this.setTradeSellPassword('');
                     }
-                })
-            }).catch(() => {
+                });
+            })
+            .catch(() => {
                 this.isSubmiting = 0;
                 runInAction(() => {
-                    defer.reject()
-                })
-            })
+                    defer.reject();
+                });
+            });
 
         return defer.promise();
     }
 
-    
-    processData(list, type, desc){
+    processData(list, type, desc) {
         let res = [];
         // Convert to data points
         for (var i = 0; i < list.length; i++) {
             list[i] = {
                 value: Number(list[i][0]),
-                volume: Number(list[i][1]),
-            }
+                volume: Number(list[i][1])
+            };
         }
 
         // Sort list just in case
@@ -929,15 +1058,15 @@ class TradeStore {
         // Calculate cummulative volume
         if (desc) {
             for (var i = list.length - 1; i >= 0; i--) {
-                if (i < (list.length - 1)) {
+                if (i < list.length - 1) {
                     list[i].totalvolume = list[i + 1].totalvolume + list[i].volume;
                 } else {
                     list[i].totalvolume = list[i].volume;
                 }
                 var dp = {};
-                dp["value"] = list[i].value;
-                dp[type + "volume"] = list[i].volume;
-                dp[type + "totalvolume"] = list[i].totalvolume;
+                dp['value'] = list[i].value;
+                dp[type + 'volume'] = list[i].volume;
+                dp[type + 'totalvolume'] = list[i].totalvolume;
                 res.unshift(dp);
             }
         } else {
@@ -948,9 +1077,9 @@ class TradeStore {
                     list[i].totalvolume = list[i].volume;
                 }
                 var dp = {};
-                dp["value"] = list[i].value;
-                dp[type + "volume"] = list[i].volume;
-                dp[type + "totalvolume"] = list[i].totalvolume;
+                dp['value'] = list[i].value;
+                dp[type + 'volume'] = list[i].volume;
+                dp[type + 'totalvolume'] = list[i].totalvolume;
                 res.push(dp);
             }
         }
@@ -958,6 +1087,5 @@ class TradeStore {
         return res;
     }
 }
-
 
 export default TradeStore;

@@ -1,4 +1,4 @@
-import { observable, autorun, computed, action, configure, flow, runInAction } from 'mobx';
+import { observable, computed, action, runInAction } from 'mobx';
 import { socket, baseCurrencyId } from '../api/socket';
 import { addOptional, cancleOptional, listOptional } from '../api/http'
 import Select from 'antd';
@@ -60,7 +60,7 @@ class HomeStore {
         const res = this.cacheCoins.filter((item) => {
             return item.currencyNameEn.toLowerCase().includes(name.toLowerCase())
         })
-        
+
         this.allCoins = res
     }
 
