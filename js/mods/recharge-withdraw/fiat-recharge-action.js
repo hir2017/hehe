@@ -1,5 +1,8 @@
+/**
+ * 法币充值
+ */
 import { message } from 'antd';
-// import {  } from '../../api/http';
+import { orderFiatRecharge, getUserBankInfo } from '../../api/http';
 import { browserHistory } from 'react-router';
 import md5 from '../../lib/md5';
 
@@ -7,7 +10,6 @@ import md5 from '../../lib/md5';
  * 表单提交数据
  */
 var ORDER_DATA = {
-    "action": "https://gate.pepay.com.tw/pepay/paysel_amt.php", // 后端Action名称
     SYS_CODE: "", // 系統信任碼
     SHOP_CODE: "", // 厂商信任碼
     SHOP_ID: '', // 廠商代碼
@@ -25,6 +27,21 @@ var ORDER_DATA = {
 
 export default (store) => {
     return {
+        onChangeBalance(e) {
+            let target = $(e.currentTarget);
+            let value = target.val().trim();
+
+            store.setBalance(value);
+        },
+
+        handleChangeBank(value){
+        	store.selectCardForRecharge(value);
+        },
+
+        getInfo() {
+        	store.getInfo();
+        },
+
         /**
          * 表单字段节点
          */
@@ -43,16 +60,43 @@ export default (store) => {
         /**
          * 下单接口
          */
+        handleRecharge() {
+            if (!store.cardId) {
+                message.error(UPEX.lang.template('请选择一张绑定的银行卡'));
+                return;
+            }
+
+            if (!store.balance) {
+                message.error(UPEX.lang.template('请填写充值金额'));
+                return;
+            }
+
+            // 避免重复提交
+            if (store.$submiting) {
+                return;
+            }
+
+            this.order();
+        },
+        /**
+         * 下单，获取orderId等表单提交信息
+         */
         order() {
-        	if (!store.providerId) {
-        		message.error(UPEX.lang.template('请选择一张绑定的银行卡'));
-        		return;
-        	}
-        	
-        	if (!store.balance) {
-        		message.error(UPEX.lang.template('请填写充值金额'));
-        		return;
-        	}
+            orderFiatRecharge({
+                amount: store.balance, // 充值金额
+                cardId: store.cardId
+            }).then((data) => {
+                
+                if (data.status == 200) {
+                    store.orderSuccess();
+                    this.submitOrder(data.attachment);
+                } else {
+                    message.error(data.message);
+                }
+                store.changeSubmitingStatusTo(false);
+            }).catch(() => {
+                store.changeSubmitingStatusTo(false);
+            })
         },
         /**
          * 提交订单去银行支付
@@ -60,9 +104,6 @@ export default (store) => {
          * @param newWindow {Boolean}/{String} 是否打开新窗口（可选，默认：true，同时支持"_blank, _top, _self"）
          */
         submitOrder(data, newWindow = true) {
-            data = {
-                test: 1
-            }
             if (data) {
                 data = Object.assign(ORDER_DATA, data);
                 let nodeForm = this.nodeForm,
@@ -71,7 +112,7 @@ export default (store) => {
                 if (!nodeForm) {
                     nodeForm = this.initForm(); // 初始化表单
                 }
-
+                nodeForm.attr('action', 'https://gate.pepay.com.tw/pepay/paysel_amt.php');
                 nodeForm.attr('method', 'post'); // POST提交
                 nodeForm.attr('target', newWindow === true ? "_blank" : typeof newWindow == "string" ? newWindow : "_self") // 是否打开新窗口
 
@@ -100,7 +141,7 @@ export default (store) => {
                     }
                 }
 
-                // nodeForm.submit(); // 提交表单
+                nodeForm.submit(); // 提交表单
             }
         }
     }

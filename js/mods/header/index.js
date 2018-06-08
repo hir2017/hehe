@@ -58,13 +58,13 @@ class HeaderView extends Component {
 	    const ordermenu = (
 	    	<dl className="pop-menu-list">
 	          	<dd className="logined-header">
-	            	<Link className="logined-header-link" to="/order/open">{ UPEX.lang.template('当前委托') }</Link>
+	            	<Link className="logined-header-link" to="/account/record/open">{ UPEX.lang.template('当前委托') }</Link>
 	          	</dd>
 	          	<dd className="logined-header">
-	            	<Link className="logined-header-link" to="/order/history">{ UPEX.lang.template('委托历史') }</Link>
+	            	<Link className="logined-header-link" to="/account/record/history">{ UPEX.lang.template('委托历史') }</Link>
 	          	</dd>
 	           	<dd className="logined-header">
-	            	<Link className="logined-header-link" to="/order/success">{ UPEX.lang.template('已成交订单')}</Link>
+	            	<Link className="logined-header-link" to="/account/record/success">{ UPEX.lang.template('已成交订单')}</Link>
 	            </dd>
 	        </dl>
 	    );
@@ -109,7 +109,7 @@ class HeaderView extends Component {
 							authStore.isLogin ? (
 								<ul>
 									<li ref="order">
-										<Link to="/order">{ UPEX.lang.template('订单明细')}</Link>
+										<Link to="/account/record">{ UPEX.lang.template('订单明细')}</Link>
 									</li>
 									<li ref="assets">
 										<Link to="/account/assets">{ UPEX.lang.template('我的资产')}</Link>

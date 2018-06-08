@@ -20,23 +20,30 @@ import ResetPwd from './pages/login-register/resetpwd';
 
 import Home from './pages/home';
 import TradeCenter from './pages/trade-center';
-// 我的资产
+// 授权登陆容器HOC
 import Auth from './mods/authhoc/index';
-import Assets from './pages/account/index';
-import CoinRecord from './pages/account/record-coin';
-import FiatRecord from './pages/account/record-fiat';
-import FiatRecharge from './pages/account/fiat-recharge';
-import FiatWithdraw from  './pages/account/fiat-withdraw';
-import CoinRecharge from './pages/account/coin-recharge';
-import CoinWithdraw from  './pages/account/coin-withdraw';
-import CoinWithdrawAddress from './pages/account/withdraw-address';
-import UserInfo from './pages/user';
-// 订单相关
-import Order from './pages/order';
-import OpenOrderList from './mods/account/order-open';
-import HistoryOrderList from './mods/account/order-history';
-import SuccessOrderList from './mods/account/order-success';
 
+// 我的资产
+import Assets from './pages/account/index';
+// 充值＋充币＋提现＋提币
+import FiatRecharge from './pages/recharge-withdraw/fiat-recharge';
+import CoinRecharge from './pages/recharge-withdraw/coin-recharge';
+import FiatWithdraw from  './pages/recharge-withdraw/fiat-withdraw';
+import CoinWithdraw from  './pages/recharge-withdraw/coin-withdraw';
+import CoinAddress from './pages/recharge-withdraw/address';
+
+// 订单相关
+// 交易订单
+import OrderHoc from './pages/record-list/record-trade-hoc';
+import OpenRecordList from './mods/record-list/record-open';
+import HistoryRecordList from './mods/record-list/record-history';
+import SuccessRecordList from './mods/record-list/record-success';
+// 充值＋充币＋提现＋提币
+import CoinRecord from './pages/record-list/record-coin';
+import FiatRecord from './pages/record-list/record-fiat';
+
+// 个人中心
+import UserInfo from './pages/user';
 import EssentialInformation from './pages/user/essentialInformation'
 import IdentityAuthentication from './pages/user/identityAuthentication'
 import BankInfo from './pages/user/bankInfo'
@@ -78,14 +85,14 @@ const routes = (
 	        	<Route path="coin">
 	        		<Route path="recharge(/:code)" component={CoinRecharge}/>
 	        		<Route path="withdraw(/:code)" component={CoinWithdraw}/>
-	        		<Route path="withdrawaddress(/:code)" component={CoinWithdrawAddress}/>
+	        		<Route path="address(/:code)" component={CoinAddress}/>
 	        	</Route>
-	        </Route>
-	        <Route path="order" component={Order}>
-	        	<IndexRoute component={OpenOrderList}/>
-	        	<Route path="open" component={OpenOrderList} />
-	        	<Route path="history" component={HistoryOrderList} />
-	        	<Route path="success" component={SuccessOrderList} />
+	        	<Route path="record" component={OrderHoc}>
+		        	<IndexRoute component={OpenRecordList}/>
+		        	<Route path="open" component={OpenRecordList} />
+		        	<Route path="history" component={HistoryRecordList} />
+		        	<Route path="success" component={SuccessRecordList} />
+		        </Route>
 	        </Route>
 	        
 	        <Route path="user" component={UserInfo}>

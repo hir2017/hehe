@@ -2,6 +2,7 @@
     width: 1200px;
     margin: 0 auto;
     padding: 20px 0;
+    font-size: 14px;
 }
 
 .account-recharge h2 {
@@ -33,9 +34,10 @@
 .recharge-label {
     display: inline-block;
     vertical-align: top;
-    min-width: 100px;
+    min-width: 140px;
     margin-right: 10px;
     line-height: 38px;
+    text-align: right;
 }
 
 .recharge-info {
@@ -49,14 +51,14 @@
 }
 
 .recharge-info .ant-select-selection--single,
-.recharge-info .ant-select-selection__rendered{
+.recharge-info .ant-select-selection__rendered {
     height: 38px;
     line-height: 38px;
 }
 
 .recharge-info .address {
     min-width: 380px;
-	height: 38px;
+    height: 38px;
     line-height: 38px;
     border: 1px solid #d8d9dd;
     border-radius: 4px;
@@ -65,7 +67,7 @@
     vertical-align: middle;
 }
 
-.recharge-info .input-box{
+.recharge-info .input-box {
     display: inline-block;
     vertical-align: middle;
     height: 38px;
@@ -76,36 +78,36 @@
     border-radius: 4px;
 }
 
-.recharge-info .input-box.yz-box{
+.recharge-info .input-box.yz-box {
     width: 360px;
 }
 
-.recharge-info .input-box .codeimg{
+.recharge-info .input-box .codeimg {
     position: absolute;
     right: -130px;
     top: 0;
     width: 120px;
     height: 38px;
-    background-color: #ededed;    
-} 
+    background-color: #ededed;
+}
 
-.recharge-info .balance{
+.recharge-info .balance {
     display: inline-block;
     vertical-align: middle;
     line-height: 38px;
     padding: 0 10px;
 }
 
-.recharge-info .input-box .codeimg img{
+.recharge-info .input-box .codeimg img {
     width: 100%;
     height: 100%;
 }
 
-.recharge-info .input-box.wrong{
-    border:  1px solid #ff3245;
+.recharge-info .input-box.wrong {
+    border: 1px solid #ff3245;
 }
 
-.recharge-info .input-box input{
+.recharge-info .input-box input {
     width: 100%;
     line-height: 18px;
     border: 0 none;
@@ -116,8 +118,8 @@
 }
 
 
-.recharge-info li{
-	margin-bottom: 10px;
+.recharge-info li {
+    margin-bottom: 10px;
 }
 
 .recharge-info button {
@@ -135,47 +137,114 @@
 }
 
 
-.recharge-info .submit-btn{
+.recharge-info button.submit-btn {
     width: 160px;
     height: 36px;
     background-color: #e6bc1d;
     color: #fff;
     text-align: center;
     line-height: 36px;
-    margin-top: 20px;
-    margin-left: 110px;
+    margin-left: 140px;
 }
 
-.recharge-info .qrcode{
-	display: inline-block;
+.recharge-info button.problem-btn{
+    border: 0 none;
+}
+
+.recharge-info button.problem-btn a{
+    color: #fff;
+}
+
+.recharge-info .qrcode {
+    display: inline-block;
     vertical-align: middle;
     width: 194px;
     height: 194px;
 }
 
-.recharge-info .qrcode img{
+.recharge-info .qrcode img {
     display: block;
     width: 100%;
     height: 100%;
     background-color: #f0f0f0;
 }
 
-.recharge-info .qrcode-label{
-	display: inline-block;
+.recharge-info .qrcode-label {
+    display: inline-block;
     vertical-align: middle;
     padding: 0 10px;
-} 
-.recharge-info .tip h3{
-	margin-bottom: 10px;
-}
-.recharge-info .tip li{
-	list-style-type: disc;
-	font-size: 12px;
-	line-height: 21px;
-	margin: 0;
 }
 
-.recharge-info .tip li em{
+.recharge-info .tip h3 {
+    margin-bottom: 10px;
+}
+
+.recharge-info .tip li {
+    list-style-type: disc;
+    font-size: 12px;
+    line-height: 21px;
+    margin: 0;
+}
+
+.recharge-info .tip li em {
     padding: 0 3px;
     color: #e6bc1d;
+}
+
+
+.recharge-tip .content {
+    padding-top: 20px;
+    padding-left: 50px;
+}
+
+.recharge-tip .content li {
+    line-height: 21px;
+    color: #333333;
+}
+
+.fiat-recharge-form .sub-title {
+    font-size: 20px;
+    padding: 0 0 20px 0;
+}
+
+.fiat-recharge-form .bank-card {
+    width: 344px;
+    height: 132px;
+    border-radius: 4px;
+    background-color: #d35256;
+    color: #fff;
+}
+
+.fiat-recharge-form .bank-card-box {
+    padding: 30px;
+    position: relative;
+}
+
+.fiat-recharge-form .bank-card .card-name {
+    font-size: 14px;
+}
+
+.fiat-recharge-form .bank-card .user-name {
+    font-size: 14px;
+}
+
+.fiat-recharge-form .bank-card .card-no {
+    font-size: 20px;
+}
+.recharge-form-balance,
+.recharge-form-balance .recharge-label{
+    line-height: 60px;
+}
+
+.recharge-form-balance .unit {
+    font-style: normal;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.recharge-form-balance .balance{
+    font-size: 40px;
+    font-weight: bold;
+    display: inline-block;
+    vertical-align: middle;
 }

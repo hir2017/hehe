@@ -236,10 +236,28 @@ export function selectUserAddress(currentyId){
 
 /*----------------------------- 充值相关接口：{{------------------------------------*/
 
-export function rechargeOrder(){
-    return axios.post(`${UPEX.config.host}/coin/rechargeOrder`, qs.stringify({
+export function getUserBankInfo(){
+    return axios.post(`http://www.mocky.io/v2/5b18f1f43000008900da146f`, qs.stringify({
         
     })).then(res => res.data);
+}
+
+export function orderFiatRecharge(data){
+    return axios.post(`${UPEX.config.host}/pay/getFrontPageJsonData`, qs.stringify({
+        amount: data.amount,
+        prodId: data.cardId,
+        currencyId: 1 
+    })).then(res => res.data);x
+}
+
+
+
+export function orderFiatWithdraw(data){
+    return axios.post(`${UPEX.config.host}/pay/getFrontPageJsonData`, qs.stringify({
+        amount: data.amount,
+        prodId: data.cardId,
+        currencyId: 1 
+    })).then(res => res.data);x
 }
 
 /*----------------------------- 充值相关接口：}}------------------------------------*/

@@ -131,22 +131,27 @@ const symbols = {
     'CNY': '￥'
 }
 
-let origin;
-// 根据环境获取不同的域名活着IP
-switch(Url.query('env')) {
-    case 'dev':
-        // 开发环境
-        origin = '13.251.85.35';
-        break;
-    case 'stage':
-        // 测试环境
-        origin = '13.251.85.35';// '54.169.140.238';
-        break;
-    default:
-        // 默认线上环境
-        origin = '13.251.85.35';
-        break;
-}
+const origin = (function(){
+    let origin;
+    // 根据环境获取不同的域名活着IP
+    switch(Url.query('env')) {
+        case 'dev':
+            // 开发环境
+            origin = '13.251.85.35';
+            break;
+        case 'stage':
+            // 测试环境
+            origin = '54.169.140.238';
+            break;
+        default:
+            // 默认线上环境
+            origin = '13.251.85.35';
+            break;
+    }
+
+    return origin;
+})();
+
 
 const host = 'http://' +  origin +'/polarisex';
 const uploadHost = host + '/upload/upload';

@@ -4,14 +4,13 @@
 import React, { Component } from 'react';
 import { observer, inject ,} from 'mobx-react';
 
-import AddWithdrawAddress from '../../mods/add-withdraw-address';
+import AddWithdrawAddress from '../../mods/recharge-withdraw/address';
 
 @inject('accountStore', 'addressStore')
 @observer
 class WithdrawAddress extends Component {
 	constructor(props){
 		super(props);
-
 	}
 
 	componentDidMount() {
@@ -46,7 +45,7 @@ class WithdrawAddress extends Component {
 		}	
 
 		return (
-			<div className="account-withdraw">
+			<div className="rw-wrapper">
 				<h2 className="title">{UPEX.lang.template('添加提币地址')}</h2>
 				<div className="content">
 					{ $content }
