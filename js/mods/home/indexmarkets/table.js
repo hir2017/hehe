@@ -102,7 +102,7 @@ export default class extends React.Component {
                                     <tr>
                                         <th>{UPEX.lang.template('币种')}</th>
                                         <th onClick={e => this.sortHandle(e, 'currentAmount')}>
-                                            {UPEX.lang.template('最新价')}(TDW)
+                                            {UPEX.lang.template('最新价')}(TWD)
                                             {this.sortIcon(this.state.sortField === 'currentAmount', this.state.sort)}
                                         </th>
                                         <th onClick={e => this.sortHandle(e, 'changeRate')}>

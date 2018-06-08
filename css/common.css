@@ -126,6 +126,18 @@ html {
     line-height: 60px;
 }
 
+.header-box .header-box-r li ul li{
+    margin-right: 10px;
+}
+
+.header-box .header-box-r li ul li.username a{
+    color: #e6bc1d;
+    cursor: pointer;
+}
+
+.header-box .header-box-r li ul li.logout{
+    cursor: pointer;
+}
 
 .header-box .theme-menu {
     line-height: 60px;

@@ -662,6 +662,7 @@
     height: 42px;
     line-height: 42px;
     color: #e6bc1d;
+    cursor: pointer;
 }
 
 .trade-form-l,

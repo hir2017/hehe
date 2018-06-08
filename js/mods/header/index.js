@@ -115,11 +115,13 @@ class HeaderView extends Component {
 										<Link to="/account/assets">{ UPEX.lang.template('我的资产')}</Link>
 									</li>
 									<li ref="userinfo">
-										<Popover content={usermenu} placement="bottom" getPopupContainer={()=>this.refs.userinfo}>
-											<Link to="/user">
-											{ UPEX.lang.template('个人信息')}
-											</Link>
-										</Popover>
+										<ul>
+											<li className="username"><Link to="/user">{ userInfoStore.userInfo.phone }</Link></li>
+											<li>|</li>
+											<li className="logout" onClick={this.logout}>
+								            	{ UPEX.lang.template('退出')}
+								            </li>
+							            </ul>
 									</li>
 								</ul>
 							) : ( 
