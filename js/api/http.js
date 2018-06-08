@@ -244,7 +244,7 @@ export function orderFiatRecharge(data){
     return axios.post(`${UPEX.config.host}/pay/getFrontPageJsonData`, qs.stringify({
         amount: data.amount,
         prodId: data.cardId,
-        currencyId: 1 
+        currencyId: 1
     })).then(res => res.data);
 }
 
@@ -252,7 +252,7 @@ export function orderFiatWithdraw(data){
     return axios.post(`${UPEX.config.host}/pay/getFrontPageJsonData`, qs.stringify({
         amount: data.amount,
         prodId: data.cardId,
-        currencyId: 1 
+        currencyId: 1
     })).then(res => res.data);x
 }
 
@@ -360,9 +360,9 @@ export function getAllCoinPoint(){
  }
  */
 export function getFundChangeList(data){
-    return axios.get(`${UPEX.config.host}/rechargeWithdraw/getRechargeWithdrawBillInfo`, {
-        params: data
-    }).then(res => res.data);
+    return axios.post(`${UPEX.config.host}/rechargeWithdraw/getRechargeWithdrawBillInfo`, qs.stringify({
+        ...data
+    })).then(res => res.data);
 }
 /**
  * 提现记录

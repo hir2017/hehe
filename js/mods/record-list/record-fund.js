@@ -38,11 +38,11 @@ class List extends Component {
                             <li key={index}>
                                 <dl>
                                     <dd className="swift-no">
-                                        {item.swiftNumber}
+                                        {item.tradeNo}
                                     </dd>
                                     <dd className="time">{item.createTime}</dd>
-                                    <dd className="name">{item.actionName}</dd>
-                                    <dd className="balance">{item._type === 'recharge' ? '+' : '-' }{item.balance}</dd>
+                                    <dd className="name">{item.openBank}</dd>
+                                    <dd className="balance">{item._type === 'recharge' ? '+' : '-' }{item.amount}</dd>
                                     <dd className="status">{item._status}</dd>
                                     <dd className="pay-method">
                                         {item.payMethod}

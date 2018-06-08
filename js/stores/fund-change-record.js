@@ -54,13 +54,13 @@ class FundChangeRecordStore {
         if (params.pageNumber && params.pageNumber !== this.current) {
             this.current = params.pageNumber;
         }
-
+        // list: [], pageNumber: 1, pageSize: 10
         getFundChangeList(this.params)
             .then(data => {
                 runInAction(() => {
                     if (data.status == 200) {
-                        this.orderList = this.parseData(data.attachment.changeList);
-                        this.total = data.attachment.total;
+                        this.orderList = this.parseData(data.attachment.list);
+                        this.total = data.attachment.pageCount;
 
                     }
                     this.isFetching = false;
@@ -78,7 +78,14 @@ class FundChangeRecordStore {
             item.createTime = TimeUtil.formatDate(item.createTime, 'yyyy-MM-dd HH:mm:ss');
             item.subRowClosed = true;
             item._type = item.type === 1 ? 'recharge' : 'withdraw';
-            item._status = item.status === 1 ? '完成' : '未完成';
+            const statusMap = {
+                '0': '待审核',
+                '1': '成功',
+                '2': '失败',
+                '3': '支付中',
+                '4': '交易异常',
+            }
+            item._status = statusMap[item.status] || '未知';
         });
 
         return arr;
