@@ -19,29 +19,29 @@ import { Switch } from 'antd';
 @observer
 class Info extends Component {
 
-  constructor () {
-      super ()
-      this.gradeImg = this.gradeImg.bind(this)
+  constructor() {
+    super()
+    this.gradeImg = this.gradeImg.bind(this)
   }
 
   componentWillMount() {
-      this.props.userInfoStore.getUserInfo()
+    this.props.userInfoStore.getUserInfo()
   }
 
-  gradeImg () {
-      const userInfo = this.props.userInfoStore.userInfo || {}
-      
-      if (userInfo.isAuthPrimary == 2) {
-          return {img: gradeA, grade: 'A'}
-      }
+  gradeImg() {
+    const userInfo = this.props.userInfoStore.userInfo || {}
 
-      if (userInfo.isAuthSenior == 2) {
-          return {img: gradeB, grade: 'B'}
-      }
+    if (userInfo.isAuthPrimary == 2 && userInfo.phone) {
+      return { img: gradeA, grade: 'A' }
+    }
 
-      return {}
+    if (userInfo.isAuthSenior == 2) {
+      return { img: gradeB, grade: 'B' }
+    }
+
+    return {}
   }
-  
+
   render() {
     const userInfo = this.props.userInfoStore.userInfo || {}
 
@@ -53,11 +53,11 @@ class Info extends Component {
         <div className="info-content">
           <div className="info-content-left">
             <div className="phone">
-            {userInfo.phone || userInfo.email}</div>
+              {userInfo.phone || userInfo.email}</div>
             <div className="login-time">{UPEX.lang.template('最后登录时间')}：
             {
-              userInfo.userLoginRecord && userInfo.userLoginRecord.time
-            }</div>
+                userInfo.userLoginRecord && userInfo.userLoginRecord.time
+              }</div>
             <div className="bind">
               <div className="bind-phone">
                 <img src={userInfo.phone ? bindPhone : unbindPhone} />
@@ -76,12 +76,12 @@ class Info extends Component {
               <div className="certification-grade">
                 <div className="grade">
                   {UPEX.lang.template('安全级别')} {this.gradeImg().grade}
-                      <Link to="/user/authentication">{UPEX.lang.template('提升安全等级')}</Link>
+                  <Link to="/user/authentication">{UPEX.lang.template('提升安全等级')}</Link>
                 </div>
                 <div className="money">
                   <span>{UPEX.lang.template('提现额度')}：</span>
-                  NT300.00000
-                    </div>
+                  <span>NT{userInfo.dayLimit}</span>
+                </div>
               </div>
             </div>
           </div>

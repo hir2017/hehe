@@ -17,7 +17,9 @@ import {
     bindPhone,
     bindPhoneOrEmailSendCode,
     isUsedGoogleAuth,
-    bindPhoneOrEmailAction
+    bindPhoneOrEmailAction,
+    modifyPhoneSendMsg,
+    modifyPhoneAction
 } from '../api/http'
 import { message } from 'antd'
 
@@ -35,6 +37,12 @@ class UserInfo {
         birthday: '',
         idType: '',
         idNumber: '',
+        resortType: '',
+        resortTypeOther: '',
+        address: '',
+        postCode: '',
+        profession: '',
+        annualsalary: ''
     }
     @observable gaSecretKey = {}
     @observable gaBindSuccess = false
@@ -82,6 +90,12 @@ class UserInfo {
         this.identityInfo.birthday = data.birthday
         this.identityInfo.idType = data.idType
         this.identityInfo.idNumber = data.idNumber
+        this.identityInfo.resortType = data.resortType,
+        this.identityInfo.resortTypeOther = data.resortTypeOther,
+        this.identityInfo.address = data.address,
+        this.identityInfo.postCode = data.postCode,
+        this.identityInfo.profession = data.profession,
+        this.identityInfo.annualsalary = data.annualsalary
     }
 
     @action
@@ -130,10 +144,10 @@ class UserInfo {
     }
 
     @action
-    async resetPwd(newPassWord, vercode, imgCode, imgCodeId, passWord) {
+    async resetPwd(newPassWord, vercode, imgCode, imgCodeId, passWord, type) {
         try {
             this.submit_loading_pwd = true
-            const res = await resetPwdInUserCenter(newPassWord, vercode, imgCode, imgCodeId, passWord)
+            const res = await resetPwdInUserCenter(newPassWord, vercode, imgCode, imgCodeId, passWord, type)
             this.submit_loading_pwd = false
             if (res.status !== 200) {
                 if (res.status === 412) {
@@ -196,10 +210,10 @@ class UserInfo {
     async identityAuthentication(info) {
         try {
             const res = await submitUserInfo(info)
-            if (res.data.status === 200) {
-                return res.data
+            if (res.status === 200) {
+                return res
             } else {
-                message.error(res.data.message)
+                message.error(res.message)
             }
         } catch (e) {
             console.error(e)
@@ -291,7 +305,7 @@ class UserInfo {
         try {
             const res = await isUsedGoogleAuth()
             if (res.status === 200) {
-                this.gaBindSuccess = res.attachment.isUsed
+                this.gaBindSuccess = res.attachment.isUsed === 1
             } else {
                 message.error(res.message)
             }
@@ -314,6 +328,35 @@ class UserInfo {
                 } else if (type === 2) {
                     browserHistory.push('/user/phoneSuccess');
                 }
+            } else {
+                message.error(res.message)
+            }
+        } catch (e) {
+            this.submit_loading = false
+            console.error(e)
+            message.error('Network Error')
+        }
+    }
+
+    @action
+    async mPhoneSendMsg(phone, codeid, imgcode, type) {
+        try {
+            const res = await modifyPhoneSendMsg(phone, codeid, imgcode, type)
+            return res
+        } catch (e) {
+            console.error(e)
+            message.error('Network Error')
+        }
+    }
+
+    @action
+    async newModifyPhone(newCode, newPhone, oldCode, type) {
+        try {
+            this.submit_loading = true
+            const res = await modifyPhoneAction(newCode, newPhone, oldCode, type)
+            this.submit_loading = false
+            if (res.status === 200) {
+                message.success(UPEX.lang.template('修改成功'))
             } else {
                 message.error(res.message)
             }

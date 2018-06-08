@@ -291,13 +291,15 @@
 .user-main-box .authentication-content .item .lable {
     margin-right: 20px;
     vertical-align: 28px;
+    min-width: 50px;
+    text-align: right;
 }
 
 .user-main-box .authentication-content .time-lable {
     vertical-align: initial !important;
 }
 
-.user-main-box .authentication-content .item input {
+.user-main-box .authentication-content .item input[type=text] {
     width: 190px;
 }
 

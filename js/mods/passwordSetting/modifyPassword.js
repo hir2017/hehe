@@ -14,7 +14,7 @@ import md5 from '../../lib/md5';
 @observer
 export default class ModifyPassword extends Component {
 
-  constructor () {
+  constructor() {
     super()
     this.submit = this.submit.bind(this)
     this.passwordChange = this.passwordChange.bind(this)
@@ -25,9 +25,12 @@ export default class ModifyPassword extends Component {
     this.captchaChange = this.captchaChange.bind(this)
   }
 
-  componentWillMount () {
-    this.props.userInfoStore.getUserInfo()
-    this.props.captchaStore.fetch()
+  componentWillMount() {
+    const userInfo = this.props.userInfoStore.userInfo || {}
+    const gaBindSuccess = this.props.userInfoStore.gaBindSuccess
+    Object.keys(userInfo).length || this.props.userInfoStore.getUserInfo()
+    gaBindSuccess || this.props.userInfoStore.isGoogleAuth()
+    this.captchaChange()
   }
 
   state = {
@@ -38,41 +41,43 @@ export default class ModifyPassword extends Component {
     ivCode: ''
   }
 
-  passwordChange (e) {
+  passwordChange(e) {
     this.setState({
       password: e.target.value
     })
   }
 
-  newPwdChange (e) {
+  newPwdChange(e) {
     this.setState({
       newPwd: e.target.value
     })
   }
 
-  comfirmChange (e) {
+  comfirmChange(e) {
     this.setState({
       comfirmPwd: e.target.value
     })
   }
 
-  vCodeChange (e) {
+  vCodeChange(e) {
     this.setState({
       vCode: e.target.value
     })
   }
 
-  ivCodeChange (e) {
+  ivCodeChange(e) {
     this.setState({
       ivCode: e.target.value
     })
   }
 
-  captchaChange () {
+  captchaChange() {
     this.props.captchaStore.fetch()
   }
 
-  submit () {
+  submit() {
+    const userInfo = this.props.userInfoStore.userInfo || {}
+    const gaBindSuccess = this.props.userInfoStore.gaBindSuccess
     const codeid = this.props.captchaStore.codeid
     if (!this.state.password) {
       message.error(UPEX.lang.template('登陆密码不能为空'))
@@ -90,8 +95,12 @@ export default class ModifyPassword extends Component {
       message.error(UPEX.lang.template('新登陆密码和确认密码不一致'))
       return
     }
-    if (!this.state.vCode) {
+    if (!this.state.vCode && !gaBindSuccess) {
       message.error(UPEX.lang.template('短信验证码不能为空'))
+      return
+    }
+    if (!this.state.vCode && gaBindSuccess) {
+      message.error(UPEX.lang.template('谷歌验证码不能为空'))
       return
     }
 
@@ -101,10 +110,10 @@ export default class ModifyPassword extends Component {
       message.error(UPEX.lang.template('密码至少由大写字母+小写字母+数字，8-16位组成'))
       return
     }
-    
-    const pwd = md5(this.state.password + UPEX.config.dealSalt + this.props.authStore.uid);
-    console.log(pwd);
-    this.props.userInfoStore.resetPwd(this.state.newPwd, this.state.vCode, this.state.ivCode, codeid, this.state.password)
+
+    const pwd = md5(this.state.password + UPEX.config.salt);
+    const type = gaBindSuccess ? 1 : userInfo.phone ? 2 : 3
+    this.props.userInfoStore.resetPwd(this.state.newPwd, this.state.vCode, this.state.ivCode, codeid, pwd, type)
   }
 
   render() {
@@ -112,6 +121,7 @@ export default class ModifyPassword extends Component {
     const codeid = this.props.captchaStore.codeid
     const captcha = this.props.captchaStore.captcha
     const userInfo = this.props.userInfoStore.userInfo || {}
+    const gaBindSuccess = this.props.userInfoStore.gaBindSuccess
     return (
       <div>
         <div className="modify-password-title">
@@ -125,7 +135,7 @@ export default class ModifyPassword extends Component {
           <div className="item new-pwd">
             <span className="lable">{UPEX.lang.template('新登陆密码')}</span>
             <input type="password" onChange={this.newPwdChange} className="input" />
-            <span className="item-left-meassage">*密码至少由大写字母+小写字母+数字，8-16位组成</span>
+            <span className="item-left-meassage">*{UPEX.lang.template('密码至少由大写字母+小写字母+数字，8-16位组成')}</span>
           </div>
           <div className="item">
             <span className="lable">{UPEX.lang.template('确认密码')}</span>
@@ -141,27 +151,32 @@ export default class ModifyPassword extends Component {
             </div>
           </div>
           {
-            !userInfo.phone
-              ? <div>
-                <div className="item v-code">
-                  <span className="lable">{UPEX.lang.template('邮箱验证码')}</span>
-                  <input onChange={this.vCodeChange} className="input" />
-                </div>
-                <div className="item v-code-button">
-                  <Vcodebutton imgCode={this.state.ivCode} codeid={codeid} type="email"/>
-                </div>
+            gaBindSuccess
+              ? <div className="item">
+                <span className="lable">{UPEX.lang.template('谷歌验证码')}</span>
+                <input onChange={this.vCodeChange} className="input" />
               </div>
-              : <div>
-                <div className="item v-code">
-                  <span className="lable">{UPEX.lang.template('短信验证码')}</span>
-                  <input onChange={this.vCodeChange} className="input" />
+              : !userInfo.phone
+                ? <div>
+                  <div className="item v-code">
+                    <span className="lable">{UPEX.lang.template('邮箱验证码')}</span>
+                    <input onChange={this.vCodeChange} className="input" />
+                  </div>
+                  <div className="item v-code-button">
+                    <Vcodebutton imgCode={this.state.ivCode} codeid={codeid} type="email" />
+                  </div>
                 </div>
-                <div className="item v-code-button">
-                  <Vcodebutton imgCode={this.state.ivCode} codeid={codeid} type="phone"/>
+                : <div>
+                  <div className="item v-code">
+                    <span className="lable">{UPEX.lang.template('短信验证码')}</span>
+                    <input onChange={this.vCodeChange} className="input" />
+                  </div>
+                  <div className="item v-code-button">
+                    <Vcodebutton imgCode={this.state.ivCode} codeid={codeid} type="phone" />
+                  </div>
                 </div>
-              </div>
           }
-          <div className="massage" style={{display: 'none'}}>
+          <div className="massage" style={{ display: 'none' }}>
             {UPEX.lang.template('不方便接短信？可使用')}&nbsp;&nbsp;&nbsp;&nbsp;<Link>Google{UPEX.lang.template('驗證碼')}</Link>
           </div>
           <div className="submit">

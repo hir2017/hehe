@@ -236,10 +236,8 @@ export function selectUserAddress(currentyId){
 
 /*----------------------------- 充值相关接口：{{------------------------------------*/
 
-export function getUserBankInfo(){
-    return axios.post(`http://www.mocky.io/v2/5b18f1f43000008900da146f`, qs.stringify({
-        
-    })).then(res => res.data);
+export function getUserBankInfo() {
+    return axios.post(`${UPEX.config.host}/rechargeWithdraw/getUserCardInfoAndAmountAndFee`).then(res => res.data);
 }
 
 export function orderFiatRecharge(data){
@@ -247,10 +245,8 @@ export function orderFiatRecharge(data){
         amount: data.amount,
         prodId: data.cardId,
         currencyId: 1 
-    })).then(res => res.data);x
+    })).then(res => res.data);
 }
-
-
 
 export function orderFiatWithdraw(data){
     return axios.post(`${UPEX.config.host}/pay/getFrontPageJsonData`, qs.stringify({
@@ -357,21 +353,16 @@ export function getAllCoinPoint(){
 }
 /**
  * 充值/提现查询记录
- * /fund/change
  * {
-    beginTime
-    endTime
-    size
-    start
     type
-    token
-    uid
+    pageNumber
+    pageSize
  }
  */
 export function getFundChangeList(data){
-    return axios.post(`${UPEX.config.host}/fund/change`, qs.stringify({
-        ...data
-    })).then(res => res.data);
+    return axios.get(`${UPEX.config.host}/rechargeWithdraw/getRechargeWithdrawBillInfo`, {
+        params: data
+    }).then(res => res.data);
 }
 /**
  * 提现记录
@@ -535,13 +526,14 @@ export function personalInfo(){
   * 修改登录密码
   */
 
- export function resetPwdInUserCenter (newPwd, vercode, imgCode, imgCodeId, oldPwd) {
+ export function resetPwdInUserCenter (newPwd, vercode, imgCode, imgCodeId, oldPwd, type) {
     return axios.post(`${UPEX.config.host}/user/resetPwdInUserCenter`, {
         newPwd: newPwd,
         oldPwd: oldPwd,// 如果首次设置可以不传.传个空串
         vercode: vercode,
         imgcode: imgCode,
-        codeid: imgCodeId
+        codeid: imgCodeId,
+        type: type
     }).then(res => res.data);
  }
 
@@ -673,4 +665,25 @@ export function bindPhoneOrEmailAction (EmailCode, phoneCode, phoneOrEmail, type
     }).then(res => res.data);
 }
 
+/**
+ *  修改手机绑定发送验证码
+ *  type=1:google+新手机，发新手机短信；type=2:旧手机+新手机，发2条手机短信
+ */
+
+export function modifyPhoneSendMsg (phone, codeid, imgcode, type) {
+    return axios.post(`${UPEX.config.host}/user/modifyPhoneSendCode`, {
+        phone, codeid, imgcode, type
+    }).then(res => res.data);
+}
+
+/**
+ *  修改绑定手机
+ *  type=1:验证google和新手机验证码，type=2:验证旧手机，新手机验证码
+ */
+
+export function modifyPhoneAction (newCode, newPhone, oldCode, type) {
+    return axios.post(`${UPEX.config.host}/user/modifyPhoneAction`, {
+        newCode, newPhone, oldCode, type
+    }).then(res => res.data);
+}
 

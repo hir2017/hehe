@@ -31,7 +31,7 @@ export default class FourthStep extends Component {
         <div className="success-money">
           <span className="success-money-title">{UPEX.lang.template('當前日限額')}：</span>
           NT$ 
-          &nbsp;&nbsp;<span className="money">300.000</span>
+          &nbsp;&nbsp;<span className="money">{userInfo.dayLimit}</span>
         </div>
         <div className="success-money-message">
           {UPEX.lang.template('日提現額度是=每日提現到銀行賬戶的額度+每日提幣的即時新台幣價值總額')}

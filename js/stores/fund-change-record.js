@@ -1,17 +1,14 @@
 /**
  * 法币充值/提现记录
  */
-import { observable, computed, autorun, action, runInAction} from 'mobx';
+import { observable, computed, autorun, action, runInAction } from 'mobx';
 import { getFundChangeList } from '../api/http';
 import TimeUtil from '../lib/util/date';
 import NumberUtil from '../lib/util/number';
 
-// mock
-import MockData from '../mock/fund-change-record.json'
-
 class FundChangeRecordStore {
-	@observable orderList = [];
-	@observable dataType = 'all';
+    @observable orderList = [];
+    @observable dataType = 'all';
     @observable current = 1; // 当前页数
     @observable total = 0; // 总页数
     @observable isFetching = false;
@@ -22,26 +19,23 @@ class FundChangeRecordStore {
         all: '',
         recharge: 1,
         withdraw: 2
-    }
+    };
 
     constructor(stores) {
         this.commonStore = stores.commonStore;
         this.params = {
-            start: this.current,
-            size: this.pageSize,
-            beginTime: '',
-            endTime: '',
-            type: '',
-            endTime: ''
-        }
+            pageNumber: this.current,
+            pageSize: this.pageSize,
+            type: ''
+        };
     }
 
     @action
     setDataType(type) {
-        this.dataType = type
-        this.params.type = this.typeMap[type]
+        this.dataType = type;
+        this.params.type = this.typeMap[type];
         this.getData({
-            start: 1
+            pageNumber: 1
         });
     }
 
@@ -57,24 +51,26 @@ class FundChangeRecordStore {
         this.params = Object.assign(this.params, params);
 
         // 更新当前页数
-        if (params.start && params.start !== this.current) {
-            this.current = params.start;
+        if (params.pageNumber && params.pageNumber !== this.current) {
+            this.current = params.pageNumber;
         }
 
-        getFundChangeList(this.params).then((data) => {
-            data = MockData
-            runInAction(() => {
-                if (data.status == 200) {
-                    this.orderList = this.parseData(data.attachment.changeList);
-                    this.total = data.attachment.total;
+        getFundChangeList(this.params)
+            .then(data => {
+                runInAction(() => {
+                    if (data.status == 200) {
+                        this.orderList = this.parseData(data.attachment.changeList);
+                        this.total = data.attachment.total;
+
+                    }
                     this.isFetching = false;
-                }
+                });
             })
-        }).catch(() => {
-            runInAction(() => {
-                this.isFetching = false;
-            })
-        })
+            .catch(() => {
+                runInAction(() => {
+                    this.isFetching = false;
+                });
+            });
     }
 
     parseData(arr) {
@@ -83,14 +79,14 @@ class FundChangeRecordStore {
             item.subRowClosed = true;
             item._type = item.type === 1 ? 'recharge' : 'withdraw';
             item._status = item.status === 1 ? '完成' : '未完成';
-        })
+        });
 
         return arr;
     }
 
     @action
     toggleSubRow(index) {
-        this.orderList[index].subRowClosed = !this.orderList[index].subRowClosed
+        this.orderList[index].subRowClosed = !this.orderList[index].subRowClosed;
     }
 }
 

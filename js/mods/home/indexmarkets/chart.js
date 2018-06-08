@@ -21,6 +21,12 @@ export default class extends Component {
                 trigger: 'axis',
                 axisPointer: {
                     type: 'cross'
+                },
+                formatter([data]) {
+                    return [
+                        `时间：${data.name}`,
+                        `价格：${data.value}`
+                    ].join('<br/>')
                 }
             },
             grid: [{
@@ -81,9 +87,9 @@ export default class extends Component {
 
     componentDidUpdate() {
         const { hours24TrendList } = this.props
-        
+
         let charts = document.getElementById('home-coin-line')
-        
+
         if (!echarts.getInstanceByDom(charts)) {
             const _myCharts = echarts.init(charts)
             // 初始化价格趋势图
