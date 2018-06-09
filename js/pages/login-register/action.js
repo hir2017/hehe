@@ -13,7 +13,7 @@ export default (store) => {
         onAreaCodeChange(code, e) {
             store.setAreaCode(code);
         },
-        
+
         onChangeEmail(e) {
             let value = e.currentTarget.value.trim();
 
@@ -31,7 +31,7 @@ export default (store) => {
             store.setImgCode(value);
         },
 
-        onChangeGoogleCode(e){
+        onChangeGoogleCode(e) {
             let value = e.currentTarget.value.trim();
 
             store.setGoogleCode(value);
@@ -56,7 +56,7 @@ export default (store) => {
             store.setVercode(value);
         },
 
-        onChangeLoginVerCode(e){
+        onChangeLoginVerCode(e) {
             let value = e.currentTarget.value.trim();
 
             store.setLoginPhoneCode(value);
@@ -82,7 +82,8 @@ export default (store) => {
 
             //  验证表单信息
             if (!verifyInfoBeforeSendCode.pass) {
-                message.error(verifyInfoBeforeSendCode.message);
+                verifyInfoBeforeSendCode.message && message.error(verifyInfoBeforeSendCode.message);
+                
                 return;
             }
 
@@ -91,7 +92,7 @@ export default (store) => {
             }
 
             let fetchFn = type == 'resetpwd' ? sendMail : sendEmailForRegister;
-            
+
             // 发送手机／邮件验证码
             fetchFn({
                 account: store.account,
@@ -174,7 +175,7 @@ export default (store) => {
         },
 
         submitRegister() {
-            let { verifyInfoBeforeSubmit , updateLogining } = store;
+            let { verifyInfoBeforeSubmit, updateLogining } = store;
             //  验证表单信息
             if (!verifyInfoBeforeSubmit.pass) {
                 message.error(verifyInfoBeforeSubmit.message);
@@ -193,12 +194,12 @@ export default (store) => {
                 imgcode: store.imgcode,
                 codeid: store.codeid
             }).then((data) => {
-                
+
                 switch (data.status) {
                     case 200:
                         store.changeSendingCodeTo(false);
                         message.success(UPEX.lang.template('成功，将跳转登录页面'));
-                       
+
                         setTimeout(() => {
                             browserHistory.push('/login');
                         }, 100)
@@ -213,7 +214,7 @@ export default (store) => {
                         this.getImgCaptcha();
                         break;
                 }
-            }).catch(()=>{
+            }).catch(() => {
 
             })
         },
@@ -246,26 +247,26 @@ export default (store) => {
             }
         },
 
-        checkUser2(type){
+        checkUser2(type) {
             if (type == 'phone') {
                 if (store.phonecode) {
                     return true;
                 } else {
                     return false;
-                } 
-            } else{
+                }
+            } else {
                 if (store.googlecode) {
                     return true;
                 } else {
                     return false;
                 }
             }
-           
+
         },
 
         userLogin() {
             const { updateLogining } = store;
-            
+
             updateLogining(true);
 
             return userLogin({
@@ -290,7 +291,7 @@ export default (store) => {
                 }
 
                 return data;
-            }).catch(()=>{
+            }).catch(() => {
                 updateLogining(false);
             })
         },
@@ -299,7 +300,7 @@ export default (store) => {
             let authType = 0;
             let vercode = '';
 
-            switch(type) {
+            switch (type) {
                 case 'google':
                     authType = 1;
                     vercode = store.googlecode;

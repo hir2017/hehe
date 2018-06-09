@@ -19,9 +19,9 @@ import { message } from 'antd';
 import Url from './lib/url';
 
 message.config({
-    top: 100,
+    top: 100,  
     maxCount: 1
-})
+});
 
 import './global';
 import routes, { TradeCenter } from './routes';

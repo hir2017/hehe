@@ -96,7 +96,7 @@ class CoinList extends Component {
                                             <CoinCollectBtn data={item} selected={selected} clickCb={this.handleCollectCoin.bind(this)} />
                                         </div>
                                         <div className="cell name" onClick={this.handleCurrency.bind(this, item)}>
-                                            {item.currencyNameEn}
+                                            {item.currencyNameEn || '--'}
                                         </div>
                                         <div className="cell price" onClick={this.handleCurrency.bind(this, item)}>
                                             {item.currentAmount}
