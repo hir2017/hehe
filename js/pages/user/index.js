@@ -11,7 +11,11 @@ import { observer, inject } from 'mobx-react';
 class UserPage extends Component {
 
 	activeMenu(url) {
-		return this.props.router.location.pathname.includes(url)
+		if (new RegExp(`${url}$`).test(this.props.router.location.pathname)) {
+			return 'active-menu'
+		} else {
+			return ''
+		}
 	}
 	render() {
 
@@ -22,17 +26,17 @@ class UserPage extends Component {
 						<div className="user-menu-box">
 							<h2>{UPEX.lang.template('个人信息')}</h2>
 							<ul>
-								<li>
+								<li className={this.activeMenu('user')}>
 									<Link to="/user">
 										{UPEX.lang.template('基础资料')}
 									</Link>
 								</li>
-								<li>
+								<li className={this.activeMenu('authentication')}>
 									<Link to="/user/authentication">
 										{UPEX.lang.template('身份认证')}
 									</Link>
 								</li>
-								<li>
+								<li className={this.activeMenu('bankInfo')}>
 									<Link to="/user/bankInfo">
 										{UPEX.lang.template('银行卡信息')}
 									</Link>
@@ -40,22 +44,22 @@ class UserPage extends Component {
 							</ul>
 							<h2>{UPEX.lang.template('安全设置')}</h2>
 							<ul>
-								<li>
+								<li className={this.activeMenu('passwordSetting')}>
 									<Link to="/user/passwordSetting">
 										{UPEX.lang.template('密码设置')}
 									</Link>
 								</li>
-								<li>
+								<li className={this.activeMenu('bindingPhone')}>
 									<Link to="/user/bindingPhone">
 										{UPEX.lang.template('手机绑定')}
 									</Link>
 								</li>
-								<li>
+								<li className={this.activeMenu('bindingEmail')}>
 									<Link to="/user/bindingEmail">
 										{UPEX.lang.template('电子邮箱绑定')}
 									</Link>
 								</li>
-								<li>
+								<li className={this.activeMenu('google')}>
 									<Link to="/user/google">
 										{UPEX.lang.template('Google验证器')}
 									</Link>
@@ -63,12 +67,12 @@ class UserPage extends Component {
 							</ul>
 							<h2>{UPEX.lang.template('其它')}</h2>
 							<ul>
-								<li>
+								<li className={this.activeMenu('question')}>
 									<Link to="/user/question">
 										{UPEX.lang.template('问题反馈')}
 									</Link>
 								</li>
-								<li>
+								<li className={this.activeMenu('questionList')}>
 									<Link to="/user/questionList">
 										{UPEX.lang.template('反馈列表')}
 									</Link>

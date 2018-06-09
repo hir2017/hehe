@@ -378,3 +378,17 @@ button>a {
     display: inline-block;
     cursor: pointer;
 }
+
+.active-menu {
+    position: relative;
+}
+
+.active-menu::before {
+    content: '';
+    height: 14px;
+    position: absolute;
+    width: 3px;
+    background-color: #e6bc1d;
+    left: -10px;
+    top: 14px;
+}
