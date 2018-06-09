@@ -36,7 +36,7 @@ class List extends Component {
                     {store.orderList.map((item, index) => {
                         return (
                             <li key={index}>
-                                <dl>
+                                <dl className="row">
                                     <dd className="swift-no">
                                         {item.tradeNo}
                                     </dd>

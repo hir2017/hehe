@@ -6,6 +6,9 @@ import { getFundChangeList } from '../api/http';
 import TimeUtil from '../lib/util/date';
 import NumberUtil from '../lib/util/number';
 
+// Mock
+import MockData from '../mock/fund-change-record'
+
 class FundChangeRecordStore {
     @observable orderList = [];
     @observable dataType = 'all';
@@ -20,6 +23,14 @@ class FundChangeRecordStore {
         recharge: 1,
         withdraw: 2
     };
+
+    statusMap = {
+        '0': '待审核',
+        '1': '成功',
+        '2': '失败',
+        '3': '支付中',
+        '4': '交易异常',
+    }
 
     constructor(stores) {
         this.commonStore = stores.commonStore;
@@ -59,6 +70,8 @@ class FundChangeRecordStore {
             .then(data => {
                 runInAction(() => {
                     if (data.status == 200) {
+                        // Mock
+                        // data = MockData(this.params)
                         this.orderList = this.parseData(data.attachment.list);
                         this.total = data.attachment.pageCount;
 
@@ -74,17 +87,12 @@ class FundChangeRecordStore {
     }
 
     parseData(arr) {
+        const statusMap = this.statusMap
         arr.forEach((item, index) => {
             item.createTime = TimeUtil.formatDate(item.createTime, 'yyyy-MM-dd HH:mm:ss');
             item.subRowClosed = true;
             item._type = item.type === 1 ? 'recharge' : 'withdraw';
-            const statusMap = {
-                '0': '待审核',
-                '1': '成功',
-                '2': '失败',
-                '3': '支付中',
-                '4': '交易异常',
-            }
+
             item._status = statusMap[item.status] || '未知';
         });
 
