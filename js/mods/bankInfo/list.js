@@ -6,9 +6,11 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 
+@inject('userInfoStore')
 @observer
 export default class BankList extends Component {
   render() {
+    const bankCardList = this.props.userInfoStore.bankCardList || []
     return (
       <div className="bank-list-box">
         <div>
@@ -48,75 +50,18 @@ export default class BankList extends Component {
                       <col style={{ width: '172px', minWidth: '172px' }} />
                     </colgroup>
                     <tbody className="ant-table-tbody">
-                      <tr>
-                        <td>2018-5-20  23:34:23</td>
-                        <td>中国民生银行</td>
-                        <td>台北分行</td>
-                        <td>6219********9623</td>
-                        <td>等待审核</td>
-                        <td>解绑</td>
-                      </tr>
-                      <tr>
-                        <td>2018-5-20  23:34:23</td>
-                        <td>中国民生银行</td>
-                        <td>台北分行</td>
-                        
-                        <td>6219********9623</td>
-                        <td>等待审核</td>
-                        <td>解绑</td>
-                      </tr>
-                      <tr>
-                        <td>2018-5-20  23:34:23</td>
-                        <td>中国民生银行</td>
-                        <td>台北分行</td>
-                        
-                        <td>6219********9623</td>
-                        <td>等待审核</td>
-                        <td>解绑</td>
-                      </tr>
-                      <tr>
-                        <td>2018-5-20  23:34:23</td>
-                        <td>中国民生银行</td>
-                        <td>台北分行</td>
-                        
-                        <td>6219********9623</td>
-                        <td>等待审核</td>
-                        <td>解绑</td>
-                      </tr><tr>
-                        <td>2018-5-20  23:34:23</td>
-                        <td>中国民生银行</td>
-                        <td>台北分行</td>
-                        
-                        <td>6219********9623</td>
-                        <td>等待审核</td>
-                        <td>解绑</td>
-                      </tr>
-                      <tr>
-                        <td>2018-5-20  23:34:23</td>
-                        <td>中国民生银行</td>
-                        <td>台北分行</td>
-                        
-                        <td>6219********9623</td>
-                        <td>等待审核</td>
-                        <td>解绑</td>
-                      </tr><tr>
-                        <td>2018-5-20  23:34:23</td>
-                        <td>中国民生银行</td>
-                        <td>台北分行</td>
-                        
-                        <td>6219********9623</td>
-                        <td>等待审核</td>
-                        <td>解绑</td>
-                      </tr>
-                      <tr>
-                        <td>2018-5-20  23:34:23</td>
-                        <td>中国民生银行</td>
-                        <td>台北分行</td>
-                        
-                        <td>6219********9623</td>
-                        <td>等待审核</td>
-                        <td>解绑</td>
-                      </tr>
+                      {
+                        bankCardList.map((item, index) => {
+                          <tr key={index}>
+                            <td>2018-5-20  23:34:23</td>
+                            <td>中国民生银行</td>
+                            <td>台北分行</td>
+                            <td>6219********9623</td>
+                            <td>等待审核</td>
+                            <td>解绑</td>
+                          </tr>
+                        })
+                      }
                     </tbody>
                   </table>
                 </div>

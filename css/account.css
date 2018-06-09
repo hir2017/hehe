@@ -327,7 +327,14 @@
     padding: 10px 0;
 }
 
+.account-record-list dl.row {
+border-bottom: solid 1px #f2f2f2;
+
+}
+
 .account-record-list dd {
+    text-overflow: ellipsis;
+    overflow: hidden;
     display: inline-block;
     word-wrap: break-word;
     word-break: break-all;
@@ -336,7 +343,6 @@
     min-height: 46px;
     color: #333333;
     font-size: 14px;
-    border-bottom: solid 1px #f2f2f2;
 }
 
 .account-record-list .mini-tip {

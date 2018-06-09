@@ -244,7 +244,7 @@ export function orderFiatRecharge(data){
     return axios.post(`${UPEX.config.host}/pay/getFrontPageJsonData`, qs.stringify({
         amount: data.amount,
         prodId: data.cardId,
-        currencyId: 1 
+        currencyId: 1
     })).then(res => res.data);
 }
 
@@ -252,7 +252,7 @@ export function orderFiatWithdraw(data){
     return axios.post(`${UPEX.config.host}/pay/getFrontPageJsonData`, qs.stringify({
         amount: data.amount,
         prodId: data.cardId,
-        currencyId: 1 
+        currencyId: 1
     })).then(res => res.data);x
 }
 
@@ -360,9 +360,9 @@ export function getAllCoinPoint(){
  }
  */
 export function getFundChangeList(data){
-    return axios.get(`${UPEX.config.host}/rechargeWithdraw/getRechargeWithdrawBillInfo`, {
-        params: data
-    }).then(res => res.data);
+    return axios.post(`${UPEX.config.host}/rechargeWithdraw/getRechargeWithdrawBillInfo`, qs.stringify({
+        ...data
+    })).then(res => res.data);
 }
 /**
  * 提现记录
@@ -686,4 +686,55 @@ export function modifyPhoneAction (newCode, newPhone, oldCode, type) {
         newCode, newPhone, oldCode, type
     }).then(res => res.data);
 }
+
+/**
+ *  手机二级认证开关
+ *
+ */
+
+export function phoneAuthSwitch (status) {
+    return axios.post(`${UPEX.config.host}/user/phoneAuthSwitch`,{status}).then(res => res.data);
+}
+
+/**
+ *  二级密码开启关闭
+ *
+ */
+
+export function updateFdPwdEnabled (fdPwd, enabled) {
+    return axios.post(`${UPEX.config.host}/user/updateFdPwdEnabled`,{fdPwd, enabled}).then(res => res.data);
+}
+
+/**
+ *  银行卡绑定
+ *
+ */
+
+export function bindVerifyCardInfo (
+    cardNo,
+    cardName,
+    openBank,
+    branchNo,
+    branchName,
+    tradePwd,
+    imgUrl) {
+    return axios.post(`${UPEX.config.host}/card/bindVerifyCardInfo`,
+    {   cardNo,
+        cardName,
+        openBank,
+        branchNo,
+        branchName,
+        tradePwd,
+        imgUrl}).then(res => res.data);
+}
+
+/**
+ *  二级密码开启关闭
+ *
+ */
+
+export function getBindBankCardInfo () {
+    return axios.post(`${UPEX.config.host}/card/getBindBankCardInfo`).then(res => res.data);
+}
+
 

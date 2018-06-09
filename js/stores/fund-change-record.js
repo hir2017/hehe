@@ -6,6 +6,9 @@ import { getFundChangeList } from '../api/http';
 import TimeUtil from '../lib/util/date';
 import NumberUtil from '../lib/util/number';
 
+// Mock
+import MockData from '../mock/fund-change-record'
+
 class FundChangeRecordStore {
     @observable orderList = [];
     @observable dataType = 'all';
@@ -20,6 +23,14 @@ class FundChangeRecordStore {
         recharge: 1,
         withdraw: 2
     };
+
+    statusMap = {
+        '0': '待审核',
+        '1': '成功',
+        '2': '失败',
+        '3': '支付中',
+        '4': '交易异常',
+    }
 
     constructor(stores) {
         this.commonStore = stores.commonStore;
@@ -54,13 +65,15 @@ class FundChangeRecordStore {
         if (params.pageNumber && params.pageNumber !== this.current) {
             this.current = params.pageNumber;
         }
-
+        // list: [], pageNumber: 1, pageSize: 10
         getFundChangeList(this.params)
             .then(data => {
                 runInAction(() => {
                     if (data.status == 200) {
-                        this.orderList = this.parseData(data.attachment.changeList);
-                        this.total = data.attachment.total;
+                        // Mock
+                        // data = MockData(this.params)
+                        this.orderList = this.parseData(data.attachment.list);
+                        this.total = data.attachment.pageCount;
 
                     }
                     this.isFetching = false;
@@ -74,11 +87,14 @@ class FundChangeRecordStore {
     }
 
     parseData(arr) {
+        const statusMap = this.statusMap
         arr.forEach((item, index) => {
             item.createTime = TimeUtil.formatDate(item.createTime, 'yyyy-MM-dd HH:mm:ss');
             item.subRowClosed = true;
             item._type = item.type === 1 ? 'recharge' : 'withdraw';
-            item._status = item.status === 1 ? '完成' : '未完成';
+            item._status = statusMap[item.status] || '未知';
+            item._actionName = `银行卡${item.type === 1 ? '充值' : '提现'}`;
+            item._payMethod = item.type === 1 ? item.openBank : '法币账户';
         });
 
         return arr;
