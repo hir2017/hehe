@@ -401,6 +401,7 @@ class UserInfo {
             const res = await updateFdPwdEnabled(fdPwd, enabled)
             this.submit_loading = false
             if (res.status === 200) {
+                this.getUserInfo()
                 message.success(UPEX.lang.template('修改成功'))
             } else {
                 message.error(res.message)
@@ -412,6 +413,7 @@ class UserInfo {
         }
     }
 
+    @action
     async bindVerifyCard(cardNo,
         cardName,
         openBank,
@@ -441,6 +443,7 @@ class UserInfo {
         }
     }
 
+    @action
     async bankCardInfo() {
         try {
             const res = await getBindBankCardInfo()
@@ -451,6 +454,7 @@ class UserInfo {
         }
     }
 
+    @action
     async forgetTradingPwd(newPwd, vercode, imgCode, imgCodeId, type) {
         try {
             this.submit_loading = true
@@ -468,6 +472,7 @@ class UserInfo {
         }
     }
 
+    @action
     async questionDetails (id) {
         try {
             const res = await questionDetail(id)

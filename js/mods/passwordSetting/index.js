@@ -8,7 +8,7 @@ import { observer, inject } from 'mobx-react';
 import { Button, Switch, Modal, Input, message } from 'antd'
 import { Link } from 'react-router'
 
-@inject('userInfoStore')
+@inject('userInfoStore', 'authStore')
 @observer
 export default class BindingBank extends Component {
 
@@ -17,7 +17,7 @@ export default class BindingBank extends Component {
     Object.keys(userInfo).length || this.props.userInfoStore.getUserInfo()
   }
 
-  passwordSwitch = () => {
+  passwordSwitch = (checked) => {
     this.setState({
       visible: true,
       checked: checked
@@ -47,7 +47,8 @@ export default class BindingBank extends Component {
     if (!this.state.pwd) {
       message.error(UPEX.lang.template('交易密码不能为空'))
     }
-    this.props.userInfoStore.fdPwdSwitch(this.state.pwd, this.state.visible ? 2 : 1)
+    const pwd = md5(this.state.pwd + UPEX.config.dealSalt + this.props.authStore.uid);
+    this.props.userInfoStore.fdPwdSwitch(pwd, this.state.checked ? 2 : 1)
   }
 
   cancelHandle = () => {
