@@ -72,15 +72,23 @@ class UserInfo {
      */
     @computed
     authLevel() {
-        if (this.userInfo.isAuthVideo == 2) {
-            return 'C';
-        } else if (this.userInfo.isAuthSenior == 2) {
-            return 'B';
-        } else if (this.userInfo.isAuthPrimary == 2) {
-            return 'A';
-        } else {
-            return '';
+        let level = '';
+
+        switch(this.userInfo.authLevel) {
+            case 1:
+                level = 'A';
+                break;
+            case 2:
+                level = 'B';
+                break;
+            case 3:
+                level = 'C';   
+                break;
+            default:
+                level = '';
         }
+
+        return level;
     }
 
     @action
