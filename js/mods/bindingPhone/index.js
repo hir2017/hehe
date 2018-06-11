@@ -5,7 +5,7 @@
  */
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
-import { Button, Switch, Modal, Input } from 'antd'
+import { Button, Switch, Modal, Input, message } from 'antd'
 import { Link } from 'react-router'
 import Vcodebutton from '../common/sendAuthCodeBtn'
 
@@ -20,17 +20,29 @@ export default class Phone extends Component {
 
   phoneSwitch = (checked) => {
     this.setState({
-      visible: true
+      visible: true,
+      checked: checked
     })
-    // this.props.userInfoStore.phoneSwitch(checked ? 1 : 0)
   }
 
   state = {
-    visible: false
+    visible: false,
+    checked: false,
+    vCode: ''
+  }
+
+  vCodeChange = (e) => {
+    this.setState({
+      vCode: e.target.value
+    })
   }
 
   handleOk = () => {
-
+    if(!this.state.vCode){
+      message.error(UPEX.lang.template('短信验证码不能为空'))
+      return
+    }
+    this.props.userInfoStore.phoneSwitch(this.state.vCode, this.state.checked ? 1 : 0)
   }
 
   cancelHandle = () => {
@@ -82,7 +94,10 @@ export default class Phone extends Component {
         >
           <div>
             <div className="item">
-              <Input addonAfter={<Vcodebutton style={{lineHeight: 'normal', height: 'auto'}}/>} type='password' size="large" placeholder={UPEX.lang.template('请输入交易密码')} />
+              <Input
+              onChange={this.vCodeChange}
+              addonAfter={<Vcodebutton phoneAuth={true} type='1' style={{lineHeight: 'normal', height: 'auto'}}/>} 
+              size="large" placeholder={UPEX.lang.template('请输入短信验证码')} />
             </div>
           </div>
         </Modal>
