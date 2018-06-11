@@ -39,6 +39,10 @@ class Info extends Component {
       return { img: gradeB, grade: 'B' }
     }
 
+    if (userInfo.isAuthVideo == 2) {
+      return { img: gradeC, grade: 'C' }
+    }
+
     return {}
   }
 

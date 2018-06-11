@@ -9,6 +9,20 @@ import { observer, inject } from 'mobx-react';
 @inject('userInfoStore')
 @observer
 export default class BankList extends Component {
+
+  componentWillMount() {
+    this.props.userInfoStore.bankCardInfo()
+  }
+
+  status (num) {
+    switch(num) {
+      case 3 : return '等待审核'; break;
+      case 2 : return '已拒绝'; break;
+      case 1 : return '已绑定'; break;
+      default : return num; break;
+    }
+  }
+
   render() {
     const bankCardList = this.props.userInfoStore.bankCardList || []
     return (
@@ -52,13 +66,13 @@ export default class BankList extends Component {
                     <tbody className="ant-table-tbody">
                       {
                         bankCardList.map((item, index) => {
-                          <tr key={index}>
-                            <td>2018-5-20  23:34:23</td>
-                            <td>中国民生银行</td>
-                            <td>台北分行</td>
-                            <td>6219********9623</td>
-                            <td>等待审核</td>
-                            <td>解绑</td>
+                          return <tr key={index}>
+                            <td>{item.createTime}</td>
+                            <td>{item.branchName}</td>
+                            <td>{item.openBank}</td>
+                            <td>{item.cardNo}</td>
+                            <td>{this.status(item.status)}</td>
+                            <td>-</td>
                           </tr>
                         })
                       }

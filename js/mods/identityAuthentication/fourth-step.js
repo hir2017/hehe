@@ -5,6 +5,7 @@
  */
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
+import { Link } from 'react-router'
 import { Button } from 'antd'
 import Steps from './steps'
 
@@ -12,8 +13,13 @@ import Steps from './steps'
 @observer
 export default class FourthStep extends Component {
 
+  componentWillMount() {
+    this.props.userInfoStore.bankCardInfo()
+  }
+
   render() {
     const userInfo = this.props.userInfoStore.userInfo || {}
+    const bankCardList = this.props.userInfoStore.bankCardList || []
     return (
       <div>
         <Steps step={4}/>
@@ -37,7 +43,15 @@ export default class FourthStep extends Component {
           {UPEX.lang.template('日提現額度是=每日提現到銀行賬戶的額度+每日提幣的即時新台幣價值總額')}
         </div>
         <div className="submit">
-          <Button>{UPEX.lang.template('申請更高限額')}</Button>
+        {
+          bankCardList.length === 0
+          ? <Button><Link to="/user/bankInfo">{UPEX.lang.template('绑定银行卡')}</Link></Button>
+          : userInfo.isAuthVideo === 0
+          ? <Button>{UPEX.lang.template('申請更高限額')}</Button>
+          : userInfo.isAuthVideo === 2
+          ? <Button><Link to="/user/bankInfo">{UPEX.lang.template('去交易中心')}</Link></Button>
+          : <Button>{UPEX.lang.template('申請更高限額')}</Button>
+        }
         </div>
       </div>
     )

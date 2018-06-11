@@ -25,7 +25,7 @@ export default class Success extends Component {
           <div className="message">
             {UPEX.lang.template('提现，修改密码，及安全设置时用以输入谷歌验证码')}
           </div>
-          <div className="switch">
+          <div style={{display: 'none'}} className="switch">
             {UPEX.lang.template('开启Google验证')}&nbsp;&nbsp;&nbsp;<Switch checked={true}/>
           </div>
         </div>

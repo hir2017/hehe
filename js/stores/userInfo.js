@@ -440,8 +440,7 @@ class UserInfo {
     async bankCardInfo() {
         try {
             const res = await getBindBankCardInfo()
-            console.log(res, 'res')
-            this.bankCardList = res || []
+            this.bankCardList = res.attachment || []
         } catch(e) {
             console.error(e)
             message.error('Network Error')

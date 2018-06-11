@@ -59,7 +59,6 @@ class IdentityAuthentication extends Component {
     if (userInfo.isAuthSenior === 1 || userInfo.isAuthSenior === -1) {
       step = 3
     }
-
     return (
       <div className="authentication">
         <div className="authentication-title">
