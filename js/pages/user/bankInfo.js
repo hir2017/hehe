@@ -59,7 +59,7 @@ class BankInfo extends Component {
               <BindingBank />
               <BankList />
             </div>
-            : userInfo.isAuthPrimary !== 2
+            : userInfo.isAuthSenior !== 2
             ? <div className="bank-message">
                 {UPEX.lang.template('请先身份认证')}<Link to="/user/authentication">{UPEX.lang.template('身份认证')}</Link>
               </div>
