@@ -737,4 +737,18 @@ export function getBindBankCardInfo () {
     return axios.post(`${UPEX.config.host}/card/getBindBankCardInfo`).then(res => res.data);
 }
 
+/**
+  * 忘记交易密码
+  * type 1谷歌 2短信 3邮箱
+  */
+
+ export function forgetFdPwd (newPwd, vercode, imgCode, imgCodeId, type) {
+    return axios.post(`${UPEX.config.host}/user/forgetFdPwd`, {
+        newFdPassWord: newPwd,
+        verCode: vercode,
+        imgcode: imgCode,
+        codeid: imgCodeId,
+        type: type
+    }).then(res => res.data);
+ }
 

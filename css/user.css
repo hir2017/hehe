@@ -747,6 +747,12 @@
     border-radius: 7px;
 }
 
+.user-main-box .forget-pwd a {
+    font-size: 12px;
+    color: #999999;
+    text-decoration: none;
+}
+
 .user-main-box .trading-password .password-message {
     width: 280px;
 }

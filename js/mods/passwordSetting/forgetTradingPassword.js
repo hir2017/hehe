@@ -86,21 +86,21 @@ export default class SettingTradingPassword extends Component {
       return
     }
 
-    this.props.userInfoStore.bindTradingPwd(this.state.password, this.state.vCode, this.state.ivCode, codeid)
+    this.props.userInfoStore.forgetTradingPwd(this.state.password, this.state.vCode, this.state.ivCode, codeid, 2)
   }
 
   render() {
-    const loading = this.props.userInfoStore.submit_loading_tpwd
+    const loading = this.props.userInfoStore.submit_loading
     const codeid = this.props.captchaStore.codeid
     const captcha = this.props.captchaStore.captcha
     return (
       <div>
         <div className="modify-password-title">
-          {UPEX.lang.template('設置交易密碼')}
+          {UPEX.lang.template('重置交易密碼')}
         </div>
         <div className="modify-password-box">
           <div className="item new-pwd">
-            <span className="lable">{UPEX.lang.template('交易密码')}</span>
+            <span className="lable">{UPEX.lang.template('新交易密码')}</span>
             <input type="password" onChange={this.passwordChange} className="input" />
             <span className="item-left-meassage">*{UPEX.lang.template('密码由6-18数字、字母和特殊字符组成')}</span>
           </div>

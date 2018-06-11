@@ -23,7 +23,8 @@ import {
     phoneAuthSwitch,
     updateFdPwdEnabled,
     bindVerifyCardInfo,
-    getBindBankCardInfo
+    getBindBankCardInfo,
+    forgetFdPwd
 } from '../api/http'
 import { message } from 'antd'
 
@@ -442,6 +443,23 @@ class UserInfo {
             const res = await getBindBankCardInfo()
             this.bankCardList = res.attachment || []
         } catch(e) {
+            console.error(e)
+            message.error('Network Error')
+        }
+    }
+
+    async forgetTradingPwd(newPwd, vercode, imgCode, imgCodeId, type) {
+        try {
+            this.submit_loading = true
+            const res = await forgetFdPwd(newPwd, vercode, imgCode, imgCodeId, type)
+            this.submit_loading = false
+            if (res.status === 200) {
+                message.success(UPEX.lang.template('修改成功'))
+            } else {
+                message.error(res.message)
+            }
+        } catch (e) {
+            this.submit_loading = false
             console.error(e)
             message.error('Network Error')
         }

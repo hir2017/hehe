@@ -95,6 +95,13 @@ export default class BindingBank extends Component {
               </span>
             </div>
           </div>
+          <div className="forget-pwd">
+          {
+            userInfo.isValidatePass
+            ? <Link to="/user/forgetTradingPassword">{UPEX.lang.template('忘记交易密码？')}</Link>
+            : null
+          }
+          </div>
         </div>
         <div className="message">
           {UPEX.lang.template('※為了您的資金安全，忘記交易密碼并修改成功后，24小時內不可以提現提幣。')}

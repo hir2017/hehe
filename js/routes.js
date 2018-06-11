@@ -64,6 +64,7 @@ import Question from './pages/user/problemFeedback'
 import QuestionList from './pages/user/feedbackList'
 import EmailSuccess from './mods/bindingEmail/success'
 import PhoneSuccess from './mods/bindingPhone/success'
+import ForgetTradingPassword from './mods/passwordSetting/forgetTradingPassword'
 
 const routes = (
     <Route>
@@ -103,6 +104,7 @@ const routes = (
 				<Route path="modifyPassword" component={ModifyPassword} />
 				<Route path="modifyTraddingPassword" component={ModifyTraddingPassword} />
 				<Route path="settingTraddingPassword" component={SettingTraddingPassword} />
+				<Route path="forgetTradingPassword" component={ForgetTradingPassword} />
 				<Route path="bindingPhone" component={BindingPhone} />
 				<Route path="modifyPhone" component={ModifyPhone} />
 				<Route path="settingPhone" component={SettingPhone} />
