@@ -47,7 +47,7 @@ export default class extends Component {
       return 
     }
 
-    this.props.userInfoStore.ask(this.state.text, '')
+    this.props.userInfoStore.ask(this.state.text, '2324.png')
   }
   
   render() {

@@ -31,15 +31,15 @@ class Info extends Component {
   gradeImg() {
     const userInfo = this.props.userInfoStore.userInfo || {}
 
-    if (userInfo.isAuthPrimary == 2 && userInfo.phone) {
+    if (userInfo.authLevel == 1) {
       return { img: gradeA, grade: 'A' }
     }
 
-    if (userInfo.isAuthSenior == 2) {
+    if (userInfo.authLevel == 2) {
       return { img: gradeB, grade: 'B' }
     }
 
-    if (userInfo.isAuthVideo == 2) {
+    if (userInfo.authLevel == 3) {
       return { img: gradeC, grade: 'C' }
     }
 

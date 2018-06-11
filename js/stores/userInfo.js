@@ -24,7 +24,8 @@ import {
     updateFdPwdEnabled,
     bindVerifyCardInfo,
     getBindBankCardInfo,
-    forgetFdPwd
+    forgetFdPwd,
+    questionDetail
 } from '../api/http'
 import { message } from 'antd'
 
@@ -72,6 +73,7 @@ class UserInfo {
      */
     @computed
     authLevel() {
+<<<<<<< HEAD
         let level = '';
 
         switch(this.userInfo.authLevel) {
@@ -86,6 +88,16 @@ class UserInfo {
                 break;
             default:
                 level = '';
+=======
+        if (this.userInfo.authLevel == 3) {
+            return 'C';
+        } else if (this.userInfo.authLevel == 2) {
+            return 'B';
+        } else if (this.userInfo.authLevel == 1) {
+            return 'A';
+        } else {
+            return '';
+>>>>>>> e07747a95963bc162279c878a220ab2b0813505a
         }
 
         return level;
@@ -408,6 +420,7 @@ class UserInfo {
             const res = await updateFdPwdEnabled(fdPwd, enabled)
             this.submit_loading = false
             if (res.status === 200) {
+                this.getUserInfo()
                 message.success(UPEX.lang.template('修改成功'))
             } else {
                 message.error(res.message)
@@ -419,6 +432,7 @@ class UserInfo {
         }
     }
 
+    @action
     async bindVerifyCard(cardNo,
         cardName,
         openBank,
@@ -448,6 +462,7 @@ class UserInfo {
         }
     }
 
+    @action
     async bankCardInfo() {
         try {
             const res = await getBindBankCardInfo()
@@ -458,6 +473,7 @@ class UserInfo {
         }
     }
 
+    @action
     async forgetTradingPwd(newPwd, vercode, imgCode, imgCodeId, type) {
         try {
             this.submit_loading = true
@@ -470,6 +486,17 @@ class UserInfo {
             }
         } catch (e) {
             this.submit_loading = false
+            console.error(e)
+            message.error('Network Error')
+        }
+    }
+
+    @action
+    async questionDetails (id) {
+        try {
+            const res = await questionDetail(id)
+            console.log(res, 'res')
+        } catch (e) {
             console.error(e)
             message.error('Network Error')
         }
