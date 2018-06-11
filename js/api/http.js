@@ -752,3 +752,13 @@ export function getBindBankCardInfo () {
     }).then(res => res.data);
  }
 
+ /**
+ *  问题详情
+ *
+ */
+
+export function questionDetail (qid) {
+    return axios.post(`${UPEX.config.host}/user/questionDetail`, {
+        qid
+    }).then(res => res.data);
+}

@@ -15,6 +15,7 @@ export default class extends Component {
 
   componentDidMount() {
     this.props.userInfoStore.questions(1)
+    this.props.userInfoStore.questionDetails(3)
   }
 
   pageChange = (page) => {

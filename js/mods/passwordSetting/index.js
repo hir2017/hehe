@@ -5,7 +5,7 @@
  */
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
-import { Button, Switch, Modal, Input } from 'antd'
+import { Button, Switch, Modal, Input, message } from 'antd'
 import { Link } from 'react-router'
 
 @inject('userInfoStore')
@@ -19,17 +19,35 @@ export default class BindingBank extends Component {
 
   passwordSwitch = () => {
     this.setState({
-      visible: true
+      visible: true,
+      checked: checked
     })
-    // this.props.userInfoStore.fdPwdSwitch()
   }
 
   state = {
-    visible: false
+    checked: false,
+    visible: false,
+    pwd: '',
+    vCode: ''
+  }
+
+  pwdChange = (e) => {
+    this.setState({
+      pwd: e.target.value
+    })
+  }
+
+  vCodeChange = (e) => {
+    this.setState({
+      vCode: e.target.value
+    })
   }
 
   handleOk = () => {
-
+    if (!this.state.pwd) {
+      message.error(UPEX.lang.template('交易密码不能为空'))
+    }
+    this.props.userInfoStore.fdPwdSwitch(this.state.pwd, this.state.visible ? 2 : 1)
   }
 
   cancelHandle = () => {
@@ -115,7 +133,7 @@ export default class BindingBank extends Component {
         >
           <div>
             <div className="item">
-              <Input type='password' size="large" placeholder={UPEX.lang.template('请输入交易密码')} />
+              <Input onChange={this.pwdChange} type='password' size="large" placeholder={UPEX.lang.template('请输入交易密码')} />
             </div>
           </div>
         </Modal>

@@ -24,7 +24,8 @@ import {
     updateFdPwdEnabled,
     bindVerifyCardInfo,
     getBindBankCardInfo,
-    forgetFdPwd
+    forgetFdPwd,
+    questionDetail
 } from '../api/http'
 import { message } from 'antd'
 
@@ -72,11 +73,11 @@ class UserInfo {
      */
     @computed
     authLevel() {
-        if (this.userInfo.isAuthVideo == 2) {
+        if (this.userInfo.authLevel == 3) {
             return 'C';
-        } else if (this.userInfo.isAuthSenior == 2) {
+        } else if (this.userInfo.authLevel == 2) {
             return 'B';
-        } else if (this.userInfo.isAuthPrimary == 2) {
+        } else if (this.userInfo.authLevel == 1) {
             return 'A';
         } else {
             return '';
@@ -462,6 +463,16 @@ class UserInfo {
             }
         } catch (e) {
             this.submit_loading = false
+            console.error(e)
+            message.error('Network Error')
+        }
+    }
+
+    async questionDetails (id) {
+        try {
+            const res = await questionDetail(id)
+            console.log(res, 'res')
+        } catch (e) {
             console.error(e)
             message.error('Network Error')
         }
