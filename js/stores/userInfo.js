@@ -26,7 +26,8 @@ import {
     getBindBankCardInfo,
     forgetFdPwd,
     questionDetail,
-    phoneAuthSendCode
+    phoneAuthSendCode,
+    submitKycC
 } from '../api/http'
 import { message } from 'antd'
 
@@ -490,6 +491,24 @@ class UserInfo {
             const res = await phoneAuthSendCode(type)
             return res
         } catch (e) {
+            console.error(e)
+            message.error('Network Error')
+        }
+    }
+
+    @action
+    async kycC() {
+        try {
+            this.submit_loading = true
+            const res = await submitKycC()
+            this.submit_loading = false
+            if (res.status === 200) {
+                message.success(UPEX.lang.template('申请成功'))
+            } else {
+                message.error(res.message)
+            }
+        } catch (e) {
+            this.submit_loading = false
             console.error(e)
             message.error('Network Error')
         }

@@ -773,3 +773,12 @@ export function phoneAuthSendCode (type) {
         type
     }).then(res => res.data);
 }
+
+/**
+ *  C级认证申请接口
+ *
+ */
+
+export function submitKycC () {
+    return axios.post(`${UPEX.config.host}/user/submitKycC`).then(res => res.data);
+}

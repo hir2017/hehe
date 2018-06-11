@@ -617,20 +617,20 @@
 
 .user-main-box .binding-bank-message img {
     position: absolute;
-    bottom: -180px;
+    bottom: -240px;
 }
 .user-main-box .binding-bank-message .banck-card-title {
     width: 20px;
     font-size: 14px;
     color: #999999;
     position: absolute;
-    bottom: -130px;
+    bottom: -190px;
     left: 20px;
 }
 
 .user-main-box .binding-bank-message .banck-card-message {
     position: absolute;
-    bottom: -220px;
+    bottom: -280px;
     width: 210px;
     font-size: 12px;
     text-align: center;
