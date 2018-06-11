@@ -236,6 +236,7 @@ class UserInfo {
             this.submit_loading = false
             if (res.status === 200) {
                 this.gaBindSuccess = true
+                this.getUserInfo()
                 message.success(UPEX.lang.template('绑定成功'))
             } else {
                 message.error(res.message)
