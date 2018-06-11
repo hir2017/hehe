@@ -217,6 +217,7 @@ class UserInfo {
         try {
             const res = await submitUserInfo(info)
             if (res.status === 200) {
+                this.getUserInfo()
                 return res
             } else {
                 message.error(res.message)
