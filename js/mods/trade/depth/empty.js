@@ -6,8 +6,7 @@ class Empty extends Component {
 	        <div className="depth-chart-empty">
 				<p>{UPEX.lang.template('暂无数据')}</p>
 	        </div>
-	      );
-	    }
+	    )
 	}
 }
 

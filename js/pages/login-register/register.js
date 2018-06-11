@@ -28,7 +28,7 @@ class Register extends Component {
     }
 
     componentWillUnmount(){
-        this.action.destroyTimer(); 
+        this.action.destroy(); 
     }
 
     sendVercode=(e)=>{
@@ -133,7 +133,7 @@ class Register extends Component {
                                     onInput={ action.onChangePwd }
                                 />
                             </div>
-                            { !store.validPwd ? <div className="warn">* { UPEX.lang.template('密码至少由大写字母+小写字母+数字，8-16位组成')}</div> : null }
+                            { !store.validPwd ? <div className="warn">* { UPEX.lang.template('密码至少由大写字母+小写字母+数字，6-16位组成')}</div> : null }
                         </div>
                         <div className="input-wrapper">
                             <div className="input-box">

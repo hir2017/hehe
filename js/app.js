@@ -19,9 +19,9 @@ import { message } from 'antd';
 import Url from './lib/url';
 
 message.config({
-    top: 100,
+    top: 100,  
     maxCount: 1
-})
+});
 
 import './global';
 import routes, { TradeCenter } from './routes';
@@ -75,7 +75,7 @@ class App extends Component {
     render() {
         return (
         	<div 
-                key={rootStore.commonStore.language} 
+                key={rootStore.commonStore.language + rootStore.authStore.uid } 
                 className={`app-page ${rootStore.commonStore.language}`}  
                 data-path={rootStore.commonStore.currentPathName}
             >

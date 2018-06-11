@@ -7,15 +7,15 @@ class SubRow extends Component {
     render() {
         let rechargeCol = [
             { label: UPEX.lang.template('创建时间'), field: 'createTime' },
-            { label: UPEX.lang.template('付款账号'), field: 'account' },
-            { label: UPEX.lang.template('实际付款'), field: 'sum' },
-            { label: UPEX.lang.template('手续费'), field: 'poundage' }
+            { label: UPEX.lang.template('付款账号'), field: 'cardNo' },
+            { label: UPEX.lang.template('实际付款'), field: 'tradeAmount' },
+            { label: UPEX.lang.template('手续费'), field: 'fee' }
         ];
         let withdrawCol = [
             { label: UPEX.lang.template('创建时间'), field: 'createTime' },
-            { label: UPEX.lang.template('提现账号'), field: 'account' },
-            { label: UPEX.lang.template('到账金额'), field: 'sum' },
-            { label: UPEX.lang.template('手续费'), field: 'poundage' }
+            { label: UPEX.lang.template('提现账号'), field: 'cardNo' },
+            { label: UPEX.lang.template('到账金额'), field: 'tradeAmount' },
+            { label: UPEX.lang.template('手续费'), field: 'fee' }
         ];
         const {type, data} = this.props
         let cols = type === 'recharge' ? rechargeCol : withdrawCol

@@ -31,13 +31,16 @@ class Login extends Component {
         this.state = {
             loginErrorText: '',
             step: 'login' // login: 登录，google: 谷歌认证；phone：手机认证
-            // step: 'phone'
         }
     }
 
     componentDidMount() {
         // 组件加载完调用图片验证码
         this.action.getImgCaptcha();
+    }
+
+    componentWillUnmount(){
+        this.action.destroy(); 
     }
 
     handleLogin=()=>{
@@ -51,6 +54,7 @@ class Login extends Component {
                 then((data)=>{
                     switch(data.status){
                         case 200:
+                            
                             setTimeout(() => {
                                 browserHistory.push('/home');
                             }, 100)
@@ -67,13 +71,13 @@ class Login extends Component {
                             break;
                         default:
                             this.setState({
-                                loginErrorText: "*" + data.message
+                                loginErrorText: data.message
                             }); 
                     }
                 })
         } else {
             this.setState({
-                loginErrorText: UPEX.lang.template('* 填写有误')
+                loginErrorText: UPEX.lang.template('账号或密码输入有误')
             });
         }
     }
@@ -91,13 +95,13 @@ class Login extends Component {
                             break;
                         default:
                             this.setState({
-                                loginErrorText: "*" + data.message
+                                loginErrorText: data.message
                             }); 
                     }
                 })
         } else {
             this.setState({
-                loginErrorText: type == 'phone' ? UPEX.lang.template('* 请填写短信验证码') : UPEX.lang.template('* 请填写谷歌验证码')
+                loginErrorText: type == 'phone' ? UPEX.lang.template('请填写短信验证码') : UPEX.lang.template('请填写谷歌验证码')
             });
         }
     }

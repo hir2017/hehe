@@ -172,7 +172,7 @@ class UDFCompatibleDatafeed {
                 var ohlPresent = data.o !== undefined;
                 for (var i = 0; i < data.t.length; ++i) {
                     var barValue = {
-                        time: data.t[i] * 1000,
+                        time: data.t[i],
                         close: Number(data.c[i]),
                         open: Number(data.c[i]),
                         high: Number(data.c[i]),

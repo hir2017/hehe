@@ -141,7 +141,7 @@ class TradeForm extends Component{
 							<ul>
 								<li>
 									<label>{UPEX.lang.template('最佳买价')}</label>
-									<em>{ store.bestBuyPrice }({store.baseCurrencyNameEn})</em>
+									<em>{ store.bestBuyPrice } ({store.baseCurrencyNameEn}) </em>
 								</li>
 								<li>
 									<label>{UPEX.lang.template('买入价')}</label>
@@ -218,7 +218,7 @@ class TradeForm extends Component{
 							<ul>
 								<li>
 									<label>{UPEX.lang.template('最佳卖价')}</label>
-									<em>{ store.bestSellPrice }({store.baseCurrencyNameEn})</em>
+									<em>{ store.bestSellPrice } ({store.baseCurrencyNameEn}) </em>
 								</li>
 								<li>
 									<label>{UPEX.lang.template('卖出价')}</label>
