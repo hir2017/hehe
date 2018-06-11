@@ -64,22 +64,13 @@ class List extends Component {
 				<ul className="list">
 					{
 						store.orderList.map((item, index)=>{
-							let status;
+							let status = '--';
 							// 0. 未成交 1. 部分成交 2. 全部成交 3. 委托失败 4. 全部撤单 5. 部分成交后撤单
 							// 委托历史只包含： 2、4、5
 							switch(item.status) {
-								case 0:
-									status = UPEX.lang.template('未成交');
-									break;
-								case 1:
-									status = UPEX.lang.template('部分成交');
-									break;
 								case 2:
 									status = UPEX.lang.template('全部成交');
 									break;
-								case 3:
-									status = UPEX.lang.template('委托失败');
-									break; 
 								case 4:
 									status = UPEX.lang.template('全部撤单');
 									break;

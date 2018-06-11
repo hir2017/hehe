@@ -3,8 +3,8 @@
  */
 import React, {Component} from 'react';
 import { observer, inject } from 'mobx-react';
-import { Checkbox, Icon } from 'antd';
-import { Link } from 'react-router';
+import { Checkbox, Icon, message } from 'antd';
+import { Link, browserHistory } from 'react-router';
 
 @inject('accountStore')
 @observer
@@ -33,7 +33,7 @@ class List extends Component {
 		if(!store.isFetching && store.coinList.length == 0) {
 			$content = <div className="mini-tip">{ UPEX.lang.template('暂无数据') }</div>;
 		} else {
-			$content = <AssetsListView coinList={store.coinList}/>
+			$content = <AssetsListView/>;
 		}
 
 		return (
@@ -74,13 +74,23 @@ class List extends Component {
 	}
 }
 
+@inject('accountStore', 'userInfoStore')
 @observer
 class AssetsListView extends Component {
+	handleCoinRecharge=(item, e)=>{
+		let { userInfoStore } = this.props;
+		if (userInfoStore.isAuthPrimary == 2) {
+			browserHistory.push(`/account/coin/recharge/${item.currencyNameEn}`);
+		} else {
+			message.error(UPEX.lang.template('请先进行KYC1认证'));
+		}
+	}
+	
 	render() {
 		return (
 			<ul>
 				{
-					this.props.coinList.map((item, index)=>{
+					this.props.accountStore.coinList.map((item, index)=>{
 						return (
 							<li key={index}>
 								<dl>
@@ -93,10 +103,8 @@ class AssetsListView extends Component {
 									<dd className="freeze">{item.freezeAmount}</dd>
 									<dd className="value">{item.btc_value}</dd>
 									<dd className="actions">
-										<button>
-											<Link to={`/account/coin/recharge/${item.currencyNameEn}`}>
+										<button onClick={this.handleCoinRecharge.bind(this, item)}>
 											{UPEX.lang.template('充币')}
-											</Link>
 										</button>
 										<button>
 											<Link to={`/account/coin/withdraw/${item.currencyNameEn}`}>

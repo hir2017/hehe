@@ -1,4 +1,4 @@
-import { takeCoinSendPhoneCode, takeCoinSendEmailCode, takeCoin, getTakeCoinInfo } from '../../api/http';
+import { takeCoinSendPhoneCode, takeCoin, getTakeCoinInfo } from '../../api/http';
 import { message } from 'antd';
 import Timer from '../../lib/timer';
 
