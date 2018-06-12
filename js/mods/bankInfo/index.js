@@ -125,10 +125,12 @@ export default class BindingBank extends Component {
       return
     }
 
+    const userInfo = this.props.userInfoStore.userInfo || {}
     const pwd = md5(this.state.password + UPEX.config.dealSalt + this.props.authStore.uid);
+    const userName = userInfo.uname
 
     this.props.userInfoStore.bindVerifyCard(this.state.cardNo,
-      '',
+      userName,
       this.state.banck,
       this.state.branchesCode,
       this.state.branche,
@@ -143,7 +145,7 @@ export default class BindingBank extends Component {
       <div>
         <div className="binding-bank-box">
           <div className="item">
-            {UPEX.lang.template('开户人')}：{userInfo.name}
+            {UPEX.lang.template('开户人')}：{userInfo.uname}
           </div>
           <div className="item">
             <Select showSearch size='large' placeholder={UPEX.lang.template('选择银行')}

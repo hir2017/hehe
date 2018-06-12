@@ -6,6 +6,7 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import { Button, message } from 'antd'
+import BankList from '../bankInfo/list';
 
 let time
 
@@ -46,16 +47,23 @@ export default class SettingTradingPassword extends Component {
     }
     let res
     if(this.props.modifyBind) {
+      //修改手机发送验证码
       const phone = this.props.areacode + this.props.phone
       res = await this.props.userInfoStore.mPhoneSendMsg(phone, this.props.codeid, this.props.imgCode, this.props.type)
     } else if (this.props.newBind) {
+      //绑定手机邮箱发送验证
       const emailOrphone = this.props.areacode + this.props.emailOrphone
       res = await this.props.userInfoStore.bindPESendCode(this.props.codeid, this.props.imgCode, emailOrphone, this.props.type)
     } else if (this.props.bind) {
+      //老版本绑定修改手机邮箱发送验证码
       const phone = this.props.areacode == '86' ? this.props.phone : this.props.areacode + this.props.phone
       res = await this.props.userInfoStore.bindSendCode(this.props.imgCode, this.props.codeid, this.props.type, phone)
     } else if (this.props.phoneAuth) {
+      //开关手机认证发送验证码
       res = await this.props.userInfoStore.phAuthSendCode(this.props.type)
+    } else if(this.props.bankAndWithdraw) {
+      //解绑银行卡/提现发送手机证码
+      res = await this.props.userInfoStore.sendMessageBankAndWithdraw(this.props.imgCode, this.props.codeid)
     } else {
       res = await this.props.userInfoStore.sendCode(this.type, this.props.imgCode, this.props.codeid)
     }
