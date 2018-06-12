@@ -73,7 +73,6 @@ class UserInfo {
      */
     @computed
     authLevel() {
-<<<<<<< HEAD
         let level = '';
 
         switch(this.userInfo.authLevel) {
@@ -88,16 +87,6 @@ class UserInfo {
                 break;
             default:
                 level = '';
-=======
-        if (this.userInfo.authLevel == 3) {
-            return 'C';
-        } else if (this.userInfo.authLevel == 2) {
-            return 'B';
-        } else if (this.userInfo.authLevel == 1) {
-            return 'A';
-        } else {
-            return '';
->>>>>>> e07747a95963bc162279c878a220ab2b0813505a
         }
 
         return level;
