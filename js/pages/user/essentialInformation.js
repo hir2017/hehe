@@ -16,8 +16,8 @@ class Information extends Component {
     // 初始化个人中心数据
     const userInfo = this.props.userInfoStore.userInfo || {}
     const gaBindSuccess = this.props.userInfoStore.gaBindSuccess
-    Object.keys(userInfo).length || this.props.userInfoStore.getUserInfo()
-    gaBindSuccess || this.props.userInfoStore.isGoogleAuth()
+    this.props.userInfoStore.getUserInfo()
+    this.props.userInfoStore.isGoogleAuth()
   }
   render() {
     return (

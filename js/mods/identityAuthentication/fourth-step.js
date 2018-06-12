@@ -32,7 +32,7 @@ export default class FourthStep extends Component {
           <span>{UPEX.lang.template('您已完成安全認證！')}</span>
         </div>
         <div className="success-user-info">
-          <div>{UPEX.lang.template('姓名')}：{userInfo.name}</div>
+          <div>{UPEX.lang.template('姓名')}：{userInfo.uname}</div>
           <div>{UPEX.lang.template('证件类型/证件号码')}：{UPEX.lang.template('台灣身份證')}/{userInfo.idNumber}</div>
           <div>{UPEX.lang.template('手機號碼')}：{userInfo.phone}</div>
         </div>

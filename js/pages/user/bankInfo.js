@@ -22,7 +22,7 @@ class BankInfo extends Component {
 
   componentWillMount() {
     const userInfo = this.props.userInfoStore.userInfo || {}
-    Object.keys(userInfo).length || this.props.userInfoStore.getUserInfo()
+    this.props.userInfoStore.getUserInfo()
   }
 
   state = {

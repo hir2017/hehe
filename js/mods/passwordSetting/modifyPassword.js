@@ -28,8 +28,8 @@ export default class ModifyPassword extends Component {
   componentWillMount() {
     const userInfo = this.props.userInfoStore.userInfo || {}
     const gaBindSuccess = this.props.userInfoStore.gaBindSuccess
-    Object.keys(userInfo).length || this.props.userInfoStore.getUserInfo()
-    gaBindSuccess || this.props.userInfoStore.isGoogleAuth()
+    this.props.userInfoStore.getUserInfo()
+    this.props.userInfoStore.isGoogleAuth()
     this.captchaChange()
   }
 
