@@ -245,11 +245,8 @@ export function getUserBindCards() {
 }
 
 export function orderFiatRecharge(data){
-    return axios.post(`${UPEX.config.host}/pay/getFrontPageJsonData`, qs.stringify({
-        amount: data.amount,
-        prodId: data.cardId,
-        currencyId: 1
-    })).then(res => res.data);
+    data.currencyId = 1
+    return axios.post(`${UPEX.config.host}/pay/getFrontPageJsonData`, qs.stringify(data)).then(res => res.data);
 }
 
 export function orderFiatWithdraw(data){

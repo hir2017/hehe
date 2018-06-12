@@ -8,6 +8,25 @@ import { Select } from 'antd';
 const Option = Select.Option;
 import toAction from './fiat-recharge-action';
 
+// 金流類型
+
+const cashTypes = () => {
+    return [
+        {val: 'PD-ATM-POST', label: UPEX.lang.template('郵局實體ATM')},
+        {val: 'PD-ATM-CTCB', label: UPEX.lang.template('中國信託實體ATM')},
+        {val: 'PD-ATM-HNCB', label: UPEX.lang.template('華南實體ATM')},
+        {val: 'PD-ATM-SINOPAC', label: UPEX.lang.template('永豐實體ATM')},
+        {val: 'PD-ATM-SCSB', label: UPEX.lang.template('上海商銀即時ATM')},
+        {val: 'PD-WEBATM-POST', label: UPEX.lang.template('郵局WEB-ATM')},
+        {val: 'PD-WEBATM-TCB', label: UPEX.lang.template('合庫WEBATM')},
+        {val: 'PD-WEBATM-CTCB', label: UPEX.lang.template('中國信託WEB-ATM')},
+        {val: 'PD-WEBATM-HNCB', label: UPEX.lang.template('華南WEB-ATM')},
+        {val: 'PD-WEBATM-TSCB', label: UPEX.lang.template('台新WEB-ATM')},
+        {val: 'PD-WEBATM-SINOPAC', label: UPEX.lang.template('永豐WEB-ATM')},
+        {val: 'PD-WEBATM-ESUN', label: UPEX.lang.template('玉山銀行WEB-ATM')},
+    ]
+}
+
 @inject('fiatRechargeStore')
 @observer
 class FiatRechargeView extends Component{
@@ -35,9 +54,13 @@ class FiatRechargeView extends Component{
 		let $formContent;
 
 		$bankoptions = store.bankCardsList.map((cur, index) => {
-            return <Option key={index} value={cur.providerId}>{`${cur.providerName}(**** **** **** ${cur.providerNo})`}</Option>
+            return <Option key={index} value={cur.id}>{`${cur.openBank}(**** **** **** ${cur.cardNo})`}</Option>
         })
-		
+
+        const setVal = (val, field) => {
+            store.setVal(val, field)
+        }
+
         if (store.step == 'success') {
         	$formContent = (
         		<div className="rw-form">
@@ -77,10 +100,10 @@ class FiatRechargeView extends Component{
 					<div className="rw-form-item">
 						<label className="rw-form-label">{UPEX.lang.template('选择充值的银行卡')}</label>
 						<div className="rw-form-info">
-							<Select 
+							<Select
 								notFoundContent={UPEX.lang.template('无')}
                                 defaultValue={ UPEX.lang.template('请选择一张绑定的银行账号') }
-                                onChange={this.action.handleChangeBank}
+                                onChange={(val) => {setVal(val, 'selectedCard')}}
 							>
 	                            { $bankoptions }
 	                        </Select>
@@ -91,13 +114,31 @@ class FiatRechargeView extends Component{
 						<label className="rw-form-label">{UPEX.lang.template('充值金额')}</label>
 						<div className="rw-form-info">
 							<div className="input-box">
-								<input 
+								<input
 									type="number"
-									onChange={this.action.onChangeBalance}
+                                    onChange={(e) => {
+                                        const {value = ''} = e.target;
+                                        setVal(value.trim(), 'balance');
+                                    }}
 								/>
 								<i className="unit hidden">NT$</i>
 							</div>
 							<div className="balance">{ UPEX.lang.template('当前余额: NT${count}', {count : store.accountAmount})}</div>
+						</div>
+					</div>
+                    <div className="rw-form-item">
+						<label className="rw-form-label">{UPEX.lang.template('金流類型')}</label>
+						<div className="rw-form-info">
+							<Select
+                                defaultValue={store.cashType}
+                                onChange={(val) => {setVal(val, 'cashType')}}
+							>
+                                {
+                                    cashTypes().map((cur, index) => {
+                                        return <Option key={index} value={cur.val}>{cur.label}</Option>
+                                    })
+                                }
+	                        </Select>
 						</div>
 					</div>
 					<div className="rw-form-item">
@@ -116,7 +157,7 @@ class FiatRechargeView extends Component{
 				<div className="recharge-tip">
 					<div className="sub-title">{UPEX.lang.template('充值遇到了问题')}</div>
 					{
-						// <div className="content" dangerouslySetInnerHTML={{__html: UPEX.lang.template('充值遇到了问题内容')}}></div>	
+						// <div className="content" dangerouslySetInnerHTML={{__html: UPEX.lang.template('充值遇到了问题内容')}}></div>
 					}
 					<div className="content">
 						<ul>
@@ -131,10 +172,10 @@ class FiatRechargeView extends Component{
 							</li>
 						</ul>
 					</div>
-					
+
 				</div>
 			</div>
-		);				
+		);
 	}
 }
 

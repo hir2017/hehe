@@ -130,10 +130,7 @@ export default class BindingBank extends Component {
     const userName = userInfo.uname
 
     this.props.userInfoStore.bindVerifyCard(this.state.cardNo,
-<<<<<<< Updated upstream
       userName,
-=======
->>>>>>> Stashed changes
       this.state.banck,
       this.state.branchesCode,
       this.state.branche,

@@ -7,9 +7,9 @@ import { getUserBankInfo, getUserBindCards } from '../api/http';
 class FiatRechargeStore {
 	@observable bankCardsList = []; // 银行列表
 	@observable accountAmount = 0 ;  // 当前余额
-	@observable selectedCard = {}; // 选中的银行卡
-	@observable selectedBindCard = ''; // 选中的绑定银行卡
-	@observable balance = '000'; // 金额
+	@observable selectedCard = 'none'; // 选中的银行卡
+    @observable balance = '000'; // 金额
+    @observable cashType = 'PD-ATM-POST';
 	@observable step = 'start';
 	@observable $submiting = false;
 
@@ -42,19 +42,11 @@ class FiatRechargeStore {
     }
 
     /**
-	 * 选择绑定卡
+	 * 属性变更
 	 */
     @action
     setVal(val, field) {
         this[field] = val;
-    }
-
-    /**
-	 * 创建充值订单
-	 */
-    @action
-    createOrder() {
-        console.log(this.balance, this.selectedBindCard)
     }
 
 	/**
@@ -62,11 +54,12 @@ class FiatRechargeStore {
 	 */
 	@action.bound
 	selectCardForRecharge(cardId) {
-		let result = this.bankCardsList.filter((item)=>{
-			return item.providerId === cardId;
-		})
+        this.selectedCard = cardId;
+		// let result = this.bankCardsList.filter((item)=>{
+		// 	return item.providerId === cardId;
+		// })
 
-		this.selectedCard = result[0];
+		// this.selectedCard = result[0];
 	}
 
 	@computed
