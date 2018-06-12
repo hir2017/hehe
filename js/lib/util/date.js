@@ -11,7 +11,7 @@ const TimeUtil = {
      * @return {String} 格式化后的文本 
      **/
     formatDate: function(time, pattern, hourType) {
-        var dateObj = new Date(time);
+        var dateObj = new Date(this.build(time));
 
         hourType = hourType || 24;
 

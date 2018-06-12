@@ -103,11 +103,11 @@ class Info extends Component {
               }</div>
             <div className="bind">
               <div className="bind-phone">
-                <img src={userInfo.phone ? bindPhone : unbindPhone} />
+                <img src={userInfo.isValidatePhone ? bindPhone : unbindPhone} />
                 <span>{UPEX.lang.template('手机绑定')}</span>
               </div>
               <div className="bind-email">
-                <img src={userInfo.email ? bindEmail : unbindEmail} />
+                <img src={userInfo.isValidateEmail ? bindEmail : unbindEmail} />
                 <span>{UPEX.lang.template('邮箱绑定')}</span>
               </div>
             </div>
