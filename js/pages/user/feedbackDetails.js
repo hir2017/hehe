@@ -44,7 +44,7 @@ export default class extends Component {
               {
                 list.map((item) => {
                   return <li>
-                    {item}
+                    {item.detail}
                   </li>
                 })
               }
