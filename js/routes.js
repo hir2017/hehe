@@ -49,7 +49,7 @@ import IdentityAuthentication from './pages/user/identityAuthentication'
 import BankInfo from './pages/user/bankInfo'
 import PasswordSetting from './pages/user/passwordSetting'
 import ModifyPassword from './mods/passwordSetting/modifyPassword'
-import ModifyTraddingPassword from './mods/passwordSetting/modifyTradingPassword'
+import ModifyTraddingPassword from './mods/passwordSetting/modifyTradingPassword.v1.1'
 import SettingTraddingPassword from './mods/passwordSetting/settingTradingPassword'
 import BindingPhone from './pages/user/bindingPhone'
 import ModifyPhone from './mods/bindingPhone/modifyPhone'
@@ -62,6 +62,7 @@ import RmbindingGoogle from './mods/bindingGoogle/rmBinding'
 import GoogleGuide from './pages/user/googleGuide'
 import Question from './pages/user/problemFeedback'
 import QuestionList from './pages/user/feedbackList'
+import QuestionDetails from './pages/user/feedbackDetails'
 import EmailSuccess from './mods/bindingEmail/success'
 import PhoneSuccess from './mods/bindingPhone/success'
 import ForgetTradingPassword from './mods/passwordSetting/forgetTradingPassword'
@@ -115,6 +116,7 @@ const routes = (
 				<Route path="googleGuide" component={GoogleGuide} />
 				<Route path="question" component={Question} />
 				<Route path="questionList" component={QuestionList} />
+				<Route path="feedbackDetails/:id" component={QuestionDetails} />
 				<Route path="emailSuccess" component={EmailSuccess} />
 				<Route path="phoneSuccess" component={PhoneSuccess} />
 			</Route>

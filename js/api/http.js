@@ -522,6 +522,17 @@ export function personalInfo(){
     }).then(res => res.data);
  }
 
+  /**
+  * 修改交易密码
+  */
+
+ export function modifyFdPwd (newFdPassWord, oldFdPassWord) {
+    return axios.post(`${UPEX.config.host}/user/modifyFdPwd`, {
+        newFdPassWord: newFdPassWord,
+        oldFdPassWord: oldFdPassWord,
+    }).then(res => res.data);
+ }
+
  /**
   * 修改登录密码
   */

@@ -27,7 +27,8 @@ import {
     forgetFdPwd,
     questionDetail,
     phoneAuthSendCode,
-    submitKycC
+    submitKycC,
+    modifyFdPwd
 } from '../api/http'
 import { message } from 'antd'
 
@@ -58,6 +59,13 @@ class UserInfo {
         list: []
     }
     @observable bankCardList = []
+    @observable questionObj = {
+        list: [],
+        question: {
+            detail: '', 
+            urlkey: ''
+        }
+    }
 
     constructor(stores) {
         this.captchaStore = stores.captchaStore;
@@ -486,7 +494,7 @@ class UserInfo {
     async questionDetails (id) {
         try {
             const res = await questionDetail(id)
-            console.log(res, 'res')
+            this.questionObj = res.attachment
         } catch (e) {
             console.error(e)
             message.error('Network Error')
@@ -518,6 +526,25 @@ class UserInfo {
         } catch (e) {
             this.submit_loading = false
             console.error(e)
+            message.error('Network Error')
+        }
+    }
+
+    @action
+    async modifytradingPwd(newFdPassWord, passWord) {
+        try {
+            this.submit_loading_tpwd = true
+            const res = await modifyFdPwd(newFdPassWord, passWord)
+            this.submit_loading_tpwd = false
+            if (res.status !== 200) {
+                message.error(res.message)
+                console.error('modifytradingPwd error')
+            } else {
+                message.success(UPEX.lang.template('修改成功'))
+            }
+        } catch (e) {
+            console.error(e)
+            this.submit_loading_tpwd = false
             message.error('Network Error')
         }
     }

@@ -22,6 +22,15 @@ export default class extends Component {
     this.props.userInfoStore.questions(page)
   }
 
+  status(num) {
+    switch (num) {
+      case 1: return '未回复'; break;
+      case -1: return '逻辑删除'; break;
+      case 2: return '已回复'; break;
+      default: return num; break;
+    }
+  }
+
   render() {
     const count = this.props.userInfoStore.questionsLsit.count
     const questionsLsit = this.props.userInfoStore.questionsLsit.list || []
@@ -30,7 +39,7 @@ export default class extends Component {
         <div className="question-title">
           {UPEX.lang.template('問題列表')}
         </div>
-        <div style={{display: 'none'}} className="question-search">
+        <div style={{ display: 'none' }} className="question-search">
           <Icon type="search" />
           <Input placeholder={UPEX.lang.template('搜索您的問題')} />
           <span>{UPEX.lang.template('我反饋的問題')}</span>
@@ -40,8 +49,12 @@ export default class extends Component {
             {
               questionsLsit.map((item, index) => {
                 return <li key={index}>
-                  <span>{item.detail}</span>
-                  <span>已解决</span>
+                  <span>
+                    <Link to={`/user/feedbackDetails/${item.qid}`}>
+                      {item.detail}
+                    </Link>
+                  </span>
+                  <span>{this.status(item.status)}</span>
                   <span>{item.createTime}</span>
                 </li>
               })
