@@ -1,4 +1,4 @@
-import { observable, action, computed} from 'mobx';
+import { observable, action, computed } from 'mobx';
 import { hashHistory, browserHistory } from 'react-router';
 import {
     personalInfo,
@@ -65,7 +65,7 @@ class UserInfo {
     @observable questionObj = {
         list: [],
         question: {
-            detail: '', 
+            detail: '',
             urlkey: ''
         }
     }
@@ -76,19 +76,19 @@ class UserInfo {
 
     @action
     async getUserInfo() {
-        this.isFetchingInfo = true;
-        const res = await personalInfo()
-        this.userInfo = res.attachment;
-        this.isFetchingInfo = false;
-    }
-    /**
-     * 安全等级
-     */
+            this.isFetchingInfo = true;
+            const res = await personalInfo()
+            this.userInfo = res.attachment;
+            this.isFetchingInfo = false;
+        }
+        /**
+         * 安全等级
+         */
     @computed
     authLevel() {
         let level = '';
 
-        switch(this.userInfo.authLevel) {
+        switch (this.userInfo.authLevel) {
             case 1:
                 level = 'A';
                 break;
@@ -96,7 +96,7 @@ class UserInfo {
                 level = 'B';
                 break;
             case 3:
-                level = 'C';   
+                level = 'C';
                 break;
             default:
                 level = '';
@@ -119,11 +119,11 @@ class UserInfo {
         this.identityInfo.idType = data.idType
         this.identityInfo.idNumber = data.idNumber
         this.identityInfo.resortType = data.resortType,
-        this.identityInfo.resortTypeOther = data.resortTypeOther,
-        this.identityInfo.address = data.address,
-        this.identityInfo.postCode = data.postCode,
-        this.identityInfo.profession = data.profession,
-        this.identityInfo.annualsalary = data.annualsalary
+            this.identityInfo.resortTypeOther = data.resortTypeOther,
+            this.identityInfo.address = data.address,
+            this.identityInfo.postCode = data.postCode,
+            this.identityInfo.profession = data.profession,
+            this.identityInfo.annualsalary = data.annualsalary
     }
 
     @action
@@ -240,9 +240,10 @@ class UserInfo {
             const res = await submitUserInfo(info)
             if (res.status === 200) {
                 this.getUserInfo()
-                return res
+                return res;
             } else {
-                message.error(res.message)
+                message.error(res.message);
+                return res;
             }
         } catch (e) {
             console.error(e)
@@ -396,7 +397,7 @@ class UserInfo {
             message.error('Network Error')
         }
     }
-    
+
     @action
     async phoneSwitch(smsCode, status) {
         try {
@@ -470,7 +471,7 @@ class UserInfo {
         try {
             const res = await getBindBankCardInfo()
             this.bankCardList = res.attachment || []
-        } catch(e) {
+        } catch (e) {
             console.error(e)
             message.error('Network Error')
         }
@@ -495,7 +496,7 @@ class UserInfo {
     }
 
     @action
-    async questionDetails (id) {
+    async questionDetails(id) {
         try {
             const res = await questionDetail(id)
             this.questionObj = res.attachment
@@ -554,9 +555,9 @@ class UserInfo {
     }
 
     @action
-    async updateBindBankCard(id, tradePwd, gAuth, phoneCode,) {
+    async updateBindBankCard(id, tradePwd, gAuth, phoneCode, ) {
         try {
-            const res = await updateBindBankCardStatus(id, tradePwd, gAuth, phoneCode,)
+            const res = await updateBindBankCardStatus(id, tradePwd, gAuth, phoneCode, )
             if (res.status !== 200) {
                 message.error(res.message)
                 console.error('updateBindBankCard error')

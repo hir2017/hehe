@@ -241,6 +241,28 @@
     margin-bottom: 20px;
 }
 
+
+.user-main-box .authentication-message {
+    margin-top: 200px;
+    text-align: center;
+    font-size: 18px;
+    color: #333333;
+}
+
+.user-main-box .authentication-message a {
+    background-color: #e6bc1d;
+    padding: 5px;
+    margin-left: 10px;
+    border-radius: 8px;
+    color: #fff;
+    display: block;
+    width: 100px;
+    font-size: 12px;
+    margin: auto;
+    margin-top: 20px;
+}
+
+
 .user-main-box .authentication-content {
     padding-left: 100px;
 }

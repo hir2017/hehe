@@ -28,8 +28,8 @@ import Assets from './pages/account/index';
 // 充值＋充币＋提现＋提币
 import FiatRecharge from './pages/recharge-withdraw/fiat-recharge';
 import CoinRecharge from './pages/recharge-withdraw/coin-recharge';
-import FiatWithdraw from  './pages/recharge-withdraw/fiat-withdraw';
-import CoinWithdraw from  './pages/recharge-withdraw/coin-withdraw';
+import FiatWithdraw from './pages/recharge-withdraw/fiat-withdraw';
+import CoinWithdraw from './pages/recharge-withdraw/coin-withdraw';
 import CoinAddress from './pages/recharge-withdraw/address';
 
 // 订单相关
@@ -44,8 +44,8 @@ import FiatRecord from './pages/record-list/record-fiat';
 
 // 个人中心
 import UserInfo from './pages/user';
-import EssentialInformation from './pages/user/essentialInformation'
-import IdentityAuthentication from './pages/user/identityAuthentication'
+import BasicInfo from './pages/user/basic-info'
+import IdCardAuth from './pages/user/idcard-auth';
 import BankInfo from './pages/user/bankInfo'
 import PasswordSetting from './pages/user/passwordSetting'
 import ModifyPassword from './mods/passwordSetting/modifyPassword'
@@ -57,7 +57,7 @@ import SettingPhone from './mods/bindingPhone/bindingPhone'
 import BindingEmail from './pages/user/bindingEmail'
 import ModifyEmail from './mods/bindingEmail/modifyEmail'
 import SettingEmail from './mods/bindingEmail/bindingEmail'
-import GoogleAuth from './pages/user/googleAuthenticator'
+import GoogleAuth from './pages/user/google-auth'
 import RmbindingGoogle from './mods/bindingGoogle/rmBinding'
 import GoogleGuide from './pages/user/googleGuide'
 import Question from './pages/user/problemFeedback'
@@ -98,8 +98,8 @@ const routes = (
 	        </Route>
 	        
 	        <Route path="user" component={UserInfo}>
-			 	<IndexRoute component={EssentialInformation}/>
-				<Route path="authentication" component={IdentityAuthentication} />
+			 	<IndexRoute component={BasicInfo}/>
+				<Route path="authentication" component={IdCardAuth} />
 				<Route path="bankInfo" component={BankInfo} />
 				<Route path="passwordSetting" component={PasswordSetting} />
 				<Route path="modifyPassword" component={ModifyPassword} />
@@ -139,6 +139,6 @@ const routes = (
 )
 
 export {
-	TradeCenter
+    TradeCenter
 }
 export default routes;

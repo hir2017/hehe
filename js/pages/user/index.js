@@ -17,8 +17,8 @@ class UserPage extends Component {
 			return ''
 		}
 	}
-	render() {
 
+	render() {
 		return (
 			<div className="user-wrapper">
 				<div className="user-body-inner clearfix">

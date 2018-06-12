@@ -70,13 +70,30 @@ class Info extends Component {
           </div>
         )
       } else {
+        let link;
+
+        switch (gradeCfg.grade) {
+          case 'Z':
+            link = '/user/authentication';
+            break;
+          case 'A':
+            link = '/user/bankInfo';
+            break;
+          case 'B':
+            link = '/user/authentication';
+            break;
+          case 'C':
+            link = '/user/authentication';
+            break;
+        }
+
         $gradeInfo = (
           <div>
             <img src={gradeCfg.img} />
             <div className="certification-grade">
               <div className="grade">
                 {UPEX.lang.template('安全级别')} {gradeCfg.grade}
-                <Link to="/user/authentication">{UPEX.lang.template('提升安全等级')}</Link>
+                <Link to={link}>{UPEX.lang.template('提升安全等级')}</Link>
               </div>
               <div className="money">
                 <span>{UPEX.lang.template('提现额度')}：</span>

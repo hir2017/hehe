@@ -27,7 +27,7 @@ export default class ThirdStep extends Component {
       <div>
         <Steps step={3} />
         {
-          !userInfo.authFailReason
+          userInfo.isAuthPrimary == 1
             ?
             <div className="await-examine">
               <span>{UPEX.lang.template('已接受到您的信息，我们正在权力审核中')}……</span>
@@ -42,7 +42,7 @@ export default class ThirdStep extends Component {
         <div>
           <div className="submit">
             {
-              !userInfo.authFailReason
+              userInfo.isAuthPrimary == 1
                 ? <Button onClick={this.next}>{UPEX.lang.template('撤回重新提交')}</Button>
                 : <Button onClick={this.next}>{UPEX.lang.template('重新提交')}</Button>
             }

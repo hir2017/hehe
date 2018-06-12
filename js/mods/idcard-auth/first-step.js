@@ -303,7 +303,7 @@ export default class FirstStep extends Component {
                 onChange={this.yearChange} style={{ width: 130 }}>
                 {
                   this.years().map((item, index) => {
-                    return <Option key={index} value={item}>{item}&nbsp;&nbsp;&nbsp;&nbsp;{UPEX.lang.template('年')}</Option>
+                    return <Option key={index} value={item}>{item}{UPEX.lang.template('年')}</Option>
                   })
                 }
               </Select>
@@ -313,7 +313,7 @@ export default class FirstStep extends Component {
                 style={{ width: 110 }}>
                 {
                   this.months().map((item, index) => {
-                    return <Option key={index} value={item}>{item}&nbsp;&nbsp;&nbsp;&nbsp;{UPEX.lang.template('月')}</Option>
+                    return <Option key={index} value={item}>{item}{UPEX.lang.template('月')}</Option>
                   })
                 }
               </Select>
@@ -323,7 +323,7 @@ export default class FirstStep extends Component {
                 style={{ width: 110 }}>
                 {
                   this.days().map((item, index) => {
-                    return <Option key={index} value={item}>{item}&nbsp;&nbsp;&nbsp;&nbsp;{UPEX.lang.template('日')}</Option>
+                    return <Option key={index} value={item}>{item}{UPEX.lang.template('日')}</Option>
                   })
                 }
               </Select>

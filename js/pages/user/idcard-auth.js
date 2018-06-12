@@ -5,10 +5,11 @@
  */
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
-import FirstStep from '../../mods/identityAuthentication/first-step'
-import SecondStep from '../../mods/identityAuthentication/second-step'
-import ThirdStep from '../../mods/identityAuthentication/third-step'
-import FourthStep from '../../mods/identityAuthentication/fourth-step'
+import { Link } from 'react-router';
+import FirstStep from '../../mods/idcard-auth/first-step'
+import SecondStep from '../../mods/idcard-auth/second-step'
+import ThirdStep from '../../mods/idcard-auth/third-step'
+import FourthStep from '../../mods/idcard-auth/fourth-step'
 
 @inject('userInfoStore')
 @observer
@@ -52,15 +53,21 @@ class IdentityAuthentication extends Component {
 
   render() {
     const userInfo = this.props.userInfoStore.userInfo || {}
-    let step = 1
+    let step = 0;
 
-    if (userInfo.isAuthPrimary === 2) {
-      step = 4
+    switch(userInfo.isAuthPrimary) {
+      case 0:
+        step = 1;
+        break;
+      case 1:
+      case -1:
+        step = 3;
+        break;
+      case 2:
+        step = 4;
+        break;
     }
-    
-    if (userInfo.isAuthPrimary === 1 || userInfo.isAuthPrimary === -1) {
-      step = 3
-    }
+
     return (
       <div className="authentication">
         <div className="authentication-title">
@@ -68,7 +75,12 @@ class IdentityAuthentication extends Component {
         </div>
         <div className="authentication-content">
           {
-            this.nowStep(this.state.step || step)
+            userInfo.isValidatePhone ?  this.nowStep(this.state.step || step) : (
+                <div className="authentication-message">
+                  <p>{UPEX.lang.template('请绑定手机')}</p>
+                  <Link to="/user/bindingPhone">{UPEX.lang.template('手机绑定')}</Link>
+                </div>
+            )
           }
         </div>
       </div>

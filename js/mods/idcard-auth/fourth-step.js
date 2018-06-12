@@ -37,7 +37,7 @@ export default class FourthStep extends Component {
           <div>{UPEX.lang.template('手機號碼')}：{userInfo.phone}</div>
         </div>
         <div className="success-prompt">
-          {UPEX.lang.template('如填写有误需要修改，请 联系客服 support@ace.one 进行修改')}
+          {UPEX.lang.template('如填写有误需要修改，请联系客服support@ace.one 进行修改')}
         </div>
         <div className="success-money">
           <span className="success-money-title">{UPEX.lang.template('當前日限額')}：</span>

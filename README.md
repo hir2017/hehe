@@ -443,11 +443,25 @@ Zepto不支持旧版本的Internet Explorer浏览器(<10)。
 			* 申请视频认证：C 
 		* 用户登录记录
 	* 接口：
-		* 用户信息接口: [user/personInfo]()
-		* 登录信息IP列表：[user/loginRecord]()
+		* 用户信息接口: [user/personInfo](http://13.251.82.20:8080/workspace/myWorkspace.do?projectId=2#161)
+		* 登录信息IP列表：[user/loginRecord](RAP缺)
 * 身份认证
-	* 
-	
+	* 条件：
+		* 用户需要新绑定手机号
+	* 需求
+		* 提交身份认证信息
+		* 身份信息审核
+		* 身份信息审核失败： 
+			* isAuthPrimary = -1；被拒绝，
+			* authFailReason：被拒原因
+		* 身份证图片上传，文件大小请控制在15MB以内, png/jpg/jpeg
+	* 接口：
+		* 上传身份图片：[user/uploadImageSingle](RAP缺)
+		* 身份认证：[user/submitUserInfo](http://13.251.82.20:8080/workspace/myWorkspace.do?projectId=2#126)
+* 银行卡绑定
+	* 需求：
+		* 
+
 * 谷歌认证
 	* 需求：
 		* 绑定谷歌验证码

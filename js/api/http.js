@@ -130,7 +130,7 @@ export function userLogin2(data) {
 /**
  * 邮箱登录 －  发送短信验证码
  */
-export function sendLoginCodeSend(data){
+export function sendLoginCodeSend(data) {
     return axios.post(`${UPEX.config.host}/user/loginCodeSend`, qs.stringify({
         authType: data.authType || 1, // 1.手机 2.邮箱
         emailOrPhone: data.emailOrPhone,
@@ -140,7 +140,7 @@ export function sendLoginCodeSend(data){
 /**
  * 用户登录 － 退出
  */
-export function userLogout(){
+export function userLogout() {
     return axios.post(`${UPEX.config.host}/user/logout`).then(res => res.data);
 }
 
@@ -202,14 +202,14 @@ export function getPersonalTradingPwd() {
 /**
  * 账号信息
  */
-export function hasSettingDealPwd(){
+export function hasSettingDealPwd() {
     return axios.post(`${UPEX.config.host}/user/personalInfo`).then(res => res.data);
 }
 
 /**
  * 资产列表
  */
-export function getCoinAccount(type = 1){
+export function getCoinAccount(type = 1) {
     return axios.post(`${UPEX.config.host}/coin/customerCoinAccount`, qs.stringify({
         type
     })).then(res => res.data);
@@ -217,9 +217,9 @@ export function getCoinAccount(type = 1){
 /**
  * 我的余额
  */
- export function getCNYBalance(){
+export function getCNYBalance() {
     return axios.post(`${UPEX.config.host}/property`).then(res => res.data);
- }
+}
 /**
  * 查询当前币种地址及二维码
  * @return {
@@ -227,7 +227,7 @@ export function getCoinAccount(type = 1){
     msgCode: 充币识别码
  }
  */
-export function selectUserAddress(currentyId){
+export function selectUserAddress(currentyId) {
     return axios.post(`${UPEX.config.host}/coin/selectUserAddress`, qs.stringify({
         walletType: 1,
         currentyId
@@ -240,7 +240,7 @@ export function getUserBankInfo() {
     return axios.post(`${UPEX.config.host}/rechargeWithdraw/getUserCardInfoAndAmountAndFee`).then(res => res.data);
 }
 
-export function orderFiatRecharge(data){
+export function orderFiatRecharge(data) {
     return axios.post(`${UPEX.config.host}/pay/getFrontPageJsonData`, qs.stringify({
         amount: data.amount,
         prodId: data.cardId,
@@ -248,12 +248,13 @@ export function orderFiatRecharge(data){
     })).then(res => res.data);
 }
 
-export function orderFiatWithdraw(data){
+export function orderFiatWithdraw(data) {
     return axios.post(`${UPEX.config.host}/pay/getFrontPageJsonData`, qs.stringify({
         amount: data.amount,
         prodId: data.cardId,
         currencyId: 1
-    })).then(res => res.data);x
+    })).then(res => res.data);
+    x
 }
 
 /*----------------------------- 充值相关接口：}}------------------------------------*/
@@ -262,7 +263,7 @@ export function orderFiatWithdraw(data){
 /**
  * 提币记录
  */
-export function getCoinWithdrawList(data){
+export function getCoinWithdrawList(data) {
     return axios.post(`${UPEX.config.host}/coin/selectTakeList`, qs.stringify({
         ...data
     })).then(res => res.data);
@@ -270,7 +271,7 @@ export function getCoinWithdrawList(data){
 /**
  * 提币前查询信息接口
  */
-export function getTakeCoinInfo(currencyId){
+export function getTakeCoinInfo(currencyId) {
     return axios.post(`${UPEX.config.host}/coin/selectTakeCoin`, qs.stringify({
         currencyId
     })).then(res => res.data);
@@ -278,7 +279,7 @@ export function getTakeCoinInfo(currencyId){
 /**
  * 删除提币地址接口
  */
-export function deleteCoinAddress(data){
+export function deleteCoinAddress(data) {
     return axios.post(`${UPEX.config.host}/coin/updateCoinAddress`, qs.stringify({
         currencyId: data.currencyId,
         walletAddressId: data.walletAddressId
@@ -287,7 +288,7 @@ export function deleteCoinAddress(data){
 /**
  * 添加提币地址接口
  */
-export function addWithdrawAddress(data){
+export function addWithdrawAddress(data) {
     return axios.post(`${UPEX.config.host}/coin/insertTakeAddress`, qs.stringify({
         currencyId: data.currencyId, // 提币地址
         fdPwd: data.fdPwd, // 交易密码
@@ -298,7 +299,7 @@ export function addWithdrawAddress(data){
 /**
  * 提币发送邮箱短信验证码: 10分钟有效期，可以错误5次。
  */
-export function takeCoinSendPhoneCode(data){
+export function takeCoinSendPhoneCode(data) {
     return axios.post(`${UPEX.config.host}/coin/emailTakeCoin`, qs.stringify({
         vercode: data.vercode,
         type: data.type, // 1:邮件（默认）2:手机
@@ -308,7 +309,7 @@ export function takeCoinSendPhoneCode(data){
 /**
  * 提币接口
  */
-export function takeCoin(data){
+export function takeCoin(data) {
     return axios.post(`${UPEX.config.host}/coin/takeCoin?address=${data.address}`, qs.stringify({
         actionId: 4,
         msgCode: '',
@@ -340,7 +341,7 @@ export function takeCoin(data){
     uid
  }
  */
-export function getCoinRechargeList(data){
+export function getCoinRechargeList(data) {
     return axios.post(`${UPEX.config.host}/coin/selectListByUuid`, qs.stringify({
         ...data
     })).then(res => res.data);
@@ -348,7 +349,7 @@ export function getCoinRechargeList(data){
 /**
  * 币种列表
  */
-export function getAllCoinPoint(){
+export function getAllCoinPoint() {
     return axios.post(`${UPEX.config.host}/coin/coinPoint`).then(res => res.data);
 }
 /**
@@ -359,7 +360,7 @@ export function getAllCoinPoint(){
     pageSize
  }
  */
-export function getFundChangeList(data){
+export function getFundChangeList(data) {
     return axios.post(`${UPEX.config.host}/rechargeWithdraw/getRechargeWithdrawBillInfo`, qs.stringify({
         ...data
     })).then(res => res.data);
@@ -379,7 +380,7 @@ export function getFundChangeList(data){
     uid
  }
  */
-export function getFundWithdrawList(data){
+export function getFundWithdrawList(data) {
     return axios.post(`${UPEX.config.host}/fund/withdraw`, qs.stringify({
         ...data
     })).then(res => res.data);
@@ -387,7 +388,7 @@ export function getFundWithdrawList(data){
 /**
  * 我的订单 —— 委托历史记录
  */
-export function getOrderListByCustomer(data){
+export function getOrderListByCustomer(data) {
     return axios.post(`${UPEX.config.host}/user/trOrderListByCustomer`, qs.stringify({
         ...data
     })).then(res => res.data);
@@ -395,7 +396,7 @@ export function getOrderListByCustomer(data){
 /**
  * 我的订单 —— 委托中订单
  */
-export function getUserOpenOrderList(data){
+export function getUserOpenOrderList(data) {
     return axios.post(`${UPEX.config.host}/user/getOrderList`, qs.stringify({
         ...data
     })).then(res => res.data);
@@ -403,7 +404,7 @@ export function getUserOpenOrderList(data){
 /**
  * 我的订单 —— 历史订单
  */
-export function getUserHistoryOrderList(data){
+export function getUserHistoryOrderList(data) {
     return axios.post(`${UPEX.config.host}/user/trOrderListByCustomer`, qs.stringify({
         ...data
     })).then(res => res.data);
@@ -422,7 +423,7 @@ export function getUserHistoryOrderList(data){
     status: 订单状态
  }
  */
-export function getUserSuccessOrderList(data){
+export function getUserSuccessOrderList(data) {
     return axios.post(`${UPEX.config.host}/user/getTradeList`, qs.stringify({
         ...data
     })).then(res => res.data);
@@ -430,7 +431,7 @@ export function getUserSuccessOrderList(data){
 /**
  * 撤销订单
  */
-export function cancelOrder(data){
+export function cancelOrder(data) {
     return axios.post(`${UPEX.config.host}/order/cancel`, qs.stringify({
         ...data
     })).then(res => res.data);
@@ -468,7 +469,7 @@ export async function listOptional() {
  * 用户信息
  */
 
-export function personalInfo(){
+export function personalInfo() {
     return axios.post(`${UPEX.config.host}/user/personalInfo`).then(res => res.data);
 }
 
@@ -476,104 +477,104 @@ export function personalInfo(){
  * 登录记录
  */
 
- export function loginRecord () {
+export function loginRecord() {
     return axios.post(`${UPEX.config.host}/user/loginRecord`, {
         type: 2,
         start: 0,
         size: 10
     }).then(res => res.data);
- }
+}
 
- /**
-  * 用户认证
-  */
+/**
+ * 用户认证
+ */
 
- export function identityAuthentication () {
+export function identityAuthentication() {
     return axios.post(`${UPEX.config.host}/user/submitUserInfo`, {
         type: 2,
         start: 0,
         size: 10
     }).then(res => res.data);
- }
+}
 
- /**
-  * 发送验证码 修改密码用
-  */
+/**
+ * 发送验证码 修改密码用
+ */
 
- export function sendCodeInUserCenter (type, imgCode, imgCodeId) {
+export function sendCodeInUserCenter(type, imgCode, imgCodeId) {
     return axios.post(`${UPEX.config.host}/user/sendMailInUserCenter`, {
         type: type,
         imgcode: imgCode,
         codeid: imgCodeId
     }).then(res => res.data);
- }
+}
 
- /**
-  * 设置修改交易密码
-  */
+/**
+ * 设置修改交易密码
+ */
 
- export function bindFdPwd (newFdPassWord, vercode, imgCode, imgCodeId, oldFdPassWord = '') {
+export function bindFdPwd(newFdPassWord, vercode, imgCode, imgCodeId, oldFdPassWord = '') {
     return axios.post(`${UPEX.config.host}/user/bindFdPwd`, {
         newFdPassWord: newFdPassWord,
-        oldFdPassWord: oldFdPassWord,// 如果首次设置可以不传.传个空串
+        oldFdPassWord: oldFdPassWord, // 如果首次设置可以不传.传个空串
         vercode: vercode,
         imgcode: imgCode,
         codeid: imgCodeId
     }).then(res => res.data);
- }
+}
 
-  /**
-  * 修改交易密码
-  */
+/**
+ * 修改交易密码
+ */
 
- export function modifyFdPwd (newFdPassWord, oldFdPassWord) {
+export function modifyFdPwd(newFdPassWord, oldFdPassWord) {
     return axios.post(`${UPEX.config.host}/user/modifyFdPwd`, {
         newFdPassWord: newFdPassWord,
         oldFdPassWord: oldFdPassWord,
     }).then(res => res.data);
- }
+}
 
- /**
-  * 修改登录密码
-  */
+/**
+ * 修改登录密码
+ */
 
- export function resetPwdInUserCenter (newPwd, vercode, imgCode, imgCodeId, oldPwd, type) {
+export function resetPwdInUserCenter(newPwd, vercode, imgCode, imgCodeId, oldPwd, type) {
     return axios.post(`${UPEX.config.host}/user/resetPwdInUserCenter`, {
         newPwd: newPwd,
-        oldPwd: oldPwd,// 如果首次设置可以不传.传个空串
+        oldPwd: oldPwd, // 如果首次设置可以不传.传个空串
         vercode: vercode,
         imgcode: imgCode,
         codeid: imgCodeId,
         type: type
     }).then(res => res.data);
- }
+}
 
- /**
-  * 绑定(更换) 手机号或者邮箱发送验证码
-  */
+/**
+ * 绑定(更换) 手机号或者邮箱发送验证码
+ */
 
- export function bindPhoneSendMsg (imgCode, imgCodeId, type, phone = '') {
+export function bindPhoneSendMsg(imgCode, imgCodeId, type, phone = '') {
     return axios.post(`${UPEX.config.host}/user/bindPhoneSendMsg`, {
         type: type,
         phone: phone,
         imgcode: imgCode,
         codeid: imgCodeId
     }).then(res => res.data);
- }
+}
 
- /**
-  *  此接口只能在启用ga前调用返回数据 否则不返回。
-  */
+/**
+ *  此接口只能在启用ga前调用返回数据 否则不返回。
+ */
 
- export function getSecretKey () {
+export function getSecretKey() {
     return axios.post(`${UPEX.config.host}/security/getSecretKey`).then(res => res.data);
- }
+}
 
- /**
-  *  问题反馈
-  */
+/**
+ *  问题反馈
+ */
 
- export function addAsk (detail, urlkey) {
+export function addAsk(detail, urlkey) {
     return axios.post(`${UPEX.config.host}/user/ask`, {
         detail: detail,
         name: name,
@@ -581,87 +582,93 @@ export function personalInfo(){
         urlkey: urlkey,
         type: ''
     }).then(res => res.data);
- }
+}
 
- /**
-  *  问题反馈列表
-  */
+/**
+ *  问题反馈列表
+ */
 
- export function getQuestions (pageNumber) {
+export function getQuestions(pageNumber) {
     return axios.post(`${UPEX.config.host}/user/questions`, {
         size: 10,
         status: 1,
         start: pageNumber
     }).then(res => res.data);
- }
+}
 
- /**
-  *  身份认证
-  */
+/**
+ *  身份认证
+ */
 
- export function submitUserInfo (info) {
+export function submitUserInfo(info) {
     return axios.post(`${UPEX.config.host}/user/submitUserInfo`, {
         ...info
     }).then(res => res.data);
- }
+}
 
 /**
  *  GA 绑定
  */
 
- export function bindGoogleAuth (clientPassword, verCode) {
+export function bindGoogleAuth(clientPassword, verCode) {
     return axios.post(`${UPEX.config.host}/security/bindGoogleAuth`, {
         clientPassword,
         verCode
     }).then(res => res.data);
- }
+}
 
 /**
  *  GA 解绑
  */
 
-export function closeGoogleAuth (clientPassword, verCode) {
+export function closeGoogleAuth(clientPassword, verCode) {
     return axios.post(`${UPEX.config.host}/security/closeGoogleAuth`, {
         clientPassword,
         verCode
     }).then(res => res.data);
- }
+}
 
- /**
+/**
  *  身份 认证信息
  */
 
-export function selectAuthLevel () {
+export function selectAuthLevel() {
     return axios.post(`${UPEX.config.host}/user/selectAuthLevel`).then(res => res.data);
- }
+}
 
- /**
+/**
  *  修改绑定修改邮箱
  */
 
-export function bindPhone (newDevice, oldDevice, oldVercode, vercode, codeid, imgcode) {
+export function bindPhone(newDevice, oldDevice, oldVercode, vercode, codeid, imgcode) {
     return axios.post(`${UPEX.config.host}/user/modifyPhoneOrEmail`, {
-        newPhone, oldPhone, oldVercode, vercode
+        newPhone,
+        oldPhone,
+        oldVercode,
+        vercode
     }).then(res => res.data);
- }
+}
 
 /**
  *  绑定手机或邮箱发送验证码
  *  type=1、手机注册用户;type=2、邮箱注册用户;
  */
 
-export function bindPhoneOrEmailSendCode (codeid, imgcode, phoneOrEmail, type) {
+export function bindPhoneOrEmailSendCode(codeid, imgcode, phoneOrEmail, type) {
     return axios.post(`${UPEX.config.host}/user/bindPhoneOrEmailSendCode`, {
-        codeid, imgcode, phoneOrEmail, type
+        codeid,
+        imgcode,
+        phoneOrEmail,
+        type
     }).then(res => res.data);
- }
+}
 
- /**
+/**
  *  查询当前账户谷歌认证
  *  0未开启 1是开启 2是关闭
  */
 
-export function isUsedGoogleAuth () {
+export function isUsedGoogleAuth() {
     return axios.post(`${UPEX.config.host}/security/isUsedGoogleAuth`).then(res => res.data);
 }
 
@@ -670,9 +677,12 @@ export function isUsedGoogleAuth () {
  *  type=1、手机注册用户;type=2、邮箱注册用户;
  */
 
-export function bindPhoneOrEmailAction (EmailCode, phoneCode, phoneOrEmail, type) {
+export function bindPhoneOrEmailAction(EmailCode, phoneCode, phoneOrEmail, type) {
     return axios.post(`${UPEX.config.host}/user/bindPhoneOrEmailAction`, {
-        EmailCode, phoneCode, phoneOrEmail, type
+        EmailCode,
+        phoneCode,
+        phoneOrEmail,
+        type
     }).then(res => res.data);
 }
 
@@ -681,9 +691,12 @@ export function bindPhoneOrEmailAction (EmailCode, phoneCode, phoneOrEmail, type
  *  type=1:google+新手机，发新手机短信；type=2:旧手机+新手机，发2条手机短信
  */
 
-export function modifyPhoneSendMsg (phone, codeid, imgcode, type) {
+export function modifyPhoneSendMsg(phone, codeid, imgcode, type) {
     return axios.post(`${UPEX.config.host}/user/modifyPhoneSendCode`, {
-        phone, codeid, imgcode, type
+        phone,
+        codeid,
+        imgcode,
+        type
     }).then(res => res.data);
 }
 
@@ -692,9 +705,12 @@ export function modifyPhoneSendMsg (phone, codeid, imgcode, type) {
  *  type=1:验证google和新手机验证码，type=2:验证旧手机，新手机验证码
  */
 
-export function modifyPhoneAction (newCode, newPhone, oldCode, type) {
+export function modifyPhoneAction(newCode, newPhone, oldCode, type) {
     return axios.post(`${UPEX.config.host}/user/modifyPhoneAction`, {
-        newCode, newPhone, oldCode, type
+        newCode,
+        newPhone,
+        oldCode,
+        type
     }).then(res => res.data);
 }
 
@@ -703,8 +719,8 @@ export function modifyPhoneAction (newCode, newPhone, oldCode, type) {
  *
  */
 
-export function phoneAuthSwitch (smsCode, status) {
-    return axios.post(`${UPEX.config.host}/user/phoneAuthSwitch`,{smsCode, status}).then(res => res.data);
+export function phoneAuthSwitch(smsCode, status) {
+    return axios.post(`${UPEX.config.host}/user/phoneAuthSwitch`, { smsCode, status }).then(res => res.data);
 }
 
 /**
@@ -712,8 +728,8 @@ export function phoneAuthSwitch (smsCode, status) {
  *
  */
 
-export function updateFdPwdEnabled (fdPwd, enabled) {
-    return axios.post(`${UPEX.config.host}/user/updateFdPwdEnabled`,{fdPwd, enabled}).then(res => res.data);
+export function updateFdPwdEnabled(fdPwd, enabled) {
+    return axios.post(`${UPEX.config.host}/user/updateFdPwdEnabled`, { fdPwd, enabled }).then(res => res.data);
 }
 
 /**
@@ -721,7 +737,7 @@ export function updateFdPwdEnabled (fdPwd, enabled) {
  *
  */
 
-export function bindVerifyCardInfo (
+export function bindVerifyCardInfo(
     cardNo,
     userName,
     openBank,
@@ -729,14 +745,15 @@ export function bindVerifyCardInfo (
     branchName,
     tradePwd,
     imgUrl) {
-    return axios.post(`${UPEX.config.host}/card/bindVerifyCardInfo`,
-    {   cardNo,
+    return axios.post(`${UPEX.config.host}/card/bindVerifyCardInfo`, {
+        cardNo,
         userName,
         openBank,
         branchNo,
         branchName,
         tradePwd,
-        imgUrl}).then(res => res.data);
+        imgUrl
+    }).then(res => res.data);
 }
 
 /**
@@ -744,16 +761,16 @@ export function bindVerifyCardInfo (
  *
  */
 
-export function getBindBankCardInfo () {
+export function getBindBankCardInfo() {
     return axios.post(`${UPEX.config.host}/card/getBindBankCardInfo`).then(res => res.data);
 }
 
 /**
-  * 忘记交易密码
-  * type 1谷歌 2短信 3邮箱
-  */
+ * 忘记交易密码
+ * type 1谷歌 2短信 3邮箱
+ */
 
- export function forgetFdPwd (newPwd, vercode, imgCode, imgCodeId, type) {
+export function forgetFdPwd(newPwd, vercode, imgCode, imgCodeId, type) {
     return axios.post(`${UPEX.config.host}/user/forgetFdPwd`, {
         newFdPassWord: newPwd,
         verCode: vercode,
@@ -761,14 +778,14 @@ export function getBindBankCardInfo () {
         codeid: imgCodeId,
         type: type
     }).then(res => res.data);
- }
+}
 
- /**
+/**
  *  问题详情
  *
  */
 
-export function questionDetail (qid) {
+export function questionDetail(qid) {
     return axios.post(`${UPEX.config.host}/user/questionDetail`, {
         qid
     }).then(res => res.data);
@@ -779,7 +796,7 @@ export function questionDetail (qid) {
  *  type=1，修改手机验证开关；
  */
 
-export function phoneAuthSendCode (type) {
+export function phoneAuthSendCode(type) {
     return axios.post(`${UPEX.config.host}/user/phoneAuthSendCode`, {
         type
     }).then(res => res.data);
@@ -790,7 +807,7 @@ export function phoneAuthSendCode (type) {
  *
  */
 
-export function submitKycC () {
+export function submitKycC() {
     return axios.post(`${UPEX.config.host}/user/submitKycC`).then(res => res.data);
 }
 
@@ -799,9 +816,13 @@ export function submitKycC () {
  *
  */
 
-export function updateBindBankCardStatus (id, tradePwd, gAuth, phoneCode, status = 4) {
+export function updateBindBankCardStatus(id, tradePwd, gAuth, phoneCode, status = 4) {
     return axios.post(`${UPEX.config.host}/card/updateBindBankCardStatus`, {
-        id, tradePwd, gAuth, phoneCode, status
+        id,
+        tradePwd,
+        gAuth,
+        phoneCode,
+        status
     }).then(res => res.data);
 }
 
@@ -810,7 +831,7 @@ export function updateBindBankCardStatus (id, tradePwd, gAuth, phoneCode, status
  *
  */
 
-export function deleteBindBankCardRecord (id) {
+export function deleteBindBankCardRecord(id) {
     return axios.post(`${UPEX.config.host}/card/deleteBindBankCardRecord`, {
         id
     }).then(res => res.data);
@@ -821,8 +842,9 @@ export function deleteBindBankCardRecord (id) {
  *
  */
 
-export function sendMessageWithdraw (vercode, codeid) {
+export function sendMessageWithdraw(vercode, codeid) {
     return axios.post(`${UPEX.config.host}/withdraw/sendMessageWithdraw`, {
-        vercode, codeid
+        vercode,
+        codeid
     }).then(res => res.data);
 }

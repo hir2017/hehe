@@ -46,14 +46,17 @@ export default class SecondStep extends Component {
     })
 
     if (res.status === 200) {
-      this.props.changeStep(3)
+      this.props.changeStep(3);
+    } else {
+      this.props.changeStep(1);
     }
   }
 
   state = {
     oneUrl: '',
     twoUrl: '',
-    threeUrl: ''
+    threeUrl: '',
+    uploading: false
   }
 
   _props = (urlKey) => {
@@ -63,15 +66,34 @@ export default class SecondStep extends Component {
     return {
       accept: "image/jpg,image/Jpeg,image/png",
       name: 'file',
+      listTyp: 'picture-card',
       action: UPEX.config.uploadImgHost + '?token=' + token + '&uid=' + uid,
       headers: {
         authorization: 'authorization-text',
       },
-      onChange(info) {
+      // 限制图片大小10M
+      beforeUpload: (file) =>{
+        const isLt15M = file.size / 1024 / 1024 < 15;
+       
+        if (!isLt15M) {
+          message.error('文件大小请控制在15MB以内!');
+        }
+        return isLt15M;
+      },
+
+      onChange : (info) =>{
         if (info.file.status !== 'uploading') {
           console.log(info.file, info.fileList);
         }
+        if (info.file.status == 'uploading') {
+            this.setState({ 
+              loading: true 
+            });
+        }
         if (info.file.status === 'done') {
+            this.setState({ 
+              loading: false
+            });
           if (info.file.response.status === 200) {
             const url = info.file.response.attachment
             ctx.setState({
@@ -97,9 +119,7 @@ export default class SecondStep extends Component {
           <span className="pic-item-lable">{UPEX.lang.template('证件正面照')}</span>
           <span>
             <Upload {...this._props('oneUrl')}>
-              <img className="pic-item-img" src={
-                this.state.oneUrl ? UPEX.config.imgHost + '/' + this.state.oneUrl : upload_pic
-              } />
+              <img className="pic-item-img" src={ this.state.oneUrl ? UPEX.config.imgHost + '/' + this.state.oneUrl : upload_pic } />
             </Upload>
             {/*<span className="pic-item-message">{UPEX.lang.template('上传照片')}</span>*/}
             {
@@ -118,9 +138,7 @@ export default class SecondStep extends Component {
           <span className="pic-item-lable">{UPEX.lang.template('证件反面照')}</span>
           <span>
             <Upload {...this._props('twoUrl')}>
-              <img className="pic-item-img" src={
-                this.state.twoUrl ? UPEX.config.imgHost + '/' + this.state.twoUrl : upload_pic
-              } />
+              <img className="pic-item-img" src={ this.state.twoUrl ? UPEX.config.imgHost + '/' + this.state.twoUrl : upload_pic } />
             </Upload>
             {/*<span className="pic-item-message">{UPEX.lang.template('上传照片')}</span>*/}
             {
@@ -138,9 +156,7 @@ export default class SecondStep extends Component {
           <span className="pic-item-lable">{UPEX.lang.template('手持证件照')}</span>
           <span>
             <Upload {...this._props('threeUrl')}>
-              <img className="pic-item-img" src={
-                this.state.threeUrl ? UPEX.config.imgHost + '/' + this.state.threeUrl : upload_pic
-              } />
+              <img className="pic-item-img" src={ this.state.threeUrl ? UPEX.config.imgHost + '/' + this.state.threeUrl : upload_pic} />
             </Upload>
             {/*<span className="pic-item-message">{UPEX.lang.template('上传照片')}</span>*/}
             {
@@ -165,7 +181,7 @@ export default class SecondStep extends Component {
           </span>
         </div>
         <div className="pic-format">
-          {UPEX.lang.template('上传的文件格式必须是')}.jpg&nbsp;&nbsp;&nbsp;&nbsp;.png&nbsp;&nbsp;&nbsp;&nbsp;.jpeg
+          {UPEX.lang.template('上传的文件格式必须是')}.jpg/.png/.jpeg
         </div>
         <div className="submit">
           <Button onClick={this.next}>{UPEX.lang.template('提交审核')}</Button>

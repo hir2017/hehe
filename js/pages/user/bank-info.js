@@ -6,8 +6,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router'
 import { observer, inject } from 'mobx-react';
-import BindingBank from '../../mods/bankInfo/index'
-import BankList from '../../mods/bankInfo/list'
+import BindingBank from '../../mods/bank-info/index'
+import BankList from '../../mods/bank-info/list'
 import { Button, message } from 'antd'
 
 @inject('userInfoStore')
@@ -51,29 +51,29 @@ class BankInfo extends Component {
 
         return (
             <div>
-                <div className="bank-info-title">
-                  {UPEX.lang.template('银行卡信息')}
+            <div className="bank-info-title">
+              {UPEX.lang.template('银行卡信息')}
+            </div>
+            {
+              this.state.goBank
+                  ? <div>
+                  <BindingBank />
+                  <BankList />
                 </div>
-                {
-                  this.state.goBank
-                      ? <div>
-                      <BindingBank />
-                      <BankList />
-                    </div>
-                      : userInfo.isAuthPrimary !== 2
+                  : userInfo.isAuthPrimary !== 2
+                      ? <div className="bank-message">
+                    {UPEX.lang.template('请先身份认证')}<Link to="/user/authentication">{UPEX.lang.template('身份认证')}</Link>
+                  </div>
+                      : !userInfo.isValidatePass
                           ? <div className="bank-message">
-                        {UPEX.lang.template('请先身份认证')}<Link to="/user/authentication">{UPEX.lang.template('身份认证')}</Link>
-                      </div>
-                          : !userInfo.isValidatePass
-                              ? <div className="bank-message">
-                        {UPEX.lang.template('请先设置交易密码')}<Link to="/user/settingTraddingPassword">{UPEX.lang.template('设置交易密码')}</Link>
-                      </div>
-                              : <div>
-                        <BindingBank />
-                        <BankList />
-                      </div>
-                  }
-              </div>
+                    {UPEX.lang.template('请先设置交易密码')}<Link to="/user/settingTraddingPassword">{UPEX.lang.template('设置交易密码')}</Link>
+                  </div>
+                          : <div>
+                    <BindingBank />
+                    <BankList />
+                  </div>
+              }
+          </div>
         )
     }
 }
