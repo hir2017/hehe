@@ -2,12 +2,12 @@
  * 法币充值
  */
 import { observable, computed, autorun, action, runInAction } from 'mobx';
-import { getUserBankInfo } from '../api/http';
+import { getUserBankInfo, getUserBindCards } from '../api/http';
 
 class FiatRechargeStore {
 	@observable bankCardsList = []; // 银行列表
 	@observable accountAmount = 0 ;  // 当前余额
-	@observable selectedCard = {}; // 选中的银行卡
+	@observable selectedCard = 'none'; // 选中的银行卡
 	@observable balance = '000'; // 金额
 	@observable step = 'start';
 	@observable $submiting = false;
@@ -58,7 +58,15 @@ class FiatRechargeStore {
 					this.accountAmount = accountAmount;
 				}
 			})
-		})
+        })
+
+        getUserBindCards().then((data) => {
+            runInAction(()=>{
+				if (data.status == 200) {
+                    this.bankCardsList = data.attachment;
+				}
+			})
+        });
 	}
 	/**
      * 实际到账金额
@@ -136,7 +144,7 @@ class FiatRechargeStore {
     }
 
     @computed
-    get md5TradePassword() { 
+    get md5TradePassword() {
         return md5(this.tradepwd + UPEX.config.dealSalt + this.authStore.uid);
     }
 

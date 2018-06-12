@@ -32,6 +32,7 @@ class FiatRechargeStore {
 				}
 			})
         });
+
 	}
 	/**
 	 * 设置充值金额
