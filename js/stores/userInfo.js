@@ -28,7 +28,10 @@ import {
     questionDetail,
     phoneAuthSendCode,
     submitKycC,
-    modifyFdPwd
+    modifyFdPwd,
+    updateBindBankCardStatus,
+    deleteBindBankCardRecord,
+    sendMessageWithdraw
 } from '../api/http'
 import { message } from 'antd'
 
@@ -425,7 +428,7 @@ class UserInfo {
 
     @action
     async bindVerifyCard(cardNo,
-        cardName,
+        userName,
         openBank,
         branchNo,
         branchName,
@@ -434,7 +437,7 @@ class UserInfo {
         try {
             this.submit_loading = true
             const res = await bindVerifyCardInfo(cardNo,
-                cardName,
+                userName,
                 openBank,
                 branchNo,
                 branchName,
@@ -442,6 +445,7 @@ class UserInfo {
                 imgUrl)
             this.submit_loading = false
             if (res.status === 200) {
+                this.bankCardInfo()
                 message.success(UPEX.lang.template('绑定成功'))
             } else {
                 message.error(res.message)
@@ -537,6 +541,50 @@ class UserInfo {
         } catch (e) {
             console.error(e)
             this.submit_loading_tpwd = false
+            message.error('Network Error')
+        }
+    }
+
+    @action
+    async updateBindBankCard(id, tradePwd, gAuth, phoneCode,) {
+        try {
+            const res = await updateBindBankCardStatus(id, tradePwd, gAuth, phoneCode,)
+            if (res.status !== 200) {
+                message.error(res.message)
+                console.error('updateBindBankCard error')
+            } else {
+                message.success(UPEX.lang.template('解绑成功'))
+            }
+        } catch (e) {
+            console.error(e)
+            message.error('Network Error')
+        }
+    }
+
+    @action
+    async deleteBindBankCard(id) {
+        try {
+            const res = await deleteBindBankCardRecord(id)
+            if (res.status !== 200) {
+                message.error(res.message)
+                console.error('deleteBindBankCard error')
+            } else {
+                this.bankCardInfo()
+                message.success(UPEX.lang.template('删除成功'))
+            }
+        } catch (e) {
+            console.error(e)
+            message.error('Network Error')
+        }
+    }
+
+    @action
+    async sendMessageBankAndWithdraw(vercode, codeid) {
+        try {
+            const res = await sendMessageWithdraw(vercode, codeid)
+            return res
+        } catch (e) {
+            console.error(e)
             message.error('Network Error')
         }
     }

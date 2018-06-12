@@ -723,7 +723,7 @@ export function updateFdPwdEnabled (fdPwd, enabled) {
 
 export function bindVerifyCardInfo (
     cardNo,
-    cardName,
+    userName,
     openBank,
     branchNo,
     branchName,
@@ -731,7 +731,7 @@ export function bindVerifyCardInfo (
     imgUrl) {
     return axios.post(`${UPEX.config.host}/card/bindVerifyCardInfo`,
     {   cardNo,
-        cardName,
+        userName,
         openBank,
         branchNo,
         branchName,
@@ -792,4 +792,37 @@ export function phoneAuthSendCode (type) {
 
 export function submitKycC () {
     return axios.post(`${UPEX.config.host}/user/submitKycC`).then(res => res.data);
+}
+
+/**
+ *  解绑银行卡
+ *
+ */
+
+export function updateBindBankCardStatus (id, tradePwd, gAuth, phoneCode, status = 4) {
+    return axios.post(`${UPEX.config.host}/card/updateBindBankCardStatus`, {
+        id, tradePwd, gAuth, phoneCode, status
+    }).then(res => res.data);
+}
+
+/**
+ *  解绑银行卡
+ *
+ */
+
+export function deleteBindBankCardRecord (id) {
+    return axios.post(`${UPEX.config.host}/card/deleteBindBankCardRecord`, {
+        id
+    }).then(res => res.data);
+}
+
+/**
+ *  提现，解绑银行卡发短信
+ *
+ */
+
+export function sendMessageWithdraw (vercode, codeid) {
+    return axios.post(`${UPEX.config.host}/withdraw/sendMessageWithdraw`, {
+        vercode, codeid
+    }).then(res => res.data);
 }
