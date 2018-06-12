@@ -133,6 +133,7 @@
     width: 1300px;
     margin: 10px auto 0;
     overflow: hidden;
+    height: 105px;
 }
 
 .hot-markets li {
