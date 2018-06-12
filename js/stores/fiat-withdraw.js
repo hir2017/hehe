@@ -9,7 +9,8 @@ class FiatRechargeStore {
 	@observable accountAmount = 0 ;  // 当前余额
 	@observable selectedCard = 'none'; // 选中的银行卡
 	@observable balance = '000'; // 金额
-	@observable step = 'start';
+    @observable step = 'start';
+    @observable userAccountInfo = {}; // 账号信息
 	@observable $submiting = false;
 	// 图片验证码
     @observable vercode = '';
@@ -54,7 +55,6 @@ class FiatRechargeStore {
 				if (data.status == 200) {
 					let { bankCards, accountAmount } = data.attachment;
 					this.userAccountInfo = data.attachment;
-					this.bankCardsList = bankCards;
 					this.accountAmount = accountAmount;
 				}
 			})
@@ -67,7 +67,17 @@ class FiatRechargeStore {
 				}
 			})
         });
-	}
+    }
+
+    /**
+	 * 属性变更
+	 */
+    @action
+    setVal(val, field) {
+        this[field] = val;
+    }
+
+
 	/**
      * 实际到账金额
      */
@@ -97,17 +107,21 @@ class FiatRechargeStore {
 	/**
 	 * 选中的充值银行卡
 	 */
-	@action
-	selectCardForRecharge(cardId) {
-		let result = this.bankCardsList.filter((item)=>{
-			return item.providerId === cardId;
-		})
-		this.selectedCard = result[0];
-	}
+	// @action
+	// selectCardForRecharge(cardId) {
+	// 	let result = this.bankCardsList.filter((item)=>{
+	// 		return item.providerId === cardId;
+	// 	})
+	// 	this.selectedCard = result[0];
+	// }
 
 	@computed
-	get cardId() {
-		return this.selectedCard.providerId;
+	get selectBindCardInfo() {
+        const {bankCardsList, selectedCard} = this
+        let result = bankCardsList.filter(item => {
+            return item.id === selectedCard
+        })
+		return result[0] || {};
 	}
 
 	@action

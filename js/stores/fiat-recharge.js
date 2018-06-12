@@ -53,20 +53,20 @@ class FiatRechargeStore {
 	/**
 	 * 选中的充值银行卡
 	 */
-	@action.bound
-	selectCardForRecharge(cardId) {
-        this.selectedCard = cardId;
-		// let result = this.bankCardsList.filter((item)=>{
-		// 	return item.providerId === cardId;
-		// })
+	// @action.bound
+	// selectCardForRecharge(cardId) {
+    //     this.selectedCard = cardId;
+	// 	// let result = this.bankCardsList.filter((item)=>{
+	// 	// 	return item.providerId === cardId;
+	// 	// })
 
-		// this.selectedCard = result[0];
-	}
+	// 	// this.selectedCard = result[0];
+	// }
 
-	@computed
-	get cardId() {
-		return this.selectedCard.providerId;
-	}
+	// @computed
+	// get cardId() {
+	// 	return this.selectedCard.providerId;
+	// }
 
 	@action
 	changeSubmitingStatusTo(status){
