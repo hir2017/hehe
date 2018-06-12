@@ -17,7 +17,12 @@ export default class FourthStep extends Component {
     this.props.userInfoStore.bankCardInfo()
   }
 
+  submitKycC = () => {
+    this.props.userInfoStore.kycC()
+  }
+
   render() {
+    const loading = this.props.userInfoStore.submit_loading
     const userInfo = this.props.userInfoStore.userInfo || {}
     const bankCardList = this.props.userInfoStore.bankCardList || []
     return (
@@ -47,7 +52,7 @@ export default class FourthStep extends Component {
           bankCardList.length === 0
           ? <Button><Link to="/user/bankInfo">{UPEX.lang.template('绑定银行卡')}</Link></Button>
           : userInfo.isAuthVideo === 0
-          ? <Button>{UPEX.lang.template('申請更高限額')}</Button>
+          ? <Button loading={loading} onClick={this.submitKycC}>{UPEX.lang.template('申請更高限額')}</Button>
           : userInfo.isAuthVideo === 2
           ? <Button><Link to="/user/bankInfo">{UPEX.lang.template('去交易中心')}</Link></Button>
           : <Button>{UPEX.lang.template('申請更高限額')}</Button>

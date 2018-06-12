@@ -25,7 +25,9 @@ import {
     bindVerifyCardInfo,
     getBindBankCardInfo,
     forgetFdPwd,
-    questionDetail
+    questionDetail,
+    phoneAuthSendCode,
+    submitKycC
 } from '../api/http'
 import { message } from 'antd'
 
@@ -385,10 +387,10 @@ class UserInfo {
     }
     
     @action
-    async phoneSwitch(status) {
+    async phoneSwitch(smsCode, status) {
         try {
             this.submit_loading = true
-            const res = await phoneAuthSwitch(status)
+            const res = await phoneAuthSwitch(smsCode, status)
             this.submit_loading = false
             if (res.status === 200) {
                 message.success(UPEX.lang.template('修改成功'))
@@ -486,6 +488,35 @@ class UserInfo {
             const res = await questionDetail(id)
             console.log(res, 'res')
         } catch (e) {
+            console.error(e)
+            message.error('Network Error')
+        }
+    }
+
+    @action
+    async phAuthSendCode(type) {
+        try {
+            const res = await phoneAuthSendCode(type)
+            return res
+        } catch (e) {
+            console.error(e)
+            message.error('Network Error')
+        }
+    }
+
+    @action
+    async kycC() {
+        try {
+            this.submit_loading = true
+            const res = await submitKycC()
+            this.submit_loading = false
+            if (res.status === 200) {
+                message.success(UPEX.lang.template('申请成功'))
+            } else {
+                message.error(res.message)
+            }
+        } catch (e) {
+            this.submit_loading = false
             console.error(e)
             message.error('Network Error')
         }

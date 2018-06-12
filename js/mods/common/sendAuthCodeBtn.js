@@ -32,7 +32,7 @@ export default class SettingTradingPassword extends Component {
   }
 
   async sendCode() {
-    if (!this.props.imgCode) {
+    if (!this.props.imgCode && !this.props.phoneAuth) {
       message.error(UPEX.lang.template('图片验证码不能为空'))
       return
     }
@@ -54,6 +54,8 @@ export default class SettingTradingPassword extends Component {
     } else if (this.props.bind) {
       const phone = this.props.areacode == '86' ? this.props.phone : this.props.areacode + this.props.phone
       res = await this.props.userInfoStore.bindSendCode(this.props.imgCode, this.props.codeid, this.props.type, phone)
+    } else if (this.props.phoneAuth) {
+      res = await this.props.userInfoStore.phAuthSendCode(this.props.type)
     } else {
       res = await this.props.userInfoStore.sendCode(this.type, this.props.imgCode, this.props.codeid)
     }
@@ -93,7 +95,7 @@ export default class SettingTradingPassword extends Component {
             ? <div style={this.props.style || null} onClick={this.sendCode} className="send-v-code-button">
               {UPEX.lang.template('发送验证码')}
             </div>
-            : <div className="send-v-code-button">
+            : <div style={this.props.style || null} className="send-v-code-button">
               {this.state.num}
             </div>
         }

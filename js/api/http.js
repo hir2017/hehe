@@ -692,8 +692,8 @@ export function modifyPhoneAction (newCode, newPhone, oldCode, type) {
  *
  */
 
-export function phoneAuthSwitch (status) {
-    return axios.post(`${UPEX.config.host}/user/phoneAuthSwitch`,{status}).then(res => res.data);
+export function phoneAuthSwitch (smsCode, status) {
+    return axios.post(`${UPEX.config.host}/user/phoneAuthSwitch`,{smsCode, status}).then(res => res.data);
 }
 
 /**
@@ -761,4 +761,24 @@ export function questionDetail (qid) {
     return axios.post(`${UPEX.config.host}/user/questionDetail`, {
         qid
     }).then(res => res.data);
+}
+
+/**
+ *  手机二级认证开关发送验证码
+ *  type=1，修改手机验证开关；
+ */
+
+export function phoneAuthSendCode (type) {
+    return axios.post(`${UPEX.config.host}/user/phoneAuthSendCode`, {
+        type
+    }).then(res => res.data);
+}
+
+/**
+ *  C级认证申请接口
+ *
+ */
+
+export function submitKycC () {
+    return axios.post(`${UPEX.config.host}/user/submitKycC`).then(res => res.data);
 }

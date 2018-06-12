@@ -30,7 +30,7 @@ export default class extends Component {
         <div className="question-title">
           {UPEX.lang.template('問題列表')}
         </div>
-        <div className="question-search">
+        <div style={{display: 'none'}} className="question-search">
           <Icon type="search" />
           <Input placeholder={UPEX.lang.template('搜索您的問題')} />
           <span>{UPEX.lang.template('我反饋的問題')}</span>
