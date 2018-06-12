@@ -86,15 +86,23 @@ class UserInfo {
      */
     @computed
     authLevel() {
-        if (this.userInfo.authLevel == 3) {
-            return 'C';
-        } else if (this.userInfo.authLevel == 2) {
-            return 'B';
-        } else if (this.userInfo.authLevel == 1) {
-            return 'A';
-        } else {
-            return '';
+        let level = '';
+
+        switch(this.userInfo.authLevel) {
+            case 1:
+                level = 'A';
+                break;
+            case 2:
+                level = 'B';
+                break;
+            case 3:
+                level = 'C';   
+                break;
+            default:
+                level = '';
         }
+
+        return level;
     }
 
     @action

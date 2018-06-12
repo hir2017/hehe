@@ -30,24 +30,63 @@ class Info extends Component {
 
   gradeImg() {
     const userInfo = this.props.userInfoStore.userInfo || {}
+    let result;
 
     if (userInfo.authLevel == 1) {
-      return { img: gradeA, grade: 'A' }
+      result = { img: gradeA, grade: 'A' }
     }
 
     if (userInfo.authLevel == 2) {
-      return { img: gradeB, grade: 'B' }
+      result = { img: gradeB, grade: 'B' }
     }
 
     if (userInfo.authLevel == 3) {
-      return { img: gradeC, grade: 'C' }
+      result = { img: gradeC, grade: 'C' }
     }
 
-    return {}
+    if (userInfo.authLevel == 0) {
+      result = { grade: 'Z' }
+    }
+
+    return result;
   }
 
   render() {
     const userInfo = this.props.userInfoStore.userInfo || {}
+    let gradeCfg = this.gradeImg();
+    let $gradeInfo;
+
+    if (gradeCfg) {
+      
+      if (gradeCfg.grade == 'Z') {
+        $gradeInfo =  (
+          <div>
+            <div className="certification-grade">
+              <div className="grade">
+                {UPEX.lang.template('您还未进行安全级别认证')}
+                <Link to="/user/authentication">{UPEX.lang.template('提升安全等级')}</Link>
+              </div>
+            </div>
+          </div>
+        )
+      } else {
+        $gradeInfo = (
+          <div>
+            <img src={gradeCfg.img} />
+            <div className="certification-grade">
+              <div className="grade">
+                {UPEX.lang.template('安全级别')} {gradeCfg.grade}
+                <Link to="/user/authentication">{UPEX.lang.template('提升安全等级')}</Link>
+              </div>
+              <div className="money">
+                <span>{UPEX.lang.template('提现额度')}：</span>
+                <span>NT{userInfo.dayLimit}</span>
+              </div>
+            </div>
+          </div>
+        )
+      }
+    } 
 
     return (
       <div className="info-box">
@@ -64,30 +103,18 @@ class Info extends Component {
               }</div>
             <div className="bind">
               <div className="bind-phone">
-                <img src={userInfo.phone ? bindPhone : unbindPhone} />
+                <img src={userInfo.isValidatePhone ? bindPhone : unbindPhone} />
                 <span>{UPEX.lang.template('手机绑定')}</span>
               </div>
               <div className="bind-email">
-                <img src={userInfo.email ? bindEmail : unbindEmail} />
+                <img src={userInfo.isValidateEmail ? bindEmail : unbindEmail} />
                 <span>{UPEX.lang.template('邮箱绑定')}</span>
               </div>
             </div>
           </div>
           <div className="info-content-right">
             <div className="title">{UPEX.lang.template('当前认证等级')}</div>
-            <div>
-              <img src={this.gradeImg().img} />
-              <div className="certification-grade">
-                <div className="grade">
-                  {UPEX.lang.template('安全级别')} {this.gradeImg().grade}
-                  <Link to="/user/authentication">{UPEX.lang.template('提升安全等级')}</Link>
-                </div>
-                <div className="money">
-                  <span>{UPEX.lang.template('提现额度')}：</span>
-                  <span>NT{userInfo.dayLimit}</span>
-                </div>
-              </div>
-            </div>
+            {$gradeInfo}
           </div>
         </div>
       </div>

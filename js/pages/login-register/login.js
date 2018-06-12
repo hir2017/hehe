@@ -89,9 +89,7 @@ class Login extends Component {
                 then((data)=>{
                     switch(data.status){
                         case 200:
-                            setTimeout(() => {
-                                browserHistory.push('/home');
-                            }, 100)
+                            browserHistory.push('/home');
                             break;
                         default:
                             this.setState({
