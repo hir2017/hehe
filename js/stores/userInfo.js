@@ -58,6 +58,13 @@ class UserInfo {
         list: []
     }
     @observable bankCardList = []
+    @observable questionObj = {
+        list: [],
+        question: {
+            detail: '', 
+            urlkey: ''
+        }
+    }
 
     constructor(stores) {
         this.captchaStore = stores.captchaStore;
@@ -478,7 +485,7 @@ class UserInfo {
     async questionDetails (id) {
         try {
             const res = await questionDetail(id)
-            console.log(res, 'res')
+            this.questionObj = res.attachment
         } catch (e) {
             console.error(e)
             message.error('Network Error')

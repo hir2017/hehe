@@ -1299,6 +1299,9 @@
 .user-main-box .question-content li>span:first-child {
     width: 70%;
     overflow: hidden;
+    white-space: nowrap;
+    margin-right: 10px;
+    text-overflow: ellipsis;
 }
 
 .user-main-box .question-content li>span:nth-child(2) {
@@ -1306,7 +1309,7 @@
 }
 
 .user-main-box .question-content li>span:nth-child(3) {
-    width: 20%;
+    width: 15%;
 }
 
 .user-main-box .question-page {

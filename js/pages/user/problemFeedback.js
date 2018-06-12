@@ -13,11 +13,13 @@ const { TextArea } = Input;
 @observer
 export default class extends Component {
 
-  constructor () {
+  constructor() {
     super()
     this.submit = this.submit.bind(this)
     this.textAreaChange = this.textAreaChange.bind(this)
   }
+
+  uploudUrlS = []
 
   state = {
     previewVisible: false,
@@ -32,24 +34,42 @@ export default class extends Component {
       <div className="ant-upload-text">Upload</div>
     </div>
   )
-  
-  handleChange = ({ fileList }) => this.setState({ fileList })
 
-  textAreaChange (e) {
+  handleChange = (info) => {
+    this.setState({
+      fileList: info.fileList
+    })
+    if (info.file.status !== 'uploading') {
+      console.log(info.file, info.fileList);
+    }
+    if (info.file.status === 'done') {
+      if (info.file.response.status === 200) {
+        const url = info.file.response.attachment
+        this.uploudUrlS.push(url)
+        message.success(`${info.file.name} ${UPEX.lang.template('上传成功')}`);
+      } else {
+        message.error(`${info.file.name} ${UPEX.lang.template('上传失败')}`);
+      }
+    } else if (info.file.status === 'error') {
+      message.error(`${info.file.name} ${UPEX.lang.template('上传失败')}`);
+    }
+  }
+
+  textAreaChange(e) {
     this.setState({
       text: e.target.value
     })
   }
 
-  submit () {
+  submit() {
     if (!this.state.text) {
       message.error('請輸入您要反饋的問題')
-      return 
+      return
     }
-
-    this.props.userInfoStore.ask(this.state.text, '2324.png')
+    const imgS = this.uploudUrlS.join(',')
+    this.props.userInfoStore.ask(this.state.text, imgS)
   }
-  
+
   render() {
     const { previewVisible, previewImage, fileList } = this.state;
     const loading = this.props.userInfoStore.submit_loading
@@ -64,13 +84,13 @@ export default class extends Component {
           <TextArea onChange={this.textAreaChange} placeholder={UPEX.lang.template('請輸入您要反饋的問題')} rows={7} />
           <div className="upload-box">
             <Upload
-              action={UPEX.config.uploadHost + '?token=' + token + '&uid=' + uid}
+              action={UPEX.config.uploadImgHost + '?token=' + token + '&uid=' + uid}
               listType="picture-card"
               fileList={fileList}
               onChange={this.handleChange}
               accept="image/jpg,image/Jpeg,image/bmp,image/png,image/gif"
             >
-              { fileList.length >= 3 ? null : this.uploadButton }
+              {fileList.length >= 3 ? null : this.uploadButton}
             </Upload>
             <div className="upload-message">
               {UPEX.lang.template('可上傳3個附件')}，

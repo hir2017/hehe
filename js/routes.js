@@ -62,6 +62,7 @@ import RmbindingGoogle from './mods/bindingGoogle/rmBinding'
 import GoogleGuide from './pages/user/googleGuide'
 import Question from './pages/user/problemFeedback'
 import QuestionList from './pages/user/feedbackList'
+import QuestionDetails from './pages/user/feedbackDetails'
 import EmailSuccess from './mods/bindingEmail/success'
 import PhoneSuccess from './mods/bindingPhone/success'
 import ForgetTradingPassword from './mods/passwordSetting/forgetTradingPassword'
@@ -115,6 +116,7 @@ const routes = (
 				<Route path="googleGuide" component={GoogleGuide} />
 				<Route path="question" component={Question} />
 				<Route path="questionList" component={QuestionList} />
+				<Route path="feedbackDetails/:id" component={QuestionDetails} />
 				<Route path="emailSuccess" component={EmailSuccess} />
 				<Route path="phoneSuccess" component={PhoneSuccess} />
 			</Route>
