@@ -28,7 +28,7 @@ class Recharge extends Component{
 
         if (userInfoStore.isFetchingInfo == false) {
     		
-			if (userInfoStore.userInfo.isAuthPrimary !== 2) {
+			if (userInfoStore.userInfo.authLevel == 0) {
 				// KYC1未认证通过
 				$content = (
 					<div className="userauth-guide">
