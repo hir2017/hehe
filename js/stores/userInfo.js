@@ -65,7 +65,7 @@ class UserInfo {
     @observable questionObj = {
         list: [],
         question: {
-            detail: '', 
+            detail: '',
             urlkey: ''
         }
     }
@@ -96,7 +96,7 @@ class UserInfo {
                 level = 'B';
                 break;
             case 3:
-                level = 'C';   
+                level = 'C';
                 break;
             default:
                 level = '';
@@ -396,7 +396,7 @@ class UserInfo {
             message.error('Network Error')
         }
     }
-    
+
     @action
     async phoneSwitch(smsCode, status) {
         try {

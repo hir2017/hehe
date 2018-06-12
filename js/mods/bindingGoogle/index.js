@@ -86,7 +86,7 @@ class Google extends Component {
             ? <img src={`data:image/png;base64,${gaSecretKey.qrcode}`} />
             : <img />
           }
-            
+
             <div>{gaSecretKey.secretKey}</div>
           </div>
           <div className="google-auth-right">
@@ -100,7 +100,7 @@ class Google extends Component {
                 <input onChange={this.ivCodeChange} onChange={this.ivCodeChange} className="input" />
               </div>
               <div className="item v-code-button">
-                <img onClick={this.captchaChange} src={captcha} />
+                <img onClick={this.captchaChange.bind(this)} src={captcha} />
               </div>
               <div className="item v-code">
                 <span className="lable">{UPEX.lang.template('短信验证码')}</span>

@@ -86,7 +86,7 @@ export default (store) => {
                 amount: store.balance, // 充值金额
                 cardId: store.cardId
             }).then((data) => {
-                
+
                 if (data.status == 200) {
                     store.orderSuccess();
                     this.submitOrder(data.attachment);

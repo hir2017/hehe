@@ -240,6 +240,10 @@ export function getUserBankInfo() {
     return axios.post(`${UPEX.config.host}/rechargeWithdraw/getUserCardInfoAndAmountAndFee`).then(res => res.data);
 }
 
+export function getUserBindCards() {
+    return axios.post(`${UPEX.config.host}/card/getBindBankCardInfo`).then(res => res.data);
+}
+
 export function orderFiatRecharge(data){
     return axios.post(`${UPEX.config.host}/pay/getFrontPageJsonData`, qs.stringify({
         amount: data.amount,
@@ -645,6 +649,14 @@ export function bindPhone (newDevice, oldDevice, oldVercode, vercode, codeid, im
     }).then(res => res.data);
  }
 
+
+ /**
+ * 去除手机号的0086
+ */
+function rmAreaCode(phone) {
+    return phone.replace('0086', '')
+}
+
 /**
  *  绑定手机或邮箱发送验证码
  *  type=1、手机注册用户;type=2、邮箱注册用户;
@@ -652,7 +664,7 @@ export function bindPhone (newDevice, oldDevice, oldVercode, vercode, codeid, im
 
 export function bindPhoneOrEmailSendCode (codeid, imgcode, phoneOrEmail, type) {
     return axios.post(`${UPEX.config.host}/user/bindPhoneOrEmailSendCode`, {
-        codeid, imgcode, phoneOrEmail, type
+        codeid, imgcode, phoneOrEmail: rmAreaCode(phoneOrEmail), type
     }).then(res => res.data);
  }
 
@@ -672,7 +684,7 @@ export function isUsedGoogleAuth () {
 
 export function bindPhoneOrEmailAction (EmailCode, phoneCode, phoneOrEmail, type) {
     return axios.post(`${UPEX.config.host}/user/bindPhoneOrEmailAction`, {
-        EmailCode, phoneCode, phoneOrEmail, type
+        EmailCode, phoneCode, phoneOrEmail: rmAreaCode(phoneOrEmail), type
     }).then(res => res.data);
 }
 
