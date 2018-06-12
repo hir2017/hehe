@@ -80,7 +80,7 @@ class AssetsListView extends Component {
 	handleCoinRecharge=(item, e)=>{
 		let { userInfoStore } = this.props;
 		
-		if (userInfoStore.authLevel >= 1) {
+		if (userInfoStore.userInfo.authLevel >= 1) {
 			browserHistory.push(`/account/coin/recharge/${item.currencyNameEn}`);
 		} else {
 			message.error(UPEX.lang.template('请先进行KYC1认证'));

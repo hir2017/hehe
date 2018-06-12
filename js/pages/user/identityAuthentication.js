@@ -53,9 +53,11 @@ class IdentityAuthentication extends Component {
   render() {
     const userInfo = this.props.userInfoStore.userInfo || {}
     let step = 1
+
     if (userInfo.isAuthPrimary === 2) {
       step = 4
     }
+    
     if (userInfo.isAuthPrimary === 1 || userInfo.isAuthPrimary === -1) {
       step = 3
     }

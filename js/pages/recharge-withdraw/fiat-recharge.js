@@ -26,7 +26,7 @@ class Recharge extends Component{
 		
 		if (userInfoStore.isFetchingInfo == false) {
     		// KYC1未认证通过
-			if (userInfoStore.userInfo.isAuthPrimary !== 2) {
+			if (userInfoStore.userInfo.authLevel == 0) {
 				$content = (
 					<div className="userauth-guide">
 						<h4>{UPEX.lang.template('请您进行身份认证，否则无法进行充值、提现、充币、提币操作')}</h4>

@@ -445,6 +445,8 @@ Zepto不支持旧版本的Internet Explorer浏览器(<10)。
 	* 接口：
 		* 用户信息接口: [user/personInfo]()
 		* 登录信息IP列表：[user/loginRecord]()
+* 身份认证
+	* 
 	
 * 谷歌认证
 	* 需求：
