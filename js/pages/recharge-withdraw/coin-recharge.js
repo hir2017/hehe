@@ -5,7 +5,7 @@
 import React, {Component} from 'react';
 import { observer, inject } from 'mobx-react';
 import { browserHistory } from 'react-router';
-import RechrgeCoinView from '../../mods/recharge-withdraw/coin-recharge';
+import RechargeCoinView from '../../mods/recharge-withdraw/coin-recharge';
 
 @inject('userInfoStore')
 @observer
