@@ -119,6 +119,9 @@ class TVChartContainer extends Component {
 
     componentDidMount(){
         setTimeout(()=>{
+            if (!this.refs.kline) {
+                return;
+            }
             this.createTradingView();
         }, 100)
     }
