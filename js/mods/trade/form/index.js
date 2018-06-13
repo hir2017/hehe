@@ -6,8 +6,13 @@ import { Slider, Tooltip , message } from 'antd';
 @inject('tradeStore', 'authStore')
 @observer
 class TradeForm extends Component{
-	goRecharge=(e)=>{
-		browserHistory.push('/recharge');
+	goRecharge=(type, e)=>{
+		if (type == 'fiat') {
+			browserHistory.push('/account/balance/recharge');
+		} else {
+			browserHistory.push('/account/coin/recharge');
+		}
+		
 	}
 
 	onChangeBuySlider=(num)=>{
@@ -101,7 +106,7 @@ class TradeForm extends Component{
 							authStore.isLogin ? (
 								<div>
 									<label>{UPEX.lang.template('可用')}</label>
-									<em>{ store.baseCoinBalance }</em>
+									<em>{ store.baseCoinBalance.text }</em>
 									<label>{ store.baseCurrencyNameEn}</label>
 									<div className="recharge" onClick={this.goRecharge.bind(this,'fiat')}>{UPEX.lang.template('充值')}</div>
 								</div>
@@ -124,14 +129,7 @@ class TradeForm extends Component{
 									<label>{ store.currencyNameEn }</label>
 									<div className="recharge" onClick={this.goRecharge.bind(this, 'coin')}>{UPEX.lang.template('充币')}</div>
 								</div>
-							) : (
-								<div>
-									<Link to='/login'>{ UPEX.lang.template('登录')}</Link>
-									<label>{ UPEX.lang.template('或')}</label>
-									<Link to='/register'>{ UPEX.lang.template('注册')}</Link>
-									<label>{ UPEX.lang.template('开始交易')}</label>
-								</div>
-							)
+							) : null 
 						}
 					</div>
 				</div>

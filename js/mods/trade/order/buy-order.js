@@ -22,10 +22,10 @@ class BuyOrder extends Component {
 						store.newEntrustData.buy.map((item, index)=>{
 							return (
 								<li key={index} data-type="buy" onClick={this.haneleClickOrder.bind(this, item)}>
-									<div className="cell price">{item.current}</div>
-									<div className="cell number">{item.number}</div>
-									<div className="cell total">{item.total || 0}</div>
-									<div className="bar" style={{ width: `${item.depth}` }}></div>
+									<div className="cell price">{item.newcurrent}</div>
+									<div className="cell number">{item.newnumber}</div>
+									<div className="cell total">{item.newtotal || 0}</div>
+									<div className="bar" style={{ width: `${item.depth}%` }}></div>
 								</li>
 							)
 						})

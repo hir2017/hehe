@@ -384,16 +384,15 @@ class TradeStore {
 
     @computed
     get baseCoinBalance() {
-        let ret = NumberUtil.initNumber(this.personalAccount.baseCoinBalance, this.pointPrice) + '';
-
-        return ret;
+        return {
+            value: this.personalAccount.baseCoinBalance,
+            text: NumberUtil.initNumber(this.personalAccount.baseCoinBalance, this.pointPrice) + ''
+        };
     }
 
     @computed
     get tradeCoinBalance() {
-        let ret = NumberUtil.initNumber(this.personalAccount.tradeCoinBalance, this.pointPrice);
-
-        return ret;
+        return NumberUtil.initNumber(this.personalAccount.tradeCoinBalance, this.pointPrice);
     }
 
     /**
@@ -461,8 +460,7 @@ class TradeStore {
 
     @action
     setBuySliderValue(value) {
-        let baseCoinBalance = Number(this.baseCoinBalance.replace(/\,/gi, ''));
-        let num = (baseCoinBalance * value) / 100;
+        let num = (baseCoinBalance.value * value) / 100;
 
         this.dealBuyNum = NumberUtil.initNumber(num, this.pointNum);
         this.buySliderValue = value;
@@ -470,8 +468,7 @@ class TradeStore {
 
     @action
     setSellSliderValue(value) {
-        let baseCoinBalance = Number(this.baseCoinBalance.replace(/\,/gi, ''));
-        let num = (baseCoinBalance * value) / 100;
+        let num = (baseCoinBalance.value * value) / 100;
 
         this.dealSellNum = NumberUtil.initNumber(num, this.pointNum);
         this.sellSliderValue = value;
@@ -479,14 +476,13 @@ class TradeStore {
 
     @action
     setDealBuyNum(value) {
-        let baseCoinBalance = Number(this.baseCoinBalance.replace(/\,/gi, ''));
         let result;
         let precent;
 
-        if (baseCoinBalance === 0) {
+        if (baseCoinBalance.value === 0) {
             result = 0;
         } else {
-            precent = (value / baseCoinBalance) * 100;
+            precent = (value / baseCoinBalance.value) * 100;
 
             if (precent > 100) {
                 precent = 100;
@@ -501,14 +497,13 @@ class TradeStore {
 
     @action
     setDealSellNum(value) {
-        let baseCoinBalance = Number(this.baseCoinBalance.replace(/\,/gi, ''));
         let result;
         let precent;
 
-        if (baseCoinBalance === 0) {
+        if (baseCoinBalance.value === 0) {
             result = 0;
         } else {
-            precent = (value / baseCoinBalance) * 100;
+            precent = (value / baseCoinBalance.value) * 100;
 
             if (precent > 100) {
                 precent = 100;
@@ -638,7 +633,7 @@ class TradeStore {
         });
     }
     /**
-     * 交易历史, 右侧实时行情图
+     * 交易历史, 最右侧实时行情图
      */
     @action
     getTradeHistory() {
@@ -660,10 +655,10 @@ class TradeStore {
     @computed
     get parsedTradeHistory() {
         let tradeHistory = JSON.parse(JSON.stringify(this.tradeHistory));
-
+        console.log('--------------------------------------', tradeHistory);
         tradeHistory.content.forEach((item, index) => {
             item.time = TimeUtil.formatDate(item.time, 'HH:mm:ss'); // 时间
-            item.current = NumberUtil.initNumber(item.current, this.pointPrice); // 价格
+            item.current = NumberUtil.formatNumber(item.current, this.pointPrice); // 价格
             item.amount = NumberUtil.formatNumber(item.amount, this.pointNum); // 数量
         });
 
@@ -696,15 +691,23 @@ class TradeStore {
         let sell = data.sell || [];
 
         buy.forEach((item, index) => {
-            item.depth = NumberUtil.asPercent((item.number * item.current) / this.entrustScale, this.pointNum);
-            item.current = NumberUtil.initNumber(item.current, this.pointPrice); // 价格
-            item.number = NumberUtil.initNumber(item.number, this.pointNum); // 数量
+            let cache = item.number * item.current / this.entrustScale;
+            let depth = parseInt(cache.toFixed(this.pointNum));
+
+            item.depth = Math.max(depth, 1);
+            item.newcurrent = NumberUtil.formatNumber(item.current, this.pointPrice); // 价格
+            item.newnumber = NumberUtil.formatNumber(item.number, this.pointNum); // 数量
+            item.newtotal = NumberUtil.formatNumber(item.total, this.pointNum); // 总金额
         });
 
         sell.forEach((item, index) => {
-            item.depth = NumberUtil.asPercent((item.number * item.current) / this.entrustScale, this.pointNum);
-            item.current = NumberUtil.initNumber(item.current, this.pointPrice); // 价格
-            item.number = NumberUtil.initNumber(item.number, this.pointNum); // 数量
+            let cache = item.number * item.current / this.entrustScale;
+            let depth = parseInt(cache.toFixed(this.pointNum));
+            
+            item.depth = Math.max(depth, 1);
+            item.newcurrent = NumberUtil.formatNumber(item.current, this.pointPrice); // 价格
+            item.newnumber = NumberUtil.formatNumber(item.number, this.pointNum); // 数量
+            item.newtotal = NumberUtil.formatNumber(item.total, this.pointNum); // 总金额
         });
 
         data.buy = buy;

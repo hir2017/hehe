@@ -35,6 +35,11 @@ export default (store) => {
         },
 
         changeAuthTypeTo(type){
+            if (type == 'google') {
+                store.setPhoneCode('');
+            } else {
+                store.setGoogleCode('');
+            }
             store.changeAuthTypeTo(type);
         },
 

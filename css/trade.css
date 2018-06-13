@@ -448,7 +448,16 @@
     width: 100%;
     bottom: 0;
     left: 0;
-    max-height: 100%;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.trade-extra-list .list-box-l .trade-buy ul {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    height: 100%;
     overflow-y: auto;
 }
 
@@ -456,8 +465,10 @@
 .trade-extra-list .list-box-l .trade-sell li {
     position: relative;
     padding: 0 15px;
-    height: 21px;
+    min-height: 21px;
     line-height: 21px;
+    max-height: 26px;
+    height: 10%;
 }
 
 .trade-extra-list .list-box-l .trade-buy li:hover {
@@ -605,11 +616,11 @@
 }
 
 .trade-extra-list .list-box-r .table-bd ul li[data-type="buy"] .price {
-    color: #00d02c;
+    color: #ff3380;
 }
 
 .trade-extra-list .list-box-r .table-bd ul li[data-type="sell"] .price {
-    color: #ff3380;
+    color: #00d02c;
 }
 
 .trade-extra-list .trade-buy {}

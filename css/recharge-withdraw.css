@@ -31,6 +31,7 @@
 .rw-wrapper .content {
     position: relative;
     min-height: 300px;
+    padding-top: 10px;
 }
 
 

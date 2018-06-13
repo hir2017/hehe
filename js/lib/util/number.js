@@ -127,6 +127,10 @@ const NumberUtil = {
 
         return number;
     },
+
+    parseStringToInt(){
+        
+    },
     /**
      * 保留小数位
      * roundtag:舍入参数，默认 "ceil" 向上取, "floor"向下取, "round" 四舍五入
