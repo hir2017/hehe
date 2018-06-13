@@ -7,8 +7,8 @@ import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import { Button } from 'antd'
 import { Link } from 'react-router'
-import BindingGoogle from '../../mods/bindingGoogle'
-import Success from '../../mods/bindingGoogle/success'
+import BindingGoogle from '../../mods/binding-google'
+import Success from '../../mods/binding-google/success'
 
 @inject('userInfoStore')
 @observer

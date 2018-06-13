@@ -27,16 +27,14 @@ var ORDER_DATA = {
 
 export default (store) => {
     return {
-        onChangeBalance(e) {
-            let target = $(e.currentTarget);
-            let value = target.val().trim();
+        // onChangeBalance(e) {
+        //     const {value = ''} = e.target
+        //     store.setBalance(value.trim());
+        // },
 
-            store.setBalance(value);
-        },
-
-        handleChangeBank(value){
-        	store.selectCardForRecharge(value);
-        },
+        // handleChangeBank(value){
+        // 	store.selectCardForRecharge(value);
+        // },
 
         getInfo() {
         	store.getInfo();
@@ -61,7 +59,7 @@ export default (store) => {
          * 下单接口
          */
         handleRecharge() {
-            if (!store.cardId) {
+            if (!store.selectedCard || store.selectedCard === 'none') {
                 message.error(UPEX.lang.template('请选择一张绑定的银行卡'));
                 return;
             }
@@ -80,13 +78,15 @@ export default (store) => {
         },
         /**
          * 下单，获取orderId等表单提交信息
+         * @param {amount, prodId（金流id, 目前需要用户自选, PD-WEBATM-CTCB, accountCode（当前用户绑定银行id值) }
          */
         order() {
             orderFiatRecharge({
-                amount: store.balance, // 充值金额
-                cardId: store.cardId
+                prodId: store.cashType,
+                amount: store.balance,
+                accountCode: store.selectedCard
             }).then((data) => {
-                
+
                 if (data.status == 200) {
                     store.orderSuccess();
                     this.submitOrder(data.attachment);

@@ -26,7 +26,7 @@ export default (store, userInfoStore) => {
          * 下一步
          */
         nextStep() {
-            if (!store.cardId) {
+            if (!store.selectedCard || store.selectedCard === 'none') {
                 message.error(UPEX.lang.template('请选择一张绑定的银行卡'));
                 return;
             }
@@ -94,7 +94,7 @@ export default (store, userInfoStore) => {
             if (store.sendingcode) {
             	return;
             }
-            
+
             // 邮件验证码
             takeCoinSendPhoneCode({
             	type: 2,
@@ -136,7 +136,7 @@ export default (store, userInfoStore) => {
 
         handleSubmit() {
         	const { verifyBeforeSubmit } = store;
-			
+
             if (store.$submiting) {
                 return;
             }
@@ -145,7 +145,7 @@ export default (store, userInfoStore) => {
 
             if (result.pass) {
                 store.changeSubmitingStatusTo(true);
-				
+
                 orderFiatWithdraw({
 		            fdPwd: store.md5TradePassword,
 		            phoneCode: store.phoneCode,

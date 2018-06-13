@@ -184,7 +184,7 @@ class UserInfo {
                 message.error(res.message)
                 console.error('resetPwd error')
             } else {
-                message.success(UPEX.lang.template('登录密码修改成功，请从新登录'))
+                message.success(UPEX.lang.template('登录密码修改成功，请重新登录'))
             }
         } catch (e) {
             console.error(e)

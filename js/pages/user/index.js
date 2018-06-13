@@ -45,7 +45,7 @@ class UserPage extends Component {
 							<h2>{UPEX.lang.template('安全设置')}</h2>
 							<ul>
 								<li className={this.activeMenu('passwordSetting')}>
-									<Link to="/user/passwordSetting">
+									<Link to="/user/setpwd">
 										{UPEX.lang.template('密码设置')}
 									</Link>
 								</li>

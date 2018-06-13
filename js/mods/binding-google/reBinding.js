@@ -7,7 +7,7 @@ import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import { Button, Switch, message } from 'antd'
 import { Link } from 'react-router'
-import Vcodebutton from '../common/sendAuthCodeBtn'
+import Vcodebutton from '../common/authcode-btn'
 
 @inject('userInfoStore', 'captchaStore')
 @observer
@@ -19,10 +19,10 @@ export default class ReBinding extends Component {
     this.ivCodeChange = this.ivCodeChange.bind(this)
     this.submit = this.submit.bind(this)
     this.vCodeChange = this.vCodeChange.bind(this)
-    this.captchaChange = this.captchaChange.bind(this)
   }
 
   componentWillMount() {
+    this.props.userInfoStore.getGaSecretKey()
     this.props.captchaStore.fetch()
   }
 
@@ -65,7 +65,7 @@ export default class ReBinding extends Component {
       return
     }
 
-    this.props.userInfoStore.rmBindGA(this.state.google, this.state.vCode)
+    // this.props.userInfoStore.resetPwd(this.state.newPwd, this.state.vCode, this.state.ivCode, codeid, pwd)
   }
 
   render() {
@@ -76,10 +76,18 @@ export default class ReBinding extends Component {
     return (
       <div>
         <div className="google-auth-title">
-          {UPEX.lang.template('解绑google验证器')}
+          {UPEX.lang.template('重置google验证器')}
         </div>
         <div className="binding-phone-content">
-          <div className="binding-phone-right reBinding-right rm-binding">
+          <div className="binding-phone-left reBinding-left">
+            <img src={`'data:image/png;base64,${gaSecretKey.qrcode}`} />
+            <div>
+              <div className="key-title">Google{UPEX.lang.template('密鑰')}</div>
+              <div className="key">{gaSecretKey.secretKey}</div>
+              <div className="key-message">{UPEX.lang.template('請將密鑰記錄在紙上并安全的保存')}</div>
+            </div>
+          </div>
+          <div className="binding-phone-right reBinding-right">
             <div className="modify-password-box">
               <div className="item">
                 <span className="lable">{UPEX.lang.template('Google验证码')}</span>
@@ -105,7 +113,7 @@ export default class ReBinding extends Component {
                 </Link>
               </div>
               <div>
-                <Button loading={loading} onClick={this.submit}>{UPEX.lang.template('解绑')}</Button>
+                <Button loading={loading} onClick={this.submit}>{UPEX.lang.template('绑定')}</Button>
               </div>
             </div>
           </div>

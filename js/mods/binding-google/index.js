@@ -1,17 +1,17 @@
 /**
- * @fileoverview  google
+ * @fileoverview  google 认证
  * @author xia xiang feng
- * @date 2018-05-23
+ * @date 2018-05-25
  */
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
-import { Button, Switch, message } from 'antd'
+import { Button, message } from 'antd'
 import { Link } from 'react-router'
-import Vcodebutton from '../common/sendAuthCodeBtn'
+import Vcodebutton from '../common/authcode-btn'
 
 @inject('userInfoStore', 'captchaStore')
 @observer
-export default class ReBinding extends Component {
+class Google extends Component {
 
   constructor() {
     super()
@@ -65,7 +65,7 @@ export default class ReBinding extends Component {
       return
     }
 
-    // this.props.userInfoStore.resetPwd(this.state.newPwd, this.state.vCode, this.state.ivCode, codeid, pwd)
+    this.props.userInfoStore.bindGA(this.state.google, this.state.vCode)
   }
 
   render() {
@@ -74,20 +74,22 @@ export default class ReBinding extends Component {
     const captcha = this.props.captchaStore.captcha
     const gaSecretKey = this.props.userInfoStore.gaSecretKey || {}
     return (
-      <div>
-        <div className="google-auth-title">
-          {UPEX.lang.template('重置google验证器')}
+      <div className="google-auth-box">
+        <div className="google-auth-message">
+          <span className="error-message">*</span>
+          {UPEX.lang.template('为了您的资金安全，修改Google验证码后，24小时不可以提币')}
         </div>
-        <div className="binding-phone-content">
-          <div className="binding-phone-left reBinding-left">
-            <img src={`'data:image/png;base64,${gaSecretKey.qrcode}`} />
-            <div>
-              <div className="key-title">Google{UPEX.lang.template('密鑰')}</div>
-              <div className="key">{gaSecretKey.secretKey}</div>
-              <div className="key-message">{UPEX.lang.template('請將密鑰記錄在紙上并安全的保存')}</div>
-            </div>
+        <div>
+          <div className="google-auth-left">
+          {
+            gaSecretKey.qrcode
+            ? <img src={`data:image/png;base64,${gaSecretKey.qrcode}`} />
+            : <img />
+          }
+
+            <div>{gaSecretKey.secretKey}</div>
           </div>
-          <div className="binding-phone-right reBinding-right">
+          <div className="google-auth-right">
             <div className="modify-password-box">
               <div className="item">
                 <span className="lable">{UPEX.lang.template('Google验证码')}</span>
@@ -98,7 +100,7 @@ export default class ReBinding extends Component {
                 <input onChange={this.ivCodeChange} onChange={this.ivCodeChange} className="input" />
               </div>
               <div className="item v-code-button">
-                <img onClick={this.captchaChange} src={captcha} />
+                <img onClick={this.captchaChange.bind(this)} src={captcha} />
               </div>
               <div className="item v-code">
                 <span className="lable">{UPEX.lang.template('短信验证码')}</span>
@@ -108,7 +110,7 @@ export default class ReBinding extends Component {
                 <Vcodebutton imgCode={this.state.ivCode} codeid={codeid} type="phone" />
               </div>
               <div className="info">
-                <Link to="">
+                <Link to="/user/googleGuide">
                   Google{UPEX.lang.template('验证器使用教程')}
                 </Link>
               </div>
@@ -122,3 +124,5 @@ export default class ReBinding extends Component {
     )
   }
 }
+
+export default Google;

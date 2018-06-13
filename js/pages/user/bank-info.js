@@ -16,13 +16,11 @@ class BankInfo extends Component {
 
     constructor() {
         super()
-        this.submit = this.submit.bind(this)
         this.passwordChange = this.passwordChange.bind(this)
     }
 
     componentWillMount() {
-        const userInfo = this.props.userInfoStore.userInfo || {}
-        Object.keys(userInfo).length || this.props.userInfoStore.getUserInfo()
+        this.props.userInfoStore.getUserInfo()
     }
 
     state = {
@@ -36,46 +34,43 @@ class BankInfo extends Component {
         })
     }
 
-    submit() {
-        if (!this.state.pwd) {
-            message.error('请输入交易密码')
-            return
-        }
-        this.setState({
-            goBank: true
-        })
-    }
-
     render() {
         const userInfo = this.props.userInfoStore.userInfo || {}
+        let $content;
 
-        return (
-            <div>
-            <div className="bank-info-title">
-              {UPEX.lang.template('银行卡信息')}
-            </div>
-            {
-              this.state.goBank
-                  ? <div>
+        if (userInfo.authLevel < 1) { // 未通过KYC1
+        	$content = (
+        		<div className="bank-message">
+                  <p>{UPEX.lang.template('请先身份认证')}</p>
+                  <Link to="/user/authentication">{UPEX.lang.template('身份认证')}</Link>
+                </div>
+        	)
+        } else if (!userInfo.isValidatePass){// 未设置交易密码
+        	$content = (
+        		<div className="bank-message">
+                  <p>{UPEX.lang.template('请先设置交易密码')}</p>
+                  <Link to="/user/settingTraddingPassword">{UPEX.lang.template('设置交易密码')}</Link>
+                </div>
+        	)
+        } else {
+        	$content = (
+        		<div>
                   <BindingBank />
                   <BankList />
                 </div>
-                  : userInfo.isAuthPrimary !== 2
-                      ? <div className="bank-message">
-                    {UPEX.lang.template('请先身份认证')}<Link to="/user/authentication">{UPEX.lang.template('身份认证')}</Link>
-                  </div>
-                      : !userInfo.isValidatePass
-                          ? <div className="bank-message">
-                    {UPEX.lang.template('请先设置交易密码')}<Link to="/user/settingTraddingPassword">{UPEX.lang.template('设置交易密码')}</Link>
-                  </div>
-                          : <div>
-                    <BindingBank />
-                    <BankList />
-                  </div>
-              }
-          </div>
+        	)
+        }
+
+        return (
+            <div>
+              	<div className="bank-info-title">
+                	{UPEX.lang.template('银行卡信息')}
+              	</div>
+              	{ $content }
+            </div>
         )
     }
 }
+
 
 export default BankInfo;

@@ -5,7 +5,7 @@
  */
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
-import Password from '../../mods/passwordSetting'
+import Password from '../../mods/password-setting'
 
 @observer
 class PasswordSetting extends Component {

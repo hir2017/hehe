@@ -7,7 +7,7 @@ import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import { Button, Switch, Modal, Input, message } from 'antd'
 import { Link } from 'react-router'
-import Vcodebutton from '../common/sendAuthCodeBtn'
+import Vcodebutton from '../common/authcode-btn'
 
 @inject('userInfoStore')
 @observer
@@ -15,7 +15,7 @@ export default class Phone extends Component {
 
   componentWillMount() {
     const userInfo = this.props.userInfoStore.userInfo || {}
-    Object.keys(userInfo).length || this.props.userInfoStore.getUserInfo()
+    this.props.userInfoStore.getUserInfo()
   }
 
   phoneSwitch = (checked) => {

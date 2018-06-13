@@ -73,12 +73,12 @@ export default class SecondStep extends Component {
       },
       // 限制图片大小10M
       beforeUpload: (file) =>{
-        const isLt15M = file.size / 1024 / 1024 < 15;
+        const isLtM = file.size / 1024 / 1024 < 10;
        
-        if (!isLt15M) {
-          message.error('文件大小请控制在15MB以内!');
+        if (!isLtM) {
+          message.error('文件大小请控制在10MB以内!');
         }
-        return isLt15M;
+        return isLtM;
       },
 
       onChange : (info) =>{

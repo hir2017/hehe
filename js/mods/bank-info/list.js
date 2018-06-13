@@ -6,111 +6,119 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import { Modal, Input, message } from 'antd'
-import Vcodebutton from '../common/sendAuthCodeBtn'
+import Vcodebutton from '../common/authcode-btn'
 
 @inject('userInfoStore', 'captchaStore', 'authStore')
 @observer
 export default class BankList extends Component {
 
-  state = {
-    visible: false,
-    vCode: '',
-    pwd: '',
-    ivCode: '',
-    id: ''
-  }
-
-  componentWillMount() {
-    this.props.userInfoStore.bankCardInfo()
-    const gaBindSuccess = this.props.userInfoStore.gaBindSuccess
-    gaBindSuccess || this.props.userInfoStore.isGoogleAuth()
-    this.props.captchaStore.fetch()
-  }
-
-  status(num) {
-    switch (num) {
-      case 3: return UPEX.lang.template('等待审核'); break;
-      case 2: return UPEX.lang.template('已拒绝'); break;
-      case 1: return UPEX.lang.template('已绑定'); break;
-      default: return num; break;
+    state = {
+        visible: false,
+        vCode: '',
+        pwd: '',
+        ivCode: '',
+        id: ''
     }
-  }
 
-  bankHandle = (num, id) => {
-    if (num === 2) {
-      this.props.userInfoStore.deleteBindBankCard(id)
-    } else if (num === 1) {
-      this.setState({
-        visible: true,
-        id: id
-      })
+    componentWillMount() {
+        this.props.userInfoStore.bankCardInfo()
+        const gaBindSuccess = this.props.userInfoStore.gaBindSuccess
+        gaBindSuccess || this.props.userInfoStore.isGoogleAuth()
+        this.props.captchaStore.fetch()
     }
-  }
 
-  handleOk = () => {
-    const gaBindSuccess = this.props.userInfoStore.gaBindSuccess
-    if(!this.state.pwd){
-      message.error('交易密码不能空')
-      return
+    status(num) {
+        switch (num) {
+            case 3:
+                return UPEX.lang.template('等待审核');
+                break;
+            case 2:
+                return UPEX.lang.template('已拒绝');
+                break;
+            case 1:
+                return UPEX.lang.template('已绑定');
+                break;
+            default:
+                return num;
+                break;
+        }
     }
-    if(!this.state.vCode && gaBindSuccess){
-      message.error('谷歌验证码不能空')
-      return
+
+    bankHandle = (num, id) => {
+        if (num === 2) {
+            this.props.userInfoStore.deleteBindBankCard(id)
+        } else if (num === 1) {
+            this.setState({
+                visible: true,
+                id: id
+            })
+        }
     }
-    if(!this.state.ivCode && !gaBindSuccess){
-      message.error('图片验证码不能空')
-      return
+
+    handleOk = () => {
+        const gaBindSuccess = this.props.userInfoStore.gaBindSuccess
+        if (!this.state.pwd) {
+            message.error('交易密码不能空')
+            return
+        }
+        if (!this.state.vCode && gaBindSuccess) {
+            message.error('谷歌验证码不能空')
+            return
+        }
+        if (!this.state.ivCode && !gaBindSuccess) {
+            message.error('图片验证码不能空')
+            return
+        }
+        if (!this.state.vCode && !gaBindSuccess) {
+            message.error('手机验证码不能空')
+            return
+        }
+        const pwd = md5(this.state.pwd + UPEX.config.dealSalt + this.props.authStore.uid);
+        if (gaBindSuccess) {
+            this.props.userInfoStore.updateBindBankCard(this.state.id, pwd, this.state.vCode)
+        } else {
+            this.props.userInfoStore.updateBindBankCard(this.state.id, pwd, '', this.state.vCode)
+        }
+        this.setState({
+            visible: false,
+        })
     }
-    if(!this.state.vCode && !gaBindSuccess){
-      message.error('手机验证码不能空')
-      return
+
+    handleCancel = () => {
+        this.setState({
+            visible: false
+        })
     }
-    const pwd = md5(this.state.pwd + UPEX.config.dealSalt + this.props.authStore.uid);
-    if(gaBindSuccess) {
-      this.props.userInfoStore.updateBindBankCard(this.state.id, pwd, this.state.vCode)
-    } else {
-      this.props.userInfoStore.updateBindBankCard(this.state.id, pwd, '', this.state.vCode)
+
+    pwdChange = (e) => {
+        this.setState({
+            pwd: e.target.value
+        })
     }
-    this.setState({
-      visible: false,
-    })
-  }
 
-  handleCancel = () => {
-    this.setState({
-      visible: false
-    })
-  }
+    vCodeChange = (e) => {
+        this.setState({
+            vCode: e.target.value
+        })
+    }
 
-  pwdChange = (e) => {
-    this.setState({
-      pwd: e.target.value
-    })
-  }
+    ivCodeChange = (e) => {
+        this.setState({
+            ivCode: e.target.value
+        })
+    }
 
-  vCodeChange = (e) => {
-    this.setState({
-      vCode: e.target.value
-    })
-  }
+    captchaChange = () => {
+        this.props.captchaStore.fetch()
+    }
 
-  ivCodeChange = (e) => {
-    this.setState({
-      ivCode: e.target.value
-    })
-  }
-
-  captchaChange = () => {
-    this.props.captchaStore.fetch()
-  }
-
-  render() {
-    const codeid = this.props.captchaStore.codeid
-    const bankCardList = this.props.userInfoStore.bankCardList || []
-    const gaBindSuccess = this.props.userInfoStore.gaBindSuccess
-    const captcha = this.props.captchaStore.captcha
-    return (
-      <div className="bank-list-box">
+    render() {
+        const codeid = this.props.captchaStore.codeid
+        const bankCardList = this.props.userInfoStore.bankCardList || []
+        const gaBindSuccess = this.props.userInfoStore.gaBindSuccess
+        const captcha = this.props.captchaStore.captcha
+        return (
+            <div className="bank-list-box">
         <div>
           <div className="ant-table ant-table-large ant-table-fixed-header ant-table-scroll-position-left">
             <div className="ant-table-content">
@@ -156,13 +164,21 @@ export default class BankList extends Component {
                             <td>{item.openBank}</td>
                             <td>{item.cardNo}</td>
                             <td>{this.status(item.status)}</td>
-                            <td onClick={() => { this.bankHandle(item.status, item.id) }} style={{ cursor: 'pointer' }}>{
-                              item.status === 2
-                                ? UPEX.lang.template('删除')
-                                : item.status === 1
-                                  ? UPEX.lang.template('解绑')
-                                  : '-'
-                            }
+                            <td 
+                              onClick={() => { this.bankHandle(item.status, item.id) }} 
+                              style={{ cursor: 'pointer' }}
+                            >
+                              {
+                                item.status === 2
+                                ? 
+                                UPEX.lang.template('删除')
+                                : 
+                                item.status === 1
+                                ? 
+                                UPEX.lang.template('解绑')
+                                : 
+                                '-'
+                              }
                             </td>
                           </tr>
                         })
@@ -204,6 +220,6 @@ export default class BankList extends Component {
           }
         </Modal>
       </div>
-    )
-  }
+        )
+    }
 }

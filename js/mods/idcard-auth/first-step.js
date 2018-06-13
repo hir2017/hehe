@@ -365,7 +365,7 @@ export default class FirstStep extends Component {
             <Select style={{ width: 190 }}
               onChange={this.idCardTypeChange}
               placeholder={UPEX.lang.template('请选择')}>
-              <Option value="1">台湾身份证</Option>
+              <Option value="1">{UPEX.lang.template('台湾身份证')}</Option>
             </Select>
             <span className="error-message">{this.state.idCardTypeMes}</span>
             <span className="message">

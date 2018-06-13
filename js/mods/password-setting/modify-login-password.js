@@ -6,8 +6,8 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import { Button, message } from 'antd'
-import { Link } from 'react-router'
-import Vcodebutton from '../common/sendAuthCodeBtn'
+import { Link , browserHistory } from 'react-router'
+import Vcodebutton from '../common/authcode-btn'
 import md5 from '../../lib/md5';
 
 @inject('userInfoStore', 'captchaStore', 'authStore')
@@ -28,8 +28,8 @@ export default class ModifyPassword extends Component {
   componentWillMount() {
     const userInfo = this.props.userInfoStore.userInfo || {}
     const gaBindSuccess = this.props.userInfoStore.gaBindSuccess
-    Object.keys(userInfo).length || this.props.userInfoStore.getUserInfo()
-    gaBindSuccess || this.props.userInfoStore.isGoogleAuth()
+    this.props.userInfoStore.getUserInfo()
+    this.props.userInfoStore.isGoogleAuth()
     this.captchaChange()
   }
 
@@ -113,7 +113,14 @@ export default class ModifyPassword extends Component {
 
     const pwd = md5(this.state.password + UPEX.config.salt);
     const type = gaBindSuccess ? 1 : userInfo.phone ? 2 : 3
-    this.props.userInfoStore.resetPwd(this.state.newPwd, this.state.vCode, this.state.ivCode, codeid, pwd, type)
+    
+    this.props.userInfoStore.resetPwd(this.state.newPwd, this.state.vCode, this.state.ivCode, codeid, pwd, type);
+
+    // 清除用户登录，重新到登录页面
+    // if (res.status == 200) {
+    //   this.props.authStore.clear();
+    //   browserHistory.push('/login');
+    // }
   }
 
   render() {
@@ -176,9 +183,6 @@ export default class ModifyPassword extends Component {
                   </div>
                 </div>
           }
-          <div className="massage" style={{ display: 'none' }}>
-            {UPEX.lang.template('不方便接短信？可使用')}&nbsp;&nbsp;&nbsp;&nbsp;<Link>Google{UPEX.lang.template('驗證碼')}</Link>
-          </div>
           <div className="submit">
             <Button loading={loading} onClick={this.submit}>{UPEX.lang.template('提交')}</Button>
           </div>

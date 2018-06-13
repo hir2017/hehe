@@ -14,7 +14,7 @@ export default class BindingBank extends Component {
 
   componentWillMount() {
     const userInfo = this.props.userInfoStore.userInfo || {}
-    Object.keys(userInfo).length || this.props.userInfoStore.getUserInfo()
+    this.props.userInfoStore.getUserInfo()
   }
 
   passwordSwitch = (checked) => {
@@ -67,7 +67,7 @@ export default class BindingBank extends Component {
           <div className="password-change">
             <span>{UPEX.lang.template('登录密码')}</span>
             <Button>
-              <Link to="/user/modifyPassword">{UPEX.lang.template('修改')}</Link>
+              <Link to="/user/resetpwd">{UPEX.lang.template('修改')}</Link>
             </Button>
           </div>
           <div className="password-message">
@@ -106,7 +106,7 @@ export default class BindingBank extends Component {
               <span style={{ visibility: 'hidden' }} className="leve">弱</span>
               <span className="switch">
                 {UPEX.lang.template('啟用委託認證')}
-                <Switch onChange={this.passwordSwitch} checked={isEnableFdPassword} />
+                { userInfo.isValidatePhone ? <Switch onChange={this.passwordSwitch} checked={isEnableFdPassword} /> : null }
               </span>
             </div>
             <div style={{ display: 'none' }} className="leve-show">

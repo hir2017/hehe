@@ -1,17 +1,17 @@
 /**
- * @fileoverview  google 认证
+ * @fileoverview  google
  * @author xia xiang feng
- * @date 2018-05-25
+ * @date 2018-05-23
  */
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
-import { Button, message } from 'antd'
+import { Button, Switch, message } from 'antd'
 import { Link } from 'react-router'
-import Vcodebutton from '../common/sendAuthCodeBtn'
+import Vcodebutton from '../common/authcode-btn'
 
 @inject('userInfoStore', 'captchaStore')
 @observer
-class Google extends Component {
+export default class ReBinding extends Component {
 
   constructor() {
     super()
@@ -19,10 +19,10 @@ class Google extends Component {
     this.ivCodeChange = this.ivCodeChange.bind(this)
     this.submit = this.submit.bind(this)
     this.vCodeChange = this.vCodeChange.bind(this)
+    this.captchaChange = this.captchaChange.bind(this)
   }
 
   componentWillMount() {
-    this.props.userInfoStore.getGaSecretKey()
     this.props.captchaStore.fetch()
   }
 
@@ -65,7 +65,7 @@ class Google extends Component {
       return
     }
 
-    this.props.userInfoStore.bindGA(this.state.google, this.state.vCode)
+    this.props.userInfoStore.rmBindGA(this.state.google, this.state.vCode)
   }
 
   render() {
@@ -74,22 +74,12 @@ class Google extends Component {
     const captcha = this.props.captchaStore.captcha
     const gaSecretKey = this.props.userInfoStore.gaSecretKey || {}
     return (
-      <div className="google-auth-box">
-        <div className="google-auth-message">
-          <span className="error-message">*</span>
-          {UPEX.lang.template('为了您的资金安全，修改Google验证码后，24小时不可以提币')}
+      <div>
+        <div className="google-auth-title">
+          {UPEX.lang.template('解绑google验证器')}
         </div>
-        <div>
-          <div className="google-auth-left">
-          {
-            gaSecretKey.qrcode
-            ? <img src={`data:image/png;base64,${gaSecretKey.qrcode}`} />
-            : <img />
-          }
-            
-            <div>{gaSecretKey.secretKey}</div>
-          </div>
-          <div className="google-auth-right">
+        <div className="binding-phone-content">
+          <div className="binding-phone-right reBinding-right rm-binding">
             <div className="modify-password-box">
               <div className="item">
                 <span className="lable">{UPEX.lang.template('Google验证码')}</span>
@@ -110,12 +100,12 @@ class Google extends Component {
                 <Vcodebutton imgCode={this.state.ivCode} codeid={codeid} type="phone" />
               </div>
               <div className="info">
-                <Link to="/user/googleGuide">
+                <Link to="">
                   Google{UPEX.lang.template('验证器使用教程')}
                 </Link>
               </div>
               <div>
-                <Button loading={loading} onClick={this.submit}>{UPEX.lang.template('绑定')}</Button>
+                <Button loading={loading} onClick={this.submit}>{UPEX.lang.template('解绑')}</Button>
               </div>
             </div>
           </div>
@@ -124,5 +114,3 @@ class Google extends Component {
     )
   }
 }
-
-export default Google;

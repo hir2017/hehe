@@ -44,13 +44,13 @@ import FiatRecord from './pages/record-list/record-fiat';
 
 // 个人中心
 import UserInfo from './pages/user';
-import BasicInfo from './pages/user/basic-info'
+import BasicInfo from './pages/user/basic-info';
 import IdCardAuth from './pages/user/idcard-auth';
-import BankInfo from './pages/user/bankInfo'
-import PasswordSetting from './pages/user/passwordSetting'
-import ModifyPassword from './mods/passwordSetting/modifyPassword'
-import ModifyTraddingPassword from './mods/passwordSetting/modifyTradingPassword.v1.1'
-import SettingTraddingPassword from './mods/passwordSetting/settingTradingPassword'
+import BankInfo from './pages/user/bank-info';
+import PasswordSetting from './pages/user/password-setting'
+import ModifyPassword from './mods/password-setting/modify-login-password'
+import ModifyTraddingPassword from './mods/password-setting/modifyTradingPassword.v1.1'
+import SettingTraddingPassword from './mods/password-setting/settingTradingPassword'
 import BindingPhone from './pages/user/bindingPhone'
 import ModifyPhone from './mods/bindingPhone/modifyPhone'
 import SettingPhone from './mods/bindingPhone/bindingPhone'
@@ -58,14 +58,14 @@ import BindingEmail from './pages/user/bindingEmail'
 import ModifyEmail from './mods/bindingEmail/modifyEmail'
 import SettingEmail from './mods/bindingEmail/bindingEmail'
 import GoogleAuth from './pages/user/google-auth'
-import RmbindingGoogle from './mods/bindingGoogle/rmBinding'
-import GoogleGuide from './pages/user/googleGuide'
+import RmbindingGoogle from './mods/binding-google/unbind'
+import GoogleGuide from './pages/user/google-guide'
 import Question from './pages/user/problemFeedback'
 import QuestionList from './pages/user/feedbackList'
 import QuestionDetails from './pages/user/feedbackDetails'
 import EmailSuccess from './mods/bindingEmail/success'
 import PhoneSuccess from './mods/bindingPhone/success'
-import ForgetTradingPassword from './mods/passwordSetting/forgetTradingPassword'
+import ForgetTradingPassword from './mods/password-setting/forgetTradingPassword'
 
 const routes = (
     <Route>
@@ -101,8 +101,8 @@ const routes = (
 			 	<IndexRoute component={BasicInfo}/>
 				<Route path="authentication" component={IdCardAuth} />
 				<Route path="bankInfo" component={BankInfo} />
-				<Route path="passwordSetting" component={PasswordSetting} />
-				<Route path="modifyPassword" component={ModifyPassword} />
+				<Route path="setpwd" component={PasswordSetting} />
+				<Route path="resetpwd" component={ModifyPassword} />
 				<Route path="modifyTraddingPassword" component={ModifyTraddingPassword} />
 				<Route path="settingTraddingPassword" component={SettingTraddingPassword} />
 				<Route path="forgetTradingPassword" component={ForgetTradingPassword} />

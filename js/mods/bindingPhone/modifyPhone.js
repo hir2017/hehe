@@ -7,7 +7,7 @@ import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import { Button, message, Select } from 'antd'
 import { Link } from 'react-router'
-import Vcodebutton from '../common/sendAuthCodeBtn'
+import Vcodebutton from '../common/authcode-btn'
 const Option = Select.Option;
 
 @inject('userInfoStore', 'captchaStore', 'loginStore')
