@@ -4,6 +4,7 @@
 import { message } from 'antd';
 import { orderFiatWithdraw, getUserBankInfo , takeCoinSendPhoneCode } from '../../api/http';
 import { browserHistory } from 'react-router';
+import Timer from '../../lib/timer';
 import md5 from '../../lib/md5';
 
 export default (store, userInfoStore) => {
@@ -145,19 +146,21 @@ export default (store, userInfoStore) => {
 
             if (result.pass) {
                 store.changeSubmitingStatusTo(true);
-
+                // amount, currencyId, cardId（此用户当前绑定银行卡id）, tradePwd, gAuth/phoneCode
                 orderFiatWithdraw({
-		            fdPwd: store.md5TradePassword,
+		            tradePwd: store.md5TradePassword,
 		            phoneCode: store.phoneCode,
-		            vercode: store.vercode,
-		            codeid: store.captchaStore.codeid,
-		            amount: store.amount,
+		            cardId: store.selectedCard,
+                    amount: store.balance,
+                    codeId: store.captchaStore.codeid,
+                    verCode: store.vercode,
 		            gAuth: store.googleCode,
 		        }).then((data) => {
                     store.changeSubmitingStatusTo(false);
                     switch (data.status) {
                         case 200:
                             message.success(UPEX.lang.template('提币成功'));
+                            browserHistory.push('/account/fiatrecord');
                             store.resetForm();
                             break;
                         default:

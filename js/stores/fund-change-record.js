@@ -79,17 +79,18 @@ class FundChangeRecordStore {
                     this.isFetching = false;
                 });
             })
-            .catch(() => {
+            .catch((err) => {
                 runInAction(() => {
                     this.isFetching = false;
                 });
             });
     }
 
+
     parseData(arr) {
         const statusMap = this.statusMap
         arr.forEach((item, index) => {
-            item.createTime = TimeUtil.formatDate(item.createTime, 'yyyy-MM-dd HH:mm:ss');
+            // item.createTime = TimeUtil.formatDate(item.createTime, 'yyyy-MM-dd HH:mm:ss');
             item.subRowClosed = true;
             item._type = item.type === 1 ? 'recharge' : 'withdraw';
             item._status = statusMap[item.status] || '未知';

@@ -9,22 +9,23 @@ const Option = Select.Option;
 import toAction from './fiat-recharge-action';
 
 import CardSelect from './bind-card-select';
+import OrderInfo from './fiat-order-info';
 
 // 金流類型
 const cashTypes = () => {
     return [
-        { val: 'PD-ATM-POST', label: UPEX.lang.template('郵局實體ATM') },
-        { val: 'PD-ATM-CTCB', label: UPEX.lang.template('中國信託實體ATM') },
-        { val: 'PD-ATM-HNCB', label: UPEX.lang.template('華南實體ATM') },
-        { val: 'PD-ATM-SINOPAC', label: UPEX.lang.template('永豐實體ATM') },
-        { val: 'PD-ATM-SCSB', label: UPEX.lang.template('上海商銀即時ATM') },
-        { val: 'PD-WEBATM-POST', label: UPEX.lang.template('郵局WEB-ATM') },
-        { val: 'PD-WEBATM-TCB', label: UPEX.lang.template('合庫WEBATM') },
-        { val: 'PD-WEBATM-CTCB', label: UPEX.lang.template('中國信託WEB-ATM') },
-        { val: 'PD-WEBATM-HNCB', label: UPEX.lang.template('華南WEB-ATM') },
-        { val: 'PD-WEBATM-TSCB', label: UPEX.lang.template('台新WEB-ATM') },
-        { val: 'PD-WEBATM-SINOPAC', label: UPEX.lang.template('永豐WEB-ATM') },
-        { val: 'PD-WEBATM-ESUN', label: UPEX.lang.template('玉山銀行WEB-ATM') }
+        // { val: 'PD-ATM-POST', label: UPEX.lang.template('郵局實體ATM') }, // 无该资质渠道
+        { val: 'PD-ATM-CTCB', label: UPEX.lang.template('中國信託實體ATM') }, // 只显示订单，没有支付
+        { val: 'PD-ATM-HNCB', label: UPEX.lang.template('華南實體ATM') }, // 只显示订单，没有支付
+        { val: 'PD-ATM-SINOPAC', label: UPEX.lang.template('永豐實體ATM') }, // 只显示订单，没有支付
+        // { val: 'PD-ATM-SCSB', label: UPEX.lang.template('上海商銀即時ATM') }, // 无该资质渠道
+        // { val: 'PD-WEBATM-POST', label: UPEX.lang.template('郵局WEB-ATM') }, // 无该资质渠道
+        { val: 'PD-WEBATM-TCB', label: UPEX.lang.template('合庫WEBATM') },// 可使用
+        { val: 'PD-WEBATM-CTCB', label: UPEX.lang.template('中國信託WEB-ATM') },// 可使用
+        { val: 'PD-WEBATM-HNCB', label: UPEX.lang.template('華南WEB-ATM') },// 可使用
+        { val: 'PD-WEBATM-TSCB', label: UPEX.lang.template('台新WEB-ATM') },// 可使用
+        { val: 'PD-WEBATM-SINOPAC', label: UPEX.lang.template('永豐WEB-ATM') },// 可使用
+        { val: 'PD-WEBATM-ESUN', label: UPEX.lang.template('玉山銀行WEB-ATM') }// 可使用
     ];
 };
 
@@ -38,6 +39,7 @@ class FiatRechargeView extends Component {
     }
 
     componentDidMount() {
+        this.props.fiatRechargeStore.resetProps();
         this.props.fiatRechargeStore.getInfo();
     }
 
@@ -45,35 +47,30 @@ class FiatRechargeView extends Component {
         this.action.handleRecharge();
     };
 
-    onConfirm = e => {};
+    onConfirm = e => {
+        browserHistory.push('/account/fiatrecord');
+    };
 
     render() {
         let store = this.props.fiatRechargeStore;
         let $formContent;
 
         if (store.step == 'success') {
+            let currCardInfo = store.selectBindCardInfo;
+            const orderData = {
+                labels: {
+                    title: UPEX.lang.template('充值信息确认'),
+                    card: UPEX.lang.template('充值银行卡'),
+                    count: UPEX.lang.template('充值金额')
+                },
+                count: store.balance,
+                card: currCardInfo.cardNo,
+                user: currCardInfo.cardName,
+                bank: currCardInfo.openBank
+            };
             $formContent = (
                 <div className="rw-form">
-                    <div className="sub-title">{UPEX.lang.template('充值信息确认')}</div>
-                    <div className="rw-form-item">
-                        <label className="rw-form-label">{UPEX.lang.template('充值银行卡')}</label>
-                        <div className="rw-form-info">
-                            <div className="bank-card">
-                                <div className="bank-card-box">
-                                    <div className="card-name">{store.selectedCard.providerName}</div>
-                                    <div className="user-name">{store.selectedCard.showUserName}</div>
-                                    <div className="card-no">{`**** **** **** ${store.selectedCard.providerNo}`} </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="rw-form-item recharge-form-balance">
-                        <label className="rw-form-label">{UPEX.lang.template('充值金额')}</label>
-                        <div className="rw-form-info">
-                            <i className="unit">NT$</i>
-                            <em className="balance">{store.balance}</em>
-                        </div>
-                    </div>
+                    <OrderInfo {...orderData} />
                     <div className="rw-form-item">
                         <label className="rw-form-label" />
                         <div className="rw-form-info">
@@ -88,17 +85,18 @@ class FiatRechargeView extends Component {
                 </div>
             );
         } else {
+            const setVal = (val, field) => {
+                store.setVal(val, field);
+            }
             const SelectData = {
-                setVal: (val, field) => {
-                    store.setVal(val, field);
-                },
+                setVal,
                 cards: store.bankCardsList,
                 count: store.accountAmount,
                 labels: { card: UPEX.lang.template('选择充值的银行卡'), balance: UPEX.lang.template('充值金额') }
-            }
+            };
             $formContent = (
                 <div className="rw-form">
-                    <CardSelect  {...SelectData} />
+                    <CardSelect {...SelectData} />
                     <div className="rw-form-item">
                         <label className="rw-form-label">{UPEX.lang.template('金流類型')}</label>
                         <div className="rw-form-info">

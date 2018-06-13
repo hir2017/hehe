@@ -24,7 +24,6 @@ class BankInfo extends Component {
     }
 
     state = {
-        goBank: false,
         pwd: ''
     }
 
