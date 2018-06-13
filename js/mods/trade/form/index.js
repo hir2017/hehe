@@ -12,11 +12,10 @@ class TradeForm extends Component{
 		} else {
 			browserHistory.push('/account/coin/recharge');
 		}
-		
 	}
 
+
 	onChangeBuySlider=(num)=>{
-		console.log(num);
 		this.props.tradeStore.setBuySliderValue(num);
 	}
 
@@ -24,41 +23,30 @@ class TradeForm extends Component{
 		this.props.tradeStore.setSellSliderValue(num);
 	}
 
-	onChangeBuyPrice=(e)=>{
+	onChange=(key, e)=>{
 		let value = e.currentTarget.value.trim();
-
-		this.props.tradeStore.setDealBuyPrice(value);
+		console.log(value);
+		switch(key) {
+			case 'buyprice':
+				this.props.tradeStore.setDealBuyPrice(value);
+				break;
+			case 'buynum':
+				this.props.tradeStore.setDealBuyNum(value);
+				break;
+			case 'sellprice':
+				this.props.tradeStore.setDealSellPrice(value);
+				break;
+			case 'sellnum':
+				this.props.tradeStore.setDealSellNum(value);
+				break;
+			case 'sellpwd':
+				this.props.tradeStore.setTradeSellPassword(value);
+				break;
+			case 'buypwd':
+				this.props.tradeStore.setTradeBuyPassword(value);
+				break;
+		}
 	}
-
-	onChangeBuyNum=(e)=>{
-		let value = e.currentTarget.value.trim();
-
-		this.props.tradeStore.setDealBuyNum(value);
-	}
-
-	onChangeSellPrice=(e)=>{
-		let value = e.currentTarget.value.trim();
-
-		this.props.tradeStore.setDealSellPrice(value);
-	}
-
-	onChangeSellNum=(e)=>{
-		let value = e.currentTarget.value.trim();
-
-		this.props.tradeStore.setDealSellNum(value);
-	}
-
-	onChangeSellPwd=(e)=>{
-		let value = e.currentTarget.value.trim();
-
-		this.props.tradeStore.setTradeSellPassword(value);
-	}
-
-	onChangeBuyPwd=(e)=>{
-		let value = e.currentTarget.value.trim();
-
-		this.props.tradeStore.setTradeBuyPassword(value);
-	}	
 	// 失去焦点的时候验证填入的价格
 	checkTradePrice=(type, e)=>{
 		let value = e.currentTarget.value.trim();
@@ -147,10 +135,9 @@ class TradeForm extends Component{
 									<div className="input-box">
 										<Tooltip placement="top" visible={store.tradePriceErr == '' ? false : true} title={store.tradePriceErr}>
 										<input
-											type="number"
-											min="0"
+											type="text"
 											value={store.dealBuyPrice}
-											onChange={this.onChangeBuyPrice}
+											onChange={this.onChange.bind(this, 'buyprice')}
 											onBlur={this.checkTradePrice.bind(this, 'buy')} 
 										/>
 										</Tooltip>
@@ -161,10 +148,9 @@ class TradeForm extends Component{
 									<label>{UPEX.lang.template('买入量')}</label>
 									<div className="input-box">
 										<input
-											type="number"
-											min="0"
+											type="text"
 											value={store.dealBuyNum}
-											onChange={this.onChangeBuyNum}
+											onChange={this.onChange.bind(this, 'buynum')}
 											onBlur={this.checkTradeNumber.bind(this, 'buy')} 
 										/>
 										<i>{store.currencyNameEn}</i>
@@ -191,7 +177,7 @@ class TradeForm extends Component{
 													type="password"
 													min="0"
 													value={store.tradeBuyPassword}
-													onChange={this.onChangeBuyPwd}
+													onChange={this.onChange.bind(this, 'buypwd')}
 												/>
 											</div>
 										</li>
@@ -222,10 +208,9 @@ class TradeForm extends Component{
 									<label>{UPEX.lang.template('卖出价')}</label>
 									<div className="input-box">
 										<input
-											type="number"
-											min="0"
+											type="text"
 											value={store.dealSellPrice}
-											onChange={this.onChangeSellPrice}
+											onChange={this.onChange.bind(this, 'sellprice')}
 											onBlur={this.checkTradePrice.bind(this, 'sell')} 
 										/>
 										<i>{ store.baseCurrencyNameEn }</i>
@@ -235,10 +220,9 @@ class TradeForm extends Component{
 									<label>{UPEX.lang.template('卖出量')}</label>
 									<div className="input-box">
 										<input
-											type="number"
-											min="0"
+											type="text"
 											value={store.dealSellNum}
-											onChange={this.onChangeSellNum}
+											onChange={this.onChange.bind(this, 'sellnum')}
 											onBlur={this.checkTradeNumber.bind(this, 'sell')} 
 										/>
 										<i>{store.currencyNameEn}</i>
@@ -266,7 +250,7 @@ class TradeForm extends Component{
 													type="password"
 													min="0"
 													value={store.tradeSellPassword}
-													onChange={this.onChangeSellPwd}
+													onChange={this.onChange.bind(this, 'sellpwd')}
 												/>
 											</div>
 										</li>

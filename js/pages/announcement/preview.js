@@ -12,7 +12,7 @@ import { Link } from 'react-router'
 class AnnouncePreview extends Component {
     
     componentDidMount() {
-    	this.props.announcementStore.fetchInfo();
+    	this.props.announcementStore.fetchInfo(this.props.params.announcementId);
     }
 
     render() {

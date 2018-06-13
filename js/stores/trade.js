@@ -36,10 +36,10 @@ class TradeStore {
     @observable baseCurrencyNameEn = '';
     @observable currencyId = 0;
     @observable currencyNameEn = '';
-    @observable dealBuyPrice = 0; // 交易买入价格
-    @observable dealSellPrice = 0; // 交易卖出价格
-    @observable dealBuyNum = 0; // 买入数量
-    @observable dealSellNum = 0; // 卖出数量
+    @observable dealBuyPrice = ''; // 交易买入价格
+    @observable dealSellPrice = ''; // 交易卖出价格
+    @observable dealBuyNum = ''; // 买入数量
+    @observable dealSellNum = ''; // 卖出数量
     @observable buySliderValue = 0;
     @observable sellSliderValue = 0;
     @observable validBuyPrice = true;
@@ -460,29 +460,33 @@ class TradeStore {
 
     @action
     setBuySliderValue(value) {
-        let num = (baseCoinBalance.value * value) / 100;
+        let balance = this.baseCoinBalance.value;
+        let num = (balance * value) / 100;
 
-        this.dealBuyNum = NumberUtil.initNumber(num, this.pointNum);
+        this.dealBuyNum = num;
         this.buySliderValue = value;
     }
 
     @action
     setSellSliderValue(value) {
-        let num = (baseCoinBalance.value * value) / 100;
+        let balance = this.baseCoinBalance.value;
+        let num = (balance * value) / 100;
 
-        this.dealSellNum = NumberUtil.initNumber(num, this.pointNum);
+        this.dealSellNum = num;
         this.sellSliderValue = value;
     }
 
     @action
     setDealBuyNum(value) {
+        let balance = this.baseCoinBalance.value;
         let result;
         let precent;
 
-        if (baseCoinBalance.value === 0) {
+
+        if (balance === 0) {
             result = 0;
         } else {
-            precent = (value / baseCoinBalance.value) * 100;
+            precent = (value / balance) * 100;
 
             if (precent > 100) {
                 precent = 100;
@@ -497,13 +501,14 @@ class TradeStore {
 
     @action
     setDealSellNum(value) {
+        let balance = this.baseCoinBalance.value;
         let result;
         let precent;
 
-        if (baseCoinBalance.value === 0) {
+        if (balance === 0) {
             result = 0;
         } else {
-            precent = (value / baseCoinBalance.value) * 100;
+            precent = (value / balance) * 100;
 
             if (precent > 100) {
                 precent = 100;
@@ -535,9 +540,9 @@ class TradeStore {
         }
 
         if (type == 'buy') {
-            this.dealBuyPrice = NumberUtil.initNumber(amount, this.pointPrice);
+            this.dealBuyPrice = amount;
         } else {
-            this.dealSellPrice = NumberUtil.initNumber(amount, this.pointPrice);
+            this.dealSellPrice = amount;
         }
 
         return pass;
@@ -558,9 +563,9 @@ class TradeStore {
         }
 
         if (type == 'buy') {
-            this.dealBuyNum = NumberUtil.initNumber(number, this.pointNum);
+            this.dealBuyNum = number;
         } else {
-            this.dealSellNum = NumberUtil.initNumber(number, this.pointNum);
+            this.dealSellNum = number;
         }
 
         return pass;
@@ -624,8 +629,6 @@ class TradeStore {
             tradeCurrencyId: this.currencyId
         });
         socket.on('loginAfterChangeTradeCoin', data => {
-            console.log('+++++++++++++++++++++++++');
-            console.log('loginAfterChangeTradeCoin', data);
             runInAction('get loginAfterChangeTradeCoin', () => {
                 this.currentTradeCoin = data.currentTradeCoin;
                 this.currentTradeCoinRealTime = data.currentTradeCoinRealTime;
@@ -644,8 +647,6 @@ class TradeStore {
         });
 
         socket.on('tradeHistory', data => {
-            console.log('+++++++++++++');
-            console.log('tradeHistory', data);
             runInAction('get tradeHistory data', () => {
                 this.tradeHistory = data;
             });
@@ -655,7 +656,6 @@ class TradeStore {
     @computed
     get parsedTradeHistory() {
         let tradeHistory = JSON.parse(JSON.stringify(this.tradeHistory));
-        console.log('--------------------------------------', tradeHistory);
         tradeHistory.content.forEach((item, index) => {
             item.time = TimeUtil.formatDate(item.time, 'HH:mm:ss'); // 时间
             item.current = NumberUtil.formatNumber(item.current, this.pointPrice); // 价格
@@ -674,9 +674,6 @@ class TradeStore {
         });
 
         socket.on('entrust', data => {
-            // data = require('../mock/entrust.json');
-            console.log('+++++++++++++');
-            console.log('entrust', data);
             runInAction('get entrust', () => {
                 this.entrust = data;
             });
@@ -722,24 +719,53 @@ class TradeStore {
             return;
         }
 
-        getUserOrderList({
-                baseCurrencyId: this.baseCurrencyId,
-                tradeCurrencyId: this.currencyId
-            })
-            .then(data => {
-                // data = require('../mock/order-list.json');
-                runInAction(() => {
-                    this.openOrderList = this.parseOpenOrderList(data.attachment.tradeFail);
-                    this.historyOrderList = this.parseHistoryOrderList(data.attachment.tradeSuccess);
-                    this.isFetchingOrderList = false;
-                });
-            })
-            .catch(() => {
-                runInAction(() => {
-                    this.isFetchingOrderList = false;
-                });
-            });
+        this.getUserOpenList();
+        this.getUserSuccessList();
+
+
+        // getUserOrderList({
+        //         baseCurrencyId: this.baseCurrencyId,
+        //         tradeCurrencyId: this.currencyId
+        //     })
+        //     .then(data => {
+        //         // data = require('../mock/order-list.json');
+        //         runInAction(() => {
+        //             this.openOrderList = this.parseOpenOrderList(data.attachment.tradeFail);
+        //             this.historyOrderList = this.parseHistoryOrderList(data.attachment.tradeSuccess);
+        //             this.isFetchingOrderList = false;
+        //         });
+        //     })
+        //     .catch(() => {
+        //         runInAction(() => {
+        //             this.isFetchingOrderList = false;
+        //         });
+        //     });
     }
+
+    /**
+     * 委托订单
+     */
+    @action
+    getUserOpenList() {
+        socket.off('userOrder');
+        socket.emit('userOrder');
+        socket.on('userOrder', (data)=>{
+            console.log(data);
+        })
+    }
+    /**
+     *  成交订单
+     */
+    @action
+    getUserSuccessList() {
+        socket.off('userTrade');
+        socket.emit('userTrade');
+
+        socket.on('userTrade', (data)=>{
+            console.log(data);
+        })
+    }
+
 
     @action
     parseOpenOrderList(arr) {
@@ -800,8 +826,6 @@ class TradeStore {
         socket.off('loginAfter');
         socket.emit('loginAfter', { baseCurrencyId: this.baseCurrencyId });
         socket.on('loginAfter', data => {
-            console.log('+++++++++++++');
-            console.log('loginAfter', data);
             runInAction('get loginAfter', () => {
                 let result = data.filter(item => {
                     return item.info.currencyNameEn === 'TWD'; // TWD市场
@@ -876,7 +900,6 @@ class TradeStore {
         }
 
         socket.off('userAccount');
-
         socket.emit('userAccount', {
             token: this.authStore.token,
             uid: this.authStore.uid,
@@ -886,7 +909,6 @@ class TradeStore {
 
         socket.on('userAccount', data => {
             runInAction('get userAccount', () => {
-                console.log('+++++++++++++userAccount', data);
                 this.personalAccount = data;
             });
         });
@@ -1059,7 +1081,6 @@ class TradeStore {
                     }
                     // 重启获取新用户账号信息
                     this.getUserAccount();
-                    this.getUserOrderList();
 
                     if (type == 'buy') {
                         this.setDealBuyPrice('');
