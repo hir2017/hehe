@@ -91,14 +91,14 @@ export default class BindingEmail extends Component {
         <div className="modify-password-box">
           <div className="item">
             <span className="lable">{UPEX.lang.template('邮箱')}</span>
-            <input onChange={this.emailChange} className="input" />
+            <input onChange={this.emailChange} className="input email-content" />
           </div>
           <div className="item v-code">
             <span className="lable">{UPEX.lang.template('图片验证码')}</span>
             <input onChange={this.ivCodeChange} onChange={this.ivCodeChange} className="input" />
           </div>
           <div className="item v-code-button">
-            <img onClick={this.captchaChange} src={captcha} />
+            <img onClick={this.captchaChange.bind(this)} src={captcha} />
           </div>
           <div>
             <div className="item">

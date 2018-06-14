@@ -842,6 +842,10 @@
     border-left: 1px solid #ccc;
 }
 
+.user-main-box .modify-password-box .input.email-content {
+    width: 80%;
+}
+
 .user-main-box .modify-password-box .massage {
     font-size: 12px;
     color: #999999;

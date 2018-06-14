@@ -19,7 +19,7 @@ export default class ModifyEmail extends Component {
         <div className="modify-password-box">
           <div className="item">
             <span className="lable">{UPEX.lang.template('新邮箱')}</span>
-            <input className="input" />
+            <input className="input email-content" />
           </div>
           <div>
             <div className="item v-code">

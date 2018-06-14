@@ -57,7 +57,7 @@ class Info extends Component {
     let $gradeInfo;
 
     if (gradeCfg) {
-      
+
       if (gradeCfg.grade == 'Z') {
         $gradeInfo =  (
           <div>
@@ -100,13 +100,10 @@ class Info extends Component {
           </div>
         )
       }
-    } 
+    }
 
     return (
       <div className="info-box">
-        <div className="info-title">
-          {UPEX.lang.template('基本信息')}
-        </div>
         <div className="info-content">
           <div className="info-content-left">
             <div className="phone">
