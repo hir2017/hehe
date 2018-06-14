@@ -23,8 +23,7 @@ class CommonStore {
     // 业务公用的数据
     @observable productList = [];
     @observable productDataReady = false;
-    
-    coinsMap = {}; // { key:{}, key: {} } // 方便获取基础币信息 
+    @observable coinsMap = {}; // { key:{}, key: {} } // 方便获取基础币信息 
 
     constructor() {
         $(window).resize(() => {
@@ -144,14 +143,28 @@ class CommonStore {
         return Number(this.coinsMap[name].pointNum);
     }
 
-    @action
-    getBasePointNum() {
-        return this.getPointNum('TWD'); 
+    // 基础币TWD的价格
+    @computed
+    get pointPrice() {
+        let point;
+
+        if (this.coinsMap['TWD']) {
+            point = Number(this.coinsMap['TWD'].pointPrice);
+        }
+        
+        return point;
     }
 
-    @action
-    getBasePointPrice() {
-        return this.getPointPrice('TWD'); 
+    // 基础币TWD的数量
+    @computed
+    get pointNum() {
+        let point;
+
+        if (this.coinsMap['TWD']) {
+            point = Number(this.coinsMap['TWD'].pointNum);
+        }
+
+        return point;
     }
 }
 

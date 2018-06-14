@@ -81,7 +81,7 @@ class List extends Component {
 		return (
 			<div className="order-main-box">
 				<div className="order-header">
-					<h2>{ UPEX.lang.template('当前委托')}</h2>
+					<h2>{ UPEX.lang.template('已完成')}</h2>
 					<div className="filter-box">
     					<ul>
     						<li>

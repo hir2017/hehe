@@ -74,19 +74,7 @@ class TradeContent extends Component {
                 currencyId
             });    
 
-            // 3秒钟查询一次
-            let timer;
-            let fetchTradeCoinData=()=>{
-                tradeStore.getTradeCoinData();
-                clearTimeout(timer);
-
-                timer = setTimeout(()=>{
-                    fetchTradeCoinData();
-                }, 3 * 1000)
-            }
-            fetchTradeCoinData(); 
-
-            tradeStore.getLoginedMarket();
+            tradeStore.getAllCoins();
             tradeStore.getEntrust();
             tradeStore.getTradeHistory();
             tradeStore.getUserAccount();

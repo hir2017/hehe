@@ -20,6 +20,8 @@ require('echarts/lib/component/title');
 export default class extends Component {
 
     option(hours24TrendList = []) {
+        let self = this;
+
         return {
             tooltip: {
                 trigger: 'axis',
@@ -27,9 +29,11 @@ export default class extends Component {
                     type: 'cross'
                 },
                 formatter([data]) {
+                    let price = NumberUtil.formatNumber(data.value, self.props.commonStore.pointPrice);
+                    
                     return [
                         `时间：${data.name}`,
-                        `价格：NT$${data.value}`
+                        `价格：NT$${price}`
                     ].join('<br/>')
                 }
             },

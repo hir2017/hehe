@@ -13,6 +13,10 @@ class HomeStore {
 
     cacheCoins = []
 
+    constructor(stores) {
+        this.commonStore = stores.commonStore;
+    }
+
     @action
     getAllCoins() {
         this.isFetchingList = true;
@@ -26,9 +30,12 @@ class HomeStore {
                 })[0];
 
                 if (result) {
+                    
+                    result = this.parseCoinList(result);
+                    
                     this.coin = result.tradeCoins[0];
                     this.allCoins = result.tradeCoins;
-                    this.cacheCoins = result.tradeCoins;
+                    this.cacheCoins = JSON.parse(JSON.stringify(result.tradeCoins));
                     this.hotCoins = this.recommendCoins(result.tradeCoins);
                 } else {
                     this.noCoin = true;
@@ -37,6 +44,32 @@ class HomeStore {
                 this.isFetchingList = false;
             })
         })
+    }
+
+    // 格式化交易币信息
+    @action
+    parseCoinList(obj) {
+        // 遍历，1. 按成交量降序排列，2. 按最新成交价降序排序
+        obj.tradeCoins.map((item, index) => {
+            // 24小时涨跌幅
+            item.changeRateText = NumberUtil.asPercent(item.changeRate);
+            // 最新成交价
+            item.currentAmount = NumberUtil.initNumber(item.currentAmount, this.commonStore.pointPrice);
+            // 最高价
+            item.highPrice = NumberUtil.initNumber(item.highPrice, this.commonStore.pointPrice);
+            // 最低价
+            item.lowPrice = NumberUtil.initNumber(item.lowPrice, this.commonStore.pointPrice);
+            // 开盘价
+            item.openPrice = NumberUtil.initNumber(item.openPrice, this.commonStore.pointPrice);
+            // 收盘价
+            item.closePrice = NumberUtil.initNumber(item.closePrice, this.commonStore.pointPrice);
+            // 24小时成交数量
+            item.volume = NumberUtil.formatNumber(item.volume, item.pointNum);
+            // 成交额
+            item.amount = NumberUtil.formatNumber(item.volume, this.commonStore.pointPrice);
+        });
+
+        return obj;
     }
 
     @action

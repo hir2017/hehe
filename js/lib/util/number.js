@@ -96,13 +96,6 @@ const NumberUtil = {
      * @param { Number } num 保留小数点后几位
      */
     formatNumber(number, num) {
-        if (number === '敬请期待') {
-            return '敬请期待';
-        }
-
-        if (!number) {
-            return 0;
-        }
         let length = parseInt(num, 10);
 
         number = this.asDecimal(number, length); // 保留小时后N位，四舍五入
@@ -113,14 +106,6 @@ const NumberUtil = {
     },
 
     initNumber(number, num) {
-        if (number === '敬请期待') {
-            return '敬请期待';
-        }
-
-        if (!number) {
-            return 0;
-        }
-
         let length = parseInt(num, 10);
 
         number = this.asDecimal(number, length);
@@ -157,10 +142,14 @@ const NumberUtil = {
     /**
      * 百分数
      */
-    asPercent(value, decimals = 0) {
-        value = 100 * value;
+    asPercent(value, decimals = 2) {
+        let unit;
 
-        return value.toFixed(decimals) + '%'
+        value = Number(value);
+        
+        unit = value >= 0 ? '+' : '';
+
+        return unit + value.toFixed(decimals) + '%'
     },
 
     /**

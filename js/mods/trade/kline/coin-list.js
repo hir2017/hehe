@@ -102,10 +102,10 @@ class CoinList extends Component {
                                             {item.currentAmount}
                                         </div>
                                         <div
-                                            className={item.changeRate.indexOf('+') >= 0 ? 'cell rate greenrate' : 'cell rate redrate'}
+                                            className={item.changeRate >= 0 ? 'cell rate greenrate' : 'cell rate redrate'}
                                             onClick={this.handleCurrency.bind(this, item)}
                                         >
-                                            {item.changeRate}
+                                            {item.changeRateText}
                                         </div>
                                         <div className="cell volume" onClick={this.handleCurrency.bind(this, item)}>
                                             {item.volume}

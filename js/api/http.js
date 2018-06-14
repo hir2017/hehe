@@ -2,6 +2,7 @@ import axios from "axios";
 import qs from "qs";
 import { hashHistory, browserHistory } from 'react-router';
 import { message } from 'antd';
+import base64 from '../lib/base64';
 
 axios.interceptors.request.use(function(config) {
     const token = UPEX.cache.getCache('token');
@@ -44,6 +45,9 @@ axios.interceptors.request.use(function(config) {
 let preTime = +new Date();
 
 axios.interceptors.response.use(function(res) {
+    // base64解密
+    // res.data =  JSON.parse(base64.decode(res.data));
+
     let status = res.data.status
 
     if (status == 9999) {

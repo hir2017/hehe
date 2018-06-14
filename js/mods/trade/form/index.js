@@ -113,7 +113,7 @@ class TradeForm extends Component{
 							authStore.isLogin ? (
 								<div>
 									<label>{UPEX.lang.template('可用')}</label>
-									<em>{ store.tradeCoinBalance }</em>
+									<em>{ store.tradeCoinBalance.text }</em>
 									<label>{ store.currencyNameEn }</label>
 									<div className="recharge" onClick={this.goRecharge.bind(this, 'coin')}>{UPEX.lang.template('充币')}</div>
 								</div>

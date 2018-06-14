@@ -142,7 +142,7 @@ export default class extends React.Component {
                                                                 <Link to={path}>{item.currencyNameEn || '--'}</Link>
                                                             </td>
                                                             <td>{item.currentAmount}</td>
-                                                            <td>{item.changeRate}</td>
+                                                            <td>{`${item.changeRateText}`}</td>
                                                             <td>{item.volume}</td>
                                                             <td>{this.collectIcon(item)}</td>
                                                         </tr>

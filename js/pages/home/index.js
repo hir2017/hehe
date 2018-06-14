@@ -17,9 +17,35 @@ const bannerList = [
     require('../../../images/banner1.png')
 ];
 
-@inject('authStore', 'announcementStore', 'homeStore')
+@inject('commonStore')
 @observer
 class Home extends Component {
+    componentWillMount() {
+        let { commonStore } = this.props;
+
+        commonStore.getAllCoinPoint();
+    }
+    
+    render() { 
+        let { commonStore } = this.props;
+        
+        // 用于切换交易币时内容切换
+        if (commonStore.productDataReady) {
+            return <HomeContent {...this.props}/>    
+        } else {
+            return (
+                <div className="home-wrapper">
+                    <div className="mini-loading"></div>;
+                </div>   
+            )
+        }
+    }
+}
+
+
+@inject('authStore', 'announcementStore', 'homeStore')
+@observer
+class HomeContent extends Component {
     constructor(props){
         super(props);
         this.filterCoin = this.filterCoin.bind(this)
@@ -43,8 +69,9 @@ class Home extends Component {
 
     render() {
         let { authStore, announcementStore, homeStore } = this.props;
+        
         return (
-            <div className="home-wrapper">
+            <div>
             	{ !authStore.isLogin ? <LoginGuide/> : null }
                 <Banner list={bannerList}/>
                 { announcementStore.formatedList.length > 0 ? <NoticeList list={announcementStore.formatedList}/> : null }
