@@ -9,49 +9,36 @@ import { observer, inject } from 'mobx-react';
 @inject('userInfoStore')
 @observer
 export default class extends Component {
+    componentDidMount() {
+        this.props.userInfoStore.questionDetails(this.props.routeParams.id);
+    }
 
-  componentDidMount() {
-    this.props.userInfoStore.questionDetails(this.props.routeParams.id)
-  }
-
-  render() {
-    const questionObj = this.props.userInfoStore.questionObj || {}
-    const list = questionObj.list || []
-    const question = questionObj.question || { detail: '', urlkey: '' }
-    return (
-      <div>
-        <div className="question-title">
-          {UPEX.lang.template('問題详情')}
-        </div>
-        <div>
-          <div>
-            <div style={{ padding: '20px', textIndent: '24px' }}>
-              {
-                question.detail
-              }
+    render() {
+        const questionObj = this.props.userInfoStore.questionObj || {};
+        const list = questionObj.list || [];
+        const question = questionObj.question || { detail: '', urlkey: '' };
+        return (
+            <div className="page-content-inner">
+                <div className="content-title">{UPEX.lang.template('問題详情')}</div>
+                <section className="content-body">
+                    <div>
+                        <div style={{ padding: '20px', textIndent: '24px' }}>{question.detail}</div>
+                        <div>
+                            {question.urlkey.split(',').map((item, index) => {
+                                return <img key={index} src={UPEX.config.imgHost + '/' + item} />;
+                            })}
+                        </div>
+                    </div>
+                    <div style={{ backgroundColor: '#f3f3f3', padding: '20px' }}>
+                        <div style={{ fontSize: '14px', fontWeight: '600' }}>{UPEX.lang.template('客服反馈')}：</div>
+                        <ul style={{ padding: '10px' }}>
+                            {list.map(item => {
+                                return <li>{item.detail}</li>;
+                            })}
+                        </ul>
+                    </div>
+                </section>
             </div>
-            <div>
-              {
-                question.urlkey.split(',').map((item, index) => {
-                  return <img key={index} src={UPEX.config.imgHost + '/' + item} />
-                })
-              }
-            </div>
-          </div>
-          <div style={{ backgroundColor: '#f3f3f3', padding: '20px' }}>
-            <div style={{ fontSize: '14px', fontWeight: '600' }}>{UPEX.lang.template('客服反馈')}：</div>
-            <ul style={{ padding: '10px' }}>
-              {
-                list.map((item) => {
-                  return <li>
-                    {item.detail}
-                  </li>
-                })
-              }
-            </ul>
-          </div>
-        </div>
-      </div>
-    )
-  }
+        );
+    }
 }

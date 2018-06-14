@@ -5,20 +5,20 @@
  */
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
-import BindingEmail from '../../mods/bindingEmail'
+import BindingEmail from '../../mods/bindingEmail';
 
 @observer
 class BindingEmailPage extends Component {
     render() {
         return (
-          <div>
-            <div className="binding-phone-title">
-              {UPEX.lang.template('邮箱绑定')}
+            <div className="page-content-inner">
+                <div className="content-title">{UPEX.lang.template('邮箱绑定')}</div>
+                <section className="content-body">
+                    <BindingEmail />
+                </section>
             </div>
-            <BindingEmail />
-          </div>
-        )
-      }
-  }
-  
+        );
+    }
+}
+
 export default BindingEmailPage;

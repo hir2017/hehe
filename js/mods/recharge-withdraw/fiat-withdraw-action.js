@@ -146,7 +146,8 @@ export default (store, userInfoStore) => {
 
             if (result.pass) {
                 store.changeSubmitingStatusTo(true);
-                // amount, currencyId, cardId（此用户当前绑定银行卡id）, tradePwd, gAuth/phoneCode
+                console.log(store.authType)
+                // amount, currencyId, cardId（此用户当前绑定银行卡id）, validateType, tradePwd, gAuth/phoneCode
                 orderFiatWithdraw({
 		            tradePwd: store.md5TradePassword,
 		            phoneCode: store.phoneCode,
@@ -154,7 +155,8 @@ export default (store, userInfoStore) => {
                     amount: store.balance,
                     codeId: store.captchaStore.codeid,
                     verCode: store.vercode,
-		            gAuth: store.googleCode,
+                    gAuth: store.googleCode,
+                    validateType: store.authType === 'google' ? 1 : 2,
 		        }).then((data) => {
                     store.changeSubmitingStatusTo(false);
                     switch (data.status) {

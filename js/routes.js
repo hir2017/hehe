@@ -74,7 +74,7 @@ const routes = (
         	<Route path="home" component={Home}/>
         	<Route path="index" component={Home}/>
 	        <Route path="trade(/:pair)" component={TradeCenter}/>
-	        
+
 	        <Route path="account" component={Auth}>
 	        	<IndexRoute component={Assets}/>
 	        	<Route path="assets" component={Assets}/>
@@ -96,7 +96,7 @@ const routes = (
 		        	<Route path="success" component={SuccessRecordList} />
 		        </Route>
 	        </Route>
-	        
+
 	        <Route path="user" component={UserInfo}>
 			 	<IndexRoute component={BasicInfo}/>
 				<Route path="authentication" component={IdCardAuth} />
@@ -113,7 +113,7 @@ const routes = (
 				<Route path="settingEmail" component={SettingEmail} />
 				<Route path="google" component={GoogleAuth} />
 				<Route path="rmbindingGoogle" component={RmbindingGoogle} />
-				<Route path="googleGuide" component={GoogleGuide} />
+				<Route path="google-guide" component={GoogleGuide} />
 				<Route path="question" component={Question} />
 				<Route path="questionList" component={QuestionList} />
 				<Route path="feedbackDetails/:id" component={QuestionDetails} />

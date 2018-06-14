@@ -120,7 +120,6 @@ class FiatRechargeStore {
     @computed
     get withdrawValue() {
         let {fee, balance} = this;
-        console.log(balance, fee)
         return balance - fee;
         // let { fee, point, feeType } = this.userAccountInfo;
         // let amount = 0;
