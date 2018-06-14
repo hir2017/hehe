@@ -112,6 +112,24 @@ class UserInfo {
     }
 
     @action
+    pwdTriggerClear() {
+        this.userInfo = {}
+        this.identityInfo = {
+            firstName: '',
+            secondName: '',
+            birthday: '',
+            idType: '',
+            idNumber: '',
+            resortType: '',
+            resortTypeOther: '',
+            address: '',
+            postCode: '',
+            profession: '',
+            annualsalary: ''
+        }
+    }
+
+    @action
     addIdentityInfo(data) {
         this.identityInfo.firstName = data.firstName
         this.identityInfo.secondName = data.secondName
@@ -150,6 +168,7 @@ class UserInfo {
 
     @action
     async bindTradingPwd(newFdPassWord, vercode, imgCode, imgCodeId, passWord) {
+        let reqResult = false;
         try {
             this.submit_loading_tpwd = true
             const res = await bindFdPwd(newFdPassWord, vercode, imgCode, imgCodeId, passWord)
@@ -161,6 +180,7 @@ class UserInfo {
                 message.error(res.message)
                 console.error('bindTradingPwd error')
             } else {
+                reqResult = true;
                 this.getUserInfo()
                 message.success(UPEX.lang.template('设置成功'))
             }
@@ -169,10 +189,12 @@ class UserInfo {
             this.submit_loading_tpwd = false
             message.error('Network Error')
         }
+        return  reqResult;
     }
 
     @action
     async resetPwd(newPassWord, vercode, imgCode, imgCodeId, passWord, type) {
+        let reqResult = false
         try {
             this.submit_loading_pwd = true
             const res = await resetPwdInUserCenter(newPassWord, vercode, imgCode, imgCodeId, passWord, type)
@@ -184,6 +206,7 @@ class UserInfo {
                 message.error(res.message)
                 console.error('resetPwd error')
             } else {
+                reqResult = true
                 message.success(UPEX.lang.template('登录密码修改成功，请重新登录'))
             }
         } catch (e) {
@@ -191,6 +214,7 @@ class UserInfo {
             this.submit_loading_pwd = false
             message.error('Network Error')
         }
+        return reqResult
     }
 
     @action
@@ -537,6 +561,7 @@ class UserInfo {
 
     @action
     async modifytradingPwd(newFdPassWord, passWord) {
+        let reqResult = false;
         try {
             this.submit_loading_tpwd = true
             const res = await modifyFdPwd(newFdPassWord, passWord)
@@ -545,6 +570,7 @@ class UserInfo {
                 message.error(res.message)
                 console.error('modifytradingPwd error')
             } else {
+                reqResult = true;
                 message.success(UPEX.lang.template('修改成功'))
             }
         } catch (e) {
@@ -552,6 +578,7 @@ class UserInfo {
             this.submit_loading_tpwd = false
             message.error('Network Error')
         }
+        return reqResult;
     }
 
     @action
