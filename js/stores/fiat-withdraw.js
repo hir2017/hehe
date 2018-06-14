@@ -2,17 +2,18 @@
  * 法币充值
  */
 import { observable, computed, autorun, action, runInAction } from 'mobx';
-import { getUserBankInfo, getUserBindCards } from '../api/http';
+import { getWithdrawCashFee, getUserAvailableAmount, getUserBindCards } from '../api/http';
 
 class FiatRechargeStore {
-	@observable bankCardsList = []; // 银行列表
-	@observable accountAmount = 0 ;  // 当前余额
-	@observable selectedCard = 'none'; // 选中的银行卡
-	@observable balance = '000'; // 金额
+    @observable bankCardsList = []; // 银行列表
+    @observable accountAmount = 0; // 当前余额
+    @observable selectedCard = 'none'; // 选中的银行卡
+    @observable balance = '000'; // 金额
     @observable step = 'start';
+    @observable fee = 0;
     @observable userAccountInfo = {}; // 账号信息
-	@observable $submiting = false;
-	// 图片验证码
+    @observable $submiting = false;
+    // 图片验证码
     @observable vercode = '';
     @observable validImgCode = true;
     // 交易密码
@@ -48,99 +49,131 @@ class FiatRechargeStore {
         return arr;
     }
 
-	@action
-	getInfo() {
-		getUserBankInfo().then((data)=>{
-			runInAction(()=>{
-				if (data.status == 200) {
-					let { bankCards, accountAmount } = data.attachment;
-					this.userAccountInfo = data.attachment;
-					this.accountAmount = accountAmount;
-				}
-			})
-        })
+    @action
+    getInfo() {
+        getUserAvailableAmount().then(data => {
+            runInAction(() => {
+                if (data.status == 200) {
+                    this.accountAmount = parseInt(data.attachment)
+                }
+            });
+        });
 
-        getUserBindCards().then((data) => {
-            runInAction(()=>{
-				if (data.status == 200) {
+        getUserBindCards().then(data => {
+            runInAction(() => {
+                if (data.status == 200) {
                     this.bankCardsList = data.attachment;
-				}
-			})
+                }
+            });
         });
     }
 
+    @action
+    getFee() {
+        getWithdrawCashFee({
+            amount: this.balance
+        }).then(data => {
+            this.fee = data.attachment;
+        })
+    }
+
+
     /**
-	 * 属性变更
-	 */
+     * 重置属性，临时的，后期把这些都放进state里面
+     */
+    @action
+    resetProps() {
+        const defaultVals = {
+            accountAmount: 0,
+            selectedCard: 'none',
+            balance: '000',
+            step: 'start',
+            fee: 0,
+            userAccountInfo: {},
+            $submiting: false,
+            vercode: '',
+            validImgCode: true,
+            tradepwd: '',
+            validTradePwd: true,
+            sendingcode: false,
+            googleCode: '',
+            phoneCode: '',
+            $submiting: false,
+            isFetching: false,
+            authType: 'phone'
+        };
+        Object.entries(defaultVals).map(([key, val]) => {
+            this[key] = val;
+        });
+    }
+    /**
+     * 属性变更
+     */
     @action
     setVal(val, field) {
         this[field] = val;
     }
 
-
-	/**
+    /**
      * 实际到账金额
      */
     @computed
     get withdrawValue() {
-        let { fee, point, feeType} = this.userAccountInfo;
-        let amount = 0;
+        let {fee, balance} = this;
+        console.log(balance, fee)
+        return balance - fee;
+        // let { fee, point, feeType } = this.userAccountInfo;
+        // let amount = 0;
 
-        if (this.amount) {
-            if (feeType === 1) {
-                // feeType--1是固定2是百分比
-                amount = this.amount - fee;
-            } else {
-                amount = this.amount - this.amount * fee;
-            }
-        }
+        // if (this.amount) {
+        //     if (feeType === 1) {
+        //         // feeType--1是固定2是百分比
+        //         amount = this.amount - fee;
+        //     } else {
+        //         amount = this.amount - this.amount * fee;
+        //     }
+        // }
 
-        return amount;
+        // return amount;
     }
-	/**
-	 * 设置充值金额
-	 */
-	@action
-	setBalance(value) {
-		this.balance = value;
-	}
-	/**
-	 * 选中的充值银行卡
-	 */
-	// @action
-	// selectCardForRecharge(cardId) {
-	// 	let result = this.bankCardsList.filter((item)=>{
-	// 		return item.providerId === cardId;
-	// 	})
-	// 	this.selectedCard = result[0];
-	// }
 
-	@computed
-	get selectBindCardInfo() {
-        const {bankCardsList, selectedCard} = this
+    @computed
+    get selectBindCardInfo() {
+        const { bankCardsList, selectedCard } = this;
         let result = bankCardsList.filter(item => {
-            return item.id === selectedCard
-        })
-		return result[0] || {};
-	}
+            return item.id === selectedCard;
+        });
+        return result[0] || {};
+    }
 
-	@action
-	changeSubmitingStatusTo(status){
-		this.$submiting = status;
-	}
+    @action
+    changeSubmitingStatusTo(status) {
+        this.$submiting = status;
+    }
 
-	@action
-	nextStep() {
-		this.step = 'apply';
-	}
+    @action
+    nextStep() {
+        this.getFee();
+        this.step = 'apply';
+    }
 
-	@action
+    @action
     setVercode(value) {
         this.vercode = value;
 
         if (value) {
             this.validImgCode = true;
         }
+    }
+
+    @action
+    changeSendingCodeTo(status) {
+        this.sendingcode = status;
+    }
+
+    @action
+    changeImgCodeTo(status) {
+        this.validImgCode = status;
     }
 
     @action
@@ -162,7 +195,6 @@ class FiatRechargeStore {
         return md5(this.tradepwd + UPEX.config.dealSalt + this.authStore.uid);
     }
 
-
     @action
     setGoogleCode(value) {
         this.googleCode = value;
@@ -183,7 +215,7 @@ class FiatRechargeStore {
         var result = {
             pass: true,
             message: ''
-        }
+        };
 
         if (!this.tradepwd) {
             result.pass = false;
@@ -192,7 +224,6 @@ class FiatRechargeStore {
 
         return result;
     }
-
 }
 
 export default FiatRechargeStore;

@@ -41,7 +41,7 @@ class List extends Component {
                                     </dd>
                                     <dd className="status">{item._status}</dd>
                                     <dd className="pay-method">
-                                        {item._payMethod}
+                                        {item.tradeType}
                                         <Icon
                                             className="toggle"
                                             type={item.subRowClosed ? 'caret-down' : 'caret-up'}

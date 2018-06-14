@@ -250,13 +250,33 @@ export function orderFiatRecharge(data) {
     return axios.post(`${UPEX.config.host}/pay/getFrontPageJsonData`, qs.stringify(data)).then(res => res.data);
 }
 
-export function orderFiatWithdraw(data) {
-    return axios.post(`${UPEX.config.host}/pay/getFrontPageJsonData`, qs.stringify({
-        amount: data.amount,
-        prodId: data.cardId,
+/**
+ * 获取用户资金可用余额
+ * @param {currencyId} data
+ */
+export function getUserAvailableAmount(data) {
+    return axios.post(`${UPEX.config.host}/rechargeWithdraw/getUserAvailableAmount`, qs.stringify({
         currencyId: 1
     })).then(res => res.data);
-    x
+}
+
+/**
+ * 获取用户提现手续费
+ * @param {currencyId, amount（提现金额）, actionId（行为id，2代表提现）: 2} data
+ */
+export function getWithdrawCashFee(data) {
+    data.currencyId = 1;
+    data.actionId = 2;
+    return axios.post(`${UPEX.config.host}/withdraw/getWithdrawCashFee`, qs.stringify(data)).then(res => res.data);
+}
+
+/**
+ *
+ * @param {amount, currencyId, cardId（此用户当前绑定银行卡id）, tradePwd, gAuth/phoneCode,
+ */
+export function orderFiatWithdraw(data) {
+    data.currencyId = 1;
+    return axios.post(`${UPEX.config.host}/withdraw/createWithdrawCashBill`, qs.stringify(data)).then(res => res.data);
 }
 
 /*----------------------------- 充值相关接口：}}------------------------------------*/

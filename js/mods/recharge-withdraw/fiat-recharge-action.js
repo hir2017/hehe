@@ -27,15 +27,6 @@ var ORDER_DATA = {
 
 export default (store) => {
     return {
-        // onChangeBalance(e) {
-        //     const {value = ''} = e.target
-        //     store.setBalance(value.trim());
-        // },
-
-        // handleChangeBank(value){
-        // 	store.selectCardForRecharge(value);
-        // },
-
         getInfo() {
         	store.getInfo();
         },
@@ -68,7 +59,6 @@ export default (store) => {
                 message.error(UPEX.lang.template('请填写充值金额'));
                 return;
             }
-
             // 避免重复提交
             if (store.$submiting) {
                 return;
@@ -86,15 +76,21 @@ export default (store) => {
                 amount: store.balance,
                 accountCode: store.selectedCard
             }).then((data) => {
-
                 if (data.status == 200) {
                     store.orderSuccess();
-                    this.submitOrder(data.attachment);
+                    let temp;
+                    temp = data.attachment || '{}';
+                    try {
+                        temp = JSON.parse(temp)
+                    } catch (error) {
+                        temp = {}
+                    }
+                    this.submitOrder(temp);
                 } else {
                     message.error(data.message);
                 }
                 store.changeSubmitingStatusTo(false);
-            }).catch(() => {
+            }).catch((err) => {
                 store.changeSubmitingStatusTo(false);
             })
         },
@@ -112,7 +108,8 @@ export default (store) => {
                 if (!nodeForm) {
                     nodeForm = this.initForm(); // 初始化表单
                 }
-                nodeForm.attr('action', 'https://gate.pepay.com.tw/pepay/paysel_amt.php');
+                // https://gate.pepay.com.tw/pepay/paysel_amt.php
+                nodeForm.attr('action', 'https://gate.pepay.com.tw/pepay/payselect_amt.php');
                 nodeForm.attr('method', 'post'); // POST提交
                 nodeForm.attr('target', newWindow === true ? "_blank" : typeof newWindow == "string" ? newWindow : "_self") // 是否打开新窗口
 
