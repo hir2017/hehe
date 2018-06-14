@@ -58,6 +58,9 @@ class TradeContent extends Component {
             let baseCurrencyId = commonStore.getTradeCoinByName(a).currencyId;
             let currencyId = commonStore.getTradeCoinByName(b).currencyId;
             
+            if (!baseCurrencyId || !currencyId) {
+                return;
+            }
             // 缓存上次浏览器的交易币对
             UPEX.cache.setCache('currentCoin', {
                 baseCurrencyNameEn: a,

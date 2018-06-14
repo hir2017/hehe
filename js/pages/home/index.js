@@ -8,7 +8,7 @@ import { observer, inject } from 'mobx-react';
 import Banner from '../../mods/home/banner';
 import LoginGuide from '../../mods/home/loginguide';
 import Features from '../../mods/home/features';
-import AnnouncementList from '../../mods/home/announcementlist';
+import NoticeList from '../../mods/home/noticelist';
 import BtcNews from '../../mods/home/btcnews';
 import HotMarkets from '../../mods/home/hotmarkets';
 import IndexMarkets from '../../mods/home/indexmarkets';
@@ -47,7 +47,7 @@ class Home extends Component {
             <div className="home-wrapper">
             	{ !authStore.isLogin ? <LoginGuide/> : null }
                 <Banner list={bannerList}/>
-                { announcementStore.formatedList.length > 0 ? <AnnouncementList list={announcementStore.formatedList}/> : null }
+                { announcementStore.formatedList.length > 0 ? <NoticeList list={announcementStore.formatedList}/> : null }
                 { homeStore.hotCoins.length > 0 ? <HotMarkets list={homeStore.hotCoins}/> : null }
                 <IndexMarkets sortCoin={this.sortCoin} filterCoin={this.filterCoin} coins={homeStore.allCoins}/>
                 <Features/>

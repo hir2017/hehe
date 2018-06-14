@@ -9,12 +9,14 @@ class HomeStore {
     @observable collectCoinsList = [];
     @observable coin = {};
     @observable isFetchingList = false;
+    @observable noCoin = false;
 
     cacheCoins = []
 
     @action
     getAllCoins() {
         this.isFetchingList = true;
+        
         socket.off('list');
         socket.emit('list');
         socket.on('list', (data)=> {
@@ -28,7 +30,10 @@ class HomeStore {
                     this.allCoins = result.tradeCoins;
                     this.cacheCoins = result.tradeCoins;
                     this.hotCoins = this.recommendCoins(result.tradeCoins);
+                } else {
+                    this.noCoin = true;
                 }
+
                 this.isFetchingList = false;
             })
         })

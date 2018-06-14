@@ -132,14 +132,19 @@ class TVChartContainer extends Component {
 		let theme = this.props.tradeStore.theme;
         let currencyId = this.props.tradeStore.currencyId;
         let baseCurrencyId = this.props.tradeStore.baseCurrencyId;
-		let locale = this.getLocale();
-		let interval = this.getIntervalByPeriod();
-        let baseCurrencyNameEn = getTradeCoinById(baseCurrencyId).currencyNameEn;
-        let currencyNameEn = getTradeCoinById(currencyId).currencyNameEn;
+		let locale; 
+		let interval; 
+        let baseCurrencyNameEn; 
+        let currencyNameEn; 
 
-        if (!currencyNameEn){
+        if (!baseCurrencyId || !currencyId) {
             throw new Error("no such symbol");
         }
+
+        locale = this.getLocale();
+        interval = this.getIntervalByPeriod();
+        baseCurrencyNameEn = getTradeCoinById(baseCurrencyId).currencyNameEn;
+        currencyNameEn = getTradeCoinById(currencyId).currencyNameEn;
 
         interval = '1D';
 

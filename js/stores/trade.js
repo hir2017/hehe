@@ -623,6 +623,9 @@ class TradeStore {
      */
     @action
     getTradeCoinData() {
+        if (!this.currencyId) {
+            return;
+        }
         socket.off('loginAfterChangeTradeCoin');
         socket.emit('loginAfterChangeTradeCoin', {
             baseCurrencyId: this.baseCurrencyId,
@@ -700,7 +703,7 @@ class TradeStore {
         sell.forEach((item, index) => {
             let cache = item.number * item.current / this.entrustScale;
             let depth = parseInt(cache.toFixed(this.pointNum));
-            
+
             item.depth = Math.max(depth, 1);
             item.newcurrent = NumberUtil.formatNumber(item.current, this.pointPrice); // 价格
             item.newnumber = NumberUtil.formatNumber(item.number, this.pointNum); // 数量
@@ -747,9 +750,9 @@ class TradeStore {
      */
     @action
     getUserOpenList() {
-        socket.off('userOrder');
-        socket.emit('userOrder');
-        socket.on('userOrder', (data)=>{
+        socket.off('getUserOrder');
+        socket.emit('getUserOrder');
+        socket.on('getUserOrder', (data) => {
             console.log(data);
         })
     }
@@ -758,10 +761,10 @@ class TradeStore {
      */
     @action
     getUserSuccessList() {
-        socket.off('userTrade');
-        socket.emit('userTrade');
+        socket.off('getUserTrade');
+        socket.emit('getUserTrade');
 
-        socket.on('userTrade', (data)=>{
+        socket.on('getUserTrade', (data) => {
             console.log(data);
         })
     }
@@ -858,6 +861,7 @@ class TradeStore {
             item.volume = NumberUtil.formatNumber(item.volume, item.pointNum);
         });
     }
+    
     // 切换收藏货币, 参数长度为2是切换一种，为1是切换所有
     async toggleCollectCoins(...params) {
         let toDo;

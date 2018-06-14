@@ -119,34 +119,40 @@ export default class extends React.Component {
                             </table>
                         </div>
                         <div className="ant-table-body">
-                            {this.props.homeStore.isFetchingList == true ? <div className="mini-loading" /> : null}
-                            <table className="">
-                                <ColGroup />
-                                <tbody className="ant-table-tbody">
-                                    {
-                                        this.props.coins.map((item, index) => {
-                                            let path = `/trade/${item.baseCurrencyNameEn}_${item.currencyNameEn}`;
-                                            
-                                            return (
-                                                <tr
-                                                    key={item.id}
-                                                    onClick={() => {
-                                                        this.selectCoin(item.baseCurrencyId, item.currencyId);
-                                                    }}
-                                                >
-                                                    <td>
-                                                        <Link to={path}>{item.currencyNameEn || '--'}</Link>
-                                                    </td>
-                                                    <td>{item.currentAmount}</td>
-                                                    <td>{item.changeRate}</td>
-                                                    <td>{item.volume}</td>
-                                                    <td>{this.collectIcon(item)}</td>
-                                                </tr>
-                                            );
-                                        })
-                                    }
-                                </tbody>
-                            </table>
+                            { this.props.homeStore.isFetchingList == true ? <div className="mini-loading" /> : null }
+                            { 
+                                this.props.homeStore.noCoin ? (
+                                    <div className="mini-tip">{ UPEX.lang.template('暂无数据')}</div>
+                                ) : (
+                                    <table>
+                                        <ColGroup />
+                                        <tbody className="ant-table-tbody">
+                                            {
+                                                this.props.coins.map((item, index) => {
+                                                    let path = `/trade/${item.baseCurrencyNameEn}_${item.currencyNameEn}`;
+                                                    
+                                                    return (
+                                                        <tr
+                                                            key={item.id}
+                                                            onClick={() => {
+                                                                this.selectCoin(item.baseCurrencyId, item.currencyId);
+                                                            }}
+                                                        >
+                                                            <td>
+                                                                <Link to={path}>{item.currencyNameEn || '--'}</Link>
+                                                            </td>
+                                                            <td>{item.currentAmount}</td>
+                                                            <td>{item.changeRate}</td>
+                                                            <td>{item.volume}</td>
+                                                            <td>{this.collectIcon(item)}</td>
+                                                        </tr>
+                                                    );
+                                                })
+                                            }
+                                        </tbody>
+                                    </table>
+                                )
+                            }
                         </div>
                     </div>
                 </div>

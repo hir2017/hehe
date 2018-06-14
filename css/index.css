@@ -347,6 +347,11 @@
     min-height: 300px;
 }
 
+.index-markets .ant-table-body .mini-tip {
+    text-align: center;
+    padding-top: 20px;
+}
+
 .index-markets table th {
     text-align: center;
     color: #999999;
@@ -498,7 +503,7 @@
  */
 
 .announcement-wrapper {
-    width: 1300px;
+    width: 1200px;
     margin: 0 auto;
 }
 
@@ -508,16 +513,17 @@
 
 .announcement-wrapper li {
     float: left;
+    width: 33%;
     font-size: 16px;
     overflow: hidden;
     height: 30px;
     line-height: 30px;
-    margin-right: 20px;
 }
 
 .announcement-wrapper li .info {
     float: left;
-    width: 320px;
+    width: 300px;
+    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -534,5 +540,6 @@
 
 .announcement-wrapper li .time {
     float: right;
-    width: 90px;
+    text-align: left;
+    width: 100px;
 }
