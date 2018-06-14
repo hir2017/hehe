@@ -10,6 +10,8 @@ import BindingBank from '../../mods/bank-info/index';
 import BankList from '../../mods/bank-info/list';
 import { Button, message } from 'antd';
 
+import PageWrapper from '../../common-mods/page-user/page-wrapper';
+
 @inject('userInfoStore')
 @observer
 class BankInfo extends Component {
@@ -62,10 +64,9 @@ class BankInfo extends Component {
         }
 
         return (
-            <div className="page-content-inner">
-                <div className="content-title">{UPEX.lang.template('银行卡信息')}</div>
-                <section className="content-body">{$content}</section>
-            </div>
+            <PageWrapper title={UPEX.lang.template('银行卡信息')}>
+                {$content}
+            </PageWrapper>
         );
     }
 }

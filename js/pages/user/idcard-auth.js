@@ -11,6 +11,8 @@ import SecondStep from '../../mods/idcard-auth/second-step';
 import ThirdStep from '../../mods/idcard-auth/third-step';
 import FourthStep from '../../mods/idcard-auth/fourth-step';
 
+import PageWrapper from '../../common-mods/page-user/page-wrapper';
+
 @inject('userInfoStore')
 @observer
 class IdentityAuthentication extends Component {
@@ -68,21 +70,18 @@ class IdentityAuthentication extends Component {
         }
 
         return (
-            <div className="page-content-inner authentication">
-                <div className="content-title">{UPEX.lang.template('身份认证')}</div>
-                <section className="content-body">
-                    <div className="authentication-content">
-                        {userInfo.isValidatePhone ? (
-                            this.nowStep(this.state.step || step)
-                        ) : (
-                            <div className="authentication-message">
-                                <p>{UPEX.lang.template('请绑定手机')}</p>
-                                <Link to="/user/bindingPhone">{UPEX.lang.template('手机绑定')}</Link>
-                            </div>
-                        )}
-                    </div>
-                </section>
-            </div>
+            <PageWrapper  innerClass="authentication" title={UPEX.lang.template('身份认证')}>
+                <div className="authentication-content">
+                    {userInfo.isValidatePhone ? (
+                        this.nowStep(this.state.step || step)
+                    ) : (
+                        <div className="authentication-message">
+                            <p>{UPEX.lang.template('请绑定手机')}</p>
+                            <Link to="/user/bindingPhone">{UPEX.lang.template('手机绑定')}</Link>
+                        </div>
+                    )}
+                </div>
+            </PageWrapper>
         );
     }
 }

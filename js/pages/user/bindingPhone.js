@@ -7,16 +7,15 @@ import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import BindingPhone from '../../mods/bindingPhone';
 
+import PageWrapper from '../../common-mods/page-user/page-wrapper';
+
 @observer
 class BindingPhonePage extends Component {
     render() {
         return (
-            <div className="page-content-inner">
-                <div className="content-title">{UPEX.lang.template('手机绑定')}</div>
-                <section className="content-body">
-                    <BindingPhone />
-                </section>
-            </div>
+            <PageWrapper title={UPEX.lang.template('手机绑定')}>
+                <BindingPhone />
+            </PageWrapper>
         );
     }
 }

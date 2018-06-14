@@ -7,16 +7,15 @@ import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import BindingEmail from '../../mods/bindingEmail';
 
+import PageWrapper from '../../common-mods/page-user/page-wrapper';
+
 @observer
 class BindingEmailPage extends Component {
     render() {
         return (
-            <div className="page-content-inner">
-                <div className="content-title">{UPEX.lang.template('邮箱绑定')}</div>
-                <section className="content-body">
-                    <BindingEmail />
-                </section>
-            </div>
+            <PageWrapper title={UPEX.lang.template('邮箱绑定')}>
+                <BindingEmail />
+            </PageWrapper>
         );
     }
 }
