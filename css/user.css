@@ -52,47 +52,36 @@
     cursor: pointer;
 }
 
-.user-main {
-    float: right;
-    width: 100%;
-    margin: 10px 0;
-    min-height: 620px;
-    box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.06);
-}
-
-.user-main-box {
-    padding: 20px;
-}
 
 
 /**
  * 基本信息
  */
 
-.user-main-box .info-box .info-title {
+.user-main .info-box .info-title {
     font-size: 18px;
     color: #333333;
 }
 
-.user-main-box .info-content .info-content-right img {
+.user-main .info-content .info-content-right img {
     width: 90px;
     height: 90px;
 }
 
-.user-main-box .info-content > div {
+.user-main .info-content > div {
     display: inline-block;
     vertical-align: top;
     width: 50%;
 }
 
-.user-main-box .info-content-left {
+.user-main .info-content-left {
     padding-left: 100px;
     padding-top: 80px;
     padding-right: 45px;
     position: relative;
 }
 
-.user-main-box .info-content-left::after {
+.user-main .info-content-left::after {
     content: '';
     width: 1px;
     height: 120px;
@@ -102,131 +91,131 @@
     top: 40px;
 }
 
-.user-main-box .info-content-left .phone {
+.user-main .info-content-left .phone {
     font-size: 20px;
     color: #333333;
     height: 30px;
 }
 
-.user-main-box .info-content-left .login-time {
+.user-main .info-content-left .login-time {
     font-size: 14px;
     color: #333333;
     margin-top: 10px;
 }
 
-.user-main-box .info-content-left .bind {
+.user-main .info-content-left .bind {
     margin-top: 10px;
     text-align: right;
 }
 
-.user-main-box .info-content-left .bind-email {
+.user-main .info-content-left .bind-email {
     display: inline-block;
 }
 
-.user-main-box .info-content-left .bind-phone {
+.user-main .info-content-left .bind-phone {
     margin-right: 35px;
     display: inline-block;
 }
 
-.user-main-box .info-content-left .bind img {
+.user-main .info-content-left .bind img {
     display: block;
     margin-left: 9px;
 }
 
-.user-main-box .info-content-left .bind span {
+.user-main .info-content-left .bind span {
     display: block;
     font-size: 12px;
     margin-top: 10px;
 }
 
-.user-main-box .info-content-right {
+.user-main .info-content-right {
     padding-top: 30px;
     padding-left: 50px;
 }
 
-.user-main-box .info-content-right .title {
+.user-main .info-content-right .title {
     color: #999999;
     font-size: 14px;
     margin-bottom: 20px;
 }
 
-.user-main-box .info-content-right .certification-grade {
+.user-main .info-content-right .certification-grade {
     display: inline-block;
     padding-left: 15px;
 }
 
-.user-main-box .certification-grade .grade span {
+.user-main .certification-grade .grade span {
     font-size: 14px;
     color: #333333;
     font-weight: bold;
 }
 
-.user-main-box .certification-grade .grade a {
+.user-main .certification-grade .grade a {
     font-size: 12px;
     color: #5581d8;
     margin-left: 15px;
 }
 
-.user-main-box .certification-grade .money>span:first-child {
+.user-main .certification-grade .money>span:first-child {
     color: #999999;
     font-size: 14px;
 }
 
-.user-main-box .certification-grade .money>span:last-child {
+.user-main .certification-grade .money>span:last-child {
     font-size: 20px;
     color: #333333;
     font-weight: bold;
 }
 
-.user-main-box .login-reminding {
+.user-main .login-reminding {
     margin-left: 270px;
     margin-top: 25px;
 }
 
-.user-main-box .login-reminding>span:first-child {
+.user-main .login-reminding>span:first-child {
     margin-right: 15px;
     font-size: 12px;
     color: #999999;
 }
 
-.user-main-box .login-reminding .ant-switch-checked {
+.user-main .login-reminding .ant-switch-checked {
     background-color: #e6bc1d;
 }
 
-.user-main-box .info-box {
+.user-main .info-box {
     padding-bottom: 45px;
     border-bottom: 1px solid #ccc;
 }
 
-.user-main-box .ant-table {
+.user-main .ant-table {
     margin-top: 50px;
 }
 
-.user-main-box table {
+.user-main table {
     width: 100%;
 }
 
-.user-main-box table tr {
+.user-main table tr {
     height: 50px;
     line-height: 50px;
 }
 
-.user-main-box .ant-table-body tr:nth-child(odd) {
+.user-main .ant-table-body tr:nth-child(odd) {
     background-color: #f8f8fb;
 }
 
-.user-main-box .ant-table-body {
+.user-main .ant-table-body {
     max-height: 250px;
     overflow-y: scroll;
 }
 
-.user-main-box table th {
+.user-main table th {
     text-align: center;
     color: #666666;
     font-size: 16px;
 }
 
-.user-main-box table td {
+.user-main table td {
     text-align: center;
 }
 
@@ -235,21 +224,21 @@
  * 身份认证
  */
 
-.user-main-box .authentication-title {
+.user-main .authentication-title {
     color: #333333;
     font-size: 18px;
     margin-bottom: 20px;
 }
 
 
-.user-main-box .authentication-message {
+.user-main .authentication-message {
     margin-top: 200px;
     text-align: center;
     font-size: 18px;
     color: #333333;
 }
 
-.user-main-box .authentication-message a {
+.user-main .authentication-message a {
     background-color: #e6bc1d;
     padding: 5px;
     margin-left: 10px;
@@ -263,32 +252,32 @@
 }
 
 
-.user-main-box .authentication-content {
+.user-main .authentication-content {
     padding-left: 100px;
 }
 
-.user-main-box .authentication-content .ant-upload-list {
+.user-main .authentication-content .ant-upload-list {
     width: 240px;
     margin-left: 20px;
     display: none;
 }
 
-.user-main-box .authentication .step {
+.user-main .authentication .step {
     display: inline-block;
 }
 
-.user-main-box .authentication .step>span {
+.user-main .authentication .step>span {
     display: block;
     text-align: center;
 }
 
-.user-main-box .authentication .step>span:last-child {
+.user-main .authentication .step>span:last-child {
     color: #999999;
     font-size: 12px;
     margin-top: 5px;
 }
 
-.user-main-box .authentication .line {
+.user-main .authentication .line {
     display: inline-block;
     vertical-align: 30px;
     width: 200px;
@@ -298,66 +287,66 @@
     font-weight: 500;
 }
 
-.user-main-box .authentication-content .item {
+.user-main .authentication-content .item {
     margin-top: 30px;
 }
 
-.user-main-box .authentication-content .one-item {
+.user-main .authentication-content .one-item {
     margin-top: 40px;
 }
 
-.user-main-box .authentication-content .item>span {
+.user-main .authentication-content .item>span {
     display: inline-block;
 }
 
-.user-main-box .authentication-content .item .lable {
+.user-main .authentication-content .item .lable {
     margin-right: 20px;
     vertical-align: 28px;
     min-width: 50px;
     text-align: right;
 }
 
-.user-main-box .authentication-content .time-lable {
+.user-main .authentication-content .time-lable {
     vertical-align: initial !important;
 }
 
-.user-main-box .authentication-content .item input[type=text] {
+.user-main .authentication-content .item input[type=text] {
     width: 190px;
 }
 
-.user-main-box .authentication-content .item .message {
+.user-main .authentication-content .item .message {
     color: #999999;
     font-size: 12px;
     display: block;
     margin-top: 5px;
 }
 
-.user-main-box .authentication-content .time-control .ant-select {
+.user-main .authentication-content .time-control .ant-select {
     margin-right: 15px;
 }
 
-.user-main-box .authentication-content .time-control .ant-select-selection-selected-value {
+.user-main .authentication-content .time-control .ant-select-selection-selected-value {
     width: 90px;
     text-align: center;
     padding-right: 0px;
 }
 
-.user-main-box .authentication-content .error-message {
+.user-main .authentication-content .error-message {
     margin-left: 15px;
 }
 
-.user-main-box .authentication-content .checkbox-text {
+.user-main .authentication-content .checkbox-text {
     font-size: 14px;
     color: #999999;
     margin-right: 5px;
 }
 
-.user-main-box .authentication-content .checkbox-text a {
+.user-main .authentication-content .checkbox-text a {
     color: #e6bc1d;
     text-decoration-line: underline;
 }
 
-.user-main-box .authentication-content .submit button {
+.user-main .authentication-content .submit button {
     min-width: 100px;
     height: 35px;
     background-color: #e6bc1d;
@@ -366,32 +355,32 @@
     outline: none;
 }
 
-.user-main-box .authentication-content .submit button:hover {
+.user-main .authentication-content .submit button:hover {
     border-color: none;
 }
 
-.user-main-box .authentication-content .pic-title {
+.user-main .authentication-content .pic-title {
     font-size: 14px;
     color: #333333;
     margin-top: 50px;
 }
 
-.user-main-box .authentication-content .pic-item {
+.user-main .authentication-content .pic-item {
     margin-top: 30px;
 }
 
-.user-main-box .authentication-content .pic-item>span {
+.user-main .authentication-content .pic-item>span {
     display: inline-block;
 }
 
-.user-main-box .authentication-content .pic-item-lable {
+.user-main .authentication-content .pic-item-lable {
     margin-right: 30px;
     vertical-align: 83px;
     color: #333333;
     font-size: 14px;
 }
 
-.user-main-box .authentication-content .pic-item-img {
+.user-main .authentication-content .pic-item-img {
     display: block;
     width: 275px;
     height: 145px;
@@ -399,7 +388,7 @@
     cursor: pointer;
 }
 
-.user-main-box .authentication-content .pic-item-message {
+.user-main .authentication-content .pic-item-message {
     width: 275px;
     text-align: center;
     display: block;
@@ -408,7 +397,7 @@
     color: #999999;
 }
 
-.user-main-box .authentication-content .pic-item-error-message {
+.user-main .authentication-content .pic-item-error-message {
     width: 275px;
     text-align: center;
     display: block;
@@ -417,25 +406,25 @@
     font-size: 14px;
 }
 
-.user-main-box .authentication-content .pic-items-message {
+.user-main .authentication-content .pic-items-message {
     margin-left: 100px;
     margin-top: 10px;
     font-size: 14px;
     color: #333333;
 }
 
-.user-main-box .authentication-content .pic-items-message>span {
+.user-main .authentication-content .pic-items-message>span {
     display: block;
 }
 
-.user-main-box .authentication-content .pic-format {
+.user-main .authentication-content .pic-format {
     margin-left: 100px;
     margin-top: 30px;
     font-size: 14px;
     color: #999999;
 }
 
-.user-main-box .authentication-content .pic-items-message i {
+.user-main .authentication-content .pic-items-message i {
     margin-left: 10px;
     margin-right: 5px;
     font-size: 18px;
@@ -444,28 +433,28 @@
     vertical-align: bottom;
 }
 
-.user-main-box .authentication-content .await-examine {
+.user-main .authentication-content .await-examine {
     margin-top: 150px;
 }
 
-.user-main-box .authentication-content .await-examine>span {
+.user-main .authentication-content .await-examine>span {
     display: block;
 }
 
-.user-main-box .authentication-content .await-examine>span:first-child {
+.user-main .authentication-content .await-examine>span:first-child {
     font-size: 20px;
     font-weight: bold;
     color: #333333;
     margin-bottom: 10px;
 }
 
-.user-main-box .authentication-content .success-title {
+.user-main .authentication-content .success-title {
     color: #999999;
     font-size: 20px;
     margin-top: 50px;
 }
 
-.user-main-box .authentication-content .success-user-info {
+.user-main .authentication-content .success-user-info {
     margin-top: 35px;
     background-color: #fdfdfd;
     border-radius: 8px;
@@ -479,43 +468,43 @@
     color: #333333;
 }
 
-.user-main-box .authentication-content .success-user-info>div {
+.user-main .authentication-content .success-user-info>div {
     margin-bottom: 5px;
 }
 
-.user-main-box .authentication-content .success-prompt {
+.user-main .authentication-content .success-prompt {
     margin-top: 20px;
     font-size: 12px;
     color: #999999;
 }
 
-.user-main-box .authentication-content .success-money {
+.user-main .authentication-content .success-money {
     margin-top: 50px;
     font-size: 22px;
     color: #999999;
 }
 
-.user-main-box .authentication-content .success-money .money {
+.user-main .authentication-content .success-money .money {
     font-size: 40px;
     color: #333333;
 }
 
-.user-main-box .authentication-content .success-money-title {
+.user-main .authentication-content .success-money-title {
     font-size: 14px;
     color: #999999;
 }
 
-.user-main-box .authentication-content .success-money-message {
+.user-main .authentication-content .success-money-message {
     font-size: 12px;
     color: #999999;
     margin-top: 70px;
 }
 
-.user-main-box .authentication-content .submit {
+.user-main .authentication-content .submit {
     margin-bottom: 30px;
 }
 
-.user-main-box .authentication-content .submit button {
+.user-main .authentication-content .submit button {
     margin-top: 20px;
 }
 
@@ -524,14 +513,14 @@
  * 银行卡
  */
 
-.user-main-box .bank-message {
+.user-main .bank-message {
     margin-top: 200px;
     text-align: center;
     font-size: 18px;
     color: #333333;
 }
 
-.user-main-box .bank-message a {
+.user-main .bank-message a {
     background-color: #e6bc1d;
     padding: 5px;
     margin-left: 10px;
@@ -544,43 +533,43 @@
     margin-top: 20px;
 }
 
-.user-main-box .bank-info-title {
+.user-main .bank-info-title {
     font-size: 18px;
     color: #333333;
 }
 
-.user-main-box .binding-bank-box {
+.user-main .binding-bank-box {
     /*padding-left: 125px;*/
     padding-left: 20px;
     padding-bottom: 50px;
     padding-right: 30px;
 }
 
-.user-main-box .binding-bank-box .item {
+.user-main .binding-bank-box .item {
     height: 40px;
     margin-top: 20px;
     line-height: 40px;
 }
 
-.user-main-box .binding-bank-box .item:first-child {
+.user-main .binding-bank-box .item:first-child {
     height: 20px;
     line-height: 20px;
 }
 
-.user-main-box .binding-bank-box .bank-card-num {
+.user-main .binding-bank-box .bank-card-num {
     border-radius: 4px;
     border: 1px solid #d9d9d9;
     width: 400px;
     box-sizing: border-box;
 }
 
-.user-main-box .binding-bank-box .bank-card-upload-box {
+.user-main .binding-bank-box .bank-card-upload-box {
     height: 260px;
     padding-top: 20px;
     cursor: pointer;
 }
 
-.user-main-box .binding-bank-box .bank-card-upload {
+.user-main .binding-bank-box .bank-card-upload {
     margin-top: 20px;
     width: 350px;
     height: 200px;
@@ -588,12 +577,12 @@
     border: 1px #ccc dashed;
 }
 
-.user-main-box .binding-bank-box .bank-card-upload img {
+.user-main .binding-bank-box .bank-card-upload img {
     width: 100%;
     height: 100%;
 }
 
-.user-main-box .binding-bank-box .bank-card-upload i {
+.user-main .binding-bank-box .bank-card-upload i {
     margin-left: 130px;
     font-size: 100px;
     font-weight: 100;
@@ -601,13 +590,13 @@
     color: #ccc;
 }
 
-.user-main-box .binding-bank-box .input {
+.user-main .binding-bank-box .input {
     border: none;
     outline: none;
     padding-left: 5px;
 }
 
-.user-main-box .binding-bank-box .input-lable {
+.user-main .binding-bank-box .input-lable {
     font-size: 14px;
     color: #333333;
     padding-left: 10px;
@@ -615,19 +604,19 @@
     border-right: 1px solid #d9d9d9;
 }
 
-.user-main-box .binding-bank-box .submit button {
+.user-main .binding-bank-box .submit button {
     background-color: #e6bc1d;
     width: 100px;
     color: #fff;
 }
 
-.user-main-box .binding-bank-box,
-.user-main-box .binding-bank-message {
+.user-main .binding-bank-box,
+.user-main .binding-bank-message {
     display: inline-block;
     vertical-align: top;
 }
 
-.user-main-box .binding-bank-message {
+.user-main .binding-bank-message {
     display: inline-block;
     width: 460px;
     /*margin-left: 60px;*/
@@ -637,11 +626,11 @@
     position: relative;
 }
 
-.user-main-box .binding-bank-message img {
+.user-main .binding-bank-message img {
     position: absolute;
     bottom: -240px;
 }
-.user-main-box .binding-bank-message .banck-card-title {
+.user-main .binding-bank-message .banck-card-title {
     width: 20px;
     font-size: 14px;
     color: #999999;
@@ -650,7 +639,7 @@
     left: 20px;
 }
 
-.user-main-box .binding-bank-message .banck-card-message {
+.user-main .binding-bank-message .banck-card-message {
     position: absolute;
     bottom: -280px;
     width: 210px;
@@ -659,14 +648,14 @@
     left: 90px;
 }
 
-.user-main-box .binding-bank-message li {
+.user-main .binding-bank-message li {
     list-style: initial;
     font-size: 14px;
     color: #999999;
     margin-bottom: 15px;
 }
 
-.user-main-box .bank-list-box {
+.user-main .bank-list-box {
     border-top: 1px solid #ccc;
 }
 
@@ -675,33 +664,33 @@
  * 密码设置
  */
 
-.user-main-box .password-setting-title {
+.user-main .password-setting-title {
     font-size: 18px;
     color: #333333;
 }
 
-.user-main-box .password-setting-box {
+.user-main .password-setting-box {
     padding-top: 65px;
 }
 
-.user-main-box .password-change>span:first-child {
+.user-main .password-change>span:first-child {
     width: 300px;
     color: #333333;
     font-size: 18px;
     display: inline-block;
 }
 
-.user-main-box .password-change>button {
+.user-main .password-change>button {
     width: 80px;
     color: #fff;
     background-color: #e6bc1d;
 }
 
-.user-main-box .password-change>button a {
+.user-main .password-change>button a {
     display: block;
 }
 
-.user-main-box .password {
+.user-main .password {
     padding-left: 20px;
     display: inline-block;
     vertical-align: top;
@@ -709,7 +698,7 @@
     position: relative;
 }
 
-.user-main-box .password:first-child::after {
+.user-main .password:first-child::after {
     content: '';
     width: 1px;
     background-color: #ccc;
@@ -719,33 +708,33 @@
     height: 145px;
 }
 
-.user-main-box .trading-password {
+.user-main .trading-password {
     padding-left: 60px;
     padding-right: 0px;
 }
 
-.user-main-box .password>div {
+.user-main .password>div {
     margin-top: 15px;
 }
 
-.user-main-box .password-message {
+.user-main .password-message {
     height: 40px;
     color: #999999;
     font-size: 14px;
 }
 
-.user-main-box .password-leve .leve-lable {
+.user-main .password-leve .leve-lable {
     color: #333333;
     font-size: 12px;
     margin-right: 20px;
 }
 
-.user-main-box .password-leve .leve {
+.user-main .password-leve .leve {
     color: #999999;
     font-size: 12px;
 }
 
-.user-main-box .password-leve .leve-show {
+.user-main .password-leve .leve-show {
     margin-top: 15px;
     width: 380px;
     background-color: #f0f0f0;
@@ -753,7 +742,7 @@
     border-radius: 7px;
 }
 
-.user-main-box .password-leve .leve1 {
+.user-main .password-leve .leve1 {
     display: inline-block;
     width: 100%;
     background-color: #7edd92;
@@ -761,7 +750,7 @@
     border-radius: 7px;
 }
 
-.user-main-box .password-leve .leve2 {
+.user-main .password-leve .leve2 {
     display: inline-block;
     width: 25%;
     background-color: #f66e6e;
@@ -769,27 +758,27 @@
     border-radius: 7px;
 }
 
-.user-main-box .forget-pwd a {
+.user-main .forget-pwd a {
     font-size: 12px;
     color: #999999;
     text-decoration: none;
 }
 
-.user-main-box .trading-password .password-message {
+.user-main .trading-password .password-message {
     width: 280px;
 }
 
-.user-main-box .trading-password .switch>span {
+.user-main .trading-password .switch>span {
     margin-right: 10px;
 }
 
-.user-main-box .trading-password .switch {
+.user-main .trading-password .switch {
     font-size: 12px;
     color: #999999;
     margin-left: 170px;
 }
 
-.user-main-box .password-setting-box .message {
+.user-main .password-setting-box .message {
     margin-top: 40px;
     color: #999999;
     font-size: 12px;
@@ -800,22 +789,22 @@
  * 密码修改
  */
 
-.user-main-box .modify-password-title {
+.user-main .modify-password-title {
     color: #333333;
     font-size: 18px;
 }
 
-.user-main-box .modify-password-box {
+.user-main .modify-password-box {
     width: 360px;
     margin: auto;
     padding-top: 95px;
 }
 
-.user-main-box .modify-password-box .item-area {
+.user-main .modify-password-box .item-area {
     margin-bottom: 20px;
 }
 
-.user-main-box .modify-password-box .item {
+.user-main .modify-password-box .item {
     width: 360px;
     height: 40px;
     border: 1px solid #ccc;
@@ -824,7 +813,7 @@
     box-sizing: border-box;
 }
 
-.user-main-box .modify-password-box .lable {
+.user-main .modify-password-box .lable {
     font-size: 14px;
     color: #333333;
     padding-left: 10px;
@@ -835,28 +824,28 @@
     box-sizing: border-box;
 }
 
-.user-main-box .modify-password-box .input {
+.user-main .modify-password-box .input {
     border: none;
     outline: none;
     padding-left: 5px;
     border-left: 1px solid #ccc;
 }
 
-.user-main-box .modify-password-box .input.email-content {
+.user-main .modify-password-box .input.email-content {
     width: 80%;
 }
 
-.user-main-box .modify-password-box .massage {
+.user-main .modify-password-box .massage {
     font-size: 12px;
     color: #999999;
 }
 
-.user-main-box .modify-password-box .massage a {
+.user-main .modify-password-box .massage a {
     color: #999999;
     text-decoration-line: underline;
 }
 
-.user-main-box .modify-password-box button {
+.user-main .modify-password-box button {
     width: 360px;
     background-color: #e6bc1d;
     color: #fff;
@@ -865,13 +854,13 @@
     margin-top: 40px;
 }
 
-.user-main-box .modify-password-box .v-code {
+.user-main .modify-password-box .v-code {
     width: 250px;
     display: inline-block;
     margin-right: 10px;
 }
 
-.user-main-box .modify-password-box .v-code-button {
+.user-main .modify-password-box .v-code-button {
     width: 100px;
     text-align: center;
     height: 40px;
@@ -880,14 +869,14 @@
     cursor: pointer;
 }
 
-.user-main-box .modify-password-box .v-code-button img {
+.user-main .modify-password-box .v-code-button img {
     height: 40px;
     width: 100px;
     border-radius: 8px;
     vertical-align: top;
 }
 
-.user-main-box .modify-password-box .new-pwd {
+.user-main .modify-password-box .new-pwd {
     position: relative;
 }
 
@@ -896,23 +885,23 @@
  * 绑定手机
  */
 
-.user-main-box .binding-phone-title {
+.user-main .binding-phone-title {
     color: #333333;
     font-size: 18px;
 }
 
-.user-main-box .binding-phone-content {
+.user-main .binding-phone-content {
     /*padding-left: 120px;*/
     padding-left: 50px;
     padding-top: 80px;
 }
 
-.user-main-box .binding-phone-content .phone {
+.user-main .binding-phone-content .phone {
     font-size: 16px;
     color: #333333;
 }
 
-.user-main-box .binding-phone-content button {
+.user-main .binding-phone-content button {
     font-size: 14px;
     color: #fff;
     width: 80px;
@@ -921,35 +910,35 @@
     margin-left: 210px;
 }
 
-.user-main-box .binding-phone-content .message {
+.user-main .binding-phone-content .message {
     font-size: 14px;
     color: #999999;
     margin-top: 20px;
 }
 
-.user-main-box .binding-phone-content .switch {
+.user-main .binding-phone-content .switch {
     margin-top: 40px;
     margin-left: 270px;
 }
 
-.user-main-box .binding-phone-content .switch span {
+.user-main .binding-phone-content .switch span {
     color: #999999;
     font-size: 12px;
 }
 
-.user-main-box .binding-phone-left,
-.user-main-box .binding-phone-left::after,
-.user-main-box .binding-phone-right {
+.user-main .binding-phone-left,
+.user-main .binding-phone-left::after,
+.user-main .binding-phone-right {
     display: inline-block;
     vertical-align: top;
 }
 
-.user-main-box .binding-phone-left {
+.user-main .binding-phone-left {
     position: relative;
     padding-right: 50px;
 }
 
-.user-main-box .binding-phone-left::after {
+.user-main .binding-phone-left::after {
     position: absolute;
     top: 10px;
     right: 0px;
@@ -959,12 +948,12 @@
     background-color: #ccc;
 }
 
-.user-main-box .binding-phone-right {
+.user-main .binding-phone-right {
     padding-left: 50px;
     padding-top: 10px;
 }
 
-.user-main-box .binding-phone-right li {
+.user-main .binding-phone-right li {
     /*width: 400px;*/
     width: 250px;
     height: 45px;
@@ -973,7 +962,7 @@
     color: #999999;
 }
 
-.user-main-box .binding-phone-right li:last-child {
+.user-main .binding-phone-right li:last-child {
     /*width: 300px;*/
     width: 250px;
 }
@@ -983,22 +972,22 @@
  * google 认证
  */
 
-.user-main-box .google-auth-title {
+.user-main .google-auth-title {
     color: #333333;
     font-size: 18px;
 }
 
-.user-main-box .google-no-binding-phone {
+.user-main .google-no-binding-phone {
     padding-top: 200px;
     text-align: center;
 }
 
-.user-main-box .google-no-binding-phone>span {
+.user-main .google-no-binding-phone>span {
     font-size: 18px;
     color: #333333;
 }
 
-.user-main-box .google-no-binding-phone button {
+.user-main .google-no-binding-phone button {
     width: 120px;
     height: 30px;
     font-size: 14px;
@@ -1007,117 +996,117 @@
     background-color: #e6bc1d;
 }
 
-.user-main-box .google-auth-message {
+.user-main .google-auth-message {
     font-size: 14px;
     color: #999999;
     margin-top: 80px;
     margin-bottom: 30px;
 }
 
-.user-main-box .google-auth-box {
+.user-main .google-auth-box {
     width: 540px;
     margin: auto;
 }
 
-.user-main-box .google-auth-left {
+.user-main .google-auth-left {
     display: inline-block;
     vertical-align: top;
     margin-right: 20px;
 }
 
-.user-main-box .google-auth-left img {
+.user-main .google-auth-left img {
     display: block;
     height: 150px;
     width: 150px;
 }
 
-.user-main-box .google-auth-left>div {
+.user-main .google-auth-left>div {
     font-size: 14px;
     color: #333333;
     margin-top: 10px;
 }
 
-.user-main-box .google-auth-right {
+.user-main .google-auth-right {
     display: inline-block;
     vertical-align: top;
 }
 
-.user-main-box .google-auth-right>div {
+.user-main .google-auth-right>div {
     padding-top: 5px;
 }
 
-.user-main-box .google-auth-right .info a {
+.user-main .google-auth-right .info a {
     font-size: 14px;
     color: #999999;
     text-decoration: underline;
     text-underline-position: under;
 }
 
-.user-main-box .google-auth-right button {
+.user-main .google-auth-right button {
     margin-top: 20px;
 }
 
-.user-main-box .google {
+.user-main .google {
     text-decoration: underline;
     text-underline-position: under;
 }
 
-.user-main-box .google-info-link a {
+.user-main .google-info-link a {
     color: #e6bc1d;
     text-decoration: underline;
     text-underline-position: under;
 }
 
-.user-main-box .reBinding-left>div {
+.user-main .reBinding-left>div {
     display: inline-block;
     padding-left: 10px;
     padding-top: 10px;
     vertical-align: top;
 }
 
-.user-main-box .reBinding-left img {
+.user-main .reBinding-left img {
     height: 150px;
     width: 150px;
     display: inline-block;
 }
-.user-main-box .rm-binding {
+.user-main .rm-binding {
     display: block !important;
     margin-left: -120px;
 }
-.user-main-box .reBinding-right {
+.user-main .reBinding-right {
     display: inline-block;
 }
 
-.user-main-box .reBinding-right>div {
+.user-main .reBinding-right>div {
     padding-top: 0px;
 }
 
-.user-main-box .reBinding-left .key-title {
+.user-main .reBinding-left .key-title {
     font-size: 14px;
     color: #333333;
 }
 
-.user-main-box .reBinding-left .key {
+.user-main .reBinding-left .key {
     font-size: 20px;
     color: #333333;
     font-weight: 600;
     margin-top: 10px;
 }
 
-.user-main-box .reBinding-left .key-message {
+.user-main .reBinding-left .key-message {
     font-size: 14px;
     color: #999999;
     margin-top: 40px;
 }
 
-.user-main-box .reBinding-right button {
+.user-main .reBinding-right button {
     margin-left: 0px;
     margin-top: 20px;
     width: 100%;
     height: 40px;
 }
 
-.user-main-box .reBinding-right .info a {
+.user-main .reBinding-right .info a {
     font-size: 14px;
     color: #999999;
     text-decoration: underline;
@@ -1193,7 +1182,7 @@
     vertical-align: -2px;
 }
 
-.user-main-box .slick-dots {
+.user-main .slick-dots {
     display: none !important;
 }
 
@@ -1202,18 +1191,18 @@
  * 问题反馈
  */
 
-.user-main-box .question-title {
+.user-main .question-title {
     color: #333333;
     font-size: 18px;
 }
 
-.user-main-box .question-left,
-.user-main-box .question-right {
+.user-main .question-left,
+.user-main .question-right {
     display: inline-block;
     vertical-align: top;
 }
 
-.user-main-box .question-left {
+.user-main .question-left {
     margin-left: 50px;
     /*width: 700px;*/
     width: 500px;
@@ -1221,35 +1210,35 @@
     position: relative;
 }
 
-.user-main-box .upload-box {
+.user-main .upload-box {
     margin-top: 20px;
     position: relative;
 }
 
-.user-main-box .upload-message {
+.user-main .upload-message {
     position: absolute;
     top: 120px;
     font-size: 14px;
 }
 
-.user-main-box .upload-message>span:first-child {
+.user-main .upload-message>span:first-child {
     color: #1890ff;
 }
 
-.user-main-box .question-left .submit {
+.user-main .question-left .submit {
     position: absolute;
     top: 340px;
     right: 130px;
 }
 
-.user-main-box .question-left .submit button {
+.user-main .question-left .submit button {
     width: 100px;
     height: 30px;
     background-color: #e6bc1d;
     color: #fff;
 }
 
-.user-main-box .question-right .info {
+.user-main .question-right .info {
     width: 280px;
     margin-left: 40px;
     margin-top: 50px;
@@ -1257,7 +1246,7 @@
     color: #333333;
 }
 
-.user-main-box .question-right a {
+.user-main .question-right a {
     text-decoration: underline;
     text-underline-position: under;
     margin-left: 40px;
@@ -1271,13 +1260,13 @@
  * 问题列表
  */
 
-.user-main-box .question-search {
+.user-main .question-search {
     position: relative;
     padding-left: 40px;
     margin-top: 30px;
 }
 
-.user-main-box .question-search i {
+.user-main .question-search i {
     position: absolute;
     left: 50px;
     top: 10px;
@@ -1285,7 +1274,7 @@
     color: #999999;
 }
 
-.user-main-box .question-search input {
+.user-main .question-search input {
     padding-left: 30px;
     /*width: 930px;*/
     width: 730px;
@@ -1294,35 +1283,35 @@
     background-color: #f2f2f2;
 }
 
-.user-main-box .question-search>span {
+.user-main .question-search>span {
     margin-left: 30px;
     font-size: 12px;
     color: #666666;
     cursor: pointer;
 }
 
-.user-main-box .question-content {
+.user-main .question-content {
     padding-left: 20px;
     padding-top: 50px;
 }
 
-.user-main-box .question-content li {
+.user-main .question-content li {
     height: 50px;
     line-height: 50px;
     border-bottom: 1px solid #ccc;
     padding-left: 20px;
 }
 
-.user-main-box .question-content li:nth-child(odd) {
+.user-main .question-content li:nth-child(odd) {
     background-color: #f8f8fb;
 }
 
-.user-main-box .question-content li>span {
+.user-main .question-content li>span {
     display: inline-block;
     vertical-align: top;
 }
 
-.user-main-box .question-content li>span:first-child {
+.user-main .question-content li>span:first-child {
     width: 70%;
     overflow: hidden;
     white-space: nowrap;
@@ -1330,15 +1319,15 @@
     text-overflow: ellipsis;
 }
 
-.user-main-box .question-content li>span:nth-child(2) {
+.user-main .question-content li>span:nth-child(2) {
     width: 10%;
 }
 
-.user-main-box .question-content li>span:nth-child(3) {
+.user-main .question-content li>span:nth-child(3) {
     width: 15%;
 }
 
-.user-main-box .question-page {
+.user-main .question-page {
     text-align: center;
     padding-top: 50px;
 }
@@ -1359,12 +1348,12 @@
 /**
  * 绑定成功提示也（邮箱 手机）
  */
-.user-main-box .bind-success {
+.user-main .bind-success {
     margin: auto;
     width: 300px;
     text-align: center;
 }
-.user-main-box .bind-success .icon {
+.user-main .bind-success .icon {
     display: inline-block;
     width: 30px;
     height: 30px;
@@ -1373,42 +1362,42 @@
     vertical-align: middle;
     margin-right: 10px;
 }
-.user-main-box .bind-success .icon-text {
+.user-main .bind-success .icon-text {
     font-size: 30px;
     color: #333333;
     vertical-align: middle;
 }
 
-.user-main-box .bind-success .icon i {
+.user-main .bind-success .icon i {
     font-size: 25px;
     vertical-align: -11px;
     color: #e6bc1d;
     font-weight: 800;
     margin-left: 5px;
 }
-.user-main-box .bind-success .item:nth-child(1) {
+.user-main .bind-success .item:nth-child(1) {
     margin-top: 180px;
 }
-.user-main-box .bind-success .item:nth-child(2) {
+.user-main .bind-success .item:nth-child(2) {
     margin-top: 15px;
     font-size: 16px;
     color: #333333;
     margin-bottom: 70px;
 }
 
-.user-main-box .bind-success .item:nth-child(2) .email {
+.user-main .bind-success .item:nth-child(2) .email {
     margin-top: 15px;
     font-size: 16px;
     color: #e6bc1d;
 }
 
-.user-main-box .bind-success .item:nth-child(3) {
+.user-main .bind-success .item:nth-child(3) {
     font-size: 14px;
     color: #999999;
     margin-bottom: 10px;
 }
 
-.user-main-box .bind-success .item:nth-child(4) a {
+.user-main .bind-success .item:nth-child(4) a {
     font-size: 14px;
     color: #fff;
     width: 200px;
@@ -1420,7 +1409,7 @@
     position: relative;
 }
 
-.user-main-box .bind-success .item:nth-child(4) a .icon {
+.user-main .bind-success .item:nth-child(4) a .icon {
     position: absolute;
     right: -10px;
     top: -7px;

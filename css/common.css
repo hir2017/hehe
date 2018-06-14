@@ -59,8 +59,8 @@ html {
     color: #c5c5c5;
 }
 
-input:-webkit-autofill, 
-textarea:-webkit-autofill, 
+input:-webkit-autofill,
+textarea:-webkit-autofill,
 select:-webkit-autofill {
     background: none;
 }
@@ -69,7 +69,7 @@ select:-webkit-autofill {
  * 重写antd颜色
  */
 
-body .ant-checkbox-checked .ant-checkbox-inner, 
+body .ant-checkbox-checked .ant-checkbox-inner,
 body .ant-checkbox-indeterminate .ant-checkbox-inner{
     background-color: #e6bc1d;
     border-color: #e6bc1d;
@@ -78,8 +78,8 @@ body .ant-checkbox-checked:after{
     border: 1px solid #e6bc1d;
 }
 
-body .ant-checkbox-input:focus+.ant-checkbox-inner, 
-body .ant-checkbox-wrapper:hover .ant-checkbox-inner, 
+body .ant-checkbox-input:focus+.ant-checkbox-inner,
+body .ant-checkbox-wrapper:hover .ant-checkbox-inner,
 body .ant-checkbox:hover .ant-checkbox-inner{
     border-color: #e6bc1d;
 }
@@ -460,4 +460,31 @@ button>a {
     background-color: #e6bc1d;
     left: -10px;
     top: 14px;
+}
+
+
+/* page-content */
+.ace-page-content {
+    float: right;
+    width: 100%;
+    margin: 10px 0;
+    min-height: 620px;
+    box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.06);
+    /* background-color: #f2f2f2; */
+    background-color:  #fff;
+}
+
+.ace-page-content .content-title {
+    height: 60px;
+    line-height: 60px;
+    /* margin-bottom: 1px; */
+    border-bottom: solid 1px #f2f2f2;
+    background-color: #fff;
+    font-size: 18px;
+    padding-left: 20px;
+}
+
+.ace-page-content .content-body {
+    padding: 10px 20px;
+    background-color: #fff;
 }

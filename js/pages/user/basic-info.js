@@ -21,10 +21,12 @@ class Information extends Component {
 
     render() {
         return (
-            <div className="ace-page-content">
+            <div className="page-content-inner">
                 <div className="content-title">{UPEX.lang.template('基本信息')}</div>
-                <Info />
-                <List />
+                <section className="content-body">
+                    <Info />
+                    <List />
+                </section>
             </div>
         );
     }

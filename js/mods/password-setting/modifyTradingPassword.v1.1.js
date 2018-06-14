@@ -69,14 +69,16 @@ export default class ModifyTradingPassword extends Component {
 
         const pwd = md5(this.state.password + UPEX.config.dealSalt + this.props.authStore.uid);
         let reqResult = this.props.userInfoStore.modifytradingPwd(this.state.newPwd, pwd);
-        reqResult.then(data => {
-            console.log('after', data)
-            if (data) {
-                browserHistory.push('/user/setpwd');
-            }
-        }).catch(err => {
-            console.log(err)
-        });
+        reqResult
+            .then(data => {
+                console.log('after', data);
+                if (data) {
+                    browserHistory.push('/user/setpwd');
+                }
+            })
+            .catch(err => {
+                console.log(err);
+            });
     }
 
     render() {
@@ -96,31 +98,33 @@ export default class ModifyTradingPassword extends Component {
         };
 
         return (
-            <div>
-                <div className="modify-password-title">{UPEX.lang.template('修改交易密碼')}</div>
-                <div className="modify-password-box">
-                    <div className="item new-pwd">
-                        <span className="lable">{UPEX.lang.template('交易密码')}</span>
-                        <input {...getProp('password')} />
-                        <span className="item-left-meassage">*{UPEX.lang.template('密码由6-18数字、字母和特殊字符组成')}</span>
+            <div className="page-content-inner">
+                <div className="content-title">{UPEX.lang.template('修改交易密碼')}</div>
+                <section className="content-body">
+                    <div className="modify-password-box">
+                        <div className="item new-pwd">
+                            <span className="lable">{UPEX.lang.template('交易密码')}</span>
+                            <input {...getProp('password')} />
+                            <span className="item-left-meassage">*{UPEX.lang.template('密码由6-18数字、字母和特殊字符组成')}</span>
+                        </div>
+                        <div className="item">
+                            <span className="lable">{UPEX.lang.template('新交易密码')}</span>
+                            <input {...getProp('newPwd')} />
+                        </div>
+                        <div className="item">
+                            <span className="lable">{UPEX.lang.template('确认密码')}</span>
+                            <input {...getProp('comfirmPwd')} />
+                        </div>
+                        <div className="massage" style={{ display: 'none' }}>
+                            {UPEX.lang.template('不方便接短信？可使用')}&nbsp;&nbsp;&nbsp;&nbsp;<Link>Google{UPEX.lang.template('驗證碼')}</Link>
+                        </div>
+                        <div className="submit">
+                            <Button loading={loading} onClick={this.submit}>
+                                {UPEX.lang.template('提交')}
+                            </Button>
+                        </div>
                     </div>
-                    <div className="item">
-                        <span className="lable">{UPEX.lang.template('新交易密码')}</span>
-                        <input {...getProp('newPwd')} />
-                    </div>
-                    <div className="item">
-                        <span className="lable">{UPEX.lang.template('确认密码')}</span>
-                        <input {...getProp('comfirmPwd')} />
-                    </div>
-                    <div className="massage" style={{ display: 'none' }}>
-                        {UPEX.lang.template('不方便接短信？可使用')}&nbsp;&nbsp;&nbsp;&nbsp;<Link>Google{UPEX.lang.template('驗證碼')}</Link>
-                    </div>
-                    <div className="submit">
-                        <Button loading={loading} onClick={this.submit}>
-                            {UPEX.lang.template('提交')}
-                        </Button>
-                    </div>
-                </div>
+                </section>
             </div>
         );
     }

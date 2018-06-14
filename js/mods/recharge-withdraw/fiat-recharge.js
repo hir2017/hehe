@@ -14,12 +14,12 @@ import OrderInfo from './fiat-order-info';
 // 金流類型
 const cashTypes = () => {
     return [
-        // { val: 'PD-ATM-POST', label: UPEX.lang.template('郵局實體ATM') }, // 无该资质渠道
+        { val: 'PD-ATM-POST', label: UPEX.lang.template('郵局實體ATM') }, // 无该资质渠道
         { val: 'PD-ATM-CTCB', label: UPEX.lang.template('中國信託實體ATM') }, // 只显示订单，没有支付
         { val: 'PD-ATM-HNCB', label: UPEX.lang.template('華南實體ATM') }, // 只显示订单，没有支付
         { val: 'PD-ATM-SINOPAC', label: UPEX.lang.template('永豐實體ATM') }, // 只显示订单，没有支付
-        // { val: 'PD-ATM-SCSB', label: UPEX.lang.template('上海商銀即時ATM') }, // 无该资质渠道
-        // { val: 'PD-WEBATM-POST', label: UPEX.lang.template('郵局WEB-ATM') }, // 无该资质渠道
+        { val: 'PD-ATM-SCSB', label: UPEX.lang.template('上海商銀即時ATM') }, // 无该资质渠道
+        { val: 'PD-WEBATM-POST', label: UPEX.lang.template('郵局WEB-ATM') }, // 无该资质渠道
         { val: 'PD-WEBATM-TCB', label: UPEX.lang.template('合庫WEBATM') },// 可使用
         { val: 'PD-WEBATM-CTCB', label: UPEX.lang.template('中國信託WEB-ATM') },// 可使用
         { val: 'PD-WEBATM-HNCB', label: UPEX.lang.template('華南WEB-ATM') },// 可使用

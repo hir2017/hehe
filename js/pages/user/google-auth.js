@@ -5,49 +5,48 @@
  */
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
-import { Button } from 'antd'
-import { Link } from 'react-router'
-import BindingGoogle from '../../mods/binding-google'
-import Success from '../../mods/binding-google/success'
+import { Button } from 'antd';
+import { Link } from 'react-router';
+import BindingGoogle from '../../mods/binding-google';
+import Success from '../../mods/binding-google/success';
 
 @inject('userInfoStore')
 @observer
 class GoogleAuthenticator extends Component {
-
     componentWillMount() {
-        const userInfo = this.props.userInfoStore.userInfo || {}
-        const gaBindSuccess = this.props.userInfoStore.gaBindSuccess
-        Object.keys(userInfo).length || this.props.userInfoStore.getUserInfo()
-        gaBindSuccess || this.props.userInfoStore.isGoogleAuth()
+        const userInfo = this.props.userInfoStore.userInfo || {};
+        const gaBindSuccess = this.props.userInfoStore.gaBindSuccess;
+        Object.keys(userInfo).length || this.props.userInfoStore.getUserInfo();
+        gaBindSuccess || this.props.userInfoStore.isGoogleAuth();
     }
 
     render() {
-        const userInfo = this.props.userInfoStore.userInfo || {}
-        const gaBindSuccess = this.props.userInfoStore.gaBindSuccess
+        const userInfo = this.props.userInfoStore.userInfo || {};
+        const gaBindSuccess = this.props.userInfoStore.gaBindSuccess;
 
         return (
-            <div>
-	        <div className="google-auth-title">
-	          {UPEX.lang.template('google验证器')}
-	        </div>
-	        {
-	            userInfo.phone
-	                ? !gaBindSuccess
-	                    ? <BindingGoogle />
-	                    : <Success />
-	                : <div className="google-no-binding-phone">
-	              {UPEX.lang.template('添加Google绑定前，请先绑定手机号')}
-	              <div>
-	                <Button>
-	                  <Link to="/user/settingPhone">
-	                    {UPEX.lang.template('去绑定手机')}
-	                  </Link>
-	                </Button>
-	              </div>
-	            </div>
-	            }
-	      </div>
-        )
+            <div className="page-content-inner">
+                <div className="content-title">{UPEX.lang.template('google验证器')}</div>
+                <section className="content-body">
+                    {userInfo.phone ? (
+                        !gaBindSuccess ? (
+                            <BindingGoogle />
+                        ) : (
+                            <Success />
+                        )
+                    ) : (
+                        <div className="google-no-binding-phone">
+                            {UPEX.lang.template('添加Google绑定前，请先绑定手机号')}
+                            <div>
+                                <Button>
+                                    <Link to="/user/settingPhone">{UPEX.lang.template('去绑定手机')}</Link>
+                                </Button>
+                            </div>
+                        </div>
+                    )}
+                </section>
+            </div>
+        );
     }
 }
 
