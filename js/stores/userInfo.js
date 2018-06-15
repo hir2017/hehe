@@ -503,11 +503,13 @@ class UserInfo {
 
     @action
     async forgetTradingPwd(newPwd, vercode, imgCode, imgCodeId, type) {
+        let reqResult = false;
         try {
             this.submit_loading = true
             const res = await forgetFdPwd(newPwd, vercode, imgCode, imgCodeId, type)
             this.submit_loading = false
             if (res.status === 200) {
+                reqResult = true;
                 message.success(UPEX.lang.template('修改成功'))
             } else {
                 message.error(res.message)
@@ -517,6 +519,7 @@ class UserInfo {
             console.error(e)
             message.error('Network Error')
         }
+        return reqResult;
     }
 
     @action

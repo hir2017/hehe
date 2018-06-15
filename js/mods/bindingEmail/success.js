@@ -8,6 +8,8 @@ import { observer, inject } from 'mobx-react';
 import { Button, Icon } from 'antd';
 import { Link } from 'react-router';
 
+import PageWrapper from '../../common-mods/page-user/page-wrapper';
+
 @inject('userInfoStore')
 @observer
 export default class extends Component {
@@ -18,7 +20,7 @@ export default class extends Component {
     render() {
         const userInfo = this.props.userInfoStore.userInfo || {};
         return (
-            <section className="page-content-inner bind-success">
+            <PageWrapper innerClass="bind-success">
                 <div className="item">
                     <span className="icon">
                         <Icon type="check" />
@@ -35,7 +37,7 @@ export default class extends Component {
                         <span className="icon">1</span>
                     </Link>
                 </div>
-            </section>
+            </PageWrapper>
         );
     }
 }

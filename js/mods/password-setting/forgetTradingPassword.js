@@ -1,13 +1,12 @@
-/**
- * @fileoverview  密码设置
- * @author xia xiang feng
- * @date 2018-05-24
- */
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import { Button, message } from 'antd';
-import { Link } from 'react-router';
+import { Link, browserHistory } from 'react-router';
 import Vcodebutton from '../common/authcode-btn';
+
+import InputItem from '../../common-mods/form/input-item';
+import PageForm from '../../common-mods/page-user/page-form';
+import { createGetProp } from '../../common-mods/utils';
 
 @inject('userInfoStore', 'captchaStore')
 @observer
@@ -15,10 +14,6 @@ export default class SettingTradingPassword extends Component {
     constructor() {
         super();
         this.submit = this.submit.bind(this);
-        this.passwordChange = this.passwordChange.bind(this);
-        this.comfirmChange = this.comfirmChange.bind(this);
-        this.vCodeChange = this.vCodeChange.bind(this);
-        this.ivCodeChange = this.ivCodeChange.bind(this);
         this.captchaChange = this.captchaChange.bind(this);
     }
 
@@ -33,28 +28,10 @@ export default class SettingTradingPassword extends Component {
         ivCode: ''
     };
 
-    passwordChange(e) {
-        this.setState({
-            password: e.target.value
-        });
-    }
-
-    comfirmChange(e) {
-        this.setState({
-            comfirmPwd: e.target.value
-        });
-    }
-
-    vCodeChange(e) {
-        this.setState({
-            vCode: e.target.value
-        });
-    }
-
-    ivCodeChange(e) {
-        this.setState({
-            ivCode: e.target.value
-        });
+    setVal(e, name) {
+        const data = {};
+        data[name] = e.target.value;
+        this.setState(data);
     }
 
     captchaChange() {
@@ -85,56 +62,81 @@ export default class SettingTradingPassword extends Component {
             return;
         }
 
-        this.props.userInfoStore.forgetTradingPwd(this.state.password, this.state.vCode, this.state.ivCode, codeid, 2);
+        let reqResult = this.props.userInfoStore.forgetTradingPwd(this.state.password, this.state.vCode, this.state.ivCode, codeid, 2);
+        reqResult.then(data => {
+            if(data) {
+                setTimeout(() => {
+                    browserHistory.push('/user/setpwd');
+                }, 300)
+            }
+        })
     }
 
     render() {
         const loading = this.props.userInfoStore.submit_loading;
         const codeid = this.props.captchaStore.codeid;
         const captcha = this.props.captchaStore.captcha;
+        /*
+            state = {
+                password: '',
+                comfirmPwd: '',
+                vCode: '',
+                ivCode: ''
+            };
+        */
+        const getProp = createGetProp(this);
+        const inputsData = {
+            password: {
+                label: UPEX.lang.template('新交易密码'),
+                inputProps: getProp('password'),
+                className: 'new-pwd',
+                tip: UPEX.lang.template('密码由6-18数字、字母和特殊字符组成')
+            },
+            comfirmPwd: {
+                label: UPEX.lang.template('确认密码'),
+                inputProps: getProp('comfirmPwd')
+            },
+            ivCode: {
+                label: UPEX.lang.template('图片验证码'),
+                className: 'v-code',
+                inputProps: getProp('ivCode', 'none')
+            },
+            vCode: {
+                label: UPEX.lang.template('短信确认码'),
+                className: 'v-code',
+                inputProps: getProp('vCode', 'none')
+            }
+        };
+
+        const PageProps = {
+            title: UPEX.lang.template('重置交易密碼'),
+            formClass: 'modify-password-box'
+        };
         return (
-            <div className="page-content-inner">
-                <div className="content-title">{UPEX.lang.template('重置交易密碼')}</div>
-                <section className="content-body">
-                    <div className="modify-password-box">
-                        <div className="item new-pwd">
-                            <span className="lable">{UPEX.lang.template('新交易密码')}</span>
-                            <input type="password" onChange={this.passwordChange} className="input" />
-                            <span className="item-left-meassage">*{UPEX.lang.template('密码由6-18数字、字母和特殊字符组成')}</span>
-                        </div>
-                        <div className="item">
-                            <span className="lable">{UPEX.lang.template('确认密码')}</span>
-                            <input type="password" onChange={this.comfirmChange} className="input" />
-                        </div>
-                        <div>
-                            <div className="item v-code">
-                                <span className="lable">{UPEX.lang.template('图片验证码')}</span>
-                                <input onChange={this.ivCodeChange} className="input" />
-                            </div>
-                            <div className="item v-code-button">
-                                <img onClick={this.captchaChange} src={captcha} />
-                            </div>
-                        </div>
-                        <div>
-                            <div className="item v-code">
-                                <span className="lable">{UPEX.lang.template('短信验证码')}</span>
-                                <input onChange={this.vCodeChange} className="input" />
-                            </div>
-                            <div className="item v-code-button">
-                                <Vcodebutton imgCode={this.state.ivCode} codeid={codeid} type="phone" />
-                            </div>
-                        </div>
-                        <div style={{ display: 'none' }} className="massage">
-                            {UPEX.lang.template('不方便接短信？可使用')}&nbsp;&nbsp;&nbsp;&nbsp;<Link>Google{UPEX.lang.template('驗證碼')}</Link>
-                        </div>
-                        <div className="submit">
-                            <Button loading={loading} onClick={this.submit}>
-                                {UPEX.lang.template('提交')}
-                            </Button>
-                        </div>
+            <PageForm {...PageProps}>
+                <InputItem {...inputsData.password} />
+                <InputItem {...inputsData.comfirmPwd} />
+                <div>
+                    <InputItem {...inputsData.ivCode} />
+                    <div className="item v-code-button">
+                        <img onClick={this.captchaChange} src={captcha} />
                     </div>
-                </section>
-            </div>
+                </div>
+                <div>
+                   <InputItem {...inputsData.vCode} />
+                    <div className="item v-code-button">
+                        <Vcodebutton imgCode={this.state.ivCode} codeid={codeid} type="phone" />
+                    </div>
+                </div>
+                <div style={{ display: 'none' }} className="massage">
+                    {UPEX.lang.template('不方便接短信？可使用')}&nbsp;&nbsp;&nbsp;&nbsp;<Link>Google{UPEX.lang.template('驗證碼')}</Link>
+                </div>
+                <div className="submit">
+                    <Button loading={loading} className="ace-submit-item" onClick={this.submit}>
+                        {UPEX.lang.template('提交')}
+                    </Button>
+                </div>
+            </PageForm>
         );
     }
 }

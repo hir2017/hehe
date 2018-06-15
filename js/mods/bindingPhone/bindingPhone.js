@@ -1,8 +1,3 @@
-/**
- * @fileoverview  密码设置
- * @author xia xiang feng
- * @date 2018-05-24
- */
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import { Button, message, Select } from 'antd';
@@ -11,18 +6,18 @@ import Vcodebutton from '../common/authcode-btn';
 import NumberUtil from '../../lib/util/number';
 const Option = Select.Option;
 
+import InputItem from '../../common-mods/form/input-item';
+import PageForm from '../../common-mods/page-user/page-form';
+import { createGetProp } from '../../common-mods/utils';
+
 @inject('userInfoStore', 'captchaStore', 'loginStore')
 @observer
 export default class BindingPhone extends Component {
     constructor() {
         super();
-        this.phoneChange = this.phoneChange.bind(this);
-        this.ivCodeChange = this.ivCodeChange.bind(this);
         this.submit = this.submit.bind(this);
-        this.vCodeChange = this.vCodeChange.bind(this);
         this.onAreaCodeChange = this.onAreaCodeChange.bind(this);
         this.captchaChange = this.captchaChange.bind(this);
-        this.evCodeChange = this.evCodeChange.bind(this);
     }
 
     componentWillMount() {
@@ -40,33 +35,15 @@ export default class BindingPhone extends Component {
         evCode: ''
     };
 
+    setVal(e, name) {
+        const data = {};
+        data[name] = e.target.value;
+        this.setState(data);
+    }
+
     onAreaCodeChange(val) {
         this.setState({
             areacode: NumberUtil.prefixed(this.props.loginStore.countries[val].areacode, 4)
-        });
-    }
-
-    phoneChange(e) {
-        this.setState({
-            phone: e.target.value
-        });
-    }
-
-    vCodeChange(e) {
-        this.setState({
-            vCode: e.target.value
-        });
-    }
-
-    ivCodeChange(e) {
-        this.setState({
-            ivCode: e.target.value
-        });
-    }
-
-    evCodeChange(e) {
-        this.setState({
-            evCode: e.target.value
         });
     }
 
@@ -104,58 +81,76 @@ export default class BindingPhone extends Component {
                 </Option>
             );
         });
+        /*
+            state = {
+                vCode: '',
+                ivCode: '',
+                areacode: '',
+                evCode: ''
+            };
+        */
+        const getProp = createGetProp(this);
+        const inputsData = {
+            phone: {
+                label: UPEX.lang.template('手机号'),
+                inputProps: getProp('phone', 'none')
+            },
+            ivCode: {
+                label: UPEX.lang.template('图片验证码'),
+                className: 'v-code',
+                inputProps: getProp('ivCode', 'none')
+            },
+            vCode: {
+                label: UPEX.lang.template('短信确认码'),
+                inputProps: getProp('vCode', 'none')
+            },
+            evCode: {
+                label: UPEX.lang.template('邮箱确认码'),
+                className: 'v-code',
+                inputProps: getProp('evCode', 'none')
+            }
+        };
 
+        const PageProps = {
+            title: UPEX.lang.template('绑定手机'),
+            formClass: 'modify-password-box'
+        };
         return (
-            <div className="page-content-inner">
-                <div className="content-title">{UPEX.lang.template('绑定手机')}</div>
-                <section className="content-body">
-                    <div className="modify-password-box">
-                        <div className="item-area">
-                            <Select showSearch size="large" style={{ width: 360 }} onChange={this.onAreaCodeChange} defaultValue={loginStore.selectedCountry.code}>
-                                {options}
-                            </Select>
-                        </div>
-                        <div className="item">
-                            <span className="lable">{UPEX.lang.template('手机号')}</span>
-                            <input onChange={this.phoneChange} className="input" />
-                        </div>
-                        <div className="item v-code">
-                            <span className="lable">{UPEX.lang.template('图片验证码')}</span>
-                            <input onChange={this.ivCodeChange} onChange={this.ivCodeChange} className="input" />
-                        </div>
-                        <div className="item v-code-button">
-                            <img onClick={this.captchaChange} src={captcha} />
-                        </div>
-                        <div className="item">
-                            <span className="lable">{UPEX.lang.template('短信确认码')}</span>
-                            <input onChange={this.vCodeChange} className="input" />
-                        </div>
-                        <div className="item v-code">
-                            <span className="lable">{UPEX.lang.template('邮箱确认码')}</span>
-                            <input onChange={this.evCodeChange} className="input" />
-                        </div>
-                        <div className="item v-code-button">
-                            <Vcodebutton
-                                message="手机号不能为空"
-                                emailOrphone={this.state.phone}
-                                areacode={this.state.areacode}
-                                newBind={true}
-                                type={2}
-                                imgCode={this.state.ivCode}
-                                codeid={codeid}
-                            />
-                        </div>
-                        <div className="massage" style={{ display: 'none' }}>
-                            {UPEX.lang.template('不方便接短信？可使用')}&nbsp;&nbsp;&nbsp;&nbsp;<Link>Google{UPEX.lang.template('驗證碼')}</Link>
-                        </div>
-                        <div className="submit">
-                            <Button loading={loading} onClick={this.submit}>
-                                {UPEX.lang.template('提交')}
-                            </Button>
-                        </div>
+            <PageForm {...PageProps}>
+                <div className="item-area">
+                    <Select showSearch size="large" style={{ width: '100%' }} onChange={this.onAreaCodeChange} defaultValue={loginStore.selectedCountry.code}>
+                        {options}
+                    </Select>
+                </div>
+                <InputItem {...inputsData.phone} />
+                <div>
+                     <InputItem {...inputsData.ivCode} />
+                     <div className="item v-code-button">
+                        <img onClick={this.captchaChange} src={captcha} />
                     </div>
-                </section>
-            </div>
+                </div>
+                <InputItem {...inputsData.vCode} />
+                <div>
+                    <InputItem {...inputsData.evCode} />
+                    <div className="item v-code-button">
+                        <Vcodebutton
+                            message="手机号不能为空"
+                            emailOrphone={this.state.phone}
+                            areacode={this.state.areacode}
+                            newBind={true}
+                            type={2}
+                            imgCode={this.state.ivCode}
+                            codeid={codeid}
+                        />
+                    </div>
+                </div>
+                <div className="massage" style={{ display: 'none' }}>
+                    {UPEX.lang.template('不方便接短信？可使用')}&nbsp;&nbsp;&nbsp;&nbsp;<Link>Google{UPEX.lang.template('驗證碼')}</Link>
+                </div>
+                <Button loading={loading} className="ace-submit-item" onClick={this.submit}>
+                        {UPEX.lang.template('提交')}
+                </Button>
+            </PageForm>
         );
     }
 }
