@@ -34,11 +34,18 @@ var cssLoader = {
 
 // 输出口
 var output = {
-    path: path.resolve(__dirname, "build"),
+    path: path.resolve(__dirname, "build/assets"),
     filename: '[name].js',
     chunkFilename: '[name].[chunkhash:5].chunk.js',
     publicPath: '/',
 };
+
+if (env == 'stage') {
+     // 定制cdn路径
+    output.publicPath = '/' + projectVersion + '/assets/';
+    cssLoader.loader = ExtractTextPlugin.extract("css-loader", "postcss-loader");
+    delete cssLoader.use;
+}
 
 var config = {
     entry: {
