@@ -515,7 +515,7 @@ class TradeStore {
         let pass;
 
         if (amount < entrustPriceMin || amount > entrustPriceMax) {
-            this.tradePriceErr = UPEX.lang.template('价格输入必须是{min}~{max}', { min: entrustPriceMin, max: entrustPriceMax });
+            this.tradePriceErr = UPEX.lang.template('输入必须是{min}~{max}', { min: entrustPriceMin, max: entrustPriceMax });
             pass = false;
         } else {
             this.tradePriceErr = '';
@@ -678,25 +678,36 @@ class TradeStore {
         socket.on('tradeHistory', data => {
             runInAction('get tradeHistory data', () => {
                 if (typeof data.content.length !== 'undefined') {
-                    this.tradeHistory = data;
+                    this.tradeHistory = this.parseTradeHistory(data);
                 } else {
-                    this.tradeHistory.content[this.tradeHistory.content.length] =  data.content;
+                    let item = this.parseTradeHistoryItem(data.content);
+                    
+                    this.tradeHistory.content.unshift(item);
                 }   
             });
         });
     }
 
-    @computed
-    get parsedTradeHistory() {
-        let tradeHistory = JSON.parse(JSON.stringify(this.tradeHistory));
+    parseTradeHistory(data) {
+        data.content.forEach((item, index) => {
+            this.parseTradeHistoryItem(item);
+        });
         
-        tradeHistory.content.forEach((item, index) => {
-            item.time = TimeUtil.formatDate(item.time, 'HH:mm:ss'); // 时间
-            item.current = NumberUtil.formatNumber(item.current, this.commonStore.pointPrice); // 价格
-            item.amount = NumberUtil.formatNumber(item.amount, this.pointNum); // 数量
+        // 时间最近－》历史
+        data.content.sort(function(a, b){
+            return b.time - a.time;
         });
 
-        return tradeHistory;
+        return data;
+    }
+
+    parseTradeHistoryItem(item){
+        item.timeText = TimeUtil.formatDate(item.time, 'HH:mm:ss'); // 时间
+        item.timeTextAll = TimeUtil.formatDate(item.time); // 时间
+        item.current = NumberUtil.formatNumber(item.current, this.commonStore.pointPrice); // 价格
+        item.amount = NumberUtil.formatNumber(item.amount, this.pointNum); // 数量
+
+        return item;
     }
 
     @action
@@ -851,6 +862,7 @@ class TradeStore {
     @action
     async getCollectCoins() {
         const res = await listOptional();
+        
         if (res.status !== 200) {
             console.error(res.message);
         } else {
@@ -1048,8 +1060,6 @@ class TradeStore {
                         defer.reject(data);
                         return;
                     }
-                    // 重启获取新用户账号信息
-                    this.getUserAccount();
 
                     if (type == 'buy') {
                         this.setDealBuyPrice('');

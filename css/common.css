@@ -44,7 +44,7 @@ html {
     position: absolute;
     top: 0;
     left: 0;
-    background: rgba(255, 255, 255, 0.7) url('../images/loading.gif') no-repeat center center;
+    background: rgba(255, 255, 255, 0.1) url('../images/loading.gif') no-repeat center center;
     background-size: 60px 60px;
     z-index: 999;
 }

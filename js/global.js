@@ -150,6 +150,9 @@ const origin = (function(){
             // 测试环境
             origin = '54.169.140.238';
             break;
+        default:
+            origin = origin || '13.251.85.35';
+            break;
     }
 
     

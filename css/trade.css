@@ -1022,3 +1022,7 @@
 .trade-wrapper[data-theme="dark"] .trade-form {
     color: rgba(255, 255, 255, 0.8);
 }
+
+.trade-wrapper[data-theme="dark"] .order-table dd{
+    color: rgba(255, 255, 255, 0.6);
+}

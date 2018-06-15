@@ -170,10 +170,16 @@
     text-align: center;
 }
 
+.order-main-box .inorout .buy {
+    color: #00d02c;
+}
 
+.order-main-box .inorout .sell {
+    color: #ff3380
+}
 /**
- * 委托中
- */
+* 委托中
+*/
 
 .order-main-box .open-list-table .time {
     width: 15%;
@@ -219,11 +225,9 @@
     color: #5581d8;
     display: inline-block;
 }
-
-
 /**
- * 已成交订单
- */
+* 已成交订单
+*/
 
 .order-main-box .success-list-table .time {
     width: 15%;
@@ -254,12 +258,9 @@
 .order-main-box .success-list-table .amount {
     width: 15%;
 }
-
-
-
 /**
- * 历史委托
- */
+* 历史委托
+*/
 
 .order-main-box .history-list-table .time {
     width: 15%;
@@ -321,7 +322,7 @@
     width: 100%;
 }
 
-.popup-trade-password .input-box.wrong{
+.popup-trade-password .input-box.wrong {
     border-right: 1px solid #ff3380;
 }
 

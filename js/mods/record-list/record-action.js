@@ -77,11 +77,12 @@ export default (store, tradepwdStore) => {
             }).then((data)=>{
                 if (data.status ==  200) {
                     message.success(UPEX.lang.template('撤销成功'));
+                    store.deleteItem(orderNo);
                 } else {
                     message.error(data.message);
                 }
             }).catch(function(error){
-                message.error(UPEX.lang.template('撤销失败'));
+                console.log(error)
             })
         }
     }

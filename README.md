@@ -426,7 +426,7 @@ Zepto不支持旧版本的Internet Explorer浏览器(<10)。
 		* 历史委托订单接口：[/user/trOrderDetailByCustomer](http://13.251.82.20:8080/workspace/myWorkspace.do?projectId=2#154)
 		* 已完成委托订单接口：[/user/getTradeList](http://13.251.82.20:8080/workspace/myWorkspace.do?projectId=2#156)
 	* 前端交互：
-		* 撤销订单
+		* 撤销订单［修改需求］＝》撤单不需要交易密码
 			* 设置了交易密码，必须填写了交易密码才可以撤销
 			* 未设置交易密码，直接撤销订单 
 

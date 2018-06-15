@@ -27,10 +27,15 @@ class TradeRealTime extends Component {
 				<div className="table-bd">
 					<ul>
 						{
-							store.parsedTradeHistory.content.map((item, index)=>{
+							store.tradeHistory.content.map((item, index)=>{
 								return (
-									<li key={index} data-type={item.buyOrSell == 1 ? 'buy' : 'sell'} onClick={this.haneleClickOrder.bind(this, item)}> 
-										<div className="time">{ item.time }</div>
+									<li 
+										key={index} 
+										data-type={item.buyOrSell == 1 ? 'buy' : 'sell'} 
+										onClick={this.haneleClickOrder.bind(this, item)}
+										data-text={item.timeTextAll}
+									> 
+										<div className="time">{ item.timeText }</div>
 										<div className="price">{ item.current }</div>
 										<div className="number">{ item.amount }</div>
 									</li>
