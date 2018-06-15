@@ -96,6 +96,9 @@ const NumberUtil = {
      * @param { Number } num 保留小数点后几位
      */
     formatNumber(number, num) {
+        if (typeof number == 'undefined') {
+            return '--';
+        }
         let length = parseInt(num, 10);
 
         number = this.asDecimal(number, length); // 保留小时后N位，四舍五入
@@ -106,6 +109,10 @@ const NumberUtil = {
     },
 
     initNumber(number, num) {
+        if (typeof number == 'undefined') {
+            return '--';
+        }
+
         let length = parseInt(num, 10);
 
         number = this.asDecimal(number, length);
