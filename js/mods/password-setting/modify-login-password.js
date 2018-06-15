@@ -11,8 +11,8 @@ import Vcodebutton from '../common/authcode-btn';
 import md5 from '../../lib/md5';
 
 import InputItem from '../../common-mods/form/input-item';
-import AceForm from '../../common-mods/form/form';
-import PageWrapper from '../../common-mods/page-user/page-wrapper';
+import PageForm from '../../common-mods/page-user/page-form';
+import { createGetProp } from '../../common-mods/utils';
 
 @inject('userInfoStore', 'captchaStore', 'authStore')
 @observer
@@ -104,18 +104,7 @@ export default class ModifyPassword extends Component {
         const captcha = this.props.captchaStore.captcha;
         const userInfo = this.props.userInfoStore.userInfo || {};
         const gaBindSuccess = this.props.userInfoStore.gaBindSuccess;
-        const getProp = (name, type = 'password') => {
-            const result = {
-                className: 'input',
-                onChange: e => {
-                    this.setVal(e, name);
-                }
-            };
-            if (type !== 'none') {
-                result.type = type;
-            }
-            return result;
-        };
+        const getProp = createGetProp(this);
         const inputsData = [
             { label: UPEX.lang.template('登录密码'), inputProps: getProp('password') },
             {
@@ -138,36 +127,40 @@ export default class ModifyPassword extends Component {
             label: UPEX.lang.template('谷歌验证码'),
             inputProps: getProp('vCode', 'none')
         };
+
+        const PageProps = {
+            title: UPEX.lang.template('修改登錄密碼'),
+            formClass: 'modify-password-box'
+        };
+
         return (
-            <PageWrapper title={UPEX.lang.template('修改登錄密碼')}>
-                <AceForm className="modify-password-box">
-                    {inputsData.map((item, i) => {
-                        return <InputItem key={i} {...item} />;
-                    })}
+            <PageForm {...PageProps}>
+                {inputsData.map((item, i) => {
+                    return <InputItem key={i} {...item} />;
+                })}
+                <div>
+                    <InputItem {...vCodeData} />
+                    <div className="item v-code-button">
+                        <img onClick={this.captchaChange} src={captcha} />
+                    </div>
+                </div>
+                {gaBindSuccess ? (
+                    <InputItem {...GAData} />
+                ) : (
                     <div>
-                        <InputItem {...vCodeData} />
+                        <div className="item v-code">
+                            <span className="label">{!userInfo.phone ? UPEX.lang.template('邮箱验证码') : UPEX.lang.template('短信验证码')}</span>
+                            <input {...getProp('vCode', 'none')} />
+                        </div>
                         <div className="item v-code-button">
-                            <img onClick={this.captchaChange} src={captcha} />
+                            <Vcodebutton imgCode={this.state.ivCode} codeid={codeid} type={!userInfo.phone ? 'email' : 'phone'} />
                         </div>
                     </div>
-                    {gaBindSuccess ? (
-                        <InputItem {...GAData} />
-                    ) : (
-                        <div>
-                            <div className="item v-code">
-                                <span className="label">{!userInfo.phone ? UPEX.lang.template('邮箱验证码') : UPEX.lang.template('短信验证码')}</span>
-                                <input {...getProp('vCode', 'none')} />
-                            </div>
-                            <div className="item v-code-button">
-                                <Vcodebutton imgCode={this.state.ivCode} codeid={codeid} type={!userInfo.phone ? 'email' : 'phone'} />
-                            </div>
-                        </div>
-                    )}
-                    <Button loading={loading} className="ace-submit-item" onClick={this.submit}>
-                        {UPEX.lang.template('提交')}
-                    </Button>
-                </AceForm>
-            </PageWrapper>
+                )}
+                <Button loading={loading} className="ace-submit-item" onClick={this.submit}>
+                    {UPEX.lang.template('提交')}
+                </Button>
+            </PageForm>
         );
     }
 }

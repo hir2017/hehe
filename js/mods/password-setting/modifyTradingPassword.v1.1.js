@@ -11,8 +11,8 @@ import Vcodebutton from '../common/authcode-btn';
 import md5 from '../../lib/md5';
 
 import InputItem from '../../common-mods/form/input-item';
-import AceForm from '../../common-mods/form/form';
-import PageWrapper from '../../common-mods/page-user/page-wrapper';
+import PageForm from '../../common-mods/page-user/page-form';
+import { createGetProp } from '../../common-mods/utils';
 
 @inject('userInfoStore', 'captchaStore', 'authStore')
 @observer
@@ -91,15 +91,7 @@ export default class ModifyTradingPassword extends Component {
         const captcha = this.props.captchaStore.captcha;
         const userInfo = this.props.userInfoStore.userInfo || {};
 
-        const getProp = name => {
-            return {
-                type: 'password',
-                className: 'input',
-                onChange: e => {
-                    this.setVal(e, name);
-                }
-            };
-        };
+        const getProp = createGetProp(this);
         const inputsData = [
             {
                 label: UPEX.lang.template('交易密码'),
@@ -116,17 +108,20 @@ export default class ModifyTradingPassword extends Component {
                 inputProps: getProp('comfirmPwd')
             }
         ];
+        const PageProps = {
+            title: UPEX.lang.template('修改交易密碼'),
+            formClass: 'modify-password-box'
+        };
+
         return (
-            <PageWrapper title={UPEX.lang.template('修改交易密碼')}>
-                <AceForm className="modify-password-box">
-                    {inputsData.map((item, i) => {
-                        return <InputItem key={i} {...item} />;
-                    })}
-                    <Button loading={loading} className="ace-submit-item" onClick={this.submit}>
-                        {UPEX.lang.template('提交')}
-                    </Button>
-                </AceForm>
-            </PageWrapper>
+            <PageForm {...PageProps}>
+                {inputsData.map((item, i) => {
+                    return <InputItem key={i} {...item} />;
+                })}
+                <Button loading={loading} className="ace-submit-item" onClick={this.submit}>
+                    {UPEX.lang.template('提交')}
+                </Button>
+            </PageForm>
         );
     }
 }

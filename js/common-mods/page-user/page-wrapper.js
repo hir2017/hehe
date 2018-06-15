@@ -6,7 +6,7 @@ export default class Wrapper extends Component {
         const {title, innerClass, bodyClass} = this.props;
         return (
             <div className={`page-content-inner ${innerClass}`}>
-                <div className="content-title">{title}</div>
+                {title ? (<div className="content-title">{title}</div>) : ''}
                 <section className={`content-body ${bodyClass}`}>
                     {this.props.children}
                 </section>

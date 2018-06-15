@@ -679,8 +679,11 @@ export function bindPhone(newDevice, oldDevice, oldVercode, vercode, codeid, img
 /**
  * 去除手机号的0086
  */
-function rmAreaCode(phone) {
-    return phone.replace('0086', '')
+function rmAreaCode(phone, areaCode = '0086') {
+    if(phone.indexOf(areaCode) === 0) {
+        return phone.replace(areaCode, '')
+    }
+    return phone
 }
 
 /**
@@ -727,7 +730,7 @@ export function bindPhoneOrEmailAction(EmailCode, phoneCode, phoneOrEmail, type)
 
 export function modifyPhoneSendMsg(phone, codeid, imgcode, type) {
     return axios.post(`${UPEX.config.host}/user/modifyPhoneSendCode`, {
-        phone,
+        phone: rmAreaCode(phone, '86'),
         codeid,
         imgcode,
         type

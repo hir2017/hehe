@@ -1,8 +1,3 @@
-/**
- * @fileoverview  密码设置
- * @author xia xiang feng
- * @date 2018-05-24
- */
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import { Button, message, Select } from 'antd';
@@ -10,19 +5,18 @@ import { Link } from 'react-router';
 import Vcodebutton from '../common/authcode-btn';
 const Option = Select.Option;
 
+import InputItem from '../../common-mods/form/input-item';
+import PageForm from '../../common-mods/page-user/page-form';
+import { createGetProp } from '../../common-mods/utils';
+
 @inject('userInfoStore', 'captchaStore', 'loginStore')
 @observer
 export default class ModifyPhone extends Component {
     constructor() {
         super();
         this.onAreaCodeChange = this.onAreaCodeChange.bind(this);
-        this.phoneChange = this.phoneChange.bind(this);
-        this.ivCodeChange = this.ivCodeChange.bind(this);
         this.submit = this.submit.bind(this);
-        this.vCodeChange = this.vCodeChange.bind(this);
-        this.nvCodeChange = this.nvCodeChange.bind(this);
         this.captchaChange = this.captchaChange.bind(this);
-        this.gaCodeChange = this.gaCodeChange.bind(this);
     }
 
     componentWillMount() {
@@ -49,38 +43,14 @@ export default class ModifyPhone extends Component {
         });
     }
 
-    phoneChange(e) {
-        this.setState({
-            phone: e.target.value
-        });
-    }
-
-    vCodeChange(e) {
-        this.setState({
-            vCode: e.target.value
-        });
-    }
-
-    nvCodeChange(e) {
-        this.setState({
-            nvCode: e.target.value
-        });
-    }
-
-    ivCodeChange(e) {
-        this.setState({
-            ivCode: e.target.value
-        });
+    setVal(e, name) {
+        const data = {};
+        data[name] = e.target.value;
+        this.setState(data);
     }
 
     captchaChange() {
         this.props.captchaStore.fetch();
-    }
-
-    gaCodeChange(e) {
-        this.setState({
-            gaCode: e.target.value
-        });
     }
 
     submit() {
@@ -124,65 +94,75 @@ export default class ModifyPhone extends Component {
                 </Option>
             );
         });
+        const getProp = createGetProp(this);
+        const inputsData = {
+            phone: {
+                label: UPEX.lang.template('新手机号'),
+                inputProps: getProp('phone', 'none')
+            },
+            ivCode: {
+                label: UPEX.lang.template('图片验证码'),
+                className: 'v-code',
+                inputProps: getProp('ivCode', 'none')
+            },
+            gaCode: {
+                label: UPEX.lang.template('谷歌验证码'),
+                inputProps: getProp('gaCode', 'none')
+            },
+            vCode: {
+                label: UPEX.lang.template('短信确认码'),
+                inputProps: getProp('vCode', 'none')
+            },
+            nvCode: {
+                label: UPEX.lang.template('新短信确认码'),
+                className: 'v-code',
+                inputProps: getProp('nvCode', 'none')
+            }
+        };
+
+        const PageProps = {
+            title: UPEX.lang.template('修改绑定手机'),
+            formClass: 'modify-password-box'
+        };
 
         return (
-            <div className="page-content-inner">
-                <div className="content-title">{UPEX.lang.template('修改绑定手机')}</div>
-                <section className="content-body">
-                    <div className="modify-password-box">
-                        <div className="item-area">
-                            <Select size="large" style={{ width: 360 }} onChange={this.onAreaCodeChange} defaultValue={loginStore.selectedCountry.code}>
-                                {options}
-                            </Select>
-                        </div>
-                        <div className="item">
-                            <span className="lable">{UPEX.lang.template('新手机号')}</span>
-                            <input onChange={this.phoneChange} className="input" />
-                        </div>
-                        <div className="item v-code">
-                            <span className="lable">{UPEX.lang.template('图片验证码')}</span>
-                            <input onChange={this.ivCodeChange} className="input" />
-                        </div>
-                        <div className="item v-code-button">
-                            <img onClick={this.captchaChange} src={captcha} />
-                        </div>
-                        {gaBindSuccess ? (
-                            <div className="item">
-                                <span className="lable">{UPEX.lang.template('谷歌验证码')}</span>
-                                <input onChange={this.gaCodeChange} className="input" />
-                            </div>
-                        ) : (
-                            <div className="item">
-                                <span className="lable">{UPEX.lang.template('短信确认码')}</span>
-                                <input onChange={this.vCodeChange} className="input" />
-                            </div>
-                        )}
-                        <div className="item v-code">
-                            <span className="lable">{UPEX.lang.template('新短信确认码')}</span>
-                            <input style={{ width: 130 }} onChange={this.nvCodeChange} className="input" />
-                        </div>
-                        <div className="item v-code-button">
-                            <Vcodebutton
-                                message="新手机号不能为空"
-                                phone={this.state.phone}
-                                areacode={this.state.areacode}
-                                modifyBind={true}
-                                type={gaBindSuccess ? 1 : 2}
-                                imgCode={this.state.ivCode}
-                                codeid={codeid}
-                            />
-                        </div>
-                        <div className="massage" style={{ display: 'none' }}>
-                            {UPEX.lang.template('不方便接短信？可使用')}&nbsp;&nbsp;&nbsp;&nbsp;<Link>Google{UPEX.lang.template('驗證碼')}</Link>
-                        </div>
-                        <div className="submit">
-                            <Button loading={loading} onClick={this.submit}>
-                                {UPEX.lang.template('提交')}
-                            </Button>
-                        </div>
+            <PageForm {...PageProps}>
+                <div className="item-area">
+                    <Select size="large" style={{ width: '100%' }} onChange={this.onAreaCodeChange} defaultValue={loginStore.selectedCountry.code}>
+                        {options}
+                    </Select>
+                </div>
+                <InputItem {...inputsData.phone} />
+                <div>
+                    {/* 图片验证码可以优化 */}
+                    <InputItem {...inputsData.ivCode} />
+                    <div className="item v-code-button">
+                        <img onClick={this.captchaChange} src={captcha} />
                     </div>
-                </section>
-            </div>
+                </div>
+                {/* GA也可以优化 */}
+                {gaBindSuccess ? <InputItem {...inputsData.gaCode} /> : <InputItem {...inputsData.vCode} />}
+                <div>
+                    <InputItem {...inputsData.nvCode} />
+                    <div className="item v-code-button">
+                        <Vcodebutton
+                            message="新手机号不能为空"
+                            phone={this.state.phone}
+                            areacode={this.state.areacode}
+                            modifyBind={true}
+                            type={gaBindSuccess ? 1 : 2}
+                            imgCode={this.state.ivCode}
+                            codeid={codeid}
+                        />
+                    </div>
+                </div>
+                <div className="massage" style={{ display: 'none' }}>
+                    {UPEX.lang.template('不方便接短信？可使用')}&nbsp;&nbsp;&nbsp;&nbsp;<Link>Google{UPEX.lang.template('驗證碼')}</Link>
+                </div>
+                <Button loading={loading}  className="ace-submit-item" onClick={this.submit}>
+                    {UPEX.lang.template('提交')}
+                </Button>
+            </PageForm>
         );
     }
 }
