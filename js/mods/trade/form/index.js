@@ -25,7 +25,7 @@ class TradeForm extends Component{
 
 	onChange=(key, e)=>{
 		let value = e.currentTarget.value.trim();
-		console.log(value);
+		
 		switch(key) {
 			case 'buyprice':
 				this.props.tradeStore.setDealBuyPrice(value);

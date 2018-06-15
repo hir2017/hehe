@@ -68,12 +68,12 @@ class OrderStore {
             
             item.orderTime = TimeUtil.formatDate(item.orderTime, 'yyyy-MM-dd HH:mm:ss');
             // 委托价格
-            item.price = NumberUtil.initNumber(item.price, pointPrice);
-            item.tradeAmount = NumberUtil.initNumber(item.tradeAmount, pointPrice);
-            item.tradePrice = NumberUtil.initNumber(item.tradePrice, pointPrice);
+            item.price = NumberUtil.formatNumber(item.price, pointPrice);
+            item.tradeAmount = NumberUtil.formatNumber(item.tradeAmount, pointPrice);
+            item.tradePrice = NumberUtil.formatNumber(item.tradePrice, pointPrice);
             // 委托数量
-            item.tradeNum = NumberUtil.initNumber(item.tradeNum, pointNum);
-            item.num = NumberUtil.initNumber(item.num, pointNum);
+            item.tradeNum = NumberUtil.formatNumber(item.tradeNum, pointNum);
+            item.num = NumberUtil.formatNumber(item.num, pointNum);
         })
 
         return arr;

@@ -65,17 +65,17 @@ class OrderStore {
             // 时间
             item.orderTime = TimeUtil.formatDate(item.orderTime, 'yyyy-MM-dd HH:mm:ss');
             // 委托价格
-            item.price = NumberUtil.initNumber(item.price, pointPrice);
+            item.price = NumberUtil.formatNumber(item.price, pointPrice);
             // 成交金额
-            item.tradeAmount = NumberUtil.initNumber(item.tradeAmount, pointPrice);
+            item.tradeAmount = NumberUtil.formatNumber(item.tradeAmount, pointPrice);
             // 成交价格
-            item.tradePrice = NumberUtil.initNumber(item.tradePrice, pointPrice);
+            item.tradePrice = NumberUtil.formatNumber(item.tradePrice, pointPrice);
             // 委托数量
-            item.num = NumberUtil.initNumber(item.num, pointNum);
+            item.num = NumberUtil.formatNumber(item.num, pointNum);
             // 成交数量
-            item.tradeNum = NumberUtil.initNumber(item.tradeNum, pointNum);
+            item.tradeNum = NumberUtil.formatNumber(item.tradeNum, pointNum);
             // 成交率
-            item.tradeRate = NumberUtil.initNumber(item.tradeRate * 100, 2) + '%';
+            item.tradeRate = NumberUtil.formatNumber(item.tradeRate * 100, 2) + '%';
         })
 
         return arr;

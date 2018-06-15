@@ -26,7 +26,7 @@ class SellOrder extends Component {
 								<li key={index} data-type="sell" onClick={this.haneleClickOrder.bind(this, item)}>
 									<div className="cell price">{item.newcurrent}</div>
 									<div className="cell number">{item.newnumber}</div>
-									<div className="cell total">{item.total || 0}</div>
+									<div className="cell total">{item.newtotal}</div>
 									<div className="bar" style={{ width: `${item.depth}%` }}></div>
 								</li>
 							)

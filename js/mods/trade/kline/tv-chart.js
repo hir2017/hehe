@@ -536,23 +536,23 @@ class TVChartContainer extends Component {
 	                            <label>{ store.currencyNameEn }</label>
 	                            <Icon type="caret-down" style={arrowCls} />
 	                        </Popover>
-	                        <em>{ store.currentAmount }</em>
+	                        <em>{ store.currentTradeCoin.currentAmount }</em>
 	                    </li>
-	                    <li className={ store.changeRateStatus }>
+	                    <li>
 	                        <label>{ UPEX.lang.template('涨幅') }</label>
-	                        <em>{ store.currentCoinChangeRate }</em>
+	                        <em>{ store.currentTradeCoin.changeRateText }</em>
 	                    </li>
 	                    <li>
 	                        <label>{ UPEX.lang.template('高')}</label>
-	                        <em> { store.currentCoinHighPrice }</em>
+	                        <em> { store.currentTradeCoin.highPrice }</em>
 	                    </li>
 	                    <li>
 	                        <label>{ UPEX.lang.template('低')}</label>
-	                        <em>{ store.currentCoinLowPrice }</em>
+	                        <em>{  store.currentTradeCoin.lowPrice }</em>
 	                    </li>
 	                    <li>
 	                        <label>{ UPEX.lang.template('24H量')}</label>
-	                        <em>{ store.currentCoinVolume }</em>
+	                        <em>{ store.currentTradeCoin.volume }</em>
 	                    </li>
 	                </ul>
 	                <div className="theme-menu">

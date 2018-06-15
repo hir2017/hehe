@@ -54,15 +54,15 @@ class HomeStore {
             // 24小时涨跌幅
             item.changeRateText = NumberUtil.asPercent(item.changeRate);
             // 最新成交价
-            item.currentAmount = NumberUtil.initNumber(item.currentAmount, this.commonStore.pointPrice);
+            item.currentAmount = NumberUtil.formatNumber(item.currentAmount, this.commonStore.pointPrice);
             // 最高价
-            item.highPrice = NumberUtil.initNumber(item.highPrice, this.commonStore.pointPrice);
+            item.highPrice = NumberUtil.formatNumber(item.highPrice, this.commonStore.pointPrice);
             // 最低价
-            item.lowPrice = NumberUtil.initNumber(item.lowPrice, this.commonStore.pointPrice);
+            item.lowPrice = NumberUtil.formatNumber(item.lowPrice, this.commonStore.pointPrice);
             // 开盘价
-            item.openPrice = NumberUtil.initNumber(item.openPrice, this.commonStore.pointPrice);
+            item.openPrice = NumberUtil.formatNumber(item.openPrice, this.commonStore.pointPrice);
             // 收盘价
-            item.closePrice = NumberUtil.initNumber(item.closePrice, this.commonStore.pointPrice);
+            item.closePrice = NumberUtil.formatNumber(item.closePrice, this.commonStore.pointPrice);
             // 24小时成交数量
             item.volume = NumberUtil.formatNumber(item.volume, item.pointNum);
             // 成交额
