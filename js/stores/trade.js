@@ -11,9 +11,7 @@ import {
     getUserOrderList, 
     submitOrder, 
     getPersonalTradingPwd, 
-    hasSettingDealPwd,
-    getUserOpenOrderList,
-    getUserSuccessOrderList,
+    hasSettingDealPwd
 } from '../api/http';
 
 import NP from 'number-precision';
@@ -679,7 +677,11 @@ class TradeStore {
 
         socket.on('tradeHistory', data => {
             runInAction('get tradeHistory data', () => {
-                this.tradeHistory = data;
+                if (typeof data.content.length !== 'undefined') {
+                    this.tradeHistory = data;
+                } else {
+                    this.tradeHistory.content[this.tradeHistory.content.length] =  data.content;
+                }   
             });
         });
     }
@@ -750,22 +752,8 @@ class TradeStore {
         if (!this.authStore.isLogin) {
             return;
         }
-
-        this.getUserOpenList();
-        this.getUserSuccessList();
         this.bindUserOpenList();
         this.bindUserSuccessList();
-    }
-
-    // 委托订单第一次查询
-    @action
-    getUserOpenList() {
-
-    }  
-    // 完成订单第一次查询
-    @action
-    getUserSuccessList() {
-
     }
     /**
      * 委托订单事件，每一次状态变更都会收到通知
@@ -779,7 +767,7 @@ class TradeStore {
         });
 
         socket.on('userOrder', (data) => {
-            this.openOrderList = this.parseOpenOrderList(data.list);
+            // this.openOrderList = this.parseOpenOrderList(data.list);
         })
     }
     /**
@@ -796,7 +784,7 @@ class TradeStore {
         });
 
         socket.on('userTrade', (data) => {
-            this.historyOrderList = this.parseHistoryOrderList(data.list);
+            // this.historyOrderList = this.parseHistoryOrderList(data.list);
         })
     }
 

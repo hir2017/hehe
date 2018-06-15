@@ -55,17 +55,17 @@ export default (store, tradepwdStore) => {
         },
 
         cancelOrder(currencyId, orderNo) {
-            if (tradepwdStore.tradePasswordStatus == 1) {
-                // 启用交易密码
-                PopupTradePwd.create({
-                    onSubmit: (pwd) =>{
-                        this.submitCancelOrder(currencyId, orderNo, pwd);
-                    }
-                });
-            } else {
+            // if (tradepwdStore.tradePasswordStatus == 1) {
+            //     // 启用交易密码
+            //     PopupTradePwd.create({
+            //         onSubmit: (pwd) =>{
+            //             this.submitCancelOrder(currencyId, orderNo, pwd);
+            //         }
+            //     });
+            // } else {
                 // 不需要交易密码
                 this.submitCancelOrder(currencyId, orderNo);
-            }
+            // }
         },
 
         submitCancelOrder(currencyId, orderNo, fdPassword){

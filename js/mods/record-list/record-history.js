@@ -4,9 +4,13 @@ import {  Select, DatePicker, Pagination} from 'antd';
 const Option = Select.Option;
 import toAction from './record-action';
 
-@inject('commonStore','historyStore')
+@inject('commonStore','historyStore','authStore')
 @observer
 class List extends Component {
+	static defaultProps = {
+		pagination: true
+	}
+
 	constructor(props){
 		super(props);
 
@@ -57,7 +61,9 @@ class List extends Component {
 		let store = this.props.historyStore;
 		let $content;
 		
-		if (!store.isFetching && store.orderList.length == 0) {
+		if (!this.props.authStore.isLogin) {
+			$content = <div className="mini-tip">{ UPEX.lang.template('登录后可查看委托历史订单')}</div>
+		} else if (!store.isFetching && store.orderList.length == 0) {
 			$content = <div className="mini-tip">{ UPEX.lang.template('暂无委托历史订单') }</div>;
 		} else {
 			$content = (
@@ -175,7 +181,7 @@ class List extends Component {
 						{ store.isFetching ? <div className="mini-loading"></div> : null }
 					</div>
 					<div className="table-ft">
-						{ store.total > 0 ? <Pagination current={store.current} total={store.total} pageSize={store.pageSize} onChange={this.onChangePagination.bind(this)} /> : null }
+						{ store.total > 0 && this.props.pagination  ? <Pagination current={store.current} total={store.total} pageSize={store.pageSize} onChange={this.onChangePagination.bind(this)} /> : null }
 					</div>
 				</div>
 			</div>

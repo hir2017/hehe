@@ -5,9 +5,13 @@ import {  Select, DatePicker, Pagination } from 'antd';
 const Option = Select.Option;
 import toAction from './record-action';
 
-@inject('commonStore','successStore')
+@inject('commonStore','successStore', 'authStore')
 @observer
 class List extends Component {
+	static defaultProps = {
+		pagination: true // 是否分页， true分也，false不分页
+	}
+
 	constructor(props){
 		super(props);
 
@@ -15,7 +19,14 @@ class List extends Component {
 	}
 
 	componentDidMount() {
-		this.action.getData();
+		if (!this.props.pagination) {
+			this.action.getData({
+				size: 0
+			});
+		} else {
+			this.action.getData();
+		}
+		
 	}
 
 	onChangePagination(page){
@@ -52,7 +63,9 @@ class List extends Component {
 		let store = this.props.successStore;
 		let $content;
 		
-		if (!store.isFetching && store.orderList.length == 0) {
+		if (!this.props.authStore.isLogin) {
+			$content = <div className="mini-tip">{ UPEX.lang.template('登录后可查看已完成订单')}</div>
+		} else if (!store.isFetching && store.orderList.length == 0) {
 			$content = <div className="mini-tip">{ UPEX.lang.template('暂无数据') }</div>;
 		} else {
 			$content = (
@@ -143,7 +156,7 @@ class List extends Component {
 						{ store.isFetching ? <div className="mini-loading"></div> : null }
 					</div>
 					<div className="table-ft">
-						{ store.total > 0 ? <Pagination current={store.current} total={store.total} pageSize={store.pageSize} onChange={this.onChangePagination.bind(this)} /> : null }
+						{ store.total > 0 && this.props.pagination ? <Pagination current={store.current} total={store.total} pageSize={store.pageSize} onChange={this.onChangePagination.bind(this)} /> : null }
 					</div>
 				</div>
 			</div>

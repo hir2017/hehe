@@ -3,8 +3,10 @@
  */
 import React, {Component} from 'react';
 import { observer, inject } from 'mobx-react';
-import OpenOrder from './open-order';
-import HistoryOrder from './history-order';
+// import OpenOrder from './open-order';
+// import HistoryOrder from './history-order';
+import OpenOrder from '../../record-list/record-open';
+import HistoryOrder from '../../record-list/record-success';
 
 @inject('tradeStore')
 @observer
@@ -42,7 +44,7 @@ class MyOrder extends Component {
 				</div>
 				<div className="tradeorder-bd">
 					{
-						store.tabIndex == 0 ? <OpenOrder/> : <HistoryOrder/>
+						store.tabIndex == 0 ? <OpenOrder pagination={false}/> : <HistoryOrder pagination={false}/>
 					}
 				</div>				
 			</div>
