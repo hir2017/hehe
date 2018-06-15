@@ -7,59 +7,106 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 import { observer, inject } from 'mobx-react';
 
+@inject('userInfoStore')
 @observer
 class UserPage extends Component {
     activeMenu(url) {
         if (new RegExp(`${url}$`).test(this.props.router.location.pathname)) {
-            return 'active-menu';
+            return 'active-item';
         } else {
             return '';
         }
     }
 
+    navData = [
+        {
+            title: UPEX.lang.template('个人信息'),
+            subItems: [
+                {
+                    active: 'user',
+                    route: '/user',
+                    text: UPEX.lang.template('基础资料')
+                },
+                {
+                    active: 'authentication',
+                    route: '/user/authentication',
+                    text: UPEX.lang.template('身份认证')
+                },
+                {
+                    active: 'bankInfo',
+                    route: '/user/bankInfo',
+                    text: UPEX.lang.template('银行卡信息')
+                }
+            ]
+        },
+        {
+            title: UPEX.lang.template('安全设置'),
+            subItems: [
+                {
+                    active: 'passwordSetting',
+                    route: '/user/setpwd',
+                    text: UPEX.lang.template('密码设置')
+                },
+                {
+                    active: 'bindingPhone',
+                    route: '/user/bindingPhone',
+                    text: UPEX.lang.template('手机绑定')
+                },
+                {
+                    active: 'bindingEmail',
+                    route: '/user/bindingEmail',
+                    text: UPEX.lang.template('电子邮箱绑定')
+                },
+                {
+                    active: 'google',
+                    route: '/user/google',
+                    text: UPEX.lang.template('Google验证器')
+                }
+            ]
+        },
+        {
+            title: UPEX.lang.template('其它'),
+            subItems: [
+                {
+                    active: 'question',
+                    route: '/user/question',
+                    text: UPEX.lang.template('问题反馈')
+                },
+                {
+                    active: 'questionList',
+                    route: '/user/questionList',
+                    text: UPEX.lang.template('反馈列表')
+                }
+            ]
+        }
+    ];
     render() {
+        const store = this.props.userInfoStore;
         return (
             <div className="user-wrapper">
                 <div className="user-body-inner clearfix">
-                    <div className="user-menu">
-                        <div className="user-menu-box">
-                            <h2>{UPEX.lang.template('个人信息')}</h2>
-                            <ul>
-                                <li className={this.activeMenu('user')}>
-                                    <Link to="/user">{UPEX.lang.template('基础资料')}</Link>
-                                </li>
-                                <li className={this.activeMenu('authentication')}>
-                                    <Link to="/user/authentication">{UPEX.lang.template('身份认证')}</Link>
-                                </li>
-                                <li className={this.activeMenu('bankInfo')}>
-                                    <Link to="/user/bankInfo">{UPEX.lang.template('银行卡信息')}</Link>
-                                </li>
-                            </ul>
-                            <h2>{UPEX.lang.template('安全设置')}</h2>
-                            <ul>
-                                <li className={this.activeMenu('passwordSetting')}>
-                                    <Link to="/user/setpwd">{UPEX.lang.template('密码设置')}</Link>
-                                </li>
-                                <li className={this.activeMenu('bindingPhone')}>
-                                    <Link to="/user/bindingPhone">{UPEX.lang.template('手机绑定')}</Link>
-                                </li>
-                                <li className={this.activeMenu('bindingEmail')}>
-                                    <Link to="/user/bindingEmail">{UPEX.lang.template('电子邮箱绑定')}</Link>
-                                </li>
-                                <li className={this.activeMenu('google')}>
-                                    <Link to="/user/google">{UPEX.lang.template('Google验证器')}</Link>
-                                </li>
-                            </ul>
-                            <h2>{UPEX.lang.template('其它')}</h2>
-                            <ul>
-                                <li className={this.activeMenu('question')}>
-                                    <Link to="/user/question">{UPEX.lang.template('问题反馈')}</Link>
-                                </li>
-                                <li className={this.activeMenu('questionList')}>
-                                    <Link to="/user/questionList">{UPEX.lang.template('反馈列表')}</Link>
-                                </li>
-                            </ul>
+                    <div className="aside-left">
+                        <div className="info">
+                            <p className="name">{store.userInfo ? (store.userInfo.phone || store.userInfo.email) : '--'}</p>
+                            <p className="id">UID:{store.userInfo.uid + ''}</p>
                         </div>
+                        <div className="menu">
+                            {this.navData.map((item, i) => {
+                                return (
+                                    <dl className="menu-submenu" key={i} >
+                                        <dt className="menu-submenu-title">{item.title}</dt>
+                                        {item.subItems.map((sub, j) => {
+                                            return (
+                                                <dd key={j} className={`menu-submenu-item ${this.activeMenu(sub.active)}`}>
+                                                    <Link to={sub.route}>{sub.text}</Link>
+                                                </dd>
+                                            );
+                                        })}
+                                    </dl>
+                                );
+                            })}
+                        </div>
+
                     </div>
                     <div className="user-main ace-page-content">{this.props.children}</div>
                 </div>
