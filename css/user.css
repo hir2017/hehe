@@ -15,13 +15,72 @@
     box-sizing: border-box;
 }
 
-.user-menu {
+.aside-left {
     float: left;
     width: 230px;
+    padding-right: 30px;
     margin-left: -230px;
 }
 
-.user-menu-box {
+.aside-left .info {
+    text-align: center;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    padding: 20px;
+}
+.aside-left .info .name, .aside-left .info .id {
+    text-overflow: ellipsis;
+}
+.aside-left .info .name {
+    font-size: 15px;
+    color: #767676;
+}
+.aside-left .info .id {
+    font-size: 12px;
+    color: #bebebe;
+}
+.aside-left .menu {
+    border-radius: 6px;
+    background-color: #fff;
+}
+
+.aside-left .menu .menu-submenu, .aside-left .menu .menu-submenu-title  {
+    border-bottom: 1px solid #f3f3f3;
+}
+
+.aside-left .menu .menu-submenu {
+    text-align: center;
+    padding-bottom: 10px;
+}
+.aside-left .menu .menu-submenu-title {
+    height: 50px;
+    line-height: 50px;
+    margin-bottom: 10px;
+    font-size: 15px;
+    font-weight: bold;
+}
+.aside-left .menu .menu-submenu-item {
+    height: 40px;
+    line-height: 40px;
+    font-size: 14px;
+}
+
+.aside-left .menu .menu-submenu-item a {
+    display: block;
+    color: #2f2f2f;
+}
+.aside-left .menu .menu-submenu-item.active-item {
+    background-color: #fffbe9;
+    box-sizing: border-box;
+    border-right: 3px solid #e7b400;
+}
+.aside-left .menu .menu-submenu-item.active-item a {
+    color: #e7b508;
+}
+/* menu-submenu-title
+menu-submenu-item */
+
+/* .user-menu-box {
     padding: 20px;
 }
 
@@ -50,7 +109,7 @@
 .user-menu-box ul li {
     padding: 10px 0;
     cursor: pointer;
-}
+} */
 
 /**
  * 基本信息
