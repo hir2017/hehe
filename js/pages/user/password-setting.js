@@ -7,16 +7,15 @@ import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import Password from '../../mods/password-setting';
 
+import PageWrapper from '../../common-mods/page-user/page-wrapper';
+
 @observer
 class PasswordSetting extends Component {
     render() {
         return (
-            <div className="page-content-inner">
-                <div className="content-title">{UPEX.lang.template('密码设置')}</div>
-                <section className="content-body">
-                    <Password />
-                </section>
-            </div>
+            <PageWrapper title={UPEX.lang.template('密码设置')}>
+                <Password />
+            </PageWrapper>
         );
     }
 }

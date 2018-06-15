@@ -10,6 +10,10 @@ import { Link, browserHistory } from 'react-router';
 import Vcodebutton from '../common/authcode-btn';
 import md5 from '../../lib/md5';
 
+import InputItem from '../../common-mods/form/input-item';
+import AceForm from '../../common-mods/form/form';
+import PageWrapper from '../../common-mods/page-user/page-wrapper';
+
 @inject('userInfoStore', 'captchaStore', 'authStore')
 @observer
 export default class ModifyTradingPassword extends Component {
@@ -96,36 +100,33 @@ export default class ModifyTradingPassword extends Component {
                 }
             };
         };
-
+        const inputsData = [
+            {
+                label: UPEX.lang.template('交易密码'),
+                className: 'new-pwd',
+                inputProps: getProp('password'),
+                tip: UPEX.lang.template('密码由6-18数字、字母和特殊字符组成')
+            },
+            {
+                label: UPEX.lang.template('新交易密码'),
+                inputProps: getProp('newPwd')
+            },
+            {
+                label: UPEX.lang.template('确认密码'),
+                inputProps: getProp('comfirmPwd')
+            }
+        ];
         return (
-            <div className="page-content-inner">
-                <div className="content-title">{UPEX.lang.template('修改交易密碼')}</div>
-                <section className="content-body">
-                    <div className="modify-password-box">
-                        <div className="item new-pwd">
-                            <span className="lable">{UPEX.lang.template('交易密码')}</span>
-                            <input {...getProp('password')} />
-                            <span className="item-left-meassage">*{UPEX.lang.template('密码由6-18数字、字母和特殊字符组成')}</span>
-                        </div>
-                        <div className="item">
-                            <span className="lable">{UPEX.lang.template('新交易密码')}</span>
-                            <input {...getProp('newPwd')} />
-                        </div>
-                        <div className="item">
-                            <span className="lable">{UPEX.lang.template('确认密码')}</span>
-                            <input {...getProp('comfirmPwd')} />
-                        </div>
-                        <div className="massage" style={{ display: 'none' }}>
-                            {UPEX.lang.template('不方便接短信？可使用')}&nbsp;&nbsp;&nbsp;&nbsp;<Link>Google{UPEX.lang.template('驗證碼')}</Link>
-                        </div>
-                        <div className="submit">
-                            <Button loading={loading} onClick={this.submit}>
-                                {UPEX.lang.template('提交')}
-                            </Button>
-                        </div>
-                    </div>
-                </section>
-            </div>
+            <PageWrapper title={UPEX.lang.template('修改交易密碼')}>
+                <AceForm className="modify-password-box">
+                    {inputsData.map((item, i) => {
+                        return <InputItem key={i} {...item} />;
+                    })}
+                    <Button loading={loading} className="ace-submit-item" onClick={this.submit}>
+                        {UPEX.lang.template('提交')}
+                    </Button>
+                </AceForm>
+            </PageWrapper>
         );
     }
 }

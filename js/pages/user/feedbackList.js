@@ -9,6 +9,8 @@ import { observer, inject } from 'mobx-react';
 import { Input, Upload, Icon, Button, Pagination } from 'antd';
 const { TextArea } = Input;
 
+import PageWrapper from '../../common-mods/page-user/page-wrapper';
+
 @inject('userInfoStore')
 @observer
 export default class extends Component {
@@ -42,34 +44,26 @@ export default class extends Component {
         const count = this.props.userInfoStore.questionsLsit.count;
         const questionsLsit = this.props.userInfoStore.questionsLsit.list || [];
         return (
-            <div className="page-content-inner">
-                <div className="content-title">{UPEX.lang.template('問題列表')}</div>
-                <div style={{ display: 'none' }} className="question-search">
-                    <Icon type="search" />
-                    <Input placeholder={UPEX.lang.template('搜索您的問題')} />
-                    <span>{UPEX.lang.template('我反饋的問題')}</span>
+            <PageWrapper title={UPEX.lang.template('問題列表')}>
+                <div className="question-content">
+                    <ul>
+                        {questionsLsit.map((item, index) => {
+                            return (
+                                <li key={index}>
+                                    <span>
+                                        <Link to={`/user/feedbackDetails/${item.qid}`}>{item.detail}</Link>
+                                    </span>
+                                    <span>{this.status(item.status)}</span>
+                                    <span>{item.createTime}</span>
+                                </li>
+                            );
+                        })}
+                    </ul>
                 </div>
-                <section className="content-body">
-                    <div className="question-content">
-                        <ul>
-                            {questionsLsit.map((item, index) => {
-                                return (
-                                    <li key={index}>
-                                        <span>
-                                            <Link to={`/user/feedbackDetails/${item.qid}`}>{item.detail}</Link>
-                                        </span>
-                                        <span>{this.status(item.status)}</span>
-                                        <span>{item.createTime}</span>
-                                    </li>
-                                );
-                            })}
-                        </ul>
-                    </div>
-                    <div className="question-page">
-                        <Pagination onChange={this.pageChange} size="small" total={count} />
-                    </div>
-                </section>
-            </div>
+                <div className="question-page">
+                    <Pagination onChange={this.pageChange} size="small" total={count} />
+                </div>
+            </PageWrapper>
         );
     }
 }

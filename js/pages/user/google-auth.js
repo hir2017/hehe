@@ -10,6 +10,8 @@ import { Link } from 'react-router';
 import BindingGoogle from '../../mods/binding-google';
 import Success from '../../mods/binding-google/success';
 
+import PageWrapper from '../../common-mods/page-user/page-wrapper';
+
 @inject('userInfoStore')
 @observer
 class GoogleAuthenticator extends Component {
@@ -25,27 +27,24 @@ class GoogleAuthenticator extends Component {
         const gaBindSuccess = this.props.userInfoStore.gaBindSuccess;
 
         return (
-            <div className="page-content-inner">
-                <div className="content-title">{UPEX.lang.template('google验证器')}</div>
-                <section className="content-body">
-                    {userInfo.phone ? (
-                        !gaBindSuccess ? (
-                            <BindingGoogle />
-                        ) : (
-                            <Success />
-                        )
+            <PageWrapper title={UPEX.lang.template('google验证器')}>
+                {userInfo.phone ? (
+                    !gaBindSuccess ? (
+                        <BindingGoogle />
                     ) : (
-                        <div className="google-no-binding-phone">
-                            {UPEX.lang.template('添加Google绑定前，请先绑定手机号')}
-                            <div>
-                                <Button>
-                                    <Link to="/user/settingPhone">{UPEX.lang.template('去绑定手机')}</Link>
-                                </Button>
-                            </div>
+                        <Success />
+                    )
+                ) : (
+                    <div className="google-no-binding-phone">
+                        {UPEX.lang.template('添加Google绑定前，请先绑定手机号')}
+                        <div>
+                            <Button>
+                                <Link to="/user/settingPhone">{UPEX.lang.template('去绑定手机')}</Link>
+                            </Button>
                         </div>
-                    )}
-                </section>
-            </div>
+                    </div>
+                )}
+            </PageWrapper>
         );
     }
 }

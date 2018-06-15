@@ -52,8 +52,6 @@
     cursor: pointer;
 }
 
-
-
 /**
  * 基本信息
  */
@@ -68,7 +66,7 @@
     height: 90px;
 }
 
-.user-main .info-content > div {
+.user-main .info-content>div {
     display: inline-block;
     vertical-align: top;
     width: 50%;
@@ -219,7 +217,6 @@
     text-align: center;
 }
 
-
 /**
  * 身份认证
  */
@@ -229,7 +226,6 @@
     font-size: 18px;
     margin-bottom: 20px;
 }
-
 
 .user-main .authentication-message {
     margin-top: 200px;
@@ -250,7 +246,6 @@
     margin: auto;
     margin-top: 20px;
 }
-
 
 .user-main .authentication-content {
     padding-left: 100px;
@@ -508,7 +503,6 @@
     margin-top: 20px;
 }
 
-
 /**
  * 银行卡
  */
@@ -630,6 +624,7 @@
     position: absolute;
     bottom: -240px;
 }
+
 .user-main .binding-bank-message .banck-card-title {
     width: 20px;
     font-size: 14px;
@@ -658,7 +653,6 @@
 .user-main .bank-list-box {
     border-top: 1px solid #ccc;
 }
-
 
 /**
  * 密码设置
@@ -784,20 +778,59 @@
     font-size: 12px;
 }
 
+/**
+ * 通用form样式
+ */
+
+.ace-form .ace-input-item,
+.ace-form .ace-input-item .label,
+.ace-form .ace-input-item .input,
+.ace-form .ace-input-item .tip {
+    width: 100%;
+}
+
+
+.ace-form {
+    margin: 0 auto;
+    padding: 95px 0 20px;
+}
+.ace-form.width-common {
+    width: 450px;
+}
+.ace-form .ace-input-item {
+    margin-bottom: 14px;
+}
+
+.ace-form .ace-input-item .label {
+    font-size: 14px;
+    color: #999999;
+}
+
+.ace-form .ace-input-item .input {
+    height: 42px;
+    box-sizing: border-box;
+    border: solid 1px #ebebeb;
+    border-image: initial;
+    border-radius: 8px;
+    text-indent: 10px;
+    outline: none;
+}
+
+.ace-form .ace-submit-item {
+    width: 100%;
+    background-color: #e6bc1d;
+    color: #fff;
+    height: 40px;
+    border-radius: 8px;
+    margin-top: 20px;
+}
 
 /**
  * 密码修改
  */
 
-.user-main .modify-password-title {
-    color: #333333;
-    font-size: 18px;
-}
-
 .user-main .modify-password-box {
-    width: 360px;
-    margin: auto;
-    padding-top: 95px;
+
 }
 
 .user-main .modify-password-box .item-area {
@@ -813,23 +846,7 @@
     box-sizing: border-box;
 }
 
-.user-main .modify-password-box .lable {
-    font-size: 14px;
-    color: #333333;
-    padding-left: 10px;
-    padding-right: 10px;
-    display: inline-block;
-    height: 40px;
-    line-height: 40px;
-    box-sizing: border-box;
-}
 
-.user-main .modify-password-box .input {
-    border: none;
-    outline: none;
-    padding-left: 5px;
-    border-left: 1px solid #ccc;
-}
 
 .user-main .modify-password-box .input.email-content {
     width: 80%;
@@ -845,17 +862,10 @@
     text-decoration-line: underline;
 }
 
-.user-main .modify-password-box button {
-    width: 360px;
-    background-color: #e6bc1d;
-    color: #fff;
-    height: 40px;
-    border-radius: 8px;
-    margin-top: 40px;
-}
+
 
 .user-main .modify-password-box .v-code {
-    width: 250px;
+    width: 338px;
     display: inline-block;
     margin-right: 10px;
 }
@@ -879,7 +889,6 @@
 .user-main .modify-password-box .new-pwd {
     position: relative;
 }
-
 
 /**
  * 绑定手机
@@ -966,7 +975,6 @@
     /*width: 300px;*/
     width: 250px;
 }
-
 
 /**
  * google 认证
@@ -1069,10 +1077,12 @@
     width: 150px;
     display: inline-block;
 }
+
 .user-main .rm-binding {
     display: block !important;
     margin-left: -120px;
 }
+
 .user-main .reBinding-right {
     display: inline-block;
 }
@@ -1186,7 +1196,6 @@
     display: none !important;
 }
 
-
 /**
  * 问题反馈
  */
@@ -1254,7 +1263,6 @@
     display: block;
     color: #5581d8;
 }
-
 
 /**
  * 问题列表
@@ -1332,7 +1340,6 @@
     padding-top: 50px;
 }
 
-
 /**
  * form 表单项
  */
@@ -1348,11 +1355,13 @@
 /**
  * 绑定成功提示也（邮箱 手机）
  */
+
 .user-main .bind-success {
     margin: auto;
     width: 300px;
     text-align: center;
 }
+
 .user-main .bind-success .icon {
     display: inline-block;
     width: 30px;
@@ -1362,6 +1371,7 @@
     vertical-align: middle;
     margin-right: 10px;
 }
+
 .user-main .bind-success .icon-text {
     font-size: 30px;
     color: #333333;
@@ -1375,9 +1385,11 @@
     font-weight: 800;
     margin-left: 5px;
 }
+
 .user-main .bind-success .item:nth-child(1) {
     margin-top: 180px;
 }
+
 .user-main .bind-success .item:nth-child(2) {
     margin-top: 15px;
     font-size: 16px;

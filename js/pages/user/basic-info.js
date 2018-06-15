@@ -8,6 +8,8 @@ import { observer, inject } from 'mobx-react';
 import Info from '../../mods/basic-info/info';
 import List from '../../mods/basic-info/logined-list';
 
+import PageWrapper from '../../common-mods/page-user/page-wrapper';
+
 @inject('userInfoStore')
 @observer
 class Information extends Component {
@@ -21,13 +23,10 @@ class Information extends Component {
 
     render() {
         return (
-            <div className="page-content-inner">
-                <div className="content-title">{UPEX.lang.template('基本信息')}</div>
-                <section className="content-body">
-                    <Info />
-                    <List />
-                </section>
-            </div>
+            <PageWrapper title={UPEX.lang.template('基本信息')}>
+                <Info />
+                <List />
+            </PageWrapper>
         );
     }
 }

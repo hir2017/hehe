@@ -6,6 +6,8 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 
+import PageWrapper from '../../common-mods/page-user/page-wrapper';
+
 @inject('userInfoStore')
 @observer
 export default class extends Component {
@@ -18,27 +20,24 @@ export default class extends Component {
         const list = questionObj.list || [];
         const question = questionObj.question || { detail: '', urlkey: '' };
         return (
-            <div className="page-content-inner">
-                <div className="content-title">{UPEX.lang.template('問題详情')}</div>
-                <section className="content-body">
+            <PageWrapper title={UPEX.lang.template('問題详情')}>
+                <div>
+                    <div style={{ padding: '20px', textIndent: '24px' }}>{question.detail}</div>
                     <div>
-                        <div style={{ padding: '20px', textIndent: '24px' }}>{question.detail}</div>
-                        <div>
-                            {question.urlkey.split(',').map((item, index) => {
-                                return <img key={index} src={UPEX.config.imgHost + '/' + item} />;
-                            })}
-                        </div>
+                        {question.urlkey.split(',').map((item, index) => {
+                            return <img key={index} src={UPEX.config.imgHost + '/' + item} />;
+                        })}
                     </div>
-                    <div style={{ backgroundColor: '#f3f3f3', padding: '20px' }}>
-                        <div style={{ fontSize: '14px', fontWeight: '600' }}>{UPEX.lang.template('客服反馈')}：</div>
-                        <ul style={{ padding: '10px' }}>
-                            {list.map(item => {
-                                return <li>{item.detail}</li>;
-                            })}
-                        </ul>
-                    </div>
-                </section>
-            </div>
+                </div>
+                <div style={{ backgroundColor: '#f3f3f3', padding: '20px' }}>
+                    <div style={{ fontSize: '14px', fontWeight: '600' }}>{UPEX.lang.template('客服反馈')}：</div>
+                    <ul style={{ padding: '10px' }}>
+                        {list.map(item => {
+                            return <li>{item.detail}</li>;
+                        })}
+                    </ul>
+                </div>
+            </PageWrapper>
         );
     }
 }

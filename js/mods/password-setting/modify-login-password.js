@@ -10,6 +10,10 @@ import { Link, browserHistory } from 'react-router';
 import Vcodebutton from '../common/authcode-btn';
 import md5 from '../../lib/md5';
 
+import InputItem from '../../common-mods/form/input-item';
+import AceForm from '../../common-mods/form/form';
+import PageWrapper from '../../common-mods/page-user/page-wrapper';
+
 @inject('userInfoStore', 'captchaStore', 'authStore')
 @observer
 export default class ModifyPassword extends Component {
@@ -112,58 +116,58 @@ export default class ModifyPassword extends Component {
             }
             return result;
         };
-
+        const inputsData = [
+            { label: UPEX.lang.template('登录密码'), inputProps: getProp('password') },
+            {
+                label: UPEX.lang.template('新登录密码'),
+                className: 'new-pwd',
+                inputProps: getProp('newPwd'),
+                tip: UPEX.lang.template('密码至少由大写字母+小写字母+数字，8-16位组成')
+            },
+            {
+                label: UPEX.lang.template('确认密码'),
+                inputProps: getProp('comfirmPwd')
+            }
+        ];
+        const vCodeData = {
+            label: UPEX.lang.template('图片验证码'),
+            className: 'v-code',
+            inputProps: getProp('ivCode', 'none')
+        };
+        const GAData = {
+            label: UPEX.lang.template('谷歌验证码'),
+            inputProps: getProp('vCode', 'none')
+        };
         return (
-            <div className="page-content-inner">
-                <div className="content-title">{UPEX.lang.template('修改登錄密碼')}</div>
-                <section className="content-body">
-                    <div className=" modify-password-box">
-                        <div className="item">
-                            <span className="lable">{UPEX.lang.template('登录密码')}</span>
-                            <input {...getProp('password')} />
-                        </div>
-                        <div className="item new-pwd">
-                            <span className="lable">{UPEX.lang.template('新登录密码')}</span>
-                            <input {...getProp('newPwd')} />
-                            <span className="item-left-meassage">*{UPEX.lang.template('密码至少由大写字母+小写字母+数字，8-16位组成')}</span>
-                        </div>
-                        <div className="item">
-                            <span className="lable">{UPEX.lang.template('确认密码')}</span>
-                            <input {...getProp('comfirmPwd')} />
-                        </div>
-                        <div>
-                            <div className="item v-code">
-                                <span className="lable">{UPEX.lang.template('图片验证码')}</span>
-                                <input {...getProp('ivCode', 'none')} />
-                            </div>
-                            <div className="item v-code-button">
-                                <img onClick={this.captchaChange} src={captcha} />
-                            </div>
-                        </div>
-                        {gaBindSuccess ? (
-                            <div className="item">
-                                <span className="lable">{UPEX.lang.template('谷歌验证码')}</span>
-                                <input {...getProp('vCode', 'none')} />
-                            </div>
-                        ) : (
-                            <div>
-                                <div className="item v-code">
-                                    <span className="lable">{!userInfo.phone ? UPEX.lang.template('邮箱验证码') : UPEX.lang.template('短信验证码')}</span>
-                                    <input {...getProp('vCode', 'none')} />
-                                </div>
-                                <div className="item v-code-button">
-                                    <Vcodebutton imgCode={this.state.ivCode} codeid={codeid} type={!userInfo.phone ? 'email' : 'phone'} />
-                                </div>
-                            </div>
-                        )}
-                        <div className="submit">
-                            <Button loading={loading} onClick={this.submit}>
-                                {UPEX.lang.template('提交')}
-                            </Button>
+            <PageWrapper title={UPEX.lang.template('修改登錄密碼')}>
+                <AceForm className="modify-password-box">
+                    {inputsData.map((item, i) => {
+                        return <InputItem key={i} {...item} />;
+                    })}
+                    <div>
+                        <InputItem {...vCodeData} />
+                        <div className="item v-code-button">
+                            <img onClick={this.captchaChange} src={captcha} />
                         </div>
                     </div>
-                </section>
-            </div>
+                    {gaBindSuccess ? (
+                        <InputItem {...GAData} />
+                    ) : (
+                        <div>
+                            <div className="item v-code">
+                                <span className="label">{!userInfo.phone ? UPEX.lang.template('邮箱验证码') : UPEX.lang.template('短信验证码')}</span>
+                                <input {...getProp('vCode', 'none')} />
+                            </div>
+                            <div className="item v-code-button">
+                                <Vcodebutton imgCode={this.state.ivCode} codeid={codeid} type={!userInfo.phone ? 'email' : 'phone'} />
+                            </div>
+                        </div>
+                    )}
+                    <Button loading={loading} className="ace-submit-item" onClick={this.submit}>
+                        {UPEX.lang.template('提交')}
+                    </Button>
+                </AceForm>
+            </PageWrapper>
         );
     }
 }
