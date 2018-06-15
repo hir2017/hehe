@@ -886,6 +886,33 @@
     padding: 0 10px;
 }
 
+.tradeorder-bd .order-header{
+    display: none;
+}
+.tradeorder-bd .order-table{
+    margin: 0;
+}
+
+.tradeorder-hd ul {
+    padding: 0 10px;
+}
+
+.tradeorder-hd li {
+    display: inline-block;
+    font-size: 14px;
+}
+
+.tradeorder-hd {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 42px;
+    z-index: 2;
+    line-height: 42px;
+    background: #fff;
+}
+
 .tradeorder-bd {
     position: relative;
     -webkit-box-flex: 1;
@@ -907,115 +934,20 @@
     flex-wrap: nowrap;
 }
 
-.tradeorder-table-hd {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 34px;
-    z-index: 2;
-    line-height: 34px;
-    background: #fff;
-}
-
-.tradeorder-table-hd ul {
-    padding: 0 10px;
-}
-
-.tradeorder-table-hd li {
-    display: inline-block;
-    font-size: 14px;
-}
-
-.tradeorder-table-bd {
+.tradeorder-bd .order-main-box{
     position: absolute;
     left: 0;
     top: 0;
     height: 100%;
     width: 100%;
     overflow-y: auto;
-    padding-top: 34px;
+    padding-top: 42px;
     box-sizing: border-box;
 }
 
-.tradeorder-table-bd ul {
-    padding: 0 10px;
-}
-
-.tradeorder-table-bd dl {
-    width: 100%;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: flex;
-}
-
-.tradeorder-table-bd dl dd {
-    /* width: 11%; */
-    word-wrap: break-word;
-    word-break: break-all;
-    line-height: 16px;
-    padding: 10px 0;
-}
-
-.tradeorder-table-bd li:hover {
+.tradeorder-bd .order-table .list li:hover {
     background-color: #f8f8fb;
 }
-
-.tradeorder-bd .time {
-    width: 11%;
-}
-
-.tradeorder-bd .type {
-    width: 8%;
-}
-
-.tradeorder-bd .type .buy {
-    color: #00d02c;
-}
-
-.tradeorder-bd .type .sell {
-    color: #ff3380;
-}
-
-.tradeorder-bd .name {
-    width: 8%;
-}
-
-.tradeorder-bd .number {
-    width: 15%;
-}
-
-.tradeorder-bd .price {
-    width: 15%;
-}
-
-.tradeorder-bd .total {
-    width: 15%;
-}
-
-.tradeorder-bd .rate {
-    width: 10%;
-}
-
-.tradeorder-bd .status {
-    width: 10%;
-}
-
-.tradeorder-bd .action {
-    width: 8%;
-}
-
-
-
-
-
-
-
-
-
-
 /**
  * 暗色
  */
@@ -1075,11 +1007,11 @@
 }
 
 
-.trade-wrapper[data-theme="dark"] .tradeorder-table-hd{
+.trade-wrapper[data-theme="dark"] .tradeorder-hd{
     background-color: #090600;
 }
 
-.trade-wrapper[data-theme="dark"] .tradeorder-table-bd li:hover {
+.trade-wrapper[data-theme="dark"] .order-table .list li:hover {
     background-color: #221f1a;
 }
 

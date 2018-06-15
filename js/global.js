@@ -134,6 +134,12 @@ const symbols = {
 const origin = (function(){
     let origin;
 
+    let hostname = location.hostname;
+
+    if (hostname == '54.169.140.238') {
+        origin = hostname;
+    }
+
     // // 根据环境获取不同的域名活着IP
     switch(Url.query('env')) {
         case 'dev':
@@ -144,17 +150,9 @@ const origin = (function(){
             // 测试环境
             origin = '54.169.140.238';
             break;
-        default:
-            // 默认线上环境
-            origin = '13.251.85.35';
-            break;
     }
 
-    let hostname = location.hostname;
-
-    if (hostname == '54.169.140.238') {
-        origin = hostname;
-    }
+    
 
     return origin;
 })();

@@ -3,9 +3,13 @@ import { observer, inject } from 'mobx-react';
 import { Checkbox, Icon, Pagination, message } from 'antd';
 import toAction from './record-action';
 
-@inject('commonStore','openStore', 'tradePwdStore')
+@inject('commonStore','openStore', 'authStore', 'tradePwdStore')
 @observer
 class List extends Component {
+	static defaultProps = {
+		pagination: true // 是否分页， true分也，false不分页
+	}
+	
 	constructor(props){
 		super(props);
 
@@ -14,7 +18,14 @@ class List extends Component {
 	}
 
 	componentDidMount() {
-		this.action.getData();
+		if (!this.props.pagination) {
+			this.action.getData({
+				size: 0
+			});
+		} else {
+			this.action.getData();
+		}
+		
 	}
 
 	onChangePagination(page){
@@ -32,8 +43,10 @@ class List extends Component {
 	render() {
 		let store = this.props.openStore;
 		let $content;
-	
-		if (!store.isFetching && store.orderList.length == 0) {
+		
+		if (!this.props.authStore.isLogin) {
+			$content = <div className="mini-tip">{ UPEX.lang.template('登录后可查看当前委托订单')}</div>
+		} else if (!store.isFetching && store.orderList.length == 0) {
 			$content = <div className="mini-tip">{UPEX.lang.template('暂无当前委托订单')}</div>;
 		} else {
 			$content = (
@@ -75,13 +88,6 @@ class List extends Component {
 			<div className="order-main-box">
 				<div className="order-header">
 					<h2>{ UPEX.lang.template('当前委托')}</h2>
-					<div className="filter-box hidden">
-    					<ul>
-    						<li><button>{UPEX.lang.template('取消卖单')}</button></li>
-    						<li><button>{UPEX.lang.template('取消买单')}</button></li>
-    						<li><button>{UPEX.lang.template('取消全部')}</button></li>
-    					</ul>
-					</div>
 				</div>
 				<div className="order-table open-list-table">
 					<div className="table-hd">
@@ -106,7 +112,7 @@ class List extends Component {
 						{ store.isFetching ? <div className="mini-loading"></div> : null }
 					</div>
 					<div className="table-ft">
-						{ store.total > 0 ? <Pagination current={store.current} total={store.total} pageSize={store.pageSize} onChange={this.onChangePagination.bind(this)} /> : null }
+						{ store.total > 0 && this.props.pagination ? <Pagination current={store.current} total={store.total} pageSize={store.pageSize} onChange={this.onChangePagination.bind(this)} /> : null }
 					</div>
 				</div>
 			</div>

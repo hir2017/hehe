@@ -1,6 +1,7 @@
 import { observable, computed, action, runInAction } from 'mobx';
 import { socket, baseCurrencyId } from '../api/socket';
 import { addOptional, cancleOptional, listOptional } from '../api/http'
+import NumberUtil from '../lib/util/number';
 import Select from 'antd';
 
 class HomeStore {
