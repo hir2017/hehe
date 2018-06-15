@@ -22,6 +22,16 @@ const extractCSS = new ExtractTextPlugin({
     filename: '[name].css'
 });
 
+// 声明cssloader
+var cssLoader = {
+    test: /\.(css|less)$/,
+    loader: ExtractTextPlugin.extract([
+        'css-loader',
+        'postcss-loader',
+        'less-loader'
+    ])
+};
+
 // 输出口
 var output = {
     path: path.resolve(__dirname, "build"),
@@ -59,10 +69,7 @@ var config = {
                 test: /\.vue$/, // vue-loader 加载.vue单文件组件
                 loader: 'vue'
             },
-            {
-                test: /\.(css|less)$/,
-                loader: extractCSS.extract(['css-loader?minimize=true', 'postcss-loader', 'less-loader'])
-            },
+            cssLoader,
             {
                 test: /\.(css|less|jsx?)$/,
                 loader: StringReplacePlugin.replace({
@@ -113,6 +120,14 @@ var config = {
     // 插件
     plugins: [
         extractCSS,
+        new webpack.optimize.UglifyJsPlugin({
+            compress: {
+                warnings: false
+            },
+            output: {
+                comments: false,
+            }
+        }),
         new StringReplacePlugin(),
         new webpack.optimize.CommonsChunkPlugin({
             name: "commons",
