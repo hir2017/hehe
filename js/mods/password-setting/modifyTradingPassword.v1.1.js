@@ -108,6 +108,11 @@ export default class ModifyTradingPassword extends Component {
                 inputProps: getProp('comfirmPwd')
             }
         ];
+        // const vCodeData = {
+        //     label: UPEX.lang.template('短信确认码'),
+        //     className: 'v-code',
+        //     inputProps: getProp('vCode', 'none')
+        // }
         const PageProps = {
             title: UPEX.lang.template('修改交易密碼'),
             formClass: 'modify-password-box'
@@ -118,6 +123,12 @@ export default class ModifyTradingPassword extends Component {
                 {inputsData.map((item, i) => {
                     return <InputItem key={i} {...item} />;
                 })}
+                {/* <div>
+                   <InputItem {...vCodeData} />
+                    <div className="item v-code-button">
+                        <Vcodebutton imgCode={this.state.ivCode} codeid={codeid} type="phone" />
+                    </div>
+                </div> */}
                 <Button loading={loading} className="ace-submit-item" onClick={this.submit}>
                     {UPEX.lang.template('提交')}
                 </Button>

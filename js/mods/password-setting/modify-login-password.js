@@ -127,7 +127,11 @@ export default class ModifyPassword extends Component {
             label: UPEX.lang.template('谷歌验证码'),
             inputProps: getProp('vCode', 'none')
         };
-
+        const pcodeData = {
+            label: !userInfo.phone ? UPEX.lang.template('邮箱验证码') : UPEX.lang.template('短信验证码'),
+            className: 'v-code',
+            inputProps: getProp('vCode', 'none')
+        };
         const PageProps = {
             title: UPEX.lang.template('修改登錄密碼'),
             formClass: 'modify-password-box'
@@ -148,10 +152,7 @@ export default class ModifyPassword extends Component {
                     <InputItem {...GAData} />
                 ) : (
                     <div>
-                        <div className="item v-code">
-                            <span className="label">{!userInfo.phone ? UPEX.lang.template('邮箱验证码') : UPEX.lang.template('短信验证码')}</span>
-                            <input {...getProp('vCode', 'none')} />
-                        </div>
+                        <InputItem {...pcodeData} />
                         <div className="item v-code-button">
                             <Vcodebutton imgCode={this.state.ivCode} codeid={codeid} type={!userInfo.phone ? 'email' : 'phone'} />
                         </div>
