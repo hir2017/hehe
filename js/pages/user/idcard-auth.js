@@ -77,7 +77,7 @@ class IdentityAuthentication extends Component {
                     ) : (
                         <div className="authentication-message">
                             <p>{UPEX.lang.template('请绑定手机')}</p>
-                            <Link to="/user/bindingPhone">{UPEX.lang.template('手机绑定')}</Link>
+                            <Link to="/user/binding-phone">{UPEX.lang.template('手机绑定')}</Link>
                         </div>
                     )}
                 </div>
