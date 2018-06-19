@@ -93,7 +93,7 @@ class List extends Component {
 										<dd className="num">{`${item.tradeNum}/${item.num}`}</dd>
 										<dd className="price">{item.price}</dd>
 										<dd className="inorout">{item.buyOrSell == 1 ? <label className="buy">{UPEX.lang.template('买入')}</label>: <label className="sell">{UPEX.lang.template('卖出')}</label> }</dd>
-										<dd className="tradeprice">--</dd>
+										<dd className="tradeprice">{item.averagePrice}</dd>
 										<dd className="status">{status}</dd>
 										<dd className="action">--</dd>
 									</dl>

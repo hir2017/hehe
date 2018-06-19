@@ -543,7 +543,7 @@ class TVChartContainer extends Component {
                            </li>
                         <li>
                             <label>{ UPEX.lang.template('涨幅') }</label>
-                            <em>{ store.currentTradeCoin.changeRateText }</em>
+                            <em className={store.currentTradeCoin.changeRate >= 0 ? 'greenrate': 'redrate'}>{ store.currentTradeCoin.changeRateText }</em>
                         </li>
                         <li>
                             <label>{ UPEX.lang.template('高')}</label>
