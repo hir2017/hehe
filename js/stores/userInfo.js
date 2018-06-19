@@ -440,16 +440,18 @@ class UserInfo {
             console.error(e)
             message.error('Network Error')
         }
-        return false
+        return result;
     }
 
     @action
     async fdPwdSwitch(fdPwd, enabled) {
+        let result = false;
         try {
             this.submit_loading = true
             const res = await updateFdPwdEnabled(fdPwd, enabled)
             this.submit_loading = false
             if (res.status === 200) {
+                result = true;
                 this.getUserInfo()
                 message.success(UPEX.lang.template('修改成功'))
             } else {
@@ -460,6 +462,7 @@ class UserInfo {
             console.error(e)
             message.error('Network Error')
         }
+        return result;
     }
 
     @action

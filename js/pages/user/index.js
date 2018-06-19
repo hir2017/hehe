@@ -43,7 +43,7 @@ class UserPage extends Component {
             title: UPEX.lang.template('安全设置'),
             subItems: [
                 {
-                    active: 'passwordSetting',
+                    active: 'setpwd',
                     route: '/user/setpwd',
                     text: UPEX.lang.template('密码设置')
                 },

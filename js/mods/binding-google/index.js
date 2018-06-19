@@ -111,7 +111,7 @@ class Google extends Component {
                     </div>
                 </div>
                 <div className="info">
-                    <Link to="/user/googleGuide">Google{UPEX.lang.template('验证器使用教程')}</Link>
+                    <Link to="/user/google-guide">Google{UPEX.lang.template('验证器使用教程')}</Link>
                 </div>
                 <Button loading={loading} className="ace-submit-item" onClick={this.submit}>
                     {UPEX.lang.template('绑定')}

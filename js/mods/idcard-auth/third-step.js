@@ -30,7 +30,7 @@ export default class ThirdStep extends Component {
           userInfo.isAuthPrimary == 1
             ?
             <div className="await-examine">
-              <span>{UPEX.lang.template('已接受到您的信息，我们正在权力审核中')}……</span>
+              <span>{UPEX.lang.template('已接受到您的信息，我们正在全力审核中')}……</span>
               <span>{UPEX.lang.template('一般状况下，审核周期为3个工作内')}</span>
             </div>
             : <div className="await-examine">

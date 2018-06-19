@@ -6,7 +6,7 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import { Button, message } from 'antd';
-import { Link } from 'react-router';
+import { Link, browserHistory} from 'react-router';
 import Vcodebutton from '../common/authcode-btn';
 
 import InputItem from '../../common-mods/form/input-item';
@@ -67,8 +67,7 @@ export default class SettingTradingPassword extends Component {
             return;
         }
 
-        reqResult = this.props.userInfoStore.bindTradingPwd(this.state.password, this.state.vCode, this.state.ivCode, codeid);
-        reqResult.then(data => {
+        this.props.userInfoStore.bindTradingPwd(this.state.password, this.state.vCode, this.state.ivCode, codeid).then(data => {
             if (data) {
                 browserHistory.push('/user/setpwd');
             }

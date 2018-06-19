@@ -18,6 +18,11 @@ export default class Phone extends Component {
     }
 
     phoneSwitch = checked => {
+        const userInfo = this.props.userInfoStore.userInfo || {};
+        if(!userInfo.phone) {
+            message.error('请先绑定手机');
+            return null;
+        }
         this.setState({
             visible: true,
             vCode: '',
