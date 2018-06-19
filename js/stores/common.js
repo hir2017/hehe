@@ -133,6 +133,9 @@ class CommonStore {
      */
     @action.bound
     getPointPrice(name) {
+        if (!name) {
+            return ;
+        }
         return Number(this.coinsMap[name].pointPrice);
     }
     /**
@@ -140,6 +143,9 @@ class CommonStore {
      */
     @action.bound
     getPointNum(name) {
+        if (!name) {
+            return ;
+        }
         return Number(this.coinsMap[name].pointNum);
     }
 

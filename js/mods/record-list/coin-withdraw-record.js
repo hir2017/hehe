@@ -48,7 +48,7 @@ class List extends Component {
 									break;
 								default:
 									// 数字：网络确认数
-									status = item.confirms;
+									status = UPEX.lang.template('提币中');
 							}
 
 							return (

@@ -56,6 +56,7 @@ export default (store, authStore) => {
          * 委托订单事件，每一次状态变更都会收到通知
          */
         bindUserOpenList() {
+            socket.off('userOrder');
             socket.on('userOrder', (data) => {
                 console.log('-----------', data);
                 store.updateItem(data);
@@ -65,6 +66,7 @@ export default (store, authStore) => {
          *  成交订单事件，每一次状态变更都会收到通知
          */
         bindUserSuccessList() {
+            socket.off('userTrade');
             socket.on('userTrade', (data) => {
                 console.log('--------------', data);
                 store.updateItem(data);

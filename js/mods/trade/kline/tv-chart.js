@@ -539,7 +539,7 @@ class TVChartContainer extends Component {
                                    <label>{ store.currencyNameEn }</label>
                                    <Icon type="caret-down" style={arrowCls} />
                                </Popover>
-                               <em>{ store.currentTradeCoin.currentAmount }</em>
+                               <em>{ store.currentTradeCoin.currentAmountText }</em>
                            </li>
                         <li>
                             <label>{ UPEX.lang.template('涨幅') }</label>

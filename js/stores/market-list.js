@@ -161,14 +161,18 @@ class MarketListStore {
      */
     @action
     updateTradeCoin(data) {
-        this.tradeCoins.filter((item) => {
+        
+        this.tradeCoins.map((item, index) => {
             if (item.baseCurrencyId === data.baseCurrencyId && item.currencyId === data.currencyId) {
-                item = this.parseCoinItem(data);
+                this.tradeCoins[index] = this.parseCoinItem(data);
+                return false;
             }
         })
-        this.cacheCoins.filter((item) => {
+
+        this.cacheCoins.map((item, index) => {
             if (item.baseCurrencyId === data.baseCurrencyId && item.currencyId === data.currencyId) {
-                item = this.parseCoinItem(data);
+                this.cacheCoins[index] = this.parseCoinItem(data);
+                return false;
             }
         })
     }
