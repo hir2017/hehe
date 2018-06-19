@@ -19,6 +19,7 @@ import NumberUtil from '../lib/util/number';
 import TimeUtil from '../lib/util/date';
 import Url from '../lib/url';
 import md5 from '../lib/md5';
+import MarketListStore from './market-list';
 
 class TradeStore {
     // 页面主题。浅色：light；深色：dark
@@ -75,6 +76,7 @@ class TradeStore {
     constructor(stores) {
         this.commonStore = stores.commonStore;
         this.authStore = stores.authStore;
+        this.marketListStore = new MarketListStore(stores);
         this.headerHeight = 60;
         this.space = 10;
         this.maxHandleHeight = 330; // 操作区域高度 280
@@ -603,6 +605,11 @@ class TradeStore {
     }
 
     @action
+    getData(){
+        this.marketListStore.getData();
+    }
+
+    @action
     getAllCoins() {
         socket.off('list');
         socket.emit('list');
@@ -763,18 +770,6 @@ class TradeStore {
     @action
     setTabIndex(index) {
         this.tabIndex = index;
-    }
-    /**
-     * 行情通知
-     */
-    @action
-    quoteNotify() {
-        socket.off('quoteNotify');
-        socket.emit('quoteNotify');
-        socket.on('quoteNotify', data => {
-            console.log('+++++++++++++');
-            console.log('quoteNotify', data);
-        });
     }
 
     
@@ -1084,6 +1079,7 @@ class TradeStore {
         socket.off('quoteNotify');
         socket.off('loginAfter');
         socket.off('userAccount');
+        this.marketListStore.destorys();
     }
 }
 

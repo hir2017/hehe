@@ -48,7 +48,7 @@ class Recharge extends Component{
 				// 未绑定银行信息
 				$content = (
 					<div className="userauth-guide">
-						<h4>{UPEX.lang.template('请您先绑定银行卡信息，否则无法进行提现操作')}</h4>
+						<h4>{UPEX.lang.template('请您先绑定银行卡信息，否则无法进行充值、提现操作')}</h4>
 						<button onClick={this.clickSetBankInfo}>{UPEX.lang.template('绑定银行卡信息')}</button>
 					</div>
 				);

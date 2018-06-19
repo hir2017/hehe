@@ -56,6 +56,8 @@ class MarketListStore {
         socket.emit('list');
         socket.on('list', (data) => {
             runInAction('quote list', () => {
+                this.dataReady = true;
+                
                 let result = data.filter((item) => {
                     return item.info.currencyNameEn === 'TWD'; // 只显示基础币=TWD
                 })[0];
@@ -68,8 +70,6 @@ class MarketListStore {
                 } else {
                     this.noCoin = true;
                 }
-
-                this.dataReady = true;
             })
         })
     }
