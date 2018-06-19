@@ -44,20 +44,20 @@ class Recharge extends Component{
 						<button onClick={this.clickAuthUserIDCard}>{UPEX.lang.template('身份认证')}</button>
 					</div>
 				);
+			} else if (userInfoStore.userInfo.authLevel == 1){
+				// 未绑定银行信息
+				$content = (
+					<div className="userauth-guide">
+						<h4>{UPEX.lang.template('请您先绑定银行卡信息，否则无法进行提现操作')}</h4>
+						<button onClick={this.clickSetBankInfo}>{UPEX.lang.template('绑定银行卡信息')}</button>
+					</div>
+				);
 			} else if (!userInfoStore.userInfo.isValidatePass){
 				// 未设置交易密码
 				$content = (
 					<div className="userauth-guide">
 						<h4>{UPEX.lang.template('请您先设置交易密码，否则无法进行提币、提现操作')}</h4>
 						<button onClick={this.clickSetTradePwd}>{UPEX.lang.template('设置交易密码')}</button>
-					</div>
-				);
-			} else if (userInfoStore.userInfo.idNumber){
-				// 未绑定银行信息
-				$content = (
-					<div className="userauth-guide">
-						<h4>{UPEX.lang.template('请您先绑定银行卡信息，否则无法进行提现操作')}</h4>
-						<button onClick={this.clickSetBankInfo}>{UPEX.lang.template('绑定银行卡信息')}</button>
 					</div>
 				);
 			} else {
