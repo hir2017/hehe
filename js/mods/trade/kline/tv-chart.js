@@ -8,9 +8,9 @@ import { observer, inject } from 'mobx-react';
 import { Icon, Switch, Popover} from 'antd';
 import TradeCoinList from './coin-list';
 import '../../../lib/tradingview/charting_library.min';
-import '../../../lib/tradingview/polyfills';
+// import '../../../lib/tradingview/polyfills';
 // import '../../../lib/tradingview/test';
-import  UDFCompatibleDatafeed from './tv-jsapi';
+import UDFCompatibleDatafeed from './tv-jsapi';
 import DepthChart from '../depth/index';
 
 @inject('tradeStore','commonStore')
@@ -112,10 +112,6 @@ class TVChartContainer extends Component {
             chart: 'kline'
         }
     }
-    componentWillMount() {
-        // 最新公告数据获取
-        this.props.tradeStore.getCollectCoins();
-    }
 
     componentDidMount(){
         setTimeout(()=>{
@@ -180,7 +176,7 @@ class TVChartContainer extends Component {
                 pointPrice:  getPointPrice(currencyNameEn),
                 interval: interval,
             }),
-            // datafeed: new Datafeeds.UDFCompatibleDatafeed("https://demo_feed.tradingview.com"),
+            // datafeed: new Datafeeds.UDFCompatibleDatafeed(UPEX.config.host + '/quote/klineHistory'),
             overrides: this.getOverridesByTheme(theme),
             custom_css_url: this.getCustomCSSUrlByTheme(theme),
             disabled_features: [
@@ -526,42 +522,49 @@ class TVChartContainer extends Component {
                 color:'#333333'
             }
         }
+        
 
         return (
         	<div className="chart-box">
                 <div className="trade-current-coin">
-	                <ul className="info-list">
-	                    <li className="coin" ref="coin">
-	                        <Popover content={<TradeCoinList/>} placement="bottomLeft" trigger="click" getPopupContainer={()=>this.refs.coin} overlayClassName={ store.theme === 'dark' ? 'popover-tradecoins-dark' : 'popover-tradecoins-light'}>
-	                            <label>{ store.currencyNameEn }</label>
-	                            <Icon type="caret-down" style={arrowCls} />
-	                        </Popover>
-	                        <em>{ store.currentTradeCoin.currentAmount }</em>
-	                    </li>
-	                    <li>
-	                        <label>{ UPEX.lang.template('涨幅') }</label>
-	                        <em>{ store.currentTradeCoin.changeRateText }</em>
-	                    </li>
-	                    <li>
-	                        <label>{ UPEX.lang.template('高')}</label>
-	                        <em> { store.currentTradeCoin.highPrice }</em>
-	                    </li>
-	                    <li>
-	                        <label>{ UPEX.lang.template('低')}</label>
-	                        <em>{  store.currentTradeCoin.lowPrice }</em>
-	                    </li>
-	                    <li>
-	                        <label>{ UPEX.lang.template('24H量')}</label>
-	                        <em>{ store.currentTradeCoin.volume }</em>
-	                    </li>
-	                </ul>
-	                <div className="theme-menu">
-	                    <label>{ checked ? UPEX.lang.template('开灯') : UPEX.lang.template('关灯') }</label>
-	                    <Switch
-	                        onChange={this.switchTheme}
-	                        defaultChecked={ this.props.tradeStore.theme === 'dark'}
-	                    />
-	                </div>
+                    <ul className="info-list">
+                        <li className="coin" ref="coin">
+                               <Popover 
+                                content={<TradeCoinList/>} 
+                                placement="bottomLeft" 
+                                trigger="click" 
+                                getPopupContainer={()=>this.refs.coin} 
+                                overlayClassName={ store.theme === 'dark' ? 'popover-tradecoins-dark' : 'popover-tradecoins-light'}
+                                >
+                                   <label>{ store.currencyNameEn }</label>
+                                   <Icon type="caret-down" style={arrowCls} />
+                               </Popover>
+                               <em>{ store.currentTradeCoin.currentAmount }</em>
+                           </li>
+                        <li>
+                            <label>{ UPEX.lang.template('涨幅') }</label>
+                            <em>{ store.currentTradeCoin.changeRateText }</em>
+                        </li>
+                        <li>
+                            <label>{ UPEX.lang.template('高')}</label>
+                            <em> { store.currentTradeCoin.highPriceText }</em>
+                        </li>
+                        <li>
+                            <label>{ UPEX.lang.template('低')}</label>
+                            <em>{  store.currentTradeCoin.lowPriceText }</em>
+                        </li>
+                        <li>
+                            <label>{ UPEX.lang.template('24H量')}</label>
+                            <em>{ store.currentTradeCoin.volumeText }</em>
+                        </li>
+                    </ul>
+                    <div className="theme-menu">
+                        <label>{ checked ? UPEX.lang.template('开灯') : UPEX.lang.template('关灯') }</label>
+                        <Switch
+                            onChange={this.switchTheme}
+                            defaultChecked={ this.props.tradeStore.theme === 'dark'}
+                        />
+                    </div>
 	            </div>
                 <ul className="chart-menu">
                     <li

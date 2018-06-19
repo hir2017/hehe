@@ -31,7 +31,7 @@ class TradeCenter extends Component {
         } else {
             return (
                 <div className="trade-wrapper">
-                    <div className="mini-loading"></div>;
+                    <div className="mini-loading"></div>
                 </div>   
             )
         }
@@ -149,14 +149,16 @@ class TradeContent extends Component {
             			</div>
             		</div>
             	</div>
-            	<div className="trade-main">
-            		<div className="trade-main-chart" id="tradeMainKline" style={{ height: store.iframeHeight }}>
-                         <TVChartContainer/>
-            		</div>
-            		<div className="trade-main-order" id="tradeMainOrder" style={{ height: store.mainOrderHeight}}>
-            			<MyOrder/>
-            		</div>
-            	</div>
+                <div className="trade-main">
+                    <div className="trade-main-chart" id="tradeMainKline" style={{ height: store.iframeHeight }}>
+                        <TVChartContainer/>
+                    </div>
+                    <div className="trade-main-order" id="tradeMainOrder" style={{ height: store.mainOrderHeight}}>
+                        {
+                            <MyOrder/>
+                        }
+                    </div>
+                </div>
             </div> 
         );
     }

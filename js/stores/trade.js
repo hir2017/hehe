@@ -29,11 +29,7 @@ class TradeStore {
     @observable openOrderList = []; // 委托中订单 == 当前委托
     @observable historyOrderList = []; // 历史订单 == 已完成订单
 
-    @observable currentTradeCoin = {};
-    @observable loginedMarkets = {
-        tradeCoins: []
-    };
-
+    // @observable currentTradeCoin = {};
     @observable type = 'all'; // 买盘buy、卖盘sell
     @observable tradeHistory = { content: [] };
     @observable personalAccount = { 
@@ -66,12 +62,6 @@ class TradeStore {
     @observable isSubmiting = 0;
     @observable hasSettingDealPwd = false; // 是否设置交易密码
 
-    @observable sortByKey = ''; // 按{key}排序
-    @observable sortByType = 'desc'; // 排序方式，升序:asc, 降序: desc
-    // 收藏
-    @observable collectCoins = [];
-
-    originMarkets = {};
 
     constructor(stores) {
         this.commonStore = stores.commonStore;
@@ -85,6 +75,15 @@ class TradeStore {
         this.minContentHeight = 270;
 
         this.handlerEntrust = autorun(() => {});
+    }
+
+    @computed
+    get currentTradeCoin(){
+        let coins = this.marketListStore.cacheCoins.filter((item)=>{
+            return item.baseCurrencyId == this.baseCurrencyId && item.currencyId == this.currencyId
+        })
+        
+        return coins[0] || {};
     }
 
     @computed
@@ -557,119 +556,8 @@ class TradeStore {
     }
 
     @action
-    filterByName(value){
-        let loginedMarkets = JSON.parse(JSON.stringify(this.originMarkets));
-
-        value = value.toLowerCase();
-
-        if (value) {
-            let tradeCoins = [];
-
-            loginedMarkets.tradeCoins.forEach((item, index) => {
-                if (item.currencyNameEn.toLowerCase().indexOf(value) > -1) {
-                    tradeCoins[tradeCoins.length] = item;
-                }
-            });
-
-            loginedMarkets.tradeCoins = tradeCoins;
-        }
-
-        this.loginedMarkets = loginedMarkets;
-    };
-
-    @action
-    sortByCondition(field) {
-        // 默认降序
-        let loginedMarkets = JSON.parse(JSON.stringify(this.originMarkets));
-
-        let type;
-
-        if (this.sortByKey == field) {
-            type = this.sortByType == 'desc' ? 'asc' : 'desc';
-        } else {
-            type = 'desc';
-        }
-
-        // 遍历，1. 按成交量降序排列，2. 按最新成交价降序排序
-        loginedMarkets.tradeCoins.sort((a, b) => {
-            if (type === 'asc') {
-                return a[field] - b[field];
-            } else {
-                return b[field] - a[field];
-            }
-        });
-
-        this.sortByType = type;
-        this.sortByKey = field;
-        this.loginedMarkets = loginedMarkets;
-    }
-
-    @action
     getData(){
         this.marketListStore.getData();
-    }
-
-    @action
-    getAllCoins() {
-        socket.off('list');
-        socket.emit('list');
-        socket.on('list', (data)=> {
-            runInAction('coins', ()=>{
-                let result = data.filter((item)=>{
-                    return item.info.currencyNameEn === 'TWD'; // 只显示基础币=TWD
-                })[0];
-
-                if (result) {
-
-                    let currentTradeCoin = result.tradeCoins.filter((item)=>{
-                        return item.currencyId == this.currencyId
-                    })[0];
-
-                    if (currentTradeCoin) {
-                        this.currentTradeCoin = this.parseCoinItem(currentTradeCoin);
-                    }
-
-                    this.parseCoinList(result);
-                    this.originMarkets = JSON.parse(JSON.stringify(result));
-                    this.loginedMarkets = result;
-
-                } else {
-                    this.noCoin = true;
-                }
-            })
-        })
-    }
-
-    // 格式化交易币信息
-    @action
-    parseCoinList(obj) {
-        // 遍历，1. 按成交量降序排列，2. 按最新成交价降序排序
-        obj.tradeCoins.map((item, index) => {
-            item = this.parseCoinItem(item);
-        });
-
-        return obj;
-    }
-
-    @action
-    parseCoinItem(item) {
-        item.changeRateText = NumberUtil.asPercent(item.changeRate);
-        // 最新成交价
-        item.currentAmount = NumberUtil.formatNumber(item.currentAmount, this.commonStore.pointPrice);
-        // 最高价
-        item.highPrice = NumberUtil.formatNumber(item.highPrice, this.commonStore.pointPrice);
-        // 最低价
-        item.lowPrice = NumberUtil.formatNumber(item.lowPrice, this.commonStore.pointPrice);
-        // 开盘价
-        item.openPrice = NumberUtil.formatNumber(item.openPrice, this.commonStore.pointPrice);
-        // 收盘价
-        item.closePrice = NumberUtil.formatNumber(item.closePrice, this.commonStore.pointPrice);
-        // 24小时成交数量
-        item.volume = NumberUtil.formatNumber(item.volume, item.pointNum);
-        // 成交额
-        item.amount = NumberUtil.formatNumber(item.volume, this.commonStore.pointPrice);
-        
-        return item;
     }
     /**
      * 交易历史, 最右侧实时行情图
@@ -772,40 +660,6 @@ class TradeStore {
         this.tabIndex = index;
     }
 
-    
-    // 切换收藏货币, 参数长度为2是切换一种，为1是切换所有
-    async toggleCollectCoins(...params) {
-        let toDo;
-        if (params.length === 2) {
-            const [data, selected] = params;
-            toDo = selected ? cancleOptional : addOptional;
-            const res = await toDo(data);
-            if (res.status !== 200) {
-                console.error(res.message);
-            }
-        } else {
-            const [selected] = params;
-            toDo = !selected ? cancleOptional : addOptional;
-            const allCoin = this.loginedMarkets.tradeCoins || [];
-            const res = await Promise.all(allCoin.map(item => toDo(item)));
-        }
-
-        this.getCollectCoins();
-    }
-
-    // 获取收藏货币列表
-    @action
-    async getCollectCoins() {
-        const res = await listOptional();
-        
-        if (res.status !== 200) {
-            console.error(res.message);
-        } else {
-            runInAction(() => {
-                this.collectCoins = res.attachment.map(item => [item.baseCurrencyId, item.tradeCurrencyId].join('--'));
-            });
-        }
-    }
     /**
      * 查询个人币种余额
      */

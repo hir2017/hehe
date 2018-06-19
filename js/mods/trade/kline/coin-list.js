@@ -8,8 +8,6 @@ import { observer, inject } from 'mobx-react';
 import { browserHistory } from 'react-router';
 import { Icon, Checkbox } from 'antd';
 
-import CoinCollectBtn from './coin-collect-btn';
-
 @inject('tradeStore')
 @observer
 class CoinList extends Component {

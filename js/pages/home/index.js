@@ -33,7 +33,7 @@ class Home extends Component {
         } else {
             return (
                 <div className="home-wrapper">
-                    <div className="mini-loading"></div>;
+                    <div className="mini-loading"></div>
                 </div>   
             )
         }
@@ -69,7 +69,7 @@ class HomeContent extends Component {
         } else {
             return (
                 <div className="home-wrapper">
-                    <div className="mini-loading"></div>;
+                    <div className="mini-loading"></div>
                 </div>   
             )
         }

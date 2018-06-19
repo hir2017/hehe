@@ -159,11 +159,14 @@
     box-sizing: border-box;
     padding: 10px;
     background-color: #fff;
+    opacity: 0.7;
+    cursor: pointer;
 }
 
 .hot-markets .recommend-item:hover {
     text-decoration: none;
     border-color: rgba(224, 251, 200, 1);
+    opacity: 1;
 }
 
 .hot-markets .recommend-item-name {
@@ -214,7 +217,7 @@
  */
 
 .index-markets {
-    height: 700px;
+    height: 650px;
     width: 1200px;
     margin: 20px auto 0;
     background-color: #fff;
@@ -235,7 +238,7 @@
 .index-markets-right {
     float: right;
     width: 900px;
-    height: 630px;
+    height: 580px;
     position: relative;
 }
 
@@ -243,7 +246,7 @@
     position: relative;
     float: left;
     width: 300px;
-    height: 630px;
+    height: 580px;
     border-right: 1px solid #f2f2f2;
 }
 
@@ -254,11 +257,10 @@
     color: #333333;
     font-size: 14px;
     box-sizing: border-box;
-    border-bottom: 1px solid #e7ebf1;
 }
 
 .index-markets-left .coin-hd h4 {
-    padding: 0 10px;
+    padding: 0 20px;
 }
 
 .index-markets-left .coin-hd h4 em {
@@ -267,14 +269,12 @@
 
 .index-markets-left .coin-hd .rate {
     position: absolute;
-    right: 0;
+    right: 10px;
     top: 50%;
     height: 20px;
     line-height: 20px;
     margin-top: -10px;
-    color: #fff;
-    font-size: 12px;
-    width: 65px;
+    font-size: 18px;
     text-align: center;
     border-radius: 20px 0 0 20px;
 }
@@ -284,7 +284,7 @@
 }
 
 .index-markets-left .coin-bd li {
-    padding: 10px;
+    padding: 5px 20px;
     font-size: 14px;
     color: #9a9a9a;
 }
@@ -303,7 +303,7 @@
     position: relative;
     height: 50px;
     line-height: 50px;
-    padding: 0 10px;
+    padding: 0 20px;
 }
 .index-markets-left .realtime-hd  h4{
     font-size: 14px;
@@ -322,11 +322,17 @@
 }
 
 .index-markets-left .coin-line-box{
-    height: 280px;
+    height: 200px;
     width: 280px;
     margin: 0 auto;
 }
 
+
+.index-markets-right .table-body {
+    max-height: 540px;
+    overflow: hidden;
+    overflow-y: auto;
+}
 
 .index-markets-right .coin-list-title {
     position: absolute;
@@ -352,9 +358,9 @@
 .index-markets-right .coin-list-title>span:last-child {
     width: 220px;
 }
-.index-markets-right .coin-list-content tr:nth-child(even){
+/* .index-markets-right .coin-list-content tr:nth-child(even){
     background-color: #f8f7fc;
-}
+} */
 .index-markets-right .coin-list-content .name{ 
     width: 10%;
 }
@@ -408,6 +414,7 @@
     text-align: center;
     font-size: 14px;
     cursor: pointer;
+    border-bottom: 1px solid #f2f2f2;
 }
 
 .index-markets-right table td a {
@@ -485,21 +492,40 @@
  */
 
 .announcement-wrapper {
+   background-color: #fff;
+   height: 60px;
+}
+
+.announcement-wrapper .content{
     width: 1200px;
     margin: 0 auto;
 }
 
 .announcement-wrapper ul {
-    padding-top: 10px;
+    padding-top: 15px;
 }
 
 .announcement-wrapper li {
+    position: relative;
     float: left;
     width: 33%;
     font-size: 16px;
     overflow: hidden;
     height: 30px;
     line-height: 30px;
+}
+
+.announcement-wrapper li:after{
+    content: '';
+    display: inline-block;
+    vertical-align: middle;
+    height: 10px;
+    width: 1px;
+    background-color: #ccc;
+}
+
+.announcement-wrapper li:nth-child(3n):after{
+    display: none;
 }
 
 .announcement-wrapper li .info {

@@ -28,7 +28,7 @@ class IndexMarkets extends Component{
                     <span>{store.selectedCoin.currencyNameEn}</span>
                     <em>{store.selectedCoin.currentAmountText}</em>
                 </h4>
-                <span className={store.selectedCoin.changeRate >= 0 ? 'rate greenbg' : 'rate redbg'}>
+                <span className={store.selectedCoin.changeRate >= 0 ? 'rate greenrate' : 'rate redrate'}>
                 	{ store.selectedCoin.changeRateText }
                 </span>
         			</div>

@@ -45,7 +45,7 @@ html {
     position: absolute;
     top: 0;
     left: 0;
-    background: rgba(255, 255, 255, 0.1) url('../images/loading.gif') no-repeat center center;
+    background: url('../images/loading.gif') no-repeat center center;
     background-size: 60px 60px;
     z-index: 999;
 }
@@ -429,29 +429,20 @@ body .ant-radio-button-wrapper-checked:first-child {
     background-size: 1976px 786px;
 }
 
-.redBgc {
-    background-color: #ff4d40;
-}
-
-.greedBgc {
-    background-color: #00b56a;
-}
-
-
 .redrate {
-    color: #ff3380;
+    color: #ef5d7f;
 }
 
 .greenrate {
-    color: #00d02c;
+    color: #33c280;
 }
 
 .greenbg {
-    background-color: #00b56a;
+    background-color: #33c280;
 }
 
 .redbg {
-    background-color: #ff4d40;
+    background-color: #ef5d7f;
 }
 
 .error-message {

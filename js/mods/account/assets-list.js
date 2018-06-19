@@ -102,7 +102,7 @@ class AssetsListView extends Component {
 									<dd className="total">{item.amount}</dd>
 									<dd className="balance">{item.cashAmount}</dd>
 									<dd className="freeze">{item.freezeAmount}</dd>
-									<dd className="value">{item.btc_value}</dd>
+									<dd className="value">{item.twd_value}</dd>
 									<dd className="actions">
 										<button onClick={this.handleCoinRecharge.bind(this, item)}>
 											{UPEX.lang.template('充币')}

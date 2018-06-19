@@ -10,7 +10,7 @@ import { socket } from '../api/socket';
 class MarketListStore {
     @observable baseCoinInfo = {}; // 基础币
     @observable tradeCoins = []; // 交易币列表
-    @observable cacheCoins = []; 
+    @observable cacheCoins = [];
     @observable collectCoinsList = []; // 用户收藏列表
     @observable dataReady = false; // 获取币种
     @observable noCoin = false; // 没有币种
@@ -25,12 +25,13 @@ class MarketListStore {
 
     constructor(stores) {
         this.commonStore = stores.commonStore;
+        this.authStore = stores.authStore;
     }
 
     @computed
-    get hotCoins(){
+    get hotCoins() {
         let hotCoins = [];
-        
+
         if (this.cacheCoins.length > 0) {
             hotCoins = this.cacheCoins.filter((item) => {
                 return item.recommend === 1;
@@ -45,7 +46,10 @@ class MarketListStore {
     getData() {
         this.getMarketList();
         this.quoteNotify();
-        this.getCollectCoinsList();
+        
+        if (this.authStore.isLogin) {
+            this.getCollectCoinsList();
+        }
     }
     /**
      * 行情列表
@@ -57,7 +61,7 @@ class MarketListStore {
         socket.on('list', (data) => {
             runInAction('quote list', () => {
                 this.dataReady = true;
-                
+
                 let result = data.filter((item) => {
                     return item.info.currencyNameEn === 'TWD'; // 只显示基础币=TWD
                 })[0];
@@ -91,14 +95,14 @@ class MarketListStore {
     }
 
     @action
-    async getCollectCoinsList () {
-        const res = await listOptional ()
-        
+    async getCollectCoinsList() {
+        const res = await listOptional()
+
         if (res.status !== 200) {
             console.error(res.message)
         } else {
             runInAction(() => {
-                this.collectCoinsList = res.attachment;    
+                this.collectCoinsList = res.attachment;
             });
         }
     }
@@ -117,7 +121,7 @@ class MarketListStore {
      */
     parseCoinList(arr = []) {
         // 遍历，1. 按成交量降序排列，2. 按最新成交价降序排序
-        arr.forEach((item, index) => {            
+        arr.forEach((item, index) => {
             item = this.parseCoinItem(item);
         });
 
@@ -206,7 +210,7 @@ class MarketListStore {
      * 只查看收藏
      */
     @action
-    filterCollectCoins (checked) {
+    filterCollectCoins(checked) {
         const data = this.collectCoinsList;
         let tradeCoins = [];
 
@@ -216,16 +220,16 @@ class MarketListStore {
             if (this.searchValue) {
                 tradeCoins = this.tradeCoinsSearched;
             } else {
-                tradeCoins = [...this.cacheCoins];    
+                tradeCoins = [...this.cacheCoins];
             }
-        } else{
+        } else {
             tradeCoins = this.tradeCoins.filter((item) => {
                 return data.some((_item) => {
                     return _item.tradeCurrencyId === item.currencyId && _item.baseCurrencyId === item.baseCurrencyId
                 })
             })
 
-            this.tradeCoinsCollected =  tradeCoins;
+            this.tradeCoinsCollected = tradeCoins;
         }
 
         this.tradeCoins = tradeCoins;
@@ -235,15 +239,16 @@ class MarketListStore {
      * 搜索
      */
     @action
-    filterByName (name) {
-        let tradeCoins = [], tradeCoinsTemp = [];
+    filterByName(name) {
+        let tradeCoins = [],
+            tradeCoinsTemp = [];
 
         this.searchValue = name;
 
         if (this.onlyCollectedCoins) {
-            tradeCoinsTemp = this.tradeCoinsCollected; 
+            tradeCoinsTemp = this.tradeCoinsCollected;
         } else {
-            tradeCoinsTemp = [...this.cacheCoins];        
+            tradeCoinsTemp = [...this.cacheCoins];
         }
 
         if (name) {
@@ -265,16 +270,16 @@ class MarketListStore {
 
     @action
     toggleCollectCoin(data) {
-        
+
         toDo = data.selected ? cancleOptional : addOptional;
-        
-        toDo(data).then((res)=>{
+
+        toDo(data).then((res) => {
             if (res.status !== 200) {
                 console.error(res.message);
             }
 
             this.getCollectCoinsList();
-        });        
+        });
     }
 }
 
