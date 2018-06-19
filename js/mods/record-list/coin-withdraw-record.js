@@ -40,7 +40,8 @@ class List extends Component {
 										<dd className="name">{item.currencyNameEn}</dd>
 										<dd className="num">{item.amount}</dd>
 										<dd className="time">{item.createTime}</dd>
-										<dd className="address">{item.fee}</dd>
+										<dd className="fee">{item.fee}</dd>
+										<dd className="address">{UPEX.lang.template('地址')} : {item.address}</dd>
 									</dl>
 								</li>
 							)
@@ -60,7 +61,8 @@ class List extends Component {
 								<th className="name">{UPEX.lang.template('币种')}</th>
 								<th className="num">{UPEX.lang.template('数量')}</th>
 								<th className="time">{UPEX.lang.template('时间')}</th>
-								<th className="address">{UPEX.lang.template('手续费')}</th>
+								<th className="fee">{UPEX.lang.template('手续费')}</th>
+								<th className="address">{UPEX.lang.template('信息')}</th>
 							</tr>
 						</tbody>
 					</table>
