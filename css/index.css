@@ -322,7 +322,7 @@
 }
 
 
-.index-markets .coin-list-title {
+.index-markets-right .coin-list-title {
     position: absolute;
     right: 10px;
     top: -60px;
@@ -334,29 +334,29 @@
     -webkit-touch-callout: none;
 }
 
-.index-markets .coin-list-title>span {
+.index-markets-right .coin-list-title>span {
     display: inline-block;
     vertical-align: middle;
 }
 
-.index-markets .coin-list-title>span:first-child {
+.index-markets-right .coin-list-title>span:first-child {
     padding-right: 30px;
 }
 
-.index-markets .coin-list-title>span:last-child {
+.index-markets-right .coin-list-title>span:last-child {
     width: 220px;
 }
 
-.index-markets table {
+.index-markets-right table {
     width: 100%;
 }
 
-.index-markets table tr {
+.index-markets-right table tr {
     height: 50px;
     line-height: 50px;
 }
 
-.index-markets table th {
+.index-markets-right table th {
     text-align: center;
     font-size: 14px;
     border-bottom: 1px solid #e7ebf1;
@@ -365,31 +365,31 @@
 }
 
 
-.index-markets table th i {
+.index-markets-right table th i {
     font-size: 12px;
     vertical-align: 3px;
     margin-left: 5px;
     cursor: pointer;
 }
 
-.index-markets table td {
+.index-markets-right table td {
     text-align: center;
     font-size: 14px;
     cursor: pointer;
 }
 
-.index-markets table td a {
+.index-markets-right table td a {
     color: #333333;
 }
 
 
-.index-markets .coin-line-box {
+.index-markets-right .coin-line-box {
     height: 280px;
     width: 280px;
     margin: 0 auto;
 }
 
-.index-markets .anticon-star {
+.index-markets-right .anticon-star {
     color: #e6bc1d;
 }
 
