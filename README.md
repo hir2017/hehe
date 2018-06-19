@@ -54,14 +54,14 @@ Zepto不支持旧版本的Internet Explorer浏览器(<10)。
 * 目录及文件划分规范
 	* 模型、视图、交互必须独立文件且统一命名
 		* 所有的文件夹、文件名必须是小写单词，严禁使用驼峰命名
-		* 如果需要多个单词组合的名称，可以使用中横线分隔，例如： 	
-		
-				|-mods           
-					|-list-item【正确】           
-						|-index       
-					|-betbar【正确】          
-						 |-index       
-					|-playGround【错误】           
+		* 如果需要多个单词组合的名称，可以使用中横线分隔，例如：
+
+				|-mods
+					|-list-item【正确】
+						|-index
+					|-betbar【正确】
+						 |-index
+					|-playGround【错误】
 						|-index
 
 	* action
@@ -74,7 +74,7 @@ Zepto不支持旧版本的Internet Explorer浏览器(<10)。
 			  		export default (store) => {
       					return {
 				          action1() {
-	
+
     				      },
 
 				          action2() {
@@ -86,24 +86,24 @@ Zepto不支持旧版本的Internet Explorer浏览器(<10)。
    		* 视功能的复杂度，可以拆分成一个基础的index + 功能文件
 	    * store必须是纯粹的数据和状态处理，不能有任何交互、视图的方法
     	* 注意扩展性和代码块的粒度
-	* 标准目录结构   
+	* 标准目录结构
 
-			|-src   
-				|-pages // 页面目录           
-					|-home                            
-						|-index.js       
+			|-src
+				|-pages // 页面目录
+					|-home
+						|-index.js
 					|-trade-center
-						|-index.js       
-				|-mods // 视图模块目录           
+						|-index.js
+				|-mods // 视图模块目录
 					|-header
-					|-footer              
-				|- store // 数据模型目录           
+					|-footer
+				|- store // 数据模型目录
 					|-index.js
 				|- lib 组件目录
 				|- lang 多语言目录
 					|-index.js
 					|-pack.js // 语言包
-		
+
 	* 项目分支规范
 		* 新项目，分支命名 daily/0.0.1
 		* 每次迭代开发，升一个中版本，daily/0.1.0，为什么这么做？
@@ -117,7 +117,7 @@ Zepto不支持旧版本的Internet Explorer浏览器(<10)。
 		* tiny地址：https://tinypng.com/
 		* 小图片，一般建议使用png24格式
 		* 能用iconfont尽量用iconfont
-	
+
 
 ## 项目内容
 
@@ -130,8 +130,8 @@ Zepto不支持旧版本的Internet Explorer浏览器(<10)。
 * 网站页面自适应［兼容：PC、iPad、移动端H5］
 * google分析埋点：
 * 数美反欺诈：
-* 浏览器兼容性: 
-	* 资料：http://www.wikiwand.com/en/Usage_share_of_web_browsers 
+* 浏览器兼容性:
+	* 资料：http://www.wikiwand.com/en/Usage_share_of_web_browsers
 	* Chrome (Windows, Mac, Android, iOS, Linux, Chrome OS)
 	* Internet Explorer 10+、Edge (Windows, Windows Phone)
 	* Firefox(Windows, Mac, Android, Linux, Firefox OS)
@@ -187,7 +187,7 @@ Zepto不支持旧版本的Internet Explorer浏览器(<10)。
 		* 反馈列表
 * 我的资产
 	* 数字币资产列表
-	* 基础币资产、总资产信息	
+	* 基础币资产、总资产信息
 	* 充值法币
 	* 提现法币
 	* 充币
@@ -318,8 +318,8 @@ Zepto不支持旧版本的Internet Explorer浏览器(<10)。
 		* 重置密码接口：[`user/resetPwd`](http://13.251.82.20:8080/workspace/myWorkspace.do?projectId=2#118)
 
 #### 首页［QA可测试］
-	
-* 首页	
+
+* 首页
 	* 需求
 		* 引导登录注册模块
 			* 若用户未登录，在banner上有一个新手引导模块。引导登录或注册
@@ -404,6 +404,57 @@ Zepto不支持旧版本的Internet Explorer浏览器(<10)。
 	* 接口：
 		* 充币记录接口: [/coin/selectListByUuid](http://13.251.82.20:8080/workspace/myWorkspace.do?projectId=2#85)
 		* 提币记录接口: [/coin/selectTakeList](http://13.251.82.20:8080/workspace/myWorkspace.do?projectId=2#80)
+* 充值
+    * 充值条件
+        * KYC2通过
+	* 需求：
+		* 充值用户需要到KYC2才可进行充值操作
+		* 展示信息：
+			* 已绑定的银行卡
+			* 当前充值金额
+            * 金流類型
+			* 银行卡所属银行
+            * 绑定手机号
+            * 账号名称
+	* 前端交互：
+		* 资产列表点击充值按钮 (用户若未达到KYC2 -> 个人中心 -> 绑定银行卡)
+		* 进入充值页面，添加充值信息
+        * 提交后创建充值单，显示订单信息
+        * 点击充值完成后进入资产变更记录页面
+    * 接口
+        * 新增获取用户资金可用余额接口：[`/rechargeWithdraw/getUserAvailableAmount`] ()
+        * 新增获取用户已绑定的银行卡接口：[`/card/getBindBankCardInfo`] ()
+        * 新增获创建充值订单第三方接口：[`https://gate.pepay.com.tw/pepay/payselect_amt.php`] ()
+
+* 提现
+    * 提现条件
+        * KYC2通过
+	* 需求：
+		* 提现用户需要到KYC2才可进行充值操作
+		* 展示信息：
+			* 已绑定的银行卡
+			* 当前提现金额
+            * 当前提现金额手续费
+			* 银行卡所属银行
+            * 绑定手机号
+            * 账号名称
+	* 前端交互：
+		* 资产列表点击提现按钮 (用户若未达到KYC2 -> 个人中心 -> 绑定银行卡)
+		* 进入提现页面，添加提现信息
+        * 进入下一步显示订单信息，填写交易密码，填写短信验证码或谷歌验证码，提交后创建提现单
+        * 提交后进入资产变更记录页面
+	* 接口
+		* 新增获取提现手续费接口： [`/withdraw/getWithdrawCashFee`]()
+		* 新增创建提现订单接口：[`/withdraw/createWithdrawCashBill`]()
+
+
+* 充币提币记录
+	* 需求
+		* 充币记录
+		* 提币记录
+	* 接口：
+		* 充币记录接口: [/coin/selectListByUuid](http://13.251.82.20:8080/workspace/myWorkspace.do?projectId=2#85)
+		* 提币记录接口: [/coin/selectTakeList](http://13.251.82.20:8080/workspace/myWorkspace.do?projectId=2#80)
 
 
 #### 我的订单［QA可测试］
@@ -420,7 +471,7 @@ Zepto不支持旧版本的Internet Explorer浏览器(<10)。
 		* 已成交［0.5人日］
 			* 订单包含：2全部成交
 			* 根据时间段 && 币种 && 买卖。做筛选
-	
+
 	* 接口：
 		* 当前委托订单接口：[/user/getOrderList](http://13.251.82.20:8080/workspace/myWorkspace.do?projectId=2#155)
 		* 历史委托订单接口：[/user/trOrderDetailByCustomer](http://13.251.82.20:8080/workspace/myWorkspace.do?projectId=2#154)
@@ -428,7 +479,7 @@ Zepto不支持旧版本的Internet Explorer浏览器(<10)。
 	* 前端交互：
 		* 撤销订单［修改需求］＝》撤单不需要交易密码
 			* 设置了交易密码，必须填写了交易密码才可以撤销
-			* 未设置交易密码，直接撤销订单 
+			* 未设置交易密码，直接撤销订单
 
 #### 个人中心［QA可测试］
 
@@ -452,7 +503,7 @@ Zepto不支持旧版本的Internet Explorer浏览器(<10)。
 	* 需求
 		* 提交身份认证信息
 		* 身份信息审核
-		* 身份信息审核失败： 
+		* 身份信息审核失败：
 			* isAuthPrimary = -1；被拒绝，
 			* authFailReason：被拒原因
 		* 身份证图片上传，文件大小请控制在15MB以内, png/jpg/jpeg
@@ -515,7 +566,7 @@ Zepto不支持旧版本的Internet Explorer浏览器(<10)。
 		* 图片验证码
 		* 验证码
 			* 若用户开启了Google验证码，Google验证码
-			* 若没有开启了Google验证码，若绑定手机号，手机短信验证码	
+			* 若没有开启了Google验证码，若绑定手机号，手机短信验证码
 	* 接口
 		* 设置交易密码接口: [/user/bindFdPwd](http://13.251.82.20:8080/workspace/myWorkspace.do?projectId=2#125)
 		* 设置交易密码发送短信验证码接口: [/user/bindPhoneOrEmailSendCode](http://13.251.82.20:8080/workspace/myWorkspace.do?projectId=2#162)
@@ -550,7 +601,7 @@ Zepto不支持旧版本的Internet Explorer浏览器(<10)。
 		* 没有设置交易密码。不显示“忘记交易密码”入口
 
 * 谷歌认证
-	* 前置条件：	
+	* 前置条件：
 		* 必需先绑定手机号，否则引导用户去绑定手机
 	* 需求：
 		* 绑定谷歌验证码
@@ -564,7 +615,7 @@ Zepto不支持旧版本的Internet Explorer浏览器(<10)。
 		* 谷歌认证指南＝》静态展示页面
 	* 前端交互：
 		* 关闭操作判断：登录手机认证和谷歌认证不能同时关闭
-	* 接口：	
+	* 接口：
 		* 发送短信验证码接口：[user/sendMailInUserCenter](http://13.251.82.20:8080/workspace/myWorkspace.do?projectId=2#119)
 		* 绑定谷歌接口：[/security/bindGoogleAuth](http://13.251.82.20:8080/workspace/myWorkspace.do?projectId=2#107)
 		* 解绑谷歌接口：[/security/closeGoogleAuth](http://13.251.82.20:8080/workspace/myWorkspace.do?projectId=2#108)
@@ -573,13 +624,13 @@ Zepto不支持旧版本的Internet Explorer浏览器(<10)。
 		* 解绑谷歌验证码，即关闭谷歌认证
 
 * 绑定邮箱［添加邮箱］
-	* 需求：	
+	* 需求：
 		* 绑定邮箱
 			* 邮箱账号
 			* 图片验证码
 			* 邮箱验证码
 			* 短信验证码
-	* 接口： 
+	* 接口：
 		* 绑定邮箱发送邮箱验证码: [user/bindPhoneOrEmailSendCode](http://13.251.82.20:8080/workspace/myWorkspace.do?projectId=2#162)
 			* type=2、邮箱注册用户;
 		* 绑定邮箱接口：[/user/bindPhoneOrEmailAction](http://13.251.82.20:8080/workspace/myWorkspace.do?projectId=2#164)
@@ -682,7 +733,7 @@ Zepto不支持旧版本的Internet Explorer浏览器(<10)。
 		* K图
 		* 币种筛选
 		* 实时行情数据
-		* 限价交易	
+		* 限价交易
 		* 市价交易
 		* 深度5档
 		* 更多深度
@@ -705,40 +756,40 @@ Zepto不支持旧版本的Internet Explorer浏览器(<10)。
 | -- | -- | -- | -- |-- |
 | ［P0］登录模块、注册模块、找回密码 | @陈立英 | 1人日 | Done，TODO 谷歌二次验证
 | ［P0］头部导航、底部导航 | @陈立英 | 0.5人日 | UI Done
-| ［P0］首页／推荐币种列表，24H K线图 | @夏祥峰 | 1人日 | 
-| ［P0］首页／所有币种列表，筛选 | @夏祥峰 | 1人日 | 
-| ［P0］首页／货币详情，24H K线图 | @夏祥峰 | 1人日  | 
-| ［P0］首页／最新公告 | @陈立英 | 0.1人日 | Done 
+| ［P0］首页／推荐币种列表，24H K线图 | @夏祥峰 | 1人日 |
+| ［P0］首页／所有币种列表，筛选 | @夏祥峰 | 1人日 |
+| ［P0］首页／货币详情，24H K线图 | @夏祥峰 | 1人日  |
+| ［P0］首页／最新公告 | @陈立英 | 0.1人日 | Done
 | ［P0］首页／最新公告详情 |  | 0.1人日 | 例如：/announce/preview/301
 | ［P0］首页／币圈资讯 | @陈立英 | 0.1人日 | UI Done，接口待确定
-| ［P0］交易中心／币种筛选 | | 0.5人日 | | 
-| ［P0］交易中心／K线图 | | 3人日 | K线图，皮肤切换| 
-| ［P0］交易中心／深度图 | | 1人日 | 皮肤切换 | 
-| ［P0］交易中心／卖出订单 | | 0.5人日 | | 
-| ［P0］交易中心／买入订单 | | 0.5人日 | | 
-| ［P0］交易中心／最新交易订单 | | 0.5人日 | | 
-| ［P0］交易中心／委托中订单| | 1人日 |  | 
-| ［P0］交易中心／已完成的成交订单 | | 1人日 | | 
-| ［P0］交易中心／买入卖出 | | 2人日 | | 
-| ［P0］个人中心／个人信息 | | 2人日 | | 
-| ［P0］个人中心／安全设置 | | 2人日 | | 
+| ［P0］交易中心／币种筛选 | | 0.5人日 | |
+| ［P0］交易中心／K线图 | | 3人日 | K线图，皮肤切换|
+| ［P0］交易中心／深度图 | | 1人日 | 皮肤切换 |
+| ［P0］交易中心／卖出订单 | | 0.5人日 | |
+| ［P0］交易中心／买入订单 | | 0.5人日 | |
+| ［P0］交易中心／最新交易订单 | | 0.5人日 | |
+| ［P0］交易中心／委托中订单| | 1人日 |  |
+| ［P0］交易中心／已完成的成交订单 | | 1人日 | |
+| ［P0］交易中心／买入卖出 | | 2人日 | |
+| ［P0］个人中心／个人信息 | | 2人日 | |
+| ［P0］个人中心／安全设置 | | 2人日 | |
 | ［P1］个人中心／FAQ | | 1人日 | |
-| ［P0］我的订单／当前委托 | | 2人日 | 筛选：币种，时间，买卖类型 | 
-| ［P0］我的订单／委托历史／列表 | | 0.5人日|  | 
-| ［P0］我的订单／委托历史／取消卖单、 取消买单、取消全部 | | 1人日|  | 
-| ［P0］我的订单／已成交订单 | | 1人日 | 筛选：币种，时间，买卖类型  | 
-| ［P0］我的订单／成交详情 | | 0.5人日 | | 
-| ［P0］我的资产／资产页面／基本信息 | | 0.5人日 | | 
-| ［P0］我的资产／资产页面／资产列表 | | 1人日 | | 
-| ［P0］我的资产／资产页面／充值／提现订单 | | 0.5人日 | | 
-| ［P0］我的资产／资产页面／充币记录 | | 0.5人日 | | 
-| ［P0］我的资产／资产页面／提现记录 | | 0.5人日  | | 
-| ［P1］新闻中心页面 | | 0.5人日 | | 
-| ［P1］帮助中心页面 |  | 0.5人日 | | 
-| ［P1］客户端下载聚合页 | －－ | 0.5人日 |  |  
+| ［P0］我的订单／当前委托 | | 2人日 | 筛选：币种，时间，买卖类型 |
+| ［P0］我的订单／委托历史／列表 | | 0.5人日|  |
+| ［P0］我的订单／委托历史／取消卖单、 取消买单、取消全部 | | 1人日|  |
+| ［P0］我的订单／已成交订单 | | 1人日 | 筛选：币种，时间，买卖类型  |
+| ［P0］我的订单／成交详情 | | 0.5人日 | |
+| ［P0］我的资产／资产页面／基本信息 | | 0.5人日 | |
+| ［P0］我的资产／资产页面／资产列表 | | 1人日 | |
+| ［P0］我的资产／资产页面／充值／提现订单 | | 0.5人日 | |
+| ［P0］我的资产／资产页面／充币记录 | | 0.5人日 | |
+| ［P0］我的资产／资产页面／提现记录 | | 0.5人日  | |
+| ［P1］新闻中心页面 | | 0.5人日 | |
+| ［P1］帮助中心页面 |  | 0.5人日 | |
+| ［P1］客户端下载聚合页 | －－ | 0.5人日 |  |
 
 
-* 整体联调时间：2人日 
+* 整体联调时间：2人日
 * 前端总工作量： 28.2 - 2 = 26.2人日
 
 * 离提测：2 ＋ 26.2 ＝ 28.2人日
@@ -758,7 +809,7 @@ request:
 		local: zh_TW
 	}
 
-response: 
+response:
 
 	{
 		attachment: {
@@ -780,7 +831,7 @@ request:
 		local: zh_TW
 	}
 
-response: 
+response:
 
 	{
 	    "attachment": null,
@@ -790,19 +841,19 @@ response:
 
 ### 注册
 
-request 
+request
 
 	{
 		email: 13167374479
 		pwd: Cly123456
 		vercode: B0XHWL
-		inviteId: 
+		inviteId:
 		imgcode: Gpjth
 		codeid: 19229c321bfd47fabb7135af7e034f0a
 		local: zh_TW
 	}
 
-response 
+response
 
 	{
 	    "attachment": null,
@@ -812,7 +863,7 @@ response
 
 ### 客户端下载接口 client/appUrl：
 
-request: 
+request:
 
 无
 
@@ -832,7 +883,7 @@ response:
 ### 最新公告列表接口：/announce/list
 
 request:
- 
+
 	{
 		num: 10 // 页码
 	}
@@ -903,10 +954,10 @@ response:
     	"attachment": {
     		// 银行卡信息
     		bankCards: [
-    			{    		
+    			{
     				providerId: "12121212dehheehde", // 绑定银行卡key
     				providerName: "招商银行",
-    				providerSubbranch: "支行", 
+    				providerSubbranch: "支行",
     				providerNo: "1996", // 卡号最后四位
     				showUserName: "陈立英"
     			}
@@ -929,15 +980,15 @@ request:
 		token: '',
 		balance: 0, // 充值金额
 		providerId: "",
-		currencyId: 1			
-			
+		currencyId: 1
+
 	}
 
 
-response: 
-	
-	
-	
+response:
+
+
+
 	{
 		"attachment": SYS_CODE: "", // 系統信任碼 ［测试环境参数］
     		 SHOP_CODE: "", // 厂商信任碼［测试环境参数］
@@ -951,17 +1002,17 @@ response:
              SUB_PAY_TYPE: '', // 子消費類型啟用
              PROD_ID: '', // 金流代碼
              SHOP_PARA: '', // 廠商自訂參數 {
-			
+
 		},
 		"message": null,
     	"status": 200
 	}
-	
+
 	// 错误
 	// 1. 交易密码错误
 	// 2. 谷歌验证码
 	{
-		
+
 	}
 
 
@@ -972,7 +1023,7 @@ response:
 
 * 验证码：
 	* 绑定google：谷歌验证码
-	* 未绑定google： 短信验证码	
+	* 未绑定google： 短信验证码
 
 
 request:
@@ -989,20 +1040,20 @@ request:
 	}
 
 
-response: 
-	
+response:
+
 
 	{
 		"attachment": {},
 		"message": null,
     	"status": 200
 	}
-	
+
 	// 错误
 	// 1. 交易密码错误
 	// 2. 谷歌验证码
 	{
-		
+
 	}
 
 
@@ -1011,7 +1062,7 @@ response:
 * 通过>=KYC1
 * 交易密码设置
 
-request: 
+request:
 
 	{
 		uid: '',
@@ -1029,18 +1080,18 @@ response:
 		"message": null,
     	"status": 200
 	}
-	
+
 
 
 ### 银行卡账号纪录
 
-request: 
+request:
 
 	{
 		uid: '',
-		token: '',		
+		token: '',
 	}
-	
+
 
 response:
 
@@ -1069,7 +1120,7 @@ response:
 * 手机账号：手机短信通知
 * 邮箱帐号：绑定手机手机短信，手机短信通知
 * 邮箱帐号：没有绑定手机号，邮箱邮件通知
-	
+
 2、修改KYC接口，根据新的产品需求作KYC1、KYC2的验证
 
 KYC2：法币账户总金额 > 60,000TWD
@@ -1108,7 +1159,7 @@ KYC2：法币账户总金额 > 60,000TWD
 
 * 条件：
 	* KYC1［充币条件］
-	
+
 提币：
 
 * 提币条件
@@ -1127,7 +1178,7 @@ KYC2：法币账户总金额 > 60,000TWD
 
 
 充值：
- 
+
 * 充值条件
  	* KYC2通过
 
@@ -1139,10 +1190,10 @@ KYC2：法币账户总金额 > 60,000TWD
 待确认问题：
 
 * mobx多语言处理
-* TODO antd 按需加载 
+* TODO antd 按需加载
 
 ### antd 组件js&css按需加载
-	
+
 1. 安装babel-plugin-import
 
 	npm install babel-plugin-import --save-dev

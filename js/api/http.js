@@ -275,7 +275,7 @@ export function getWithdrawCashFee(data) {
 }
 
 /**
- *
+ * 创建提现订单
  * @param {amount, currencyId, cardId（此用户当前绑定银行卡id）, tradePwd, gAuth/phoneCode,
  */
 export function orderFiatWithdraw(data) {

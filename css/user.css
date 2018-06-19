@@ -1068,23 +1068,23 @@ menu-submenu-item */
     color: #999999;
     margin-top: 80px;
     margin-bottom: 30px;
+    overflow: hidden;
 }
 
-.user-main .google-auth-box {
-    width: 540px;
-    margin: auto;
+.user-main .google-auth-message .vcode {
+    float: left;
 }
 
-.user-main .google-auth-left {
-    display: inline-block;
-    vertical-align: top;
-    margin-right: 20px;
-}
-
-.user-main .google-auth-left img {
+.user-main .google-auth-message img {
     display: block;
     height: 150px;
     width: 150px;
+}
+
+.user-main .google-auth-message .tip {
+    float: right;
+    width: 60%;
+    padding-top: 50px;
 }
 
 .user-main .google-auth-left>div {
