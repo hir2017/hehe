@@ -74,8 +74,7 @@ class TradeContent extends Component {
                 currencyId
             });    
 
-            tradeStore.getAllCoins();
-            tradeStore.quoteNotify();
+            tradeStore.getData();
             tradeStore.getEntrust();
             tradeStore.getTradeHistory();
             tradeStore.getUserAccount();

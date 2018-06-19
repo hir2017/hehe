@@ -16,9 +16,6 @@ class CoinList extends Component {
 
     constructor(props) {
         super(props)
-        this.state = {
-            showCollected: false
-        }
     }
 
     handleSearch = e => {
@@ -27,7 +24,7 @@ class CoinList extends Component {
 
         this.timer && clearTimeout(this.timer);
         this.timer = setTimeout(() => {
-            this.props.tradeStore.filterByName(val);
+            this.props.tradeStore.marketListStore.filterByName(val);
         }, 100);
     };
 
@@ -36,22 +33,55 @@ class CoinList extends Component {
     };
 
     sortByCondition(condition) {
-        this.props.tradeStore.sortByCondition(condition);
+        this.props.tradeStore.marketListStore.sortByCondition(condition);
     }
 
     handleCollectCoin(data, selected) {
-        this.props.tradeStore.toggleCollectCoins(data, selected)
+        this.props.tradeStore.marketListStore.toggleCollectCoins(data, selected)
     }
 
     handleToggleCollectDisplay(e) {
-        this.setState({
-            showCollected: e.target.checked
-        })
+        this.props.tradeStore.marketListStore.filterCollectCoins(e.target.checked);
     }
 
+    collecthandle=(e, data)=>{
+        this.props.tradeStore.marketListStore.toggleCollectCoin(data);
+    }
+
+    collectIcon(data) {
+        const collectCoinsList = this.props.tradeStore.marketListStore.collectCoinsList;
+        
+        const res = collectCoinsList.some(item => {
+            if (item.tradeCurrencyId === data.currencyId && item.baseCurrencyId === data.baseCurrencyId){
+                return true;
+            }
+        });
+
+        if (res) {
+            data.selected = true;
+        } else {
+            data.selected = false;
+        }
+
+        return <Icon onClick={e => this.collecthandle(e, data)} type={res ? 'star' : 'star-o'} />;
+    }
+
+    sortIcon(show) {
+        if (!show) {
+            return null;
+        }
+
+        if (this.props.tradeStore.marketListStore.sortByType == 'asc') {
+            return <Icon type='arrow-up' /> 
+        } else {
+            return <Icon type='arrow-down'/> 
+        }
+    }
+
+
+
     render() {
-        let store = this.props.tradeStore;
-        let collectCoins = store.collectCoins
+        let store = this.props.tradeStore.marketListStore;
         
         return (
             <div className="coin-list">
@@ -61,7 +91,7 @@ class CoinList extends Component {
                         <input type="text" onChange={this.handleSearch} placeholder={UPEX.lang.template('搜索数字币')} />
                     </div>
                     <div className="tab">
-                        <Checkbox defaultChecked={this.state.showCollected} onChange={this.handleToggleCollectDisplay.bind(this)}>{UPEX.lang.template('收藏')}</Checkbox>
+                        <Checkbox checked={store.onlyCollectedCoins} onChange={this.handleToggleCollectDisplay.bind(this)}>{UPEX.lang.template('收藏')}</Checkbox>
                     </div>
                 </div>
                 <div className="coin-list-bd">
@@ -71,32 +101,31 @@ class CoinList extends Component {
                             <div className="cell name">{UPEX.lang.template('币种')}</div>
                             <div className="cell price" onClick={this.sortByCondition.bind(this, 'currentAmount')}>
                                 {UPEX.lang.template('价格')}
-                                {store.sortByKey == 'currentAmount' ? <Icon type={store.sortByType == 'asc' ? 'arrow-up' : 'arrow-down'} /> : null}
+                                {this.sortIcon(store.sortByKey == 'currentAmount')}
                             </div>
                             <div className="cell rate" onClick={this.sortByCondition.bind(this, 'changeRate')}>
                                 {UPEX.lang.template('涨跌')}
-                                {store.sortByKey == 'changeRate' ? <Icon type={store.sortByType == 'asc' ? 'arrow-up' : 'arrow-down'} /> : null}
+                                {this.sortIcon(store.sortByKey == 'changeRate')}
                             </div>
                             <div className="cell volume" onClick={this.sortByCondition.bind(this, 'volume')}>
                                 {UPEX.lang.template('24H成交量')}
-                                {store.sortByKey == 'volume' ? <Icon type={store.sortByType == 'asc' ? 'arrow-up' : 'arrow-down'} /> : null}
+                                {this.sortIcon(store.sortByKey == 'volume')}
                             </div>
                         </dt>
                     </dl>
-                    <dl className={`list ${this.state.showCollected ? 'collected' : ''}`}>
-                        {store.loginedMarkets &&
-                            store.loginedMarkets.tradeCoins.map((item, index) => {
-                                let selected = collectCoins.indexOf([item.baseCurrencyId, item.currencyId].join('--')) !== -1
+                    <dl className="list">
+                        {
+                            store.tradeCoins.map((item, index) => {
                                 return (
-                                    <dd key={item.id} className={`${selected} clearfix`}>
+                                    <dd key={item.id} className={`clearfix`}>
                                         <div className="cell star">
-                                            <CoinCollectBtn data={item} selected={selected} clickCb={this.handleCollectCoin.bind(this)} />
+                                            {this.collectIcon(item)}
                                         </div>
                                         <div className="cell name" onClick={this.handleCurrency.bind(this, item)}>
                                             {item.currencyNameEn || '--'}
                                         </div>
                                         <div className="cell price" onClick={this.handleCurrency.bind(this, item)}>
-                                            {item.currentAmount}
+                                            {item.currentAmountText}
                                         </div>
                                         <div
                                             className={item.changeRate >= 0 ? 'cell rate greenrate' : 'cell rate redrate'}
@@ -105,7 +134,7 @@ class CoinList extends Component {
                                             {item.changeRateText}
                                         </div>
                                         <div className="cell volume" onClick={this.handleCurrency.bind(this, item)}>
-                                            {item.volume}
+                                            {item.volumeText}
                                         </div>
                                     </dd>
                                 );
