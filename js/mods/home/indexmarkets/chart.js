@@ -29,7 +29,7 @@ export default class extends Component {
                     type: 'cross'
                 },
                 formatter([data]) {
-                    console.log(self.props.commonStore.pointPrice);
+                    
                     let price = NumberUtil.formatNumber(data.value, self.props.commonStore.pointPrice);
                     
                     return [
