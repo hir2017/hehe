@@ -6,6 +6,8 @@ import { getUserSuccessOrderList } from '../api/http';
 import TimeUtil from '../lib/util/date';
 import NumberUtil from '../lib/util/number';
 
+// 默认10：全部，0：未成交，1：部分成交，2：全部成交，3：委托失败，4：已撤单，11：部分完成或未完成，12：新全部历史记录
+const statusList = [2]; // 委托历史处理的状态订单列表
 class OrderStore {
 	@observable orderList = [];
 	@observable current = 1; // 当前页数
@@ -60,24 +62,57 @@ class OrderStore {
         })
 	}
 
-	
-	parseData(arr) {
-		arr.forEach((item, index) => {
-            let pointPrice = this.commonStore.getPointPrice(item.currencyNameEn);
-            let pointNum =  this.commonStore.getPointNum(item.currencyNameEn);
-            
-            item.orderTime = TimeUtil.formatDate(item.orderTime, 'yyyy-MM-dd HH:mm:ss');
-            // 委托价格
-            item.price = NumberUtil.formatNumber(item.price, pointPrice);
-            item.tradeAmount = NumberUtil.formatNumber(item.tradeAmount, pointPrice);
-            item.tradePrice = NumberUtil.formatNumber(item.tradePrice, pointPrice);
-            // 委托数量
-            item.tradeNum = NumberUtil.formatNumber(item.tradeNum, pointNum);
-            item.num = NumberUtil.formatNumber(item.num, pointNum);
+    parseData(arr) {
+        arr.forEach((item, index) => {
+            item = this.parseItem(item);
         })
 
         return arr;
-	}
+    }
+
+    parseItem(item) {
+        let pointPrice = this.commonStore.getPointPrice(item.currencyNameEn);
+        let pointNum =  this.commonStore.getPointNum(item.currencyNameEn);
+        
+        item.orderTime = TimeUtil.formatDate(item.orderTime, 'yyyy-MM-dd HH:mm:ss');
+        // 委托价格
+        item.price = NumberUtil.formatNumber(item.price, pointPrice);
+        item.tradeAmount = NumberUtil.formatNumber(item.tradeAmount, pointPrice);
+        item.tradePrice = NumberUtil.formatNumber(item.tradePrice, pointPrice);
+        // 委托数量
+        item.tradeNum = NumberUtil.formatNumber(item.tradeNum, pointNum);
+        item.num = NumberUtil.formatNumber(item.num, pointNum);
+
+        return item;
+    }
+
+    @action
+    updateItem(data) {
+        let flag = false; // 是否存在
+
+        // 过滤其他状态的数据
+        $.each(this.orderList, (i, item) => {
+            if (item.orderNo == data.orderNo) {
+
+                if (statusList.indexOf(data.status) > -1) {
+                    this.orderList[i] = this.parseItem(data);    
+                } else {
+                    this.orderList.splice(i, 1);
+                }
+                
+                flag = true;
+                return false;
+            }
+        })
+
+        // 列表中没有，则新增
+        if (!flag) {
+            
+            if (statusList.indexOf(data.status) > -1) {
+                this.orderList.unshift(this.parseItem(data));
+            }
+        }
+    }
 }
 
 export default OrderStore;

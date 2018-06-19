@@ -529,10 +529,6 @@ Zepto不支持旧版本的Internet Explorer浏览器(<10)。
 		* 原交易密码
 		* 新的交易密码
 		* 确认交易密码
-		* 图片验证码
-		* 验证码［需求确认］
-			* 若用户开启了Google验证码，Google验证码
-			* 若没有开启了Google验证码，若绑定手机号，手机短信验证码
 	* 接口
 		* 修改交易密码接口：[user/modifyFdPwd](http://13.251.82.20:8080/workspace/myWorkspace.do?projectId=2#166)
 	* 前端交互

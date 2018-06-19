@@ -75,12 +75,12 @@ class TradeContent extends Component {
             });    
 
             tradeStore.getAllCoins();
+            tradeStore.quoteNotify();
             tradeStore.getEntrust();
             tradeStore.getTradeHistory();
             tradeStore.getUserAccount();
             tradeStore.getPersonalTradingPwd();
             tradeStore.getPersonalInfo();
-            tradeStore.getUserOrderList();
         }
     }
 

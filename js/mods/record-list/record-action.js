@@ -1,31 +1,93 @@
 import { message } from 'antd';
 import { getPersonalTradingPwd, cancelOrder } from '../../api/http';
+import { socket } from '../../api/socket';
 import { browserHistory } from 'react-router';
 import PopupTradePwd from './tradepwd';
-
-export default (store, tradepwdStore) => {
+export default (store, authStore) => {
     return {
+        isFirst: true,
+
         getData(data) {
+            if (!authStore.isLogin) {
+                return;
+            }
+
             store.getData(data);
+
+            if (this.isFirst) {
+                this.bindEvent();
+                this.isFirst = false;
+            }
+        },
+
+        bindEvent() {
+            this.bindRegister();
+            this.bindUserOpenList();
+            this.bindUserSuccessList();
+        },
+        /**
+         * 注册
+         */
+        bindRegister() {
+            let count = 0;
+
+            let register = function() {
+                socket.emit('register', {
+                    uid: authStore.uid,
+                    token: authStore.token
+                });
+
+                socket.on('register', (data) => {
+
+                    if (!data || data !== 'succ') {
+                        count++;
+
+                        if (count < 3) {
+                            register();
+                        }
+                    }
+                })
+            }
+
+            register();
+        },
+
+        /**
+         * 委托订单事件，每一次状态变更都会收到通知
+         */
+        bindUserOpenList() {
+            socket.on('userOrder', (data) => {
+                console.log('-----------', data);
+                store.updateItem(data);
+            })
+        },
+        /**
+         *  成交订单事件，每一次状态变更都会收到通知
+         */
+        bindUserSuccessList() {
+            socket.on('userTrade', (data) => {
+                console.log('--------------', data);
+                store.updateItem(data);
+            })
         },
 
         handleFilter(condition, data) {
             let params;
 
-            switch(condition) {
+            switch (condition) {
                 case 'page': // 页码
                     params = {
                         start: data.page
                     };
                     break;
                 case 'beginTime':
-                    params ={
+                    params = {
                         start: 1,
                         beginTime: data.beginTime === null ? null : data.beginTime
                     }
                     break;
-                 case 'endTime':
-                    params ={
+                case 'endTime':
+                    params = {
                         start: 1,
                         endTime: data.endTime === null ? null : data.endTime
                     }
@@ -55,33 +117,23 @@ export default (store, tradepwdStore) => {
         },
 
         cancelOrder(currencyId, orderNo) {
-            // if (tradepwdStore.tradePasswordStatus == 1) {
-            //     // 启用交易密码
-            //     PopupTradePwd.create({
-            //         onSubmit: (pwd) =>{
-            //             this.submitCancelOrder(currencyId, orderNo, pwd);
-            //         }
-            //     });
-            // } else {
-                // 不需要交易密码
-                this.submitCancelOrder(currencyId, orderNo);
-            // }
+            this.submitCancelOrder(currencyId, orderNo);
         },
 
-        submitCancelOrder(currencyId, orderNo, fdPassword){
+        submitCancelOrder(currencyId, orderNo, fdPassword) {
             cancelOrder({
                 currencyId,
-                fdPassword: fdPassword ? fdPassword : '',
+                fdPassword: '',
                 orderNo,
                 source: 1
-            }).then((data)=>{
-                if (data.status ==  200) {
+            }).then((data) => {
+                if (data.status == 200) {
                     message.success(UPEX.lang.template('撤销成功'));
                     store.deleteItem(orderNo);
                 } else {
                     message.error(data.message);
                 }
-            }).catch(function(error){
+            }).catch(function(error) {
                 console.log(error)
             })
         }

@@ -178,10 +178,8 @@ const NumberUtil = {
         if (str2.indexOf('.') >= 0) {
             len += str2.split('.')[1].length;
         }
-        return Number(str1.replace('.', '')) * Number(str2.replace('.', '')) / Math.pow(10, len);
-
-        　　
-    },
+        return Number(str1.replace('.', '')) * Number(str2.replace('.', '')) / Math.pow(10, len); 　　
+    }
 
 
 };

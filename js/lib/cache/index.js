@@ -48,7 +48,7 @@
 class Cache {
     constructor(cfg) {
         this.options = Object.assign({
-            prefix: 'ppcache', // 数据存储 key 的前缀，默认是ppcache。
+            prefix: 'acecache', // 数据存储 key 的前缀，默认是ppcache。
             gameType: '', // 游戏类型，例如knowme
             uid: '', // 用户信息，新游戏是openId, 旧游戏是ppuid
             data: {}, // 存储缓存数据 data: {data: value, expires: 0}

@@ -8,18 +8,17 @@ import React, {Component} from 'react';
 import { observer, inject } from 'mobx-react';
 import Item from './item';
 
+@inject('marketListStore')
 @observer
 class HotMarkets extends Component{
-	static defaultProps = {
-		list: []
-	}
-
 	render() {
+		let store = this.props.marketListStore;
+		
 		return (
 			<div className="hot-markets">
 				<ul>
 				{
-					this.props.list.map((item, index)=>{
+					store.hotCoins.map((item, index)=>{
 						return (
 							<li key={index}>
 								<Item data={item}/>
@@ -32,5 +31,6 @@ class HotMarkets extends Component{
 		);
 	}
 }
+
 
 export default HotMarkets;

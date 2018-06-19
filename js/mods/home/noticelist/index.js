@@ -9,18 +9,26 @@ import { observer, inject } from 'mobx-react';
 import {  Link } from 'react-router'; 
 import { Carousel } from 'antd';
 
+@inject('announcementStore')
 @observer
 class AnnouncementList extends Component {
-
-	render() {
-		let { list } = this.props;
+	componentDidMount() {
+		this.props.announcementStore.fetch(6);
+	}
 	
+	render() {
+		let store = this.props.announcementStore;
+		
+		if (store.formatedList.length == 0) {
+			return null;
+		}
+
 		return (
 			<div className="announcement-wrapper">
 				<div className="content">
 					<Carousel autoplay vertical dots={false} speed={500}>
 					{
-						list.map((arr, i)=>{
+						store.formatedList.map((arr, i)=>{
 							return (
 								<ul className="clearfix" key={i}>
 									{

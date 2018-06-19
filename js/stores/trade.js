@@ -757,66 +757,6 @@ class TradeStore {
         console.log(data);
         return data;
     }
-
-    @action
-    getUserOrderList() {
-        if (!this.authStore.isLogin) {
-            return;
-        }
-        this.bindUserOpenList();
-        this.bindUserSuccessList();
-    }
-    /**
-     * 委托订单事件，每一次状态变更都会收到通知
-     */
-    @action
-    bindUserOpenList() {
-        socket.off('userOrder');
-        socket.emit('userOrder', {
-            uid: this.authStore.uid,
-            token: this.authStore.token
-        });
-
-        socket.on('userOrder', (data) => {
-            // this.openOrderList = this.parseOpenOrderList(data.list);
-        })
-    }
-    /**
-     *  成交订单事件，每一次状态变更都会收到通知
-     */
-    @action
-    bindUserSuccessList() {
-        socket.off('userTrade');
-        socket.emit('userTrade', {
-            uid: this.authStore.uid,
-            token: this.authStore.token,
-            startTime: '2018-06-12',
-            endTime: '2018-06-14'
-        });
-
-        socket.on('userTrade', (data) => {
-            // this.historyOrderList = this.parseHistoryOrderList(data.list);
-        })
-    }
-
-
-    @action
-    parseOpenOrderList(arr) {
-        arr.forEach((item, index) => {
-            item.orderTime = TimeUtil.formatDate(item.orderTime, 'HH:mm:ss');
-        });
-
-        return arr;
-    }
-
-    @action
-    parseHistoryOrderList(arr) {
-        arr.forEach((item, index) => {
-            item.orderTime = TimeUtil.formatDate(item.orderTime, 'HH:mm:ss');
-        });
-
-        return arr;
-    }
     /**
      * 设置Tab索引值
      */

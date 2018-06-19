@@ -1,3 +1,7 @@
+/**
+ * SVG 绘制简单的24小时K线图
+ * @author 陈立英
+ */
 class ChartData {
     constructor() {
         this.barCount = 23; // 24项小时，23个点

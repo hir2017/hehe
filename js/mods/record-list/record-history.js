@@ -14,7 +14,7 @@ class List extends Component {
 	constructor(props){
 		super(props);
 
-		this.action = toAction(this.props.historyStore);
+		this.action = toAction(this.props.historyStore, this.props.authStore);
 	}
 
 	componentDidMount() {

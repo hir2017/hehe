@@ -8,7 +8,6 @@ import lang from './lang';
 
 let win = window;
 let ua = navigator.userAgent;
-let IS_INIT = false; // 是否已经初始化
 
 // 支持的网站语言
 const slangs = {
@@ -128,7 +127,8 @@ const SITE_LANGUAGE = (function() {
 
 const symbols = {
     'TWD': 'NT$',
-    'CNY': '￥'
+    'CNY': '￥',
+    'USD': '$'
 }
 
 const origin = (function(){
@@ -155,12 +155,8 @@ const origin = (function(){
             break;
     }
 
-    
-
     return origin;
 })();
-
-
 
 const host = 'http://' +  origin +'/polarisex';
 const uploadHost = host + '/upload/upload';
@@ -198,7 +194,6 @@ const config = {
 /**
  * 全局 UPEX 命名空间
  */
-
 win.UPEX = Object.assign({
     cache,
     config,

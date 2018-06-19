@@ -43,10 +43,6 @@ class CoinList extends Component {
         this.props.tradeStore.toggleCollectCoins(data, selected)
     }
 
-    // handleToggleCollectAll(e) {
-    //     this.props.tradeStore.toggleCollectCoins(e.target.checked)
-    // }
-
     handleToggleCollectDisplay(e) {
         this.setState({
             showCollected: e.target.checked
@@ -56,6 +52,7 @@ class CoinList extends Component {
     render() {
         let store = this.props.tradeStore;
         let collectCoins = store.collectCoins
+        
         return (
             <div className="coin-list">
                 <div className="coin-list-hd clearfix">

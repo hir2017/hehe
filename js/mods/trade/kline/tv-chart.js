@@ -146,7 +146,7 @@ class TVChartContainer extends Component {
         baseCurrencyNameEn = getTradeCoinById(baseCurrencyId).currencyNameEn;
         currencyNameEn = getTradeCoinById(currencyId).currencyNameEn;
 
-        interval = '1D';
+        // interval = '1D';
 
         let currentSymbolName = `${currencyNameEn}/${baseCurrencyNameEn}`;
 
@@ -313,36 +313,36 @@ class TVChartContainer extends Component {
                     })
                 });
 
-		  //       widget.chart().onIntervalChanged().subscribe(null, function(interval, obj) {
-    //                 console.log('--------------', interval, obj);
-    // 				widget.changingInterval = false;
+		        widget.chart().onIntervalChanged().subscribe(null, function(interval, obj) {
+                    console.log('--------------', interval, obj);
+    				widget.changingInterval = false;
 
-    //                 buttons.forEach(function(item) {
-    //                     let current = widget.selectedIntervalClass === `interval-${interval}-1`;
+                    buttons.forEach(function(item) {
+                        let current = widget.selectedIntervalClass === `interval-${interval}-1`;
 
-    //                     if (current){
-    //                         item.addClass('selected');
-    //                     } else {
-    //                         item.removeClass('selected');
-    //                     }
-    //                 });
+                        if (current){
+                            item.addClass('selected');
+                        } else {
+                            item.removeClass('selected');
+                        }
+                    });
 
-    //                 if (1 * interval != 1 ) {
+                    if (1 * interval != 1 ) {
 
-    //                     UPEX.cache.setCache('kline/resolution', {
-    //                         resolution: interval,
-    //                         chartType: 1
-    //                     });
+                        UPEX.cache.setCache('kline/resolution', {
+                            resolution: interval,
+                            chartType: 1
+                        });
 
-    //                     update({
-    //                         resolution: interval
-    //                     });
-    //                 }
+                        update({
+                            resolution: interval
+                        });
+                    }
 
-    //                 console.log(interval, obj);
-				// })
+                    console.log(interval, obj);
+				})
 
-                // widget.chart().setChartType(3); // 设置线图类型的
+                widget.chart().setChartType(3); // 设置线图类型的
                 // 默认隐藏绘图工具栏
                 widget.chart().executeActionById("drawingToolbarAction");
             });

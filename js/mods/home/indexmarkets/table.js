@@ -3,7 +3,7 @@
  * @author xia xiang feng
  * @date 2018-05-10
  */
-import React from 'react';
+import React, {Component} from 'react';
 import { Icon } from 'antd';
 import { observer, inject } from 'mobx-react';
 import { Link } from 'react-router';
@@ -22,9 +22,9 @@ const ColGroup = () => {
     );
 };
 
-@inject('homeStore')
+@inject('homeStore','marketListStore')
 @observer
-export default class extends React.Component {
+export default class extends Component {
     constructor() {
         super();
         this.collecthandle = this.collecthandle.bind(this);
@@ -91,6 +91,7 @@ export default class extends React.Component {
     }
 
     render() {
+        let { marketListStore } = this.props;
         return (
             <div className="ant-table ant-table-large ant-table-fixed-header ant-table-scroll-position-left">
                 <div className="ant-table-content">
@@ -119,16 +120,15 @@ export default class extends React.Component {
                             </table>
                         </div>
                         <div className="ant-table-body">
-                            { this.props.homeStore.isFetchingList == true ? <div className="mini-loading" /> : null }
                             { 
-                                this.props.homeStore.noCoin ? (
+                                marketListStore.noCoin ? (
                                     <div className="mini-tip">{ UPEX.lang.template('暂无数据')}</div>
                                 ) : (
                                     <table>
                                         <ColGroup />
                                         <tbody className="ant-table-tbody">
                                             {
-                                                this.props.coins.map((item, index) => {
+                                                marketListStore.tradeCoins.map((item, index) => {
                                                     let path = `/trade/${item.baseCurrencyNameEn}_${item.currencyNameEn}`;
                                                     
                                                     return (

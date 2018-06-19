@@ -11,7 +11,9 @@ import { Carousel } from 'antd';
 @observer
 class Banner extends Component {
 	static defaultProps = {
-		list: []
+		list: [
+			'http://g.cdn.pengpengla.com/oauthgame/html5/20180616/09a65ba31d08622bad561357ee747945.png'
+		]
 	}
 	render() {
 		let list = this.props.list;

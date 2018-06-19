@@ -3,17 +3,17 @@ import { observer, inject } from 'mobx-react';
 import { Checkbox, Icon, Pagination, message } from 'antd';
 import toAction from './record-action';
 
-@inject('commonStore','openStore', 'authStore', 'tradePwdStore')
+@inject('commonStore','openStore', 'authStore',)
 @observer
 class List extends Component {
 	static defaultProps = {
 		pagination: true // 是否分页， true分也，false不分页
 	}
-	
+
 	constructor(props){
 		super(props);
 
-		this.action = toAction(this.props.openStore, this.props.tradePwdStore);
+		this.action = toAction(this.props.openStore, this.props.authStore);
 		this.currentOrderNo = '';
 	}
 
@@ -25,7 +25,6 @@ class List extends Component {
 		} else {
 			this.action.getData();
 		}
-		
 	}
 
 	onChangePagination(page){

@@ -6,12 +6,15 @@ import { getUserHistoryOrderList } from '../api/http';
 import TimeUtil from '../lib/util/date';
 import NumberUtil from '../lib/util/number';
 
+// 默认10：全部，0：未成交，1：部分成交，2：全部成交，3：委托失败，4：已撤单，11：部分完成或未完成，12：新全部历史记录
+const statusList = [2,4,5]; // 委托历史处理的状态订单列表
+
 class OrderStore {
     @observable orderList = [];
     @observable current = 1; // 当前页数
     @observable total = 0; // 总页数
     @observable isFetching = false;
-
+    
     pageSize = 10;
 
     constructor(stores) {
@@ -60,13 +63,46 @@ class OrderStore {
         })
     }
 
-    
     parseData(arr) {
         arr.forEach((item, index) => {
-            item.orderTime = TimeUtil.formatDate(item.orderTime, 'yyyy-MM-dd HH:mm:ss');
+            item = this.parseItem(item);
         })
 
         return arr;
+    }
+
+    parseItem(item) {
+        item.orderTime = TimeUtil.formatDate(item.orderTime, 'yyyy-MM-dd HH:mm:ss');
+
+        return item;
+    }
+
+    @action
+    updateItem(data) {
+        let flag = false; // 是否存在
+
+        // 过滤其他状态的数据
+        $.each(this.orderList, (i, item) => {
+            if (item.orderNo == data.orderNo) {
+
+                if (statusList.indexOf(data.status) > -1) {
+                    this.orderList[i] = this.parseItem(data);    
+                } else {
+                    this.orderList.splice(i, 1);
+                }
+                
+                flag = true;
+                return false;
+            }
+        })
+
+        // 列表中没有，则新增
+        if (!flag) {
+            
+            if (statusList.indexOf(data.status) > -1) {
+                this.orderList.unshift(this.parseItem(data));
+            }
+        }
     }
 }
 

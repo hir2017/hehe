@@ -1,3 +1,7 @@
+/**
+ * 倒计时
+ * @author 陈立英
+ */
 import events from '../events';
 
 let defaultOptions = {
