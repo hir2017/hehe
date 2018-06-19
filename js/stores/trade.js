@@ -555,7 +555,7 @@ class TradeStore {
     }
 
     @action
-    filterByName = value => {
+    filterByName(value){
         let loginedMarkets = JSON.parse(JSON.stringify(this.originMarkets));
 
         value = value.toLowerCase();

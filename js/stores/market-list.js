@@ -10,36 +10,42 @@ import { socket } from '../api/socket';
 class MarketListStore {
     @observable baseCoinInfo = {}; // 基础币
     @observable tradeCoins = []; // 交易币列表
+    @observable cacheCoins = []; 
+    @observable collectCoinsList = []; // 用户收藏列表
     @observable dataReady = false; // 获取币种
     @observable noCoin = false; // 没有币种
     @observable selectedCoin = {}; // 选中的币种
+    @observable sortByKey = ''; // 按{key}排序
+    @observable sortByType = 'desc'; // 排序方式，升序:asc, 降序: desc
+    @observable onlyCollectedCoins = false; // 只查看收藏的交易币
+    @observable searchValue = '';
 
-    cacheCoinArr = [];
+    tradeCoinsCollected = {};
+    tradeCoinsSearched = {};
 
     constructor(stores) {
         this.commonStore = stores.commonStore;
     }
 
-    /**
-     * 推荐的热门数字币列表
-     */
     @computed
-    get hotCoins() {
-        let list = [];
-
-        if (this.tradeCoins.length > 0) {
-            list = this.tradeCoins.filter((item) => {
+    get hotCoins(){
+        let hotCoins = [];
+        
+        if (this.cacheCoins.length > 0) {
+            hotCoins = this.cacheCoins.filter((item) => {
                 return item.recommend === 1;
             })
         }
 
-        return list.slice(0, 5); // 返回最新的5个即可
+        return hotCoins.slice(0, 5); // 返回最新的5个即可
     }
+
 
     @action
     getData() {
         this.getMarketList();
         this.quoteNotify();
+        this.getCollectCoinsList();
     }
     /**
      * 行情列表
@@ -57,14 +63,13 @@ class MarketListStore {
                 if (result) {
                     this.baseCoinInfo = result.info;
                     this.tradeCoins = this.parseCoinList(result.tradeCoins);
+                    this.cacheCoins = [...this.tradeCoins];
                     this.selectedCoin = this.tradeCoins[0];
-                    // this.allCoins = result.tradeCoins;
-                    // this.cacheCoins = JSON.parse(JSON.stringify(result.tradeCoins));
                 } else {
                     this.noCoin = true;
                 }
 
-                this.dataReady = false;
+                this.dataReady = true;
             })
         })
     }
@@ -85,6 +90,19 @@ class MarketListStore {
         })
     }
 
+    @action
+    async getCollectCoinsList () {
+        const res = await listOptional ()
+        
+        if (res.status !== 200) {
+            console.error(res.message)
+        } else {
+            runInAction(() => {
+                this.collectCoinsList = res.attachment;    
+            });
+        }
+    }
+
     /**
      * 销毁socket事件
      */
@@ -99,8 +117,7 @@ class MarketListStore {
      */
     parseCoinList(arr = []) {
         // 遍历，1. 按成交量降序排列，2. 按最新成交价降序排序
-        arr.forEach((item, index) => {
-            this.cacheCoinArr[this.cacheCoinArr.length] = item.currencyNameEn;
+        arr.forEach((item, index) => {            
             item = this.parseCoinItem(item);
         });
 
@@ -110,22 +127,23 @@ class MarketListStore {
     parseCoinItem(item) {
         item.changeRateText = NumberUtil.asPercent(item.changeRate);
         // 最新成交价
-        item.currentAmount = NumberUtil.formatNumber(item.currentAmount, this.commonStore.pointPrice);
+        item.currentAmountText = NumberUtil.formatNumber(item.currentAmount, this.commonStore.pointPrice);
         // 最高价
-        item.highPrice = NumberUtil.formatNumber(item.highPrice, this.commonStore.pointPrice);
+        item.highPriceText = NumberUtil.formatNumber(item.highPrice, this.commonStore.pointPrice);
         // 最低价
-        item.lowPrice = NumberUtil.formatNumber(item.lowPrice, this.commonStore.pointPrice);
+        item.lowPriceText = NumberUtil.formatNumber(item.lowPrice, this.commonStore.pointPrice);
         // 开盘价
-        item.openPrice = NumberUtil.formatNumber(item.openPrice, this.commonStore.pointPrice);
+        item.openPriceText = NumberUtil.formatNumber(item.openPrice, this.commonStore.pointPrice);
         // 收盘价
-        item.closePrice = NumberUtil.formatNumber(item.closePrice, this.commonStore.pointPrice);
+        item.closePriceText = NumberUtil.formatNumber(item.closePrice, this.commonStore.pointPrice);
         // 24小时成交数量
-        item.volume = NumberUtil.formatNumber(item.volume, item.pointNum);
+        item.volumeText = NumberUtil.formatNumber(item.volume, item.pointNum);
         // 成交额
-        item.amount = NumberUtil.formatNumber(item.volume, this.commonStore.pointPrice);
+        item.amountText = NumberUtil.formatNumber(item.volume, this.commonStore.pointPrice);
 
         return item;
     }
+
     /**
      * 更新基础币信息
      */
@@ -133,12 +151,18 @@ class MarketListStore {
     updateBaseCoin(item) {
         this.baseCoinInfo = this.parseCoinItem(item);
     }
+
     /**
      * 更新交易币信息
      */
     @action
     updateTradeCoin(data) {
         this.tradeCoins.filter((item) => {
+            if (item.baseCurrencyId === data.baseCurrencyId && item.currencyId === data.currencyId) {
+                item = this.parseCoinItem(data);
+            }
+        })
+        this.cacheCoins.filter((item) => {
             if (item.baseCurrencyId === data.baseCurrencyId && item.currencyId === data.currencyId) {
                 item = this.parseCoinItem(data);
             }
@@ -150,9 +174,107 @@ class MarketListStore {
         this.selectedCoin = item;
     }
 
+    /**
+     * 排序
+     */
     @action
-    reset(){
+    sortByCondition(field) {
+        // 默认降序
+        let tradeCoins = [];
+        let type;
 
+        if (this.sortByKey == field) {
+            type = this.sortByType == 'desc' ? 'asc' : 'desc';
+        } else {
+            type = 'desc';
+        }
+
+        // 遍历，1. 按成交量降序排列，2. 按最新成交价降序排序
+        tradeCoins = this.tradeCoins.sort((a, b) => {
+            if (type === 'asc') {
+                return a[field] - b[field];
+            } else {
+                return b[field] - a[field];
+            }
+        });
+
+        this.sortByType = type;
+        this.sortByKey = field;
+        this.tradeCoins = tradeCoins;
+    }
+    /**
+     * 只查看收藏
+     */
+    @action
+    filterCollectCoins (checked) {
+        const data = this.collectCoinsList;
+        let tradeCoins = [];
+
+        this.onlyCollectedCoins = checked;
+
+        if (!checked) {
+            if (this.searchValue) {
+                tradeCoins = this.tradeCoinsSearched;
+            } else {
+                tradeCoins = [...this.cacheCoins];    
+            }
+        } else{
+            tradeCoins = this.tradeCoins.filter((item) => {
+                return data.some((_item) => {
+                    return _item.tradeCurrencyId === item.currencyId && _item.baseCurrencyId === item.baseCurrencyId
+                })
+            })
+
+            this.tradeCoinsCollected =  tradeCoins;
+        }
+
+        this.tradeCoins = tradeCoins;
+    }
+
+    /**
+     * 搜索
+     */
+    @action
+    filterByName (name) {
+        let tradeCoins = [], tradeCoinsTemp = [];
+
+        this.searchValue = name;
+
+        if (this.onlyCollectedCoins) {
+            tradeCoinsTemp = this.tradeCoinsCollected; 
+        } else {
+            tradeCoinsTemp = [...this.cacheCoins];        
+        }
+
+        if (name) {
+            name = name.toLowerCase();
+
+            tradeCoinsTemp.forEach((item, index) => {
+                if (item.currencyNameEn.toLowerCase().indexOf(name) > -1) {
+                    tradeCoins[tradeCoins.length] = item;
+                }
+            });
+
+            this.tradeCoinsSearched = tradeCoins;
+        } else {
+            tradeCoins = tradeCoinsTemp;
+        }
+
+        this.tradeCoins = tradeCoins;
+    }
+
+    @action
+    toggleCollectCoin(data) {
+        
+        toDo = data.selected ? cancleOptional : addOptional;
+        
+        toDo(data).then((res)=>{
+            if (res.status !== 200) {
+                console.error(res.message);
+            }
+
+            this.getCollectCoinsList();
+        });        
     }
 }
 

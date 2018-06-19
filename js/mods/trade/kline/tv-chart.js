@@ -142,11 +142,11 @@ class TVChartContainer extends Component {
         }
 
         locale = this.getLocale();
-        interval = this.getIntervalByPeriod();
+        // interval = this.getIntervalByPeriod();
         baseCurrencyNameEn = getTradeCoinById(baseCurrencyId).currencyNameEn;
         currencyNameEn = getTradeCoinById(currencyId).currencyNameEn;
 
-        // interval = '1D';
+        interval = '1D';
 
         let currentSymbolName = `${currencyNameEn}/${baseCurrencyNameEn}`;
 

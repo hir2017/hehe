@@ -422,9 +422,9 @@ Zepto不支持旧版本的Internet Explorer浏览器(<10)。
         * 提交后创建充值单，显示订单信息
         * 点击充值完成后进入资产变更记录页面
     * 接口
-        * 新增获取用户资金可用余额接口：[`/rechargeWithdraw/getUserAvailableAmount`] ()
-        * 新增获取用户已绑定的银行卡接口：[`/card/getBindBankCardInfo`] ()
-        * 新增获创建充值订单第三方接口：[`https://gate.pepay.com.tw/pepay/payselect_amt.php`] ()
+        * 新增获取用户资金可用余额接口：[`/rechargeWithdraw/getUserAvailableAmount`]()
+        * 新增获取用户已绑定的银行卡接口：[`/card/getBindBankCardInfo`]()
+        * 新增获创建充值订单第三方接口：[`https://gate.pepay.com.tw/pepay/payselect_amt.php`]()
 
 * 提现
     * 提现条件
@@ -698,14 +698,32 @@ Zepto不支持旧版本的Internet Explorer浏览器(<10)。
 		* 问题反馈: [user/ask](RAP缺)
 
 
-### 交易中心
+### 交易中心[QA可测试]
 
+* 委托历史	
+	* 委托历史【买入、卖出】。按时间近-》远顺序。显示100条 
+	* 接口：
+		* 交易历史：[tradeHistory](http://13.251.82.20:8080/workspace/myWorkspace.do?projectId=2#142)	
+* 委托队列
+	* 买入队列【100条】
+	* 卖出队列【100条】
+	* 当同时展示【买入、卖出】时，显示10条记录
+	* 接口：
+		* 委托队列：[entrust](http://13.251.82.20:8080/workspace/myWorkspace.do?projectId=2#143)
 * 委托订单
-
+	* 用户全部委托订单
+		* 实时更新最新委托中的订单。【用户下单之后，委托中订单记录实时展示】
+		* 撤销操作
+	* 接口：
+		* 第一次委托队列查询: [/user/getOrderList](http://13.251.82.20:8080/workspace/myWorkspace.do?projectId=2#155)
+		* 实时推送最新的委托信息：[userOrder](http://13.251.82.20:8080/workspace/myWorkspace.do?projectId=2#169)
 * 已完成订单
-	* 选择某个事件内的所有订单
+	* 选择某个时间内的所有订单
 		* 开始时间：startTime 2018-06-23
 		* 结束时间：endTime 2018-06-24
+	* 接口：
+		* 第一次查询所有完成订单: [/user/getTradeList](http://13.251.82.20:8080/workspace/myWorkspace.do?projectId=2#156)
+		* 实时推送最新的订单：[userTrade](http://13.251.82.20:8080/workspace/myWorkspace.do?projectId=2#170)
 
 -------
 

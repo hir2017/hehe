@@ -8,6 +8,7 @@ import NumberUtil from '../lib/util/number';
 
 // 默认10：全部，0：未成交，1：部分成交，2：全部成交，3：委托失败，4：已撤单，11：部分完成或未完成，12：新全部历史记录
 const statusList = [2]; // 委托历史处理的状态订单列表
+
 class OrderStore {
 	@observable orderList = [];
 	@observable current = 1; // 当前页数

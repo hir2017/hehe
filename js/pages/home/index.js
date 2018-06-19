@@ -41,42 +41,38 @@ class Home extends Component {
 }
 
 
-@inject('authStore', 'marketListStore')
+@inject('authStore', 'homeStore')
 @observer
 class HomeContent extends Component {
     constructor(props){
         super(props);
-        // this.filterCoin = this.filterCoin.bind(this)
-        // this.sortCoin = this.sortCoin.bind(this)
     }
 
     componentDidMount() {
-        this.props.marketListStore.getData();        
-        // this.props.homeStore.getAllCoins();
-        // this.props.homeStore.getCollectCoinsList();
+        this.props.homeStore.getData();        
     }
 
-    // filterCoin (name) {
-    //     this.props.homeStore.filterCoin(name)
-    // }
-
-    // sortCoin (field, type) {
-    //     this.props.homeStore.sortCoins(field, type)
-    // }
-
     render() {
-        let store = this.props.marketListStore;
+        let store = this.props.homeStore.marketListStore;
 
-        return (
-            <div className="home-wrapper">
-            	{ !this.props.authStore.isLogin ? <LoginGuide/> : null }
-                <Banner/>
-                <NoticeList/>
-                { store.hotCoins.length > 0 ? <HotMarkets/> : null }
-                { store.tradeCoins.length > 0  ? <IndexMarkets/>: null }
-                <Features/>
-            </div>
-        );
+        if (store.dataReady) {
+            return (
+                <div className="home-wrapper">
+                    { !this.props.authStore.isLogin ? <LoginGuide/> : null }
+                    <Banner/>
+                    <NoticeList/>
+                    { store.hotCoins.length > 0 ? <HotMarkets/> : null }
+                    { store.cacheCoins.length > 0  ? <IndexMarkets/>: null }
+                    <Features/>
+                </div>
+            )
+        } else {
+            return (
+                <div className="home-wrapper">
+                    <div className="mini-loading"></div>;
+                </div>   
+            )
+        }
     }
 }
 

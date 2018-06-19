@@ -321,6 +321,12 @@
     padding-right: 10px;
 }
 
+.index-markets-left .coin-line-box{
+    height: 280px;
+    width: 280px;
+    margin: 0 auto;
+}
+
 
 .index-markets-right .coin-list-title {
     position: absolute;
@@ -345,6 +351,32 @@
 
 .index-markets-right .coin-list-title>span:last-child {
     width: 220px;
+}
+.index-markets-right .coin-list-content tr:nth-child(even){
+    background-color: #f8f7fc;
+}
+.index-markets-right .coin-list-content .name{ 
+    width: 10%;
+}
+
+.index-markets-right .coin-list-content .name .symbol:hover{
+    text-decoration: underline;
+}
+
+.index-markets-right .coin-list-content .amount{
+    width: 20%;
+}
+
+.index-markets-right .coin-list-content .rate{
+    width: 20%;
+}
+
+.index-markets-right .coin-list-content .volume{
+    width: 20%;
+}
+
+.index-markets-right .coin-list-content .action{
+    width: 10%;
 }
 
 .index-markets-right table {
@@ -382,12 +414,6 @@
     color: #333333;
 }
 
-
-.index-markets-right .coin-line-box {
-    height: 280px;
-    width: 280px;
-    margin: 0 auto;
-}
 
 .index-markets-right .anticon-star {
     color: #e6bc1d;

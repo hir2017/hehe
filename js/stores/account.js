@@ -56,12 +56,14 @@ class Account {
         let coinList = [];
 
         if (filterZero) {
-            accountData.coinList.forEach((item, index) => {
-                if (item.amount > 0) {
-                    coinList[coinList.length] = item;
-                }
-            });
-            accountData.coinList = coinList;
+            if (accountData && accountData.coinList.length > 0) {
+                accountData.coinList.forEach((item, index) => {
+                    if (item.amount > 0) {
+                        coinList[coinList.length] = item;
+                    }
+                });
+                accountData.coinList = coinList;
+            }
         }
 
         this.accountData = accountData;
@@ -143,7 +145,7 @@ class Account {
                 })
             })
             .catch(() => {
-                
+
             })
     }
 }

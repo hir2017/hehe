@@ -8,11 +8,11 @@ import React, {Component} from 'react';
 import { observer, inject } from 'mobx-react';
 import Item from './item';
 
-@inject('marketListStore')
+@inject('homeStore')
 @observer
 class HotMarkets extends Component{
 	render() {
-		let store = this.props.marketListStore;
+		let store = this.props.homeStore.marketListStore;
 		
 		return (
 			<div className="hot-markets">
