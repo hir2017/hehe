@@ -424,11 +424,13 @@ class UserInfo {
 
     @action
     async phoneSwitch(smsCode, status) {
+        let result = false;
         try {
             this.submit_loading = true
             const res = await phoneAuthSwitch(smsCode, status)
             this.submit_loading = false
             if (res.status === 200) {
+                result = true;
                 message.success(UPEX.lang.template('修改成功'))
             } else {
                 message.error(res.message)
@@ -438,6 +440,7 @@ class UserInfo {
             console.error(e)
             message.error('Network Error')
         }
+        return false
     }
 
     @action
