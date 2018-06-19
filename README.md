@@ -656,7 +656,7 @@ Zepto不支持旧版本的Internet Explorer浏览器(<10)。
 				* 旧的手机短信验证码 ＝》若没有开启了Google验证码
 		* 绑定了手机号自动开启登录手机认证
 		* 用户可以关闭登录手机认证
-		* 登录手机认证和谷歌认证不能同时关闭
+			* 登录手机认证和谷歌认证不能同时关闭
 	* 接口：
 		* 修改手机号：[user/modifyPhoneAction](RAP缺)
 		* 绑定手机号：[/user/bindPhoneOrEmailAction](http://13.251.82.20:8080/workspace/myWorkspace.do?projectId=2#164)

@@ -33,10 +33,26 @@ class List extends Component {
 				<ul className="list">
 					{
 						store.orderList.map((item, index)=>{
+							let status;
+							
+							switch(item.confirms){
+								case 'Success':
+									status =  UPEX.lang.template('成功');
+									break;
+								case 'Reject':
+									status =  UPEX.lang.template('拒绝');
+									break;
+								case 'Verify':
+									status =  UPEX.lang.template('审核中');
+									break;
+								default:
+									// 数字：网络确认数
+									status = item.confirms;
+							}
 							return (
 								<li key={index}>
 									<dl>
-										<dd className="status">{item.confirms}</dd>
+										<dd className="status">{status}</dd>
 										<dd className="name">{item.currencyNameEn}</dd>
 										<dd className="num">{item.amount}</dd>
 										<dd className="time">{item.createTime}</dd>
