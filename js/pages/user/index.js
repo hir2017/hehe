@@ -48,8 +48,8 @@ class UserPage extends Component {
                     text: UPEX.lang.template('密码设置')
                 },
                 {
-                    active: 'bindingPhone',
-                    route: '/user/bindingPhone',
+                    active: 'binding-phone',
+                    route: '/user/binding-phone',
                     text: UPEX.lang.template('手机绑定')
                 },
                 {
@@ -88,7 +88,7 @@ class UserPage extends Component {
                     <div className="aside-left">
                         <div className="info">
                             <p className="name">{store.userInfo ? (store.userInfo.phone || store.userInfo.email) : '--'}</p>
-                            <p className="id">UID:{store.userInfo.uid + ''}</p>
+                            <p className="id">UID:{store.userInfo ? store.userInfo.uid + '' : ''}</p>
                         </div>
                         <div className="menu">
                             {this.navData.map((item, i) => {

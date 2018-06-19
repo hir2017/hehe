@@ -5,7 +5,7 @@
  */
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
-import BindingPhone from '../../mods/bindingPhone';
+import BindingPhone from '../../mods/binding-phone';
 
 import PageWrapper from '../../common-mods/page-user/page-wrapper';
 

@@ -81,14 +81,7 @@ export default class BindingPhone extends Component {
                 </Option>
             );
         });
-        /*
-            state = {
-                vCode: '',
-                ivCode: '',
-                areacode: '',
-                evCode: ''
-            };
-        */
+
         const getProp = createGetProp(this);
         const inputsData = {
             phone: {
