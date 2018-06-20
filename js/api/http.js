@@ -625,7 +625,7 @@ export function addAsk(detail, urlkey) {
 export function getQuestions(pageNumber) {
     return axios.post(`${UPEX.config.host}/user/questions`, {
         size: 10,
-        status: 1,
+        // status: 1,
         start: pageNumber
     }).then(res => res.data);
 }
