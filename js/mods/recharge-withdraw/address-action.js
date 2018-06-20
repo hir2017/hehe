@@ -48,13 +48,13 @@ export default (store) => {
             let result = store.verifyInfoBeforeSubmit();
 
             if (result.pass) {
-            	
+
             	if (store.$submiting) {
             		return;
             	}
 
             	store.changeSubmitingStatusTo(true);
-                
+
                 // 验证通过
                 addWithdrawAddress({
                     address: store.address,
@@ -63,7 +63,6 @@ export default (store) => {
                     currencyId: store.currencyId
                 }).then((data) => {
                 	store.changeSubmitingStatusTo(false);
-
                     switch (data.status) {
                         case 200:
                             message.success(UPEX.lang.template('提币地址添加成功'));
@@ -77,10 +76,10 @@ export default (store) => {
                             message.error(UPEX.lang.template('交易密码输入错误'));
                             break;
                         default:
-                            message.eror(data.message);
+                            message.error(data.message);
                             break;
                     }
-                }).catch(()=>{
+                }).catch((e)=>{
                 	store.changeSubmitingStatusTo(false);
                 })
             } else {
