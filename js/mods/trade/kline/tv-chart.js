@@ -79,8 +79,6 @@ class TVChartContainer extends Component {
             text: UPEX.lang.template('1mon')
         }];
 
-
-
         this.defaultThemes = {
             "light": {
                 url: "./bundles/day.css",
@@ -138,16 +136,14 @@ class TVChartContainer extends Component {
         }
 
         locale = this.getLocale();
-        // interval = this.getIntervalByPeriod();
+        interval = this.getIntervalByPeriod();
         baseCurrencyNameEn = getTradeCoinById(baseCurrencyId).currencyNameEn;
         currencyNameEn = getTradeCoinById(currencyId).currencyNameEn;
 
-        interval = '1D';
-
         let currentSymbolName = `${currencyNameEn}/${baseCurrencyNameEn}`;
-
+        console.log(interval);
 		var cfg = {
-            debug: true,
+            debug: false,
             symbol: currentSymbolName, // 商品名称
             // 让图表占据所有可用的空间
             fullscreen: true,
@@ -173,8 +169,7 @@ class TVChartContainer extends Component {
             datafeed: new UDFCompatibleDatafeed({
                 currencyNameEn,
                 baseCurrencyNameEn,
-                pointPrice:  getPointPrice(currencyNameEn),
-                interval: interval,
+                pointPrice:  getPointPrice(currencyNameEn)
             }),
             // datafeed: new Datafeeds.UDFCompatibleDatafeed(UPEX.config.host + '/quote/klineHistory'),
             overrides: this.getOverridesByTheme(theme),
@@ -288,8 +283,7 @@ class TVChartContainer extends Component {
 
                             UPEX.cache.setCache('kline/resolution', {
                                 resolution: item.resolution,
-                                chartType: item.chartType || 1,
-                                slug: item.slug
+                                chartType: item.chartType || 1
                             });
 				        })
 				        .append($('<span>' + item.text + '</span>'));
@@ -313,15 +307,15 @@ class TVChartContainer extends Component {
                     console.log('--------------', interval, obj);
     				widget.changingInterval = false;
 
-                    buttons.forEach(function(item) {
-                        let current = widget.selectedIntervalClass === `interval-${interval}-1`;
+                    buttons.forEach(function(item){
+                        let current = widget.selectedIntervalClass === `interval-${item.data('resolution')}-${item.data('charttype')}`;
 
                         if (current){
                             item.addClass('selected');
                         } else {
                             item.removeClass('selected');
                         }
-                    });
+                    })
 
                     if (1 * interval != 1 ) {
 
@@ -338,7 +332,7 @@ class TVChartContainer extends Component {
                     console.log(interval, obj);
 				})
 
-                widget.chart().setChartType(3); // 设置线图类型的
+                widget.chart().setChartType(currentPeroid.chartType); // 设置线图类型的
                 // 默认隐藏绘图工具栏
                 widget.chart().executeActionById("drawingToolbarAction");
             });
@@ -401,30 +395,16 @@ class TVChartContainer extends Component {
 
 		return lang;
 	}
-
+    /**
+     * 服务器端请求的周期
+     */
 	getIntervalByPeriod() {
         let cachePeriod = UPEX.cache.getCache('kline/resolution');
         let currentPeroid = cachePeriod ? cachePeriod : this.timeline[0];
-        let slug = currentPeroid.slug;
-        var result = slug.match(/^(\d+)(s|min|hour|day|mon|week|year)$/);
-        var num = result[1];
+        
+        let resolution = currentPeroid.resolution;
 
-        switch (result[2]) {
-            case "s":
-                return  num + "S";
-            case "hour":
-                return "" + 60 * num;
-            case "day":
-                return num + "D";
-            case "week":
-                return 7 * parseInt(num, 10) + "D";
-            case "mon":
-                return num + "M";
-            case "year":
-                return 12 * parseInt(num, 10) + "M";
-            default:
-                return num;
-        }
+        return resolution;
 	}
 
 	getOverridesByTheme(theme) {
@@ -539,11 +519,11 @@ class TVChartContainer extends Component {
                                    <label>{ store.currencyNameEn }</label>
                                    <Icon type="caret-down" style={arrowCls} />
                                </Popover>
-                               <em>{ store.currentTradeCoin.currentAmount }</em>
+                               <em>{ store.currentTradeCoin.currentAmountText }</em>
                            </li>
                         <li>
                             <label>{ UPEX.lang.template('涨幅') }</label>
-                            <em>{ store.currentTradeCoin.changeRateText }</em>
+                            <em className={store.currentTradeCoin.changeRate >= 0 ? 'greenrate': 'redrate'}>{ store.currentTradeCoin.changeRateText }</em>
                         </li>
                         <li>
                             <label>{ UPEX.lang.template('高')}</label>

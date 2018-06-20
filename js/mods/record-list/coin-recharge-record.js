@@ -34,23 +34,21 @@ class List extends Component {
 					{
 						store.orderList.map((item, index)=>{
 							// 状态备用
-							let status;
-
-							switch(item.status) {
-								case 1:
-									status = UPEX.lang.template('充值中');
+							let status = '';
+							
+							switch(item.confirms){
+								case 'success':
+									status =  UPEX.lang.template('成功');
 									break;
-								case 2:
-									status = UPEX.lang.template('充值成功');
-									break;
-								case 3:
-									status = UPEX.lang.template('充值失败');
-									break;
+								default:
+									// 数字：网络确认数
+									status = UPEX.lang.template('充币中');
 							}
+
 							return (
 								<li key={index}>
 									<dl>
-										<dd className="status">{item.confirms}</dd>
+										<dd className="status">{status}</dd>
 										<dd className="name">{item.currencyNameEn}</dd>
 										<dd className="num">{item.coinNum}</dd>
 										<dd className="time">{item.createTime}</dd>

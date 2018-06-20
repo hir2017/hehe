@@ -22,7 +22,7 @@ class CustomTooltip extends Component {
 		        		</li>
 		        		<li>
 		        			<label>{UPEX.lang.template('累计')}:</label>
-		        			<em>{payload[0] ? payload[0].value : ''}</em>
+		        			<em>{payload && payload[0] ? payload[0].value : ''}</em>
 		        		</li>
 		        	</ul>
 		        </div>

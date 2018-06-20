@@ -127,7 +127,7 @@ class TradeContent extends Component {
                                                 </div>
                                             ) : null
                                         }
-                                        <div className={ store.currentTradeCoin.changeRate >= 0 ? 'trade-current-amount greenrate': 'trade-current-amount redrate'}>{store.currentTradeCoin.currentAmount}</div>
+                                        <div className={ store.currentTradeCoin.changeRate >= 0 ? 'trade-current-amount greenrate': 'trade-current-amount redrate'}>{store.currentTradeCoin.currentAmountText}</div>
                                         {
                                             store.type !==  'sell' ? (
                                                 <div className="trade-sell-box">

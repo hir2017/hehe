@@ -33,14 +33,33 @@ class List extends Component {
 				<ul className="list">
 					{
 						store.orderList.map((item, index)=>{
+							// 状态备用
+							let status = '';
+							
+							switch (item.confirms){
+								case 'Success':
+									status =  UPEX.lang.template('成功');
+									break;
+								case 'Reject':
+									status =  UPEX.lang.template('拒绝');
+									break;
+								case 'Verify':
+									status =  UPEX.lang.template('审核中');
+									break;
+								default:
+									// 数字：网络确认数
+									status = UPEX.lang.template('提币中');
+							}
+
 							return (
 								<li key={index}>
 									<dl>
-										<dd className="status">{item.confirms}</dd>
+										<dd className="status">{status}</dd>
 										<dd className="name">{item.currencyNameEn}</dd>
 										<dd className="num">{item.amount}</dd>
 										<dd className="time">{item.createTime}</dd>
-										<dd className="address">{item.fee}</dd>
+										<dd className="fee">{item.fee}</dd>
+										<dd className="address">{UPEX.lang.template('地址')} : {item.address}</dd>
 									</dl>
 								</li>
 							)
@@ -60,7 +79,8 @@ class List extends Component {
 								<th className="name">{UPEX.lang.template('币种')}</th>
 								<th className="num">{UPEX.lang.template('数量')}</th>
 								<th className="time">{UPEX.lang.template('时间')}</th>
-								<th className="address">{UPEX.lang.template('手续费')}</th>
+								<th className="fee">{UPEX.lang.template('手续费')}</th>
+								<th className="address">{UPEX.lang.template('信息')}</th>
 							</tr>
 						</tbody>
 					</table>
