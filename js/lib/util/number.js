@@ -125,11 +125,11 @@ const NumberUtil = {
     },
     /**
      * 保留小数位
-     * roundtag:舍入参数，默认 "ceil" 向上取, "floor"向下取, "round" 四舍五入
+     * roundtag:舍入参数，默认"round" 四舍五入； "ceil" 向上取, "floor"向下取, 
      */
-    asDecimal(number, decimals = 2, roundtag = 'floor') {
+    asDecimal(number, decimals = 2, roundtag = 'round') {
         number = (number + '').replace(/[^0-9+-Ee.]/g, '');
-        roundtag = roundtag || "floor";
+        roundtag = roundtag || "round";
         var n = !isFinite(+number) ? 0 : +number,
             prec = !isFinite(+decimals) ? 0 : Math.abs(decimals),
             dec = '.',
