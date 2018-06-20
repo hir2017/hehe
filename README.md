@@ -658,7 +658,7 @@ Zepto不支持旧版本的Internet Explorer浏览器(<10)。
 		* 用户可以关闭登录手机认证
 			* 登录手机认证和谷歌认证不能同时关闭
 	* 接口：
-		* 修改手机号：[user/modifyPhoneAction](RAP缺)
+		* 修改手机号：[user/modifyPhoneAction](http://13.251.82.20:8080/workspace/myWorkspace.do?projectId=2#124)
 		* 绑定手机号：[/user/bindPhoneOrEmailAction](http://13.251.82.20:8080/workspace/myWorkspace.do?projectId=2#164)
 			* type=1、手机注册用户
 		* 绑定手机发送短信验证码: [user/bindPhoneOrEmailSendCode](http://13.251.82.20:8080/workspace/myWorkspace.do?projectId=2#162)
