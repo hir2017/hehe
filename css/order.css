@@ -86,7 +86,6 @@
     text-align: right;
 }
 
-
 .order-header .filter-box ul {
     white-space: nowrap;
 }
@@ -120,7 +119,6 @@
 .order-table {
     margin-top: 20px;
 }
-
 
 .order-table .mini-tip {
     text-align: center;
@@ -178,6 +176,33 @@
 .order-main-box .inorout .sell {
     color: #ff3380
 }
+
+.order-table .action span {
+    cursor: pointer;
+}
+
+.order-table .detail-content {
+    display: none;
+    padding: 10px 10%;
+}
+
+.order-table .detail-content.show {
+    display: block;
+}
+
+
+.order-table .detail-content table,
+table .order-table .detail-content tr th,
+.order-table .detail-content table tr td {
+    border: 1px solid rgb(239, 239, 239);
+    text-align: center;
+}
+
+
+.order-table .detail-content tr th, .order-table .detail-content tr td{
+    padding: 4px 0;
+}
+
 /**
 * 委托中
 */
@@ -226,6 +251,7 @@
     color: #5581d8;
     display: inline-block;
 }
+
 /**
 * 已成交订单
 */
@@ -259,6 +285,7 @@
 .order-main-box .success-list-table .amount {
     width: 15%;
 }
+
 /**
 * 历史委托
 */

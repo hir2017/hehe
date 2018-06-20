@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import { Button, message, Select } from 'antd';
-import { Link } from 'react-router';
+import { Link, browserHistory } from 'react-router';
 import Vcodebutton from '../common/authcode-btn';
 const Option = Select.Option;
 
@@ -53,6 +53,19 @@ export default class ModifyPhone extends Component {
         this.props.captchaStore.fetch();
     }
 
+    checkPhone() {
+        const {phone} = this.state;
+        if(phone.length === 0) {
+            message.error(UPEX.lang.template('手机号不能为空') );
+            return false;
+        }
+        if(!UPEX.config.phoneReg.test(phone)) {
+            message.error(UPEX.lang.template('手机号格式错误'));
+            return false;
+        }
+        return true;
+    }
+
     submit() {
         const codeid = this.props.captchaStore.codeid;
         const captcha = this.props.captchaStore.captcha;
@@ -77,7 +90,11 @@ export default class ModifyPhone extends Component {
 
         const type = gaBindSuccess ? 1 : 2;
         const code = gaBindSuccess ? this.state.gaCode : this.state.vCode;
-        this.props.userInfoStore.newModifyPhone(this.state.nvCode, this.state.areacode + this.state.phone, code, type);
+        this.props.userInfoStore.newModifyPhone(this.state.nvCode, this.state.areacode + this.state.phone, code, type).then(data => {
+            if(data) {
+                browserHistory.push('/user/binding-phone');
+            }
+        })
     }
 
     render() {
@@ -150,6 +167,7 @@ export default class ModifyPhone extends Component {
                             phone={this.state.phone}
                             areacode={this.state.areacode}
                             modifyBind={true}
+                            beforeClick={this.checkPhone.bind(this)}
                             type={gaBindSuccess ? 1 : 2}
                             imgCode={this.state.ivCode}
                             codeid={codeid}

@@ -25,7 +25,7 @@ export default class extends Component {
                     <div style={{ padding: '20px', textIndent: '24px' }}>{question.detail}</div>
                     <div>
                         {question.urlkey.split(',').map((item, index) => {
-                            return <img key={index} src={UPEX.config.imgHost + '/' + item} />;
+                            return item ? <img key={index} src={UPEX.config.imgHost + '/' + item} /> : null;
                         })}
                     </div>
                 </div>

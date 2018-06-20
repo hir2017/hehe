@@ -56,9 +56,10 @@ export default class BindingBank extends Component {
             return;
         }
         const pwd = md5(this.state.pwd + UPEX.config.dealSalt + this.props.authStore.uid);
-        this.props.userInfoStore.fdPwdSwitch(pwd, this.state.checked ? 2 : 1).then(data => {
+        this.props.userInfoStore.fdPwdSwitch(pwd, this.state.checked ? 1 : 2).then(data => {
             let nextState = {
-                visible: false
+                visible: false,
+                pwd: '',
             }
             this.setState(nextState)
         });
@@ -66,14 +67,15 @@ export default class BindingBank extends Component {
 
     cancelHandle = () => {
         this.setState({
-            visible: false
+            visible: false,
+            pwd: '',
         });
     };
 
     render() {
         const loading = this.props.userInfoStore.submit_loading;
         const userInfo = this.props.userInfoStore.userInfo || {};
-        const isEnableFdPassword = userInfo.isEnableFdPassword === 2 ? true : false;
+        const isEnableFdPassword = userInfo.isEnableFdPassword !== 2 ? true : false;
         return (
             <div className="password-setting-box">
                 <div className="password">
@@ -141,7 +143,7 @@ export default class BindingBank extends Component {
                 >
                     <div>
                         <div className="item">
-                            <Input onChange={this.pwdChange} type="password" size="large" placeholder={UPEX.lang.template('请输入交易密码')} />
+                            <Input onChange={this.pwdChange}  value={this.state.pwd} type="password" size="large" placeholder={UPEX.lang.template('请输入交易密码')} />
                         </div>
                     </div>
                 </Modal>

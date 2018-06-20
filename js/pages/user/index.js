@@ -82,12 +82,13 @@ class UserPage extends Component {
     ];
     render() {
         const store = this.props.userInfoStore;
+        const userName = store.userInfo ? (store.userInfo.phone || store.userInfo.email) : '--';
         return (
             <div className="user-wrapper">
                 <div className="user-body-inner clearfix">
                     <div className="aside-left">
                         <div className="info">
-                            <p className="name">{store.userInfo ? (store.userInfo.phone || store.userInfo.email) : '--'}</p>
+                            <p className="name" title={userName}>{userName}</p>
                             <p className="id">UID:{store.userInfo ? store.userInfo.uid + '' : ''}</p>
                         </div>
                         <div className="menu">

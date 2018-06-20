@@ -37,6 +37,10 @@ export default class SettingTradingPassword extends Component {
     }
 
     async sendCode() {
+        const {beforeClick} = this.props;
+        if(beforeClick && !beforeClick()) {
+            return
+        }
         if (!this.props.imgCode && !this.props.phoneAuth) {
             message.error(UPEX.lang.template('图片验证码不能为空'))
             return
@@ -49,6 +53,7 @@ export default class SettingTradingPassword extends Component {
             message.error(UPEX.lang.template(this.props.message))
             return
         }
+
         let res
         if (this.props.modifyBind) {
             //修改手机发送验证码
