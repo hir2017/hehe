@@ -2,7 +2,7 @@
  * 我的订单－委托中订单
  */
 import { observable, autorun, computed, action, runInAction } from 'mobx';
-import { getUserHistoryOrderList } from '../api/http';
+import { getUserHistoryOrderList, getUserHistoryOrderDetail } from '../api/http';
 import TimeUtil from '../lib/util/date';
 import NumberUtil from '../lib/util/number';
 
@@ -14,7 +14,7 @@ class OrderStore {
     @observable current = 1; // 当前页数
     @observable total = 0; // 总页数
     @observable isFetching = false;
-    
+
     pageSize = 10;
 
     constructor(stores) {
@@ -30,6 +30,25 @@ class OrderStore {
             baseCurrencyId: 0,
             priceType: 0
         }
+    }
+
+    @action
+    getDetail(index, item) {
+        getUserHistoryOrderDetail({
+            buyOrSell: '',
+            orderNo: item.orderNo,
+            type: '',
+        }).then((data) => {
+            runInAction(() => {
+                if (data.status == 200) {
+                    this.orderList[index].details = data.attachment.details || [];
+                }
+            })
+        }).catch((e) => {
+            runInAction(() => {
+                console.error(e)
+            })
+        })
     }
 
     @action
@@ -73,7 +92,8 @@ class OrderStore {
 
     parseItem(item) {
         item.orderTime = TimeUtil.formatDate(item.orderTime, 'yyyy-MM-dd HH:mm:ss');
-
+        item.display = false;
+        item.details = [];
         return item;
     }
 
@@ -86,11 +106,11 @@ class OrderStore {
             if (item.orderNo == data.orderNo) {
 
                 if (statusList.indexOf(data.status) > -1) {
-                    this.orderList[i] = this.parseItem(data);    
+                    this.orderList[i] = this.parseItem(data);
                 } else {
                     this.orderList.splice(i, 1);
                 }
-                
+
                 flag = true;
                 return false;
             }
@@ -98,7 +118,7 @@ class OrderStore {
 
         // 列表中没有，则新增
         if (!flag) {
-            
+
             if (statusList.indexOf(data.status) > -1) {
                 this.orderList.unshift(this.parseItem(data));
             }

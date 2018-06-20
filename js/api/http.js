@@ -436,6 +436,14 @@ export function getUserHistoryOrderList(data) {
     })).then(res => res.data);
 }
 /**
+ * 我的订单 —— 历史订单详情
+ */
+export function getUserHistoryOrderDetail(data) {
+    return axios.post(`${UPEX.config.host}/user/trOrderDetailByCustomer`, qs.stringify({
+        ...data
+    })).then(res => res.data);
+}
+/**
  * 我的订单 —— 已成交订单
  * @param {Object} data
  * @example {
