@@ -19,7 +19,7 @@ class LanguageSwitchView extends Component {
 		let $content;
 
 		$content = (
-			<dl className="language-menu-list">
+			<dl className="menu-list">
 				{
 					list.map((item, index)=>{
 						let selectedCls = item === commonStore.language ? ' selected' : '';
@@ -36,9 +36,9 @@ class LanguageSwitchView extends Component {
 
 		return (
 			<div className="language-menu">
-				<Popover content={$content} placement="bottom" getPopupContainer={this.props.root}>
+				<Popover content={$content} placement="bottomRight" getPopupContainer={this.props.root} overlayClassName="widget-tooltip">
 					<span className="langtxt">{ curLang.text }</span>
-					<Icon type="caret-down"/> 
+					<Icon type="down" style={{ fontSize: 14, color: '#ebeff5' }}/>
 				</Popover>
 			</div>
 		);

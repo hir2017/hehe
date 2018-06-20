@@ -325,6 +325,7 @@ export default (store) => {
                             token: data.attachment.token
                         });
                         break;
+                    case 20104: // 谷歌密碼輸入有誤
                     default:
                         message.error(data.message);
                 }

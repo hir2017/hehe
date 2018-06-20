@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { observer, inject } from 'mobx-react';
 import { Select } from 'antd';
 const Option = Select.Option;
-import { Link } from 'react-router';
+import { Link , browserHistory } from 'react-router';
 
 @inject('accountStore')
 @observer
@@ -10,6 +10,22 @@ class InfoView extends Component {
 	
 	handleAllMoney=(e)=>{
 		this.props.accountStore.handleVisibleMoney();
+	}
+
+	handleFiatRecharge=(e)=>{
+		browserHistory.push('/account/balance/recharge');
+	}
+
+	handleFiatWidthdraw=(e)=>{
+		browserHistory.push('/account/balance/withdraw');
+	}
+
+	handleCoinRecord=(e)=>{
+		browserHistory.push('/account/coinrecord');
+	}
+
+	handleFiatRecord=(e)=>{
+		browserHistory.push('/account/fiatrecord');
 	}
 
 	render() {
@@ -39,20 +55,20 @@ class InfoView extends Component {
                             <i className={store.visibleMoney ? 'open': 'close'} onClick={this.handleAllMoney}></i>
                         </div>
                         <div className="actions">
-                            <button className="btn">
-                            	<Link to="/account/balance/recharge">{ UPEX.lang.template('充值') }</Link>
+                            <button className="btn" onClick={this.handleFiatRecharge}>
+                            	{ UPEX.lang.template('充值') }
                             </button>
-                            <button className="btn">
-                            	<Link to="/account/balance/withdraw">{ UPEX.lang.template('提现') }</Link>
+                            <button className="btn" onClick={this.handleFiatWidthdraw}>
+                            	{ UPEX.lang.template('提现') }
                             </button>
                         </div>
                     </div>
                     <div className="account-record">
-                        <button className="btn">
-                        	<Link to="/account/coinrecord">{ UPEX.lang.template('数位资产记录') }</Link>
+                        <button className="btn" onClick={this.handleCoinRecord}>
+                        	{ UPEX.lang.template('数位资产记录') }
                         </button>
-                        <button className="btn">
-                        	<Link to="/account/fiatrecord">{ UPEX.lang.template('法币资金记录') }</Link>
+                        <button className="btn" onClick={this.handleFiatRecord}>
+                        	{ UPEX.lang.template('法币资金记录') }
                         </button>
                     </div>
 				</div>

@@ -8,20 +8,25 @@ import React, {Component} from 'react';
 import { observer, inject } from 'mobx-react'; 
 import { Carousel } from 'antd';
 
+const bannerImage = require('../../../../images/banner1.jpg');
+
 @observer
 class Banner extends Component {
 	static defaultProps = {
-		list: [
-			'http://g.cdn.pengpengla.com/oauthgame/html5/20180616/09a65ba31d08622bad561357ee747945.png'
-		]
+		list: [bannerImage]
 	}
 	render() {
 		let list = this.props.list;
+		let multi = false;
+
+		if (list.length > 1 ) {
+			multi = true;
+		}
 
 		return (
 			<div className="banner-wrapper">
 				<div className="slider"  ref='banner'>
-                    <Carousel autoplay dots={ list.length > 1 ? true : false}>
+                    <Carousel autoplay={multi} dots={multi}>
                     	{
                     		list.map((item, index)=>{
                     			return (

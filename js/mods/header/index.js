@@ -40,48 +40,28 @@ class HeaderView extends Component {
 
 	render() {
 		let { authStore, userInfoStore } = this.props;
-
-		const assetmenu = (
-	        <dl className="pop-menu-list">
-	          	<dd className="logined-header">
-	            	<Link className="logined-header-link" to="/account/assets">{ UPEX.lang.template('充币&提币') }</Link>
-	          	</dd>
-	          	<dd className="logined-header">
-	            	<Link className="logined-header-link" to="/account/coinrecord">{ UPEX.lang.template('充币记录') }</Link>
-	          	</dd>
-	           	<dd className="logined-header">
-	            	<Link className="logined-header-link" to="/account/coinrecord">{ UPEX.lang.template('提币记录')}</Link>
-	            </dd>
-	        </dl>
-	    );
-
-	    const ordermenu = (
-	    	<dl className="pop-menu-list">
-	          	<dd className="logined-header">
-	            	<Link className="logined-header-link" to="/account/record/open">{ UPEX.lang.template('当前委托') }</Link>
-	          	</dd>
-	          	<dd className="logined-header">
-	            	<Link className="logined-header-link" to="/account/record/history">{ UPEX.lang.template('委托历史') }</Link>
-	          	</dd>
-	           	<dd className="logined-header">
-	            	<Link className="logined-header-link" to="/account/record/success">{ UPEX.lang.template('已成交订单')}</Link>
-	            </dd>
-	        </dl>
-	    );
+		let username = '--';
 
 	    const usermenu = (
-	    	<dl className="pop-menu-list">
+	    	<dl className="menu-list">
 	          	<dd className="logined-header">
-	            	<Link className="logined-header-link" to="/user/settings">{ UPEX.lang.template('安全设置') }</Link>
+	            	<Link className="logined-header-link" to="/user">{ UPEX.lang.template('安全设置') }</Link>
 	          	</dd>
 	          	<dd className="logined-header">
-	            	<Link className="logined-header-link" to="/user/faq">{ UPEX.lang.template('FAQ') }</Link>
+	            	<Link className="logined-header-link" to="/account">{ UPEX.lang.template('资产管理') }</Link>
+	          	</dd>
+	          	<dd className="logined-header">
+	            	<Link className="logined-header-link" to="/account/record">{ UPEX.lang.template('订单中心') }</Link>
 	          	</dd>
 	           	<dd className="logined-header" onClick={this.logout}>
 	            	{ UPEX.lang.template('退出')}
 	            </dd>
 	        </dl>
 	    );
+
+	    if (userInfoStore.userInfo) {
+	    	username = userInfoStore.userInfo.phone || userInfoStore.userInfo.email || '--';
+	    } 
 
 		return (
 			<div className="app-header" id="J_AppHeader">
@@ -108,24 +88,22 @@ class HeaderView extends Component {
 						{
 							authStore.isLogin ? (
 								<ul>
-									<li ref="order">
-										<Link to="/account/record">{ UPEX.lang.template('订单明细')}</Link>
-									</li>
-									<li ref="assets">
-										<Link to="/account/assets">{ UPEX.lang.template('我的资产')}</Link>
-									</li>
+									{
+										// <li ref="order">
+										// 	<Link to="/account/record">{ UPEX.lang.template('订单明细')}</Link>
+										// </li>
+										// <li ref="assets">
+										// 	<Link to="/account/assets">{ UPEX.lang.template('我的资产')}</Link>
+										// </li>
+									}
 									<li ref="userinfo">
-										<ul>
-											<li className="username"><Link to="/user">{ userInfoStore.userInfo ? (userInfoStore.userInfo.phone || userInfoStore.userInfo.email) : '--' }</Link></li>
-											<li>|</li>
-											<li className="logout" onClick={this.logout}>
-								            	{ UPEX.lang.template('退出')}
-								            </li>
-							            </ul>
+										<Popover content={usermenu} placement="bottomRight" getPopupContainer={this.props.userinfo} overlayClassName="widget-tooltip">
+											<span className="usertxt">{ UPEX.lang.template('欢迎您，{name}', { name: username })}</span>
+										</Popover>
 									</li>
 								</ul>
 							) : ( 
-								<ul>
+								<ul className="login-register">
 									<li className="login">
 										<Link to="/login">{ UPEX.lang.template('登录')}</Link>
 									</li>
@@ -136,10 +114,12 @@ class HeaderView extends Component {
 								</ul>	
 							)
 						}
-						<ul>
+						<ul className="help-language">
+							<li className="split">|</li>
 							<li className="help">
 								<Link to="/help">{ UPEX.lang.template('帮助中心')}</Link>
 							</li>
+							<li className="split">|</li>
 							<li ref="lang">
 								<LanguageSwitchView root={()=>this.refs.lang}/>
 							</li>

@@ -86,6 +86,14 @@ class AssetsListView extends Component {
 			message.error(UPEX.lang.template('请先进行KYC1认证'));
 		}
 	}
+
+	handleCoinWithdraw=(item, e)=>{
+		browserHistory.push(`/account/coin/withdraw/${item.currencyNameEn}`);
+	}
+
+	handleCoinTrade=(item, e)=>{
+		browserHistory.push(`/trade/TWD_${item.currencyNameEn}`);
+	}
 	
 	render() {
 		return (
@@ -107,20 +115,12 @@ class AssetsListView extends Component {
 										<button onClick={this.handleCoinRecharge.bind(this, item)}>
 											{UPEX.lang.template('充币')}
 										</button>
-										<button>
-											<Link to={`/account/coin/withdraw/${item.currencyNameEn}`}>
+										<button onClick={this.handleCoinWithdraw.bind(this, item)}>
 											{UPEX.lang.template('提币')}
-											</Link>
 										</button>
-										{
-											item.currencyNameEn !=='TWD' ? (
-												<button>
-													<Link to={`/trade/TWD_${item.currencyNameEn}`}>
-													{UPEX.lang.template('交易')}
-													</Link>
-												</button>
-											) : null
-										}
+										<button onClick={this.handleCoinTrade.bind(this, item)}>
+											{UPEX.lang.template('交易')}
+										</button>
 									</dd>
 								</dl>
 							</li>

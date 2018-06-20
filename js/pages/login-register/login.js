@@ -91,6 +91,12 @@ class Login extends Component {
                         case 200:
                             browserHistory.push('/home');
                             break;
+                        case 5556:
+                            this.setState({
+                                step: 'login'
+                            });
+                            // 驗證碼過期，請重新登入
+                            break;
                         default:
                             this.setState({
                                 loginErrorText: data.message

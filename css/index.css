@@ -21,8 +21,8 @@
 .banner-wrapper .slider {
     overflow: hidden;
     position: relative;
-    height: 340px;
-    min-width: 1300px;
+    height: 440px;
+    min-width: 1200px;
     background-size: cover;
     background-position: 50%;
     margin: 0 auto;
@@ -52,10 +52,39 @@
     margin-right: 10px;
 }
 
+.loginguide-wrapper li label{
+    font-size: 14px;
+    font-weight: bold;
+}
+
 .loginguide-wrapper li a,
 .loginguide-wrapper li a:hover {
     color: #e6bc1d;
     padding: 0 5px;
+}
+
+.loginguide-wrapper li button{
+    background: transparent;
+    border: 0 none;
+    color: #e6bc1d;
+    padding: 0 5px;
+}
+
+.loginguide-wrapper li button.register-btn:hover{
+    text-decoration: underline;
+}
+
+.loginguide-wrapper li button.login-btn{
+    background-color: #e8b802;
+    color: #333333;
+    text-align: center;
+    line-height: 24px;
+    height: 24px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 20px;
+    border-radius: 4px;
+    padding: 0 15px;
 }
 
 

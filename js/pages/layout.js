@@ -30,7 +30,7 @@ class Layout extends Component {
         
         if (commonStore.isTradeCenter) {
             return (
-                <div>
+                <div className="app-trade">
                     <Header/>
                     <div className="app-content">
                         { this.props.children }
@@ -44,7 +44,6 @@ class Layout extends Component {
                     <div className="app-content">
                         { this.props.children }
                     </div>
-
                     <Footer/>
                 </div> 
             );

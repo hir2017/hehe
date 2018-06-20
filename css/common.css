@@ -67,6 +67,7 @@ select:-webkit-autofill {
 }
 
 
+
 /**
  * 重写antd颜色
  */
@@ -138,6 +139,48 @@ body .ant-radio-button-wrapper-checked:first-child {
     border-color: #e6bc1d;
 }
 
+.widget-tooltip .ant-popover-inner-content {
+    padding: 12px 0;
+}
+
+
+.widget-tooltip .menu-list dd {
+    position: relative;
+    padding: 6px 15px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #999999;
+    text-align: center;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.widget-tooltip .menu-list dd:last-child {
+    border-bottom: 0 none;
+}
+
+
+.widget-tooltip .menu-list dd.selected {
+    color: #cc9900;
+}
+
+
+.widget-tooltip .menu-list dd a,
+.widget-tooltip .menu-list dd a:hover {
+    color: #999999;
+    text-decoration: none;
+}
+
+.widget-tooltip .menu-list dd:last-child {
+    border-bottom: 0 none;
+}
+
+.widget-tooltip .menu-list dd.selected {
+    color: #cc9900;
+}
+
+
+
+
 
 /**
  * 页面头部
@@ -154,17 +197,16 @@ body .ant-radio-button-wrapper-checked:first-child {
 }
 
 .header-box {
-    /* width: 1200px; */
-    padding: 0 10px;
+    width: 1200px;
     margin: 0 auto;
+    padding: 0 10px;
     font-size: 16px;
 }
 
-.header-box a,
-.header-box a:hover {
-    text-decoration: none;
-    color: #fff;
+.app-trade .header-box {
+    width: 100%;
 }
+
 
 .header-box .logo {
     float: left;
@@ -203,12 +245,9 @@ body .ant-radio-button-wrapper-checked:first-child {
 
 .header-box .header-box-r li {
     float: left;
-    margin-right: 30px;
+    padding: 0 5px;
     line-height: 60px;
-}
-
-.header-box .header-box-r li ul li {
-    margin-right: 10px;
+    color: #999;
 }
 
 .header-box .header-box-r li ul li.username a {
@@ -219,6 +258,26 @@ body .ant-radio-button-wrapper-checked:first-child {
 .header-box .header-box-r li ul li.logout {
     cursor: pointer;
 }
+
+.header-box .header-box-r li.split{
+    font-size: 10px;
+    width: 20px;
+    text-align: center;
+}
+
+
+.header-box .header-box-l a,
+.header-box .header-box-l a:hover {
+    text-decoration: none;
+    color: #fff;
+}
+
+.header-box .header-box-r a,
+.header-box .header-box-r a:hover {
+    text-decoration: none;
+    color: #999;
+}
+
 
 .header-box .theme-menu {
     line-height: 60px;
@@ -241,6 +300,7 @@ body .ant-radio-button-wrapper-checked:first-child {
 .header-box .language-menu .langtxt {
     display: inline-block;
     vertical-align: middle;
+    color: #cc9900;
 }
 
 .header-box .language-menu .anticon {
@@ -250,46 +310,9 @@ body .ant-radio-button-wrapper-checked:first-child {
 }
 
 
-.header-box .pop-menu-list dd {
-    position: relative;
-    padding: 6px 0;
+.header-box .usertxt {
     cursor: pointer;
-    font-size: 14px;
-    border-bottom: 1px solid #e2e2e2;
 }
-
-.header-box .pop-menu-list dd a,
-.header-box .pop-menu-list dd a:hover {
-    color: rgba(0, 0, 0, 0.65);
-}
-
-.header-box .pop-menu-list dd:last-child {
-    border-bottom: 0 none;
-}
-
-.header-box .pop-menu-list dd.selected {
-    color: #fb7e3e;
-}
-
-
-.header-box .language-menu-list dd {
-    position: relative;
-    padding: 6px 0;
-    cursor: pointer;
-    font-size: 14px;
-    border-bottom: 1px solid #e2e2e2;
-}
-
-.header-box .language-menu-list dd:last-child {
-    border-bottom: 0 none;
-}
-
-.header-box .language-menu-list dd.selected {
-    color: #fb7e3e;
-}
-
-
-
 
 /**
  * 页脚
@@ -480,6 +503,7 @@ button>a {
     left: -10px;
     top: 14px;
 }
+
 
 
 
