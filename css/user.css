@@ -28,8 +28,13 @@
     margin-bottom: 20px;
     padding: 20px;
 }
+.aside-left .info .name {
+    width: 160px;
+}
+
 .aside-left .info .name, .aside-left .info .id {
     text-overflow: ellipsis;
+    overflow: hidden;
 }
 .aside-left .info .name {
     font-size: 15px;
