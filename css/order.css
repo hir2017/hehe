@@ -299,7 +299,7 @@ table .order-table .detail-content tr th,
 
 .order-main-box .success-list-table .amount {
     width: 15%;
-    text-align: left;
+    text-align: right;
 }
 
 /**

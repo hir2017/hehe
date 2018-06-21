@@ -88,6 +88,7 @@ class HeaderView extends Component {
 						</ul>
 					</div>
 					<div className="header-box-r">
+						<ThemeSwitchView/>
 						{
 							authStore.isLogin ? (
 								<ul>
@@ -126,7 +127,6 @@ class HeaderView extends Component {
 							<li ref="lang">
 								<LanguageSwitchView root={()=>this.refs.lang}/>
 							</li>
-							<ThemeSwitchView/>
 						</ul>
 					</div>
 				</div>

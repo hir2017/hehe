@@ -112,7 +112,7 @@ class OrderStore {
         // 委托价格
         item.price = NumberUtil.formatNumber(item.price, pointPrice);
         // 成交金额
-        item.tradeAmount = NumberUtil.formatNumber(item.tradeAmount, pointPrice);
+        item.tradeAmount = NumberUtil.formatNumber(item.tradeAmount || 0, pointPrice);
         // 成交价格
         item.tradePrice = NumberUtil.formatNumber(item.tradePrice, pointPrice);
         // 委托数量

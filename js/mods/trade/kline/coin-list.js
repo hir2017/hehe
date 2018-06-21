@@ -114,6 +114,7 @@ class CoinList extends Component {
                     <dl className="list">
                         {
                             store.tradeCoins.map((item, index) => {
+                                
                                 return (
                                     <dd key={item.id} className={`clearfix`}>
                                         <div className="cell star">

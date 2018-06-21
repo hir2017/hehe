@@ -28,6 +28,7 @@ class TradeRealTime extends Component {
 					<ul>
 						{
 							store.tradeHistory.content.map((item, index)=>{
+								let color = item.buyOrSell == 1 ? 'greenrate' : 'redrate';
 								return (
 									<li 
 										key={index} 
@@ -36,7 +37,7 @@ class TradeRealTime extends Component {
 										data-text={item.timeTextAll}
 									> 
 										<div className="time">{ item.timeText }</div>
-										<div className="price">{ item.current }</div>
+										<div className={`price ${color}`}>{ item.current }</div>
 										<div className="number">{ item.amount }</div>
 									</li>
 								)

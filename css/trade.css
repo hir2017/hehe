@@ -460,15 +460,6 @@ body .trade-main-chart .chart-menu li.selected{
     background: rgba(255, 51, 128, 0.14);
 }
 
-.trade-extra-list .list-box-l li[data-type="buy"] .price {
-    color: #00d02c;
-}
-
-.trade-extra-list .list-box-l li[data-type="sell"] .price {
-
-    color: #ff3380;
-}
-
 .trade-extra-list .list-box-l li .cell {
     cursor: pointer;
     position: relative;
@@ -594,14 +585,6 @@ body .trade-main-chart .chart-menu li.selected{
     width: 35%;
     float: left;
     text-align: right;
-}
-
-.trade-extra-list .list-box-r .table-bd ul li[data-type="buy"] .price {
-    color: #ff3380;
-}
-
-.trade-extra-list .list-box-r .table-bd ul li[data-type="sell"] .price {
-    color: #00d02c;
 }
 
 .trade-extra-list .trade-buy {}
