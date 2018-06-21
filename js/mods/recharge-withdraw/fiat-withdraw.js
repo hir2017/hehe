@@ -165,6 +165,7 @@ class FiatRechargeView extends Component {
             );
         } else {
             const SelectData = {
+                type: 'withdraw',
                 setVal: (val, field) => {
                     store.setVal(val, field);
                 },

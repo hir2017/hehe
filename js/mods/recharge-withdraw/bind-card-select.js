@@ -6,10 +6,8 @@ const Option = Select.Option;
 
 export default class CardSelect extends Component {
 
-
-
     render() {
-        const {labels, setVal, cards = [], count = 0} = this.props
+        const {type, labels, setVal, cards = [], count = 0} = this.props
         return (
             <div>
                 <div className="rw-form-item">
@@ -44,7 +42,9 @@ export default class CardSelect extends Component {
                             />
                             <i className="unit hidden">NT$</i>
                         </div>
-                        <div className="balance">{UPEX.lang.template('当前余额: NT${count}', { count })}</div>
+                        {
+                            type == 'withdraw' ? <div className="balance">{UPEX.lang.template('当前余额: NT${count}', { count })}</div> : null
+                        }
                     </div>
                 </div>
             </div>

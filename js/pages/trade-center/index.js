@@ -13,7 +13,7 @@ import HistoryOrder from '../../mods/trade/order/history-order';
 import MyOrder from '../../mods/trade/myorder/index';
 import TradeForm from '../../mods/trade/form/index';
 
-@inject('commonStore')
+@inject('commonStore', 'tradeStore')
 @observer
 class TradeCenter extends Component {
     componentWillMount() {
@@ -23,14 +23,14 @@ class TradeCenter extends Component {
     }
     
     render() { 
-        let { commonStore } = this.props;
+        let { commonStore, tradeStore } = this.props;
         
         // 用于切换交易币时内容切换
         if (commonStore.productDataReady) {
             return <TradeContent {...this.props}/>    
         } else {
             return (
-                <div className="trade-wrapper">
+                <div className="trade-wrapper" style={{ height: tradeStore.contentHeight + 30}} >
                     <div className="mini-loading"></div>
                 </div>   
             )

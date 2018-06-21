@@ -6,7 +6,7 @@ import { getUserOpenOrderList } from '../api/http';
 import TimeUtil from '../lib/util/date';
 import NumberUtil from '../lib/util/number';
 
-// 默认10：全部，0：未成交，1：部分成交，2：全部成交，3：委托失败，4：已撤单，11：部分完成或未完成，12：新全部历史记录
+// 默认10：全部，0：未成交，1：部分成交，2：全部成交，3：委托失败，4：全部撤单，5：部分成交后撤单、11：部分完成或未完成，12：新全部历史记录
 const statusList = [0, 1]; // 委托历史处理的状态订单列表.
 
 class OrderStore {

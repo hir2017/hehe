@@ -66,8 +66,8 @@ class List extends Component {
 								<li key={index}>
 									<dl>
 										<dd className="time">{item.orderTime}</dd>
-										<dd className="inorout">{item.buyOrSell == 1 ? <label className="buy">{UPEX.lang.template('买入')}</label>: <label className="sell">{UPEX.lang.template('卖出')}</label> }</dd>
 										<dd className="name">{item.currencyNameEn}</dd>
+										<dd className="inorout">{item.buyOrSell == 1 ? <label className="buy">{UPEX.lang.template('买入')}</label>: <label className="sell">{UPEX.lang.template('卖出')}</label> }</dd>
 										<dd className="num">{`${item.tradeNum}/${item.num}`}</dd>
 										<dd className="price">{item.price}</dd>
 										<dd className="rate">{item.tradeRate}</dd>
@@ -94,10 +94,10 @@ class List extends Component {
 							<tbody>
 								<tr>
 									<th className="time">{UPEX.lang.template('时间')}</th>
-									<th className="inorout">{UPEX.lang.template('买卖')}</th>
 									<th className="name">{UPEX.lang.template('币种')}</th>
+									<th className="inorout">{UPEX.lang.template('买卖')}</th>
 									<th className="num">{UPEX.lang.template('成交数量/委托数量')}</th>
-									<th className="price">{UPEX.lang.template('委托价格')}</th>
+									<th className="price">{UPEX.lang.template('委托价')}</th>
 									<th className="rate">{UPEX.lang.template('成交率')}</th>
 									<th className="amount">{UPEX.lang.template('成交金额')}</th>
 									<th className="status">{UPEX.lang.template('状态')}</th>

@@ -215,6 +215,7 @@ table .order-table .detail-content tr th,
 .order-main-box .open-list-table .time {
     width: 15%;
     text-align: left;
+    text-indent: 3px;
 }
 
 .order-main-box .open-list-table .name {
@@ -258,7 +259,7 @@ table .order-table .detail-content tr th,
 .order-main-box .open-list-table .action button {
     background: none;
     border: 0 none;
-    color: #5581d8;
+    color: #cc9900;
     display: inline-block;
 }
 
@@ -268,6 +269,8 @@ table .order-table .detail-content tr th,
 
 .order-main-box .success-list-table .time {
     width: 15%;
+    text-align: left;
+    text-indent: 3px;
 }
 
 .order-main-box .success-list-table .name {
@@ -277,7 +280,7 @@ table .order-table .detail-content tr th,
 
 .order-main-box .success-list-table .num {
     width: 15%;
-    text-align: center;
+    text-align: right;
 }
 
 .order-main-box .success-list-table .inorout {
@@ -286,14 +289,17 @@ table .order-table .detail-content tr th,
 
 .order-main-box .success-list-table .tradeprice {
     width: 20%;
+    text-align: right;
 }
 
 .order-main-box .success-list-table .fee {
     width: 15%;
+    text-align: right;
 }
 
 .order-main-box .success-list-table .amount {
     width: 15%;
+    text-align: left;
 }
 
 /**
@@ -302,6 +308,8 @@ table .order-table .detail-content tr th,
 
 .order-main-box .history-list-table .time {
     width: 15%;
+    text-align: left;
+    text-indent: 3px;
 }
 
 .order-main-box .history-list-table .name {
@@ -316,6 +324,7 @@ table .order-table .detail-content tr th,
 
 .order-main-box .history-list-table .price {
     width: 15%;
+    text-align: right;
 }
 
 .order-main-box .history-list-table .inorout {
@@ -324,10 +333,12 @@ table .order-table .detail-content tr th,
 
 .order-main-box .history-list-table .tradeprice {
     width: 15%;
+    text-align: right;
 }
 
 .order-main-box .history-list-table .status {
     width: 10%;
+    text-align: right;
 }
 
 .order-main-box .history-list-table .action {
@@ -337,7 +348,7 @@ table .order-table .detail-content tr th,
 .order-main-box .history-list-table .action button {
     background: none;
     border: 0 none;
-    color: #5581d8;
+    color: #cc9900;
     display: inline-block;
 }
 

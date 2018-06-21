@@ -703,11 +703,6 @@ body .trade-main-chart .chart-menu li.selected{
     color: #fff;
 }
 
-.trade-form-bd .btn:disabled {
-    cursor: not-allowed;
-    color: #fff;
-    background-color: #d1d3df !important;
-}
 
 .trade-form-bd .btn.buy {
     background-color: #33c280;
@@ -718,6 +713,13 @@ body .trade-main-chart .chart-menu li.selected{
     border: 1px solid #ef5d7f;
     color: #ef5d7f;
     background: none;
+}
+
+.trade-form-bd button.btn:disabled {
+    cursor: not-allowed;
+    color: #fff;
+    background-color: #d1d3df !important;
+    border: 1px solid #d1d3df;
 }
 
 .trade-form-bd .input-box {

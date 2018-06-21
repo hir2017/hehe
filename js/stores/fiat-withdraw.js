@@ -54,7 +54,7 @@ class FiatRechargeStore {
         getUserAvailableAmount().then(data => {
             runInAction(() => {
                 if (data.status == 200) {
-                    this.accountAmount = parseInt(data.attachment)
+                    this.accountAmount = parseInt(data.attachment,10); // 提现只能提现整数金额。
                 }
             });
         });

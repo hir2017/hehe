@@ -850,6 +850,8 @@ class TradeStore {
                         return;
                     }
 
+                    this.getUserAccount();
+                    
                     if (type == 'buy') {
                         this.setDealBuyPrice('');
                         this.setDealBuyNum('');

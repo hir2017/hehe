@@ -89,6 +89,7 @@ class FiatRechargeView extends Component {
                 store.setVal(val, field);
             }
             const SelectData = {
+                type: 'recharge',
                 setVal,
                 cards: store.bankCardsList,
                 count: store.accountAmount,
