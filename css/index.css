@@ -94,13 +94,20 @@
 
 .features-wrapper {
     margin-top: 40px;
-    height: 380px;
-    background: #000 url('../images/features-bg.jpg') no-repeat center center;
-    background-size: 1920px 380px;
+    height: 190px;
+    background-color: #fff;
+}
+
+.features-wrapper .features-box{
+    position: relative;
+    width: 1200px;
+    height: 190px;
+    margin: 0 auto;
 }
 
 .features-wrapper ul {
-    padding-top: 100px;
+    width: 1076px;
+    padding-top: 30px;
 }
 
 .features-wrapper li {
@@ -108,12 +115,83 @@
     width: 25%;
     text-align: center;
     color: #fff;
+    cursor: pointer;
 }
 
 .features-wrapper li i {
     width: 60px;
     height: 60px;
     display: inline-block;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+.features-wrapper li:hover i{
+    -webkit-animation-name: hvr-bob-float,hvr-bob;
+    animation-name: hvr-bob-float,hvr-bob;
+    -webkit-animation-duration: .3s,1.5s;
+    animation-duration: .3s,1.5s;
+    -webkit-animation-delay: 0s,.3s;
+    animation-delay: 0s,.3s;
+    -webkit-animation-timing-function: ease-out,ease-in-out;
+    animation-timing-function: ease-out,ease-in-out;
+    -webkit-animation-iteration-count: 1,infinite;
+    animation-iteration-count: 1,infinite;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+    -webkit-animation-direction: normal,alternate;
+    animation-direction: normal,alternate
+}
+
+
+@-webkit-keyframes hvr-bob {
+    0% {
+        -webkit-transform: translateY(-8px);
+        transform: translateY(-8px)
+    }
+
+    50% {
+        -webkit-transform: translateY(-4px);
+        transform: translateY(-4px)
+    }
+
+    100% {
+        -webkit-transform: translateY(-8px);
+        transform: translateY(-8px)
+    }
+}
+
+@keyframes hvr-bob {
+    0% {
+        -webkit-transform: translateY(-8px);
+        transform: translateY(-8px)
+    }
+
+    50% {
+        -webkit-transform: translateY(-4px);
+        transform: translateY(-4px)
+    }
+
+    100% {
+        -webkit-transform: translateY(-8px);
+        transform: translateY(-8px)
+    }
+}
+
+@-webkit-keyframes hvr-bob-float {
+    100% {
+        -webkit-transform: translateY(-8px);
+        transform: translateY(-8px)
+    }
+}
+
+@keyframes hvr-bob-float {
+    100% {
+        -webkit-transform: translateY(-8px);
+        transform: translateY(-8px)
+    }
 }
 
 .features-wrapper li i.icon-bank {
@@ -137,28 +215,31 @@
 }
 
 .features-wrapper li .title {
-    margin-top: 10px;
-    font-size: 18px;
+    font-size: 16px;
+    color: #333333;
 }
 
 .features-wrapper li .desc {
     font-size: 12px;
-    margin-top: 10px;
+    margin-top: 5px;
+    color: #cccccc;
 }
 
 .features-wrapper .download-btn {
-    width: 300px;
-    height: 48px;
-    line-height: 48px;
-    font-size: 20px;
-    color: #fff;
-    background-color: #e6bc1d;
-    margin: 40px auto 0;
-    border-radius: 50px;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    margin-top: -15px;
+    width: 121px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 14px;
+    color: #333333;
+    background-color: #e8b802;
+    border-radius: 3px;
     text-align: center;
+    cursor: pointer;
 }
-
-
 
 
 /**
@@ -493,11 +574,11 @@
 /* 负 */
 
 .recommend-item.negative .recommend-item-rate {
-    background-color: #ff4d40;
+    background-color: #ef5d7f;
 }
 
 .recommend-item.negative .recommend-item-price {
-    color: #ff4d40;
+    color: #ef5d7f;
 }
 
 .recommend-item-kline {
@@ -538,7 +619,7 @@
     position: relative;
     float: left;
     width: 33%;
-    font-size: 16px;
+    font-size: 12px;
     overflow: hidden;
     height: 30px;
     line-height: 30px;
@@ -568,7 +649,7 @@
 
 .announcement-wrapper li a,
 .announcement-wrapper li a:hover {
-    color: #000;
+    color: #999999;
 }
 
 .announcement-wrapper li a:hover {

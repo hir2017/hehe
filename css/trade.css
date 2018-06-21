@@ -29,38 +29,33 @@
 }
 
 .trade-main-chart .chart-box {
-    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.06);
     position: relative;
     height: 100%;
-    padding-top: 84px;
+    padding-top: 42px;
     width: 100%;
-    /* border-bottom: 10px solid #f8f8fb; */
 }
 
 .trade-main-chart .chart-menu{
     position: absolute;
-    top: 42px;
-    left: 0;
-    width: 100%;
-    height: 42px;
-    line-height: 42px;
+    top: 0;
+    right: 0;
+    height: 40px;
+    line-height: 40px;
     padding: 0 10px;
     font-size: 16px;
     overflow: hidden;
-    background-color: #fff;
-    border-bottom: 2px solid rgba(0, 0, 0, 0.06);
 }
 
 .trade-main-chart .chart-menu li{
     float: left;
     padding: 0 10px;
     cursor: pointer;
-    height: 40px;
+    height: 38px;
 }
 
-.trade-main-chart .chart-menu .selected{
-    border-bottom: 2px solid #e6bc1d;
-    color: #e6bc1d;
+body .trade-main-chart .chart-menu li.selected{
+    border-bottom: 2px solid #cc9900;
+    color: #cc9900;
 }
 /**
  * 币种信息
@@ -71,11 +66,10 @@
     left: 0;
     right: 0;
     top: 0;
-    height: 42px;
-    line-height: 42px;
+    height: 40px;
+    line-height: 40px;
     background-color: #fff;
-    color: #333333;
-    border-bottom: 2px solid rgba(0, 0, 0, 0.06);
+    border-bottom: 1px solid #f4f4f4;
     z-index: 3;
     font-size: 14px;
 }
@@ -88,6 +82,7 @@
     display: inline-block;
     vertical-align: middle;
     margin-right: 10px;
+    color: #333333;
 }
 
 .trade-current-coin li label,
@@ -100,22 +95,6 @@
     padding: 0 5px;
 }
 
-
-
-/* 正 */
-
-.trade-current-coin li.positive em {
-    color: #00b56a;
-}
-
-
-
-/* 负 */
-
-.trade-current-coin li.negative em {
-    color: #ff4d40;
-}
-
 .trade-current-coin li.coin {
     font-size: 18px;
     color: #333333;
@@ -123,7 +102,7 @@
 
 
 .trade-current-coin li.coin label {
-    padding: 0 3px;
+    padding: 0 5px;
     text-align: center;
     cursor: pointer;
 }
@@ -132,10 +111,7 @@
     cursor: pointer;
 }
 
-.trade-current-coin .ant-switch-checked {
-    border-color: #ff3380;
-    background-color: #ff3380;
-}
+
 
 .trade-current-coin li.coin em {
     padding: 0 10px;
@@ -153,6 +129,11 @@
 
 .trade-current-coin .theme-menu label {
     margin-right: 10px;
+}
+
+.trade-current-coin .ant-switch-checked {
+    border-color: #ff3380;
+    background-color: #ff3380;
 }
 
 .trade-current-coin .coin-list {
@@ -729,11 +710,14 @@
 }
 
 .trade-form-bd .btn.buy {
-    background-color: rgb(0, 208, 44);
+    background-color: #33c280;
+    border: 1px solid #33c280;
 }
 
 .trade-form-bd .btn.sell {
-    background-color: rgb(255, 51, 128);
+    border: 1px solid #ef5d7f;
+    color: #ef5d7f;
+    background: none;
 }
 
 .trade-form-bd .input-box {
@@ -956,6 +940,14 @@
     background-color: #131314;
 }
 
+.trade-wrapper[data-theme="dark"] .trade-current-coin{
+    border-bottom: 1px solid #20201e;
+}
+
+.trade-wrapper[data-theme="dark"] .trade-current-coin li{
+    color: #fee8c2;    
+}
+
 .trade-wrapper[data-theme="dark"] .trade-kline-chart,
 .trade-wrapper[data-theme="dark"] .trade-extra-handle,
 .trade-wrapper[data-theme="dark"] .trade-main-order,
@@ -972,8 +964,6 @@
 }
 
 .trade-wrapper[data-theme="dark"] .trade-main-chart .chart-menu {
-    background-color: #090600;
-    color: rgba(255, 255, 255, 0.6);
     border-bottom: 2px solid #131314;
 }
 
@@ -1025,4 +1015,8 @@
 
 .trade-wrapper[data-theme="dark"] .order-table dd{
     color: rgba(255, 255, 255, 0.6);
+}
+
+.trade-wrapper[data-theme="dark"] .order-table .table-hd{
+    border-bottom: 1px solid #20201e;
 }

@@ -151,6 +151,7 @@ body .ant-radio-button-wrapper-checked:first-child {
     font-size: 14px;
     color: #999999;
     text-align: center;
+    min-width: 90px;
     border-bottom: 1px solid #eeeeee;
 }
 
@@ -188,7 +189,7 @@ body .ant-radio-button-wrapper-checked:first-child {
 
 .app-header {
     height: 60px;
-    background-color: #262323;
+    background-color: #141414;
     color: #fff;
 }
 
@@ -265,6 +266,17 @@ body .ant-radio-button-wrapper-checked:first-child {
     text-align: center;
 }
 
+.header-box .header-box-r .theme-menu label {
+    margin-right: 10px;
+}
+.header-box .header-box-r .ant-switch{
+    background-color: #f2f2f2;
+}
+.header-box .header-box-r .ant-switch-checked {
+    border-color: #ff3380;
+    background-color: #ff3380;
+}
+
 
 .header-box .header-box-l a,
 .header-box .header-box-l a:hover {
@@ -332,7 +344,7 @@ body .ant-radio-button-wrapper-checked:first-child {
     min-width: 100%;
     min-height: 257px;
     box-sizing: border-box;
-    background-color: rgb(64, 64, 64);
+    background-color: #2b2b2b;
 }
 
 .app-footer .footer-box {
@@ -445,11 +457,12 @@ body .ant-radio-button-wrapper-checked:first-child {
 }
 
 
-.app-page[data-path="/login"],
-.app-page[data-path="/register"],
-.app-page[data-path="/resetpwd"] {
+.app-page[data-path="/login"] .app-content,
+.app-page[data-path="/register"] .app-content,
+.app-page[data-path="/resetpwd"] .app-content{
     background: #141414 url('../images/login-bg.jpg') no-repeat center bottom;
     background-size: 1976px 786px;
+    min-height: 786px;
 }
 
 .redrate {

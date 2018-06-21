@@ -118,6 +118,14 @@ class TVChartContainer extends Component {
             }
             this.createTradingView();
         }, 100)
+
+        $.channel.on('switchTheme', (theme)=>{
+            this.switchTheme(theme);
+        })
+    }
+
+    componentWillUnmount(){
+        $.channel.off('switchTheme');
     }
 
 	createTradingView() {
@@ -354,20 +362,7 @@ class TVChartContainer extends Component {
         }
 	}
 
-	switchTheme = (checked)=>{
-        let store = this.props.tradeStore;
-        let theme;
-
-        if (checked) {
-            theme = 'dark';
-        } else {
-            theme = 'light';
-        }
-
-        setTimeout(()=>{
-            store.changeThemeTo(theme);
-        }, 0);
-
+	switchTheme = (theme)=>{
         if (this.tvwidget) {
         	let overrides = this.getOverridesByTheme(theme);
         	let cssurl = this.getCustomCSSUrlByTheme(theme);
@@ -493,16 +488,15 @@ class TVChartContainer extends Component {
 
         if (store.theme === 'dark') {
             arrowCls =  {
-                fontSize: 14,
+                fontSize: 12,
                 color: '#fff'
             }
         } else {
             arrowCls =  {
-                fontSize: 14,
-                color:'#333333'
+                fontSize: 12,
+                color:'#e8b802'
             }
         }
-        
 
         return (
         	<div className="chart-box">
@@ -535,31 +529,24 @@ class TVChartContainer extends Component {
                         </li>
                         <li>
                             <label>{ UPEX.lang.template('24H量')}</label>
-                            <em>{ store.currentTradeCoin.volumeText }</em>
+                            <em>{ store.currentTradeCoin.volumeText }{ store.currencyNameEn }</em>
                         </li>
                     </ul>
-                    <div className="theme-menu">
-                        <label>{ checked ? UPEX.lang.template('开灯') : UPEX.lang.template('关灯') }</label>
-                        <Switch
-                            onChange={this.switchTheme}
-                            defaultChecked={ this.props.tradeStore.theme === 'dark'}
-                        />
-                    </div>
+                    <ul className="chart-menu">
+                        <li
+                            onClick={this.showChart.bind(this, 'kline')}
+                            className={ this.state.chart == 'kline' ? 'selected' : ''}
+                        >
+                            {UPEX.lang.template('K线图')}
+                        </li>
+                        <li
+                            onClick={this.showChart.bind(this, 'depth')}
+                            className={ this.state.chart == 'depth' ? 'selected' : ''}
+                        >
+                            {UPEX.lang.template('深度图')}
+                        </li>
+                    </ul>
 	            </div>
-                <ul className="chart-menu">
-                    <li
-                        onClick={this.showChart.bind(this, 'kline')}
-                        className={ this.state.chart == 'kline' ? 'selected' : ''}
-                    >
-                        {UPEX.lang.template('K线图')}
-                    </li>
-                    <li
-                        onClick={this.showChart.bind(this, 'depth')}
-                        className={ this.state.chart == 'depth' ? 'selected' : ''}
-                    >
-                        {UPEX.lang.template('深度图')}
-                    </li>
-                </ul>
                 <div
                     id="kline-chart"
                     ref="kline"

@@ -152,7 +152,7 @@ export default (store) => {
             }).then((data) => {
                 switch (data.status) {
                     case 200:
-                        message.success(UPEX.lang.template('成功，将跳转登录页面'));
+                        // message.success(UPEX.lang.template('成功，将跳转登录页面'));
 
                         setTimeout(() => {
                             browserHistory.push('/login');

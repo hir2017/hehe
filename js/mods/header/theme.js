@@ -5,31 +5,44 @@ import React, {Component} from 'react';
 import { observer, inject } from 'mobx-react';
 import { Switch } from 'antd';
 
-@inject('commonStore')
+@inject('commonStore', 'tradeStore')
 @observer
 class ThemeSwitchView extends Component {
 	
 	switchTheme = (checked)=>{
-		let commonStore = this.props.commonStore;
+        let store = this.props.tradeStore;
+        let theme;
 
-		if (checked) {
-			commonStore.changeThemeTo('dark');
-		} else {
-			commonStore.changeThemeTo('light');
-		}
-	}
+        if (checked) {
+            theme = 'dark';
+        } else {
+            theme = 'light';
+        }
+
+        setTimeout(()=>{
+            store.changeThemeTo(theme);
+        }, 0);
+
+        $.channel.emit('switchTheme', theme)
+    }
 	
 	render() {
+		let store = this.props.tradeStore;
+        let checked = store.theme === 'dark';
+
 		if (this.props.commonStore.isTradeCenter) {
 			return (
-				<div className="theme-menu">
-					<label>{ UPEX.lang.template('主题颜色') }</label>
-		            <Switch checkedChildren={ UPEX.lang.template('黑')} unCheckedChildren={ UPEX.lang.template('亮')} onChange={this.switchTheme} defaultChecked={ this.props.commonStore.theme === 'dark'}/>
-				</div>
+				<li className="theme-menu">
+					<label>{ checked ? UPEX.lang.template('开灯') : UPEX.lang.template('关灯') }</label>
+                        <Switch
+                            onChange={this.switchTheme}
+                            defaultChecked={store.theme === 'dark'}
+                        />
+				</li>
 			)
 		} else {
 			return (
-				<div className="theme-menu" style={{ display: 'none'}}></div>
+				<li className="theme-menu" style={{ display: 'none'}}></li>
 			);
 		}
 		

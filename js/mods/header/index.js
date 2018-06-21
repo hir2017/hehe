@@ -20,26 +20,29 @@ import { Link } from 'react-router';
 import { observer, inject } from 'mobx-react';
 import { Popover , message } from 'antd';
 import LanguageSwitchView from './language';
+import ThemeSwitchView from './theme';
 import { browserHistory } from 'react-router';
 
-@inject('authStore', 'userInfoStore')
+@inject('authStore','commonStore','userInfoStore')
 @observer
 class HeaderView extends Component {
 	componentDidMount() {
-		this.props.userInfoStore.getUserInfo();
+		if (this.props.authStore.isLogin) {
+			this.props.userInfoStore.getUserInfo();
+		}
 	}	
 
 	logout=(e)=>{
 		this.props.authStore.logout().then((data)=>{
 			if (data.status == 200) {
-				message.success(UPEX.lang.template('退出成功'));
+				// message.success(UPEX.lang.template('退出成功'));
 				browserHistory.push('/home');
 			}
 		});
 	}
 
 	render() {
-		let { authStore, userInfoStore } = this.props;
+		let { authStore, userInfoStore , commonStore } = this.props;
 		let username = '--';
 
 	    const usermenu = (
@@ -54,7 +57,7 @@ class HeaderView extends Component {
 	            	<Link className="logined-header-link" to="/account/record">{ UPEX.lang.template('订单中心') }</Link>
 	          	</dd>
 	           	<dd className="logined-header" onClick={this.logout}>
-	            	{ UPEX.lang.template('退出')}
+	            	{ UPEX.lang.template('退出登录')}
 	            </dd>
 	        </dl>
 	    );
@@ -123,6 +126,7 @@ class HeaderView extends Component {
 							<li ref="lang">
 								<LanguageSwitchView root={()=>this.refs.lang}/>
 							</li>
+							<ThemeSwitchView/>
 						</ul>
 					</div>
 				</div>

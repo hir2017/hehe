@@ -117,7 +117,7 @@
 }
 
 .order-table {
-    margin-top: 20px;
+    /* margin-top: 20px; */
 }
 
 .order-table .mini-tip {
@@ -129,9 +129,14 @@
 .order-table table {
     width: 100%;
     color: #999999;
-    font-size: 14px;
+    font-size: 12px;
     box-sizing: border-box;
 }
+
+.order-table .table-hd{
+    border-bottom: 1px solid #f2f2f2;
+}
+
 
 .order-table table th {
     padding: 15px 0;
@@ -151,13 +156,13 @@
     line-height: 16px;
     padding: 15px 0;
     min-height: 50px;
-    color: #333333;
-    font-size: 14px;
+    color: #999999;
+    font-size: 12px;
     text-align: center;
 }
 
 .order-table .list li {
-    border-top: 1px solid #f2f2f2;
+    /* border-top: 1px solid #f2f2f2; */
 }
 
 .order-table .list li:hover {
@@ -209,6 +214,7 @@ table .order-table .detail-content tr th,
 
 .order-main-box .open-list-table .time {
     width: 15%;
+    text-align: left;
 }
 
 .order-main-box .open-list-table .name {
@@ -223,6 +229,7 @@ table .order-table .detail-content tr th,
 
 .order-main-box .open-list-table .price {
     width: 10%;
+    text-align: right;
 }
 
 .order-main-box .open-list-table .inorout {
@@ -231,14 +238,17 @@ table .order-table .detail-content tr th,
 
 .order-main-box .open-list-table .rate {
     width: 10%;
+    text-align: right;
 }
 
 .order-main-box .open-list-table .amount {
     width: 10%;
+    text-align: right;
 }
 
 .order-main-box .open-list-table .status {
     width: 10%;
+    text-align: right;
 }
 
 .order-main-box .open-list-table .action {
