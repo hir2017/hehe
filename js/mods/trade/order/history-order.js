@@ -19,6 +19,7 @@ class TradeRealTime extends Component {
 		
 		return (
 			<div className="trade-history">
+				<div className="title">{UPEX.lang.template('交易历史')}</div>
 				<div className="table-hd">
 					<div className="time">{ UPEX.lang.template('时间')}</div>
 					<div className="price">{ UPEX.lang.template('价格')}</div>

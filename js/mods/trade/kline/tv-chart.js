@@ -96,7 +96,7 @@ class TVChartContainer extends Component {
                 url: "./bundles/night.css",
                 up: "#00d02c",
                 down: "#ff3380",
-                bg: "#090600",
+                bg: "#161615",
                 grid: "#1f2943",
                 cross: "#9194A3",
                 border: "#4e5b85",

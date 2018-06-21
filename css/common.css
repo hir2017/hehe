@@ -96,7 +96,9 @@ body .ant-switch-checked.ant-switch-loading:before {
 body .ant-switch-checked {
     background-color: #e6bc1d;
 }
-
+body .ant-slider-handle {
+    background-color: #e6bc1d;
+}
 body .ant-slider-handle.ant-tooltip-open {
     border-color: #e6bc1d;
 }
@@ -152,7 +154,7 @@ body .ant-radio-button-wrapper-checked:first-child {
     font-size: 14px;
     color: #999999;
     text-align: center;
-    min-width: 90px;
+    min-width: 120px;
     border-bottom: 1px solid #eeeeee;
 }
 
@@ -204,11 +206,6 @@ body .ant-radio-button-wrapper-checked:first-child {
     padding: 0 10px;
     font-size: 16px;
 }
-
-.app-trade .header-box {
-    width: 100%;
-}
-
 
 .header-box .logo {
     float: left;
@@ -267,9 +264,8 @@ body .ant-radio-button-wrapper-checked:first-child {
     text-align: center;
 }
 
-.header-box .header-box-r .theme-menu label {
-    padding: 0 5px;
-}
+
+
 .header-box .header-box-r .ant-switch{
     background-color: #f2f2f2;
 }
@@ -296,9 +292,18 @@ body .ant-radio-button-wrapper-checked:first-child {
     line-height: 60px;
 }
 
-.header-box .theme-menu label {
-    margin-right: 10px;
+.header-box .theme-menu[data-theme="dark"] .off{
+    color: #cc9900;
 }
+
+.header-box .theme-menu[data-theme="light"] .on{
+    color: #cc9900;
+}
+
+.header-box .theme-menu label {
+    padding: 0 5px;
+}
+
 
 .header-box .language-menu {
     position: relative;
@@ -325,6 +330,10 @@ body .ant-radio-button-wrapper-checked:first-child {
 
 .header-box .usertxt {
     cursor: pointer;
+    min-height: 30px;
+    background: url('../images/icon-menu.png') no-repeat right center;
+    background-size: 20px 20px;
+    padding-right: 32px;
 }
 
 /**

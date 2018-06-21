@@ -95,7 +95,7 @@ class TradeContent extends Component {
     	let store = this.props.tradeStore;
         
         return (
-            <div className="trade-wrapper" style={{ height: store.contentHeight + 30}} data-theme={store.theme}>
+            <div className="trade-wrapper" style={{ height: store.contentHeight + 30}}>
             	<div className="trade-extra">
             		<div className="trade-extra-content">
             			<div className="trade-extra-list clearfix" style={{ height: store.extraOrderHeight}}>

@@ -7,7 +7,7 @@ import { browserHistory } from 'react-router';
 import Header from '../mods/header';
 import Footer from '../mods/footer';
 
-@inject('commonStore')
+@inject('commonStore', 'tradeStore')
 @observer
 class Layout extends Component {
     constructor(props){
@@ -27,10 +27,11 @@ class Layout extends Component {
 
     render() {
         let commonStore = this.props.commonStore;
+        let tradeStore = this.props.tradeStore;
         
         if (commonStore.isTradeCenter) {
             return (
-                <div className="app-trade">
+                <div className="app-trade" data-theme={tradeStore.theme}>
                     <Header/>
                     <div className="app-content">
                         { this.props.children }
