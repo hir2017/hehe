@@ -34,7 +34,7 @@ class List extends Component {
 	}
 	// 开始时间
 	onChangeStartTime(value, dateString){
-		this.action.handleFilter('startTime', {
+		this.action.handleFilter('beginTime', {
 			beginTime: dateString
 		})
 	}

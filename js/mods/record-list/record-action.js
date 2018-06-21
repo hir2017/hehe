@@ -75,7 +75,6 @@ export default (store, authStore) => {
 
         handleFilter(condition, data) {
             let params;
-
             switch (condition) {
                 case 'page': // 页码
                     params = {

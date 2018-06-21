@@ -37,7 +37,7 @@ class List extends Component {
 	}
 	// 开始时间
 	onChangeStartTime(value, dateString){
-		this.action.handleFilter('startTime', {
+		this.action.handleFilter('beginTime', {
 			beginTime: dateString
 		})
 	}
@@ -63,7 +63,7 @@ class List extends Component {
 	render() {
 		let store = this.props.successStore;
 		let $content;
-		
+
 		if (!this.props.authStore.isLogin) {
 			$content = <div className="mini-tip">{ UPEX.lang.template('登录后可查看已完成订单')}</div>
 		} else if (!store.isFetching && store.orderList.length == 0) {
@@ -100,14 +100,14 @@ class List extends Component {
     					<ul>
     						<li>
     							<label>{UPEX.lang.template('时间')}</label>
-    							<DatePicker 
-    								onChange={this.onChangeStartTime.bind(this)} 
+    							<DatePicker
+    								onChange={this.onChangeStartTime.bind(this)}
     								placeholder={UPEX.lang.template('选择日期')}
     								allowClear={false}
     							/>
 	                            <i>-</i>
-	                            <DatePicker 
-	                            	onChange={this.onChangeEndTime.bind(this)} 
+	                            <DatePicker
+	                            	onChange={this.onChangeEndTime.bind(this)}
 	                            	placeholder={UPEX.lang.template('选择日期')}
 	                            	allowClear={false}
 	                            />
