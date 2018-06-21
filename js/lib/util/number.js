@@ -120,8 +120,8 @@ const NumberUtil = {
         return number;
     },
 
-    parseStringToInt(){
-        
+    parseStringToInt() {
+
     },
     /**
      * 保留小数位
@@ -134,7 +134,7 @@ const NumberUtil = {
             prec = !isFinite(+decimals) ? 0 : Math.abs(decimals),
             dec = '.',
             s = '';
-        var toFixedFix = (n, prec) =>{
+        var toFixedFix = (n, prec) => {
             var k = Math.pow(10, prec);
             return '' + parseFloat(Math[roundtag](parseFloat(this.mul(n, k).toFixed(prec * 2))).toFixed(prec * 2)) / k;
         };
@@ -153,7 +153,7 @@ const NumberUtil = {
         let unit;
 
         value = Number(value);
-        
+
         unit = value >= 0 ? '+' : '';
 
         return unit + value.toFixed(decimals) + '%'
@@ -164,7 +164,7 @@ const NumberUtil = {
      * @name mul
      * @memberOf tool
      */
-    mul: function(num1, num2) {
+    mul(num1, num2) {
         var reg = /\./i;
         if (!reg.test(num1) && !reg.test(num2)) {
             return num1 * num2;
@@ -178,10 +178,30 @@ const NumberUtil = {
         if (str2.indexOf('.') >= 0) {
             len += str2.split('.')[1].length;
         }
-        return Number(str1.replace('.', '')) * Number(str2.replace('.', '')) / Math.pow(10, len); 　　
+        return Number(str1.replace('.', '')) * Number(str2.replace('.', '')) / Math.pow(10, len);　　
+    },
+
+    scientificToNumber(num) {
+        console.log(num);
+        var str = num.toString();
+        var reg = /^(\d+)(e)([\-]?\d+)$/;
+        var arr, len,
+            zero = '';
+
+        /* 6e7或6e+7 都会自动转换数值 */
+        if (!reg.test(str)) {
+            return num;
+        } else {
+            /* 6e-7 需要手动转换 */
+            arr = reg.exec(str);
+            len = Math.abs(arr[3]) - 1;
+            for (var i = 0; i < len; i++) {
+                zero += '0';
+            }
+
+            return '0.' + zero + arr[1];
+        }
     }
-
-
 };
 
 window.NumberUtil = NumberUtil;

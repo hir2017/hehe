@@ -1,5 +1,6 @@
 import { observable, computed, autorun, action, runInAction } from 'mobx';
 import { takeCoin, getTakeCoinInfo } from '../api/http';
+import NumberUtil from '../lib/util/number';
 import md5 from '../lib/md5';
 
 class CoinWithdrawStore {
@@ -92,8 +93,8 @@ class CoinWithdrawStore {
      */
     @computed
     get amountLowLimit() {
-        if (this.takeCoinInfo.detail) {
-            return this.takeCoinInfo.detail.amountLowLimit || 0;
+        if (this.takeCoinInfo.detail && this.takeCoinInfo.detail.amountLowLimit) {
+            return NumberUtil.scientificToNumber(this.takeCoinInfo.detail.amountLowLimit);
         } else {
             return 0;
         }
