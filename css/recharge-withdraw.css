@@ -12,6 +12,9 @@
     margin: 0 auto;
     font-size: 14px;
     color: #333333;
+    background-color: #fff;
+    padding: 10px;
+    box-sizing: border-box;
 }
 
 .rw-wrapper .title {
@@ -76,7 +79,7 @@
 
 .rw-form-info {
     float: left;
-    width: 990px;
+    width: 970px;
 }
 
 .rw-form-record {

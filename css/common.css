@@ -1,10 +1,11 @@
 body,
 html {
     min-width: 1200px;
+    background-color: #f2f2f2;
 }
 
 #wrap {
-    background: #fff;
+    /* background: #fff; */
     min-height: 100%;
     overflow: hidden;
 }
@@ -267,7 +268,7 @@ body .ant-radio-button-wrapper-checked:first-child {
 }
 
 .header-box .header-box-r .theme-menu label {
-    margin-right: 10px;
+    padding: 0 5px;
 }
 .header-box .header-box-r .ant-switch{
     background-color: #f2f2f2;

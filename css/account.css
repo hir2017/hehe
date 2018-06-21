@@ -1,5 +1,6 @@
 .account-wrapper {
     min-height: 640px;
+    background: #fff;
 }
 
 .account-hd {
@@ -279,6 +280,7 @@
 .account-fiatrecord {
     width: 1200px;
     margin: 20px auto;
+    background-color: #fff;
 }
 
 .account-coinrecord-hd,
