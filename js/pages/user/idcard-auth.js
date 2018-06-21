@@ -6,6 +6,8 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import { Link } from 'react-router';
+import { Steps } from 'antd';
+const Step = Steps.Step;
 import FirstStep from '../../mods/idcard-auth/first-step';
 import SecondStep from '../../mods/idcard-auth/second-step';
 import ThirdStep from '../../mods/idcard-auth/third-step';
@@ -38,6 +40,7 @@ class IdentityAuthentication extends Component {
 
     nowStep(_step) {
         const step = _step;
+        console.log('nowStep', step)
         if (step === 1) {
             return <FirstStep changeStep={this.changeStep} />;
         }
@@ -68,9 +71,15 @@ class IdentityAuthentication extends Component {
                 step = 4;
                 break;
         }
-
+        let $rightContent = (
+            <Steps size="small" current={step}>
+                <Step title={UPEX.lang.template('基本信息')} />
+                <Step title={UPEX.lang.template('身份认证')} />
+                <Step title={UPEX.lang.template('完成认证')} />
+            </Steps>
+        );
         return (
-            <PageWrapper  innerClass="authentication" title={UPEX.lang.template('身份认证')}>
+            <PageWrapper innerClass="authentication" title={UPEX.lang.template('身份认证')} rightContent={$rightContent}>
                 <div className="authentication-content">
                     {userInfo.isValidatePhone ? (
                         this.nowStep(this.state.step || step)

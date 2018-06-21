@@ -5,7 +5,6 @@
  */
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
-import Steps from './steps'
 import { Button, Icon, Upload, message } from 'antd'
 import upload_pic from '../../../images/upload-pic.png'
 import IDcard1 from '../../../images/IDcard1.png'
@@ -74,7 +73,7 @@ export default class SecondStep extends Component {
       // 限制图片大小10M
       beforeUpload: (file) =>{
         const isLtM = file.size / 1024 / 1024 < 10;
-       
+
         if (!isLtM) {
           message.error('文件大小请控制在10MB以内!');
         }
@@ -86,12 +85,12 @@ export default class SecondStep extends Component {
           console.log(info.file, info.fileList);
         }
         if (info.file.status == 'uploading') {
-            this.setState({ 
-              loading: true 
+            this.setState({
+              loading: true
             });
         }
         if (info.file.status === 'done') {
-            this.setState({ 
+            this.setState({
               loading: false
             });
           if (info.file.response.status === 200) {
@@ -113,7 +112,6 @@ export default class SecondStep extends Component {
   render() {
     return (
       <div>
-        <Steps step={2} />
         <div className="pic-title">{UPEX.lang.template('完成此步骤确认，可获得每日NT$300.000提现额度')}</div>
         <div className="pic-item">
           <span className="pic-item-lable">{UPEX.lang.template('证件正面照')}</span>
