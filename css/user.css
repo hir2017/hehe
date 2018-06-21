@@ -534,6 +534,102 @@ menu-submenu-item */
     outline: none;
 }
 
+.user-main .ace-form.auth-step-2 .pic-title {
+    background-color: #fefbe8;
+    border: solid 1px #fbe59a;
+    font-size: 12px;
+    text-align: center;
+    border-radius: 5px;
+    padding: 10px 0;
+}
+
+.user-main .ace-form.auth-step-2 .pic-item header {
+    overflow: hidden;
+    border-bottom: solid 1px #f4f4f4;
+    font-size: 14px;
+    height: 36px;
+    line-height: 36px;
+}
+
+.user-main .ace-form.auth-step-2 .pic-item .item-title {
+    float: left;
+}
+
+.user-main .ace-form.auth-step-2 .pic-item .item-tip {
+    float: right;
+    color: #f0d056;
+    cursor: pointer;
+}
+
+.user-main .ace-form.auth-step-2 .pic-item section {
+    padding: 20px 0 5px;
+    position: relative;
+}
+.user-main .ace-form.auth-step-2 .pic-item section .anticon-check-circle {
+    position: absolute;
+    right: 4px;
+    top: 47%;
+    font-size: 30px;
+    color: #4dda22;
+}
+.user-main .ace-form.auth-step-2 .pic-item .pic-upload {
+    display: block;
+    text-align: center;
+}
+
+.user-main .ace-form.auth-step-2 .sample-pic-content {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(3, 3, 3, 0.6);
+}
+
+.user-main .ace-form.auth-step-2 .sample-pic-content.show {
+    display: block;
+}
+
+.user-main .ace-form.auth-step-2 .sample-pic-content .sample-inner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    border-radius: 6px;
+}
+
+.user-main .ace-form.auth-step-2 .sample-pic-content header {
+    height: 50px;
+    text-align: center;
+    font-size: 18px;
+    line-height: 50px;
+    border-bottom: solid 1px #f4f4f4;
+}
+
+.user-main .ace-form.auth-step-2 .sample-pic-content article {
+    padding: 40px;
+}
+
+.user-main .ace-form.auth-step-2 .sample-pic-content .pic-img {
+    float: left;
+    width: 320px;
+    height: 180px;
+}
+
+.user-main .ace-form.auth-step-2 .sample-pic-content .pic-message {
+    float: right;
+    padding-left: 40px;
+    color: #999999;
+    line-height: 25px;
+}
+
+.user-main .ace-form.auth-step-2 .sample-pic-content .pic-message li {
+    list-style-type: disc;
+    padding-bottom: 23px;
+}
+
 .user-main .authentication-content .submit button:hover {
     border-color: none;
 }

@@ -40,7 +40,7 @@ class IdentityAuthentication extends Component {
 
     nowStep(_step) {
         const step = _step;
-        console.log('nowStep', step)
+        // mock
         if (step === 1) {
             return <FirstStep changeStep={this.changeStep} />;
         }
