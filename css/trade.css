@@ -153,6 +153,7 @@
 .trade-current-coin .coin-list {
     width: 490px;
     min-height: 128px;
+    color: #999999;
 }
 
 .trade-current-coin .coin-list-hd {
@@ -213,6 +214,7 @@
 
 .trade-current-coin .coin-list-bd dl.list dd:hover {
     background-color: #f8f8fb;
+    color: #333333;
 }
 .trade-current-coin .coin-list-bd dd{
     cursor: pointer;
