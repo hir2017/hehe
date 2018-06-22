@@ -565,6 +565,7 @@ menu-submenu-item */
     padding: 20px 0 5px;
     position: relative;
 }
+
 .user-main .ace-form.auth-step-2 .pic-item section .anticon-check-circle {
     position: absolute;
     right: 4px;
@@ -572,6 +573,7 @@ menu-submenu-item */
     font-size: 30px;
     color: #4dda22;
 }
+
 .user-main .ace-form.auth-step-2 .pic-item .pic-upload {
     display: block;
     text-align: center;
@@ -628,6 +630,84 @@ menu-submenu-item */
 .user-main .ace-form.auth-step-2 .sample-pic-content .pic-message li {
     list-style-type: disc;
     padding-bottom: 23px;
+}
+
+.user-main .ace-form.auth-step-3 .info-line p {
+    text-align: center;
+    font-size: 14px;
+    line-height: 30px;
+}
+
+.user-main .ace-form.auth-step-3 .info-line .title {
+    color: #333;
+    font-size: 20px;
+    line-height: 50px;
+}
+
+.user-main .ace-form.auth-step-3 .info-line.loading .info {
+    color: #999999;
+}
+
+.user-main .ace-form.auth-step-3 .info-line.fail .info {
+    color: #e8b802;
+}
+
+.user-main .ace-form.auth-step-3 .info-line .tip {
+    font-size: 12px;
+    color: #999999;
+    padding-top: 25px;
+}
+
+.user-main .ace-form.auth-step-3 .submit,
+.user-main .ace-form.auth-step-4 .submit {
+    text-align: center;
+}
+
+.user-main .ace-form.auth-step-3 .submit .ant-btn,
+.user-main .ace-form.auth-step-4 .submit .ant-btn {
+    width: 160px;
+    height: 40px;
+}
+
+.user-main .ace-form.auth-step-4 .title {
+    text-align: center;
+    font-size: 20px;
+    color: #333;
+    line-height: 70px;
+}
+
+.user-main .ace-form.auth-step-4 .info tr {
+    height: 30px;
+    line-height: 30px;
+}
+
+.user-main .ace-form.auth-step-4 .info tr td {
+    width: 50%;
+    font-size: 14px;
+    color: #999999;
+    box-sizing: border-box;
+    padding: 5px 15px;
+}
+
+.user-main .ace-form.auth-step-4 .info tr td:nth-child(1) {
+    text-align: right;
+}
+
+.user-main .ace-form.auth-step-4 .info tr td:nth-child(2) {
+    text-align: left;
+    color: #333333;
+}
+
+.user-main .ace-form.auth-step-4 .tip {
+    text-align: center;
+    padding: 20px;
+}
+.user-main .ace-form.auth-step-4 .tip p {
+    padding-bottom: 5px;
+}
+.user-main .ace-form.auth-step-4 .info tr .money {
+    font-size: 20px;
+    font-weight: bold;
 }
 
 .user-main .authentication-content .submit button:hover {
