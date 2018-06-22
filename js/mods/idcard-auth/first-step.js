@@ -277,7 +277,7 @@ export default class FirstStep extends Component {
         };
         const submitProp = this.state.check ? {onClick: this.next, className: 'ace-submit-item'} : {className:"ace-submit-item disabled", disabled: true}
         return (
-            <AceForm>
+            <AceForm className="auth-step-1">
                 <div className="muti-filed clearfix">
                     <InputItem {...inputsData.firstName} />
                     <InputItem {...inputsData.secondName} />
@@ -377,7 +377,12 @@ export default class FirstStep extends Component {
                         {this.state.resortType === 3 ? <Input onChange={this.resortTypeOtherChange} /> : null}
                     </div>
                 </div>
-                <div className="item">
+                <div className="submit">
+                     <Button {...submitProp}>
+                        {UPEX.lang.template('下一步')}
+                    </Button>
+                </div>
+                <div className="item center">
                     <Checkbox onChange={this.checkHandel}>
                         <span className="checkbox-text">{UPEX.lang.template('勾選選礦表示您同意我們的')}</span>
                         <span className="checkbox-text">
@@ -387,11 +392,6 @@ export default class FirstStep extends Component {
                             <Link>{UPEX.lang.template('隱私條款')}</Link>
                         </span>
                     </Checkbox>
-                </div>
-                <div className="submit">
-                     <Button {...submitProp}>
-                        {UPEX.lang.template('下一步')}
-                    </Button>
                 </div>
             </AceForm>
         );

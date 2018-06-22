@@ -40,7 +40,6 @@ class IdentityAuthentication extends Component {
 
     nowStep(_step) {
         const step = _step;
-        // mock
         if (step === 1) {
             return <FirstStep changeStep={this.changeStep} />;
         }
@@ -71,8 +70,13 @@ class IdentityAuthentication extends Component {
                 step = 4;
                 break;
         }
+        let _header_step = {
+            '-1': 1,
+            '1': 1,
+            '2': 4,
+        }
         let $rightContent = (
-            <Steps size="small" current={step}>
+            <Steps size="small" current={_header_step[userInfo.isAuthPrimary] || userInfo.isAuthPrimary}>
                 <Step title={UPEX.lang.template('基本信息')} />
                 <Step title={UPEX.lang.template('身份认证')} />
                 <Step title={UPEX.lang.template('完成认证')} />
