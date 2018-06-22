@@ -1,164 +1,330 @@
 <!DOCTYPE html>
-<html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>HTML5 Canvas绘制比特币交易深度图</title>
-<style type="text/css">
-.layout{
-	position:relative;	
-}
-.layout canvas{
-	position:absolute;	
-}
-.layout #x{
-	top:300px;
-	left:0;	
-}
-.layout #y{
-	top:0px;
-	left:600px;	
-}
-</style>
+  <meta charset="utf-8">
+
+  <title>d3 depth chart</title>
+
+  <script type="text/javascript" src="https://d3js.org/d3.v4.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lodash@4.17.4/lodash.min.js"></script>
+
+  <style>
+    .bar-bids {
+      fill: cornflowerblue; }
+    .bar-asks {
+      fill: pink; }
+    .depth-chart {
+      display: inline-block;
+      float: left; }
+  </style>
+  
 </head>
 
 <body>
-<div class="layout">
-<canvas id="depth" width="600" height="300"></canvas>
-<canvas id="x" width="600" height="24"></canvas>
-<canvas id="y" width="48" height="300"></canvas>
-</div>
 
 <script>
-function drawDepthChart() {
-	var data = {
-		"sell":
-		[
-		{"price":9000,"amount":8176},
-		{"price":8999.84,"amount":10245},
-		{"price":8999.68,"amount":19147},
-		{"price":8999.52,"amount":4150},
-		{"price":8999.36,"amount":10420},
-		{"price":8999.2,"amount":16053},
-		{"price":8999.04,"amount":8480},
-		{"price":8998.88,"amount":12751},
-		{"price":8998.72,"amount":14187},
-		{"price":8998.56,"amount":7916}
-	],
-	"buy":[
-		{"price":8749,"amount":8379},
-		{"price":8748.74,"amount":18582},
-		{"price":8748.48,"amount":9173},
-		{"price":8748.22,"amount":13327},
-		{"price":8747.96,"amount":1990},
-		{"price":8747.7,"amount":3414},
-		{"price":8747.44,"amount":12062},
-		{"price":8747.18,"amount":19389},
-		{"price":8746.92,"amount":8999},
-		{"price":8746.66,"amount":8675}
-	]
-	};
-	
-	for(i in data['buy']){
-		var total = 0;
-		for(n=0; n<= i; n++){
-				total += data['buy'][n]['amount'];
-		}
-		
-		data['buy'][i]['total'] = total;
-	}
-	
-	for(i in data['sell']){
-		var total = 0;
-		for(n=i; n< data['sell'].length; n++){
-				total += data['sell'][n]['amount'];
-		}
-		
-		data['sell'][i]['total'] = total;
-	}
-	
-	
-	var gap = 10; //X轴偏移量 防止左右两部分连接以利于美观
-	var canvas=document.getElementById('depth');
-	var width = canvas.getAttribute('width');
-	var height = canvas.getAttribute('height');
-	
-	//计算交易量的最大值，作为纵坐标的最大刻度值	
-	var maxAmount = Math.max( data['sell'][0]['total'],  data['buy'][data['buy'].length-1]['total']);	
-	
-	var scaleH = maxAmount / height;
-	
-	//买卖各占一半宽度
-	var scaleW = width / 2 / data['sell'].length;
-	
-	var context=canvas.getContext('2d');	
-	
-	//开始一个连续绘制路径
-	context.beginPath();
-	context.fillStyle = '#9dd'; //设置买入区域填充颜色
-	var x = y  = 0;
-	context.moveTo(width/2-gap, height);
-	
-	//从中间向上、向左绘制买单图
-	for(i in data['buy']){
-		x = width/2 - i * scaleW-gap;
-		y = height - data['buy'][i]['total']/maxAmount*height;
-		context.lineTo(x, y);
-	}
-	
-	context.lineTo(0, y); //延伸到最左侧边缘
-	context.lineTo(0, height);
-	context.lineTo(width/2-gap, height);
-	context.fill(); //形成一个封装区域 并按fillStyle指定的颜色填充		
-	context.closePath();
-	
-	//同上 开始绘制卖单深度图
-	context.beginPath();
-	context.fillStyle = '#1aa';
-	context.moveTo(width/2+gap, height);
-	for(i in data['sell']){
-		var index =data['sell'].length - i -1;
-		x = width/2 + i * scaleW + gap;
-		y = height - data['sell'][index]['total']/maxAmount * height;
-		context.lineTo(x,y);
-	}
-	
-	context.lineTo(width+gap, y);
-	context.lineTo(width+gap, height);
-	context.lineTo(width/2+gap, height);
-	context.fill();	
-	context.closePath();
-	
-	//X轴刻度
-	var contextX = document.getElementById('x').getContext('2d');
-	var contextY = document.getElementById('y').getContext('2d');
-	contextX.fillStyle = '#ccc';
-	contextY.fillStyle = '#ccc';
-	
-	for(i in data['buy']){
-		if(i%3) continue;
-		x = width/2 - i * scaleW-30;
-		y = 12;
-		contextX.fillText(data['buy'][i]['price'], x, y);
-	}
-	
-	for(i in data['sell']){
-		if(i%3) continue;
-		x = width/2 + i * scaleW;
-		y = 12;
-		var index =data['sell'].length - i -1; 
-		contextX.fillText(data['sell'][index]['price'], x, y);
-	}
-	
-	//Y轴5等份
-	var seg = maxAmount/5;
-	for(i=1; i<6; i++){
-		x = 12;
-		y = height - seg*i/maxAmount * height;
-		contextY.fillText(seg*i > 1000 ? (seg*i/1000+'K'): seg*i, x, y);
-	}
+
+function MovingWindow (maxlen) {
+    this.arr = [];
+    this.maxlen = maxlen
 }
-drawDepthChart();
+MovingWindow.prototype.push = function (x) {
+    this.arr.push(x);
+    if (this.arr.length > this.maxlen * 2) {
+	this.arr.splice(0,this.maxlen);
+    }
+}
+MovingWindow.prototype.len = function (x) {
+    return Math.min (this.arr.length, this.maxlen);
+}
+MovingWindow.prototype.get = function (x) {
+    return this.arr[this.arr.length-1-x];
+}
+MovingWindow.prototype.clear = function () {
+    this.arr = [];
+}
+
+// tickToPrice is a function that converts tick index, to the corresponding price.
+function DepthChart (canvas_id, tickToPrice) {
+    var canvas = document.getElementById(canvas_id)
+    this.ctx = canvas.getContext("2d");
+
+    this.colors     = ["#e4e178", "#d6b337", "#9d590f", "#6d3902", "#3d2103"];
+    this.colorsblue = ["#6cb5f2", "#2a81f7", "#073fce", "#0000ff"];
+    this.colorsred  = ["#f44949", "#e61f1f", "#cf0a0a", "#790000"];
+    
+    this.timeIndicatorSize = 100;
+    this.w = canvas.width-this.timeIndicatorSize;
+    this.h = canvas.height;
+    this.unprocessed = new MovingWindow(this.h);
+    this.channelSize = 100;
+    this.channelMargin = 10;
+    this.tickAtMid = 0;
+    this.lastMid = null;
+
+    this.tickToPrice = tickToPrice;
+ 
+    this.lastTime = 0;
+    this.lastDate = new Date ();
+
+    var offScreenCanvas = document.createElement("canvas");
+    this.oscw = 902;
+    offScreenCanvas.width=this.oscw;
+    offScreenCanvas.height=this.h;
+
+    this.offsets = new MovingWindow(this.h);
+    this.processed = new MovingWindow(this.h);
+    this.osc = offScreenCanvas.getContext("2d");
+    this.times = new MovingWindow (this.h);
+}
+
+/*
+Add an object to the chart. Two objects possible: trade object, and volume object
+A trade object should have the following properties
+time: in nanos
+sellerActive: true if someone sold against a bid in the market.
+volume: normalised version of volume. A volume of 1.0 completely fills the volume bar once.
+price: displayed price.
+tick:  Tick is the index of the current price.
+A volume object should have the following properties
+time: in nanos
+asks: list of [price, tick, volume] pairs
+bids: list of [price, tick, volume] pairs
+*/
+
+DepthChart.prototype.add = function (obj) {
+    this.unprocessed.push(obj);
+}
+
+DepthChart.prototype.reset = function (tickToPrice) {
+    this.unprocessed.clear ();
+    this.tickToPrice = tickToPrice;
+    
+    this.osc.clearRect(0,0,this.oscw,this.h);
+    this.processed.clear ();
+    this.times.clear ();
+    this.offsets.clear ();
+}
+
+DepthChart.prototype.render = function () {
+    var n = this.unprocessed.len ();
+
+    var time = -1;
+    for (var i = n; i > 0; --i) {
+	time = this.unprocessed.get(i-1).time;
+	this.times.push(time);
+    }
+
+    var bboMid = this.internalGetMid ();
+    if (bboMid == null)
+	return;
+
+    var diff = Math.abs(bboMid-this.tickAtMid);
+
+    if (diff > 0.01 || n != 0) {
+	this.internalDrawChart (bboMid, diff, n);
+    }
+    this.internalDrawTimer (time);
+}
+
+DepthChart.prototype.internalDrawChannel = function (ctx, val, xoff, line, isL, colors) {
+    var colorInd = 0;
+    val *= this.channelSize;
+    while (val > 0) {
+	ctx.fillStyle = colors[colorInd];
+	var x = Math.min(val,this.channelSize);
+	if (isL)
+	    ctx.fillRect (xoff+this.channelSize-x, line, x, 1);
+	else
+	    ctx.fillRect (xoff+1, line, x, 1);
+	val -= x;
+	colorInd++;
+    }
+}
+
+DepthChart.prototype.internalRenderOne = function (ctx, vx, f, line, type) {
+    var v = vx;
+    var retoffset = null;
+    if (vx.volume) {
+	v = this.lastMid;
+	var fprice = f(vx.tick);
+    } else {
+	this.lastMid = v;
+    }
+    if(v) {
+	if(type) {
+	    var offset = f(v.bids[v.bids.length-1][1]);
+	    var len = f(v.asks[v.asks.length-1][1]) - offset + this.channelSize;
+	    if (len > this.oscw) {
+		return null;
+	    }
+	    retoffset = v.bids[v.bids.length-1][1];
+	} else {
+	    var offset = 0;
+	}
+    } else {
+	var offset = fprice;
+    }
+    if (!vx.volume) {
+	for (var i = 0; i < v.bids.length; ++i)
+	    this.internalDrawChannel(ctx, v.bids[i][2],f(v.bids[i][1])-offset, line, true, this.colors);
+	
+	for (var i = 0; i < v.asks.length; ++i)
+	    this.internalDrawChannel(ctx, v.asks[i][2],f(v.asks[i][1])-offset, line, false, this.colors);
+    } else {
+	this.internalDrawChannel (ctx, vx.volume, fprice-offset, line, vx.sellerActive, vx.sellerActive?this.colorsred:this.colorsblue);
+    }
+    if (v) {
+	var x0 = this.w/2 + (Math.ceil(this.tickAtMid)-(this.tickAtMid+0.5))*(this.channelSize+this.channelMargin);
+
+	ctx.fillStyle = "pink";
+	ctx.fillRect (this.w/2 + this.channelSize + this.channelMargin/2 + (v.bids[0][1]-this.tickAtMid-0.5)*(this.channelMargin+this.channelSize) - offset, line, this.channelMargin+(this.channelMargin+this.channelSize)*((v.asks[0][1]-v.bids[0][1])-1), 1);
+    }
+
+    return retoffset;
+}
+
+DepthChart.prototype.internalGetMid = function () {
+    var v = this.lastMid;
+    var n = this.unprocessed.len ();
+    for (var i = 0; i < n; ++i) {
+	var vx = this.unprocessed.get(i);
+	if (!vx.volume) {
+	    v = vx;
+	    break;
+	}
+    }
+    if (v == null)
+	return null;
+    return 0.5*(v.asks[0][1]+v.bids[0][1]);
+}
+
+DepthChart.prototype.internalClear = function (n) {
+    this.ctx.clearRect(0,0,this.w,this.h);
+    if (n < this.h) {
+	var imd = this.osc.getImageData(0,0,this.oscw,this.h-n);
+	this.osc.putImageData(imd, 0,n);
+	imd = null;
+	this.osc.clearRect(0,0,this.oscw,n);
+    } else {
+	this.osc.clearRect(0,0,this.oscw,this.h);
+    }
+}
+
+DepthChart.prototype.internalDrawChart = function (bboMid, diff, n) {
+    if (diff < 5)
+	this.tickAtMid = this.tickAtMid * 0.95 + 0.05 * bboMid;
+    else
+	this.tickAtMid = bboMid;
+
+    this.internalClear (n);
+
+    this.ctx.save ();
+    this.ctx.beginPath();
+    this.ctx.rect(0, 0, this.w, this.h);
+    this.ctx.clip();
+    var th = this;
+    var f = function (xx) {return th.w/2  + th.channelMargin/2 + (xx-th.tickAtMid-0.5)*(th.channelMargin+th.channelSize);};
+
+    while (n > 0) {
+	var offset = this.internalRenderOne(this.osc, this.unprocessed.get(n-1), f, n-1, true);
+	this.offsets.push(offset);
+	this.processed.push(this.unprocessed.get(n-1));
+	n--;
+    }
+    this.unprocessed.clear();
+    var n = this.processed.len ();
+    var startN = -1;
+    var endN = -1;
+    var offset = null;
+    while (n > 0) {
+	var vx = this.processed.get(n-1);
+	var curOff = this.offsets.get(n-1);
+
+	// Segment end
+	
+	if (curOff != offset && offset != null) {
+	    var imd = this.osc.getImageData(0, endN-1, this.oscw, startN-endN+1);
+	    this.ctx.putImageData(imd, Math.floor(f(offset)), endN-1);
+	}
+
+	// Segment start
+
+	if (curOff != offset && curOff != null) {
+	    startN = n;
+	    endN = n;
+	    offset = curOff;
+	}
+
+	// Segment mid
+
+	if (curOff == offset && curOff != null)
+	    endN = n;
+
+	// Single
+
+	if (curOff == null) {
+	    this.internalRenderOne(this.ctx, vx, f, n);
+	    offset = null;
+	}
+
+	n--;
+    }
+    if (offset != null) {
+	var imd = this.osc.getImageData(0, endN-1, this.oscw, startN-endN+1);
+	this.ctx.putImageData(imd, f(offset), endN-1);
+    }
+
+    this.ctx.fillStyle = "black";
+    var roundedMid = Math.round(this.tickAtMid);
+    
+    for (var tick =  roundedMid - 5; tick <= roundedMid+5;tick++) {
+	var price = Math.round(this.tickToPrice(tick));
+	var ftick = Math.floor(f(tick));
+	this.ctx.fillText ("         "+price, ftick, 20);
+	this.ctx.fillRect (ftick, 0, 1, this.h);
+	this.ctx.fillRect (ftick-10, 0, 1, this.h);
+    }
+
+    this.ctx.restore ();
+}
+
+DepthChart.prototype.internalDrawTimer = function (time) {
+    var newDate = new Date ();
+    if (time == -1) {
+	time = this.lastTime*1 + (newDate.getTime ()-this.lastDate.getTime ())*1000000;
+    } else {
+	this.lastTime = time;
+	this.lastDate = newDate;
+    }
+    
+    for (var i = 0; i < this.times.len (); ++i) {
+	var v = Math.min(Math.round((time-this.times.get(i))/400000000),255);
+	this.ctx.fillStyle = "rgb("+(255-v)+",0,"+v+")";
+	this.ctx.fillRect(this.w, i,this.timeIndicatorSize, 1);
+    }
+}
 </script>
 
+<canvas id="mychartid" width=900 height=900>
+<script type="text/javascript">
+tickToPrice = function (x) {return x*0.1;} // Ticksize of 0.1
+var myChart = new DepthChart ("mychartid", tickToPrice);
+
+var snapshot = {};
+snapshot.time = 0; // In nanos
+// List of [price, tick, volume] triplets
+snapshot.asks = [[101.1, 1011, 0.3], [101.2, 1012, 0.4]];
+snapshot.bids = [[100.9, 1009, 0.26], [100.7, 1007, 0.82]];
+myChart.add(snapshot);
+
+var trade = {};
+trade.time = 1000;
+trade.sellerActive = false;
+trade.volume = 0.3;
+trade.price = 101.1;
+trade.tick = 1011;
+myChart.add(trade);
+
+myChart.render();
+</script>
 </body>
-</html>

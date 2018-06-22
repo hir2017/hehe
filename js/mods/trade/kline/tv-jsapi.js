@@ -25,7 +25,7 @@ class UDFCompatibleDatafeed {
         cfg = cfg || {};
         this.configurationData = defaultConfiguration;
         this.serverTime = null;
-        this.symbol = cfg.symbol || 'AAPL';
+        this.symbol = cfg.symbol || '';
         this.currencyNameEn = cfg.currencyNameEn;
         this.baseCurrencyNameEn = cfg.baseCurrencyNameEn;
         this.pointPrice = cfg.pointPrice;
@@ -113,8 +113,9 @@ class UDFCompatibleDatafeed {
             case '1D':
             case '5D':
             case '7D':
+            case '1W':
             case '1M':
-                return '1D'
+                return '1D';
             default:
                 return '1';
                 break;

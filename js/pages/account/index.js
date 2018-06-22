@@ -8,9 +8,36 @@ import { observer, inject } from 'mobx-react';
 import List from '../../mods/account/assets-list';
 import Info from '../../mods/account/account-info';
 
-@inject('accountStore')
+
+@inject('commonStore')
 @observer
 class AccountPage extends Component {
+    componentWillMount() {
+        let { commonStore } = this.props;
+
+        commonStore.getAllCoinPoint();
+    }
+    
+    render() { 
+        let { commonStore } = this.props;
+        
+        // 用于切换交易币时内容切换
+        if (commonStore.productDataReady) {
+            return <Account {...this.props}/>    
+        } else {
+            return (
+                <div className="home-wrapper">
+                    <div className="mini-loading"></div>
+                </div>   
+            )
+        }
+    }
+}
+
+
+@inject('accountStore')
+@observer
+class Account extends Component {
     componentDidMount(){
         let store = this.props.accountStore;
 

@@ -227,7 +227,7 @@ export default (store) => {
                 return;
             }
 
-            queryPhone(phone)
+            queryPhone(store.areaCode + store.phone)
                 .then((data) => {
                     if (data.status == 200) {
                         // 可用，未被占用

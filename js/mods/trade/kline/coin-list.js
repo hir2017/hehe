@@ -85,8 +85,8 @@ class CoinList extends Component {
             <div className="coin-list">
                 <div className="coin-list-hd clearfix">
                     <div className="search">
-                        <Icon type="search" />
                         <input type="text" onChange={this.handleSearch} placeholder={UPEX.lang.template('搜索数字币')} />
+                        <Icon type="search" />
                     </div>
                     <div className="tab">
                         <Checkbox checked={store.onlyCollectedCoins} onChange={this.handleToggleCollectDisplay.bind(this)}>{UPEX.lang.template('收藏')}</Checkbox>

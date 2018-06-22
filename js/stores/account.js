@@ -14,6 +14,7 @@ class Account {
 
     constructor(stores) {
         this.authStore = stores.authStore;
+        this.commonStore = stores.commonStore;
     }
 
     @computed
@@ -95,6 +96,7 @@ class Account {
                         let item = data.attachment.coinList[i];
 
                         if (item.currencyNameEn == 'TWD') {
+                            item.cashAmount = NumberUtil.formatNumber(item.cashAmount, this.commonStore.pointPrice);
                             info = item;
                         } else {
                             coinList[coinList.length] = item;

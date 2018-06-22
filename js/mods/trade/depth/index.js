@@ -11,7 +11,7 @@ import Empty from './empty';
 
 @inject('tradeStore')
 @observer
-class DepthChart extends Component{
+class DepthChart extends Component {
 	render() {
 		let store = this.props.tradeStore;
 

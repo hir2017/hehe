@@ -151,7 +151,7 @@
 }
 
 .trade-current-coin .coin-list {
-    width: 414px;
+    width: 490px;
     min-height: 128px;
 }
 
@@ -160,11 +160,13 @@
 }
 
 .trade-current-coin .coin-list-hd .search {
-    width: 214px;
-    height: 28px;
-    border: 1px solid #d9d9d9;
+    width: 230px;
+    height: 30px;
+    border: 0 none;
     float: left;
     margin-right: 10px;
+    border-radius: 4px;
+    background-color: #f2f2f2;
 }
 
 .trade-current-coin .coin-list-hd .tab {
@@ -174,9 +176,9 @@
 }
 
 .trade-current-coin .coin-list-hd input {
-    width: 180px;
-    height: 26px;
-    line-height: 26px;
+    width: 200px;
+    height: 30px;
+    line-height: 30px;
     color: #333;
     border: 0 none;
     outline: 0 none;
@@ -222,7 +224,6 @@
     height: 34px;
     line-height: 34px;
     font-size: 14px;
-    border-bottom: 1px solid #cccccc;
 }
 
 .trade-current-coin .coin-list-bd .cell {
@@ -230,8 +231,8 @@
 }
 
 .trade-current-coin .coin-list-bd .cell.star {
-    width: 16%;
-    text-align: center;
+    width: 70px;
+    text-align: left;
 }
 
 .trade-current-coin .coin-list-bd .list.collected .false {
@@ -243,22 +244,22 @@
 }
 
 .trade-current-coin .coin-list-bd .cell.name {
-    width: 15%;
-    text-align: left;
-}
-
-.trade-current-coin .coin-list-bd .cell.price {
-    width: 25%;
-    text-align: left;
-}
-
-.trade-current-coin .coin-list-bd .cell.rate {
-    width: 14%;
+    width: 60px;
     text-align: center;
 }
 
+.trade-current-coin .coin-list-bd .cell.price {
+    width: 110px;
+    text-align: right;
+}
+
+.trade-current-coin .coin-list-bd .cell.rate {
+    width: 110px;
+    text-align: right;
+}
+
 .trade-current-coin .coin-list-bd .cell.volume {
-    width: 25%;
+    width: 120px;
     text-align: right;
 }
 
@@ -271,29 +272,40 @@
 }
 
 .trade-current-coin .popover-tradecoins-dark .ant-popover-inner {
-    background-color: #1c1e20;
+    background-color: #333;
+    box-shadow: 0px 2px 25px 0px rgba(0, 0, 0, 0.5);
 }
 
 .trade-current-coin .popover-tradecoins-dark .ant-popover-arrow{
-    background-color: #1c1e20;
+    background-color: #333;
 }
 
 .trade-current-coin .popover-tradecoins-dark .coin-list {
-    color: #fff;
+    color: #999999;
 }
 
 .trade-current-coin .popover-tradecoins-dark .coin-list-bd dl.list dd:hover {
-    background-color: rgba(248, 248, 251, 0.18);
+    background-color: #272727;
+    color: #fee8c2;
 }
 
 .trade-current-coin .popover-tradecoins-dark .ant-checkbox-wrapper {
-    color: #fff;
+    color: #999999;
 }
 
 .trade-current-coin .coin-list-hd .popover-tradecoins-dark input {
-    color: #fff;
+    color: #999999;
+    background-color: #121211;
 }
 
+.trade-current-coin .list-hd{
+    border-bottom: 1px solid #f2f2f2;
+    border-top: 1px solid #f2f2f2;
+}
+.trade-current-coin .popover-tradecoins-dark .list-hd{
+    border-bottom: 1px solid #1f1f1d;
+    border-top: 1px solid #1f1f1d;
+}
 
 
 
@@ -721,9 +733,9 @@
 
 .trade-form-bd button.btn:disabled {
     cursor: not-allowed;
-    color: #fff;
-    background-color: #d1d3df !important;
-    border: 1px solid #d1d3df;
+    color: #999;
+    background-color: #333!important;
+    border: 1px solid #333;
 }
 
 .trade-form-bd .input-box {
@@ -993,4 +1005,8 @@
 .app-trade[data-theme="dark"] .trade-current-amount{
     border-top: 1px solid  #20201e;
     border-bottom: 1px solid  #20201e;
+}
+
+.app-trade[data-theme="dark"] .trade-current-coin .coin-list-hd .search{
+    background-color: #121211;
 }

@@ -701,7 +701,7 @@ Zepto不支持旧版本的Internet Explorer浏览器(<10)。
 ### 交易中心[QA可测试]
 
 * 委托历史	
-	* 委托历史【买入、卖出】。按时间近-》远顺序。显示100条 
+	* 委托历史【买入、卖出】。按时间近-》远顺序。［100条］
 	* 接口：
 		* 交易历史：[tradeHistory](http://13.251.82.20:8080/workspace/myWorkspace.do?projectId=2#142)	
 * 委托队列
@@ -724,6 +724,7 @@ Zepto不支持旧版本的Internet Explorer浏览器(<10)。
 	* 接口：
 		* 第一次查询所有完成订单: [/user/getTradeList](http://13.251.82.20:8080/workspace/myWorkspace.do?projectId=2#156)
 		* 实时推送最新的订单：[userTrade](http://13.251.82.20:8080/workspace/myWorkspace.do?projectId=2#170)
+* K线图。2000条
 
 -------
 

@@ -2,6 +2,7 @@
  * 国家列表
  */
 import CountryCodes from "./country-code";
+import NumberUtil from '../../lib/util/number';
 
 var CountryList = [
     { name: "China", code: "CN" },
@@ -256,7 +257,7 @@ for (var i = 0, len = CountryList.length ;  i <  len; i++){
     
     Ob[item.code] = {
         name: item.name,
-        areacode: CountryCodes[item.code],
+        areacode: NumberUtil.prefixed(CountryCodes[item.code], 4),
         code: item.code
     }
 }

@@ -17,7 +17,7 @@ class LoginInfoBaseStore {
     @observable agree = false; // 同意协议 
     @observable googlecode = ''; // 谷歌验证码
     @observable selectedCountry = {
-        areacode: '886',
+        areacode: '0886',
         code: 'TW',
         name: 'Taiwan'
     }; // 选中的国家区域
@@ -34,7 +34,7 @@ class LoginInfoBaseStore {
 
         if (UPEX.config.systemLanguage == 'zh-CN') {
             this.selectedCountry = {
-                areacode: '86',
+                areacode: '0086',
                 code: 'CN',
                 name: 'China'
             };
@@ -53,9 +53,7 @@ class LoginInfoBaseStore {
 
     @computed
     get account() {
-        let areaCode = this.areaCode == 86 ? '' : NumberUtil.prefixed(this.areaCode, 4);
-
-        return this.mode == 'email' ? this.email : `${areaCode}${this.phone}`;
+        return this.mode == 'email' ? this.email : `${this.areaCode}${this.phone}`;
     }
 
     // 检查邮箱是否合法. true合法，false不合法

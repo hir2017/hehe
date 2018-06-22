@@ -499,6 +499,17 @@ export async function listOptional() {
     const res = await axios.post(`${UPEX.config.host}/optional/listOptional`)
     return res.data
 }
+
+/**
+ * 交易深度
+ */
+
+export function getTradeDeepin(pair, limit) {
+    return axios.get(`${UPEX.config.host}/quote/tradeDeepin`, {
+        coins: 2,
+        limit: limit // 最多200条
+    }).then(res => res.data);
+}
 /**
  * 用户信息
  */
