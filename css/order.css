@@ -214,47 +214,47 @@ table .order-table .detail-content tr th,
 */
 
 .order-main-box .open-list-table .time {
-    width: 15%;
+    width: 150px;
     text-align: left;
     text-indent: 3px;
 }
 
 .order-main-box .open-list-table .name {
-    width: 10%;
+    width: 100px;
     text-align: center;
 }
 
 .order-main-box .open-list-table .num {
-    width: 15%;
+    width: 150px;
     text-align: center;
 }
 
 .order-main-box .open-list-table .price {
-    width: 10%;
+    width: 100px;
     text-align: right;
 }
 
 .order-main-box .open-list-table .inorout {
-    width: 10%;
+    width: 100px;
 }
 
 .order-main-box .open-list-table .rate {
-    width: 10%;
+    width: 100px;
     text-align: right;
 }
 
 .order-main-box .open-list-table .amount {
-    width: 10%;
+    width: 100px;
     text-align: right;
 }
 
 .order-main-box .open-list-table .status {
-    width: 10%;
+    width: 100px;
     text-align: right;
 }
 
 .order-main-box .open-list-table .action {
-    width: 10%;
+    width: 100px;
 }
 
 .order-main-box .open-list-table .action button {

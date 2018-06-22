@@ -72,7 +72,6 @@ class List extends Component {
 										<dd className="price">{item.price}</dd>
 										<dd className="rate">{item.tradeRate}</dd>
 										<dd className="amount">{item.tradeAmount}</dd>
-										<dd className="status">{status}</dd>
 										<dd className="action"><button onClick={this.handleCancel.bind(this, item)}>{UPEX.lang.template('撤单')}</button></dd>
 									</dl>
 								</li>
@@ -100,7 +99,6 @@ class List extends Component {
 									<th className="price">{UPEX.lang.template('委托价')}</th>
 									<th className="rate">{UPEX.lang.template('成交率')}</th>
 									<th className="amount">{UPEX.lang.template('成交金额')}</th>
-									<th className="status">{UPEX.lang.template('状态')}</th>
 									<th className="action">{UPEX.lang.template('操作')}</th>
 								</tr>
 							</tbody>
