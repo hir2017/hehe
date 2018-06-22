@@ -72,7 +72,7 @@ class OrderStore {
     }
 
     parseItem(item) {
-        let pointPrice = this.commonStore.getPointPrice(item.currencyNameEn);
+        let pointPrice = this.commonStore.pointPrice;
         let pointNum =  this.commonStore.getPointNum(item.currencyNameEn);
         
         item.orderTime = TimeUtil.formatDate(item.orderTime, 'yyyy-MM-dd HH:mm:ss');
