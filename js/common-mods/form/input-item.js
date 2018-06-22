@@ -7,8 +7,8 @@ class InputItem extends Component {
             <div className={`ace-input-item ${className}`}>
                 <span className="label">{label}</span>
                 <input className="input" {...inputProps} />
-                {tip ? (<span className="item-tip">*{tip}</span>) : ''}
-                {error ? (<span className="item-error">*{error}</span>) : ''}
+                {tip ? (<div className="item-tip">*{tip}</div>) : ''}
+                {error ? (<div className="item-error">*{error}</div>) : ''}
             </div>
         );
     }

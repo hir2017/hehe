@@ -19,6 +19,7 @@ class Google extends Component {
     constructor() {
         super();
         this.submit = this.submit.bind(this);
+        this.captchaChange = this.captchaChange.bind(this);
     }
 
     componentWillMount() {
