@@ -1,317 +1,460 @@
-const Datafeeds = {};
+/*
+  This class implements interaction with UDF-compatible datafeed.
+  See UDF protocol reference at
+  https://github.com/tradingview/charting_library/wiki/UDF
+*/
+class Datafeeds {
+    constructor(mgr, updateFrequency) {
+        this._mgr = mgr
+        this._configuration = undefined
 
-Datafeeds.UDFCompatibleDatafeed = function(p_connorStrategy) {
-    this.connorStrategy = p_connorStrategy;
-    this._configuration = {}; // this is the DefaultConfig in the Test
-    this._configuration.supports_search = false;
-    this._configuration.supports_group_request = true;
-    this._configuration.supported_resolutions = ["1", "5", "15", "30", "60", "1D", "1W", "1M"];
-    this._configuration.supports_marks = true;
+        this._barsPulseUpdater = new DataPulseUpdater(this, updateFrequency || 10 * 1000)
 
-    this._enableLogging = true;
+        this._enableLogging = false
+        this._initializationFinished = false
+        this._callbacks = {}
 
-    this.realtimeUpdater = null;
-};
-
-var gDatafeedObject = null;
-
-Datafeeds.UDFCompatibleDatafeed.prototype.onReady = function(callback) {
-
-    //this._configuration.engine = studyEngineOptions;
-    callback(this._configuration);
-
-
-    // this is the real-time price Updater part
-    gDatafeedObject = this;
-    setInterval(function(datafeedParam) {
-
-        var todayDate = new Date();
-
-        var lastBarDate = new Date(todayDate.getUTCFullYear(), todayDate.getUTCMonth(), todayDate.getUTCDate(), 0, 0, 0, 0);
-
-        var daysToGoBackForLastTradingDay = 1; // to go back to the last trading day in the SQL history DB
-        if (todayDate.getDay() == 0) { // Sunday
-            daysToGoBackForLastTradingDay = 2
-        }
-        if (todayDate.getDay() == 1) { // Monday
-            daysToGoBackForLastTradingDay = 3
-        }
-        lastBarDate.setUTCDate(lastBarDate.getUTCDate() - daysToGoBackForLastTradingDay); // yesterday: 00:00     (on Sunday; it does'nt work. yesterday is saturday) and we don't want that.
-
-        var weekDay = lastBarDate.getDay();
-        var lastBar = {
-            time: lastBarDate.getTime(), // gives back the miliseconds, so it is OK.  //time: data.t[i] * 1000,
-            close: 10.0 + weekDay + Math.floor((Math.random() * 10) + 1)
-        };
-
-        lastBar.open = lastBar.close - 0.25;
-        lastBar.high = lastBar.close + 0.25;
-        lastBar.low = lastBar.close - 0.55;
-
-        if (gDatafeedObject != null) {
-            var rtSubsc = gDatafeedObject.realtimeUpdater;
-            if (rtSubsc != null) {
-                //   rtSubsc.listeners[0](lastBar)
-            }
-        }
-
-    }, 10 * 1000); // Pulse every 10 seconds
-
-};
-
-Datafeeds.UDFCompatibleDatafeed.prototype.searchSymbolsByName = function(ticker, exchange, type, onResultReadyCallback) {
-    //If no symbols are found, then callback should be called with an empty array. 
-    onResultReadyCallback([]);
-};
-
-
-
-
-
-//This is exactly what TradingView1.1Index.html gives back, so keep only that
-//description	"Alcoa Inc."	String
-//exchange-listed	"NYSE"	String
-//exchange-traded	"NYSE"	String
-//has_intraday	false	Boolean
-//has_no_volume	false	Boolean
-//minmov	1	Number
-//minmov2	0	Number
-//name	"AA"	String
-//pointvalue	1	Number
-//pricescale	10	Number
-//session	"0930-1630"	String
-//ticker	"AA"	String
-//timezone	"UTC"	String
-//type	"stock"	String
-//Symbol resolved: `AA`, SymbolInfo in server response {"name":"AA","exchange-traded":"NYSE","exchange-listed":"NYSE","timezone":"UTC","minmov":1,"minmov2":0,"pricescale":10,"pointvalue":1,"session":"0930-1630","has_intraday":false,"has_no_volume":false,"ticker":"AA","description":"Alcoa Inc.","type":"stock"}
-//Symbol info after post-processing: `AA`, SymbolInfo {"name":"AA","exchange-traded":"NYSE","exchange-listed":"NYSE","timezone":"UTC","minmov":1,"minmov2":0,"pricescale":10,"pointvalue":1,"session":"0930-1630","has_intraday":false,"has_no_volume":false,"ticker":"AA","description":"Alcoa Inc.","type":"stock","base_name":["AA"],"legs":["AA"],"exchange":"NYSE","full_name":"NYSE:AA","data_status":"streaming"}
-
-//	BEWARE: this function does not consider symbol's exchange
-// https://github.com/tradingview/charting_library/wiki/Symbology#symbolinfo-structure
-Datafeeds.UDFCompatibleDatafeed.prototype.resolveSymbol = function(symbolName, onSymbolResolvedCallback, onResolveErrorCallback) {
-
-    var data = {};
-    data.description = "SQAdaptiveConnor"; //Will be printed in chart legend for this symbol.
-    data['exchange-listed'] = "NYSE";
-    data['exchange-traded'] = "NYSE";
-    data.has_intraday = false;
-    data.has_no_volume = true;
-    data.minmov = 1;
-    data.minmov2 = 0;
-    data.name = "Connor"; //It's name of a symbol. It is a string which your users will see.
-    data.pointvalue = 1;
-    data.pricescale = 100;
-    data.session = "0930-1630";
-    data.ticker = "SQ1"; //It's an unique identifier for this symbol in your symbology. If you specify this property then its value will be used for all data requests for this symbol. ticker is treated to be equal to symbol if not specified explicitly.
-    data.timezone = "UTC";
-    //data.timezone = "America/New_York";
-    data.type = "stock";
-
-    //after post processing, these will be the defaults: streaming
-    //"base_name":["AA"],"legs":["AA"],"exchange":"NYSE","full_name":"NYSE:AA","data_status":"streaming"
-
-    //data.supported_resolutions = ["D", "W", "M", "6M"];        // if this is given not exactly how the 'time_frames', then it will not appear
-    //data.has_daily = true; //If has_daily = false then Charting Library will build respective resolutions from intraday by itself. If not, then it will request those bars from datafeed.
-    //data.has_weekly_and_monthly = false;
-    //data.data_status = "endofday";
-
-    onSymbolResolvedCallback(data);
-
-};
-
-
-
-// rangeStartDate, rangeEndDate comes in UNIX style, which is seconds; so convert it to msec for JS
-Datafeeds.UDFCompatibleDatafeed.prototype.getBars = function(symbolInfo, resolution, rangeStartDate, rangeEndDate, onDataCallback, onErrorCallback) {
-
-    //	timestamp sample: 1399939200
-    if (rangeStartDate > 0 && (rangeStartDate + "").length > 10) {
-        throw "Got a JS time instead of Unix one.";
+        this._initialize()
     }
-
-    var bars = [];
-
-    var startDate = new Date((rangeStartDate) * 1000); //15h extra because of UTC time and summer time winter time change on 26th October  // rangeStartDate Time field is: 00:00
-    var endDate = new Date((rangeEndDate) * 1000); // rangeEndDate is pretty real time with its Time attribute as seconds
-
-
-    if (typeof this.connorStrategy.pvToPlot != 'undefined') { // get all days between startDate and endDate and send to the chart
-
-        var y = 55;
-        for (var i = 0; i < this.connorStrategy.pvToPlot.length; i++) {
-            if (this.connorStrategy.pvToPlot[i][0] >= startDate && this.connorStrategy.pvToPlot[i][0] <= endDate) {
-                var barValue = {
-                    time: this.connorStrategy.pvToPlot[i][0],
-                    close: this.connorStrategy.pvToPlot[i][1]
-                };
-                barValue.open = barValue.close;
-                barValue.high = barValue.close;
-                barValue.low = barValue.close;
-                bars.push(barValue);
-            }
+    /**
+     * 默认配置
+     */
+    defaultConfiguration() {
+        return {
+            supports_search: true,
+            supports_group_request: false,
+            supported_resolutions: ['1', '5', '15', '30', '60', '1D', '2D', '3D', '1W', '1M'],
+            supports_marks: true,
+            supports_timescale_marks: true,
+            supports_time: true,
+            exchanges: [{
+                value: '',
+                name: 'All Exchanges',
+                desc: ''
+            }],
+            symbols_types: [{
+                name: 'All types',
+                value: ''
+            }]
+        }
+    }
+    /**
+     * 获取服务端时间
+     * @param {*Function 回调函数} callback 
+     */
+    getServerTime(callback) {
+        if (this._configuration.supports_time) {
+            const self = this
+            setTimeout(function() {
+                callback(self._mgr.getServerTime())
+            }, 10)
+        }
+    }
+    /**
+     * 绑定事件
+     * @param {*String 事件名} event 
+     * @param {*Function 回调函数} callback 
+     */
+    on(event, callback) {
+        if (!this._callbacks.hasOwnProperty(event)) {
+            this._callbacks[event] = []
         }
 
-
-    } else {
-        var iDate = new Date((rangeStartDate) * 1000);;
-        while (iDate <= endDate) {
-            if (iDate.getFullYear() == 2014 && iDate.getMonth() == 9 && iDate.getDate() == 24) {
-                var x = 0;
+        this._callbacks[event].push(callback)
+        return this
+    }
+    /**
+     * 运行事件
+     * @param {*String 事件名} event 
+     * @param {*Undefined 参数} argument 
+     */
+    _fireEvent(event, argument) {
+        if (this._callbacks.hasOwnProperty(event)) {
+            const callbacksChain = this._callbacks[event]
+            for (let i = 0; i < callbacksChain.length; ++i) {
+                callbacksChain[i](argument)
             }
 
-            var weekDay = iDate.getDay();
-            if (weekDay != 0 && weekDay != 6) {
-                var barValue = {
-                    time: iDate.getTime(), // gives back the miliseconds, so it is OK.  //time: data.t[i] * 1000,
-                    close: 10.0 + weekDay
-                };
+            this._callbacks[event] = []
+        }
+    }
+    /**
+     * 初始化结束
+     */
+    onInitialized() {
+        this._initializationFinished = true
+        this._fireEvent('initialized')
+    }
+    /**
+     * 打印信息
+     * @param {*String 信息} message 
+     */
+    _logMessage(message) {
+        if (this._enableLogging) {
+            console.log(new Date().toLocaleTimeString() + ' >> ', message)
+        }
+    }
+    /**
+     * 初始化
+     */
+    _initialize() {
+        const configurationData = this._mgr.getConfig()
+        const defaultConfig = this.defaultConfiguration()
+        if (configurationData) {
+            const conf = Object.assign({}, defaultConfig, configurationData)
+            this._setupWithConfiguration(conf)
+        } else {
+            this._setupWithConfiguration(defaultConfig)
+        }
+    }
+    /**
+     * 填充配置数据
+     * @param {*Function 回调函数} callback 
+     */
+    onReady(callback) {
+        const that = this
+        if (this._configuration) {
+            setTimeout(function() {
+                callback(that._configuration)
+            }, 0)
+        } else {
+            this.on('configuration_ready', function() {
+                callback(that._configuration)
+            })
+        }
+    }
+    /**
+     * 安装配置数据
+     * @param {*Object 配置数据} configurationData 
+     */
+    _setupWithConfiguration(configurationData) {
+        this._configuration = configurationData
 
-                barValue.open = barValue.close - 0.25;
-                barValue.high = barValue.close + 0.25;
-                barValue.low = barValue.close - 0.55;
+        if (!this._configuration.exchanges) {
+            this._configuration.exchanges = []
+        }
 
-                //barValue.open = barValue.high = barValue.low = barValue.close;
+        if (this._configuration.supports_group_request) {
+            console.error(' >> ：Sorry unsupports group request')
+            return
+        }
+        this.onInitialized()
+        this._fireEvent('configuration_ready')
+        this._logMessage('Initialized with ' + JSON.stringify(configurationData))
+    }
+    /**
+     * 通过商品名称解析商品信息
+     * @param {*String 商品名称或ticker} symbolName 
+     * @param {*Function(SymbolInfo)} onSymbolResolvedCallback 
+     * @param {*Function(reason)} onResolveErrorCallback 
+     */
+    resolveSymbol(symbolName, onSymbolResolvedCallback, onResolveErrorCallback) {
+        const that = this
 
-                //var nextDate = new Date(iDate.getTime());
-                //nextDate.setDate(nextDate.getDate() + 1);
+        if (!this._initializationFinished) {
+            this.on('initialized', function() {
+                that.resolveSymbol(symbolName, onSymbolResolvedCallback, onResolveErrorCallback)
+            })
 
-                if (iDate.getFullYear() == 2015 && iDate.getMonth() == 0 && iDate.getDate() == 1) { // new years: holiday
-                    //bars.push(barValue);
-                    var x = 0;
+            return
+        }
+
+        var resolveRequestStartTime = Date.now()
+        that._logMessage('Resolve requested')
+
+        function onResultReady(data) {
+            let postProcessedData = data
+            if (that.postProcessSymbolInfo) {
+                postProcessedData = that.postProcessSymbolInfo(postProcessedData)
+            }
+
+            that._logMessage('Symbol resolved: ' + (Date.now() - resolveRequestStartTime))
+
+            onSymbolResolvedCallback(postProcessedData)
+        }
+
+        if (!this._configuration.supports_group_request) {
+            setTimeout(function() {
+                const data = that._mgr.resolveTVSymbol(symbolName ? symbolName.toUpperCase() : '')
+                if (data) {
+                    onResultReady(data)
                 } else {
-                    bars.push(barValue);
+                    that._logMessage('Error resolving symbol: ' + symbolName)
+                    onResolveErrorCallback('unknown_symbol')
+                }
+            }, 10)
+        }
+    }
+    /**
+     * 搜索商品
+     * @param {*String 用户在商品搜索框中输入的文字} userInput 
+     * @param {*String 请求的交易所（由用户选择）。空值表示没有指定} exchange 
+     * @param {*String 请求的商品类型：指数、股票、外汇等等（由用户选择）。空值表示没有指定} symbolType 
+     * @param {*Function 回调函数} onResultReadyCallback 
+     */
+    searchSymbols(userInput, exchange, symbolType, onResultReadyCallback) {
+        if (this._configuration.supports_search) {
+            console.log(' >> 搜索商品：', userInput, exchange, symbolType)
+            // step 1：向服务端发起请求
+            // your code
+            // step 2：返回结果
+            onResultReadyCallback([
+                // https://b.aitrade.ga/books/tradingview/book/JS-Api.html#searchSymbolsuserinput-exchange-symboltype-onresultreadycallback
+                {
+                    "symbol": 'AAFR',
+                    "full_name": 'BTCUSD',
+                    "description": '',
+                    "exchange": '',
+                    "ticker": '',
+                    "type": "stock" | "futures" | "bitcoin" | "forex" | "index"
+                }
+            ])
+        }
+    }
+    /**
+     * 获取时间刻度
+     * @param {*Object 商品信息} symbolInfo 
+     * @param {*Number unix时间戳 (UTC)} startDate 
+     * @param {*Number unix时间戳 (UTC)} endDate 
+     * @param {*Function 回调函数} onDataCallback 
+     * @param {*String 分辨率} resolution 
+     */
+    getTimescaleMarks(symbolInfo, startDate, endDate, onDataCallback, resolution) {
+        if (this._configuration.supports_timescale_marks) {
+            console.log(' >> 获取时间刻度：', symbolInfo, startDate, endDate, resolution)
+            // step 1：向服务端发起请求
+            // your code
+            // step 2：返回结果
+            onDataCallback([{
+                color: 'red',
+                id: 'tsm1',
+                label: 'A',
+                time: 1492041600,
+                tooltip: 'test1'
+            }])
+        }
+    }
+    /**
+     * 获取K线标记
+     * @param {*Object 商品信息} symbolInfo 
+     * @param {*Number unix时间戳 (UTC)} startDate 
+     * @param {*Number unix时间戳 (UTC)} endDate 
+     * @param {*Function 回调函数} onDataCallback 
+     * @param {*String 分辨率} resolution 
+     */
+    getMarks(symbolInfo, startDate, endDate, onDataCallback, resolution) {
+        if (this._configuration.supports_marks) {
+            console.log(' >> 获取K线标记：', symbolInfo, startDate, endDate, resolution)
+            // step 1：向服务端发起请求
+            // your code
+            // step 2：返回结果
+            onDataCallback([{
+                color: 'red',
+                id: 'tsm1',
+                text: 'AAA',
+                label: 'A',
+                time: 1492041600,
+                labelFontColor: '',
+                minSize: 28
+            }])
+        }
+    }
+    /**
+     * 
+     * @param {*Object 商品信息对象} symbolInfo 
+     * @param {*String 分辨率} resolution 
+     * @param {*Number 时间戳、最左边请求的K线时间} rangeStartDate 
+     * @param {*Number 时间戳、最右边请求的K线时间} rangeEndDate 
+     * @param {*Function 回调函数} onDataCallback 
+     * @param {*Function 回调函数} onErrorCallback 
+     */
+    getBars(symbolInfo, resolution, rangeStartDate, rangeEndDate, onDataCallback, onErrorCallback) {
+        if (rangeStartDate > 0 && (rangeStartDate + '').length > 10) {
+            throw new Error(['Got a JS time instead of Unix one.', rangeStartDate, rangeEndDate])
+        }
+
+        const onLoadedCallback = function(data) {
+
+            if (data) {
+                const nodata = data.s === 'no_data'
+
+                if (data.s !== 'ok' && !nodata) {
+                    if (!!onErrorCallback) {
+                        onErrorCallback(data.s)
+                    }
+
+                    return
                 }
 
-                //if (nextDate <= endDate) {  // if nextDate is out of range, so this is the last date, don't put it to the stack.
-                //    bars.push(barValue);
-                //} else {
-                //    var yy = 0;
-                //}
+                const bars = data.bars || []
+                onDataCallback(bars, { noData: nodata, nextTime: data.nextTime })
+            } else {
+                console.warn(['getBars(): error'])
+
+                if (!!onErrorCallback) {
+                    onErrorCallback(' error: ')
+                }
             }
-
-
-
-            //iDate.setDate(iDate.getDate() + 1);   // not good
-            iDate.setUTCDate(iDate.getUTCDate() + 1); // this solved the disappearing days: when 2 bars went to the same day. other idea was: increase the time as miliseconds with another 24hours every time.
-
         }
 
-        //// repeat the last one value, but with the endDate; with the proper time
-        //var barValue = {
-        //    time: (rangeEndDate - 1) * 1000,  // gives back the miliseconds, so it is OK.  //time: data.t[i] * 1000,
-        //    close: 18
-        //};
-        //barValue.open = barValue.close - 0.25;
-        //barValue.high = barValue.close + 0.25;
-        //barValue.low = barValue.close - 0.55;
-        //bars.push(barValue);
+        this._mgr.getBars(symbolInfo.ticker.toUpperCase(), resolution, rangeStartDate, rangeEndDate, onLoadedCallback)
     }
-
-
-
-
-
-    onDataCallback(bars);
-};
-
-
-Datafeeds.UDFCompatibleDatafeed.prototype.subscribeBars = function(symbolInfo, resolution, onRealtimeCallback, listenerGUID) {
-    this._logMessage("Subscribing " + listenerGUID);
-    this.realtimeUpdater = {
-        symbolInfo: symbolInfo,
-        resolution: resolution,
-        lastBarTime: NaN,
-        listeners: []
-    };
-    this.realtimeUpdater.listeners.push(onRealtimeCallback);
-
-};
-
-Datafeeds.UDFCompatibleDatafeed.prototype.unsubscribeBars = function(listenerGUID) {
-    this._logMessage("Unsubscribing " + listenerGUID);
-    this.realtimeUpdater = null;
-};
-
-//calculateHistoryDepth(period, resolutionBack, intervalBack)
-//One may affect requested data range by overriding this function. The Charting Library will call your function and use resolutionBack and intervalBack returned by it (if any).
-//        Arguments:
-//        period: requested symbol's resolution. You may not change it.
-//        resolutionBack: desired history period type. `D` (days) or `M` (months) is expected.
-//        intervalBack: desired history depth (periods, see resolutionBack)
-//Returned value:
-//    Your function should return nothing if you do not want to override anything. If you do, it should return an object with respective properties. Only resolutionBack and intervalBack properties are expected.
-//        Example:
-//        Assume the implementation is
-//    Datafeed.prototype.calculateHistoryDepth = function(period,
-//    resolutionBack, intervalBack) {
-//        if (period == "1D") {
-//            return {
-//                resolutionBack: 'M',
-//                intervalBack: 6
-//            };
-//        }
-//    }
-//    This means when Charting Library will request the data for '1D' resolution, the history will be 6 months in depth. In all other cases the history depth will have the default value.
-Datafeeds.UDFCompatibleDatafeed.prototype.calculateHistoryDepth = function(period, resolutionBack, intervalBack) { // default"D", "M", 12 (which means 6 months is show for daily resolution
-    //This function should return undefined if you do not want to override anything. 
-    if (period == "D") {
-        //    //return {
-        //    //    resolutionBack: "D",
-        //    //    intervalBack: 3
-        //    //};
-        //    //return {
-        //    //    resolutionBack: "D",
-        //    //    intervalBack: 165 //good
-        //    //};
-        //    //return {
-        //    //    resolutionBack: "D",
-        //    //    intervalBack: 164 //bad, // next day, the threshold when there 'loading data' doesn't appear is 262, good, 261 not good. Reason probably is that the IE window is bigger. YES. if I resize the window, even 100 is enough.
-        //    //};
-        return {
-            resolutionBack: "D",
-            intervalBack: 260 * 5 // better to tell TV to ask 5 years of data in one big chunk. Because later when user scrolls, or zooms out, the 'loading data' problem will not appear
-            // unfortunately, even if we say, there are 2000 days available, it only asks for 200 data, if the browser window is very wide. Let's wait 
-        };
-
+    /**
+     * 订阅K线数据
+     * @param {*Object 商品信息对象} symbolInfo 
+     * @param {*String 分辨率} resolution 
+     * @param {*Function 回调函数} onRealtimeCallback 
+     * @param {*String 监听的唯一标识符} listenerGUID 
+     * @param {*Function 回调函数} onResetCacheNeededCallback 
+     */
+    subscribeBars(symbolInfo, resolution, onRealtimeCallback, listenerGUID, onResetCacheNeededCallback) {
+        console.log('subscribeBars: ' + symbolInfo + ', ' + resolution + ', ' + listenerGUID);
+        this._barsPulseUpdater.subscribeDataListener(symbolInfo, resolution, onRealtimeCallback, listenerGUID, onResetCacheNeededCallback)
     }
-};
+    /**
+     * 取消订阅K线数据
+     * @param {*String 监听的唯一标识符} listenerGUID 
+     */
+    unsubscribeBars(listenerGUID) {
+        this._barsPulseUpdater.unsubscribeDataListener(listenerGUID)
+    }
+}
+/*
+  This is a pulse updating components for ExternalDatafeed. 
+  They emulates realtime updates with periodic requests.
+*/
+class DataPulseUpdater {
+    constructor(datafeed, updateFrequency) {
+        this._datafeed = datafeed
+        this._datafeed._logMessage('DataPulseUpdater init ' + updateFrequency)
 
+        this._subscribers = {}
 
+        this._requestsPending = 0
+        const that = this
 
+        const update = function() {
+            if (that._requestsPending > 0) {
+                return
+            }
 
-Datafeeds.UDFCompatibleDatafeed.prototype.getMarks = function(symbolInfo, rangeStart, rangeEnd, onDataCallback, resolution) {
-    //if (this._configuration.supports_marks) {
-    //    this._send(this._datafeedURL + "/marks", {
-    //        symbol: symbolInfo.ticker.toUpperCase(),
-    //        from: rangeStart,
-    //        to: rangeEnd,
-    //        resolution: resolution
-    //    })
-    //		.done(function (response) {
-    //		    onDataCallback(JSON.parse(response));
-    //		})
-    //		.fail(function () {
-    //		    onDataCallback([]);
-    //		});
-    //}
-};
+            for (let listenerGUID in that._subscribers) {
+                const subscriptionRecord = that._subscribers[listenerGUID]
+                const resolution = subscriptionRecord.resolution
 
+                const datesRangeRight = that._datafeed._mgr.getServerTime()
 
-Datafeeds.UDFCompatibleDatafeed.prototype.getQuotes = function(symbols, onDataCallback, onErrorCallback) {
-    //    this._send(this._datafeedURL + "/quotes", { symbols: symbols })
-    //		.done(function (response) {
-    //		    var data = JSON.parse(response);
-    //		    if (data.s == "ok") {
-    //		        //	JSON format is {s: "status", [{s: "symbol_status", n: "symbol_name", v: {"field1": "value1", "field2": "value2", ..., "fieldN": "valueN"}}]}
-    //		        onDataCallback && onDataCallback(data.d);
-    //		    } else {
-    //		        onErrorCallback && onErrorCallback(data.errmsg);
-    //		    }
-    //		})
-    //		.fail(function (arg) {
-    //		    onErrorCallback && onErrorCallback("network error: " + arg);
-    //		});
-};
+                //  BEWARE: please note we really need 2 bars, not the only last one
+                //  see the explanation below. `10` is the `large enough` value to work around holidays
+                const datesRangeLeft = datesRangeRight - that.periodLengthSeconds(resolution, 10)
 
+                that._requestsPending++
 
-export default Datafeeds;
+                    (function(_subscriptionRecord) {
+                        that._datafeed.getBars(_subscriptionRecord.symbolInfo, resolution, datesRangeLeft, datesRangeRight, function(bars) {
+                                that._requestsPending--
+
+                                    //  means the subscription was cancelled while waiting for data
+                                    if (!that._subscribers.hasOwnProperty(listenerGUID)) {
+                                        return
+                                    }
+
+                                if (bars.length === 0) {
+                                    return
+                                }
+
+                                const lastBar = bars[bars.length - 1]
+                                if (!isNaN(_subscriptionRecord.lastBarTime) && lastBar.time < _subscriptionRecord.lastBarTime) {
+                                    return
+                                }
+
+                                const subscribers = _subscriptionRecord.listeners
+
+                                //  BEWARE: this one isn't working when first update comes and this update makes a new bar. In this case
+                                //  _subscriptionRecord.lastBarTime = NaN
+                                const isNewBar = !isNaN(_subscriptionRecord.lastBarTime) && lastBar.time > _subscriptionRecord.lastBarTime
+
+                                //  Pulse updating may miss some trades data (ie, if pulse period = 10 secods and new bar is started 5 seconds later after the last update, the
+                                //  old bar's last 5 seconds trades will be lost). Thus, at fist we should broadcast old bar updates when it's ready.
+                                if (isNewBar) {
+                                    if (bars.length < 2) {
+                                        throw new Error('Not enough bars in history for proper pulse update. Need at least 2.')
+                                    }
+
+                                    const previousBar = bars[bars.length - 2]
+                                    for (let i = 0; i < subscribers.length; ++i) {
+                                        subscribers[i](previousBar)
+                                    }
+                                }
+
+                                _subscriptionRecord.lastBarTime = lastBar.time
+
+                                for (let j = 0; j < subscribers.length; ++j) {
+                                    subscribers[j](lastBar)
+                                }
+                            },
+
+                            //  on error
+                            function() {
+                                that._requestsPending--
+                            })
+                    })(subscriptionRecord)
+            }
+        }
+
+        if (typeof updateFrequency != 'undefined' && updateFrequency > 0) {
+            setInterval(update, updateFrequency)
+        }
+    }
+    /**
+     * 取消订阅数据
+     * @param {*String 监听的唯一标识符} listenerGUID 
+     */
+    unsubscribeDataListener(listenerGUID) {
+        this._datafeed._logMessage('Unsubscribing ' + listenerGUID)
+        delete this._subscribers[listenerGUID]
+    }
+    /**
+     * 订阅数据
+     * @param {*Object 商品信息对象} symbolInfo 
+     * @param {*String 分辨率} resolution 
+     * @param {*Object 回调数据} newDataCallback 
+     * @param {*String 监听的唯一标识符} listenerGUID 
+     */
+    subscribeDataListener(symbolInfo, resolution, newDataCallback, listenerGUID) {
+        this._datafeed._logMessage('Subscribing ' + listenerGUID)
+
+        if (!this._subscribers.hasOwnProperty(listenerGUID)) {
+            this._subscribers[listenerGUID] = {
+                symbolInfo: symbolInfo,
+                resolution: resolution,
+                lastBarTime: NaN,
+                listeners: []
+            }
+        }
+
+        this._subscribers[listenerGUID].listeners.push(newDataCallback)
+    }
+    /**
+     * 计算周期范围
+     * @param {*String 分辨率} resolution 
+     * @param {*Number 周期范围} requiredPeriodsCount 
+     */
+    periodLengthSeconds(resolution, requiredPeriodsCount) {
+        let daysCount = 0
+
+        if (resolution === 'D') {
+            daysCount = requiredPeriodsCount
+        } else if (resolution === 'M') {
+            daysCount = 31 * requiredPeriodsCount
+        } else if (resolution === 'W') {
+            daysCount = 7 * requiredPeriodsCount
+        } else {
+            daysCount = requiredPeriodsCount * resolution / (24 * 60)
+        }
+
+        return daysCount * 24 * 60 * 60
+    }
+}
+
+export default Datafeeds

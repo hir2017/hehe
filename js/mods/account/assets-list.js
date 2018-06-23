@@ -3,20 +3,23 @@
  */
 import React, {Component} from 'react';
 import { observer, inject } from 'mobx-react';
-import { Checkbox, Icon, message } from 'antd';
+import { Checkbox, Icon, message, Input} from 'antd';
 import { Link, browserHistory } from 'react-router';
+const Search = Input.Search;
 
 @inject('accountStore')
 @observer
 class List extends Component {
-	handleSearch=(e)=>{
+	componentWillUnmount() {
+		this.timer && clearTimeout(this.timer);
+	}
 
-        let el = $(e.currentTarget);
-        let val = el.val();
-        
+	handleSearch=(e)=>{
+		let value = e.target.value.trim();
+
         this.timer && clearTimeout(this.timer);
         this.timer = setTimeout(()=>{
-        	this.props.accountStore.filterByName(val);
+        	this.props.accountStore.filterByName(value);
         }, 100);
 	}
 
@@ -39,28 +42,30 @@ class List extends Component {
 		return (
 			<div className="account-list">
 				<div className="account-filter-box">
-					<div className="filter-input">
-						<Icon type="search" />
-						<input type="text" onChange={this.handleSearch} placeholder={UPEX.lang.template('搜索数字币')}/>
-					</div>
 					<div className="filter-radio">
 						<Checkbox onChange={ this.onChangeCheckBox } >{UPEX.lang.template('隐藏资产为０的货币')}</Checkbox>
+					</div>
+					<div className="filter-input">
+						<Search
+	                    	onChange={this.handleSearch}
+	                    	placeholder={UPEX.lang.template('搜索数字币')}
+                  		/>
 					</div>
 				</div>
 				<div className="account-result-list">
 					<div className="table-hd">
-						<table>
-							<tbody>
-								<tr>
-									<th className="name">{UPEX.lang.template('币种')}</th>
-									<th className="total">{UPEX.lang.template('总额')}</th>
-									<th className="balance">{UPEX.lang.template('可用余额')}</th>
-									<th className="freeze">{UPEX.lang.template('委托冻结')}</th>
-									<th className="value">{UPEX.lang.template('价值')}</th>
-									<th className="actions">{UPEX.lang.template('操作')}</th>
-								</tr>
-							</tbody>
-						</table>
+						<ul>
+							<li>
+								<dl>
+									<dd className="name">{UPEX.lang.template('币种')}</dd>
+									<dd className="total">{UPEX.lang.template('总额')}</dd>
+									<dd className="balance">{UPEX.lang.template('可用余额')}</dd>
+									<dd className="freeze">{UPEX.lang.template('委托冻结')}</dd>
+									<dd className="value">{UPEX.lang.template('价值')}</dd>
+									<dd className="actions">{UPEX.lang.template('操作')}</dd>
+								</dl>
+							</li>
+						</ul>
 					</div>
 					<div className="table-bd">
 						{
@@ -78,13 +83,6 @@ class List extends Component {
 @observer
 class AssetsListView extends Component {
 	handleCoinRecharge=(item, e)=>{
-		// let { userInfoStore } = this.props;
-		
-		// if (userInfoStore.userInfo.authLevel >= 1) {
-		// 	browserHistory.push(`/account/coin/recharge/${item.currencyNameEn}`);
-		// } else {
-		// 	message.error(UPEX.lang.template('请先进行KYC1认证'));
-		// }
 		browserHistory.push(`/account/coin/recharge/${item.currencyNameEn}`);
 	}
 
@@ -116,9 +114,11 @@ class AssetsListView extends Component {
 										<button onClick={this.handleCoinRecharge.bind(this, item)}>
 											{UPEX.lang.template('充币')}
 										</button>
+										<span className="split">|</span>
 										<button onClick={this.handleCoinWithdraw.bind(this, item)}>
 											{UPEX.lang.template('提币')}
 										</button>
+										<span className="split">|</span>
 										<button onClick={this.handleCoinTrade.bind(this, item)}>
 											{UPEX.lang.template('交易')}
 										</button>

@@ -46,9 +46,11 @@ class WithdrawAddress extends Component {
 
 		return (
 			<div className="rw-wrapper">
-				<h2 className="title">{UPEX.lang.template('添加提币地址')}</h2>
-				<div className="content">
-					{ $content }
+				<div className="module-box">
+					<h2 className="title">{UPEX.lang.template('添加提币地址')}</h2>
+					<div className="content">
+						{ $content }
+					</div>
 				</div>
 			</div>
 		);

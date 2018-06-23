@@ -736,8 +736,8 @@
 .trade-form-bd button.btn:disabled {
     cursor: not-allowed;
     color: #999;
-    background-color: #333!important;
-    border: 1px solid #333;
+    background-color: #f2f2f2!important;
+    border: 1px solid #f2f2f2;
 }
 
 .trade-form-bd .input-box {
@@ -1007,6 +1007,13 @@
 .app-trade[data-theme="dark"] .trade-current-amount{
     border-top: 1px solid  #20201e;
     border-bottom: 1px solid  #20201e;
+}
+
+.app-trade[data-theme="dark"] .trade-form-bd button.btn:disabled {
+    cursor: not-allowed;
+    color: #999;
+    background-color: #333!important;
+    border: 1px solid #333;
 }
 
 .app-trade[data-theme="dark"] .trade-current-coin .coin-list-hd .search{

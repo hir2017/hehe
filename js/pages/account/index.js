@@ -1,5 +1,5 @@
 /**
- * @fileoverview  我的资产页面
+ * @fileoverview 我的资产入口页面
  * @author 陈立英
  * @date 2018-05-19
  */
@@ -33,7 +33,6 @@ class AccountPage extends Component {
         }
     }
 }
-
 
 @inject('accountStore')
 @observer

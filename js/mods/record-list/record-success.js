@@ -118,7 +118,7 @@ class List extends Component {
     								<Option value="0">{UPEX.lang.template('全部')}</Option>
     								{
     									this.props.commonStore.productList.map((item)=>{
-    										if (item.currencyNameEn !== 'TWD') {
+    										if (item.currencyNameEn !== UPEX.config.baseCurrencyEn ) {
     											return <Option value={item.currencyId} key={item.currencyId}>{item.currencyNameEn}</Option>
     										}
     									})

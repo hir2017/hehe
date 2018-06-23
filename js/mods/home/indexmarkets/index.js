@@ -13,9 +13,10 @@ import CoinChart from './chart';
 @inject('homeStore')
 @observer
 class IndexMarkets extends Component{
-	render(){
+	render() {
 		let store = this.props.homeStore.marketListStore;
-		
+	    let pair = store.selectedCoin.baseCurrencyNameEn + '_' + store.selectedCoin.currencyNameEn;
+
 		return (
   			<div className="index-markets">
      			<div className="index-markets-hd">
@@ -55,13 +56,13 @@ class IndexMarkets extends Component{
            				<div className="realtime-hd">
             				<h4>{UPEX.lang.template('实时行情')}</h4>
             				<label>
-		                    <Link to={`/trade/${store.selectedCoin.baseCurrencyNameEn}_${store.selectedCoin.currencyNameEn}`}>
+		                    <Link to={`/trade/${pair}`}>
 		                    { UPEX.lang.template('K线') }
 		                    </Link>
 	                  	</label>
                   	</div>
           				<div className="realtime-kline">
-          					<CoinChart key={store.selectedCoin.currencyNameEn} hours24TrendList={store.selectedCoin.hours24TrendList}/>
+          					<CoinChart key={pair} pair={pair}/>
           				</div>
         				</div>
         			</div>

@@ -504,11 +504,21 @@ export async function listOptional() {
  * 交易深度
  */
 
-export function getTradeDeepin(pair, limit) {
+export function getTradeDeep(pair, limit) {
     return axios.get(`${UPEX.config.host}/quote/tradeDeepin`, {
+        symbol: pair,
         coins: 2,
         limit: limit // 最多200条
     }).then(res => res.data);
+}
+/**
+ * K线数据
+ * @param pair交易币对。TWD_LTC
+ * @param peroid: 周期
+ * @param limit：条数
+ */
+export function getTradeKline(pair, peroid = 1, limit) {
+    return axios.get(`${UPEX.config.host}/quote/klineHistory?symbol=${pair}&type=${peroid}&limit=${limit}`).then(res => res.data);
 }
 /**
  * 用户信息

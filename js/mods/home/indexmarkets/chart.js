@@ -6,7 +6,8 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import NumberUtil from '../../../lib/util/number';
-var dayjs = require('dayjs');
+import DateUtil from '../../../lib/util/date';
+import { getTradeKline }  from '../../../api/http';
 // 引入 ECharts 主模块
 var echarts = require('echarts/lib/echarts');
 // 引入图
@@ -15,9 +16,59 @@ require('echarts/lib/chart/line');
 require('echarts/lib/component/tooltip');
 require('echarts/lib/component/title');
 
+
 @inject('commonStore')
 @observer
 export default class extends Component {
+    static defaultProps = {
+        pair: ''
+    }
+
+    componentDidMount(){
+        this.get24Kline();
+    }
+
+    componentWillUnmount(){
+        this.timer && clearTimeout(this.timer);
+    }
+
+    get24Kline=()=>{
+        getTradeKline(this.props.pair, 60, 24).then((res)=>{
+            let hours24TrendList = [];
+
+            if (res.status == 200) {
+                res.attachment.forEach((item, index)=>{
+                    let arr = [];
+
+                    arr[arr.length] = +new Date(item.createTime.replace(/-/g, '/')); // 时间
+                    arr[arr.length] = item.current; // 价格
+
+                    hours24TrendList[hours24TrendList.length] = arr;
+                })
+
+                this.drawKline(hours24TrendList);
+            }
+        });
+
+        this.timer && clearTimeout(this.timer);
+        this.timer = setTimeout(()=>{
+            this.get24Kline();
+        }, 60 * 1000) // 60秒请求一次
+    }
+
+    drawKline(hours24TrendList) {
+        // 绘制图表
+        let charts = document.getElementById('home-coin-line')
+
+        if (!echarts.getInstanceByDom(charts)) {
+            const _myCharts = echarts.init(charts)
+            // 初始化价格趋势图
+            _myCharts.setOption(this.option(hours24TrendList))
+        } else {
+            echarts.getInstanceByDom(charts).setOption(this.option(hours24TrendList))
+        }
+    }
+
 
     option(hours24TrendList = []) {
         let self = this;
@@ -49,7 +100,7 @@ export default class extends Component {
                 type: 'category',
                 boundaryGap: false,
                 data: hours24TrendList.map((item) => {
-                    return dayjs(item[0]).format('HH:mm');
+                    return DateUtil.formatDate(item[0], 'HH:mm');
                 }), // ['7:00', '9:00', '11:00', '12:00', '14:00'],
                 axisLine: {
                     lineStyle: {
@@ -92,27 +143,6 @@ export default class extends Component {
                 }
             }]
         }
-    }
-
-    componentDidUpdate() {
-        const { hours24TrendList } = this.props
-
-        let charts = document.getElementById('home-coin-line')
-
-        if (!echarts.getInstanceByDom(charts)) {
-            const _myCharts = echarts.init(charts)
-            // 初始化价格趋势图
-            _myCharts.setOption(this.option(hours24TrendList))
-        } else {
-            echarts.getInstanceByDom(charts).setOption(this.option(hours24TrendList))
-        }
-    }
-
-    componentDidMount() {
-        const { hours24TrendList } = this.props
-        var myChart = echarts.init(document.getElementById('home-coin-line'));
-        // 绘制图表
-        myChart.setOption(this.option(hours24TrendList));
     }
 
     render() {

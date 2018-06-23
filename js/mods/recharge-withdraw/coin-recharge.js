@@ -4,11 +4,10 @@
  */
 import React, {Component} from 'react';
 import { observer, inject } from 'mobx-react';
-import { Select, message } from 'antd';
+import { Select, message , Alert } from 'antd';
 const Option = Select.Option;
 import { browserHistory } from 'react-router';
 import Clipboard  from 'clipboard';
-import RecordList from '../record-list/coin-recharge-record';
 
 @inject('accountStore')
 @observer
@@ -89,6 +88,12 @@ class CoinRecharge extends Component{
 			<div >
 				<div className="rw-form">
 					<div className="rw-form-item">
+						<Alert
+					      description={UPEX.lang.template('用戶擔保係自具有KYC制度的外部錢包或其他交易所平台所轉入之虛擬貨幣地址為用戶本人所有，若日後可能會有的法律風險及追究責任需由用戶本人承擔')}
+					      type="warning"
+					    />
+	    			</div>
+					<div className="rw-form-item">
 						<label className="rw-form-label">{UPEX.lang.template('选择币种')}</label>
 						<div className="rw-form-info">
 							<Select 
@@ -113,11 +118,11 @@ class CoinRecharge extends Component{
 								<li>
 									{UPEX.lang.template('网络手续费: {fee}', {fee: store.currentCoin.fee || '--'})}
 								</li>
-								<li>
-									<div className="qrcode-box">
+								<li className="qrcode-box">
+									<label className="qrcode-label">{UPEX.lang.template('{name}充值地址',{ name: store.currentCoin.currencyNameEn})}</label>
+									<div className="qrcode-img">
 										<img src={`data:image/png;base64,${store.currentCoin.image}`} alt=""/>
 									</div>
-									<label className="qrcode-label">{UPEX.lang.template('{name}充值地址',{ name: store.currentCoin.currencyNameEn})}</label>
 								</li>
 								<li>
 									<div className="warmprompt">
@@ -134,15 +139,6 @@ class CoinRecharge extends Component{
 							</ul>
 						</div>
 					</div>
-					<div className="rw-form-item">
-						<div className="rw-form-record">
-							<label className="rw-form-label">{UPEX.lang.template('充币记录')}</label>
-							<div className="rw-form-info">
-								{ store.currentCoin.currencyId ? <RecordList currencyId={store.currentCoin.currencyId} key={store.currentCoin.currencyId}/> : null }
-							</div>
-						</div>
-					</div>
-					{ store.isFetching ? <div className="mini-loading"></div> : null }
 				</div>
 			</div>
 		)
