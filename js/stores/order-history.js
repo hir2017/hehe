@@ -32,16 +32,57 @@ class OrderStore {
         }
     }
 
+    // 订单
+    statisticsMap = {
+        // 全部成交
+        2: {
+            num: 0,
+            rate: 0,
+        },
+        // 全部撤单
+        4: {
+            num: '',
+            rate: '100%',
+        }
+    }
+
     @action
     getDetail(index, item) {
         getUserHistoryOrderDetail({
-            buyOrSell: '',
+            buyOrSell: item.buyOrSell,
             orderNo: item.orderNo,
-            type: '',
+            // type: item.status,
+            /*
+            TODO:
+            type现在只能单独取成交信息或者撤销信息 无法综合
+            */
+            type: 1,
         }).then((data) => {
             runInAction(() => {
                 if (data.status == 200) {
-                    this.orderList[index].details = data.attachment.details || [];
+                    const {details = []} = data.attachment;
+                    this.orderList[index].details = details;
+                    this.orderList[index]._cancel = {};
+                    let cancelInfo = this.statisticsMap[item.status] || {};
+
+                    if(item.status === 5) {
+                        let temp = details.reduce((total, curr) => {
+                            return {
+                                num: NumberUtil.add(total.num, curr.num),
+                                rate: NumberUtil.add(total.rate, curr.rate),
+                            }
+                        }, {
+                            num: 0,
+                            rate: 0,
+                        })
+                        cancelInfo = {
+                            num: item.num - temp.num,
+                            rate: 1 - temp.rate,
+                        };
+                    }
+
+                    this.orderList[index]._cancel = cancelInfo;
+
                 }
             })
         }).catch((e) => {
@@ -93,7 +134,7 @@ class OrderStore {
     parseItem(item) {
         let pointPrice = this.commonStore.pointPrice;
         let pointNum = this.commonStore.getPointNum(item.currencyNameEn);
-        
+
         // 时间
         item.orderTime = TimeUtil.formatDate(item.orderTime, 'yyyy-MM-dd HH:mm:ss');
         // 委托价格

@@ -200,15 +200,25 @@
 .order-table .detail-content table,
 table .order-table .detail-content tr th,
 .order-table .detail-content table tr td {
-    border: 1px solid rgb(239, 239, 239);
-    text-align: center;
+    /* border: 1px solid rgb(239, 239, 239); */
+    text-align: left;
 }
 
+.order-table .detail-content table tr.data span.label {
+    display: inline-block;
+    width: 75px;
+}
 
+.order-table .detail-content table tr td.cancel, .order-table .detail-content table tr td.none {
+    text-align: center;
+}
 .order-table .detail-content tr th, .order-table .detail-content tr td{
     padding: 4px 0;
 }
-
+.order-table .detail-content table tr td.cancel span {
+    display: inline-block;
+    padding: 0 2px;
+}
 /**
 * 委托中
 */

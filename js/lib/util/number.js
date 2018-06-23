@@ -40,7 +40,7 @@ const NumberUtil = {
         let result = [];
         let rowArr = [];
         let len = data.length;
-        let rest = len % rowNum; // 余数 
+        let rest = len % rowNum; // 余数
 
         if (rest !== 0) {
             len = data.length - rest;
@@ -125,7 +125,7 @@ const NumberUtil = {
     },
     /**
      * 保留小数位
-     * roundtag:舍入参数，默认"round" 四舍五入； "ceil" 向上取, "floor"向下取, 
+     * roundtag:舍入参数，默认"round" 四舍五入； "ceil" 向上取, "floor"向下取,
      */
     asDecimal(number, decimals = 2, roundtag = 'round') {
         number = (number + '').replace(/[^0-9+-Ee.]/g, '');
@@ -201,7 +201,29 @@ const NumberUtil = {
 
             return '0.' + zero + arr[1];
         }
+    },
+    // 小数相加
+    add(num1, num2) {
+        const _Len = (arr) => {
+            return arr[1] ? arr[1].length : 0;
+        }
+        const _toStr = (num) => {
+            return num.toString().split('.');
+        }
+        const _add = (...params) => {
+            if(params.length === 3) {
+                let _lens = params[2];
+                return parseInt(params[0]) * Math.pow(10, _lens[0])  + parseInt(params[1])  * Math.pow(10, _lens[1]);
+            }
+            return parseInt(params[0]) + parseInt(params[1]);
+        }
+        let [arr1, arr2] = [_toStr(num1), _toStr(num2)];
+        let [len1, len2] = [_Len(arr1), _Len(arr2)];
+        const len = Math.max(len1, len2);
+        let result = [_add(arr1[0], arr2[0]), _add(arr1[1] || 0, arr2[1] || 0, [len - len1, len - len2])];
+        return parseInt(result[0]) + parseInt(result[1])/Math.pow(10, len);
     }
+
 };
 
 window.NumberUtil = NumberUtil;
