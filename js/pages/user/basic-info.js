@@ -23,7 +23,7 @@ class Information extends Component {
 
     render() {
         return (
-            <PageWrapper title={UPEX.lang.template('基本信息')}>
+            <PageWrapper innerClass="base-info" noPadding>
                 <Info />
                 <List />
             </PageWrapper>

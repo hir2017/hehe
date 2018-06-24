@@ -59,14 +59,7 @@ export default class BindingEmail extends Component {
         const loading = this.props.userInfoStore.submit_loading;
         const codeid = this.props.captchaStore.codeid;
         const captcha = this.props.captchaStore.captcha;
-        /*
-            state = {
-                email: '',
-                vCode: '',
-                ivCode: '',
-                pvCode: ''
-            };
-        */
+
         const getProp = createGetProp(this);
         const inputsData = {
             email: {
