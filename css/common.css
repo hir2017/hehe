@@ -573,4 +573,6 @@ button>a {
 }
 
 
-
+.ace-form .ace-input-item .ant-select {
+    width: 100%;
+}

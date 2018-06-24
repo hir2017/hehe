@@ -6,10 +6,10 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import { observer, inject } from 'mobx-react';
-import BindingBank from '../../mods/bank-info/index';
-import BankList from '../../mods/bank-info/list';
 import { Button, message } from 'antd';
 
+import BindingBank from '../../mods/bank-info/index';
+import BankList from '../../mods/bank-info/list';
 import PageWrapper from '../../common-mods/page-user/page-wrapper';
 
 @inject('userInfoStore')
@@ -64,7 +64,7 @@ class BankInfo extends Component {
         }
 
         return (
-            <PageWrapper title={UPEX.lang.template('银行卡信息')}>
+            <PageWrapper innerClass="bank-info" noPadding>
                 {$content}
             </PageWrapper>
         );
