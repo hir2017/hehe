@@ -118,7 +118,6 @@ class FiatRechargeView extends Component {
                         </div>
                     </div>
                     <div className="rw-form-item">
-                        <label className="rw-form-label" />
                         <div className="rw-form-info">
                             <button className="submit-btn" onClick={this.handleOrder}>
                                 {UPEX.lang.template('去网上银行充值')}
@@ -132,17 +131,18 @@ class FiatRechargeView extends Component {
         return (
             <div>
                 {$formContent}
-                <div className="recharge-tip">
-                    <div className="sub-title">{UPEX.lang.template('充值遇到了问题')}</div>
-                    {
-                        // <div className="content" dangerouslySetInnerHTML={{__html: UPEX.lang.template('充值遇到了问题内容')}}></div>
-                    }
-                    <div className="content">
-                        <ul>
-                            <li>1. 我們只支持已綁定的銀行卡充值，如沒有綁定銀行賬戶，請先綁定;</li>
-                            <li>2. 不同銀行資金到賬時間不一樣。如果充值后資金未幾時到賬，請聯繫您的銀行；</li>
-                            <li>3. 如遇任何充值問題請聯繫我們的客服 support@acex.one</li>
-                        </ul>
+                <div className="rw-form">
+                    <div className="rw-form-info">
+                        <div className="warmprompt">
+                            <h4 className="warmprompt-title">{UPEX.lang.template('充值遇到了问题')}</h4>
+                            <div className="warmprompt-content">
+                                <ul>
+                                    <li>1. 我們只支持已綁定的銀行卡充值，如沒有綁定銀行賬戶，請先綁定;</li>
+                                    <li>2. 不同銀行資金到賬時間不一樣。如果充值后資金未幾時到賬，請聯繫您的銀行；</li>
+                                    <li>3. 如遇任何充值問題請聯繫我們的客服 support@acex.one</li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

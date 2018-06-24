@@ -154,8 +154,8 @@ class CommonStore {
     get pointPrice() {
         let point;
 
-        if (this.coinsMap['TWD']) {
-            point = Number(this.coinsMap['TWD'].pointPrice);
+        if (this.coinsMap[UPEX.config.baseCurrencyEn]) {
+            point = Number(this.coinsMap[UPEX.config.baseCurrencyEn].pointPrice);
         }
         
         return point;
@@ -166,8 +166,8 @@ class CommonStore {
     get pointNum() {
         let point;
 
-        if (this.coinsMap['TWD']) {
-            point = Number(this.coinsMap['TWD'].pointNum);
+        if (this.coinsMap[UPEX.config.baseCurrencyEn]) {
+            point = Number(this.coinsMap[UPEX.config.baseCurrencyEn].pointNum);
         }
 
         return point;

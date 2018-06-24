@@ -6,8 +6,9 @@ import React, {Component} from 'react';
 import { observer, inject } from 'mobx-react';
 import { browserHistory } from 'react-router';
 import RechargeCoinView from '../../mods/recharge-withdraw/coin-recharge';
+import RecordList from '../../mods/record-list/coin-recharge-record';
 
-@inject('userInfoStore')
+@inject('userInfoStore', 'accountStore')
 @observer
 class Recharge extends Component{
 	
@@ -23,6 +24,7 @@ class Recharge extends Component{
 	}
 
 	render() {
+		let store = this.props.accountStore;
 		let { userInfoStore } = this.props;
 		let $content;
 
@@ -45,8 +47,17 @@ class Recharge extends Component{
 
         return (
     		<div className="rw-wrapper r-coin-wrapper">
-    			<h2 className="title">{UPEX.lang.template('充币')}</h2>
-    			<div className="content">{ $content }</div>
+    			<div className="module-box">
+    				<h2 className="title">{UPEX.lang.template('充币')}</h2>
+    				<div className="content">{ $content }</div>
+    			</div>
+    			<div className="module-box">
+    				<h2 className="title">{UPEX.lang.template('充币记录')}</h2>
+    				<div className="content">
+    					<RecordList currencyId={store.currentCoin.currencyId} key={store.currentCoin.currencyId}/>
+    					{ store.isFetching ? <div className="mini-loading"></div> : null }
+    				</div>
+    			</div>
     		</div>
     	)
 	}

@@ -4,7 +4,6 @@ import { Select , message , Alert } from 'antd';
 const Option = Select.Option;
 import { Link, browserHistory } from 'react-router';
 import toAction from './coin-withdraw-action';
-import RecordList from '../record-list/coin-withdraw-record';
 
 @inject('coinWithdrawStore', 'accountStore', 'userInfoStore')
 @observer
@@ -93,7 +92,7 @@ class WithdrawCoin extends Component {
 				<div className="rw-form">
 					{ store.isFetching ? <div className="mini-loading"></div> : null }
 					<div className="rw-form-item">
-						<Alert message={UPEX.lang.template('當前安全等级{level}可提額度(TWD)：NT${num}/日',{ level: userInfoStore.userInfo.authLevel, num: `${userInfoStore.userInfo.dayLimit || 0}` })} type="warning" showIcon />
+						<Alert message={UPEX.lang.template('當前安全等级{level}可提額度(TWD)：NT${num}/日',{ level: userInfoStore.userInfo.authLevel, num: `${userInfoStore.userInfo.dayLimit || 0}` })} type="warning" />
 					</div>
 					<div className="rw-form-item">
 						<label className="rw-form-label">{UPEX.lang.template('选择币种')}</label>
@@ -250,14 +249,12 @@ class WithdrawCoin extends Component {
 					</div>
 
 					<div className="rw-form-item">
-						<label className="rw-form-label"></label>
 						<div className="rw-form-info">
 							{ UPEX.lang.template('实际到账金额:{num}', { num: store.withdrawValue})}
 						</div>
 					</div>
 
 					<div className="rw-form-item">
-						<label className="rw-form-label"></label>
 						<div className="rw-form-info">
 							<button className="submit-btn" onClick={action.handleSubmit}>
 								{UPEX.lang.template('确认提币')}
@@ -265,7 +262,6 @@ class WithdrawCoin extends Component {
 						</div>
 					</div>
 					<div className="rw-form-item">
-						<label className="rw-form-label"></label>
 						<div className="rw-form-info">
 							<div className="warmprompt">
 								<h4 className="warmprompt-title">{UPEX.lang.template('温馨提示')}</h4>
@@ -276,12 +272,6 @@ class WithdrawCoin extends Component {
 									</ul>
 								</div>
 							</div>
-						</div>
-					</div>
-					<div className="rw-form-item">
-						<label className="rw-form-label">{UPEX.lang.template('提币记录')}</label>
-						<div className="rw-form-info">
-							<RecordList currencyId={store.currentCoin.currencyId}/>
 						</div>
 					</div>
 				</div>

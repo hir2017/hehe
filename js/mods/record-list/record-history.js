@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import { Select, DatePicker, Pagination } from 'antd';
 const Option = Select.Option;
+const { RangePicker } = DatePicker;
 import toAction from './record-action';
 
 @inject('commonStore', 'historyStore', 'authStore')
@@ -15,6 +16,10 @@ class List extends Component {
         super(props);
 
         this.action = toAction(this.props.historyStore, this.props.authStore);
+
+        this.state = {
+            displayIndex: -1
+        }
     }
 
     componentDidMount() {
@@ -45,6 +50,10 @@ class List extends Component {
         });
     }
 
+    onChangeTime=(value)=>{
+        console.log(value);
+    }
+
     onChangeCurrency = value => {
         this.action.handleFilter('currencyId', {
             currencyId: value
@@ -64,10 +73,17 @@ class List extends Component {
     };
 
     triggerShowDetail(index, item) {
-        if (!item.display) {
+        if (item.orderNo == this.state.displayIndex) {
+            this.setState({
+                displayIndex: -1
+            });
+        } else {
+            this.setState({
+                displayIndex: item.orderNo
+            });
+
             this.props.historyStore.getDetail(index, item);
         }
-        item.display = !item.display;
     }
 
     transVal(val, field) {
@@ -78,7 +94,7 @@ class List extends Component {
             4: UPEX.lang.template('全部撤单'),
             5: UPEX.lang.template('部分成交后撤单')
         };
-        return maps[val] || null;
+        return maps[val] || '--';
     }
 
     render() {
@@ -90,67 +106,82 @@ class List extends Component {
         } else if (!store.isFetching && store.orderList.length == 0) {
             $content = <div className="mini-tip">{UPEX.lang.template('暂无委托历史订单')}</div>;
         } else {
+
             $content = (
                 <ul className="list">
                     {store.orderList.map((item, index) => {
-                        let status = '--';
-
+                        let $detail;
+                        
+                        if (item.detailReady) {
+                            if (item.details.length > 0 ) {
+                                $detail = [];
+                                $detail = item.details.map((subItem, subIndex) => {
+                                    return (
+                                        <tr className="data" key={subIndex}>
+                                            <td>
+                                                <span className="label"> {UPEX.lang.template('成交数量')}：</span>
+                                                {subItem.num}
+                                            </td>
+                                            <td>
+                                                <span className="label"> {UPEX.lang.template('成交价格')}：</span>
+                                                {subItem.price}
+                                            </td>
+                                            <td>
+                                                <span className="label"> {UPEX.lang.template('成交率')}：</span>
+                                                {subItem.rate}
+                                            </td>
+                                        </tr>
+                                    );
+                                })
+                                $detail[$detail.length] = (
+                                    <tr>
+                                        <td colSpan={3} className="cancel">
+                                            <span>{UPEX.lang.template('撤单时间')}：{item._cancel.time || '--'}</span>
+                                            <span>{UPEX.lang.template('撤单数量')}：{item._cancel.num}</span>
+                                            <span>{UPEX.lang.template('撤单比例')}：{item._cancel.rate}</span>
+                                        </td>
+                                    </tr>
+                                )
+                            } else {
+                                $detail = (
+                                    <tr>
+                                        <td colSpan={3} className="none">{UPEX.lang.template('暂无数据')}</td>
+                                    </tr>
+                                ) 
+                            }
+                        } else {
+                            $detail = (
+                                <tr>
+                                    <td colSpan={3} className="none"><div className="mini-loading"></div></td>
+                                </tr>
+                            )
+                        }
                         return (
-                            <li key={index}>
+                            <li key={index} className={item.orderNo === this.state.displayIndex ? 'collapse-content-active' : ''}>
                                 <dl>
                                     <dd className="time">{item.orderTime}</dd>
                                     <dd className="name">{item.currencyNameEn}</dd>
-                                    <dd className="inorout">
-                                        {item.buyOrSell == 1 ? (
-                                            <label className="buy">{UPEX.lang.template('买入')}</label>
-                                        ) : (
-                                            <label className="sell">{UPEX.lang.template('卖出')}</label>
-                                        )}
+                                    <dd className="buyorsell">
+                                        {
+                                            item.buyOrSell == 1 ? (
+                                                <label className="greenrate">{UPEX.lang.template('买入')}</label>
+                                            ) : (
+                                                <label className="redrate">{UPEX.lang.template('卖出')}</label>
+                                            )
+                                        }
                                     </dd>
-                                    <dd className="num">{`${item.tradeNum}/${item.num}`}</dd>
-                                    <dd className="price">{item.price}</dd>
                                     <dd className="tradeprice">{item.averagePrice}</dd>
+                                    <dd className="price">{item.price}</dd>
+                                    <dd className="num">{item.num}</dd>
                                     <dd className="status">{this.transVal(item.status)}</dd>
                                     <dd className="action">
-                                        <button onClick={this.triggerShowDetail.bind(this, index, item)}> 详情 </button>
+                                        <button onClick={this.triggerShowDetail.bind(this, index, item)}>{UPEX.lang.template('详情')}</button>
                                     </dd>
                                 </dl>
-                                <div className={`detail-content ${item.display ? 'show' : ''}`}>
+                                <div className="detail-content">
                                     <table>
                                         <tbody>
-                                            {item.details.length !== 0 ? (
-                                                item.details.map((subItem, subIndex) => {
-                                                    return (
-                                                        <tr className="data" key={subIndex}>
-                                                            <td>
-                                                                <span className="label"> {UPEX.lang.template('成交数量')}：</span>
-                                                                {subItem.num}
-                                                            </td>
-                                                            <td>
-                                                                <span className="label"> {UPEX.lang.template('成交价格')}：</span>
-                                                                {subItem.price}
-                                                            </td>
-                                                            <td>
-                                                                <span className="label"> {UPEX.lang.template('成交率')}：</span>
-                                                                {subItem.rate}
-                                                            </td>
-                                                        </tr>
-                                                    );
-                                                })
-                                            ) : (
-                                                <tr>
-                                                    <td colSpan={3} className="none">{UPEX.lang.template('暂无成交信息')}</td>
-                                                </tr>
-                                            )}
-                                            {item.details.length !== 0 ? (
-                                                <tr>
-                                                    <td colSpan={3} className="cancel">
-                                                        <span>{UPEX.lang.template('撤单时间')}：{item._cancel.time || '--'}</span>
-                                                        <span>{UPEX.lang.template('撤单数量')}：{item._cancel.num}</span>
-                                                        <span>{UPEX.lang.template('撤单比例')}：{item._cancel.rate}</span>
-                                                    </td>
-                                                </tr>
-                                            ) : null}
+                                            {$detail}
                                         </tbody>
                                     </table>
                                 </div>
@@ -164,7 +195,6 @@ class List extends Component {
         return (
             <div className="order-main-box">
                 <div className="order-header">
-                    <h2>{UPEX.lang.template('委托历史')}</h2>
                     <div className="filter-box">
                         <ul>
                             <li>
@@ -215,12 +245,12 @@ class List extends Component {
                                 <tr>
                                     <th className="time">{UPEX.lang.template('时间')}</th>
                                     <th className="name">{UPEX.lang.template('币种')}</th>
-                                    <th className="inorout">{UPEX.lang.template('买卖')}</th>
-                                    <th className="num">{UPEX.lang.template('成交数量/委托数量')}</th>
-                                    <th className="price">{UPEX.lang.template('委托价格')}</th>
+                                    <th className="buyorsell">{UPEX.lang.template('买卖')}</th>
                                     <th className="tradeprice">{UPEX.lang.template('成交均价')}</th>
+                                    <th className="price">{UPEX.lang.template('委托价格')}</th>
+                                    <th className="num">{UPEX.lang.template('委托数量')}</th>
                                     <th className="status">{UPEX.lang.template('状态')}</th>
-                                    <th className="action">{UPEX.lang.template('操作')}</th>
+                                    <th className="action"><span className="pr15">{UPEX.lang.template('操作')}</span></th>
                                 </tr>
                             </tbody>
                         </table>

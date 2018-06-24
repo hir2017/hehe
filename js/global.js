@@ -165,7 +165,7 @@ const websocketHost = 'ws://' + origin + '/';
 const imgHost = 'http://' + origin + '/img';
 
 const config = {
-    channel: '',
+    baseCurrencyEn: 'TWD',
     defaultLanguage: SITE_LANGUAGE, // 网站语言 
     systemLanguage: SYSTEM_LANGUAGE, // 浏览器系统语言
     isEdge: /Edge/i.test(ua), // 12+
@@ -188,7 +188,7 @@ const config = {
     uploadImgHost,
     host,
     symbols,
-    imgHost
+    imgHost,
 }
 
 /**

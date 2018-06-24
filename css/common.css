@@ -46,7 +46,7 @@ html {
     position: absolute;
     top: 0;
     left: 0;
-    background: url('../images/loading.gif') no-repeat center center;
+    background: url('../images/loading2.gif') no-repeat center center;
     background-size: 60px 60px;
     z-index: 999;
 }
@@ -82,6 +82,12 @@ body .ant-checkbox-indeterminate .ant-checkbox-inner {
 body .ant-checkbox-checked:after {
     border: 1px solid #e6bc1d;
 }
+body .ant-checkbox-checked .ant-checkbox-inner:after{
+    border: 2px solid #333;
+    border-top: 0;
+    border-left: 0;
+}
+
 
 body .ant-checkbox-input:focus+.ant-checkbox-inner,
 body .ant-checkbox-wrapper:hover .ant-checkbox-inner,
@@ -140,6 +146,52 @@ body .ant-radio-button-wrapper-checked:before {
 
 body .ant-radio-button-wrapper-checked:first-child {
     border-color: #e6bc1d;
+}
+
+body .ant-pagination-item-active{
+    background-color: transparent;
+    border-color: #ecc42d;
+}
+
+body .ant-pagination-item-active:focus,
+body .ant-pagination-item-active:hover {
+  background-color: transparent;
+  border-color: #ecc42d;
+}
+
+body .ant-pagination-item:focus,
+body .ant-pagination-item:hover {
+  border-color: #ecc42d;
+}
+
+body .ant-pagination-item:focus a,
+body .ant-pagination-item:hover a {
+  color: #ecc42d;
+}
+
+body .ant-pagination-item-active a, 
+body .ant-pagination-item-active:focus a, 
+body .ant-pagination-item-active:hover a{
+    color: #ecc42d;
+}
+
+body .ant-pagination-prev:focus .ant-pagination-item-link,
+body .ant-pagination-next:focus .ant-pagination-item-link,
+body .ant-pagination-prev:hover .ant-pagination-item-link,
+body .ant-pagination-next:hover .ant-pagination-item-link {
+  border-color: #ecc42d;
+  color: #ecc42d;
+}
+
+body .ant-pagination-disabled a,
+body .ant-pagination-disabled:hover a,
+body .ant-pagination-disabled:focus a,
+body .ant-pagination-disabled .ant-pagination-item-link,
+body .ant-pagination-disabled:hover .ant-pagination-item-link,
+body .ant-pagination-disabled:focus .ant-pagination-item-link {
+  border-color: #d9d9d9;
+  color: rgba(0, 0, 0, 0.25);
+  cursor: not-allowed;
 }
 
 .widget-tooltip .ant-popover-inner-content {
@@ -267,7 +319,7 @@ body .ant-radio-button-wrapper-checked:first-child {
 
 
 .header-box .header-box-r .ant-switch{
-    background-color: #f2f2f2;
+    background-color: #ccc;
 }
 .header-box .header-box-r .ant-switch-checked {
     border-color: #ff3380;

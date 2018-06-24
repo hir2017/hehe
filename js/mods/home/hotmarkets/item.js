@@ -1,20 +1,49 @@
 import React, {Component} from 'react';
 import { observer, inject } from 'mobx-react';
 import klineChart from './chart';
+import { getTradeKline }  from '../../../api/http';
 
 @observer
 class HotCoin extends Component {
+	static defaultProps = {
+        pair: ''
+    }
+    
 	constructor(props){
 		super(props);
 	}
 	
 	componentDidMount() {
+		// 推荐币种的24小时K线数据，一次性行为，不需要实时更新
+		this.get24KlineData();
+	}
+
+	get24KlineData(){
+		getTradeKline(this.props.pair, 60, 24).then((res)=>{
+			let hours24TrendList = [];
+
+			if (res.status == 200) {
+				res.attachment.forEach((item, index)=>{
+					let arr = [];
+
+					arr[arr.length] = +new Date(item.createTime.replace(/-/g, '/')); // 时间
+					arr[arr.length] = item.current; // 价格
+
+					hours24TrendList[hours24TrendList.length] = arr;
+				})
+
+				this.drawKline(hours24TrendList);
+			}
+		});
+	}
+
+	drawKline(data){
 		let node = $(this.refs.kline);
 		let width = node.width();
 		let height = node.height();
 
 		klineChart.setData({
-			data: this.props.data.hours24TrendList,
+			data: data,
 			width: width,
 			height: height
 		});

@@ -36,39 +36,52 @@ class InfoView extends Component {
 				<div className="account-title">
 					<h2>{ UPEX.lang.template('我的资产') }</h2>
 					<div className="account-count">
-						<label>{ UPEX.lang.template('总资产折合')}TWD</label>
-						<Select defaultValue="TWD" className="hidden">
-					    	<Option value="TWD">TWD</Option>
-					    	<Option value="CNY">CNY</Option>
-					    	<Option value="HKD">HKD</Option>
-					    	<Option value="USD">USD</Option>
-					    </Select>
+						<label>{ UPEX.lang.template('总资产折合')}</label>
+						<label>{UPEX.config.baseCurrencyEn}</label>
 					    <label>≈</label>
-					    <em>{`NT$ ${store.allMoney}`}</em>
+					    <em>{`NT$ ${store.allMoney || '--'}`}</em>
 					</div>
 				</div>
 				<div className="account-content clearfix">
                     <div className="account-amount">
-                        <div className="amount">
-                            <label>{ UPEX.lang.template('可用余额')} </label>
-                            <em>{ store.visibleMoney ? `NT$ ${store.baseCoinInfo.cashAmount || 0}` : '******'} </em>
-                            <i className={store.visibleMoney ? 'open': 'close'} onClick={this.handleAllMoney}></i>
+                    	<div className="amount-hd">
+                    		<label>{ UPEX.lang.template('可用余额')} </label>
+                    		<span  className="switch" onClick={this.handleAllMoney}>
+                    			{store.visibleMoney ? UPEX.lang.template('隐藏金额'): UPEX.lang.template('显示金额')}
+                    		</span>
+                    	</div>
+                        <div className="amount-bd clearfix">
+                        	<div className="amount">
+                            	<em>NT$ { store.visibleMoney ? `${store.baseCoinInfo.cashAmount || 0}` : '******'} </em>
+                            </div>
+                            <div className="actions">
+	                            <button className="btn recharge-btn" onClick={this.handleFiatRecharge}>
+	                            	{ UPEX.lang.template('充值') }
+	                            </button>
+	                            <button className="btn withdraw-btn" onClick={this.handleFiatWidthdraw}>
+	                            	{ UPEX.lang.template('提现') }
+	                            </button>
+	                        </div>
                         </div>
-                        <div className="actions">
-                            <button className="btn" onClick={this.handleFiatRecharge}>
-                            	{ UPEX.lang.template('充值') }
-                            </button>
-                            <button className="btn" onClick={this.handleFiatWidthdraw}>
-                            	{ UPEX.lang.template('提现') }
-                            </button>
-                        </div>
+                        <ul className="amount-ft clearfix">
+                        	<li>
+                        		<label>{UPEX.lang.template('冻结资金')}</label>
+                        		<em>NT$ { store.visibleMoney ? `${store.baseCoinInfo.freezeAmount || 0}` : '******'} </em>
+                        	</li>
+                        	<li>
+                        		<label>{UPEX.lang.template('资金总额')}</label>
+                        		<em>NT$ { store.visibleMoney ? `${store.baseCoinInfo.amount || 0}` : '******'} </em>
+                        	</li>
+                        </ul>
                     </div>
                     <div className="account-record">
                         <button className="btn" onClick={this.handleCoinRecord}>
-                        	{ UPEX.lang.template('数位资产记录') }
+                        	<i></i>
+                        	<span>{ UPEX.lang.template('数位资产记录') }</span>
                         </button>
                         <button className="btn" onClick={this.handleFiatRecord}>
-                        	{ UPEX.lang.template('法币资金记录') }
+                        	<i></i>
+                        	<span>{ UPEX.lang.template('法币资金记录') }</span>
                         </button>
                     </div>
 				</div>

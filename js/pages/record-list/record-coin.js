@@ -5,7 +5,7 @@
  */
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
-import { Select } from 'antd';
+import { Select, Breadcrumb } from 'antd';
 const Option = Select.Option;
 
 import RechargeRecordList from '../../mods/record-list/coin-recharge-record';
@@ -46,18 +46,24 @@ class RecordPage extends Component {
         }
 
         return (
-        	<div className="account-coinrecord">
-                <div className="account-coinrecord-hd">
-                	<h2>{ UPEX.lang.template('充提币记录')}</h2>
-                	<div className="account-coinrecord-select">
-						<Select defaultValue={this.state.type} onChange={this.handleChange}>
-					    	<Option value="recharge">{ UPEX.lang.template('充币记录')}</Option>
-					    	<Option value="withdraw">{ UPEX.lang.template('提币记录')}</Option>
-					    </Select>
-					</div>
-                </div>
-                <div className="account-coinrecord-bd">
-                    { $list }
+        	<div className="order-wrapper">
+                <Breadcrumb separator=">">
+                    <Breadcrumb.Item>ACE</Breadcrumb.Item>
+                    <Breadcrumb.Item>{UPEX.lang.template('资产管理')}</Breadcrumb.Item>
+                </Breadcrumb>
+                <div className="order-body-inner">
+                    <div className="order-header">
+                    	<h2>{ UPEX.lang.template('充提币记录')}</h2>
+                        <div className="type-select">
+    						<Select defaultValue={this.state.type} onChange={this.handleChange}>
+    					    	<Option value="recharge">{ UPEX.lang.template('充币记录')}</Option>
+    					    	<Option value="withdraw">{ UPEX.lang.template('提币记录')}</Option>
+    					    </Select>
+                        </div>
+                    </div>
+                    <div className="order-main">
+                        <div className="order-main-box">{ $list }</div>
+                    </div>
                 </div>
         	</div>
         )

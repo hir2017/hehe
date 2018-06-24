@@ -61,7 +61,9 @@ class OrderStore {
             runInAction(() => {
                 if (data.status == 200) {
                     const {details = []} = data.attachment;
+                    
                     this.orderList[index].details = details;
+                    this.orderList[index].detailReady = true;
                     this.orderList[index]._cancel = {};
                     let cancelInfo = this.statisticsMap[item.status] || {};
 
@@ -151,8 +153,9 @@ class OrderStore {
         item.tradeNum = NumberUtil.formatNumber(item.tradeNum, pointNum);
         // 成交率
         item.tradeRate = NumberUtil.formatNumber(item.tradeRate * 100, 2) + '%';
-        item.display = false;
+        
         item.details = [];
+        item.detailReady = false;
         return item;
     }
 

@@ -95,8 +95,10 @@ class Account {
                     for (let i = 0; i < len; i++) {
                         let item = data.attachment.coinList[i];
 
-                        if (item.currencyNameEn == 'TWD') {
+                        if (item.currencyNameEn == UPEX.config.baseCurrencyEn ) {
                             item.cashAmount = NumberUtil.formatNumber(item.cashAmount, this.commonStore.pointPrice);
+                            item.amount = NumberUtil.formatNumber(item.amount, this.commonStore.pointPrice);
+                            item.freezeAmount = NumberUtil.formatNumber(item.freezeAmount, this.commonStore.pointPrice);
                             info = item;
                         } else {
                             coinList[coinList.length] = item;

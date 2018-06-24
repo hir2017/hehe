@@ -44,7 +44,17 @@ class MarketListStore {
 
     @action
     getData() {
-        this.getMarketList();
+        let timer;
+        let fetch = ()=>{
+            this.getMarketList();
+            timer && clearTimeout(timer);
+            timer = setTimeout(()=>{
+                fetch();
+            }, 10 * 1000); // 10秒钟轮询查询
+        }        
+
+        fetch();
+        
         this.quoteNotify();
         
         if (this.authStore.isLogin) {
@@ -70,7 +80,10 @@ class MarketListStore {
                     this.baseCoinInfo = result.info;
                     this.tradeCoins = this.parseCoinList(result.tradeCoins);
                     this.cacheCoins = [...this.tradeCoins];
-                    this.selectedCoin = this.tradeCoins[0];
+                    
+                    if (!this.selectedCoin.currencyId) {
+                        this.selectedCoin = this.tradeCoins[0];
+                    }
                 } else {
                     this.noCoin = true;
                 }

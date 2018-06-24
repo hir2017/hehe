@@ -67,8 +67,18 @@ class List extends Component {
 									<dl>
 										<dd className="time">{item.orderTime}</dd>
 										<dd className="name">{item.currencyNameEn}</dd>
-										<dd className="inorout">{item.buyOrSell == 1 ? <label className="buy">{UPEX.lang.template('买入')}</label>: <label className="sell">{UPEX.lang.template('卖出')}</label> }</dd>
-										<dd className="num">{`${item.tradeNum}/${item.num}`}</dd>
+										<dd className="buyorsell">
+											{
+	                                            item.buyOrSell == 1 ? (
+	                                                <label className="greenrate">{UPEX.lang.template('买入')}</label>
+	                                            ) : (
+	                                                <label className="redrate">{UPEX.lang.template('卖出')}</label>
+	                                            )
+                                        	}
+										</dd>
+										<dd className="num">
+											{`${item.tradeNum}/${item.num}`}
+										</dd>
 										<dd className="price">{item.price}</dd>
 										<dd className="rate">{item.tradeRate}</dd>
 										<dd className="amount">{item.tradeAmount}</dd>
@@ -84,9 +94,6 @@ class List extends Component {
 
 		return (
 			<div className="order-main-box">
-				<div className="order-header">
-					<h2>{ UPEX.lang.template('当前委托')}</h2>
-				</div>
 				<div className="order-table open-list-table">
 					<div className="table-hd">
 						<table>
@@ -94,12 +101,12 @@ class List extends Component {
 								<tr>
 									<th className="time">{UPEX.lang.template('时间')}</th>
 									<th className="name">{UPEX.lang.template('币种')}</th>
-									<th className="inorout">{UPEX.lang.template('买卖')}</th>
-									<th className="num">{UPEX.lang.template('成交数量/委托数量')}</th>
+									<th className="buyorsell">{UPEX.lang.template('买卖')}</th>
+									<th className="num">{UPEX.lang.template('数量(成交/委托)')}</th>
 									<th className="price">{UPEX.lang.template('委托价')}</th>
 									<th className="rate">{UPEX.lang.template('成交率')}</th>
 									<th className="amount">{UPEX.lang.template('成交金额')}</th>
-									<th className="action">{UPEX.lang.template('操作')}</th>
+									<th className="action"><span className="pr15">{UPEX.lang.template('操作')}</span></th>
 								</tr>
 							</tbody>
 						</table>

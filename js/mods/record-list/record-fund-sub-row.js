@@ -19,19 +19,20 @@ class SubRow extends Component {
         ];
         const {type, data} = this.props
         let cols = type === 'recharge' ? rechargeCol : withdrawCol
+        
         return (
-            <dl className={`extra-info ${data.subRowClosed ? '' : 'show'}`}>
-                <dd>
-                    {cols.map((col, colIndex) => {
+            <div className="detail-content">
+                {
+                    cols.map((col, colIndex) => {
                         return (
-                            <span key={colIndex} className="text">
+                            <div key={colIndex} className="text">
                                 <span className="label">{col.label}：</span>
                                 {data[col.field]}
-                            </span>
+                            </div>
                         );
-                    })}
-                </dd>
-            </dl>
+                    })
+                }
+            </div>
         );
     }
 }

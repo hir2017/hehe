@@ -62,13 +62,11 @@
 
 .aside-left .menu .menu-submenu {
     text-align: center;
-    padding-bottom: 10px;
 }
 
 .aside-left .menu .menu-submenu-title {
     height: 50px;
     line-height: 50px;
-    margin-bottom: 10px;
     font-size: 15px;
     font-weight: bold;
 }
@@ -77,12 +75,20 @@
     height: 40px;
     line-height: 40px;
     font-size: 14px;
+    border-right: 3px solid transparent;
 }
 
 .aside-left .menu .menu-submenu-item a {
     display: block;
-    color: #2f2f2f;
+    color: #999;
 }
+
+.aside-left .menu .menu-submenu-item a:hover,
+.aside-left .menu .menu-submenu-item a:focus,
+.aside-left .menu .menu-submenu-item a:active{
+    text-decoration: none;
+}
+
 
 .aside-left .menu .menu-submenu-item.active-item {
     background-color: #fffbe9;

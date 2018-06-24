@@ -11,17 +11,24 @@
     width: 1200px;
     margin: 0 auto;
     font-size: 14px;
-    color: #333333;
+    color: #333333;   
+}
+
+.rw-wrapper .module-box{
+    border-radius: 4px;
     background-color: #fff;
-    padding: 10px;
-    box-sizing: border-box;
+    margin-top: 30px;
+    padding-bottom: 20px;
 }
 
 .rw-wrapper .title {
-    padding: 20px 0;
-    font-size: 26px;
-    font-weight: normal;
-    border-bottom: 1px solid #e7ebf1;
+    padding: 0 20px;
+    font-size: 18px;
+    height: 60px;
+    line-height: 60px;
+    font-weight: bold;
+    color: #333333;
+    border-bottom: 1px solid #f4f4f4;
 }
 
 .rw-wrapper .sub-title {
@@ -34,7 +41,6 @@
 .rw-wrapper .content {
     position: relative;
     min-height: 300px;
-    padding-top: 10px;
 }
 
 
@@ -58,8 +64,8 @@
 }
 
 .rw-wrapper .rw-form {
+    margin-left: 375px;
     padding-top: 30px;
-    margin-top: 10px;
     margin-bottom: 30px;
 }
 
@@ -68,18 +74,14 @@
     overflow: hidden;
 }
 
-.rw-form-label {
-    float: left;
-    width: 200px;
-    margin-right: 10px;
-    line-height: 38px;
-    min-height: 1px;
-    text-align: right;
+.rw-form-item .ant-alert{
+    width: 450px;
 }
 
-.rw-form-info {
-    float: left;
-    width: 970px;
+.rw-form-label {
+    color: #999999;
+    height: 30px;
+    line-height: 30px;
 }
 
 .rw-form-record {
@@ -89,7 +91,7 @@
 }
 
 .rw-form-info .ant-select {
-    width: 490px;
+    width: 450px;
 }
 
 
@@ -104,7 +106,7 @@
     height: 38px;
     position: relative;
     border: 1px solid #d8d9dd;
-    width: 490px;
+    width: 450px;
     padding: 10px;
     border-radius: 4px;
 }
@@ -127,7 +129,7 @@
 
 .rw-form-info .input-button-box .input-box,
 .rw-form-info .select-button-box .select-box {
-    width: 360px;
+    width: 450px;
     display: inline-block;
     vertical-align: middle;
 }
@@ -183,7 +185,7 @@
     vertical-align: middle;
     border: 1px solid #d8d9dd;
     border-radius: 4px;
-    width: 102px;
+    width: 220px;
     height: 38px;
     text-align: center;
     line-height: 38px;
@@ -193,18 +195,23 @@
 }
 
 .rw-form-info .tab-item.selected {
-    color: #fff;
     background-color: #e6bc1d;
+}
+
+.rw-form-info .remain-amount{
+    height: 30px;
+    line-height: 30px;
 }
 
 
 .rw-form-info button.submit-btn {
-    min-width: 200px;
+    width: 450px;
     height: 36px;
-    background-color: #e6bc1d;
-    color: #fff;
+    background-color: #e8b802;
+    color: #333333;
     text-align: center;
     line-height: 36px;
+    border-radius: 4px;
 }
 
 .rw-form-info .warn{
@@ -216,7 +223,9 @@
 .rw-form-info a{
     padding: 0 20px;
 }
-
+.rw-form-info .warmprompt {
+    padding: 10px 0;
+}
 .rw-form-info .warmprompt-title {
     margin-bottom: 10px;
 }
@@ -245,13 +254,19 @@
     margin-top: 10px;
 }
 
-
-
 .r-coin-wrapper .qrcode-box {
-    display: inline-block;
-    vertical-align: middle;
+    display: block;
+    width: 450px;
+    padding: 10px 0;
+    border-bottom: 1px solid #f4f4f4;
+}
+
+
+.r-coin-wrapper .qrcode-img {
+    display: block;
     width: 194px;
     height: 194px;
+    margin:  0 auto;
 }
 
 .r-coin-wrapper .qrcode-box img {
@@ -262,9 +277,8 @@
 }
 
 .r-coin-wrapper .qrcode-label {
-    display: inline-block;
-    vertical-align: middle;
-    padding: 0 10px;
+    display: block;
+    text-align: center;
 }
 
 

@@ -32,9 +32,9 @@ class MarketCoinList extends Component {
         }
 
         if (this.props.homeStore.marketListStore.sortByType == 'asc') {
-            return <Icon type='arrow-up' /> 
+            return <i className='icon-arrow arrow-up' /> 
         } else {
-            return <Icon type='arrow-down'/> 
+            return <i className='icon-arrow arrow-down'/> 
         }
     }
 
@@ -90,34 +90,31 @@ class MarketCoinList extends Component {
 				<div className="coin-list-content">
 					<div className="">
 						<div className="table-header">
-							<table>
-	                            <thead>
-	                                <tr>
-	                                    <th className="name">{UPEX.lang.template('币种')}</th>
-	                                    <th className="amount" onClick={this.sortHandle.bind(this,'currentAmount')}>
-	                                        {UPEX.lang.template('最新价')}
-	                                        {this.sortIcon(marketListStore.sortByKey === 'currentAmount')}
-	                                    </th>
-	                                    <th className="rate" onClick={this.sortHandle.bind(this, 'changeRate')}>
-	                                        {UPEX.lang.template('24h涨跌')}
-	                                        {this.sortIcon(marketListStore.sortByKey=== 'changeRate')}
-	                                    </th>
-	                                    <th className="volume" onClick={this.sortHandle.bind(this, 'volume')}>
-	                                        {UPEX.lang.template('24h成交量')}
-	                                        {this.sortIcon(marketListStore.sortByKey === 'volume')}
-	                                    </th>
-	                                    <th className="action">{UPEX.lang.template('收藏')}</th>
-	                                </tr>
-	                            </thead>
-	                        </table>
+							<ul>
+                                <li>
+                                    <span className="cell name">{UPEX.lang.template('币种')}</span>
+                                    <span className="cell amount" onClick={this.sortHandle.bind(this,'currentAmount')}>
+                                        {UPEX.lang.template('最新价')}
+                                        {this.sortIcon(marketListStore.sortByKey === 'currentAmount')}
+                                    </span>
+                                    <span className="cell rate" onClick={this.sortHandle.bind(this, 'changeRate')}>
+                                        {UPEX.lang.template('24h涨跌')}
+                                        {this.sortIcon(marketListStore.sortByKey=== 'changeRate')}
+                                    </span>
+                                    <span className="cell volume" onClick={this.sortHandle.bind(this, 'volume')}>
+                                        {UPEX.lang.template('24h成交量')}
+                                        {this.sortIcon(marketListStore.sortByKey === 'volume')}
+                                    </span>
+                                    <span className="cell action">{UPEX.lang.template('收藏')}</span>
+                                </li>
+	                        </ul>
                         </div>
                         <div className="table-body">
                             { 
                                 marketListStore.noCoin ? (
                                     <div className="mini-tip">{ UPEX.lang.template('暂无数据')}</div>
                                 ) : (
-                                    <table>
-                                        <tbody className="ant-table-tbody">
+                                    <ul>
                                             {
                                                 marketListStore.tradeCoins.map((item, index) => {
                                                 	let path, ratecolor;
@@ -133,18 +130,17 @@ class MarketCoinList extends Component {
                                                     }
                                                     
                                                     return (
-                                                        <tr key={item.id} onClick={this.selectCoin.bind(this, item)}>
-                                                            <td className="name"><span className="symbol">{item.currencyNameEn || '--'}</span></td>
-                                                            <td className="amount">{item.currentAmountText}</td>
-                                                            <td className={`rate ${ratecolor}`}>{item.changeRateText}</td>
-                                                            <td className="volume">{item.volumeText}</td>
-                                                            <td className="action">{this.collectIcon(item)}</td>
-                                                        </tr>
+                                                        <li className="clearfix" key={item.id} onClick={this.selectCoin.bind(this, item)}>
+                                                            <span className="cell name"><span className="symbol">{item.currencyNameEn || '--'}</span></span>
+                                                            <span className="cell amount">{item.currentAmountText}</span>
+                                                            <span className={`cell rate ${ratecolor}`}>{item.changeRateText}</span>
+                                                            <span className="cell volume">{item.volumeText}</span>
+                                                            <span className="cell action">{this.collectIcon(item)}</span>
+                                                        </li>
                                                     );
                                                 })
                                             }
-                                        </tbody>
-                                    </table>
+                                    </ul>
                                 )
                             }
                         </div>

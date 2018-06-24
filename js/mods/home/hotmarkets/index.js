@@ -19,9 +19,11 @@ class HotMarkets extends Component{
 				<ul>
 				{
 					store.hotCoins.map((item, index)=>{
+						let pair = item.baseCurrencyNameEn + '_' + item.currencyNameEn;
+						
 						return (
-							<li key={index}>
-								<Item data={item}/>
+							<li key={pair}>
+								<Item data={item} pair={pair}/>
 							</li>
 						)
 					})

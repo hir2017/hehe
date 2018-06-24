@@ -395,16 +395,18 @@
 
 .index-markets-left .coin-bd li {
     padding: 5px 20px;
-    font-size: 14px;
-    color: #9a9a9a;
+    font-size: 12px;
+    color: #999999;
+    overflow: hidden;
 }
 
 .index-markets-left .coin-bd li label {
-    display: inline-block;
-    vertical-align: middle;
-    margin-right: 30px;
+    float: left;
 }
 
+.index-markets-left .coin-bd li em{
+    float: right;
+}
 .index-markets-left .coin-ft {
     position: relative;
 }
@@ -438,12 +440,6 @@
 }
 
 
-.index-markets-right .table-body {
-    max-height: 540px;
-    overflow: hidden;
-    overflow-y: auto;
-}
-
 .index-markets-right .coin-list-title {
     position: absolute;
     right: 10px;
@@ -468,11 +464,39 @@
 .index-markets-right .coin-list-title>span:last-child {
     width: 220px;
 }
-/* .index-markets-right .coin-list-content tr:nth-child(even){
-    background-color: #f8f7fc;
-} */
+
+.index-markets-right .table-body {
+    max-height: 540px;
+    overflow: hidden;
+    overflow-y: auto;
+}
+
+
+.index-markets-right .coin-list-content li{
+    height: 50px;
+    line-height: 50px;
+    padding: 0 20px;
+    border-bottom: 1px solid #f4f4f4;
+    cursor: pointer;
+    color: #666666;
+}
+
+.index-markets-right .coin-list-content .table-header li {
+    color: #999999;
+}
+
+.index-markets-right .coin-list-content .cell{
+    float: left;
+    font-size: 14px;
+}
+
 .index-markets-right .coin-list-content .name{ 
-    width: 10%;
+    width: 172px;
+    text-align: center;
+}
+
+.index-markets-right .coin-list-content .table-body .name{
+    color: #333333;
 }
 
 .index-markets-right .coin-list-content .name .symbol:hover{
@@ -480,63 +504,51 @@
 }
 
 .index-markets-right .coin-list-content .amount{
-    width: 20%;
+    width: 172px;
+    text-align: right;
 }
 
 .index-markets-right .coin-list-content .rate{
-    width: 20%;
+    width: 172px;
+    text-align: right;
 }
 
 .index-markets-right .coin-list-content .volume{
-    width: 20%;
+    width: 172px;
+    text-align: right;
 }
 
 .index-markets-right .coin-list-content .action{
-    width: 10%;
-}
-
-.index-markets-right table {
-    width: 100%;
-}
-
-.index-markets-right table tr {
-    height: 50px;
-    line-height: 50px;
-}
-
-.index-markets-right table th {
+    width: 172px;
     text-align: center;
-    font-size: 14px;
-    border-bottom: 1px solid #e7ebf1;
-    -webkit-user-select: none;
-    -webkit-touch-callout: none;
 }
 
 
-.index-markets-right table th i {
+.index-markets-right .coin-list-content i {
     font-size: 12px;
     vertical-align: 3px;
     margin-left: 5px;
     cursor: pointer;
+    display: inline-block;
+    vertical-align: middle;
+    width: 10px;
+    height: 10px;
 }
 
-.index-markets-right table td {
-    text-align: center;
-    font-size: 14px;
-    cursor: pointer;
-    border-bottom: 1px solid #f2f2f2;
+.index-markets-right .coin-list-content i.arrow-up{
+    background: url('../images/icon-up.png') no-repeat center center;
+    background-size: 10px 10px;
 }
 
-.index-markets-right table td a {
-    color: #333333;
+.index-markets-right .coin-list-content i.arrow-down{
+    background: url('../images/icon-down.png') no-repeat center center;
+    background-size: 10px 10px;
 }
 
 
 .index-markets-right .anticon-star {
     color: #e6bc1d;
 }
-
-
 
 /**
  * 币圈资讯

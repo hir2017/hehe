@@ -77,7 +77,6 @@ class AddWithdrawAddress extends Component {
 					</div>
 				</div>
 				<div className="rw-form-item">
-					<label className="rw-form-label"></label>
 					<div className="rw-form-info">
 						{
 							addressStore.$submiting 

@@ -71,9 +71,11 @@ class Recharge extends Component{
 
 		return (
 			<div className="rw-wrapper w-fait-wrapper">
+				<div className="module-box">
 				<h2 className="title">{UPEX.lang.template('账户提现')}</h2>
-				<div className="content">
-					{ $content }
+					<div className="content">
+						{ $content }
+					</div>
 				</div>
 			</div>
 		)
