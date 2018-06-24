@@ -138,6 +138,92 @@ menu-submenu-item */
  * 基本信息
  */
 
+.page-content-inner.base-info .ace-section.info .section-body {
+    position: relative;
+    overflow: hidden;
+}
+
+.page-content-inner.base-info .ace-section.info .section-body::after {
+    display: block;
+    content: '';
+    width: 1px;
+    height: 100%;
+    background-color: #ccc;
+    position: absolute;
+    right: 50%;
+    top: 0;
+}
+
+.page-content-inner.base-info .ace-section.info .content-box {
+    float: left;
+    width: 50%;
+    box-sizing: border-box;
+    padding: 10px 0;
+    overflow: hidden;
+    text-align: center;
+}
+
+.page-content-inner.base-info .ace-section.info .content-box.left {
+    padding-right: 20px;
+}
+
+.page-content-inner.base-info .ace-section.info .content-box.left .phone,
+.page-content-inner.base-info .ace-section.info .content-box.right .grade {
+    font-size: 24px;
+    color: #333;
+}
+
+.page-content-inner.base-info .ace-section.info .content-box.left .phone {
+    padding-top: 20px;
+}
+
+.page-content-inner.base-info .ace-section.info .content-box.left .login-time,
+.page-content-inner.base-info .ace-section.info .content-box.right .money {
+    font-size: 14px;
+    color: #999;
+}
+
+.page-content-inner.base-info .ace-section.info .content-box.left .bind {
+    width: 70%;
+    margin: 0 auto;
+    padding-top: 20px;
+}
+
+.page-content-inner.base-info .ace-section.info .content-box.left .bind>div {
+    display: inline-block;
+    width: 50%;
+    text-align: center;
+}
+
+.page-content-inner.base-info .ace-section.info .content-box.left .bind img {
+    display: block;
+    margin: 0 auto;
+}
+
+.page-content-inner.base-info .ace-section.info .content-box.right {
+    padding-left: 20px;
+}
+
+.page-content-inner.base-info .ace-section.info .content-box.right .title {
+    text-align: left;
+    color: #999;
+    font-size: 14px;
+}
+
+.page-content-inner.base-info .ace-section.info .content-box.right .lvl {
+    color: #e6bc1d;
+}
+
+.page-content-inner.base-info .ace-section.info .content-box.right .ant-btn {
+    min-width: 100px;
+    height: 35px;
+    background-color: #e6bc1d;
+    color: #fff;
+    margin-top: 20px;
+    outline: none;
+}
+
+/*
 .user-main .info-box .info-title {
     font-size: 18px;
     color: #333333;
@@ -222,30 +308,30 @@ menu-submenu-item */
 .user-main .info-content-right .certification-grade {
     display: inline-block;
     padding-left: 15px;
-}
+} */
 
-.user-main .certification-grade .grade span {
+/* .user-main .certification-grade .grade span {
     font-size: 14px;
     color: #333333;
     font-weight: bold;
-}
+} */
 
-.user-main .certification-grade .grade a {
+/* .user-main .certification-grade .grade a {
     font-size: 12px;
     color: #5581d8;
     margin-left: 15px;
-}
+} */
 
-.user-main .certification-grade .money>span:first-child {
+/* .user-main .certification-grade .money>span:first-child {
     color: #999999;
     font-size: 14px;
-}
+} */
 
-.user-main .certification-grade .money>span:last-child {
+/* .user-main .certification-grade .money>span:last-child {
     font-size: 20px;
     color: #333333;
     font-weight: bold;
-}
+} */
 
 .user-main .login-reminding {
     margin-left: 270px;
@@ -280,9 +366,9 @@ menu-submenu-item */
     line-height: 50px;
 }
 
-.user-main .ant-table-body tr:nth-child(odd) {
+/* .user-main .ant-table-body tr:nth-child(odd) {
     background-color: #f8f8fb;
-}
+} */
 
 .user-main .ant-table-body {
     max-height: 250px;
@@ -401,52 +487,53 @@ menu-submenu-item */
     margin-right: 0;
 }
 
-.user-main .ace-form.auth-step-1  .ant-select {
+.user-main .ace-form.auth-step-1 .ant-select {
     width: 100%;
     display: block;
 }
 
-.user-main .ace-form.auth-step-1  .ant-select-selection--single {
+.user-main .ace-form.auth-step-1 .ant-select-selection--single {
     height: 42px;
 }
 
-.user-main .ace-form.auth-step-1  .ant-select-selection__placeholder {
+.user-main .ace-form.auth-step-1 .ant-select-selection__placeholder {
     top: 37%;
     height: 32px;
     line-height: 32px;
 }
 
-.user-main .ace-form.auth-step-1  .ant-select-selection__rendered {
+.user-main .ace-form.auth-step-1 .ant-select-selection__rendered {
     line-height: 42px;
 }
 
-.user-main .ace-form.auth-step-1  .ace-input-item.select.radio {
+.user-main .ace-form.auth-step-1 .ace-input-item.select.radio {
     position: relative;
 }
 
-.user-main .ace-form.auth-step-1  .ace-input-item.select.radio div.input {
+.user-main .ace-form.auth-step-1 .ace-input-item.select.radio div.input {
     text-indent: 0;
 }
 
-.user-main .ace-form.auth-step-1  .ace-input-item.select.radio .ant-input {
+.user-main .ace-form.auth-step-1 .ace-input-item.select.radio .ant-input {
     position: absolute;
     left: 79%;
     width: 120px;
     top: 14px;
 }
 
-.user-main .ace-form.auth-step-1  .ace-input-item.select .error-message,
-.user-main .ace-form.auth-step-1  .ace-input-item.select .message {
+.user-main .ace-form.auth-step-1 .ace-input-item.select .error-message,
+.user-main .ace-form.auth-step-1 .ace-input-item.select .message {
     display: block;
     width: 100%;
 }
 
-.user-main .ace-form.auth-step-1  .ant-upload-list {
+.user-main .ace-form.auth-step-1 .ant-upload-list {
     width: 240px;
     margin-left: 20px;
     display: none;
 }
-.user-main .ace-form.auth-step-1  .item.center{
+
+.user-main .ace-form.auth-step-1 .item.center {
     text-align: center;
 }
 
@@ -551,9 +638,11 @@ menu-submenu-item */
     border-radius: 5px;
     padding: 10px 0;
 }
+
 .user-main .ace-form.auth-step-2 .center {
     text-align: center;
 }
+
 .user-main .ace-form.auth-step-2 .pic-item header {
     overflow: hidden;
     border-bottom: solid 1px #f4f4f4;
@@ -713,9 +802,11 @@ menu-submenu-item */
     text-align: center;
     padding: 20px;
 }
+
 .user-main .ace-form.auth-step-4 .tip p {
     padding-bottom: 5px;
 }
+
 .user-main .ace-form.auth-step-4 .info tr .money {
     font-size: 20px;
     font-weight: bold;
@@ -872,6 +963,18 @@ menu-submenu-item */
 
 .user-main .authentication-content .submit button {
     margin-top: 0;
+}
+
+/* 邮箱绑定 */
+.user-main .bind-email-content{
+ padding: 20px;
+}
+.user-main .bind-email-content .ant-card {
+    margin-bottom: 10px;
+}
+.user-main .bind-email-content .tip {
+    font-size: 12px;
+    color: #999;
 }
 
 /**
@@ -1565,9 +1668,10 @@ menu-submenu-item */
 /**
  * 问题反馈
  */
- .user-main .content-body.feedback .anticon.anticon-eye-o{
+
+.user-main .content-body.feedback .anticon.anticon-eye-o {
     display: none;
- }
+}
 
 .user-main .question-title {
     color: #333333;
