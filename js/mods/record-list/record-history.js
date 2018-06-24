@@ -111,7 +111,7 @@ class List extends Component {
                 <ul className="list">
                     {store.orderList.map((item, index) => {
                         let $detail;
-                        console.log(item);
+                        
                         if (item.detailReady) {
                             if (item.details.length > 0 ) {
                                 $detail = [];
