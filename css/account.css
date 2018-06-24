@@ -238,7 +238,7 @@
 }
 
 .account-result-list .table-bd li:hover {
-    border-bottom: 1px solid #f8f8f8;
+    background: #f8f8f8;
 }
 
 .account-result-list .name {
