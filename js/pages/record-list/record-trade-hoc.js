@@ -6,6 +6,7 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import { browserHistory } from 'react-router';
+import { Breadcrumb } from 'antd';
 
 @inject('tradePwdStore', 'commonStore')
 @observer
@@ -54,23 +55,26 @@ class RecordPage extends Component {
 
         return (
         	<div className="order-wrapper">
+        		<Breadcrumb separator=">">
+                    <Breadcrumb.Item>ACE</Breadcrumb.Item>
+                    <Breadcrumb.Item>{UPEX.lang.template('订单中心')}</Breadcrumb.Item>
+                </Breadcrumb>
         		<div className="order-body-inner clearfix">
 	        		<div className="order-menu">
-	        			<div className="order-menu-box">
-		        			<h2>{ UPEX.lang.template('订单信息')}</h2>
-		        			<ul>
-		        				{
-		        					this.tabs.map((item, index)=>{
-		        						let cls = item.index == target.index ? 'selected' : '';
+	        			<ul>
+	        				{
+	        					this.tabs.map((item, index)=>{
+	        						let cls = item.index == target.index ? 'selected' : '';
 
-		        						return (
-		        							<li className={cls} key={index} onClick={this.handleClickTab.bind(this, item)}>{ item.title }</li>
-		        						)
-		        					})
-		        				}
-		        			</ul>
-	        			</div>
-	        		</div>
+	        						return (
+	        							<li className={cls} key={index} onClick={this.handleClickTab.bind(this, item)}>
+	        								<h3>{ item.title }</h3>
+	        							</li>
+	        						)
+	        					})
+	        				}
+	        			</ul>
+        			</div>
 	        		<div className="order-main">
 	        			{ this.props.commonStore.productDataReady ? this.props.children : null }
 	        		</div>

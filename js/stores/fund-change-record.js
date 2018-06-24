@@ -91,7 +91,6 @@ class FundChangeRecordStore {
         const statusMap = this.statusMap
         arr.forEach((item, index) => {
             // item.createTime = TimeUtil.formatDate(item.createTime, 'yyyy-MM-dd HH:mm:ss');
-            item.subRowClosed = true;
             item._type = item.type === 1 ? 'recharge' : 'withdraw';
             item._status = statusMap[item.status] || '未知';
             item._actionName = `银行卡${item.type === 1 ? '充值' : '提现'}`;
@@ -99,11 +98,6 @@ class FundChangeRecordStore {
         });
 
         return arr;
-    }
-
-    @action
-    toggleSubRow(index) {
-        this.orderList[index].subRowClosed = !this.orderList[index].subRowClosed;
     }
 }
 

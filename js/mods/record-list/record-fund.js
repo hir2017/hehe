@@ -6,6 +6,14 @@ import SubRow from './record-fund-sub-row';
 @inject('fundChangeRecordStore')
 @observer
 class List extends Component {
+    constructor(props){
+        super(props);
+
+        this.state = {
+            displayIndex: -1
+        }
+    }
+
     componentDidMount() {
         this.props.fundChangeRecordStore.getData({
             pageNumber: 1
@@ -18,40 +26,48 @@ class List extends Component {
         });
     }
 
+    toggleSubRow=(index)=>{
+        if (index == this.state.displayIndex) {
+            this.setState({
+                displayIndex: -1
+            });
+        } else {
+            this.setState({
+                displayIndex: index
+            });
+        }
+    }
+
     render() {
         let store = this.props.fundChangeRecordStore;
         let $content;
-        if (store.isFetching) {
-            $content = <div className="mini-tip">{UPEX.lang.template('正在加载')}</div>;
-        } else if (store.orderList.length == 0) {
-            $content = <div className="mini-tip">{UPEX.lang.template('暂无数据')}</div>;
+        
+        if (!store.isFetching && store.orderList.length == 0) {
+            $content = <div className="mini-tip">{UPEX.lang.template('暂无资金变动记录')}</div>;
         } else {
             $content = (
                 <ul>
                     {store.orderList.map((item, index) => {
+
                         return (
-                            <li key={index}>
+                            <li key={index} className={this.state.displayIndex == item.id ? 'collapse-content-active' : ''}>
                                 <dl className="row">
-                                    <dd className="swift-no">{item.tradeNo}</dd>
-                                    <dd className="time">{item.tradeTime}</dd>
-                                    <dd className="name">{item._actionName}</dd>
+                                    <dd className="swift-no">{item.tradeNo || '--'}</dd>
+                                    <dd className="time">{item.tradeTime || '--'}</dd>
+                                    <dd className="name">{item._actionName || '--'}</dd>
                                     <dd className="balance">
                                         {item._type === 'recharge' ? '+' : '-'}
                                         {item.amount}
                                     </dd>
-                                    <dd className="status">{item._status}</dd>
+                                    <dd className="status">{item._status || '--'}</dd>
                                     <dd className="pay-method">
-                                        {item.tradeType}
-                                        <Icon
-                                            className="toggle"
-                                            type={item.subRowClosed ? 'caret-down' : 'caret-up'}
-                                            onClick={() => {
-                                                store.toggleSubRow(index);
-                                            }}
-                                        />
+                                        {item.tradeType || '--'}
+                                    </dd>
+                                    <dd className="action">
+                                        <button onClick={()=>this.toggleSubRow(item.id)}>{UPEX.lang.template('详情')}</button>
                                     </dd>
                                 </dl>
-                                <SubRow type={item._type} data={item} />
+                                <SubRow type={item._type} data={item}/>
                             </li>
                         );
                     })}
@@ -60,7 +76,7 @@ class List extends Component {
         }
 
         return (
-            <div className="account-record-list">
+            <div className="order-table fiat-list-table">
                 <div className="table-hd">
                     <table>
                         <tbody>
@@ -71,6 +87,7 @@ class List extends Component {
                                 <th className="balance">{UPEX.lang.template('收/支')}</th>
                                 <th className="status">{UPEX.lang.template('状态')}</th>
                                 <th className="pay-method">{UPEX.lang.template('支付方式')}</th>
+                                <th className="action"><span className="pr10">{UPEX.lang.template('操作')}</span></th>
                             </tr>
                         </tbody>
                     </table>

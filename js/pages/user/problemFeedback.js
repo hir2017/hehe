@@ -77,7 +77,7 @@ export default class extends Component {
         const token = UPEX.cache.getCache('token');
         const uid = UPEX.cache.getCache('uid');
         return (
-            <PageWrapper title={UPEX.lang.template('問題反饋')}>
+            <PageWrapper title={UPEX.lang.template('問題反饋')} bodyClass="feedback">
                 <div className="question-left">
                     <TextArea onChange={this.textAreaChange} placeholder={UPEX.lang.template('請輸入您要反饋的問題')} rows={7} />
                     <div className="upload-box">

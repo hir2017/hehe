@@ -62,13 +62,11 @@
 
 .aside-left .menu .menu-submenu {
     text-align: center;
-    padding-bottom: 10px;
 }
 
 .aside-left .menu .menu-submenu-title {
     height: 50px;
     line-height: 50px;
-    margin-bottom: 10px;
     font-size: 15px;
     font-weight: bold;
 }
@@ -77,12 +75,20 @@
     height: 40px;
     line-height: 40px;
     font-size: 14px;
+    border-right: 3px solid transparent;
 }
 
 .aside-left .menu .menu-submenu-item a {
     display: block;
-    color: #2f2f2f;
+    color: #999;
 }
+
+.aside-left .menu .menu-submenu-item a:hover,
+.aside-left .menu .menu-submenu-item a:focus,
+.aside-left .menu .menu-submenu-item a:active{
+    text-decoration: none;
+}
+
 
 .aside-left .menu .menu-submenu-item.active-item {
     background-color: #fffbe9;
@@ -353,92 +359,95 @@ menu-submenu-item */
     border-color: #e9bb0d;
 }
 
-.user-main .authentication-content .muti-filed,
-.user-main .authentication-content .muti-select {
+.user-main .ace-form.auth-step-1 .muti-filed,
+.user-main .ace-form.auth-step-1 .muti-select {
     position: relative;
 }
 
-.user-main .authentication-content .muti-filed .ace-input-item,
-.user-main .authentication-content .muti-select .ace-input-item {
+.user-main .ace-form.auth-step-1 .muti-filed .ace-input-item,
+.user-main .ace-form.auth-step-1 .muti-select .ace-input-item {
     width: 210px;
     float: left;
     margin-right: 30px;
 }
 
-.user-main .authentication-content .muti-filed .ace-input-item input.input,
-.user-main .authentication-content .muti-select div.input {
+.user-main .ace-form.auth-step-1 .muti-filed .ace-input-item input.input,
+.user-main .ace-form.auth-step-1 .muti-select div.input {
     margin-bottom: 30px;
 }
 
-.user-main .authentication-content .muti-filed .message,
-.user-main .authentication-content .muti-select .message {
+.user-main .ace-form.auth-step-1 .muti-filed .message,
+.user-main .ace-form.auth-step-1 .muti-select .message {
     position: absolute;
     top: 70px;
 }
 
-.user-main .authentication-content .muti-filed .ace-input-item.last,
-.user-main .authentication-content .muti-select .ace-input-item.last {
+.user-main .ace-form.auth-step-1 .muti-filed .ace-input-item.last,
+.user-main .ace-form.auth-step-1 .muti-select .ace-input-item.last {
     margin-right: 0;
 }
 
-.user-main .authentication-content .ace-input-item.select div.input {
+.user-main .ace-form.auth-step-1 .ace-input-item.select div.input {
     border: none;
 }
 
-.user-main .authentication-content .ace-input-item.select.time-label .ant-select {
+.user-main .ace-form.auth-step-1 .ace-input-item.select.time-label .ant-select {
     float: left;
     width: 130px;
     margin-right: 29px;
 }
 
-.user-main .authentication-content .ace-input-item.select.time-label .ant-select.last {
+.user-main .ace-form.auth-step-1 .ace-input-item.select.time-label .ant-select.last {
     margin-right: 0;
 }
 
-.user-main .authentication-content .ace-form .ant-select {
+.user-main .ace-form.auth-step-1  .ant-select {
     width: 100%;
     display: block;
 }
 
-.user-main .authentication-content .ace-form .ant-select-selection--single {
+.user-main .ace-form.auth-step-1  .ant-select-selection--single {
     height: 42px;
 }
 
-.user-main .authentication-content .ace-form .ant-select-selection__placeholder {
+.user-main .ace-form.auth-step-1  .ant-select-selection__placeholder {
     top: 37%;
     height: 32px;
     line-height: 32px;
 }
 
-.user-main .authentication-content .ace-form .ant-select-selection__rendered {
+.user-main .ace-form.auth-step-1  .ant-select-selection__rendered {
     line-height: 42px;
 }
 
-.user-main .authentication-content .ace-form .ace-input-item.select.radio {
+.user-main .ace-form.auth-step-1  .ace-input-item.select.radio {
     position: relative;
 }
 
-.user-main .authentication-content .ace-form .ace-input-item.select.radio div.input {
+.user-main .ace-form.auth-step-1  .ace-input-item.select.radio div.input {
     text-indent: 0;
 }
 
-.user-main .authentication-content .ace-form .ace-input-item.select.radio .ant-input {
+.user-main .ace-form.auth-step-1  .ace-input-item.select.radio .ant-input {
     position: absolute;
     left: 79%;
     width: 120px;
     top: 14px;
 }
 
-.user-main .authentication-content .ace-input-item.select .error-message,
-.user-main .authentication-content .ace-input-item.select .message {
+.user-main .ace-form.auth-step-1  .ace-input-item.select .error-message,
+.user-main .ace-form.auth-step-1  .ace-input-item.select .message {
     display: block;
     width: 100%;
 }
 
-.user-main .authentication-content .ant-upload-list {
+.user-main .ace-form.auth-step-1  .ant-upload-list {
     width: 240px;
     margin-left: 20px;
     display: none;
+}
+.user-main .ace-form.auth-step-1  .item.center{
+    text-align: center;
 }
 
 .user-main .authentication .step {
@@ -542,7 +551,9 @@ menu-submenu-item */
     border-radius: 5px;
     padding: 10px 0;
 }
-
+.user-main .ace-form.auth-step-2 .center {
+    text-align: center;
+}
 .user-main .ace-form.auth-step-2 .pic-item header {
     overflow: hidden;
     border-bottom: solid 1px #f4f4f4;
@@ -860,7 +871,7 @@ menu-submenu-item */
 }
 
 .user-main .authentication-content .submit button {
-    margin-top: 20px;
+    margin-top: 0;
 }
 
 /**
@@ -1554,6 +1565,9 @@ menu-submenu-item */
 /**
  * 问题反馈
  */
+ .user-main .content-body.feedback .anticon.anticon-eye-o{
+    display: none;
+ }
 
 .user-main .question-title {
     color: #333333;

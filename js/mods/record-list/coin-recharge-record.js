@@ -8,7 +8,14 @@ class List extends Component {
 	static defaultProps = {
 		currencyId: 0
 	}
+	constructor(props){
+		super(props);
 
+		this.state = {
+			displayIndex: -1
+		}
+
+	}
 	componentDidMount() {
 		this.props.coinRechargeRecordStore.getData({
 			start: 1,
@@ -22,9 +29,23 @@ class List extends Component {
 		});
 	}
 
+
+    triggerShowDetail=(index)=>{
+    	if (index == this.state.displayIndex) {
+    		this.setState({
+	        	displayIndex: -1
+	        });
+    	} else {
+    		this.setState({
+	        	displayIndex: index
+	        });
+    	}
+    }
+
 	render() {
 		let store = this.props.coinRechargeRecordStore;
 		let $content;
+		
 		
 		if (!store.isFetching && store.orderList.length == 0) {
 			$content = <div className="mini-tip">{ UPEX.lang.template('您暂时没有充币记录') }</div>;
@@ -46,14 +67,20 @@ class List extends Component {
 							}
 
 							return (
-								<li key={index}>
+								<li key={index} className={this.state.displayIndex == item.id ? 'collapse-content-active' : ''} data-id={item.id}>
 									<dl>
 										<dd className="status">{status}</dd>
 										<dd className="name">{item.currencyNameEn}</dd>
 										<dd className="num">{item.coinNum}</dd>
 										<dd className="time">{item.createTime}</dd>
 										<dd className="address">{item.walletSn}</dd>
+										<dd className="action">
+											<button onClick={this.triggerShowDetail.bind(this, item.id)}>{ this.state.displayIndex == item.id ? UPEX.lang.template('收起') : UPEX.lang.template('展开')}</button>
+										</dd>
 									</dl>
+									<div className="detail-content">
+										{UPEX.lang.template('Txid:{value}', { value: item.txId || '--'})}
+									</div>
 								</li>
 							)
 						})
@@ -63,7 +90,7 @@ class List extends Component {
 		}
 
 		return (
-			<div className="account-record-list">
+			<div className="order-table coin-recharge-list">
 				<div className="table-hd">
 					<table>
 						<tbody>
@@ -73,6 +100,7 @@ class List extends Component {
 								<th className="num">{UPEX.lang.template('数量')}</th>
 								<th className="time">{UPEX.lang.template('时间')}</th>
 								<th className="address">{UPEX.lang.template('来源地址')}</th>
+								<th className="action"><span className="pr10">{UPEX.lang.template('操作')}</span></th>
 							</tr>
 						</tbody>
 					</table>

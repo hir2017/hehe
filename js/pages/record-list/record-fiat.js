@@ -5,7 +5,7 @@
  */
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
-import { Select } from 'antd';
+import { Select, Breadcrumb } from 'antd';
 const Option = Select.Option;
 
 import RecordList from '../../mods/record-list/record-fund';
@@ -26,30 +26,31 @@ class RecordPage extends Component {
     render() {
         let store = this.props.fundChangeRecordStore
         return (
-            <div className="account-fiatrecord">
-                <div className="account-fiatrecord-hd">
-                    <h2>{UPEX.lang.template('资金变动记录')}</h2>
-                    <div className="account-fiatrecord-select">
-                        <Select
-                            defaultValue="all"
-                            onChange={val => {
-                                store.setDataType(val)
-                            }}
-                        >
-                            <Option value="all">
-                                {UPEX.lang.template('全部记录')}
-                            </Option>
-                            <Option value="recharge">
-                                {UPEX.lang.template('充值记录')}
-                            </Option>
-                            <Option value="withdraw">
-                                {UPEX.lang.template('提现记录')}
-                            </Option>
-                        </Select>
+            <div className="order-wrapper">
+                <Breadcrumb separator=">">
+                    <Breadcrumb.Item>ACE</Breadcrumb.Item>
+                    <Breadcrumb.Item>{UPEX.lang.template('资产管理')}</Breadcrumb.Item>
+                </Breadcrumb>
+                <div className="order-body-inner">
+                    <div className="order-header">
+                        <h2>{ UPEX.lang.template('资金变动记录')}</h2>
+                        <div className="type-select">
+                            <Select defaultValue="all" onChange={val => {store.setDataType(val)}}>
+                               <Option value="all">
+                                    {UPEX.lang.template('全部记录')}
+                                </Option>
+                                <Option value="recharge">
+                                    {UPEX.lang.template('充值记录')}
+                                </Option>
+                                <Option value="withdraw">
+                                    {UPEX.lang.template('提现记录')}
+                                </Option>
+                            </Select>
+                        </div>
                     </div>
-                </div>
-                <div className="account-fiatrecord-bd">
-                    <RecordList />
+                    <div className="order-main">
+                        <div className="order-main-box"><RecordList /></div>
+                    </div>
                 </div>
             </div>
         );

@@ -1,85 +1,105 @@
 .order-wrapper {
     position: relative;
     width: 1200px;
-    margin: 0 auto;
-    padding: 10px;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    background-color: #fff;
+    margin: 0 auto 30px;
+    color: #999999;
+}
+
+
+.order-wrapper .ant-breadcrumb {
+    height: 50px;
+    line-height: 50px;
 }
 
 .order-body-inner {
-    padding-left: 230px;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
+    background-color: #fff;
+    border-radius: 4px;
+    overflow: hidden;
+}
+/**
+ * 导航
+ */
+.order-menu ul {
+    height: 51px;
+    border-bottom: 1px solid #f4f4f4;
 }
 
-.order-menu {
-    float: left;
-    width: 230px;
-    margin-left: -230px;
-}
-
-.order-menu-box {
-    padding: 20px;
-}
-
-.order-menu-box h2 {
-    font-size: 18px;
-    color: #333333;
-    margin-bottom: 10px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #e7ebf1;
-}
-
-.order-menu-box ul {
-    margin-bottom: 10px;
-}
-
-.order-menu-box ul li {
+.order-menu ul li {
     position: relative;
-    padding: 10px;
+    width: 400px;
+    float: left;
     cursor: pointer;
+    height: 50px;
+    line-height: 50px;
     font-size: 14px;
+    text-align: center;
+    border-right: 1px solid #f4f4f4;
+    background-color: #f9f9f9;
 }
 
-.order-menu-box ul li.selected:before {
+.order-menu ul li:last-child {
+    border-right: 0 none;
+}
+
+.order-menu ul li.selected {
+    background-color: #fff;
+}
+
+.order-menu ul li h3 {
+    position: relative;
+    display: inline-block;
+    color: #999999;
+    font-weight: normal;
+    padding: 0 5px;
+}
+
+.order-menu ul li.selected h3 {
+    color: #333333;
+}
+
+.order-menu ul li.selected h3:before {
     content: '';
     height: 14px;
-    width: 3px;
-    background: #e6bc1d;
+    width: 2px;
+    background: #e8b802;
     position: absolute;
     left: 0;
     top: 50%;
     margin-top: -7px;
 }
 
+/**
+ * 表格内容
+ */
+
 .order-main {
-    float: right;
     width: 100%;
-    margin: 10px 0;
-    min-height: 620px;
-    box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.06);
+    min-height: 420px;
 }
 
 .order-main-box {
-    padding: 0 20px 20px;
+    padding: 0 20px;
 }
 
+/**
+ * 头部过滤条
+ */
 .order-header {
-    height: 50px;
-    line-height: 50px;
-    padding-left: 100px;
+    height: 60px;
+    line-height: 60px;
+    border-bottom: 1px solid #f4f4f4;
 }
 
 .order-header h2 {
     float: left;
     font-size: 18px;
-    width: 100px;
-    margin-left: -100px;
+    padding: 0 20px;
     text-align: left;
+}
+
+.order-header .type-select{
+    float: right;
+    padding-right: 20px;
 }
 
 .order-header .filter-box {
@@ -117,8 +137,11 @@
     border-radius: 30px;
 }
 
+/**
+ * 表格内容
+ */
 .order-table {
-    /* margin-top: 20px; */
+    font-size: 14px;
 }
 
 .order-table .mini-tip {
@@ -127,230 +150,199 @@
     line-height: 46px;
 }
 
-.order-table table {
+.order-table .mini-loading{
+    background-color: rgba(255, 255, 255, 0.7);
+}
+
+.order-table .table-hd {
+    border-bottom: 1px solid #f4f4f4;
+}
+
+.order-table .table-hd table {
     width: 100%;
     color: #999999;
-    font-size: 12px;
     box-sizing: border-box;
 }
 
-.order-table .table-hd{
-    border-bottom: 1px solid #f2f2f2;
-}
-
-
-.order-table table th {
-    padding: 15px 0;
-    min-height: 50px;
-    text-align: center;
+.order-table .table-hd table th {
+    height: 60px;
 }
 
 .order-table .table-bd {
     position: relative;
-    min-height: 60px;
+    min-height: 200px;
 }
 
-.order-table dd {
+.order-table .table-bd dl {
+    border-bottom: 1px solid #f4f4f4;
+}
+
+
+.order-table .table-bd dl{
+    height: 60px;
+    line-height: 60px;
+}
+
+.order-table .table-bd dl:hover{
+    background: #f8f8f8;
+}
+
+.order-table .table-bd .collapse-content-active dl:hover{
+    background: none;
+}
+
+
+.order-table .table-bd .collapse-content-active{
+    outline: 1px solid #cc9900;
+}
+
+.order-table .table-bd dl dd {
     display: inline-block;
     word-wrap: break-word;
     word-break: break-all;
     line-height: 16px;
-    padding: 15px 0;
-    min-height: 50px;
-    color: #999999;
-    font-size: 12px;
-    text-align: center;
-}
-
-.order-table .list li {
-    /* border-top: 1px solid #f2f2f2; */
-}
-
-.order-table .list li:hover {
-    background: #fffbeb;
-}
-
-.order-table .ant-pagination {
-    margin-top: 20px;
-    text-align: center;
-}
-
-.order-main-box .inorout .buy {
-    color: #00d02c;
-}
-
-.order-main-box .inorout .sell {
-    color: #ff3380
-}
-
-.order-table .action span {
-    cursor: pointer;
-}
-
-.order-table .detail-content {
-    display: none;
-    padding: 10px 10%;
-}
-
-.order-table .detail-content.show {
-    display: block;
-}
-
-
-.order-table .detail-content table,
-table .order-table .detail-content tr th,
-.order-table .detail-content table tr td {
-    border: 1px solid rgb(239, 239, 239);
-    text-align: center;
-}
-
-
-.order-table .detail-content tr th, .order-table .detail-content tr td{
-    padding: 4px 0;
+    color: #333;
 }
 
 /**
-* 委托中
-*/
+ *  表格尾－分页
+ */
 
-.order-main-box .open-list-table .time {
-    width: 150px;
+.order-table .table-ft{
+    padding: 20px 0;
+}
+.order-table .table-ft .ant-pagination {
+    text-align: center;
+}
+/**
+ * 公共样式
+ */
+.order-table .time{
+    width: 200px;
     text-align: left;
-    text-indent: 3px;
+    text-indent: 10px;
 }
 
-.order-main-box .open-list-table .name {
-    width: 100px;
-    text-align: center;
+.order-table .name{
+    width: 80px;
+    text-align: right;
 }
 
-.order-main-box .open-list-table .num {
-    width: 150px;
-    text-align: center;
+.order-table .buyorsell{
+    width: 140px;
+    text-align: right;
 }
 
-.order-main-box .open-list-table .price {
+.order-main-box .action {
     width: 100px;
     text-align: right;
 }
 
-.order-main-box .open-list-table .inorout {
-    width: 100px;
-}
-
-.order-main-box .open-list-table .rate {
-    width: 100px;
-    text-align: right;
-}
-
-.order-main-box .open-list-table .amount {
-    width: 100px;
-    text-align: right;
-}
-
-.order-main-box .open-list-table .status {
-    width: 100px;
-    text-align: right;
-}
-
-.order-main-box .open-list-table .action {
-    width: 100px;
-}
-
-.order-main-box .open-list-table .action button {
+.order-main-box .action button {
     background: none;
     border: 0 none;
     color: #cc9900;
     display: inline-block;
+    padding-right: 15px;
+}
+
+
+
+.order-table .detail-content {
+    position: relative;
+    display: none;
+    padding: 10px 10%;
+    min-height: 60px;
+    background-color: #f8f8f8;
+}
+
+.order-table .detail-content:after{
+    content: '';
+    position: absolute;
+    right: 70px;
+    top: -9px;
+    z-index: 2;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 10px 10px 10px;
+    border-color: transparent transparent #f8f8f8 transparent;
+}
+
+.order-table .collapse-content-active .detail-content{
+    display: block;
+}
+
+
+.order-table .collapse-content-active .action button{
+    background: url('../images/icon-arrow-detail.png') no-repeat right center;
+    background-size: 15px 15px;
+}
+
+.order-table .detail-content table{
+    width: 100%;
+}
+.order-table .detail-content table,
+.order-table .detail-content tr th,
+.order-table .detail-content table tr td {
+    border: 1px solid rgb(239, 239, 239);
+    text-align: left;
+}
+
+.order-table .detail-content table tr.data span.label {
+    display: inline-block;
+    width: 75px;
+}
+
+.order-table .detail-content table tr td.cancel,
+.order-table .detail-content table tr td.none {
+    text-align: center;
+}
+
+.order-table .detail-content tr th,
+.order-table .detail-content tr td {
+    padding: 4px 0;
+}
+
+.order-table .detail-content table tr td.cancel span {
+    display: inline-block;
+    padding: 0 2px;
+}
+
+/**
+ * 委托中
+ */
+
+
+.order-main-box .open-list-table .num,
+.order-main-box .open-list-table .price,
+.order-main-box .open-list-table .rate,
+.order-main-box .open-list-table .amount{
+    width: 160px;
+    text-align: right;
 }
 
 /**
 * 已成交订单
 */
 
-.order-main-box .success-list-table .time {
-    width: 15%;
-    text-align: left;
-    text-indent: 3px;
-}
-
-.order-main-box .success-list-table .name {
-    width: 10%;
-    text-align: center;
-}
-
-.order-main-box .success-list-table .num {
-    width: 15%;
-    text-align: right;
-}
-
-.order-main-box .success-list-table .inorout {
-    width: 10%;
-}
-
-.order-main-box .success-list-table .tradeprice {
-    width: 20%;
-    text-align: right;
-}
-
-.order-main-box .success-list-table .fee {
-    width: 15%;
-    text-align: right;
-}
-
+.order-main-box .success-list-table .num,
+.order-main-box .success-list-table .tradeprice,
+.order-main-box .success-list-table .fee,
 .order-main-box .success-list-table .amount {
-    width: 15%;
+    width: 185px;
     text-align: right;
 }
-
 /**
 * 历史委托
 */
 
-.order-main-box .history-list-table .time {
-    width: 15%;
-    text-align: left;
-    text-indent: 3px;
-}
-
-.order-main-box .history-list-table .name {
-    width: 8%;
-    text-align: center;
-}
-
-.order-main-box .history-list-table .num {
-    width: 17%;
-    text-align: center;
-}
-
-.order-main-box .history-list-table .price {
-    width: 15%;
-    text-align: right;
-}
-
-.order-main-box .history-list-table .inorout {
-    width: 10%;
-}
-
-.order-main-box .history-list-table .tradeprice {
-    width: 15%;
-    text-align: right;
-}
-
+.order-main-box .history-list-table .num,
+.order-main-box .history-list-table .price,
+.order-main-box .history-list-table .tradeprice,
 .order-main-box .history-list-table .status {
-    width: 10%;
+    width: 160px;
     text-align: right;
-}
-
-.order-main-box .history-list-table .action {
-    width: 10%;
-}
-
-.order-main-box .history-list-table .action button {
-    background: none;
-    border: 0 none;
-    color: #cc9900;
-    display: inline-block;
 }
 
 .popup-trade-password {}
@@ -395,4 +387,118 @@ table .order-table .detail-content tr th,
     text-align: center;
     display: block;
     border-radius: 4px;
+} 
+/**
+ * 充币记录
+ */
+.coin-recharge-list .collapse-content-active .detail-content{
+    text-align: center;
+    line-height: 60px;
 }
+.coin-recharge-list .status{
+    width: 180px;
+    text-indent: 10px;
+    text-align: left;
+}
+
+.coin-recharge-list .name{
+    text-align: center;
+}
+
+.coin-recharge-list .num{
+    width: 185px;
+    text-align: right;
+}
+
+.coin-recharge-list .time{
+    width: 180px;
+    text-align: right;
+}
+
+.coin-recharge-list .address{
+    width: 435px;
+    text-align: right;
+}
+/**
+ * 提币记录
+ */
+.coin-withdraw-list .status{
+    width: 180px;
+    text-indent: 10px;
+    text-align: left;
+}
+
+.coin-withdraw-list .name{
+    text-align: left;
+}
+
+.coin-withdraw-list .num{
+    width: 180px;
+    text-align: left;
+}
+
+.coin-withdraw-list .time{
+    width: 180px;
+    text-align: left;
+}
+
+.coin-withdraw-list .fee{
+    width: 140px;
+    text-align: left;
+}
+
+.coin-withdraw-list .address{
+    width: 300px;
+    text-align: left;
+}
+
+.coin-withdraw-list .collapse-content-active .detail-content{
+    text-align: center;
+    line-height: 60px;
+}
+
+/**
+ * 资金记录
+ */
+.fiat-list-table .swift-no{
+    width: 142px;
+    text-align: left;
+    text-indent: 10px;
+}
+
+.fiat-list-table .time{
+    width: 186px;
+    text-align: left;
+}
+
+.fiat-list-table .name{
+    width: 120px;
+    text-align: left;
+}
+
+.fiat-list-table .balance{
+    width: 152px;
+    text-align: left;
+}
+
+.fiat-list-table .status{
+    width: 160px;
+    text-align: left;
+}
+
+.fiat-list-table .pay-method{
+    width: 300px;
+    text-align: left;
+}
+
+
+.fiat-list-table .extra-info {
+    width: 100%;
+    display: none;
+    background-color: #f7f7f7;
+}
+
+.fiat-list-table .extra-info.show {
+    display: block;
+}
+
