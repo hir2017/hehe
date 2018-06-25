@@ -27,6 +27,7 @@ export default class Email extends Component {
                         <div className="message">{UPEX.lang.template('郵箱用於登錄、提幣及部分安全設置使用。我們也會給您提供 登錄提醒服務')}</div>
                     </div>
                     <div className="binding-phone right">
+
                         <div style={{ display: 'none' }} className="switch">
                             {UPEX.lang.template('登录邮件提醒')}&nbsp;&nbsp;&nbsp;<Switch checked={checked} />
                         </div>
