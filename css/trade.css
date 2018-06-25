@@ -951,6 +951,14 @@
 .tradeorder-bd .order-table .list li:hover {
     background-color: #f8f8fb;
 }
+
+.tradeorder-bd .order-table .table-bd dl{
+    border-bottom: 0 none;
+}
+
+.tradeorder-bd .order-table .table-bd dl:hover {
+   background-color: #f4f4f4;
+}
 /**
  * 暗色
  */
@@ -961,7 +969,7 @@
 
 .app-trade[data-theme="dark"] .trade-extra-list .list-box-l .list-box-bd li:hover,
 .app-trade[data-theme="dark"] .trade-extra-list .list-box-r .table-bd li:hover,
-.app-trade[data-theme="dark"] .tradeorder-bd .order-table .list li:hover{
+.app-trade[data-theme="dark"] .order-table .table-bd dl:hover{
     background-color: #333333;
 }
 
