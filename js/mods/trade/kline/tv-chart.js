@@ -7,10 +7,11 @@ import React, {Component} from 'react';
 import { observer, inject } from 'mobx-react';
 import { Icon, Switch, Popover} from 'antd';
 import TradeCoinList from './coin-list';
-import '../../../lib/tradingview/charting_library.min';
-import '../../../lib/tradingview/bundle';
+require('../../../lib/tradingview/charting_library.min');
+// require('../../../lib/tradingview/polyfills');
+// require('../../../lib/tradingview/bundle');
 // import '../../../lib/tradingview/test';
-// import UDFCompatibleDatafeed from './tv-jsapi';
+import UDFCompatibleDatafeed from './tv-jsapi';
 import DepthChart from '../depth/index';
 // import DepthChart from '../depth-d3/chart';
 
@@ -175,12 +176,11 @@ class TVChartContainer extends Component {
                     name: "Regression Trend"
                 }]
             },
-            // datafeed: new UDFCompatibleDatafeed({
-            //     currencyNameEn,
-            //     baseCurrencyNameEn,
-            //     pointPrice:  getPointPrice(currencyNameEn)
-            // }),
-            datafeed: new Datafeeds.UDFCompatibleDatafeed(UPEX.config.host + '/quote/klineHistory'),
+            datafeed: new UDFCompatibleDatafeed({
+                currencyNameEn,
+                baseCurrencyNameEn,
+                pointPrice:  getPointPrice(currencyNameEn)
+            }),
             overrides: this.getOverridesByTheme(theme),
             custom_css_url: this.getCustomCSSUrlByTheme(theme),
             disabled_features: [

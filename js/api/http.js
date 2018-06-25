@@ -520,6 +520,10 @@ export function getTradeDeep(pair, limit) {
 export function getTradeKline(pair, peroid = 1, limit) {
     return axios.get(`${UPEX.config.host}/quote/klineHistory?symbol=${pair}&type=${peroid}&limit=${limit}`).then(res => res.data);
 }
+export function getTradingViewKline(pair, peroid = 1, limit) {
+    return axios.get(`${UPEX.config.host}/quote/tradingView?symbol=${pair}&type=${peroid}&limit=${limit}`).then(res => res.data);
+}
+
 /**
  * 用户信息
  */

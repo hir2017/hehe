@@ -15,12 +15,14 @@ function(e) {
         for (var r in t) t.hasOwnProperty(r) && (e[r] = t[r])
     };
     var r = !1;
+
     function n(e) {
         if (r) {
             var t = new Date;
             console.log(t.toLocaleTimeString() + "." + t.getMilliseconds() + "> " + e)
         }
     }
+
     function c(e) {
         return void 0 === e ? "": "string" == typeof e ? e: e.message
     }
@@ -189,6 +191,7 @@ function(e) {
         },
         e
     } ();
+
     function f(e, t, r) {
         var s = e[t];
         return Array.isArray(s) ? s[r] : s
@@ -335,9 +338,11 @@ function(e) {
         },
         e
     } ();
+
     function d(e, t) {
         return void 0 !== e ? e: t
     }
+
     function l(e, t, r) {
         var s = e[t];
         return Array.isArray(s) ? s[r] : s
@@ -479,6 +484,7 @@ function(e) {
         e.prototype.resolveSymbol = function(e, t, r) {
             n("Resolve requested");
             var s = Date.now();
+
             function o(e) {
                 n("Symbol resolved: " + (Date.now() - s) + "ms"),
                 t(e)
@@ -595,4 +601,6 @@ function(e) {
     Object.defineProperty(e, "__esModule", {
         value: !0
     })
+
+    window.UDFCompatibleDatafeed = _;
 });
