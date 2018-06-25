@@ -169,8 +169,8 @@ body .ant-pagination-item:hover a {
   color: #ecc42d;
 }
 
-body .ant-pagination-item-active a, 
-body .ant-pagination-item-active:focus a, 
+body .ant-pagination-item-active a,
+body .ant-pagination-item-active:focus a,
 body .ant-pagination-item-active:hover a{
     color: #ecc42d;
 }
@@ -604,7 +604,7 @@ button>a {
 }
 
 .ace-page-content .content-body, .ace-page-content .ace-section .section-body {
-    padding: 10px 20px;
+    padding: 10px 20px 20px;
     background-color: #fff;
 }
 
@@ -628,3 +628,55 @@ button>a {
 .ace-form .ace-input-item .ant-select {
     width: 100%;
 }
+
+/**
+ * 通用form样式
+ */
+
+ .ace-form .ace-input-item,
+ .ace-form .ace-input-item .label,
+ .ace-form .ace-input-item .input,
+ .ace-form .ace-input-item .tip {
+     width: 100%;
+ }
+
+ .ace-form {
+     margin: 0 auto;
+     padding: 95px 0 20px;
+ }
+
+ .ace-form.width-common {
+     width: 450px;
+ }
+
+ .ace-form .ace-input-item {
+     margin-bottom: 14px;
+ }
+
+ .ace-form .ace-input-item .label {
+     font-size: 14px;
+     color: #999999;
+ }
+
+ .ace-form .ace-input-item .input {
+     height: 42px;
+     box-sizing: border-box;
+     border: solid 1px #ebebeb;
+     border-image: initial;
+     border-radius: 8px;
+     text-indent: 10px;
+     outline: none;
+ }
+
+ .ace-form .ace-submit-item {
+     width: 100%;
+     background-color: #e6bc1d;
+     color: #fff;
+     height: 40px;
+     border-radius: 8px;
+     margin-top: 20px;
+ }
+
+ .align-right {
+     text-align: right;
+ }
