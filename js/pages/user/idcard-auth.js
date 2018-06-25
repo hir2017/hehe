@@ -88,7 +88,7 @@ class IdentityAuthentication extends Component {
                     {userInfo.isValidatePhone ? (
                         this.nowStep(this.state.step || step)
                     ) : (
-                        <div className="authentication-message">
+                        <div className="no-auth-message  authentication-message">
                             <p>{UPEX.lang.template('请绑定手机')}</p>
                             <Link to="/user/binding-phone">{UPEX.lang.template('手机绑定')}</Link>
                         </div>
