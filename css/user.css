@@ -85,10 +85,9 @@
 
 .aside-left .menu .menu-submenu-item a:hover,
 .aside-left .menu .menu-submenu-item a:focus,
-.aside-left .menu .menu-submenu-item a:active{
+.aside-left .menu .menu-submenu-item a:active {
     text-decoration: none;
 }
-
 
 .aside-left .menu .menu-submenu-item.active-item {
     background-color: #fffbe9;
@@ -100,39 +99,25 @@
     color: #e7b508;
 }
 
-/* menu-submenu-title
-menu-submenu-item */
-
-/* .user-menu-box {
-    padding: 20px;
+.user-main .top-radius-6 {
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
 }
 
-.user-menu-box a {
-    color: #666666;
-    font-size: 14px;
+.user-main .bottom-radius-6 {
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
 }
 
-.user-menu-box a:hover,
-.user-menu-box a:link {
-    text-decoration-line: none;
+.user-main.ace-page-content .content-title, .user-main.ace-page-content .section-title {
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
 }
 
-.user-menu-box h2 {
-    font-size: 18px;
-    color: #333333;
-    margin-bottom: 10px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #e7ebf1;
+.user-main.ace-page-content .content-body, .user-main.ace-page-content .section-body  {
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
 }
-
-.user-menu-box ul {
-    margin-bottom: 10px;
-}
-
-.user-menu-box ul li {
-    padding: 10px 0;
-    cursor: pointer;
-} */
 
 /**
  * 基本信息
@@ -223,115 +208,6 @@ menu-submenu-item */
     outline: none;
 }
 
-/*
-.user-main .info-box .info-title {
-    font-size: 18px;
-    color: #333333;
-}
-
-.user-main .info-content .info-content-right img {
-    width: 90px;
-    height: 90px;
-}
-
-.user-main .info-content>div {
-    display: inline-block;
-    vertical-align: top;
-    width: 50%;
-}
-
-.user-main .info-content-left {
-    padding-left: 100px;
-    padding-top: 80px;
-    padding-right: 45px;
-    position: relative;
-}
-
-.user-main .info-content-left::after {
-    content: '';
-    width: 1px;
-    height: 120px;
-    background-color: #ccc;
-    position: absolute;
-    right: 0px;
-    top: 40px;
-}
-
-.user-main .info-content-left .phone {
-    font-size: 20px;
-    color: #333333;
-    height: 30px;
-}
-
-.user-main .info-content-left .login-time {
-    font-size: 14px;
-    color: #333333;
-    margin-top: 10px;
-}
-
-.user-main .info-content-left .bind {
-    margin-top: 10px;
-    text-align: right;
-}
-
-.user-main .info-content-left .bind-email {
-    display: inline-block;
-}
-
-.user-main .info-content-left .bind-phone {
-    margin-right: 35px;
-    display: inline-block;
-}
-
-.user-main .info-content-left .bind img {
-    display: block;
-    margin-left: 9px;
-}
-
-.user-main .info-content-left .bind span {
-    display: block;
-    font-size: 12px;
-    margin-top: 10px;
-}
-
-.user-main .info-content-right {
-    padding-top: 30px;
-    padding-left: 50px;
-}
-
-.user-main .info-content-right .title {
-    color: #999999;
-    font-size: 14px;
-    margin-bottom: 20px;
-}
-
-.user-main .info-content-right .certification-grade {
-    display: inline-block;
-    padding-left: 15px;
-} */
-
-/* .user-main .certification-grade .grade span {
-    font-size: 14px;
-    color: #333333;
-    font-weight: bold;
-} */
-
-/* .user-main .certification-grade .grade a {
-    font-size: 12px;
-    color: #5581d8;
-    margin-left: 15px;
-} */
-
-/* .user-main .certification-grade .money>span:first-child {
-    color: #999999;
-    font-size: 14px;
-} */
-
-/* .user-main .certification-grade .money>span:last-child {
-    font-size: 20px;
-    color: #333333;
-    font-weight: bold;
-} */
 
 .user-main .login-reminding {
     margin-left: 270px;
@@ -366,6 +242,12 @@ menu-submenu-item */
     line-height: 50px;
 }
 
+.user-main .no-auth-message {
+    margin: 80px 0;
+    text-align: center;
+    font-size: 18px;
+    color: #333333;
+}
 /* .user-main .ant-table-body tr:nth-child(odd) {
     background-color: #f8f8fb;
 } */
@@ -988,13 +870,6 @@ menu-submenu-item */
  * 银行卡
  */
 
-.user-main .bank-message {
-    margin-top: 200px;
-    text-align: center;
-    font-size: 18px;
-    color: #333333;
-}
-
 .user-main .bank-message a {
     background-color: #e6bc1d;
     padding: 5px;
@@ -1008,16 +883,9 @@ menu-submenu-item */
     margin-top: 20px;
 }
 
-.user-main .page-content-inner.bank-info .ace-section.info header {
-    text-align: left;
-    height: 30px;
-    line-height: 30px;
-    border-bottom: solid 1px #f9f9f9;
-    margin-bottom: 20px;
-    font-size: 14px;
-}
 
-.user-main .page-content-inner.bank-info .ace-section.info header .pic-tip{
+
+.user-main .page-content-inner.bank-info .ace-section.info header .pic-tip {
     float: right;
     color: #cc9900;
 }
@@ -1031,311 +899,70 @@ menu-submenu-item */
     width: 260px;
     height: 170px;
 }
+
 .user-main .page-content-inner.bank-info .info .tip {
     padding: 10px 0;
 }
+
 .user-main .page-content-inner.bank-info .info .tip p {
     font-size: 12px;
     color: #999;
     line-height: 18px;
 }
-/*
-.user-main .bank-info-title {
-    font-size: 18px;
-    color: #333333;
-}
 
-.user-main .binding-bank-box {
-    padding-left: 20px;
-    padding-bottom: 50px;
-    padding-right: 30px;
-}
-
-.user-main .binding-bank-box .item {
-    height: 40px;
-    margin-top: 20px;
-    line-height: 40px;
-}
-
-.user-main .binding-bank-box .item:first-child {
-    height: 20px;
-    line-height: 20px;
-}
-
-.user-main .binding-bank-box .bank-card-num {
-    border-radius: 4px;
-    border: 1px solid #d9d9d9;
-    width: 400px;
-    box-sizing: border-box;
-}
-
-.user-main .binding-bank-box .bank-card-upload-box {
-    height: 260px;
-    padding-top: 20px;
-    cursor: pointer;
-}
-
-.user-main .binding-bank-box .bank-card-upload {
-    margin-top: 20px;
-    width: 350px;
-    height: 200px;
-    border-radius: 8px;
-    border: 1px #ccc dashed;
-}
-
-.user-main .binding-bank-box .bank-card-upload img {
-    width: 100%;
-    height: 100%;
-}
-
-.user-main .binding-bank-box .bank-card-upload i {
-    margin-left: 130px;
-    font-size: 100px;
-    font-weight: 100;
-    margin-top: 50px;
-    color: #ccc;
-}
-
-.user-main .binding-bank-box .input {
-    border: none;
-    outline: none;
-    padding-left: 5px;
-}
-
-.user-main .binding-bank-box .input-lable {
-    font-size: 14px;
-    color: #333333;
-    padding-left: 10px;
-    padding-right: 10px;
-    border-right: 1px solid #d9d9d9;
-}
-
-.user-main .binding-bank-box .submit button {
-    background-color: #e6bc1d;
-    width: 100px;
-    color: #fff;
-}
-
-.user-main .binding-bank-box,
-.user-main .binding-bank-message {
-    display: inline-block;
-    vertical-align: top;
-}
-
-.user-main .binding-bank-message {
-    display: inline-block;
-    width: 460px;
-    padding-left: 50px;
-    margin-top: 20px;
-    border-left: 1px solid #d9d9d9;
-    position: relative;
-}
-
-.user-main .binding-bank-message img {
-    position: absolute;
-    bottom: -240px;
-}
-
-.user-main .binding-bank-message .banck-card-title {
-    width: 20px;
-    font-size: 14px;
-    color: #999999;
-    position: absolute;
-    bottom: -190px;
-    left: 20px;
-}
-
-.user-main .binding-bank-message .banck-card-message {
-    position: absolute;
-    bottom: -280px;
-    width: 210px;
-    font-size: 12px;
-    text-align: center;
-    left: 90px;
-}
-
-.user-main .binding-bank-message li {
-    list-style: initial;
-    font-size: 14px;
-    color: #999999;
-    margin-bottom: 15px;
-}
-
-.user-main .bank-list-box {
-    border-top: 1px solid #ccc;
-} */
 
 /**
  * 密码设置
  */
 
-.user-main .password-setting-title {
+.user-main .common-setting-box {
+    padding-top: 20px;
+}
+
+.user-main .common-setting-box .ant-row.pwd {
+    padding: 20px;
+    border: solid 1px #f4f4f4;
+}
+
+.user-main .common-setting-box .ant-row.pwd .title p {
+    padding: 5px 0;
+    color: #999;
+}
+
+.user-main .common-setting-box .ant-row.pwd .title p:nth-child(1) {
     font-size: 18px;
-    color: #333333;
+    color: #323a42;
 }
 
-.user-main .password-setting-box {
-    padding-top: 65px;
+.user-main .common-setting-box .ant-row.pwd.no-bottom {
+    border-bottom: none;
 }
 
-.user-main .password-change>span:first-child {
-    width: 300px;
-    color: #333333;
-    font-size: 18px;
+.user-main .common-setting-box .ant-row.pwd .operator {
+    text-align: right;
+    padding-top: 13px;
+}
+
+.user-main .common-setting-box .ant-row.pwd .operator .switch {
+    float: left;
+    margin-top: 7px;
+}
+
+.user-main .common-setting-box .message {
+    padding: 10px 0 30px;
+}
+
+.user-main .common-setting-box .message.guide {
+    text-align: right;
+}
+
+.user-main .common-setting-box .message.guide a {
     display: inline-block;
+    padding-left: 4px;
+    color: #cc9900;
 }
 
-.user-main .password-change>button {
-    width: 80px;
-    color: #fff;
-    background-color: #e6bc1d;
-}
 
-.user-main .password-change>button a {
-    display: block;
-}
-
-.user-main .password {
-    padding-left: 20px;
-    display: inline-block;
-    vertical-align: top;
-    padding-right: 60px;
-    position: relative;
-}
-
-.user-main .password:first-child::after {
-    content: '';
-    width: 1px;
-    background-color: #ccc;
-    position: absolute;
-    right: 0px;
-    top: 25px;
-    height: 145px;
-}
-
-.user-main .trading-password {
-    padding-left: 60px;
-    padding-right: 0px;
-}
-
-.user-main .password>div {
-    margin-top: 15px;
-}
-
-.user-main .password-message {
-    height: 40px;
-    color: #999999;
-    font-size: 14px;
-}
-
-.user-main .password-leve .leve-lable {
-    color: #333333;
-    font-size: 12px;
-    margin-right: 20px;
-}
-
-.user-main .password-leve .leve {
-    color: #999999;
-    font-size: 12px;
-}
-
-.user-main .password-leve .leve-show {
-    margin-top: 15px;
-    width: 380px;
-    background-color: #f0f0f0;
-    height: 15px;
-    border-radius: 7px;
-}
-
-.user-main .password-leve .leve1 {
-    display: inline-block;
-    width: 100%;
-    background-color: #7edd92;
-    height: 15px;
-    border-radius: 7px;
-}
-
-.user-main .password-leve .leve2 {
-    display: inline-block;
-    width: 25%;
-    background-color: #f66e6e;
-    height: 15px;
-    border-radius: 7px;
-}
-
-.user-main .forget-pwd a {
-    font-size: 12px;
-    color: #999999;
-    text-decoration: none;
-}
-
-.user-main .trading-password .password-message {
-    width: 280px;
-}
-
-.user-main .trading-password .switch>span {
-    margin-right: 10px;
-}
-
-.user-main .trading-password .switch {
-    font-size: 12px;
-    color: #999999;
-    margin-left: 170px;
-}
-
-.user-main .password-setting-box .message {
-    margin-top: 40px;
-    color: #999999;
-    font-size: 12px;
-}
-
-/**
- * 通用form样式
- */
-
-.ace-form .ace-input-item,
-.ace-form .ace-input-item .label,
-.ace-form .ace-input-item .input,
-.ace-form .ace-input-item .tip {
-    width: 100%;
-}
-
-.ace-form {
-    margin: 0 auto;
-    padding: 95px 0 20px;
-}
-
-.ace-form.width-common {
-    width: 450px;
-}
-
-.ace-form .ace-input-item {
-    margin-bottom: 14px;
-}
-
-.ace-form .ace-input-item .label {
-    font-size: 14px;
-    color: #999999;
-}
-
-.ace-form .ace-input-item .input {
-    height: 42px;
-    box-sizing: border-box;
-    border: solid 1px #ebebeb;
-    border-image: initial;
-    border-radius: 8px;
-    text-indent: 10px;
-    outline: none;
-}
-
-.ace-form .ace-submit-item {
-    width: 100%;
-    background-color: #e6bc1d;
-    color: #fff;
-    height: 40px;
-    border-radius: 8px;
-    margin-top: 20px;
-}
 
 /**
  * 密码修改
@@ -1491,10 +1118,6 @@ menu-submenu-item */
     font-size: 18px;
 }
 
-.user-main .google-no-binding-phone {
-    padding-top: 200px;
-    text-align: center;
-}
 
 .user-main .google-no-binding-phone>span {
     font-size: 18px;
@@ -1710,68 +1333,23 @@ menu-submenu-item */
     display: none;
 }
 
-.user-main .question-title {
-    color: #333333;
-    font-size: 18px;
-}
-
-.user-main .question-left,
-.user-main .question-right {
-    display: inline-block;
-    vertical-align: top;
-}
-
-.user-main .question-left {
-    margin-left: 50px;
-    /*width: 700px;*/
-    width: 500px;
-    margin-top: 30px;
-    position: relative;
-}
-
-.user-main .upload-box {
-    margin-top: 20px;
-    position: relative;
-}
-
-.user-main .upload-message {
-    position: absolute;
-    top: 120px;
+.user-main .content-body.feedback .ant-row.title {
     font-size: 14px;
+    color: #333;
+    padding: 20px 0;
 }
 
-.user-main .upload-message>span:first-child {
-    color: #1890ff;
+.user-main .content-body.feedback .ant-row.title a {
+    color: #cc9900;
 }
 
-.user-main .question-left .submit {
-    position: absolute;
-    top: 340px;
-    right: 130px;
+.user-main .content-body.feedback .upload-box {
+    margin: 20px 0;
 }
 
-.user-main .question-left .submit button {
-    width: 100px;
-    height: 30px;
-    background-color: #e6bc1d;
-    color: #fff;
-}
-
-.user-main .question-right .info {
-    width: 280px;
-    margin-left: 40px;
-    margin-top: 50px;
-    font-size: 14px;
-    color: #333333;
-}
-
-.user-main .question-right a {
-    text-decoration: underline;
-    text-underline-position: under;
-    margin-left: 40px;
-    margin-top: 30px;
-    display: block;
-    color: #5581d8;
+.user-main .content-body.feedback .ant-row.submit .ant-col-16 {
+    color: #999;
+    padding: 10px 0 5px;
 }
 
 /**
@@ -1820,34 +1398,80 @@ menu-submenu-item */
     padding-left: 20px;
 }
 
-.user-main .question-content li:nth-child(odd) {
-    background-color: #f8f8fb;
-}
-
 .user-main .question-content li>span {
     display: inline-block;
     vertical-align: top;
+    font-size: 14px;
+    text-align: center;
 }
 
 .user-main .question-content li>span:first-child {
-    width: 70%;
+    width: 62%;
     overflow: hidden;
     white-space: nowrap;
-    margin-right: 10px;
+    text-align: left;
     text-overflow: ellipsis;
 }
 
+.user-main .question-content li>span a {
+    color: #414141;
+}
+
 .user-main .question-content li>span:nth-child(2) {
-    width: 10%;
+    width: 15%;
+}
+
+.user-main .question-content li span.status {
+    color: #e0c266;
+}
+
+.user-main .question-content li span.status.lvl-2 {
+    color: #c9c9c9;
 }
 
 .user-main .question-content li>span:nth-child(3) {
-    width: 15%;
+    width: 18%;
 }
 
 .user-main .question-page {
     text-align: center;
     padding-top: 50px;
+}
+ .user-main .page-content-inner.question-detail .feedback{
+    padding: 15px;
+}
+.user-main .page-content-inner.question-detail .detail {
+    padding: 25px 0;
+    border-bottom: solid 1px #f4f4f4;
+    font-size: 14px;
+    color: #333;
+}
+
+.user-main .page-content-inner.question-detail .detail .time{
+    color: #999;
+}
+
+.user-main .page-content-inner.question-detail .detail .content {
+    padding: 15px 0;
+}
+
+.user-main .page-content-inner.question-detail .img-list .img {
+    display: inline-block;
+    width: 104px;
+    height: 104px;
+    margin-right: 8px;
+    border-radius: 4px;
+}
+.user-main .page-content-inner.question-detail .img-list .img  img {
+    width: 100%;
+    height: 100%;
+}
+
+.user-main .page-content-inner.question-detail .feedback {
+    background-color: #f4f4f4;
+    color: #333;
+    font-size: 14px;
+    margin-bottom: 20px;
 }
 
 /**

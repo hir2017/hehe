@@ -1,45 +1,29 @@
-/**
- * @fileoverview  google
- * @author xia xiang feng
- * @date 2018-05-23
- */
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
-import { Button, Switch } from 'antd'
-import { Link } from 'react-router'
+import { Button, Switch, Row, Col } from 'antd';
+import { Link } from 'react-router';
 
 @observer
 export default class Success extends Component {
-  render() {
-    return (
-      <div className="binding-phone-content">
-        <div className="binding-phone-left">
-          <div>
-            <span className="phone google">{UPEX.lang.template('解绑 Google验证器')}</span>
-            <Button>
-              <Link to="/user/rmbindingGoogle">
-                {UPEX.lang.template('解绑')}
-              </Link>
-            </Button>
-          </div>
-          <div className="message">
-            {UPEX.lang.template('提现，修改密码，及安全设置时用以输入谷歌验证码')}
-          </div>
-          <div style={{display: 'none'}} className="switch">
-            {UPEX.lang.template('开启Google验证')}&nbsp;&nbsp;&nbsp;<Switch checked={true}/>
-          </div>
-        </div>
-        <div className="binding-phone-right">
-          <ul>
-            <li className="google-info-link">
-              {UPEX.lang.template('使用Google认证请详细阅读')}
-              <Link to="/user/google-guide">
-                {UPEX.lang.template('使用指南')}
-              </Link>
-            </li>
-          </ul>
-        </div>
-      </div>
-    )
-  }
+    render() {
+        return (
+            <div className="common-setting-box">
+                <Row className="pwd top-radius-6 bottom-radius-6">
+                    <Col className="title" span={12}>
+                        <p>{UPEX.lang.template('解绑 Google验证器')}</p>
+                        <p>{UPEX.lang.template('提現、修改密碼，及安全設置時接收短信使用')}</p>
+                    </Col>
+                    <Col className="operator" span={12}>
+                        <Button>
+                            <Link to="/user/rmbindingGoogle">{UPEX.lang.template('解绑')}</Link>
+                        </Button>
+                    </Col>
+                </Row>
+                <div className="message guide">
+                    {UPEX.lang.template('使用Google认证请详细阅读')}
+                    <Link to="/user/google-guide">{UPEX.lang.template('使用指南')}</Link>
+                </div>
+            </div>
+        );
+    }
 }

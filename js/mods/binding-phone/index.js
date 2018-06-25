@@ -5,7 +5,7 @@
  */
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
-import { Button, Switch, Modal, Input, message } from 'antd';
+import { Button, Switch, Modal, Input, message, Row, Col } from 'antd';
 import { Link } from 'react-router';
 import Vcodebutton from '../common/authcode-btn';
 
@@ -19,7 +19,7 @@ export default class Phone extends Component {
 
     phoneSwitch = checked => {
         const userInfo = this.props.userInfoStore.userInfo || {};
-        if(!userInfo.phone) {
+        if (!userInfo.phone) {
             message.error('请先绑定手机');
             return null;
         }
@@ -43,20 +43,20 @@ export default class Phone extends Component {
     };
 
     handleOk = () => {
-        const {vCode, checked} = this.state;
+        const { vCode, checked } = this.state;
         if (!vCode) {
             message.error(UPEX.lang.template('短信验证码不能为空'));
             return;
         }
-        this.props.userInfoStore.phoneSwitch(vCode, checked ? 1 : 0).then((data) => {
+        this.props.userInfoStore.phoneSwitch(vCode, checked ? 1 : 0).then(data => {
             let nextState = {
                 visible: false
-            }
-            this.setState(nextState)
-            if(data) {
+            };
+            this.setState(nextState);
+            if (data) {
                 this.props.userInfoStore.getUserInfo();
             }
-        })
+        });
     };
 
     cancelHandle = () => {
@@ -71,10 +71,17 @@ export default class Phone extends Component {
         const userInfo = this.props.userInfoStore.userInfo || {};
         const checked = userInfo.isPhoneAuth ? true : false;
         return (
-            <div className="binding-phone-content">
-                <div className="binding-phone-left">
-                    <div>
-                        <span className="phone">{userInfo.phone || UPEX.lang.template('请添加手机')}</span>
+            <div className="common-setting-box">
+                <Row className="pwd top-radius-6 bottom-radius-6">
+                    <Col className="title" span={12}>
+                        <p>{userInfo.phone || UPEX.lang.template('请添加手机')}</p>
+                        <p>{UPEX.lang.template('提現、修改密碼，及安全設置時接收短信使用')}</p>
+                    </Col>
+                    <Col className="operator" span={12}>
+                        <div className="switch">
+                            {UPEX.lang.template('启用登录手机认证')}
+                            <Switch onChange={this.phoneSwitch} loading={loading} checked={checked} />
+                        </div>
                         <Button>
                             {userInfo.phone ? (
                                 <Link to="/user/modifyPhone">{UPEX.lang.template('修改')}</Link>
@@ -82,18 +89,13 @@ export default class Phone extends Component {
                                 <Link to="/user/settingPhone">{UPEX.lang.template('添加')}</Link>
                             )}
                         </Button>
-                    </div>
-                    <div className="message">{UPEX.lang.template('提現、修改密碼，及安全設置時接收短信使用')}</div>
-                    <div className="switch">
-                        {UPEX.lang.template('启用登录手机认证')}<Switch onChange={this.phoneSwitch} loading={loading} checked={checked} />
-                    </div>
+                    </Col>
+                </Row>
+                <div className="message">
+                    <p>※{UPEX.lang.template('為了您的安全或者降低手機遺失的風險，請在綁定手機號后立即綁定Google驗證器')}。</p>
+                    <p>※{UPEX.lang.template('為了您的資金安全，修改手機綁定后，24小時內不可以提現提幣')}</p>
                 </div>
-                <div className="binding-phone-right">
-                    <ul>
-                        <li>※{UPEX.lang.template('為了您的安全或者降低手機遺失的風險，請在綁定手機號后立即綁定Google驗證器')}。</li>
-                        <li>※{UPEX.lang.template('為了您的資金安全，修改手機綁定后，24小時內不可以提現提幣')}</li>
-                    </ul>
-                </div>
+
                 <Modal
                     title={UPEX.lang.template('请输入短信验证码')}
                     visible={this.state.visible}
