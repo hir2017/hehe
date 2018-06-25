@@ -166,6 +166,7 @@
     border: 1px solid #ccc;
     color: #333;
     margin-top: 55px;
+    background: none;
 }
 .account-record .btn i{
     display: inline-block;

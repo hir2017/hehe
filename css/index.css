@@ -30,6 +30,8 @@
 
 .banner-wrapper .ant-carousel .slick-slide img {
     margin: 0 auto;
+    width: 1200px;
+    height: auto;
     display: block;
 }
 
