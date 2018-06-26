@@ -33,6 +33,7 @@ class UDFCompatibleDatafeed {
         this.timezone = cfg.timezone;
         this.resolution = '';
         this.cacheResult = {};
+        this.historyData = {};
     }
     /**
      * 此方法旨在提供填充配置数据的对象。这些数据会影响图表的行为表现
@@ -59,9 +60,11 @@ class UDFCompatibleDatafeed {
                     "ticker": [this.baseCurrencyNameEn, this.currencyNameEn].join('_').toLocaleLowerCase(),
                     "timezone": "Asia/Shanghai",
                     "minmov": 1,
+                    minmove2: 0,
                     "session": "24x7",
-                    "description": "",
-                    "pricescale": this.pointPrice,
+                    "description": symbolName,
+                    "pricescale": 100,
+                    fractional: false,
                     "has_intraday": true,
                     "has_daily": !0,
                     "has_weekly_and_monthly": !0
@@ -86,6 +89,8 @@ class UDFCompatibleDatafeed {
     getBars(symbolInfo, resolution, rangeStartDate, rangeEndDate, onHistoryCallback, onErrorCallback, firstDataRequest) {
         console.log('------getBars-------', symbolInfo, resolution);
 
+        console.log(`Requesting bars between ${new Date(rangeStartDate * 1000).toISOString()} and ${new Date(rangeEndDate * 1000).toISOString()}`)
+
         if (rangeStartDate > 0 && (rangeStartDate + "").length > 10) {
             throw "Got a JS time instead of Unix one.";
         }
@@ -106,24 +111,14 @@ class UDFCompatibleDatafeed {
             to: endDate,
         }
 
-        // if (this.cacheResult[_resolution]) {
-        //     return;
-        // }
-
         // if (_resolution !== this.resolution) {
+         
         if (firstDataRequest) {
             this.getHistoryData(requestParams)
                 .then((result) => {
                     onHistoryCallback(result.bars, result.meta);
                 })
-        }
-
-        // this.resolution = _resolution;
-
-        // setTimeout(() => {
-        //     this.getIntervalHistoryData(requestParams.symbol, requestParams.resolution);
-        // }, 1 * 1000)
-        // }
+        }   
     }
 
     getIntervalByPeriod(resolution) {
@@ -220,22 +215,13 @@ class UDFCompatibleDatafeed {
     /**
      * 
      */
-    getHistoryData(params) {
+    getHistoryData(params, first) {
         let defer = $.Deferred();
 
 
         socket.off('tradingView');
         socket.emit('tradingView', params);
         socket.on('tradingView', (data) => {
-
-            // if (!this.cacheResult[params.resolution]) {
-            //     this.cacheResult[params.resolution] = {
-            //         bars: [],
-            //         meta: ''
-            //     };
-            // }
-
-            // let barCache = this.cacheResult[params.resolution].bars;
 
             if (data.s !== 'ok' && data.s !== 'no_data') {
                 defer.reject(data.errmsg);
@@ -274,18 +260,6 @@ class UDFCompatibleDatafeed {
                     }
 
                     barValue.timeTxt = TimeUtil.formatDate(new Date(data.t[i]), 'yyyy-MM-dd HH:mm:ss');
-
-                    // if (barCache.length > 0) {
-                    //     if (barValue.time < barCache[0].time) {
-                    //         barCache = [barValue].concat(barCache);
-                    //     } else if (barValue.time > barCache[barCache.length - 1].time) {
-                    //         barCache[barCache.length] = barValue;
-                    //     } else if (barValue.time == barCache[barCache.length - 1].time) {
-                    //         barCache[barCache.length - 1] = barValue;
-                    //     }
-                    // } else {
-                    //     barCache[barCache.length] = barValue;
-                    // }
 
                     bars.push(barValue);
                 }

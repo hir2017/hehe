@@ -338,7 +338,7 @@ class TradeStore {
 
     @action
     setBuySliderValue(value) {
-        let balance = this.tradeCoinBalance.value;
+        let balance = this.baseCoinBalance.value;
         let num = (balance * value) / 100;
 
         this.dealBuyNum = NumberUtil.initNumber(num, this.pointPrice);
