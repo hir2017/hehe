@@ -235,6 +235,7 @@ class UserInfo {
 
     @action
     async ask(detail, urlkey) {
+        let result = false;
         try {
             this.submit_loading = true;
             const res = await addAsk(detail, urlkey);
@@ -243,6 +244,7 @@ class UserInfo {
                 message.error(res.message);
                 console.error('ask error');
             } else {
+                result = true;
                 message.success(UPEX.lang.template('问题反馈成功'));
             }
         } catch (e) {
@@ -250,6 +252,7 @@ class UserInfo {
             this.submit_loading = false;
             message.error('Network Error');
         }
+        return result;
     }
 
     @action

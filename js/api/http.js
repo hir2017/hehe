@@ -728,7 +728,7 @@ export function bindPhoneOrEmailSendCode(codeid, imgcode, phoneOrEmail, type) {
     return axios.post(`${UPEX.config.host}/user/bindPhoneOrEmailSendCode`, {
         codeid,
         imgcode,
-        phoneOrEmail: rmAreaCode(phoneOrEmail),
+        phoneOrEmail,
         type
     }).then(res => res.data);
 }
@@ -751,7 +751,7 @@ export function bindPhoneOrEmailAction(EmailCode, phoneCode, phoneOrEmail, type)
     return axios.post(`${UPEX.config.host}/user/bindPhoneOrEmailAction`, {
         EmailCode,
         phoneCode,
-        phoneOrEmail: rmAreaCode(phoneOrEmail),
+        phoneOrEmail,
         type
     }).then(res => res.data);
 }
@@ -763,7 +763,7 @@ export function bindPhoneOrEmailAction(EmailCode, phoneCode, phoneOrEmail, type)
 
 export function modifyPhoneSendMsg(phone, codeid, imgcode, type) {
     return axios.post(`${UPEX.config.host}/user/modifyPhoneSendCode`, {
-        phone: rmAreaCode(phone, '86'),
+        phone,
         codeid,
         imgcode,
         type

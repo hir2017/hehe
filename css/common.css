@@ -619,7 +619,7 @@ button>a {
 }
 
 .ace-page-content .ace-section {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     border-radius: 5px;
 }
 
@@ -647,32 +647,53 @@ button>a {
 
  .ace-form {
      margin: 0 auto;
-     padding: 95px 0 20px;
+     padding: 30px 0 20px;
  }
+
 
  .ace-form.width-common {
      width: 450px;
  }
 
  .ace-form .ace-input-item {
-     margin-bottom: 14px;
+     margin-bottom: 27px;
  }
 
  .ace-form .ace-input-item .label {
      font-size: 14px;
      color: #999999;
+     display: inline-block;
+     padding-bottom: 2px;
  }
 
  .ace-form .ace-input-item .input {
      height: 42px;
      box-sizing: border-box;
-     border: solid 1px #ebebeb;
      border-image: initial;
-     border-radius: 8px;
+     border-radius: 3px;
+     border: solid 1px #ccc;
      text-indent: 10px;
      outline: none;
  }
+ .ace-form  .ant-select-selection__placeholder,  .ace-form  .ant-select-search__field__placeholder {
+     color: #ccc;
+     font-weight: normal;
+ }
 
+ .ace-form .ace-input-item .input,  .ace-form .ace-input-item .ant-select {
+    font-size: 18px;
+     color: #333;
+ }
+ .ace-form .ant-select-selection {
+    border: solid 1px #ccc;
+ }
+ .ace-form .ace-input-item .item-tip, .ace-form .ace-input-item.select .message {
+    color: #999;
+    padding-top: 2px;
+ }
+ .ace-input-item.select .message {
+    display: inline-block;
+ }
  .ace-form .ace-submit-item {
      width: 100%;
      background-color: #e6bc1d;

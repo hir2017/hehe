@@ -45,7 +45,7 @@ class BankInfo extends Component {
             $content = (
                 <div className="no-auth-message bank-message">
                     <p>{UPEX.lang.template('请先身份认证')}</p>
-                    <Link to="/user/authentication">{UPEX.lang.template('身份认证')}</Link>
+                    <Link className="ace-btn" to="/user/authentication">{UPEX.lang.template('身份认证')}</Link>
                 </div>
             );
         } else if (!userInfo.isValidatePass) {
