@@ -869,6 +869,10 @@
     height: 42px;
 }
 
+.tradeorder-bd .mini-loading {
+    background-color: transparent !important;
+}
+
 .tradeorder-hd ul {
     height: 42px;
     line-height: 42px;
@@ -1059,6 +1063,10 @@
 .app-trade[data-theme="dark"] .trade-extra-list .list-box-l .list-box-hd,
 .app-trade[data-theme="dark"] .trade-form-hd{
     border-bottom: 1px solid #20201e;
+}
+
+.app-trade[data-theme="dark"] .tradeorder-wrapper .order-table .table-hd{
+    border-top: 1px solid #20201e;
 }
 
 .app-trade[data-theme="dark"] .tradeorder-hd,
