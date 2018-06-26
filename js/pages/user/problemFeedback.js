@@ -62,9 +62,22 @@ export default class extends Component {
             message.error('請輸入您要反饋的問題');
             return;
         }
-        const imgS = this.uploudUrlS.join(',');
+        // const imgS = this.uploudUrlS.join(',');
+        const { fileList } = this.state;
+        const imgS = fileList
+            .filter(item => {
+                if (item.response && item.response.status === 200) {
+                    return true;
+                }
+            })
+            .map(item => {
+                if (item.response) {
+                    return item.response.attachment;
+                }
+            })
+            .join(',');
         this.props.userInfoStore.ask(this.state.text, imgS).then(data => {
-            if(data) {
+            if (data) {
                 this.setState({
                     text: '',
                     fileList: []
@@ -84,7 +97,7 @@ export default class extends Component {
                     <Col span={20}>
                         {UPEX.lang.template('請詳細描述您的問題，客服專員會在四個工作日內回復。請在提問之前瀏覽一下問題列表 ，也許您的問題在列表裡已解決')}
                     </Col>
-                    <Col  className="align-right" span={4}>
+                    <Col className="align-right" span={4}>
                         <Link to="/user/questionList">{UPEX.lang.template('前往问题列表')}</Link>
                     </Col>
                 </Row>
@@ -105,7 +118,7 @@ export default class extends Component {
                         {UPEX.lang.template('可上傳3個附件')}，
                         {UPEX.lang.template('每個文件大小不得超過5M。附件支持的格式有')}“jpg”，“Jpeg”,”bmp”,”png”,”gif”
                     </Col>
-                    <Col  className="align-right" span={8}>
+                    <Col className="align-right" span={8}>
                         <Button loading={loading} onClick={this.submit}>
                             {UPEX.lang.template('提交')}
                         </Button>
