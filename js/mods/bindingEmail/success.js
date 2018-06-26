@@ -30,13 +30,19 @@ export default class extends Component {
                 <div className="item">
                     {UPEX.lang.template('您已经成功绑定邮箱')} <span className="email">{userInfo.email}</span>
                 </div>
-                <div className="item">{UPEX.lang.template('还差一步，您就可以开始交易了')}</div>
-                <div className="item">
-                    <Link to="/user/authentication">
-                        {UPEX.lang.template('去身份验证')}
-                        <span className="icon">1</span>
-                    </Link>
-                </div>
+                {userInfo.isAuth < 2 ? (
+                    <div>
+                        <p>{UPEX.lang.template('还差一步，您就可以开始交易了')}</p>
+                        <div className="item">
+                            <Button className="ace-main">
+                                <Link to="/user/authentication">
+                                    {UPEX.lang.template('去身份验证')}
+                                    {/* <span className="icon">1</span> */}
+                                </Link>
+                            </Button>
+                        </div>
+                    </div>
+                ) : null}
             </PageWrapper>
         );
     }

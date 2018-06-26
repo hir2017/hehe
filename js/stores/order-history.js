@@ -7,7 +7,7 @@ import TimeUtil from '../lib/util/date';
 import NumberUtil from '../lib/util/number';
 
 // 默认10：全部，0：未成交，1：部分成交，2：全部成交，3：委托失败，4：已撤单，11：部分完成或未完成，12：新全部历史记录
-const statusList = [2,4,5]; // 委托历史处理的状态订单列表
+const statusList = [2, 4, 5]; // 委托历史处理的状态订单列表
 
 class OrderStore {
     @observable orderList = [];
@@ -29,7 +29,7 @@ class OrderStore {
             currencyId: 0,
             baseCurrencyId: 0,
             priceType: 0
-        }
+        };
     }
 
     // 订单
@@ -37,17 +37,24 @@ class OrderStore {
         // 全部成交
         2: {
             num: 0,
-            rate: 0,
+            rate: 0
         },
         // 全部撤单
         4: {
             num: '',
-            rate: '100%',
+            rate: '100%'
         }
-    }
+    };
 
     @action
     getDetail(index, item) {
+        // 2: UPEX.lang.template('全部成交'), 4: UPEX.lang.template('全部撤单'),   5: UPEX.lang.template('部分成交后撤单')
+        // 1：成交，2：撤单 3: 部分成交撤单
+        let typeMap = {
+            '2': 1,
+            '4': 2,
+            '5': 3
+        };
         getUserHistoryOrderDetail({
             buyOrSell: item.buyOrSell,
             orderNo: item.orderNo,
@@ -56,42 +63,46 @@ class OrderStore {
             TODO:
             type现在只能单独取成交信息或者撤销信息 无法综合
             */
-            type: 1,
-        }).then((data) => {
-            runInAction(() => {
-                if (data.status == 200) {
-                    const {details = []} = data.attachment;
-                    
-                    this.orderList[index].details = details;
-                    this.orderList[index].detailReady = true;
-                    this.orderList[index]._cancel = {};
-                    let cancelInfo = this.statisticsMap[item.status] || {};
-
-                    if(item.status === 5) {
-                        let temp = details.reduce((total, curr) => {
-                            return {
-                                num: NumberUtil.add(total.num, curr.num),
-                                rate: NumberUtil.add(total.rate, curr.rate),
-                            }
-                        }, {
-                            num: 0,
-                            rate: 0,
-                        })
-                        cancelInfo = {
-                            num: item.num - temp.num,
-                            rate: 1 - temp.rate,
-                        };
-                    }
-
-                    this.orderList[index]._cancel = cancelInfo;
-
-                }
-            })
-        }).catch((e) => {
-            runInAction(() => {
-                console.error(e)
-            })
+            type: typeMap[item.status]
         })
+            .then(data => {
+                runInAction(() => {
+                    if (data.status == 200) {
+                        const { details = [] } = data.attachment;
+
+                        this.orderList[index].details = details;
+                        this.orderList[index].detailReady = true;
+                        this.orderList[index]._cancel = {};
+                        let cancelInfo = this.statisticsMap[item.status] || {};
+
+                        if (item.status === 5) {
+                            let temp = details.reduce(
+                                (total, curr) => {
+                                    return {
+                                        num: NumberUtil.add(total.num, curr.num),
+                                        rate: NumberUtil.add(total.rate, curr.rate)
+                                    };
+                                },
+                                {
+                                    num: 0,
+                                    rate: 0
+                                }
+                            );
+                            cancelInfo = {
+                                num: item.num - temp.num,
+                                rate: 1 - temp.rate
+                            };
+                        }
+
+                        this.orderList[index]._cancel = cancelInfo;
+                    }
+                });
+            })
+            .catch(e => {
+                runInAction(() => {
+                    console.error(e);
+                });
+            });
     }
 
     @action
@@ -110,25 +121,27 @@ class OrderStore {
             this.current = params.start;
         }
 
-        getUserHistoryOrderList(this.params).then((data) => {
-            runInAction(() => {
-                if (data.status == 200) {
-                    this.orderList = this.parseData(data.attachment.list);
-                    this.total = data.attachment.total;
+        getUserHistoryOrderList(this.params)
+            .then(data => {
+                runInAction(() => {
+                    if (data.status == 200) {
+                        this.orderList = this.parseData(data.attachment.list);
+                        this.total = data.attachment.total;
+                        this.isFetching = false;
+                    }
+                });
+            })
+            .catch(() => {
+                runInAction(() => {
                     this.isFetching = false;
-                }
-            })
-        }).catch(() => {
-            runInAction(() => {
-                this.isFetching = false;
-            })
-        })
+                });
+            });
     }
 
     parseData(arr) {
         arr.forEach((item, index) => {
             item = this.parseItem(item);
-        })
+        });
 
         return arr;
     }
@@ -153,7 +166,7 @@ class OrderStore {
         item.tradeNum = NumberUtil.formatNumber(item.tradeNum, pointNum);
         // 成交率
         item.tradeRate = NumberUtil.formatNumber(item.tradeRate * 100, 2) + '%';
-        
+
         item.details = [];
         item.detailReady = false;
         return item;
@@ -166,7 +179,6 @@ class OrderStore {
         // 过滤其他状态的数据
         $.each(this.orderList, (i, item) => {
             if (item.orderNo == data.orderNo) {
-
                 if (statusList.indexOf(data.status) > -1) {
                     this.orderList[i] = this.parseItem(data);
                 } else {
@@ -176,11 +188,10 @@ class OrderStore {
                 flag = true;
                 return false;
             }
-        })
+        });
 
         // 列表中没有，则新增
         if (!flag) {
-
             if (statusList.indexOf(data.status) > -1) {
                 this.orderList.unshift(this.parseItem(data));
             }

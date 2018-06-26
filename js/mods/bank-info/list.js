@@ -82,13 +82,19 @@ export default class BankList extends Component {
             this.props.userInfoStore.updateBindBankCard(this.state.id, pwd, '', this.state.vCode);
         }
         this.setState({
-            visible: false
+            visible: false,
+            vCode: '',
+            pwd: '',
+            ivCode: '',
         });
     };
 
     handleCancel = () => {
         this.setState({
-            visible: false
+            visible: false,
+            vCode: '',
+            pwd: '',
+            ivCode: '',
         });
     };
 
@@ -191,22 +197,24 @@ export default class BankList extends Component {
                 </div>
                 <Modal title={UPEX.lang.template('解绑银行卡')} visible={this.state.visible} onOk={this.handleOk} onCancel={this.handleCancel}>
                     <div className="item" style={{ marginBottom: '20px' }}>
-                        <Input type="password" onChange={this.pwdChange} placeholder={UPEX.lang.template('请输入交易密码')} />
+                        <Input type="password"  value={this.state.pwd} onChange={this.pwdChange} placeholder={UPEX.lang.template('请输入交易密码')} />
                     </div>
                     {gaBindSuccess ? (
                         <div className="item">
-                            <Input onChange={this.vCodeChange} size="large" placeholder={UPEX.lang.template('请输入谷歌验证码')} />
+                            <Input value={this.state.vCode} onChange={this.vCodeChange} size="large" placeholder={UPEX.lang.template('请输入谷歌验证码')} />
                         </div>
                     ) : (
                         <div className="item">
                             <Input
                                 style={{ marginBottom: '20px' }}
+                                value={this.state.ivCode}
                                 onChange={this.ivCodeChange}
                                 addonAfter={<img onClick={this.captchaChange} src={captcha} />}
                                 size="large"
                                 placeholder={UPEX.lang.template('请输入图片验证码')}
                             />
                             <Input
+                                value={this.state.vCode}
                                 onChange={this.vCodeChange}
                                 addonAfter={
                                     <Vcodebutton
