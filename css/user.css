@@ -534,6 +534,11 @@
     text-decoration-line: underline;
 }
 
+.user-main .authentication-content .submit {
+    text-align: center;
+    padding-top: 10px;
+}
+
 .user-main .authentication-content .submit button {
     min-width: 100px;
     height: 40px;
@@ -918,6 +923,7 @@
 .user-main .page-content-inner.bank-info .ace-section.info header .pic-tip {
     float: right;
     color: #cc9900;
+    cursor: pointer;
 }
 
 .user-main .page-content-inner.bank-info .upload-card {

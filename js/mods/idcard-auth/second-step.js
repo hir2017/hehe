@@ -47,7 +47,7 @@ export default class SecondStep extends Component {
             address: info.address,
             postCode: info.postCode,
             profession: info.profession,
-            annualsalary: info.annualsalary,
+            annualSalary: info.annualsalary,
             positiveImages: this.state.oneUrl,
             oppositeImages: this.state.twoUrl,
             handImages: this.state.threeUrl
