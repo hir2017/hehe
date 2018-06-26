@@ -38,7 +38,7 @@ class LanguageSwitchView extends Component {
 			<div className="language-menu">
 				<Popover content={$content} placement="bottomRight" getPopupContainer={this.props.root} overlayClassName="widget-tooltip">
 					<span className="langtxt">{ curLang.text }</span>
-					<Icon type="down" style={{ fontSize: 14, color: '#ebeff5' }}/>
+					<Icon type="down" style={{ fontSize: 12, color: '#ebeff5' }}/>
 				</Popover>
 			</div>
 		);

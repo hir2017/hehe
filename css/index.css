@@ -1,4 +1,5 @@
 .home-wrapper {
+    position: relative;
     background: #f2f2f2;
 }
 
@@ -41,7 +42,12 @@
  */
 
 .loginguide-wrapper {
+    position: absolute;
+    top: 80px;
+    left: 0;
+    z-index: 2;
     height: 30px;
+    width: 100%;
     line-height: 30px;
     text-align: center;
     background-color: #141414;
@@ -52,11 +58,16 @@
 .loginguide-wrapper li {
     display: inline-block;
     margin-right: 10px;
+    color: #999;
 }
 
 .loginguide-wrapper li label{
     font-size: 14px;
-    font-weight: bold;
+}
+
+.loginguide-wrapper li span{
+    display: inline-block;
+    vertical-align: middle;
 }
 
 .loginguide-wrapper li a,
@@ -68,7 +79,7 @@
 .loginguide-wrapper li button{
     background: transparent;
     border: 0 none;
-    color: #e6bc1d;
+    color: #cc9900;
     padding: 0 5px;
 }
 
@@ -85,9 +96,15 @@
     display: inline-block;
     vertical-align: middle;
     margin-left: 20px;
-    border-radius: 4px;
+    border-radius: 2px;
     padding: 0 15px;
 }
+
+.loginguide-wrapper li button:hover{
+    background-color: #ffdc57;
+}
+
+
 
 
 /**
@@ -218,6 +235,7 @@
 
 .features-wrapper li .title {
     font-size: 16px;
+    line-height: 21px;
     color: #333333;
 }
 
@@ -241,8 +259,16 @@
     border-radius: 3px;
     text-align: center;
     cursor: pointer;
+    -webkit-transition: all .3s;
+    -o-transition: all .3s;
+    -moz-transition: all .3s;
+    transition: all .3s;
 }
 
+
+.features-wrapper .download-btn:hover{
+    background-color: #ffdc57;
+}
 
 /**
  * 推荐的热门币种列表
@@ -252,36 +278,42 @@
     width: 1200px;
     margin: 20px auto 0;
     overflow: hidden;
-    height: 105px;
 }
 
 .hot-markets li {
     float: left;
-    width: 240px;
+    width: 224px;
+    margin-right: 20px;
+}
+
+.hot-markets li:last-child{
+    margin-right: 0;
 }
 
 .hot-markets .recommend-item {
     display: block;
     position: relative;
-    width: 220px;
-    height: 100px;
-    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.06);
-    border-radius: 4px;
+    width: 100%;
+    height: 105px;
+    border-radius: 6px;
     box-sizing: border-box;
     padding: 10px;
     background-color: #fff;
-    opacity: 0.7;
+    /* opacity: 0.7; */
     cursor: pointer;
+    overflow: hidden;
 }
 
 .hot-markets .recommend-item:hover {
     text-decoration: none;
-    opacity: 1;
+    /* opacity: 1; */
 }
 
 .hot-markets .recommend-item-name {
     position: relative;
     font-size: 14px;
+    height: 20px;
+    line-height: 20px;
     color: #333333;
     z-index: 2;
 }
@@ -289,13 +321,15 @@
 .hot-markets .recommend-item-price {
     position: relative;
     font-size: 18px;
-    margin-top: 5px;
+    margin-top: 10px;
+    height: 28px;
+    line-height: 28px;
     z-index: 2;
 }
 
 .hot-markets .recommend-item-volume {
     position: relative;
-    margin-top: 5px;
+    margin-top: 10px;
     color: #999;
     font-size: 12px;
     z-index: 2;
@@ -305,13 +339,15 @@
     position: absolute;
     right: 0;
     top: 10px;
-    height: 20px;
-    line-height: 20px;
+    height: 18px;
+    line-height: 18px;
     text-align: center;
     color: #fff;
-    width: 65px;
+    min-width: 65px;
+    padding: 0 5px;
     font-size: 12px;
-    border-radius: 20px 0 0 20px;
+    border-radius: 16px 0 0 16px;
+    box-sizing: border-box;
 }
 
 .hot-markets .recommend-item-kline svg {
@@ -331,7 +367,7 @@
     width: 1200px;
     margin: 20px auto 0;
     background-color: #fff;
-    border-radius: 4px;
+    border-radius: 6px;
 }
 
 .index-markets-hd {
@@ -341,14 +377,14 @@
 }
 
 .index-markets-hd .title {
-    font-size: 16px;
+    font-size: 18px;
     padding: 0 20px;
 }
 
 .index-markets-right {
     float: right;
     width: 900px;
-    height: 580px;
+    height: 590px;
     position: relative;
 }
 
@@ -356,14 +392,13 @@
     position: relative;
     float: left;
     width: 300px;
-    height: 580px;
+    height: 590px;
     border-right: 1px solid #f2f2f2;
 }
 
 .index-markets-left .coin-hd {
     position: relative;
-    height: 50px;
-    line-height: 50px;
+    padding: 20px 0;
     color: #333333;
     font-size: 14px;
     box-sizing: border-box;
@@ -379,7 +414,7 @@
 
 .index-markets-left .coin-hd .rate {
     position: absolute;
-    right: 10px;
+    right: 20px;
     top: 50%;
     height: 20px;
     line-height: 20px;
@@ -390,19 +425,22 @@
 }
 
 .index-markets-left .coin-bd {
-    border-bottom: 1px solid #e7ebf1;
+    width: 260px;
+    margin: 0 auto;
+    border-bottom: 2px solid #f4f4f4;
 }
 
 .index-markets-left .coin-bd li {
-    padding: 5px 20px;
     font-size: 12px;
     color: #999999;
     overflow: hidden;
+    margin-bottom: 20px;
 }
 
 .index-markets-left .coin-bd li label {
     float: left;
 }
+
 
 .index-markets-left .coin-bd li em{
     float: right;
@@ -413,9 +451,8 @@
 
 .index-markets-left .realtime-hd {
     position: relative;
-    height: 50px;
-    line-height: 50px;
-    padding: 0 20px;
+    padding: 20px;
+    margin-bottom: 10px;
 }
 .index-markets-left .realtime-hd  h4{
     font-size: 14px;
@@ -426,16 +463,19 @@
     height: 23px;
     line-height: 23px;
     top: 50%;
+    font-size: 14px;
     margin-top: -12px;
-    background: url('../images/kline-coin.jpg') no-repeat left center;
-    background-size: 25px 23px;
-    padding-left: 25px;
-    padding-right: 10px;
+    padding-right: 20px;
+}
+
+.index-markets-left .realtime-hd label a,
+.index-markets-left .realtime-hd label a:hover{
+    color: #cc9900;
 }
 
 .index-markets-left .coin-line-box{
     height: 200px;
-    width: 280px;
+    width: 260px;
     margin: 0 auto;
 }
 
@@ -452,20 +492,21 @@
     -webkit-touch-callout: none;
 }
 
-.index-markets-right .coin-list-title>span {
-    display: inline-block;
-    vertical-align: middle;
-}
 
 .index-markets-right .coin-list-title>span:first-child {
     padding-right: 30px;
 }
 
 .index-markets-right .coin-list-title>span:last-child {
-    width: 220px;
+    width: 240px;
+}
+
+.index-markets-right .coin-list-title span.ant-input-search{
+    padding-left: 24px;
 }
 
 .index-markets-right .table-body {
+    width: 100%;
     max-height: 540px;
     overflow: hidden;
     overflow-y: auto;
@@ -481,6 +522,10 @@
     color: #666666;
 }
 
+.index-markets-right .coin-list-content .table-body li:hover{
+    background-color: #f8f8f8;
+}
+
 .index-markets-right .coin-list-content .table-header li {
     color: #999999;
 }
@@ -488,6 +533,8 @@
 .index-markets-right .coin-list-content .cell{
     float: left;
     font-size: 14px;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
 }
 
 .index-markets-right .coin-list-content .name{ 
@@ -524,27 +571,9 @@
 }
 
 
-.index-markets-right .coin-list-content i {
-    font-size: 12px;
-    vertical-align: 3px;
-    margin-left: 5px;
-    cursor: pointer;
-    display: inline-block;
-    vertical-align: middle;
-    width: 10px;
-    height: 10px;
+.index-markets-right .coin-list-content i.anticon-star-o:hover{
+    color: #e8b802 !important;
 }
-
-.index-markets-right .coin-list-content i.arrow-up{
-    background: url('../images/icon-up.png') no-repeat center center;
-    background-size: 10px 10px;
-}
-
-.index-markets-right .coin-list-content i.arrow-down{
-    background: url('../images/icon-down.png') no-repeat center center;
-    background-size: 10px 10px;
-}
-
 
 .index-markets-right .anticon-star {
     color: #e6bc1d;
@@ -574,7 +603,7 @@
 /* 正 */
 
 .recommend-item.positive .recommend-item-rate {
-    background-color: #00b56a;
+    background-color: #33c280;
 }
 
 .recommend-item.positive .recommend-item-price {

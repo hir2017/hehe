@@ -13,7 +13,7 @@ const bannerImage = require('../../../../images/banner1.jpg');
 @observer
 class Banner extends Component {
 	static defaultProps = {
-		list: [bannerImage]
+		list: [bannerImage, bannerImage, bannerImage]
 	}
 	render() {
 		let list = this.props.list;

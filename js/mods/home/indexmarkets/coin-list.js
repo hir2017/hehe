@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import { browserHistory } from 'react-router';
 import { Input, Icon, Checkbox } from 'antd';
+const Search = Input.Search;
 
 @inject('homeStore')
 @observer
@@ -32,9 +33,9 @@ class MarketCoinList extends Component {
         }
 
         if (this.props.homeStore.marketListStore.sortByType == 'asc') {
-            return <i className='icon-arrow arrow-up' /> 
+            return <Icon type="arrow-up" style={{fontSize: 12}}/>;
         } else {
-            return <i className='icon-arrow arrow-down'/> 
+            return <Icon type="arrow-down" style={{fontSize: 12}}/>;
         }
     }
 
@@ -67,7 +68,7 @@ class MarketCoinList extends Component {
             data.selected = false;
         }
 
-        return <Icon onClick={e => this.collecthandle(e, data)} type={res ? 'star' : 'star-o'} />;
+        return <Icon onClick={e => this.collecthandle(e, data)} style={{color: '#999', fontSize: '14'}} type={res ? 'star' : 'star-o'} />;
     }
 
 	render(){
@@ -80,12 +81,11 @@ class MarketCoinList extends Component {
 					<Checkbox onChange={this.toggleCollect} checked={marketListStore.onlyCollectedCoins}>
                     	{UPEX.lang.template('只看收藏')}
                   	</Checkbox>
-                  	<Input
-                    	onChange={this.filterHandle}
-                    	placeholder={UPEX.lang.template('搜索数字币')}
-                        value={marketListStore.searchValue}
-                    	prefix={<Icon type="search" style={{ color: 'rgba(0,0,0,.25)'}} />}
-                  	/>
+                    <Search
+                            onChange={this.filterHandle}
+                            value={marketListStore.searchValue}
+                            placeholder={UPEX.lang.template('搜索数字币')}
+                        />
 				</div>
 				<div className="coin-list-content">
 					<div className="">
