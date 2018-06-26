@@ -18,7 +18,11 @@ export default class FourthStep extends Component {
     }
 
     submitKycC = () => {
-        this.props.userInfoStore.kycC();
+        this.props.userInfoStore.kycC().then(data => {
+            if(data) {
+                this.props.userInfoStore.getUserInfo();
+            }
+        });
     };
 
     render() {
