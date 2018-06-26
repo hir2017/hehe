@@ -63,7 +63,14 @@ export default class extends Component {
             return;
         }
         const imgS = this.uploudUrlS.join(',');
-        this.props.userInfoStore.ask(this.state.text, imgS);
+        this.props.userInfoStore.ask(this.state.text, imgS).then(data => {
+            if(data) {
+                this.setState({
+                    text: '',
+                    fileList: []
+                });
+            }
+        });
     }
 
     render() {
@@ -81,7 +88,7 @@ export default class extends Component {
                         <Link to="/user/questionList">{UPEX.lang.template('前往问题列表')}</Link>
                     </Col>
                 </Row>
-                <TextArea onChange={this.textAreaChange} placeholder={UPEX.lang.template('請輸入您要反饋的問題')} rows={7} />
+                <TextArea value={this.state.text} onChange={this.textAreaChange} placeholder={UPEX.lang.template('請輸入您要反饋的問題')} rows={7} />
                 <div className="upload-box">
                     <Upload
                         action={UPEX.config.uploadImgHost + '?token=' + token + '&uid=' + uid}

@@ -507,9 +507,12 @@ Zepto不支持旧版本的Internet Explorer浏览器(<10)。
 			* isAuthPrimary = -1；被拒绝，
 			* authFailReason：被拒原因
 		* 身份证图片上传，文件大小请控制在15MB以内, png/jpg/jpeg
+        * 申请更高限额
+            * isAuthVideo: -1=被拒绝; 0=正常状态,可申请; 1=审核中;
 	* 接口：
 		* 上传身份图片：[user/uploadImageSingle](RAP缺)
 		* 身份认证：[user/submitUserInfo](http://13.251.82.20:8080/workspace/myWorkspace.do?projectId=2#126)
+        * 申请更高限额 [user/submitUserInfo](http://13.251.82.20:8080/workspace/myWorkspace.do?projectId=2#126)
 
 * 银行卡信息
 	* 前置条件
@@ -700,10 +703,10 @@ Zepto不支持旧版本的Internet Explorer浏览器(<10)。
 
 ### 交易中心[QA可测试]
 
-* 委托历史	
+* 委托历史
 	* 委托历史【买入、卖出】。按时间近-》远顺序。［100条］
 	* 接口：
-		* 交易历史：[tradeHistory](http://13.251.82.20:8080/workspace/myWorkspace.do?projectId=2#142)	
+		* 交易历史：[tradeHistory](http://13.251.82.20:8080/workspace/myWorkspace.do?projectId=2#142)
 * 委托队列
 	* 买入队列【100条】
 	* 卖出队列【100条】
@@ -1219,7 +1222,7 @@ KYC2：法币账户总金额 > 60,000TWD
                 '6': '生产、运输设备操作',
                 '7': '學生',
                 '8': '自由职业者',
-        } 
+        }
     },
     {
         name: '年薪',
@@ -1230,7 +1233,7 @@ KYC2：法币账户总金额 > 60,000TWD
                 '3': '150-200万',
                 '4': '200-250万',
                 '5': '250万以上',
-        } 
+        }
     },
     {
         name: '资金用途',
@@ -1239,7 +1242,7 @@ KYC2：法币账户总金额 > 60,000TWD
                 '1': '投資、買賣數位貨幣',
                 '2': '儲存數位貨幣',
                 '3': '其他',
-        } 
+        }
     }
 ]
 

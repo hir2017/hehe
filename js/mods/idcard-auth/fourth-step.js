@@ -25,6 +25,44 @@ export default class FourthStep extends Component {
         const loading = this.props.userInfoStore.submit_loading;
         const userInfo = this.props.userInfoStore.userInfo || {};
         const bankCardList = this.props.userInfoStore.bankCardList || [];
+        let $bottom = null;
+        if(bankCardList.length === 0) {
+            // 未绑定银行卡
+            $bottom =  (
+                <Button>
+                    <Link to="/user/bankInfo">{UPEX.lang.template('绑定银行卡')}</Link>
+                </Button>
+            )
+        } else {
+            switch(userInfo.isAuthVideo) {
+                case 1:
+                $bottom =  (
+                    <p>{UPEX.lang.template('您已成功提交提额申请，审核会在3个工作日内完成，如果有必要我们会与您取得联系，请保持电话畅通。')}</p>
+                )
+                break;
+                case 2:
+                $bottom =  (
+                    <Button>
+                        <Link to="/user/bankInfo">{UPEX.lang.template('去交易中心')}</Link>
+                    </Button>
+                )
+                break;
+                default:
+                $bottom = (
+                    <div className="up-limit">
+                        <Button loading={loading} onClick={this.submitKycC}>
+                            {UPEX.lang.template('申請更高限額')}
+                        </Button>
+                        {
+                           userInfo.isAuthVideo === -1 ? (
+                               <p className="error">{userInfo.authFailReason}</p>
+                           ) : null
+                        }
+                    </div>
+                );
+                break;
+            }
+        }
         return (
             <AceForm className="auth-step-4">
                 <h3 className="title">{UPEX.lang.template('您已完成安全認證！')}</h3>
@@ -58,21 +96,7 @@ export default class FourthStep extends Component {
                     <p />
                 </div>
                 <div className="submit">
-                    {bankCardList.length === 0 ? (
-                        <Button>
-                            <Link to="/user/bankInfo">{UPEX.lang.template('绑定银行卡')}</Link>
-                        </Button>
-                    ) : userInfo.isAuthVideo === 0 ? (
-                        <Button loading={loading} onClick={this.submitKycC}>
-                            {UPEX.lang.template('申請更高限額')}
-                        </Button>
-                    ) : userInfo.isAuthVideo === 2 ? (
-                        <Button>
-                            <Link to="/user/bankInfo">{UPEX.lang.template('去交易中心')}</Link>
-                        </Button>
-                    ) : (
-                        <Button>{UPEX.lang.template('申請更高限額')}</Button>
-                    )}
+                    {$bottom}
                 </div>
             </AceForm>
         );
