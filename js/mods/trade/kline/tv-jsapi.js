@@ -106,17 +106,24 @@ class UDFCompatibleDatafeed {
             to: endDate,
         }
 
-        if (_resolution !== this.resolution) {
+        // if (this.cacheResult[_resolution]) {
+        //     return;
+        // }
+
+        // if (_resolution !== this.resolution) {
+        if (firstDataRequest) {
             this.getHistoryData(requestParams)
                 .then((result) => {
                     onHistoryCallback(result.bars, result.meta);
                 })
-            this.resolution = _resolution;
-
-            setTimeout(() => {
-                this.getIntervalHistoryData(requestParams.symbol, requestParams.resolution);
-            }, 1 * 1000)
         }
+
+        // this.resolution = _resolution;
+
+        // setTimeout(() => {
+        //     this.getIntervalHistoryData(requestParams.symbol, requestParams.resolution);
+        // }, 1 * 1000)
+        // }
     }
 
     getIntervalByPeriod(resolution) {
@@ -163,7 +170,7 @@ class UDFCompatibleDatafeed {
                             high: Number(data.c[i]),
                             low: Number(data.c[i]),
                         };
-                        
+
                         if (ohlPresent) {
                             barValue.open = Number(data.o[i]);
                             barValue.high = Number(data.h[i]);
@@ -192,7 +199,10 @@ class UDFCompatibleDatafeed {
                     }
                 }
 
-                this.cacheResult[params.resolution] = barCache;
+                this.cacheResult[params.resolution] = {
+                    bars: barCache,
+                    meta: meta
+                };
 
                 defer.resolve({
                     bars: bars,
@@ -218,11 +228,14 @@ class UDFCompatibleDatafeed {
         socket.emit('tradingView', params);
         socket.on('tradingView', (data) => {
 
-            if (!this.cacheResult[params.resolution]) {
-                this.cacheResult[params.resolution] = [];
-            }
+            // if (!this.cacheResult[params.resolution]) {
+            //     this.cacheResult[params.resolution] = {
+            //         bars: [],
+            //         meta: ''
+            //     };
+            // }
 
-            let barCache = this.cacheResult[params.resolution];
+            // let barCache = this.cacheResult[params.resolution].bars;
 
             if (data.s !== 'ok' && data.s !== 'no_data') {
                 defer.reject(data.errmsg);
@@ -262,23 +275,26 @@ class UDFCompatibleDatafeed {
 
                     barValue.timeTxt = TimeUtil.formatDate(new Date(data.t[i]), 'yyyy-MM-dd HH:mm:ss');
 
-                    if (barCache.length > 0) {
-                        if (barValue.time < barCache[0].time) {
-                            barCache = [barValue].concat(barCache);
-                        } else if (barValue.time > barCache[barCache.length - 1].time) {
-                            barCache[barCache.length] = barValue;
-                        } else if (barValue.time == barCache[barCache.length - 1].time) {
-                            barCache[barCache.length - 1] = barValue;
-                        }
-                    } else {
-                        barCache[barCache.length] = barValue;
-                    }
+                    // if (barCache.length > 0) {
+                    //     if (barValue.time < barCache[0].time) {
+                    //         barCache = [barValue].concat(barCache);
+                    //     } else if (barValue.time > barCache[barCache.length - 1].time) {
+                    //         barCache[barCache.length] = barValue;
+                    //     } else if (barValue.time == barCache[barCache.length - 1].time) {
+                    //         barCache[barCache.length - 1] = barValue;
+                    //     }
+                    // } else {
+                    //     barCache[barCache.length] = barValue;
+                    // }
 
                     bars.push(barValue);
                 }
             }
 
-            this.cacheResult[params.resolution] = barCache;
+            this.cacheResult[params.resolution] = {
+                bars: bars,
+                meta: meta
+            };
 
             defer.resolve({
                 bars: bars,

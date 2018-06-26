@@ -88,21 +88,23 @@ class UserInfo {
      * 安全等级
      */
     @computed
-    authLevel() {
+    get authLevel() {
         let level = '';
 
-        switch (this.userInfo.authLevel) {
-            case 1:
-                level = 'A';
-                break;
-            case 2:
-                level = 'B';
-                break;
-            case 3:
-                level = 'C';
-                break;
-            default:
-                level = '';
+        if (this.userInfo) {
+            switch (this.userInfo.authLevel) {
+                case 1:
+                    level = 'A';
+                    break;
+                case 2:
+                    level = 'B';
+                    break;
+                case 3:
+                    level = 'C';
+                    break;
+                default:
+                    level = '';
+            }
         }
 
         return level;
@@ -140,11 +142,11 @@ class UserInfo {
         this.identityInfo.idType = data.idType;
         this.identityInfo.idNumber = data.idNumber;
         (this.identityInfo.resortType = data.resortType),
-            (this.identityInfo.resortTypeOther = data.resortTypeOther),
-            (this.identityInfo.address = data.address),
-            (this.identityInfo.postCode = data.postCode),
-            (this.identityInfo.profession = data.profession),
-            (this.identityInfo.annualsalary = data.annualsalary);
+        (this.identityInfo.resortTypeOther = data.resortTypeOther),
+        (this.identityInfo.address = data.address),
+        (this.identityInfo.postCode = data.postCode),
+        (this.identityInfo.profession = data.profession),
+        (this.identityInfo.annualsalary = data.annualsalary);
     }
 
     @action

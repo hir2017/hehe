@@ -54,8 +54,10 @@ class Recharge extends Component{
     			<div className="module-box">
     				<h2 className="title">{UPEX.lang.template('充币记录')}</h2>
     				<div className="content">
-    					<RecordList currencyId={store.currentCoin.currencyId} key={store.currentCoin.currencyId}/>
-    					{ store.isFetching ? <div className="mini-loading"></div> : null }
+    					<div className="order-main-box">
+    						<RecordList currencyId={store.currentCoin.currencyId} key={store.currentCoin.currencyId}/>
+    						{ store.isFetching ? <div className="mini-loading"></div> : null }
+    					</div>
     				</div>
     			</div>
     		</div>
