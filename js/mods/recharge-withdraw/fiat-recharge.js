@@ -77,9 +77,9 @@ class FiatRechargeView extends Component {
                             <button className="submit-btn" onClick={this.onConfirm}>
                                 {UPEX.lang.template('已完成支付')}
                             </button>
-                            <button className="problem-btn">
+                            {/* <button className="problem-btn">
                                 <Link>{UPEX.lang.template('支付遇到问题')}</Link>
-                            </button>
+                            </button> */}
                         </div>
                     </div>
                 </div>

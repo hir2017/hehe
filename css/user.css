@@ -17,6 +17,12 @@
     color: #e7b508;
 }
 
+.user-main .ant-btn.ace-main {
+    background-color: #e7b508;
+    color: #fff;
+    height: 40px;
+}
+
 .user-main .content-body .ace-btn {
     border-radius: 3px;
     height: 40px;
@@ -1527,7 +1533,7 @@
 
 .user-main .bind-success {
     margin: auto;
-    width: 300px;
+    /* width: 300px; */
     text-align: center;
 }
 

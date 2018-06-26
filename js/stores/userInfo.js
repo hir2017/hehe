@@ -554,11 +554,13 @@ class UserInfo {
 
     @action
     async kycC() {
+        let result = true;
         try {
             this.submit_loading = true;
             const res = await submitKycC();
             this.submit_loading = false;
             if (res.status === 200) {
+                result = true;
                 message.success(UPEX.lang.template('申请成功'));
             } else {
                 message.error(res.message);
@@ -568,6 +570,7 @@ class UserInfo {
             console.error(e);
             message.error('Network Error');
         }
+        return result;
     }
 
     @action
