@@ -171,7 +171,7 @@ export default class BankList extends Component {
                                                             onClick={() => {
                                                                 this.bankHandle(item.status, item.id);
                                                             }}
-                                                            style={{ cursor: 'pointer' }}
+                                                            style={{ cursor: 'pointer', color: '#cc9900' }}
                                                         >
                                                             {item.status === 2
                                                                 ? UPEX.lang.template('删除')

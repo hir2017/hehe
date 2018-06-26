@@ -6,6 +6,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import { observer, inject } from 'mobx-react';
+import {Breadcrumb} from 'antd';
 
 @inject('userInfoStore')
 @observer
@@ -85,10 +86,14 @@ class UserPage extends Component {
         const userName = store.userInfo ? (store.userInfo.phone || store.userInfo.email) : '--';
         return (
             <div className="user-wrapper">
+                <Breadcrumb className="user-breadcrumb" separator=">">
+                    <Breadcrumb.Item>ACE</Breadcrumb.Item>
+                    <Breadcrumb.Item>安全设置</Breadcrumb.Item>
+                </Breadcrumb>
                 <div className="user-body-inner clearfix">
                     <div className="aside-left">
                         <div className="info">
-                            <p className="name" title={userName}>{userName}</p>
+                            {/* <p className="name" title={userName}>{userName}</p> */}
                             <p className="id">UID:{store.userInfo ? store.userInfo.uid + '' : ''}</p>
                         </div>
                         <div className="menu">

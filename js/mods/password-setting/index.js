@@ -90,7 +90,7 @@ export default class BindingBank extends Component {
                         <p>{UPEX.lang.template('交易密码')}</p>
                         <p>{UPEX.lang.template('用於交易、綁定解綁銀行卡充幣提現等資金 操作，需要嚴格保密')}</p>
                         <div className="forget-pwd">
-                            {userInfo.isValidatePass ? <Link to="/user/forgetTradingPassword">{UPEX.lang.template('忘记交易密码？')}</Link> : null}
+                            {userInfo.isValidatePass ? <Link  className="ace-link" to="/user/forgetTradingPassword">{UPEX.lang.template('忘记交易密码？')}</Link> : null}
                         </div>
                     </Col>
                     <Col className="level" span={8} />

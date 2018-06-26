@@ -8,8 +8,44 @@
     box-sizing: border-box;
 }
 
+.user-wrapper .user-breadcrumb.ant-breadcrumb {
+    padding: 10px 0 17px;
+}
+
+.user-main .ant-btn:hover {
+    border-color: #e7b508;
+    color: #e7b508;
+}
+
+.user-main .content-body .ace-btn {
+    border-radius: 3px;
+    height: 40px;
+    line-height: 40px;
+    background-color: #e6bc1d;
+    color: #fff;
+    display: inline-block;
+    min-width: 100px;
+    font-size: 14px;
+}
+
+.user-main a.ace-link {
+    color: #e7b508;
+}
+
+.user-main .forget-pwd a {
+    color: #e7b508;
+}
+
+.user-main .page-content-inner a:hover {
+    text-decoration:none;
+}
+
+.user-main .no-auth-message a.ace-btn {
+    margin-top: 10px;
+}
+
 .user-body-inner {
-    padding-left: 230px;
+    padding-left: 200px;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
@@ -17,9 +53,9 @@
 
 .aside-left {
     float: left;
-    width: 230px;
-    padding-right: 30px;
-    margin-left: -230px;
+    width: 200px;
+    padding-right: 20px;
+    margin-left: -200px;
 }
 
 .aside-left .info {
@@ -89,13 +125,15 @@
     text-decoration: none;
 }
 
-.aside-left .menu .menu-submenu-item.active-item {
+.aside-left .menu .menu-submenu-item.active-item,
+.aside-left .menu .menu-submenu-item:hover {
     background-color: #fffbe9;
     box-sizing: border-box;
     border-right: 3px solid #e7b400;
 }
 
-.aside-left .menu .menu-submenu-item.active-item a {
+.aside-left .menu .menu-submenu-item.active-item a,
+.aside-left .menu .menu-submenu-item:hover a {
     color: #e7b508;
 }
 
@@ -109,12 +147,14 @@
     border-bottom-right-radius: 6px;
 }
 
-.user-main.ace-page-content .content-title, .user-main.ace-page-content .section-title {
+.user-main.ace-page-content .content-title,
+.user-main.ace-page-content .section-title {
     border-top-left-radius: 6px;
     border-top-right-radius: 6px;
 }
 
-.user-main.ace-page-content .content-body, .user-main.ace-page-content .section-body  {
+.user-main.ace-page-content .content-body,
+.user-main.ace-page-content .section-body {
     border-bottom-left-radius: 6px;
     border-bottom-right-radius: 6px;
 }
@@ -133,81 +173,86 @@
     content: '';
     width: 1px;
     height: 100%;
-    background-color: #ccc;
+    background-color: #f4f4f4;
     position: absolute;
     right: 50%;
     top: 0;
 }
 
-.page-content-inner.base-info .ace-section.info .content-box {
-    float: left;
-    width: 50%;
-    box-sizing: border-box;
-    padding: 10px 0;
-    overflow: hidden;
+.page-content-inner.base-info .ace-section.info .ant-col-12.left {
+    padding-right: 20px;
+    padding-top: 30px;
     text-align: center;
 }
 
-.page-content-inner.base-info .ace-section.info .content-box.left {
-    padding-right: 20px;
-}
-
-.page-content-inner.base-info .ace-section.info .content-box.left .phone,
-.page-content-inner.base-info .ace-section.info .content-box.right .grade {
+.page-content-inner.base-info .ace-section .ant-row .phone {
     font-size: 24px;
     color: #333;
 }
 
-.page-content-inner.base-info .ace-section.info .content-box.left .phone {
-    padding-top: 20px;
-}
-
-.page-content-inner.base-info .ace-section.info .content-box.left .login-time,
-.page-content-inner.base-info .ace-section.info .content-box.right .money {
+.page-content-inner.base-info .ace-section .ant-row .login-time {
     font-size: 14px;
     color: #999;
 }
 
-.page-content-inner.base-info .ace-section.info .content-box.left .bind {
-    width: 70%;
-    margin: 0 auto;
-    padding-top: 20px;
+.page-content-inner.base-info .ace-section .ant-row.bind-status {
+    width: 210px;
+    margin: 20px auto;
 }
 
-.page-content-inner.base-info .ace-section.info .content-box.left .bind>div {
-    display: inline-block;
-    width: 50%;
+.page-content-inner.base-info .ace-section.info .ant-col-12.right {
+    padding: 5px 0 0 20px;
+}
+
+.page-content-inner.base-info .grade-label {
+    color: #999;
+    font-size: 14px;
+}
+
+.page-content-inner.base-info .grade-info {
     text-align: center;
+    padding: 30px 0 10px;
 }
 
-.page-content-inner.base-info .ace-section.info .content-box.left .bind img {
-    display: block;
-    margin: 0 auto;
+.page-content-inner.base-info .grade-info .state {
+    height: 60px;
 }
 
-.page-content-inner.base-info .ace-section.info .content-box.right {
-    padding-left: 20px;
-}
-
-.page-content-inner.base-info .ace-section.info .content-box.right .title {
+.page-content-inner.base-info .grade-info .state-inner {
+    padding-left: 125px;
     text-align: left;
-    color: #999;
+    line-height: 25px;
+}
+
+.page-content-inner.base-info .grade-info .state-inner img {
+    width: 40px;
+    margin: 0 5px 0 0;
+    float: left;
+}
+
+.page-content-inner.base-info .grade-info .state-inner .text {
+    color: #333;
+    font-size: 18px;
+}
+
+.page-content-inner.base-info .grade-info .state-inner .money {
+    color: #999999;
     font-size: 14px;
 }
 
-.page-content-inner.base-info .ace-section.info .content-box.right .lvl {
-    color: #e6bc1d;
+.page-content-inner.base-info .grade-info .upgrade a {
+    line-height: 37px;
+    color: #cc9900;
 }
 
-.page-content-inner.base-info .ace-section.info .content-box.right .ant-btn {
-    min-width: 100px;
-    height: 35px;
-    background-color: #e6bc1d;
-    color: #fff;
-    margin-top: 20px;
-    outline: none;
+.page-content-inner.base-info .grade-info .upgrade img {
+    height: 7px;
 }
 
+.page-content-inner.base-info .grade-info .no-auth {
+    font-size: 18px;
+    color: #333;
+}
 
 .user-main .login-reminding {
     margin-left: 270px;
@@ -248,9 +293,6 @@
     font-size: 18px;
     color: #333333;
 }
-/* .user-main .ant-table-body tr:nth-child(odd) {
-    background-color: #f8f8fb;
-} */
 
 .user-main .ant-table-body {
     max-height: 250px;
@@ -282,19 +324,6 @@
     text-align: center;
     font-size: 18px;
     color: #333333;
-}
-
-.user-main .authentication-message a {
-    background-color: #e6bc1d;
-    padding: 5px;
-    margin-left: 10px;
-    border-radius: 8px;
-    color: #fff;
-    display: block;
-    width: 100px;
-    font-size: 12px;
-    margin: auto;
-    margin-top: 20px;
 }
 
 .user-main .authentication-content {
@@ -347,7 +376,9 @@
 .user-main .ace-form.auth-step-1 .muti-filed .message,
 .user-main .ace-form.auth-step-1 .muti-select .message {
     position: absolute;
-    top: 70px;
+    top: 72px;
+    font-size: 14px;
+    color: #999;
 }
 
 .user-main .ace-form.auth-step-1 .muti-filed .ace-input-item.last,
@@ -505,11 +536,13 @@
 
 .user-main .authentication-content .submit button {
     min-width: 100px;
-    height: 35px;
+    height: 40px;
+    border-radius: 3px;
     background-color: #e6bc1d;
     color: #fff;
     margin-top: 40px;
     outline: none;
+    border-color: transparent;
 }
 
 .user-main .ace-form.auth-step-2 .pic-title {
@@ -872,7 +905,6 @@
 
 .user-main .bank-message a {
     background-color: #e6bc1d;
-    padding: 5px;
     margin-left: 10px;
     border-radius: 8px;
     color: #fff;
@@ -882,8 +914,6 @@
     margin: auto;
     margin-top: 20px;
 }
-
-
 
 .user-main .page-content-inner.bank-info .ace-section.info header .pic-tip {
     float: right;
@@ -910,17 +940,16 @@
     line-height: 18px;
 }
 
-
 /**
  * 密码设置
  */
 
 .user-main .common-setting-box {
-    padding-top: 20px;
+    padding: 40px 20px;
 }
 
 .user-main .common-setting-box .ant-row.pwd {
-    padding: 20px;
+    padding: 16px 20px;
     border: solid 1px #f4f4f4;
 }
 
@@ -961,8 +990,6 @@
     padding-left: 4px;
     color: #cc9900;
 }
-
-
 
 /**
  * 密码修改
@@ -1117,7 +1144,6 @@
     color: #333333;
     font-size: 18px;
 }
-
 
 .user-main .google-no-binding-phone>span {
     font-size: 18px;
@@ -1437,9 +1463,11 @@
     text-align: center;
     padding-top: 50px;
 }
- .user-main .page-content-inner.question-detail .feedback{
+
+.user-main .page-content-inner.question-detail .feedback {
     padding: 15px;
 }
+
 .user-main .page-content-inner.question-detail .detail {
     padding: 25px 0;
     border-bottom: solid 1px #f4f4f4;
@@ -1447,7 +1475,7 @@
     color: #333;
 }
 
-.user-main .page-content-inner.question-detail .detail .time{
+.user-main .page-content-inner.question-detail .detail .time {
     color: #999;
 }
 
@@ -1462,7 +1490,8 @@
     margin-right: 8px;
     border-radius: 4px;
 }
-.user-main .page-content-inner.question-detail .img-list .img  img {
+
+.user-main .page-content-inner.question-detail .img-list .img img {
     width: 100%;
     height: 100%;
 }
