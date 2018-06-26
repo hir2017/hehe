@@ -252,6 +252,12 @@ button {
     cursor: pointer;
 }
 
+button:hover{
+    -webkit-transition: all .3s;
+    -o-transition: all .3s;
+    -moz-transition: all .3s;
+    transition: all .3s;
+}
 
 /*html5 reset*/
 
@@ -313,6 +319,10 @@ xmp {
     display: none;
 }
 
+input::placeholder{
+    color: #ccc !important;
+}
+
 input::-webkit-input-placeholder {
     /* WebKit browsers*/
     color: #ccc;
@@ -327,6 +337,7 @@ input::-moz-placeholder {
     /* Mozilla Firefox 19+*/
     color: #ccc;    
 }
+
 
 input:-ms-input-placeholder {
     /* Internet Explorer 10+*/

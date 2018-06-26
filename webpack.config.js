@@ -120,7 +120,7 @@ var config = {
         contentBase: './',  // 服务根目录
         color: true,  // 命令行是否彩色
         inline: true, // 项目文件保存自动编译文件模块
-        host: '0.0.0.0', //  使用IP访问
+        host: '0.0.0.0',
         port: 80 // 启动端口
     },
     

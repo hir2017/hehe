@@ -23,6 +23,8 @@ import LanguageSwitchView from './language';
 import ThemeSwitchView from './theme';
 import { browserHistory } from 'react-router';
 
+const logoIMG = require('../../../images/logo.png');
+
 @inject('authStore','commonStore','userInfoStore')
 @observer
 class HeaderView extends Component {
@@ -71,18 +73,18 @@ class HeaderView extends Component {
 				<div className="header-box clearfix">
 					<h1 className="logo">
 						<Link to="/">
-							<img src="http://g.cdn.pengpengla.com/oauthgame/html5/20180509/5f46a342df497aa7b71af141c20724a1.png"/>
+							<img src={logoIMG}/>
 						</Link>
 					</h1>
 					<div className="header-box-l">
 						<ul>
-							<li>
+							<li className="trade">
 								<Link to="/trade">{ UPEX.lang.template('行情中心')}</Link>
 							</li>
-							<li>
+							<li className="news">
 								<Link to="/news">{ UPEX.lang.template('新闻公告')}</Link>
 							</li>
-							<li>
+							<li className="download">
 								<Link to="/download">{ UPEX.lang.template('客户端下载')}</Link>
 							</li>
 						</ul>

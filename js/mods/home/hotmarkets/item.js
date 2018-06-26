@@ -79,8 +79,8 @@ class HotCoin extends Component {
 						<div className="recommend-item-kline" ref="kline" key="negative">
 							<svg  version="1.1" xmlns="http://www.w3.org/2000/svg">
 								<g transform="translate(0.5,0.5)">
-									<path ref="testchart" stroke="rgba(239,93,127,0.5)" fill="none" strokeWidth="1" ></path>
-									<path ref="testfill" fill="rgba(239,93,127,0.3)" stroke="none" ></path>
+									<path ref="testchart" stroke="rgba(248,227,232,1)" fill="none" strokeWidth="1" ></path>
+									<path ref="testfill" fill="rgba(250,243,245,1)" stroke="none" ></path>
 								</g>
 							</svg>
 						</div>

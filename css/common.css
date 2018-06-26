@@ -2,6 +2,7 @@ body,
 html {
     min-width: 1200px;
     background-color: #f2f2f2;
+    font-family:"Microsoft YaHei";
 }
 
 #wrap {
@@ -194,6 +195,33 @@ body .ant-pagination-disabled:focus .ant-pagination-item-link {
   cursor: not-allowed;
 }
 
+body .app-page .ant-carousel .slick-dots li button{
+    width: 30px;
+    height: 4px;
+    border-radius: 4px;
+}
+
+body .ant-carousel .slick-dots{
+    bottom: 20px;
+}
+
+body .ant-carousel .slick-dots li{
+    margin: 0 5px;
+}
+
+body .ant-checkbox-wrapper + span, body .ant-checkbox + span{
+    height: 30px;
+    height: 30px;
+    padding-left: 6px;
+    padding-right: 6px;
+}
+body .ant-input{
+    border: 1px solid #ccc;
+    color: #333;
+}
+body .ant-input-search:not(.ant-input-search-small) > .ant-input-suffix{
+    right: 15px;
+}
 
 .widget-tooltip .ant-popover-inner-content {
     padding: 12px 0;
@@ -220,6 +248,10 @@ body .ant-pagination-disabled:focus .ant-pagination-item-link {
     color: #cc9900;
 }
 
+.widget-tooltip .menu-list dd:hover {
+    background-color: #f8f8f8;
+    text-decoration: none;
+}
 
 .widget-tooltip .menu-list dd a,
 .widget-tooltip .menu-list dd a:hover {
@@ -247,6 +279,8 @@ body .ant-pagination-disabled:focus .ant-pagination-item-link {
     height: 60px;
     background-color: #141414;
     color: #fff;
+    width: 100%;
+    overflow: hidden;
 }
 
 .app-page[data-path="/home"] .app-header {
@@ -256,13 +290,16 @@ body .ant-pagination-disabled:focus .ant-pagination-item-link {
 .header-box {
     width: 1200px;
     margin: 0 auto;
-    padding: 0 10px;
     font-size: 16px;
+}
+
+.app-trade .header-box{
+    padding: 0 10px;
 }
 
 .header-box .logo {
     float: left;
-    width: 130px;
+    width: 124px;
     margin-right: 30px;
     height: 60px;
 }
@@ -274,7 +311,8 @@ body .ant-pagination-disabled:focus .ant-pagination-item-link {
 }
 
 .header-box .logo img {
-    height: 60px;
+    width: 124px;
+    height: 25px;
     vertical-align: middle;
 }
 
@@ -289,6 +327,22 @@ body .ant-pagination-disabled:focus .ant-pagination-item-link {
     font-size: 16px;
 }
 
+.header-box .header-box-l li a:hover{
+    color: #cc9900
+}
+
+.app-trade .header-box .header-box-l li.trade a{
+    color: #cc9900;
+}
+
+.app-page[data-path="/news"] .header-box .header-box-l li.news a{
+    color: #cc9900;
+}
+
+.app-page[data-path="/download"] .header-box .header-box-l li.download a{
+    color: #cc9900;
+}
+
 .header-box .header-box-r {
     float: right;
 }
@@ -299,10 +353,17 @@ body .ant-pagination-disabled:focus .ant-pagination-item-link {
 
 .header-box .header-box-r li {
     float: left;
-    padding: 0 5px;
+    padding: 0 12px;
     line-height: 60px;
     color: #999;
     font-size: 14px;
+}
+.header-box .header-box-r li a{
+    display: inline-block;
+    vertical-align: middle;
+}
+.header-box .header-box-r li a:hover{
+    color: #fff;
 }
 
 .header-box .header-box-r li ul li.username a {
@@ -316,7 +377,8 @@ body .ant-pagination-disabled:focus .ant-pagination-item-link {
 
 .header-box .header-box-r li.split{
     font-size: 10px;
-    width: 20px;
+    width: 1px;
+    padding: 0;
     text-align: center;
     color: #666;
 }
@@ -366,7 +428,6 @@ body .ant-pagination-disabled:focus .ant-pagination-item-link {
     position: relative;
     height: 60px;
     line-height: 60px;
-    min-width: 90px;
     text-align: center;
     box-sizing: border-box;
     cursor: pointer;
@@ -531,6 +592,7 @@ body .ant-pagination-disabled:focus .ant-pagination-item-link {
     background-size: 1976px 786px;
     min-height: 786px;
 }
+
 
 .redrate {
     color: #ef5d7f;
