@@ -25,11 +25,11 @@ class FundChangeRecordStore {
     };
 
     statusMap = {
-        '0': '待审核',
-        '1': '成功',
-        '2': '失败',
-        '3': '支付中',
-        '4': '交易异常',
+        '0': UPEX.lang.template('待审核'),
+        '1': UPEX.lang.template('成功'),
+        '2': UPEX.lang.template('失败'),
+        '3': UPEX.lang.template('支付中'),
+        '4': UPEX.lang.template('交易异常'),
     }
 
     constructor(stores) {
@@ -92,9 +92,9 @@ class FundChangeRecordStore {
         arr.forEach((item, index) => {
             // item.createTime = TimeUtil.formatDate(item.createTime, 'yyyy-MM-dd HH:mm:ss');
             item._type = item.type === 1 ? 'recharge' : 'withdraw';
-            item._status = statusMap[item.status] || '未知';
-            item._actionName = `银行卡${item.type === 1 ? '充值' : '提现'}`;
-            item._payMethod = item.type === 1 ? item.openBank : '法币账户';
+            item._status = statusMap[item.status] || UPEX.lang.template('未知');
+            item._actionName = `${UPEX.lang.template('银行卡')}${item.type === 1 ? UPEX.lang.template('充值') : UPEX.lang.template('提现')}`;
+            item._payMethod = item.type === 1 ? item.openBank : UPEX.lang.template('法币账户');
         });
 
         return arr;
