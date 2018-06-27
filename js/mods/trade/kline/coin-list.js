@@ -133,8 +133,8 @@ class CoinList extends Component {
                                         <div className="cell name" onClick={this.handleCurrency.bind(this, item)}>
                                             {item.currencyNameEn || '--'}
                                         </div>
-                                        <div className={`cell price ${trendColor}`} onClick={this.handleCurrency.bind(this, item)}>
-                                            {item.currentAmountText}{trendIcon}
+                                        <div className={`cell price`} onClick={this.handleCurrency.bind(this, item)}>
+                                            {item.currentAmountText}
                                         </div>
                                         <div
                                             className={item.changeRate >= 0 ? 'cell rate greenrate' : 'cell rate redrate'}

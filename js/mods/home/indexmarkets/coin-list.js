@@ -140,9 +140,8 @@ class MarketCoinList extends Component {
                                                     return (
                                                         <li className="clearfix" key={item.id} onClick={this.selectCoin.bind(this, item)}>
                                                             <span className="cell name"><span className="symbol">{item.currencyNameEn || '--'}</span></span>
-                                                            <span className={`cell amount ${trendColor}`}>
+                                                            <span className={`cell amount`}>
                                                                 {item.currentAmountText}
-                                                                { trendIcon }
                                                             </span>
                                                             <span className={`cell rate ${ratecolor}`}>{item.changeRateText}</span>
                                                             <span className="cell volume">{item.volumeText}</span>
