@@ -38,6 +38,17 @@
     min-width: 100px;
     font-size: 14px;
 }
+/* 底部提示统一样式 */
+.user-main .custom-tips {
+    margin: 0 auto;
+    border-top: solid 1px #f2f2f2;
+    text-align: left;
+    padding-top: 20px;
+    font-size: 12px;
+    line-height: 20px;
+    color: #999;
+}
+
 
 .user-main a.ace-link {
     color: #e7b508;
@@ -376,6 +387,35 @@
     color: #333333;
     font-size: 18px;
     margin-bottom: 20px;
+}
+
+.user-main .authentication .content-title .title-right .ant-steps-item-icon {
+    width: 20px;
+    height: 20px;
+    line-height: 22px;
+}
+
+.user-main .authentication .content-title .ant-steps-item.ant-steps-item-finish .ant-steps-item-title {
+    color: #999;
+}
+.user-main .authentication .content-title  .ant-steps-small .ant-steps-item-title {
+    line-height: 21px;
+}
+.user-main .authentication .content-title  .ant-steps-small .ant-steps-item-title:after {
+    top: 10px;
+}
+
+.user-main .authentication .content-title .ant-steps-item.ant-steps-item-finish:nth-child(3) .ant-steps-item-title {
+    color: #333;
+}
+
+.user-main .authentication .content-title .ant-steps-item.ant-steps-item-finish:nth-child(3) .ant-steps-item-icon {
+    background-color: #e8b802;
+    border-color: #e8b802;
+}
+
+.user-main .authentication .content-title .ant-steps-item.ant-steps-item-finish:nth-child(3) .ant-steps-item-icon>.ant-steps-icon {
+    color: #fff;
 }
 
 .user-main .authentication-message {
@@ -777,10 +817,10 @@
     color: #333333;
 }
 
-.user-main .ace-form.auth-step-4 .tip {
+/* .user-main .ace-form.auth-step-4 .tip {
     text-align: center;
     padding: 20px;
-}
+} */
 
 .user-main .ace-form.auth-step-4 .tip p {
     padding-bottom: 5px;
@@ -1006,6 +1046,11 @@
 }
 .user-main .page-content-inner.bank-info .ant-upload-list-item-info {
     display: none;
+}
+
+.user-main .page-content-inner.bank-info .bank-card-log dl dd {
+    width: 16.6%;
+    text-align: center;
 }
 /**
  * 密码设置
