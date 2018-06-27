@@ -4,13 +4,13 @@
  */
 import { observable, computed, autorun, action, runInAction } from 'mobx';
 import { socket } from '../api/socket';
-import {   
-    addOptional, 
-    cancleOptional, 
-    listOptional, 
-    getUserOrderList, 
-    submitOrder, 
-    getPersonalTradingPwd, 
+import {
+    addOptional,
+    cancleOptional,
+    listOptional,
+    getUserOrderList,
+    submitOrder,
+    getPersonalTradingPwd,
     hasSettingDealPwd
 } from '../api/http';
 
@@ -32,13 +32,13 @@ class TradeStore {
     // @observable currentTradeCoin = {};
     @observable type = 'all'; // 买盘buy、卖盘sell
     @observable tradeHistory = { content: [] };
-    @observable personalAccount = { 
-        baseCoinBalance: 0, 
-        tradeCoinBalance: 0 
+    @observable personalAccount = {
+        baseCoinBalance: 0,
+        tradeCoinBalance: 0
     };
-    @observable entrust = { 
-        sell: [], 
-        buy: [] 
+    @observable entrust = {
+        sell: [],
+        buy: []
     };
     @observable baseCurrencyId = 0;
     @observable baseCurrencyNameEn = '';
@@ -78,11 +78,11 @@ class TradeStore {
     }
 
     @computed
-    get currentTradeCoin(){
-        let coins = this.marketListStore.cacheCoins.filter((item)=>{
+    get currentTradeCoin() {
+        let coins = this.marketListStore.cacheCoins.filter((item) => {
             return item.baseCurrencyId == this.baseCurrencyId && item.currencyId == this.currencyId
         })
-        
+
         return coins[0] || {};
     }
 
@@ -128,8 +128,8 @@ class TradeStore {
         return this.processData(bids, 'bids', true);
     }
     // 最佳买入价格
-    @computed
-    get bestBuyPrice() {
+    @action
+    getBestBuyPrice() {
         let price = this.entrust.sell && this.entrust.sell[0] ? this.entrust.sell[0].current : 0; //行情中最新买入价格
 
         price = price ? price : this.currentTradeCoin.currentAmount;
@@ -138,8 +138,8 @@ class TradeStore {
     }
 
     // 最佳卖出价格
-    @computed
-    get bestSellPrice() {
+    @action
+    getBestSellPrice() {
         let price = this.entrust.buy && this.entrust.buy[0] ? this.entrust.buy[0].current : 0;
 
         price = price ? price : this.currentTradeCoin.currentAmount;
@@ -328,65 +328,101 @@ class TradeStore {
         this.theme = value;
         UPEX.cache.setCache('theme', value);
     };
-
+    /**
+     * 修改买入价格
+     */
     @action
     setDealBuyPrice(price) {
+
+        if (this.dealBuyNum) {
+            let balance = this.baseCoinBalance.value;
+
+            if (balance === 0) {
+                precent = 0;
+            } else {
+                precent = (price * this.dealBuyNum / balance) * 100;
+
+                if (precent > 100) {
+                    precent = 100;
+                } else if (precent < 0) {
+                    precent = 0;
+                }
+            }
+
+            this.buySliderValue = precent;
+        }
+
         this.dealBuyPrice = price;
     }
+
+    /**
+     * 修改卖出价格
+     */
     @action
     setDealSellPrice(price) {
         this.dealSellPrice = price;
     }
 
+    /**
+     * 操作滑动进度，TWD* 百分比
+     */
     @action
     setBuySliderValue(value) {
         let balance = this.baseCoinBalance.value;
-        let num = (balance * value) / 100;
+        let num;
 
-        this.dealBuyNum = NumberUtil.initNumber(num, this.pointPrice);
+        if (this.dealBuyPrice) {
+            num = balance * value / this.dealBuyPrice;
+            this.dealBuyNum = NumberUtil.initNumber(num, this.pointPrice);
+        }
+        
         this.buySliderValue = value;
     }
 
     @action
     setSellSliderValue(value) {
         let balance = this.tradeCoinBalance.value;
-        let num = (balance * value) / 100;
+        let num = balance * value * 0.01;
 
         this.dealSellNum = NumberUtil.initNumber(num, this.pointPrice);
         this.sellSliderValue = value;
     }
-
+    /**
+     * 修改买入量
+     */
     @action
     setDealBuyNum(value) {
-        let balance = this.tradeCoinBalance.value;
-        let result;
+        let baseBalance = this.baseCoinBalance.value;
+
         let precent;
 
+        if (this.dealBuyPrice) {
 
-        if (balance === 0) {
-            result = 0;
-        } else {
-            precent = (value / balance) * 100;
-
-            if (precent > 100) {
-                precent = 100;
-            } else if (precent < 0) {
+            if (baseBalance === 0) {
                 precent = 0;
+            } else {
+                precent = (this.dealBuyPrice * value / baseBalance) * 100;
+
+                if (precent > 100) {
+                    precent = 100;
+                } else if (precent < 0) {
+                    precent = 0;
+                }
             }
+
+            this.buySliderValue = precent;
         }
 
-        this.buySliderValue = precent;
         this.dealBuyNum = value;
     }
 
     @action
     setDealSellNum(value) {
         let balance = this.tradeCoinBalance.value;
-        let result;
         let precent;
 
         if (balance === 0) {
-            result = 0;
+            precent = 0;
         } else {
             precent = (value / balance) * 100;
 
@@ -413,6 +449,7 @@ class TradeStore {
 
         if (amount < entrustPriceMin || amount > entrustPriceMax) {
             this.tradePriceErr = UPEX.lang.template('输入必须是{min}~{max}', { min: entrustPriceMin, max: entrustPriceMax });
+            this.tradePriceErr = '';
             pass = false;
         } else {
             this.tradePriceErr = '';
@@ -452,7 +489,7 @@ class TradeStore {
     }
 
     @action
-    getData(){
+    getData() {
         this.marketListStore.getData();
     }
     /**
@@ -472,9 +509,9 @@ class TradeStore {
                     this.tradeHistory = this.parseTradeHistory(data);
                 } else {
                     let item = this.parseTradeHistoryItem(data.content);
-                    
+
                     this.tradeHistory.content.unshift(item);
-                }   
+                }
             });
         });
     }
@@ -483,16 +520,16 @@ class TradeStore {
         data.content.forEach((item, index) => {
             this.parseTradeHistoryItem(item);
         });
-        
+
         // 时间最近－》历史
-        data.content.sort(function(a, b){
+        data.content.sort(function(a, b) {
             return b.time - a.time;
         });
 
         return data;
     }
 
-    parseTradeHistoryItem(item){
+    parseTradeHistoryItem(item) {
         item.timeText = TimeUtil.formatDate(item.time, 'HH:mm:ss'); // 时间
         item.timeTextAll = TimeUtil.formatDate(item.time); // 时间
         item.current = NumberUtil.formatNumber(item.current, this.commonStore.pointPrice); // 价格
@@ -503,6 +540,8 @@ class TradeStore {
 
     @action
     getEntrust() {
+        let first = true;
+
         socket.off('entrust');
         socket.emit('entrust', {
             baseCurrencyId: this.baseCurrencyId,
@@ -512,6 +551,19 @@ class TradeStore {
         socket.on('entrust', data => {
             runInAction('get entrust', () => {
                 this.entrust = data;
+
+                if (first) {
+                    // 默认买入价格是最佳价格
+                    if (!this.dealBuyPrice) {
+                        this.dealBuyPrice = this.getBestBuyPrice();
+                    }
+                    // 默认卖出价格是最佳价格
+                    if (!this.dealSellPrice) {
+                        this.dealSellPrice = this.getBestSellPrice();
+                    }
+
+                    first = false;
+                }
             });
         });
     }
@@ -525,12 +577,13 @@ class TradeStore {
         // 买入
         buy.forEach((item, index) => {
             let cache = item.number * item.current / this.entrustScale;
-            
+
             cache = cache / 100; // 单位：百分比
-            
+
             let depth = parseInt(cache.toFixed(this.pointNum));
+
             item.index = index + 1;
-            item.depth = Math.max(depth, 1);
+            item.depth = Math.max(depth > 100 ? 100 : depth, 1);
             item.newcurrent = NumberUtil.formatNumber(item.current, this.commonStore.pointPrice); // 价格
             item.newnumber = NumberUtil.formatNumber(item.number, this.pointNum); // 数量
             item.newtotal = NumberUtil.formatNumber(item.current * item.number, this.commonStore.pointNum); // 总金额
@@ -543,8 +596,9 @@ class TradeStore {
             cache = cache / 100; // 单位：百分比
 
             let depth = parseInt(cache.toFixed(this.pointNum));
+
             item.index = index + 1;
-            item.depth = Math.max(depth, 1);
+            item.depth = Math.max(depth > 100 ? 100 : depth, 1);
             item.newcurrent = NumberUtil.formatNumber(item.current, this.commonStore.pointPrice); // 价格
             item.newnumber = NumberUtil.formatNumber(item.number, this.pointNum); // 数量
             item.newtotal = NumberUtil.formatNumber(item.current * item.number, this.commonStore.pointNum); // 总金额
@@ -557,7 +611,7 @@ class TradeStore {
 
         data.buy = buy;
         data.sell = sell;
-        
+
         return data;
     }
     /**
@@ -600,6 +654,7 @@ class TradeStore {
         if (!this.authStore.isLogin) {
             return;
         }
+
         hasSettingDealPwd().then(data => {
             runInAction(() => {
                 if (data.status == 200) {
@@ -759,7 +814,7 @@ class TradeStore {
                     }
 
                     this.getUserAccount();
-                    
+
                     if (type == 'buy') {
                         this.setDealBuyPrice('');
                         this.setDealBuyNum('');

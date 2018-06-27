@@ -6,6 +6,7 @@ import { Slider, Tooltip , message } from 'antd';
 @inject('tradeStore', 'authStore')
 @observer
 class TradeForm extends Component{
+
 	goRecharge=(type, e)=>{
 		if (type == 'fiat') {
 			browserHistory.push('/account/balance/recharge');
@@ -16,6 +17,11 @@ class TradeForm extends Component{
 
 
 	onChangeBuySlider=(num)=>{
+		// 买入量百分比，需要填写价格之后才可以调整
+		if (!this.props.tradeStore.dealBuyPrice) {
+			return;
+		}
+
 		this.props.tradeStore.setBuySliderValue(num);
 	}
 
@@ -25,6 +31,7 @@ class TradeForm extends Component{
 
 	onChange=(key, e)=>{
 		let value = e.currentTarget.value.trim();
+		
 		
 		switch(key) {
 			case 'buyprice':
@@ -132,7 +139,7 @@ class TradeForm extends Component{
 					<div className="trade-form-l">
 						<div>
 							<ul>
-								<li>
+								<li className="hidden">
 									<label>{UPEX.lang.template('最佳买价')}</label>
 									<em>{ store.bestBuyPrice } ({store.baseCurrencyNameEn}) </em>
 								</li>
@@ -143,7 +150,7 @@ class TradeForm extends Component{
 										<Tooltip placement="top" visible={store.tradePriceErr == '' ? false : true} title={store.tradePriceErr}>
 										<input
 											type="text"
-											value={store.dealBuyPrice}
+											value={store.dealBuyPrice }
 											onChange={this.onChange.bind(this, 'buyprice')}
 											onBlur={this.checkTradePrice.bind(this, 'buy')} 
 										/>
@@ -207,7 +214,7 @@ class TradeForm extends Component{
 					<div className="trade-form-r">
 						<div>
 							<ul>
-								<li>
+								<li className="hidden">
 									<label>{UPEX.lang.template('最佳卖价')}</label>
 									<em>{ store.bestSellPrice } ({store.baseCurrencyNameEn}) </em>
 								</li>

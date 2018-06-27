@@ -354,7 +354,8 @@ input:-ms-input-placeholder {
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: #e0e0e0
+    background-color: #e0e0e0;
+    border-radius: 4px;
 }
 
 

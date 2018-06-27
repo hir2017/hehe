@@ -95,16 +95,18 @@ class TradeContent extends Component {
     render() {
     	let store = this.props.tradeStore;
         
-        let trendIcon;
+        let trendIcon, trendColor;
 
         if (store.currentTradeCoin && store.currentTradeCoin.currentAmount) {
            
-            if (store.currentTradeCoin.currentAmount >= store.currentTradeCoin.previousPrice) {
+            if (store.currentTradeCoin.currentAmount > store.currentTradeCoin.previousPrice) {
+                trendColor = 'greenrate';
                 trendIcon = <Icon type="arrow-up" style={{fontSize: 12}}/>;
-            } else {
+            } else if(store.currentTradeCoin.currentAmount < store.currentTradeCoin.previousPrice){
+                trendColor = 'redrate';
                 trendIcon = <Icon type="arrow-down" style={{fontSize: 12}}/>;
             }
-        }
+        }        
 
         return (
             <div className="trade-wrapper" style={{ height: store.contentHeight + 30}}>
@@ -139,7 +141,7 @@ class TradeContent extends Component {
                                                 </div>
                                             ) : null
                                         }
-                                        <div className={ store.currentTradeCoin.changeRate >= 0 ? 'trade-current-amount greenrate': 'trade-current-amount redrate'}>{store.currentTradeCoin.currentAmountText}</div>
+                                        <div className={`trade-current-amount ${trendColor}`}>{store.currentTradeCoin.currentAmountText}{trendIcon}</div>
                                         {
                                             store.type !==  'sell' ? (
                                                 <div className="trade-sell-box">

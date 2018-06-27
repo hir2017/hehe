@@ -68,7 +68,12 @@ class MarketCoinList extends Component {
             data.selected = false;
         }
 
-        return <Icon onClick={e => this.collecthandle(e, data)} style={{color: '#999', fontSize: '14'}} type={res ? 'star' : 'star-o'} />;
+        if(res) {
+            return <Icon onClick={e => this.collecthandle(e, data)} style={{color: '#e6bc1d', fontSize: '14'}} type={'star'} />;
+        } else {
+            return <Icon onClick={e => this.collecthandle(e, data)} style={{color: '#999', fontSize: '14'}} type={'star-o'} />;
+        }
+        
     }
 
 	render(){
