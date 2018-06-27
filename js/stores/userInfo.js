@@ -563,7 +563,12 @@ class UserInfo {
                 result = true;
                 message.success(UPEX.lang.template('申请成功'));
             } else {
-                message.error(res.message);
+                if(res.status === 41731) {
+                    message.error(UPEX.lang.template('您的条件尚不符合提额条件'));
+                } else {
+                    message.error(res.message);
+                };
+
             }
         } catch (e) {
             this.submit_loading = false;

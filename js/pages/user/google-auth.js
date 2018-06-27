@@ -38,7 +38,7 @@ class GoogleAuthenticator extends Component {
                     <div className="no-auth-message  google-no-binding-phone">
                         {UPEX.lang.template('添加Google绑定前，请先绑定手机号')}
                         <div>
-                            <Button>
+                            <Button className="ace-main">
                                 <Link to="/user/settingPhone">{UPEX.lang.template('去绑定手机')}</Link>
                             </Button>
                         </div>

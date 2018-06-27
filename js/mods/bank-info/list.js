@@ -7,7 +7,7 @@ import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import { Modal, Input, message } from 'antd';
 import Vcodebutton from '../common/authcode-btn';
-
+const Confirm = Modal.confirm;
 
 import AceSection from '../../common-mods/page-user/section';
 
@@ -47,13 +47,36 @@ export default class BankList extends Component {
     }
 
     bankHandle = (num, id) => {
+        /*
+        {item.status === 2
+        ? UPEX.lang.template('删除')
+        : item.status === 1
+            ? UPEX.lang.template('解绑')
+            : '-'}
+        */
         const bankCardList = this.props.userInfoStore.bankCardList || [];
-        if(bankCardList.length === 1) {
-            message.error(UPEX.lang.template('当前级别至少要绑定一张银行卡'));
-            return;
+        if(num === 1) {
+            if(bankCardList.length === 1) {
+                message.error(UPEX.lang.template('当前级别至少要绑定一张银行卡'));
+                return;
+            }
         }
+
         if (num === 2) {
-            this.props.userInfoStore.deleteBindBankCard(id);
+            Confirm({
+                title: UPEX.lang.template('是否删除该银行卡?'),
+                content: '',
+                okText: UPEX.lang.template('确定'),
+                okType: 'danger',
+                cancelText: UPEX.lang.template('取消'),
+                onOk: () => {
+                    this.props.userInfoStore.deleteBindBankCard(id);
+                },
+                onCancel() {
+                    console.log('Cancel');
+                },
+            });
+
         } else if (num === 1) {
             this.setState({
                 visible: true,
@@ -61,7 +84,6 @@ export default class BankList extends Component {
             });
         }
     };
-
     handleOk = () => {
         const gaBindSuccess = this.props.userInfoStore.gaBindSuccess;
         if (!this.state.pwd) {

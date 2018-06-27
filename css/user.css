@@ -23,6 +23,11 @@
     height: 40px;
 }
 
+.user-main  .ant-btn.ace-submit-item {
+    background-color: #e7b508;
+    color: #fff;
+}
+
 .user-main .content-body .ace-btn {
     border-radius: 3px;
     height: 40px;
@@ -163,6 +168,9 @@
 .user-main.ace-page-content .section-body {
     border-bottom-left-radius: 6px;
     border-bottom-right-radius: 6px;
+}
+.user-main .no-auth-message .ant-btn.ace-main{
+    margin-top: 30px;
 }
 
 /**
@@ -913,7 +921,7 @@
 /**
  * 银行卡
  */
-
+/*
 .user-main .bank-message a {
     background-color: #e6bc1d;
     margin-left: 10px;
@@ -924,7 +932,7 @@
     font-size: 12px;
     margin: auto;
     margin-top: 20px;
-}
+} */
 
 .user-main .page-content-inner.bank-info .ace-section.info header .pic-tip {
     float: right;
@@ -951,7 +959,9 @@
     color: #999;
     line-height: 18px;
 }
-
+.user-main .page-content-inner.bank-info .ant-upload-list-item-info {
+    display: none;
+}
 /**
  * 密码设置
  */
