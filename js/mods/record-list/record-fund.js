@@ -41,7 +41,7 @@ class List extends Component {
     render() {
         let store = this.props.fundChangeRecordStore;
         let $content;
-        
+
         if (!store.isFetching && store.orderList.length == 0) {
             $content = <div className="mini-tip">{UPEX.lang.template('暂无资金变动记录')}</div>;
         } else {
@@ -52,14 +52,14 @@ class List extends Component {
                         return (
                             <li key={index} className={this.state.displayIndex == item.id ? 'collapse-content-active' : ''}>
                                 <dl className="row">
-                                    <dd className="swift-no">{item.tradeNo || '--'}</dd>
+                                    <dd className="swift-no">{item.orderNo || '--'}</dd>
                                     <dd className="time">{item.tradeTime || '--'}</dd>
                                     <dd className="name">{item._actionName || '--'}</dd>
                                     <dd className="balance">
                                         {item._type === 'recharge' ? '+' : '-'}
                                         {item.amount}
                                     </dd>
-                                    <dd className="status">{item._status || '--'}</dd>
+                                    <dd className="status" title={item.status === 1 ? UPEX.lang.template('已放款，到账速度取决于银行进度') : ''}>{item._status || '--'}</dd>
                                     <dd className="pay-method">
                                         {item.tradeType || '--'}
                                     </dd>
@@ -81,7 +81,7 @@ class List extends Component {
                     <table>
                         <tbody>
                             <tr>
-                                <th className="swift-no">{UPEX.lang.template('流水号')}</th>
+                                <th className="swift-no">{UPEX.lang.template('订单号')}</th>
                                 <th className="time">{UPEX.lang.template('日期')}</th>
                                 <th className="name">{UPEX.lang.template('名称')}</th>
                                 <th className="balance">{UPEX.lang.template('收/支')}</th>

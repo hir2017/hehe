@@ -161,7 +161,7 @@ export default (store, userInfoStore) => {
                     store.changeSubmitingStatusTo(false);
                     switch (data.status) {
                         case 200:
-                            message.success(UPEX.lang.template('提币成功'));
+                            message.success(UPEX.lang.template('提现成功'));
                             browserHistory.push('/account/fiatrecord');
                             store.resetForm();
                             break;
