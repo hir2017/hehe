@@ -54,7 +54,7 @@ class Register extends Component {
         })
 
         return (
-            <div className="register-wrapper">
+            <div className="register-wrapper register-box">
                 <div className="register-form">
                     <h3 className="title"> { UPEX.lang.template('注册')} </h3>
                     <ul className="register-mode-tabs clearfix">
@@ -103,9 +103,10 @@ class Register extends Component {
                                             className={ store.validEmail ? '' : 'wrong'}
                                             placeholder={ UPEX.lang.template('邮箱') }
                                             onInput={ action.onChangeEmail }
+                                            onBlur={ action.onBlurEmail }
                                         />
                                     </div>
-                                    { !store.validEmail ? <div className="warn">* { UPEX.lang.template('邮箱格式错误')}</div> : null }
+                                    { !store.validEmail ? <div className="warn">{ UPEX.lang.template('邮箱格式错误')}</div> : null }
                                 </div>
                             ) : (
                                 <div className="input-wrapper" key="phone">
@@ -119,7 +120,7 @@ class Register extends Component {
                                             onBlur={ this.queryHasPhone }
                                         />
                                     </div>
-                                    { !store.validPhone ? <div className="warn">* { UPEX.lang.template('手机号格式错误')}</div> : null }
+                                    { !store.validPhone ? <div className="warn">{ UPEX.lang.template('手机号格式错误')}</div> : null }
                                 </div>
                             )
                         }
@@ -131,9 +132,10 @@ class Register extends Component {
                                     className={ store.validPwd ? '' : 'wrong'}
                                     placeholder={ UPEX.lang.template('密码') }
                                     onInput={ action.onChangePwd }
+                                    onBlur={action.onBlurPwd}
                                 />
                             </div>
-                            { !store.validPwd ? <div className="warn">* { UPEX.lang.template('密码至少由大写字母+小写字母+数字，6-16位组成')}</div> : null }
+                            { !store.validPwd ? <div className="warn">{ UPEX.lang.template('密码至少由大写字母+小写字母+数字，6-16位组成')}</div> : null }
                         </div>
                         <div className="input-wrapper">
                             <div className="input-box">
@@ -143,9 +145,10 @@ class Register extends Component {
                                     className={ store.validTwicePwd ? '' : 'wrong'}
                                     placeholder={ UPEX.lang.template('确认密码') }
                                     onInput={ action.onChangeTwicePwd }
+                                    onBlur={action.onBlurTwicePwd}
                                 />
                             </div>
-                            { !store.validTwicePwd ? <div className="warn">* { UPEX.lang.template('两次密码输入不一致')}</div> : null }
+                            { !store.validTwicePwd ? <div className="warn">{ UPEX.lang.template('两次密码输入不一致')}</div> : null }
                         </div>
                         <div className="input-wrapper">
                             <div className="input-box yz-box">
@@ -160,7 +163,7 @@ class Register extends Component {
                                     <img src={ store.captcha } onClick={ action.getImgCaptcha } alt=""/>
                                 </div>
                             </div>
-                            { !store.validImgCode ? <div className="warn">* { UPEX.lang.template('图片验证码错误')}</div> : null }
+                            { !store.validImgCode ? <div className="warn">{ UPEX.lang.template('图片验证码错误')}</div> : null }
                         </div>
                         <div className="input-wrapper">
                             <div className="input-box useryz-box">
@@ -178,7 +181,7 @@ class Register extends Component {
                                     </button>
                                 </div>
                             </div>
-                            { !store.validVercode ? <div className="warn">* { store.mode == 'email' ? UPEX.lang.template('邮箱验证码错误') : UPEX.lang.template('手机验证码错误') }</div> : null }
+                            { !store.validVercode ? <div className="warn">{ store.mode == 'email' ? UPEX.lang.template('邮箱验证码错误') : UPEX.lang.template('手机验证码错误') }</div> : null }
                         </div>
 
                         <div className="input-wrapper">
@@ -202,9 +205,7 @@ class Register extends Component {
                         </div>
 
                         <div className="input-wrapper">
-                            <div className="input-box">
-                                <button ref="signIn" className={ store.agree ? 'submit-btn': 'submit-btn disabled'} onClick={ this.submit }>{ UPEX.lang.template('注册') }</button>
-                            </div>
+                            <button ref="signIn" className={ store.agree ? 'submit-btn': 'submit-btn disabled'} onClick={ this.submit }>{ UPEX.lang.template('注册') }</button>
                         </div>
 
                         <div className="register-extra">

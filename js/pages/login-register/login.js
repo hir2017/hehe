@@ -132,7 +132,7 @@ class Login extends Component {
 
         if (this.state.step == 'google') {
             return (
-                <div className="register-wrapper">
+                <div className="register-wrapper login-box">
                     <div className="register-form">
                         <h3 className="title"> { UPEX.lang.template('登录')} </h3>
                         <div className="register-mode-content">
@@ -145,9 +145,9 @@ class Login extends Component {
                                     />
                                 </div>
                             </div>
-                            <div className="error-tip">
-                                { this.state.loginErrorText ? this.state.loginErrorText : '' }
-                            </div>
+                            
+                            { this.state.loginErrorText ? <div className="error-tip">this.state.loginErrorText</div> : '' }
+                            
                             <div className="input-wrapper">
                                 <div className="login-input">
                                     <button className="submit-btn login-btn" onClick={ this.handleLoginVerifyCode }>{ UPEX.lang.template('登录') }</button>
@@ -282,14 +282,12 @@ class Login extends Component {
                         </div>
 
                         <div className="input-wrapper">
-                            <div className="login-input">
-                                {
-                                    store.logining ?  
-                                    <button className="submit-btn login-btn">{ UPEX.lang.template('登录中') }</button>
-                                    : 
-                                    <button className="submit-btn login-btn" onClick={ this.handleLogin }>{ UPEX.lang.template('登录') }</button>
-                                }
-                            </div>
+                            {
+                                store.logining ?  
+                                <button className="submit-btn login-btn">{ UPEX.lang.template('登录中') }</button>
+                                : 
+                                <button className="submit-btn login-btn" onClick={ this.handleLogin }>{ UPEX.lang.template('登录') }</button>
+                            }
                         </div>
                         <div className="register-extra clearfix">
                             <div className="fl forget-pwd">

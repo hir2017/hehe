@@ -19,11 +19,21 @@ export default (store) => {
 
             store.setEmail(value);
         },
+
+        onBlurEmail(e){
+            store.checkValidEmail();
+        },
+
         onChangePhone(e) {
             let value = e.currentTarget.value.trim();
 
             store.setPhone(value);
         },
+
+        onBlurPhone(e){
+            store.checkValidPhone();
+        }, 
+
         onChangeImgCode(e) {
             let value = e.currentTarget.value.trim();
 
@@ -43,10 +53,18 @@ export default (store) => {
             store.setPasswrod(value);
         },
 
+        onBlurPwd(e){
+            store.checkValidPwd();
+        },
+
         onChangeTwicePwd(e) {
             let value = e.currentTarget.value.trim();
 
             store.setTwicePasswrod(value);
+        },
+
+        onBlurTwicePwd(e){
+            store.checkValidTwicePwd();
         },
 
         onChangeVercode(e) {
@@ -221,6 +239,10 @@ export default (store) => {
 
         queryHasPhone() {
             let phone = store.phone;
+
+            if (!store.checkValidPhone()){
+                return;
+            }
 
             if (!phone || phone.length !== 11) {
                 store.changeHasPhoneTo(false);

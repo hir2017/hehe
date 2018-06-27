@@ -27,6 +27,10 @@ class LoginInfoBaseStore {
     @observable validVercode = true; // 邮箱or手机验证码
     @observable hasPhone = false; // 手机是否已经被占用
     @observable logining = false;
+    @observable validPhone =  true;
+    @observable validEmail = true;
+    @observable validPwd = true;
+    @observable validTwicePwd = true;
 
     constructor(stores) {
         this.captchaStore = stores.captchaStore;
@@ -57,8 +61,8 @@ class LoginInfoBaseStore {
     }
 
     // 检查邮箱是否合法. true合法，false不合法
-    @computed
-    get validEmail() {
+    @action
+    checkValidEmail() {
         let ret = true;
 
         if (this.email) {
@@ -69,12 +73,14 @@ class LoginInfoBaseStore {
             }
         }
 
+        this.validEmail = ret;
+
         return ret;
     }
 
     // 检查密码是否合法
-    @computed
-    get validPwd() {
+    @action
+    checkValidPwd() {
         let ret;
 
         if (UPEX.config.pwdReg.test(this.pwd) || this.pwd.length === 0) {
@@ -83,11 +89,13 @@ class LoginInfoBaseStore {
             ret = false;
         }
 
+        this.validPwd = ret;
+
         return ret;
     }
 
-    @computed
-    get validPhone() {
+    @action
+    checkValidPhone() {
         let ret;
 
         if (UPEX.config.phoneReg.test(this.phone) || this.phone.length === 0) {
@@ -96,11 +104,13 @@ class LoginInfoBaseStore {
             ret = false;
         }
 
+        this.validPhone = ret;
+
         return ret;
     }
 
-    @computed
-    get validTwicePwd() {
+    @action
+    checkValidTwicePwd() {
         let ret;
 
         if (this.twicepwd && this.twicepwd !== this.pwd) {
@@ -109,6 +119,8 @@ class LoginInfoBaseStore {
             ret = true;
         }
 
+        this.validTwicePwd = ret;
+        
         return ret;
     }
 

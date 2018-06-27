@@ -223,6 +223,19 @@ body .ant-input-search:not(.ant-input-search-small) > .ant-input-suffix{
     right: 15px;
 }
 
+body .ant-select-dropdown-menu-item{
+    height: 40px;
+    line-height: 40px;
+    font-size: 14px;
+    color: #999;
+}
+
+body  .ant-select-dropdown-menu-item:hover {
+    background-color: #f8f8f8;
+    text-decoration: none;
+    color: #333;
+}
+
 .widget-tooltip .ant-popover-inner-content {
     padding: 12px 0;
 }
@@ -281,6 +294,7 @@ body .ant-input-search:not(.ant-input-search-small) > .ant-input-suffix{
     color: #fff;
     width: 100%;
     overflow: hidden;
+    border-bottom: 1px solid #333;
 }
 
 .app-page[data-path="/home"] .app-header {
@@ -588,11 +602,22 @@ body .ant-input-search:not(.ant-input-search-small) > .ant-input-suffix{
 .app-page[data-path="/login"] .app-content,
 .app-page[data-path="/register"] .app-content,
 .app-page[data-path="/resetpwd"] .app-content{
-    background: #141414 url('../images/login-bg.jpg') no-repeat center bottom;
-    background-size: 1976px 786px;
+    background: #141414 url('../images/loginbg.png') no-repeat center 100px;
+    background-size: 1200px 515px;
     min-height: 786px;
 }
 
+.app-page[data-path="/login"] .tobottom-footer,
+.app-page[data-path="/register"] .tobottom-footer,
+.app-page[data-path="/resetpwd"] .tobottom-footer{ 
+    background-color: #141414;
+}
+
+.app-page[data-path="/login"] .app-footer,
+.app-page[data-path="/register"] .app-footer,
+.app-page[data-path="/resetpwd"] .app-footer{
+    background-color: rgba(42, 42, 42, 0.2);
+}
 
 .redrate {
     color: #ef5d7f;
