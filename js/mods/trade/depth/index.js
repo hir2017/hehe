@@ -22,7 +22,7 @@ class DepthChart extends Component {
 		const isEmpty = store.depthBids.length === 0 && store.depthAsks.length === 0;
 
 		if (isEmpty) {
-			return <Empty/>
+			return null;
 		}
 
 		return (
