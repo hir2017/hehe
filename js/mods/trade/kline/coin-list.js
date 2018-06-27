@@ -61,7 +61,7 @@ class CoinList extends Component {
             data.selected = false;
         }
 
-        return <Icon onClick={e => this.collecthandle(e, data)} type={res ? 'star' : 'star-o'} />;
+        return <Icon onClick={e => this.collecthandle(e, data)} style={{fontSize: 12}} type={res ? 'star' : 'star-o'} />;
     }
 
     sortIcon(show) {
@@ -114,7 +114,17 @@ class CoinList extends Component {
                     <dl className="list">
                         {
                             store.tradeCoins.map((item, index) => {
-                                
+                                let trendIcon;
+                                let trendColor;
+
+                                if (item.currentAmount >= item.previousPrice) {
+                                    trendColor = 'greenrate';
+                                    trendIcon = <Icon type="arrow-up" style={{fontSize: 12}}/>;
+                                } else {
+                                    trendColor = 'redrate';
+                                    trendIcon = <Icon type="arrow-down" style={{fontSize: 12}}/>;
+                                }
+
                                 return (
                                     <dd key={item.id} className={`clearfix`}>
                                         <div className="cell star">
@@ -123,8 +133,8 @@ class CoinList extends Component {
                                         <div className="cell name" onClick={this.handleCurrency.bind(this, item)}>
                                             {item.currencyNameEn || '--'}
                                         </div>
-                                        <div className="cell price" onClick={this.handleCurrency.bind(this, item)}>
-                                            {item.currentAmountText}
+                                        <div className={`cell price ${trendColor}`} onClick={this.handleCurrency.bind(this, item)}>
+                                            {item.currentAmountText}{trendIcon}
                                         </div>
                                         <div
                                             className={item.changeRate >= 0 ? 'cell rate greenrate' : 'cell rate redrate'}

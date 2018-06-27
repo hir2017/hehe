@@ -21,7 +21,7 @@ class BuyOrder extends Component {
 					{ 
 						store.newEntrustData.buy.map((item, index)=>{
 							return (
-								<li key={index} data-type="buy" onClick={this.haneleClickOrder.bind(this, item)}>
+								<li key={index} data-type="buy" data-index={item.index} onClick={this.haneleClickOrder.bind(this, item)}>
 									<div className="cell price greenrate">{item.newcurrent}</div>
 									<div className="cell number">{item.newnumber}</div>
 									<div className="cell total">{item.newtotal}</div>

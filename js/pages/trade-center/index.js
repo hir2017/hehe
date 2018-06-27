@@ -5,6 +5,7 @@
  */
 import React, {Component} from 'react';
 import { observer, inject } from 'mobx-react';
+import { Icon } from 'antd';
 import Url from '../../lib/url';
 import TVChartContainer from '../../mods/trade/kline/tv-chart';
 import BuyOrder from '../../mods/trade/order/buy-order';
@@ -94,6 +95,17 @@ class TradeContent extends Component {
     render() {
     	let store = this.props.tradeStore;
         
+        let trendIcon;
+
+        if (store.currentTradeCoin && store.currentTradeCoin.currentAmount) {
+           
+            if (store.currentTradeCoin.currentAmount >= store.currentTradeCoin.previousPrice) {
+                trendIcon = <Icon type="arrow-up" style={{fontSize: 12}}/>;
+            } else {
+                trendIcon = <Icon type="arrow-down" style={{fontSize: 12}}/>;
+            }
+        }
+
         return (
             <div className="trade-wrapper" style={{ height: store.contentHeight + 30}}>
             	<div className="trade-extra">
@@ -127,7 +139,7 @@ class TradeContent extends Component {
                                                 </div>
                                             ) : null
                                         }
-                                        <div className={ store.currentTradeCoin.changeRate >= 0 ? 'trade-current-amount greenrate': 'trade-current-amount redrate'}>{store.currentTradeCoin.currentAmountText}</div>
+                                        <div className={ store.currentTradeCoin.changeRate >= 0 ? 'trade-current-amount greenrate': 'trade-current-amount redrate'}>{store.currentTradeCoin.currentAmountText}{trendIcon}</div>
                                         {
                                             store.type !==  'sell' ? (
                                                 <div className="trade-sell-box">

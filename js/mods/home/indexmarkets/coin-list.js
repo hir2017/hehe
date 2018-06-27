@@ -117,7 +117,7 @@ class MarketCoinList extends Component {
                                     <ul>
                                             {
                                                 marketListStore.tradeCoins.map((item, index) => {
-                                                	let path, ratecolor;
+                                                	let path, ratecolor, trendIcon, trendColor;
                                                 	
                                                 	if (item.baseCurrencyNameEn && item.currencyNameEn) {
                                                 		path = `/trade/${item.baseCurrencyNameEn}_${item.currencyNameEn}`;	
@@ -128,11 +128,22 @@ class MarketCoinList extends Component {
                                                     } else {
                                                         ratecolor = 'redrate';
                                                     }
+
+                                                    if (item.currentAmount >= item.previousPrice) {
+                                                        trendColor = 'greenrate';
+                                                        trendIcon = <Icon type="arrow-up" style={{fontSize: 12}}/>;
+                                                    } else {
+                                                        trendColor = 'redrate';
+                                                        trendIcon = <Icon type="arrow-down" style={{fontSize: 12}}/>;
+                                                    }
                                                     
                                                     return (
                                                         <li className="clearfix" key={item.id} onClick={this.selectCoin.bind(this, item)}>
                                                             <span className="cell name"><span className="symbol">{item.currencyNameEn || '--'}</span></span>
-                                                            <span className="cell amount">{item.currentAmountText}</span>
+                                                            <span className={`cell amount ${trendColor}`}>
+                                                                {item.currentAmountText}
+                                                                { trendIcon }
+                                                            </span>
                                                             <span className={`cell rate ${ratecolor}`}>{item.changeRateText}</span>
                                                             <span className="cell volume">{item.volumeText}</span>
                                                             <span className="cell action">{this.collectIcon(item)}</span>

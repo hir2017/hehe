@@ -117,7 +117,14 @@ class TradeForm extends Component{
 									<label>{ store.currencyNameEn }</label>
 									<div className="recharge" onClick={this.goRecharge.bind(this, 'coin')}>{UPEX.lang.template('充币')}</div>
 								</div>
-							) : null 
+							) : (
+								<div>
+									<Link to='/login'>{ UPEX.lang.template('登录')}</Link>
+									<label>{ UPEX.lang.template('或')}</label>
+									<Link to='/register'>{ UPEX.lang.template('注册')}</Link>
+									<label>{ UPEX.lang.template('开始交易')}</label>
+								</div>
+							) 
 						}
 					</div>
 				</div>

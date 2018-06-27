@@ -14,6 +14,7 @@ require('../../../lib/tradingview/charting_library.min');
 import UDFCompatibleDatafeed from './tv-jsapi';
 import DepthChart from '../depth/index';
 // import DepthChart from '../depth-d3/chart';
+// import DepthChart from '../depth-ga/index';
 
 @inject('tradeStore','commonStore')
 @observer
@@ -485,7 +486,7 @@ class TVChartContainer extends Component {
     render() {
     	let store = this.props.tradeStore;
         let checked = store.theme === 'dark';
-        let arrowCls = {}
+        let arrowCls = {};
 
         if (store.theme === 'dark') {
             arrowCls =  {
@@ -560,7 +561,7 @@ class TVChartContainer extends Component {
                             className='trade-depth-chart'
                             id="depth-chart"
                         >   
-                        
+                        <DepthChart/>
                         </div>
                     ) : null
                 }

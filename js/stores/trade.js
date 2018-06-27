@@ -114,14 +114,16 @@ class TradeStore {
 
     @computed
     get depthAsks() {
-        let asks = this.newEntrustData.sell;
+        let entrust = JSON.parse(JSON.stringify(this.parsedEntrustData));
+        let asks = entrust.sell;
 
         return this.processData(asks, 'asks', false);
     }
 
     @computed
     get depthBids() {
-        let bids = this.newEntrustData.buy;
+        let entrust = JSON.parse(JSON.stringify(this.parsedEntrustData));
+        let bids = entrust.buy;
 
         return this.processData(bids, 'bids', true);
     }
@@ -520,31 +522,37 @@ class TradeStore {
         let data = JSON.parse(JSON.stringify(this.entrust));
         let buy = data.buy || [];
         let sell = data.sell || [];
-
+        // 买入
         buy.forEach((item, index) => {
             let cache = item.number * item.current / this.entrustScale;
             
             cache = cache / 100; // 单位：百分比
             
             let depth = parseInt(cache.toFixed(this.pointNum));
-
+            item.index = index + 1;
             item.depth = Math.max(depth, 1);
             item.newcurrent = NumberUtil.formatNumber(item.current, this.commonStore.pointPrice); // 价格
             item.newnumber = NumberUtil.formatNumber(item.number, this.pointNum); // 数量
             item.newtotal = NumberUtil.formatNumber(item.current * item.number, this.commonStore.pointNum); // 总金额
         });
 
+        // 卖出
         sell.forEach((item, index) => {
             let cache = item.number * item.current / this.entrustScale;
 
             cache = cache / 100; // 单位：百分比
 
             let depth = parseInt(cache.toFixed(this.pointNum));
-
+            item.index = index + 1;
             item.depth = Math.max(depth, 1);
             item.newcurrent = NumberUtil.formatNumber(item.current, this.commonStore.pointPrice); // 价格
             item.newnumber = NumberUtil.formatNumber(item.number, this.pointNum); // 数量
             item.newtotal = NumberUtil.formatNumber(item.current * item.number, this.commonStore.pointNum); // 总金额
+        });
+
+        // 降序排序
+        sell = sell.sort((a, b) => {
+            return b.current - a.current;
         });
 
         data.buy = buy;

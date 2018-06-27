@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { observer, inject } from 'mobx-react';
+import { Icon } from 'antd';
 import klineChart from './chart';
 import { getTradeKline }  from '../../../api/http';
 
@@ -58,11 +59,19 @@ class HotCoin extends Component {
 	render() {
 		let data = this.props.data;
 		let type = data.changeRate >= 0 ? 'positive' : 'negative';
+		let trendIcon;
+
+		if (data.currentAmount >= data.previousPrice) {
+            trendIcon = <Icon type="arrow-up" style={{fontSize: 12}}/>;
+        } else {
+            trendIcon = <Icon type="arrow-down" style={{fontSize: 12}}/>;
+        }
+                                                    
 
 		return (
 			<div className={`recommend-item ${type}`}>
 				<div className="recommend-item-name">{ data.currencyNameEn }</div>
-				<div className="recommend-item-price">NT$ { data.currentAmountText }</div>
+				<div className="recommend-item-price">NT$ { data.currentAmountText }{trendIcon}</div>
 				<div className="recommend-item-volume">{ UPEX.lang.template('成交额  NT${num}', { num : data.amountText })}</div>
 				<div className="recommend-item-rate">{ data.changeRateText }</div>
 				{
