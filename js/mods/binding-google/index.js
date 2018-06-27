@@ -62,13 +62,7 @@ class Google extends Component {
         const codeid = this.props.captchaStore.codeid;
         const captcha = this.props.captchaStore.captcha;
         const gaSecretKey = this.props.userInfoStore.gaSecretKey || {};
-        /*
-            state = {
-                google: '',
-                vCode: '',
-                ivCode: ''
-            };
-        */
+
         const getProp = createGetProp(this);
         const inputsData = {
             google: {

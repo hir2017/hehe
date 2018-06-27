@@ -29,20 +29,20 @@ class Info extends Component {
     gradeImg() {
         const userInfo = this.props.userInfoStore.userInfo || {};
         let result = {};
-
-        if (userInfo.authLevel == 1) {
+        let level = userInfo.authLevel;
+        if (level == 1) {
             result = { img: gradeA, grade: 'A' };
         }
 
-        if (userInfo.authLevel == 2) {
+        if (level == 2) {
             result = { img: gradeB, grade: 'B' };
         }
 
-        if (userInfo.authLevel == 3) {
+        if (level == 3) {
             result = { img: gradeC, grade: 'C' };
         }
 
-        if (userInfo.authLevel == 0) {
+        if (level == 0) {
             result = { grade: 'Z' };
         }
 

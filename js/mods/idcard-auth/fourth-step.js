@@ -19,7 +19,7 @@ export default class FourthStep extends Component {
 
     submitKycC = () => {
         this.props.userInfoStore.kycC().then(data => {
-            if(data) {
+            if (data) {
                 this.props.userInfoStore.getUserInfo();
             }
         });
@@ -28,43 +28,37 @@ export default class FourthStep extends Component {
     render() {
         const loading = this.props.userInfoStore.submit_loading;
         const userInfo = this.props.userInfoStore.userInfo || {};
-        const bankCardList = this.props.userInfoStore.bankCardList || [];
+        let bankCardList = this.props.userInfoStore.bankCardList || [];
         let $bottom = null;
-        if(bankCardList.length === 0) {
+        if (bankCardList.length === 0) {
             // 未绑定银行卡
-            $bottom =  (
+            $bottom = (
                 <Button>
                     <Link to="/user/bankInfo">{UPEX.lang.template('绑定银行卡')}</Link>
                 </Button>
-            )
-        } else {
-            switch(userInfo.isAuthVideo) {
+            );
+        } else if (userInfo.authLevel === 2) {
+            switch (userInfo.isAuthVideo) {
                 case 1:
-                $bottom =  (
-                    <p>{UPEX.lang.template('您已成功提交提额申请，审核会在3个工作日内完成，如果有必要我们会与您取得联系，请保持电话畅通。')}</p>
-                )
-                break;
+                    $bottom = <p>{UPEX.lang.template('您已成功提交提额申请，审核会在3个工作日内完成，如果有必要我们会与您取得联系，请保持电话畅通。')}</p>;
+                    break;
                 case 2:
-                $bottom =  (
-                    <Button>
-                        <Link to="/user/bankInfo">{UPEX.lang.template('去交易中心')}</Link>
-                    </Button>
-                )
-                break;
-                default:
-                $bottom = (
-                    <div className="up-limit">
-                        <Button loading={loading} onClick={this.submitKycC}>
-                            {UPEX.lang.template('申請更高限額')}
+                    $bottom = (
+                        <Button>
+                            <Link to="/user/bankInfo">{UPEX.lang.template('去交易中心')}</Link>
                         </Button>
-                        {
-                           userInfo.isAuthVideo === -1 ? (
-                               <p className="error">{userInfo.authFailReason}</p>
-                           ) : null
-                        }
-                    </div>
-                );
-                break;
+                    );
+                    break;
+                default:
+                    $bottom = (
+                        <div className="up-limit">
+                            <Button loading={loading} onClick={this.submitKycC}>
+                                {UPEX.lang.template('申請更高限額')}
+                            </Button>
+                            {userInfo.isAuthVideo === -1 ? <p className="error">{userInfo.authFailReason}</p> : null}
+                        </div>
+                    );
+                    break;
             }
         }
         return (
@@ -99,9 +93,7 @@ export default class FourthStep extends Component {
                     <p>{UPEX.lang.template('日提現額度是=每日提現到銀行賬戶的額度+每日提幣的即時新台幣價值總額')}</p>
                     <p />
                 </div>
-                <div className="submit">
-                    {$bottom}
-                </div>
+                <div className="submit">{$bottom}</div>
             </AceForm>
         );
     }
