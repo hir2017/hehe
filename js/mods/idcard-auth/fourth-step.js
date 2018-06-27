@@ -88,12 +88,14 @@ export default class FourthStep extends Component {
                         </tr>
                     </tbody>
                 </table>
-                <div className="tip">
-                    <p>{UPEX.lang.template('如填写有误需要修改，请联系客服support@ace.one 进行修改')}</p>
-                    <p>{UPEX.lang.template('日提現額度是=每日提現到銀行賬戶的額度+每日提幣的即時新台幣價值總額')}</p>
-                    <p />
-                </div>
                 <div className="submit">{$bottom}</div>
+                <div className="custom-tips tip">
+                    <header className="tip-header">{UPEX.lang.template('注意')}：</header>
+                    <ul className="texts">
+                        <li>·&nbsp;{UPEX.lang.template('如填写有误需要修改，请联系客服support@ace.one 进行修改')}</li>
+                        <li>·&nbsp;{UPEX.lang.template('日提現額度是=每日提現到銀行賬戶的額度+每日提幣的即時新台幣價值總額')}</li>
+                    </ul>
+                </div>
             </AceForm>
         );
     }

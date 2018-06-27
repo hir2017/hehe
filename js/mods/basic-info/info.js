@@ -69,13 +69,13 @@ class Info extends Component {
                             {userInfo.userLoginRecord && userInfo.userLoginRecord.time}
                         </div>
                         <Row className="bind-status">
-                            <Col span={12}>
+                            <Col span={12} className={userInfo.isValidatePhone ? 'auth' : ''}>
                                 <img src={userInfo.isValidatePhone ? bindPhone : unbindPhone} />
-                                <p>{UPEX.lang.template('手机绑定')}</p>
+                                <p>{userInfo.isValidatePhone ? UPEX.lang.template('手机已绑定') : UPEX.lang.template('手机未绑定')}</p>
                             </Col>
-                            <Col span={12}>
+                            <Col span={12} className={userInfo.isValidateEmail ? 'auth' : ''}>
                                 <img src={userInfo.isValidateEmail ? bindEmail : unbindEmail} />
-                                <p>{UPEX.lang.template('邮箱绑定')}</p>
+                                <p>{userInfo.isValidateEmail ? UPEX.lang.template('邮箱已绑定') : UPEX.lang.template('邮箱未绑定')}</p>
                             </Col>
                         </Row>
                     </Col>

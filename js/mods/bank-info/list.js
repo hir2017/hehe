@@ -9,6 +9,38 @@ import { Modal, Input, message } from 'antd';
 import Vcodebutton from '../common/authcode-btn';
 const Confirm = Modal.confirm;
 
+class CardListView extends Component {
+    render() {
+        const { dataSource, getStatus, clickHandle } = this.props;
+        return (
+            <ul>
+                {dataSource.map((item, index) => {
+                    return (
+                        <li key={index}>
+                            <dl>
+                                <dd className="time">{item.createTime}</dd>
+                                <dd className="bank">{item.branchName}</dd>
+                                <dd className="sub">{item.openBank}</dd>
+                                <dd className="account">{item.cardNo}</dd>
+                                <dd className="status">{getStatus(item.status)}</dd>
+                                <dd
+                                    className="btn"
+                                    onClick={() => {
+                                        clickHandle(item.status, item.id);
+                                    }}
+                                    style={{ cursor: 'pointer', color: '#cc9900' }}
+                                >
+                                    {item.status === 2 ? UPEX.lang.template('删除') : item.status === 1 ? UPEX.lang.template('解绑') : '-'}
+                                </dd>
+                            </dl>
+                        </li>
+                    );
+                })}
+            </ul>
+        );
+    }
+}
+
 import AceSection from '../../common-mods/page-user/section';
 
 @inject('userInfoStore', 'captchaStore', 'authStore')
@@ -47,16 +79,9 @@ export default class BankList extends Component {
     }
 
     bankHandle = (num, id) => {
-        /*
-        {item.status === 2
-        ? UPEX.lang.template('删除')
-        : item.status === 1
-            ? UPEX.lang.template('解绑')
-            : '-'}
-        */
         const bankCardList = this.props.userInfoStore.bankCardList || [];
-        if(num === 1) {
-            if(bankCardList.length === 1) {
+        if (num === 1) {
+            if (bankCardList.length === 1) {
                 message.error(UPEX.lang.template('当前级别至少要绑定一张银行卡'));
                 return;
             }
@@ -74,9 +99,8 @@ export default class BankList extends Component {
                 },
                 onCancel() {
                     console.log('Cancel');
-                },
+                }
             });
-
         } else if (num === 1) {
             this.setState({
                 visible: true,
@@ -112,7 +136,7 @@ export default class BankList extends Component {
             visible: false,
             vCode: '',
             pwd: '',
-            ivCode: '',
+            ivCode: ''
         });
     };
 
@@ -121,7 +145,7 @@ export default class BankList extends Component {
             visible: false,
             vCode: '',
             pwd: '',
-            ivCode: '',
+            ivCode: ''
         });
     };
 
@@ -152,79 +176,34 @@ export default class BankList extends Component {
         const bankCardList = this.props.userInfoStore.bankCardList || [];
         const gaBindSuccess = this.props.userInfoStore.gaBindSuccess;
         const captcha = this.props.captchaStore.captcha;
+        let $content;
+        if (bankCardList.length == 0) {
+            $content = <div className="mini-tip">{UPEX.lang.template('暂无数据')}</div>;
+        } else {
+            $content = <CardListView getStatus={this.status.bind(this)} clickHandle={this.bankHandle.bind(this)} dataSource={bankCardList}/>;
+        }
         return (
-
             <AceSection title={UPEX.lang.template('银行卡账号设定记录')} className="list">
-                <div>
-                    <div className="ant-table ant-table-large ant-table-fixed-header ant-table-scroll-position-left">
-                        <div className="ant-table-content">
-                            <div className="ant-table-scroll">
-                                <div className="ant-table-header">
-                                    <table className="">
-                                        <colgroup>
-                                            <col style={{ width: '172px', minWidth: '172px' }} />
-                                            <col style={{ width: '172px', minWidth: '172px' }} />
-                                            <col style={{ width: '172px', minWidth: '172px' }} />
-                                            <col style={{ width: '172px', minWidth: '172px' }} />
-                                            <col style={{ width: '172px', minWidth: '172px' }} />
-                                            <col style={{ width: '172px', minWidth: '172px' }} />
-                                        </colgroup>
-                                        <thead className="ant-table-thead">
-                                            <tr>
-                                                <th>{UPEX.lang.template('提交时间')}</th>
-                                                <th>{UPEX.lang.template('银行')}</th>
-                                                <th>{UPEX.lang.template('分行')}</th>
-                                                <th>{UPEX.lang.template('账号')}</th>
-                                                <th>{UPEX.lang.template('状态')}</th>
-                                                <th>{UPEX.lang.template('操作')}</th>
-                                            </tr>
-                                        </thead>
-                                    </table>
-                                </div>
-                                <div className="ant-table-body">
-                                    <table className="">
-                                        <colgroup>
-                                            <col style={{ width: '172px', minWidth: '172px' }} />
-                                            <col style={{ width: '172px', minWidth: '172px' }} />
-                                            <col style={{ width: '172px', minWidth: '172px' }} />
-                                            <col style={{ width: '172px', minWidth: '172px' }} />
-                                            <col style={{ width: '172px', minWidth: '172px' }} />
-                                            <col style={{ width: '172px', minWidth: '172px' }} />
-                                        </colgroup>
-                                        <tbody className="ant-table-tbody">
-                                            {bankCardList.map((item, index) => {
-                                                return (
-                                                    <tr key={index}>
-                                                        <td>{item.createTime}</td>
-                                                        <td>{item.branchName}</td>
-                                                        <td>{item.openBank}</td>
-                                                        <td>{item.cardNo}</td>
-                                                        <td>{this.status(item.status)}</td>
-                                                        <td
-                                                            onClick={() => {
-                                                                this.bankHandle(item.status, item.id);
-                                                            }}
-                                                            style={{ cursor: 'pointer', color: '#cc9900' }}
-                                                        >
-                                                            {item.status === 2
-                                                                ? UPEX.lang.template('删除')
-                                                                : item.status === 1
-                                                                    ? UPEX.lang.template('解绑')
-                                                                    : '-'}
-                                                        </td>
-                                                    </tr>
-                                                );
-                                            })}
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
+                <div className="account-result-list bank-card-log">
+                    <div className="table-hd">
+                        <ul>
+                            <li>
+                                <dl>
+                                    <dd className="time">{UPEX.lang.template('提交时间')}</dd>
+                                    <dd className="bank">{UPEX.lang.template('银行')}</dd>
+                                    <dd className="sub">{UPEX.lang.template('分行')}</dd>
+                                    <dd className="account">{UPEX.lang.template('账号')}</dd>
+                                    <dd className="status">{UPEX.lang.template('状态')}</dd>
+                                    <dd className="btn">{UPEX.lang.template('操作')}</dd>
+                                </dl>
+                            </li>
+                        </ul>
                     </div>
+                    <div className="table-bd">{$content}</div>
                 </div>
                 <Modal title={UPEX.lang.template('解绑银行卡')} visible={this.state.visible} onOk={this.handleOk} onCancel={this.handleCancel}>
                     <div className="item" style={{ marginBottom: '20px' }}>
-                        <Input type="password"  value={this.state.pwd} onChange={this.pwdChange} placeholder={UPEX.lang.template('请输入交易密码')} />
+                        <Input type="password" value={this.state.pwd} onChange={this.pwdChange} placeholder={UPEX.lang.template('请输入交易密码')} />
                     </div>
                     {gaBindSuccess ? (
                         <div className="item">

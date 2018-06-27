@@ -38,6 +38,17 @@
     min-width: 100px;
     font-size: 14px;
 }
+/* 底部提示统一样式 */
+.user-main .custom-tips {
+    margin: 0 auto;
+    border-top: solid 1px #f2f2f2;
+    text-align: left;
+    padding-top: 20px;
+    font-size: 12px;
+    line-height: 20px;
+    color: #999;
+}
+
 
 .user-main a.ace-link {
     color: #e7b508;
@@ -145,7 +156,7 @@
 
 .aside-left .menu .menu-submenu-item.active-item a,
 .aside-left .menu .menu-submenu-item:hover a {
-    color: #e7b508;
+    color: #cc9900;
 }
 
 .user-main .top-radius-6 {
@@ -201,6 +212,7 @@
 
 .page-content-inner.base-info .ace-section .ant-row .phone {
     font-size: 24px;
+    height: 33px;
     color: #333;
 }
 
@@ -222,6 +234,14 @@
     color: #999;
     font-size: 14px;
 }
+.page-content-inner.base-info .ant-row.bind-status .ant-col-12 img{
+    width: 30px;
+    margin-bottom: 6px;
+}
+.page-content-inner.base-info .ant-row.bind-status .ant-col-12.auth {
+    color: #cc9900;
+}
+
 
 .page-content-inner.base-info .grade-info {
     text-align: center;
@@ -233,15 +253,37 @@
 }
 
 .page-content-inner.base-info .grade-info .state-inner {
-    padding-left: 125px;
+    padding-left: 120px;
     text-align: left;
     line-height: 25px;
 }
 
 .page-content-inner.base-info .grade-info .state-inner img {
     width: 40px;
-    margin: 0 5px 0 0;
+    margin: 0 10px 0 0;
     float: left;
+}
+
+.page-content-inner.base-info .account-result-list.login-log .table-bd li:last-child {
+    border-bottom: none;
+}
+
+.page-content-inner.base-info .account-result-list.login-log dd{
+    width: 33%;
+    text-align: center;
+}
+
+.page-content-inner.base-info .account-result-list.login-log dd.time, .page-content-inner.base-info .account-result-list.login-log dd.location{
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.page-content-inner.base-info .account-result-list.login-log dd.time{
+    text-align: left;
+}
+
+.page-content-inner.base-info .account-result-list.login-log dd.location{
+    text-align: right;
 }
 
 .page-content-inner.base-info .grade-info .state-inner .text {
@@ -256,15 +298,29 @@
 
 .page-content-inner.base-info .grade-info .upgrade a {
     line-height: 37px;
+    font-size: 14px;
     color: #cc9900;
+}
+
+.page-content-inner.base-info .grade-info .upgrade a:hover {
+    text-decoration: underline;
 }
 
 .page-content-inner.base-info .grade-info .upgrade img {
     height: 7px;
+    margin-left: 6px;
+}
+
+.page-content-inner.base-info .grade-info .state {
+    position: relative;
 }
 
 .page-content-inner.base-info .grade-info .no-auth {
     font-size: 18px;
+    position: absolute;
+    top: 65%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     color: #333;
 }
 
@@ -333,6 +389,35 @@
     margin-bottom: 20px;
 }
 
+.user-main .authentication .content-title .title-right .ant-steps-item-icon {
+    width: 20px;
+    height: 20px;
+    line-height: 22px;
+}
+
+.user-main .authentication .content-title .ant-steps-item.ant-steps-item-finish .ant-steps-item-title {
+    color: #999;
+}
+.user-main .authentication .content-title  .ant-steps-small .ant-steps-item-title {
+    line-height: 21px;
+}
+.user-main .authentication .content-title  .ant-steps-small .ant-steps-item-title:after {
+    top: 10px;
+}
+
+.user-main .authentication .content-title .ant-steps-item.ant-steps-item-finish:nth-child(3) .ant-steps-item-title {
+    color: #333;
+}
+
+.user-main .authentication .content-title .ant-steps-item.ant-steps-item-finish:nth-child(3) .ant-steps-item-icon {
+    background-color: #e8b802;
+    border-color: #e8b802;
+}
+
+.user-main .authentication .content-title .ant-steps-item.ant-steps-item-finish:nth-child(3) .ant-steps-item-icon>.ant-steps-icon {
+    color: #fff;
+}
+
 .user-main .authentication-message {
     margin-top: 200px;
     text-align: center;
@@ -340,7 +425,7 @@
     color: #333333;
 }
 
-.user-main .authentication-content {
+ .authentication-content {
     /* padding-left: 100px; */
 }
 
@@ -732,10 +817,10 @@
     color: #333333;
 }
 
-.user-main .ace-form.auth-step-4 .tip {
+/* .user-main .ace-form.auth-step-4 .tip {
     text-align: center;
     padding: 20px;
-}
+} */
 
 .user-main .ace-form.auth-step-4 .tip p {
     padding-bottom: 5px;
@@ -961,6 +1046,11 @@
 }
 .user-main .page-content-inner.bank-info .ant-upload-list-item-info {
     display: none;
+}
+
+.user-main .page-content-inner.bank-info .bank-card-log dl dd {
+    width: 16.6%;
+    text-align: center;
 }
 /**
  * 密码设置
