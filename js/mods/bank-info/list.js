@@ -47,6 +47,11 @@ export default class BankList extends Component {
     }
 
     bankHandle = (num, id) => {
+        const bankCardList = this.props.userInfoStore.bankCardList || [];
+        if(bankCardList.length === 1) {
+            message.error(UPEX.lang.template('当前级别至少要绑定一张银行卡'));
+            return;
+        }
         if (num === 2) {
             this.props.userInfoStore.deleteBindBankCard(id);
         } else if (num === 1) {
@@ -60,19 +65,19 @@ export default class BankList extends Component {
     handleOk = () => {
         const gaBindSuccess = this.props.userInfoStore.gaBindSuccess;
         if (!this.state.pwd) {
-            message.error('交易密码不能空');
+            message.error(UPEX.lang.template('交易密码不能空'));
             return;
         }
         if (!this.state.vCode && gaBindSuccess) {
-            message.error('谷歌验证码不能空');
+            message.error(UPEX.lang.template('谷歌验证码不能空'));
             return;
         }
         if (!this.state.ivCode && !gaBindSuccess) {
-            message.error('图片验证码不能空');
+            message.error(UPEX.lang.template('图片验证码不能空'));
             return;
         }
         if (!this.state.vCode && !gaBindSuccess) {
-            message.error('手机验证码不能空');
+            message.error(UPEX.lang.template('手机验证码不能空'));
             return;
         }
         const pwd = md5(this.state.pwd + UPEX.config.dealSalt + this.props.authStore.uid);
