@@ -65,7 +65,7 @@
   "googleSpreadsheetId": "1SAiY0rhwJl01xfA6BZdS53z1JJwg0XvEEEYCiv6mrNM",
   "googleWorksheet": [
     "PC翻译文档",
-    "ountryCode"
+    "CountryCode"
   ],
   "license": "ISC",
   "main": "index.js",
