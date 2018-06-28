@@ -608,7 +608,7 @@ body  .ant-select-dropdown-menu-item:hover {
 
 .app-page[data-path="/login"] .tobottom-footer,
 .app-page[data-path="/register"] .tobottom-footer,
-.app-page[data-path="/resetpwd"] .tobottom-footer{ 
+.app-page[data-path="/resetpwd"] .tobottom-footer{
     background-color: #141414;
 }
 
@@ -711,7 +711,7 @@ button>a {
 
 
 .ace-form .ace-input-item .item-error{
-    color: #bf0000;
+    color: #ff6666;
     font-size: 12px;
 }
 
@@ -782,11 +782,21 @@ button>a {
  }
  .ace-form .ace-submit-item {
      width: 100%;
-     background-color: #e6bc1d;
-     color: #fff;
+     background-color: #e8b802;
+     color: #333;
      height: 40px;
-     border-radius: 8px;
+     border-radius: 3px;
+     border:solid 1px transparent;
      margin-top: 20px;
+ }
+ .ace-form .ace-submit-item:disabled {
+     border-color: #d9d9d9;
+ }
+
+ .ace-form .ace-submit-item:hover {
+    background-color: #ffdc57;
+    color: #333;
+    border-color: #ffdc57;
  }
 
  .align-right {

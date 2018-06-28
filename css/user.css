@@ -11,21 +11,29 @@
 .user-wrapper .user-breadcrumb.ant-breadcrumb {
     padding: 10px 0 17px;
 }
+body .user-main .ant-select-dropdown-menu-item {
+    line-height: 32px;
+}
 
 .user-main .ant-btn:hover {
     border-color: #e7b508;
     color: #e7b508;
 }
 
+.user-main .authentication-content .ant-btn:disabled:hover {
+    border-color: #d9d9d9;
+    color:#ccc;
+}
+
+.user-main .authentication-content .ant-btn:hover {
+    color: #333;
+    border-color: #ffdc57;
+}
+
 .user-main .ant-btn.ace-main {
     background-color: #e7b508;
     color: #fff;
     height: 40px;
-}
-
-.user-main  .ant-btn.ace-submit-item {
-    background-color: #e7b508;
-    color: #fff;
 }
 
 .user-main .content-body .ace-btn {
@@ -38,7 +46,9 @@
     min-width: 100px;
     font-size: 14px;
 }
+
 /* 底部提示统一样式 */
+
 .user-main .custom-tips {
     margin: 0 auto;
     border-top: solid 1px #f2f2f2;
@@ -49,7 +59,6 @@
     color: #999;
 }
 
-
 .user-main a.ace-link {
     color: #e7b508;
 }
@@ -59,7 +68,7 @@
 }
 
 .user-main .page-content-inner a:hover {
-    text-decoration:none;
+    text-decoration: none;
 }
 
 .user-main .no-auth-message a.ace-btn {
@@ -180,7 +189,8 @@
     border-bottom-left-radius: 6px;
     border-bottom-right-radius: 6px;
 }
-.user-main .no-auth-message .ant-btn.ace-main{
+
+.user-main .no-auth-message .ant-btn.ace-main {
     margin-top: 30px;
 }
 
@@ -234,14 +244,19 @@
     color: #999;
     font-size: 14px;
 }
-.page-content-inner.base-info .ant-row.bind-status .ant-col-12 img{
+
+.page-content-inner.base-info .ant-row.bind-status .ant-col-12 img {
     width: 30px;
     margin-bottom: 6px;
 }
+
+.page-content-inner.base-info .ant-row.bind-status .ant-col-12 {
+    color: #ccc;
+}
+
 .page-content-inner.base-info .ant-row.bind-status .ant-col-12.auth {
     color: #cc9900;
 }
-
 
 .page-content-inner.base-info .grade-info {
     text-align: center;
@@ -268,21 +283,22 @@
     border-bottom: none;
 }
 
-.page-content-inner.base-info .account-result-list.login-log dd{
+.page-content-inner.base-info .account-result-list.login-log dd {
     width: 33%;
     text-align: center;
 }
 
-.page-content-inner.base-info .account-result-list.login-log dd.time, .page-content-inner.base-info .account-result-list.login-log dd.location{
+.page-content-inner.base-info .account-result-list.login-log dd.time,
+.page-content-inner.base-info .account-result-list.login-log dd.location {
     padding: 20px;
     box-sizing: border-box;
 }
 
-.page-content-inner.base-info .account-result-list.login-log dd.time{
+.page-content-inner.base-info .account-result-list.login-log dd.time {
     text-align: left;
 }
 
-.page-content-inner.base-info .account-result-list.login-log dd.location{
+.page-content-inner.base-info .account-result-list.login-log dd.location {
     text-align: right;
 }
 
@@ -398,10 +414,12 @@
 .user-main .authentication .content-title .ant-steps-item.ant-steps-item-finish .ant-steps-item-title {
     color: #999;
 }
-.user-main .authentication .content-title  .ant-steps-small .ant-steps-item-title {
+
+.user-main .authentication .content-title .ant-steps-small .ant-steps-item-title {
     line-height: 21px;
 }
-.user-main .authentication .content-title  .ant-steps-small .ant-steps-item-title:after {
+
+.user-main .authentication .content-title .ant-steps-small .ant-steps-item-title:after {
     top: 10px;
 }
 
@@ -425,7 +443,7 @@
     color: #333333;
 }
 
- .authentication-content {
+.authentication-content {
     /* padding-left: 100px; */
 }
 
@@ -460,6 +478,13 @@
     position: relative;
 }
 
+.user-main .ace-form.auth-step-1 .ace-input-item .error-message, .user-main .ace-form.auth-step-1 .ace-input-item .item-error {
+    color: #ff6666;
+}
+.user-main .ace-form.auth-step-1 .ace-input-item.select .message{
+    padding-top: 4px;
+}
+
 .user-main .ace-form.auth-step-1 .muti-filed .ace-input-item,
 .user-main .ace-form.auth-step-1 .muti-select .ace-input-item {
     width: 210px;
@@ -467,22 +492,43 @@
     margin-right: 30px;
 }
 
+.user-main .ace-form.auth-step-1 .muti-filed .ace-input-item .item-error,
+.user-main .ace-form.auth-step-1 .select.time-label .error-message {
+    padding-top: 4px;
+    color: #ff6666;
+}
+.user-main .ace-form.auth-step-1 .muti-select .ace-input-item .error-message {
+    padding-top: 6px;
+    color: #ff6666;
+}
+
 .user-main .ace-form.auth-step-1 .muti-filed .ace-input-item input.input,
 .user-main .ace-form.auth-step-1 .muti-select div.input {
-    margin-bottom: 30px;
+    margin-bottom: 15px;
 }
 
 .user-main .ace-form.auth-step-1 .muti-filed .message,
 .user-main .ace-form.auth-step-1 .muti-select .message {
     position: absolute;
-    top: 72px;
-    font-size: 14px;
+    top: 65px;
+    font-size: 12px;
     color: #999;
+}
+
+.user-main .ace-form.auth-step-1 .muti-select .message {
+    top: 67px;
 }
 
 .user-main .ace-form.auth-step-1 .muti-filed .ace-input-item.last,
 .user-main .ace-form.auth-step-1 .muti-select .ace-input-item.last {
     margin-right: 0;
+}
+
+.user-main .ace-form.auth-step-1 .ace-input-item.select::after {
+    display: block;
+    height: 1px;
+    content: '';
+    clear: both;
 }
 
 .user-main .ace-form.auth-step-1 .ace-input-item.select div.input {
@@ -518,6 +564,12 @@
     line-height: 42px;
 }
 
+.user-main .ace-form.auth-step-1 .ace-input-item.select.radio .label {
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    border-bottom: solid 1px #f2f2f2;
+}
+
 .user-main .ace-form.auth-step-1 .ace-input-item.select.radio {
     position: relative;
 }
@@ -530,13 +582,18 @@
     position: absolute;
     left: 79%;
     width: 120px;
-    top: 14px;
+    top: 49px;
 }
 
 .user-main .ace-form.auth-step-1 .ace-input-item.select .error-message,
 .user-main .ace-form.auth-step-1 .ace-input-item.select .message {
     display: block;
     width: 100%;
+    float: left;
+}
+
+.user-main .ace-form.auth-step-1 .ant-select-selection__rendered {
+    margin-left: 0px;
 }
 
 .user-main .ace-form.auth-step-1 .ant-upload-list {
@@ -575,7 +632,7 @@
 }
 
 .user-main .authentication-content .item {
-    margin-top: 30px;
+    margin-top: 0;
 }
 
 .user-main .authentication-content .one-item {
@@ -618,21 +675,19 @@
     padding-right: 0px;
 }
 
-.user-main .authentication-content .error-message {
-    margin-left: 15px;
-}
-
 .user-main .authentication-content .checkbox-text {
     font-size: 14px;
-    color: #999999;
+    color: #333;
     margin-right: 5px;
 }
 
 .user-main .authentication-content .checkbox-text a {
-    color: #e6bc1d;
+    color: #cc9900;
+    text-decoration-line: none;
+}
+.user-main .authentication-content .checkbox-text a:hover {
     text-decoration-line: underline;
 }
-
 .user-main .authentication-content .submit {
     text-align: center;
     padding-top: 10px;
@@ -640,21 +695,16 @@
 
 .user-main .authentication-content .submit button {
     min-width: 100px;
-    height: 40px;
-    border-radius: 3px;
-    background-color: #e6bc1d;
-    color: #fff;
     margin-top: 40px;
     outline: none;
-    border-color: transparent;
 }
 
 .user-main .ace-form.auth-step-2 .pic-title {
     background-color: #fefbe8;
     border: solid 1px #fbe59a;
-    font-size: 12px;
+    font-size: 14px;
     text-align: center;
-    border-radius: 5px;
+    border-radius: 0;
     padding: 10px 0;
 }
 
@@ -676,7 +726,7 @@
 
 .user-main .ace-form.auth-step-2 .pic-item .item-tip {
     float: right;
-    color: #f0d056;
+    color: #cc9900;
     cursor: pointer;
 }
 
@@ -690,7 +740,7 @@
     right: 4px;
     top: 47%;
     font-size: 30px;
-    color: #4dda22;
+    color: #33c280;
 }
 
 .user-main .ace-form.auth-step-2 .pic-item .pic-upload {
@@ -701,6 +751,7 @@
 .user-main .ace-form.auth-step-2 .sample-pic-content {
     display: none;
     position: fixed;
+    z-index: 9999;
     top: 0;
     left: 0;
     width: 100%;
@@ -741,7 +792,7 @@
 
 .user-main .ace-form.auth-step-2 .sample-pic-content .pic-message {
     float: right;
-    padding-left: 40px;
+    padding-left: 30px;
     color: #999999;
     line-height: 25px;
 }
@@ -830,15 +881,28 @@
     font-size: 20px;
     font-weight: bold;
 }
+.user-main .ace-form.auth-step-2 {
+    padding-top: 10px;
+}
 
-.user-main .authentication-content .submit button:hover {
-    border-color: none;
+.user-main .ace-form.auth-step-2  .ant-upload-list-item-name, .user-main .ace-form.auth-step-2  .anticon-paper-clip {
+    display: none;
+}
+
+.user-main .ace-form.auth-step-2 .pic-item  .pic-item-img.hover {
+    display: none;
+}
+.user-main .ace-form.auth-step-2 .pic-item .no-select .ant-upload-select:hover .pic-item-img.target {
+    display: none;
+}
+.user-main .ace-form.auth-step-2 .pic-item .no-select .ant-upload-select:hover .pic-item-img.hover {
+    display: block;
 }
 
 .user-main .authentication-content .pic-title {
     font-size: 14px;
     color: #333333;
-    margin-top: 50px;
+    /* margin-top: 50px; */
 }
 
 .user-main .authentication-content .pic-item {
@@ -858,9 +922,8 @@
 
 .user-main .authentication-content .pic-item-img {
     display: block;
-    width: 275px;
-    height: 145px;
-    margin-right: 50px;
+    width: 260px;
+    height: 170px;
     cursor: pointer;
 }
 
@@ -894,9 +957,9 @@
 }
 
 .user-main .authentication-content .pic-format {
-    margin-left: 100px;
-    margin-top: 30px;
-    font-size: 14px;
+    text-align: left;
+    font-size: 12px;
+    margin-top: 26px;
     color: #999999;
 }
 
@@ -1006,6 +1069,7 @@
 /**
  * 银行卡
  */
+
 /*
 .user-main .bank-message a {
     background-color: #e6bc1d;
@@ -1044,6 +1108,7 @@
     color: #999;
     line-height: 18px;
 }
+
 .user-main .page-content-inner.bank-info .ant-upload-list-item-info {
     display: none;
 }
@@ -1052,6 +1117,7 @@
     width: 16.6%;
     text-align: center;
 }
+
 /**
  * 密码设置
  */

@@ -9,8 +9,8 @@ class InputItem extends Component {
                 {
                     this.props.children ? this.props.children : (<input className="input" {...inputProps} />)
                 }
-                {tip ? (<div className="item-tip">*{tip}</div>) : ''}
-                {error ? (<div className="item-error">*{error}</div>) : ''}
+                {tip ? (<div className="item-tip">{tip}</div>) : ''}
+                {error ? (<div className="item-error">{error}</div>) : ''}
             </div>
         );
     }
