@@ -194,13 +194,7 @@ Zepto不支持旧版本的Internet Explorer浏览器(<10)。
 	* 提币
 	* 资金变动记录
         * 需求：
-            * 邮箱账号
-            * 登录密码
-            * 确认密码
-            * 图片验证
-            * 邮箱验证码
-            * 邀请码[选填]
-            * 同意服务条款
+            * 根据资金变动类型获取对应记录
         * 接口：
             * 注册前发送邮箱验证码接口：[`/rechargeWithdraw/getRechargeWithdrawBillInfo[POST]`]()
             * status对照

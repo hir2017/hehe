@@ -23,27 +23,16 @@ class FundChangeRecordStore {
         recharge: 1,
         withdraw: 2
     };
-    /*
-    '0': '等审核',
-    '1': '通过（财务审核状态）',
-    '2': '冻结 (风控审核状态)',
-    '3': '充值或提现中，初始状态',
-    '4': '拒绝（风控审核状态）',
-    '5': '运营待审核状态 （是风控审核通过后的状态）',
-    '6': '拒绝（运营审核状态）',
-    '7': '财务待审核状态（是运营审核通过后的状态）',
-    '8': '拒绝（财务审核状态）',
-    */
     statusMap = {
         '0': UPEX.lang.template('待审核'),
-        '1': UPEX.lang.template('成功'),
-        '2': UPEX.lang.template('冻结'),
-        '3': UPEX.lang.template('支付中'),
-        '4': UPEX.lang.template('风控审核拒绝'),
-        '5': UPEX.lang.template('运营待审核'),
-        '6': UPEX.lang.template('运营审核拒绝'),
-        '7': UPEX.lang.template('财务待审核'),
-        '8': UPEX.lang.template('财务审核拒绝'),
+        '1': UPEX.lang.template('已完成'),
+        '2': UPEX.lang.template('审核中'),
+        '3': UPEX.lang.template('待付款'),
+        '4': UPEX.lang.template('被拒绝'),
+        '5': UPEX.lang.template('审核中'),
+        '6': UPEX.lang.template('被拒绝'),
+        '7': UPEX.lang.template('放款中'),
+        '8': UPEX.lang.template('放款失败'),
     }
 
     constructor(stores) {
@@ -109,6 +98,10 @@ class FundChangeRecordStore {
             item._status = statusMap[item.status] || UPEX.lang.template('未知');
             item._actionName = `${UPEX.lang.template('银行卡')}${item.type === 1 ? UPEX.lang.template('充值') : UPEX.lang.template('提现')}`;
             item._payMethod = item.type === 1 ? item.openBank : UPEX.lang.template('法币账户');
+            if(item.status === 4 || item.status === 6) {
+                item._status += ',' + UPEX.lang.template('原因：{reason}', {reason: item.reason});
+
+            }
         });
 
         return arr;

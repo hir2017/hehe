@@ -90,7 +90,9 @@ export default class BindingBank extends Component {
         this.setState({
             branches: res[0].branches,
             banckCode: val,
-            banck: res[0].name
+            banck: res[0].name,
+            branchesCode: '',
+            branche: ''
         });
     }
 
@@ -206,6 +208,7 @@ export default class BindingBank extends Component {
                         <Select
                             showSearch
                             size="large"
+                            value={this.state.branchesCode}
                             placeholder={UPEX.lang.template('选择银行分行')}
                             filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
                             onChange={this.branchesChange}
