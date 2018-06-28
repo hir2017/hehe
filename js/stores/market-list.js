@@ -83,7 +83,13 @@ class MarketListStore {
                     
                     if (!this.selectedCoin.currencyId) {
                         this.selectedCoin = this.tradeCoins[0];
+                    } else {
+                        // 更新选中的数据
+                        this.selectedCoin = this.tradeCoins.filter((item)=>{
+                            return item.currencyId == this.selectedCoin.currencyId
+                        })[0];
                     }
+
                 } else {
                     this.noCoin = true;
                 }
