@@ -171,55 +171,55 @@ export default class FirstStep extends Component {
             valid7 = true;
         if (!this.state.firstName) {
             this.setState({
-                firstNameMes: UPEX.lang.template('*真实姓氏不能为空')
+                firstNameMes: UPEX.lang.template('真实姓氏不能为空')
             });
             valid1 = false;
         }
         if (!this.state.secondName) {
             this.setState({
-                secondNameMes: UPEX.lang.template('*真实名字不能为空')
+                secondNameMes: UPEX.lang.template('真实名字不能为空')
             });
             valid2 = false;
         }
         if (!this.state.year || !this.state.month || !this.state.day) {
             this.setState({
-                birthdayMes: UPEX.lang.template('*请完善出生日期')
+                birthdayMes: UPEX.lang.template('请完善出生日期')
             });
             valid3 = false;
         }
         if (!this.state.address) {
             this.setState({
-                addressMes: UPEX.lang.template('*请完善地址信息')
+                addressMes: UPEX.lang.template('请完善地址信息')
             });
             valid3_1 = false;
         }
         if (!this.state.postCode) {
             this.setState({
-                areaCodeMes: UPEX.lang.template('*区域号码不能为空')
+                areaCodeMes: UPEX.lang.template('区域号码不能为空')
             });
             valid3_2 = false;
         }
         if (!this.state.idCardType) {
             this.setState({
-                idCardTypeMes: UPEX.lang.template('*请选择证件类型')
+                idCardTypeMes: UPEX.lang.template('请选择证件类型')
             });
             valid4 = false;
         }
         if (!this.state.idCard) {
             this.setState({
-                idCardMes: UPEX.lang.template('*证件号码不能为空')
+                idCardMes: UPEX.lang.template('证件号码不能为空')
             });
             valid5 = false;
         }
         if (!this.state.profession) {
             this.setState({
-                professionMes: UPEX.lang.template('*职业不能为空')
+                professionMes: UPEX.lang.template('职业不能为空')
             });
             valid6 = false;
         }
         if (!this.state.annualsalary) {
             this.setState({
-                annualsalaryMes: UPEX.lang.template('*年薪不能为空')
+                annualsalaryMes: UPEX.lang.template('年薪不能为空')
             });
             valid7 = false;
         }
@@ -281,7 +281,7 @@ export default class FirstStep extends Component {
                 <div className="muti-filed clearfix">
                     <InputItem {...inputsData.firstName} />
                     <InputItem {...inputsData.secondName} />
-                    <div className="message">*{UPEX.lang.template('填写之姓名必须与日后提领的银行账户名相同')}</div>
+                    <div className="message">{UPEX.lang.template('填写之姓名必须与日后提领的银行账户名相同')}</div>
                 </div>
                 <div className="ace-input-item select time-label">
                     <span className="label">{UPEX.lang.template('出生日期')}</span>
@@ -328,7 +328,7 @@ export default class FirstStep extends Component {
                             <Option value="1">{UPEX.lang.template('台湾身份证')}</Option>
                         </Select>
                     </div>
-                    <span className="message">*{UPEX.lang.template('目前暫時只開放給擁有台灣身分證的用戶使用')}</span>
+                    <span className="message">{UPEX.lang.template('目前暫時只開放給擁有台灣身分證的用戶使用')}</span>
                     <span className="error-message">{this.state.idCardTypeMes}</span>
                 </div>
                 <InputItem {...inputsData.idCard} />
@@ -363,7 +363,7 @@ export default class FirstStep extends Component {
                         </div>
                         <span className="error-message">{this.state.annualsalaryMes}</span>
                     </div>
-                    <div className="message">*{UPEX.lang.template('目前暫時只開放給擁有台灣身分證的用戶使用')}</div>
+                    <div className="message">{UPEX.lang.template('目前暫時只開放給擁有台灣身分證的用戶使用')}</div>
                 </div>
 
                 <div className="ace-input-item select radio">
@@ -377,12 +377,7 @@ export default class FirstStep extends Component {
                         {this.state.resortType === 3 ? <Input onChange={this.resortTypeOtherChange} /> : null}
                     </div>
                 </div>
-                <div className="submit">
-                     <Button {...submitProp}>
-                        {UPEX.lang.template('下一步')}
-                    </Button>
-                </div>
-                <div className="item center">
+                <div className="item align-left">
                     <Checkbox onChange={this.checkHandel}>
                         <span className="checkbox-text">{UPEX.lang.template('勾選選礦表示您同意我們的')}</span>
                         <span className="checkbox-text">
@@ -393,6 +388,12 @@ export default class FirstStep extends Component {
                         </span>
                     </Checkbox>
                 </div>
+                <div className="submit">
+                     <Button {...submitProp}>
+                        {UPEX.lang.template('下一步')}
+                    </Button>
+                </div>
+
             </AceForm>
         );
     }

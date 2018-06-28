@@ -22,11 +22,11 @@ export default (store) => {
         	});
         },
 
-        selectChangeAddress(value){ 
+        selectChangeAddress(value){
         	let address = value;
         	let note = store.getNoteByAddress(address);
-
-        	store.setAddress(address);       	
+            store.defaultAddress.address = value;
+        	store.setAddress(address);
         	store.setNote(note);
         },
 
@@ -85,7 +85,7 @@ export default (store) => {
             if (store.sendingcode) {
             	return;
             }
-            
+
             // 邮件验证码
             takeCoinSendPhoneCode({
             	type: 2,
@@ -127,7 +127,7 @@ export default (store) => {
 
         handleSubmit() {
         	const { verifyBeforeSubmit } = store;
-			
+
             if (store.$submiting) {
                 return;
             }
@@ -136,7 +136,7 @@ export default (store) => {
 
             if (result.pass) {
                 store.changeSubmitingStatusTo(true);
-				
+
                 takeCoin({
 		            currencyId: store.currentCoin.currencyId,
 		            fdPwd: store.md5TradePassword,

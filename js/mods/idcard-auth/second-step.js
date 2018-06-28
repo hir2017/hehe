@@ -7,6 +7,7 @@ import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import { Button, Icon, Upload, message } from 'antd';
 import upload_pic from '../../../images/upload-pic.png';
+import upload_pic_hover from '../../../images/upload-pic-hover.png';
 import IDcard0 from '../../../images/IDcard1.png';
 import IDcard1 from '../../../images/IDcard00.png';
 import IDcard2 from '../../../images/IDcard01.png';
@@ -156,9 +157,9 @@ export default class SecondStep extends Component {
                         <article className="clearfix">
                             <img className="pic-img" src={this.state.samplePic} />
                             <ul className="pic-message">
-                                <li>{UPEX.lang.template(`面部清晰可见，无遮挡，无妆容`)}</li>
-                                <li>{UPEX.lang.template(`完全漏出双手，手臂`)}</li>
-                                <li>{UPEX.lang.template(`证件照片及内容清晰可见`)}</li>
+                                <li>{UPEX.lang.template('面部清晰可见，无遮挡，无妆容')}</li>
+                                <li>{UPEX.lang.template('完全漏出双手，手臂')}</li>
+                                <li>{UPEX.lang.template('证件照片及内容清晰可见')}</li>
                                 <li>{UPEX.lang.template('附带“为PrimeX注册会员使用”字条')}</li>
                             </ul>
                         </article>
@@ -172,22 +173,24 @@ export default class SecondStep extends Component {
                                 <span className="item-title">{item.title}</span>
                                 <span className="item-tip" onClick={() => {this.toggleSample(item, i)}}>{item.showTip}</span>
                             </header>
-                            <section>
+                            <section className={this.state[item.url] ? 'select' : 'no-select'}>
                                 <Upload className="pic-upload" {...this._props(item.url)}>
-                                    <img className="pic-item-img" src={this.state[item.url] ? UPEX.config.imgHost + '/' + this.state[item.url] : upload_pic} />
+                                    <img  className="pic-item-img target" src={this.state[item.url] ? UPEX.config.imgHost + '/' + this.state[item.url] : upload_pic} />
+                                    <img  className="pic-item-img hover" src={upload_pic_hover} />
                                 </Upload>
-                                {this.state[item.url] ? (<Icon type="check-circle" />) : (
+                                {this.state[item.url] ? (<Icon type="check-circle" />) : null}
+                                {/*
                                     <span className="pic-item-error-message error-message">*{UPEX.lang.template('请上传照片')}</span>
-                                )}
+                                 */}
 
                             </section>
                         </div>
                     );
                 })}
 
-                <div className="pic-format">{UPEX.lang.template('上传的文件格式必须是')}.jpg/.png/.jpeg</div>
+                <div className="pic-format">{UPEX.lang.template('上传的文件格式必须是.jpg/.png/.jpeg,文件大小控制在 10M 以内')}</div>
                 <div className="submit">
-                    <Button onClick={this.next}>{UPEX.lang.template('提交审核')}</Button>
+                    <Button  className="ace-submit-item" onClick={this.next}>{UPEX.lang.template('提交审核')}</Button>
                 </div>
             </AceForm>
         );

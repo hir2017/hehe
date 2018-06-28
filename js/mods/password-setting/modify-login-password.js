@@ -27,7 +27,10 @@ export default class ModifyPassword extends Component {
         const userInfo = this.props.userInfoStore.userInfo || {};
         const gaBindSuccess = this.props.userInfoStore.gaBindSuccess;
         this.props.userInfoStore.getUserInfo();
-        this.props.userInfoStore.isGoogleAuth();
+        const store = this.props.authStore || {};
+        if(store.uid) {
+            this.props.userInfoStore.isGoogleAuth();
+        }
         this.captchaChange();
     }
 
@@ -93,7 +96,10 @@ export default class ModifyPassword extends Component {
             if (data) {
                 this.props.userInfoStore.pwdTriggerClear();
                 this.props.authStore.clear();
-                browserHistory.push('/login');
+                setTimeout(() => {
+                    browserHistory.push('/login');
+                }, 300);
+
             }
         });
     }
