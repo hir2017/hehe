@@ -304,14 +304,14 @@ class TVChartContainer extends Component {
                 let colors = ["#965fc4", "#84aad5", "#55b263", "#b7248a"];
 
                 // 技术指标指示器
-                [5, 10, 30, 60].forEach(function(t, n) {
-                    widget.chart().createStudy("Moving Average", !1, !1, [t], function(t) {
-                        return widget.maStudies.push(t)
-                    }, {
-                        "plot.color.0": colors[n],
-                        precision: 4 // 精度
-                    })
-                });
+                // [5, 10, 30, 60].forEach(function(t, n) {
+                //     widget.chart().createStudy("Moving Average", !1, !1, [t], function(t) {
+                //         return widget.maStudies.push(t)
+                //     }, {
+                //         "plot.color.0": colors[n],
+                //         precision: 4 // 精度
+                //     })
+                // });
 
 		        widget.chart().onIntervalChanged().subscribe(null, function(interval, obj) {
                     console.log('--------------', interval, obj);

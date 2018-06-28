@@ -101,7 +101,7 @@
     padding: 0 15px;
 }
 
-.loginguide-wrapper li button:hover{
+.loginguide-wrapper li button.login-btn:hover{
     background-color: #ffdc57;
 }
 
