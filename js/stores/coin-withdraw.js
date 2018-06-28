@@ -199,7 +199,7 @@ class CoinWithdrawStore {
     }
 
     @computed
-    get md5TradePassword() { 
+    get md5TradePassword() {
         return md5(this.tradepwd + UPEX.config.dealSalt + this.authStore.uid);
     }
 
@@ -289,6 +289,8 @@ class CoinWithdrawStore {
         // google验证码
         this.googleCode = '';
         this.phoneCode = '';
+        // 地址下拉列表
+        this.defaultAddress = {};
     }
 
     @action.bound
@@ -304,7 +306,7 @@ class CoinWithdrawStore {
             currencyId: '',
             currencyNameEn: ''
         }
-        
+
         this.resetForm();
     }
 
