@@ -517,9 +517,14 @@ export function getTradeDeep(pair, limit) {
  * @param peroid: 周期
  * @param limit：条数
  */
-export function getTradeKline(pair, peroid = 1, limit) {
-    return axios.get(`${UPEX.config.host}/quote/klineHistory?symbol=${pair}&type=${peroid}&limit=${limit}`).then(res => res.data);
+export function getTradeKline(data) {
+    if (data.startTime && data.endTime) {
+        return axios.get(`${UPEX.config.host}/quote/klineHistory?symbol=${data.symbol}&type=${data.interval}&limit=${data.limit}&startTime=${data.startTime}&endTime=${data.endTime}`).then(res => res.data);
+    } else {
+        return axios.get(`${UPEX.config.host}/quote/klineHistory?symbol=${data.symbol}&type=${data.interval}&limit=${data.limit}`).then(res => res.data);
+    }
 }
+
 export function getTradingViewKline(pair, peroid = 1, limit) {
     return axios.get(`${UPEX.config.host}/quote/tradingView?symbol=${pair}&type=${peroid}&limit=${limit}`).then(res => res.data);
 }
@@ -713,7 +718,7 @@ export function bindPhone(newDevice, oldDevice, oldVercode, vercode, codeid, img
  * 去除手机号的0086
  */
 function rmAreaCode(phone, areaCode = '0086') {
-    if(phone.indexOf(areaCode) === 0) {
+    if (phone.indexOf(areaCode) === 0) {
         return phone.replace(areaCode, '')
     }
     return phone

@@ -301,14 +301,14 @@ body  .ant-select-dropdown-menu-item:hover {
 }
 
 .header-box {
-    width: 1200px;
+    padding: 0 20px;
     margin: 0 auto;
     font-size: 16px;
 }
 
-.app-trade .header-box{
-    padding: 0 10px;
-}
+/* .app-trade .header-box{
+    padding: 0 20px;
+} */
 
 .header-box .logo {
     float: left;
@@ -400,12 +400,36 @@ body  .ant-select-dropdown-menu-item:hover {
 
 .header-box .header-box-r .ant-switch{
     background-color: #ccc;
+    min-width: 28px;
+    height: 16px;
+    line-height: 14px;
 }
 .header-box .header-box-r .ant-switch-checked {
-    border-color: #ff3380;
-    background-color: #ff3380;
+    border-color: #e8b802;
+    background-color: #e8b802;
 }
 
+.header-box .header-box-r .ant-switch:before, 
+.header-box .header-box-r .ant-switch:after{
+    width: 12px;
+    height: 12px;
+}
+
+.header-box .header-box-r .ant-switch-checked:before, 
+.header-box .header-box-r .ant-switch-checked:after{
+    margin-left: -13px;
+}
+
+
+.header-box .header-box-r .ant-switch-checked .ant-switch-inner{
+    margin-right: 20px;
+    margin-left: 6px;
+}
+
+.header-box .header-box-r .ant-switch-inner{
+    margin-left: 20px;
+    margin-right: 6px;
+}
 
 .header-box .header-box-l a,
 .header-box .header-box-l a:hover {
@@ -416,7 +440,7 @@ body  .ant-select-dropdown-menu-item:hover {
 .header-box .header-box-r a,
 .header-box .header-box-r a:hover {
     text-decoration: none;
-    color: #999;
+    color: #666;
 }
 
 
@@ -639,10 +663,6 @@ body  .ant-select-dropdown-menu-item:hover {
     font-size: 12px;
 }
 
-button>a {
-    display: block;
-}
-
 .disabled {
     background-color: #ccc;
 }
@@ -669,8 +689,6 @@ button>a {
     left: -10px;
     top: 14px;
 }
-
-
 
 
 /* page-content */
@@ -761,7 +779,8 @@ button>a {
      text-indent: 10px;
      outline: none;
  }
- .ace-form  .ant-select-selection__placeholder,  .ace-form  .ant-select-search__field__placeholder {
+ .ace-form  .ant-select-selection__placeholder,  
+ .ace-form  .ant-select-search__field__placeholder {
      color: #ccc;
      font-weight: normal;
  }

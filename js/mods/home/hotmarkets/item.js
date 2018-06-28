@@ -20,7 +20,11 @@ class HotCoin extends Component {
 	}
 
 	get24KlineData(){
-		getTradeKline(this.props.pair, 60, 24).then((res)=>{
+		getTradeKline({
+            symbol: this.props.pair, 
+            interval: 60, 
+            limit: 24
+        }).then((res)=>{
 			let hours24TrendList = [];
 
 			if (res.status == 200) {

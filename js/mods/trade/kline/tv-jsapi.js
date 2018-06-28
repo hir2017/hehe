@@ -4,7 +4,7 @@
  * @date 2018-05-22
  */
 import { socket } from '../../../api/socket';
-import { getTradingViewKline } from '../../../api/http';
+import { getTradingViewKline , getTradeKline } from '../../../api/http';
 import TimeUtil from '../../../lib/util/date';
 
 const defaultConfiguration = {
@@ -73,9 +73,7 @@ class UDFCompatibleDatafeed {
                 console.log(e.message);
             }
         }, 0)
-
     }
-
     /**
      * 
      * @param {*Object 商品信息对象} symbolInfo 
@@ -101,184 +99,77 @@ class UDFCompatibleDatafeed {
 
         var startDate = rangeStartDate * 1000;
         var endDate = rangeEndDate * 1000;
+        var symbol = symbolInfo.ticker || '';
 
         let _resolution = this.getIntervalByPeriod(resolution);
 
-        var requestParams = {
+        
+        getTradeKline({
             symbol: symbolInfo.ticker || '',
-            resolution: _resolution,
-            from: startDate,
-            to: endDate,
-        }
-
-        // if (_resolution !== this.resolution) {
-         
-        if (firstDataRequest) {
-            this.getHistoryData(requestParams)
-                .then((result) => {
-                    onHistoryCallback(result.bars, result.meta);
-                })
-        }   
-    }
-
-    getIntervalByPeriod(resolution) {
-        switch (resolution) {
-            case '1D':
-            case '5D':
-            case '7D':
-            case '1W':
-            case '1M':
-                return '1D'; // 天
-            default:
-                return '1'; // 1秒
-                break;
-        }
-    }
-
-    getIntervalHistoryData(symbol, resolution) {
-
-        let fetch = () => {
-            getTradingViewKline(symbol, resolution, 1).then((res) => {
-                let data = res.attachment;
-
-                if (data.s !== 'ok' && data.s !== 'no_data') {
-                    return;
-                }
-
-                var bars = [];
-                var meta = {
-                    noData: false,
-                };
-
-                if (data.s === 'no_data' || data.c.length == 0) {
-                    meta.noData = true;
-                    meta.nextTime = data.nextTime; // 只有在请求的时间段内没有数据时，才应该被设置
-                } else {
-                    var volumePresent = data.v !== undefined;
-                    var ohlPresent = data.o !== undefined;
-
-                    for (var i = 0; i < data.t.length; ++i) {
-                        var barValue = {
-                            time: data.t[i],
-                            close: Number(data.c[i]),
-                            open: Number(data.c[i]),
-                            high: Number(data.c[i]),
-                            low: Number(data.c[i]),
-                        };
-
-                        if (ohlPresent) {
-                            barValue.open = Number(data.o[i]);
-                            barValue.high = Number(data.h[i]);
-                            barValue.low = Number(data.l[i]);
-                        }
-
-                        if (volumePresent) {
-                            barValue.volume = Number(data.v[i]);
-                        }
-
-                        barValue.timeTxt = TimeUtil.formatDate(new Date(data.t[i]), 'yyyy-MM-dd HH:mm:ss');
-
-                        if (barCache.length > 0) {
-                            if (barValue.time < barCache[0].time) {
-                                barCache = [barValue].concat(barCache);
-                            } else if (barValue.time > barCache[barCache.length - 1].time) {
-                                barCache[barCache.length] = barValue;
-                            } else if (barValue.time == barCache[barCache.length - 1].time) {
-                                barCache[barCache.length - 1] = barValue;
-                            }
-                        } else {
-                            barCache[barCache.length] = barValue;
-                        }
-
-                        bars.push(barValue);
-                    }
-                }
-
-                this.cacheResult[params.resolution] = {
-                    bars: barCache,
-                    meta: meta
-                };
-
-                defer.resolve({
-                    bars: bars,
-                    meta: meta,
-                });
-            })
-        }
-
-        fetch();
-
-        this.timer = setTimeout(() => {
-            this.getIntervalHistoryData(symbol, resolution);
-        }, 60 * 1000)
-    }
-    /**
-     * 
-     */
-    getHistoryData(params, first) {
-        let defer = $.Deferred();
-
-
-        socket.off('tradingView');
-        socket.emit('tradingView', params);
-        socket.on('tradingView', (data) => {
-
-            if (data.s !== 'ok' && data.s !== 'no_data') {
-                defer.reject(data.errmsg);
-                return;
-            }
+            interval: _resolution,
+            limit: 500,
+            startTime: startDate,
+            endTime: endDate
+        }).then((res)=>{
+            
+            let data =  res.attachment;
 
             var bars = [];
             var meta = {
                 noData: false,
             };
 
-            if (data.s === 'no_data' || data.c.length == 0) {
+            if (res.status !== 200 || data.length == 0) {
                 meta.noData = true;
-                meta.nextTime = data.nextTime; // 只有在请求的时间段内没有数据时，才应该被设置
             } else {
-                var volumePresent = data.v !== undefined;
-                var ohlPresent = data.o !== undefined;
+                for (var i = 0; i < data.length; ++i) {
+                    let item = data[i];
 
-                for (var i = 0; i < data.t.length; ++i) {
                     var barValue = {
-                        time: data.t[i],
-                        close: Number(data.c[i]),
-                        open: Number(data.c[i]),
-                        high: Number(data.c[i]),
-                        low: Number(data.c[i]),
+                        time: item.currentTime || +new Date(item.createTime.replace(/-/g, '/')),
+                        close: Number(item.closePrice),
+                        open: Number(item.openPrice),
+                        high: Number(item.highPrice),
+                        low: Number(item.lowPrice),
+                        volume: Number(item.volume)
                     };
-                    // console.log(TimeUtil.formatDate(barValue.time, 'yyyy-MM-dd HH:mm:ss'), barValue);
-                    if (ohlPresent) {
-                        barValue.open = Number(data.o[i]);
-                        barValue.high = Number(data.h[i]);
-                        barValue.low = Number(data.l[i]);
-                    }
 
-                    if (volumePresent) {
-                        barValue.volume = Number(data.v[i]);
-                    }
-
-                    barValue.timeTxt = TimeUtil.formatDate(new Date(data.t[i]), 'yyyy-MM-dd HH:mm:ss');
+                    barValue.timeTxt = TimeUtil.formatDate(item.currentTime, 'yyyy-MM-dd HH:mm:ss');
 
                     bars.push(barValue);
                 }
             }
 
-            this.cacheResult[params.resolution] = {
-                bars: bars,
-                meta: meta
-            };
-
-            defer.resolve({
+            this.historyData[_resolution] = {
                 bars: bars,
                 meta: meta,
-            });
+                last: bars[bars.length-1],
+                first: bars[0]
+            }
 
+            onHistoryCallback(bars, meta);
         })
+    }
 
-        return defer.promise();
-
+    getIntervalByPeriod(resolution) {
+        switch (resolution) {
+            case '1': // 1分钟
+            case '5': // 5分钟
+            case '10': // 10分钟
+            case '30': // 30分钟
+            case '60': // 60分钟
+                return resolution;
+                break;
+            case '1D':
+            case '5D':
+            case '7D':
+            case '1W':
+            case '1M':
+                return '70'; // 天
+            default:
+                return '1'; // 1秒
+                break;
+        }
     }
     /**
      * 订阅K线数据。图表库将调用onRealtimeCallback方法以更新实时数据
@@ -289,7 +180,52 @@ class UDFCompatibleDatafeed {
      * @param {*Function()将在bars数据发生变化时执行} onResetCacheNeededCallback 
      */
     subscribeBars(symbolInfo, resolution, onRealtimeCallback, subscriberUID, onResetCacheNeededCallback) {
-        console.log('------subscribeBars-------');
+        console.log('------subscribeBars-------', symbolInfo, resolution);
+
+        var symbol = symbolInfo.ticker || '';
+
+        let _resolution = this.getIntervalByPeriod(resolution);
+        
+        let fetch = () => {
+            getTradeKline({
+                symbol: symbol,
+                interval: _resolution,
+                limit: 1
+            }).then((res) => {
+                let data = res.attachment;
+
+                let result =  this.historyData[resolution] || {};
+                var bars = [];
+                var meta = {
+                    noData: false,
+                };
+
+                if (res.status !== 200 || data.length == 0) {
+                    result.noData = true;
+                } else {
+                    let item = data[0];
+
+                    var barValue = {
+                        time: item.currentTime || +new Date(item.createTime.replace(/-/g, '/')),
+                        close: Number(item.closePrice),
+                        open: Number(item.openPrice),
+                        high: Number(item.highPrice),
+                        low: Number(item.lowPrice),
+                        volume: Number(item.volume)
+                    };
+
+                    barValue.timeTxt = TimeUtil.formatDate(item.createTime, 'yyyy-MM-dd HH:mm:ss');
+                    console.log(barValue.timeTxt);
+                    onRealtimeCallback(barValue);
+                }
+            })
+            this.timer && clearTimeout(this.timer);
+            this.timer = setTimeout(()=>{
+                fetch();
+            }, 3 * 1000)
+        }
+
+        fetch();
     }
     /**
      * 取消订阅K线数据

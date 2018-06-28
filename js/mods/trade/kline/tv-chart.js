@@ -41,10 +41,10 @@ class TVChartContainer extends Component {
             chartType: 1,
             text: UPEX.lang.template('5min')
         }, {
-            slug: "15min",
-            resolution: "15", // 15分钟
+            slug: "10min",
+            resolution: "10", // 10分钟
             chartType: 1,
-            text: UPEX.lang.template('15min')
+            text: UPEX.lang.template('10min')
         }, {
             slug: "30min",
             resolution: "30", // 30分钟
@@ -55,32 +55,36 @@ class TVChartContainer extends Component {
             resolution: "60", // 1小时
             chartType: 1,
             text: UPEX.lang.template('1hour')
-        }, {
-            slug: "4hour",
-            resolution: "240", // 4小时
-            chartType: 1,
-            text: UPEX.lang.template('4hour')
-        }, {
+        }, 
+        // {
+        //     slug: "4hour",
+        //     resolution: "240", // 4小时
+        //     chartType: 1,
+        //     text: UPEX.lang.template('4hour')
+        // }, 
+        {
             slug: "1day",
             resolution: "1D", // 1天
             chartType: 1,
             text: UPEX.lang.template('1day')
-        }, {
-            slug: "5day",
-            resolution: "5D", // 5天
-            chartType: 1,
-            text: UPEX.lang.template('5day')
-        }, {
-            slug: "1week",
-            resolution: "7D", // 7天
-            chartType: 1,
-            text: UPEX.lang.template('1week')
-        }, {
-            slug: "1mon",
-            resolution: "1M", // 1月
-            chartType: 1,
-            text: UPEX.lang.template('1mon')
-        }];
+        }, 
+        // {
+        //     slug: "5day",
+        //     resolution: "5D", // 5天
+        //     chartType: 1,
+        //     text: UPEX.lang.template('5day')
+        // }, {
+        //     slug: "1week",
+        //     resolution: "7D", // 7天
+        //     chartType: 1,
+        //     text: UPEX.lang.template('1week')
+        // }, {
+        //     slug: "1mon",
+        //     resolution: "1M", // 1月
+        //     chartType: 1,
+        //     text: UPEX.lang.template('1mon')
+        // }
+        ];
 
         this.defaultThemes = {
             "light": {
@@ -152,7 +156,7 @@ class TVChartContainer extends Component {
         currencyNameEn = getTradeCoinById(currencyId).currencyNameEn;
 
         let currentSymbolName = `${currencyNameEn}/${baseCurrencyNameEn}`;
-        console.log(interval);
+
 		var cfg = {
             debug: false,
             symbol: currentSymbolName, // 商品名称

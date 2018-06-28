@@ -121,20 +121,21 @@ var config = {
         color: true,  // 命令行是否彩色
         inline: true, // 项目文件保存自动编译文件模块
         host: '0.0.0.0',
+        disableHostCheck: true,
         port: 80 // 启动端口
     },
     
     // 插件
     plugins: [
         extractCSS,
-        // new webpack.optimize.UglifyJsPlugin({
-        //     compress: {
-        //         warnings: false
-        //     },
-        //     output: {
-        //         comments: false,
-        //     }
-        // }),
+        new webpack.optimize.UglifyJsPlugin({
+            compress: {
+                warnings: false
+            },
+            output: {
+                comments: false,
+            }
+        }),
         new StringReplacePlugin(),
         new webpack.optimize.CommonsChunkPlugin({
             name: "commons",
