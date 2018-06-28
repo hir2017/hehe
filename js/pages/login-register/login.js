@@ -146,7 +146,7 @@ class Login extends Component {
                                 </div>
                             </div>
                             
-                            { this.state.loginErrorText ? <div className="error-tip">this.state.loginErrorText</div> : '' }
+                            { this.state.loginErrorText ? <div className="error-tip">{this.state.loginErrorText}</div> : '' }
                             
                             <div className="input-wrapper">
                                 <div className="login-input">
@@ -178,9 +178,9 @@ class Login extends Component {
                                     </div>
                                 </div>
                             </div>
-                            <div className="error-tip">
-                                { this.state.loginErrorText ? this.state.loginErrorText : '' }
-                            </div>
+                            
+                            { this.state.loginErrorText ? <div className="error-tip">{this.state.loginErrorText }</div>: '' }
+                            
                             <div className="input-wrapper">
                                 <div className="login-input">
                                     <button className="submit-btn login-btn" onClick={ this.handleLoginVerifyCode }>{ UPEX.lang.template('登录') }</button>
@@ -277,9 +277,8 @@ class Login extends Component {
                                 </div>
                             </div>
                         </div>
-                        <div className="error-tip">
-                            { this.state.loginErrorText ? this.state.loginErrorText : '' }
-                        </div>
+                        
+                        { this.state.loginErrorText ? <div className="error-tip">{this.state.loginErrorText}</div> : '' }
 
                         <div className="input-wrapper">
                             {
