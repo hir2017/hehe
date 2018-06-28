@@ -195,6 +195,7 @@ Zepto不支持旧版本的Internet Explorer浏览器(<10)。
 	* 资金变动记录
         * 需求：
             * 根据资金变动类型获取对应记录
+            * 状态文案
         * 接口：
             * 注册前发送邮箱验证码接口：[`/rechargeWithdraw/getRechargeWithdrawBillInfo[POST]`]()
             * status对照
