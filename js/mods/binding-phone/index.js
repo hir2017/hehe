@@ -78,10 +78,12 @@ export default class Phone extends Component {
                         <p>{UPEX.lang.template('提現、修改密碼，及安全設置時接收短信使用')}</p>
                     </Col>
                     <Col className="operator" span={12}>
-                        {/* <div className="switch">
-                            {UPEX.lang.template('启用登录手机认证')}
-                            <Switch onChange={this.phoneSwitch} loading={loading} checked={checked} />
-                        </div> */}
+                        {
+                            <div className="switch">
+                                {UPEX.lang.template('启用登录手机认证')}
+                                <Switch onChange={this.phoneSwitch} loading={loading} checked={checked} />
+                            </div>
+                        }
                         <Button>
                             {userInfo.phone ? (
                                 <Link to="/user/modifyPhone">{UPEX.lang.template('修改')}</Link>

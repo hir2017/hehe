@@ -1,5 +1,5 @@
 /**
- * @fileoverview K线图Javascript API
+ * @fileoverview K线图Javascript API 。展示最新2000条 ＋ 新的实时更新
  * @author 陈立英
  * @date 2018-05-22
  */
