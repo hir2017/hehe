@@ -2,6 +2,14 @@
  * @fileoverview 币种信息
  * @author 陈立英
  * @date 2018-05-010
+ *  case 0:tableName = "qt_minline";break;
+    case 1:tableName = "qt_kline_min_one";break;
+    case 5:tableName = "qt_kline_min_five";break;
+    case 10:tableName = "qt_kline_min_ten";break;
+    case 30:tableName = "qt_kline_min_thirty";break;
+    case 60:tableName = "qt_kline_hour";break;
+    case 70:tableName = "qt_kline_day";break;
+    default:tableName = "";
  */
 import React, {Component} from 'react';
 import { observer, inject } from 'mobx-react';
@@ -26,8 +34,8 @@ class TVChartContainer extends Component {
 		super(props);
         // 分钟线；天线；月线
         this.timeline = [{
-            slug: "1min",
-            resolution: "1", // 1分钟
+            slug: "realtime",
+            resolution: "1",
             chartType: 3,
             text: UPEX.lang.template('分时')
         },{
@@ -342,8 +350,6 @@ class TVChartContainer extends Component {
                             resolution: interval
                         });
                     }
-
-                    console.log(interval, obj);
 				})
 
                 widget.chart().setChartType(currentPeroid.chartType); // 设置线图类型的
@@ -404,6 +410,8 @@ class TVChartContainer extends Component {
         let currentPeroid = cachePeriod ? cachePeriod : this.timeline[0];
         
         let resolution = currentPeroid.resolution;
+
+        this.currentPeroid = currentPeroid;
 
         return resolution;
 	}

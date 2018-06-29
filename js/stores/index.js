@@ -4,6 +4,7 @@ import LoginStore from './login';
 import CaptchaStore from './captcha';
 import AnnouncementStore from './announcement';
 import HomeStore from './home';
+import BannerStore from './banner';
 import TradeStore from './trade';
 import AccountStore from './account';
 import TradePwdStore from './tradepwd';
@@ -34,6 +35,7 @@ class RootStore {
         this.loginStore = new LoginStore(this);
         this.announcementStore = new AnnouncementStore(this);
         this.homeStore = new HomeStore(this);
+        this.bannerStore = new BannerStore(this);
         this.tradeStore = new TradeStore(this);
         this.accountStore = new AccountStore(this);
         this.userInfoStore = new UserInfoStore(this);

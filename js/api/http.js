@@ -173,6 +173,18 @@ export function getAnnounceDetail(id) {
     })).then(res => res.data);
 }
 
+
+// 获取banner列表
+export function getBannerList() {
+    let local = UPEX.cache.getCache('lang');
+
+    local = local == undefined || local == '' ? 'zh_TW' : local;
+    
+    return axios.post(`${UPEX.config.host}/banner/banner`, qs.stringify({
+        type: 1,
+        language: local
+    })).then(res => res.data);
+}
 /**
  *  基本币种列表
  */

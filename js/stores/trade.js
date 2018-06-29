@@ -69,8 +69,8 @@ class TradeStore {
         this.marketListStore = new MarketListStore(stores);
         this.headerHeight = 60;
         this.space = 10;
-        this.maxHandleHeight = 330; // 操作区域高度 280
-        this.minHandleHeight = 280; // 操作区域高度 280
+        this.maxHandleHeight = 330; // 操作区域高度 
+        this.minHandleHeight = 300; // 操作区域高度 
         this.minChartHeight = 270; // K线图最小高度270
         this.minContentHeight = 270;
 

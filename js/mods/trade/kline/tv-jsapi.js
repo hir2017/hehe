@@ -107,13 +107,13 @@ class UDFCompatibleDatafeed {
         getTradeKline({
             symbol: symbolInfo.ticker || '',
             interval: _resolution,
-            limit: 500,
+            limit: 1440,
             startTime: startDate,
             endTime: endDate
         }).then((res)=>{
             
             let data =  res.attachment;
-
+            
             var bars = [];
             var meta = {
                 noData: false,
@@ -152,7 +152,8 @@ class UDFCompatibleDatafeed {
     }
 
     getIntervalByPeriod(resolution) {
-        switch (resolution) {
+        switch (resolution + '') {
+            case '0':
             case '1': // 1分钟
             case '5': // 5分钟
             case '10': // 10分钟

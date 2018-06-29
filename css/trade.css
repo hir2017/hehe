@@ -21,7 +21,7 @@
 
 
 .trade-main {
-    padding-right: 540px;
+    padding-right: 550px;
     padding-bottom: 10px;
     padding-top: 10px;
 }
@@ -357,7 +357,7 @@
 }
 
 .trade-extra-content {
-    width: 530px;
+    width: 540px;
     position: relative;
 }
 
@@ -652,21 +652,28 @@
 }
 
 .trade-form-hd {
-    height: 42px;
-    line-height: 42px;
-    padding: 0 10px;
+    height: 40px;
+    line-height: 40px;
     border-bottom: 1px solid #f8f8fb;
     font-size: 14px;
+    padding: 0 10px;
+}
+
+.trade-form-hd .hd-box{
+    padding: 0 10px;
 }
 
 .trade-form-hd em {
     padding: 0 5px;
 }
 
+.trade-form-hd label{
+    padding: 0 5px;
+}
+
 .trade-form-hd a,
 .trade-form-hd a:hover {
-    color: #e6bc1d;
-    padding: 0 3px;
+    color: #cc9900;
 }
 
 .trade-form-hd .recharge {
@@ -675,7 +682,7 @@
     top: 0;
     height: 42px;
     line-height: 42px;
-    color: #e6bc1d;
+    color: #fee8c2;
     cursor: pointer;
 }
 
@@ -688,15 +695,17 @@
 
 .trade-form-bd {
     font-size: 12px;
+    padding: 0 10px;
 }
 
 .trade-form-bd ul {
-    padding: 5px 10px;
+    
 }
 
 .trade-form-bd ul li {
     overflow: hidden;
     margin-bottom: 2px;
+    padding: 0 10px;
 }
 
 
@@ -708,9 +717,9 @@
 }
 
 .trade-form-bd label {
-    line-height: 16px;
-    height: 26px;
-    line-height: 26px;
+    line-height: 27px;
+    height: 27px;
+    display: block;
     vertical-align: middle;
 }
 
@@ -744,35 +753,39 @@
 
 .trade-form-bd .input-box {
     position: relative;
-    border: 1px solid rgb(204, 204, 204);
-    border-radius: 2px;
-    padding-left: 5px;
-    padding-right: 30px;
-    height: 30px;
-    line-height: 30px;
+    border: 1px solid #333333;
+    border-radius: 3px;
+    padding-left: 10px;
+    padding-right: 40px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 16px;
+    background-color: #121211;
 }
 
 .trade-form-bd .input-box i {
     position: absolute;
-    right: 1px;
+    right: 0;
     top: 0;
-    padding: 0 3px;
-    height: 30px;
-    line-height: 30px;
+    padding: 0 10px;
     font-style: normal;
+    font-size: 14px;
+    color: #333;
 }
 
 .trade-form-bd .input-box input {
     border: 0 none;
     background: none;
-    height: 26px;
-    line-height: 26px;
+    height: 20px;
+    line-height: 20px;
+    padding: 10px 0;
     outline: 0 none;
+    color: #fee8c2;
     width: 100%;
 }
 
 .trade-form-bd .slider-box {
-    padding: 0 10px 10px;
+    height: 50px;
 }
 
 .trade-form .ant-slider {
@@ -817,6 +830,9 @@
     border-color: #e6bc1d;
 }
 
+.trade-form .ant-slider-rail{
+    height: 
+}
 
 /**
  * 我的订单模块
@@ -1049,7 +1065,7 @@
 .app-trade[data-theme="dark"] .order-table dd,
 .app-trade[data-theme="dark"] .trade-extra-list,
 .app-trade[data-theme="dark"] .trade-current-coin .coin-list-hd input {
-    color: #999999;
+    /* color: #999999; */
 }
 
 .app-trade[data-theme="dark"] .trade-current-coin,

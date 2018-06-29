@@ -96,7 +96,7 @@ class MarketCoinList extends Component {
 					<div className="">
 						<div className="table-header">
 							<ul>
-                                <li>
+                                <li key="header">
                                     <span className="cell name">{UPEX.lang.template('币种')}</span>
                                     <span className="cell amount" onClick={this.sortHandle.bind(this,'currentAmount')}>
                                         {UPEX.lang.template('最新价')}

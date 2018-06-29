@@ -99,14 +99,14 @@ class TradeForm extends Component{
 					<div className="trade-form-l">
 						{
 							authStore.isLogin ? (
-								<div>
+								<div className="hd-box">
 									<label>{UPEX.lang.template('可用')}</label>
 									<em>{ store.baseCoinBalance.text }</em>
 									<label>{ store.baseCurrencyNameEn}</label>
 									<div className="recharge" onClick={this.goRecharge.bind(this,'fiat')}>{UPEX.lang.template('充值')}</div>
 								</div>
 							) : (
-								<div>
+								<div className="hd-box">
 									<Link to='/login'>{ UPEX.lang.template('登录')}</Link>
 									<label>{ UPEX.lang.template('或')}</label>
 									<Link to='/register'>{ UPEX.lang.template('注册')}</Link>
@@ -118,14 +118,14 @@ class TradeForm extends Component{
 					<div className="trade-form-r">
 						{
 							authStore.isLogin ? (
-								<div>
+								<div className="hd-box">
 									<label>{UPEX.lang.template('可用')}</label>
 									<em>{ store.tradeCoinBalance.text }</em>
 									<label>{ store.currencyNameEn }</label>
 									<div className="recharge" onClick={this.goRecharge.bind(this, 'coin')}>{UPEX.lang.template('充币')}</div>
 								</div>
 							) : (
-								<div>
+								<div className="hd-box">
 									<Link to='/login'>{ UPEX.lang.template('登录')}</Link>
 									<label>{ UPEX.lang.template('或')}</label>
 									<Link to='/register'>{ UPEX.lang.template('注册')}</Link>
@@ -135,7 +135,7 @@ class TradeForm extends Component{
 						}
 					</div>
 				</div>
-				<div className="trade-form-bd">
+				<div className="trade-form-bd clearfix">
 					<div className="trade-form-l">
 						<div>
 							<ul>
@@ -143,9 +143,8 @@ class TradeForm extends Component{
 									<label>{UPEX.lang.template('最佳买价')}</label>
 									<em>{ store.bestBuyPrice } ({store.baseCurrencyNameEn}) </em>
 								</li>
-								<li>
+								<li className="item-price">
 									<label>{UPEX.lang.template('买入价')}</label>
-									
 									<div className="input-box">
 										<Tooltip placement="top" visible={store.tradePriceErr == '' ? false : true} title={store.tradePriceErr}>
 										<input
@@ -158,7 +157,7 @@ class TradeForm extends Component{
 										<i>{ store.baseCurrencyNameEn }</i>
 									</div>
 								</li>
-								<li>
+								<li className="item-num">
 									<label>{UPEX.lang.template('买入量')}</label>
 									<div className="input-box">
 										<input
@@ -170,7 +169,7 @@ class TradeForm extends Component{
 										<i>{store.currencyNameEn}</i>
 									</div>
 								</li>
-								<li>
+								<li className="item-slider">
 									<div className="slider-box">
 										<Slider 
 										 	tipFormatter={null}
@@ -201,7 +200,7 @@ class TradeForm extends Component{
 									<label>{UPEX.lang.template('手续费')}</label>
 									<em>{ store.dealBuyFee }({store.currencyNameEn})</em>
 								</li>
-								<li>
+								<li className="item-total">
 									<label>{UPEX.lang.template('金额')}</label>
 									<em>{ store.dealBuyTotalAmount }({store.baseCurrencyNameEn})</em>
 								</li>
@@ -218,7 +217,7 @@ class TradeForm extends Component{
 									<label>{UPEX.lang.template('最佳卖价')}</label>
 									<em>{ store.bestSellPrice } ({store.baseCurrencyNameEn}) </em>
 								</li>
-								<li>
+								<li className="item-price">
 									<label>{UPEX.lang.template('卖出价')}</label>
 									<div className="input-box">
 										<input
@@ -230,7 +229,7 @@ class TradeForm extends Component{
 										<i>{ store.baseCurrencyNameEn }</i>
 									</div>
 								</li>
-								<li>
+								<li className="item-num">
 									<label>{UPEX.lang.template('卖出量')}</label>
 									<div className="input-box">
 										<input
@@ -242,7 +241,7 @@ class TradeForm extends Component{
 										<i>{store.currencyNameEn}</i>
 									</div>
 								</li>
-								<li>
+								<li className="item-slider">
 									<div className="slider-box">
 										<Slider 
 										 	defaultValue={0} 
@@ -274,7 +273,7 @@ class TradeForm extends Component{
 									<label>{UPEX.lang.template('手续费')}</label>
 									<em>{ store.dealSellFee }({store.currencyNameEn})</em>
 								</li>
-								<li>
+								<li className="item-total">
 									<label>{UPEX.lang.template('金额')}</label>
 									<em>{ store.dealSellTotalAmount}({store.baseCurrencyNameEn})</em>
 								</li>
