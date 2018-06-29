@@ -409,13 +409,13 @@ body  .ant-select-dropdown-menu-item:hover {
     background-color: #e8b802;
 }
 
-.header-box .header-box-r .ant-switch:before, 
+.header-box .header-box-r .ant-switch:before,
 .header-box .header-box-r .ant-switch:after{
     width: 12px;
     height: 12px;
 }
 
-.header-box .header-box-r .ant-switch-checked:before, 
+.header-box .header-box-r .ant-switch-checked:before,
 .header-box .header-box-r .ant-switch-checked:after{
     margin-left: -13px;
 }
@@ -613,7 +613,6 @@ body  .ant-select-dropdown-menu-item:hover {
     font-size: 12px;
     color: rgb(153, 153, 153);
     border-top: 1px solid rgb(78, 78, 78);
-    border-bottom: 1px solid rgb(78, 78, 78);
 }
 
 .app-page[data-path="/home"] .app-footer {
@@ -779,7 +778,7 @@ body  .ant-select-dropdown-menu-item:hover {
      text-indent: 10px;
      outline: none;
  }
- .ace-form  .ant-select-selection__placeholder,  
+ .ace-form  .ant-select-selection__placeholder,
  .ace-form  .ant-select-search__field__placeholder {
      color: #ccc;
      font-weight: normal;
