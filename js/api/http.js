@@ -17,7 +17,7 @@ axios.interceptors.request.use(function(config) {
         let data = qs.parse(config.data)
         config.data = qs.stringify({
             ...data,
-            local: local
+            locale: local
         })
         return config
     }
@@ -29,14 +29,14 @@ axios.interceptors.request.use(function(config) {
             ...data,
             token: token,
             uid: uid,
-            local: local
+            locale: local
         })
     } else if (config.method === 'get' || config.method === 'delete') {
         config.params = {
             ...config.params,
             token: token,
             uid: uid,
-            local: local
+            locale: local
         }
     }
     return config;
