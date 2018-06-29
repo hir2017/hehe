@@ -35,7 +35,7 @@ class Banner extends Component {
                     		list.map((item, index)=>{
                     			return (
                     				<div className="slider-item" key={index}>
-			                            <img src={item} />                              
+			                            <img src={item.image} />                              
 			                        </div>
                     			)
                     		})

@@ -720,6 +720,10 @@
     line-height: 27px;
     height: 27px;
     display: block;
+}
+
+.trade-form-bd .item-total label{
+    display: inline-block;
     vertical-align: middle;
 }
 
@@ -760,7 +764,6 @@
     height: 40px;
     line-height: 40px;
     font-size: 16px;
-    background-color: #121211;
 }
 
 .trade-form-bd .input-box i {
@@ -780,12 +783,11 @@
     line-height: 20px;
     padding: 10px 0;
     outline: 0 none;
-    color: #fee8c2;
     width: 100%;
 }
 
 .trade-form-bd .slider-box {
-    height: 50px;
+    height: 30px;
 }
 
 .trade-form .ant-slider {
@@ -1045,6 +1047,15 @@
 
 .app-trade[data-theme="dark"]{
     background-color: #232323;
+}
+
+.app-trade[data-theme="dark"] .trade-form-bd .input-box{
+    background-color: #121211;
+}
+
+.app-trade[data-theme="dark"] .trade-form-bd .input-box input,
+.app-trade[data-theme="dark"] .ant-slider-mark-text{
+    color: #fee8c2;
 }
 
 .app-trade[data-theme="dark"] .trade-extra-list .list-box-l .list-box-bd li:hover,

@@ -9,7 +9,9 @@ axios.interceptors.request.use(function(config) {
     const uid = UPEX.cache.getCache('uid');
     let local = UPEX.cache.getCache('lang');
 
-    local = local == undefined || local == '' ? 'zh_TW' : local;
+    local = local == undefined || local == '' ? 'zh-TW' : local;
+
+    local =  local.replace('-', '_');
 
     if (!token && !uid) {
         let data = qs.parse(config.data)
@@ -178,11 +180,13 @@ export function getAnnounceDetail(id) {
 export function getBannerList() {
     let local = UPEX.cache.getCache('lang');
 
-    local = local == undefined || local == '' ? 'zh_TW' : local;
+    local = local == undefined || local == '' ? 'zh-TW' : local;
+
+    local =  local.replace('-', '_');
     
     return axios.post(`${UPEX.config.host}/banner/banner`, qs.stringify({
         type: 1,
-        language: local
+        language: local,
     })).then(res => res.data);
 }
 /**
