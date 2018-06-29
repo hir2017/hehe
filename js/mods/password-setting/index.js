@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import { Button, Switch, Modal, Input, message, Row, Col } from 'antd';
-import { Link } from 'react-router';
+import { Link, browserHistory } from 'react-router';
 
 @inject('userInfoStore', 'authStore')
 @observer
@@ -71,6 +71,33 @@ export default class BindingBank extends Component {
         const loading = this.props.userInfoStore.submit_loading;
         const userInfo = this.props.userInfoStore.userInfo || {};
         const isEnableFdPassword = userInfo.isEnableFdPassword !== 2 ? true : false;
+        let tradePwdData = {
+            noPhone: {
+                path: '/user/settingPhone',
+                label: UPEX.lang.template('绑定手机')
+            },
+            noPass: {
+                path: '/user/settingTraddingPassword',
+                label: UPEX.lang.template('添加')
+            },
+            modify: {
+                path: '/user/modifyTraddingPassword',
+                label: UPEX.lang.template('修改')
+            },
+        }
+        let currTradePwd;
+        switch (true) {
+            case userInfo.isValidatePhone !== 1:
+            currTradePwd = tradePwdData.noPhone;
+                break;
+            case !userInfo.isValidatePass:
+            currTradePwd = tradePwdData.noPass;
+                break;
+            default:
+            currTradePwd = tradePwdData.modify;
+                break;
+        }
+
         return (
             <div className="common-setting-box">
                 <Row className="pwd no-bottom top-radius-6">
@@ -80,18 +107,27 @@ export default class BindingBank extends Component {
                     </Col>
                     <Col className="level" span={8} />
                     <Col className="operator" span={8}>
-                        <Button>
-                            <Link to="/user/resetpwd">{UPEX.lang.template('修改')}</Link>
+                        <Button
+                            onClick={e => {
+                                browserHistory.push('/user/resetpwd');
+                            }}
+                            className="ace-secondary"
+                        >
+                            {UPEX.lang.template('修改')}
                         </Button>
                     </Col>
                 </Row>
                 <Row className="pwd bottom-radius-6">
                     <Col className="title" span={8}>
-                        <p>{UPEX.lang.template('交易密码')}</p>
+                        <p>
+                            {UPEX.lang.template('交易密码')}
+                            {userInfo.isValidatePass ? (
+                                <Link className="ace-link forget-pwd" to="/user/forgetTradingPassword">
+                                    {UPEX.lang.template('忘记交易密码？')}
+                                </Link>
+                            ) : null}
+                        </p>
                         <p>{UPEX.lang.template('用於交易、綁定解綁銀行卡充幣提現等資金 操作，需要嚴格保密')}</p>
-                        <div className="forget-pwd">
-                            {userInfo.isValidatePass ? <Link  className="ace-link" to="/user/forgetTradingPassword">{UPEX.lang.template('忘记交易密码？')}</Link> : null}
-                        </div>
                     </Col>
                     <Col className="level" span={8} />
                     <Col className="operator" span={8}>
@@ -99,8 +135,13 @@ export default class BindingBank extends Component {
                             {UPEX.lang.template('啟用委託認證')}
                             {userInfo.isValidatePhone ? <Switch onChange={this.passwordSwitch} checked={isEnableFdPassword} /> : null}
                         </span>
-                        <Button>
-                            {userInfo.phone ? (
+                        <Button onClick={e => {
+
+                                browserHistory.push(currTradePwd.path);
+                            }}
+                            className="ace-secondary">
+                            {currTradePwd.label}
+                            {/* {userInfo.phone ? (
                                 !userInfo.isValidatePass ? (
                                     <Link to="/user/settingTraddingPassword">{UPEX.lang.template('添加')}</Link>
                                 ) : (
@@ -108,7 +149,7 @@ export default class BindingBank extends Component {
                                 )
                             ) : (
                                 <Link to="/user/settingPhone">{UPEX.lang.template('绑定手机')}</Link>
-                            )}
+                            )} */}
                         </Button>
                     </Col>
                 </Row>

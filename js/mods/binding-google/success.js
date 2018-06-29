@@ -9,11 +9,12 @@ export default class Success extends Component {
         return (
             <div className="common-setting-box">
                 <Row className="pwd top-radius-6 bottom-radius-6">
-                    <Col className="title" span={12}>
+                    <Col className="title" span={8}>
                         <p>{UPEX.lang.template('解绑 Google验证器')}</p>
                         <p>{UPEX.lang.template('提現、修改密碼，及安全設置時接收短信使用')}</p>
                     </Col>
-                    <Col className="operator" span={12}>
+                    <Col  span={8} />
+                    <Col className="operator" span={8}>
                         <Button>
                             <Link to="/user/rmbindingGoogle">{UPEX.lang.template('解绑')}</Link>
                         </Button>

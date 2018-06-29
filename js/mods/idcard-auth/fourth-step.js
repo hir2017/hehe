@@ -45,7 +45,7 @@ export default class FourthStep extends Component {
                 case 2:
                     $bottom = (
                         <Button>
-                            <Link to="/trade">{UPEX.lang.template('去交易中心')}</Link>
+                            <Link to="/trade">{UPEX.lang.template('去行情中心')}</Link>
                         </Button>
                     );
                     break;

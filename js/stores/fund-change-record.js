@@ -24,15 +24,26 @@ class FundChangeRecordStore {
         withdraw: 2
     };
     statusMap = {
-        '0': UPEX.lang.template('待审核'),
-        '1': UPEX.lang.template('已完成'),
-        '2': UPEX.lang.template('审核中'),
-        '3': UPEX.lang.template('待付款'),
-        '4': UPEX.lang.template('被拒绝'),
-        '5': UPEX.lang.template('审核中'),
-        '6': UPEX.lang.template('被拒绝'),
-        '7': UPEX.lang.template('放款中'),
-        '8': UPEX.lang.template('放款失败'),
+        withdraw: {
+            '0': UPEX.lang.template('审核中'),
+            '1': UPEX.lang.template('已放款'),
+            '2': UPEX.lang.template('审核中'),
+            '3': UPEX.lang.template('审核中'),
+            '4': UPEX.lang.template('审核中'),
+            '5': UPEX.lang.template('审核中'),
+            '6': UPEX.lang.template('审核拒绝'),
+            '7': UPEX.lang.template('审核中'),
+            '8': UPEX.lang.template('放款失败'),
+        },
+        recharge: {
+            '0': UPEX.lang.template('待审核'),
+            '1': UPEX.lang.template('已完成'),
+            '2': UPEX.lang.template('待付款'),
+            '3': UPEX.lang.template('待付款'),
+            '5': UPEX.lang.template('用户已付款'),
+            '6': UPEX.lang.template('待付款'),
+            '9': UPEX.lang.template('超时取消'),
+        }
     }
 
     constructor(stores) {
@@ -95,11 +106,12 @@ class FundChangeRecordStore {
         arr.forEach((item, index) => {
             // item.createTime = TimeUtil.formatDate(item.createTime, 'yyyy-MM-dd HH:mm:ss');
             item._type = item.type === 1 ? 'recharge' : 'withdraw';
-            item._status = statusMap[item.status] || UPEX.lang.template('未知');
+            const tempMap = statusMap[item._type];
+            item._status = tempMap[item.status] || UPEX.lang.template('未知');
             item._actionName = `${UPEX.lang.template('银行卡')}${item.type === 1 ? UPEX.lang.template('充值') : UPEX.lang.template('提现')}`;
             item._payMethod = item.type === 1 ? item.openBank : UPEX.lang.template('法币账户');
-            if(item.status === 4 || item.status === 6) {
-                item._status += ',' + UPEX.lang.template('原因：{reason}', {reason: item.reason});
+            if(item.status === 6) {
+                item._status += ',' + UPEX.lang.template('\n 原因：{reason}', {reason: item.reason});
 
             }
         });
