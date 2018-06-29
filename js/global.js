@@ -131,9 +131,24 @@ const symbols = {
     'USD': '$'
 }
 
+var PROTOCOL = (function() {
+    if (location.protocol === 'https:') {
+        return 'https:';
+    } else {
+        return 'http:';
+    }
+})();
+
+var SOCKET_PROTOCOL = (function() {
+    if (location.protocol === 'https:') {
+        return 'wss:';
+    } else {
+        return 'ws:';
+    }
+})();
+
 const origin = (function(){
     let origin;
-    let reg = /(?=^.{4,253}$)(^((?!-)[a-zA-Z0-9-]{1,63}(?<!-)\.)+[a-zA-Z]{2,63}\.?$)/
 
     let hostname = location.hostname;
 
@@ -163,11 +178,11 @@ const origin = (function(){
     return origin;
 })();
 
-const host = location.protocol + '//' +  origin +'/polarisex';
+const host = PROTOCOL + '//' +  origin +'/polarisex';
 const uploadHost = host + '/upload/upload';
 const uploadImgHost =  host + '/user/uploadImageSingle';
-const websocketHost = 'ws://' + origin + '/';
-const imgHost = location.protocol + '//' + origin + '/img';
+const websocketHost = SOCKET_PROTOCOL + '//' + origin + '/';
+const imgHost = PROTOCOL + '//' + origin + '/img';
 
 const config = {
     baseCurrencyEn: 'TWD',
