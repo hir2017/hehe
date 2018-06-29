@@ -158,11 +158,11 @@ const origin = (function(){
     return origin;
 })();
 
-const host = 'http://' +  origin +'/polarisex';
+const host = location.protocol + '//' +  origin +'/polarisex';
 const uploadHost = host + '/upload/upload';
 const uploadImgHost =  host + '/user/uploadImageSingle';
 const websocketHost = 'ws://' + origin + '/';
-const imgHost = 'http://' + origin + '/img';
+const imgHost = location.protocol + '//' + origin + '/img';
 
 const config = {
     baseCurrencyEn: 'TWD',
