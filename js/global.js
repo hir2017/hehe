@@ -133,6 +133,7 @@ const symbols = {
 
 const origin = (function(){
     let origin;
+    let reg = /(?=^.{4,253}$)(^((?!-)[a-zA-Z0-9-]{1,63}(?<!-)\.)+[a-zA-Z]{2,63}\.?$)/
 
     let hostname = location.hostname;
 
@@ -140,7 +141,11 @@ const origin = (function(){
         origin = hostname;
     }
 
-    // // 根据环境获取不同的域名活着IP
+    if (hostname.indexOf('io') > -1) {
+        origin = hostname;
+    }
+
+    // 根据环境获取不同的域名活着IP
     switch(Url.query('env')) {
         case 'dev':
             // 开发环境
