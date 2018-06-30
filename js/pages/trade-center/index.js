@@ -127,7 +127,7 @@ class TradeContent extends Component {
                                         }
                                     </ul>
                                 </div>
-                                <div className="list-box-bd" style={{ height: store.extraOrderHeight - 42}}>
+                                <div className="list-box-bd">
                                     <div className="table-hd">
                                         <div className="price">{ UPEX.lang.template('价格')}</div>
                                         <div className="number">{ UPEX.lang.template('数量')}</div>

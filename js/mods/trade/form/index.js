@@ -100,7 +100,7 @@ class TradeForm extends Component{
 						{
 							authStore.isLogin ? (
 								<div className="hd-box">
-									<label>{UPEX.lang.template('可用')}</label>
+									<span>{UPEX.lang.template('可用')}</span>
 									<em>{ store.baseCoinBalance.text }</em>
 									<label>{ store.baseCurrencyNameEn}</label>
 									<div className="recharge" onClick={this.goRecharge.bind(this,'fiat')}>{UPEX.lang.template('充值')}</div>
@@ -119,7 +119,7 @@ class TradeForm extends Component{
 						{
 							authStore.isLogin ? (
 								<div className="hd-box">
-									<label>{UPEX.lang.template('可用')}</label>
+									<span>{UPEX.lang.template('可用')}</span>
 									<em>{ store.tradeCoinBalance.text }</em>
 									<label>{ store.currencyNameEn }</label>
 									<div className="recharge" onClick={this.goRecharge.bind(this, 'coin')}>{UPEX.lang.template('充币')}</div>
@@ -171,14 +171,17 @@ class TradeForm extends Component{
 								</li>
 								<li className="item-slider">
 									<div className="slider-box">
-										<Slider 
-										 	tipFormatter={null}
-										 	marks={sliderMarks}
-										 	tipFormatter={(value)=>`${value}%`}
-				                            onChange={this.onChangeBuySlider} 
-				                            value={store.buySliderValue}
-				                            disabled={authStore.isLogin ? false : true}
-				                        />
+										<Slider marks={sliderMarks} defaultValue={37} />
+										{
+										// <Slider 
+										//  	tipFormatter={null}
+										//  	marks={sliderMarks}
+										//  	tipFormatter={(value)=>`${value}%`}
+				      //                       onChange={this.onChangeBuySlider} 
+				      //                       value={store.buySliderValue}
+				      //                       disabled={authStore.isLogin ? false : true}
+				      //                   />
+										}
 			                        </div>
 								</li>
 								{
@@ -202,7 +205,8 @@ class TradeForm extends Component{
 								</li>
 								<li className="item-total">
 									<label>{UPEX.lang.template('金额')}</label>
-									<em>{ store.dealBuyTotalAmount }({store.baseCurrencyNameEn})</em>
+									<em>{store.dealBuyTotalAmount}</em>
+									<label>{store.baseCurrencyNameEn}</label>
 								</li>
 								<li>
 									<button className="btn buy" disabled={ authStore.isLogin ? false : true} onClick={this.submitOrder.bind(this, 'buy')}>{UPEX.lang.template('买入')}</button>
@@ -275,7 +279,8 @@ class TradeForm extends Component{
 								</li>
 								<li className="item-total">
 									<label>{UPEX.lang.template('金额')}</label>
-									<em>{ store.dealSellTotalAmount}({store.baseCurrencyNameEn})</em>
+									<em>{ store.dealSellTotalAmount}</em>
+									<label>{store.baseCurrencyNameEn}</label>
 								</li>
 								<li>
 									<button className="btn sell" disabled={ authStore.isLogin ? false : true} onClick={this.submitOrder.bind(this, 'sell')}>{UPEX.lang.template('卖出')}</button>

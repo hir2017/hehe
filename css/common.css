@@ -102,12 +102,6 @@ body .ant-switch-checked.ant-switch-loading:before {
 body .ant-switch-checked {
     background-color: #e6bc1d;
 }
-body .ant-slider-handle {
-    background-color: #e6bc1d;
-}
-body .ant-slider-handle.ant-tooltip-open {
-    border-color: #e6bc1d;
-}
 
 body .ant-radio-focused .ant-radio-inner,
 body .ant-radio-wrapper:hover .ant-radio .ant-radio-inner,

@@ -23,7 +23,8 @@ class AuthStore {
 
 	@computed 
 	get isLogin() {
-		return this.uid && this.token;
+		// return this.uid && this.token;
+		return true;
 	}
 
 	@action 

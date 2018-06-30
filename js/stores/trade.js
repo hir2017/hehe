@@ -605,9 +605,7 @@ class TradeStore {
         });
 
         // 降序排序
-        sell = sell.sort((a, b) => {
-            return b.current - a.current;
-        });
+        sell = sell.reverse();
 
         data.buy = buy;
         data.sell = sell;

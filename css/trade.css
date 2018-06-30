@@ -383,12 +383,13 @@
 
 .trade-extra-list .list-box-l {
     float: left;
-    width: 260px;
+    width: 265px;
     position: relative;
     height: 100%;
     background-color: #fff;
     border-radius: 6px;
     overflow: hidden;
+    display: flex;
 }
 
 .trade-extra-list .list-box-l .list-box-hd {
@@ -396,6 +397,11 @@
     line-height: 40px;
     background-color: #fff;
     border-bottom: 1px solid #f4f4f4;
+}
+
+.trade-extra-list .list-box-l .list-box-bd{
+    flex: 1;
+    padding: 10px 0;
 }
 
 .trade-extra-list .list-box-l .list-box-hd li {
@@ -425,7 +431,7 @@
     height: 30px;
     line-height: 30px;
     font-size: 12px;
-    color: #666666;
+    color: #ccc;
     padding: 0 15px;
     border-bottom: 1px solid #f4f4f4;
     overflow: hidden;
@@ -534,21 +540,13 @@
 }
 
 
-
-
-
-
-
-
-
-
 /**
  * 实时行情
  */
 
 .trade-extra-list .list-box-r {
     float: right;
-    width: 260px;
+    width: 265px;
     position: relative;
     height: 100%;
     background-color: #fff;
@@ -586,7 +584,7 @@
     height: 30px;
     line-height: 30px;
     font-size: 12px;
-    color: #666666;
+    color: #ccc;
     padding: 0 15px;
     background-color: #fff;
     border-bottom: 1px solid #f4f4f4;
@@ -687,12 +685,15 @@
 
 .trade-form-hd .recharge {
     position: absolute;
-    right: 5px;
+    right: 10px;
     top: 0;
-    height: 42px;
-    line-height: 42px;
+    height: 40px;
+    line-height: 40px;
     color: #fee8c2;
     cursor: pointer;
+}
+.trade-form-hd .recharge:hover{
+    text-decoration: underline;
 }
 
 .trade-form-l,
@@ -723,14 +724,31 @@
 }
 
 .trade-form-bd label {
-    line-height: 27px;
+    line-height: 32px;
     height: 27px;
     display: block;
+    overflow: hidden;
 }
 
 .trade-form-bd .item-total label {
     display: inline-block;
     vertical-align: middle;
+    max-width: 30px;
+    height: 27px;
+}
+
+.trade-form-bd .item-total em {
+    display: inline-block;
+    vertical-align: middle;
+    color: #fee8c2;
+}
+
+.trade-form-bd .trade-form-l .item-total{
+    color: #33c280;
+}
+
+.trade-form-bd .trade-form-r .item-total{
+    color: #ef5d7f;
 }
 
 .trade-form-bd .btn {
@@ -745,13 +763,18 @@
 
 .trade-form-bd .btn.buy {
     background-color: #33c280;
-    border: 1px solid #33c280;
+}
+
+.trade-form-bd .btn.buy:hover{
+    background-color: #4feaa2;
 }
 
 .trade-form-bd .btn.sell {
-    border: 1px solid #ef5d7f;
-    color: #ef5d7f;
-    background: none;
+    background-color: #ef5d7f;
+}
+
+.trade-form-bd .btn.sell:hover{
+    background-color: #ff7293;
 }
 
 .trade-form-bd button.btn:disabled {
@@ -792,28 +815,118 @@
     width: 100%;
 }
 
-.trade-form-bd ul li.item-total {
-    height: 27px;
-    line-height: 27px;
-    display: flex;
+.trade-form-bd ul li.item-total{
+    height: 20px;
+    line-height: 20px;
+}
+.trade-form-bd ul li.item-total label{
+    line-height: 20px;
+    height: 20px;
+    color: #999;
+}
+.trade-form-bd ul li.item-total em{
+    text-align: center;
+    padding: 0 10px;
+    color: #999;
 }
 
-.trade-form-bd ul li.ant-slider {
+.trade-form-bd ul li.item-slider{
+    padding-right: 17px;
+}
+
+.trade-form-bd ul li .ant-slider {
     font-size: 12px;
-    height: 50px;
+    height: 40px;
+    margin-left: 0;
+    margin-right: 0;
 }
 
 .trade-form .ant-slider-mark {
     font-size: 12px;
 }
 
-.trade-form .ant-slider-mark-text-active {
-    color: #e6bc1d;
+
+.trade-form  .ant-slider-dot:first-child{
+    margin-left: 0;
 }
 
-.trade-form .ant-slider-handle,
+.trade-form  .ant-slider-dot:last-child{
+    margin-left: 0;
+}
+
+.trade-form .ant-slider-mark-text {
+    color: #666666;
+}
+
+.trade-form .ant-slider-rail{
+    height: 1px;
+    background-color: #666666;
+}
+
+.trade-form .ant-slider:hover .ant-slider-rail {
+    background-color: #666666;
+}
+
+.trade-form .ant-slider-step,
+.trade-form .ant-slider-track {
+    height: 1px;
+}
+
+
+.trade-form .ant-slider-dot{
+    width: 7px;
+    height: 7px;
+    background-color: #666;
+    border: 0 none;
+    top: -3px;
+    margin-left: 0px;
+}
+
+.trade-form .ant-slider-mark-text-active {
+    color: #fee8c2;
+    /* color: #e8b802; */
+}
+
+.trade-form .ant-slider-mark-text:first-child{
+    text-indent: 17px;
+}
+
+.trade-form .ant-slider-mark-text:last-child{
+    text-indent: -17px;
+}
+
+.trade-form .ant-slider-handle {
+    margin-left: -1px;
+    margin-top: -4px;
+    border: 1px solid #fee8c2;
+    width: 9px;
+    height: 9px;
+    background-color: #e8b802;
+}
+
+.trade-form  .ant-slider-with-marks{
+    margin-bottom: 0;
+}
+
+.trade-form .ant-slider:hover .ant-slider-handle:not(.ant-tooltip-open) {
+    border-color: #fee8c2;
+}
+
+.trade-form .ant-slider-disabled .ant-slider-handle{
+    background-color: #666666;
+}
+
 .trade-form .ant-slider-dot-active {
     border-color: #e6bc1d;
+    background-color: #e8b802;
+}
+
+.trade-form  .ant-slider-disabled .ant-slider-dot{
+    background-color: #666666;
+}
+
+.trade-form  .ant-slider-handle.ant-tooltip-open {
+    border-color: #fee8c2;
 }
 
 .trade-form .ant-slider-track {
@@ -824,25 +937,11 @@
     background-color: #e6bc1d;
 }
 
-.trade-form .ant-slider-handle:not(.ant-tooltip-open) {
-    border-color: #e6bc1d;
-}
-
 .trade-form .ant-slider-handle:focus {
-    /* border-color: #e6bc1d;
-    -webkit-box-shadow: 0 0 0 5px #e6bc1d;
-    -moz-box-shadow: 0 0 0 5px #e6bc1d;
-    box-shadow: 0 0 0 5px #e6bc1d; */
     box-shadow: none;
+    border: 1px solid #fee8c2;
 }
 
-.trade-form .ant-slider:hover .ant-slider-handle:not(.ant-tooltip-open) {
-    border-color: #e6bc1d;
-}
-
-.trade-form .ant-slider-rail {
-    height: 2px;
-}
 
 
 /**
@@ -1059,7 +1158,6 @@
     color: #fee8c2;
 }
 
-.app-trade[data-theme="dark"] .ant-slider-mark-text {}
 
 
 .app-trade[data-theme="dark"] .trade-extra-list .list-box-l .list-box-bd li:hover,
