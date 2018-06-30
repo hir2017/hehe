@@ -16,9 +16,17 @@ class Banner extends Component {
 	static defaultProps = {
 		list: [bannerImage, bannerImage, bannerImage]
 	}
+
 	componentDidMount(){
 		this.props.bannerStore.fetch();
 	}
+
+	handleClickBanner=(item, e)=>{
+		if (item.url) {
+			window.open(item.url);
+		}
+	}
+
 	render() {
 		let list = this.props.bannerStore.list;
 		let multi = false;
@@ -34,7 +42,7 @@ class Banner extends Component {
                     	{
                     		list.map((item, index)=>{
                     			return (
-                    				<div className="slider-item" key={index}>
+                    				<div className="slider-item" key={index} onClick={this.handleClickBanner.bind(this, item)}>
 			                            <img src={item.image} />                              
 			                        </div>
                     			)
