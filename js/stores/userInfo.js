@@ -274,7 +274,11 @@ class UserInfo {
                 this.getUserInfo();
                 return res;
             } else {
-                message.error(res.message);
+                if(res.status === 2006) {
+                    message.error(UPEX.lang.template('提交身份证已存在'));
+                } else {
+                    message.error(res.message);
+                }
                 return res;
             }
         } catch (e) {

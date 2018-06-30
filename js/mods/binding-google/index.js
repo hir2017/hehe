@@ -83,14 +83,8 @@ class Google extends Component {
         return (
             <AceForm className="modify-password-box google-auth-box">
                 <div className="google-auth-message">
-                    <div className="vcode">
-                        {gaSecretKey.qrcode ? <img src={`data:image/png;base64,${gaSecretKey.qrcode}`} /> : <img />}
-                        <div>{gaSecretKey.secretKey}</div>
-                    </div>
-                    <div className="tip">
-                        <span className="error-message">*</span>
-                        {UPEX.lang.template('为了您的资金安全，修改Google验证码后，24小时不可以提币')}
-                    </div>
+                    {gaSecretKey.qrcode ? <img src={`data:image/png;base64,${gaSecretKey.qrcode}`} /> : <img />}
+                    <div className="code-sms">{gaSecretKey.secretKey}</div>
                 </div>
                 <InputItem {...inputsData.google} />
                 <div>
@@ -99,18 +93,18 @@ class Google extends Component {
                         <img onClick={this.captchaChange} src={captcha} />
                     </div>
                 </div>
-                <div>
+                <div className="input-vcode-wrapper">
                     <InputItem {...inputsData.vCode} />
                     <div className="item v-code-button">
                         <Vcodebutton imgCode={this.state.ivCode} codeid={codeid} type="phone" />
                     </div>
                 </div>
-                <div className="info">
-                    <Link to="/user/google-guide">Google{UPEX.lang.template('验证器使用教程')}</Link>
-                </div>
                 <Button loading={loading} className="ace-submit-item" onClick={this.submit}>
                     {UPEX.lang.template('绑定')}
                 </Button>
+                <div className="info">
+                    <Link to="/user/google-guide">Google{UPEX.lang.template('验证器使用教程')}</Link>
+                </div>
             </AceForm>
         );
     }

@@ -9,6 +9,40 @@ import { observer, inject } from 'mobx-react';
 import { Input, Upload, Icon, Button, Pagination, Row, Col } from 'antd';
 const { TextArea } = Input;
 
+
+class ListView extends Component {
+
+    status(num) {
+        const _map = {
+            '1': UPEX.lang.template('未回复'),
+            '-1': UPEX.lang.template('逻辑删除'),
+            '2': UPEX.lang.template('已回复')
+        }
+        return _map[num] || num;
+    }
+
+    render() {
+        const {dataSource} = this.props
+        return (
+            <ul>
+                {dataSource.map((item, index) => {
+                    return (
+                        <li key={index}>
+                            <dl>
+                                <dd className="content" title={item.detail}>
+                                    <Link to={`/user/feedbackDetails/${item.qid}`}>{item.detail}</Link>
+                                </dd>
+                                <dd className={`status lvl-${item.status + 1}`}>{this.status(item.status)}</dd>
+                                <dd className="time" title={item.createTime}>{item.createTime}</dd>
+                            </dl>
+                        </li>
+                    );
+                })}
+            </ul>
+        );
+    }
+}
+
 import PageWrapper from '../../common-mods/page-user/page-wrapper';
 
 @inject('userInfoStore')
@@ -23,33 +57,23 @@ export default class extends Component {
         this.props.userInfoStore.questions(page);
     };
 
-    status(num) {
-        const _map = {
-            '1': UPEX.lang.template('未回复'),
-            '-1': UPEX.lang.template('逻辑删除'),
-            '2': UPEX.lang.template('已回复')
-        }
-        return _map[num] || num;
-    }
-
     render() {
         const count = this.props.userInfoStore.questionsLsit.count;
         const questionsLsit = this.props.userInfoStore.questionsLsit.list || [];
+        let $content;
+        if (questionsLsit.length == 0) {
+            $content = <div className="mini-tip">{UPEX.lang.template('暂无数据')}</div>;
+        } else {
+            $content = <ListView dataSource={questionsLsit}/>;
+        }
         return (
             <PageWrapper title={UPEX.lang.template('問題列表')}>
-                <ul className="question-content">
-                    {questionsLsit.map((item, index) => {
-                        return (
-                            <li key={index}>
-                                <span title={item.detail}>
-                                    <Link to={`/user/feedbackDetails/${item.qid}`}>{item.detail}</Link>
-                                </span>
-                                <span className={`status lvl-${item.status + 1}`}>{this.status(item.status)}</span>
-                                <span title={item.createTime}>{item.createTime}</span>
-                            </li>
-                        );
-                    })}
-                </ul>
+                <div className="account-result-list questions">
+                    <div className="table-bd">
+                        {$content}
+                    </div>
+                </div>
+
                 <div className="question-page">
                     <Pagination onChange={this.pageChange} size="small" total={count} />
                 </div>

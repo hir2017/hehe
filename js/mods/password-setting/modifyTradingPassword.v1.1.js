@@ -123,12 +123,7 @@ export default class ModifyTradingPassword extends Component {
                 {inputsData.map((item, i) => {
                     return <InputItem key={i} {...item} />;
                 })}
-                {/* <div>
-                   <InputItem {...vCodeData} />
-                    <div className="item v-code-button">
-                        <Vcodebutton imgCode={this.state.ivCode} codeid={codeid} type="phone" />
-                    </div>
-                </div> */}
+
                 <Button loading={loading} className="ace-submit-item" onClick={this.submit}>
                     {UPEX.lang.template('提交')}
                 </Button>

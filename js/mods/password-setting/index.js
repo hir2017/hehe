@@ -141,19 +141,10 @@ export default class BindingBank extends Component {
                             }}
                             className="ace-secondary">
                             {currTradePwd.label}
-                            {/* {userInfo.phone ? (
-                                !userInfo.isValidatePass ? (
-                                    <Link to="/user/settingTraddingPassword">{UPEX.lang.template('添加')}</Link>
-                                ) : (
-                                    <Link to="/user/modifyTraddingPassword">{UPEX.lang.template('修改')}</Link>
-                                )
-                            ) : (
-                                <Link to="/user/settingPhone">{UPEX.lang.template('绑定手机')}</Link>
-                            )} */}
                         </Button>
                     </Col>
                 </Row>
-                <div className="message">{UPEX.lang.template('※為了您的資金安全，忘記交易密碼并修改成功后，24小時內不可以提現提幣。')}</div>
+                <div className="message">{UPEX.lang.template('為了您的資金安全，忘記交易密碼并修改成功后，24小時內不可以提現提幣。')}</div>
                 <Modal
                     title={UPEX.lang.template('请输入交易密码')}
                     visible={this.state.visible}

@@ -1,12 +1,7 @@
-/**
- * @fileoverview  绑定手机
- * @author xia xiang feng
- * @date 2018-05-23
- */
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import { Button, Switch, Modal, Input, message, Row, Col } from 'antd';
-import { Link } from 'react-router';
+import { browserHistory } from 'react-router';
 import Vcodebutton from '../common/authcode-btn';
 
 @inject('userInfoStore')
@@ -70,6 +65,17 @@ export default class Phone extends Component {
         const loading = this.props.userInfoStore.submit_loading;
         const userInfo = this.props.userInfoStore.userInfo || {};
         const checked = userInfo.isPhoneAuth ? true : false;
+        let optData = {
+            set: {
+                path: '/user/settingPhone',
+                label: UPEX.lang.template('添加')
+            },
+            modify: {
+                path: '/user/modifyPhone',
+                label: UPEX.lang.template('修改')
+            },
+        }
+        let currBtn = optData[userInfo.phone ? 'modify' : 'set'];
         return (
             <div className="common-setting-box">
                 <Row className="pwd top-radius-6 bottom-radius-6">
@@ -85,18 +91,14 @@ export default class Phone extends Component {
                                 <Switch onChange={this.phoneSwitch} loading={loading} checked={checked} />
                             </div>
                         }
-                        <Button>
-                            {userInfo.phone ? (
-                                <Link to="/user/modifyPhone">{UPEX.lang.template('修改')}</Link>
-                            ) : (
-                                <Link to="/user/settingPhone">{UPEX.lang.template('添加')}</Link>
-                            )}
+                        <Button className="ace-secondary" onClick={e => {browserHistory.push(currBtn.path)}}>
+                            {currBtn.label}
                         </Button>
                     </Col>
                 </Row>
                 <div className="message">
-                    <p>※{UPEX.lang.template('為了您的安全或者降低手機遺失的風險，請在綁定手機號后立即綁定Google驗證器')}。</p>
-                    <p>※{UPEX.lang.template('為了您的資金安全，修改手機綁定后，24小時內不可以提現提幣')}</p>
+                    <p>{UPEX.lang.template('為了您的安全或者降低手機遺失的風險，請在綁定手機號后立即綁定Google驗證器')}。</p>
+                    <p>{UPEX.lang.template('為了您的資金安全，修改手機綁定后，24小時內不可以提現提幣')}</p>
                 </div>
 
                 <Modal

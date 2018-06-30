@@ -110,12 +110,12 @@ export default class extends Component {
                         onChange={this.handleChange}
                         accept="image/jpg,image/Jpeg,image/bmp,image/png,image/gif"
                     >
-                        {fileList.length >= 3 ? null : this.uploadButton}
+                        {fileList.length >= 1 ? null : this.uploadButton}
                     </Upload>
                 </div>
                 <Row className="submit">
                     <Col span={16}>
-                        {UPEX.lang.template('可上傳3個附件')}，
+                        {UPEX.lang.template('可上傳1個附件')}，
                         {UPEX.lang.template('每個文件大小不得超過5M。附件支持的格式有')}“jpg”，“Jpeg”,”bmp”,”png”,”gif”
                     </Col>
                     <Col className="align-right" span={8}>

@@ -39,11 +39,11 @@ export default class ThirdStep extends Component {
                 )}
                 <div>
                     <div className="submit">
-                        {userInfo.isAuthPrimary == 1 ? (
-                            <Button onClick={this.next}>{UPEX.lang.template('撤回重新提交')}</Button>
-                        ) : (
-                            <Button onClick={this.next}>{UPEX.lang.template('重新提交')}</Button>
-                        )}
+                        <Button onClick={this.next} className="ace-submit-item">
+                            {
+                                userInfo.isAuthPrimary == 1 ? UPEX.lang.template('撤回重新提交') : UPEX.lang.template('重新提交')
+                            }
+                        </Button>
                     </div>
                 </div>
             </AceForm>

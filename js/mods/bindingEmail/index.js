@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import { Button, Switch, Row, Col } from 'antd';
-import { Link } from 'react-router';
+import { browserHistory } from 'react-router';
 
 @inject('userInfoStore')
 @observer
@@ -17,14 +17,15 @@ export default class Email extends Component {
         return (
             <div className="common-setting-box">
                 <Row className="pwd top-radius-6 bottom-radius-6">
-                    <Col className="title" span={12}>
+                    <Col className="title" span={8}>
                         <p>{userInfo.email || UPEX.lang.template('请添加邮箱')}</p>
                         <p>{UPEX.lang.template('郵箱用於登錄、提幣及部分安全設置使用。我們也會給您提供 登錄提醒服務')}</p>
                     </Col>
-                    <Col className="operator" span={12}>
+                    <Col  span={8} />
+                    <Col className="operator" span={8}>
                         {userInfo.email ? null : (
-                            <Button>
-                                <Link to="/user/settingEmail"> {UPEX.lang.template('添加')}</Link>
+                            <Button className="ace-secondary" onClick={e => {browserHistory.push('/user/settingEmail')}}>
+                                {UPEX.lang.template('添加')}
                             </Button>
                         )}
                     </Col>

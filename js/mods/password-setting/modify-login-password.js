@@ -157,7 +157,7 @@ export default class ModifyPassword extends Component {
                 {gaBindSuccess ? (
                     <InputItem {...GAData} />
                 ) : (
-                    <div>
+                    <div className="input-vcode-wrapper">
                         <InputItem {...pcodeData} />
                         <div className="item v-code-button">
                             <Vcodebutton imgCode={this.state.ivCode} codeid={codeid} type={!userInfo.phone ? 'email' : 'phone'} />
