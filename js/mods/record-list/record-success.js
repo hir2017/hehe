@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import { observer, inject } from 'mobx-react';
 import {  Select, DatePicker, Pagination } from 'antd';
 
+const { RangePicker } = DatePicker;
+
 const Option = Select.Option;
 import toAction from './record-action';
 
@@ -34,19 +36,12 @@ class List extends Component {
 		this.action.handleFilter('page', {
 			page
 		});
-	}
-	// 开始时间
-	onChangeStartTime(value, dateString){
-		this.action.handleFilter('beginTime', {
-			beginTime: dateString
-		})
-	}
-	// 结束时间
-	onChangeEndTime(value, dateString) {
-		this.action.handleFilter('endTime', {
-			endTime: dateString
-		})
-	}
+    }
+
+    onChangeDate(dates, dateStrs) {
+        const [beginTime, endTime] = dateStrs;
+        this.action.handleFilter('dateArr', dateStrs);
+    }
 
 	onChangeCurrency=(value)=>{
 		this.action.handleFilter('currencyId', {
@@ -106,22 +101,12 @@ class List extends Component {
 					<div className="filter-box">
     					<ul>
     						<li>
-    							<label>{UPEX.lang.template('时间')}</label>
-    							<DatePicker
-    								onChange={this.onChangeStartTime.bind(this)}
-    								placeholder={UPEX.lang.template('选择日期')}
-    								allowClear={false}
-    							/>
-	                            <i>-</i>
-	                            <DatePicker
-	                            	onChange={this.onChangeEndTime.bind(this)}
-	                            	placeholder={UPEX.lang.template('选择日期')}
-	                            	allowClear={false}
-	                            />
+                              <RangePicker  size="large" onChange={this.onChangeDate.bind(this)} placeholder={[UPEX.lang.template('选择日期'), UPEX.lang.template('选择日期')]} allowClear={false}/>
+
     						</li>
     						<li>
     							<label>{UPEX.lang.template('币种')}</label>
-    							<Select defaultValue="0" onChange={this.onChangeCurrency}>
+    							<Select size="large" defaultValue="0" onChange={this.onChangeCurrency}>
     								<Option value="0">{UPEX.lang.template('全部')}</Option>
     								{
     									this.props.commonStore.productList.map((item)=>{
@@ -134,7 +119,7 @@ class List extends Component {
     						</li>
     						<li>
     							<label>{UPEX.lang.template('类型')}</label>
-    							<Select defaultValue="0" onChange={this.onChangeBuyOrSell}>
+    							<Select size="large" defaultValue="0" onChange={this.onChangeBuyOrSell}>
     								<Option value="0">{UPEX.lang.template('全部')}</Option>
     								<Option value="1">{UPEX.lang.template('买')}</Option>
     								<Option value="2">{UPEX.lang.template('卖')}</Option>

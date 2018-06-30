@@ -85,8 +85,8 @@
  * 头部过滤条
  */
 .order-header {
-    height: 60px;
-    line-height: 60px;
+    height: 90px;
+    line-height: 90px;
     border-bottom: 1px solid #f4f4f4;
 }
 
@@ -109,16 +109,30 @@
 
 .order-header .filter-box ul {
     white-space: nowrap;
+    text-align: center;
 }
 
 .order-header .filter-box li {
     display: inline-block;
     vertical-align: middle;
-    margin-right: 10px;
+    margin-right: 30px;
+    position: relative;
 }
 
+.order-header .filter-box li .ant-calendar-picker{
+    position: relative;
+    top: -3px;
+}
+
+.order-header .filter-box li label{
+    font-size: 14px;
+}
+
+.order-header .filter-box li .ant-input {
+    border-radius: 3px;
+}
 .order-header label {
-    padding: 0 3px;
+    padding-right: 6px;
     display: inline-block;
     vertical-align: middle;
 }
@@ -145,6 +159,8 @@
 }
 
 .order-table .mini-tip {
+    margin-top: 100px;
+    color: #ccc;
     text-align: center;
     min-height: 46px;
     line-height: 46px;
@@ -243,7 +259,7 @@
     border: 0 none;
     color: #cc9900;
     display: inline-block;
-    padding-right: 15px;
+    padding-right: 10px;
 }
 
 
@@ -251,7 +267,7 @@
 .order-table .detail-content {
     position: relative;
     display: none;
-    padding: 10px 10%;
+    padding: 30px 10%;
     min-height: 60px;
     background-color: #f8f8f8;
 }
@@ -285,8 +301,8 @@
 .order-table .detail-content table,
 .order-table .detail-content tr th,
 .order-table .detail-content table tr td {
-    border: 1px solid rgb(239, 239, 239);
     text-align: left;
+    font-size: 12px;
 }
 
 .order-table .detail-content table tr.data span.label {
@@ -299,6 +315,10 @@
     text-align: center;
 }
 
+.order-table .detail-content table tr td.cancel {
+    text-align: left;
+}
+
 .order-table .detail-content tr th,
 .order-table .detail-content tr td {
     padding: 4px 0;
@@ -306,7 +326,7 @@
 
 .order-table .detail-content table tr td.cancel span {
     display: inline-block;
-    padding: 0 2px;
+    padding: 0;
 }
 
 /**
@@ -387,7 +407,7 @@
     text-align: center;
     display: block;
     border-radius: 4px;
-} 
+}
 /**
  * 充币记录
  */
@@ -461,34 +481,34 @@
  * 资金记录
  */
 .fiat-list-table .swift-no{
-    width: 142px;
+    width: 322px;
     text-align: left;
     text-indent: 10px;
 }
 
 .fiat-list-table .time{
-    width: 186px;
-    text-align: left;
+    width: 166px;
+    text-align: right;
 }
 
 .fiat-list-table .name{
-    width: 120px;
-    text-align: left;
+    width: 140px;
+    text-align: right;
 }
 
 .fiat-list-table .balance{
     width: 152px;
-    text-align: left;
+    text-align: right;
 }
 
 .fiat-list-table .status{
     width: 160px;
-    text-align: left;
+    text-align: right;
 }
 
 .fiat-list-table .pay-method{
-    width: 300px;
-    text-align: left;
+    width: 120px;
+    text-align: right;
 }
 
 

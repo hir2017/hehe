@@ -37,17 +37,10 @@ class List extends Component {
             page
         });
     }
-    // 开始时间
-    onChangeStartTime(value, dateString) {
-        this.action.handleFilter('beginTime', {
-            beginTime: dateString
-        });
-    }
-    // 结束时间
-    onChangeEndTime(value, dateString) {
-        this.action.handleFilter('endTime', {
-            endTime: dateString
-        });
+
+    onChangeDate(dates, dateStrs) {
+        const [beginTime, endTime] = dateStrs;
+        this.action.handleFilter('dateArr', dateStrs);
     }
 
     onChangeTime=(value)=>{
@@ -111,7 +104,7 @@ class List extends Component {
                 <ul className="list">
                     {store.orderList.map((item, index) => {
                         let $detail;
-                        
+
                         if (item.detailReady) {
                             if (item.details.length > 0 ) {
                                 $detail = [];
@@ -147,7 +140,7 @@ class List extends Component {
                                     <tr>
                                         <td colSpan={3} className="none">{UPEX.lang.template('暂无数据')}</td>
                                     </tr>
-                                ) 
+                                )
                             }
                         } else {
                             $detail = (
@@ -198,14 +191,12 @@ class List extends Component {
                     <div className="filter-box">
                         <ul>
                             <li>
-                                <label>{UPEX.lang.template('时间')}</label>
-                                <DatePicker onChange={this.onChangeStartTime.bind(this)} placeholder={UPEX.lang.template('选择日期')} allowClear={false} />
-                                <i>-</i>
-                                <DatePicker onChange={this.onChangeEndTime.bind(this)} placeholder={UPEX.lang.template('选择日期')} allowClear={false} />
+                                <RangePicker  size="large" onChange={this.onChangeDate.bind(this)} placeholder={[UPEX.lang.template('选择日期'), UPEX.lang.template('选择日期')]} allowClear={false}/>
+
                             </li>
                             <li>
                                 <label>{UPEX.lang.template('币种')}</label>
-                                <Select defaultValue="0" onChange={this.onChangeCurrency}>
+                                <Select size="large" defaultValue="0" onChange={this.onChangeCurrency}>
                                     <Option value="0">{UPEX.lang.template('全部')}</Option>
                                     {this.props.commonStore.productList.map(item => {
                                         if (item.currencyNameEn !== 'TWD') {
@@ -220,7 +211,7 @@ class List extends Component {
                             </li>
                             <li>
                                 <label>{UPEX.lang.template('类型')}</label>
-                                <Select defaultValue="0" onChange={this.onChangeBuyOrSell}>
+                                <Select size="large" defaultValue="0" onChange={this.onChangeBuyOrSell}>
                                     <Option value="0">{UPEX.lang.template('全部')}</Option>
                                     <Option value="1">{UPEX.lang.template('买')}</Option>
                                     <Option value="2">{UPEX.lang.template('卖')}</Option>
@@ -228,7 +219,7 @@ class List extends Component {
                             </li>
                             <li>
                                 <label>{UPEX.lang.template('状态')}</label>
-                                <Select defaultValue="12" onChange={this.onChangeStatus}>
+                                <Select size="large" defaultValue="12" onChange={this.onChangeStatus}>
                                     <Option value="12">{UPEX.lang.template('全部')}</Option>
                                     <Option value="2">{UPEX.lang.template('全部成交')}</Option>
                                     <Option value="4">{UPEX.lang.template('全部撤单')}</Option>

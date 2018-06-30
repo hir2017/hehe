@@ -7,7 +7,7 @@ import { Link , browserHistory } from 'react-router';
 @inject('accountStore')
 @observer
 class InfoView extends Component {
-	
+
 	handleAllMoney=(e)=>{
 		this.props.accountStore.handleVisibleMoney();
 	}
@@ -30,7 +30,7 @@ class InfoView extends Component {
 
 	render() {
 		let store = this.props.accountStore;
-		
+
 		return (
 			<div className="account-hd-box">
 				<div className="account-title">
@@ -39,7 +39,7 @@ class InfoView extends Component {
 						<label>{ UPEX.lang.template('总资产折合')}</label>
 						<label>{UPEX.config.baseCurrencyEn}</label>
 					    <label>≈</label>
-					    <em>{`NT$ ${store.allMoney || '--'}`}</em>
+					    <em>{`NT$${store.allMoney || '--'}`}</em>
 					</div>
 				</div>
 				<div className="account-content clearfix">
@@ -52,7 +52,7 @@ class InfoView extends Component {
                     	</div>
                         <div className="amount-bd clearfix">
                         	<div className="amount">
-                            	<em>NT$ { store.visibleMoney ? `${store.baseCoinInfo.cashAmount || 0}` : '******'} </em>
+                            	<em><span className="unit">NT$</span>{ store.visibleMoney ? `${store.baseCoinInfo.cashAmount || 0}` : '******'} </em>
                             </div>
                             <div className="actions">
 	                            <button className="btn recharge-btn" onClick={this.handleFiatRecharge}>
