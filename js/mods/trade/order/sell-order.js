@@ -32,7 +32,7 @@ class SellOrder extends Component {
 							)
 						})
 					}
-				</ul>			
+				</ul>	
 			</div>
 		);
 	}

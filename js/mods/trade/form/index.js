@@ -171,17 +171,14 @@ class TradeForm extends Component{
 								</li>
 								<li className="item-slider">
 									<div className="slider-box">
-										<Slider marks={sliderMarks} defaultValue={37} />
-										{
-										// <Slider 
-										//  	tipFormatter={null}
-										//  	marks={sliderMarks}
-										//  	tipFormatter={(value)=>`${value}%`}
-				      //                       onChange={this.onChangeBuySlider} 
-				      //                       value={store.buySliderValue}
-				      //                       disabled={authStore.isLogin ? false : true}
-				      //                   />
-										}
+										<Slider 
+										 	tipFormatter={null}
+										 	marks={sliderMarks}
+										 	tipFormatter={(value)=>`${value}%`}
+				                            onChange={this.onChangeBuySlider} 
+				                            value={store.buySliderValue}
+				                            disabled={authStore.isLogin ? false : true}
+				                        />
 			                        </div>
 								</li>
 								{
