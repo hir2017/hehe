@@ -95,7 +95,7 @@ class TradeContent extends Component {
     render() {
     	let store = this.props.tradeStore;
         
-        let trendIcon, trendColor;
+        let trendIcon, trendColor = '';
 
         if (store.currentTradeCoin && store.currentTradeCoin.currentAmount) {
            
@@ -106,18 +106,18 @@ class TradeContent extends Component {
                 trendColor = 'redrate';
                 trendIcon = <Icon type="arrow-down" style={{fontSize: 12}}/>;
             }
-        }        
+        }
 
         return (
             <div className="trade-wrapper" style={{ height: store.contentHeight + 30}}>
             	<div className="trade-extra">
             		<div className="trade-extra-content">
             			<div className="trade-extra-list clearfix" style={{ height: store.extraOrderHeight}}>
-                            <div className="list-box-l">
+                            <div className="list-box-l" data-type={store.type}>
                                 <div className="list-box-hd">
                                     <ul className="tab">
                                         {
-                                           ['all', 'buy', 'sell'].map((item, index)=>{
+                                           ['all', 'sell', 'buy'].map((item, index)=>{
                                                 let cls = store.type == item ? `${item} selected`: item;
 
                                                 return (
@@ -133,7 +133,7 @@ class TradeContent extends Component {
                                         <div className="number">{ UPEX.lang.template('数量')}</div>
                                         <div className="total">{ UPEX.lang.template('金额')}</div>
                                     </div>
-                                    <div className="table-bd" style={{ height: store.extraOrderHeight - 72}}>
+                                    <div className="table-bd">
                                         {
                                             store.type !== 'buy' ? (
                                                 <div className="trade-buy-box">
@@ -141,7 +141,12 @@ class TradeContent extends Component {
                                                 </div>
                                             ) : null
                                         }
-                                        <div className={`trade-current-amount ${trendColor}`}>{store.currentTradeCoin.currentAmountText}{trendIcon}</div>
+                                        <div className={`trade-current-amount ${trendColor}`}>
+                                            <div className="count">
+                                                <em>{store.currentTradeCoin.currentAmountText}</em>
+                                                {trendIcon}
+                                            </div>
+                                        </div>
                                         {
                                             store.type !==  'sell' ? (
                                                 <div className="trade-sell-box">

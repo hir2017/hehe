@@ -214,6 +214,7 @@ body .ant-input{
 }
 body .ant-input-search:not(.ant-input-search-small) > .ant-input-suffix{
     right: 15px;
+    width: 14px;
 }
 
 body .ant-select-dropdown-menu-item{

@@ -109,13 +109,13 @@ class TVChartContainer extends Component {
             },
             "dark": {
                 url: "./bundles/night.css",
-                up: "#00d02c",
-                down: "#ff3380",
+                up: "#33c280",
+                down: "#ef5d7f",
                 bg: "#161615",
-                grid: "#1f2943",
-                cross: "#9194A3",
-                border: "#4e5b85",
-                text: "#61688A",
+                grid: "#20201e", // 分隔线
+                cross: "#fee8c2", // 十字线
+                border: "#666",
+                text: "#666",
                 areatop: "rgba(122, 152, 247, .1)",
                 areadown: "rgba(122, 152, 247, .02)"
             }
@@ -210,6 +210,7 @@ class TVChartContainer extends Component {
                 "go_to_date",
                 "header_chart_type",
                 "header_compare",
+                "header_settings",
                 "header_screenshot",
                 "header_undo_redo",
                 "legend_context_menu",
@@ -503,12 +504,14 @@ class TVChartContainer extends Component {
         if (store.theme === 'dark') {
             arrowCls =  {
                 fontSize: 12,
-                color: '#fff'
+                color: '#e8b802',
+                padding:'0 5px',
             }
         } else {
             arrowCls =  {
                 fontSize: 12,
-                color:'#e8b802'
+                color:'#e8b802',
+                padding:'0 5px',
             }
         }
 

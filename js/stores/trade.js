@@ -301,8 +301,8 @@ class TradeStore {
 
         switch (this.type) {
             case 'all':
-                entrust.sell = entrust.sell.slice(0, 10); // 默认显示10条
-                entrust.buy = entrust.buy.slice(0, 10); // 默认显示10条
+                entrust.sell = entrust.sell; // 默认显示10条
+                entrust.buy = entrust.buy; // 默认显示10条
                 break;
             case 'buy':
                 entrust.sell = [];

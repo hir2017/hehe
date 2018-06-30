@@ -32,38 +32,38 @@ class DepthChart extends Component {
 						<Area
 							dataKey="bidstotalvolume"
 							type="step"
-							stroke="#00d02c"
+							stroke="#33c280"
 							fillOpacity={0.2}
-							fill="#00d02c"
+							fill="#33c280"
 							isAnimationActive={false}
 						/>
 				        <XAxis 
 				        	dataKey="value"
 				        	axisLine={{
-								stroke: '#7f8fa4',
+								stroke: '#666666',
 								strokeWidth: 1,
 							}}
 							tickLine={{
-								stroke: '#7f8fa4',
+								stroke: '#666666',
 							}}
 							tick={{
 								fontSize: '12px',
-								fill: '#7f8fa4',
+								fill: '#666666',
 							}}
 				        />
 				        <YAxis
 				        	scale="linear"
 				        	domain={[0, maxDepth * 1.1 ]}
 				        	axisLine={{
-								stroke: '#7f8fa4',
+								stroke: '#666666',
 								strokeWidth: 1,
 							}}
 							tickLine={{
-								stroke: '#7f8fa4',
+								stroke: '#666666',
 							}}
 							tick={{
 								fontSize: '12px',
-								fill: '#7f8fa4',
+								fill: '#666666',
 							}}
 				        />
 				       	<Tooltip 
@@ -78,23 +78,23 @@ class DepthChart extends Component {
 						<Area
 							dataKey="askstotalvolume"
 							type="step"
-							stroke="#ff3380"
+							stroke="#ef5d7f"
 							fillOpacity={0.2}
-							fill="#ff3380"
+							fill="#ef5d7f"
 							isAnimationActive={false}
 						/>
 						<XAxis
 							dataKey="value"
 							axisLine={{
-								stroke: '#7f8fa4',
+								stroke: '#666666',
 								strokeWidth: 1,
 							}}
 							tickLine={{
-								stroke: '#7f8fa4',
+								stroke: '#666666',
 							}}
 							tick={{
 								fontSize: '12px',
-								fill: '#7f8fa4',
+								fill: '#666666',
 							}}
 						/>
 						<YAxis
@@ -104,15 +104,15 @@ class DepthChart extends Component {
 							scale="linear"
 							domain={[0, maxDepth * 1.1 ]}
 							axisLine={{
-								stroke: '#7f8fa4',
+								stroke: '#666666',
 								strokeWidth: 1,
 							}}
 							tickLine={{
-								stroke: '#7f8fa4',
+								stroke: '#666666',
 							}}
 							tick={{
 								fontSize: '12px',
-								fill: '#7f8fa4',
+								fill: '#666666',
 							}}
 						/>
 						<Tooltip 

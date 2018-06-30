@@ -6,7 +6,8 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import { browserHistory } from 'react-router';
-import { Icon, Checkbox } from 'antd';
+import { Icon, Checkbox, Input} from 'antd';
+const Search = Input.Search;
 
 @inject('tradeStore')
 @observer
@@ -85,8 +86,11 @@ class CoinList extends Component {
             <div className="coin-list">
                 <div className="coin-list-hd clearfix">
                     <div className="search">
-                        <input type="text" onChange={this.handleSearch} placeholder={UPEX.lang.template('搜索数字币')} />
-                        <Icon type="search" />
+                         <Search
+                            onChange={this.handleSearch}
+                            value={store.searchValue}
+                            placeholder={UPEX.lang.template('搜索数字币')}
+                        />
                     </div>
                     <div className="tab">
                         <Checkbox checked={store.onlyCollectedCoins} onChange={this.handleToggleCollectDisplay.bind(this)}>{UPEX.lang.template('收藏')}</Checkbox>

@@ -1,6 +1,32 @@
 .chart-page {
     background: #161615;
+    padding: 5px 16px;
 }
+/* 
+.tv-dialog{
+    background-color: #333;
+    color: #999999;
+}
+
+.tv-dialog__close svg{
+    fill: #999999;
+}
+
+.tv-insert-indicator-dialog__search-control input{
+    background-color: #333;
+}
+
+.tv-insert-study-item__title{
+
+}
+
+.tv-dialog__title{
+    color: #fee8c2;
+}
+.tv-search-row,
+.tv-dialog__section {
+    border-bottom: 1px solid #424242;
+} */
 
 .chart-page .pane-legend-icon-container svg {
     fill: #61688A;
@@ -12,30 +38,30 @@
 }
 
 .chart-page .tv-side-toolbar .tools-group .button .main.text-as-icon {
-    color: #4e5b85;
+    color: #fee8c2;
 }
 
 .chart-page .tv-side-toolbar .tools-group .button svg {
-    fill: #4e5b85;
+    fill: #fee8c2;
 }
 
 .chart-page .tv-side-toolbar .tools-group .button.selected,
 .chart-page .tv-side-toolbar .tools-group .button:hover,
 .chart-page .tv-side-toolbar .tools-group .button:active {
-    background-color: #2c3b59;
-    border-color: #2c3b59;
+    background-color: #444035;
+    border-color: #fee8c2;
 }
 
 .chart-page .tv-side-toolbar .tools-group .button.selected svg,
 .chart-page .tv-side-toolbar .tools-group .button:hover svg,
 .chart-page .tv-side-toolbar .tools-group .button:active svg {
-    fill: #c7cce6;
+    fill: #fee8c2;
 }
 
 .chart-page .tv-side-toolbar .tools-group .button.selected .main.text-as-icon,
 .chart-page .tv-side-toolbar .tools-group .button:hover .main.text-as-icon,
 .chart-page .tv-side-toolbar .tools-group .button:active .main.text-as-icon {
-    color: #c7cce6;
+    color: #fee8c2;
 }
 
 .chart-page .tv-side-toolbar .tools-group .button.selected .side,
@@ -45,13 +71,13 @@
 }
 
 .chart-page .tv-side-toolbar .tools-group .button:active svg {
-    fill: #4e5b85;
+    fill: #fee8c2;
 }
 
 .chart-page .charts-popup-list {
     background-color: #181b2a;
-    color: #4e5b85;
-    border-color: #2c3b59;
+    color: #fee8c2;
+    border-color: #444035;
 }
 
 .chart-page .charts-popup-list .separator {
@@ -60,16 +86,16 @@
 
 .chart-page .charts-popup-list .item {
     background-color: #181b2a;
-    color: #4e5b85;
+    color: #fee8c2;
 }
 
 .chart-page .charts-popup-list .item.active {
-    background-color: #2c3b59;
-    color: #c7cce6;
+    background-color: #444035;
+    color: #fee8c2;
 }
 
 .chart-page .charts-popup-list .icon-wrap svg {
-    fill: #4e5b85;
+    fill: #fee8c2;
 }
 
 .chart-page .list-inner .item {
@@ -77,28 +103,28 @@
 }
 
 .chart-page .list-inner .item.active {
-    background-color: #2c3b59;
+    background-color: #444035;
 }
 
 .chart-page .list-inner .item.active svg {
-    fill: #c7cce6;
+    fill: #fee8c2;
 }
 
 .chart-page .list-inner .item.active span.title {
-    color: #c7cce6;
+    color: #fee8c2;
 }
 
 .chart-page .list-inner .item span.title {
-    color: #4e5b85;
+    color: #fee8c2;
 }
 
 .chart-page .favored-list-container span:hover {
-    background-color: #2C3B59;
+    background-color: #444035;
 }
 
 .chart-page .tv-floating-toolbar {
-    background-color: #2c3b59;
-    border-color: #c7cce6;
+    background-color: #444035;
+    border-color: #fee8c2;
 }
 
 .chart-page .tv-floating-toolbar .tv-floating-toolbar__widget-wrapper .tv-floating-toolbar__drag,
@@ -108,7 +134,7 @@
 
 .chart-page .tv-floating-toolbar .tv-floating-toolbar__widget-wrapper .tv-floating-toolbar__drag svg,
 .chart-page .tv-floating-toolbar .tv-floating-toolbar__widget-wrapper input svg {
-    fill: #4e5b85;
+    fill: #fee8c2;
 }
 
 .chart-page .tv-floating-toolbar .tv-floating-toolbar__widget-wrapper .tv-floating-toolbar__widget {
@@ -116,7 +142,7 @@
 }
 
 .chart-page .tv-floating-toolbar .tv-floating-toolbar__widget-wrapper .tv-floating-toolbar__widget svg {
-    fill: #4e5b85;
+    fill: #fee8c2;
 }
 
 .chart-page .tv-floating-toolbar .tv-floating-toolbar__widget-wrapper .tv-floating-toolbar__widget .bg {
@@ -134,7 +160,7 @@
 }
 
 .chart-page .apply-common-tooltip svg {
-    fill: #4e5b85;
+    fill: #fee8c2;
 }
 
 .chart-page .layout__area--left [class^="drawingToolbar-"] {
@@ -177,12 +203,12 @@
 
 .chart-page .tv-side-toolbar .tools-group .button:hover,
 .chart-page .header-chart-panel .tools-group .button:hover {
-    background-color: #2C3B59;
+    background-color: #444035;
 }
 
 .chart-page .tv-side-toolbar .button:hover,
 .chart-page .header-chart-panel .button:hover {
-    background: #2C3B59;
+    background: #444035;
 }
 
 .chart-page .tv-side-toolbar .group,
@@ -193,37 +219,37 @@
 .chart-page .tv-side-toolbar .group .button,
 .chart-page .header-chart-panel .group .button {
     font-weight: normal;
-    color: #4e5b85;
+    color: #666;
 }
 
 .chart-page .tv-side-toolbar .group .button svg,
 .chart-page .header-chart-panel .group .button svg {
-    fill: #4e5b85;
+    fill: #fee8c2;
 }
 
 .chart-page .tv-side-toolbar .group .button:hover,
 .chart-page .tv-side-toolbar .group .button.selected,
 .chart-page .header-chart-panel .group .button:hover,
 .chart-page .header-chart-panel .group .button.selected {
-    background: #2c3b59;
-    color: #c7cce6;
+    background: #444035;
+    color: #fee8c2;
 }
 
 .chart-page .tv-side-toolbar .group .button:hover svg,
 .chart-page .tv-side-toolbar .group .button.selected svg,
 .chart-page .header-chart-panel .group .button:hover svg,
 .chart-page .header-chart-panel .group .button.selected svg {
-    fill: #c7cce6;
+    fill: #fee8c2;
 }
 
 .chart-page .tv-side-toolbar .group .button:active,
 .chart-page .header-chart-panel .group .button:active {
-    color: #4e5b85;
+    color: #fee8c2;
 }
 
 .chart-page .tv-side-toolbar .group .button:active svg,
 .chart-page .header-chart-panel .group .button:active svg {
-    fill: #4e5b85;
+    fill: #fee8c2;
 }
 
 .chart-page .tv-side-toolbar .header-group-fullscreen,
@@ -240,11 +266,11 @@
 }
 
 .chart-page .tv-side-toolbar .tools-group:not(:first-child):not(.no-delimiter):before {
-    background: #4e5b85;
+    background: #fee8c2;
 }
 
 .chart-page .button svg {
-    fill: #4e5b85;
+    fill: #fee8c2;
 }
 
 .chart-page .tv-side-toolbar {
@@ -258,7 +284,7 @@
 
 .chart-page .tv-side-toolbar .tools-group .button.selected .side,
 .chart-page .tv-side-toolbar .tools-group .button.selected .main {
-    background: #2C3B59;
+    background: #444035;
 }
 
 .chart-page .chart-container {
@@ -272,17 +298,17 @@
 }
 
 .chart-page .button {
-    background-color: #181B2A;
-    border-color: #181B2A;
+    background-color: #24231f;
+    border-color: #24231f;
 }
 
 .chart-page .button:hover {
-    background-color: #4e5b85;
+    background-color: #fee8c2;
 }
 
 .chart-page .button.selected,
 .chart-page .button.active {
-    background-color: #4e5b85 !important;
+    background-color: #444035 !important;
 }
 
 .chart-page .button.selected svg,

@@ -50,7 +50,7 @@ class HeaderView extends Component {
 	    const usermenu = (
 	    	<dl className="menu-list">
 	          	<dd className="logined-header">
-	            	<Link className="logined-header-link" to="/user">{ UPEX.lang.template('安全设置') }</Link>
+	            	<Link className="logined-header-link" to="/user">{ UPEX.lang.template('个人中心') }</Link>
 	          	</dd>
 	          	<dd className="logined-header">
 	            	<Link className="logined-header-link" to="/account">{ UPEX.lang.template('资产管理') }</Link>
@@ -94,14 +94,6 @@ class HeaderView extends Component {
 						{
 							authStore.isLogin ? (
 								<ul>
-									{
-										// <li ref="order">
-										// 	<Link to="/account/record">{ UPEX.lang.template('订单明细')}</Link>
-										// </li>
-										// <li ref="assets">
-										// 	<Link to="/account/assets">{ UPEX.lang.template('我的资产')}</Link>
-										// </li>
-									}
 									<li ref="userinfo">
 										<Popover content={usermenu} placement="bottomRight" getPopupContainer={this.props.userinfo} overlayClassName="widget-tooltip">
 											<span className="usertxt">{ UPEX.lang.template('欢迎您，{name}', { name: username })}</span>
