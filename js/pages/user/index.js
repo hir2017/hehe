@@ -93,7 +93,6 @@ class UserPage extends Component {
                 <div className="user-body-inner clearfix">
                     <div className="aside-left">
                         <div className="info">
-                            {/* <p className="name" title={userName}>{userName}</p> */}
                             <p className="id">UID:{store.userInfo ? store.userInfo.uid + '' : ''}</p>
                         </div>
                         <div className="menu">

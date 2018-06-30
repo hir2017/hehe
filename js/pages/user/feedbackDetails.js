@@ -5,7 +5,7 @@
  */
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
-import {Modal} from 'antd';
+import { Modal } from 'antd';
 
 import PageWrapper from '../../common-mods/page-user/page-wrapper';
 
@@ -16,14 +16,41 @@ export default class extends Component {
         super(props);
         this.state = {
             imgUrl: '',
-            visible: false
+            visible: false,
+            imgStyle: {},
+            boxStyle: {
+            }
         };
+        this.scrollFn = function() {
+            let $dom = $('.ant-modal.feedback-modal .ant-modal-content .img-box');
+            $dom.width($dom.height());
+        }
+    }
+
+    async showImage(src) {
+        var image = new Image();
+        image.onload = () => {
+            const imgStyle = {};
+            const field = image.width > image.height ? 'width' : 'height';
+            imgStyle[field] = '100%';
+            this.setState({
+                visible: true,
+                imgUrl: src,
+                imgStyle
+            });
+        };
+        image.src = src;
     }
 
     componentDidMount() {
         this.props.userInfoStore.questionDetails(this.props.routeParams.id);
-
+        window.addEventListener('resize', this.scrollFn, false);
     }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.scrollFn, false);
+    }
+
 
     render() {
         const questionObj = this.props.userInfoStore.questionObj || {};
@@ -36,35 +63,49 @@ export default class extends Component {
                     <p className="content">{question.detail}</p>
                     <ul className="img-list">
                         {question.urlkey.split(',').map((item, index) => {
-                            return item ? <li key={index} className="img" onClick={(e) => {
-                                this.setState({
-                                    visible: true,
-                                    imgUrl: UPEX.config.imgHost + '/' + item
-                                })
-                            }}><img src={UPEX.config.imgHost + '/' + item} /></li> : null;
+                            let url = UPEX.config.imgHost + '/' + item;
+                            return item ? (
+                                <li
+                                    key={index}
+                                    className="img"
+                                    onClick={e => {
+                                        this.showImage(url);
+                                    }}
+                                >
+                                    <img src={url} />
+                                </li>
+                            ) : null;
                         })}
                     </ul>
                 </div>
-                <div className="feedback">
-                    <header>{UPEX.lang.template('客服反馈')}：</header>
-                    <article>
-                        {list.map((item, i) => {
-                            return <li key={i}>{item.detail}</li>;
-                        })}
-                    </article>
-                </div>
+                {list.map((item, i) => {
+                    return (
+                        <div key={i} className="feedback-answer">
+                            <div className="create-time">{item.createTime}</div>
+                            <section>
+                                <header>{UPEX.lang.template('客服反馈')}：</header>
+                                <article>
+                                    {item.detail}
+                                </article>
+                            </section>
+                        </div>
+                    )
+                })}
+
                 <Modal
+                    className="feedback-modal"
                     title={UPEX.lang.template('图片详情')}
                     visible={this.state.visible}
                     footer={null}
+                    width="85%"
                     onCancel={e => {
                         this.setState({
-                            visible: false,
-                        })
+                            visible: false
+                        });
                     }}
                 >
-                    <div style={{textAlign: 'center'}}>
-                        <img  src={this.state.imgUrl} />
+                    <div className="img-box" style={this.state.boxStyle}>
+                        <img style={this.state.imgStyle} src={this.state.imgUrl} />
                     </div>
                 </Modal>
             </PageWrapper>

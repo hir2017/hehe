@@ -101,7 +101,13 @@ export default class extends Component {
                         <Link to="/user/questionList">{UPEX.lang.template('前往问题列表')}</Link>
                     </Col>
                 </Row>
-                <TextArea value={this.state.text} onChange={this.textAreaChange} placeholder={UPEX.lang.template('請輸入您要反饋的問題')} rows={7} />
+                <Row className="text-area">
+                    <Col span={24}>
+                        <TextArea value={this.state.text} onChange={this.textAreaChange} rows={7} />
+                        <p className={`placeholder ${this.state.text ? '' : 'show'}`}>{UPEX.lang.template('請輸入您要反饋的問題')}</p>
+                    </Col>
+                </Row>
+
                 <div className="upload-box">
                     <Upload
                         action={UPEX.config.uploadImgHost + '?token=' + token + '&uid=' + uid}
@@ -119,7 +125,7 @@ export default class extends Component {
                         {UPEX.lang.template('每個文件大小不得超過5M。附件支持的格式有')}“jpg”，“Jpeg”,”bmp”,”png”,”gif”
                     </Col>
                     <Col className="align-right" span={8}>
-                        <Button loading={loading} onClick={this.submit}>
+                        <Button loading={loading} className="ace-secondary" onClick={this.submit}>
                             {UPEX.lang.template('提交')}
                         </Button>
                     </Col>
