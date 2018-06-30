@@ -1,10 +1,5 @@
-/**
- * @fileoverview  反馈列表
- * @author xia xiang feng
- * @date 2018-05-26
- */
 import React, { Component } from 'react';
-import { Link } from 'react-router';
+import { browserHistory } from 'react-router';
 import { observer, inject } from 'mobx-react';
 import { Input, Upload, Icon, Button, Pagination, Row, Col } from 'antd';
 const { TextArea } = Input;
@@ -29,8 +24,10 @@ class ListView extends Component {
                     return (
                         <li key={index}>
                             <dl>
-                                <dd className="content" title={item.detail}>
-                                    <Link to={`/user/feedbackDetails/${item.qid}`}>{item.detail}</Link>
+                                <dd className="content" onClick={e => {
+                                    browserHistory.push(`/user/feedbackDetails/${item.qid}`);
+                                }}>
+                                     {item.detail}
                                 </dd>
                                 <dd className={`status lvl-${item.status + 1}`}>{this.status(item.status)}</dd>
                                 <dd className="time" title={item.createTime}>{item.createTime}</dd>

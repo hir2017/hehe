@@ -2,7 +2,7 @@
     position: relative;
     width: 1200px;
     margin: 0 auto;
-    padding: 10px;
+
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
@@ -19,6 +19,7 @@ body .user-main .ant-select-dropdown-menu-item {
 }
 
 /* 头部提示 */
+
 .user-main .page-content-inner .ace-top-tips {
     background-color: #fefbe8;
     border: solid 1px #fbe59a;
@@ -28,6 +29,7 @@ body .user-main .ant-select-dropdown-menu-item {
     padding: 10px 0;
     margin-top: 10px;
 }
+
 /* 验证码 */
 
 .user-main .modify-password-box .v-code {
@@ -51,9 +53,11 @@ body .user-main .ant-select-dropdown-menu-item {
     right: 0;
     top: 22px;
 }
+
 .user-main .modify-password-box .input-vcode-wrapper {
     position: relative;
 }
+
 .user-main .modify-password-box .v-code-button .sms-btn {
     position: relative;
     width: 115px;
@@ -66,6 +70,7 @@ body .user-main .ant-select-dropdown-menu-item {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
 }
+
 .user-main .modify-password-box .v-code-button img {
     height: 40px;
     width: 100px;
@@ -77,12 +82,14 @@ body .user-main .ant-select-dropdown-menu-item {
 
 /* 按钮 */
 
-
-.user-main .content-body .ant-btn.ace-btn-large, .user-main .content-body .ant-btn.ace-btn-middle, .user-main .content-body .ant-btn.ace-btn-small {
+.user-main .content-body .ant-btn.ace-btn-large,
+.user-main .content-body .ant-btn.ace-btn-middle,
+.user-main .content-body .ant-btn.ace-btn-small {
     background-color: #e8b802;
     border: none;
     color: #333;
 }
+
 .user-main .content-body .ant-btn.ace-btn-large {
     height: 40px;
 }
@@ -125,8 +132,6 @@ body .user-main .ant-select-dropdown-menu-item {
     height: 40px;
 }
 
-
-
 .user-main .content-body .ace-btn {
     border-radius: 3px;
     height: 40px;
@@ -143,6 +148,7 @@ body .user-main .ant-select-dropdown-menu-item {
 }
 
 /*  */
+
 .user-main .ace-form .ace-upload-mod.pic-item header {
     overflow: hidden;
     border-bottom: solid 1px #f4f4f4;
@@ -166,14 +172,15 @@ body .user-main .ant-select-dropdown-menu-item {
     position: relative;
 }
 
-
 .user-main .ace-form .center {
     text-align: center;
 }
+
 .user-main .ace-form .ace-upload-mod.pic-item .pic-upload {
     display: block;
     text-align: center;
 }
+
 /* 底部提示统一样式 */
 
 .user-main .custom-tips {
@@ -199,7 +206,7 @@ body .user-main .ant-select-dropdown-menu-item {
 }
 
 .user-body-inner {
-    padding-left: 200px;
+    padding-left: 220px;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
@@ -207,9 +214,9 @@ body .user-main .ant-select-dropdown-menu-item {
 
 .aside-left {
     float: left;
-    width: 200px;
+    width: 220px;
     padding-right: 20px;
-    margin-left: -200px;
+    margin-left: -220px;
 }
 
 .aside-left .info {
@@ -252,14 +259,18 @@ body .user-main .ant-select-dropdown-menu-item {
 
 .aside-left .menu .menu-submenu {
     text-align: center;
+    padding-bottom: 10px;
 }
 
 .aside-left .menu .menu-submenu-title {
-    height: 50px;
-    line-height: 50px;
-    font-size: 15px;
+    margin-bottom: 10px;
+    height: 40px;
+    text-align: left;
+    text-indent: 20px;
+    line-height: 40px;
+    font-size: 14px;
     color: #333;
-    font-weight: normal;
+    font-weight: bold;
 }
 
 .aside-left .menu .menu-submenu-item {
@@ -271,6 +282,8 @@ body .user-main .ant-select-dropdown-menu-item {
 
 .aside-left .menu .menu-submenu-item a {
     display: block;
+    text-align: left;
+    text-indent: 50px;
     color: #999;
 }
 
@@ -838,7 +851,6 @@ body .user-main .ant-select-dropdown-menu-item {
     padding: 10px 0;
 }
 
-
 .user-main .ace-form.auth-step-2 .pic-item section .anticon-check-circle {
     position: absolute;
     right: 4px;
@@ -1327,8 +1339,6 @@ body .user-main .ant-select-dropdown-menu-item {
     text-decoration-line: underline;
 }
 
-
-
 .user-main .modify-password-box .new-pwd {
     position: relative;
 }
@@ -1454,9 +1464,11 @@ body .user-main .ant-select-dropdown-menu-item {
     height: 200px;
     width: 200px;
 }
+
 .user-main .google-auth-message .code-sms {
     color: #333;
 }
+
 .user-main .google-auth-message .tip {
     float: right;
     width: 60%;
@@ -1467,12 +1479,13 @@ body .user-main .ant-select-dropdown-menu-item {
     text-align: center;
     padding-top: 18px;
 }
-.user-main .google-auth-box .info a{
+
+.user-main .google-auth-box .info a {
     font-size: 14px;
     color: #cc9900;
 }
 
-.user-main .google-auth-box .info a:hover{
+.user-main .google-auth-box .info a:hover {
     text-decoration-line: underline;
 }
 
@@ -1648,13 +1661,47 @@ body .user-main .ant-select-dropdown-menu-item {
  * 问题反馈
  */
 
+.ant-modal.feedback-modal {
+    height: 100%;
+    box-sizing: border-box;
+    top: 0;
+    padding: 20px 0;
+}
+
+.ant-modal.feedback-modal .ant-modal-content {
+    height: 100%;
+}
+
+.ant-modal.feedback-modal .ant-modal-content .ant-modal-body {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    padding-top: 75px;
+    box-sizing: border-box;
+}
+
+.ant-modal.feedback-modal .ant-modal-content .ant-modal-body .img-box {
+    height: 100%;
+    margin: 0 auto;
+    position: relative;
+}
+
+.ant-modal.feedback-modal .ant-modal-content .ant-modal-body .img-box img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
 .user-main .content-body.feedback .anticon.anticon-eye-o {
     display: none;
 }
 
 .user-main .content-body.feedback .ant-row.title {
     font-size: 14px;
-    color: #333;
+    line-height: 15px;
+    color: #999;
     padding: 20px 0;
 }
 
@@ -1664,16 +1711,72 @@ body .user-main .ant-select-dropdown-menu-item {
 
 .user-main .content-body.feedback .upload-box {
     margin: 20px 0;
-    height: 112px;
+    height: 100px;
+}
+
+.user-main .content-body.feedback .upload-box .ant-upload.ant-upload-select-picture-card {
+    height: 100px;
+    width: 100px;
+}
+
+.user-main .content-body.feedback .upload-box .ant-upload-select{
+    background:url('/images/upload-btn.png') 0 0 no-repeat;
+    background-size: 100%;
+}
+.user-main .content-body.feedback .upload-box .ant-upload-select:hover{
+    background-image: url('/images/upload-btn-hover.png');
+        border-color: #e8b802;
+}
+.user-main .content-body.feedback .upload-box .ant-upload-select .ant-upload {
+    opacity: 0;
 }
 .user-main .content-body.feedback .upload-box::after {
     content: '';
     clear: both;
     display: block;
 }
+
+.user-main .content-body.feedback .ant-row.text-area {
+    position: relative;
+    overflow: hidden;
+}
+
+.user-main .content-body.feedback .ant-row.text-area textarea{
+    padding: 10px;
+    box-sizing: border-box;
+    height: 200px;
+    resize: none;
+}
+
+.user-main .content-body.feedback .ant-row.text-area textarea:hover, .user-main .content-body.feedback .ant-row.text-area textarea:focus {
+    outline: none;
+    border-color: #ccc;
+    outline-color: #ccc;
+}
+
+.user-main .content-body.feedback .ant-row.text-area p.placeholder.show {
+    display: block;
+}
+
+.user-main .content-body.feedback .ant-row.text-area p.placeholder {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    color: #ccc;
+    font-size: 14px;
+    transform: translate(-50%, -50%);
+}
+
+.user-main .content-body.feedback .ant-row.submit {
+    border-top: solid 1px #f2f2f2;
+    margin-top: 20px;
+    padding-top: 20px;
+}
+
 .user-main .content-body.feedback .ant-row.submit .ant-col-16 {
     color: #999;
-    padding: 10px 0 5px;
+    padding: 1px 0 0;
 }
 
 /**
@@ -1710,23 +1813,29 @@ body .user-main .ant-select-dropdown-menu-item {
     cursor: pointer;
 }
 
-
+.user-main .account-result-list.questions dd {
+    padding: 0;
+}
 .user-main .account-result-list.questions dd.content {
     width: 620px;
+    color: #333;
+    line-height: 15px;
     box-sizing: border-box;
-    padding: 0 20px;
+    padding-left:20px;
+    padding-right:20px;
     text-overflow: ellipsis;
     text-align: left;
+    overflow: hidden;
+    white-space: nowrap;
+    cursor: pointer;
+}
 
-}
-.user-main .account-result-list.questions dd.content a {
-    color: #333;
-}
-.user-main .account-result-list.questions dd.content a:hover {
+.user-main .account-result-list.questions dd.content:hover {
     color: #cc9900;
 }
 
-.user-main .account-result-list.questions dd.time, .user-main .account-result-list.questions dd.status {
+.user-main .account-result-list.questions dd.time,
+.user-main .account-result-list.questions dd.status {
     width: 160px;
     text-align: center;
     color: #999;
@@ -1738,7 +1847,6 @@ body .user-main .ant-select-dropdown-menu-item {
     padding-right: 20px;
 }
 
-
 .user-main .question-page {
     text-align: center;
     padding-top: 50px;
@@ -1749,40 +1857,53 @@ body .user-main .ant-select-dropdown-menu-item {
 }
 
 .user-main .page-content-inner.question-detail .detail {
-    padding: 25px 0;
-    border-bottom: solid 1px #f4f4f4;
+    padding: 15px 0 25px;
     font-size: 14px;
     color: #333;
 }
 
 .user-main .page-content-inner.question-detail .detail .time {
     color: #999;
+    height: 20px;
 }
 
 .user-main .page-content-inner.question-detail .detail .content {
-    padding: 15px 0;
+    padding: 12px 0 19px;
 }
 
 .user-main .page-content-inner.question-detail .img-list .img {
     display: inline-block;
-    width: 104px;
-    height: 104px;
+
     margin-right: 8px;
-    border-radius: 4px;
 }
 
 .user-main .page-content-inner.question-detail .img-list .img img {
-    width: 100%;
-    height: 100%;
+    width: 100px;
+    height: 100px;
+    box-sizing: border-box;
+    border: solid 1px #f2f2f2;
+    border-radius: 3px;
 }
 
-.user-main .page-content-inner.question-detail .feedback {
+.user-main .page-content-inner.question-detail .feedback-answer .create-time {
+    border-top: solid 1px #f2f2f2;
+    padding: 20px 0;
+    color: #999;
+}
+
+.user-main .page-content-inner.question-detail .feedback-answer section {
     background-color: #f4f4f4;
     color: #333;
     font-size: 14px;
+    border-radius: 3px;
     margin-bottom: 20px;
 }
-
+.user-main .page-content-inner.question-detail .feedback-answer header {
+    padding: 20px 20px 0;
+}
+.user-main .page-content-inner.question-detail .feedback-answer article {
+    padding: 13px 20px 20px;
+}
 /**
  * form 表单项
  */

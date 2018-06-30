@@ -1,11 +1,6 @@
-/**
- * @fileoverview  用户个人信息
- * @author xia xiang feng
- * @date 2018-05-21
- */
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
-import { Link } from 'react-router';
+import { browserHistory } from 'react-router';
 import { Button } from 'antd';
 
 import AceForm from '../../common-mods/form/form';
@@ -16,6 +11,7 @@ export default class FourthStep extends Component {
     componentWillMount() {
         this.props.userInfoStore.bankCardInfo();
     }
+
 
     submitKycC = () => {
         this.props.userInfoStore.kycC().then(data => {
@@ -33,8 +29,13 @@ export default class FourthStep extends Component {
         if (bankCardList.length === 0) {
             // 未绑定银行卡
             $bottom = (
-                <Button>
-                    <Link to="/user/bankInfo">{UPEX.lang.template('绑定银行卡')}</Link>
+                <Button
+                    className="ace-btn-large"
+                    onClick={e => {
+                        browserHistory.push('/user/bankInfo');
+                    }}
+                >
+                    {UPEX.lang.template('绑定银行卡')}
                 </Button>
             );
         } else if (userInfo.authLevel === 2) {
@@ -44,8 +45,13 @@ export default class FourthStep extends Component {
                     break;
                 case 2:
                     $bottom = (
-                        <Button>
-                            <Link to="/trade">{UPEX.lang.template('去行情中心')}</Link>
+                        <Button
+                            className="ace-btn-large"
+                            onClick={e => {
+                                browserHistory.push('/trade');
+                            }}
+                        >
+                            {UPEX.lang.template('去行情中心')}
                         </Button>
                     );
                     break;
