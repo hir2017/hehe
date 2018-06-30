@@ -29,6 +29,9 @@
     background-position: 50%;
     margin: 0 auto;
 }
+.banner-wrapper .ant-carousel .slick-slide{
+    height: 440px;
+}
 
 .banner-wrapper .ant-carousel .slick-slide img {
     margin: 0 auto;
@@ -36,7 +39,6 @@
     height: auto;
     display: block;
 }
-
 
 /**
  * 新手引导

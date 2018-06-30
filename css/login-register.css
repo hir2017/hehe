@@ -20,7 +20,6 @@
     width: 450px;
     margin: 0 auto;
     text-align: right;
-    border-bottom: 1px solid #333;
 }
 
 .register-wrapper .register-form li {
@@ -71,6 +70,7 @@
     font-size: 20px;
     text-align: left;
     color: #fff;
+    border-bottom: 1px solid #333;
 }
 
 .register-wrapper .subtitle {
