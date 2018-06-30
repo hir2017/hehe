@@ -8,7 +8,7 @@ let host = UPEX.config.websocketHost;
 
 let socket = io(host, {
     transports: ['websocket']
-})
+})	
 
 socket.on('connect', () => {
 
