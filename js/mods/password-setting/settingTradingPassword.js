@@ -122,7 +122,7 @@ export default class SettingTradingPassword extends Component {
                         <img onClick={this.captchaChange} src={captcha} />
                     </div>
                 </div>
-                <div>
+                <div className="input-vcode-wrapper">
                      <InputItem {...vCodeData} />
                     <div className="item v-code-button">
                         <Vcodebutton imgCode={this.state.ivCode} codeid={codeid} type="phone" />

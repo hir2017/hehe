@@ -123,7 +123,7 @@ export default class BindingPhone extends Component {
                     </div>
                 </div>
                 <InputItem {...inputsData.vCode} />
-                <div>
+                <div className="input-vcode-wrapper">
                     <InputItem {...inputsData.evCode} />
                     <div className="item v-code-button">
                         <Vcodebutton

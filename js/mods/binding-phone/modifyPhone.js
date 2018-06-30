@@ -159,7 +159,7 @@ export default class ModifyPhone extends Component {
                 </div>
                 {/* GA也可以优化 */}
                 {gaBindSuccess ? <InputItem {...inputsData.gaCode} /> : <InputItem {...inputsData.vCode} />}
-                <div>
+                <div className="input-vcode-wrapper">
                     <InputItem {...inputsData.nvCode} />
                     <div className="item v-code-button">
                         <Vcodebutton

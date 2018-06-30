@@ -96,7 +96,7 @@ export default class BindingEmail extends Component {
                     </div>
                 </div>
                 <InputItem {...inputsData.vCode} />
-                <div>
+                <div className="input-vcode-wrapper">
                     <InputItem {...inputsData.pvCode} />
                     <div className="item v-code-button">
                         <Vcodebutton message="邮箱不能为空" emailOrphone={this.state.email} areacode="" newBind={true} type={1} imgCode={this.state.ivCode} codeid={codeid} />

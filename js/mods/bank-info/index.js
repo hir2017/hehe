@@ -5,7 +5,7 @@ const Option = Select.Option;
 
 import { createGetProp } from '../../common-mods/utils';
 import upload_pic from '../../../images/card-bg.png';
-
+import upload_pic_hover from '../../../images/upload-pic-hover.png';
 import BankList from './banklist.json';
 import banckCardImg from '../../../images/bank-card.jpg';
 import AceSection from '../../common-mods/page-user/section';
@@ -239,23 +239,21 @@ export default class BindingBank extends Component {
                     >
                         <img src={banckCardImg} />
                     </Modal>
-                    <div className="upload-card">
+                    <div className="pic-item ace-upload-mod">
                         <header>
-                            {UPEX.lang.template('上传银行账户簿图片')}
-                            <span
-                                className="pic-tip"
-                                onClick={e => {
+                            <span className="item-title">{UPEX.lang.template('上传银行账户簿图片')}</span>
+                            <span className="item-tip" onClick={e => {
                                     this.setState({
                                         visible: true
                                     });
-                                }}
-                            >
-                                {UPEX.lang.template('图片示例')}
-                            </span>
+                                }}>{UPEX.lang.template('图片示例')}</span>
                         </header>
-                        <Upload {...this._props()}>
-                            <img className="card-pic" src={this.state.imgUrl ? UPEX.config.imgHost + '/' + this.state.imgUrl : upload_pic} />
-                        </Upload>
+                        <section className={`${this.state.imgUrl ? 'select' : 'no-select'} pic-upload-content`}>
+                            <Upload className="pic-upload" {...this._props()}>
+                                <img className="pic-item-img target" src={this.state.imgUrl ? UPEX.config.imgHost + '/' + this.state.imgUrl : upload_pic} />
+                                <img  className="pic-item-img hover" src={upload_pic_hover} />
+                            </Upload>
+                        </section>
                     </div>
                     <div className="tip">
                         <p>{UPEX.lang.template('上傳的文件格式必須是jpg、png、jpeg 文件大小控制在10MB以内')}</p>

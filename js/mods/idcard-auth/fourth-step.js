@@ -52,7 +52,7 @@ export default class FourthStep extends Component {
                 default:
                     $bottom = (
                         <div className="up-limit">
-                            <Button loading={loading} onClick={this.submitKycC}>
+                            <Button loading={loading} className="ace-btn-large" onClick={this.submitKycC}>
                                 {UPEX.lang.template('申請更高限額')}
                             </Button>
                             {userInfo.isAuthVideo === -1 ? <p className="error">{userInfo.authFailReason}</p> : null}

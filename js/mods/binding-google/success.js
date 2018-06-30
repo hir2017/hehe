@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import { Button, Switch, Row, Col } from 'antd';
-import { Link } from 'react-router';
+import { Link, browserHistory } from 'react-router';
 
 @observer
 export default class Success extends Component {
@@ -15,8 +15,8 @@ export default class Success extends Component {
                     </Col>
                     <Col  span={8} />
                     <Col className="operator" span={8}>
-                        <Button>
-                            <Link to="/user/rmbindingGoogle">{UPEX.lang.template('解绑')}</Link>
+                        <Button className="ace-secondary" onClick={e => {browserHistory.push('/user/rmbindingGoogle')}}>
+                            {UPEX.lang.template('解绑')}
                         </Button>
                     </Col>
                 </Row>

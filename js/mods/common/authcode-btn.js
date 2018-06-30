@@ -106,7 +106,7 @@ export default class SettingTradingPassword extends Component {
 
     render() {
 	    return (
-	      	<div>
+	      	<div className="sms-btn">
 	        {
 	          this.state.show
 	            ? <div style={this.props.style || null} onClick={this.sendCode} className="send-v-code-button">

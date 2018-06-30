@@ -8,21 +8,110 @@
     box-sizing: border-box;
 }
 
+/* 面包屑导航 */
+
 .user-wrapper .user-breadcrumb.ant-breadcrumb {
     padding: 10px 0 17px;
 }
+
 body .user-main .ant-select-dropdown-menu-item {
     line-height: 32px;
 }
 
-.user-main .ant-btn.ace-secondary:hover {
+/* 头部提示 */
+.user-main .page-content-inner .ace-top-tips {
+    background-color: #fefbe8;
+    border: solid 1px #fbe59a;
+    font-size: 14px;
+    text-align: center;
+    border-radius: 0;
+    padding: 10px 0;
+    margin-top: 10px;
+}
+/* 验证码 */
+
+.user-main .modify-password-box .v-code {
+    width: 338px;
+    display: inline-block;
+}
+
+.user-main .modify-password-box .item.v-code-button {
+    width: 110px;
+    text-align: center;
+    box-sizing: border-box;
+    height: 40px;
+    line-height: 40px;
+    display: inline-block;
+    cursor: pointer;
+    border: none;
+}
+
+.user-main .modify-password-box .input-vcode-wrapper .item.v-code-button {
+    position: absolute;
+    right: 0;
+    top: 22px;
+}
+.user-main .modify-password-box .input-vcode-wrapper {
+    position: relative;
+}
+.user-main .modify-password-box .v-code-button .sms-btn {
+    position: relative;
+    width: 115px;
+    height: 100%;
+    right: 4px;
+    top: 1px;
+    background-color: #fff;
+    border-radius: 3px;
+    border: solid 1px #ccc;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+.user-main .modify-password-box .v-code-button img {
+    height: 40px;
+    width: 100px;
+    border-radius: 3px;
+    vertical-align: top;
+    margin-left: 10px;
+    margin-top: -3px;
+}
+
+/* 按钮 */
+
+
+.user-main .content-body .ant-btn.ace-btn-large, .user-main .content-body .ant-btn.ace-btn-middle, .user-main .content-body .ant-btn.ace-btn-small {
+    background-color: #e8b802;
+    border: none;
+    color: #333;
+}
+.user-main .content-body .ant-btn.ace-btn-large {
+    height: 40px;
+}
+
+.user-main .content-body .ant-btn.ace-btn-middle {
+    height: 30px;
+}
+
+.user-main .content-body .ant-btn.ace-btn-small {
+    height: 24px;
+}
+
+.user-main .ant-btn.ace-secondary {
+    border-radius: 2px;
+    height: 24px;
+    font-size: 12px;
+    background-color: #e7b508;
     border-color: #e7b508;
-    color: #e7b508;
+}
+
+.user-main .ant-btn.ace-secondary:hover {
+    background-color: #ffdc57;
+    color: #333;
+    border-color: #ffdc57;
 }
 
 .user-main .authentication-content .ant-btn:disabled:hover {
     border-color: #d9d9d9;
-    color:#ccc;
+    color: #ccc;
 }
 
 .user-main .authentication-content .ant-btn:hover {
@@ -35,6 +124,8 @@ body .user-main .ant-select-dropdown-menu-item {
     color: #333;
     height: 40px;
 }
+
+
 
 .user-main .content-body .ace-btn {
     border-radius: 3px;
@@ -51,8 +142,38 @@ body .user-main .ant-select-dropdown-menu-item {
     background-color: #ffdc57;
 }
 
+/*  */
+.user-main .ace-form .ace-upload-mod.pic-item header {
+    overflow: hidden;
+    border-bottom: solid 1px #f4f4f4;
+    font-size: 14px;
+    height: 36px;
+    line-height: 36px;
+}
+
+.user-main .ace-form .ace-upload-mod.pic-item .item-title {
+    float: left;
+}
+
+.user-main .ace-form .ace-upload-mod.pic-item .item-tip {
+    float: right;
+    color: #cc9900;
+    cursor: pointer;
+}
+
+.user-main .ace-form .ace-upload-mod.pic-item section {
+    padding: 20px 0 5px;
+    position: relative;
+}
 
 
+.user-main .ace-form .center {
+    text-align: center;
+}
+.user-main .ace-form .ace-upload-mod.pic-item .pic-upload {
+    display: block;
+    text-align: center;
+}
 /* 底部提示统一样式 */
 
 .user-main .custom-tips {
@@ -68,7 +189,6 @@ body .user-main .ant-select-dropdown-menu-item {
 .user-main a.ace-link {
     color: #e7b508;
 }
-
 
 .user-main .page-content-inner a:hover {
     text-decoration: none;
@@ -112,12 +232,12 @@ body .user-main .ant-select-dropdown-menu-item {
 
 .aside-left .info .name {
     font-size: 15px;
-    color: #767676;
+    color: #999;
 }
 
 .aside-left .info .id {
     font-size: 12px;
-    color: #bebebe;
+    color: #999;
 }
 
 .aside-left .menu {
@@ -138,7 +258,8 @@ body .user-main .ant-select-dropdown-menu-item {
     height: 50px;
     line-height: 50px;
     font-size: 15px;
-    font-weight: bold;
+    color: #333;
+    font-weight: normal;
 }
 
 .aside-left .menu .menu-submenu-item {
@@ -185,6 +306,7 @@ body .user-main .ant-select-dropdown-menu-item {
 .user-main.ace-page-content .section-title {
     border-top-left-radius: 6px;
     border-top-right-radius: 6px;
+    color: #333;
 }
 
 .user-main.ace-page-content .content-body,
@@ -481,10 +603,12 @@ body .user-main .ant-select-dropdown-menu-item {
     position: relative;
 }
 
-.user-main .ace-form.auth-step-1 .ace-input-item .error-message, .user-main .ace-form.auth-step-1 .ace-input-item .item-error {
+.user-main .ace-form.auth-step-1 .ace-input-item .error-message,
+.user-main .ace-form.auth-step-1 .ace-input-item .item-error {
     color: #ff6666;
 }
-.user-main .ace-form.auth-step-1 .ace-input-item.select .message{
+
+.user-main .ace-form.auth-step-1 .ace-input-item.select .message {
     padding-top: 4px;
 }
 
@@ -500,6 +624,7 @@ body .user-main .ant-select-dropdown-menu-item {
     padding-top: 4px;
     color: #ff6666;
 }
+
 .user-main .ace-form.auth-step-1 .muti-select .ace-input-item .error-message {
     padding-top: 6px;
     color: #ff6666;
@@ -688,9 +813,11 @@ body .user-main .ant-select-dropdown-menu-item {
     color: #cc9900;
     text-decoration-line: none;
 }
+
 .user-main .authentication-content .checkbox-text a:hover {
     text-decoration-line: underline;
 }
+
 .user-main .authentication-content .submit {
     text-align: center;
     padding-top: 10px;
@@ -711,32 +838,6 @@ body .user-main .ant-select-dropdown-menu-item {
     padding: 10px 0;
 }
 
-.user-main .ace-form.auth-step-2 .center {
-    text-align: center;
-}
-
-.user-main .ace-form.auth-step-2 .pic-item header {
-    overflow: hidden;
-    border-bottom: solid 1px #f4f4f4;
-    font-size: 14px;
-    height: 36px;
-    line-height: 36px;
-}
-
-.user-main .ace-form.auth-step-2 .pic-item .item-title {
-    float: left;
-}
-
-.user-main .ace-form.auth-step-2 .pic-item .item-tip {
-    float: right;
-    color: #cc9900;
-    cursor: pointer;
-}
-
-.user-main .ace-form.auth-step-2 .pic-item section {
-    padding: 20px 0 5px;
-    position: relative;
-}
 
 .user-main .ace-form.auth-step-2 .pic-item section .anticon-check-circle {
     position: absolute;
@@ -744,11 +845,6 @@ body .user-main .ant-select-dropdown-menu-item {
     top: 47%;
     font-size: 30px;
     color: #33c280;
-}
-
-.user-main .ace-form.auth-step-2 .pic-item .pic-upload {
-    display: block;
-    text-align: center;
 }
 
 .user-main .ace-form.auth-step-2 .sample-pic-content {
@@ -871,11 +967,6 @@ body .user-main .ant-select-dropdown-menu-item {
     color: #333333;
 }
 
-/* .user-main .ace-form.auth-step-4 .tip {
-    text-align: center;
-    padding: 20px;
-} */
-
 .user-main .ace-form.auth-step-4 .tip p {
     padding-bottom: 5px;
 }
@@ -884,21 +975,32 @@ body .user-main .ant-select-dropdown-menu-item {
     font-size: 20px;
     font-weight: bold;
 }
+
 .user-main .ace-form.auth-step-2 {
     padding-top: 10px;
 }
 
-.user-main .ace-form.auth-step-2  .ant-upload-list-item-name, .user-main .ace-form.auth-step-2  .anticon-paper-clip {
+.user-main .ace-form.auth-step-2 .ant-upload-list-item-name,
+.user-main .ace-form.auth-step-2 .anticon-paper-clip {
     display: none;
 }
 
-.user-main .ace-form.auth-step-2 .pic-item  .pic-item-img.hover {
+.user-main .pic-upload-content .pic-item-img.hover {
     display: none;
 }
-.user-main .ace-form.auth-step-2 .pic-item .no-select .ant-upload-select:hover .pic-item-img.target {
+
+.user-main .pic-upload-content .pic-item-img {
+    display: block;
+    width: 260px;
+    height: 170px;
+    cursor: pointer;
+}
+
+.user-main .pic-upload-content.no-select .ant-upload-select:hover .pic-item-img.target {
     display: none;
 }
-.user-main .ace-form.auth-step-2 .pic-item .no-select .ant-upload-select:hover .pic-item-img.hover {
+
+.user-main .pic-upload-content.no-select .ant-upload-select:hover .pic-item-img.hover {
     display: block;
 }
 
@@ -921,13 +1023,6 @@ body .user-main .ant-select-dropdown-menu-item {
     vertical-align: 83px;
     color: #333333;
     font-size: 14px;
-}
-
-.user-main .authentication-content .pic-item-img {
-    display: block;
-    width: 260px;
-    height: 170px;
-    cursor: pointer;
 }
 
 .user-main .authentication-content .pic-item-message {
@@ -1112,6 +1207,26 @@ body .user-main .ant-select-dropdown-menu-item {
  * 密码设置
  */
 
+.user-main .common-setting-box .ant-switch {
+    min-width: 28px;
+    height: 16px;
+    line-height: 14px;
+    margin-top: -4px;
+    margin-left: 6px;
+}
+
+.user-main .common-setting-box .ant-switch:before,
+.user-main .common-setting-box .ant-switch:after {
+    width: 12px;
+    height: 12px;
+}
+
+.user-main .common-setting-box .ant-switch.ant-switch-checked:before,
+.user-main .common-setting-box .ant-switch.ant-switch-checked:after {
+    left: 100%;
+    margin-left: -13px;
+}
+
 .user-main .common-setting-box {
     padding: 40px 20px;
 }
@@ -1120,20 +1235,21 @@ body .user-main .ant-select-dropdown-menu-item {
     height: 100px;
     padding: 0 30px;
     border: solid 1px #f4f4f4;
+    box-sizing: content-box;
 }
 
 .user-main .common-setting-box .ant-row.pwd .title p {
-    padding: 0 0 4px;
+    padding: 0 0 1px;
     color: #999;
 }
 
 .user-main .common-setting-box .ant-row.pwd .title p:nth-child(1) {
     font-size: 18px;
-    color: #323a42;
+    color: #333;
 }
 
 .user-main .common-setting-box .ant-row.pwd.no-bottom {
-    border-bottom: none;
+    border-bottom-color: transparent;
 }
 
 .user-main .common-setting-box .ant-row.pwd .ant-col-8 {
@@ -1146,20 +1262,26 @@ body .user-main .ant-select-dropdown-menu-item {
     display: inline-block;
     margin-left: 10px;
 }
+
 .user-main .common-setting-box .forget-pwd:hover {
     text-decoration-line: underline;
 }
+
 .user-main .common-setting-box .ant-row.pwd .ant-col-8.operator {
     text-align: right;
 }
 
 .user-main .common-setting-box .ant-row.pwd .operator .switch {
-    float: left;
-    margin-top: 7px;
+    display: inline-block;
 }
 
 .user-main .common-setting-box .message {
     padding: 10px 0 30px;
+    color: #999;
+}
+
+.user-main .common-setting-box .ant-col-8.operator .ant-btn.ace-secondary {
+    margin-left: 30px;
 }
 
 .user-main .common-setting-box .message.guide {
@@ -1205,27 +1327,7 @@ body .user-main .ant-select-dropdown-menu-item {
     text-decoration-line: underline;
 }
 
-.user-main .modify-password-box .v-code {
-    width: 338px;
-    display: inline-block;
-    margin-right: 10px;
-}
 
-.user-main .modify-password-box .v-code-button {
-    width: 100px;
-    text-align: center;
-    height: 40px;
-    line-height: 40px;
-    display: inline-block;
-    cursor: pointer;
-}
-
-.user-main .modify-password-box .v-code-button img {
-    height: 40px;
-    width: 100px;
-    border-radius: 8px;
-    vertical-align: top;
-}
 
 .user-main .modify-password-box .new-pwd {
     position: relative;
@@ -1343,25 +1445,35 @@ body .user-main .ant-select-dropdown-menu-item {
 .user-main .google-auth-message {
     font-size: 14px;
     color: #999999;
-    margin-top: 80px;
+    text-align: center;
     margin-bottom: 30px;
     overflow: hidden;
 }
 
-.user-main .google-auth-message .vcode {
-    float: left;
-}
-
 .user-main .google-auth-message img {
-    display: block;
-    height: 150px;
-    width: 150px;
+    height: 200px;
+    width: 200px;
 }
-
+.user-main .google-auth-message .code-sms {
+    color: #333;
+}
 .user-main .google-auth-message .tip {
     float: right;
     width: 60%;
     padding-top: 50px;
+}
+
+.user-main .google-auth-box .info {
+    text-align: center;
+    padding-top: 18px;
+}
+.user-main .google-auth-box .info a{
+    font-size: 14px;
+    color: #cc9900;
+}
+
+.user-main .google-auth-box .info a:hover{
+    text-decoration-line: underline;
 }
 
 .user-main .google-auth-left>div {
@@ -1552,8 +1664,13 @@ body .user-main .ant-select-dropdown-menu-item {
 
 .user-main .content-body.feedback .upload-box {
     margin: 20px 0;
+    height: 112px;
 }
-
+.user-main .content-body.feedback .upload-box::after {
+    content: '';
+    clear: both;
+    display: block;
+}
 .user-main .content-body.feedback .ant-row.submit .ant-col-16 {
     color: #999;
     padding: 10px 0 5px;
@@ -1593,52 +1710,34 @@ body .user-main .ant-select-dropdown-menu-item {
     cursor: pointer;
 }
 
-.user-main .question-content {
-    padding-left: 20px;
-    padding-top: 50px;
-}
 
-.user-main .question-content li {
-    height: 50px;
-    line-height: 50px;
-    border-bottom: 1px solid #ccc;
-    padding-left: 20px;
-}
-
-.user-main .question-content li>span {
-    display: inline-block;
-    vertical-align: top;
-    font-size: 14px;
-    text-align: center;
-}
-
-.user-main .question-content li>span:first-child {
-    width: 62%;
-    overflow: hidden;
-    white-space: nowrap;
-    text-align: left;
+.user-main .account-result-list.questions dd.content {
+    width: 620px;
+    box-sizing: border-box;
+    padding: 0 20px;
     text-overflow: ellipsis;
+    text-align: left;
+
+}
+.user-main .account-result-list.questions dd.content a {
+    color: #333;
+}
+.user-main .account-result-list.questions dd.content a:hover {
+    color: #cc9900;
 }
 
-.user-main .question-content li>span a {
-    color: #414141;
+.user-main .account-result-list.questions dd.time, .user-main .account-result-list.questions dd.status {
+    width: 160px;
+    text-align: center;
+    color: #999;
 }
 
-.user-main .question-content li>span:nth-child(2) {
-    width: 15%;
+.user-main .account-result-list.questions dd.time {
+    width: 160px;
+    text-align: right;
+    padding-right: 20px;
 }
 
-.user-main .question-content li span.status {
-    color: #e0c266;
-}
-
-.user-main .question-content li span.status.lvl-2 {
-    color: #c9c9c9;
-}
-
-.user-main .question-content li>span:nth-child(3) {
-    width: 18%;
-}
 
 .user-main .question-page {
     text-align: center;

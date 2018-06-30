@@ -165,24 +165,20 @@ export default class SecondStep extends Component {
                         </article>
                     </div>
                 </div>
-                <div className="pic-title">{UPEX.lang.template('完成此步骤确认，可获得每日NT$300.000提现额度')}</div>
+                <div className="ace-top-tips">{UPEX.lang.template('完成此步骤确认，可获得每日NT$300.000提现额度')}</div>
                 {picsData.map((item, i) => {
                     return (
-                        <div key={i} className="pic-item">
+                        <div key={i} className="pic-item ace-upload-mod">
                             <header>
                                 <span className="item-title">{item.title}</span>
                                 <span className="item-tip" onClick={() => {this.toggleSample(item, i)}}>{item.showTip}</span>
                             </header>
-                            <section className={this.state[item.url] ? 'select' : 'no-select'}>
+                            <section className={`${this.state[item.url] ? 'select' : 'no-select'} pic-upload-content`}>
                                 <Upload className="pic-upload" {...this._props(item.url)}>
                                     <img  className="pic-item-img target" src={this.state[item.url] ? UPEX.config.imgHost + '/' + this.state[item.url] : upload_pic} />
                                     <img  className="pic-item-img hover" src={upload_pic_hover} />
                                 </Upload>
                                 {this.state[item.url] ? (<Icon type="check-circle" />) : null}
-                                {/*
-                                    <span className="pic-item-error-message error-message">*{UPEX.lang.template('请上传照片')}</span>
-                                 */}
-
                             </section>
                         </div>
                     );
