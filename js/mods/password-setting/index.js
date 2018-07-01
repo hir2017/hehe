@@ -74,27 +74,30 @@ export default class BindingBank extends Component {
         let tradePwdData = {
             noPhone: {
                 path: '/user/settingPhone',
-                label: UPEX.lang.template('绑定手机')
+                label: UPEX.lang.template('绑定手机'),
+                class: 'ace-secondary',
             },
             noPass: {
                 path: '/user/settingTraddingPassword',
-                label: UPEX.lang.template('添加')
+                label: UPEX.lang.template('添加'),
+                class: 'ace-secondary',
             },
             modify: {
                 path: '/user/modifyTraddingPassword',
-                label: UPEX.lang.template('修改')
-            },
-        }
+                label: UPEX.lang.template('修改'),
+                class: 'ace-btn-white',
+            }
+        };
         let currTradePwd;
         switch (true) {
             case userInfo.isValidatePhone !== 1:
-            currTradePwd = tradePwdData.noPhone;
+                currTradePwd = tradePwdData.noPhone;
                 break;
             case !userInfo.isValidatePass:
-            currTradePwd = tradePwdData.noPass;
+                currTradePwd = tradePwdData.noPass;
                 break;
             default:
-            currTradePwd = tradePwdData.modify;
+                currTradePwd = tradePwdData.modify;
                 break;
         }
 
@@ -111,7 +114,7 @@ export default class BindingBank extends Component {
                             onClick={e => {
                                 browserHistory.push('/user/resetpwd');
                             }}
-                            className="ace-secondary"
+                            className="ace-btn-white"
                         >
                             {UPEX.lang.template('修改')}
                         </Button>
@@ -121,11 +124,6 @@ export default class BindingBank extends Component {
                     <Col className="title" span={8}>
                         <p>
                             {UPEX.lang.template('交易密码')}
-                            {userInfo.isValidatePass ? (
-                                <Link className="ace-link forget-pwd" to="/user/forgetTradingPassword">
-                                    {UPEX.lang.template('忘记交易密码？')}
-                                </Link>
-                            ) : null}
                         </p>
                         <p>{UPEX.lang.template('用於交易、綁定解綁銀行卡充幣提現等資金 操作，需要嚴格保密')}</p>
                     </Col>
@@ -135,13 +133,19 @@ export default class BindingBank extends Component {
                             {UPEX.lang.template('啟用委託認證')}
                             {userInfo.isValidatePhone ? <Switch onChange={this.passwordSwitch} checked={isEnableFdPassword} /> : null}
                         </span>
-                        <Button onClick={e => {
-
+                        <Button
+                            onClick={e => {
                                 browserHistory.push(currTradePwd.path);
                             }}
-                            className="ace-secondary">
+                            className={currTradePwd.class}
+                        >
                             {currTradePwd.label}
                         </Button>
+                        {userInfo.isValidatePass ? (
+                            <Link className="ace-link forget-pwd" to="/user/forgetTradingPassword">
+                                {UPEX.lang.template('忘记密码?')}
+                            </Link>
+                        ) : null}
                     </Col>
                 </Row>
                 <div className="message">{UPEX.lang.template('為了您的資金安全，忘記交易密碼并修改成功后，24小時內不可以提現提幣。')}</div>

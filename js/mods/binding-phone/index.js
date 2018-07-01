@@ -68,11 +68,13 @@ export default class Phone extends Component {
         let optData = {
             set: {
                 path: '/user/settingPhone',
-                label: UPEX.lang.template('添加')
+                label: UPEX.lang.template('添加'),
+                class: 'ace-secondary',
             },
             modify: {
                 path: '/user/modifyPhone',
-                label: UPEX.lang.template('修改')
+                label: UPEX.lang.template('修改'),
+                class: 'ace-btn-white',
             },
         }
         let currBtn = optData[userInfo.phone ? 'modify' : 'set'];
@@ -91,7 +93,7 @@ export default class Phone extends Component {
                                 <Switch onChange={this.phoneSwitch} loading={loading} checked={checked} />
                             </div>
                         }
-                        <Button className="ace-secondary" onClick={e => {browserHistory.push(currBtn.path)}}>
+                        <Button className={currBtn.class} onClick={e => {browserHistory.push(currBtn.path)}}>
                             {currBtn.label}
                         </Button>
                     </Col>

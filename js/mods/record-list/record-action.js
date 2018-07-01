@@ -81,6 +81,13 @@ export default (store, authStore) => {
                         start: data.page
                     };
                     break;
+                case 'dateArr':
+                    params = {
+                        start: 1,
+                        beginTime: data[0] || null,
+                        endTime: data[1] || null
+                    }
+                    break;
                 case 'beginTime':
                     params = {
                         start: 1,

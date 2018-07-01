@@ -42,7 +42,7 @@
 }
 
 .account-content {
-    
+
 }
 
 .account-amount {
@@ -53,27 +53,33 @@
 
 .account-amount .amount-hd {
     padding-left: 20px;
+    padding-top: 12px;
 }
 
 .account-amount .amount-hd .switch {
     color: #cc9900;
-    font-size: 12px;
+    font-size: 14px;
     font-style: normal;
     display: inline-block;
     padding: 5px;
     cursor: pointer;
 }
 
+
+.account-amount .amount-hd .switch:hover {
+    text-decoration-line: underline;
+}
+
 .account-amount .amount-bd {
     color: #333333;
-    height: 100px;
+    height: 58px;
     padding-left: 20px;
 }
 
 .account-amount .amount-bd .amount {
     float: left;
-    width: 240px;
-    margin-right: 10px;
+    /* width: 240px; */
+    margin-right: 21px;
     line-height: 50px;
 }
 
@@ -90,6 +96,11 @@
     font-size: 26px;
 }
 
+.account-amount .amount-bd em .unit {
+    display: inline-block;
+    padding-right: 13px;
+}
+
 .account-amount .amount-bd .actions {
     float: left;
 }
@@ -99,7 +110,7 @@
     min-width: 60px;
     height: 24px;
     line-height: 22px;
-    border-radius: 4px;
+    border-radius: 2px;
     font-size: 12px;
     text-align: center;
     margin-right: 10px;
@@ -112,10 +123,20 @@
     border: 1px solid #e8b802;
 }
 
+.account-amount .amount-bd .recharge-btn:hover {
+    background: #ffdc57;
+    border-color: #ffdc57;
+}
+
 .account-amount .amount-bd .withdraw-btn {
     background: none;
-    color: #999999;
+    color: #333;
     border: 1px solid #999999;
+}
+
+.account-amount .amount-bd .withdraw-btn:hover {
+    background: #e8b802;
+    border-color: #e8b802;
 }
 
 .account-amount .amount-ft{
@@ -152,7 +173,8 @@
 
 .account-record {
     float: right;
-    text-align: left;
+    text-align: center;
+    width: 600px;
 }
 
 .account-record .btn {
@@ -162,12 +184,17 @@
     height: 40px;
     text-align: center;
     line-height: 40px;
-    border-radius: 4px;
+    border-radius: 3px;
     border: 1px solid #ccc;
     color: #333;
     margin-top: 55px;
     background: none;
 }
+
+.account-record .btn:nth-child(2) {
+    margin-right: 0;
+}
+
 .account-record .btn i{
     display: inline-block;
     vertical-align: middle;
@@ -187,7 +214,7 @@
     min-height: 240px;
     border-radius: 10px;
     background-color: #fff;
-    padding: 0 20px;
+    padding: 0 0 20px;
 }
 
 .account-filter-box {
@@ -201,16 +228,24 @@
     float: left;
     height: 60px;
     line-height: 60px;
+    margin-left: 20px;
     color: #333333;
 }
 
 .account-filter-box .filter-input{
     float: right;
-    margin-top: 10px;
+    margin-top: 14px;
+    margin-right: 20px;
 }
+
+.account-bd .account-result-list {
+    margin: 0 20px;
+}
+
 .account-result-list .mini-tip {
-    margin-top: 30px;
+    margin-top: 100px;
     text-align: center;
+    color: #ccc;
 }
 
 
@@ -244,9 +279,16 @@
 
 .account-result-list .name {
     width: 100px;
-    text-align: center;
+    text-align: left;
     padding-left: 10px;
     box-sizing: border-box;
+}
+.account-result-list .table-hd .name {
+    padding-left: 14px;
+}
+
+.account-result-list .table-hd .actions {
+    padding-right: 13px;
 }
 
 .account-result-list .name img {

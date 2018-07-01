@@ -1,8 +1,7 @@
 .user-wrapper {
     position: relative;
     width: 1200px;
-    margin: 0 auto;
-
+    margin: 0 auto 50px;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
@@ -102,6 +101,20 @@ body .user-main .ant-select-dropdown-menu-item {
     height: 24px;
 }
 
+.user-main .content-body .ant-btn.ace-btn-white {
+    background-color: #fff;
+    border: solid 1px #ccc;
+    color: #333;
+    border-radius: 2px;
+    height: 24px;
+    font-size: 12px;
+}
+
+.user-main .content-body .ant-btn.ace-btn-white:hover {
+    background-color: #e8b802;
+    border-color: #e8b802;
+}
+
 .user-main .ant-btn.ace-secondary {
     border-radius: 2px;
     height: 24px;
@@ -194,7 +207,7 @@ body .user-main .ant-select-dropdown-menu-item {
 }
 
 .user-main a.ace-link {
-    color: #e7b508;
+    color: #cc9900;
 }
 
 .user-main .page-content-inner a:hover {
@@ -1270,9 +1283,12 @@ body .user-main .ant-select-dropdown-menu-item {
 }
 
 .user-main .common-setting-box .forget-pwd {
-    font-size: 14px;
+    font-size: 12px;
     display: inline-block;
-    margin-left: 10px;
+    position: absolute;
+    white-space: nowrap;
+    right: 0;
+    bottom: -22px;
 }
 
 .user-main .common-setting-box .forget-pwd:hover {
@@ -1292,7 +1308,7 @@ body .user-main .ant-select-dropdown-menu-item {
     color: #999;
 }
 
-.user-main .common-setting-box .ant-col-8.operator .ant-btn.ace-secondary {
+.user-main .common-setting-box .ant-col-8.operator .ant-btn.ace-secondary, .user-main .common-setting-box .ant-col-8.operator .ant-btn.ace-btn-white {
     margin-left: 30px;
 }
 
