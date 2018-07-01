@@ -237,6 +237,7 @@ class TVChartContainer extends Component {
         	let widget = window.tvwidget = this.tvwidget = new TradingView.widget(cfg);
 
         	widget.onChartReady(function() {
+                $(self.refs.klinemask).addClass('hidden');
                 // 要从菜单中删除现有项目，请在项目文本前面使用减号
                 widget.onContextMenu(function(t, e) {
                     return [{
@@ -377,11 +378,17 @@ class TVChartContainer extends Component {
 
 	switchTheme = (theme)=>{
         if (this.tvwidget) {
-        	let overrides = this.getOverridesByTheme(theme);
+            $(this.refs.klinemask).removeClass('hidden');
+        	
+            let overrides = this.getOverridesByTheme(theme);
         	let cssurl = this.getCustomCSSUrlByTheme(theme);
 
     		this.tvwidget.addCustomCSSFile(cssurl);
     		this.tvwidget.applyOverrides(overrides);
+
+            setTimeout(()=>{
+                $(this.refs.klinemask).addClass('hidden');
+            },0)
     	}
     }
 
@@ -565,6 +572,7 @@ class TVChartContainer extends Component {
                         </li>
                     </ul>
 	            </div>
+                <div className="trade-kline-mask" ref="klinemask"><div className="mini-loading"></div></div>
                 <div
                     id="kline-chart"
                     ref="kline"

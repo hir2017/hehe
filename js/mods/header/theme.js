@@ -19,9 +19,7 @@ class ThemeSwitchView extends Component {
             theme = 'light';
         }
 
-        setTimeout(()=>{
-            store.changeThemeTo(theme);
-        }, 0);
+        store.changeThemeTo(theme);
 
         $.channel.emit('switchTheme', theme)
     }

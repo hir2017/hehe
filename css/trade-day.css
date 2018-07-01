@@ -184,6 +184,10 @@
 /**
  * 左侧
  */
+.app-trade-light .trade-kline-mask {
+	background-color: #fff;
+}
+
 .app-trade-light .trade-current-coin{
 	border-color: #f4f4f4;
 }

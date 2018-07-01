@@ -1,32 +1,83 @@
+.charts-popup-list,
+.context-menu-wrapper, 
+.insert-study-dialog{
+    border-color: #424242;
+    background-color: #333333;
+}
+
+.context-menu .action-separator td{
+    background-color: #424242;
+    border-color: #333333;
+}
+
+body .context-menu td.text{
+    color: #999999;
+}
+
+tr.context-menu-hover{
+    background-color: #272727;
+}
+
+body .context-menu-hover td.text{
+    background-color: #272727;
+    color: #fee8c2;
+}
+
+.tv-tabs{
+    height: 37px;
+}
+._tv-dialog{
+    border-color: #333333;
+}
+
+._tv-dialog-content, 
+._tv-dialog-title, 
+.charts-popup-list.intervals-list .item, 
+.properties-tabs a.properties-tabs-label, 
+.property-page{
+    color: #fee8c2;
+}
+
+.properties-tabs a.properties-tabs-label{
+    padding: 10px 0 18px;
+}
+
+.tv-tabs:before{
+    background-color: #424242;
+}
+
+._tv-dialog-content .alert-dialog-content, 
+._tv-dialog-content .main-properties{
+    padding: 10px;
+}
+
+._tv-dialog-content label{
+    color: #999;
+}
+
+._tv-dialog-title ._tv-dialog-title-close, ._tv-dialog-title ._tv-dialog-title-minimize{
+    right: 7px;
+    top: 7px;
+}
+
+.feature-no-touch .tv-tabs__tab:active, 
+.feature-no-touch .tv-tabs__tab:hover, 
+.feature-touch .tv-tabs__tab:active, 
+.tv-tabs__tab.i-active, 
+.tv-tabs__tab.i-hover{
+    color: #fee8c2;
+}
+
+._tv-dialog, 
+.custom-select .switcher, 
+.tvcolorpicker-popup{
+    background: #333;
+}
+
 .chart-page {
     background: #161615;
     padding: 5px 16px;
 }
-/* 
-.tv-dialog{
-    background-color: #333;
-    color: #999999;
-}
-
-.tv-dialog__close svg{
-    fill: #999999;
-}
-
-.tv-insert-indicator-dialog__search-control input{
-    background-color: #333;
-}
-
-.tv-insert-study-item__title{
-
-}
-
-.tv-dialog__title{
-    color: #fee8c2;
-}
-.tv-search-row,
-.tv-dialog__section {
-    border-bottom: 1px solid #424242;
-} */
 
 .chart-page .pane-legend-icon-container svg {
     fill: #61688A;

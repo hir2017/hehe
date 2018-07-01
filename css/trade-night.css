@@ -203,6 +203,9 @@
 /**
  * 左侧
  */
+.app-trade-dark .trade-kline-mask {
+	background-color: #161615;
+}
 .app-trade-dark .trade-current-coin{
 	border-color: #20201e;
 }
