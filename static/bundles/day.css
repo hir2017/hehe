@@ -1,5 +1,6 @@
 .chart-page {
     background: #ffffff;
+    padding: 5px 16px;
 }
 
 .chart-page .pane-legend-icon-container svg {

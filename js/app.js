@@ -4,6 +4,8 @@ import '../css/index.css';
 import '../css/login-register.css';
 import '../css/announcement.css';
 import '../css/trade.css';
+import '../css/trade-night.css';
+import '../css/trade-day.css';
 import '../css/user.css';
 import '../css/account.css';
 import '../css/order.css';

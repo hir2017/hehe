@@ -31,7 +31,7 @@ class TradeCenter extends Component {
             return <TradeContent {...this.props}/>    
         } else {
             return (
-                <div className="trade-wrapper" style={{ height: tradeStore.contentHeight + 30}} >
+                <div className="trade-wrapper" style={{ height: tradeStore.contentHeight}} >
                     <div className="mini-loading"></div>
                 </div>   
             )
@@ -109,75 +109,72 @@ class TradeContent extends Component {
         }
 
         return (
-            <div className="trade-wrapper" style={{ height: store.contentHeight + 30}}>
-            	<div className="trade-extra">
-            		<div className="trade-extra-content">
-            			<div className="trade-extra-list clearfix" style={{ height: store.extraOrderHeight}}>
-                            <div className="list-box-l" data-type={store.type}>
-                                <div className="list-box-hd">
-                                    <ul className="tab">
-                                        {
-                                           ['all', 'sell', 'buy'].map((item, index)=>{
-                                                let cls = store.type == item ? `${item} selected`: item;
-
-                                                return (
-                                                    <li className={cls} key={item} onClick={this.onChangeEntrustType.bind(this, item)}></li>
-                                                )
-                                           })
-                                        }
-                                    </ul>
-                                </div>
-                                <div className="list-box-bd">
-                                    <div className="table-hd">
-                                        <div className="price">{ UPEX.lang.template('价格')}</div>
-                                        <div className="number">{ UPEX.lang.template('数量')}</div>
-                                        <div className="total">{ UPEX.lang.template('金额')}</div>
-                                    </div>
-                                    <div className="table-bd">
-                                        {
-                                            store.type !== 'buy' ? (
-                                                <div className="trade-buy-box">
-                                                    <SellOrder/>
-                                                </div>
-                                            ) : null
-                                        }
-                                        <div className={`trade-current-amount ${trendColor}`}>
-                                            <div className="count">
-                                                <em>{store.currentTradeCoin.currentAmountText}</em>
-                                                {trendIcon}
-                                            </div>
-                                        </div>
-                                        {
-                                            store.type !==  'sell' ? (
-                                                <div className="trade-sell-box">
-                                                    <BuyOrder/>
-                                                </div>
-                                            ) : null
-                                        }
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="list-box-r">
-                                <HistoryOrder/>
-                            </div>
-                            
-            			</div>
-            			
-            			<div className="trade-extra-handle" style={{ height: store.handleHeight }}>
-            				<TradeForm/>
-            			</div>
-            		</div>
-            	</div>
+            <div className="trade-wrapper" style={{ height: store.contentHeight + 10}}>
                 <div className="trade-main">
-                    <div className="trade-main-chart" id="tradeMainKline" style={{ height: store.iframeHeight }}>
+                    <div className="trade-main-chart grid-box" id="tradeMainKline" style={{ height: store.mainChartHeight}}>
                         <TVChartContainer/>
                     </div>
-                    <div className="trade-main-order" id="tradeMainOrder" style={{ height: store.mainOrderHeight}}>
+                    <div className="trade-main-order grid-box" id="tradeMainOrder" style={{ height: store.mainOrderHeight}}>
                         {
                             <MyOrder/>
                         }
                     </div>
                 </div>
+            	<div className="trade-extra">
+        			<div className="trade-extra-list clearfix">
+                        <div className="list-box-l grid-box" data-type={store.type}>
+                            <div className="list-box-hd">
+                                <ul className="tab">
+                                    {
+                                       ['all', 'sell', 'buy'].map((item, index)=>{
+                                            let cls = store.type == item ? `${item} selected`: item;
+
+                                            return (
+                                                <li className={cls} key={item} onClick={this.onChangeEntrustType.bind(this, item)}></li>
+                                            )
+                                       })
+                                    }
+                                </ul>
+                            </div>
+                            <div className="list-box-bd">
+                                <div className="table-hd">
+                                    <div className="price">{ UPEX.lang.template('价格')}</div>
+                                    <div className="number">{ UPEX.lang.template('数量')}</div>
+                                    <div className="total">{ UPEX.lang.template('金额')}</div>
+                                </div>
+                                <div className="table-bd">
+                                    {
+                                        store.type !== 'buy' ? (
+                                            <div className="trade-buy-box">
+                                                <SellOrder/>
+                                            </div>
+                                        ) : null
+                                    }
+                                    <div className={`trade-current-amount ${trendColor}`}>
+                                        <div className="count">
+                                            <em>{store.currentTradeCoin.currentAmountText}</em>
+                                            {trendIcon}
+                                        </div>
+                                    </div>
+                                    {
+                                        store.type !==  'sell' ? (
+                                            <div className="trade-sell-box">
+                                                <BuyOrder/>
+                                            </div>
+                                        ) : null
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <div className="list-box-r grid-box" >
+                            <HistoryOrder/>
+                        </div>
+        			</div>
+        			
+        			<div className="trade-extra-handle grid-box">
+        				<TradeForm/>
+        			</div>
+            	</div>
             </div> 
         );
     }

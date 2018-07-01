@@ -358,14 +358,3 @@ input:-ms-input-placeholder {
     background-color: #e0e0e0;
     border-radius: 4px;
 }
-
-
-
-[data-theme="dark"] ::-webkit-scrollbar,
-[data-theme="dark"] ::-webkit-scrollbar-track {
-    background-color: #161615;
-}
-
-[data-theme="dark"] ::-webkit-scrollbar-thumb {
-    background-color: #999;
-}

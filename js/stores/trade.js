@@ -67,12 +67,12 @@ class TradeStore {
         this.commonStore = stores.commonStore;
         this.authStore = stores.authStore;
         this.marketListStore = new MarketListStore(stores);
+        
         this.headerHeight = 60;
         this.space = 10;
-        this.maxHandleHeight = 330; // 操作区域高度 
-        this.minHandleHeight = 300; // 操作区域高度 
-        this.minChartHeight = 270; // K线图最小高度270
-        this.minContentHeight = 270;
+        this.handleHeight = 310; // 操作区域高度 
+        this.minChartHeight = 320; // K线图最小高度270
+        this.minContentHeight = 320;
 
         this.handlerEntrust = autorun(() => {});
     }
@@ -87,28 +87,18 @@ class TradeStore {
     }
 
     @computed
-    get handleHeight() {
-        return this.tradePasswordStatus == 1 ? this.maxHandleHeight : this.minHandleHeight;
-    }
-
-    @computed
     get contentHeight() {
         return Math.max(this.commonStore.windowDimensions.height - this.headerHeight - this.space * 3, this.minContentHeight);
     }
 
     @computed
-    get extraOrderHeight() {
-        return Math.max(this.contentHeight - this.handleHeight, 0);
-    }
-
-    @computed
-    get iframeHeight() {
+    get mainChartHeight() {
         return Math.max(this.contentHeight - this.handleHeight, this.minChartHeight);
     }
 
     @computed
     get mainOrderHeight() {
-        return Math.max(this.contentHeight - this.iframeHeight, 0);
+        return Math.max(this.contentHeight - this.mainChartHeight, 0);
     }
 
 

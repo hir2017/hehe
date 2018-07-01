@@ -463,6 +463,7 @@ class TVChartContainer extends Component {
             "mainSeriesProperties.haStyle.borderDownColor": t.down,
             "mainSeriesProperties.haStyle.wickColor": t.border,
             "mainSeriesProperties.haStyle.barColorsOnPrevClose": !1,
+
             //    Bars styles
             "mainSeriesProperties.barStyle.upColor": t.up,
             "mainSeriesProperties.barStyle.downColor": t.down,
@@ -525,7 +526,7 @@ class TVChartContainer extends Component {
                                 placement="bottomLeft" 
                                 trigger="click" 
                                 getPopupContainer={()=>this.refs.coin} 
-                                overlayClassName={ store.theme === 'dark' ? 'popover-tradecoins-dark' : 'popover-tradecoins-light'}
+                                overlayClassName={ store.theme === 'dark' ? 'popover-tradecoins popover-tradecoins-dark' : 'popover-tradecoins popover-tradecoins-light'}
                                 >
                                    <label>{ store.currencyNameEn }</label>
                                    <Icon type="caret-down" style={arrowCls} />

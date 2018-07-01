@@ -201,9 +201,9 @@ class TradeForm extends Component{
 									<em>{ store.dealBuyFee }({store.currencyNameEn})</em>
 								</li>
 								<li className="item-total">
-									<label>{UPEX.lang.template('金额')}</label>
+									<span>{UPEX.lang.template('金额')}</span>
 									<em>{store.dealBuyTotalAmount}</em>
-									<label>{store.baseCurrencyNameEn}</label>
+									<span>{store.baseCurrencyNameEn}</span>
 								</li>
 								<li>
 									<button className="btn buy" disabled={ authStore.isLogin ? false : true} onClick={this.submitOrder.bind(this, 'buy')}>{UPEX.lang.template('买入')}</button>
@@ -275,9 +275,9 @@ class TradeForm extends Component{
 									<em>{ store.dealSellFee }({store.currencyNameEn})</em>
 								</li>
 								<li className="item-total">
-									<label>{UPEX.lang.template('金额')}</label>
+									<span>{UPEX.lang.template('金额')}</span>
 									<em>{ store.dealSellTotalAmount}</em>
-									<label>{store.baseCurrencyNameEn}</label>
+									<span>{store.baseCurrencyNameEn}</span>
 								</li>
 								<li>
 									<button className="btn sell" disabled={ authStore.isLogin ? false : true} onClick={this.submitOrder.bind(this, 'sell')}>{UPEX.lang.template('卖出')}</button>

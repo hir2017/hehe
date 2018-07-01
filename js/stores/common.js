@@ -39,7 +39,7 @@ class CommonStore {
             UPEX.cache.setCache('lang', lang);
             UPEX.lang.language = lang;
             // 设置页面标题
-            document.title = UPEX.lang.template('页面标题');
+            document.title = UPEX.lang.template('ACE王牌数字币交易');
         });
     }
 

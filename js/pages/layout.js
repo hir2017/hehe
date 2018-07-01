@@ -31,7 +31,7 @@ class Layout extends Component {
         
         if (commonStore.isTradeCenter) {
             return (
-                <div className="app-trade" data-theme={tradeStore.theme}>
+                <div className={`app-trade app-trade-${tradeStore.theme}`} data-theme={tradeStore.theme}>
                     <Header/>
                     <div className="app-content">
                         { this.props.children }
