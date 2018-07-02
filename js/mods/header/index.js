@@ -96,7 +96,7 @@ class HeaderView extends Component {
 								<ul>
 									<li ref="userinfo">
 										<Popover content={usermenu} placement="bottomRight" getPopupContainer={this.props.userinfo} overlayClassName="widget-tooltip">
-											<span className="usertxt">{ UPEX.lang.template('欢迎您，{name}', { name: username })}</span>
+											<Link to="/user"><span className="usertxt">{ UPEX.lang.template('欢迎您，{name}', { name: username })}</span></Link>
 										</Popover>
 									</li>
 								</ul>

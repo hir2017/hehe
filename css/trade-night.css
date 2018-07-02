@@ -301,6 +301,15 @@ body .popover-tradecoins-dark input {
     color: #999999;
 }
 
-.tradeorder-bd .order-table .list li:hover {
-     background: #333333;
+.app-trade-dark .tradeorder-bd .order-table .table-bd dl dd{
+    color: #666;
+    font-size: 12px;
+}
+
+.app-trade-dark .tradeorder-bd .order-table .table-bd dl:hover {
+     background: #272727;
+}
+
+.app-trade-dark .tradeorder-bd .order-table .table-bd dl:hover dd{
+    color: #fee8c2;
 }
