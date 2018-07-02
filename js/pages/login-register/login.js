@@ -84,6 +84,7 @@ class Login extends Component {
 
     handleLoginVerifyCode=(e)=>{
         let { step } =  this.state;
+        
         if (this.action.checkUser2(step)) {
             this.action.userLogin2(step).
                 then((data)=>{
@@ -105,7 +106,7 @@ class Login extends Component {
                 })
         } else {
             this.setState({
-                loginErrorText: type == 'phone' ? UPEX.lang.template('请填写短信验证码') : UPEX.lang.template('请填写谷歌验证码')
+                loginErrorText: step == 'phone' ? UPEX.lang.template('请填写短信验证码') : UPEX.lang.template('请填写谷歌验证码')
             });
         }
     }

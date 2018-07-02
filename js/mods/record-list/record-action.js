@@ -13,7 +13,7 @@ export default (store, authStore) => {
             }
 
             store.getData(data);
-
+            
             if (this.isFirst) {
                 this.bindEvent();
                 this.isFirst = false;

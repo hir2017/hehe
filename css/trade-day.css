@@ -234,3 +234,37 @@
     color: #999999;
 }
 
+
+.antd-modal-light .ant-modal-content,
+.antd-modal-light .ant-modal-header{
+   
+}
+
+.antd-modal-light .ant-modal-header {
+    border-bottom: 1px solid #f4f4f4;
+    padding: 0 20px;
+}
+
+.antd-modal-light .ant-modal-title{
+    font-size: 14px;
+    color: #333333;
+    height: 40px;
+    line-height: 40px;
+}
+
+.antd-modal-light .ant-modal-body {
+    padding: 30px 20px;
+}
+
+.antd-modal-light .popup-trade-password .input-box{
+    background-color: #fff;
+    border: 1px solid #d9d9d9;
+    color: #333333;
+    border-radius: 4px;
+}
+
+.antd-modal-light .ant-modal-close-x{
+    color: #a3a3a3;
+    height: 40px;
+    line-height: 40px;
+}

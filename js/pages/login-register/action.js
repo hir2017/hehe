@@ -262,10 +262,14 @@ export default (store) => {
         },
 
         checkUser() {
-            if (store.account && store.pwd && store.imgcode) {
-                return true;
-            } else {
+            let { verifyInfoBeforeLogin } = store;
+            
+            //  验证表单信息
+            if (!verifyInfoBeforeLogin.pass) {
+                message.error(verifyInfoBeforeLogin.message);
                 return false;
+            } else {
+                return true;
             }
         },
 

@@ -367,49 +367,6 @@
     text-align: right;
 }
 
-.popup-trade-password {}
-
-.popup-trade-password .input-box {
-    border: 1px solid rgb(216, 217, 221);
-    outline: 0 none;
-    height: 42px;
-    margin: 0 auto;
-    width: 362px;
-}
-
-.popup-trade-password .input-box input {
-    border: 0 none;
-    background: none;
-    outline: 0 none;
-    line-height: 21px;
-    padding: 10px 10px;
-    width: 100%;
-}
-
-.popup-trade-password .input-box.wrong {
-    border-right: 1px solid #ff6666;
-}
-
-.popup-trade-password .warn-tip {
-    color: #ff6666;
-    min-height: 21px;
-    line-height: 21px;
-    font-size: 14px;
-    width: 362px;
-    margin: 0 auto;
-}
-
-.popup-trade-password .submit {
-    width: 140px;
-    height: 36px;
-    line-height: 36px;
-    margin: 10px auto 0;
-    background-color: #cc9900;
-    color: #333333;
-    text-align: center;
-    display: block;
-    border-radius: 3px;
-}
 /**
  * 充币记录
  */

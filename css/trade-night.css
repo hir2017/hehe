@@ -313,6 +313,7 @@ body .popover-tradecoins-dark input {
 .app-trade-dark .tradeorder-bd .order-table .table-bd dl:hover dd{
     color: #fee8c2;
 }
+
 .antd-modal-dark .ant-modal-content,
 .antd-modal-dark .ant-modal-header{
     color: #999999;
@@ -321,6 +322,18 @@ body .popover-tradecoins-dark input {
 
 .antd-modal-dark .ant-modal-header {
     border-bottom: 1px solid #20201e;
+    padding: 0 20px;
+}
+
+.antd-modal-dark .ant-modal-title{
+    font-size: 14px;
+    color: #fee8c2;
+    height: 40px;
+    line-height: 40px;
+}
+
+.antd-modal-dark .ant-modal-body {
+    padding: 30px 20px;
 }
 
 .antd-modal-dark .popup-trade-password .input-box{
@@ -330,7 +343,8 @@ body .popover-tradecoins-dark input {
     border-radius: 4px;
 }
 
-.antd-modal-dark .ant-modal-header .ant-modal-title,
 .antd-modal-dark .ant-modal-close-x{
     color: #999999;
+    height: 40px;
+    line-height: 40px;
 }

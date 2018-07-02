@@ -793,21 +793,30 @@ class TradeStore {
             .then(data => {
                 this.isSubmiting = 0;
                 runInAction('order', () => {
-                    if (data.status !== 200) {
-                        defer.reject(data);
-                        return;
-                    }
+                    switch (data.status) {
+                        case 200:
+                            this.getUserAccount();
 
-                    this.getUserAccount();
-
-                    if (type == 'buy') {
-                        this.setDealBuyPrice('');
-                        this.setDealBuyNum('');
-                        this.setTradeBuyPassword('');
-                    } else {
-                        this.setDealSellPrice('');
-                        this.setDealSellNum('');
-                        this.setTradeSellPassword('');
+                            if (type == 'buy') {
+                                this.setDealBuyPrice('');
+                                this.setDealBuyNum('');
+                                this.setTradeBuyPassword('');
+                            } else {
+                                this.setDealSellPrice('');
+                                this.setDealSellNum('');
+                                this.setTradeSellPassword('');
+                            }
+                            break;
+                        case 2013: //"交易密码输入错误"
+                            if (type == 'buy') {
+                                this.setTradeBuyPassword('');
+                            } else {
+                                this.setTradeSellPassword('');
+                            }
+                            defer.reject(data);
+                            break;
+                        default:
+                            defer.reject(data);
                     }
                 });
             })

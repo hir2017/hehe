@@ -97,8 +97,8 @@ class TVChartContainer extends Component {
         this.defaultThemes = {
             "light": {
                 url: "./bundles/day.css",
-                up: "#00d02c",
-                down: "#ff3380",
+                up: "#33c280",
+                down: "#ef5d7f",
                 bg: "#ffffff",
                 grid: "#f7f8fa",
                 cross: "#23283D",

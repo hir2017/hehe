@@ -74,14 +74,14 @@ class PopupTradePwd extends Component{
             >
                 <div className="popup-trade-password">
                     <div className="input-area clearfix">
-                        <div className={ !this.state.validPwd ? 'input-box wrong': 'input-box' }>
+                        <div className={ !this.state.validPwd ? 'input-box': 'input-box' }>
                             <input 
                                 ref="input"
                                 type="password" 
                                 onBlur={this.onBlur.bind(this)}
                             />
                         </div>
-                        <p className="warn-tip">{ !this.state.validPwd  ? `*${UPEX.lang.template('密码错误')}` : null }</p>
+                        <p className="warn-tip"></p>
                     </div>
                     <button className="submit" onClick={this.handleSubmit.bind(this)}>{UPEX.lang.template('提交')}</button>
                 </div>

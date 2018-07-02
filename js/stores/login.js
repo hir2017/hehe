@@ -154,6 +154,52 @@ class LoginInfoBaseStore {
         return result;
     }
 
+    @computed
+    get verifyInfoBeforeLogin(){
+        let mode = this.mode;
+        let result = {
+            pass: true,
+            message: ''
+        };
+
+        let email = this.email;
+        let phone = this.phone;
+        let pwd = this.pwd;
+        let imgcode = this.imgcode;
+
+        if (mode == 'email') {
+            if (!email || !this.validEmail) {
+                result.pass = false;
+                result.message = UPEX.lang.template('请确认邮箱是否正确');
+
+                return result;
+            }
+        } else {
+            if (!phone || !this.validPhone) {
+                result.pass = false;
+                result.message = UPEX.lang.template('请确认手机号是否正确');
+
+                return result;
+            }
+        }
+
+        if (!pwd) {
+            result.pass = false;
+            result.message = UPEX.lang.template('请确认密码是否正确');
+
+            return result;
+        }
+
+        if (!imgcode) {
+            result.pass = false;
+            result.message = UPEX.lang.template('请确认图片验证码');
+
+            return result;
+        }
+
+        return result;
+    }
+
     // 提交表单验证
     @computed
     get verifyInfoBeforeSubmit() {

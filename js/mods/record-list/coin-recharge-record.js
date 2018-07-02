@@ -63,7 +63,7 @@ class List extends Component {
 									break;
 								default:
 									// 数字：网络确认数
-									status = UPEX.lang.template('充币中({num}/{total})', {num: item.confirms, total: item.finalConfirms});
+									status = `${item.confirms}/${item.finalConfirms}`;
 							}
 
 							return (
