@@ -84,7 +84,7 @@ class TradeContent extends Component {
         }
     }
 
-    componentWillUnMount(){
+    componentWillUnmount(){
         this.props.tradeStore.destorySocket();
     }
 

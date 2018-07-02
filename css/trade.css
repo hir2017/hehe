@@ -56,6 +56,7 @@
     display: inline-block;
     vertical-align: middle;
     margin-right: 10px;
+    white-space: nowrap;
 }
 
 .trade-current-coin li label,
@@ -869,6 +870,7 @@ body .ant-popover-placement-bottomLeft>.ant-popover-content>.ant-popover-arrow {
 .app-trade .tradeorder-bd .order-table .table-hd th{
     height: 40px;
     line-height: 40px;
+    font-size: 12px;
 }
 
 .tradeorder-bd .order-main-box{
@@ -904,7 +906,8 @@ body .ant-popover-placement-bottomLeft>.ant-popover-content>.ant-popover-arrow {
 
 .app-trade .tradeorder-wrapper .mini-tip {
     text-align: center;
-    padding-top: 20px;
+    margin-top: 20px;
+    font-size: 12px;
 }
 
 .tradeorder-bd .mini-loading {

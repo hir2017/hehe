@@ -61,7 +61,7 @@ class TradeStore {
     @observable tradePasswordStatus = 2; // 交易.  1：需要交易密码；2：不需要交易密码
     @observable isSubmiting = 0;
     @observable hasSettingDealPwd = false; // 是否设置交易密码
-
+    first = true;
 
     constructor(stores) {
         this.commonStore = stores.commonStore;
@@ -530,8 +530,6 @@ class TradeStore {
 
     @action
     getEntrust() {
-        let first = true;
-
         socket.off('entrust');
         socket.emit('entrust', {
             baseCurrencyId: this.baseCurrencyId,
@@ -542,17 +540,15 @@ class TradeStore {
             runInAction('get entrust', () => {
                 this.entrust = data;
 
-                if (first) {
+                if (this.first) {
                     // 默认买入价格是最佳价格
-                    if (!this.dealBuyPrice) {
-                        this.dealBuyPrice = this.getBestBuyPrice();
-                    }
-                    // 默认卖出价格是最佳价格
-                    if (!this.dealSellPrice) {
-                        this.dealSellPrice = this.getBestSellPrice();
-                    }
+                    this.first = false; 
 
-                    first = false;
+                    if (this.authStore.isLogin) {
+                        return;
+                    }
+                    this.dealBuyPrice = this.getBestBuyPrice();
+                    this.dealSellPrice = this.getBestSellPrice();
                 }
             });
         });
@@ -886,6 +882,7 @@ class TradeStore {
         socket.off('quoteNotify');
         socket.off('loginAfter');
         socket.off('userAccount');
+        this.first = true;
         this.marketListStore.destorys();
     }
 }
