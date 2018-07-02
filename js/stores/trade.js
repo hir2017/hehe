@@ -544,7 +544,7 @@ class TradeStore {
                     // 默认买入价格是最佳价格
                     this.first = false; 
 
-                    if (this.authStore.isLogin) {
+                    if (!this.authStore.isLogin) {
                         return;
                     }
                     this.dealBuyPrice = this.getBestBuyPrice();
