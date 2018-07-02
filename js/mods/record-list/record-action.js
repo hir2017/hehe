@@ -2,7 +2,7 @@ import { message } from 'antd';
 import { getPersonalTradingPwd, cancelOrder } from '../../api/http';
 import { socket } from '../../api/socket';
 import { browserHistory } from 'react-router';
-import PopupTradePwd from './tradepwd';
+
 export default (store, authStore) => {
     return {
         isFirst: true,

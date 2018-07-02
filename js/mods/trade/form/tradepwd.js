@@ -6,28 +6,46 @@ import ReactDOM, {render} from 'react-dom';
 import { Modal,message} from 'antd';
 
 class PopupTradePwd extends Component{
-    static defaultProps  = {
-        onSubmit: ()=>{}
+    static defaultProps = {
+        prefix: ''
     }
-    
+
     constructor(props) {
         super(props); 
 
         this.state = {
-            validPwd: true
+            validPwd: true,
+            visible: false
         }
     }
 
+    show=(callback)=>{
+        this.onSubmit = callback;
+        this.setState({
+            validPwd: true,
+            visible: true,
+        }, ()=>{
+            this.refs.input.value = '';
+        });
+    }
+
     handleCancel=(e)=>{
-        this.props.onHide();
+        this.hideModal();
     }
 
     handleSubmit =(e)=>{
         let value = this.refs.input.value.trim();
 
         if (value) {
-            this.props.onSubmit(value);
+            this.handleCancel();
+            this.onSubmit(value);
         }
+    }
+
+    hideModal = () => {
+        this.setState({
+            visible: false,
+        });
     }
 
     onBlur=(e)=>{
@@ -47,8 +65,10 @@ class PopupTradePwd extends Component{
     render() {
         return (
             <Modal 
+                ref="modal"
+                wrapClassName={`vertical-center-modal ${this.props.prefix}`}
                 title={UPEX.lang.template('输入交易密码')} 
-                visible={true} 
+                visible={this.state.visible} 
                 onCancel={this.handleCancel.bind(this)} 
                 footer={null}
             >
@@ -70,34 +90,4 @@ class PopupTradePwd extends Component{
     }
 }
 
-
-module.exports = {
-    create: function (cfg) {
-        cfg = cfg || {};
-        
-        if (this.layer) {
-            this.destroy();
-        }
-        var mountNode = this.createMountNode();
-        
-        this.layer = ReactDOM.render(
-            <PopupTradePwd {...cfg} onHide={this.onHide.bind(this)}/>,
-            mountNode
-        );
-    },
-
-    onHide: function(){
-        this.destroy();
-    },
-    // 创建组件插入的DOM节点
-    createMountNode: function() {
-        this.mountNode = document.createElement("div");
-        $(document.body).append(this.mountNode);
-        return this.mountNode;
-    },
-    destroy : function () {
-        ReactDOM.unmountComponentAtNode(this.mountNode);
-        $(this.mountNode).remove();
-        delete this.layer;
-    }
-};
+export default PopupTradePwd;

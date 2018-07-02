@@ -387,11 +387,11 @@
 }
 
 .popup-trade-password .input-box.wrong {
-    border-right: 1px solid #ff3380;
+    border-right: 1px solid #ff6666;
 }
 
 .popup-trade-password .warn-tip {
-    color: #ff3380;
+    color: #ff6666;
     min-height: 21px;
     line-height: 21px;
     font-size: 14px;
@@ -400,15 +400,15 @@
 }
 
 .popup-trade-password .submit {
-    width: 100px;
+    width: 140px;
     height: 36px;
     line-height: 36px;
     margin: 10px auto 0;
-    background-color: rgb(230, 188, 29);
-    color: #fff;
+    background-color: #cc9900;
+    color: #333333;
     text-align: center;
     display: block;
-    border-radius: 4px;
+    border-radius: 3px;
 }
 /**
  * 充币记录

@@ -226,6 +226,7 @@ class UDFCompatibleDatafeed {
             }, 3 * 1000)
         }
 
+        this.timer && clearTimeout(this.timer);
         fetch();
     }
     /**

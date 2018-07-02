@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { observer, inject } from 'mobx-react';
 import { browserHistory, Link} from 'react-router';
 import { Slider, Tooltip , message } from 'antd';
+import PopupTradePwd from './tradepwd';
 
 @inject('tradeStore', 'authStore')
 @observer
@@ -60,6 +61,7 @@ class TradeForm extends Component{
 
 		this.props.tradeStore.checkTradePrice(value, type);
 	}	
+
 	// 失去焦点的时候验证填入的数量
 	checkTradeNumber=(type, e)=>{
 		let value = e.currentTarget.value.trim();
@@ -74,11 +76,29 @@ class TradeForm extends Component{
 		if (result.pass) {
 			createTradeOrder(type).done(()=>{
 	        	// 下单成功
+	        	message.success(UPEX.lang.template('下单成功'));
 	        }).fail((data)=>{
 	        	message.error(data.message);
 	        })
 		} else {
-			message.error(result['message']);
+			if (result.action == 'pwdpop') {
+				this.refs.pwdpop.show((value)=>{
+					if (type == 'buy') {
+						this.props.tradeStore.setTradeBuyPassword(value);
+					} else if (type == 'sell') {
+						this.props.tradeStore.setTradeSellPassword(value);
+					}
+
+					createTradeOrder(type).done(()=>{
+			        	// 下单成功
+			        	message.success(UPEX.lang.template('下单成功'));
+			        }).fail((data)=>{
+			        	message.error(data.message);
+			        })
+				});
+			} else {
+				message.error(result['message']);	
+			}
 		}
 	}
 
@@ -93,6 +113,7 @@ class TradeForm extends Component{
 			75: '75%',
 			100: '100%'
 		}
+		
 		return (
 			<div className="trade-form">
 				<div className="trade-form-hd">
@@ -181,21 +202,6 @@ class TradeForm extends Component{
 				                        />
 			                        </div>
 								</li>
-								{
-									 store.tradePasswordStatus == 1 ? (
-									 	<li>
-											<label>{UPEX.lang.template('交易密码')}</label>
-											<div className="input-box">
-												<input
-													type="password"
-													min="0"
-													value={store.tradeBuyPassword}
-													onChange={this.onChange.bind(this, 'buypwd')}
-												/>
-											</div>
-										</li>
-									 ) : null
-								}
 								<li className="hidden">
 									<label>{UPEX.lang.template('手续费')}</label>
 									<em>{ store.dealBuyFee }({store.currencyNameEn})</em>
@@ -255,21 +261,6 @@ class TradeForm extends Component{
 				                        />
 			                        </div>
 								</li>	
-								{
-									 store.tradePasswordStatus == 1 ? (
-									 	<li>
-											<label>{UPEX.lang.template('交易密码')}</label>
-											<div className="input-box">
-												<input
-													type="password"
-													min="0"
-													value={store.tradeSellPassword}
-													onChange={this.onChange.bind(this, 'sellpwd')}
-												/>
-											</div>
-										</li>
-									 ) : null
-								}
 								<li className="hidden">
 									<label>{UPEX.lang.template('手续费')}</label>
 									<em>{ store.dealSellFee }({store.currencyNameEn})</em>
@@ -286,6 +277,7 @@ class TradeForm extends Component{
 						</div>
 					</div>
 				</div>
+				<PopupTradePwd ref="pwdpop" prefix={`antd-modal-${store.theme}`}/>
 			</div>
 		)
 	}

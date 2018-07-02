@@ -61,6 +61,7 @@ class TradeStore {
     @observable tradePasswordStatus = 2; // 交易.  1：需要交易密码；2：不需要交易密码
     @observable isSubmiting = 0;
     @observable hasSettingDealPwd = false; // 是否设置交易密码
+    
     first = true;
 
     constructor(stores) {
@@ -544,9 +545,6 @@ class TradeStore {
                     // 默认买入价格是最佳价格
                     this.first = false; 
 
-                    if (!this.authStore.isLogin) {
-                        return;
-                    }
                     this.dealBuyPrice = this.getBestBuyPrice();
                     this.dealSellPrice = this.getBestSellPrice();
                 }
@@ -625,6 +623,8 @@ class TradeStore {
 
         socket.on('userAccount', data => {
             runInAction('get userAccount', () => {
+                data.baseCoinBalance = data.baseCoinBalance || 0;
+                data.tradeCoinBalance = data.tradeCoinBalance || 0;
                 this.personalAccount = data;
             });
         });
@@ -730,14 +730,15 @@ class TradeStore {
                 pass: false,
                 message: UPEX.lang.template('数量输入错误')
             };
-        }
-
-        // 必须填写交易密码
-        if (this.tradePasswordStatus == 1 && !password) {
-            result = {
-                pass: false,
-                message: UPEX.lang.template('请输入交易密码')
-            };
+        } else {
+            // 必须填写交易密码
+            if (this.tradePasswordStatus == 1 && !password) {
+                result = {
+                    pass: false,
+                    action: 'pwdpop',
+                    message: UPEX.lang.template('请输入交易密码')
+                };
+            }
         }
 
         return result;

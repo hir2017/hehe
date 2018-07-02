@@ -313,3 +313,24 @@ body .popover-tradecoins-dark input {
 .app-trade-dark .tradeorder-bd .order-table .table-bd dl:hover dd{
     color: #fee8c2;
 }
+.antd-modal-dark .ant-modal-content,
+.antd-modal-dark .ant-modal-header{
+    color: #999999;
+    background-color:  #333333;
+}
+
+.antd-modal-dark .ant-modal-header {
+    border-bottom: 1px solid #20201e;
+}
+
+.antd-modal-dark .popup-trade-password .input-box{
+    background-color: #121211;
+    border: 1px solid #121211;
+    color: #fee8c2;
+    border-radius: 4px;
+}
+
+.antd-modal-dark .ant-modal-header .ant-modal-title,
+.antd-modal-dark .ant-modal-close-x{
+    color: #999999;
+}
