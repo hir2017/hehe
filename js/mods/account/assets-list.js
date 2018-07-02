@@ -86,7 +86,7 @@ class AssetsListView extends Component {
     };
 
     handleCoinTrade = (item, e) => {
-        browserHistory.push(`/trade/TWD_${item.currencyNameEn}`);
+        browserHistory.push(`/tradecenter/TWD_${item.currencyNameEn}`);
     };
 
     ValToFixed(val) {

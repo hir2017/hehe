@@ -46,6 +46,7 @@
     border-bottom: 1px solid transparent;
     z-index: 3;
     font-size: 14px;
+    white-space: nowrap;
 }
 
 .trade-current-coin {
@@ -56,7 +57,7 @@
     display: inline-block;
     vertical-align: middle;
     margin-right: 10px;
-    white-space: nowrap;
+
 }
 
 .trade-current-coin li label,

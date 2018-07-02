@@ -7,7 +7,7 @@ import toAction from './record-action';
 @observer
 class List extends Component {
 	static defaultProps = {
-		pagination: true // 是否分页， true分也，false不分页
+		pagination: true // 是否分页， true分页，false不分页
 	}
 
 	constructor(props){
@@ -23,7 +23,9 @@ class List extends Component {
 				size: 0
 			});
 		} else {
-			this.action.getData();
+			this.action.getData({
+				size: 10
+			});
 		}
 	}
 

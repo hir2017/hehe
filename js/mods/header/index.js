@@ -79,7 +79,7 @@ class HeaderView extends Component {
 					<div className="header-box-l">
 						<ul>
 							<li className="trade">
-								<Link to="/trade">{ UPEX.lang.template('行情中心')}</Link>
+								<Link to="/tradecenter">{ UPEX.lang.template('行情中心')}</Link>
 							</li>
 							<li className="news">
 								<Link to="/news">{ UPEX.lang.template('新闻公告')}</Link>

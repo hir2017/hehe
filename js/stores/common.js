@@ -44,7 +44,7 @@ class CommonStore {
     }
 
     @computed get isTradeCenter() {
-        return this.currentPathName.indexOf('/trade') > -1;
+        return this.currentPathName.indexOf('/tradecenter') > -1;
     }
 
     @action

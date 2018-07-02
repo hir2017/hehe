@@ -73,7 +73,7 @@ const routes = (
         	<IndexRedirect to='home'/>
         	<Route path="home" component={Home}/>
         	<Route path="index" component={Home}/>
-	        <Route path="trade(/:pair)" component={TradeCenter}/>
+	        <Route path="tradecenter(/:pair)" component={TradeCenter}/>
 
 	        <Route path="account" component={Auth}>
 	        	<IndexRoute component={Assets}/>
