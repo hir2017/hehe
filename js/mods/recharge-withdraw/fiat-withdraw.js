@@ -132,14 +132,14 @@ class FiatRechargeView extends Component {
                         </div>
                     </div>
                     <div className="rw-form-item">
-                        <label className="rw-form-label">{UPEX.lang.template('交易密码')}</label>
+                        <label className="rw-form-label">{UPEX.lang.template('资金密码')}</label>
                         <div className="rw-form-info">
                             <div className={`input-box ${store.validTradePwd ? '' : 'wrong'}`}>
                                 <input
                                     type="password"
                                     data-key="tradepwd"
                                     value={store.tradepwd}
-                                    placeholder={UPEX.lang.template('填写交易密码')}
+                                    placeholder={UPEX.lang.template('填写资金密码')}
                                     onChange={action.onChangeInput}
                                 />
                             </div>

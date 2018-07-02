@@ -120,7 +120,7 @@ const SITE_LANGUAGE = (function() {
         } else {
             lang = 'en-US';
         }
-    }   
+    }
 
     return lang;
 })();
@@ -186,7 +186,7 @@ const imgHost = PROTOCOL + '//' + origin + '/img';
 
 const config = {
     baseCurrencyEn: 'TWD',
-    defaultLanguage: SITE_LANGUAGE, // 网站语言 
+    defaultLanguage: SITE_LANGUAGE, // 网站语言
     systemLanguage: SYSTEM_LANGUAGE, // 浏览器系统语言
     isEdge: /Edge/i.test(ua), // 12+
     isIE: /(MSIE|Trident|Edge)/.test(ua),
@@ -200,7 +200,7 @@ const config = {
     // 手机号正则表达式
     phoneReg: /^1[3|4|5|7|8]\d{9}$/,
     salt: 'dig?F*ckDang5PaSsWOrd&%(polarisex0160630).',
-    // 交易密码加盐
+    // 资金密码加盐
     dealSalt: 'dig?F*ckDa2g5PaSsWOrd&%(POLARISEX0160630).',
     // websocket域名
     websocketHost,
@@ -217,7 +217,7 @@ const config = {
 win.UPEX = Object.assign({
     cache,
     config,
-    lang,    
+    lang,
     /**
      * 网站支持的语言列表
      */

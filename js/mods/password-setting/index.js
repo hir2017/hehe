@@ -47,7 +47,7 @@ export default class BindingBank extends Component {
 
     handleOk = () => {
         if (!this.state.pwd) {
-            message.error(UPEX.lang.template('交易密码不能为空'));
+            message.error(UPEX.lang.template('资金密码不能为空'));
             return;
         }
         const pwd = md5(this.state.pwd + UPEX.config.dealSalt + this.props.authStore.uid);
@@ -123,7 +123,7 @@ export default class BindingBank extends Component {
                 <Row className="pwd bottom-radius-6">
                     <Col className="title" span={8}>
                         <p>
-                            {UPEX.lang.template('交易密码')}
+                            {UPEX.lang.template('资金密码')}
                         </p>
                         <p>{UPEX.lang.template('用於交易、綁定解綁銀行卡充幣提現等資金 操作，需要嚴格保密')}</p>
                     </Col>
@@ -150,7 +150,7 @@ export default class BindingBank extends Component {
                 </Row>
                 <div className="message">{UPEX.lang.template('為了您的資金安全，忘記交易密碼并修改成功后，24小時內不可以提現提幣。')}</div>
                 <Modal
-                    title={UPEX.lang.template('请输入交易密码')}
+                    title={UPEX.lang.template('请输入资金密码')}
                     visible={this.state.visible}
                     onOk={this.handleOk}
                     confirmLoading={loading}
@@ -163,7 +163,7 @@ export default class BindingBank extends Component {
                                 value={this.state.pwd}
                                 type="password"
                                 size="large"
-                                placeholder={UPEX.lang.template('请输入交易密码')}
+                                placeholder={UPEX.lang.template('请输入资金密码')}
                             />
                         </div>
                     </div>

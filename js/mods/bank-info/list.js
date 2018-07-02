@@ -111,7 +111,7 @@ export default class BankList extends Component {
     handleOk = () => {
         const gaBindSuccess = this.props.userInfoStore.gaBindSuccess;
         if (!this.state.pwd) {
-            message.error(UPEX.lang.template('交易密码不能空'));
+            message.error(UPEX.lang.template('资金密码不能空'));
             return;
         }
         if (!this.state.vCode && gaBindSuccess) {
@@ -203,7 +203,7 @@ export default class BankList extends Component {
                 </div>
                 <Modal title={UPEX.lang.template('解绑银行卡')} visible={this.state.visible} onOk={this.handleOk} onCancel={this.handleCancel}>
                     <div className="item" style={{ marginBottom: '20px' }}>
-                        <Input type="password" value={this.state.pwd} onChange={this.pwdChange} placeholder={UPEX.lang.template('请输入交易密码')} />
+                        <Input type="password" value={this.state.pwd} onChange={this.pwdChange} placeholder={UPEX.lang.template('请输入资金密码')} />
                     </div>
                     {gaBindSuccess ? (
                         <div className="item">

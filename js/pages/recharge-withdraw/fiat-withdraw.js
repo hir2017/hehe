@@ -34,7 +34,7 @@ class Recharge extends Component{
 	render() {
 		let { userInfoStore } = this.props;
 		let $content;
-		
+
 		if (userInfoStore.isFetchingInfo == false) {
     		// KYC1未认证通过
 			if (userInfoStore.userInfo.authLevel == 0) {
@@ -53,11 +53,11 @@ class Recharge extends Component{
 					</div>
 				);
 			} else if (!userInfoStore.userInfo.isValidatePass){
-				// 未设置交易密码
+				// 未设置资金密码
 				$content = (
 					<div className="userauth-guide">
-						<h4>{UPEX.lang.template('请您先设置交易密码，否则无法进行提币、提现操作')}</h4>
-						<button onClick={this.clickSetTradePwd}>{UPEX.lang.template('设置交易密码')}</button>
+						<h4>{UPEX.lang.template('请您先设置资金密码，否则无法进行提币、提现操作')}</h4>
+						<button onClick={this.clickSetTradePwd}>{UPEX.lang.template('设置资金密码')}</button>
 					</div>
 				);
 			} else {

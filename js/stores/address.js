@@ -1,10 +1,10 @@
 import { observable, computed, autorun, action } from 'mobx';
 import md5 from '../lib/md5';
 
-class AddressStore {    
+class AddressStore {
     @observable address = ''; // 手机
     @observable note = ''; // 交易备注
-    @observable pwd = ''; // 交易密码
+    @observable pwd = ''; // 资金密码
     @observable currencyId = '';
     @observable validAddress = true;
     @observable validNote = true;
@@ -19,7 +19,7 @@ class AddressStore {
     @action
     checkPwd() {
         let ret = true;
-        
+
         if (!this.pwd) {
             ret = false;
         }
@@ -32,7 +32,7 @@ class AddressStore {
     // 检查地址
     @action
     checkAddress() {
-        let ret = true;        
+        let ret = true;
         if (!this.address) {
             ret = false;
         }
@@ -56,7 +56,7 @@ class AddressStore {
     }
 
     // 提交表单验证
-    @action 
+    @action
     verifyInfoBeforeSubmit() {
         let mode = this.mode;
         let result = {
@@ -72,8 +72,8 @@ class AddressStore {
             result.message = UPEX.lang.template('地址描述填写错误');
         } else if(!this.checkPwd()) {
             result.pass = false;
-            result.message = UPEX.lang.template('交易密码填写错误');
-        } 
+            result.message = UPEX.lang.template('资金密码填写错误');
+        }
 
         return result;
     }

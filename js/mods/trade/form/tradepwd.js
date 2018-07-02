@@ -1,5 +1,5 @@
 /**
- * 交易密码。
+ * 资金密码。
  */
 import React, {Component} from 'react';
 import ReactDOM, {render} from 'react-dom';
@@ -11,7 +11,7 @@ class PopupTradePwd extends Component{
     }
 
     constructor(props) {
-        super(props); 
+        super(props);
 
         this.state = {
             validPwd: true,
@@ -50,7 +50,7 @@ class PopupTradePwd extends Component{
 
     onBlur=(e)=>{
         let value = this.refs.input.value.trim();
-        
+
         if (!value) {
             this.setState({
                 validPwd: false
@@ -64,20 +64,20 @@ class PopupTradePwd extends Component{
 
     render() {
         return (
-            <Modal 
+            <Modal
                 ref="modal"
                 wrapClassName={`vertical-center-modal ${this.props.prefix}`}
-                title={UPEX.lang.template('输入交易密码')} 
-                visible={this.state.visible} 
-                onCancel={this.handleCancel.bind(this)} 
+                title={UPEX.lang.template('输入资金密码')}
+                visible={this.state.visible}
+                onCancel={this.handleCancel.bind(this)}
                 footer={null}
             >
                 <div className="popup-trade-password">
                     <div className="input-area clearfix">
                         <div className={ !this.state.validPwd ? 'input-box wrong': 'input-box' }>
-                            <input 
+                            <input
                                 ref="input"
-                                type="password" 
+                                type="password"
                                 onBlur={this.onBlur.bind(this)}
                             />
                         </div>

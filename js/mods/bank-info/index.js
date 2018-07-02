@@ -123,7 +123,7 @@ export default class BindingBank extends Component {
             return;
         }
         if (!this.state.password) {
-            message.error('交易密码不能为空');
+            message.error('资金密码不能为空');
             return;
         }
         if (!this.state.imgUrl) {
@@ -164,10 +164,10 @@ export default class BindingBank extends Component {
                 }
             },
             bank: {
-                label: UPEX.lang.template('开户行')
+                label: UPEX.lang.template('开户银行')
             },
             subBank: {
-                label: UPEX.lang.template('开户分行')
+                label: UPEX.lang.template('分行信息')
             },
             cardNo: {
                 label: UPEX.lang.template('银行账号'),
@@ -176,7 +176,7 @@ export default class BindingBank extends Component {
                 })
             },
             password: {
-                label: UPEX.lang.template('交易密码'),
+                label: UPEX.lang.template('资金密码'),
                 inputProps: Object.assign(getProp('password'), {
                     value: this.state.password
                 })

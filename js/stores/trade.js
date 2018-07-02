@@ -58,20 +58,20 @@ class TradeStore {
     @observable tradeNumberErr = '';
     @observable tradeBuyPassword = '';
     @observable tradeSellPassword = '';
-    @observable tradePasswordStatus = 2; // 交易.  1：需要交易密码；2：不需要交易密码
+    @observable tradePasswordStatus = 2; // 交易.  1：需要资金密码；2：不需要资金密码
     @observable isSubmiting = 0;
-    @observable hasSettingDealPwd = false; // 是否设置交易密码
-    
+    @observable hasSettingDealPwd = false; // 是否设置资金密码
+
     first = true;
 
     constructor(stores) {
         this.commonStore = stores.commonStore;
         this.authStore = stores.authStore;
         this.marketListStore = new MarketListStore(stores);
-        
+
         this.headerHeight = 60;
         this.space = 10;
-        this.handleHeight = 310; // 操作区域高度 
+        this.handleHeight = 310; // 操作区域高度
         this.minChartHeight = 320; // K线图最小高度270
         this.minContentHeight = 320;
 
@@ -366,7 +366,7 @@ class TradeStore {
             num = balance * value / this.dealBuyPrice;
             this.dealBuyNum = NumberUtil.initNumber(num, this.pointPrice);
         }
-        
+
         this.buySliderValue = value;
     }
 
@@ -543,7 +543,7 @@ class TradeStore {
 
                 if (this.first) {
                     // 默认买入价格是最佳价格
-                    this.first = false; 
+                    this.first = false;
 
                     this.dealBuyPrice = this.getBestBuyPrice();
                     this.dealSellPrice = this.getBestSellPrice();
@@ -643,7 +643,7 @@ class TradeStore {
             runInAction(() => {
                 if (data.status == 200) {
                     if (data.attachment.isValidatePass === 1) {
-                        // 已设置交易密码
+                        // 已设置资金密码
                         this.hasSettingDealPwd = true;
                     } else {
                         this.hasSettingDealPwd = false;
@@ -654,7 +654,7 @@ class TradeStore {
     }
 
     /**
-     *  获取用户交易密码设置状态
+     *  获取用户资金密码设置状态
      */
     @action
     getPersonalTradingPwd() {
@@ -731,12 +731,12 @@ class TradeStore {
                 message: UPEX.lang.template('数量输入错误')
             };
         } else {
-            // 必须填写交易密码
+            // 必须填写资金密码
             if (this.tradePasswordStatus == 1 && !password) {
                 result = {
                     pass: false,
                     action: 'pwdpop',
-                    message: UPEX.lang.template('请输入交易密码')
+                    message: UPEX.lang.template('请输入资金密码')
                 };
             }
         }

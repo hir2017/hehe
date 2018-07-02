@@ -50,13 +50,13 @@ class BankInfo extends Component {
                 </div>
             );
         } else if (!userInfo.isValidatePass) {
-            // 未设置交易密码
+            // 未设置资金密码
             needTitle = true;
             $content = (
                 <div className="no-auth-message bank-message">
-                    <p>{UPEX.lang.template('请先设置交易密码')}</p>
+                    <p>{UPEX.lang.template('请先设置资金密码')}</p>
                     <Button className="ace-main">
-                       <Link to="/user/settingTraddingPassword">{UPEX.lang.template('设置交易密码')}</Link>
+                       <Link to="/user/settingTraddingPassword">{UPEX.lang.template('设置资金密码')}</Link>
                     </Button>
                 </div>
             );
