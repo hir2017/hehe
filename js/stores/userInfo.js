@@ -427,7 +427,11 @@ class UserInfo {
                 result = true;
                 message.success(UPEX.lang.template('修改成功'));
             } else {
-                message.error(res.message);
+                const msgMap = {
+                    '500': UPEX.lang.template('原手机短信确认码'),
+                    '403': UPEX.lang.template('新手机短信确认码'),
+                }
+                message.error(msgMap[res.status] || res.message);
             }
         } catch (e) {
             this.submit_loading = false;

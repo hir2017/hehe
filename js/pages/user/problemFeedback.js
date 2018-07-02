@@ -21,7 +21,8 @@ export default class extends Component {
         previewVisible: false,
         previewImage: '',
         fileList: [],
-        text: ''
+        text: '',
+        textLen: 200
     };
 
     uploadButton = (
@@ -52,8 +53,14 @@ export default class extends Component {
     };
 
     textAreaChange(e) {
+        let str = e.target.value;
+        let temp = str.replace(/[\u4e00-\u9fa5]/g, 'aa');
+        if(temp.length > 200) {
+            return;
+        }
         this.setState({
-            text: e.target.value
+            text: str,
+            textLen: 200 - temp.length
         });
     }
 
@@ -80,7 +87,8 @@ export default class extends Component {
             if (data) {
                 this.setState({
                     text: '',
-                    fileList: []
+                    fileList: [],
+                    textLen: 200
                 });
             }
         });
@@ -98,13 +106,14 @@ export default class extends Component {
                         {UPEX.lang.template('請詳細描述您的問題，客服專員會在四個工作日內回復。請在提問之前瀏覽一下問題列表 ，也許您的問題在列表裡已解決')}
                     </Col>
                     <Col className="align-right" span={4}>
-                        <Link to="/user/questionList">{UPEX.lang.template('前往问题列表')}</Link>
+                        <Link to="/user/questionList">{UPEX.lang.template('前往反馈列表')}</Link>
                     </Col>
                 </Row>
                 <Row className="text-area">
                     <Col span={24}>
                         <TextArea value={this.state.text} onChange={this.textAreaChange} rows={7} />
                         <p className={`placeholder ${this.state.text ? '' : 'show'}`}>{UPEX.lang.template('請輸入您要反饋的問題')}</p>
+                        <div className="text-stats">{UPEX.lang.template('还可以输入')}<span className="count">{this.state.textLen}</span>{UPEX.lang.template('个字')}</div>
                     </Col>
                 </Row>
 

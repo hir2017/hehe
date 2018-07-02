@@ -237,7 +237,7 @@ export default class BindingBank extends Component {
                             {textAlign: 'center'}
                         }
                     >
-                        <img src={banckCardImg} />
+                        <img src={banckCardImg} style={{width: '300px', height: '180px'}}/>
                     </Modal>
                     <div className="pic-item ace-upload-mod">
                         <header>

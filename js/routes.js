@@ -4,7 +4,8 @@ import { Route, IndexRedirect, IndexRoute } from 'react-router';
 import Layout from './pages/layout';
 
 import News from './pages/others/news';
-import NewsDetail from './pages/others/news-detail';
+import NewsList from './mods/news/list';
+import NewsDetail from './mods/news/detail';
 import Help from './pages/others/help';
 import AboutUs from './pages/others/about';
 import Careers from './pages/others/careers';
@@ -127,8 +128,10 @@ const routes = (
 			<Route path="announcement/:announcementId" component={AnnouncementPreview} />
 			<Route path="help" component={Help} />
 			<Route path="about" component={AboutUs} />
-			<Route path="news" component={News} />
-            <Route path="news/detail/:id" component={NewsDetail} />
+			<Route path="news" component={News}>
+                <IndexRoute component={NewsList}/>
+                <Route path="detail/:id" component={NewsDetail} />
+            </Route>
 			<Route path="contact" component={ContactUs} />
 			<Route path="feedback" component={Feedback} />
 			<Route path="cooperation" component={Cooperation} />

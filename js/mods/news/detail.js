@@ -54,15 +54,9 @@ class News extends Component {
         const state = this.state;
         let $rightContent = (<div className="date">{state.date}</div>)
         return (
-            <div className="news-wrapper">
-                <div className="news-body-inner clearfix">
-                    <div className="news-main">
-                        <PageWrapper title={state.title} rightContent={$rightContent}>
-                            <div dangerouslySetInnerHTML={{__html: state.content}} />
-                        </PageWrapper>
-                    </div>
-                </div>
-            </div>
+            <PageWrapper title={state.title} rightContent={$rightContent}>
+                <div dangerouslySetInnerHTML={{__html: state.content}} />
+            </PageWrapper>
         );
     }
 }
