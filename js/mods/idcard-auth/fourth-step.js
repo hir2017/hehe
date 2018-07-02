@@ -48,7 +48,7 @@ export default class FourthStep extends Component {
                         <Button
                             className="ace-btn-large"
                             onClick={e => {
-                                browserHistory.push('/tradecenter');
+                                browserHistory.push('/webtrade');
                             }}
                         >
                             {UPEX.lang.template('去行情中心')}

@@ -21,7 +21,7 @@ class MarketCoinList extends Component {
         }
 
         if ($(e.target).hasClass('symbol')) {
-            browserHistory.push(`/tradecenter/${item.baseCurrencyNameEn}_${item.currencyNameEn}`);
+            browserHistory.push(`/webtrade/${item.baseCurrencyNameEn}_${item.currencyNameEn}`);
         } else {
             this.props.homeStore.marketListStore.setSelectedCoin(item);    
         }
@@ -125,7 +125,7 @@ class MarketCoinList extends Component {
                                                 	let path, ratecolor, trendIcon, trendColor;
                                                 	
                                                 	if (item.baseCurrencyNameEn && item.currencyNameEn) {
-                                                		path = `/tradecenter/${item.baseCurrencyNameEn}_${item.currencyNameEn}`;	
+                                                		path = `/webtrade/${item.baseCurrencyNameEn}_${item.currencyNameEn}`;	
                                                 	} 
 
                                                     if (item.changeRate >= 0 ) {

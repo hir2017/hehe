@@ -56,7 +56,7 @@ class IndexMarkets extends Component{
            				<div className="realtime-hd">
             				<h4>{UPEX.lang.template('实时行情')}</h4>
             				<label>
-		                    <Link to={`/tradecenter/${pair}`}>
+		                    <Link to={`/webtrade/${pair}`}>
 		                    { UPEX.lang.template('K线') }
 		                    </Link>
 	                  	</label>

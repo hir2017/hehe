@@ -108,7 +108,7 @@ class UDFCompatibleDatafeed {
             symbol: symbolInfo.ticker || '',
             interval: _resolution,
             limit: 1440,
-            startTime: startDate,
+            startTime: startDate, 
             endTime: endDate
         }).then((res)=>{
             

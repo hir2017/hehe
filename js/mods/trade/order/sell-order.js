@@ -6,7 +6,11 @@ import { observer, inject } from 'mobx-react';
 
 @inject('tradeStore')
 @observer
-class SellOrder extends Component {
+class SellOrderView extends Component {
+	componentDidMount() {
+		this.resetScrollTop();
+	}
+
 	haneleClickOrder(item){
 		let store = this.props.tradeStore;
 
@@ -14,12 +18,16 @@ class SellOrder extends Component {
 		store.setDealSellPrice(item.current); // 卖出价格
 	}
 
+	resetScrollTop(){
+		this.refs.scroller.scrollTop = 2000;
+	}
+
 	render() {
 		let store = this.props.tradeStore;
 
 		return (
 			<div className="trade-sell">
-				<ul className="list">
+				<ul className="list" ref="scroller">
 					{ 
 						store.newEntrustData.sell.map((item, index)=>{
 							return (
@@ -38,4 +46,4 @@ class SellOrder extends Component {
 	}
 }
 
-export default SellOrder;
+export default SellOrderView;

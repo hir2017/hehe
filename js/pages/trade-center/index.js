@@ -88,7 +88,7 @@ class TradeContent extends Component {
         this.props.tradeStore.destorySocket();
     }
 
-    onChangeEntrustType=(type)=>{
+    onChangeEntrustType=(type)=>{   
         this.props.tradeStore.setType(type);    
     }
 
@@ -142,11 +142,11 @@ class TradeContent extends Component {
                                     <div className="number">{ UPEX.lang.template('数量')}</div>
                                     <div className="total">{ UPEX.lang.template('金额')}</div>
                                 </div>
-                                <div className="table-bd">
+                                <div className="table-bd" key={store.type}>
                                     {
                                         store.type !== 'buy' ? (
                                             <div className="trade-buy-box">
-                                                <SellOrder/>
+                                                <SellOrder ref="sellorder"/>
                                             </div>
                                         ) : null
                                     }
@@ -159,7 +159,7 @@ class TradeContent extends Component {
                                     {
                                         store.type !==  'sell' ? (
                                             <div className="trade-sell-box">
-                                                <BuyOrder/>
+                                                <BuyOrder ref="buyorder"/>
                                             </div>
                                         ) : null
                                     }

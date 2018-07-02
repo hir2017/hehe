@@ -17,7 +17,7 @@ axios.interceptors.request.use(function(config) {
         let data = qs.parse(config.data)
         config.data = qs.stringify({
             ...data,
-            locale: local
+            local: local
         })
         return config
     }
@@ -29,14 +29,14 @@ axios.interceptors.request.use(function(config) {
             ...data,
             token: token,
             uid: uid,
-            locale: local
+            local: local
         })
     } else if (config.method === 'get' || config.method === 'delete') {
         config.params = {
             ...config.params,
             token: token,
             uid: uid,
-            locale: local
+            local: local
         }
     }
     return config;
@@ -178,15 +178,8 @@ export function getAnnounceDetail(id) {
 
 // 获取banner列表
 export function getBannerList() {
-    let local = UPEX.cache.getCache('lang');
-
-    local = local == undefined || local == '' ? 'zh-TW' : local;
-
-    local =  local.replace('-', '_');
-    
     return axios.post(`${UPEX.config.host}/banner/banner`, qs.stringify({
-        type: 1,
-        language: local,
+        type: 1
     })).then(res => res.data);
 }
 /**

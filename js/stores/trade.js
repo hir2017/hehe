@@ -93,12 +93,12 @@ class TradeStore {
 
     @computed
     get mainChartHeight() {
-        return Math.max(this.contentHeight - this.handleHeight, this.minChartHeight);
+        return Math.max(this.contentHeight * 0.7, this.minChartHeight);
     }
 
     @computed
     get mainOrderHeight() {
-        return Math.max(this.contentHeight - this.mainChartHeight, 0);
+        return Math.max(this.contentHeight * 0.3, 0);
     }
 
 

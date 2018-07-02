@@ -28,7 +28,7 @@ class CoinList extends Component {
     };
 
     handleCurrency = (item, e) => {
-        browserHistory.push('/tradecenter/' + item.baseCurrencyNameEn + '_' + item.currencyNameEn);
+        browserHistory.push('/webtrade/' + item.baseCurrencyNameEn + '_' + item.currencyNameEn);
     };
 
     sortByCondition(condition) {
