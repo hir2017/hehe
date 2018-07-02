@@ -162,22 +162,27 @@ export function resetPwd(data) {
 }
 
 // 获取最新公告列表
-export function getAnnounceList(pageSize) {
-    return axios.post(`${UPEX.config.host}/announce/list`, qs.stringify({
-        num: pageSize
-    })).then(res => res.data);
+/*
+
+*/
+export function getAnnounceList(data) {
+    return axios.post(`${UPEX.config.host}/announce/pageList`, qs.stringify(data)).then(res => res.data);
 }
 
 // 获取公告详情
-export function getAnnounceDetail(id) {
-    return axios.post(`${UPEX.config.host}/announce/getInfo`, qs.stringify({
-        announceId: id
-    })).then(res => res.data);
+export function getAnnounceDetail(data) {
+    return axios.post(`${UPEX.config.host}/announce/getInfo`, qs.stringify(data)).then(res => res.data);
 }
 
 
 // 获取banner列表
 export function getBannerList() {
+    let local = UPEX.cache.getCache('lang');
+
+    local = local == undefined || local == '' ? 'zh-TW' : local;
+
+    local =  local.replace('-', '_');
+
     return axios.post(`${UPEX.config.host}/banner/banner`, qs.stringify({
         type: 1
     })).then(res => res.data);

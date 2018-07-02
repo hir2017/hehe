@@ -241,7 +241,7 @@ class List extends Component {
                                     <th className="price">{UPEX.lang.template('委托价格')}</th>
                                     <th className="num">{UPEX.lang.template('委托数量')}</th>
                                     <th className="status">{UPEX.lang.template('状态')}</th>
-                                    <th className="action"><span className="pr15">{UPEX.lang.template('操作')}</span></th>
+                                    <th className="action"><span className="pr10">{UPEX.lang.template('操作')}</span></th>
                                 </tr>
                             </tbody>
                         </table>

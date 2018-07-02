@@ -7,6 +7,7 @@ import '../css/trade.css';
 import '../css/trade-night.css';
 import '../css/trade-day.css';
 import '../css/user.css';
+import '../css/news.css';
 import '../css/account.css';
 import '../css/order.css';
 import '../css/recharge-withdraw.css';
@@ -21,7 +22,7 @@ import { message } from 'antd';
 import Url from './lib/url';
 
 message.config({
-    top: 100,  
+    top: 100,
     maxCount: 1
 });
 
@@ -32,7 +33,7 @@ import RootStore from './stores/index';
 
 const rootStore = new RootStore();
 
-@observer 
+@observer
 class App extends Component {
     static createElement(Component, props) {
         switch (Component) {
@@ -45,7 +46,7 @@ class App extends Component {
                     if (coin) {
                         pair = [coin.baseCurrencyNameEn, coin.currencyNameEn].join('_');
                     } else {
-                       pair = 'TWD_BTC'; 
+                       pair = 'TWD_BTC';
                     }
 
                     props.params.pair = pair;
@@ -58,7 +59,7 @@ class App extends Component {
                 return <Component {...props}/>
         }
     }
-	
+
     static onUpdate() {
 		rootStore.commonStore.updatePathName(this.state.location.pathname);
         window.scrollTo(0,0);
@@ -76,9 +77,9 @@ class App extends Component {
 
     render() {
         return (
-        	<div 
-                key={rootStore.commonStore.language + rootStore.authStore.uid } 
-                className={`app-page ${rootStore.commonStore.language}`}  
+        	<div
+                key={rootStore.commonStore.language + rootStore.authStore.uid }
+                className={`app-page ${rootStore.commonStore.language}`}
                 data-path={rootStore.commonStore.currentPathName}
             >
                 <Provider {...rootStore}>

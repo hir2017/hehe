@@ -32,7 +32,7 @@ class HeaderView extends Component {
 		if (this.props.authStore.isLogin) {
 			this.props.userInfoStore.getUserInfo();
 		}
-	}	
+	}
 
 	logout=(e)=>{
 		this.props.authStore.logout().then((data)=>{
@@ -66,7 +66,7 @@ class HeaderView extends Component {
 
 	    if (userInfoStore.userInfo) {
 	    	username = userInfoStore.userInfo.phone || userInfoStore.userInfo.email || '--';
-	    } 
+	    }
 
 		return (
 			<div className="app-header" id="J_AppHeader">
@@ -100,7 +100,7 @@ class HeaderView extends Component {
 										</Popover>
 									</li>
 								</ul>
-							) : ( 
+							) : (
 								<ul className="login-register">
 									<li className="login">
 										<Link to="/login">{ UPEX.lang.template('登录')}</Link>
@@ -109,13 +109,13 @@ class HeaderView extends Component {
 									<li className="register">
 										<Link to="/register">{ UPEX.lang.template('注册') }</Link>
 									</li>
-								</ul>	
+								</ul>
 							)
 						}
 						<ul className="help-language">
 							<li className="split">|</li>
 							<li className="help">
-								<Link to="/help">{ UPEX.lang.template('帮助中心')}</Link>
+                                <a  target="_blank" href="https://wordpress.upliveapps.com/">{ UPEX.lang.template('帮助中心')}</a>
 							</li>
 							<li className="split">|</li>
 							<li ref="lang">

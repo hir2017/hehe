@@ -1,0 +1,111 @@
+.news-wrapper {
+    position: relative;
+    width: 1200px;
+    margin: 0 auto 50px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.news-main {
+    width: 100%;
+    min-height: 420px;
+    margin: 20px 0;
+}
+
+.news-wrapper  .news-result-list {
+    overflow: hidden;
+    padding: 20px 0;
+    background-color: #fff;
+    min-height: 320px;
+    border-radius: 4px;
+}
+
+.news-result-list .mini-tip {
+    margin-top: 100px;
+    color: #ccc;
+    text-align: center;
+    min-height: 46px;
+    line-height: 46px;
+}
+
+.news-result-list .table-bd li {
+    border-bottom: 1px solid #f4f4f4;
+    height: 60px;
+    line-height: 60px;
+    font-size: 14px;
+}
+
+
+.news-result-list .table-bd li dl{
+    overflow: hidden;
+}
+
+.news-result-list .table-bd li dd {
+    display: inline-block;
+    color: #333;
+    float: left;
+    white-space: nowrap;
+}
+
+.news-result-list .table-bd li dd.content {
+    color: #333;
+    width: 1040px;
+    box-sizing: border-box;
+    padding-left: 20px;
+    padding-right: 20px;
+    text-overflow: ellipsis;
+    text-align: left;
+    overflow: hidden;
+    cursor: pointer;
+}
+.news-result-list .table-bd li dd.content:hover {
+    color: #cc9900;
+}
+.news-result-list .table-bd li dd.time {
+    width: 160px;
+    text-align: right;
+    color: #999;
+    padding-right: 20px;
+}
+
+.news-result-list .table-bd  {
+    min-height: 300px;
+}
+
+.news-result-list .table-ft  {
+    padding-top: 50px;
+    text-align: center;
+}
+
+/* .news-main .page-content-inner {
+} */
+
+
+.news-main .content-title {
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    color: #333;
+    height: 60px;
+    line-height: 60px;
+    border-bottom: solid 1px #f2f2f2;
+    background-color: #fff;
+    font-size: 18px;
+    padding-left: 20px;
+}
+
+.news-main .page-content-inner .title-right {
+    float: right;
+    color: #999;
+    font-size: 14px;
+    padding-right: 20px;
+}
+
+.news-main .content-body {
+    padding: 10px 20px 20px;
+    min-height: 500px;
+    background-color: #fff;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
+

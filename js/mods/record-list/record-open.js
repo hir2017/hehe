@@ -44,7 +44,7 @@ class List extends Component {
 	render() {
 		let store = this.props.openStore;
 		let $content;
-		
+
 		if (!this.props.authStore.isLogin) {
 			$content = <div className="mini-tip">{ UPEX.lang.template('登录后可查看当前委托订单')}</div>
 		} else if (!store.isFetching && store.orderList.length == 0) {
@@ -108,7 +108,7 @@ class List extends Component {
 									<th className="price">{UPEX.lang.template('委托价')}</th>
 									<th className="rate">{UPEX.lang.template('成交率')}</th>
 									<th className="amount">{UPEX.lang.template('成交金额')}</th>
-									<th className="action"><span className="pr15">{UPEX.lang.template('操作')}</span></th>
+									<th className="action"><span className="pr10">{UPEX.lang.template('操作')}</span></th>
 								</tr>
 							</tbody>
 						</table>

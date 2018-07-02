@@ -261,7 +261,9 @@
     display: inline-block;
     padding-right: 10px;
 }
-
+.order-main-box .action button:hover {
+    text-decoration-line: underline;
+}
 
 
 .order-table .detail-content {
