@@ -15,14 +15,14 @@ export default class CardSelect extends Component {
                     <div className="rw-form-info">
                         <Select
                             notFoundContent={UPEX.lang.template('无')}
-                            defaultValue={UPEX.lang.template('请选择一张绑定的银行账号')}
+                            placeholder={UPEX.lang.template('请选择一张绑定的银行账号')}
                             onChange={val => {
                                 setVal(val, 'selectedCard');
                             }}
                         >
                             {
                                 cards.map((cur, index) => {
-                                    return <Option key={index} value={cur.id}>{`${cur.openBank}(**** **** **** ${cur.cardNo})`}</Option>
+                                    return <Option key={index} value={cur.id}>{`${cur.openBank}(${cur.cardNo})`}</Option>
                                 })
                             }
                         </Select>

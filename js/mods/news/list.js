@@ -53,25 +53,24 @@ class News extends Component {
         this.questions(1);
     }
 
-    async questions(page) {
+    async questions(pageNum) {
         let result = false;
         this.setState({
             isFetching: true
         })
         try {
             const res = await getAnnounceList({
-                page
+                page: pageNum
             });
-            if(res.status !== 200) {
+            if(res.empty) {
                 message.error(res.message);
             } else {
                 result = true;
-                // const {list = [], pageCount = 0 } = res.attachment;
-                let list = res.attachment;
+                const {count = 0, list = [], page } = res;
                 this.setState({
                     list,
-                    // total: pageCount
-                    total: list.length
+                    total: count,
+                    current: page
                 });
             }
 

@@ -116,7 +116,7 @@ class WithdrawCoin extends Component {
 		                            	{$addressOptions}
 		                            </Select>
 	                            </div>
-	                            <button>
+	                            <button className="rw-sp-vcode-btn">
 	                            	<Link to={`/account/coin/address/${store.currentCoin.currencyNameEn}`}>{UPEX.lang.template('添加地址')}</Link>
 	                            </button>
 	                        </div>
@@ -157,7 +157,7 @@ class WithdrawCoin extends Component {
 	                        <span className="remain-amount">{UPEX.lang.template('可用提币数量:{count}', { count :  `${store.cashAmount || 0 }${store.currentCoin.currencyNameEn || ''}`})}</span>
 						</div>
 					</div>
-					<div className="rw-form-item">
+					<div className="rw-form-item sp-v-code">
 						<label className="rw-form-label">{UPEX.lang.template('图片验证码')}</label>
 						<div className="rw-form-info">
 							<div className="yz-box">
@@ -214,7 +214,7 @@ class WithdrawCoin extends Component {
 				                                onChange={action.onChangeInput}
 			                                />
 			                            </div>
-			                            <button onClick={ action.sendEmailPhoneCode } className={ store.sendingcode ? 'disabled' : ''} >
+			                            <button onClick={ action.sendEmailPhoneCode } className={`rw-sp-vcode-btn ${store.sendingcode ? 'disabled' : ''}`} >
 			                                <div className={ store.sendingcode ? 'code-sending': 'code-sending hidden'}>{ UPEX.lang.template('重发')}（<span data-second="second" ref="second"></span>s）</div>
 			                                <div className={ store.sendingcode ? 'code-txt hidden' : 'code-txt'}>{  UPEX.lang.template('获取验证码') }</div>
 			                            </button>

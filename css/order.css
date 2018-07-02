@@ -84,6 +84,11 @@
 /**
  * 头部过滤条
  */
+ .order-body-inner.coin-list .order-header{
+    height: 60px;
+    line-height: 60px;
+ }
+
 .order-header {
     height: 90px;
     line-height: 90px;
@@ -259,7 +264,7 @@
     border: 0 none;
     color: #cc9900;
     display: inline-block;
-    padding-right: 10px;
+    padding-left: 16px;
 }
 .order-main-box .action button:hover {
     text-decoration-line: underline;
@@ -293,7 +298,7 @@
 
 
 .order-table .collapse-content-active .action button{
-    background: url('../images/icon-arrow-detail.png') no-repeat right center;
+    background: url('../images/icon-arrow-detail.png') no-repeat left center;
     background-size: 15px 15px;
 }
 

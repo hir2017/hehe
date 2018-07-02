@@ -11,11 +11,11 @@
     width: 1200px;
     margin: 0 auto;
     font-size: 14px;
-    color: #333333;   
+    color: #333333;
 }
 
 .rw-wrapper .module-box{
-    border-radius: 4px;
+    border-radius: 6px;
     background-color: #fff;
     margin-top: 30px;
     padding-bottom: 20px;
@@ -26,7 +26,7 @@
     font-size: 18px;
     height: 60px;
     line-height: 60px;
-    font-weight: bold;
+    font-weight:  normal;
     color: #333333;
     border-bottom: 1px solid #f4f4f4;
 }
@@ -60,7 +60,7 @@
     text-align: center;
     line-height: 36px;
     margin: 0 auto;
-    border-radius: 4px;
+    border-radius: 3px;
 }
 
 .rw-wrapper .rw-form {
@@ -92,13 +92,15 @@
 
 .rw-form-info .ant-select {
     width: 450px;
+    font-size: 18px;
+    color: #333;
 }
 
 
 .rw-form-info .ant-select-selection--single,
 .rw-form-info .ant-select-selection__rendered {
-    height: 38px;
-    line-height: 38px;
+    height: 40px;
+    line-height: 40px;
 }
 
 
@@ -107,17 +109,17 @@
     position: relative;
     border: 1px solid #d8d9dd;
     width: 450px;
-    padding: 10px;
-    border-radius: 4px;
+    padding: 4px 10px;
+    border-radius: 3px;
 }
 
 .rw-form-info .input-box input {
     width: 100%;
-    line-height: 18px;
+    line-height: 30px;
     border: 0 none;
-    border-radius: 4px;
+    border-radius: 3px;
     outline: none;
-    font-size: 14px;
+    font-size: 18px;
     background: none;
 }
 
@@ -144,7 +146,7 @@
     display: inline-block;
     vertical-align: middle;
     border: 1px solid #d8d9dd;
-    border-radius: 4px;
+    border-radius: 3px;
     width: 119px;
     height: 38px;
     text-align: center;
@@ -158,6 +160,10 @@
     width: 360px;
 }
 
+.rw-form-item.sp-v-code .rw-form-info .yz-box .input-box {
+    width: 320px;
+}
+
 .rw-form-info .yz-box .input-box .codeimg {
     position: absolute;
     right: -130px;
@@ -165,8 +171,9 @@
     width: 120px;
     height: 38px;
     background-color: #ededed;
-    border: 1px solid #d8d9dd;
-    border-radius: 4px;
+    border: none;
+    border-radius: 3px;
+    overflow: hidden;
 }
 
 .rw-form-info .yz-box .input-box .codeimg img{
@@ -184,7 +191,7 @@
     display: inline-block;
     vertical-align: middle;
     border: 1px solid #d8d9dd;
-    border-radius: 4px;
+    border-radius: 3px;
     width: 220px;
     height: 38px;
     text-align: center;
@@ -196,6 +203,27 @@
 
 .rw-form-info .tab-item.selected {
     background-color: #e6bc1d;
+    border-color: #e6bc1d;
+}
+
+.rw-form-info .tab-item.selected:hover {
+    color: #333;
+}
+
+.rw-form-info .tab-item:hover {
+    color: #cc9900;
+}
+
+
+.rw-form-info .input-button-box button.rw-sp-vcode-btn, .rw-form-info .select-button-box button.rw-sp-vcode-btn{
+    color: #cc9900;
+    border: none;
+    background-color: transparent;
+}
+
+.rw-form-info .w-sp-vcode-btn:hover {
+    color: #cc9900;
+    text-decoration-line: underline;
 }
 
 .rw-form-info .remain-amount{
@@ -206,12 +234,18 @@
 
 .rw-form-info button.submit-btn {
     width: 450px;
-    height: 36px;
+    height: 40px;
     background-color: #e8b802;
     color: #333333;
     text-align: center;
-    line-height: 36px;
-    border-radius: 4px;
+    line-height: 40px;
+    border-radius: 3px;
+    margin-top: 9px;
+}
+
+.rw-form-info button.submit-btn:hover {
+    background-color: #ffdc57;
+    color: #333333;
 }
 
 .rw-form-info .warn{
@@ -222,12 +256,14 @@
 
 .rw-form-info a{
     padding: 0 20px;
+    color: #cc9900;
 }
 .rw-form-info .warmprompt {
-    padding: 10px 0;
+    padding: 0;
 }
-.rw-form-info .warmprompt-title {
-    margin-bottom: 10px;
+.rw-form-info .warmprompt-title, .rw-form-info .warmprompt-content li {
+    color: #999;
+    font-size: 12px;
 }
 
 .rw-form-info .warmprompt-content ul {
@@ -239,7 +275,9 @@
     font-size: 12px;
     line-height: 21px;
     margin: 0;
+
 }
+
 
 .rw-form-info .warmprompt-content li em {
     padding: 0 3px;
@@ -302,27 +340,50 @@
 
 .r-fait-wrapper .bank-card,
 .w-fait-wrapper .bank-card {
-    width: 344px;
-    height: 132px;
-    border-radius: 4px;
-    background-color: #d35256;
+    width: 450px;
+    height: 100px;
+    border-radius: 3px;
+    background-color: #fefbf2;
+    border: solid 1px #e8b802;
     color: #fff;
 }
 
 .r-fait-wrapper .bank-card-box,
 .w-fait-wrapper .bank-card-box  {
-    padding: 30px;
+    padding: 0;
     position: relative;
 }
 
 .r-fait-wrapper .bank-card .card-name,
 .w-fait-wrapper .bank-card .card-name {
-    font-size: 14px;
+    font-size: 12px;
+    color: #cc9900;
+    padding: 10px 0 0 10px;
+}
+.r-fait-wrapper .bank-card .center-box, .w-fait-wrapper .bank-card .center-box{
+    text-align: center;
+    height: 20px;
+    line-height: 20px;
+    margin-top: 10px;
+}
+
+.r-fait-wrapper .rw-form-info.order-amount, .w-fait-wrapper .rw-form-info.order-amount{
+    font-size: 20px;
+}
+.r-fait-wrapper .rw-form-info.order-amount .unit, .w-fait-wrapper .rw-form-info.order-amount .unit {
+    display: inline-block;
+    padding-right: 6px;
+}
+
+.r-fait-wrapper .bank-card .center-box  div, .w-fait-wrapper .bank-card .center-box div {
+    display: inline-block;
+    color: #333;
 }
 
 .r-fait-wrapper .bank-card .user-name,
 .w-fait-wrapper .bank-card .user-name {
-    font-size: 14px;
+    font-size: 20px;
+    padding-right: 17px;
 }
 
 .r-fait-wrapper .bank-card .card-no,
@@ -339,16 +400,20 @@
 .w-fait-wrapper button.problem-btn{
     display: inline-block;
     vertical-align: middle;
-    border-radius: 4px;
-    width: 102px;
+    border-radius: 3px;
+    background-color: transparent;
+    width: 450px;
     height: 38px;
     text-align: center;
     line-height: 38px;
     font-size: 14px;
-    color: #5795f1;
-    margin-left: 10px;
+    color: #cc9900;
+}
+.w-fait-wrapper .rw-form .rw-form-item:nth-child(7) {
+    margin-bottom: 8px;
 }
 
-.w-fait-wrapper button.problem-btn a{
-    color: #fff;
+.w-fait-wrapper button.problem-btn:hover {
+    color: #cc9900;
+    text-decoration-line: underline;
 }

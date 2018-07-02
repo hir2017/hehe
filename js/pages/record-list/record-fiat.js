@@ -31,7 +31,7 @@ class RecordPage extends Component {
                     <Breadcrumb.Item>ACE</Breadcrumb.Item>
                     <Breadcrumb.Item>{UPEX.lang.template('资产管理')}</Breadcrumb.Item>
                 </Breadcrumb>
-                <div className="order-body-inner">
+                <div className="order-body-inner coin-list">
                     <div className="order-header">
                         <h2>{ UPEX.lang.template('资金变动记录')}</h2>
                         <div className="type-select">

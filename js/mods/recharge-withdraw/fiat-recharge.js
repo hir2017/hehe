@@ -77,9 +77,6 @@ class FiatRechargeView extends Component {
                             <button className="submit-btn" onClick={this.onConfirm}>
                                 {UPEX.lang.template('已完成支付')}
                             </button>
-                            {/* <button className="problem-btn">
-                                <Link>{UPEX.lang.template('支付遇到问题')}</Link>
-                            </button> */}
                         </div>
                     </div>
                 </div>
@@ -137,9 +134,9 @@ class FiatRechargeView extends Component {
                             <h4 className="warmprompt-title">{UPEX.lang.template('充值遇到了问题')}</h4>
                             <div className="warmprompt-content">
                                 <ul>
-                                    <li>1. 我們只支持已綁定的銀行卡充值，如沒有綁定銀行賬戶，請先綁定;</li>
-                                    <li>2. 不同銀行資金到賬時間不一樣。如果充值后資金未幾時到賬，請聯繫您的銀行；</li>
-                                    <li>3. 如遇任何充值問題請聯繫我們的客服 support@acex.one</li>
+                                    <li>{UPEX.lang.template('我們只支持已綁定的銀行卡充值，如沒有綁定銀行賬戶，請先綁定;')}</li>
+                                    <li>{UPEX.lang.template('不同銀行資金到賬時間不一樣。如果充值后資金未幾時到賬，請聯繫您的銀行；')}</li>
+                                    <li>{UPEX.lang.template('如遇任何充值問題請聯繫我們的客服 support@acex.one')}</li>
                                 </ul>
                             </div>
                         </div>

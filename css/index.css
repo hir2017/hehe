@@ -540,7 +540,7 @@
     -webkit-touch-callout: none;
 }
 
-.index-markets-right .coin-list-content .name{ 
+.index-markets-right .coin-list-content .name{
     width: 172px;
     text-align: center;
 }
@@ -587,7 +587,7 @@
  */
 
 .module-box {
-    width: 1300px;
+    width: 1200px;
     margin: 0 auto 20px;
 }
 

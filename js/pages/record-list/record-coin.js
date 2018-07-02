@@ -51,11 +51,11 @@ class RecordPage extends Component {
                     <Breadcrumb.Item>ACE</Breadcrumb.Item>
                     <Breadcrumb.Item>{UPEX.lang.template('资产管理')}</Breadcrumb.Item>
                 </Breadcrumb>
-                <div className="order-body-inner">
+                <div className="order-body-inner coin-list">
                     <div className="order-header">
                     	<h2>{ UPEX.lang.template('充提币记录')}</h2>
                         <div className="type-select">
-    						<Select defaultValue={this.state.type} onChange={this.handleChange}>
+    						<Select value={this.state.type} onChange={this.handleChange}>
     					    	<Option value="recharge">{ UPEX.lang.template('充币记录')}</Option>
     					    	<Option value="withdraw">{ UPEX.lang.template('提币记录')}</Option>
     					    </Select>

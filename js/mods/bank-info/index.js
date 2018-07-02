@@ -225,7 +225,7 @@ export default class BindingBank extends Component {
                     <InputItem {...inputsData.cardNo} />
                     <InputItem {...inputsData.password} />
                     <Modal
-                        title={UPEX.lang.template('事例图片')}
+                        title={UPEX.lang.template('示例图片')}
                         onCancel={e => {
                             this.setState({
                                 visible: false

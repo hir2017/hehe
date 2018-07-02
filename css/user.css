@@ -179,7 +179,9 @@ body .user-main .ant-select-dropdown-menu-item {
     color: #cc9900;
     cursor: pointer;
 }
-
+.user-main .ace-form .ace-upload-mod.pic-item .item-tip:hover {
+    text-decoration-line: underline;
+}
 .user-main .ace-form .ace-upload-mod.pic-item section {
     padding: 20px 0 5px;
     position: relative;
