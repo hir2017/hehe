@@ -337,7 +337,7 @@ body .context-menu-hover td.text{
 
 .chart-page .chart-container {
     background-color: #ffffff;
-    border: 1px solid transparent;
+    border: 1px solid #fff;
 }
 
 .chart-page .tv-close-panel {

@@ -9,8 +9,8 @@ import { observer, inject } from 'mobx-react';
 class BuyOrderView extends Component {
 	haneleClickOrder(item){
 		let store = this.props.tradeStore;
-		store.setDealBuyPrice(item.newcurrent); // 买入价格
-		store.setDealSellPrice(item.newcurrent); // 卖出价格
+		store.setDealBuyPrice(item.current); // 买入价格
+		store.setDealSellPrice(item.current); // 卖出价格
 	}
 
 	resetScrollTop(){

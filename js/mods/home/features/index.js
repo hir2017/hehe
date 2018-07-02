@@ -30,7 +30,7 @@ class Features extends Component {
 							<div className="desc">{ UPEX.lang.template('持续上新，全币种买卖')}</div>
 						</li>
 					</ul>
-					<div className="download-btn">{ UPEX.lang.template('下载客户端')}</div>
+					<div className="download-btn  hidden">{ UPEX.lang.template('下载客户端')}</div>
 				</div>
 			</div>
 		);
