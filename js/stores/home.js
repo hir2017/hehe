@@ -6,12 +6,6 @@ import NumberUtil from '../lib/util/number';
 import MarketListStore from './market-list';
 
 class HomeStore {
-    @observable allCoins = [];
-    @observable hotCoins = [];
-    @observable collectCoinsList = [];
-    @observable coin = {};
-    @observable isFetchingList = false;
-
     constructor(stores) {
         this.commonStore = stores.commonStore;
         this.marketListStore = new MarketListStore(stores);

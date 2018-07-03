@@ -26,10 +26,13 @@ class TradeStore {
     @observable theme = UPEX.cache.getCache('theme') || 'dark';
     // 委托中的订单&已完成的订单
     @observable tabIndex = 0;
-    @observable openOrderList = []; // 委托中订单 == 当前委托
-    @observable historyOrderList = []; // 历史订单 == 已完成订单
+    @observable baseCurrencyId = 0;
+    @observable baseCurrencyNameEn = '';
+    @observable currencyId = 0;
+    @observable currencyNameEn = '';
+    @observable isSubmiting = 0;
+    @observable hasSettingDealPwd = false; // 是否设置资金密码
 
-    // @observable currentTradeCoin = {};
     @observable type = 'all'; // 买盘buy、卖盘sell
     @observable tradeHistory = { content: [] };
     @observable personalAccount = {
@@ -40,10 +43,6 @@ class TradeStore {
         sell: [],
         buy: []
     };
-    @observable baseCurrencyId = 0;
-    @observable baseCurrencyNameEn = '';
-    @observable currencyId = 0;
-    @observable currencyNameEn = '';
     @observable dealBuyPrice = ''; // 交易买入价格
     @observable dealSellPrice = ''; // 交易卖出价格
     @observable dealBuyNum = ''; // 买入数量
@@ -59,14 +58,14 @@ class TradeStore {
     @observable tradeBuyPassword = '';
     @observable tradeSellPassword = '';
     @observable tradePasswordStatus = 2; // 交易.  1：需要资金密码；2：不需要资金密码
-    @observable isSubmiting = 0;
-    @observable hasSettingDealPwd = false; // 是否设置资金密码
 
     first = true;
 
     constructor(stores) {
         this.commonStore = stores.commonStore;
         this.authStore = stores.authStore;
+        this.openStore = stores.openStore;
+        this.successStore = stores.successStore;
         this.marketListStore = new MarketListStore(stores);
 
         this.headerHeight = 60;
@@ -76,6 +75,29 @@ class TradeStore {
         this.minContentHeight = 320;
 
         this.handlerEntrust = autorun(() => {});
+    }
+
+    @action
+    reset() {
+        this.type = 'all'; // 买盘buy、卖盘sell
+        this.tradeHistory = { content: [] };
+        this.personalAccount = { baseCoinBalance: 0, tradeCoinBalance: 0 };
+        this.entrust = { sell: [], buy: [] };
+        this.dealBuyPrice = ''; // 交易买入价格
+        this.dealSellPrice = ''; // 交易卖出价格
+        this.dealBuyNum = ''; // 买入数量
+        this.dealSellNum = ''; // 卖出数量
+        this.buySliderValue = 0;
+        this.sellSliderValue = 0;
+        this.validBuyPrice = true;
+        this.validBuyNum = true;
+        this.validSellPrice = true;
+        this.validSellNum = true;
+        this.tradePriceErr = '';
+        this.tradeNumberErr = '';
+        this.tradeBuyPassword = '';
+        this.tradeSellPassword = '';
+        this.first = true;
     }
 
     @computed
@@ -499,9 +521,9 @@ class TradeStore {
                     this.tradeHistory = this.parseTradeHistory(data);
                 } else {
                     let item = this.parseTradeHistoryItem(data.content);
-                    
+
                     // 添加到数组头部, unshift 慎用！！性能太慢
-                    this.tradeHistory.content.splice(0,0,item);
+                    this.tradeHistory.content.splice(0, 0, item);
                 }
             });
         });
@@ -795,8 +817,6 @@ class TradeStore {
                 runInAction('order', () => {
                     switch (data.status) {
                         case 200:
-                            this.getUserAccount();
-
                             if (type == 'buy') {
                                 this.setDealBuyPrice('');
                                 this.setDealBuyNum('');
@@ -835,7 +855,7 @@ class TradeStore {
 
         // Convert to data points
         for (var i = 0; i < list.length; i++) {
-            console.log(list[i]);
+            
             list[i] = {
                 value: Number(list[i].current), // 价格
                 volume: Number(list[i].number) // 成交数量
@@ -866,7 +886,7 @@ class TradeStore {
                 dp[type + 'volume'] = list[i].volume;
                 dp[type + 'totalvolume'] = list[i].totalvolume;
 
-                res.splice(0,0,dp);
+                res.splice(0, 0, dp);
             }
         } else {
             for (var i = 0; i < list.length; i++) {
@@ -879,11 +899,71 @@ class TradeStore {
                 dp['value'] = list[i].value;
                 dp[type + 'volume'] = list[i].volume;
                 dp[type + 'totalvolume'] = list[i].totalvolume;
-                res[res.length] =  dp;
+                res[res.length] = dp;
             }
         }
 
         return res;
+    }
+
+    bindOrderSocket() {
+        if (!this.authStore.isLogin) {
+            return;
+        }
+        this.bindRegister();
+        this.bindUserOpenList();
+        this.bindUserSuccessList();
+    }
+    /**
+     * 注册
+     */
+    bindRegister() {
+        let count = 0;
+
+        let register = ()=>{
+            socket.emit('register', {
+                uid: this.authStore.uid,
+                token: this.authStore.token
+            });
+
+            socket.on('register', (data) => {
+
+                if (!data || data !== 'succ') {
+                    count++;
+
+                    if (count < 3) {
+                        register();
+                    }
+                }
+            })
+        }
+
+        register();
+    }
+
+    /**
+     * 委托订单事件，每一次状态变更都会收到通知
+     */
+    bindUserOpenList() {
+        socket.on('userOrder', (data) => {
+            console.log('---userOrder--------', data);
+            this.openStore.updateItem(data);
+            this.personalAccount.baseCoinBalance = data.baseCurrencyNum;
+            this.personalAccount.tradeCoinBalance = data.currencyNum;
+        })
+    }
+
+    /**
+     *  成交订单事件，每一次状态变更都会收到通知
+     */
+    bindUserSuccessList() {
+        socket.on('userTrade', (data) => {
+            console.log('------userTrade--------', data);
+            this.successStore.updateItem(data);
+            this.openStore.updateItem(data); // 删除委托中的该订单
+            this.personalAccount.baseCoinBalance = data.baseCurrencyNum;
+            this.personalAccount.tradeCoinBalance = data.currencyNum;
+        })
     }
 
     @action
@@ -893,8 +973,10 @@ class TradeStore {
         socket.off('quoteNotify');
         socket.off('loginAfter');
         socket.off('userAccount');
-        this.first = true;
+        socket.off('userTrade');
+        socket.off('userOrder');
         this.marketListStore.destorys();
+        this.reset();
     }
 }
 

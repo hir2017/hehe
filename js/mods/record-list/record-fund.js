@@ -87,7 +87,7 @@ class List extends Component {
                                 <th className="balance">{UPEX.lang.template('收/支')}</th>
                                 <th className="status">{UPEX.lang.template('状态')}</th>
                                 <th className="pay-method">{UPEX.lang.template('支付方式')}</th>
-                                <th className="action"><span className="pr10">{UPEX.lang.template('操作')}</span></th>
+                                <th className="action pr10">{UPEX.lang.template('操作')}</th>
                             </tr>
                         </tbody>
                     </table>

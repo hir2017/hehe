@@ -36,12 +36,13 @@ class RootStore {
         this.announcementStore = new AnnouncementStore(this);
         this.homeStore = new HomeStore(this);
         this.bannerStore = new BannerStore(this);
-        this.tradeStore = new TradeStore(this);
-        this.accountStore = new AccountStore(this);
-        this.userInfoStore = new UserInfoStore(this);
         this.openStore = new OrderOpenStore(this);
         this.historyStore = new OrderHistoryStore(this);
         this.successStore = new OrderSuccessStore(this);
+        
+        this.tradeStore = new TradeStore(this);
+        this.accountStore = new AccountStore(this);
+        this.userInfoStore = new UserInfoStore(this);
         this.coinRechargeRecordStore = new CoinRechargeRecordStore(this);
         this.coinWithdrawRecordStore = new CoinWithdrawRecordStore(this);
         this.coinWithdrawStore = new CoinWithdrawStore(this);

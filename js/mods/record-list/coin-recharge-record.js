@@ -56,10 +56,12 @@ class List extends Component {
 						store.orderList.map((item, index)=>{
 							// 状态备用
 							let status = '';
+							let visible = false;
 							
 							switch(item.confirms){
 								case 'success':
-									status =  UPEX.lang.template('成功');
+									status =  UPEX.lang.template('已完成');
+									visible = true;
 									break;
 								default:
 									// 数字：网络确认数
@@ -75,7 +77,7 @@ class List extends Component {
 										<dd className="time">{item.createTime}</dd>
 										<dd className="address">{item.walletSn}</dd>
 										<dd className="action">
-											<button onClick={this.triggerShowDetail.bind(this, item.id)}>{ this.state.displayIndex == item.id ? UPEX.lang.template('收起') : UPEX.lang.template('展开')}</button>
+											{ visible ? <button onClick={this.triggerShowDetail.bind(this, item.id)}>{ this.state.displayIndex == item.id ? UPEX.lang.template('收起') : UPEX.lang.template('展开')}</button> : '--'}
 										</dd>
 									</dl>
 									<div className="detail-content">

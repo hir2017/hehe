@@ -180,13 +180,14 @@
 .account-record .btn {
     display: inline-block;
     margin-right: 60px;
-    width: 160px;
+    min-width: 160px;
     height: 40px;
     text-align: center;
     line-height: 40px;
     border-radius: 3px;
     border: 1px solid #ccc;
     color: #333;
+    padding: 0 5px;
     margin-top: 55px;
     background: none;
 }
@@ -258,6 +259,7 @@
 
 .account-result-list li dd {
     display: inline-block;
+    vertical-align: middle;
     line-height: 24px;
     padding: 10px 0;
     color: #333333;

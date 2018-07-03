@@ -103,6 +103,11 @@ class UDFCompatibleDatafeed {
 
         let _resolution = this.getIntervalByPeriod(resolution);
 
+        // TODO 没有铺单的时候, 没有数据
+        // if (firstDataRequest) {
+        //     startDate = null;
+        //     endDate = null;
+        // }
         
         getTradeKline({
             symbol: symbolInfo.ticker || '',

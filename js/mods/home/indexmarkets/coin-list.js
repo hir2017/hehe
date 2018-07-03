@@ -11,6 +11,10 @@ class MarketCoinList extends Component {
 		super(props);
 	}
 
+    componentWillUnmount(){
+        this.props.homeStore.marketListStore.reset();
+    }
+
 	sortHandle=(field, e)=>{
         this.props.homeStore.marketListStore.sortByCondition(field);
 	}

@@ -167,7 +167,7 @@ class List extends Component {
                                     <dd className="price">{item.price}</dd>
                                     <dd className="num">{item.num}</dd>
                                     <dd className="status">{this.transVal(item.status)}</dd>
-                                    <dd className="action">
+                                    <dd className="action pr10">
                                         <button onClick={this.triggerShowDetail.bind(this, index, item)}>{UPEX.lang.template('详情')}</button>
                                     </dd>
                                 </dl>
@@ -241,7 +241,7 @@ class List extends Component {
                                     <th className="price">{UPEX.lang.template('委托价格')}</th>
                                     <th className="num">{UPEX.lang.template('委托数量')}</th>
                                     <th className="status">{UPEX.lang.template('状态')}</th>
-                                    <th className="action"><span className="pr10">{UPEX.lang.template('操作')}</span></th>
+                                    <th className="action pr10">{UPEX.lang.template('操作')}</th>
                                 </tr>
                             </tbody>
                         </table>

@@ -25,8 +25,6 @@ class List extends Component {
 			this.action.getData({
 				size: 0
 			});
-			
-			this.action.bindSocketEvent();
 		} else {
 			this.action.getData({
 				size: 10
@@ -141,7 +139,7 @@ class List extends Component {
 									<th className="tradeprice">{UPEX.lang.template('成交均价')}</th>
 									<th className="num">{UPEX.lang.template('成交数量')}</th>
 									<th className="fee">{UPEX.lang.template('手续费')}</th>
-									<th className="amount"><span className="pr10">{UPEX.lang.template('成交金额')}</span></th>
+									<th className="amount pr10">{UPEX.lang.template('成交金额')}</th>
 								</tr>
 							</tbody>
 						</table>

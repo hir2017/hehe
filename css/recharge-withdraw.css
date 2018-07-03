@@ -260,6 +260,7 @@
 }
 .rw-form-info .warmprompt {
     padding: 0;
+    width: 600px;
 }
 .rw-form-info .warmprompt-title, .rw-form-info .warmprompt-content li {
     color: #999;

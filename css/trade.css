@@ -1000,7 +1000,6 @@ body .ant-popover-placement-bottomLeft>.ant-popover-content>.ant-popover-arrow {
 
 .tradeorder-bd .order-main-box .open-list-table .time {
     width: 20%;
-    text-indent: 0;
 }
 
 .tradeorder-bd .order-main-box .open-list-table .name {
@@ -1028,7 +1027,6 @@ body .ant-popover-placement-bottomLeft>.ant-popover-content>.ant-popover-arrow {
 
 .tradeorder-bd .order-main-box .success-list-table .time {
     width: 20%;
-    text-indent: 0;
 }
 
 .tradeorder-bd .order-main-box .success-list-table .name {

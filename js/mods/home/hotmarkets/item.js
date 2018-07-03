@@ -76,7 +76,7 @@ class HotCoin extends Component {
 			<div className={`recommend-item ${type}`}>
 				<div className="recommend-item-name">{ data.currencyNameEn }</div>
 				<div className="recommend-item-price">NT$ { data.currentAmountText }</div>
-				<div className="recommend-item-volume">{ UPEX.lang.template('成交额  NT${num}', { num : data.amountText })}</div>
+				<div className="recommend-item-volume">{ UPEX.lang.template('成交额 {num}{unit}', { num : data.amountText, unit: data.baseCurrencyNameEn })}</div>
 				<div className="recommend-item-rate">{ data.changeRateText }</div>
 				{
 					type == 'positive' ? (

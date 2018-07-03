@@ -17,6 +17,10 @@ class CoinList extends Component {
         super(props)
     }
 
+    componentWillUnmount(){
+        this.props.tradeStore.marketListStore.reset();
+    }
+
     handleSearch = e => {
         let el = $(e.currentTarget);
         let val = el.val();

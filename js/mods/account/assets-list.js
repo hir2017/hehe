@@ -58,7 +58,7 @@ class List extends Component {
                                     <dd className="total">{UPEX.lang.template('总额')}</dd>
                                     <dd className="balance">{UPEX.lang.template('可用余额')}</dd>
                                     <dd className="freeze">{UPEX.lang.template('委托冻结')}</dd>
-                                    <dd className="value">{UPEX.lang.template('价值')}</dd>
+                                    <dd className="value">{UPEX.lang.template('价值')}({UPEX.config.baseCurrencyEn})</dd>
                                     <dd className="actions">{UPEX.lang.template('操作')}</dd>
                                 </dl>
                             </li>

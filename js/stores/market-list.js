@@ -28,6 +28,20 @@ class MarketListStore {
         this.authStore = stores.authStore;
     }
 
+    @action
+    reset() {
+        this.baseCoinInfo = {}; // 基础币
+        this.tradeCoins = []; // 交易币列表
+        this.cacheCoins = [];
+        this.collectCoinsList = []; // 用户收藏列表
+        this.dataReady = false; // 获取币种
+        this.noCoin = false; // 没有币种
+        this.selectedCoin = {}; // 选中的币种
+        this.sortByKey = ''; // 按{key}排序
+        this.sortByType = 'desc'; // 排序方式，升序:asc, 降序: desc
+        this.onlyCollectedCoins = false; // 只查看收藏的交易币
+        this.searchValue = '';
+    }
     @computed
     get hotCoins() {
         let hotCoins = [];
@@ -82,6 +96,7 @@ class MarketListStore {
                     this.cacheCoins = [...this.tradeCoins];
                     
                     if (!this.selectedCoin.currencyId) {
+                        // 初始选中的数据
                         this.selectedCoin = this.tradeCoins[0];
                     } else {
                         // 更新选中的数据
@@ -89,7 +104,6 @@ class MarketListStore {
                             return item.currencyId == this.selectedCoin.currencyId
                         })[0];
                     }
-
                 } else {
                     this.noCoin = true;
                 }
@@ -162,7 +176,7 @@ class MarketListStore {
         // 24小时成交数量
         item.volumeText = NumberUtil.formatNumber(item.volume, item.pointNum);
         // 成交额
-        item.amountText = NumberUtil.formatNumber(item.volume, this.commonStore.pointPrice);
+        item.amountText = NumberUtil.formatNumber(item.amount, this.commonStore.pointPrice);
 
         return item;
     }

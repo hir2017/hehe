@@ -1,6 +1,14 @@
+/**
+ * 成功：Success
+ * 拒绝：Reject
+ * 审核中：Verify
+ * 以及网络确认数
+ */
+
 import React, {Component} from 'react';
 import { observer, inject } from 'mobx-react';
 import { Pagination} from 'antd';
+
 
 @inject('coinWithdrawRecordStore')
 @observer
@@ -57,13 +65,19 @@ class List extends Component {
 						store.orderList.map((item, index)=>{
 							// 状态备用
 							let status = '';
-							
+							let info;
+							let visible = false;;
+
 							switch (item.confirms){
 								case 'Success':
-									status =  UPEX.lang.template('成功');
+									status =  UPEX.lang.template('已完成');
+									visible = true;
+									info = UPEX.lang.template('Txid:{value}', { value: item.walletWaterSn || '--'});
 									break;
 								case 'Reject':
-									status =  UPEX.lang.template('拒绝');
+									status =  UPEX.lang.template('审核拒绝');
+									visible = true;
+									info = UPEX.lang.template('审核拒绝，原因是:{reason}', {reason: item.reason || '' });
 									break;
 								case 'Verify':
 									status =  UPEX.lang.template('审核中');
@@ -82,12 +96,14 @@ class List extends Component {
 										<dd className="time">{item.createTime}</dd>
 										<dd className="fee">{item.fee}</dd>
 										<dd className="address">{UPEX.lang.template('地址')} : {item.address}</dd>
-										<dd className="action">
-											<button onClick={this.triggerShowDetail.bind(this, item.id)}>{ this.state.displayIndex == item.id ? UPEX.lang.template('收起') : UPEX.lang.template('展开')}</button>
+										<dd className="action pr10">
+											{
+												visible ? <button onClick={this.triggerShowDetail.bind(this, item.id)}>{ this.state.displayIndex == item.id ? UPEX.lang.template('收起') : UPEX.lang.template('展开')}</button> : '--'
+											}
 										</dd>
 									</dl>
 									<div className="detail-content">
-										{UPEX.lang.template('Txid:{value}', { value: item.walletWaterSn || '--'})}
+										{ info }
 									</div>
 								</li>
 							)
@@ -109,7 +125,7 @@ class List extends Component {
 								<th className="time">{UPEX.lang.template('时间')}</th>
 								<th className="fee">{UPEX.lang.template('手续费')}</th>
 								<th className="address">{UPEX.lang.template('信息')}</th>
-								<th className="action"><span className="pr10">{UPEX.lang.template('操作')}</span></th>
+								<th className="action pr10">{UPEX.lang.template('操作')}</th>
 							</tr>
 						</tbody>
 					</table>

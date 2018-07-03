@@ -25,7 +25,6 @@ class TradeCenter extends Component {
     
     render() { 
         let { commonStore, tradeStore } = this.props;
-        
         // 用于切换交易币时内容切换
         if (commonStore.productDataReady) {
             return <TradeContent {...this.props}/>    
@@ -81,6 +80,7 @@ class TradeContent extends Component {
             tradeStore.getUserAccount();
             tradeStore.getPersonalTradingPwd();
             tradeStore.getPersonalInfo();
+            tradeStore.bindOrderSocket();
         }
     }
 

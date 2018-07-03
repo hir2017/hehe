@@ -13,7 +13,7 @@ class List extends Component {
 	constructor(props){
 		super(props);
 
-		this.action = toAction(this.props.openStore, this.props.authStore, this.props.tradeStore);
+		this.action = toAction(this.props.openStore, this.props.authStore);
 		this.currentOrderNo = '';
 	}
 
@@ -22,7 +22,6 @@ class List extends Component {
 			this.action.getData({
 				size: 0
 			});
-			this.action.bindSocketEvent();
 		} else {
 			this.action.getData({
 				size: 10
@@ -85,7 +84,7 @@ class List extends Component {
 										<dd className="price">{item.price}</dd>
 										<dd className="rate">{item.tradeRate}</dd>
 										<dd className="amount">{item.tradeAmount}</dd>
-										<dd className="action"><button onClick={this.handleCancel.bind(this, item)}>{UPEX.lang.template('撤单')}</button></dd>
+										<dd className="action"><span className="pr10"><button onClick={this.handleCancel.bind(this, item)}>{UPEX.lang.template('撤单')}</button></span></dd>
 									</dl>
 								</li>
 							)
@@ -109,7 +108,7 @@ class List extends Component {
 									<th className="price">{UPEX.lang.template('委托价')}</th>
 									<th className="rate">{UPEX.lang.template('成交率')}</th>
 									<th className="amount">{UPEX.lang.template('成交金额')}</th>
-									<th className="action"><span className="pr10">{UPEX.lang.template('操作')}</span></th>
+									<th className="action pr10">{UPEX.lang.template('操作')}</th>
 								</tr>
 							</tbody>
 						</table>

@@ -261,19 +261,6 @@ class WithdrawCoin extends Component {
 							</button>
 						</div>
 					</div>
-					<div className="rw-form-item">
-						<div className="rw-form-info">
-							<div className="warmprompt">
-								<h4 className="warmprompt-title">{UPEX.lang.template('温馨提示')}</h4>
-								<div className="warmprompt-content">
-									<ul>
-										<li dangerouslySetInnerHTML={{__html: UPEX.lang.template('最小提币数量为{count}', { count: `${store.amountLowLimit || 0 }${store.currentCoin.currencyNameEn || '--'}`})}}></li>
-										<li dangerouslySetInnerHTML={{__html: UPEX.lang.template('提现完成后，你可以进入提币记录页面跟踪进度')}}></li>
-									</ul>
-								</div>
-							</div>
-						</div>
-					</div>
 				</div>
 			</div>
 		)
