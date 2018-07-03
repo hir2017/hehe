@@ -179,7 +179,9 @@ body .user-main .ant-select-dropdown-menu-item {
     color: #cc9900;
     cursor: pointer;
 }
-
+.user-main .ace-form .ace-upload-mod.pic-item .item-tip:hover {
+    text-decoration-line: underline;
+}
 .user-main .ace-form .ace-upload-mod.pic-item section {
     padding: 20px 0 5px;
     position: relative;
@@ -1607,6 +1609,8 @@ body .user-main .ant-select-dropdown-menu-item {
 
 .google-guide-img-box img {
     margin: auto;
+    width:380px;
+    height: 180px;
 }
 
 .google-guide-img-box .left {
@@ -1650,10 +1654,11 @@ body .user-main .ant-select-dropdown-menu-item {
     margin-top: 20px;
 }
 
-.google-guide-img-box .download>span {
+.google-guide-img-box .download>a.download-btn {
     height: 40px;
     line-height: 40px;
     width: 150px;
+    color: #999999;
     display: inline-block;
     background-color: #fafafa;
     border: 1px solid #ccc;
@@ -1725,6 +1730,14 @@ body .user-main .ant-select-dropdown-menu-item {
     color: #cc9900;
 }
 
+.user-main .content-body.feedback .text-stats {
+    text-align: right;
+    line-height: 25px;
+    color: #ccc;
+}
+.user-main .content-body.feedback .text-stats .count {
+    color: #cc9900;
+}
 .user-main .content-body.feedback .upload-box {
     margin: 20px 0;
     height: 100px;

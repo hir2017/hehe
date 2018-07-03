@@ -6,9 +6,9 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import { Carousel, Icon } from 'antd';
-import google1 from '../../../images/google1.jpg';
-import google2 from '../../../images/google2.jpg';
-import google3 from '../../../images/google3.jpg';
+import google1 from '../../../images/google1.png';
+import google2 from '../../../images/google2.png';
+import google3 from '../../../images/google3.png';
 
 import PageWrapper from '../../common-mods/page-user/page-wrapper';
 
@@ -37,13 +37,13 @@ class GoogleGuide extends Component {
                         <div>
                             <div className="download">{UPEX.lang.template('下載并安裝Google驗證器')}</div>
                             <div className="download">
-                                <span>
-                                    <Icon type="apple" />ios{UPEX.lang.template('下载按钮')}
-                                </span>
-                                <span>
+                                <a className="download-btn"  target="_blank" href="https://itunes.apple.com/us/app/google-authenticator/id388497605?mt=8">
+                                    <Icon type="apple" />ios{UPEX.lang.template('下载')}
+                                </a>
+                                <a className="download-btn"  target="_blank" href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2">
                                     <Icon type="android" />
-                                    {UPEX.lang.template('安卓下载按钮')}
-                                </span>
+                                    {UPEX.lang.template('安卓下载')}
+                                </a>
                             </div>
                         </div>
                         <span onClick={this.next} className="right">

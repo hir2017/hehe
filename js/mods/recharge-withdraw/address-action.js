@@ -73,7 +73,7 @@ export default (store) => {
                             }, 1000);
                             break;
                         case 468:
-                            message.error(UPEX.lang.template('交易密码输入错误'));
+                            message.error(UPEX.lang.template('资金密码输入错误'));
                             break;
                         default:
                             message.error(data.message);

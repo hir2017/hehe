@@ -48,11 +48,11 @@ export default class ModifyTradingPassword extends Component {
     submit() {
         const codeid = this.props.captchaStore.codeid;
         if (!this.state.password) {
-            message.error(UPEX.lang.template('交易密码不能为空'));
+            message.error(UPEX.lang.template('资金密码不能为空'));
             return;
         }
         if (!this.state.newPwd) {
-            message.error(UPEX.lang.template('新交易密码不能为空'));
+            message.error(UPEX.lang.template('新资金密码不能为空'));
             return;
         }
         if (!this.state.comfirmPwd) {
@@ -60,7 +60,7 @@ export default class ModifyTradingPassword extends Component {
             return;
         }
         if (this.state.newPwd !== this.state.comfirmPwd) {
-            message.error(UPEX.lang.template('新交易密码和确认密码不一致'));
+            message.error(UPEX.lang.template('新资金密码和确认密码不一致'));
             return;
         }
 
@@ -94,13 +94,13 @@ export default class ModifyTradingPassword extends Component {
         const getProp = createGetProp(this);
         const inputsData = [
             {
-                label: UPEX.lang.template('交易密码'),
+                label: UPEX.lang.template('资金密码'),
                 className: 'new-pwd',
                 inputProps: getProp('password'),
                 tip: UPEX.lang.template('密码由6-18数字、字母和特殊字符组成')
             },
             {
-                label: UPEX.lang.template('新交易密码'),
+                label: UPEX.lang.template('新资金密码'),
                 inputProps: getProp('newPwd')
             },
             {

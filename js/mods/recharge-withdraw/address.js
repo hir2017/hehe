@@ -33,7 +33,7 @@ class AddWithdrawAddress extends Component {
 					<label className="rw-form-label">{UPEX.lang.template('币种选择')}</label>
 					<div className="rw-form-info">
 						<Select value={ addressStore.currencyId } onChange={this.action.onChangeCurrencyId}>
-					    	{ $options }				    	
+					    	{ $options }
 					    </Select>
 					</div>
 				</div>
@@ -41,7 +41,7 @@ class AddWithdrawAddress extends Component {
 					<label className="rw-form-label">{UPEX.lang.template('提币地址')}</label>
 					<div className="rw-form-info">
 						<div className="input-box">
-                            <input 
+                            <input
                                 type="text"
                                 onChange={this.action.onChangeAddress}
                                 onBlur={this.action.onBlurToVerify.bind(this, 'address')}
@@ -54,8 +54,8 @@ class AddWithdrawAddress extends Component {
 					<label className="rw-form-label">{UPEX.lang.template('地址描述')}</label>
 					<div className="rw-form-info">
 						<div className="input-box">
-                            <input 
-                                type="text" 
+                            <input
+                                type="text"
                                 onChange={this.action.onChangeNote}
                                 onBlur={this.action.onBlurToVerify.bind(this, 'note')}
                             />
@@ -64,27 +64,27 @@ class AddWithdrawAddress extends Component {
 					</div>
 				</div>
 				<div className="rw-form-item">
-					<label className="rw-form-label">{UPEX.lang.template('交易密码')}</label>
+					<label className="rw-form-label">{UPEX.lang.template('资金密码')}</label>
 					<div className="rw-form-info">
 						<div className="input-box">
-                            <input 
-                                type="password" 
+                            <input
+                                type="password"
                                 onChange={this.action.onChangePwd}
                                 onBlur={this.action.onBlurToVerify.bind(this, 'pwd')}
                             />
                         </div>
-                        { !addressStore.validPwd ? <div className="warn">* { UPEX.lang.template('交易密码填写错误')}</div> : null }
+                        { !addressStore.validPwd ? <div className="warn">* { UPEX.lang.template('资金密码填写错误')}</div> : null }
 					</div>
 				</div>
 				<div className="rw-form-item">
 					<div className="rw-form-info">
 						{
-							addressStore.$submiting 
-							? 
-							<button className="submit-btn disabled">{UPEX.lang.template('提交中')}</button> 
-							: 
+							addressStore.$submiting
+							?
+							<button className="submit-btn disabled">{UPEX.lang.template('提交中')}</button>
+							:
 							<button className="submit-btn" onClick={this.action.handleSubmit}>{UPEX.lang.template('保存')}</button>
-						
+
 						}
 					</div>
 				</div>

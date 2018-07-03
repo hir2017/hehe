@@ -12,7 +12,7 @@ import Clipboard  from 'clipboard';
 @inject('accountStore')
 @observer
 class CoinRecharge extends Component{
-	
+
 	componentDidMount() {
         this.fetchCoinList();
         this.bindCopyEvent();
@@ -35,7 +35,7 @@ class CoinRecharge extends Component{
             if (!defaultCoin) {
                 defaultCoin = store.originAccountData.coinList[0];
             }
-            
+
             store.selectUserAddress(defaultCoin.currencyId, defaultCoin.currencyNameEn);
         });
 	}
@@ -48,11 +48,11 @@ class CoinRecharge extends Component{
 	 */
 	bindCopyEvent(){
 		let self = this;
-		
+
         const clip = this.clip = new Clipboard('#copy-address', {
             text() {
             	let node = $(self.refs.address);
-                
+
                 return node.val();
             }
         });
@@ -96,12 +96,12 @@ class CoinRecharge extends Component{
 					<div className="rw-form-item">
 						<label className="rw-form-label">{UPEX.lang.template('选择币种')}</label>
 						<div className="rw-form-info">
-							<Select 
-								labelInValue 
-								value={{ key: store.currentCoin.currencyNameEn}} 
+							<Select
+								labelInValue
+								value={{ key: store.currentCoin.currencyNameEn}}
 								onChange={this.handleChange}
 							>
-						    	{ $options }				    	
+						    	{ $options }
 						    </Select>
 						</div>
 					</div>
@@ -113,7 +113,7 @@ class CoinRecharge extends Component{
 									<div className="input-box">
 										<input ref="address" data-address={store.currentCoin.address} value={store.currentCoin.address} readOnly/>
 									</div>
-									<button id="copy-address">{UPEX.lang.template('复制地址')}</button>
+									<button id="copy-address" className="rw-sp-vcode-btn">{UPEX.lang.template('复制地址')}</button>
 								</li>
 								<li>
 									{UPEX.lang.template('网络手续费: {fee}', {fee: store.currentCoin.fee || '--'})}

@@ -29,7 +29,7 @@ class CoinWithdrawStore {
     // 图片验证码
     @observable vercode = '';
     @observable validImgCode = true;
-    // 交易密码
+    // 资金密码
     @observable tradepwd = '';
     @observable validTradePwd = true;
     // 邮箱验证码
@@ -281,7 +281,7 @@ class CoinWithdrawStore {
         // 图片验证码
         this.vercode = '';
         this.validImgCode = true;
-        // 交易密码
+        // 资金密码
         this.tradepwd = '';
         this.validTradePwd = true;
         // 邮箱验证码

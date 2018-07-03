@@ -1,5 +1,5 @@
 /**
- * 交易密码。
+ * 资金密码。
  */
 import React, {Component} from 'react';
 import ReactDOM, {render} from 'react-dom';

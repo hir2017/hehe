@@ -36,7 +36,7 @@ class List extends Component {
 		});
 	}
 	/**
-	 * 点击撤单，判断是否需要的填写交易密码
+	 * 点击撤单，判断是否需要的填写资金密码
 	 */
 	handleCancel=(item)=>{
 		this.action.cancelOrder(item.currencyId , item.orderNo);

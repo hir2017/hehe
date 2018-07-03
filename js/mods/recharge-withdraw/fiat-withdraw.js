@@ -62,7 +62,7 @@ class FiatRechargeView extends Component {
             $formContent = (
                 <div className="rw-form">
                     <OrderInfo {...orderData} />
-                    <div className="rw-form-item">
+                    <div className="rw-form-item sp-v-code">
                         <label className="rw-form-label">{UPEX.lang.template('图片验证码')}</label>
                         <div className="rw-form-info">
                             <div className="yz-box">
@@ -111,7 +111,7 @@ class FiatRechargeView extends Component {
                                             onChange={action.onChangeInput}
                                         />
                                     </div>
-                                    <button onClick={action.sendEmailPhoneCode} className={store.sendingcode ? 'disabled' : ''}>
+                                    <button onClick={action.sendEmailPhoneCode} className={`rw-sp-vcode-btn  ${store.sendingcode ? 'disabled' : ''}`}>
                                         <div className={store.sendingcode ? 'code-sending' : 'code-sending hidden'}>
                                             {UPEX.lang.template('重发')}（<span data-second="second" ref="second" />s）
                                         </div>
@@ -132,14 +132,14 @@ class FiatRechargeView extends Component {
                         </div>
                     </div>
                     <div className="rw-form-item">
-                        <label className="rw-form-label">{UPEX.lang.template('交易密码')}</label>
+                        <label className="rw-form-label">{UPEX.lang.template('资金密码')}</label>
                         <div className="rw-form-info">
                             <div className={`input-box ${store.validTradePwd ? '' : 'wrong'}`}>
                                 <input
                                     type="password"
                                     data-key="tradepwd"
                                     value={store.tradepwd}
-                                    placeholder={UPEX.lang.template('填写交易密码')}
+                                    placeholder={UPEX.lang.template('填写资金密码')}
                                     onChange={action.onChangeInput}
                                 />
                             </div>
@@ -156,7 +156,13 @@ class FiatRechargeView extends Component {
                             <button className="submit-btn" onClick={this.handleOrder}>
                                 {UPEX.lang.template('确认提现')}
                             </button>
-                            <button className="problem-btn" onClick={this.handleBack}>
+
+                        </div>
+                    </div>
+                    <div className="rw-form-item">
+                        <label className="rw-form-label" />
+                        <div className="rw-form-info">
+                            <button className="problem-btn rw-sp-vcode-btn" onClick={this.handleBack}>
                                 {UPEX.lang.template('返回修改')}
                             </button>
                         </div>

@@ -8,9 +8,9 @@ import { observer, inject } from 'mobx-react';
 import { Button, Icon, Upload, message } from 'antd';
 import upload_pic from '../../../images/upload-pic.png';
 import upload_pic_hover from '../../../images/upload-pic-hover.png';
-import IDcard0 from '../../../images/IDcard1.png';
-import IDcard1 from '../../../images/IDcard00.png';
-import IDcard2 from '../../../images/IDcard01.png';
+import IDcard0 from '../../../images/IDcard1.jpg';
+import IDcard1 from '../../../images/IDcard00.jpg';
+import IDcard2 from '../../../images/IDcard01.jpg';
 
 import AceForm from '../../common-mods/form/form';
 
@@ -155,7 +155,7 @@ export default class SecondStep extends Component {
                     <div className="sample-inner">
                         <header>{this.state.sampleTitle}</header>
                         <article className="clearfix">
-                            <img className="pic-img" src={this.state.samplePic} />
+                            <img className="pic-img" src={this.state.samplePic} style={{width: '300px', height: '180px'}}/>
                             <ul className="pic-message">
                                 <li>{UPEX.lang.template('面部清晰可见，无遮挡，无妆容')}</li>
                                 <li>{UPEX.lang.template('完全漏出双手，手臂')}</li>

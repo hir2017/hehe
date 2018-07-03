@@ -213,7 +213,7 @@ export function submitOrder(data) {
 }
 
 
-// 获取用户交易密码设置状态
+// 获取用户资金密码设置状态
 export function getPersonalTradingPwd() {
     return axios.post(`${UPEX.config.host}/user/selectFdPwdEnabled`).then(res => res.data);
 }
@@ -331,7 +331,7 @@ export function deleteCoinAddress(data) {
 export function addWithdrawAddress(data) {
     return axios.post(`${UPEX.config.host}/coin/insertTakeAddress`, qs.stringify({
         currencyId: data.currencyId, // 提币地址
-        fdPwd: data.fdPwd, // 交易密码
+        fdPwd: data.fdPwd, // 资金密码
         note: data.note, // 令牌
         address: data.address, // 地址
     })).then(res => res.data);
@@ -588,7 +588,7 @@ export function sendCodeInUserCenter(type, imgCode, imgCodeId) {
 }
 
 /**
- * 设置修改交易密码
+ * 设置修改资金密码
  */
 
 export function bindFdPwd(newFdPassWord, vercode, imgCode, imgCodeId, oldFdPassWord = '') {
@@ -602,7 +602,7 @@ export function bindFdPwd(newFdPassWord, vercode, imgCode, imgCodeId, oldFdPassW
 }
 
 /**
- * 修改交易密码
+ * 修改资金密码
  */
 
 export function modifyFdPwd(newFdPassWord, oldFdPassWord) {
@@ -855,7 +855,7 @@ export function getBindBankCardInfo() {
 }
 
 /**
- * 忘记交易密码
+ * 忘记资金密码
  * type 1谷歌 2短信 3邮箱
  */
 

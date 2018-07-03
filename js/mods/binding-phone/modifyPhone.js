@@ -127,11 +127,11 @@ export default class ModifyPhone extends Component {
                 inputProps: getProp('gaCode', 'none')
             },
             vCode: {
-                label: UPEX.lang.template('短信确认码'),
+                label: UPEX.lang.template('原手机短信确认码'),
                 inputProps: getProp('vCode', 'none')
             },
             nvCode: {
-                label: UPEX.lang.template('新短信确认码'),
+                label: UPEX.lang.template('新手机短信确认码'),
                 className: 'v-code',
                 inputProps: getProp('nvCode', 'none')
             }

@@ -123,7 +123,7 @@ export default class BindingBank extends Component {
             return;
         }
         if (!this.state.password) {
-            message.error('交易密码不能为空');
+            message.error('资金密码不能为空');
             return;
         }
         if (!this.state.imgUrl) {
@@ -164,10 +164,10 @@ export default class BindingBank extends Component {
                 }
             },
             bank: {
-                label: UPEX.lang.template('开户行')
+                label: UPEX.lang.template('开户银行')
             },
             subBank: {
-                label: UPEX.lang.template('开户分行')
+                label: UPEX.lang.template('分行信息')
             },
             cardNo: {
                 label: UPEX.lang.template('银行账号'),
@@ -176,7 +176,7 @@ export default class BindingBank extends Component {
                 })
             },
             password: {
-                label: UPEX.lang.template('交易密码'),
+                label: UPEX.lang.template('资金密码'),
                 inputProps: Object.assign(getProp('password'), {
                     value: this.state.password
                 })
@@ -225,7 +225,7 @@ export default class BindingBank extends Component {
                     <InputItem {...inputsData.cardNo} />
                     <InputItem {...inputsData.password} />
                     <Modal
-                        title={UPEX.lang.template('事例图片')}
+                        title={UPEX.lang.template('示例图片')}
                         onCancel={e => {
                             this.setState({
                                 visible: false
@@ -237,7 +237,7 @@ export default class BindingBank extends Component {
                             {textAlign: 'center'}
                         }
                     >
-                        <img src={banckCardImg} />
+                        <img src={banckCardImg} style={{width: '300px', height: '180px'}}/>
                     </Modal>
                     <div className="pic-item ace-upload-mod">
                         <header>

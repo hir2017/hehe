@@ -72,14 +72,14 @@ export default class ModifyPassword extends Component {
             message.error(UPEX.lang.template('新登录密码和确认密码不一致'));
             return;
         }
-        if (!this.state.vCode && !gaBindSuccess) {
-            message.error(UPEX.lang.template('短信验证码不能为空'));
-            return;
-        }
-        if (!this.state.vCode && gaBindSuccess) {
-            message.error(UPEX.lang.template('谷歌验证码不能为空'));
-            return;
-        }
+        // if (!this.state.vCode && !gaBindSuccess) {
+        //     message.error(UPEX.lang.template('短信验证码不能为空'));
+        //     return;
+        // }
+        // if (!this.state.vCode && gaBindSuccess) {
+        //     message.error(UPEX.lang.template('谷歌验证码不能为空'));
+        //     return;
+        // }
 
         const checkPwd = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z\d\S]{8,16}$/.test(this.state.newPwd);
 
@@ -129,15 +129,15 @@ export default class ModifyPassword extends Component {
             className: 'v-code',
             inputProps: getProp('ivCode', 'none')
         };
-        const GAData = {
-            label: UPEX.lang.template('谷歌验证码'),
-            inputProps: getProp('vCode', 'none')
-        };
-        const pcodeData = {
-            label: !userInfo.phone ? UPEX.lang.template('邮箱验证码') : UPEX.lang.template('短信验证码'),
-            className: 'v-code',
-            inputProps: getProp('vCode', 'none')
-        };
+        // const GAData = {
+        //     label: UPEX.lang.template('谷歌验证码'),
+        //     inputProps: getProp('vCode', 'none')
+        // };
+        // const pcodeData = {
+        //     label: !userInfo.phone ? UPEX.lang.template('邮箱验证码') : UPEX.lang.template('短信验证码'),
+        //     className: 'v-code',
+        //     inputProps: getProp('vCode', 'none')
+        // };
         const PageProps = {
             title: UPEX.lang.template('修改登錄密碼'),
             formClass: 'modify-password-box'
@@ -154,7 +154,7 @@ export default class ModifyPassword extends Component {
                         <img onClick={this.captchaChange} src={captcha} />
                     </div>
                 </div>
-                {gaBindSuccess ? (
+                {/* {gaBindSuccess ? (
                     <InputItem {...GAData} />
                 ) : (
                     <div className="input-vcode-wrapper">
@@ -163,7 +163,7 @@ export default class ModifyPassword extends Component {
                             <Vcodebutton imgCode={this.state.ivCode} codeid={codeid} type={!userInfo.phone ? 'email' : 'phone'} />
                         </div>
                     </div>
-                )}
+                )} */}
                 <Button loading={loading} className="ace-submit-item" onClick={this.submit}>
                     {UPEX.lang.template('提交')}
                 </Button>

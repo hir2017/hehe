@@ -66,6 +66,17 @@ export default class FourthStep extends Component {
                     );
                     break;
             }
+        }  else if(userInfo.authLevel === 3) {
+            $bottom = (
+                <Button
+                    className="ace-btn-large"
+                    onClick={e => {
+                        browserHistory.push('/webtrade');
+                    }}
+                >
+                    {UPEX.lang.template('去行情中心')}
+                </Button>
+            );
         }
         return (
             <AceForm className="auth-step-4">
