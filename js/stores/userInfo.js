@@ -309,11 +309,13 @@ class UserInfo {
 
     @action
     async rmBindGA(clientPassword, verCode) {
+        let result = false;
         try {
             this.submit_loading = true;
             const res = await closeGoogleAuth(clientPassword, verCode);
             this.submit_loading = false;
             if (res.status === 200) {
+                result = true;
                 this.gaBindSuccess = false;
                 message.success(UPEX.lang.template('解除绑定成功'));
             } else {
@@ -324,6 +326,7 @@ class UserInfo {
             console.error(e);
             message.error('Network Error');
         }
+        return result;
     }
 
     @action

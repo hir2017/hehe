@@ -1636,7 +1636,17 @@ body .user-main .ant-select-dropdown-menu-item {
     border-radius: 50%;
     cursor: pointer;
 }
-
+.google-guide-img-box.last-step .right {
+    background-color: #33c280;
+}
+.google-guide-img-box.last-step .right i {
+    color: #fff;
+}
+.google-guide-img-box.last-step .link {
+    display: inline-block;
+    padding-left: 4px;
+    color: #cc9900;
+}
 .google-guide-img-box .left i,
 .google-guide-img-box .right i {
     font-size: 30px;

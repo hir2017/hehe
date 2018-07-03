@@ -1,12 +1,7 @@
-/**
- * @fileoverview  google
- * @author xia xiang feng
- * @date 2018-05-23
- */
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
-import { Button, Switch, message } from 'antd';
-import { Link } from 'react-router';
+import { Button, message } from 'antd';
+import { Link, browserHistory } from 'react-router';
 import Vcodebutton from '../common/authcode-btn';
 
 import InputItem from '../../common-mods/form/input-item';
@@ -53,7 +48,11 @@ export default class ReBinding extends Component {
             return;
         }
 
-        this.props.userInfoStore.rmBindGA(this.state.google, this.state.vCode);
+        this.props.userInfoStore.rmBindGA(this.state.google, this.state.vCode).then(res => {
+            if(res) {
+                browserHistory.push('/user/google');
+            }
+        });
     }
 
     render() {
