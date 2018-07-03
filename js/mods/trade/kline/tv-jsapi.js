@@ -135,8 +135,7 @@ class UDFCompatibleDatafeed {
                     };
 
                     barValue.timeTxt = TimeUtil.formatDate(item.currentTime, 'yyyy-MM-dd HH:mm:ss');
-
-                    bars.push(barValue);
+                    bars[bars.length] = barValue
                 }
             }
 
@@ -235,7 +234,10 @@ class UDFCompatibleDatafeed {
      */
     unsubscribeBars(subscriberUID) {
         console.log('------unsubscribeBars-------');
-        socket.off('tradingView');
+        this.destroy();
+    }
+
+    destroy(){
         this.timer && clearTimeout(this.timer);
     }
     /**

@@ -3,7 +3,7 @@ import { observer, inject } from 'mobx-react';
 import { Checkbox, Icon, Pagination, message } from 'antd';
 import toAction from './record-action';
 
-@inject('commonStore','openStore', 'authStore',)
+@inject('commonStore','openStore', 'authStore', 'tradeStore')
 @observer
 class List extends Component {
 	static defaultProps = {
@@ -13,7 +13,7 @@ class List extends Component {
 	constructor(props){
 		super(props);
 
-		this.action = toAction(this.props.openStore, this.props.authStore);
+		this.action = toAction(this.props.openStore, this.props.authStore, this.props.tradeStore);
 		this.currentOrderNo = '';
 	}
 

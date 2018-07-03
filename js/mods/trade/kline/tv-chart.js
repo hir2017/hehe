@@ -141,6 +141,7 @@ class TVChartContainer extends Component {
 
     componentWillUnmount(){
         $.channel.off('switchTheme');
+        this.datafeed && this.datafeed.destroy();
     }
 
 	createTradingView() {
@@ -164,6 +165,11 @@ class TVChartContainer extends Component {
         currencyNameEn = getTradeCoinById(currencyId).currencyNameEn;
 
         let currentSymbolName = `${currencyNameEn}/${baseCurrencyNameEn}`;
+        let datafeed = this.datafeed = new UDFCompatibleDatafeed({
+            currencyNameEn,
+            baseCurrencyNameEn,
+            pointPrice:  getPointPrice(currencyNameEn)
+        });
 
 		var cfg = {
             debug: false,
@@ -189,11 +195,7 @@ class TVChartContainer extends Component {
                     name: "Regression Trend"
                 }]
             },
-            datafeed: new UDFCompatibleDatafeed({
-                currencyNameEn,
-                baseCurrencyNameEn,
-                pointPrice:  getPointPrice(currencyNameEn)
-            }),
+            datafeed: datafeed,
             overrides: this.getOverridesByTheme(theme),
             custom_css_url: this.getCustomCSSUrlByTheme(theme),
             disabled_features: [

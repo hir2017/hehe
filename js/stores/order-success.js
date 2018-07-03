@@ -110,7 +110,7 @@ class OrderStore {
         if (!flag) {
             
             if (statusList.indexOf(data.status) > -1) {
-                this.orderList.unshift(this.parseItem(data));
+                this.orderList.splice(0,0,this.parseItem(data));
             }
         }
     }
