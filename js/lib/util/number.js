@@ -124,6 +124,21 @@ const NumberUtil = {
 
     },
     /**
+     * 截取N位小数（非四舍五入）
+     * @param num {Number} 数字
+     * @param digit {Number} 位数
+     * @return {String} 截取后的数字
+     */
+    toFixed: function(num, digit)
+    {
+        var str = "" + num, idx = str.indexOf(".") + digit + 1;
+        if (idx > digit && idx < str.length)  // 超过N位小数
+        {
+            num = str.substring(0, idx);  // 截取N位小数
+        }
+        return parseFloat(num).toFixed(digit);
+    }, 
+    /**
      * 保留小数位
      * roundtag:舍入参数，默认"round" 四舍五入； "ceil" 向上取, "floor"向下取,
      */

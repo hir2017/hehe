@@ -22,6 +22,7 @@ class List extends Component {
 			this.action.getData({
 				size: 0
 			});
+			this.action.bindSocketEvent();
 		} else {
 			this.action.getData({
 				size: 10

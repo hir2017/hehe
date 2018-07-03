@@ -185,7 +185,9 @@
 .popover-tradecoins .coin-list-bd {
     padding-bottom: 10px;
 }
-
+.popover-tradecoins .coin-list-bd dl.list-hd {
+    font-weight: normal;
+}
 .popover-tradecoins .coin-list-bd dl.list-hd .price,
 .popover-tradecoins .coin-list-bd dl.list-hd .rate,
 .popover-tradecoins .coin-list-bd dl.list-hd .volume {
@@ -317,6 +319,7 @@ body .ant-popover-placement-bottomLeft>.ant-popover-content>.ant-popover-arrow {
     height: 40px;
     line-height: 40px;
     padding: 0 6px;
+    font-size: 14px;
     border-bottom: 1px solid transparent;
 }
 
@@ -882,7 +885,7 @@ body .ant-popover-placement-bottomLeft>.ant-popover-content>.ant-popover-arrow {
 .app-trade .tradeorder-hd ul {
     height: 40px;
     line-height: 40px;
-    padding: 0 10px;
+    padding: 0 20px;
     font-size: 16px;
     overflow: hidden;
 }
@@ -924,6 +927,7 @@ body .ant-popover-placement-bottomLeft>.ant-popover-content>.ant-popover-arrow {
     border-top: 1px solid transparent;
     border-bottom: 1px solid transparent;
     height: 40px;
+    padding: 0 20px;
 }
 
 .app-trade .tradeorder-bd .order-table .table-hd th{
@@ -932,11 +936,15 @@ body .ant-popover-placement-bottomLeft>.ant-popover-content>.ant-popover-arrow {
     font-size: 12px;
 }
 
+.app-trade .tradeorder-bd .order-table .table-bd dl dd{
+    font-size: 12px;
+}
+
 .tradeorder-bd .order-main-box{
-    padding: 0;
     flex: 1;
     display: flex;
     flex-direction: column;
+    padding: 0;
 }
 
 .tradeorder-bd .order-table {
@@ -944,11 +952,13 @@ body .ant-popover-placement-bottomLeft>.ant-popover-content>.ant-popover-arrow {
     flex: 1;
     display: flex;
     flex-direction: column;
+    border-bottom: 5px solid transparent;
 }
 
 .tradeorder-bd .order-table .table-bd{
     flex: 1;
     overflow-y: auto;
+    padding: 0 20px;
 }
 
 .tradeorder-bd .order-header,
@@ -990,6 +1000,7 @@ body .ant-popover-placement-bottomLeft>.ant-popover-content>.ant-popover-arrow {
 
 .tradeorder-bd .order-main-box .open-list-table .time {
     width: 20%;
+    text-indent: 0;
 }
 
 .tradeorder-bd .order-main-box .open-list-table .name {
@@ -1017,6 +1028,7 @@ body .ant-popover-placement-bottomLeft>.ant-popover-content>.ant-popover-arrow {
 
 .tradeorder-bd .order-main-box .success-list-table .time {
     width: 20%;
+    text-indent: 0;
 }
 
 .tradeorder-bd .order-main-box .success-list-table .name {

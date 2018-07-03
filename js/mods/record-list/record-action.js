@@ -13,14 +13,13 @@ export default (store, authStore) => {
             }
 
             store.getData(data);
-            
-            if (this.isFirst) {
-                this.bindEvent();
-                this.isFirst = false;
-            }
         },
 
-        bindEvent() {
+
+        bindSocketEvent() {
+            if (!authStore.isLogin) {
+                return;
+            }
             this.bindRegister();
             this.bindUserOpenList();
             this.bindUserSuccessList();

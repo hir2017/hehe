@@ -87,7 +87,7 @@
 
 .app-trade-light .list-box-l li:hover .number,
 .app-trade-light .list-box-l li:hover .total {
-    color: #999999;
+    /* color: #999999; */
 }
 
 
@@ -231,7 +231,12 @@
 }
 
 .app-trade-light .tradeorder-wrapper .mini-tip {
-    color: #999999;
+    position: absolute;
+    width: 100%;
+    margin: 0;
+    top: 50%;
+    margin-top: -23px;
+    color: #666;
 }
 
 

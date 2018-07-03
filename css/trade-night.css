@@ -18,6 +18,11 @@
 .app-trade-dark .grid-box {
     background-color: #161615;
 }
+
+.app-trade-dark .trade-form-bd button.btn:disabled {
+    background-color: #333 !important;
+    border: 1px solid #333;
+}
 /**
  * 右侧
  */
@@ -218,6 +223,13 @@
 	color: #fee8c2;
 }
 
+.app-trade-dark .trade-current-coin .chart-menu li{
+    color: #999999;
+}
+
+.app-trade-dark .trade-main-chart .chart-menu li.selected {
+    color: #cc9900;
+}
 .popover-tradecoins-dark .ant-popover-arrow {
     background-color: #333;
 }
@@ -298,12 +310,16 @@ body .popover-tradecoins-dark input {
 }
 
 .app-trade-dark .tradeorder-wrapper .mini-tip {
-    color: #999999;
+    position: absolute;
+    top: 50%;
+    margin-top: -23px;
+    color: #666;
+    width: 100%;
+    margin: 0;
 }
 
 .app-trade-dark .tradeorder-bd .order-table .table-bd dl dd{
     color: #666;
-    font-size: 12px;
 }
 
 .app-trade-dark .tradeorder-bd .order-table .table-bd dl:hover {

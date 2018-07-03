@@ -3,6 +3,7 @@ import { observer, inject } from 'mobx-react';
 import { browserHistory, Link} from 'react-router';
 import { Slider, Tooltip , message } from 'antd';
 import PopupTradePwd from './tradepwd';
+import InputNumber from '../../input-number';
 
 @inject('tradeStore', 'authStore')
 @observer
@@ -168,7 +169,7 @@ class TradeForm extends Component{
 									<label>{UPEX.lang.template('买入价')}</label>
 									<div className="input-box">
 										<Tooltip placement="top" visible={store.tradePriceErr == '' ? false : true} title={store.tradePriceErr}>
-										<input
+										<InputNumber
 											type="text"
 											value={store.dealBuyPrice }
 											onChange={this.onChange.bind(this, 'buyprice')}
@@ -181,7 +182,7 @@ class TradeForm extends Component{
 								<li className="item-num">
 									<label>{UPEX.lang.template('买入量')}</label>
 									<div className="input-box">
-										<input
+										<InputNumber
 											type="text"
 											value={store.dealBuyNum}
 											onChange={this.onChange.bind(this, 'buynum')}
@@ -227,7 +228,7 @@ class TradeForm extends Component{
 								<li className="item-price">
 									<label>{UPEX.lang.template('卖出价')}</label>
 									<div className="input-box">
-										<input
+										<InputNumber
 											type="text"
 											value={store.dealSellPrice}
 											onChange={this.onChange.bind(this, 'sellprice')}
@@ -239,7 +240,7 @@ class TradeForm extends Component{
 								<li className="item-num">
 									<label>{UPEX.lang.template('卖出量')}</label>
 									<div className="input-box">
-										<input
+										<InputNumber
 											type="text"
 											value={store.dealSellNum}
 											onChange={this.onChange.bind(this, 'sellnum')}

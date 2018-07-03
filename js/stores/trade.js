@@ -23,7 +23,7 @@ import MarketListStore from './market-list';
 
 class TradeStore {
     // 页面主题。浅色：light；深色：dark
-    @observable theme = UPEX.cache.getCache('theme') || 'light';
+    @observable theme = UPEX.cache.getCache('theme') || 'dark';
     // 委托中的订单&已完成的订单
     @observable tabIndex = 0;
     @observable openOrderList = []; // 委托中订单 == 当前委托
@@ -324,7 +324,6 @@ class TradeStore {
      */
     @action
     setDealBuyPrice(price) {
-
         if (this.dealBuyNum) {
             let balance = this.baseCoinBalance.value;
 
