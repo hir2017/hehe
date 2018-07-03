@@ -74,13 +74,8 @@ class PopupTradePwd extends Component{
             >
                 <div className="popup-trade-password">
                     <div className="input-area clearfix">
-<<<<<<< HEAD
                         <div className={ !this.state.validPwd ? 'input-box': 'input-box' }>
                             <input 
-=======
-                        <div className={ !this.state.validPwd ? 'input-box wrong': 'input-box' }>
-                            <input
->>>>>>> 2a378679853a7c89276577b98bab15dbd3eeda14
                                 ref="input"
                                 type="password"
                                 onBlur={this.onBlur.bind(this)}
