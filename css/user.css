@@ -1759,12 +1759,15 @@ body .user-main .ant-select-dropdown-menu-item {
 }
 
 .user-main .content-body.feedback .upload-box .ant-upload-select{
-    background:url('/images/upload-btn.png') 0 0 no-repeat;
+    background-position: 0 -98px;
+    background-image: url('../images/upload-btn-set.png');
+    background-repeat: no-repeat;
     background-size: 100%;
 }
+
 .user-main .content-body.feedback .upload-box .ant-upload-select:hover{
-    background-image: url('/images/upload-btn-hover.png');
-        border-color: #e8b802;
+    background-position-y: 0;
+    border-color: #e8b802;
 }
 .user-main .content-body.feedback .upload-box .ant-upload-select .ant-upload {
     opacity: 0;
