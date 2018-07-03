@@ -109,7 +109,7 @@ export default class SettingTradingPassword extends Component {
         };
 
         const PageProps = {
-            title: UPEX.lang.template('重置交易密碼'),
+            title: UPEX.lang.template('重置资金密码'),
             formClass: 'modify-password-box'
         };
         return (

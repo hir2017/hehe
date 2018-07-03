@@ -4,11 +4,12 @@
  * @date 2018-05-23
  */
 import React, { Component } from 'react';
-import { observer, inject } from 'mobx-react';
+import { observer } from 'mobx-react';
 import { Carousel, Icon } from 'antd';
 import google1 from '../../../images/google1.png';
 import google2 from '../../../images/google2.png';
 import google3 from '../../../images/google3.png';
+import {Link} from 'react-router';
 
 import PageWrapper from '../../common-mods/page-user/page-wrapper';
 
@@ -60,12 +61,18 @@ class GoogleGuide extends Component {
                             <Icon type="right" />
                         </span>
                     </div>
-                    <div className="google-guide-img-box">
+                    <div className="google-guide-img-box last-step">
                         <span onClick={this.previous} className="left">
                             <Icon type="left" />
                         </span>
                         <img src={google3} />
-                        <div className="download">{UPEX.lang.template('输入google验证器上的六位数字获取并输入短信验证码')}</div>
+                        <div className="download">
+                            {UPEX.lang.template('输入google验证器上的六位数字获取并输入短信验证码')}
+                            <Link to="/user/google" className="link">{UPEX.lang.template('返回google验证器')}</Link>
+                        </div>
+                        <span className="right">
+                            <Icon type="check" />
+                        </span>
                     </div>
                 </Carousel>
             </PageWrapper>

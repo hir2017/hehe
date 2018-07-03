@@ -148,7 +148,7 @@ export default class BindingBank extends Component {
                         ) : null}
                     </Col>
                 </Row>
-                <div className="message">{UPEX.lang.template('為了您的資金安全，忘記交易密碼并修改成功后，24小時內不可以提現提幣。')}</div>
+                <div className="message">{UPEX.lang.template('為了您的資金安全，忘記资金密碼并修改成功后，24小時內不可以提現提幣。')}</div>
                 <Modal
                     title={UPEX.lang.template('请输入资金密码')}
                     visible={this.state.visible}
