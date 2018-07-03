@@ -160,7 +160,7 @@ export default class SecondStep extends Component {
                                 <li>{UPEX.lang.template('面部清晰可见，无遮挡，无妆容')}</li>
                                 <li>{UPEX.lang.template('完全漏出双手，手臂')}</li>
                                 <li>{UPEX.lang.template('证件照片及内容清晰可见')}</li>
-                                <li>{UPEX.lang.template('附带“为PrimeX注册会员使用”字条')}</li>
+                                <li>{UPEX.lang.template('附带如图上所示拍照日期的字条')}</li>
                             </ul>
                         </article>
                     </div>

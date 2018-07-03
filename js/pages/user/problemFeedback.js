@@ -95,7 +95,7 @@ export default class extends Component {
     }
 
     render() {
-        const { previewVisible, previewImage, fileList } = this.state;
+        const { fileList } = this.state;
         const loading = this.props.userInfoStore.submit_loading;
         const token = UPEX.cache.getCache('token');
         const uid = UPEX.cache.getCache('uid');
