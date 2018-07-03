@@ -362,7 +362,7 @@ class TradeStore {
         let num;
 
         if (this.dealBuyPrice) {
-            num = balance * value / this.dealBuyPrice;
+            num = balance * value * 0.01 / this.dealBuyPrice;
             this.dealBuyNum = NumberUtil.initNumber(num, this.pointPrice);
         }
 

@@ -141,7 +141,7 @@ class TVChartContainer extends Component {
 
     componentWillUnmount(){
         $.channel.off('switchTheme');
-        this.datafeed.destroy();
+        this.datafeed && this.datafeed.destroy();
     }
 
 	createTradingView() {
