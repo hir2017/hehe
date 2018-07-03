@@ -3,7 +3,7 @@ import { getPersonalTradingPwd, cancelOrder } from '../../api/http';
 import { socket } from '../../api/socket';
 import { browserHistory } from 'react-router';
 
-export default (store, authStore) => {
+export default (store, authStore, tradeStore) => {
     return {
         isFirst: true,
 

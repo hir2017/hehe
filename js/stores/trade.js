@@ -499,8 +499,9 @@ class TradeStore {
                     this.tradeHistory = this.parseTradeHistory(data);
                 } else {
                     let item = this.parseTradeHistoryItem(data.content);
-
-                    this.tradeHistory.content.unshift(item);
+                    
+                    // 添加到数组头部, unshift 慎用！！性能太慢
+                    this.tradeHistory.content.splice(0,0,item);
                 }
             });
         });
@@ -511,7 +512,7 @@ class TradeStore {
             this.parseTradeHistoryItem(item);
         });
 
-        // 时间最近－》历史
+        // 按时间排序，时间最近－》历史
         data.content.sort(function(a, b) {
             return b.time - a.time;
         });
@@ -864,7 +865,8 @@ class TradeStore {
                 dp['value'] = list[i].value;
                 dp[type + 'volume'] = list[i].volume;
                 dp[type + 'totalvolume'] = list[i].totalvolume;
-                res.unshift(dp);
+
+                res.splice(0,0,dp);
             }
         } else {
             for (var i = 0; i < list.length; i++) {
@@ -877,7 +879,7 @@ class TradeStore {
                 dp['value'] = list[i].value;
                 dp[type + 'volume'] = list[i].volume;
                 dp[type + 'totalvolume'] = list[i].totalvolume;
-                res.push(dp);
+                res[res.length] =  dp;
             }
         }
 
