@@ -581,29 +581,6 @@
 .index-markets-right .anticon-star {
     color: #e6bc1d;
 }
-
-/**
- * 币圈资讯
- */
-
-.module-box {
-    width: 1200px;
-    margin: 0 auto 20px;
-}
-
-.module-item {
-    float: left;
-    margin-right: 10px;
-    min-height: 260px;
-}
-
-.module-item:last-child {
-    margin-right: 0;
-}
-
-
-
->>>>>>> 2a378679853a7c89276577b98bab15dbd3eeda14
 /* 正 */
 
 .recommend-item.positive .recommend-item-rate {
