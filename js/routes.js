@@ -6,6 +6,7 @@ import Layout from './pages/layout';
 import News from './pages/others/news';
 import NewsList from './mods/news/list';
 import NewsDetail from './mods/news/detail';
+import Agreements from './pages/others/agreements';
 import Help from './pages/others/help';
 import AboutUs from './pages/others/about';
 import Careers from './pages/others/careers';
@@ -57,7 +58,6 @@ import BindingPhone from './pages/user/binding-phone'
 import ModifyPhone from './mods/binding-phone/modifyPhone'
 import SettingPhone from './mods/binding-phone/binding-phone'
 import BindingEmail from './pages/user/bindingEmail'
-import ModifyEmail from './mods/bindingEmail/modifyEmail'
 import SettingEmail from './mods/bindingEmail/bindingEmail'
 import GoogleAuth from './pages/user/google-auth'
 import RmbindingGoogle from './mods/binding-google/unbind'
@@ -132,6 +132,7 @@ const routes = (
                 <IndexRoute component={NewsList}/>
                 <Route path="detail/:id" component={NewsDetail} />
             </Route>
+            <Route path="agreements/:name" component={Agreements} />
 			<Route path="contact" component={ContactUs} />
 			<Route path="feedback" component={Feedback} />
 			<Route path="cooperation" component={Cooperation} />

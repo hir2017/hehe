@@ -83,7 +83,6 @@ class UserPage extends Component {
     ];
     render() {
         const store = this.props.userInfoStore;
-        const userName = store.userInfo ? (store.userInfo.phone || store.userInfo.email) : '--';
         return (
             <div className="user-wrapper">
                 <Breadcrumb className="user-breadcrumb" separator=">">
