@@ -431,10 +431,17 @@ class UserInfo {
                 message.success(UPEX.lang.template('修改成功'));
             } else {
                 const msgMap = {
-                    '500': UPEX.lang.template('原手机短信确认码'),
-                    '403': UPEX.lang.template('新手机短信确认码'),
+                    '500': UPEX.lang.template('原手机短信确认码错误'),
+                    '403': UPEX.lang.template('新手机短信确认码错误'),
                 }
-                message.error(msgMap[res.status] || res.message);
+                let tempMsg ;
+                if(res.message === '谷歌验证码不正确') {
+                    tempMsg =  UPEX.lang.template('谷歌验证码错误')
+                } else {
+                    tempMsg = msgMap[res.status] || res.message;
+                }
+
+                message.error(tempMsg);
             }
         } catch (e) {
             this.submit_loading = false;

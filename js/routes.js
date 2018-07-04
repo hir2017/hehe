@@ -55,7 +55,7 @@ import ModifyPassword from './mods/password-setting/modify-login-password'
 import ModifyTraddingPassword from './mods/password-setting/modifyTradingPassword.v1.1'
 import SettingTraddingPassword from './mods/password-setting/settingTradingPassword'
 import BindingPhone from './pages/user/binding-phone'
-import ModifyPhone from './mods/binding-phone/modifyPhone'
+import ModifyPhone from './mods/binding-phone/modify-phone'
 import SettingPhone from './mods/binding-phone/binding-phone'
 import BindingEmail from './pages/user/bindingEmail'
 import SettingEmail from './mods/bindingEmail/bindingEmail'
@@ -109,7 +109,7 @@ const routes = (
 				<Route path="settingTraddingPassword" component={SettingTraddingPassword} />
 				<Route path="forgetTradingPassword" component={ForgetTradingPassword} />
 				<Route path="binding-phone" component={BindingPhone} />
-				<Route path="modifyPhone" component={ModifyPhone} />
+				<Route path="modify-phone" component={ModifyPhone} />
 				<Route path="settingPhone" component={SettingPhone} />
 				<Route path="bindingEmail" component={BindingEmail} />
 				<Route path="settingEmail" component={SettingEmail} />
