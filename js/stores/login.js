@@ -101,7 +101,7 @@ class LoginInfoBaseStore {
         if (UPEX.config.phoneReg.test(this.phone) || this.phone.length === 0) {
             ret = true;
         } else {
-            ret = false;
+            ret = true; //不限制手机格式
         }
 
         this.validPhone = ret;

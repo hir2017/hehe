@@ -59,10 +59,10 @@ export default class ModifyPhone extends Component {
             message.error(UPEX.lang.template('手机号不能为空') );
             return false;
         }
-        if(!UPEX.config.phoneReg.test(phone)) {
-            message.error(UPEX.lang.template('手机号格式错误'));
-            return false;
-        }
+        // if(!UPEX.config.phoneReg.test(phone)) {
+        //     message.error(UPEX.lang.template('手机号格式错误'));
+        //     return false;
+        // }
         return true;
     }
 
