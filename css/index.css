@@ -525,6 +525,10 @@
     color: #666666;
 }
 
+.index-markets-right .coin-list-content li.selected{
+    background-color: #f8f8f8;
+}
+
 .index-markets-right .coin-list-content .table-body li:hover{
     background-color: #f8f8f8;
 }

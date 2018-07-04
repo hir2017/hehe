@@ -97,7 +97,7 @@ class News extends Component {
             $content = <ListView dataSource={list} />;
         }
         return (
-            <PageWrapper title={UPEX.lang.template('新闻公告')}>
+            <PageWrapper title={UPEX.lang.template('公告中心')}>
                 <div className="news-result-list">
                     <div className="table-bd">{$content}</div>
                     <div className="table-ft">

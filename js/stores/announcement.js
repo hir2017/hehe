@@ -1,5 +1,5 @@
 import { observable, autorun, computed, action, runInAction } from 'mobx';
-import { getHomeAnnounceList, getAnnounceDetail } from '../api/http';
+import { getAnnounceList, getAnnounceDetail } from '../api/http';
 import NumberUtil from '../lib/util/number';
 
 class AnnouncementStore {
@@ -12,12 +12,10 @@ class AnnouncementStore {
 
         this.isLoading = true;
 
-        getHomeAnnounceList(count)
+        getAnnounceList(count)
             .then((data) => {
                 runInAction('get announcement success', () => {
-                    if (data.status == 200) {
-                        this.list = data.attachment;
-                    }
+                    this.list = data.list;
 
                     this.isLoading = false;
                 })
@@ -28,8 +26,9 @@ class AnnouncementStore {
 
     @action
     fetchInfo(id) {
-        getAnnounceDetail(id)
-            .then((data) => {
+        getAnnounceDetail({
+            announceId: id
+        }).then((data) => {
                 runInAction('get announcement detail success', () => {
                     if (data.status == 200) {
                         this.detail = data.attachment;

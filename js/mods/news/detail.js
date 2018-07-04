@@ -11,51 +11,38 @@ class News extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            content: null,
-            isFetching: false
+            content: null
         };
     }
 
     componentDidMount() {
-        this.getDetail(this.props.routeParams.id);
+        this.getDetail(this.props.params.id);
     }
 
-
-    async getDetail(id) {
-        let result = false;
-        this.setState({
-            isFetching: true
-        });
-        try {
-            const res = await getAnnounceDetail({
-                announceId: id
-            });
-            if (res.status !== 200) {
-                message.error(res.message);
-            } else {
-                result = true;
+    getDetail(id) {
+        getAnnounceDetail({
+            announceId: id
+        }).then((res)=>{
+            if (res.status == 200) {
                 let temp = res.attachment || {};
+                
                 this.setState({
                     content: temp.content,
                     title: temp.title,
                     date: temp.publishTime
                 });
             }
-        } catch (e) {
-            console.error(e);
-            message.error('Network Error');
-        }
-        this.setState({
-            isFetching: false
-        });
+        })   
     }
 
     render() {
         const state = this.state;
+        
         let $rightContent = (<div className="date">{state.date}</div>)
+        
         return (
             <PageWrapper title={state.title} rightContent={$rightContent}>
-                <div dangerouslySetInnerHTML={{__html: state.content}} />
+                <div className="news-detail" dangerouslySetInnerHTML={{__html: state.content}} />
             </PageWrapper>
         );
     }

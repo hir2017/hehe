@@ -15,7 +15,6 @@ import Feedback from './pages/others/feedback';
 import Download from './pages/others/download';
 import ContactUs from './pages/others/contact';
 import Cooperation from './pages/others/cooperation';
-import AnnouncementPreview from './pages/announcement/preview';
 
 import Login from './pages/login-register/login';
 import Register from './pages/login-register/register';
@@ -125,7 +124,6 @@ const routes = (
 			<Route path="login" component={Login} />
 			<Route path="register" component={Register} />
 			<Route path="resetpwd" component={ResetPwd} />
-			<Route path="announcement/:announcementId" component={AnnouncementPreview} />
 			<Route path="help" component={Help} />
 			<Route path="about" component={AboutUs} />
 			<Route path="news" component={News}>

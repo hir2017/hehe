@@ -75,7 +75,37 @@ class MarketListStore {
 
         if (this.authStore.isLogin) {
             this.getCollectCoinsList();
+        } else {
+            this.getCollectDataFromLocal();
         }
+    }
+
+    @action
+    getCollectDataFromLocal() {
+        this.collectCoinsList = UPEX.cache.getCache('collectist') || [];
+    }
+
+    @action
+    addCollectDataToLocal(item) {
+        this.collectCoinsList[this.collectCoinsList.length] = item;
+        UPEX.cache.setCache('collectist', this.collectCoinsList);
+    }
+
+    @action
+    removeCollectDataFromLocal(data) {
+        $.each(this.collectCoinsList, (i, item) => {
+            if (item.tradeCurrencyId == data.tradeCurrencyId) {
+                this.collectCoinsList.splice(i, 1);
+                return false;
+            }
+        });
+
+        UPEX.cache.setCache('collectist', this.collectCoinsList);
+    }
+
+    @action
+    clearCollectDataFromLocal() {
+        UPEX.cache.removeCache('collectist');
     }
     /**
      * 行情列表
@@ -144,9 +174,10 @@ class MarketListStore {
     @action
     getCollectCoinsList() {
 
-        listOptional().then((res)=>{
+        listOptional().then((res) => {
             if (res.status == 200) {
                 runInAction(() => {
+                    this.removeCollectDataFromLocal();
                     this.collectCoinsList = res.attachment;
                 });
             }
@@ -318,17 +349,34 @@ class MarketListStore {
 
     @action
     toggleCollectCoin(data) {
+        if (this.authStore.isLogin) {
+            toDo = data.selected ? cancleOptional : addOptional;
 
-        toDo = data.selected ? cancleOptional : addOptional;
+            toDo(data).then((res) => {
+                if (res.status !== 200) {
+                    console.error(res.message);
+                }
 
-        toDo(data).then((res) => {
-            if (res.status !== 200) {
-                console.error(res.message);
+                this.getCollectCoinsList();
+            });
+        } else {
+            // 若用户不登录，维护一套本地缓存的收藏列表
+            
+            let item = {
+                baseCurrencyId: data.baseCurrencyId,
+                tradeCurrencyId: data.currencyId,
+                status:1
             }
 
-            this.getCollectCoinsList();
-        });
+            if (data.selected) {
+                this.removeCollectDataFromLocal(item);
+            } else {
+                this.addCollectDataToLocal(item);
+            }
+
+        }
     }
+
 }
 
 export default MarketListStore;

@@ -351,9 +351,10 @@ export default (store) => {
                             token: data.attachment.token
                         });
                         break;
+                    case 5558:  // 谷歌密碼輸入有誤
                     case 20104: // 谷歌密碼輸入有誤
                     default:
-                        message.error(data.message);
+                        // message.error(data.message);
                 }
 
                 return data;

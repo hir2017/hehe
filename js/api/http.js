@@ -167,12 +167,6 @@ export function getAnnounceList(data) {
     return axios.post(`${UPEX.config.host}/announce/pageList`, qs.stringify(data)).then(res => res.data);
 }
 
-// 获取最新公告列表
-
-export function getHomeAnnounceList(data) {
-    return axios.post(`${UPEX.config.host}/announce/list`, qs.stringify(data)).then(res => res.data);
-}
-
 // 获取公告详情
 export function getAnnounceDetail(data) {
     return axios.post(`${UPEX.config.host}/announce/getInfo`, qs.stringify(data)).then(res => res.data);

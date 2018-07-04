@@ -36,7 +36,7 @@ class AnnouncementList extends Component {
 											return (
 												<li key={item.announceId}>
 													<div className="info">
-														<Link to={"/announcement/" + item.announceId}>
+														<Link to={"/news/detail/" + item.announceId}>
 															{item.title}
 														</Link>
 													</div>
