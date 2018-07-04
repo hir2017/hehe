@@ -18,7 +18,7 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router';
 import { observer, inject } from 'mobx-react';
-import { Popover , message } from 'antd';
+import { Popover , message , Icon } from 'antd';
 import LanguageSwitchView from './language';
 import ThemeSwitchView from './theme';
 import { browserHistory } from 'react-router';
@@ -96,7 +96,10 @@ class HeaderView extends Component {
 								<ul>
 									<li ref="userinfo">
 										<Popover content={usermenu} placement="bottomRight" getPopupContainer={this.props.userinfo} overlayClassName="widget-tooltip">
-											<Link to="/user"><span className="usertxt">{ UPEX.lang.template('欢迎您，{name}', { name: username })}</span></Link>
+											<Link to="/user">
+												<span className="usertxt">{ UPEX.lang.template('欢迎您，{name}', { name: username })}</span>
+												<Icon type="down" style={{ fontSize: 12, color: '#ebeff5' }}/>
+											</Link>
 										</Popover>
 									</li>
 								</ul>

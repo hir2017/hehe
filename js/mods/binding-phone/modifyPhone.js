@@ -55,14 +55,16 @@ export default class ModifyPhone extends Component {
 
     checkPhone() {
         const {phone} = this.state;
+        
         if(phone.length === 0) {
             message.error(UPEX.lang.template('手机号不能为空') );
             return false;
         }
-        if(!UPEX.config.phoneReg.test(phone)) {
-            message.error(UPEX.lang.template('手机号格式错误'));
-            return false;
-        }
+        // 国际化手机号
+        // if(!UPEX.config.phoneReg.test(phone)) {
+        //     message.error(UPEX.lang.template('手机号格式错误'));
+        //     return false;
+        // }
         return true;
     }
 

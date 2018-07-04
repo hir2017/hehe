@@ -499,10 +499,13 @@ body  .ant-select-dropdown-menu-item:hover {
 
 .header-box .usertxt {
     cursor: pointer;
+    display: inline-block;
+    vertical-align: middle;
     min-height: 30px;
-    background: url('../images/icon-menu.png') no-repeat right center;
-    background-size: 20px 20px;
-    padding-right: 32px;
+    margin-right: 6px;
+    padding-left: 18px;
+    background: url('../images/icon-profile.png') no-repeat left center;
+    background-size: 12px 12px;
 }
 
 /**
