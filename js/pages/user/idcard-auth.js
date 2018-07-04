@@ -1,8 +1,3 @@
-/**
- * @fileoverview  身份认证
- * @author xia xiang feng
- * @date 2018-05-21
- */
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import { Link } from 'react-router';

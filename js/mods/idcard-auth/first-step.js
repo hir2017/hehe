@@ -1,8 +1,3 @@
-/**
- * @fileoverview  用户个人信息
- * @author xia xiang feng
- * @date 2018-05-21
- */
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import { observer, inject } from 'mobx-react';
@@ -22,13 +17,7 @@ export default class FirstStep extends Component {
     constructor() {
         super();
         this.next = this.next.bind(this);
-        this.yearChange = this.yearChange.bind(this);
-        this.monthChange = this.monthChange.bind(this);
-        this.dayChange = this.dayChange.bind(this);
-        this.idCardTypeChange = this.idCardTypeChange.bind(this);
         this.checkHandel = this.checkHandel.bind(this);
-        this.professionChange = this.professionChange.bind(this);
-        this.annualsalaryChange = this.annualsalaryChange.bind(this);
         this.useOfFundsChange = this.useOfFundsChange.bind(this);
         this.resortTypeOtherChange = this.resortTypeOtherChange.bind(this);
     }
@@ -53,7 +42,7 @@ export default class FirstStep extends Component {
         address: '',
         addressMes: '',
         postCode: '',
-        areaCodeMes: '',
+        postCodeMes: '',
         profession: '',
         professionMes: '',
         annualsalary: '',
@@ -63,6 +52,17 @@ export default class FirstStep extends Component {
     setVal(e, name) {
         const data = {};
         data[name] = e.target.value;
+        this.setState(data);
+    }
+    // params(3): msgField, name, val; params(2): name, val;
+    selectChange(...params) {
+        let data = {};
+        if(params.length === 3) {
+            data[0] = '';
+            data[params[1]] = params[2]
+        } else {
+            data[params[0]] = params[1]
+        }
         this.setState(data);
     }
 
@@ -101,49 +101,9 @@ export default class FirstStep extends Component {
         return monthA;
     }
 
-    yearChange(val) {
-        this.setState({
-            year: val
-        });
-    }
-
-    monthChange(val) {
-        this.setState({
-            month: val
-        });
-    }
-
-    dayChange(val) {
-        this.setState({
-            day: val,
-            birthdayMes: ''
-        });
-    }
-
-    idCardTypeChange(val) {
-        this.setState({
-            idCardType: val,
-            idCardTypeMes: ''
-        });
-    }
-
     checkHandel(e) {
         this.setState({
             check: e.target.checked
-        });
-    }
-
-    professionChange(val) {
-        this.setState({
-            profession: val,
-            professionMes: ''
-        });
-    }
-
-    annualsalaryChange(val) {
-        this.setState({
-            annualsalary: val,
-            annualsalaryMes: ''
         });
     }
 
@@ -160,70 +120,38 @@ export default class FirstStep extends Component {
     }
 
     next() {
-        let valid1 = true,
-            valid2 = true,
-            valid3 = true,
-            valid3_1 = true,
-            valid3_2 = true,
-            valid4 = true,
-            valid5 = true,
-            valid6 = true,
-            valid7 = true;
-        if (!this.state.firstName) {
-            this.setState({
-                firstNameMes: UPEX.lang.template('真实姓氏不能为空')
-            });
-            valid1 = false;
+        let allPass = true;
+        let mesData = {};
+        let mesMap = {
+            firstName: UPEX.lang.template('真实姓氏不能为空'),
+            secondName: UPEX.lang.template('真实名字不能为空'),
+            address: UPEX.lang.template('请完善地址信息'),
+            postCode: UPEX.lang.template('区域号码不能为空'),
+            idCardType: UPEX.lang.template('请选择证件类型'),
+            idCard: UPEX.lang.template('证件号码不能为空'),
+            profession: UPEX.lang.template('职业不能为空'),
+            annualsalary: UPEX.lang.template('年薪不能为空')
+        };
+
+        for(let _name in mesMap) {
+            if(!this.state[_name]) {
+                mesData[_name + 'Mes'] = mesMap[_name];
+                allPass = false;
+            } else {
+                mesData[_name + 'Mes'] = '';
+            }
         }
-        if (!this.state.secondName) {
-            this.setState({
-                secondNameMes: UPEX.lang.template('真实名字不能为空')
-            });
-            valid2 = false;
-        }
+
         if (!this.state.year || !this.state.month || !this.state.day) {
-            this.setState({
-                birthdayMes: UPEX.lang.template('请完善出生日期')
-            });
-            valid3 = false;
+            mesData.birthdayMes = UPEX.lang.template('请完善出生日期');
+            allPass = false;
+        } else {
+            mesData.birthdayMes = '';
         }
-        if (!this.state.address) {
-            this.setState({
-                addressMes: UPEX.lang.template('请完善地址信息')
-            });
-            valid3_1 = false;
-        }
-        if (!this.state.postCode) {
-            this.setState({
-                areaCodeMes: UPEX.lang.template('区域号码不能为空')
-            });
-            valid3_2 = false;
-        }
-        if (!this.state.idCardType) {
-            this.setState({
-                idCardTypeMes: UPEX.lang.template('请选择证件类型')
-            });
-            valid4 = false;
-        }
-        if (!this.state.idCard) {
-            this.setState({
-                idCardMes: UPEX.lang.template('证件号码不能为空')
-            });
-            valid5 = false;
-        }
-        if (!this.state.profession) {
-            this.setState({
-                professionMes: UPEX.lang.template('职业不能为空')
-            });
-            valid6 = false;
-        }
-        if (!this.state.annualsalary) {
-            this.setState({
-                annualsalaryMes: UPEX.lang.template('年薪不能为空')
-            });
-            valid7 = false;
-        }
-        if (valid1 && valid2 && valid3 && valid3_1 && valid3_2 && valid4 && valid5 && valid6 && valid7) {
+
+        this.setState(mesData);
+
+        if (allPass) {
             this.props.userInfoStore.addIdentityInfo({
                 firstName: this.state.firstName,
                 secondName: this.state.secondName,
@@ -266,7 +194,7 @@ export default class FirstStep extends Component {
                 label: UPEX.lang.template('郵遞區號'),
                 inputProps: getProp('postCode', 'none'),
                 tip: UPEX.lang.template('請如實填寫地址，并保證和身份證反面的信息一致'),
-                error: state.areaCodeMes
+                error: state.postCodeMes
             },
             idCard: {
                 label: UPEX.lang.template('证件号码'),
@@ -286,7 +214,7 @@ export default class FirstStep extends Component {
                 <div className="ace-input-item select time-label">
                     <span className="label">{UPEX.lang.template('出生日期')}</span>
                     <div className="input">
-                        <Select showSearch placeholder={UPEX.lang.template('年')} onChange={this.yearChange} >
+                        <Select showSearch placeholder={UPEX.lang.template('年')} onChange={this.selectChange.bind(this, 'year')} >
                             {this.years().map((item, index) => {
                                 return (
                                     <Option key={index} value={item}>
@@ -296,7 +224,7 @@ export default class FirstStep extends Component {
                                 );
                             })}
                         </Select>
-                        <Select placeholder={UPEX.lang.template('月')} onChange={this.monthChange} >
+                        <Select placeholder={UPEX.lang.template('月')} onChange={this.selectChange.bind(this, 'month')} >
                             {this.months().map((item, index) => {
                                 return (
                                     <Option key={index} value={item}>
@@ -306,7 +234,7 @@ export default class FirstStep extends Component {
                                 );
                             })}
                         </Select>
-                        <Select className="last" placeholder={UPEX.lang.template('日')} onChange={this.dayChange} >
+                        <Select className="last" placeholder={UPEX.lang.template('日')} onChange={this.selectChange.bind(this, 'birthdayMes', 'day')} >
                             {this.days().map((item, index) => {
                                 return (
                                     <Option key={index} value={item}>
@@ -324,7 +252,7 @@ export default class FirstStep extends Component {
                 <div className="ace-input-item select">
                     <span className="label">{UPEX.lang.template('证件类型')}</span>
                     <div className="input">
-                        <Select onChange={this.idCardTypeChange} placeholder={UPEX.lang.template('请选择')}>
+                        <Select onChange={this.selectChange.bind(this, 'idCardTypeMes', 'idCardType')} placeholder={UPEX.lang.template('请选择')}>
                             <Option value="1">{UPEX.lang.template('台湾身份证')}</Option>
                         </Select>
                     </div>
@@ -336,7 +264,7 @@ export default class FirstStep extends Component {
                     <div className="ace-input-item select">
                         <span className="label">{UPEX.lang.template('職業')}</span>
                         <div className="input">
-                            <Select onChange={this.professionChange} placeholder={UPEX.lang.template('請選擇職業')}>
+                            <Select onChange={this.selectChange.bind(this, 'professionMes', 'profession')} placeholder={UPEX.lang.template('請選擇職業')}>
                                 <Option value={1}>军公教</Option>
                                 <Option value={2}>专业技术人员</Option>
                                 <Option value={3}>行政人员</Option>
@@ -353,7 +281,7 @@ export default class FirstStep extends Component {
                     <div className="ace-input-item select last">
                         <span className="label">{UPEX.lang.template('年薪')}</span>
                         <div className="input">
-                            <Select onChange={this.annualsalaryChange} placeholder={UPEX.lang.template('请选择')}>
+                            <Select onChange={this.selectChange.bind(this, 'annualsalaryMes', 'annualsalary')} placeholder={UPEX.lang.template('请选择')}>
                                 <Option value={1}>0-50万</Option>
                                 <Option value={2}>50-100万</Option>
                                 <Option value={3}>150-200万</Option>
