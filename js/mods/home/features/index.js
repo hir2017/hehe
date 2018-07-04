@@ -16,7 +16,7 @@ class Features extends Component {
 						</li>
 						<li>
 							<i className="icon-clock"></i>
-							<div className="title">{ UPEX.lang.template('7X24消失委托交易')}</div>
+							<div className="title">{ UPEX.lang.template('7X24小时委托交易')}</div>
 							<div className="desc">{ UPEX.lang.template('随心、省心、放大收益')}</div>
 						</li>
 						<li>

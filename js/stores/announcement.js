@@ -1,5 +1,5 @@
 import { observable, autorun, computed, action, runInAction } from 'mobx';
-import { getAnnounceList, getAnnounceDetail } from '../api/http';
+import { getHomeAnnounceList, getAnnounceDetail } from '../api/http';
 import NumberUtil from '../lib/util/number';
 
 class AnnouncementStore {
@@ -12,7 +12,7 @@ class AnnouncementStore {
 
         this.isLoading = true;
 
-        getAnnounceList(count)
+        getHomeAnnounceList(count)
             .then((data) => {
                 runInAction('get announcement success', () => {
                     if (data.status == 200) {

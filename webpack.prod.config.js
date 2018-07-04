@@ -1,3 +1,4 @@
+
 var path = require('path');
 var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');  // 导出额外的文件插件
@@ -17,6 +18,21 @@ var cssmode = package.cssmode;
 var gitlabGroup = package.gitlabGroup;
 var cdnDomain = package.cdnDomain;
 
+const extractCSS = new ExtractTextPlugin({
+    allChunks: true,
+    filename: '[name].css'
+});
+
+// 声明cssloader
+var cssLoader = {
+    test: /\.(css|less)$/,
+    loader: ExtractTextPlugin.extract([
+        'css-loader',
+        'postcss-loader',
+        'less-loader'
+    ])
+};
+
 // 输出口
 var output = {
     path: path.resolve(__dirname, "build/assets"),
@@ -25,25 +41,25 @@ var output = {
     publicPath: '/',
 };
 
-// 声明cssloader
-var cssLoader = {
-    test: /\.(css|less)$/,
-    use: [
-        'css-loader?minimize=true',
-        'postcss-loader',
-        'less-loader'
-    ]
-};
+// 为product环境打包时
+if (env == 'product') {
+    // 定制cdn路径
+    output.publicPath = '//' + cdnDomain + '/' + gitlabGroup + '/' + projectName + '/' + projectVersion + '/assets/';
+    cssLoader.loader = ExtractTextPlugin.extract("css-loader", "postcss-loader");
+    delete cssLoader.use;
+}
 
-var extractCSS = new ExtractTextPlugin({
-    allChunks: true,
-    filename: '[name].css'
-});
+if (env == 'stage') {
+     // 定制cdn路径
+    output.publicPath = '/' + gitlabGroup + '/' + projectName + '/' + projectVersion + '/assets/';
+    cssLoader.loader = ExtractTextPlugin.extract("css-loader", "postcss-loader");
+    delete cssLoader.use;
+}
 
 var config = {
     entry: {
         // 可对应多个入口文件
-        app: ['./js/app.js']
+        webapp: ['./js/app.js']
     },
     output: output,
     devtool: 'source-map', // 输出source-map
@@ -62,7 +78,12 @@ var config = {
                 exclude: /node_modules/,
                 query: {
                     presets: ['es2015', 'react', 'stage-0'],
-                    plugins: ['transform-remove-strict-mode', 'transform-decorators-legacy', ["import", [{ "libraryName": "antd", "style": "css" }]]]
+                    plugins: [
+                        'transform-remove-strict-mode', 
+                        'transform-decorators-legacy', 
+                        ["transform-runtime", {"helpers": false, "polyfill": false, "regenerator": true, "moduleName": "babel-runtime"}], 
+                        ["import", [{ "libraryName": "antd", "style": "css" }]]
+                    ]
                 }
             },
             {
@@ -109,14 +130,15 @@ var config = {
     // server配置
     // sudo webpack-dev-server
     devServer: {
-        historyApiFallback: true, //不跳转
+        historyApiFallback: true,//不跳转
         contentBase: './',  // 服务根目录
         color: true,  // 命令行是否彩色
         inline: true, // 项目文件保存自动编译文件模块
-        host: '0.0.0.0', //  使用IP访问
-        port: 4444 // 启动端口
+        host: '0.0.0.0',
+        disableHostCheck: true,
+        port: 80 // 启动端口
     },
-
+    
     // 插件
     plugins: [
         extractCSS,
@@ -140,7 +162,7 @@ var config = {
             template: './template/index.html',
             hash: true,
             // 指定要加载的模块
-            chunks: ['app']
+            chunks: ['webapp']
         })
     ]
 };

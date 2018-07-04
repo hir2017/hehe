@@ -22,6 +22,7 @@ class MarketListStore {
 
     tradeCoinsCollected = {};
     tradeCoinsSearched = {};
+    isFirst = true;
 
     constructor(stores) {
         this.commonStore = stores.commonStore;
@@ -41,6 +42,7 @@ class MarketListStore {
         this.sortByType = 'desc'; // 排序方式，升序:asc, 降序: desc
         this.onlyCollectedCoins = false; // 只查看收藏的交易币
         this.searchValue = '';
+        this.isFirst = true;
     }
     @computed
     get hotCoins() {
@@ -59,18 +61,18 @@ class MarketListStore {
     @action
     getData() {
         let timer;
-        let fetch = ()=>{
+        let fetch = () => {
             this.getMarketList();
             timer && clearTimeout(timer);
-            timer = setTimeout(()=>{
+            timer = setTimeout(() => {
                 fetch();
             }, 10 * 1000); // 10秒钟轮询查询
-        }        
+        }
+
 
         fetch();
-        
         this.quoteNotify();
-        
+
         if (this.authStore.isLogin) {
             this.getCollectCoinsList();
         }
@@ -92,21 +94,33 @@ class MarketListStore {
 
                 if (result) {
                     this.baseCoinInfo = result.info;
-                    this.tradeCoins = this.parseCoinList(result.tradeCoins);
-                    this.cacheCoins = [...this.tradeCoins];
-                    
-                    if (!this.selectedCoin.currencyId) {
-                        // 初始选中的数据
+
+                    let tradeCoinsMap = {};
+
+                    for (var i = result.tradeCoins.length - 1; i >= 0; i--) {
+                        tradeCoinsMap[result.tradeCoins[i].currencyId] = result.tradeCoins[i];
+                    }
+
+                    if (this.isFirst) {
+                        this.cacheCoins = this.parseCoinList(result.tradeCoins);
+                        this.tradeCoins = [...this.cacheCoins];
                         this.selectedCoin = this.tradeCoins[0];
                     } else {
+                        this.cacheCoins = this.parseCoinList(result.tradeCoins);
+
+                        if (this.tradeCoins.length > 0) {
+                            this.tradeCoins.forEach((item, index) => {
+                                this.tradeCoins[index] = tradeCoinsMap[item.currencyId];
+                            })
+                        }
                         // 更新选中的数据
-                        this.selectedCoin = this.tradeCoins.filter((item)=>{
-                            return item.currencyId == this.selectedCoin.currencyId
-                        })[0];
+                        this.selectedCoin = tradeCoinsMap[this.selectedCoin.currencyId];
                     }
                 } else {
                     this.noCoin = true;
                 }
+
+                this.isFirst = false;
             })
         })
     }
@@ -128,18 +142,16 @@ class MarketListStore {
     }
 
     @action
-    async getCollectCoinsList() {
-        const res = await listOptional()
+    getCollectCoinsList() {
 
-        if (res.status !== 200) {
-            console.error(res.message)
-        } else {
-            runInAction(() => {
-                this.collectCoinsList = res.attachment;
-            });
-        }
+        listOptional().then((res)=>{
+            if (res.status == 200) {
+                runInAction(() => {
+                    this.collectCoinsList = res.attachment;
+                });
+            }
+        })
     }
-
     /**
      * 销毁socket事件
      */
@@ -148,7 +160,6 @@ class MarketListStore {
         socket.off('quoteNotify');
         socket.off('list');
     }
-
     /**
      * 格式化交易币列表信息
      */
@@ -194,7 +205,7 @@ class MarketListStore {
      */
     @action
     updateTradeCoin(data) {
-        
+
         this.tradeCoins.map((item, index) => {
             if (item.baseCurrencyId === data.baseCurrencyId && item.currencyId === data.currencyId) {
                 this.tradeCoins[index] = this.parseCoinItem(data);

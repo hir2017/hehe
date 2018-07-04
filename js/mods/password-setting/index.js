@@ -14,7 +14,7 @@ export default class BindingBank extends Component {
     passwordSwitch = checked => {
         const userInfo = this.props.userInfoStore.userInfo || {};
         let msg = 'none';
-        msg = (userInfo.isValidatePhone === 0 && UPEX.lang.template('请先绑定手机')) || (userInfo.isValidatePass === 0 && UPEX.lang.template('请先设置交易码'));
+        msg = (userInfo.isValidatePhone === 0 && UPEX.lang.template('请先绑定手机')) || (userInfo.isValidatePass === 0 && UPEX.lang.template('请先设置资金密码'));
         if (msg === 'none' || msg !== false) {
             message.error(msg);
             return;

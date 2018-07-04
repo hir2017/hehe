@@ -147,7 +147,7 @@ class MarketCoinList extends Component {
                                                     }
                                                     
                                                     return (
-                                                        <li className="clearfix" key={item.id} onClick={this.selectCoin.bind(this, item)}>
+                                                        <li className="clearfix" key={item.currencyId} onClick={this.selectCoin.bind(this, item)}>
                                                             <span className="cell name"><span className="symbol">{item.currencyNameEn || '--'}</span></span>
                                                             <span className={`cell amount`}>
                                                                 {item.currentAmountText}

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { observer, inject } from 'mobx-react';
 import { Icon } from 'antd';
 import klineChart from './chart';
+import { browserHistory } from 'react-router';
 import { getTradeKline }  from '../../../api/http';
 
 @observer
@@ -60,6 +61,10 @@ class HotCoin extends Component {
 		$(this.refs.testfill).attr('d', fillPath);
 	}
 
+	handleTrade=(data)=>{
+		browserHistory.push(`/webtrade/TWD_${data.currencyNameEn}`);
+	}
+
 	render() {
 		let data = this.props.data;
 		let type = data.changeRate >= 0 ? 'positive' : 'negative';
@@ -73,7 +78,7 @@ class HotCoin extends Component {
                                                     
 
 		return (
-			<div className={`recommend-item ${type}`}>
+			<div className={`recommend-item ${type}`} onClick={this.handleTrade.bind(this, data)}>
 				<div className="recommend-item-name">{ data.currencyNameEn }</div>
 				<div className="recommend-item-price">NT$ { data.currentAmountText }</div>
 				<div className="recommend-item-volume">{ UPEX.lang.template('成交额 {num}{unit}', { num : data.amountText, unit: data.baseCurrencyNameEn })}</div>

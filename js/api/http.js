@@ -160,13 +160,17 @@ export function resetPwd(data) {
         codeid: data.codeid
     })).then(res => res.data);
 }
-
-// 获取最新公告列表
 /*
-
-*/
+ *
+ */
 export function getAnnounceList(data) {
     return axios.post(`${UPEX.config.host}/announce/pageList`, qs.stringify(data)).then(res => res.data);
+}
+
+// 获取最新公告列表
+
+export function getHomeAnnounceList(data) {
+    return axios.post(`${UPEX.config.host}/announce/list`, qs.stringify(data)).then(res => res.data);
 }
 
 // 获取公告详情
@@ -487,31 +491,28 @@ export function cancelOrder(data) {
 /**
  * 添加收藏
  */
-export async function addOptional(data) {
-    const res = await axios.post(`${UPEX.config.host}/optional/optional`, qs.stringify({
+export function addOptional(data) {
+    return axios.post(`${UPEX.config.host}/optional/optional`, qs.stringify({
         tradeCurrencyId: data.currencyId,
         baseCurrencyId: data.baseCurrencyId
-    }))
-    return res.data
+    })).then(res => res.data);
 }
 /**
  * 取消收藏
  */
 
-export async function cancleOptional(data) {
-    const res = await axios.post(`${UPEX.config.host}/optional/cancleOptional`, qs.stringify({
+export function cancleOptional(data) {
+    return axios.post(`${UPEX.config.host}/optional/cancleOptional`, qs.stringify({
         tradeCurrencyId: data.currencyId,
         baseCurrencyId: data.baseCurrencyId
-    }))
-    return res.data
+    })).then(res => res.data);
 }
 /**
  * 收藏列表
  */
 
-export async function listOptional() {
-    const res = await axios.post(`${UPEX.config.host}/optional/listOptional`)
-    return res.data
+export function listOptional() {
+    return axios.post(`${UPEX.config.host}/optional/listOptional`).then(res => res.data);
 }
 
 /**

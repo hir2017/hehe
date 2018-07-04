@@ -38,6 +38,7 @@
     "babel-loader": "^7.1.2",
     "babel-plugin-import": "^1.7.0",
     "babel-plugin-transform-remove-strict-mode": "0.0.2",
+    "babel-plugin-transform-runtime": "^6.23.0",
     "babel-polyfill": "^6.26.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-mobx": "^1.0.2",
@@ -60,7 +61,7 @@
     "webpack-dev-server": "^1.16.2",
     "webpack-hot-middleware": "^2.22.1"
   },
-  "gitlabGroup": "up",
+  "gitlabGroup": "ex-frontend",
   "googleFileExport": "module.exports",
   "googleSpreadsheetId": "1SAiY0rhwJl01xfA6BZdS53z1JJwg0XvEEEYCiv6mrNM",
   "googleWorksheet": [
@@ -69,7 +70,7 @@
   ],
   "license": "ISC",
   "main": "index.js",
-  "name": "upexchange",
+  "name": "primex",
   "scripts": {
     "dev": "sudo webpack-dev-server",
     "product": "NODE_ENV=product webpack -p",
