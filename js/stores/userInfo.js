@@ -377,7 +377,11 @@ class UserInfo {
             if (res.status === 200) {
                 this.gaBindSuccess = res.attachment.isUsed === 1;
             } else {
-                message.error(res.message);
+                if(res.status !== 0) {
+                    message.error(res.message);
+                } else {
+                    console.error('isGoogleAuth', res.message);
+                }
             }
         } catch (e) {
             console.error(e);

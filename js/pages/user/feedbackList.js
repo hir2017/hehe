@@ -47,7 +47,7 @@ import PageWrapper from '../../common-mods/page-user/page-wrapper';
 export default class extends Component {
     componentDidMount() {
         this.props.userInfoStore.questions(1);
-        this.props.userInfoStore.questionDetails(3);
+        // this.props.userInfoStore.questionDetails(3);
     }
 
     pageChange = page => {
