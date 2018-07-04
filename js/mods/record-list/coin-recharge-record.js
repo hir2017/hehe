@@ -45,8 +45,8 @@ class List extends Component {
 	render() {
 		let store = this.props.coinRechargeRecordStore;
 		let $content;
-		
-		
+
+
 		if (!store.isFetching && store.orderList.length == 0) {
 			$content = <div className="mini-tip">{ UPEX.lang.template('您暂时没有充币记录') }</div>;
 		} else {
@@ -57,7 +57,7 @@ class List extends Component {
 							// 状态备用
 							let status = '';
 							let visible = false;
-							
+
 							switch(item.confirms){
 								case 'success':
 									status =  UPEX.lang.template('已完成');
@@ -75,7 +75,7 @@ class List extends Component {
 										<dd className="name">{item.currencyNameEn}</dd>
 										<dd className="num">{item.coinNum}</dd>
 										<dd className="time">{item.createTime}</dd>
-										<dd className="address">{item.walletSn}</dd>
+										<dd className="address">{UPEX.lang.template('地址')} : {item.walletSn}</dd>
 										<dd className="action">
 											{ visible ? <button onClick={this.triggerShowDetail.bind(this, item.id)}>{ this.state.displayIndex == item.id ? UPEX.lang.template('收起') : UPEX.lang.template('展开')}</button> : '--'}
 										</dd>
@@ -101,7 +101,7 @@ class List extends Component {
 								<th className="name">{UPEX.lang.template('币种')}</th>
 								<th className="num">{UPEX.lang.template('数量')}</th>
 								<th className="time">{UPEX.lang.template('时间')}</th>
-								<th className="address">{UPEX.lang.template('来源地址')}</th>
+								<th className="address">{UPEX.lang.template('信息')}</th>
 								<th className="action"><span className="pr10">{UPEX.lang.template('操作')}</span></th>
 							</tr>
 						</tbody>

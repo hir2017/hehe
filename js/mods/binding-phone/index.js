@@ -72,7 +72,7 @@ export default class Phone extends Component {
                 class: 'ace-secondary',
             },
             modify: {
-                path: '/user/modifyPhone',
+                path: '/user/modify-phone',
                 label: UPEX.lang.template('修改'),
                 class: 'ace-btn-white',
             },
@@ -87,12 +87,6 @@ export default class Phone extends Component {
                     </Col>
                     <Col  span={8} />
                     <Col className="operator" span={8}>
-                        {
-                            // <div className="switch">
-                            //     {UPEX.lang.template('启用登录手机认证')}
-                            //     <Switch onChange={this.phoneSwitch} loading={loading} checked={checked} />
-                            // </div>
-                        }
                         <Button className={currBtn.class} onClick={e => {browserHistory.push(currBtn.path)}}>
                             {currBtn.label}
                         </Button>

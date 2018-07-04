@@ -433,7 +433,7 @@
 
 .coin-withdraw-list .address{
     width: 300px;
-    text-align: left;
+    text-align: right;
 }
 
 .coin-withdraw-list .collapse-content-active .detail-content{

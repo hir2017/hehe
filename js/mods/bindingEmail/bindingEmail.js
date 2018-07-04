@@ -24,7 +24,9 @@ export default class BindingEmail extends Component {
         email: '',
         vCode: '',
         ivCode: '',
-        pvCode: ''
+        pvCode: '',
+        vcodeAbled: false,
+        submitAbled: false,
     };
 
     captchaChange() {
@@ -32,9 +34,18 @@ export default class BindingEmail extends Component {
     }
 
     setVal(e, name) {
+        const val = e.target.value;
+        const state = this.state;
         const data = {};
-        data[name] = e.target.value;
+        data[name] = val;
+        if(['email', 'ivCode'].indexOf(name) !== -1) {
+            data.vcodeAbled = state.email !== '' && state.ivCode !== '';
+        }
+        if(['vCode', 'pvCode'].indexOf(name) !== -1) {
+            data.submitAbled = state.vCode !== '' && state.pvCode !== '';
+        }
         this.setState(data);
+
     }
 
     submit() {
@@ -79,33 +90,39 @@ export default class BindingEmail extends Component {
                 label: UPEX.lang.template('短信确认码'),
                 className: 'v-code',
                 inputProps: getProp('pvCode', 'none')
-            },
+            }
         };
 
         const PageProps = {
             title: UPEX.lang.template('绑定邮箱'),
             formClass: 'modify-password-box'
         };
+
         return (
             <PageForm {...PageProps}>
                 <InputItem {...inputsData.email} />
                 <div>
-                   <InputItem {...inputsData.ivCode} />
-                   <div className="item v-code-button">
+                    <InputItem {...inputsData.ivCode} />
+                    <div className="item v-code-button">
                         <img onClick={this.captchaChange.bind(this)} src={captcha} />
                     </div>
                 </div>
-                <InputItem {...inputsData.vCode} />
-                <div className="input-vcode-wrapper">
+                <div className="user-sp-sms-btn-box">
+                    <Vcodebutton
+                            message="邮箱不能为空"
+                            emailOrphone={this.state.email}
+                            areacode=""
+                            disabled={!this.state.vcodeAbled}
+                            newBind={true}
+                            type={1}
+                            imgCode={this.state.ivCode}
+                            codeid={codeid}
+                        />
+                    <p className="sp-tip">{UPEX.lang.template('请填写收到的验证码')}</p>
+                    <InputItem {...inputsData.vCode} />
                     <InputItem {...inputsData.pvCode} />
-                    <div className="item v-code-button">
-                        <Vcodebutton message="邮箱不能为空" emailOrphone={this.state.email} areacode="" newBind={true} type={1} imgCode={this.state.ivCode} codeid={codeid} />
-                    </div>
                 </div>
-                <div className="massage" style={{ display: 'none' }}>
-                    {UPEX.lang.template('不方便接短信？可使用')}&nbsp;&nbsp;&nbsp;&nbsp;<Link>Google{UPEX.lang.template('驗證碼')}</Link>
-                </div>
-                <Button loading={loading} className="ace-submit-item" onClick={this.submit}>
+                <Button loading={loading} disabled={!this.state.submitAbled} className="ace-submit-item" onClick={this.submit}>
                     {UPEX.lang.template('提交')}
                 </Button>
             </PageForm>

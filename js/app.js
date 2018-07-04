@@ -3,6 +3,7 @@ import '../css/common.css';
 import '../css/index.css';
 import '../css/login-register.css';
 import '../css/announcement.css';
+import '../css/agreements.css';
 import '../css/trade.css';
 import '../css/trade-night.css';
 import '../css/trade-day.css';

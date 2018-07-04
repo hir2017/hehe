@@ -6,6 +6,7 @@ import Layout from './pages/layout';
 import News from './pages/others/news';
 import NewsList from './mods/news/list';
 import NewsDetail from './mods/news/detail';
+import Agreements from './pages/others/agreements';
 import Help from './pages/others/help';
 import AboutUs from './pages/others/about';
 import Careers from './pages/others/careers';
@@ -54,10 +55,9 @@ import ModifyPassword from './mods/password-setting/modify-login-password'
 import ModifyTraddingPassword from './mods/password-setting/modifyTradingPassword.v1.1'
 import SettingTraddingPassword from './mods/password-setting/settingTradingPassword'
 import BindingPhone from './pages/user/binding-phone'
-import ModifyPhone from './mods/binding-phone/modifyPhone'
+import ModifyPhone from './mods/binding-phone/modify-phone'
 import SettingPhone from './mods/binding-phone/binding-phone'
 import BindingEmail from './pages/user/bindingEmail'
-import ModifyEmail from './mods/bindingEmail/modifyEmail'
 import SettingEmail from './mods/bindingEmail/bindingEmail'
 import GoogleAuth from './pages/user/google-auth'
 import RmbindingGoogle from './mods/binding-google/unbind'
@@ -109,7 +109,7 @@ const routes = (
 				<Route path="settingTraddingPassword" component={SettingTraddingPassword} />
 				<Route path="forgetTradingPassword" component={ForgetTradingPassword} />
 				<Route path="binding-phone" component={BindingPhone} />
-				<Route path="modifyPhone" component={ModifyPhone} />
+				<Route path="modify-phone" component={ModifyPhone} />
 				<Route path="settingPhone" component={SettingPhone} />
 				<Route path="bindingEmail" component={BindingEmail} />
 				<Route path="settingEmail" component={SettingEmail} />
@@ -132,6 +132,7 @@ const routes = (
                 <IndexRoute component={NewsList}/>
                 <Route path="detail/:id" component={NewsDetail} />
             </Route>
+            <Route path="agreements/:name" component={Agreements} />
 			<Route path="contact" component={ContactUs} />
 			<Route path="feedback" component={Feedback} />
 			<Route path="cooperation" component={Cooperation} />

@@ -46,19 +46,19 @@ const getNavList = () => {
         [
             {
                 name: UPEX.lang.template("用户协议"),
-                route: ""
+                route: "agreements/privacy"
             },
             {
                 name: UPEX.lang.template("隐私保护"),
-                route: ""
+                route: "agreements/privacy"
             },
             {
                 name: UPEX.lang.template("服务条款"),
-                route: ""
+                route: "agreements/user"
             },
             {
                 name: UPEX.lang.template("免费声明"),
-                route: ""
+                route: "agreements/risk"
             }
         ],
 
