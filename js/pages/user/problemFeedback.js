@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 import { observer, inject } from 'mobx-react';
 import { Input, Upload, Icon, Button, message, Row, Col } from 'antd';
 const { TextArea } = Input;
-import bitLength from '../../lib/util/bit-length';
+// import bitLength from '../../lib/util/bit-length';
 
 import PageWrapper from '../../common-mods/page-user/page-wrapper';
 
@@ -23,7 +23,7 @@ export default class extends Component {
         previewImage: '',
         fileList: [],
         text: '',
-        textLen: 200
+        textLen: 450
     };
 
     uploadButton = (
@@ -55,13 +55,13 @@ export default class extends Component {
 
     textAreaChange(e) {
         let str = e.target.value;
-        let len = bitLength(str);
-        if(len > 200) {
+        let len = str.length;
+        if(len > 450) {
             return;
         }
         this.setState({
             text: str,
-            textLen: 200 - len
+            textLen: 450 - len
         });
     }
 
@@ -114,7 +114,7 @@ export default class extends Component {
                     <Col span={24}>
                         <TextArea value={this.state.text} onChange={this.textAreaChange} rows={7} />
                         <p className={`placeholder ${this.state.text ? '' : 'show'}`}>{UPEX.lang.template('請輸入您要反饋的問題')}</p>
-                        <div className="text-stats">{UPEX.lang.template('还可以输入')}<span className="count">{this.state.textLen}</span>{UPEX.lang.template('个字符')}</div>
+                        <div className="text-stats">{UPEX.lang.template('还可以输入')}<span className="count">{this.state.textLen}</span>{UPEX.lang.template('个字')}</div>
                     </Col>
                 </Row>
 

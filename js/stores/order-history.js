@@ -68,8 +68,9 @@ class OrderStore {
             .then(data => {
                 runInAction(() => {
                     if (data.status == 200) {
-                        const { details = [] } = data.attachment;
-
+                        let { details = [] } = data.attachment;
+                        // null不严格等于undefined
+                        details = details === null ? [] : details;
                         this.orderList[index].details = details;
                         this.orderList[index].detailReady = true;
                         this.orderList[index]._cancel = {};
