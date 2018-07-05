@@ -27,8 +27,8 @@ import Auth from './mods/authhoc/index';
 // 我的资产
 // import Assets from './pages/account/index';
 // 充值＋充币＋提现＋提币
-// import FiatRecharge from './pages/recharge-withdraw/fiat-recharge';
-// import CoinRecharge from './pages/recharge-withdraw/coin-recharge';
+import FiatRecharge from './pages/recharge-withdraw/fiat-recharge';
+import CoinRecharge from './pages/recharge-withdraw/coin-recharge';
 import FiatWithdraw from './pages/recharge-withdraw/fiat-withdraw';
 import CoinWithdraw from './pages/recharge-withdraw/coin-withdraw';
 import CoinAddress from './pages/recharge-withdraw/address';
@@ -40,8 +40,8 @@ import OpenRecordList from './mods/record-list/record-open';
 import HistoryRecordList from './mods/record-list/record-history';
 import SuccessRecordList from './mods/record-list/record-success';
 // 充值＋充币＋提现＋提币
-// import CoinRecord from './pages/record-list/record-coin';
-// import FiatRecord from './pages/record-list/record-fiat';
+import CoinRecord from './pages/record-list/record-coin';
+import FiatRecord from './pages/record-list/record-fiat';
 
 // 个人中心
 import UserInfo from './pages/user';
@@ -86,30 +86,6 @@ const Assets = (location, cb)=>{
     }, 'assets');
 }; 
 
-const CoinRecord = (location, cb)=>{
-    require.ensure([], require=>{
-        cb(null, require('./pages/record-list/record-coin').default);
-    }, 'coinrecord');
-};
-
-const FiatRecord = (location, cb)=>{
-    require.ensure([], require=>{
-        cb(null, require('./pages/record-list/record-fiat').default);
-    }, 'fiatrecord');
-};
-
-const FiatRecharge = (location, cb)=>{
-    require.ensure([], require=>{
-        cb(null, require('./pages/recharge-withdraw/fiat-recharge').default);
-    }, 'fiatrecharge');
-};
-
-const CoinRecharge = (location, cb)=>{
-    require.ensure([], require=>{
-        cb(null, require('./pages/recharge-withdraw/coin-recharge').default);
-    }, 'coinrecharge');
-};
-
 
 const routes = (
     <Route>
@@ -122,11 +98,11 @@ const routes = (
 	        <Route path="account" component={Auth}>
 	        	<IndexRoute getComponent={Assets}/>
 	        	<Route path="assets" getComponent={Assets}/>
-	        	<Route path="coinrecord" getComponent={CoinRecord}/>
-	        	<Route path="fiatrecord" getComponent={FiatRecord}/>
+	        	<Route path="coinrecord" component={CoinRecord}/>
+	        	<Route path="fiatrecord" component={FiatRecord}/>
 	        	<Route path="balance">
-	        		<Route path="recharge" getComponent={FiatRecharge}/>
-	        		<Route path="withdraw" getComponent={FiatWithdraw}/>
+	        		<Route path="recharge" component={FiatRecharge}/>
+	        		<Route path="withdraw" component={FiatWithdraw}/>
 	        	</Route>
 	        	<Route path="coin">
 	        		<Route path="recharge(/:code)" component={CoinRecharge}/>
