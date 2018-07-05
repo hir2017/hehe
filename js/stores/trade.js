@@ -545,8 +545,10 @@ class TradeStore {
     parseTradeHistoryItem(item) {
         item.timeText = TimeUtil.formatDate(item.time, 'HH:mm:ss'); // 时间
         item.timeTextAll = TimeUtil.formatDate(item.time); // 时间
-        item.current = NumberUtil.formatNumber(item.current, this.commonStore.pointPrice); // 价格
-        item.amount = NumberUtil.formatNumber(item.amount, this.pointNum); // 数量
+        item.current = NumberUtil.initNumber(item.current, this.commonStore.pointPrice); // 价格
+        item.currentText = NumberUtil.formatNumber(item.current, this.commonStore.pointPrice); // 价格
+        item.amount = NumberUtil.initNumber(item.amount, this.pointNum); // 数量
+        item.amountText = NumberUtil.formatNumber(item.amount, this.pointNum); // 数量
 
         return item;
     }

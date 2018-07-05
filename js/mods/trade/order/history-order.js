@@ -41,8 +41,8 @@ class TradeRealTime extends Component {
 											data-text={item.timeTextAll}
 										> 
 											<div className="time">{ item.timeText }</div>
-											<div className={`price ${color}`}>{ item.current }</div>
-											<div className="number">{ item.amount }</div>
+											<div className={`price ${color}`}>{ item.currentText }</div>
+											<div className="number">{ item.amountText }</div>
 										</li>
 									)
 								})
