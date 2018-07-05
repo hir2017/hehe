@@ -23,7 +23,7 @@ const extractCSS = new ExtractTextPlugin({
 
 // 输出口
 var output = {
-    path: path.resolve(__dirname, "build/static"),
+    path: path.resolve(__dirname, "build/assets"),
     filename: '[name].js',
     chunkFilename: '[name].[chunkhash:5].chunk.js'
 };
