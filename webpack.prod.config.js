@@ -59,7 +59,7 @@ if (env == 'stage') {
 var config = {
     entry: {
         // 可对应多个入口文件
-        webapp: ['polyfill','./js/app.js']
+        webapp: ['babel-polyfill', './js/app.js']
     },
     output: output,
     devtool: 'source-map', // 输出source-map
