@@ -10,8 +10,8 @@ export default class Success extends Component {
             <div className="common-setting-box">
                 <Row className="pwd top-radius-6 bottom-radius-6">
                     <Col className="title" span={8}>
-                        <p>{UPEX.lang.template('解绑 Google验证器')}</p>
-                        <p>{UPEX.lang.template('提現、修改密碼，及安全設置時接收短信使用')}</p>
+                        <p>{UPEX.lang.template('解绑Google验证器')}</p>
+                        <p>{UPEX.lang.template('提现、修改密码，及安全设置时接收短信使用')}</p>
                     </Col>
                     <Col  span={8} />
                     <Col className="operator" span={8}>

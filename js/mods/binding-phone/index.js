@@ -83,7 +83,7 @@ export default class Phone extends Component {
                 <Row className="pwd top-radius-6 bottom-radius-6">
                     <Col className="title" span={8}>
                         <p>{userInfo.phone || UPEX.lang.template('请添加手机')}</p>
-                        <p>{UPEX.lang.template('提現、修改密碼，及安全設置時接收短信使用')}</p>
+                        <p>{UPEX.lang.template('提现、修改密码，及安全设置时接收短信使用')}</p>
                     </Col>
                     <Col  span={8} />
                     <Col className="operator" span={8}>
