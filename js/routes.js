@@ -84,7 +84,7 @@ const Assets = (location, cb)=>{
     require.ensure([], require=>{
         cb(null, require('./pages/account/index').default);
     }, 'assets');
-}; 
+};
 
 
 const routes = (
@@ -128,7 +128,7 @@ const routes = (
 				<Route path="forgetTradingPassword" component={ForgetTradingPassword} />
 				<Route path="binding-phone" component={BindingPhone} />
 				<Route path="modify-phone" component={ModifyPhone} />
-				<Route path="settingPhone" component={SettingPhone} />
+				<Route path="setting-phone" component={SettingPhone} />
 				<Route path="bindingEmail" component={BindingEmail} />
 				<Route path="settingEmail" component={SettingEmail} />
 				<Route path="google" component={GoogleAuth} />
