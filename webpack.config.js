@@ -42,7 +42,7 @@ var cssLoader = {
 // 为product环境打包时
 if (env == 'product') {
     // 定制cdn路径
-    output.publicPath = 'http://' + cdnDomain + '/' + gitlabGroup + '/' + projectName + '/' + projectVersion + '/assets/';
+    output.publicPath = 'https://' + cdnDomain + '/' + gitlabGroup + '/' + projectName + '/' + projectVersion + '/assets/';
     cssLoader.loader = extractCSS.extract(['css-loader', 'postcss-loader', 'less-loader']);
     delete cssLoader.use;
 }

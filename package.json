@@ -8,7 +8,7 @@
       "stage-0"
     ]
   },
-  "cdnDomain": "h.cdn.pengpengla.com",
+  "cdnDomain": "ace-cdn.ace.io",
   "componentDomain": "http://h5widget.xingyunzhi.cn/",
   "cssmode": 0,
   "dependencies": {
@@ -61,7 +61,7 @@
     "webpack-dev-server": "^1.16.2",
     "webpack-hot-middleware": "^2.22.1"
   },
-  "gitlabGroup": "ex-frontend",
+  "gitlabGroup": "h5ace",
   "googleFileExport": "module.exports",
   "googleSpreadsheetId": "1SAiY0rhwJl01xfA6BZdS53z1JJwg0XvEEEYCiv6mrNM",
   "googleWorksheet": [
