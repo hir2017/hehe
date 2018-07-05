@@ -1215,7 +1215,7 @@ body .user-main .ant-select-dropdown-menu-item {
     padding: 10px 0;
 }
 
-.user-main .page-content-inner.bank-info .info .tip p {
+.user-main .page-content-inner.bank-info .info .tip{
     font-size: 12px;
     color: #999;
     line-height: 18px;

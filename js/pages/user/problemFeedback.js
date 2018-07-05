@@ -132,7 +132,7 @@ export default class extends Component {
                 <Row className="submit">
                     <Col span={16}>
                         {UPEX.lang.template('可上傳1個附件')}，
-                        {UPEX.lang.template('每個文件大小不得超過5M。附件支持的格式有')}“jpg”，“Jpeg”,”bmp”,”png”,”gif”
+                        {UPEX.lang.template('每个文件大小不得超过5M。附件支持的格式有')}“jpg”，“Jpeg”,”bmp”,”png”,”gif”
                     </Col>
                     <Col className="align-right" span={8}>
                         <Button loading={loading} className="ace-secondary" onClick={this.submit}>
