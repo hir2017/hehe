@@ -27,7 +27,7 @@ class LoginInfoBaseStore {
     @observable validVercode = true; // 邮箱or手机验证码
     @observable hasPhone = false; // 手机是否已经被占用
     @observable logining = false;
-    @observable validPhone =  true;
+    @observable validPhone = true;
     @observable validEmail = true;
     @observable validPwd = true;
     @observable validTwicePwd = true;
@@ -43,6 +43,27 @@ class LoginInfoBaseStore {
                 name: 'China'
             };
         }
+    }
+
+    @action
+    reset() {
+        this.mode = 'email'; // 注册方式，邮箱：email；手机：phone
+        this.email = ''; // 邮箱
+        this.phone = ''; // 手机
+        this.pwd = ''; // 密码
+        this.twicepwd = ''; // 确认密码
+        this.vercode = ''; // 邮箱验证码或者短信验证码
+        this.phonecode = ''; // 手机验证码
+        this.imgcode = ''; // 图片验证码
+        this.inviteId = ''; // 邀请码
+        this.agree = false; // 同意协议 
+        this.googlecode = ''; // 谷歌验证码
+        this.sendingcode = false;
+        this.sendingphonecode = false;
+        this.validImgCode = true; // 图片验证码
+        this.validVercode = true; // 邮箱or手机验证码
+        this.hasPhone = false; // 手机是否已经被占用
+        this.logining = false;
     }
 
     @computed
@@ -120,7 +141,7 @@ class LoginInfoBaseStore {
         }
 
         this.validTwicePwd = ret;
-        
+
         return ret;
     }
 
@@ -136,16 +157,28 @@ class LoginInfoBaseStore {
         let phone = this.phone;
 
         if (mode == 'email') {
-            if (!email || !this.validEmail) {
+            if (!email) {
                 result.pass = false;
-                result.message = UPEX.lang.template('请确认邮箱是否正确');
+                result.message = UPEX.lang.template('请填写邮箱'); 
+                return result;
+            }
+            if (!this.validEmail) {
+                result.pass = false;
+                result.message = UPEX.lang.template('请填写正确的邮箱');
 
                 return result;
             }
         } else {
-            if (!phone || !this.validPhone) {
+            if (!phone) {
                 result.pass = false;
-                result.message = UPEX.lang.template('请确认手机号是否正确');
+                result.message = UPEX.lang.template('请填写手机号');
+
+                return result;
+            }
+
+            if (!this.validPhone) {
+                result.pass = false;
+                result.message = UPEX.lang.template('请填写正确的手机号');
 
                 return result;
             }
@@ -155,7 +188,7 @@ class LoginInfoBaseStore {
     }
 
     @computed
-    get verifyInfoBeforeLogin(){
+    get verifyInfoBeforeLogin() {
         let mode = this.mode;
         let result = {
             pass: true,
@@ -168,16 +201,28 @@ class LoginInfoBaseStore {
         let imgcode = this.imgcode;
 
         if (mode == 'email') {
-            if (!email || !this.validEmail) {
+            if (!email) {
                 result.pass = false;
-                result.message = UPEX.lang.template('请确认邮箱是否正确');
+                result.message = UPEX.lang.template('请填写邮箱'); 
+                return result;
+            }
+            if (!this.validEmail) {
+                result.pass = false;
+                result.message = UPEX.lang.template('请填写正确的邮箱');
 
                 return result;
             }
         } else {
-            if (!phone || !this.validPhone) {
+            if (!phone) {
                 result.pass = false;
-                result.message = UPEX.lang.template('请确认手机号是否正确');
+                result.message = UPEX.lang.template('请填写手机号');
+
+                return result;
+            }
+
+            if (!this.validPhone) {
+                result.pass = false;
+                result.message = UPEX.lang.template('请填写正确的手机号');
 
                 return result;
             }
@@ -185,14 +230,14 @@ class LoginInfoBaseStore {
 
         if (!pwd) {
             result.pass = false;
-            result.message = UPEX.lang.template('请确认密码是否正确');
+            result.message = UPEX.lang.template('请填写密码');
 
             return result;
         }
 
         if (!imgcode) {
             result.pass = false;
-            result.message = UPEX.lang.template('请确认图片验证码');
+            result.message = UPEX.lang.template('请填写图片验证码');
 
             return result;
         }
@@ -215,53 +260,59 @@ class LoginInfoBaseStore {
         let vercode = this.vercode;
         // 1. 邮箱 or 电话号码
         // 2. 密码 or 二次确认密码
-        if ((this.validEmail || this.validPhone) && this.validPwd && this.validTwicePwd && this.validVercode) {
 
-            if (mode == 'email') {
-                if (!email) {
-                    result.pass = false;
-                    result.message = UPEX.lang.template('请确认邮箱是否正确');
-
-                    return result;
-                }
-            } else {
-                if (!phone) {
-                    result.pass = false;
-                    result.message = UPEX.lang.template('请确认手机号是否正确');
-
-                    return result;
-                }
-            }
-
-            if (!pwd) {
+        if (mode == 'email') {
+            if (!email) {
                 result.pass = false;
-                result.message = UPEX.lang.template('请确认密码是否正确');
-
+                result.message = UPEX.lang.template('请填写邮箱'); 
                 return result;
             }
-
-            if (!vercode) {
+            if (!this.validEmail) {
                 result.pass = false;
-                if (mode == 'email') {
-                    result.message = UPEX.lang.template('请确认邮箱验证码是否正确');
-                } else {
-                    result.message = UPEX.lang.template('请确认手机验证码是否正确');
-                }
-
+                result.message = UPEX.lang.template('请填写正确的邮箱');
 
                 return result;
             }
         } else {
+            if (!phone) {
+                result.pass = false;
+                result.message = UPEX.lang.template('请填写手机号');
+
+                return result;
+            }
+
+            if (!this.validPhone) {
+                result.pass = false;
+                result.message = UPEX.lang.template('请填写正确的手机号');
+
+                return result;
+            }
+        }
+
+        if (!pwd) {
             result.pass = false;
-            result.message = UPEX.lang.template('请填写正确的用户信息');
+            result.message = UPEX.lang.template('请填写密码');
+
+            return result;
+        }
+
+        if (!vercode) {
+            result.pass = false;
+            
+            if (mode == 'email') {
+                result.message = UPEX.lang.template('请填写邮箱验证码');
+            } else {
+                result.message = UPEX.lang.template('请填写手机验证码');
+            }
+
             return result;
         }
 
         return result;
     }
 
-    @action 
-    updateLogining(status){
+    @action
+    updateLogining(status) {
         this.logining = status;
     }
 
@@ -351,29 +402,8 @@ class LoginInfoBaseStore {
     }
 
     @action
-    setLoginPhoneCode(value){
+    setLoginPhoneCode(value) {
         this.phonecode = value;
-    }
-
-    @action
-    reset() {
-        this.mode = 'email'; // 注册方式，邮箱：email；手机：phone
-        this.email = ''; // 邮箱
-        this.phone = ''; // 手机
-        this.pwd = ''; // 密码
-        this.twicepwd = ''; // 确认密码
-        this.vercode = ''; // 邮箱验证码或者短信验证码
-        this.phonecode = ''; // 手机验证码
-        this.imgcode = ''; // 图片验证码
-        this.inviteId = ''; // 邀请码
-        this.agree = false; // 同意协议 
-        this.googlecode = ''; // 谷歌验证码
-        this.sendingcode = false;
-        this.sendingphonecode = false;
-        this.validImgCode = true; // 图片验证码
-        this.validVercode = true; // 邮箱or手机验证码
-        this.hasPhone = false; // 手机是否已经被占用
-        this.logining = false;
     }
 }
 

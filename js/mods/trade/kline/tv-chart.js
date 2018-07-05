@@ -525,6 +525,19 @@ class TVChartContainer extends Component {
             }
         }
 
+        let trendIcon, trendColor = '';
+
+        if (store.currentTradeCoin && store.currentTradeCoin.currentAmount) {
+           
+            if (store.currentTradeCoin.currentAmount > store.currentTradeCoin.previousPrice) {
+                trendColor = 'greenrate';
+                trendIcon = <Icon type="arrow-up" style={{fontSize: 12}}/>;
+            } else if(store.currentTradeCoin.currentAmount < store.currentTradeCoin.previousPrice){
+                trendColor = 'redrate';
+                trendIcon = <Icon type="arrow-down" style={{fontSize: 12}}/>;
+            }
+        }
+
         return (
         	<div className="chart-box">
                 <div className="trade-current-coin">
@@ -540,7 +553,10 @@ class TVChartContainer extends Component {
                                    <label>{ store.currencyNameEn }</label>
                                    <Icon type="caret-down" style={arrowCls} />
                                </Popover>
-                               <em>{ store.currentTradeCoin.currentAmountText }</em>
+                               <span className={`current-amount ${trendColor}`}>
+                                    <em>{store.currentTradeCoin.currentAmountText}</em>
+                                    {trendIcon}
+                                </span>
                            </li>
                         <li>
                             <label>{ UPEX.lang.template('涨幅') }</label>

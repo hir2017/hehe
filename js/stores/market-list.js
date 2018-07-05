@@ -177,7 +177,7 @@ class MarketListStore {
         listOptional().then((res) => {
             if (res.status == 200) {
                 runInAction(() => {
-                    this.removeCollectDataFromLocal();
+                    this.clearCollectDataFromLocal();
                     this.collectCoinsList = res.attachment;
                 });
             }

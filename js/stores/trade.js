@@ -970,8 +970,6 @@ class TradeStore {
     destorySocket() {
         socket.off('tradeHistory');
         socket.off('entrust');
-        socket.off('quoteNotify');
-        socket.off('loginAfter');
         socket.off('userAccount');
         socket.off('userTrade');
         socket.off('userOrder');

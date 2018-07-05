@@ -93,11 +93,12 @@ class Login extends Component {
                             browserHistory.push('/home');
                             break;
                         case 5556:
-                            this.setState({
-                                step: 'login'
-                            });
+                            // 后端确认：手机或者谷歌验证码错误码；图形验证码错误
+                            // this.setState({
+                            //     step: 'login'
+                            // });
                             // 驗證碼過期，請重新登入
-                            break;
+                            // break;
                         default:
                             this.setState({
                                 loginErrorText: data.message
