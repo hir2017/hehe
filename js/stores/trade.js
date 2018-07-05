@@ -592,7 +592,9 @@ class TradeStore {
 
             item.index = index + 1;
             item.depth = Math.max(depth > 100 ? 100 : depth, 1);
+            item.current = NumberUtil.initNumber(item.current, this.commonStore.pointPrice); // 价格
             item.newcurrent = NumberUtil.formatNumber(item.current, this.commonStore.pointPrice); // 价格
+            item.number = NumberUtil.initNumber(item.number, this.pointNum); // 数量
             item.newnumber = NumberUtil.formatNumber(item.number, this.pointNum); // 数量
             item.newtotal = NumberUtil.formatNumber(item.current * item.number, this.commonStore.pointNum); // 总金额
         });
@@ -607,9 +609,12 @@ class TradeStore {
 
             item.index = index + 1;
             item.depth = Math.max(depth > 100 ? 100 : depth, 1);
+            item.current = NumberUtil.initNumber(item.current, this.commonStore.pointPrice); // 价格
             item.newcurrent = NumberUtil.formatNumber(item.current, this.commonStore.pointPrice); // 价格
+            item.number = NumberUtil.initNumber(item.number, this.pointNum); // 数量
             item.newnumber = NumberUtil.formatNumber(item.number, this.pointNum); // 数量
             item.newtotal = NumberUtil.formatNumber(item.current * item.number, this.commonStore.pointNum); // 总金额
+            
         });
 
         // 降序排序

@@ -20,16 +20,15 @@ import Login from './pages/login-register/login';
 import Register from './pages/login-register/register';
 import ResetPwd from './pages/login-register/resetpwd';
 
-import Home from './pages/home';
-import TradeCenter from './pages/trade-center';
+// import Home from './pages/home';
 // 授权登陆容器HOC
 import Auth from './mods/authhoc/index';
 
 // 我的资产
-import Assets from './pages/account/index';
+// import Assets from './pages/account/index';
 // 充值＋充币＋提现＋提币
-import FiatRecharge from './pages/recharge-withdraw/fiat-recharge';
-import CoinRecharge from './pages/recharge-withdraw/coin-recharge';
+// import FiatRecharge from './pages/recharge-withdraw/fiat-recharge';
+// import CoinRecharge from './pages/recharge-withdraw/coin-recharge';
 import FiatWithdraw from './pages/recharge-withdraw/fiat-withdraw';
 import CoinWithdraw from './pages/recharge-withdraw/coin-withdraw';
 import CoinAddress from './pages/recharge-withdraw/address';
@@ -41,8 +40,8 @@ import OpenRecordList from './mods/record-list/record-open';
 import HistoryRecordList from './mods/record-list/record-history';
 import SuccessRecordList from './mods/record-list/record-success';
 // 充值＋充币＋提现＋提币
-import CoinRecord from './pages/record-list/record-coin';
-import FiatRecord from './pages/record-list/record-fiat';
+// import CoinRecord from './pages/record-list/record-coin';
+// import FiatRecord from './pages/record-list/record-fiat';
 
 // 个人中心
 import UserInfo from './pages/user';
@@ -68,22 +67,66 @@ import EmailSuccess from './mods/bindingEmail/success'
 import PhoneSuccess from './mods/binding-phone/success'
 import ForgetTradingPassword from './mods/password-setting/forgetTradingPassword'
 
+
+const Home = (location, cb)=>{
+    require.ensure([], require=>{
+        cb(null, require('./pages/home').default);
+    }, 'home');
+};
+
+const TradeCenter = (location, cb)=>{
+    require.ensure([], require=>{
+        cb(null, require('./pages/trade-center').default);
+    }, 'trade');
+};
+
+const Assets = (location, cb)=>{
+    require.ensure([], require=>{
+        cb(null, require('./pages/account/index').default);
+    }, 'assets');
+}; 
+
+const CoinRecord = (location, cb)=>{
+    require.ensure([], require=>{
+        cb(null, require('./pages/record-list/record-coin').default);
+    }, 'coinrecord');
+};
+
+const FiatRecord = (location, cb)=>{
+    require.ensure([], require=>{
+        cb(null, require('./pages/record-list/record-fiat').default);
+    }, 'fiatrecord');
+};
+
+const FiatRecharge = (location, cb)=>{
+    require.ensure([], require=>{
+        cb(null, require('./pages/recharge-withdraw/fiat-recharge').default);
+    }, 'fiatrecharge');
+};
+
+const CoinRecharge = (location, cb)=>{
+    require.ensure([], require=>{
+        cb(null, require('./pages/recharge-withdraw/coin-recharge').default);
+    }, 'coinrecharge');
+};
+
+
 const routes = (
     <Route>
         <Route path="/" component={ Layout }>
         	<IndexRedirect to='home'/>
-        	<Route path="home" component={Home}/>
-        	<Route path="index" component={Home}/>
-	        <Route path="webtrade(/:pair)" component={TradeCenter}/>
+        	<Route path="home" getComponent={Home}/>
+        	<Route path="index" getComponent={Home}/>
+	        <Route path="webtrade(/:pair)" getComponent={TradeCenter}/>
 
 	        <Route path="account" component={Auth}>
-	        	<IndexRoute component={Assets}/>
-	        	<Route path="assets" component={Assets}/>
-	        	<Route path="coinrecord" component={CoinRecord}/>
-	        	<Route path="fiatrecord" component={FiatRecord}/>
+	        	<IndexRoute getComponent={Assets}/>
+	        	<Route path="assets" getComponent={Assets}/>
+	        	<Route path="coinrecord" getComponent={CoinRecord}/>
+	        	<Route path="fiatrecord" getComponent={FiatRecord}/>
 	        	<Route path="balance">
-	        		<Route path="recharge" component={FiatRecharge}/>
-	        		<Route path="withdraw" component={FiatWithdraw}/>
+	        		<Route path="recharge" getComponent={FiatRecharge}/>
+	        		<Route path="withdraw" getComponent={FiatWithdraw}/>
 	        	</Route>
 	        	<Route path="coin">
 	        		<Route path="recharge(/:code)" component={CoinRecharge}/>
@@ -142,7 +185,4 @@ const routes = (
 	</Route>
 )
 
-export {
-    TradeCenter
-}
 export default routes;

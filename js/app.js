@@ -27,7 +27,7 @@ message.config({
 });
 
 import './global';
-import routes, { TradeCenter } from './routes';
+import routes from './routes';
 
 import RootStore from './stores/index';
 
@@ -36,27 +36,26 @@ const rootStore = new RootStore();
 @observer
 class App extends Component {
     static createElement(Component, props) {
-        switch (Component) {
-            case TradeCenter:
-                let  { pair} = props.params;
 
-                if(!pair) {
-                    let coin = UPEX.cache.getCache('currentCoin');
+        if (props.location.pathname.indexOf('webtrade') > -1) {
+            let  { pair} = props.params;
 
-                    if (coin) {
-                        pair = [coin.baseCurrencyNameEn, coin.currencyNameEn].join('_');
-                    } else {
-                       pair = 'TWD_BTC';
-                    }
+            if(!pair) {
+                let coin = UPEX.cache.getCache('currentCoin');
 
-                    props.params.pair = pair;
+                if (coin) {
+                    pair = [coin.baseCurrencyNameEn, coin.currencyNameEn].join('_');
+                } else {
+                   pair = 'TWD_BTC';
                 }
 
-                return <Component {...props} key={pair}/>
-                break;
-            default:
-                // 确保传入了所有的 props！
-                return <Component {...props}/>
+                props.params.pair = pair;
+            }
+
+            return <Component {...props} key={pair}/>
+        } else {
+            // 确保传入了所有的 props！
+            return <Component {...props}/>
         }
     }
 
