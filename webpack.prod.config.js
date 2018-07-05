@@ -59,7 +59,7 @@ if (env == 'stage') {
 var config = {
     entry: {
         // 可对应多个入口文件
-        webapp: ['./js/app.js']
+        webapp: ['polyfill','./js/app.js']
     },
     output: output,
     devtool: 'source-map', // 输出source-map
@@ -81,7 +81,6 @@ var config = {
                     plugins: [
                         'transform-remove-strict-mode', 
                         'transform-decorators-legacy', 
-                        ["transform-runtime", {"helpers": false, "polyfill": false, "regenerator": true, "moduleName": "babel-runtime"}], 
                         ["import", [{ "libraryName": "antd", "style": "css" }]]
                     ]
                 }
