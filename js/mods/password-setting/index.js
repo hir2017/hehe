@@ -130,7 +130,7 @@ export default class BindingBank extends Component {
                     <Col className="level" span={8} />
                     <Col className="operator" span={8}>
                         <span className="switch">
-                            {UPEX.lang.template('啟用委託認證')}
+                            {UPEX.lang.template('启用委托认证')}
                             {userInfo.isValidatePhone ? <Switch onChange={this.passwordSwitch} checked={isEnableFdPassword} /> : null}
                         </span>
                         <Button
