@@ -39,7 +39,6 @@ class List extends Component {
     }
 
     onChangeDate(dates, dateStrs) {
-        const [beginTime, endTime] = dateStrs;
         this.action.handleFilter('dateArr', dateStrs);
     }
 
@@ -121,17 +120,29 @@ class List extends Component {
                                             </td>
                                             <td>
                                                 <span className="label"> {UPEX.lang.template('成交率')}：</span>
-                                                {subItem.rate}
+                                                {parseFloat(subItem.rate) * 100}%
                                             </td>
                                         </tr>
                                     );
                                 })
                                 $detail[$detail.length] = (
-                                    <tr>
-                                        <td colSpan={3} className="cancel">
+                                    <tr className="data" key={$detail.length}>
+                                        {/* <td colSpan={3} className="cancel">
                                             <span>{UPEX.lang.template('撤单时间')}：{item._cancel.time || '--'}</span>
                                             <span>{UPEX.lang.template('撤单数量')}：{item._cancel.num}</span>
                                             <span>{UPEX.lang.template('撤单比例')}：{item._cancel.rate}</span>
+                                        </td> */}
+                                        <td>
+                                            <span className="label"> {UPEX.lang.template('撤单时间')}：</span>
+                                            {item._cancel.time || '--'}
+                                        </td>
+                                        <td>
+                                            <span className="label"> {UPEX.lang.template('撤单数量')}：</span>
+                                            {item._cancel.num}
+                                        </td>
+                                        <td>
+                                            <span className="label"> {UPEX.lang.template('撤单比例')}：</span>
+                                            {parseFloat(item._cancel.rate) * 100}%
                                         </td>
                                     </tr>
                                 )
