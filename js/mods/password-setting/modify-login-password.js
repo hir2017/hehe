@@ -57,29 +57,21 @@ export default class ModifyPassword extends Component {
         const gaBindSuccess = this.props.userInfoStore.gaBindSuccess;
         const codeid = this.props.captchaStore.codeid;
         if (!this.state.password) {
-            message.error(UPEX.lang.template('登录密码不能为空'));
+            message.error(UPEX.lang.template('请填写登录密码'));
             return;
         }
         if (!this.state.newPwd) {
-            message.error(UPEX.lang.template('新登录密码不能为空'));
+            message.error(UPEX.lang.template('请填写新登录密码'));
             return;
         }
         if (!this.state.comfirmPwd) {
-            message.error(UPEX.lang.template('确认密码不能为空'));
+            message.error(UPEX.lang.template('请填写确认密码'));
             return;
         }
         if (this.state.newPwd !== this.state.comfirmPwd) {
             message.error(UPEX.lang.template('新登录密码和确认密码不一致'));
             return;
         }
-        // if (!this.state.vCode && !gaBindSuccess) {
-        //     message.error(UPEX.lang.template('短信验证码不能为空'));
-        //     return;
-        // }
-        // if (!this.state.vCode && gaBindSuccess) {
-        //     message.error(UPEX.lang.template('谷歌验证码不能为空'));
-        //     return;
-        // }
 
         const checkPwd = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z\d\S]{8,16}$/.test(this.state.newPwd);
 

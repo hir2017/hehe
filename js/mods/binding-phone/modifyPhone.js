@@ -57,7 +57,7 @@ export default class ModifyPhone extends Component {
         const {phone} = this.state;
         
         if(phone.length === 0) {
-            message.error(UPEX.lang.template('手机号不能为空') );
+            message.error(UPEX.lang.template('请填写手机号') );
             return false;
         }
         // 国际化手机号
@@ -73,20 +73,20 @@ export default class ModifyPhone extends Component {
         const captcha = this.props.captchaStore.captcha;
         const gaBindSuccess = this.props.userInfoStore.gaBindSuccess;
         if (!this.state.phone) {
-            message.error(UPEX.lang.template('新手机号不能为空'));
+            message.error(UPEX.lang.template('请填写新手机号'));
             return;
         }
         if (!this.state.nvCode) {
-            message.error(UPEX.lang.template('新短信确认码不能为空'));
+            message.error(UPEX.lang.template('请填写新短信确认码'));
             return;
         }
         if (!this.state.vCode && !gaBindSuccess) {
-            message.error(UPEX.lang.template('短信确认码不能为空'));
+            message.error(UPEX.lang.template('请填写短信确认码'));
             return;
         }
 
         if (!this.state.gaCode && gaBindSuccess) {
-            message.error(UPEX.lang.template('谷歌确认码不能为空'));
+            message.error(UPEX.lang.template('请填写谷歌确认码'));
             return;
         }
 
@@ -165,7 +165,7 @@ export default class ModifyPhone extends Component {
                     <InputItem {...inputsData.nvCode} />
                     <div className="item v-code-button">
                         <Vcodebutton
-                            message="新手机号不能为空"
+                            message={UPEX.lang.template('请填写新手机号')}
                             phone={this.state.phone}
                             areacode={this.state.areacode}
                             modifyBind={true}

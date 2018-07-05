@@ -44,7 +44,7 @@ export default class SettingTradingPassword extends Component {
             return;
         }
         if (!this.props.imgCode && !this.props.phoneAuth) {
-            message.error(UPEX.lang.template('图片验证码不能为空'));
+            message.error(UPEX.lang.template('请填写图片验证码'));
             return;
         }
         if (this.props.newBind && !this.props.emailOrphone) {

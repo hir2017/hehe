@@ -40,7 +40,7 @@ export default class Phone extends Component {
     handleOk = () => {
         const { vCode, checked } = this.state;
         if (!vCode) {
-            message.error(UPEX.lang.template('短信验证码不能为空'));
+            message.error(UPEX.lang.template('请填写短信验证码'));
             return;
         }
         this.props.userInfoStore.phoneSwitch(vCode, checked ? 1 : 0).then(data => {

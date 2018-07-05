@@ -123,14 +123,14 @@ export default class FirstStep extends Component {
         let allPass = true;
         let mesData = {};
         let mesMap = {
-            firstName: UPEX.lang.template('真实姓氏不能为空'),
-            secondName: UPEX.lang.template('真实名字不能为空'),
+            firstName: UPEX.lang.template('请填写真实姓氏'),
+            secondName: UPEX.lang.template('请填写真实名字'),
             address: UPEX.lang.template('请完善地址信息'),
-            postCode: UPEX.lang.template('区域号码不能为空'),
+            postCode: UPEX.lang.template('请填写区域号码'),
             idCardType: UPEX.lang.template('请选择证件类型'),
-            idCard: UPEX.lang.template('证件号码不能为空'),
-            profession: UPEX.lang.template('职业不能为空'),
-            annualsalary: UPEX.lang.template('年薪不能为空')
+            idCard: UPEX.lang.template('请填写证件号码'),
+            profession: UPEX.lang.template('请选择职业'),
+            annualsalary: UPEX.lang.template('请选择年薪')
         };
 
         for(let _name in mesMap) {

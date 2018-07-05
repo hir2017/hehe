@@ -53,15 +53,15 @@ export default class BindingPhone extends Component {
 
     submit() {
         if (!this.state.phone) {
-            message.error(UPEX.lang.template('手机号不能为空'));
+            message.error(UPEX.lang.template('请填写手机号'));
             return;
         }
         if (!this.state.vCode) {
-            message.error(UPEX.lang.template('短信验证码不能为空'));
+            message.error(UPEX.lang.template('请填写短信验证码'));
             return;
         }
         if (!this.state.evCode) {
-            message.error(UPEX.lang.template('邮箱验证码不能为空'));
+            message.error(UPEX.lang.template('请填写邮箱验证码'));
             return;
         }
 
@@ -127,7 +127,7 @@ export default class BindingPhone extends Component {
                     <InputItem {...inputsData.evCode} />
                     <div className="item v-code-button">
                         <Vcodebutton
-                            message="手机号不能为空"
+                            message={UPEX.lang.template('请填写手机号')}
                             emailOrphone={this.state.phone}
                             areacode={this.state.areacode}
                             newBind={true}

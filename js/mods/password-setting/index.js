@@ -47,7 +47,7 @@ export default class BindingBank extends Component {
 
     handleOk = () => {
         if (!this.state.pwd) {
-            message.error(UPEX.lang.template('资金密码不能为空'));
+            message.error(UPEX.lang.template('请填写资金密码'));
             return;
         }
         const pwd = md5(this.state.pwd + UPEX.config.dealSalt + this.props.authStore.uid);

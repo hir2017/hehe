@@ -51,15 +51,15 @@ export default class BindingEmail extends Component {
     submit() {
         const codeid = this.props.captchaStore.codeid;
         if (!this.state.email) {
-            message.error(UPEX.lang.template('邮箱不能为空'));
+            message.error(UPEX.lang.template('请填写邮箱'));
             return;
         }
         if (!this.state.vCode) {
-            message.error(UPEX.lang.template('邮箱验证码不能为空'));
+            message.error(UPEX.lang.template('请填写邮箱验证码'));
             return;
         }
         if (!this.state.pvCode) {
-            message.error(UPEX.lang.template('手机验证码不能为空'));
+            message.error(UPEX.lang.template('请填写手机验证码'));
             return;
         }
 
@@ -109,7 +109,7 @@ export default class BindingEmail extends Component {
                 </div>
                 <div className="user-sp-sms-btn-box">
                     <Vcodebutton
-                            message="邮箱不能为空"
+                            message={UPEX.lang.template('请填写邮箱')}
                             emailOrphone={this.state.email}
                             areacode=""
                             disabled={!this.state.vcodeAbled}

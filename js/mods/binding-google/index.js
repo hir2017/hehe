@@ -46,11 +46,11 @@ class Google extends Component {
     submit() {
         const codeid = this.props.captchaStore.codeid;
         if (!this.state.google) {
-            message.error(UPEX.lang.template('Google验证码不能为空'));
+            message.error(UPEX.lang.template('请填写Google验证码'));
             return;
         }
         if (!this.state.vCode) {
-            message.error(UPEX.lang.template('短信验证码不能为空'));
+            message.error(UPEX.lang.template('请填写短信验证码'));
             return;
         }
 

@@ -119,11 +119,11 @@ export default class BindingBank extends Component {
             return;
         }
         if (!this.state.cardNo) {
-            message.error('银行卡号不能为空');
+            message.error('请填写银行卡号');
             return;
         }
         if (!this.state.password) {
-            message.error('资金密码不能为空');
+            message.error('请填写资金密码');
             return;
         }
         if (!this.state.imgUrl) {
