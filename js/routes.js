@@ -77,7 +77,7 @@ const Home = (location, cb)=>{
 const TradeCenter = (location, cb)=>{
     require.ensure([], require=>{
         cb(null, require('./pages/trade-center').default);
-    }, 'trade');
+    }, 'tradecenter');
 };
 
 const Assets = (location, cb)=>{

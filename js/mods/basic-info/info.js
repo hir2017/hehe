@@ -60,7 +60,7 @@ class Info extends Component {
         let ugradeLink = ugradeLinkMap[gradeCfg.grade];
 
         return (
-            <AceSection title={UPEX.lang.template('基础信息')} className="info">
+            <AceSection title={UPEX.lang.template('基本信息')} className="info">
                 <Row>
                     <Col span={12} className="left">
                         <div className="phone">{userInfo.phone || userInfo.email}</div>

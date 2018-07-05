@@ -26,7 +26,7 @@ class UserPage extends Component {
                 {
                     active: 'user',
                     route: '/user',
-                    text: UPEX.lang.template('基础信息')
+                    text: UPEX.lang.template('基本信息')
                 },
                 {
                     active: 'authentication',

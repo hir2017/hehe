@@ -111,19 +111,19 @@ export default class BankList extends Component {
     handleOk = () => {
         const gaBindSuccess = this.props.userInfoStore.gaBindSuccess;
         if (!this.state.pwd) {
-            message.error(UPEX.lang.template('资金密码不能空'));
+            message.error(UPEX.lang.template('请填写资金密码'));
             return;
         }
         if (!this.state.vCode && gaBindSuccess) {
-            message.error(UPEX.lang.template('谷歌验证码不能空'));
+            message.error(UPEX.lang.template('请填写谷歌验证码'));
             return;
         }
         if (!this.state.ivCode && !gaBindSuccess) {
-            message.error(UPEX.lang.template('图片验证码不能空'));
+            message.error(UPEX.lang.template('请填写图片验证码'));
             return;
         }
         if (!this.state.vCode && !gaBindSuccess) {
-            message.error(UPEX.lang.template('手机验证码不能空'));
+            message.error(UPEX.lang.template('请填写手机验证码'));
             return;
         }
         const pwd = md5(this.state.pwd + UPEX.config.dealSalt + this.props.authStore.uid);
