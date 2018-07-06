@@ -363,6 +363,9 @@ export default (store) => {
          * 发送验证码
          */
         sendLoginCodeSend() {
+            if (store.sendingcode) {
+                return;
+            }
             // 发送手机／邮件验证码
             sendLoginCodeSend({
                 authType: 1,
