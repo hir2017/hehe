@@ -90,7 +90,7 @@ class Info extends Component {
                                         <img src={gradeCfg.img} />
                                         <p className="text">{UPEX.lang.template('安全级别')}</p>
                                         <p className="money">
-                                            {UPEX.lang.template('提现额度')}：NT${userInfo.dayLimit}
+                                            {UPEX.lang.template('提现额度')}：{UPEX.config.baseCurrencySymbol}{userInfo.dayLimit}
                                         </p>
                                     </div>
                                 )}

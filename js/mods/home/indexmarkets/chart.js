@@ -89,7 +89,7 @@ export default class extends Component {
                     
                     return [
                         `时间：${data.name}`,
-                        `价格：NT$${price}`
+                        `价格：${UPEX.config.baseCurrencySymbol}${price}`
                     ].join('<br/>')
                 }
             },

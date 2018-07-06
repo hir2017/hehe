@@ -1,5 +1,5 @@
 import { observable, computed, autorun, action, runInAction } from 'mobx';
-import { takeCoin, getTakeCoinInfo } from '../api/http';
+import { takeCoin, getTakeCoinInfo, getUserActionLimit} from '../api/http';
 import NumberUtil from '../lib/util/number';
 import md5 from '../lib/md5';
 
@@ -40,6 +40,12 @@ class CoinWithdrawStore {
     @observable $submiting = false;
     @observable isFetching = false;
     @observable authType = 'phone';
+    // 每日限额
+    @observable dayLimit = ''; 
+    // 每笔限额
+    @observable oneLimit = ''; 
+
+
     // 图片id
     codeid = '';
 
@@ -68,6 +74,7 @@ class CoinWithdrawStore {
     getTakeCoinInfo(currencyId) {
         this.isFetching = true;
 
+        // 提币详细信息
         getTakeCoinInfo(currencyId)
             .then((data) => {
                 runInAction(() => {
@@ -87,6 +94,22 @@ class CoinWithdrawStore {
             }).catch(() => {
                 this.isFetching = false;
             })
+        // 提币限制信息
+        getUserActionLimit(4, currencyId).then((data)=>{
+            runInAction(() => {
+                if (data.status ==  200) {
+                    
+                    let dayLimit = data.attachment.dayLimit;
+                    let limit = data.attachment.limits[0];
+
+                    this.dayLimit = UPEX.config.baseCurrencySymbol + '' + NumberUtil.separate(Number(dayLimit), ',');
+
+                    if (limit) {
+                        this.oneLimit = NumberUtil.separate(Number(limit.highLimit), ',') + '' + limit.currencyNameEn;
+                    }
+                }
+            })
+        })
     }
     /**
      * 最小提币限额
@@ -126,7 +149,11 @@ class CoinWithdrawStore {
     @computed
     get cashAmount() {
         if (this.takeCoinInfo.resp) {
-            return this.takeCoinInfo.resp.cashAmount || 0;
+            let point = this.takeCoinInfo.resp.point;
+            let cashAmount = this.takeCoinInfo.resp.cashAmount || 0;
+            let res = NumberUtil.initNumber(cashAmount, point); 
+
+            return res;
         } else {
             return 0;
         }
@@ -306,6 +333,9 @@ class CoinWithdrawStore {
             currencyId: '',
             currencyNameEn: ''
         }
+
+        this.dayLimit = '';
+        this.oneLimit = '';
 
         this.resetForm();
     }

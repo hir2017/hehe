@@ -86,7 +86,7 @@ class AssetsListView extends Component {
     };
 
     handleCoinTrade = (item, e) => {
-        browserHistory.push(`/webtrade/TWD_${item.currencyNameEn}`);
+        browserHistory.push(`/webtrade/${UPEX.config.baseCurrencyEn}_${item.currencyNameEn}`);
     };
 
     ValToFixed(val) {

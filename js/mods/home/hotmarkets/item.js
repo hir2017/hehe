@@ -80,7 +80,7 @@ class HotCoin extends Component {
 		return (
 			<div className={`recommend-item ${type}`} onClick={this.handleTrade.bind(this, data)}>
 				<div className="recommend-item-name">{ data.currencyNameEn }</div>
-				<div className="recommend-item-price">NT$ { data.currentAmountText }</div>
+				<div className="recommend-item-price">{UPEX.config.baseCurrencySymbol} { data.currentAmountText }</div>
 				<div className="recommend-item-volume">{ UPEX.lang.template('成交额 {num}{unit}', { num : data.amountText, unit: data.baseCurrencyNameEn })}</div>
 				<div className="recommend-item-rate">{ data.changeRateText }</div>
 				{

@@ -125,11 +125,13 @@ const SITE_LANGUAGE = (function() {
     return lang;
 })();
 
+const baseCurrencyEn = 'TWD';
 const symbols = {
     'TWD': 'NT$',
     'CNY': '￥',
     'USD': '$'
 }
+const baseCurrencySymbol = symbols[baseCurrencyEn];
 
 var PROTOCOL = (function() {
     if (location.protocol === 'https:') {
@@ -185,7 +187,8 @@ const websocketHost = SOCKET_PROTOCOL + '//' + origin + '/';
 const imgHost = PROTOCOL + '//' + origin + '/img';
 
 const config = {
-    baseCurrencyEn: 'TWD',
+    baseCurrencyEn,
+    baseCurrencySymbol,
     defaultLanguage: SITE_LANGUAGE, // 网站语言
     systemLanguage: SYSTEM_LANGUAGE, // 浏览器系统语言
     isEdge: /Edge/i.test(ua), // 12+

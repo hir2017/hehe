@@ -40,7 +40,7 @@ export default class CardSelect extends Component {
                                     setVal(value.trim(), 'balance');
                                 }}
                             />
-                            <i className="unit hidden">NT$</i>
+                            <i className="unit hidden">{UPEX.config.baseCurrencySymbol}</i>
                         </div>
                         {
                             type == 'withdraw' ? <div className="balance">{UPEX.lang.template('当前余额: {count}', { count: `NT$${count}` })}</div> : null

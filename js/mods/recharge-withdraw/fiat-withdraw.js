@@ -148,7 +148,7 @@ class FiatRechargeView extends Component {
 
                     <div className="rw-form-item">
                         <label className="rw-form-label" />
-                        <div className="rw-form-info">NT${UPEX.lang.template('实际到账金额:{num}', { num: store.withdrawValue })}</div>
+                        <div className="rw-form-info">{UPEX.config.baseCurrencySymbol}{UPEX.lang.template('实际到账金额:{num}', { num: store.withdrawValue })}</div>
                     </div>
                     <div className="rw-form-item">
                         <label className="rw-form-label" />

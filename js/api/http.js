@@ -347,7 +347,7 @@ export function takeCoinSendPhoneCode(data) {
  * 提币接口
  */
 export function takeCoin(data) {
-    return axios.post('/coin/takeCoin?address=${data.address}', qs.stringify({
+    return axios.post(`/coin/takeCoin?address=${data.address}`, qs.stringify({
         actionId: 4,
         msgCode: '',
         currencyId: data.currencyId,
@@ -527,14 +527,14 @@ export function getTradeDeep(pair, limit) {
  */
 export function getTradeKline(data) {
     if (data.startTime && data.endTime) {
-        return axios.get('/quote/klineHistory?symbol=${data.symbol}&type=${data.interval}&limit=${data.limit}&startTime=${data.startTime}&endTime=${data.endTime}').then(res => res.data);
+        return axios.get(`/quote/klineHistory?symbol=${data.symbol}&type=${data.interval}&limit=${data.limit}&startTime=${data.startTime}&endTime=${data.endTime}`).then(res => res.data);
     } else {
-        return axios.get('/quote/klineHistory?symbol=${data.symbol}&type=${data.interval}&limit=${data.limit}').then(res => res.data);
+        return axios.get(`/quote/klineHistory?symbol=${data.symbol}&type=${data.interval}&limit=${data.limit}`).then(res => res.data);
     }
 }
 
 export function getTradingViewKline(pair, peroid = 1, limit) {
-    return axios.get('/quote/tradingView?symbol=${pair}&type=${peroid}&limit=${limit}').then(res => res.data);
+    return axios.get(`/quote/tradingView?symbol=${pair}&type=${peroid}&limit=${limit}`).then(res => res.data);
 }
 
 /**
@@ -929,5 +929,15 @@ export function sendMessageWithdraw(vercode, codeid) {
     return axios.post('/withdraw/sendMessageWithdraw', {
         vercode,
         codeid
+    }).then(res => res.data);
+}
+/**
+ * 获取提币、充币、提现、充值的风控限额
+ * 1: 充值；2：提现；3：充币；4：提币；5：买入；6：卖出；7:转账
+ */
+export function getUserActionLimit(actionId, currencyId){
+    return axios.post('/userRisk/coinRisk', {
+        actionId,
+        currencyId
     }).then(res => res.data);
 }

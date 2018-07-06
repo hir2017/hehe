@@ -52,7 +52,7 @@ class InfoView extends Component {
                     	</div>
                         <div className="amount-bd clearfix">
                         	<div className="amount">
-                            	<em><span className="unit">NT$</span>{ store.visibleMoney ? `${store.baseCoinInfo.cashAmount || 0}` : '******'} </em>
+                            	<em><span className="unit">{UPEX.config.baseCurrencySymbol}</span>{ store.visibleMoney ? `${store.baseCoinInfo.cashAmount || 0}` : '******'} </em>
                             </div>
                             <div className="actions">
 	                            <button className="btn recharge-btn" onClick={this.handleFiatRecharge}>
@@ -66,11 +66,11 @@ class InfoView extends Component {
                         <ul className="amount-ft clearfix">
                         	<li>
                         		<label>{UPEX.lang.template('冻结资金')}</label>
-                        		<em>NT$ { store.visibleMoney ? `${store.baseCoinInfo.freezeAmount || 0}` : '******'} </em>
+                        		<em>{UPEX.config.baseCurrencySymbol} { store.visibleMoney ? `${store.baseCoinInfo.freezeAmount || 0}` : '******'} </em>
                         	</li>
                         	<li>
                         		<label>{UPEX.lang.template('资金总额')}</label>
-                        		<em>NT$ { store.visibleMoney ? `${store.baseCoinInfo.amount || 0}` : '******'} </em>
+                        		<em>{UPEX.config.baseCurrencySymbol} { store.visibleMoney ? `${store.baseCoinInfo.amount || 0}` : '******'} </em>
                         	</li>
                         </ul>
                     </div>

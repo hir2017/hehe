@@ -100,7 +100,7 @@ export default class FourthStep extends Component {
                         <tr>
                             <td>{UPEX.lang.template('当前日限额')}：</td>
                             <td>
-                                <span className="money">NT$ {userInfo.dayLimit}</span>
+                                <span className="money">{UPEX.config.baseCurrencySymbol} {userInfo.dayLimit}</span>
                             </td>
                         </tr>
                     </tbody>

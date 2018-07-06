@@ -119,7 +119,7 @@ class MarketListStore {
                 this.dataReady = true;
 
                 let result = data.filter((item) => {
-                    return item.info.currencyNameEn === 'TWD'; // 只显示基础币=TWD
+                    return item.info.currencyNameEn === UPEX.config.baseCurrencyEn; // 只显示基础币=TWD
                 })[0];
 
                 if (result) {
