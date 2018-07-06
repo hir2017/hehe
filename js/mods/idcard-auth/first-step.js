@@ -187,19 +187,19 @@ export default class FirstStep extends Component {
             address: {
                 label: UPEX.lang.template('住址'),
                 inputProps: getProp('address', 'none'),
-                tip: UPEX.lang.template('請如實填寫地址，并保證和身份證反面的信息一致'),
+                tip: UPEX.lang.template('请如实填写地址，并保证和身份证反面的信息一致'),
                 error: state.addressMes
             },
             areaCode: {
-                label: UPEX.lang.template('郵遞區號'),
+                label: UPEX.lang.template('邮递区号'),
                 inputProps: getProp('postCode', 'none'),
-                tip: UPEX.lang.template('請如實填寫地址，并保證和身份證反面的信息一致'),
+                tip: UPEX.lang.template('请如实填写地址，并保证和身份证反面的信息一致'),
                 error: state.postCodeMes
             },
             idCard: {
                 label: UPEX.lang.template('证件号码'),
                 inputProps: getProp('idCard', 'none'),
-                tip: UPEX.lang.template('為保證款項可能有退還的情形，因此請填寫真實身分證字號'),
+                tip: UPEX.lang.template('为保证款项可能有退还的情形，因此填写真实身份证号'),
                 error: state.idCardMes
             }
         };
@@ -256,23 +256,23 @@ export default class FirstStep extends Component {
                             <Option value="1">{UPEX.lang.template('台湾身份证')}</Option>
                         </Select>
                     </div>
-                    <span className="message">{UPEX.lang.template('目前暫時只開放給擁有台灣身分證的用戶使用')}</span>
+                    <span className="message">{UPEX.lang.template('目前暂时只开放给拥有台湾身份证的用户使用')}</span>
                     <span className="error-message">{this.state.idCardTypeMes}</span>
                 </div>
                 <InputItem {...inputsData.idCard} />
                 <div className="muti-select clearfix">
                     <div className="ace-input-item select">
-                        <span className="label">{UPEX.lang.template('職業')}</span>
+                        <span className="label">{UPEX.lang.template('职业')}</span>
                         <div className="input">
-                            <Select onChange={this.selectChange.bind(this, 'professionMes', 'profession')} placeholder={UPEX.lang.template('請選擇職業')}>
-                                <Option value={1}>军公教</Option>
-                                <Option value={2}>专业技术人员</Option>
-                                <Option value={3}>行政人员</Option>
-                                <Option value={4}>金融業</Option>
-                                <Option value={5}>农、林、牧、渔、水利业生产人员</Option>
-                                <Option value={6}>生产、运输设备操作</Option>
-                                <Option value={7}>學生</Option>
-                                <Option value={8}>自由职业者</Option>
+                            <Select onChange={this.selectChange.bind(this, 'professionMes', 'profession')} placeholder={UPEX.lang.template('请选择职业')}>
+                                <Option value={1}>{UPEX.lang.template('军公教')}</Option>
+                                <Option value={2}>{UPEX.lang.template('专业技术人员')}</Option>
+                                <Option value={3}>{UPEX.lang.template('行政人员')}</Option>
+                                <Option value={4}>{UPEX.lang.template('金融業')}</Option>
+                                <Option value={5}>{UPEX.lang.template('农、林、牧、渔、水利业生产人员')}</Option>
+                                <Option value={6}>{UPEX.lang.template('生产、运输设备操作')}</Option>
+                                <Option value={7}>{UPEX.lang.template('学生')}</Option>
+                                <Option value={8}>{UPEX.lang.template('自由职业者')}</Option>
                             </Select>
                         </div>
                         <span className="error-message">{this.state.professionMes}</span>
@@ -281,39 +281,33 @@ export default class FirstStep extends Component {
                     <div className="ace-input-item select last">
                         <span className="label">{UPEX.lang.template('年薪')}</span>
                         <div className="input">
-                            <Select onChange={this.selectChange.bind(this, 'annualsalaryMes', 'annualsalary')} placeholder={UPEX.lang.template('请选择')}>
-                                <Option value={1}>0-50万</Option>
-                                <Option value={2}>50-100万</Option>
-                                <Option value={3}>150-200万</Option>
-                                <Option value={4}>200-250万</Option>
-                                <Option value={5}>250万以上</Option>
+                            <Select onChange={this.selectChange.bind(this, 'annualsalaryMes', 'annualsalary')} placeholder={UPEX.lang.template('请选择年薪')}>
+                                <Option value={1}>{UPEX.lang.template('0-50万')}</Option>
+                                <Option value={2}>{UPEX.lang.template('50-100万')}</Option>
+                                <Option value={3}>{UPEX.lang.template('150-200万')}</Option>
+                                <Option value={4}>{UPEX.lang.template('200-250万')}</Option>
+                                <Option value={5}>{UPEX.lang.template('250万以上')}</Option>
                             </Select>
                         </div>
                         <span className="error-message">{this.state.annualsalaryMes}</span>
                     </div>
-                    <div className="message">{UPEX.lang.template('目前暫時只開放給擁有台灣身分證的用戶使用')}</div>
+                    <div className="message">{UPEX.lang.template('目前暂时只开放给拥有台湾身份证的用户使用')}</div>
                 </div>
 
                 <div className="ace-input-item select radio">
                     <span className="label">{UPEX.lang.template('资金用途')}</span>
                     <div className="input">
                         <RadioGroup onChange={this.useOfFundsChange} value={this.state.resortType}>
-                            <Radio value={1}>投資、買賣數位貨幣</Radio>
-                            <Radio value={2}>儲存數位貨幣</Radio>
-                            <Radio value={3}>其他</Radio>
+                            <Radio value={1}>{UPEX.lang.template('投资、买卖数位货币')}</Radio>
+                            <Radio value={2}>{UPEX.lang.template('储存数位货币')}</Radio>
+                            <Radio value={3}>{UPEX.lang.template('其他')}</Radio>
                         </RadioGroup>
                         {this.state.resortType === 3 ? <Input onChange={this.resortTypeOtherChange} /> : null}
                     </div>
                 </div>
                 <div className="item align-left">
                     <Checkbox onChange={this.checkHandel}>
-                        <span className="checkbox-text">{UPEX.lang.template('勾選選礦表示您同意我們的')}</span>
-                        <span className="checkbox-text">
-                            <Link>{UPEX.lang.template('用戶條款')}</Link>
-                        </span>
-                        <span className="checkbox-text">
-                            <Link>{UPEX.lang.template('隱私條款')}</Link>
-                        </span>
+                        <span className="checkbox-text">{UPEX.lang.template('勾选选项表示您同意我们的用户条款和隐私条款')}</span>
                     </Checkbox>
                 </div>
                 <div className="submit">

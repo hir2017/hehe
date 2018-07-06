@@ -79,15 +79,9 @@ export default class SettingTradingPassword extends Component {
         const codeid = this.props.captchaStore.codeid;
         const captcha = this.props.captchaStore.captcha;
         const PageProps = {
-            title: UPEX.lang.template('設置资金密碼'),
+            title: UPEX.lang.template('设置资金密码'),
             formClass: 'modify-password-box'
         };
-        // state = {
-        //     password: '',
-        //     comfirmPwd: '',
-        //     vCode: '',
-        //     ivCode: ''
-        // };
         const getProp = createGetProp(this);
         const inputsData = [
             {

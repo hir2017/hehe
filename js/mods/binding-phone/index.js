@@ -93,8 +93,8 @@ export default class Phone extends Component {
                     </Col>
                 </Row>
                 <div className="message">
-                    <p>{UPEX.lang.template('為了您的安全或者降低手機遺失的風險，請在綁定手機號后立即綁定Google驗證器')}。</p>
-                    <p>{UPEX.lang.template('為了您的資金安全，修改手機綁定后，24小時內不可以提現提幣')}</p>
+                    <p>{UPEX.lang.template('为了您的安全或者降低手机遗失的风险，请在绑定手机号后立即绑定Google验证器')}。</p>
+                    <p>{UPEX.lang.template('为了您的资金安全，修改手机绑定后，24小时内不可以提现提币')}</p>
                 </div>
 
                 <Modal

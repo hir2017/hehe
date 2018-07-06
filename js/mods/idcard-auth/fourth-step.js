@@ -80,7 +80,7 @@ export default class FourthStep extends Component {
         }
         return (
             <AceForm className="auth-step-4">
-                <h3 className="title">{UPEX.lang.template('您已完成安全認證！')}</h3>
+                <h3 className="title">{UPEX.lang.template('您已完成安全认证！')}</h3>
                 <table className="info">
                     <tbody>
                         <tr>
@@ -90,15 +90,15 @@ export default class FourthStep extends Component {
                         <tr>
                             <td>{UPEX.lang.template('证件类型/证件号码')}：</td>
                             <td>
-                                {UPEX.lang.template('台灣身份證')}/{userInfo.idNumber}
+                                {UPEX.lang.template('台湾身份证')}/{userInfo.idNumber}
                             </td>
                         </tr>
                         <tr>
-                            <td>{UPEX.lang.template('手機號碼')}：</td>
+                            <td>{UPEX.lang.template('手机号码')}：</td>
                             <td>{userInfo.phone}</td>
                         </tr>
                         <tr>
-                            <td>{UPEX.lang.template('當前日限額')}：</td>
+                            <td>{UPEX.lang.template('当前日限额')}：</td>
                             <td>
                                 <span className="money">NT$ {userInfo.dayLimit}</span>
                             </td>
@@ -106,13 +106,7 @@ export default class FourthStep extends Component {
                     </tbody>
                 </table>
                 <div className="submit">{$bottom}</div>
-                <div className="custom-tips tip">
-                    <header className="tip-header">{UPEX.lang.template('注意')}：</header>
-                    <ul className="texts">
-                        <li>·&nbsp;{UPEX.lang.template('如填写有误需要修改，请联系客服support@ace.one 进行修改')}</li>
-                        <li>·&nbsp;{UPEX.lang.template('日提現額度是=每日提現到銀行賬戶的額度+每日提幣的即時新台幣價值總額')}</li>
-                    </ul>
-                </div>
+                <div className="custom-tips tip" dangerouslySetInnerHTML={{__html: UPEX.lang.template('完成身份认证注意内容')}}></div>
             </AceForm>
         );
     }

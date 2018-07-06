@@ -51,7 +51,7 @@ export default (store) => {
          */
         handleRecharge() {
             if (!store.selectedCard || store.selectedCard === 'none') {
-                message.error(UPEX.lang.template('请选择一张绑定的银行卡'));
+                message.error(UPEX.lang.template('请选择一张绑定的银行账号'));
                 return;
             }
 

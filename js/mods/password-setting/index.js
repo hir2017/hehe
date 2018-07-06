@@ -125,7 +125,7 @@ export default class BindingBank extends Component {
                         <p>
                             {UPEX.lang.template('资金密码')}
                         </p>
-                        <p>{UPEX.lang.template('用於交易、綁定解綁銀行卡充幣提現等資金 操作，需要嚴格保密')}</p>
+                        <p>{UPEX.lang.template('用于交易、绑定解绑银行卡充币提现等资金操作，需要严格保密')}</p>
                     </Col>
                     <Col className="level" span={8} />
                     <Col className="operator" span={8}>
@@ -148,7 +148,7 @@ export default class BindingBank extends Component {
                         ) : null}
                     </Col>
                 </Row>
-                <div className="message">{UPEX.lang.template('為了您的資金安全，忘記资金密碼并修改成功后，24小時內不可以提現提幣。')}</div>
+                <div className="message">{UPEX.lang.template('为了您的资金安全，忘记资金密码并修改成功后，24小时内不可以提现充币')}</div>
                 <Modal
                     title={UPEX.lang.template('请输入资金密码')}
                     visible={this.state.visible}

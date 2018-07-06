@@ -43,7 +43,7 @@ export default class CardSelect extends Component {
                             <i className="unit hidden">NT$</i>
                         </div>
                         {
-                            type == 'withdraw' ? <div className="balance">{UPEX.lang.template('当前余额: NT${count}', { count })}</div> : null
+                            type == 'withdraw' ? <div className="balance">{UPEX.lang.template('当前余额: {count}', { count: `NT$${count}` })}</div> : null
                         }
                     </div>
                 </div>

@@ -31,7 +31,7 @@ export default class Email extends Component {
                     </Col>
                 </Row>
                 <div className="message">
-                    <p>{UPEX.lang.template('郵箱的私人性質很強，所以請牢記您郵箱的密碼，一旦您設定了電子郵箱，除非極特殊的情況，我們無法為您提供修改綁定服務')}。</p>
+                    <p>{UPEX.lang.template('邮箱的私人性质很强，所以请牢记您邮箱的密码，一旦您设定了邮箱，除非极特殊的情況，我們无法为您提供修改绑定服务')}。</p>
                 </div>
             </div>
         );

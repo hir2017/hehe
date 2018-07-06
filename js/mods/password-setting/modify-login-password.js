@@ -131,7 +131,7 @@ export default class ModifyPassword extends Component {
         //     inputProps: getProp('vCode', 'none')
         // };
         const PageProps = {
-            title: UPEX.lang.template('修改登錄密碼'),
+            title: UPEX.lang.template('修改登录密码'),
             formClass: 'modify-password-box'
         };
 

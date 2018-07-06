@@ -124,7 +124,7 @@ class FiatRechargeView extends Component {
                                         type="number"
                                         data-key="googlecode"
                                         value={store.googleCode}
-                                        placeholder={UPEX.lang.template('填写谷歌验证码')}
+                                        placeholder={UPEX.lang.template('请填写谷歌验证码')}
                                         onChange={action.onChangeInput}
                                     />
                                 </div>
@@ -139,7 +139,7 @@ class FiatRechargeView extends Component {
                                     type="password"
                                     data-key="tradepwd"
                                     value={store.tradepwd}
-                                    placeholder={UPEX.lang.template('填写资金密码')}
+                                    placeholder={UPEX.lang.template('请填写资金密码')}
                                     onChange={action.onChangeInput}
                                 />
                             </div>

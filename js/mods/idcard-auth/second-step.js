@@ -135,12 +135,12 @@ export default class SecondStep extends Component {
         const picsData = [
             {
                 title: UPEX.lang.template('证件正面照'),
-                showTip: UPEX.lang.template('查看证件正面示例'),
+                showTip: UPEX.lang.template('查看证件正面照实例'),
                 url: 'oneUrl'
             },
             {
                 title: UPEX.lang.template('证件反面照'),
-                showTip: UPEX.lang.template('查看证件反面照示例'),
+                showTip: UPEX.lang.template('查看证件反面照实例'),
                 url: 'twoUrl'
             },
             {
@@ -184,7 +184,7 @@ export default class SecondStep extends Component {
                     );
                 })}
 
-                <div className="pic-format">{UPEX.lang.template('上传的文件格式必须是.jpg/.png/.jpeg,文件大小控制在 10M 以内')}</div>
+                <div className="pic-format">{UPEX.lang.template('身份证上传图片大小限制')}</div>
                 <div className="submit">
                     <Button  className="ace-submit-item" onClick={this.next}>{UPEX.lang.template('提交审核')}</Button>
                 </div>

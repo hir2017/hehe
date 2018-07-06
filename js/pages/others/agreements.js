@@ -89,7 +89,7 @@ export default class Agreements extends Component {
                     </div>
                     <div className="user-main ace-page-content">
                     <PageWrapper title={currNav.text}>
-                        <iframe  className="agreements-window" src={`/agreements/${language}/${name}.html`} frameBorder="0"></iframe>
+                        
                     </PageWrapper>
                     </div>
                 </div>

@@ -92,7 +92,7 @@ class WithdrawCoin extends Component {
 				<div className="rw-form">
 					{ store.isFetching ? <div className="mini-loading"></div> : null }
 					<div className="rw-form-item">
-						<Alert message={UPEX.lang.template('當前安全等级{level}可提額度(TWD)：NT${num}/日',{ level: userInfoStore.authLevel, num: `${userInfoStore.userInfo.dayLimit || 0}` })} type="warning" />
+						<Alert message={UPEX.lang.template('当前安全等级{level}可提额度(TWD)：NT${num}/日',{ level: userInfoStore.authLevel, num: `${userInfoStore.userInfo.dayLimit || 0}` })} type="warning" />
 					</div>
 					<div className="rw-form-item">
 						<label className="rw-form-label">{UPEX.lang.template('选择币种')}</label>
@@ -225,7 +225,7 @@ class WithdrawCoin extends Component {
 		                                    type="number"
 		                                    data-key="googlecode"
 		                                    value={store.googleCode}
-		                                    placeholder={UPEX.lang.template('填写谷歌验证码')}
+		                                    placeholder={UPEX.lang.template('请填写谷歌验证码')}
 			                                onChange={action.onChangeInput}
 		                                />
 		                            </div>
@@ -241,7 +241,7 @@ class WithdrawCoin extends Component {
 	                                type="password"
 	                                data-key="tradepwd"
 	                                value={store.tradepwd}
-	                                placeholder={UPEX.lang.template('填写资金密码')}
+	                                placeholder={UPEX.lang.template('请填写资金密码')}
 	                                onChange={action.onChangeInput}
 	                            />
 	                        </div>

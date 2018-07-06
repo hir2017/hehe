@@ -26,7 +26,7 @@ class Footer extends Component {
                         <InfoView />
                     </div>
                     <div className="copyright">
-                        {UPEX.lang.template('Copyright ©️ 2017-2018 ACE.com All Rights Reserved')}
+                        {UPEX.lang.template('Copyright')}
                     </div>
                 </div>
             </div>

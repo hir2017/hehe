@@ -114,7 +114,7 @@ export default class ModifyTradingPassword extends Component {
         //     inputProps: getProp('vCode', 'none')
         // }
         const PageProps = {
-            title: UPEX.lang.template('修改资金密碼'),
+            title: UPEX.lang.template('修改资金密码'),
             formClass: 'modify-password-box'
         };
 

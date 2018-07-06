@@ -35,6 +35,7 @@ class IdentityAuthentication extends Component {
 
     nowStep(_step) {
         const step = _step;
+        
         if (step === 1) {
             return <FirstStep changeStep={this.changeStep} />;
         }

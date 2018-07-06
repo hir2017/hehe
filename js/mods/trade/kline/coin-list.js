@@ -114,7 +114,7 @@ class CoinList extends Component {
                                 {this.sortIcon(store.sortByKey == 'changeRate')}
                             </div>
                             <div className="cell volume" onClick={this.sortByCondition.bind(this, 'volume')}>
-                                {UPEX.lang.template('24H成交量')}
+                                {UPEX.lang.template('24h成交量')}
                                 {this.sortIcon(store.sortByKey == 'volume')}
                             </div>
                         </dt>

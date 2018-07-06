@@ -89,7 +89,7 @@ class CoinRecharge extends Component{
 				<div className="rw-form">
 					<div className="rw-form-item">
 						<Alert
-					      description={UPEX.lang.template('用戶擔保係自具有KYC制度的外部錢包或其他交易所平台所轉入之虛擬貨幣地址為用戶本人所有，若日後可能會有的法律風險及追究責任需由用戶本人承擔')}
+					      description={UPEX.lang.template('充币提醒信息内容')}
 					      type="warning"
 					    />
 	    			</div>
@@ -127,14 +127,9 @@ class CoinRecharge extends Component{
 								<li>
 									<div className="warmprompt">
 										<div className="warmprompt-title">{UPEX.lang.template('温馨提示')}</div>
-										<div className="warmprompt-content">
-											<ul>
-												<li dangerouslySetInnerHTML={{__html: UPEX.lang.template('禁止向非{name}地址充值，除{name}之外的資產，任何充入{name}地址的非{name}資產將不可找回。', { name: store.currentCoin.currencyNameEn || '--'}, 1) }}></li>
-												<li dangerouslySetInnerHTML={{__html: UPEX.lang.template('使用{name}地址充值需要{num}個以上網絡確認才能到賬。',{name: store.currentCoin.currencyNameEn || '--', num: store.currentCoin.confirmNum || '--'}, 1) }}></li>
-												<li dangerouslySetInnerHTML={{__html: UPEX.lang.template('充值完成后，你可以在右側或<em className="r-coin-record">充币记录</em>页面跟踪进度')}}></li>
-												<li dangerouslySetInnerHTML={{__html: UPEX.lang.template('用戶擔保係自具有KYC制度的外部錢包或其他交易所平台所轉入之虛擬貨幣地址為用戶本人所有，若日後可能會有的法律風險及追究責任需由用戶本人承擔。')}}></li>
-											</ul>
-										</div>
+										<div className="warmprompt-content" 
+											dangerouslySetInnerHTML={{__html: UPEX.lang.template('充币温馨提示内容',{  name: store.currentCoin.currencyNameEn || '--', num: store.currentCoin.confirmNum || '--'}, 1)}}
+										/>
 									</div>
 								</li>
 							</ul>
