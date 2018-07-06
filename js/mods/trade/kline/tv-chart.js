@@ -402,7 +402,7 @@ class TVChartContainer extends Component {
 			case 'zh-CN':
 				lang = 'zh';
 				break;
-			case 'zh_TW':
+			case 'zh-TW':
 				lang = 'zh_TW';
 				break;
 			case 'en-US':

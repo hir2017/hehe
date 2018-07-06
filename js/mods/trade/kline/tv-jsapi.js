@@ -59,8 +59,8 @@ class UDFCompatibleDatafeed {
                     "name": symbolName,
                     "ticker": [this.baseCurrencyNameEn, this.currencyNameEn].join('_').toLocaleLowerCase(),
                     "timezone": "Asia/Shanghai",
-                    "minmov": 1,
-                    minmove2: 0,
+                    "minmov": 0.01,
+                    "minmove2": 0,
                     "session": "24x7",
                     "description": symbolName,
                     "pricescale": 100,
@@ -85,9 +85,9 @@ class UDFCompatibleDatafeed {
      * @param {*Boolean 以标识是否第一次调用此商品/分辨率的历史记录} firstDataRequest 
      */
     getBars(symbolInfo, resolution, rangeStartDate, rangeEndDate, onHistoryCallback, onErrorCallback, firstDataRequest) {
-        console.log('------getBars-------', symbolInfo, resolution);
+        // console.log('------getBars-------', symbolInfo, resolution);
 
-        console.log(`Requesting bars between ${new Date(rangeStartDate * 1000).toISOString()} and ${new Date(rangeEndDate * 1000).toISOString()}`)
+        // console.log(`Requesting bars between ${new Date(rangeStartDate * 1000).toISOString()} and ${new Date(rangeEndDate * 1000).toISOString()}`)
 
         if (rangeStartDate > 0 && (rangeStartDate + "").length > 10) {
             throw "Got a JS time instead of Unix one.";
@@ -129,9 +129,9 @@ class UDFCompatibleDatafeed {
             } else {
                 for (var i = 0; i < data.length; ++i) {
                     let item = data[i];
-
+                    
                     var barValue = {
-                        time: item.currentTime || +new Date(item.createTime.replace(/-/g, '/')),
+                        time: +new Date(item.createTime.replace(/-/g, '/')),
                         close: Number(item.closePrice),
                         open: Number(item.openPrice),
                         high: Number(item.highPrice),
@@ -140,6 +140,7 @@ class UDFCompatibleDatafeed {
                     };
 
                     barValue.timeTxt = TimeUtil.formatDate(item.currentTime, 'yyyy-MM-dd HH:mm:ss');
+                    // console.log(barValue.timeTxt);
                     bars[bars.length] = barValue
                 }
             }
@@ -185,7 +186,7 @@ class UDFCompatibleDatafeed {
      * @param {*Function()将在bars数据发生变化时执行} onResetCacheNeededCallback 
      */
     subscribeBars(symbolInfo, resolution, onRealtimeCallback, subscriberUID, onResetCacheNeededCallback) {
-        console.log('------subscribeBars-------', symbolInfo, resolution);
+        // console.log('------subscribeBars-------', symbolInfo, resolution);
 
         var symbol = symbolInfo.ticker || '';
 
@@ -220,7 +221,7 @@ class UDFCompatibleDatafeed {
                     };
 
                     barValue.timeTxt = TimeUtil.formatDate(item.createTime, 'yyyy-MM-dd HH:mm:ss');
-                    console.log(barValue.timeTxt);
+                    // console.log(barValue.timeTxt);
                     onRealtimeCallback(barValue);
                 }
             })
@@ -238,7 +239,7 @@ class UDFCompatibleDatafeed {
      * @param {*Object} subscriberUID 
      */
     unsubscribeBars(subscriberUID) {
-        console.log('------unsubscribeBars-------');
+        // console.log('------unsubscribeBars-------');
         this.destroy();
     }
 
@@ -250,7 +251,7 @@ class UDFCompatibleDatafeed {
      * @param {*Function(unixTime)} callback 
      */
     getServerTime(callback) {
-        console.log('------getServerTime-------');
+        // console.log('------getServerTime-------');
         if (!this.configurationData.supports_time) {
             return;
         }
@@ -258,7 +259,7 @@ class UDFCompatibleDatafeed {
         socket.emit('serverTime')
         socket.on('serverTime', function(data) {
             let serverTime = parseInt(data / 1000, 10);
-            console.log('=====', serverTime);
+            // console.log('=====', serverTime);
             callback(serverTime);
         })
     }

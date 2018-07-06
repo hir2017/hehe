@@ -180,11 +180,16 @@ const origin = (function(){
     return origin;
 })();
 
-const host = PROTOCOL + '//' +  origin +'/polarisex';
+// const host = PROTOCOL + '//' +  origin +'/polarisex';
+// const uploadHost = host + '/upload/upload';
+// const uploadImgHost =  host + '/user/uploadImageSingle';
+// const websocketHost = SOCKET_PROTOCOL + '//' + origin + '/';
+// const imgHost = PROTOCOL + '//' + origin + '/img';
+const host =  'https://pre.ace.io/polarisex';
 const uploadHost = host + '/upload/upload';
 const uploadImgHost =  host + '/user/uploadImageSingle';
-const websocketHost = SOCKET_PROTOCOL + '//' + origin + '/';
-const imgHost = PROTOCOL + '//' + origin + '/img';
+const websocketHost = 'wss://pre.ace.io/';
+const imgHost = 'https://pre.ace.io/img';
 
 const config = {
     baseCurrencyEn,
