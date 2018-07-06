@@ -36,7 +36,7 @@ class FundChangeRecordStore {
             '8': UPEX.lang.template('放款失败'),
         },
         recharge: {
-            '0': UPEX.lang.template('待审核'),
+            '0': UPEX.lang.template('等待审核'),
             '1': UPEX.lang.template('已完成'),
             '2': UPEX.lang.template('待付款'),
             '3': UPEX.lang.template('待付款'),
@@ -111,7 +111,7 @@ class FundChangeRecordStore {
             item._actionName = `${UPEX.lang.template('银行卡')}${item.type === 1 ? UPEX.lang.template('充值') : UPEX.lang.template('提现')}`;
             item._payMethod = item.type === 1 ? item.openBank : UPEX.lang.template('法币账户');
             if(item.status === 6) {
-                item._status += ',' + UPEX.lang.template('\n 原因：{reason}', {reason: item.reason});
+                item._status += ',' + UPEX.lang.template('原因：{reason}', {reason: item.reason});
 
             }
         });

@@ -36,7 +36,7 @@ class GoogleGuide extends Component {
                     <div className="google-guide-img-box">
                         <img src={google1} />
                         <div>
-                            <div className="download">{UPEX.lang.template('下載并安裝Google驗證器')}</div>
+                            <div className="download">{UPEX.lang.template('下载并安裝Google验证器')}</div>
                             <div className="download">
                                 <a className="download-btn"  target="_blank" href="https://itunes.apple.com/us/app/google-authenticator/id388497605?mt=8">
                                     <Icon type="apple" />ios{UPEX.lang.template('下载')}

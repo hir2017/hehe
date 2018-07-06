@@ -265,11 +265,10 @@ export default (store) => {
             let { verifyInfoBeforeLogin } = store;
             
             //  验证表单信息
-            if (!verifyInfoBeforeLogin.pass) {
-                message.error(verifyInfoBeforeLogin.message);
-                return false;
-            } else {
+            if (verifyInfoBeforeLogin.pass) {
                 return true;
+            } else {
+                return verifyInfoBeforeLogin.message;
             }
         },
 
@@ -313,7 +312,7 @@ export default (store) => {
                     case 5555:
                         break;
                     default:
-                        this.getImgCaptcha();
+                        // this.getImgCaptcha();
                 }
 
                 return data;

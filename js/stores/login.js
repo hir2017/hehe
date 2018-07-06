@@ -235,13 +235,6 @@ class LoginInfoBaseStore {
             return result;
         }
 
-        if (!imgcode) {
-            result.pass = false;
-            result.message = UPEX.lang.template('请填写图片验证码');
-
-            return result;
-        }
-
         return result;
     }
 

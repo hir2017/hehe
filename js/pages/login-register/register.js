@@ -184,7 +184,7 @@ class Register extends Component {
                             { !store.validVercode ? <div className="warn">{ store.mode == 'email' ? UPEX.lang.template('请输入正确的邮箱验证码') : UPEX.lang.template('请输入正确的手机验证码') }</div> : null }
                         </div>
 
-                        <div className="input-wrapper">
+                        <div className="input-wrapper hidden">
                             <div className="input-box">
                                 <input 
                                     type="text" 

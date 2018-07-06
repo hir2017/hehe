@@ -36,7 +36,7 @@ class Login extends Component {
 
     componentDidMount() {
         // 组件加载完调用图片验证码
-        this.action.getImgCaptcha();
+        // this.action.getImgCaptcha();
     }
 
     componentWillUnmount(){
@@ -44,7 +44,9 @@ class Login extends Component {
     }
 
     handleLogin=()=>{
-        if (this.action.checkUser()) {
+        let result = this.action.checkUser();
+        
+        if (result == true ) {
             
             this.setState({
                 loginErrorText: ''
@@ -77,7 +79,7 @@ class Login extends Component {
                 })
         } else {
             this.setState({
-                loginErrorText: UPEX.lang.template('账号或密码输入有误')
+                loginErrorText: result
             });
         }
     }
@@ -92,13 +94,6 @@ class Login extends Component {
                         case 200:
                             browserHistory.push('/home');
                             break;
-                        case 5556:
-                            // 后端确认：手机或者谷歌验证码错误码；图形验证码错误
-                            // this.setState({
-                            //     step: 'login'
-                            // });
-                            // 驗證碼過期，請重新登入
-                            // break;
                         default:
                             this.setState({
                                 loginErrorText: data.message
@@ -122,8 +117,19 @@ class Login extends Component {
         }
     }
 
+    keyLoginSecond =(e)=>{
+        if (e.keyCode === 13) {
+            this.handleLoginVerifyCode()
+        }
+    }
+
+    onChangeMode=(item)=>{
+        this.action.onChangeMode(item);
+    }
+
     render() {
         let store = this.props.loginStore;
+        let { step } = this.state;
         let action = this.action;
 
         let options = [];
@@ -132,56 +138,50 @@ class Login extends Component {
             options[options.length] = <Option value={key} key={key}>{UPEX.lang.template(key)}(+{item.areacode})</Option>
         })
 
-        if (this.state.step == 'google') {
+        if (step == 'google' || step == 'phone') {
+            let $inputbox;
+                
+            if (step == 'google') {
+                $inputbox  =  (
+                    <div className="input-wrapper">
+                        <div className="input-box">
+                            <input
+                                type="number" 
+                                onInput={ action.onChangeGoogleCode}
+                                placeholder={ UPEX.lang.template('Google验证码') }
+                                onKeyDown={ this.keyLoginSecond }
+                            />
+                        </div>
+                    </div>
+                )
+            } else if (step == 'phone') {
+                $inputbox = (
+                    <div className="input-wrapper">
+                        <div className="input-box useryz-box">
+                            <input
+                                type="text" 
+                                onInput={ action.onChangeLoginVerCode}
+                                placeholder={ UPEX.lang.template('短信验证码') }
+                                onKeyDown={ this.keyLoginSecond }
+                            />
+                            <div className="yzcode">
+                                <button onClick={ this.sendLoginVercode } className={ store.sendingphonecode ? 'disabled' : ''} >
+                                    <div className={ store.sendingphonecode ? 'code-sending': 'code-sending hidden'}>{ UPEX.lang.template('重发')}（<span data-second="second" ref="second2"></span>s）</div>
+                                    <div className={ store.sendingphonecode ? 'code-txt hidden' : 'code-txt'}>{  UPEX.lang.template('发送验证码') }</div>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                )
+            }
+
             return (
                 <div className="register-wrapper login-box">
                     <div className="register-form">
                         <h3 className="title"> { UPEX.lang.template('登录')} </h3>
                         <div className="register-mode-content">
-                             <div className="input-wrapper">
-                                <div className="input-box">
-                                    <input
-                                        type="number" 
-                                        onInput={ action.onChangeGoogleCode}
-                                        placeholder={ UPEX.lang.template('Google验证码') }
-                                    />
-                                </div>
-                            </div>
-                            
+                            { $inputbox }
                             { this.state.loginErrorText ? <div className="error-tip">{this.state.loginErrorText}</div> : '' }
-                            
-                            <div className="input-wrapper">
-                                <div className="login-input">
-                                    <button className="submit-btn login-btn" onClick={ this.handleLoginVerifyCode }>{ UPEX.lang.template('登录') }</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            );
-        } else if (this.state.step == 'phone') {
-            return (
-                <div className="register-wrapper">
-                    <div className="register-form">
-                        <h3 className="title"> { UPEX.lang.template('登录')} </h3>
-                        <div className="register-mode-content">
-                             <div className="input-wrapper">
-                                <div className="input-box useryz-box">
-                                    <input
-                                        type="text" 
-                                        onInput={ action.onChangeLoginVerCode}
-                                        placeholder={ UPEX.lang.template('短信验证码') }
-                                    />
-                                    <div className="yzcode">
-                                        <button onClick={ this.sendLoginVercode } className={ store.sendingphonecode ? 'disabled' : ''} >
-                                            <div className={ store.sendingphonecode ? 'code-sending': 'code-sending hidden'}>{ UPEX.lang.template('重发')}（<span data-second="second" ref="second2"></span>s）</div>
-                                            <div className={ store.sendingphonecode ? 'code-txt hidden' : 'code-txt'}>{  UPEX.lang.template('发送验证码') }</div>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            { this.state.loginErrorText ? <div className="error-tip">{this.state.loginErrorText }</div>: '' }
                             
                             <div className="input-wrapper">
                                 <div className="login-input">
@@ -216,7 +216,7 @@ class Login extends Component {
 
                                 return (
                                     <li key={item}>
-                                        <button className={cls} onClick={action.onChangeMode.bind(this, item)}>{ txt }</button>
+                                        <button className={cls} onClick={this.onChangeMode.bind(this, item)}>{ txt }</button>
                                     </li>
                                 )
                             })
@@ -263,10 +263,11 @@ class Login extends Component {
                                     type="password" 
                                     placeholder={ UPEX.lang.template('密码') }
                                     onInput={ action.onChangePwd }
+                                    onKeyDown={ this.keyLogin }
                                 />
                             </div>
                         </div>
-                        <div className="input-wrapper">
+                        <div className="input-wrapper hidden">
                             <div className="input-box yz-box">
                                 <input
                                     type="text" 

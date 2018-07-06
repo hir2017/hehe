@@ -67,7 +67,7 @@ export default class extends Component {
 
     submit() {
         if (!this.state.text) {
-            message.error('請輸入您要反饋的問題');
+            message.error('请输入您要反馈的问题');
             return;
         }
         // const imgS = this.uploudUrlS.join(',');
@@ -101,10 +101,10 @@ export default class extends Component {
         const token = UPEX.cache.getCache('token');
         const uid = UPEX.cache.getCache('uid');
         return (
-            <PageWrapper title={UPEX.lang.template('問題反饋')} bodyClass="feedback">
+            <PageWrapper title={UPEX.lang.template('问题反馈')} bodyClass="feedback">
                 <Row className="title">
                     <Col span={20}>
-                        {UPEX.lang.template('請詳細描述您的問題，客服專員會在四個工作日內回復。請在提問之前瀏覽一下問題列表 ，也許您的問題在列表裡已解決')}
+                        {UPEX.lang.template('请详细描述您的问题，客服专员会在四个工作日内回复。请在提问之前浏览一下问题列表 ，也许您的问题在列表裡已解决')}
                     </Col>
                     <Col className="align-right" span={4}>
                         <Link to="/user/questionList">{UPEX.lang.template('前往反馈列表')}</Link>
@@ -113,8 +113,8 @@ export default class extends Component {
                 <Row className="text-area">
                     <Col span={24}>
                         <TextArea value={this.state.text} onChange={this.textAreaChange} rows={7} />
-                        <p className={`placeholder ${this.state.text ? '' : 'show'}`}>{UPEX.lang.template('請輸入您要反饋的問題')}</p>
-                        <div className="text-stats">{UPEX.lang.template('还可以输入')}<span className="count">{this.state.textLen}</span>{UPEX.lang.template('个字')}</div>
+                        <p className={`placeholder ${this.state.text ? '' : 'show'}`}>{UPEX.lang.template('请输入您要反馈的问题')}</p>
+                        <div className="text-stats">{UPEX.lang.template('还可以输入{count}个字', { count: this.state.textLen}, 1)}</div>
                     </Col>
                 </Row>
 
@@ -132,7 +132,7 @@ export default class extends Component {
                 <Row className="submit">
                     <Col span={16}>
                         {UPEX.lang.template('可上傳1個附件')}，
-                        {UPEX.lang.template('每个文件大小不得超过5M。附件支持的格式有')}“jpg”，“Jpeg”,”bmp”,”png”,”gif”
+                        {UPEX.lang.template('每个文件大小不得超过5M。附件支持的格式有:jpg、jpeg、bmp、png、gif')}
                     </Col>
                     <Col className="align-right" span={8}>
                         <Button loading={loading} className="ace-secondary" onClick={this.submit}>
