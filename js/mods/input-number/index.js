@@ -4,7 +4,9 @@ class NumberInput extends Component {
     static defaultProps = {
         value: '',
         negative: false,
-        precision: 4
+        precision: 4,
+        min: '',
+        max: ''
     }
 
     constructor(props) {

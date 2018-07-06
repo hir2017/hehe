@@ -15,6 +15,18 @@ class AddressStore {
         this.authStore = stores.authStore;
     }
 
+    @action
+    reset(){
+        this.address = ''; // 手机
+        this.note = ''; // 交易备注
+        this.pwd = ''; // 资金密码
+        this.currencyId = '';
+        this.validAddress = true;
+        this.validNote = true;
+        this.validPwd = true;
+        this.$submiting = false;
+    }
+
     // 检查密码是否合法
     @action
     checkPwd() {

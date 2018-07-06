@@ -140,6 +140,10 @@ class CoinWithdrawStore {
                 amount = this.amount - this.amount * fee;
             }
         }
+        
+        if (amount > 0) {
+            amount = NumberUtil.initNumber(amount, point); 
+        }
 
         return amount;
     }
@@ -258,10 +262,11 @@ class CoinWithdrawStore {
 
     @action.bound
     verifyBeforeSubmit() {
-        var result = {
+        let result = {
             pass: true,
             message: ''
         }
+        let amount = Number(this.amount);
 
         if (!this.note) {
             result.pass = false;
@@ -273,14 +278,18 @@ class CoinWithdrawStore {
             this.validAddress = false;
         }
 
-        if (!this.amount) {
+        if (!amount) {
             result.pass = false;
             this.validAmount = false;
         }
 
-        if (this.amount > 0 && this.amount < this.amountLowLimit) {
+        if (amount > 0 && amount < Number(this.amountLowLimit)) {
             result.pass = false;
             result.message = UPEX.lang.template('不能少于最小提币数量');
+            this.validAmount = false;
+        } else if (amount > Number(this.cashAmount)) {
+            result.pass = false;
+            result.message = UPEX.lang.template('不能大于可提币数量');
             this.validAmount = false;
         }
 

@@ -4,6 +4,7 @@ import { Select , message , Alert } from 'antd';
 const Option = Select.Option;
 import { Link, browserHistory } from 'react-router';
 import toAction from './coin-withdraw-action';
+import InputNumber from '../input-number';
 
 @inject('coinWithdrawStore', 'accountStore', 'userInfoStore')
 @observer
@@ -146,15 +147,17 @@ class WithdrawCoin extends Component {
 						<label className="rw-form-label">{UPEX.lang.template('提币数量')}</label>
 						<div className="rw-form-info">
 							<div className={`input-box ${store.validAmount ? '' : 'wrong'}`}>
-	                            <input
-	                                type="number"
+	                            <InputNumber
 	                                placeholder={UPEX.lang.template('最小提币数量为{count}', { count: `${store.amountLowLimit}${store.currentCoin.currencyNameEn}`})}
 	                                value={store.amount}
 	                                data-key="amount"
+	                                min={store.amountLowLimit}
+	                                max={store.cashAmount}
+	                                precision={8}
 	                                onChange={action.onChangeInput}
 	                            />
 	                        </div>
-	                        <span className="remain-amount">{UPEX.lang.template('可用提币数量:{count}', { count :  `${store.cashAmount || 0 }${store.currentCoin.currencyNameEn || ''}`})}</span>
+	                        <span className="remain-amount">{UPEX.lang.template('可用提币数量:{count}', { count :  `${store.cashAmount || 0 }${store.currentCoin.currencyNameEn}`})}</span>
 						</div>
 					</div>
 					<div className="rw-form-item sp-v-code">
@@ -250,7 +253,7 @@ class WithdrawCoin extends Component {
 
 					<div className="rw-form-item">
 						<div className="rw-form-info">
-							{ UPEX.lang.template('实际到账金额:{num}', { num: store.withdrawValue})}
+							{ UPEX.lang.template('实际到账金额:{num}', { num: `${store.withdrawValue}${store.currentCoin.currencyNameEn}`})}
 						</div>
 					</div>
 

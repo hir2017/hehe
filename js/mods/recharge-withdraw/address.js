@@ -17,6 +17,10 @@ class AddWithdrawAddress extends Component {
 		this.action = toAction(this.props.addressStore);
 	}
 
+	componentWillUnmount(){
+		this.action.destroy();
+	}
+
 	render() {
 		let { coinList, addressStore } = this.props;
 		let $options = [];

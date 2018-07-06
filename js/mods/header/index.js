@@ -68,6 +68,7 @@ class HeaderView extends Component {
 	    	username = userInfoStore.userInfo.phone || userInfoStore.userInfo.email || '--';
 	    }
 
+
 		return (
 			<div className="app-header" id="J_AppHeader">
 				<div className="header-box clearfix">
