@@ -48,15 +48,15 @@ export default class ModifyTradingPassword extends Component {
     submit() {
         const codeid = this.props.captchaStore.codeid;
         if (!this.state.password) {
-            message.error(UPEX.lang.template('请填写资金密码'));
+            message.error(UPEX.lang.template('请输入资金密码'));
             return;
         }
         if (!this.state.newPwd) {
-            message.error(UPEX.lang.template('请填写新资金密码'));
+            message.error(UPEX.lang.template('请输入新资金密码'));
             return;
         }
         if (!this.state.comfirmPwd) {
-            message.error(UPEX.lang.template('请填写确认密码'));
+            message.error(UPEX.lang.template('请输入确认密码'));
             return;
         }
         if (this.state.newPwd !== this.state.comfirmPwd) {

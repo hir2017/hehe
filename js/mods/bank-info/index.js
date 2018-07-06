@@ -123,7 +123,7 @@ export default class BindingBank extends Component {
             return;
         }
         if (!this.state.password) {
-            message.error('请填写资金密码');
+            message.error('请输入资金密码');
             return;
         }
         if (!this.state.imgUrl) {

@@ -46,7 +46,7 @@ export default class SettingTradingPassword extends Component {
     submit() {
         const codeid = this.props.captchaStore.codeid;
         if (!this.state.password) {
-            message.error(UPEX.lang.template('请填写资金密码'));
+            message.error(UPEX.lang.template('请输入资金密码'));
             return;
         }
         const reg = /(?=.*[a-zA-Z])(?=.*[0-9])[0-9A-Za-z+-@_=*]{6,16}/;
@@ -55,7 +55,7 @@ export default class SettingTradingPassword extends Component {
             return;
         }
         if (!this.state.comfirmPwd) {
-            message.error(UPEX.lang.template('请填写确认密码'));
+            message.error(UPEX.lang.template('请输入确认密码'));
             return;
         }
         if (this.state.password !== this.state.comfirmPwd) {

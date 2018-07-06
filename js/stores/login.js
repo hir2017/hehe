@@ -230,7 +230,7 @@ class LoginInfoBaseStore {
 
         if (!pwd) {
             result.pass = false;
-            result.message = UPEX.lang.template('请填写密码');
+            result.message = UPEX.lang.template('请输入密码');
 
             return result;
         }
@@ -284,7 +284,7 @@ class LoginInfoBaseStore {
 
         if (!pwd) {
             result.pass = false;
-            result.message = UPEX.lang.template('请填写密码');
+            result.message = UPEX.lang.template('请输入密码');
 
             return result;
         }

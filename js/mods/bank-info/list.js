@@ -111,7 +111,7 @@ export default class BankList extends Component {
     handleOk = () => {
         const gaBindSuccess = this.props.userInfoStore.gaBindSuccess;
         if (!this.state.pwd) {
-            message.error(UPEX.lang.template('请填写资金密码'));
+            message.error(UPEX.lang.template('请输入资金密码'));
             return;
         }
         if (!this.state.vCode && gaBindSuccess) {

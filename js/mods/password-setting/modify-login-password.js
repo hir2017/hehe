@@ -57,15 +57,15 @@ export default class ModifyPassword extends Component {
         const gaBindSuccess = this.props.userInfoStore.gaBindSuccess;
         const codeid = this.props.captchaStore.codeid;
         if (!this.state.password) {
-            message.error(UPEX.lang.template('请填写登录密码'));
+            message.error(UPEX.lang.template('请输入登录密码'));
             return;
         }
         if (!this.state.newPwd) {
-            message.error(UPEX.lang.template('请填写新登录密码'));
+            message.error(UPEX.lang.template('请输入新登录密码'));
             return;
         }
         if (!this.state.comfirmPwd) {
-            message.error(UPEX.lang.template('请填写确认密码'));
+            message.error(UPEX.lang.template('请输入确认密码'));
             return;
         }
         if (this.state.newPwd !== this.state.comfirmPwd) {

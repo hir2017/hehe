@@ -2,7 +2,9 @@ import axios from "axios";
 import qs from "qs";
 import { hashHistory, browserHistory } from 'react-router';
 import { message } from 'antd';
-import base64 from '../lib/base64';
+
+// base url
+axios.defaults.baseURL = UPEX.config.host;
 
 axios.interceptors.request.use(function(config) {
     const token = UPEX.cache.getCache('token');
@@ -47,9 +49,6 @@ axios.interceptors.request.use(function(config) {
 let preTime = +new Date();
 
 axios.interceptors.response.use(function(res) {
-    // base64解密
-    // res.data =  JSON.parse(base64.decode(res.data));
-
     let status = res.data.status
 
     if (status == 9999) {
@@ -70,19 +69,19 @@ axios.interceptors.response.use(function(res) {
 
 // 获取图片验证码
 export function fetchPicCaptcha() {
-    return axios.post(`${UPEX.config.host}/security/getCode`).then(res => res.data);
+    return axios.post('/security/getCode').then(res => res.data);
 }
 
 // 查询手机是否被占用
 export function queryPhone(phone) {
-    return axios.post(`${UPEX.config.host}/user/queryPhone`, qs.stringify({
+    return axios.post('/user/queryPhone', qs.stringify({
         phone: phone
     })).then(res => res.data);
 }
 
 // 发送验证码，新用户注册。邮箱验证和手机验证码都用该API。TODO check
 export function sendEmailForRegister(data) {
-    return axios.post(`${UPEX.config.host}/user/sendEmailForRegister`, qs.stringify({
+    return axios.post('/user/sendEmailForRegister', qs.stringify({
         email: data.account,
         imgcode: data.imgcode,
         codeid: data.codeid
@@ -91,7 +90,7 @@ export function sendEmailForRegister(data) {
 
 // 发送验证码，找回密码。邮箱验证和手机验证码都用该API。TODO check
 export function sendMail(data) {
-    return axios.post(`${UPEX.config.host}/user/sendMail`, qs.stringify({
+    return axios.post('/user/sendMail', qs.stringify({
         email: data.account,
         imgcode: data.imgcode,
         codeid: data.codeid
@@ -100,7 +99,7 @@ export function sendMail(data) {
 
 // 注册账号
 export function userRegister(data) {
-    return axios.post(`${UPEX.config.host}/user/register`, qs.stringify({
+    return axios.post('/user/register', qs.stringify({
         email: data.account,
         pwd: data.pwd,
         vercode: data.vercode,
@@ -112,7 +111,7 @@ export function userRegister(data) {
 
 // 用户登录 - 不需要验证第一步
 export function userLogin(data) {
-    return axios.post(`${UPEX.config.host}/user/loginGAFirst`, qs.stringify({
+    return axios.post('/user/loginGAFirst', qs.stringify({
         // email: data.email, // 兼容旧的代码环境，上线后去掉
         emailOrPhone: data.email,
         pwd: data.pwd,
@@ -126,7 +125,7 @@ export function userLogin(data) {
  * 用户登录 － 需要验证第二步
  */
 export function userLogin2(data) {
-    return axios.post(`${UPEX.config.host}/user/loginGASecond`, qs.stringify({
+    return axios.post('/user/loginGASecond', qs.stringify({
         authType: data.authType,
         clientPassword: data.clientPassword,
         emailOrPhone: data.emailOrPhone,
@@ -137,7 +136,7 @@ export function userLogin2(data) {
  * 邮箱登录 －  发送短信验证码
  */
 export function sendLoginCodeSend(data) {
-    return axios.post(`${UPEX.config.host}/user/loginCodeSend`, qs.stringify({
+    return axios.post('/user/loginCodeSend', qs.stringify({
         authType: data.authType || 1, // 1.手机 2.邮箱
         emailOrPhone: data.emailOrPhone,
         source: 1
@@ -147,12 +146,12 @@ export function sendLoginCodeSend(data) {
  * 用户登录 － 退出
  */
 export function userLogout() {
-    return axios.post(`${UPEX.config.host}/user/logout`).then(res => res.data);
+    return axios.post('/user/logout').then(res => res.data);
 }
 
 // 重置密码
 export function resetPwd(data) {
-    return axios.post(`${UPEX.config.host}/user/resetPwd`, qs.stringify({
+    return axios.post('/user/resetPwd', qs.stringify({
         email: data.account,
         newPwd: data.pwd,
         vercode: data.vercode,
@@ -164,12 +163,12 @@ export function resetPwd(data) {
  *
  */
 export function getAnnounceList(data) {
-    return axios.post(`${UPEX.config.host}/announce/pageList`, qs.stringify(data)).then(res => res.data);
+    return axios.post('/announce/pageList', qs.stringify(data)).then(res => res.data);
 }
 
 // 获取公告详情
 export function getAnnounceDetail(data) {
-    return axios.post(`${UPEX.config.host}/announce/getInfo`, qs.stringify(data)).then(res => res.data);
+    return axios.post('/announce/getInfo', qs.stringify(data)).then(res => res.data);
 }
 
 
@@ -181,7 +180,7 @@ export function getBannerList() {
 
     local =  local.replace('-', '_');
 
-    return axios.post(`${UPEX.config.host}/banner/banner`, qs.stringify({
+    return axios.post('/banner/banner', qs.stringify({
         type: 1
     })).then(res => res.data);
 }
@@ -189,7 +188,7 @@ export function getBannerList() {
  *  基本币种列表
  */
 export function getBaseCoin() {
-    return axios.post(`${UPEX.config.host}/coin/coins`).then(res => res.data);
+    return axios.post('/coin/coins').then(res => res.data);
 }
 /**
  * 交易中心委托
@@ -197,7 +196,7 @@ export function getBaseCoin() {
 export function getUserOrderList(data) {
     data = data || {};
 
-    return axios.post(`${UPEX.config.host}/user/showOrderList`, qs.stringify({
+    return axios.post('/user/showOrderList', qs.stringify({
         ...data
     })).then(res => res.data);
 }
@@ -205,7 +204,7 @@ export function getUserOrderList(data) {
  * 生成委托单 -> 限价买/卖
  */
 export function submitOrder(data) {
-    return axios.post(`${UPEX.config.host}/order/order`, qs.stringify({
+    return axios.post('/order/order', qs.stringify({
         ...data
     })).then(res => res.data);
 }
@@ -213,20 +212,20 @@ export function submitOrder(data) {
 
 // 获取用户资金密码设置状态
 export function getPersonalTradingPwd() {
-    return axios.post(`${UPEX.config.host}/user/selectFdPwdEnabled`).then(res => res.data);
+    return axios.post('/user/selectFdPwdEnabled').then(res => res.data);
 }
 /**
  * 账号信息
  */
 export function hasSettingDealPwd() {
-    return axios.post(`${UPEX.config.host}/user/personalInfo`).then(res => res.data);
+    return axios.post('/user/personalInfo').then(res => res.data);
 }
 
 /**
  * 资产列表
  */
 export function getCoinAccount(type = 1) {
-    return axios.post(`${UPEX.config.host}/coin/customerCoinAccount`, qs.stringify({
+    return axios.post('/coin/customerCoinAccount', qs.stringify({
         type
     })).then(res => res.data);
 }
@@ -234,7 +233,7 @@ export function getCoinAccount(type = 1) {
  * 我的余额
  */
 export function getCNYBalance() {
-    return axios.post(`${UPEX.config.host}/property`).then(res => res.data);
+    return axios.post('/property').then(res => res.data);
 }
 /**
  * 查询当前币种地址及二维码
@@ -244,7 +243,7 @@ export function getCNYBalance() {
  }
  */
 export function selectUserAddress(currentyId) {
-    return axios.post(`${UPEX.config.host}/coin/selectUserAddress`, qs.stringify({
+    return axios.post('/coin/selectUserAddress', qs.stringify({
         walletType: 1,
         currentyId
     })).then(res => res.data);
@@ -253,17 +252,17 @@ export function selectUserAddress(currentyId) {
 /*----------------------------- 充值相关接口：{{------------------------------------*/
 
 export function getUserBankInfo() {
-    return axios.post(`${UPEX.config.host}/rechargeWithdraw/getUserCardInfoAndAmountAndFee`).then(res => res.data);
+    return axios.post('/rechargeWithdraw/getUserCardInfoAndAmountAndFee').then(res => res.data);
 }
 
 export function getUserBindCards() {
-    return axios.post(`${UPEX.config.host}/card/getBindBankCardInfo`).then(res => res.data);
+    return axios.post('/card/getBindBankCardInfo').then(res => res.data);
 }
 
 export function orderFiatRecharge(data) {
     data.currencyId = 1;
 
-    return axios.post(`${UPEX.config.host}/pay/getFrontPageJsonData`, qs.stringify(data)).then(res => res.data);
+    return axios.post('/pay/getFrontPageJsonData', qs.stringify(data)).then(res => res.data);
 }
 
 /**
@@ -271,7 +270,7 @@ export function orderFiatRecharge(data) {
  * @param {currencyId} data
  */
 export function getUserAvailableAmount(data) {
-    return axios.post(`${UPEX.config.host}/rechargeWithdraw/getUserAvailableAmount`, qs.stringify({
+    return axios.post('/rechargeWithdraw/getUserAvailableAmount', qs.stringify({
         currencyId: 1
     })).then(res => res.data);
 }
@@ -283,7 +282,7 @@ export function getUserAvailableAmount(data) {
 export function getWithdrawCashFee(data) {
     data.currencyId = 1;
     data.actionId = 2;
-    return axios.post(`${UPEX.config.host}/withdraw/getWithdrawCashFee`, qs.stringify(data)).then(res => res.data);
+    return axios.post('/withdraw/getWithdrawCashFee', qs.stringify(data)).then(res => res.data);
 }
 
 /**
@@ -292,7 +291,7 @@ export function getWithdrawCashFee(data) {
  */
 export function orderFiatWithdraw(data) {
     data.currencyId = 1;
-    return axios.post(`${UPEX.config.host}/withdraw/createWithdrawCashBill`, qs.stringify(data)).then(res => res.data);
+    return axios.post('/withdraw/createWithdrawCashBill', qs.stringify(data)).then(res => res.data);
 }
 
 /*----------------------------- 充值相关接口：}}------------------------------------*/
@@ -302,7 +301,7 @@ export function orderFiatWithdraw(data) {
  * 提币记录
  */
 export function getCoinWithdrawList(data) {
-    return axios.post(`${UPEX.config.host}/coin/selectTakeList`, qs.stringify({
+    return axios.post('/coin/selectTakeList', qs.stringify({
         ...data
     })).then(res => res.data);
 }
@@ -310,7 +309,7 @@ export function getCoinWithdrawList(data) {
  * 提币前查询信息接口
  */
 export function getTakeCoinInfo(currencyId) {
-    return axios.post(`${UPEX.config.host}/coin/selectTakeCoin`, qs.stringify({
+    return axios.post('/coin/selectTakeCoin', qs.stringify({
         currencyId
     })).then(res => res.data);
 }
@@ -318,7 +317,7 @@ export function getTakeCoinInfo(currencyId) {
  * 删除提币地址接口
  */
 export function deleteCoinAddress(data) {
-    return axios.post(`${UPEX.config.host}/coin/updateCoinAddress`, qs.stringify({
+    return axios.post('/coin/updateCoinAddress', qs.stringify({
         currencyId: data.currencyId,
         walletAddressId: data.walletAddressId
     })).then(res => res.data);
@@ -327,7 +326,7 @@ export function deleteCoinAddress(data) {
  * 添加提币地址接口
  */
 export function addWithdrawAddress(data) {
-    return axios.post(`${UPEX.config.host}/coin/insertTakeAddress`, qs.stringify({
+    return axios.post('/coin/insertTakeAddress', qs.stringify({
         currencyId: data.currencyId, // 提币地址
         fdPwd: data.fdPwd, // 资金密码
         note: data.note, // 令牌
@@ -338,7 +337,7 @@ export function addWithdrawAddress(data) {
  * 提币发送邮箱短信验证码: 10分钟有效期，可以错误5次。
  */
 export function takeCoinSendPhoneCode(data) {
-    return axios.post(`${UPEX.config.host}/coin/emailTakeCoin`, qs.stringify({
+    return axios.post('/coin/emailTakeCoin', qs.stringify({
         vercode: data.vercode,
         type: data.type, // 1:邮件（默认）2:手机
         codeid: data.codeid
@@ -348,7 +347,7 @@ export function takeCoinSendPhoneCode(data) {
  * 提币接口
  */
 export function takeCoin(data) {
-    return axios.post(`${UPEX.config.host}/coin/takeCoin?address=${data.address}`, qs.stringify({
+    return axios.post('/coin/takeCoin?address=${data.address}', qs.stringify({
         actionId: 4,
         msgCode: '',
         currencyId: data.currencyId,
@@ -380,7 +379,7 @@ export function takeCoin(data) {
  }
  */
 export function getCoinRechargeList(data) {
-    return axios.post(`${UPEX.config.host}/coin/selectListByUuid`, qs.stringify({
+    return axios.post('/coin/selectListByUuid', qs.stringify({
         ...data
     })).then(res => res.data);
 }
@@ -388,7 +387,7 @@ export function getCoinRechargeList(data) {
  * 币种列表
  */
 export function getAllCoinPoint() {
-    return axios.post(`${UPEX.config.host}/coin/coinPoint`).then(res => res.data);
+    return axios.post('/coin/coinPoint').then(res => res.data);
 }
 /**
  * 充值/提现查询记录
@@ -399,7 +398,7 @@ export function getAllCoinPoint() {
  }
  */
 export function getFundChangeList(data) {
-    return axios.post(`${UPEX.config.host}/rechargeWithdraw/getRechargeWithdrawBillInfo`, qs.stringify({
+    return axios.post('/rechargeWithdraw/getRechargeWithdrawBillInfo', qs.stringify({
         ...data
     })).then(res => res.data);
 }
@@ -419,7 +418,7 @@ export function getFundChangeList(data) {
  }
  */
 export function getFundWithdrawList(data) {
-    return axios.post(`${UPEX.config.host}/fund/withdraw`, qs.stringify({
+    return axios.post('/fund/withdraw', qs.stringify({
         ...data
     })).then(res => res.data);
 }
@@ -427,7 +426,7 @@ export function getFundWithdrawList(data) {
  * 我的订单 —— 委托历史记录
  */
 export function getOrderListByCustomer(data) {
-    return axios.post(`${UPEX.config.host}/user/trOrderListByCustomer`, qs.stringify({
+    return axios.post('/user/trOrderListByCustomer', qs.stringify({
         ...data
     })).then(res => res.data);
 }
@@ -435,7 +434,7 @@ export function getOrderListByCustomer(data) {
  * 我的订单 —— 委托中订单
  */
 export function getUserOpenOrderList(data) {
-    return axios.post(`${UPEX.config.host}/user/getOrderList`, qs.stringify({
+    return axios.post('/user/getOrderList', qs.stringify({
         ...data
     })).then(res => res.data);
 }
@@ -443,7 +442,7 @@ export function getUserOpenOrderList(data) {
  * 我的订单 —— 历史订单
  */
 export function getUserHistoryOrderList(data) {
-    return axios.post(`${UPEX.config.host}/user/trOrderListByCustomer`, qs.stringify({
+    return axios.post('/user/trOrderListByCustomer', qs.stringify({
         ...data
     })).then(res => res.data);
 }
@@ -451,7 +450,7 @@ export function getUserHistoryOrderList(data) {
  * 我的订单 —— 历史订单详情
  */
 export function getUserHistoryOrderDetail(data) {
-    return axios.post(`${UPEX.config.host}/user/trOrderDetailByCustomer`, qs.stringify({
+    return axios.post('/user/trOrderDetailByCustomer', qs.stringify({
         ...data
     })).then(res => res.data);
 }
@@ -470,7 +469,7 @@ export function getUserHistoryOrderDetail(data) {
  }
  */
 export function getUserSuccessOrderList(data) {
-    return axios.post(`${UPEX.config.host}/user/getTradeList`, qs.stringify({
+    return axios.post('/user/getTradeList', qs.stringify({
         ...data
     })).then(res => res.data);
 }
@@ -478,7 +477,7 @@ export function getUserSuccessOrderList(data) {
  * 撤销订单
  */
 export function cancelOrder(data) {
-    return axios.post(`${UPEX.config.host}/order/cancel`, qs.stringify({
+    return axios.post('/order/cancel', qs.stringify({
         ...data
     })).then(res => res.data);
 }
@@ -486,7 +485,7 @@ export function cancelOrder(data) {
  * 添加收藏
  */
 export function addOptional(data) {
-    return axios.post(`${UPEX.config.host}/optional/optional`, qs.stringify({
+    return axios.post('/optional/optional', qs.stringify({
         tradeCurrencyId: data.currencyId,
         baseCurrencyId: data.baseCurrencyId
     })).then(res => res.data);
@@ -496,7 +495,7 @@ export function addOptional(data) {
  */
 
 export function cancleOptional(data) {
-    return axios.post(`${UPEX.config.host}/optional/cancleOptional`, qs.stringify({
+    return axios.post('/optional/cancleOptional', qs.stringify({
         tradeCurrencyId: data.currencyId,
         baseCurrencyId: data.baseCurrencyId
     })).then(res => res.data);
@@ -506,7 +505,7 @@ export function cancleOptional(data) {
  */
 
 export function listOptional() {
-    return axios.post(`${UPEX.config.host}/optional/listOptional`).then(res => res.data);
+    return axios.post('/optional/listOptional').then(res => res.data);
 }
 
 /**
@@ -514,7 +513,7 @@ export function listOptional() {
  */
 
 export function getTradeDeep(pair, limit) {
-    return axios.get(`${UPEX.config.host}/quote/tradeDeepin`, {
+    return axios.get('/quote/tradeDeepin', {
         symbol: pair,
         coins: 2,
         limit: limit // 最多200条
@@ -528,14 +527,14 @@ export function getTradeDeep(pair, limit) {
  */
 export function getTradeKline(data) {
     if (data.startTime && data.endTime) {
-        return axios.get(`${UPEX.config.host}/quote/klineHistory?symbol=${data.symbol}&type=${data.interval}&limit=${data.limit}&startTime=${data.startTime}&endTime=${data.endTime}`).then(res => res.data);
+        return axios.get('/quote/klineHistory?symbol=${data.symbol}&type=${data.interval}&limit=${data.limit}&startTime=${data.startTime}&endTime=${data.endTime}').then(res => res.data);
     } else {
-        return axios.get(`${UPEX.config.host}/quote/klineHistory?symbol=${data.symbol}&type=${data.interval}&limit=${data.limit}`).then(res => res.data);
+        return axios.get('/quote/klineHistory?symbol=${data.symbol}&type=${data.interval}&limit=${data.limit}').then(res => res.data);
     }
 }
 
 export function getTradingViewKline(pair, peroid = 1, limit) {
-    return axios.get(`${UPEX.config.host}/quote/tradingView?symbol=${pair}&type=${peroid}&limit=${limit}`).then(res => res.data);
+    return axios.get('/quote/tradingView?symbol=${pair}&type=${peroid}&limit=${limit}').then(res => res.data);
 }
 
 /**
@@ -543,7 +542,7 @@ export function getTradingViewKline(pair, peroid = 1, limit) {
  */
 
 export function personalInfo() {
-    return axios.post(`${UPEX.config.host}/user/personalInfo`).then(res => res.data);
+    return axios.post('/user/personalInfo').then(res => res.data);
 }
 
 /**
@@ -551,7 +550,7 @@ export function personalInfo() {
  */
 
 export function loginRecord() {
-    return axios.post(`${UPEX.config.host}/user/loginRecord`, {
+    return axios.post('/user/loginRecord', {
         type: 2,
         start: 0,
         size: 10
@@ -563,7 +562,7 @@ export function loginRecord() {
  */
 
 export function identityAuthentication() {
-    return axios.post(`${UPEX.config.host}/user/submitUserInfo`, {
+    return axios.post('/user/submitUserInfo', {
         type: 2,
         start: 0,
         size: 10
@@ -575,7 +574,7 @@ export function identityAuthentication() {
  */
 
 export function sendCodeInUserCenter(type, imgCode, imgCodeId) {
-    return axios.post(`${UPEX.config.host}/user/sendMailInUserCenter`, {
+    return axios.post('/user/sendMailInUserCenter', {
         type: type,
         imgcode: imgCode,
         codeid: imgCodeId
@@ -587,7 +586,7 @@ export function sendCodeInUserCenter(type, imgCode, imgCodeId) {
  */
 
 export function bindFdPwd(newFdPassWord, vercode, imgCode, imgCodeId, oldFdPassWord = '') {
-    return axios.post(`${UPEX.config.host}/user/bindFdPwd`, {
+    return axios.post('/user/bindFdPwd', {
         newFdPassWord: newFdPassWord,
         oldFdPassWord: oldFdPassWord, // 如果首次设置可以不传.传个空串
         vercode: vercode,
@@ -601,7 +600,7 @@ export function bindFdPwd(newFdPassWord, vercode, imgCode, imgCodeId, oldFdPassW
  */
 
 export function modifyFdPwd(newFdPassWord, oldFdPassWord) {
-    return axios.post(`${UPEX.config.host}/user/modifyFdPwd`, {
+    return axios.post('/user/modifyFdPwd', {
         newFdPassWord: newFdPassWord,
         oldFdPassWord: oldFdPassWord,
     }).then(res => res.data);
@@ -612,7 +611,7 @@ export function modifyFdPwd(newFdPassWord, oldFdPassWord) {
  */
 
 export function resetPwdInUserCenter(newPwd, vercode, imgCode, imgCodeId, oldPwd, type) {
-    return axios.post(`${UPEX.config.host}/user/resetPwdInUserCenter`, {
+    return axios.post('/user/resetPwdInUserCenter', {
         newPwd: newPwd,
         oldPwd: oldPwd, // 如果首次设置可以不传.传个空串
         vercode: vercode,
@@ -627,7 +626,7 @@ export function resetPwdInUserCenter(newPwd, vercode, imgCode, imgCodeId, oldPwd
  */
 
 export function bindPhoneSendMsg(imgCode, imgCodeId, type, phone = '') {
-    return axios.post(`${UPEX.config.host}/user/bindPhoneSendMsg`, {
+    return axios.post('/user/bindPhoneSendMsg', {
         type: type,
         phone: phone,
         imgcode: imgCode,
@@ -640,7 +639,7 @@ export function bindPhoneSendMsg(imgCode, imgCodeId, type, phone = '') {
  */
 
 export function getSecretKey() {
-    return axios.post(`${UPEX.config.host}/security/getSecretKey`).then(res => res.data);
+    return axios.post('/security/getSecretKey').then(res => res.data);
 }
 
 /**
@@ -648,7 +647,7 @@ export function getSecretKey() {
  */
 
 export function addAsk(detail, urlkey) {
-    return axios.post(`${UPEX.config.host}/user/ask`, {
+    return axios.post('/user/ask', {
         detail: detail,
         name: name,
         phone: '',
@@ -662,7 +661,7 @@ export function addAsk(detail, urlkey) {
  */
 
 export function getQuestions(pageNumber) {
-    return axios.post(`${UPEX.config.host}/user/questions`, {
+    return axios.post('/user/questions', {
         size: 10,
         // status: 1,
         start: pageNumber
@@ -674,7 +673,7 @@ export function getQuestions(pageNumber) {
  */
 
 export function submitUserInfo(info) {
-    return axios.post(`${UPEX.config.host}/user/submitUserInfo`, {
+    return axios.post('/user/submitUserInfo', {
         ...info
     }).then(res => res.data);
 }
@@ -684,7 +683,7 @@ export function submitUserInfo(info) {
  */
 
 export function bindGoogleAuth(clientPassword, verCode) {
-    return axios.post(`${UPEX.config.host}/security/bindGoogleAuth`, {
+    return axios.post('/security/bindGoogleAuth', {
         clientPassword,
         verCode
     }).then(res => res.data);
@@ -695,7 +694,7 @@ export function bindGoogleAuth(clientPassword, verCode) {
  */
 
 export function closeGoogleAuth(clientPassword, verCode) {
-    return axios.post(`${UPEX.config.host}/security/closeGoogleAuth`, {
+    return axios.post('/security/closeGoogleAuth', {
         clientPassword,
         verCode
     }).then(res => res.data);
@@ -706,7 +705,7 @@ export function closeGoogleAuth(clientPassword, verCode) {
  */
 
 export function selectAuthLevel() {
-    return axios.post(`${UPEX.config.host}/user/selectAuthLevel`).then(res => res.data);
+    return axios.post('/user/selectAuthLevel').then(res => res.data);
 }
 
 /**
@@ -714,7 +713,7 @@ export function selectAuthLevel() {
  */
 
 export function bindPhone(newDevice, oldDevice, oldVercode, vercode, codeid, imgcode) {
-    return axios.post(`${UPEX.config.host}/user/modifyPhoneOrEmail`, {
+    return axios.post('/user/modifyPhoneOrEmail', {
         newPhone,
         oldPhone,
         oldVercode,
@@ -739,7 +738,7 @@ function rmAreaCode(phone, areaCode = '0086') {
  */
 
 export function bindPhoneOrEmailSendCode(codeid, imgcode, phoneOrEmail, type) {
-    return axios.post(`${UPEX.config.host}/user/bindPhoneOrEmailSendCode`, {
+    return axios.post('/user/bindPhoneOrEmailSendCode', {
         codeid,
         imgcode,
         phoneOrEmail,
@@ -753,7 +752,7 @@ export function bindPhoneOrEmailSendCode(codeid, imgcode, phoneOrEmail, type) {
  */
 
 export function isUsedGoogleAuth() {
-    return axios.post(`${UPEX.config.host}/security/isUsedGoogleAuth`).then(res => res.data);
+    return axios.post('/security/isUsedGoogleAuth').then(res => res.data);
 }
 
 /**
@@ -762,7 +761,7 @@ export function isUsedGoogleAuth() {
  */
 
 export function bindPhoneOrEmailAction(EmailCode, phoneCode, phoneOrEmail, type) {
-    return axios.post(`${UPEX.config.host}/user/bindPhoneOrEmailAction`, {
+    return axios.post('/user/bindPhoneOrEmailAction', {
         EmailCode,
         phoneCode,
         phoneOrEmail,
@@ -776,7 +775,7 @@ export function bindPhoneOrEmailAction(EmailCode, phoneCode, phoneOrEmail, type)
  */
 
 export function modifyPhoneSendMsg(phone, codeid, imgcode, type) {
-    return axios.post(`${UPEX.config.host}/user/modifyPhoneSendCode`, {
+    return axios.post('/user/modifyPhoneSendCode', {
         phone,
         codeid,
         imgcode,
@@ -790,7 +789,7 @@ export function modifyPhoneSendMsg(phone, codeid, imgcode, type) {
  */
 
 export function modifyPhoneAction(newCode, newPhone, oldCode, type) {
-    return axios.post(`${UPEX.config.host}/user/modifyPhoneAction`, {
+    return axios.post('/user/modifyPhoneAction', {
         newCode,
         newPhone,
         oldCode,
@@ -804,7 +803,7 @@ export function modifyPhoneAction(newCode, newPhone, oldCode, type) {
  */
 
 export function phoneAuthSwitch(smsCode, status) {
-    return axios.post(`${UPEX.config.host}/user/phoneAuthSwitch`, { smsCode, status }).then(res => res.data);
+    return axios.post('/user/phoneAuthSwitch', { smsCode, status }).then(res => res.data);
 }
 
 /**
@@ -813,7 +812,7 @@ export function phoneAuthSwitch(smsCode, status) {
  */
 
 export function updateFdPwdEnabled(fdPwd, enabled) {
-    return axios.post(`${UPEX.config.host}/user/updateFdPwdEnabled`, { fdPwd, enabled }).then(res => res.data);
+    return axios.post('/user/updateFdPwdEnabled', { fdPwd, enabled }).then(res => res.data);
 }
 
 /**
@@ -829,7 +828,7 @@ export function bindVerifyCardInfo(
     branchName,
     tradePwd,
     imgUrl) {
-    return axios.post(`${UPEX.config.host}/card/bindVerifyCardInfo`, {
+    return axios.post('/card/bindVerifyCardInfo', {
         cardNo,
         userName,
         openBank,
@@ -846,7 +845,7 @@ export function bindVerifyCardInfo(
  */
 
 export function getBindBankCardInfo() {
-    return axios.post(`${UPEX.config.host}/card/getBindBankCardInfo`).then(res => res.data);
+    return axios.post('/card/getBindBankCardInfo').then(res => res.data);
 }
 
 /**
@@ -855,7 +854,7 @@ export function getBindBankCardInfo() {
  */
 
 export function forgetFdPwd(newPwd, vercode, imgCode, imgCodeId, type) {
-    return axios.post(`${UPEX.config.host}/user/forgetFdPwd`, {
+    return axios.post('/user/forgetFdPwd', {
         newFdPassWord: newPwd,
         verCode: vercode,
         imgcode: imgCode,
@@ -870,7 +869,7 @@ export function forgetFdPwd(newPwd, vercode, imgCode, imgCodeId, type) {
  */
 
 export function questionDetail(qid) {
-    return axios.post(`${UPEX.config.host}/user/questionDetail`, {
+    return axios.post('/user/questionDetail', {
         qid
     }).then(res => res.data);
 }
@@ -881,7 +880,7 @@ export function questionDetail(qid) {
  */
 
 export function phoneAuthSendCode(type) {
-    return axios.post(`${UPEX.config.host}/user/phoneAuthSendCode`, {
+    return axios.post('/user/phoneAuthSendCode', {
         type
     }).then(res => res.data);
 }
@@ -892,7 +891,7 @@ export function phoneAuthSendCode(type) {
  */
 
 export function submitKycC() {
-    return axios.post(`${UPEX.config.host}/user/submitKycC`).then(res => res.data);
+    return axios.post('/user/submitKycC').then(res => res.data);
 }
 
 /**
@@ -901,7 +900,7 @@ export function submitKycC() {
  */
 
 export function updateBindBankCardStatus(id, tradePwd, gAuth, phoneCode, status = 4) {
-    return axios.post(`${UPEX.config.host}/card/updateBindBankCardStatus`, {
+    return axios.post('/card/updateBindBankCardStatus', {
         id,
         tradePwd,
         gAuth,
@@ -916,7 +915,7 @@ export function updateBindBankCardStatus(id, tradePwd, gAuth, phoneCode, status 
  */
 
 export function deleteBindBankCardRecord(id) {
-    return axios.post(`${UPEX.config.host}/card/deleteBindBankCardRecord`, {
+    return axios.post('/card/deleteBindBankCardRecord', {
         id
     }).then(res => res.data);
 }
@@ -927,7 +926,7 @@ export function deleteBindBankCardRecord(id) {
  */
 
 export function sendMessageWithdraw(vercode, codeid) {
-    return axios.post(`${UPEX.config.host}/withdraw/sendMessageWithdraw`, {
+    return axios.post('/withdraw/sendMessageWithdraw', {
         vercode,
         codeid
     }).then(res => res.data);

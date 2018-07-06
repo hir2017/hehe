@@ -72,7 +72,7 @@ class AddressStore {
             result.message = UPEX.lang.template('请填写正确的地址描述');
         } else if(!this.checkPwd()) {
             result.pass = false;
-            result.message = UPEX.lang.template('请填写正确的资金密码');
+            result.message = UPEX.lang.template('请输入正确的资金密码');
         }
 
         return result;
