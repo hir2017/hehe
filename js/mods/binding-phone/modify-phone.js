@@ -52,11 +52,12 @@ export default class ModifyPhone extends Component {
         const data = {};
         data[name] = val;
         if(['phone', 'ivCode'].indexOf(name) !== -1) {
-            data.vcodeAbled = state.phone !== '' && state.ivCode !== '';
+            data.vcodeAbled = state[name === 'phone' ? 'ivCode' : 'phone'] !== '' && val !== '';
         }
         const tempArr = [this.props.userInfoStore.gaBindSuccess ? 'gaCode' : 'vCode', 'nvCode'];
         if(tempArr.indexOf(name) !== -1) {
-            data.submitAbled = state[0] !== '' && state[1] !== '';
+            let tempName = name === tempArr[0] ? tempArr[1] : tempArr[0];
+            data.submitAbled = state[tempName] !== '' && val !== '';
         }
         this.setState(data);
     }

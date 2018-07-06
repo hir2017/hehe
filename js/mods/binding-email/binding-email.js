@@ -39,10 +39,10 @@ export default class BindingEmail extends Component {
         const data = {};
         data[name] = val;
         if(['email', 'ivCode'].indexOf(name) !== -1) {
-            data.vcodeAbled = state.email !== '' && state.ivCode !== '';
+            data.vcodeAbled = state[name === 'email' ? 'ivCode' : 'email'] !== '' && val !== '';
         }
         if(['vCode', 'pvCode'].indexOf(name) !== -1) {
-            data.submitAbled = state.vCode !== '' && state.pvCode !== '';
+            data.submitAbled = state[name === 'vCode' ? 'pvCode' : 'vCode'] !== '' && val !== '';
         }
         this.setState(data);
 

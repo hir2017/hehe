@@ -43,10 +43,10 @@ export default class BindingPhone extends Component {
         const data = {};
         data[name] = val;
         if(['phone', 'ivCode'].indexOf(name) !== -1) {
-            data.vcodeAbled = state.phone !== '' && state.ivCode !== '';
+            data.vcodeAbled = state[name === 'phone' ? 'ivCode' : 'ivCode'] !== '' && val !== '';
         }
         if(['vCode', 'evCode'].indexOf(name) !== -1) {
-            data.submitAbled = state.vCode !== '' && state.evCode !== '';
+            data.submitAbled = state[name === 'vCode' ? 'evCode' : 'vCode'] !== '' && val !== '';
         }
         this.setState(data);
     }

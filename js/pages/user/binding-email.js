@@ -5,7 +5,7 @@
  */
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
-import BindingEmail from '../../mods/bindingEmail';
+import BindingEmail from '../../mods/binding-email';
 
 import PageWrapper from '../../common-mods/page-user/page-wrapper';
 

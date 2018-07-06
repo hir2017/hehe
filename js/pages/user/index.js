@@ -54,8 +54,8 @@ class UserPage extends Component {
                     text: UPEX.lang.template('手机绑定')
                 },
                 {
-                    active: 'bindingEmail',
-                    route: '/user/bindingEmail',
+                    active: 'binding-email',
+                    route: '/user/binding-email',
                     text: UPEX.lang.template('电子邮箱绑定')
                 },
                 {
