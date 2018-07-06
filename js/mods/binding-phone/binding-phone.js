@@ -104,12 +104,12 @@ export default class BindingPhone extends Component {
                 inputProps: getProp('ivCode', 'none')
             },
             vCode: {
-                label: UPEX.lang.template('短信确认码'),
+                label: UPEX.lang.template('短信验证码'),
                 className: 'v-code',
                 inputProps: getProp('vCode', 'none')
             },
             evCode: {
-                label: UPEX.lang.template('邮箱确认码'),
+                label: UPEX.lang.template('邮箱验证码'),
                 inputProps: getProp('evCode', 'none')
             }
         };

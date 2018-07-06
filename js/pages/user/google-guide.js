@@ -31,7 +31,7 @@ class GoogleGuide extends Component {
 
     render() {
         return (
-            <PageWrapper title={UPEX.lang.template('google认证指南')}>
+            <PageWrapper title={UPEX.lang.template('Google认证指南')}>
                 <Carousel ref="carousel">
                     <div className="google-guide-img-box">
                         <img src={google1} />
@@ -67,8 +67,8 @@ class GoogleGuide extends Component {
                         </span>
                         <img src={google3} />
                         <div className="download">
-                            {UPEX.lang.template('输入google验证器上的六位数字获取并输入短信验证码')}
-                            <Link to="/user/google" className="link">{UPEX.lang.template('返回google验证器')}</Link>
+                            {UPEX.lang.template('输入Google验证器上的六位数字获取并输入短信验证码')}
+                            <Link to="/user/google" className="link">{UPEX.lang.template('返回Google验证器')}</Link>
                         </div>
                         <span className="right">
                             <Icon type="check" />

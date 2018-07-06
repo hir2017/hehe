@@ -752,12 +752,12 @@ class TradeStore {
         } else if (!validPrice) {
             result = {
                 pass: false,
-                message: UPEX.lang.template('价格输入错误')
+                message: UPEX.lang.template('请输入正确的价格')
             };
         } else if (!validNum) {
             result = {
                 pass: false,
-                message: UPEX.lang.template('数量输入错误')
+                message: UPEX.lang.template('请输入正确的数量')
             };
         } else {
             // 必须填写资金密码

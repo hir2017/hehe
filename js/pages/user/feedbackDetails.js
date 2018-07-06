@@ -57,7 +57,7 @@ export default class extends Component {
         const list = questionObj.list || [];
         const question = questionObj.question || { detail: '', urlkey: '' };
         return (
-            <PageWrapper title={UPEX.lang.template('問題详情')} innerClass="question-detail">
+            <PageWrapper title={UPEX.lang.template('问题详情')} innerClass="question-detail">
                 <div className="detail">
                     <p className="time">{question.createTime}</p>
                     <p className="content">{question.detail}</p>

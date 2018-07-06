@@ -122,7 +122,7 @@ export default class ModifyPassword extends Component {
             inputProps: getProp('ivCode', 'none')
         };
         // const GAData = {
-        //     label: UPEX.lang.template('谷歌验证码'),
+        //     label: UPEX.lang.template('Google验证码'),
         //     inputProps: getProp('vCode', 'none')
         // };
         // const pcodeData = {

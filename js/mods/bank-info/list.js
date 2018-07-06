@@ -207,7 +207,7 @@ export default class BankList extends Component {
                     </div>
                     {gaBindSuccess ? (
                         <div className="item">
-                            <Input value={this.state.vCode} onChange={this.vCodeChange} size="large" placeholder={UPEX.lang.template('请输入谷歌验证码')} />
+                            <Input value={this.state.vCode} onChange={this.vCodeChange} size="large" placeholder={UPEX.lang.template('请输入Google验证码')} />
                         </div>
                     ) : (
                         <div className="item">

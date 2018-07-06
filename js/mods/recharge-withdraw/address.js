@@ -47,7 +47,7 @@ class AddWithdrawAddress extends Component {
                                 onBlur={this.action.onBlurToVerify.bind(this, 'address')}
                             />
                         </div>
-                        { !addressStore.validAddress ? <div className="warn">* { UPEX.lang.template('提币地址填写错误')}</div> : null }
+                        { !addressStore.validAddress ? <div className="warn">* { UPEX.lang.template('请输入正确的提币地址')}</div> : null }
 					</div>
 				</div>
 				<div className="rw-form-item">
@@ -60,7 +60,7 @@ class AddWithdrawAddress extends Component {
                                 onBlur={this.action.onBlurToVerify.bind(this, 'note')}
                             />
                         </div>
-                        { !addressStore.validNote ? <div className="warn">* { UPEX.lang.template('地址描述填写错误')}</div> : null }
+                        { !addressStore.validNote ? <div className="warn">* { UPEX.lang.template('请输入正确的地址描述')}</div> : null }
 					</div>
 				</div>
 				<div className="rw-form-item">
@@ -73,7 +73,7 @@ class AddWithdrawAddress extends Component {
                                 onBlur={this.action.onBlurToVerify.bind(this, 'pwd')}
                             />
                         </div>
-                        { !addressStore.validPwd ? <div className="warn">* { UPEX.lang.template('资金密码填写错误')}</div> : null }
+                        { !addressStore.validPwd ? <div className="warn">* { UPEX.lang.template('请输入正确的资金密码')}</div> : null }
 					</div>
 				</div>
 				<div className="rw-form-item">

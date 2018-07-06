@@ -85,7 +85,7 @@ class FiatRechargeView extends Component {
                                     if (item == 'phone') {
                                         text = UPEX.lang.template('手机验证');
                                     } else if (item == 'google') {
-                                        text = UPEX.lang.template('谷歌验证');
+                                        text = UPEX.lang.template('Google验证');
                                     }
 
                                     return (
@@ -124,7 +124,7 @@ class FiatRechargeView extends Component {
                                         type="number"
                                         data-key="googlecode"
                                         value={store.googleCode}
-                                        placeholder={UPEX.lang.template('请填写谷歌验证码')}
+                                        placeholder={UPEX.lang.template('请填写Google验证码')}
                                         onChange={action.onChangeInput}
                                     />
                                 </div>

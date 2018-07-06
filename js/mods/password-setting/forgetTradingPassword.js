@@ -102,7 +102,7 @@ export default class SettingTradingPassword extends Component {
                 inputProps: getProp('ivCode', 'none')
             },
             vCode: {
-                label: UPEX.lang.template('短信确认码'),
+                label: UPEX.lang.template('短信验证码'),
                 className: 'v-code',
                 inputProps: getProp('vCode', 'none')
             }
@@ -129,7 +129,7 @@ export default class SettingTradingPassword extends Component {
                     </div>
                 </div>
                 <div style={{ display: 'none' }} className="massage">
-                    {UPEX.lang.template('不方便接短信？可使用')}&nbsp;&nbsp;&nbsp;&nbsp;<Link>Google{UPEX.lang.template('驗證碼')}</Link>
+                    {UPEX.lang.template('不方便接短信？可使用')}&nbsp;&nbsp;&nbsp;&nbsp;<Link>{UPEX.lang.template('Google验证码')}</Link>
                 </div>
                 <div className="submit">
                     <Button loading={loading} className="ace-submit-item" onClick={this.submit}>

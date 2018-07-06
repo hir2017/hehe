@@ -90,16 +90,16 @@ export default class ModifyPhone extends Component {
             return;
         }
         if (!this.state.nvCode) {
-            message.error(UPEX.lang.template('请填写新短信确认码'));
+            message.error(UPEX.lang.template('请填写新短信验证码'));
             return;
         }
         if (!this.state.vCode && !gaBindSuccess) {
-            message.error(UPEX.lang.template('请填写短信确认码'));
+            message.error(UPEX.lang.template('请填写短信验证码'));
             return;
         }
 
         if (!this.state.gaCode && gaBindSuccess) {
-            message.error(UPEX.lang.template('请填写谷歌确认码'));
+            message.error(UPEX.lang.template('请填写Google验证码'));
             return;
         }
 
@@ -138,15 +138,15 @@ export default class ModifyPhone extends Component {
                 inputProps: getProp('ivCode', 'none')
             },
             gaCode: {
-                label: UPEX.lang.template('谷歌验证码'),
+                label: UPEX.lang.template('Google验证码'),
                 inputProps: getProp('gaCode', 'none')
             },
             vCode: {
-                label: UPEX.lang.template('原手机短信确认码'),
+                label: UPEX.lang.template('新手机短信验证码'),
                 inputProps: getProp('vCode', 'none')
             },
             nvCode: {
-                label: UPEX.lang.template('新手机短信确认码'),
+                label: UPEX.lang.template('新手机短信验证码'),
                 className: 'v-code',
                 inputProps: getProp('nvCode', 'none')
             }

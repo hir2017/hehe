@@ -64,7 +64,7 @@ export default class extends Component {
             $content = <ListView dataSource={questionsLsit}/>;
         }
         return (
-            <PageWrapper title={UPEX.lang.template('問題列表')}>
+            <PageWrapper title={UPEX.lang.template('问题列表')}>
                 <div className="account-result-list questions">
                     <div className="table-bd">
                         {$content}

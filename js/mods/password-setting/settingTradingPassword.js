@@ -123,7 +123,7 @@ export default class SettingTradingPassword extends Component {
                     </div>
                 </div>
                 <div style={{ display: 'none' }} className="massage">
-                    {UPEX.lang.template('不方便接短信？可使用')}&nbsp;&nbsp;&nbsp;&nbsp;<Link>Google{UPEX.lang.template('驗證碼')}</Link>
+                    {UPEX.lang.template('不方便接短信？可使用')}&nbsp;&nbsp;&nbsp;&nbsp;<Link>{UPEX.lang.template('Google验证码')}</Link>
                 </div>
                 <Button loading={loading} className="ace-submit-item" onClick={this.submit}>
                     {UPEX.lang.template('提交')}

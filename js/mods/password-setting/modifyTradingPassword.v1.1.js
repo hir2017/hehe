@@ -108,11 +108,6 @@ export default class ModifyTradingPassword extends Component {
                 inputProps: getProp('comfirmPwd')
             }
         ];
-        // const vCodeData = {
-        //     label: UPEX.lang.template('短信确认码'),
-        //     className: 'v-code',
-        //     inputProps: getProp('vCode', 'none')
-        // }
         const PageProps = {
             title: UPEX.lang.template('修改资金密码'),
             formClass: 'modify-password-box'

@@ -87,7 +87,7 @@ export default class BindingEmail extends Component {
                 inputProps: getProp('vCode', 'none')
             },
             pvCode: {
-                label: UPEX.lang.template('短信确认码'),
+                label: UPEX.lang.template('短信验证码'),
                 className: 'v-code',
                 inputProps: getProp('pvCode', 'none')
             }

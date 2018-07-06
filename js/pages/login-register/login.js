@@ -143,7 +143,7 @@ class Login extends Component {
                                     <input
                                         type="number" 
                                         onInput={ action.onChangeGoogleCode}
-                                        placeholder={ UPEX.lang.template('谷歌验证码') }
+                                        placeholder={ UPEX.lang.template('Google验证码') }
                                     />
                                 </div>
                             </div>

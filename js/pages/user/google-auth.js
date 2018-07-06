@@ -27,7 +27,7 @@ class GoogleAuthenticator extends Component {
         const gaBindSuccess = this.props.userInfoStore.gaBindSuccess;
 
         return (
-            <PageWrapper title={UPEX.lang.template('google验证器')}>
+            <PageWrapper title={UPEX.lang.template('Google验证器')}>
                 {userInfo.phone && !gaBindSuccess ? <div className="ace-top-tips">{UPEX.lang.template('为了您的资金安全，修改Google验证码后，24小时不可以提币')}</div> : null}
 
                 {userInfo.phone ? (

@@ -81,7 +81,7 @@ export default class ReBinding extends Component {
         };
 
         const PageProps = {
-            title: UPEX.lang.template('解绑google验证器'),
+            title: UPEX.lang.template('解绑Google验证器'),
             formClass: 'modify-password-box'
         };
 
@@ -101,7 +101,7 @@ export default class ReBinding extends Component {
                     </div>
                 </div>
                 <div className="info">
-                    <Link to="/user/google-guide">Google{UPEX.lang.template('验证器使用教程')}</Link>
+                    <Link to="/user/google-guide">{UPEX.lang.template('Google验证器使用教程')}</Link>
                 </div>
                 <Button className="ace-submit-item" loading={loading} onClick={this.submit}>
                     {UPEX.lang.template('解绑')}

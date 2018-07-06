@@ -66,13 +66,13 @@ class AddressStore {
 
         if (!this.checkAddress()){
             result.pass = false;
-            result.message = UPEX.lang.template('提币地址填写错误');
+            result.message = UPEX.lang.template('请填写正确的提币地址');
         } else if(!this.checkNote()) {
             result.pass = false;
-            result.message = UPEX.lang.template('地址描述填写错误');
+            result.message = UPEX.lang.template('请填写正确的地址描述');
         } else if(!this.checkPwd()) {
             result.pass = false;
-            result.message = UPEX.lang.template('资金密码填写错误');
+            result.message = UPEX.lang.template('请填写正确的资金密码');
         }
 
         return result;
