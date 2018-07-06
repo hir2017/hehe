@@ -67,7 +67,7 @@ export default class Phone extends Component {
         const checked = userInfo.isPhoneAuth ? true : false;
         let optData = {
             set: {
-                path: '/user/settingPhone',
+                path: '/user/setting-phone',
                 label: UPEX.lang.template('添加'),
                 class: 'ace-secondary',
             },

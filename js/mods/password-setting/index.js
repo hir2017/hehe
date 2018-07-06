@@ -73,7 +73,7 @@ export default class BindingBank extends Component {
         const isEnableFdPassword = userInfo.isEnableFdPassword !== 2 ? true : false;
         let tradePwdData = {
             noPhone: {
-                path: '/user/settingPhone',
+                path: '/user/setting-phone',
                 label: UPEX.lang.template('绑定手机'),
                 class: 'ace-secondary',
             },
