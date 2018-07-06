@@ -1,7 +1,7 @@
 /**
  * 我的订单－委托中订单
  */
-import { observable, autorun, computed, action, runInAction } from 'mobx';
+import { observable, action, runInAction } from 'mobx';
 import { getUserHistoryOrderList, getUserHistoryOrderDetail } from '../api/http';
 import TimeUtil from '../lib/util/date';
 import NumberUtil from '../lib/util/number';
@@ -72,6 +72,7 @@ class OrderStore {
                         // null不严格等于undefined
                         details = details === null ? [] : details;
                         this.orderList[index].details = details;
+                        this.orderList[index]._detailInfo = data.attachment;
                         this.orderList[index].detailReady = true;
                         this.orderList[index]._cancel = {};
                         let cancelInfo = this.statisticsMap[item.status] || {};

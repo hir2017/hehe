@@ -36,7 +36,7 @@
                 "currencyName": "Litecoin",
                 "price": "1.00000000",
                 "averagePrice": "1.00000000",
-                "status": 2
+                "status": 4
             },
             {
                 "currencyNameEn": "LTC",
@@ -54,7 +54,7 @@
                 "currencyName": "Litecoin",
                 "price": "1.00000000",
                 "averagePrice": "1.00000000",
-                "status": 2
+                "status": 5
             },
             {
                 "currencyNameEn": "LTC",
@@ -108,7 +108,7 @@
                 "currencyName": "Litecoin",
                 "price": "1.01000000",
                 "averagePrice": "1.02000000",
-                "status": 2
+                "status": 4
             },
             {
                 "currencyNameEn": "LTC",

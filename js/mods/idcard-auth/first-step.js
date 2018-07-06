@@ -214,7 +214,7 @@ export default class FirstStep extends Component {
                 <div className="ace-input-item select time-label">
                     <span className="label">{UPEX.lang.template('出生日期')}</span>
                     <div className="input">
-                        <Select showSearch placeholder={UPEX.lang.template('年')} onChange={this.selectChange.bind(this, 'year')} >
+                        <Select placeholder={UPEX.lang.template('年')} onChange={this.selectChange.bind(this, 'year')} >
                             {this.years().map((item, index) => {
                                 return (
                                     <Option key={index} value={item}>

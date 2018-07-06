@@ -138,16 +138,17 @@ export default class ModifyPhone extends Component {
                 inputProps: getProp('ivCode', 'none')
             },
             gaCode: {
-                label: UPEX.lang.template('Google验证码'),
+                label: UPEX.lang.template('谷歌验证码'),
+                className: 'v-code',
                 inputProps: getProp('gaCode', 'none')
             },
             vCode: {
-                label: UPEX.lang.template('新手机短信验证码'),
+                label: UPEX.lang.template('原手机短信确认码'),
+                className: 'v-code',
                 inputProps: getProp('vCode', 'none')
             },
             nvCode: {
-                label: UPEX.lang.template('新手机短信验证码'),
-                className: 'v-code',
+                label: UPEX.lang.template('新手机短信确认码'),
                 inputProps: getProp('nvCode', 'none')
             }
         };
@@ -187,8 +188,8 @@ export default class ModifyPhone extends Component {
                     <p className="sp-tip">
                         {UPEX.lang.template('请填写收到的验证码')}
                     </p>
-                    {gaBindSuccess ? <InputItem {...inputsData.gaCode} /> : <InputItem {...inputsData.vCode} />}
                     <InputItem {...inputsData.nvCode} />
+                    {gaBindSuccess ? <InputItem {...inputsData.gaCode} /> : <InputItem {...inputsData.vCode} />}
                 </div>
                 <Button loading={loading} disabled={!this.state.submitAbled} className="ace-submit-item" onClick={this.submit}>
                     {UPEX.lang.template('提交')}

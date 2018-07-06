@@ -127,11 +127,6 @@ class List extends Component {
                                 })
                                 $detail[$detail.length] = (
                                     <tr className="data" key={$detail.length}>
-                                        {/* <td colSpan={3} className="cancel">
-                                            <span>{UPEX.lang.template('撤单时间')}：{item._cancel.time || '--'}</span>
-                                            <span>{UPEX.lang.template('撤单数量')}：{item._cancel.num}</span>
-                                            <span>{UPEX.lang.template('撤单比例')}：{item._cancel.rate}</span>
-                                        </td> */}
                                         <td>
                                             <span className="label"> {UPEX.lang.template('撤单时间')}：</span>
                                             {item._cancel.time || '--'}
@@ -147,11 +142,20 @@ class List extends Component {
                                     </tr>
                                 )
                             } else {
-                                $detail = (
-                                    <tr>
-                                        <td colSpan={3} className="none">{UPEX.lang.template('暂无数据')}</td>
-                                    </tr>
-                                )
+                                if(item.status === 4) {
+                                    $detail = (
+                                        <tr>
+                                            <td colSpan={3} className="none">{UPEX.lang.template('撤单时间')}：{item._detailInfo ? item._detailInfo.cancelTime : '--'}</td>
+                                        </tr>
+                                    )
+                                } else {
+                                    $detail = (
+                                        <tr>
+                                            <td colSpan={3} className="none">{UPEX.lang.template('暂无数据')}</td>
+                                        </tr>
+                                    )
+                                }
+
                             }
                         } else {
                             $detail = (
