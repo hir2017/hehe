@@ -78,5 +78,5 @@
     "start": "pm2 start server.js --name='upexchange-front'  -o ./logs/out.log -e ./logs/error.log ",
     "stop": "pm2 stop server.js --name='upexchange-front'"
   },
-  "version": "1.0.0"
+  "version": "1.0.1"
 }
