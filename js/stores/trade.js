@@ -742,22 +742,22 @@ class TradeStore {
         if (!price) {
             result = {
                 pass: false,
-                message: UPEX.lang.template('请输入价格')
+                message: UPEX.lang.template('请填写价格')
             };
         } else if (!num) {
             result = {
                 pass: false,
-                message: UPEX.lang.template('请输入数量')
+                message: UPEX.lang.template('请填写数量')
             };
         } else if (!validPrice) {
             result = {
                 pass: false,
-                message: UPEX.lang.template('请输入正确的价格')
+                message: UPEX.lang.template('请填写正确的价格')
             };
         } else if (!validNum) {
             result = {
                 pass: false,
-                message: UPEX.lang.template('请输入正确的数量')
+                message: UPEX.lang.template('请填写正确的数量')
             };
         } else {
             // 必须填写资金密码

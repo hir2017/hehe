@@ -106,7 +106,7 @@ class Register extends Component {
                                             onBlur={ action.onBlurEmail }
                                         />
                                     </div>
-                                    { !store.validEmail ? <div className="warn">{ UPEX.lang.template('请输入正确的邮箱')}</div> : null }
+                                    { !store.validEmail ? <div className="warn">{ UPEX.lang.template('请填写正确的邮箱')}</div> : null }
                                 </div>
                             ) : (
                                 <div className="input-wrapper" key="phone">
@@ -120,7 +120,7 @@ class Register extends Component {
                                             onBlur={ this.queryHasPhone }
                                         />
                                     </div>
-                                    { !store.validPhone ? <div className="warn">{ UPEX.lang.template('请输入正确的手机号')}</div> : null }
+                                    { !store.validPhone ? <div className="warn">{ UPEX.lang.template('请填写正确的手机号')}</div> : null }
                                 </div>
                             )
                         }
@@ -163,7 +163,7 @@ class Register extends Component {
                                     <img src={ store.captcha } onClick={ action.getImgCaptcha } alt=""/>
                                 </div>
                             </div>
-                            { !store.validImgCode ? <div className="warn">{ UPEX.lang.template('请输入正确的图片验证码')}</div> : null }
+                            { !store.validImgCode ? <div className="warn">{ UPEX.lang.template('请填写正确的图片验证码')}</div> : null }
                         </div>
                         <div className="input-wrapper">
                             <div className="input-box useryz-box">
@@ -181,7 +181,7 @@ class Register extends Component {
                                     </button>
                                 </div>
                             </div>
-                            { !store.validVercode ? <div className="warn">{ store.mode == 'email' ? UPEX.lang.template('请输入正确的邮箱验证码') : UPEX.lang.template('请输入正确的手机验证码') }</div> : null }
+                            { !store.validVercode ? <div className="warn">{ store.mode == 'email' ? UPEX.lang.template('请填写正确的邮箱验证码') : UPEX.lang.template('请填写正确的手机验证码') }</div> : null }
                         </div>
 
                         <div className="input-wrapper hidden">

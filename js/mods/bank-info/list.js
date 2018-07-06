@@ -207,7 +207,7 @@ export default class BankList extends Component {
                     </div>
                     {gaBindSuccess ? (
                         <div className="item">
-                            <Input value={this.state.vCode} onChange={this.vCodeChange} size="large" placeholder={UPEX.lang.template('请输入Google验证码')} />
+                            <Input value={this.state.vCode} onChange={this.vCodeChange} size="large" placeholder={UPEX.lang.template('请填写Google验证码')} />
                         </div>
                     ) : (
                         <div className="item">
@@ -217,7 +217,7 @@ export default class BankList extends Component {
                                 onChange={this.ivCodeChange}
                                 addonAfter={<img onClick={this.captchaChange} src={captcha} />}
                                 size="large"
-                                placeholder={UPEX.lang.template('请输入图片验证码')}
+                                placeholder={UPEX.lang.template('请填写图片验证码')}
                             />
                             <Input
                                 value={this.state.vCode}
@@ -231,7 +231,7 @@ export default class BankList extends Component {
                                     />
                                 }
                                 size="large"
-                                placeholder={UPEX.lang.template('请输入短信验证码')}
+                                placeholder={UPEX.lang.template('请填写短信验证码')}
                             />
                         </div>
                     )}

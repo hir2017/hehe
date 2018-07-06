@@ -1,7 +1,7 @@
 /**
  * 前端多语言解决方案
  */
-import LangPack from './pack';
+import LangPack from './app/pack';
 
 let _lang = {
     language: 'en-US',

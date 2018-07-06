@@ -98,7 +98,7 @@ export default class Phone extends Component {
                 </div>
 
                 <Modal
-                    title={UPEX.lang.template('请输入短信验证码')}
+                    title={UPEX.lang.template('请填写短信验证码')}
                     visible={this.state.visible}
                     onOk={this.handleOk}
                     confirmLoading={loading}
@@ -111,7 +111,7 @@ export default class Phone extends Component {
                                 onChange={this.vCodeChange}
                                 addonAfter={<Vcodebutton phoneAuth={true} type="1" style={{ lineHeight: 'normal', height: 'auto' }} />}
                                 size="large"
-                                placeholder={UPEX.lang.template('请输入短信验证码')}
+                                placeholder={UPEX.lang.template('请填写短信验证码')}
                             />
                         </div>
                     </div>

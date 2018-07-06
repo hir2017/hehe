@@ -435,12 +435,12 @@ class UserInfo {
                 message.success(UPEX.lang.template('修改成功'));
             } else {
                 const msgMap = {
-                    '500': UPEX.lang.template('请输入正确的原手机短信验证码'),
-                    '403': UPEX.lang.template('请输入正确的新手机短信验证码'),
+                    '500': UPEX.lang.template('请填写正确的原手机短信验证码'),
+                    '403': UPEX.lang.template('请填写正确的新手机短信验证码'),
                 }
                 let tempMsg ;
                 if(res.message === '谷歌验证码不正确') {
-                    tempMsg =  UPEX.lang.template('请输入正确的Google验证码')
+                    tempMsg =  UPEX.lang.template('请填写正确的Google验证码')
                 } else {
                     tempMsg = msgMap[res.status] || res.message;
                 }

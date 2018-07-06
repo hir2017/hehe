@@ -210,7 +210,7 @@ class WithdrawCoin extends Component {
 			                                    type="text"
 			                                    data-key="phonecode"
 			                                    value={store.phoneCode}
-			                                    placeholder={UPEX.lang.template('填写短信验证码')}
+			                                    placeholder={UPEX.lang.template('请填写短信验证码')}
 				                                onChange={action.onChangeInput}
 			                                />
 			                            </div>

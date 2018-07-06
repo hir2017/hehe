@@ -67,7 +67,7 @@ export default class extends Component {
 
     submit() {
         if (!this.state.text) {
-            message.error('请输入您要反馈的问题');
+            message.error('请填写您要反馈的问题');
             return;
         }
         // const imgS = this.uploudUrlS.join(',');
@@ -113,7 +113,7 @@ export default class extends Component {
                 <Row className="text-area">
                     <Col span={24}>
                         <TextArea value={this.state.text} onChange={this.textAreaChange} rows={7} />
-                        <p className={`placeholder ${this.state.text ? '' : 'show'}`}>{UPEX.lang.template('请输入您要反馈的问题')}</p>
+                        <p className={`placeholder ${this.state.text ? '' : 'show'}`}>{UPEX.lang.template('请填写您要反馈的问题')}</p>
                         <div className="text-stats">{UPEX.lang.template('还可以输入{count}个字', { count: this.state.textLen}, 1)}</div>
                     </Col>
                 </Row>

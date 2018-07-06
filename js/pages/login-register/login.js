@@ -124,7 +124,12 @@ class Login extends Component {
     }
 
     onChangeMode=(item)=>{
-        this.action.onChangeMode(item);
+        if (this.props.loginStore.mode !== item) {
+            this.setState({
+                loginErrorText: ''
+            });
+        } 
+        this.action.onChangeMode(item);       
     }
 
     render() {
