@@ -55,15 +55,15 @@ import SettingTraddingPassword from './mods/password-setting/settingTradingPassw
 import BindingPhone from './pages/user/binding-phone'
 import ModifyPhone from './mods/binding-phone/modify-phone'
 import SettingPhone from './mods/binding-phone/binding-phone'
-import BindingEmail from './pages/user/bindingEmail'
-import SettingEmail from './mods/bindingEmail/bindingEmail'
+import BindingEmail from './pages/user/binding-email'
+import SettingEmail from './mods/binding-email/binding-email'
 import GoogleAuth from './pages/user/google-auth'
 import RmbindingGoogle from './mods/binding-google/unbind'
 import GoogleGuide from './pages/user/google-guide'
 import Question from './pages/user/problem-feedback'
 import QuestionList from './pages/user/feedbackList'
 import QuestionDetails from './pages/user/feedbackDetails'
-import EmailSuccess from './mods/bindingEmail/success'
+import EmailSuccess from './mods/binding-email/success'
 import PhoneSuccess from './mods/binding-phone/success'
 import ForgetTradingPassword from './mods/password-setting/forgetTradingPassword'
 
@@ -129,7 +129,7 @@ const routes = (
 				<Route path="binding-phone" component={BindingPhone} />
 				<Route path="modify-phone" component={ModifyPhone} />
 				<Route path="setting-phone" component={SettingPhone} />
-				<Route path="bindingEmail" component={BindingEmail} />
+				<Route path="binding-email" component={BindingEmail} />
 				<Route path="settingEmail" component={SettingEmail} />
 				<Route path="google" component={GoogleAuth} />
 				<Route path="rmbindingGoogle" component={RmbindingGoogle} />

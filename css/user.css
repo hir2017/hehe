@@ -179,9 +179,11 @@ body .user-main .ant-select-dropdown-menu-item {
     color: #cc9900;
     cursor: pointer;
 }
+
 .user-main .ace-form .ace-upload-mod.pic-item .item-tip:hover {
     text-decoration-line: underline;
 }
+
 .user-main .ace-form .ace-upload-mod.pic-item section {
     padding: 20px 0 5px;
     position: relative;
@@ -210,6 +212,10 @@ body .user-main .ant-select-dropdown-menu-item {
 
 .user-main a.ace-link {
     color: #cc9900;
+}
+
+.user-main a.ace-link.underline:hover {
+    text-decoration-line: underline;
 }
 
 .user-main .page-content-inner a:hover {
@@ -825,6 +831,10 @@ body .user-main .ant-select-dropdown-menu-item {
     margin-right: 15px;
 }
 
+.user-main .ant-select-selection-selected-value {
+    font-size: 18px;
+}
+
 .user-main .authentication-content .time-control .ant-select-selection-selected-value {
     width: 90px;
     text-align: center;
@@ -1215,7 +1225,7 @@ body .user-main .ant-select-dropdown-menu-item {
     padding: 10px 0;
 }
 
-.user-main .page-content-inner.bank-info .info .tip{
+.user-main .page-content-inner.bank-info .info .tip {
     font-size: 12px;
     color: #999;
     line-height: 18px;
@@ -1310,7 +1320,8 @@ body .user-main .ant-select-dropdown-menu-item {
     color: #999;
 }
 
-.user-main .common-setting-box .ant-col-8.operator .ant-btn.ace-secondary, .user-main .common-setting-box .ant-col-8.operator .ant-btn.ace-btn-white {
+.user-main .common-setting-box .ant-col-8.operator .ant-btn.ace-secondary,
+.user-main .common-setting-box .ant-col-8.operator .ant-btn.ace-btn-white {
     margin-left: 30px;
 }
 
@@ -1609,7 +1620,7 @@ body .user-main .ant-select-dropdown-menu-item {
 
 .google-guide-img-box img {
     margin: auto;
-    width:380px;
+    width: 380px;
     height: 180px;
 }
 
@@ -1636,17 +1647,21 @@ body .user-main .ant-select-dropdown-menu-item {
     border-radius: 50%;
     cursor: pointer;
 }
+
 .google-guide-img-box.last-step .right {
     background-color: #33c280;
 }
+
 .google-guide-img-box.last-step .right i {
     color: #fff;
 }
+
 .google-guide-img-box.last-step .link {
     display: inline-block;
     padding-left: 4px;
     color: #cc9900;
 }
+
 .google-guide-img-box .left i,
 .google-guide-img-box .right i {
     font-size: 30px;
@@ -1745,9 +1760,11 @@ body .user-main .ant-select-dropdown-menu-item {
     line-height: 25px;
     color: #ccc;
 }
+
 .user-main .content-body.feedback .text-stats .count {
     color: #cc9900;
 }
+
 .user-main .content-body.feedback .upload-box {
     margin: 20px 0;
     height: 100px;
@@ -1758,20 +1775,22 @@ body .user-main .ant-select-dropdown-menu-item {
     width: 100px;
 }
 
-.user-main .content-body.feedback .upload-box .ant-upload-select{
+.user-main .content-body.feedback .upload-box .ant-upload-select {
     background-position: 0 -98px;
     background-image: url('../images/upload-btn-set.png');
     background-repeat: no-repeat;
     background-size: 100%;
 }
 
-.user-main .content-body.feedback .upload-box .ant-upload-select:hover{
+.user-main .content-body.feedback .upload-box .ant-upload-select:hover {
     background-position-y: 0;
     border-color: #e8b802;
 }
+
 .user-main .content-body.feedback .upload-box .ant-upload-select .ant-upload {
     opacity: 0;
 }
+
 .user-main .content-body.feedback .upload-box::after {
     content: '';
     clear: both;
@@ -1783,14 +1802,15 @@ body .user-main .ant-select-dropdown-menu-item {
     overflow: hidden;
 }
 
-.user-main .content-body.feedback .ant-row.text-area textarea{
+.user-main .content-body.feedback .ant-row.text-area textarea {
     padding: 10px;
     box-sizing: border-box;
     height: 200px;
     resize: none;
 }
 
-.user-main .content-body.feedback .ant-row.text-area textarea:hover, .user-main .content-body.feedback .ant-row.text-area textarea:focus {
+.user-main .content-body.feedback .ant-row.text-area textarea:hover,
+.user-main .content-body.feedback .ant-row.text-area textarea:focus {
     outline: none;
     border-color: #ccc;
     outline-color: #ccc;
@@ -1858,13 +1878,14 @@ body .user-main .ant-select-dropdown-menu-item {
 .user-main .account-result-list.questions dd {
     padding: 0;
 }
+
 .user-main .account-result-list.questions dd.content {
     width: 620px;
     color: #333;
     line-height: 15px;
     box-sizing: border-box;
-    padding-left:20px;
-    padding-right:20px;
+    padding-left: 20px;
+    padding-right: 20px;
     text-overflow: ellipsis;
     text-align: left;
     overflow: hidden;
@@ -1915,7 +1936,6 @@ body .user-main .ant-select-dropdown-menu-item {
 
 .user-main .page-content-inner.question-detail .img-list .img {
     display: inline-block;
-
     margin-right: 8px;
 }
 
@@ -1940,12 +1960,15 @@ body .user-main .ant-select-dropdown-menu-item {
     border-radius: 3px;
     margin-bottom: 20px;
 }
+
 .user-main .page-content-inner.question-detail .feedback-answer header {
     padding: 20px 20px 0;
 }
+
 .user-main .page-content-inner.question-detail .feedback-answer article {
     padding: 13px 20px 20px;
 }
+
 /**
  * form 表单项
  */
@@ -2041,11 +2064,27 @@ body .user-main .ant-select-dropdown-menu-item {
     margin-right: 0px;
 }
 
-.ace-form .user-sp-sms-btn-box .send-v-code-button{
+.ace-form .user-sp-sms-btn-box .send-v-code-button {
     width: 100%;
     border-radius: 3px;
-    border: solid 1px #ccc;
+    border: solid 1px #e8b802;
     margin-bottom: 27px;
+    font-size: 14px;
+    color: #cc9900;
+}
+
+.ace-form .user-sp-sms-btn-box .send-v-code-button:disabled,
+.ace-form .user-sp-sms-btn-box .sms-btn.sending .send-v-code-button,
+.ace-form .user-sp-sms-btn-box .send-v-code-button:disabled:hover {
+    border-color: #d9d9d9;
+    background-color: #f5f5f5;
+    color: #ccc;
+}
+
+.ace-form .user-sp-sms-btn-box .send-v-code-button:hover {
+    border-color: #e8b802;
+    background-color: #e8b802;
+    color: #333;
 }
 
 .ace-form .user-sp-sms-btn-box .ace-input-item {
@@ -2062,7 +2101,7 @@ body .user-main .ant-select-dropdown-menu-item {
     padding: 0 0 12px;
     border-bottom: solid 1px #f2f2f2;
     margin: 13px 0 26px;
- }
+}
 
 .ace-form .user-sp-sms-btn-box .ace-input-item.v-code {
     margin-left: 40px;
