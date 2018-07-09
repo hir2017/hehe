@@ -131,6 +131,7 @@ class Register extends Component {
                                     ref="pwd"
                                     className={ store.validPwd ? '' : 'wrong'}
                                     placeholder={ UPEX.lang.template('密码') }
+                                    maxLength="16"
                                     onInput={ action.onChangePwd }
                                     onBlur={action.onBlurPwd}
                                 />
@@ -143,6 +144,7 @@ class Register extends Component {
                                     type="password" 
                                     ref="twicepwd"
                                     className={ store.validTwicePwd ? '' : 'wrong'}
+                                    maxLength="16"
                                     placeholder={ UPEX.lang.template('确认密码') }
                                     onInput={ action.onChangeTwicePwd }
                                     onBlur={action.onBlurTwicePwd}
@@ -157,6 +159,7 @@ class Register extends Component {
                                     ref="picCode" 
                                     placeholder={ UPEX.lang.template('图片验证') }
                                     onInput={ action.onChangeImgCode }
+                                    maxLength="5"
                                     className={ store.validImgCode ? '' : 'wrong' }
                                 />
                                 <div className="codeimg">
@@ -171,6 +174,7 @@ class Register extends Component {
                                     type="text" 
                                     ref="vercode" 
                                     placeholder={ store.mode == 'email' ? UPEX.lang.template('邮箱验证码') : UPEX.lang.template('手机验证码') }
+                                    maxLength="6"
                                     className={ store.validVercode ? '' : 'wrong' }
                                     onInput={ action.onChangeVercode }
                                 />

@@ -3,23 +3,27 @@ import qs from "qs";
 import { hashHistory, browserHistory } from 'react-router';
 import { message } from 'antd';
 
-// base url
+// 设置baseURL
 axios.defaults.baseURL = UPEX.config.host;
 
+// 添加请求拦截器
 axios.interceptors.request.use(function(config) {
+    // 在发送请求之前做些什么
     const token = UPEX.cache.getCache('token');
     const uid = UPEX.cache.getCache('uid');
     let local = UPEX.cache.getCache('lang');
 
     local = local == undefined || local == '' ? 'zh-TW' : local;
 
-    local =  local.replace('-', '_');
+    local = local.replace('-', '_'); // 所有后台API接口的语言码格式：zh_CN、zh_TW、en_US
 
     if (!token && !uid) {
         let data = qs.parse(config.data)
+
         config.data = qs.stringify({
             ...data,
-            local: local
+            local,
+            tm: +new Date()
         })
         return config
     }
@@ -29,30 +33,35 @@ axios.interceptors.request.use(function(config) {
 
         config.data = qs.stringify({
             ...data,
-            token: token,
-            uid: uid,
-            local: local
+            token,
+            uid,
+            local,
+            tm: +new Date()
         })
     } else if (config.method === 'get' || config.method === 'delete') {
         config.params = {
             ...config.params,
-            token: token,
-            uid: uid,
-            local: local
+            token,
+            uid,
+            local,
+            tm: +new Date()
         }
     }
     return config;
 }, function(error) {
+    // 对请求错误做些什么
     return Promise.reject(error);
 })
 
-let preTime = +new Date();
+let preTime = +new Date(), nowTime;
 
+// 添加响应拦截器
 axios.interceptors.response.use(function(res) {
+    // 对响应数据做点什么
     let status = res.data.status
 
     if (status == 9999) {
-        let nowTime = +new Date();
+        nowTime = +new Date();
 
         $.channel.emit('authorizeinvalid');
 
@@ -60,23 +69,26 @@ axios.interceptors.response.use(function(res) {
             preTime = nowTime;
             message.error(UPEX.lang.template('登录超时，请重新登录'))
         }
-
-        browserHistory.push('/login');
     }
-    return res
-})
+
+    return res.data;
+
+}, function(error) {
+    // 对响应错误做点什么
+    return Promise.reject(error);
+});
 
 
 // 获取图片验证码
 export function fetchPicCaptcha() {
-    return axios.post('/security/getCode').then(res => res.data);
+    return axios.post('/security/getCode');
 }
 
 // 查询手机是否被占用
 export function queryPhone(phone) {
     return axios.post('/user/queryPhone', qs.stringify({
         phone: phone
-    })).then(res => res.data);
+    }))
 }
 
 // 发送验证码，新用户注册。邮箱验证和手机验证码都用该API。TODO check
@@ -85,7 +97,7 @@ export function sendEmailForRegister(data) {
         email: data.account,
         imgcode: data.imgcode,
         codeid: data.codeid
-    })).then(res => res.data);
+    }))
 }
 
 // 发送验证码，找回密码。邮箱验证和手机验证码都用该API。TODO check
@@ -94,7 +106,7 @@ export function sendMail(data) {
         email: data.account,
         imgcode: data.imgcode,
         codeid: data.codeid
-    })).then(res => res.data);
+    }))
 }
 
 // 注册账号
@@ -106,7 +118,7 @@ export function userRegister(data) {
         inviteId: data.inviteId,
         imgcode: data.imgcode,
         codeid: data.codeid
-    })).then(res => res.data);
+    }))
 }
 
 // 用户登录 - 不需要验证第一步
@@ -118,7 +130,7 @@ export function userLogin(data) {
         vercode: data.imgcode,
         source: 1,
         codeid: data.codeid
-    })).then(res => res.data);
+    }))
 }
 
 /**
@@ -130,7 +142,7 @@ export function userLogin2(data) {
         clientPassword: data.clientPassword,
         emailOrPhone: data.emailOrPhone,
         source: 1
-    })).then(res => res.data);
+    }))
 }
 /**
  * 邮箱登录 －  发送短信验证码
@@ -140,13 +152,13 @@ export function sendLoginCodeSend(data) {
         authType: data.authType || 1, // 1.手机 2.邮箱
         emailOrPhone: data.emailOrPhone,
         source: 1
-    })).then(res => res.data);
+    }))
 }
 /**
  * 用户登录 － 退出
  */
 export function userLogout() {
-    return axios.post('/user/logout').then(res => res.data);
+    return axios.post('/user/logout')
 }
 
 // 重置密码
@@ -157,18 +169,18 @@ export function resetPwd(data) {
         vercode: data.vercode,
         imgcode: data.imgcode,
         codeid: data.codeid
-    })).then(res => res.data);
+    }))
 }
 /*
  *
  */
 export function getAnnounceList(data) {
-    return axios.post('/announce/pageList', qs.stringify(data)).then(res => res.data);
+    return axios.post('/announce/pageList', qs.stringify(data))
 }
 
 // 获取公告详情
 export function getAnnounceDetail(data) {
-    return axios.post('/announce/getInfo', qs.stringify(data)).then(res => res.data);
+    return axios.post('/announce/getInfo', qs.stringify(data))
 }
 
 
@@ -178,17 +190,17 @@ export function getBannerList() {
 
     local = local == undefined || local == '' ? 'zh-TW' : local;
 
-    local =  local.replace('-', '_');
+    local = local.replace('-', '_');
 
     return axios.post('/banner/banner', qs.stringify({
         type: 1
-    })).then(res => res.data);
+    }))
 }
 /**
  *  基本币种列表
  */
 export function getBaseCoin() {
-    return axios.post('/coin/coins').then(res => res.data);
+    return axios.post('/coin/coins')
 }
 /**
  * 交易中心委托
@@ -198,7 +210,7 @@ export function getUserOrderList(data) {
 
     return axios.post('/user/showOrderList', qs.stringify({
         ...data
-    })).then(res => res.data);
+    }))
 }
 /**
  * 生成委托单 -> 限价买/卖
@@ -206,19 +218,19 @@ export function getUserOrderList(data) {
 export function submitOrder(data) {
     return axios.post('/order/order', qs.stringify({
         ...data
-    })).then(res => res.data);
+    }))
 }
 
 
 // 获取用户资金密码设置状态
 export function getPersonalTradingPwd() {
-    return axios.post('/user/selectFdPwdEnabled').then(res => res.data);
+    return axios.post('/user/selectFdPwdEnabled')
 }
 /**
  * 账号信息
  */
 export function hasSettingDealPwd() {
-    return axios.post('/user/personalInfo').then(res => res.data);
+    return axios.post('/user/personalInfo')
 }
 
 /**
@@ -227,13 +239,13 @@ export function hasSettingDealPwd() {
 export function getCoinAccount(type = 1) {
     return axios.post('/coin/customerCoinAccount', qs.stringify({
         type
-    })).then(res => res.data);
+    }))
 }
 /**
  * 我的余额
  */
 export function getCNYBalance() {
-    return axios.post('/property').then(res => res.data);
+    return axios.post('/property')
 }
 /**
  * 查询当前币种地址及二维码
@@ -246,23 +258,23 @@ export function selectUserAddress(currentyId) {
     return axios.post('/coin/selectUserAddress', qs.stringify({
         walletType: 1,
         currentyId
-    })).then(res => res.data);
+    }))
 }
 
 /*----------------------------- 充值相关接口：{{------------------------------------*/
 
 export function getUserBankInfo() {
-    return axios.post('/rechargeWithdraw/getUserCardInfoAndAmountAndFee').then(res => res.data);
+    return axios.post('/rechargeWithdraw/getUserCardInfoAndAmountAndFee')
 }
 
 export function getUserBindCards() {
-    return axios.post('/card/getBindBankCardInfo').then(res => res.data);
+    return axios.post('/card/getBindBankCardInfo')
 }
 
 export function orderFiatRecharge(data) {
     data.currencyId = 1;
 
-    return axios.post('/pay/getFrontPageJsonData', qs.stringify(data)).then(res => res.data);
+    return axios.post('/pay/getFrontPageJsonData', qs.stringify(data))
 }
 
 /**
@@ -272,7 +284,7 @@ export function orderFiatRecharge(data) {
 export function getUserAvailableAmount(data) {
     return axios.post('/rechargeWithdraw/getUserAvailableAmount', qs.stringify({
         currencyId: 1
-    })).then(res => res.data);
+    }))
 }
 
 /**
@@ -282,7 +294,7 @@ export function getUserAvailableAmount(data) {
 export function getWithdrawCashFee(data) {
     data.currencyId = 1;
     data.actionId = 2;
-    return axios.post('/withdraw/getWithdrawCashFee', qs.stringify(data)).then(res => res.data);
+    return axios.post('/withdraw/getWithdrawCashFee', qs.stringify(data))
 }
 
 /**
@@ -291,7 +303,7 @@ export function getWithdrawCashFee(data) {
  */
 export function orderFiatWithdraw(data) {
     data.currencyId = 1;
-    return axios.post('/withdraw/createWithdrawCashBill', qs.stringify(data)).then(res => res.data);
+    return axios.post('/withdraw/createWithdrawCashBill', qs.stringify(data))
 }
 
 /*----------------------------- 充值相关接口：}}------------------------------------*/
@@ -303,7 +315,7 @@ export function orderFiatWithdraw(data) {
 export function getCoinWithdrawList(data) {
     return axios.post('/coin/selectTakeList', qs.stringify({
         ...data
-    })).then(res => res.data);
+    }))
 }
 /**
  * 提币前查询信息接口
@@ -311,7 +323,7 @@ export function getCoinWithdrawList(data) {
 export function getTakeCoinInfo(currencyId) {
     return axios.post('/coin/selectTakeCoin', qs.stringify({
         currencyId
-    })).then(res => res.data);
+    }))
 }
 /**
  * 删除提币地址接口
@@ -320,7 +332,7 @@ export function deleteCoinAddress(data) {
     return axios.post('/coin/updateCoinAddress', qs.stringify({
         currencyId: data.currencyId,
         walletAddressId: data.walletAddressId
-    })).then(res => res.data);
+    }))
 }
 /**
  * 添加提币地址接口
@@ -331,7 +343,7 @@ export function addWithdrawAddress(data) {
         fdPwd: data.fdPwd, // 资金密码
         note: data.note, // 令牌
         address: data.address, // 地址
-    })).then(res => res.data);
+    }))
 }
 /**
  * 提币发送邮箱短信验证码: 10分钟有效期，可以错误5次。
@@ -341,7 +353,7 @@ export function takeCoinSendPhoneCode(data) {
         vercode: data.vercode,
         type: data.type, // 1:邮件（默认）2:手机
         codeid: data.codeid
-    })).then(res => res.data);
+    }))
 }
 /**
  * 提币接口
@@ -360,7 +372,7 @@ export function takeCoin(data) {
         codeid: data.codeid,
         amount: data.amount,
         gAuth: data.gAuth,
-    })).then(res => res.data);
+    }))
 }
 /*-----------------------------}} 提币相关接口：------------------------------------*/
 /**
@@ -381,13 +393,13 @@ export function takeCoin(data) {
 export function getCoinRechargeList(data) {
     return axios.post('/coin/selectListByUuid', qs.stringify({
         ...data
-    })).then(res => res.data);
+    }))
 }
 /**
  * 币种列表
  */
 export function getAllCoinPoint() {
-    return axios.post('/coin/coinPoint').then(res => res.data);
+    return axios.post('/coin/coinPoint')
 }
 /**
  * 充值/提现查询记录
@@ -400,7 +412,7 @@ export function getAllCoinPoint() {
 export function getFundChangeList(data) {
     return axios.post('/rechargeWithdraw/getRechargeWithdrawBillInfo', qs.stringify({
         ...data
-    })).then(res => res.data);
+    }))
 }
 /**
  * 提现记录
@@ -420,7 +432,7 @@ export function getFundChangeList(data) {
 export function getFundWithdrawList(data) {
     return axios.post('/fund/withdraw', qs.stringify({
         ...data
-    })).then(res => res.data);
+    }))
 }
 /**
  * 我的订单 —— 委托历史记录
@@ -428,7 +440,7 @@ export function getFundWithdrawList(data) {
 export function getOrderListByCustomer(data) {
     return axios.post('/user/trOrderListByCustomer', qs.stringify({
         ...data
-    })).then(res => res.data);
+    }))
 }
 /**
  * 我的订单 —— 委托中订单
@@ -436,7 +448,7 @@ export function getOrderListByCustomer(data) {
 export function getUserOpenOrderList(data) {
     return axios.post('/user/getOrderList', qs.stringify({
         ...data
-    })).then(res => res.data);
+    }))
 }
 /**
  * 我的订单 —— 历史订单
@@ -444,7 +456,7 @@ export function getUserOpenOrderList(data) {
 export function getUserHistoryOrderList(data) {
     return axios.post('/user/trOrderListByCustomer', qs.stringify({
         ...data
-    })).then(res => res.data);
+    }))
 }
 /**
  * 我的订单 —— 历史订单详情
@@ -452,7 +464,7 @@ export function getUserHistoryOrderList(data) {
 export function getUserHistoryOrderDetail(data) {
     return axios.post('/user/trOrderDetailByCustomer', qs.stringify({
         ...data
-    })).then(res => res.data);
+    }))
 }
 /**
  * 我的订单 —— 已成交订单
@@ -471,7 +483,7 @@ export function getUserHistoryOrderDetail(data) {
 export function getUserSuccessOrderList(data) {
     return axios.post('/user/getTradeList', qs.stringify({
         ...data
-    })).then(res => res.data);
+    }))
 }
 /**
  * 撤销订单
@@ -479,7 +491,7 @@ export function getUserSuccessOrderList(data) {
 export function cancelOrder(data) {
     return axios.post('/order/cancel', qs.stringify({
         ...data
-    })).then(res => res.data);
+    }))
 }
 /**
  * 添加收藏
@@ -488,7 +500,7 @@ export function addOptional(data) {
     return axios.post('/optional/optional', qs.stringify({
         tradeCurrencyId: data.currencyId,
         baseCurrencyId: data.baseCurrencyId
-    })).then(res => res.data);
+    }))
 }
 /**
  * 取消收藏
@@ -498,14 +510,14 @@ export function cancleOptional(data) {
     return axios.post('/optional/cancleOptional', qs.stringify({
         tradeCurrencyId: data.currencyId,
         baseCurrencyId: data.baseCurrencyId
-    })).then(res => res.data);
+    }))
 }
 /**
  * 收藏列表
  */
 
 export function listOptional() {
-    return axios.post('/optional/listOptional').then(res => res.data);
+    return axios.post('/optional/listOptional')
 }
 
 /**
@@ -514,10 +526,12 @@ export function listOptional() {
 
 export function getTradeDeep(pair, limit) {
     return axios.get('/quote/tradeDeepin', {
-        symbol: pair,
-        coins: 2,
-        limit: limit // 最多200条
-    }).then(res => res.data);
+        params: {
+            symbol: pair,
+            coins: 2,
+            limit: limit // 最多200条
+        }
+    })
 }
 /**
  * K线数据
@@ -527,14 +541,24 @@ export function getTradeDeep(pair, limit) {
  */
 export function getTradeKline(data) {
     if (data.startTime && data.endTime) {
-        return axios.get(`/quote/klineHistory?symbol=${data.symbol}&type=${data.interval}&limit=${data.limit}&startTime=${data.startTime}&endTime=${data.endTime}`).then(res => res.data);
+        return axios.get('/quote/klineHistory', {
+            params: {
+                symbol: data.symbol,
+                type: data.interval,
+                limit: data.limit,
+                startTime: data.startTime,
+                endTime: data.endTime
+            }
+        })
     } else {
-        return axios.get(`/quote/klineHistory?symbol=${data.symbol}&type=${data.interval}&limit=${data.limit}`).then(res => res.data);
+        return axios.get('/quote/klineHistory', {
+            params: {
+                symbol: data.symbol,
+                type: data.interval,
+                limit: data.limit
+            }
+        })
     }
-}
-
-export function getTradingViewKline(pair, peroid = 1, limit) {
-    return axios.get(`/quote/tradingView?symbol=${pair}&type=${peroid}&limit=${limit}`).then(res => res.data);
 }
 
 /**
@@ -542,7 +566,7 @@ export function getTradingViewKline(pair, peroid = 1, limit) {
  */
 
 export function personalInfo() {
-    return axios.post('/user/personalInfo').then(res => res.data);
+    return axios.post('/user/personalInfo')
 }
 
 /**
@@ -554,7 +578,7 @@ export function loginRecord() {
         type: 2,
         start: 0,
         size: 10
-    }).then(res => res.data);
+    })
 }
 
 /**
@@ -566,7 +590,7 @@ export function identityAuthentication() {
         type: 2,
         start: 0,
         size: 10
-    }).then(res => res.data);
+    })
 }
 
 /**
@@ -578,7 +602,7 @@ export function sendCodeInUserCenter(type, imgCode, imgCodeId) {
         type: type,
         imgcode: imgCode,
         codeid: imgCodeId
-    }).then(res => res.data);
+    })
 }
 
 /**
@@ -592,7 +616,7 @@ export function bindFdPwd(newFdPassWord, vercode, imgCode, imgCodeId, oldFdPassW
         vercode: vercode,
         imgcode: imgCode,
         codeid: imgCodeId
-    }).then(res => res.data);
+    })
 }
 
 /**
@@ -603,7 +627,7 @@ export function modifyFdPwd(newFdPassWord, oldFdPassWord) {
     return axios.post('/user/modifyFdPwd', {
         newFdPassWord: newFdPassWord,
         oldFdPassWord: oldFdPassWord,
-    }).then(res => res.data);
+    })
 }
 
 /**
@@ -618,7 +642,7 @@ export function resetPwdInUserCenter(newPwd, vercode, imgCode, imgCodeId, oldPwd
         imgcode: imgCode,
         codeid: imgCodeId,
         type: type
-    }).then(res => res.data);
+    })
 }
 
 /**
@@ -631,7 +655,7 @@ export function bindPhoneSendMsg(imgCode, imgCodeId, type, phone = '') {
         phone: phone,
         imgcode: imgCode,
         codeid: imgCodeId
-    }).then(res => res.data);
+    })
 }
 
 /**
@@ -639,7 +663,7 @@ export function bindPhoneSendMsg(imgCode, imgCodeId, type, phone = '') {
  */
 
 export function getSecretKey() {
-    return axios.post('/security/getSecretKey').then(res => res.data);
+    return axios.post('/security/getSecretKey')
 }
 
 /**
@@ -653,7 +677,7 @@ export function addAsk(detail, urlkey) {
         phone: '',
         urlkey: urlkey,
         type: ''
-    }).then(res => res.data);
+    })
 }
 
 /**
@@ -665,7 +689,7 @@ export function getQuestions(pageNumber) {
         size: 10,
         // status: 1,
         start: pageNumber
-    }).then(res => res.data);
+    })
 }
 
 /**
@@ -675,7 +699,7 @@ export function getQuestions(pageNumber) {
 export function submitUserInfo(info) {
     return axios.post('/user/submitUserInfo', {
         ...info
-    }).then(res => res.data);
+    })
 }
 
 /**
@@ -686,7 +710,7 @@ export function bindGoogleAuth(clientPassword, verCode) {
     return axios.post('/security/bindGoogleAuth', {
         clientPassword,
         verCode
-    }).then(res => res.data);
+    })
 }
 
 /**
@@ -697,7 +721,7 @@ export function closeGoogleAuth(clientPassword, verCode) {
     return axios.post('/security/closeGoogleAuth', {
         clientPassword,
         verCode
-    }).then(res => res.data);
+    })
 }
 
 /**
@@ -705,7 +729,7 @@ export function closeGoogleAuth(clientPassword, verCode) {
  */
 
 export function selectAuthLevel() {
-    return axios.post('/user/selectAuthLevel').then(res => res.data);
+    return axios.post('/user/selectAuthLevel')
 }
 
 /**
@@ -718,20 +742,8 @@ export function bindPhone(newDevice, oldDevice, oldVercode, vercode, codeid, img
         oldPhone,
         oldVercode,
         vercode
-    }).then(res => res.data);
+    })
 }
-
-
-/**
- * 去除手机号的0086
- */
-function rmAreaCode(phone, areaCode = '0086') {
-    if (phone.indexOf(areaCode) === 0) {
-        return phone.replace(areaCode, '')
-    }
-    return phone
-}
-
 /**
  *  绑定手机或邮箱发送验证码
  *  type=1、手机注册用户;type=2、邮箱注册用户;
@@ -743,7 +755,7 @@ export function bindPhoneOrEmailSendCode(codeid, imgcode, phoneOrEmail, type) {
         imgcode,
         phoneOrEmail,
         type
-    }).then(res => res.data);
+    })
 }
 
 /**
@@ -752,7 +764,7 @@ export function bindPhoneOrEmailSendCode(codeid, imgcode, phoneOrEmail, type) {
  */
 
 export function isUsedGoogleAuth() {
-    return axios.post('/security/isUsedGoogleAuth').then(res => res.data);
+    return axios.post('/security/isUsedGoogleAuth')
 }
 
 /**
@@ -766,7 +778,7 @@ export function bindPhoneOrEmailAction(EmailCode, phoneCode, phoneOrEmail, type)
         phoneCode,
         phoneOrEmail,
         type
-    }).then(res => res.data);
+    })
 }
 
 /**
@@ -780,7 +792,7 @@ export function modifyPhoneSendMsg(phone, codeid, imgcode, type) {
         codeid,
         imgcode,
         type
-    }).then(res => res.data);
+    })
 }
 
 /**
@@ -794,7 +806,7 @@ export function modifyPhoneAction(newCode, newPhone, oldCode, type) {
         newPhone,
         oldCode,
         type
-    }).then(res => res.data);
+    })
 }
 
 /**
@@ -803,7 +815,7 @@ export function modifyPhoneAction(newCode, newPhone, oldCode, type) {
  */
 
 export function phoneAuthSwitch(smsCode, status) {
-    return axios.post('/user/phoneAuthSwitch', { smsCode, status }).then(res => res.data);
+    return axios.post('/user/phoneAuthSwitch', { smsCode, status })
 }
 
 /**
@@ -812,7 +824,7 @@ export function phoneAuthSwitch(smsCode, status) {
  */
 
 export function updateFdPwdEnabled(fdPwd, enabled) {
-    return axios.post('/user/updateFdPwdEnabled', { fdPwd, enabled }).then(res => res.data);
+    return axios.post('/user/updateFdPwdEnabled', { fdPwd, enabled })
 }
 
 /**
@@ -836,7 +848,7 @@ export function bindVerifyCardInfo(
         branchName,
         tradePwd,
         imgUrl
-    }).then(res => res.data);
+    })
 }
 
 /**
@@ -845,7 +857,7 @@ export function bindVerifyCardInfo(
  */
 
 export function getBindBankCardInfo() {
-    return axios.post('/card/getBindBankCardInfo').then(res => res.data);
+    return axios.post('/card/getBindBankCardInfo')
 }
 
 /**
@@ -860,7 +872,7 @@ export function forgetFdPwd(newPwd, vercode, imgCode, imgCodeId, type) {
         imgcode: imgCode,
         codeid: imgCodeId,
         type: type
-    }).then(res => res.data);
+    })
 }
 
 /**
@@ -871,7 +883,7 @@ export function forgetFdPwd(newPwd, vercode, imgCode, imgCodeId, type) {
 export function questionDetail(qid) {
     return axios.post('/user/questionDetail', {
         qid
-    }).then(res => res.data);
+    })
 }
 
 /**
@@ -882,7 +894,7 @@ export function questionDetail(qid) {
 export function phoneAuthSendCode(type) {
     return axios.post('/user/phoneAuthSendCode', {
         type
-    }).then(res => res.data);
+    })
 }
 
 /**
@@ -891,7 +903,7 @@ export function phoneAuthSendCode(type) {
  */
 
 export function submitKycC() {
-    return axios.post('/user/submitKycC').then(res => res.data);
+    return axios.post('/user/submitKycC')
 }
 
 /**
@@ -906,7 +918,7 @@ export function updateBindBankCardStatus(id, tradePwd, gAuth, phoneCode, status 
         gAuth,
         phoneCode,
         status
-    }).then(res => res.data);
+    })
 }
 
 /**
@@ -917,7 +929,7 @@ export function updateBindBankCardStatus(id, tradePwd, gAuth, phoneCode, status 
 export function deleteBindBankCardRecord(id) {
     return axios.post('/card/deleteBindBankCardRecord', {
         id
-    }).then(res => res.data);
+    })
 }
 
 /**
@@ -929,15 +941,15 @@ export function sendMessageWithdraw(vercode, codeid) {
     return axios.post('/withdraw/sendMessageWithdraw', {
         vercode,
         codeid
-    }).then(res => res.data);
+    })
 }
 /**
  * 获取提币、充币、提现、充值的风控限额
  * 1: 充值；2：提现；3：充币；4：提币；5：买入；6：卖出；7:转账
  */
-export function getUserActionLimit(actionId, currencyId){
+export function getUserActionLimit(actionId, currencyId) {
     return axios.post('/userRisk/coinRisk', {
         actionId,
         currencyId
-    }).then(res => res.data);
+    })
 }

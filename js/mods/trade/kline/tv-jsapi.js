@@ -4,7 +4,7 @@
  * @date 2018-05-22
  */
 import { socket } from '../../../api/socket';
-import { getTradingViewKline , getTradeKline } from '../../../api/http';
+import { getTradeKline } from '../../../api/http';
 import TimeUtil from '../../../lib/util/date';
 
 const defaultConfiguration = {

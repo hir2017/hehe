@@ -39,6 +39,8 @@ class DepthChart extends Component {
 						/>
 				        <XAxis 
 				        	dataKey="value"
+				        	allowDecimals={false}
+				        	interval="preserveStartEnd"
 				        	axisLine={{
 								stroke: '#666666',
 								strokeWidth: 1,
@@ -53,6 +55,8 @@ class DepthChart extends Component {
 				        />
 				        <YAxis
 				        	scale="linear"
+				        	allowDecimals={false}
+				        	interval="preserveStartEnd"
 				        	domain={[0, maxDepth * 1.1 ]}
 				        	axisLine={{
 								stroke: '#666666',
@@ -85,6 +89,8 @@ class DepthChart extends Component {
 						/>
 						<XAxis
 							dataKey="value"
+							allowDecimals={false}
+							interval="preserveStartEnd"
 							axisLine={{
 								stroke: '#666666',
 								strokeWidth: 1,
@@ -100,6 +106,7 @@ class DepthChart extends Component {
 						<YAxis
 							padding={{top: 20}}
 							allowDecimals={false}
+							interval="preserveStartEnd"
 							orientation="right"
 							scale="linear"
 							domain={[0, maxDepth * 1.1 ]}

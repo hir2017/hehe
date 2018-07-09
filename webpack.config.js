@@ -58,6 +58,7 @@ var config = {
     entry: {
         // 可对应多个入口文件
         app: ['./js/app.js'],
+        vendor: ['react', 'react-dom', 'react-router', 'mobx-react']
     },
     output: output,
     devtool: 'source-map', // 输出source-map
@@ -135,10 +136,7 @@ var config = {
         extractCSS,
         new StringReplacePlugin(),
         new webpack.optimize.CommonsChunkPlugin({
-            name: "commons",
-            filename: "commons.js",
-            minChunks: 3, // (Modules must be shared between 3 entries)
-            chunks: ["pageA", "pageB"] // (Only use these entries)
+            names: ['vendor']
         })
     ]
 

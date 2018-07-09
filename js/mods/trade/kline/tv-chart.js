@@ -21,8 +21,6 @@ require('../../../lib/tradingview/charting_library.min');
 // import '../../../lib/tradingview/test';
 import UDFCompatibleDatafeed from './tv-jsapi';
 import DepthChart from '../depth/index';
-// import DepthChart from '../depth-d3/chart';
-// import DepthChart from '../depth-ga/index';
 
 @inject('tradeStore','commonStore')
 @observer
