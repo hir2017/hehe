@@ -16,7 +16,7 @@ socket.on('connect', () => {
 
 socket.on('disconnect', function() {
 	console.log('与服务器断开链接, 重新连接');
-    socket.open();
+    // socket.socket.reconnect();
 });
 
 const webchat = {
