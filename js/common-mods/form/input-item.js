@@ -7,7 +7,7 @@ class InputItem extends Component {
             <div className={`ace-input-item ${className || ''}`}>
                 <span className="label">{label}</span>
                 {
-                    this.props.children ? this.props.children : (<input className="input" {...inputProps} />)
+                    this.props.children ? this.props.children : (<input autoComplete="off" className="input" {...inputProps} />)
                 }
                 {tip ? (<div className="item-tip">{tip}</div>) : ''}
                 {error ? (<div className="item-error">{error}</div>) : ''}

@@ -5,6 +5,7 @@
  */
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
+import {getUserActionLimit} from '../../api/http';
 import { Button, Icon, Upload, message } from 'antd';
 import upload_pic from '../../../images/upload-pic.png';
 import upload_pic_hover from '../../../images/upload-pic-hover.png';
@@ -26,6 +27,13 @@ export default class SecondStep extends Component {
     constructor() {
         super();
         this.next = this.next.bind(this);
+
+    }
+
+    componentDidMount() {
+        getUserActionLimit().then(res => {
+            console.log(res)
+        });
     }
 
     changeSamplePic(num) {}
@@ -65,6 +73,7 @@ export default class SecondStep extends Component {
         oneUrl: '',
         twoUrl: '',
         threeUrl: '',
+        withdrawLimit: 0,
         sampleShow: false,
         samplePic: '',
         sampleTitle: '',
@@ -165,7 +174,7 @@ export default class SecondStep extends Component {
                         </article>
                     </div>
                 </div>
-                <div className="ace-top-tips">{UPEX.lang.template('完成此步骤确认，可获得每日NT$300.000提现额度')}</div>
+                <div className="ace-top-tips">{UPEX.lang.template('完成此步骤确认，可获得每日NT$300.000提现额度', {num: this.state.withdrawLimit})}</div>
                 {picsData.map((item, i) => {
                     return (
                         <div key={i} className="pic-item ace-upload-mod">

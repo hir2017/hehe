@@ -2,10 +2,9 @@
  * 法币充值
  */
 import { message } from 'antd';
-import { orderFiatWithdraw, getUserBankInfo , takeCoinSendPhoneCode } from '../../api/http';
+import { orderFiatWithdraw , takeCoinSendPhoneCode } from '../../api/http';
 import { browserHistory } from 'react-router';
 import Timer from '../../lib/timer';
-import md5 from '../../lib/md5';
 
 export default (store, userInfoStore) => {
     return {
@@ -146,7 +145,6 @@ export default (store, userInfoStore) => {
 
             if (result.pass) {
                 store.changeSubmitingStatusTo(true);
-                console.log(store.authType)
                 // amount, currencyId, cardId（此用户当前绑定银行卡id）, validateType, tradePwd, gAuth/phoneCode
                 orderFiatWithdraw({
 		            tradePwd: store.md5TradePassword,

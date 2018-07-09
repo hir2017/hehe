@@ -129,7 +129,7 @@ class List extends Component {
                                     <tr className="data" key={$detail.length}>
                                         <td>
                                             <span className="label"> {UPEX.lang.template('撤单时间')}：</span>
-                                            {item._cancel.time || '--'}
+                                            {item._detailInfo ? item._detailInfo.cancelTime : '--'}
                                         </td>
                                         <td>
                                             <span className="label"> {UPEX.lang.template('撤单数量')}：</span>
