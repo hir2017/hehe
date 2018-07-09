@@ -81,7 +81,8 @@ export default class BankList extends Component {
     bankHandle = (num, id) => {
         const bankCardList = this.props.userInfoStore.bankCardList || [];
         if (num === 1) {
-            if (bankCardList.length === 1) {
+            let bindList = bankCardList.filter(item => item.status === 1);
+            if (bindList.length < 2) {
                 message.error(UPEX.lang.template('当前级别至少要绑定一张银行卡'));
                 return;
             }

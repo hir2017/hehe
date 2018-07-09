@@ -3,7 +3,6 @@
  */
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
-import { Link, browserHistory } from 'react-router';
 import { Select } from 'antd';
 const Option = Select.Option;
 import toAction from './fiat-withdraw-action';
@@ -67,7 +66,7 @@ class FiatRechargeView extends Component {
                         <div className="rw-form-info">
                             <div className="yz-box">
                                 <div className={`input-box ${store.validImgCode ? '' : 'wrong'}`}>
-                                    <input type="text" placeholder={UPEX.lang.template('图片验证')} data-key="vercode" value={store.vercode} onChange={action.onChangeInput} />
+                                    <input type="text" autoComplete="off" placeholder={UPEX.lang.template('图片验证')} data-key="vercode" value={store.vercode} onChange={action.onChangeInput} />
                                     <div className="codeimg">
                                         <img src={store.captchaStore.captcha} onClick={(e) => {store.getImgCaptcha()}} alt="" />
                                     </div>
@@ -105,6 +104,7 @@ class FiatRechargeView extends Component {
                                     <div className="input-box">
                                         <input
                                             type="text"
+                                            autoComplete="off"
                                             data-key="phonecode"
                                             value={store.phoneCode}
                                             placeholder={UPEX.lang.template('请填写短信验证码')}
@@ -123,6 +123,7 @@ class FiatRechargeView extends Component {
                                     <input
                                         type="number"
                                         data-key="googlecode"
+                                        autoComplete="off"
                                         value={store.googleCode}
                                         placeholder={UPEX.lang.template('请填写Google验证码')}
                                         onChange={action.onChangeInput}
@@ -139,6 +140,7 @@ class FiatRechargeView extends Component {
                                     type="password"
                                     data-key="tradepwd"
                                     value={store.tradepwd}
+                                    autoComplete="off"
                                     placeholder={UPEX.lang.template('请输入资金密码')}
                                     onChange={action.onChangeInput}
                                 />

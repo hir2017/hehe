@@ -72,10 +72,10 @@ export default class ModifyPhone extends Component {
             message.error(UPEX.lang.template('请填写手机号') );
             return false;
         }
-        if(!UPEX.config.phoneReg.test(phone)) {
-            message.error(UPEX.lang.template('请填写正确的手机号'));
-            return false;
-        }
+        // if(!UPEX.config.phoneReg.test(phone)) {
+        //     message.error(UPEX.lang.template('请填写正确的手机号'));
+        //     return false;
+        // }
         this.setState({
             vcodeAbled: true
         });
