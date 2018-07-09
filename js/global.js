@@ -132,8 +132,12 @@ const symbols = {
     'USD': '$'
 }
 const baseCurrencySymbol = symbols[baseCurrencyEn];
+const initEnv = Url.query('env');
 
 var PROTOCOL = (function() {
+    if (initEnv == 'pro'){
+        return  'https:';
+    }
     if (location.protocol === 'https:') {
         return 'https:';
     } else {
@@ -142,6 +146,9 @@ var PROTOCOL = (function() {
 })();
 
 var SOCKET_PROTOCOL = (function() {
+    if (initEnv == 'pro'){
+        return  'wss:';
+    }
     if (location.protocol === 'https:') {
         return 'wss:';
     } else {
@@ -149,12 +156,15 @@ var SOCKET_PROTOCOL = (function() {
     }
 })();
 
+const DEV_IP = '13.251.85.35';
+const STAGE_IP = '54.169.140.238';
+
 const origin = (function(){
     let origin;
 
     let hostname = location.hostname;
 
-    if (hostname == '54.169.140.238') {
+    if (hostname == STAGE_IP) {
         origin = hostname;
     }
 
@@ -163,17 +173,55 @@ const origin = (function(){
     }
 
     // 根据环境获取不同的域名活着IP
-    switch(Url.query('env')) {
+    switch (initEnv) {
         case 'dev':
             // 开发环境
-            origin = '13.251.85.35';
+            origin = DEV_IP;
             break;
         case 'stage':
             // 测试环境
-            origin = '54.169.140.238';
+            origin = STAGE_IP;
+            break;
+        case 'pro':
+            origin = 'pre.ace.io';
             break;
         default:
-            origin = origin || '13.251.85.35';
+            origin = origin || DEV_IP;
+            break;
+    }
+
+    return origin;
+})();
+
+
+const origin_ws = (function(){
+    let origin;
+
+    let hostname = location.hostname;
+
+    if (hostname == STAGE_IP) {
+        origin = hostname;
+    }
+
+    if (hostname.indexOf('io') > -1) {
+        origin = hostname;
+    }
+
+    // 根据环境获取不同的域名活着IP
+    switch(initEnv) {
+         case 'dev':
+            // 开发环境
+            origin = DEV_IP;
+            break;
+        case 'stage':
+            // 测试环境
+            origin = STAGE_IP;
+            break;
+        case 'pro':
+            origin = 'process.ace.io';
+            break;
+        default:
+            origin = origin || DEV_IP;
             break;
     }
 
@@ -183,7 +231,7 @@ const origin = (function(){
 const host = PROTOCOL + '//' +  origin +'/polarisex';
 const uploadHost = host + '/upload/upload';
 const uploadImgHost =  host + '/user/uploadImageSingle';
-const websocketHost = SOCKET_PROTOCOL + '//' + origin + '/';
+const websocketHost = SOCKET_PROTOCOL + '//' + origin_ws + '/';
 const imgHost = PROTOCOL + '//' + origin + '/img';
 
 const config = {

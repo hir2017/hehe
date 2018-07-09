@@ -323,6 +323,13 @@ body .ant-popover-placement-bottomLeft>.ant-popover-content>.ant-popover-arrow {
     border-bottom: 1px solid transparent;
 }
 
+.app-trade .trade-extra-list .order-book-scroll{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    overflow-y: auto;
+}
+
 .app-trade .trade-extra-list .list-box-bd .table-hd {
     width: 100%;
     height: 30px;

@@ -75,6 +75,7 @@ class TradeContent extends Component {
             });    
 
             tradeStore.getData();
+            tradeStore.sendSubscribe();
             tradeStore.getEntrust();
             tradeStore.getTradeHistory();
             tradeStore.getUserAccount();

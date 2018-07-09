@@ -10,13 +10,17 @@ let socket = io(host, {
     transports: ['websocket']
 })	
 
+socket.on('connect_failed', (data) => {
+	// console.log('connect_failed', data);
+});
+
+
 socket.on('connect', () => {
 
 });
 
-socket.on('disconnect', function() {
-	console.log('与服务器断开链接, 重新连接');
-    // socket.socket.reconnect();
+socket.on('disconnect', function(res) {
+	console.log('与服务器断开链接, 重新连接', res);
 });
 
 const webchat = {

@@ -517,6 +517,11 @@ class TradeStore {
 
         socket.on('tradeHistory', data => {
             runInAction('get tradeHistory data', () => {
+                if (this.baseCurrencyId != data.baseCurrencyId || this.currencyId != data.tradeCurrencyId) {
+                    console.log('no match id');
+                    return;
+                }
+
                 if (typeof data.content.length !== 'undefined') {
                     this.tradeHistory = this.parseTradeHistory(data);
                 } else {
@@ -554,6 +559,19 @@ class TradeStore {
     }
 
     @action
+    sendSubscribe(){
+        socket.off('subscribe');
+        socket.emit('subscribe', {
+            baseCurrencyId: this.baseCurrencyId,
+            tradeCurrencyId: this.currencyId
+        })
+
+        socket.on('subscribe', data => {
+            console.log('subscribe', data)
+        })
+    }
+
+    @action
     getEntrust() {
         socket.off('entrust');
         socket.emit('entrust', {
@@ -563,6 +581,10 @@ class TradeStore {
 
         socket.on('entrust', data => {
             runInAction('get entrust', () => {
+                if (this.baseCurrencyId != data.baseCurrencyId || this.currencyId != data.tradeCurrencyId) {
+                    console.log('no match id');
+                    return;
+                }
                 this.entrust = data;
 
                 if (this.first) {
@@ -975,8 +997,9 @@ class TradeStore {
 
     @action
     destorySocket() {
-        socket.off('tradeHistory');
+        socket.off('subscribe');
         socket.off('entrust');
+        socket.off('tradeHistory');
         socket.off('userAccount');
         socket.off('userTrade');
         socket.off('userOrder');
