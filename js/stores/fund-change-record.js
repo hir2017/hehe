@@ -6,8 +6,6 @@ import { getFundChangeList } from '../api/http';
 import TimeUtil from '../lib/util/date';
 import NumberUtil from '../lib/util/number';
 
-// Mock
-import MockData from '../mock/fund-change-record'
 
 class FundChangeRecordStore {
     @observable orderList = [];
@@ -36,7 +34,7 @@ class FundChangeRecordStore {
             '8': UPEX.lang.template('放款失败'),
         },
         recharge: {
-            '0': UPEX.lang.template('等待审核'),
+            '0': UPEX.lang.template('待审核'),
             '1': UPEX.lang.template('已完成'),
             '2': UPEX.lang.template('待付款'),
             '3': UPEX.lang.template('待付款'),

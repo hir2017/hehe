@@ -1,5 +1,5 @@
 import { observable, action, computed } from 'mobx';
-import { hashHistory, browserHistory } from 'react-router';
+import {  browserHistory } from 'react-router';
 import {
     personalInfo,
     loginRecord,
@@ -34,6 +34,15 @@ import {
     sendMessageWithdraw
 } from '../api/http';
 import { message } from 'antd';
+
+const pickErrMsg = (res, name) => {
+    const statusMap = [0, 9999];
+    if (statusMap.indexOf(res.status) !== -1) {
+        console.error(`${name} error: ${res.message}`);
+    } else {
+        message.error(res.message);
+    }
+};
 
 class UserInfo {
     @observable submit_loading = false;
@@ -142,11 +151,11 @@ class UserInfo {
         this.identityInfo.idType = data.idType;
         this.identityInfo.idNumber = data.idNumber;
         (this.identityInfo.resortType = data.resortType),
-        (this.identityInfo.resortTypeOther = data.resortTypeOther),
-        (this.identityInfo.address = data.address),
-        (this.identityInfo.postCode = data.postCode),
-        (this.identityInfo.profession = data.profession),
-        (this.identityInfo.annualsalary = data.annualsalary);
+            (this.identityInfo.resortTypeOther = data.resortTypeOther),
+            (this.identityInfo.address = data.address),
+            (this.identityInfo.postCode = data.postCode),
+            (this.identityInfo.profession = data.profession),
+            (this.identityInfo.annualsalary = data.annualsalary);
     }
 
     @action
@@ -182,8 +191,7 @@ class UserInfo {
                 if (res.status === 412) {
                     this.captchaStore.fetch();
                 }
-                message.error(res.message);
-                console.error('bindTradingPwd error');
+                pickErrMsg(res, 'bindTradingPwd');
             } else {
                 reqResult = true;
                 this.getUserInfo();
@@ -208,8 +216,7 @@ class UserInfo {
                 if (res.status === 412) {
                     this.captchaStore.fetch();
                 }
-                message.error(res.message);
-                console.error('resetPwd error');
+                pickErrMsg(res, 'resetPwd');
             } else {
                 reqResult = true;
                 message.success(UPEX.lang.template('登录密码修改成功，请重新登录'));
@@ -241,8 +248,7 @@ class UserInfo {
             const res = await addAsk(detail, urlkey);
             this.submit_loading = false;
             if (res.status !== 200) {
-                message.error(res.message);
-                console.error('ask error');
+                pickErrMsg(res, 'ask');
             } else {
                 result = true;
                 message.success(UPEX.lang.template('问题反馈成功'));
@@ -274,10 +280,10 @@ class UserInfo {
                 this.getUserInfo();
                 return res;
             } else {
-                if(res.status === 2006) {
+                if (res.status === 2006) {
                     message.error(UPEX.lang.template('提交身份证已存在'));
                 } else {
-                    message.error(res.message);
+                    pickErrMsg(res, 'identityAuthentication');
                 }
                 return res;
             }
@@ -298,7 +304,7 @@ class UserInfo {
                 this.getUserInfo();
                 message.success(UPEX.lang.template('绑定成功'));
             } else {
-                message.error(res.message);
+                pickErrMsg(res, 'bindGA');
             }
         } catch (e) {
             this.submit_loading = false;
@@ -319,7 +325,7 @@ class UserInfo {
                 this.gaBindSuccess = false;
                 message.success(UPEX.lang.template('解除绑定成功'));
             } else {
-                message.error(res.message);
+                pickErrMsg(res, 'rmBindGA');
             }
         } catch (e) {
             this.submit_loading = false;
@@ -336,7 +342,7 @@ class UserInfo {
             if (res.data.status === 200) {
                 console.log(res.data, 'data');
             } else {
-                message.error(res.data.message);
+                pickErrMsg(res.data, 'authInfo');
             }
         } catch (e) {
             console.error(e);
@@ -351,7 +357,7 @@ class UserInfo {
             if (res.status === 200) {
                 console.log(res.data, 'data');
             } else {
-                message.error(res.message);
+                pickErrMsg(res, 'modifyPhone');
             }
         } catch (e) {
             console.error(e);
@@ -377,11 +383,7 @@ class UserInfo {
             if (res.status === 200) {
                 this.gaBindSuccess = res.attachment.isUsed === 1;
             } else {
-                if(res.status !== 0) {
-                    message.error(res.message);
-                } else {
-                    console.error('isGoogleAuth', res.message);
-                }
+                pickErrMsg(res, 'isGoogleAuth');
             }
         } catch (e) {
             console.error(e);
@@ -403,7 +405,7 @@ class UserInfo {
                     browserHistory.push('/user/phoneSuccess');
                 }
             } else {
-                message.error(res.message);
+                pickErrMsg(res, 'bindPEAction');
             }
         } catch (e) {
             this.submit_loading = false;
@@ -436,16 +438,19 @@ class UserInfo {
             } else {
                 const msgMap = {
                     '500': UPEX.lang.template('请填写正确的原手机短信验证码'),
-                    '403': UPEX.lang.template('请填写正确的新手机短信验证码'),
-                }
-                let tempMsg ;
-                if(res.message === '谷歌验证码不正确') {
-                    tempMsg =  UPEX.lang.template('请填写正确的Google验证码')
+                    '403': UPEX.lang.template('请填写正确的新手机短信验证码')
+                };
+                let tempMsg;
+                if (res.message === '谷歌验证码不正确') {
+                    tempMsg = UPEX.lang.template('请填写正确的Google验证码');
                 } else {
                     tempMsg = msgMap[res.status] || res.message;
                 }
-
-                message.error(tempMsg);
+                if(res.status === 0 || res.status === 9999) {
+                    pickErrMsg(res, 'newModifyPhone');
+                } else {
+                    message.error(tempMsg);
+                }
             }
         } catch (e) {
             this.submit_loading = false;
@@ -466,7 +471,7 @@ class UserInfo {
                 result = true;
                 message.success(UPEX.lang.template('修改成功'));
             } else {
-                message.error(res.message);
+                pickErrMsg(res, 'phoneSwitch');
             }
         } catch (e) {
             this.submit_loading = false;
@@ -488,7 +493,7 @@ class UserInfo {
                 this.getUserInfo();
                 message.success(UPEX.lang.template('修改成功'));
             } else {
-                message.error(res.message);
+                pickErrMsg(res, 'fdPwdSwitch');
             }
         } catch (e) {
             this.submit_loading = false;
@@ -510,7 +515,7 @@ class UserInfo {
                 this.bankCardInfo();
                 message.success(UPEX.lang.template('绑定成功'));
             } else {
-                message.error(res.message);
+                pickErrMsg(res, 'bindVerifyCard');
             }
         } catch (e) {
             this.submit_loading = false;
@@ -542,7 +547,7 @@ class UserInfo {
                 reqResult = true;
                 message.success(UPEX.lang.template('修改成功'));
             } else {
-                message.error(res.message);
+                pickErrMsg(res, 'forgetTradingPwd');
             }
         } catch (e) {
             this.submit_loading = false;
@@ -585,12 +590,11 @@ class UserInfo {
                 result = true;
                 message.success(UPEX.lang.template('申请成功'));
             } else {
-                if(res.status === 41731) {
+                if (res.status === 41731) {
                     message.error(UPEX.lang.template('您的条件尚不符合提额条件'));
                 } else {
-                    message.error(res.message);
-                };
-
+                    pickErrMsg(res, 'kycC');
+                }
             }
         } catch (e) {
             this.submit_loading = false;
@@ -608,8 +612,7 @@ class UserInfo {
             const res = await modifyFdPwd(newFdPassWord, passWord);
             this.submit_loading_tpwd = false;
             if (res.status !== 200) {
-                message.error(res.message);
-                console.error('modifytradingPwd error');
+                pickErrMsg(res, 'modifytradingPwd');
             } else {
                 reqResult = true;
                 message.success(UPEX.lang.template('修改成功'));
@@ -627,8 +630,7 @@ class UserInfo {
         try {
             const res = await updateBindBankCardStatus(id, tradePwd, gAuth, phoneCode);
             if (res.status !== 200) {
-                message.error(res.message);
-                console.error('updateBindBankCard error');
+                pickErrMsg(res, 'updateBindBankCard');
             } else {
                 message.success(UPEX.lang.template('解绑成功'));
             }
@@ -643,8 +645,7 @@ class UserInfo {
         try {
             const res = await deleteBindBankCardRecord(id);
             if (res.status !== 200) {
-                message.error(res.message);
-                console.error('deleteBindBankCard error');
+                pickErrMsg(res, 'deleteBindBankCard');
             } else {
                 this.bankCardInfo();
                 message.success(UPEX.lang.template('删除成功'));
