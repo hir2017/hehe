@@ -129,15 +129,15 @@ const NumberUtil = {
      * @param digit {Number} 位数
      * @return {String} 截取后的数字
      */
-    toFixed: function(num, digit)
-    {
-        var str = "" + num, idx = str.indexOf(".") + digit + 1;
-        if (idx > digit && idx < str.length)  // 超过N位小数
+    toFixed: function(num, digit) {
+        var str = "" + num,
+            idx = str.indexOf(".") + digit + 1;
+        if (idx > digit && idx < str.length) // 超过N位小数
         {
-            num = str.substring(0, idx);  // 截取N位小数
+            num = str.substring(0, idx); // 截取N位小数
         }
         return parseFloat(num).toFixed(digit);
-    }, 
+    },
     /**
      * 保留小数位
      * roundtag:舍入参数，默认"round" 四舍五入； "ceil" 向上取, "floor"向下取,
@@ -197,25 +197,24 @@ const NumberUtil = {
     },
 
     scientificToNumber(num) {
-        console.log(num);
-        var str = num.toString();
-        var reg = /^(\d+)(e)([\-]?\d+)$/;
-        var arr, len,
-            zero = '';
-
-        /* 6e7或6e+7 都会自动转换数值 */
-        if (!reg.test(str)) {
-            return num;
-        } else {
-            /* 6e-7 需要手动转换 */
-            arr = reg.exec(str);
-            len = Math.abs(arr[3]) - 1;
-            for (var i = 0; i < len; i++) {
-                zero += '0';
+        //if the number is in scientific notation remove it
+        if (/\d+\.?\d*e[\+\-]*\d+/i.test(num)) {
+            var zero = '0',
+                parts = String(num).toLowerCase().split('e'), //split into coeff and exponent
+                e = parts.pop(), //store the exponential part
+                l = Math.abs(e), //get the number of zeros
+                sign = e / l,
+                coeff_array = parts[0].split('.');
+            if (sign === -1) {
+                num = zero + '.' + new Array(l).join(zero) + coeff_array.join('');
+            } else {
+                var dec = coeff_array[1];
+                if (dec) l = l - dec.length;
+                num = coeff_array.join('') + new Array(l + 1).join(zero);
             }
-
-            return '0.' + zero + arr[1];
         }
+        
+        return num;
     },
     // 小数相加
     add(num1, num2) {
@@ -226,9 +225,9 @@ const NumberUtil = {
             return num.toString().split('.');
         }
         const _add = (...params) => {
-            if(params.length === 3) {
+            if (params.length === 3) {
                 let _lens = params[2];
-                return parseInt(params[0]) * Math.pow(10, _lens[0])  + parseInt(params[1])  * Math.pow(10, _lens[1]);
+                return parseInt(params[0]) * Math.pow(10, _lens[0]) + parseInt(params[1]) * Math.pow(10, _lens[1]);
             }
             return parseInt(params[0]) + parseInt(params[1]);
         }
@@ -236,7 +235,7 @@ const NumberUtil = {
         let [len1, len2] = [_Len(arr1), _Len(arr2)];
         const len = Math.max(len1, len2);
         let result = [_add(arr1[0], arr2[0]), _add(arr1[1] || 0, arr2[1] || 0, [len - len1, len - len2])];
-        return parseInt(result[0]) + parseInt(result[1])/Math.pow(10, len);
+        return parseInt(result[0]) + parseInt(result[1]) / Math.pow(10, len);
     }
 
 };

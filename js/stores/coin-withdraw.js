@@ -44,6 +44,10 @@ class CoinWithdrawStore {
     @observable dayLimit = ''; 
     // 每笔限额
     @observable oneLimit = ''; 
+    // 最小提现额度
+    @observable amountLowLimit = 0;
+    // 最大提现额度
+    @observable amountHightLimit = 99999999;
 
 
     // 图片id
@@ -105,24 +109,14 @@ class CoinWithdrawStore {
                     this.dayLimit = UPEX.config.baseCurrencySymbol + '' + NumberUtil.separate(Number(dayLimit), ',');
 
                     if (limit) {
+                        this.amountLowLimit = NumberUtil.scientificToNumber(limit.lowLimit);
+                        this.amountHightLimit = NumberUtil.scientificToNumber(limit.highLimit);
                         this.oneLimit = NumberUtil.separate(Number(limit.highLimit), ',') + '' + limit.currencyNameEn;
                     }
                 }
             })
         })
     }
-    /**
-     * 最小提币限额
-     */
-    @computed
-    get amountLowLimit() {
-        if (this.takeCoinInfo.detail && this.takeCoinInfo.detail.amountLowLimit) {
-            return NumberUtil.scientificToNumber(this.takeCoinInfo.detail.amountLowLimit);
-        } else {
-            return 0;
-        }
-    }
-
     /**
      * 实际到账金额
      */
@@ -291,6 +285,10 @@ class CoinWithdrawStore {
             result.pass = false;
             result.message = UPEX.lang.template('不能大于可提币数量');
             this.validAmount = false;
+        } else if(amount > Number(this.amountHightLimit)) {
+            result.pass = false;
+            result.message = UPEX.lang.template('不能大于最大提币数量');
+            this.validAmount = false;
         }
 
         if (!this.tradepwd) {
@@ -345,6 +343,8 @@ class CoinWithdrawStore {
 
         this.dayLimit = '';
         this.oneLimit = '';
+        this.amountLowLimit = 0;
+        this.amountHightLimit = 99999999;
 
         this.resetForm();
     }
