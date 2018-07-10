@@ -20,7 +20,7 @@ const cashTypes = () => {
         { val: 'PD-ATM-SINOPAC', label: UPEX.lang.template('永豐實體ATM') }, // 只显示订单，没有支付
         { val: 'PD-ATM-SCSB', label: UPEX.lang.template('上海商銀即時ATM') }, // 无该资质渠道
         // { val: 'PD-WEBATM-POST', label: UPEX.lang.template('郵局WEB-ATM') }, // 无该资质渠道
-        { val: 'PD-WEBATM-TCB', label: UPEX.lang.template('合庫WEBATM') },// 可使用
+        { val: 'PD-WEBATM-TCB', label: UPEX.lang.template('合庫WEB-ATM') },// 可使用
         { val: 'PD-WEBATM-CTCB', label: UPEX.lang.template('中國信託WEB-ATM') },// 可使用
         { val: 'PD-WEBATM-HNCB', label: UPEX.lang.template('華南WEB-ATM') },// 可使用
         { val: 'PD-WEBATM-TSCB', label: UPEX.lang.template('台新WEB-ATM') },// 可使用
