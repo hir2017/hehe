@@ -8,7 +8,8 @@ import { Modal,message} from 'antd';
 class Popup extends Component{
     static defaultProps  = {
         onSubmit: ()=>{},
-        title: ''
+        title: '',
+        children: null
     }
     
     constructor(props) {
@@ -25,16 +26,19 @@ class Popup extends Component{
 
     render() {
         return (
-            <Modal 
-                title={this.props.title} 
-                visible={true} 
-                onCancel={this.handleCancel.bind(this)} 
-                footer={null}
-            >
-                <div className="popup-container">
-                    <button className="submit" onClick={this.handleSubmit.bind(this)}>{UPEX.lang.template('提交')}</button>
+            <div className="widget-popup-container">
+                <div className="popup-container">  
+                    <div className="popup-header">
+
+                    </div>
+                    <div className="popup-body">
+                        
+                    </div>
+                    <div className="popup-footer">
+                        <button className="submit" onClick={this.handleSubmit.bind(this)}>{UPEX.lang.template('提交')}</button>
+                    </div>
                 </div>
-            </Modal>
+            </div>
         )
     }
 }

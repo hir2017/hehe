@@ -39,6 +39,21 @@ class Login extends Component {
         // this.action.getImgCaptcha();
     }
 
+    componentWillReceiveProps(nextProps){
+        if (nextProps.location !== this.props.location) {
+            let state = nextProps.location.state;
+            
+            if (state && state.step){
+
+                if (this.state.step !== state.step) {
+                    this.setState({
+                        step: state.step
+                    });
+                }
+            }
+        }
+    }
+
     componentWillUnmount(){
         this.action.destroy(); 
     }
@@ -92,7 +107,7 @@ class Login extends Component {
                 then((data)=>{
                     switch(data.status){
                         case 200:
-                            browserHistory.push('/home');
+                            browserHistory.push('/webtrade');
                             break;
                         default:
                             this.setState({

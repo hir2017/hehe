@@ -422,7 +422,7 @@ export default (store) => {
                         });
 
                         store.changeSendingPhoneCodeTo(true);
-
+                        
                         break;
                     case 412:
                         // 图片验证码错误

@@ -107,7 +107,7 @@ class HeaderView extends Component {
 							) : (
 								<ul className="login-register">
 									<li className="login">
-										<Link to="/login">{ UPEX.lang.template('登录')}</Link>
+										<Link to={{ pathname: '/login', state: { step: 'login'}}}>{ UPEX.lang.template('登录')}</Link>
 									</li>
 									<li className="split">|</li>
 									<li className="register">
