@@ -280,8 +280,6 @@ body .ant-select-dropdown-menu-item-selected:hover{
 .widget-tooltip .menu-list dd.selected {
     color: #cc9900;
 }
-
-
 /* use css to set position of modal */
 .vertical-center-modal {
   text-align: center;

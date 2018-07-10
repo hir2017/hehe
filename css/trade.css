@@ -68,6 +68,52 @@
     background-color: #ffdc57;
 }
 
+
+/**
+ * 提示弹出框
+ */
+/* use css to set position of modal */
+.ace-dialog {
+  text-align: center;
+  white-space: nowrap;
+}
+
+.ace-dialog:before {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+  width: 0;
+}
+
+.ace-dialog-body-wrapper{
+    margin-top: 10px;
+    text-align: left;
+}
+
+.ace-dialog-body-content{
+    padding-bottom: 30px;
+}
+.ace-dialog-body-wrapper .anticon{
+    font-size: 22px;
+    margin-right: 16px;
+    float: left;
+    color: #faad14;
+}
+
+.ace-dialog-btns{
+    padding-top: 20px;
+    text-align: center;
+}
+.ace-dialog-btns button{
+    width: 120px;
+    height: 30px;
+    line-height: 30px;
+}
+.ace-dialog-btns button+button {
+    margin-left: 10px;
+}
+
 /**
  * 左侧
  */

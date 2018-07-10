@@ -7,7 +7,7 @@
  */
 import React, {Component} from 'react';
 import { observer, inject } from 'mobx-react';
-import { Tabs , Icon , Popover, Select } from 'antd';
+import { Tabs , Icon , Popover, Select , Modal } from 'antd';
 import {  Link , browserHistory } from 'react-router';
 import toAction from './action';
 const Option = Select.Option;
@@ -19,6 +19,7 @@ const wechatContent = (
 const tgContent = (
     <div className="telegram"></div>
 );
+
 
 @inject('loginStore', 'authStore')
 @observer
@@ -37,12 +38,15 @@ class Login extends Component {
     componentDidMount() {
         // 组件加载完调用图片验证码
         // this.action.getImgCaptcha();
+        if (this.props.authStore.isLogin) {
+            browserHistory.push('/home');
+        }
     }
 
     componentWillReceiveProps(nextProps){
         if (nextProps.location !== this.props.location) {
             let state = nextProps.location.state;
-            
+
             if (state && state.step){
 
                 if (this.state.step !== state.step) {
@@ -71,10 +75,7 @@ class Login extends Component {
                 then((data)=>{
                     switch(data.status){
                         case 200:
-                            
-                            setTimeout(() => {
-                                browserHistory.push('/home');
-                            }, 100)
+                            this.handleLoginSuccess(data.attachment);
                             break;
                         case 5555: // 需要进行谷歌认证
                             this.setState({
@@ -99,6 +100,58 @@ class Login extends Component {
         }
     }
 
+    handleLoginSuccess(result) {
+        browserHistory.push('/webtrade');
+
+        if (!result.isValidatePhone) {
+            Modal.confirm({
+                prefixCls: "ace-dialog",
+                content: UPEX.lang.template('请绑定手机'),
+                okText: UPEX.lang.template('去绑定手机'),
+                cancelText: UPEX.lang.template('取消'),
+                iconType: 'exclamation-circle',
+                onOk() {    
+                    browserHistory.push('/user/binding-phone');
+                }
+            });
+        } else if (!result.isValidatePass) {
+            Modal.confirm({
+                prefixCls: "ace-dialog",
+                content: UPEX.lang.template('请先设置资金密码'),
+                okText: UPEX.lang.template('去设置资金密码'),
+                cancelText: UPEX.lang.template('取消'),
+                iconType: 'exclamation-circle',
+                onOk() {    
+                    browserHistory.push('/user/settingTraddingPassword');
+                }
+            });
+        } else {
+            if (result.authLevel == 0 ) {
+                Modal.confirm({
+                    prefixCls: "ace-dialog",
+                    content: UPEX.lang.template('请您进行身份认证，否则无法进行充值、提现、充币、提币操作'),
+                    okText: UPEX.lang.template('身份认证'),
+                    cancelText: UPEX.lang.template('取消'),
+                    iconType: 'exclamation-circle',
+                    onOk() {    
+                        browserHistory.push('/user/authentication');
+                    }
+                });
+            } else if (result.authLevel == 1) {
+                Modal.confirm({
+                    prefixCls: "ace-dialog",
+                    content: UPEX.lang.template('请您先绑定银行卡信息，否则无法进行充值、提现操作'),
+                    okText: UPEX.lang.template('绑定银行卡信息'),
+                    cancelText: UPEX.lang.template('取消'),
+                    iconType: 'exclamation-circle',
+                    onOk() {    
+                        browserHistory.push('/user/bankInfo');
+                    }
+                });
+            }
+        }
+    }
+
     handleLoginVerifyCode=(e)=>{
         let { step } =  this.state;
         
@@ -107,7 +160,7 @@ class Login extends Component {
                 then((data)=>{
                     switch(data.status){
                         case 200:
-                            browserHistory.push('/webtrade');
+                            this.handleLoginSuccess(data.attachment);
                             break;
                         default:
                             this.setState({

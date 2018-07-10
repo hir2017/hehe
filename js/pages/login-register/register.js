@@ -24,7 +24,12 @@ class Register extends Component {
 
     componentDidMount() {
         // 组件加载完调用图片验证码
+        if (this.props.authStore.isLogin) {
+            browserHistory.push('/home');
+            return;
+        }
         this.action.getImgCaptcha();
+
     }
 
     componentWillUnmount(){
