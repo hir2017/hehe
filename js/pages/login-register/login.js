@@ -151,8 +151,9 @@ class Login extends Component {
                     <div className="input-wrapper">
                         <div className="input-box">
                             <input
-                                type="number" 
+                                type="tel" 
                                 onInput={ action.onChangeGoogleCode}
+                                maxLength="6"
                                 placeholder={ UPEX.lang.template('Google验证码') }
                                 onKeyDown={ this.keyLoginSecond }
                             />
@@ -166,6 +167,7 @@ class Login extends Component {
                             <input
                                 type="text" 
                                 onInput={ action.onChangeLoginVerCode}
+                                maxLength="6"
                                 placeholder={ UPEX.lang.template('短信验证码') }
                                 onKeyDown={ this.keyLoginSecond }
                             />
@@ -272,6 +274,7 @@ class Login extends Component {
                                 <input
                                     type="password" 
                                     placeholder={ UPEX.lang.template('密码') }
+                                    maxLength="16"
                                     onInput={ action.onChangePwd }
                                     onKeyDown={ this.keyLogin }
                                 />
@@ -283,6 +286,7 @@ class Login extends Component {
                                     type="text" 
                                     placeholder={ UPEX.lang.template('验证码') }
                                     onInput={ action.onChangeImgCode }
+                                    maxLength="6"
                                     onKeyDown={ this.keyLogin }
                                 />
                                 <div className="codeimg">

@@ -116,7 +116,8 @@ class ResetPassword extends Component {
                             <div className="input-box yz-box">
                                 <input
                                     type="text" 
-                                    placeholder={ UPEX.lang.template('图片验证') }
+                                    placeholder={ UPEX.lang.template('请参照右侧输入') }
+                                    maxLength="5"
                                     onInput={ action.onChangeImgCode }
                                     className={ store.validImgCode ? '' : 'wrong' }
                                 />
@@ -131,6 +132,7 @@ class ResetPassword extends Component {
                                 <input 
                                     type="text" 
                                     ref="vercode" 
+                                    maxLength="6"
                                     placeholder={ store.mode == 'email' ? UPEX.lang.template('邮箱验证码') : UPEX.lang.template('手机验证码') }
                                     className={ store.validVercode ? '' : 'wrong' }
                                     onInput={ action.onChangeVercode }
@@ -149,6 +151,7 @@ class ResetPassword extends Component {
                                 <input
                                     type="password" 
                                     ref="pwd"
+                                    maxLength="16"
                                     className={ store.validPwd ? '' : 'wrong'}
                                     placeholder={ UPEX.lang.template('密码') }
                                     onInput={ action.onChangePwd }
@@ -162,6 +165,7 @@ class ResetPassword extends Component {
                                 <input
                                     type="password" 
                                     ref="twicepwd"
+                                    maxLength="16"
                                     className={ store.validTwicePwd ? '' : 'wrong'}
                                     placeholder={ UPEX.lang.template('确认密码') }
                                     onInput={ action.onChangeTwicePwd }
