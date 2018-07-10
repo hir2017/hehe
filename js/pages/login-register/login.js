@@ -190,7 +190,12 @@ class Login extends Component {
                             
                             <div className="input-wrapper">
                                 <div className="login-input">
-                                    <button className="submit-btn login-btn" onClick={ this.handleLoginVerifyCode }>{ UPEX.lang.template('登录') }</button>
+                                    {
+                                        store.submiting ?  
+                                        <button className="submit-btn login-btn">{ UPEX.lang.template('登录中') }</button>
+                                        :
+                                        <button className="submit-btn login-btn" onClick={ this.handleLoginVerifyCode }>{ UPEX.lang.template('登录') }</button>
+                                    }
                                 </div>
                             </div>
                         </div>
@@ -290,7 +295,7 @@ class Login extends Component {
 
                         <div className="input-wrapper">
                             {
-                                store.logining ?  
+                                store.submiting ?  
                                 <button className="submit-btn login-btn">{ UPEX.lang.template('登录中') }</button>
                                 : 
                                 <button className="submit-btn login-btn" onClick={ this.handleLogin }>{ UPEX.lang.template('登录') }</button>

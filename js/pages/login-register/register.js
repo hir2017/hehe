@@ -211,7 +211,12 @@ class Register extends Component {
                         <div className="input-wrapper">
                             {
                                 store.agree ? 
-                                <button ref="signIn" className='submit-btn' onClick={ this.submit }>{ UPEX.lang.template('注册') }</button>
+                                (
+                                    store.submiting ? 
+                                    <button ref="signIn" className='submit-btn'>{ UPEX.lang.template('注册中') }</button>
+                                    :
+                                    <button ref="signIn" className='submit-btn' onClick={ this.submit }>{ UPEX.lang.template('注册') }</button>
+                                )
                                 :
                                 <button ref="signIn" className='submit-btn disabled'>{ UPEX.lang.template('注册') }</button>
                             }

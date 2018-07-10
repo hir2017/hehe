@@ -172,7 +172,12 @@ class ResetPassword extends Component {
                         </div>
                         
                         <div className="input-wrapper">
-                            <button className="submit-btn" onClick={ this.submit }>{ UPEX.lang.template('确认') }</button>
+                            {
+                                store.submiting ? 
+                                <button className="submit-btn">{ UPEX.lang.template('提交中') }</button>
+                                :
+                                <button className="submit-btn" onClick={ this.submit }>{ UPEX.lang.template('提交') }</button>
+                            }
                         </div>
                         <div className="register-extra clearfix">
                             <div className="fl login">

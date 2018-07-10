@@ -100,8 +100,8 @@ export default (store) => {
 
             //  验证表单信息
             if (!verifyInfoBeforeSendCode.pass) {
+                message.destroy();
                 verifyInfoBeforeSendCode.message && message.error(verifyInfoBeforeSendCode.message);
-                
                 return;
             }
 
@@ -153,13 +153,20 @@ export default (store) => {
         },
 
         submitResetPwd() {
-            let { verifyInfoBeforeSubmit } = store;
+            let { verifyInfoBeforeSubmit, updateSubmiting } = store;
 
             //  验证表单信息
             if (!verifyInfoBeforeSubmit.pass) {
+                message.destroy();
                 message.error(verifyInfoBeforeSubmit.message);
                 return;
             }
+
+            if (store.submiting) {
+                return;
+            }
+
+            updateSubmiting(true);
 
             resetPwd({
                 account: store.account,
@@ -168,6 +175,8 @@ export default (store) => {
                 imgcode: store.imgcode,
                 codeid: store.codeid
             }).then((data) => {
+                updateSubmiting(false);
+
                 switch (data.status) {
                     case 200:
                         // message.success(UPEX.lang.template('成功，将跳转登录页面'));
@@ -189,11 +198,13 @@ export default (store) => {
                         message.error(data.message);
                         this.getImgCaptcha();
                 }
+            }).catch(()=>{
+                updateSubmiting(false);
             })
         },
 
         submitRegister() {
-            let { verifyInfoBeforeSubmit, updateLogining } = store;
+            let { verifyInfoBeforeSubmit, updateSubmiting } = store;
             //  验证表单信息
             if (!verifyInfoBeforeSubmit.pass) {
                 message.destroy();
@@ -205,6 +216,12 @@ export default (store) => {
                 return;
             }
 
+            if (store.submiting) {
+                return;
+            }
+
+            updateSubmiting(true);
+
             userRegister({
                 account: store.account,
                 pwd: store.pwd,
@@ -213,6 +230,7 @@ export default (store) => {
                 imgcode: store.imgcode,
                 codeid: store.codeid
             }).then((data) => {
+                updateSubmiting(false);
 
                 switch (data.status) {
                     case 200:
@@ -234,7 +252,7 @@ export default (store) => {
                         break;
                 }
             }).catch(() => {
-
+                updateSubmiting(false);
             })
         },
 
@@ -291,9 +309,13 @@ export default (store) => {
         },
 
         userLogin() {
-            const { updateLogining } = store;
+            const { updateSubmiting } = store;
 
-            updateLogining(true);
+            if (store.submiting) {
+                return;
+            }
+
+            updateSubmiting(true);
 
             return userLogin({
                 email: store.account,
@@ -301,7 +323,7 @@ export default (store) => {
                 imgcode: store.imgcode,
                 codeid: store.codeid
             }).then((data) => {
-                updateLogining(false);
+                updateSubmiting(false);
 
                 switch (data.status) {
                     case 200:
@@ -318,11 +340,12 @@ export default (store) => {
 
                 return data;
             }).catch(() => {
-                updateLogining(false);
+                updateSubmiting(false);
             })
         },
 
         userLogin2(type) {
+            const { updateSubmiting } = store;
             let authType = 0;
             let vercode = '';
 
@@ -339,11 +362,20 @@ export default (store) => {
                     authType = 3;
                     break;
             }
+
+            if (store.submiting) {
+                return;
+            }
+
+            updateSubmiting(true);
+
             return userLogin2({
                 authType,
                 emailOrPhone: store.account,
                 clientPassword: vercode,
             }).then((data) => {
+                updateSubmiting(false);
+
                 switch (data.status) {
                     case 200:
                         store.authStore.update({
@@ -358,7 +390,9 @@ export default (store) => {
                 }
 
                 return data;
-            });
+            }).catch(()=>{
+                updateSubmiting(false);
+            })
         },
         /**
          * 发送手机验证码

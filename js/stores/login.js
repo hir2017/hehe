@@ -26,7 +26,7 @@ class LoginInfoBaseStore {
     @observable validImgCode = true; // 图片验证码
     @observable validVercode = true; // 邮箱or手机验证码
     @observable hasPhone = false; // 手机是否已经被占用
-    @observable logining = false;
+    @observable submiting = false;
     @observable validPhone = true;
     @observable validEmail = true;
     @observable validPwd = true;
@@ -63,7 +63,7 @@ class LoginInfoBaseStore {
         this.validImgCode = true; // 图片验证码
         this.validVercode = true; // 邮箱or手机验证码
         this.hasPhone = false; // 手机是否已经被占用
-        this.logining = false;
+        this.submiting = false;
     }
 
     @computed
@@ -304,9 +304,9 @@ class LoginInfoBaseStore {
         return result;
     }
 
-    @action
-    updateLogining(status) {
-        this.logining = status;
+    @action.bound
+    updateSubmiting(status) {
+        this.submiting = status;
     }
 
     @action
