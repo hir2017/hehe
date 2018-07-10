@@ -6,6 +6,7 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import {getUserActionLimit} from '../../api/http';
+import NumberUtil from '../../lib/util/number';
 import { Button, Icon, Upload, message } from 'antd';
 import upload_pic from '../../../images/upload-pic.png';
 import upload_pic_hover from '../../../images/upload-pic-hover.png';
@@ -26,13 +27,39 @@ const IDcardPics = {
 export default class SecondStep extends Component {
     constructor() {
         super();
+        this.sameTips = [
+            UPEX.lang.template('证件正面照实例提示文字'),
+            UPEX.lang.template('证件反面照实例提示文字'),
+            UPEX.lang.template('手持证件照实例提示文字'),
+        ];
+        this.picsData = [
+            {
+                title: UPEX.lang.template('证件正面照'),
+                showTip: UPEX.lang.template('查看证件正面照实例'),
+                url: 'oneUrl'
+            },
+            {
+                title: UPEX.lang.template('证件反面照'),
+                showTip: UPEX.lang.template('查看证件反面照实例'),
+                url: 'twoUrl'
+            },
+            {
+                title: UPEX.lang.template('手持证件照'),
+                showTip: UPEX.lang.template('查看手持证件照实例'),
+                url: 'threeUrl'
+            }
+        ];
         this.next = this.next.bind(this);
 
     }
 
     componentDidMount() {
         getUserActionLimit().then(res => {
-            console.log(res)
+            this.setState({
+                withdrawLimit: NumberUtil.separate(res.attachment.dayLimit)
+            })
+        }).catch(err => {
+            console.error(err)
         });
     }
 
@@ -77,12 +104,14 @@ export default class SecondStep extends Component {
         sampleShow: false,
         samplePic: '',
         sampleTitle: '',
+        sampleIndex: 0,
         uploading: false
     };
 
     toggleSample(item, index) {
 
         this.setState({
+            samepleIndex: index,
             samplePic: item ? IDcardPics['IDcard' + index]  : '',
             sampleTitle: item ? item.showTip : '',
             sampleShow: item ? true: false,
@@ -141,23 +170,8 @@ export default class SecondStep extends Component {
     };
 
     render() {
-        const picsData = [
-            {
-                title: UPEX.lang.template('证件正面照'),
-                showTip: UPEX.lang.template('查看证件正面照实例'),
-                url: 'oneUrl'
-            },
-            {
-                title: UPEX.lang.template('证件反面照'),
-                showTip: UPEX.lang.template('查看证件反面照实例'),
-                url: 'twoUrl'
-            },
-            {
-                title: UPEX.lang.template('手持证件照'),
-                showTip: UPEX.lang.template('查看手持证件照实例'),
-                url: 'threeUrl'
-            }
-        ];
+        const {sameTips, picsData} = this;
+
         return (
             <AceForm className="auth-step-2">
                 <div className={`sample-pic-content ${this.state.sampleShow ? 'show' : ''}`}  onClick={() => {this.toggleSample(false)}}>
@@ -165,12 +179,9 @@ export default class SecondStep extends Component {
                         <header>{this.state.sampleTitle}</header>
                         <article className="clearfix">
                             <img className="pic-img" src={this.state.samplePic} style={{width: '300px', height: '180px'}}/>
-                            <ul className="pic-message">
-                                <li>{UPEX.lang.template('面部清晰可见，无遮挡，无妆容')}</li>
-                                <li>{UPEX.lang.template('完全漏出双手，手臂')}</li>
-                                <li>{UPEX.lang.template('证件照片及内容清晰可见')}</li>
-                                <li>{UPEX.lang.template('附带如图上所示拍照日期的字条')}</li>
-                            </ul>
+                            <p className="pic-message">
+                                {sameTips[this.state.sampleIndex]}
+                            </p>
                         </article>
                     </div>
                 </div>

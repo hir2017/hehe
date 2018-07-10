@@ -693,6 +693,14 @@ export function getQuestions(pageNumber) {
 }
 
 /**
+ *  获取当前等级提现额度
+ */
+
+export function getUserWithdrawLimmit(data) {
+    return axios.post('/getWithdrawFunds', data)
+}
+
+/**
  *  身份认证
  */
 
