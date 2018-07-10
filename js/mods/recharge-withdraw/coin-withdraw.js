@@ -93,7 +93,7 @@ class WithdrawCoin extends Component {
 				<div className="rw-form">
 					{ store.isFetching ? <div className="mini-loading"></div> : null }
 					<div className="rw-form-item">
-						<Alert message={UPEX.lang.template('当前安全等级{level}可提额度({currency})：{num}/日, {num1}/笔',{ level: userInfoStore.authLevel, currency: UPEX.config.baseCurrencyEn ,num: store.dayLimit, num1:  store.oneLimit })} type="warning" />
+						<Alert message={UPEX.lang.template('当前认证为{level}，每日可提{num}或等值数位资产',{ level: userInfoStore.authLevel, currency: UPEX.config.baseCurrencyEn ,num: store.dayLimit, num1:  store.oneLimit })} type="warning" />
 					</div>
 					<div className="rw-form-item">
 						<label className="rw-form-label">{UPEX.lang.template('选择币种')}</label>
