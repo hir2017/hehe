@@ -135,8 +135,8 @@ const baseCurrencySymbol = symbols[baseCurrencyEn];
 const initEnv = Url.query('env');
 
 var PROTOCOL = (function() {
-    if (initEnv == 'pro'){
-        return  'https:';
+    if (initEnv == 'pro') {
+        return 'https:';
     }
     if (location.protocol === 'https:') {
         return 'https:';
@@ -146,8 +146,8 @@ var PROTOCOL = (function() {
 })();
 
 var SOCKET_PROTOCOL = (function() {
-    if (initEnv == 'pro'){
-        return  'wss:';
+    if (initEnv == 'pro') {
+        return 'wss:';
     }
     if (location.protocol === 'https:') {
         return 'wss:';
@@ -159,78 +159,70 @@ var SOCKET_PROTOCOL = (function() {
 const DEV_IP = '13.251.85.35';
 const STAGE_IP = '54.169.140.238';
 
-const origin = (function(){
+const origin = (function() {
     let origin;
 
     let hostname = location.hostname;
-
-    if (hostname == STAGE_IP) {
-        origin = hostname;
-    }
-
+    
     if (hostname.indexOf('io') > -1) {
         origin = hostname;
+    } else {
+        origin = '13.251.85.35';
     }
 
-    // 根据环境获取不同的域名活着IP
     switch (initEnv) {
         case 'dev':
             // 开发环境
-            origin = DEV_IP;
+            origin = '13.251.85.35';
             break;
         case 'stage':
             // 测试环境
-            origin = STAGE_IP;
+            origin = '54.169.140.238';
             break;
         case 'pro':
             origin = 'pre.ace.io';
             break;
         default:
-            origin = origin || DEV_IP;
-            break;
+            origin = origin || hostname;
     }
 
     return origin;
 })();
 
 
-const origin_ws = (function(){
+const origin_ws = (function() {
     let origin;
 
     let hostname = location.hostname;
-
-    if (hostname == STAGE_IP) {
-        origin = hostname;
-    }
-
+    
     if (hostname.indexOf('io') > -1) {
-        origin = hostname;
+        origin = hostname == 'pre.ace.io' ? 'process.ace.io' : hostname; 
+    } else {
+        origin = '13.251.85.35';
     }
 
-    // 根据环境获取不同的域名活着IP
-    switch(initEnv) {
-         case 'dev':
+    switch (initEnv) {
+        case 'dev':
             // 开发环境
-            origin = DEV_IP;
+            origin = '13.251.85.35';
             break;
         case 'stage':
             // 测试环境
-            origin = STAGE_IP;
+            origin = '54.169.140.238';
             break;
         case 'pro':
             origin = 'process.ace.io';
             break;
         default:
-            origin = origin || DEV_IP;
-            break;
+            origin = origin || hostname;
     }
 
     return origin;
 })();
 
-const host = PROTOCOL + '//' +  origin +'/polarisex';
+const host = PROTOCOL + '//' + origin + '/polarisex';
 const uploadHost = host + '/upload/upload';
-const uploadImgHost =  host + '/user/uploadImageSingle';
+const uploadImgHost = host + '/user/uploadImageSingle';
 const websocketHost = SOCKET_PROTOCOL + '//' + origin_ws + '/';
 const imgHost = PROTOCOL + '//' + origin + '/img';
 
