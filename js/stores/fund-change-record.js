@@ -34,12 +34,12 @@ class FundChangeRecordStore {
             '8': UPEX.lang.template('放款失败'),
         },
         recharge: {
-            '0': UPEX.lang.template('待审核'),
+            '0': UPEX.lang.template('用户已付款'),
             '1': UPEX.lang.template('已完成'),
-            '2': UPEX.lang.template('待付款'),
+            '2': UPEX.lang.template('用户已付款'),
             '3': UPEX.lang.template('待付款'),
             '5': UPEX.lang.template('用户已付款'),
-            '6': UPEX.lang.template('待付款'),
+            '6': UPEX.lang.template('用户已付款'),
             '9': UPEX.lang.template('超时取消'),
         }
     }
