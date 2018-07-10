@@ -136,7 +136,7 @@ class Register extends Component {
                                     onBlur={action.onBlurPwd}
                                 />
                             </div>
-                            { !store.validPwd ? <div className="warn">{ UPEX.lang.template('密码至少由大写字母+小写字母+数字，6-16位组成')}</div> : null }
+                            { !store.validPwd ? <div className="warn">{ UPEX.lang.template('密码至少由大写字母+小写字母+数字，8-16位组成')}</div> : null }
                         </div>
                         <div className="input-wrapper">
                             <div className="input-box">
@@ -157,7 +157,7 @@ class Register extends Component {
                                 <input 
                                     type="text" 
                                     ref="picCode" 
-                                    placeholder={ UPEX.lang.template('图片验证') }
+                                    placeholder={ UPEX.lang.template('请参照右侧输入') }
                                     onInput={ action.onChangeImgCode }
                                     maxLength="5"
                                     className={ store.validImgCode ? '' : 'wrong' }

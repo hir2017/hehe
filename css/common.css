@@ -230,6 +230,13 @@ body  .ant-select-dropdown-menu-item:hover {
     color: #333;
 }
 
+body .ant-select-dropdown-menu-item-selected, 
+body .ant-select-dropdown-menu-item-selected:hover{
+    background-color: #f8f8f8;
+    text-decoration: none;
+    color: #333;
+}
+
 .widget-tooltip .ant-popover-inner-content {
     padding: 12px 0;
 }

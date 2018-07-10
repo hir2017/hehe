@@ -196,6 +196,7 @@ export default (store) => {
             let { verifyInfoBeforeSubmit, updateLogining } = store;
             //  验证表单信息
             if (!verifyInfoBeforeSubmit.pass) {
+                message.destroy();
                 message.error(verifyInfoBeforeSubmit.message);
                 return;
             }
@@ -360,10 +361,10 @@ export default (store) => {
             });
         },
         /**
-         * 发送验证码
+         * 发送手机验证码
          */
         sendLoginCodeSend() {
-            if (store.sendingcode) {
+            if (store.sendingphonecode) {
                 return;
             }
             // 发送手机／邮件验证码

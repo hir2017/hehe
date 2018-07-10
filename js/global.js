@@ -156,8 +156,6 @@ var SOCKET_PROTOCOL = (function() {
     }
 })();
 
-const DEV_IP = '13.251.85.35';
-const STAGE_IP = '54.169.140.238';
 
 const origin = (function() {
     let origin;
@@ -238,8 +236,8 @@ const config = {
     isChrome: /Chrome/.test(ua),
     // 邮箱正则表达式
     emailReg: /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/,
-    // 密码正则表达式
-    pwdReg: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z\d\S]{6,16}$/,
+    // 密码正则表达式，登录密码：8~16位
+    pwdReg: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z\d\S]{8,16}$/,
     // 手机号正则表达式
     phoneReg: /^1[3|4|5|7|8]\d{9}$/,
     salt: 'dig?F*ckDang5PaSsWOrd&%(polarisex0160630).',

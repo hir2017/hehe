@@ -22,8 +22,7 @@ import { message } from 'antd';
 import Url from './lib/url';
 
 message.config({
-    top: 100,
-    maxCount: 1
+    top: 100
 });
 
 import './global';
