@@ -109,6 +109,7 @@ class Register extends Component {
                                             placeholder={ UPEX.lang.template('邮箱') }
                                             onInput={ action.onChangeEmail }
                                             onBlur={ action.onBlurEmail }
+                                            autoFocus
                                         />
                                     </div>
                                     { !store.validEmail ? <div className="warn">{ UPEX.lang.template('请填写正确的邮箱')}</div> : null }
@@ -123,6 +124,7 @@ class Register extends Component {
                                             placeholder={ UPEX.lang.template('手机') }
                                             onInput={  action.onChangePhone }
                                             onBlur={ this.queryHasPhone }
+                                            autoFocus
                                         />
                                     </div>
                                     { !store.validPhone ? <div className="warn">{ UPEX.lang.template('请填写正确的手机号')}</div> : null }

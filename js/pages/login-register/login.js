@@ -40,6 +40,7 @@ class Login extends Component {
         // this.action.getImgCaptcha();
         if (this.props.authStore.isLogin) {
             browserHistory.push('/home');
+            return;
         }
     }
 
@@ -87,6 +88,11 @@ class Login extends Component {
                                 step: 'phone'
                             });
                             break;
+                        case 405:
+                            this.setState({
+                                loginErrorText: UPEX.lang.template('输入错误，您还有{num}次机会尝试',{ num: data.attachment.times})
+                            }); 
+                            break;
                         default:
                             this.setState({
                                 loginErrorText: data.message
@@ -100,56 +106,22 @@ class Login extends Component {
         }
     }
 
-    handleLoginSuccess(result) {
-        browserHistory.push('/webtrade');
+    handleLoginSuccess(result) { 
 
-        if (!result.isValidatePhone) {
+        if (result.authLevel < 2) { // 未完成KYC2认证
             Modal.confirm({
                 prefixCls: "ace-dialog",
-                content: UPEX.lang.template('请绑定手机'),
-                okText: UPEX.lang.template('去绑定手机'),
+                content: UPEX.lang.template('请完成KYC2认证，文档产品编辑中。。。'),
+                okText: UPEX.lang.template('去认证'),
                 cancelText: UPEX.lang.template('取消'),
                 iconType: 'exclamation-circle',
                 onOk() {    
-                    browserHistory.push('/user/binding-phone');
+                    browserHistory.push('/user');
                 }
             });
-        } else if (!result.isValidatePass) {
-            Modal.confirm({
-                prefixCls: "ace-dialog",
-                content: UPEX.lang.template('请先设置资金密码'),
-                okText: UPEX.lang.template('去设置资金密码'),
-                cancelText: UPEX.lang.template('取消'),
-                iconType: 'exclamation-circle',
-                onOk() {    
-                    browserHistory.push('/user/settingTraddingPassword');
-                }
-            });
-        } else {
-            if (result.authLevel == 0 ) {
-                Modal.confirm({
-                    prefixCls: "ace-dialog",
-                    content: UPEX.lang.template('请您进行身份认证，否则无法进行充值、提现、充币、提币操作'),
-                    okText: UPEX.lang.template('身份认证'),
-                    cancelText: UPEX.lang.template('取消'),
-                    iconType: 'exclamation-circle',
-                    onOk() {    
-                        browserHistory.push('/user/authentication');
-                    }
-                });
-            } else if (result.authLevel == 1) {
-                Modal.confirm({
-                    prefixCls: "ace-dialog",
-                    content: UPEX.lang.template('请您先绑定银行卡信息，否则无法进行充值、提现操作'),
-                    okText: UPEX.lang.template('绑定银行卡信息'),
-                    cancelText: UPEX.lang.template('取消'),
-                    iconType: 'exclamation-circle',
-                    onOk() {    
-                        browserHistory.push('/user/bankInfo');
-                    }
-                });
-            }
         }
+
+        browserHistory.push('/webtrade');
     }
 
     handleLoginVerifyCode=(e)=>{
@@ -196,7 +168,8 @@ class Login extends Component {
             this.setState({
                 loginErrorText: ''
             });
-        } 
+        }
+
         this.action.onChangeMode(item);       
     }
 
@@ -224,6 +197,7 @@ class Login extends Component {
                                 maxLength="6"
                                 placeholder={ UPEX.lang.template('Google验证码') }
                                 onKeyDown={ this.keyLoginSecond }
+                                autoFocus
                             />
                         </div>
                     </div>
@@ -238,6 +212,7 @@ class Login extends Component {
                                 maxLength="6"
                                 placeholder={ UPEX.lang.template('短信验证码') }
                                 onKeyDown={ this.keyLoginSecond }
+                                autoFocus
                             />
                             <div className="yzcode">
                                 <button onClick={ this.sendLoginVercode } className={ store.sendingphonecode ? 'disabled' : ''} >
@@ -322,6 +297,8 @@ class Login extends Component {
                                             type="text" 
                                             placeholder={ UPEX.lang.template('邮箱') }
                                             onInput={ action.onChangeEmail }
+                                            onBlur={ action.onBlurEmail }
+                                            autoFocus
                                         />
                                     </div>
                                 </div>
@@ -332,6 +309,7 @@ class Login extends Component {
                                             type="text" 
                                             placeholder={ UPEX.lang.template('手机') }
                                             onInput={  action.onChangePhone }
+                                            autoFocus
                                         />
                                     </div>
                                 </div>

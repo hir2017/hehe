@@ -206,6 +206,7 @@ class LoginInfoBaseStore {
                 result.message = UPEX.lang.template('请填写邮箱'); 
                 return result;
             }
+
             if (!this.validEmail) {
                 result.pass = false;
                 result.message = UPEX.lang.template('请填写正确的邮箱');
