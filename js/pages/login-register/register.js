@@ -13,7 +13,7 @@ import {  Link , browserHistory } from 'react-router';
 import toAction from './action';
 const Option = Select.Option;
 
-@inject('loginStore')
+@inject('loginStore', 'authStore')
 @observer
 class Register extends Component {
     constructor(props){

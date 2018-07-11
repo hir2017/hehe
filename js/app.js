@@ -66,10 +66,7 @@ class App extends Component {
     componentDidMount(){
         // 授权失效，清除状态
         $.channel.on('authorizeinvalid', ()=>{
-            rootStore.authStore.update({
-                uid: '',
-                token: ''
-            });
+            rootStore.authStore.clear();
         });
     }
 

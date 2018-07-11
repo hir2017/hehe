@@ -67,6 +67,7 @@ axios.interceptors.response.use(function(res) {
 
         if (nowTime - preTime > 600000) {
             preTime = nowTime;
+            message.destroy();
             message.error(UPEX.lang.template('登录超时，请重新登录'))
         }
     }

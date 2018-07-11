@@ -297,7 +297,9 @@ class MarketListStore {
 
         if (!checked) {
             if (this.searchValue) {
-                tradeCoins = this.tradeCoinsSearched;
+                this.filterByName(this.searchValue);
+                return;
+                // tradeCoins = this.tradeCoinsSearched;
             } else {
                 tradeCoins = [...this.cacheCoins];
             }
