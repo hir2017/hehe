@@ -105,7 +105,7 @@ class TradeStore {
         let coins = this.marketListStore.cacheCoins.filter((item) => {
             return item.baseCurrencyId == this.baseCurrencyId && item.currencyId == this.currencyId
         })
-
+        console.log(coins[0] || {});
         return coins[0] || {};
     }
 
@@ -618,7 +618,7 @@ class TradeStore {
             item.newcurrent = NumberUtil.formatNumber(item.current, this.commonStore.pointPrice); // 价格
             item.number = NumberUtil.initNumber(item.number, this.pointNum); // 数量
             item.newnumber = NumberUtil.formatNumber(item.number, this.pointNum); // 数量
-            item.newtotal = NumberUtil.formatNumber(item.current * item.number, this.commonStore.pointNum); // 总金额
+            item.newtotal = NumberUtil.formatNumber(item.current * item.number, this.commonStore.pointPrice); // 总金额
         });
 
         // 卖出
@@ -635,7 +635,7 @@ class TradeStore {
             item.newcurrent = NumberUtil.formatNumber(item.current, this.commonStore.pointPrice); // 价格
             item.number = NumberUtil.initNumber(item.number, this.pointNum); // 数量
             item.newnumber = NumberUtil.formatNumber(item.number, this.pointNum); // 数量
-            item.newtotal = NumberUtil.formatNumber(item.current * item.number, this.commonStore.pointNum); // 总金额
+            item.newtotal = NumberUtil.formatNumber(item.current * item.number, this.commonStore.pointPrice); // 总金额
             
         });
 

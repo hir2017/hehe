@@ -108,20 +108,56 @@ class Login extends Component {
 
     handleLoginSuccess(result) { 
 
-        if (result.authLevel < 2) { // 未完成KYC2认证
-            Modal.confirm({
-                prefixCls: "ace-dialog",
-                content: UPEX.lang.template('请完成KYC2认证，文档产品编辑中。。。'),
-                okText: UPEX.lang.template('去认证'),
-                cancelText: UPEX.lang.template('取消'),
-                iconType: 'exclamation-circle',
-                onOk() {    
-                    browserHistory.push('/user');
-                }
-            });
+        switch(result.authLevel) {
+            case 0:
+                 /*
+                 * 如果用户等级为KYC0
+                 * 登录后跳转到首页
+                 * 弹出窗口提示用户先完成身份认证以开启交易
+                 * 操作：取消，去认证
+                 * 文案：您尚未进行安全级别认证，请完成身份认证及银行卡绑定获取充提和交易权限
+                */
+                Modal.confirm({
+                    prefixCls: "ace-dialog",
+                    content: UPEX.lang.template('您尚未进行安全级别认证，请完成身份认证及银行卡绑定获取充提和交易权限'),
+                    okText: UPEX.lang.template('去认证'),
+                    cancelText: UPEX.lang.template('取消'),
+                    iconType: 'exclamation-circle',
+                    onOk() {    
+                        browserHistory.push('/user/authentication');
+                    }
+                });
+                browserHistory.push('/home');
+                break;
+            case 1:
+                /*
+                 * 如果用户等级为KYC1（即可以充提币）
+                 * 登录后跳转到交易中心
+                 * 弹出窗口用户提示用户如果想充提法币，先去完成银行卡绑定
+                 * 操作：取消，去绑定
+                 * 文案：您当前的安全等级为A，请绑定银行卡以获取充提新台币的权限并开启交易
+                */
+                Modal.confirm({
+                    prefixCls: "ace-dialog",
+                    content: UPEX.lang.template('您当前的安全等级为A，请绑定银行卡以获取充提新台币的权限并开启交易'),
+                    okText: UPEX.lang.template('去认证'),
+                    cancelText: UPEX.lang.template('取消'),
+                    iconType: 'exclamation-circle',
+                    onOk() {    
+                        browserHistory.push('/user/bankInfo');
+                    }
+                });
+                browserHistory.push('/webtrade');
+                break;
+            default:
+                /**
+                 * 如果用户等级为KYC2（即可以充提法币和交易）
+                 * 登录后跳转到交易中心
+                 * 不弹出任何提示窗口
+                 */
+                browserHistory.push('/webtrade');
+                break;
         }
-
-        browserHistory.push('/webtrade');
     }
 
     handleLoginVerifyCode=(e)=>{
