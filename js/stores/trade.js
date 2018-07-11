@@ -105,7 +105,7 @@ class TradeStore {
         let coins = this.marketListStore.cacheCoins.filter((item) => {
             return item.baseCurrencyId == this.baseCurrencyId && item.currencyId == this.currencyId
         })
-        console.log(coins[0] || {});
+        
         return coins[0] || {};
     }
 
@@ -147,7 +147,7 @@ class TradeStore {
 
         price = price ? price : this.currentTradeCoin.currentAmount;
 
-        return NumberUtil.initNumber(price || 0, this.commonStore.pointPrice);
+        return NumberUtil.initNumber(price || 0, this.pointPrice);
     }
 
     // 最佳卖出价格
@@ -157,7 +157,7 @@ class TradeStore {
 
         price = price ? price : this.currentTradeCoin.currentAmount;
 
-        return NumberUtil.initNumber(price || 0, this.commonStore.pointPrice);
+        return NumberUtil.initNumber(price || 0, this.pointPrice);
     }
 
     @computed
@@ -284,7 +284,7 @@ class TradeStore {
     get tradeCoinBalance() {
         return {
             value: this.personalAccount.tradeCoinBalance,
-            text: NumberUtil.initNumber(this.personalAccount.tradeCoinBalance, this.pointPrice)
+            text: NumberUtil.initNumber(this.personalAccount.tradeCoinBalance, this.pointNum)
         }
     }
 
@@ -293,7 +293,7 @@ class TradeStore {
      */
     @computed
     get dealBuyTotalAmount() {
-        let ret = NumberUtil.initNumber(this.dealBuyNum * this.dealBuyPrice, this.commonStore.pointPrice);
+        let ret = NumberUtil.initNumber(this.dealBuyNum * this.dealBuyPrice, this.pointPrice);
 
         return ret;
     }
@@ -303,7 +303,7 @@ class TradeStore {
      */
     @computed
     get dealSellTotalAmount() {
-        let ret = NumberUtil.initNumber(this.dealSellNum * this.dealSellPrice, this.commonStore.pointPrice);
+        let ret = NumberUtil.initNumber(this.dealSellNum * this.dealSellPrice, this.pointPrice);
 
         return ret;
     }
@@ -550,8 +550,8 @@ class TradeStore {
     parseTradeHistoryItem(item) {
         item.timeText = TimeUtil.formatDate(item.time, 'HH:mm:ss'); // 时间
         item.timeTextAll = TimeUtil.formatDate(item.time); // 时间
-        item.current = NumberUtil.initNumber(item.current, this.commonStore.pointPrice); // 价格
-        item.currentText = NumberUtil.formatNumber(item.current, this.commonStore.pointPrice); // 价格
+        item.current = NumberUtil.initNumber(item.current, this.pointPrice); // 价格
+        item.currentText = NumberUtil.formatNumber(item.current, this.pointPrice); // 价格
         item.amount = NumberUtil.initNumber(item.amount, this.pointNum); // 数量
         item.amountText = NumberUtil.formatNumber(item.amount, this.pointNum); // 数量
 
@@ -614,11 +614,14 @@ class TradeStore {
 
             item.index = index + 1;
             item.depth = Math.max(depth > 100 ? 100 : depth, 1);
-            item.current = NumberUtil.initNumber(item.current, this.commonStore.pointPrice); // 价格
-            item.newcurrent = NumberUtil.formatNumber(item.current, this.commonStore.pointPrice); // 价格
+
+            item.current = NumberUtil.initNumber(item.current, this.pointPrice); // 价格
+            item.newcurrent = NumberUtil.formatNumber(item.current, this.pointPrice); // 价格
+            
             item.number = NumberUtil.initNumber(item.number, this.pointNum); // 数量
             item.newnumber = NumberUtil.formatNumber(item.number, this.pointNum); // 数量
-            item.newtotal = NumberUtil.formatNumber(item.current * item.number, this.commonStore.pointPrice); // 总金额
+
+            item.newtotal = NumberUtil.formatNumber(item.current * item.number, this.pointPrice); // 总金额
         });
 
         // 卖出
@@ -631,11 +634,14 @@ class TradeStore {
 
             item.index = index + 1;
             item.depth = Math.max(depth > 100 ? 100 : depth, 1);
-            item.current = NumberUtil.initNumber(item.current, this.commonStore.pointPrice); // 价格
-            item.newcurrent = NumberUtil.formatNumber(item.current, this.commonStore.pointPrice); // 价格
+            
+            item.current = NumberUtil.initNumber(item.current, this.pointPrice); // 价格
+            item.newcurrent = NumberUtil.formatNumber(item.current, this.pointPrice); // 价格
+
             item.number = NumberUtil.initNumber(item.number, this.pointNum); // 数量
             item.newnumber = NumberUtil.formatNumber(item.number, this.pointNum); // 数量
-            item.newtotal = NumberUtil.formatNumber(item.current * item.number, this.commonStore.pointPrice); // 总金额
+            
+            item.newtotal = NumberUtil.formatNumber(item.current * item.number, this.pointPrice); // 总金额
             
         });
 

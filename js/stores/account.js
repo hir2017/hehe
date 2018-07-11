@@ -24,7 +24,11 @@ class Account {
 
     @computed
     get allMoney() {
-        return this.accountData.allMoney || '0.00';
+        if (this.accountData.allMoney > 0) {
+            return NumberUtil.formatNumber(this.accountData.allMoney, this.commonStore.pointPrice);
+        } else {
+            return 0.00;
+        }
     }
 
     @action
@@ -91,16 +95,24 @@ class Account {
                     let coinList = []; // 数字币
                     let info = {}; // 基础币
                     let len = data.attachment.coinList.length;
+                    let pointPrice = this.commonStore.pointPrice;
 
                     for (let i = 0; i < len; i++) {
                         let item = data.attachment.coinList[i];
-
+                        // 币种配置小数位走
                         if (item.currencyNameEn == UPEX.config.baseCurrencyEn ) {
-                            item.cashAmount = NumberUtil.formatNumber(item.cashAmount, this.commonStore.pointPrice);
-                            item.amount = NumberUtil.formatNumber(item.amount, this.commonStore.pointPrice);
-                            item.freezeAmount = NumberUtil.formatNumber(item.freezeAmount, this.commonStore.pointPrice);
+                            item.cashAmount = NumberUtil.formatNumber(item.cashAmount, pointPrice);
+                            item.amount = NumberUtil.formatNumber(item.amount, pointPrice);
+                            item.freezeAmount = NumberUtil.formatNumber(item.freezeAmount, pointPrice);
+                            item.twd_value = NumberUtil.formatNumber(item.twd_value, pointPrice);
+                            
                             info = item;
                         } else {
+                            item.cashAmount = NumberUtil.separate(item.cashAmount);
+                            item.amount = NumberUtil.separate(item.amount);
+                            item.freezeAmount = NumberUtil.separate(item.freezeAmount);
+
+                            item.twd_value = NumberUtil.formatNumber(item.twd_value, pointPrice);
                             coinList[coinList.length] = item;
                         }
                     }

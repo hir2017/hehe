@@ -172,7 +172,7 @@ class TradeForm extends Component{
 										<InputNumber
 											type="text"
 											value={store.dealBuyPrice }
-											precision={store.commonStore.pointPrice}
+											precision={store.pointPrice}
 											onChange={this.onChange.bind(this, 'buyprice')}
 											onBlur={this.checkTradePrice.bind(this, 'buy')} 
 										/>
@@ -233,7 +233,7 @@ class TradeForm extends Component{
 										<InputNumber
 											type="text"
 											value={store.dealSellPrice}
-											precision={store.commonStore.pointPrice}
+											precision={store.pointPrice}
 											onChange={this.onChange.bind(this, 'sellprice')}
 											onBlur={this.checkTradePrice.bind(this, 'sell')} 
 										/>

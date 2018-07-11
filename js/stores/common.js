@@ -24,6 +24,7 @@ class CommonStore {
     @observable productList = [];
     @observable productDataReady = false;
     @observable coinsMap = {}; // { key:{}, key: {} } // 方便获取基础币信息 
+    @observable coinsMapId = {};
 
     constructor() {
         $(window).resize(() => {
@@ -85,10 +86,11 @@ class CommonStore {
                     let list = data.attachment;
                     
                     this.productList = list;
-                    this.coinsMap = this.getCoinsMap(list);
-                    UPEX.cache.setCache('productlist', list, 1 * 3600 * 1000);  // 8小时
-                    
+                    this.coinsMapId = this.getCoinsMapById(list);
+                    this.coinsMap = this.getCoinsMapByName(list);
+                    UPEX.cache.setCache('productlist', list, 1 * 60 * 60 * 1000);  // 1小时
                 }
+
                 this.productDataReady = true;
             })
         }).catch(()=>{
@@ -96,8 +98,17 @@ class CommonStore {
         })
     }
 
-    @action
-    getCoinsMap(list) {
+    getCoinsMapById(list) {
+        let map = {};
+
+        for (let i = list.length; i--;) {
+            map[list[i].currencyId] = list[i];
+        }
+
+        return map;
+    }
+
+    getCoinsMapByName(list) {
         let map = {};
 
         for (let i = list.length; i--;) {
@@ -111,13 +122,7 @@ class CommonStore {
      */
     @action.bound
     getTradeCoinById(currencyId) {
-        let ret;
-
-        let product = this.productList.filter(function(item) {
-            return item.currencyId === currencyId;
-        })
-
-        ret = product[0];
+        let ret = this.coinsMapId[currencyId] || {};
 
         return ret;
     }
@@ -154,9 +159,11 @@ class CommonStore {
     get pointPrice() {
         let point;
 
-        if (this.coinsMap[UPEX.config.baseCurrencyEn]) {
-            point = Number(this.coinsMap[UPEX.config.baseCurrencyEn].pointPrice);
-        }
+        let product = this.productList.filter(function(item) {
+            return item.currencyNameEn === UPEX.config.baseCurrencyEn && item.baseType == 1;
+        })[0]
+
+        point = product.pointPrice;
         
         return point;
     }
@@ -166,10 +173,12 @@ class CommonStore {
     get pointNum() {
         let point;
 
-        if (this.coinsMap[UPEX.config.baseCurrencyEn]) {
-            point = Number(this.coinsMap[UPEX.config.baseCurrencyEn].pointNum);
-        }
+        let product = this.productList.filter(function(item) {
+            return item.currencyNameEn === UPEX.config.baseCurrencyEn && item.baseType == 1;
+        })[0]
 
+        point = product.pointNum;
+        
         return point;
     }
 }

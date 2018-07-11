@@ -21,7 +21,8 @@ require('echarts/lib/component/title');
 @observer
 export default class extends Component {
     static defaultProps = {
-        pair: ''
+        pair: '',
+        pointPrice: ''
     }
 
     componentDidMount(){
@@ -84,8 +85,13 @@ export default class extends Component {
                     type: 'cross'
                 },
                 formatter([data]) {
-                    
-                    let price = NumberUtil.formatNumber(data.value, self.props.commonStore.pointPrice);
+                    let price;
+
+                    if (self.props.pointPrice > 0) {
+                        price = NumberUtil.formatNumber(data.value, self.props.pointPrice);
+                    } else {
+                        price = data.value;
+                    }
                     
                     return [
                         `时间：${data.name}`,

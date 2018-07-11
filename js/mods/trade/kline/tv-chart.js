@@ -166,7 +166,7 @@ class TVChartContainer extends Component {
         let datafeed = this.datafeed = new UDFCompatibleDatafeed({
             currencyNameEn,
             baseCurrencyNameEn,
-            pointPrice:  getPointPrice(currencyNameEn)
+            pointPrice: this.props.tradeStore.pointPrice
         });
 
 		var cfg = {

@@ -206,19 +206,19 @@ class MarketListStore {
     parseCoinItem(item) {
         item.changeRateText = NumberUtil.asPercent(item.changeRate);
         // 最新成交价
-        item.currentAmountText = NumberUtil.formatNumber(item.currentAmount, this.commonStore.pointPrice);
+        item.currentAmountText = NumberUtil.formatNumber(item.currentAmount, item.pointPrice);
         // 最高价
-        item.highPriceText = NumberUtil.formatNumber(item.highPrice, this.commonStore.pointPrice);
+        item.highPriceText = NumberUtil.formatNumber(item.highPrice, item.pointPrice);
         // 最低价
-        item.lowPriceText = NumberUtil.formatNumber(item.lowPrice, this.commonStore.pointPrice);
+        item.lowPriceText = NumberUtil.formatNumber(item.lowPrice, item.pointPrice);
         // 开盘价
-        item.openPriceText = NumberUtil.formatNumber(item.openPrice, this.commonStore.pointPrice);
+        item.openPriceText = NumberUtil.formatNumber(item.openPrice, item.pointPrice);
         // 收盘价
-        item.closePriceText = NumberUtil.formatNumber(item.closePrice, this.commonStore.pointPrice);
+        item.closePriceText = NumberUtil.formatNumber(item.closePrice, item.pointPrice);
         // 24小时成交数量
         item.volumeText = NumberUtil.formatNumber(item.volume, item.pointNum);
         // 成交额
-        item.amountText = NumberUtil.formatNumber(item.amount, this.commonStore.pointPrice);
+        item.amountText = NumberUtil.formatNumber(item.amount, item.pointPrice);
 
         return item;
     }

@@ -89,34 +89,6 @@ class AssetsListView extends Component {
         browserHistory.push(`/webtrade/${UPEX.config.baseCurrencyEn}_${item.currencyNameEn}`);
     };
 
-    ValToFixed(val) {
-        // toFixed 四舍五入有bug
-        let temp = parseFloat(val);
-        if (isNaN(temp) || temp === 0) {
-            return '0.00'
-        }
-        let str = temp.toString();
-        let index = str.indexOf('.')
-        if(index === -1) {
-            return str + '.00';
-        }
-        // 1.1 1.11 1.1111; 1.0过不了第一步
-        let distance = str.length - str.indexOf('.');
-        switch (distance) {
-            // 1.11
-            case 3:
-                return str;
-                break;
-            // 1.1
-            case 2:
-                return str + '0';
-            break;
-            default:
-                return str.substring(0, str.indexOf('.') + 3);
-        }
-
-    }
-
     render() {
         return (
             <ul>
@@ -131,7 +103,7 @@ class AssetsListView extends Component {
                                 <dd className="total">{item.amount}</dd>
                                 <dd className="balance">{item.cashAmount}</dd>
                                 <dd className="freeze">{item.freezeAmount}</dd>
-                                <dd className="value">{this.ValToFixed(item.twd_value)}</dd>
+                                <dd className="value">{item.twd_value}</dd>
                                 <dd className="actions">
                                     <button onClick={this.handleCoinRecharge.bind(this, item)}>{UPEX.lang.template('充币')}</button>
                                     <span className="split">|</span>

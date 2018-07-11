@@ -62,7 +62,7 @@ class IndexMarkets extends Component{
 	                  	</label>
                   	</div>
           				<div className="realtime-kline">
-          					<CoinChart key={pair} pair={pair}/>
+          					<CoinChart key={pair} pair={pair} pointPrice={store.selectedCoin.pointPrice}/>
           				</div>
         				</div>
         			</div>

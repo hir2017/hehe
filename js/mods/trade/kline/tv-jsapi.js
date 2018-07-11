@@ -63,7 +63,7 @@ class UDFCompatibleDatafeed {
                     "minmove2": 0,
                     "session": "24x7",
                     "description": symbolName,
-                    "pricescale": 100,
+                    "pricescale": Math.pow(10,this.pointPrice),
                     fractional: false,
                     "has_intraday": true,
                     "has_daily": !0,

@@ -101,7 +101,7 @@ const NumberUtil = {
         }
         let length = parseInt(num, 10);
 
-        number = this.asDecimal(number, length); // 保留小时后N位，四舍五入
+        number = this.toFixed(number, length); // 保留小时后N位
 
         number = this.separate(number); // ,分隔符号数字
 
@@ -115,13 +115,9 @@ const NumberUtil = {
 
         let length = parseInt(num, 10);
 
-        number = this.asDecimal(number, length);
+        number = this.toFixed(number, length); // 保留小时后N位
 
         return number;
-    },
-
-    parseStringToInt() {
-
     },
     /**
      * 截取N位小数（非四舍五入）
@@ -130,6 +126,7 @@ const NumberUtil = {
      * @return {String} 截取后的数字
      */
     toFixed: function(num, digit) {
+        
         var str = "" + num,
             idx = str.indexOf(".") + digit + 1;
         if (idx > digit && idx < str.length) // 超过N位小数
@@ -140,11 +137,11 @@ const NumberUtil = {
     },
     /**
      * 保留小数位
-     * roundtag:舍入参数，默认"round" 四舍五入； "ceil" 向上取, "floor"向下取,
+     * roundtag:舍入参数，默认"floor"【保留N位小数】。四舍五入； "ceil" 向上取, "floor"向下取,
      */
-    asDecimal(number, decimals = 2, roundtag = 'round') {
+    asDecimal(number, decimals = 2, roundtag = 'floor') {
         number = (number + '').replace(/[^0-9+-Ee.]/g, '');
-        roundtag = roundtag || "round";
+        roundtag = roundtag || "floor";
         var n = !isFinite(+number) ? 0 : +number,
             prec = !isFinite(+decimals) ? 0 : Math.abs(decimals),
             dec = '.',

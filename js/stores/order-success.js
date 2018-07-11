@@ -73,7 +73,7 @@ class OrderStore {
 
     parseItem(item) {
         let pointPrice = this.commonStore.pointPrice;
-        let pointNum =  this.commonStore.getPointNum(item.currencyNameEn);
+        // let pointNum =  this.commonStore.getPointNum(item.currencyNameEn);
         
         item.orderTime = TimeUtil.formatDate(item.orderTime, 'yyyy-MM-dd HH:mm:ss');
         // 委托价格
@@ -81,8 +81,8 @@ class OrderStore {
         item.tradeAmount = NumberUtil.formatNumber(item.tradeAmount, pointPrice);
         item.tradePrice = NumberUtil.formatNumber(item.tradePrice, pointPrice);
         // 成交数量
-        item.tradeNum = NumberUtil.formatNumber(item.tradeNum, pointNum);
-        item.num = NumberUtil.formatNumber(item.num, pointNum);
+        // item.tradeNum = NumberUtil.formatNumber(item.tradeNum, pointNum);
+        // item.num = NumberUtil.formatNumber(item.num, pointNum);
 
         return item;
     }
