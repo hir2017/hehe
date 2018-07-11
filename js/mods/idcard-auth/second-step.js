@@ -1,18 +1,13 @@
-/**
- * @fileoverview  用户个人信息
- * @author xia xiang feng
- * @date 2018-05-21
- */
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
-import {getUserActionLimit} from '../../api/http';
+import { getUserActionLimit } from '../../api/http';
 import NumberUtil from '../../lib/util/number';
-import { Button, Icon, Upload, message } from 'antd';
+import { Button, Icon, Upload, message, Tooltip } from 'antd';
 import upload_pic from '../../../images/upload-pic.png';
 import upload_pic_hover from '../../../images/upload-pic-hover.png';
-import IDcard0 from '../../../images/IDcard1.jpg';
-import IDcard1 from '../../../images/IDcard00.jpg';
-import IDcard2 from '../../../images/IDcard01.jpg';
+import IDcard0 from '../../../images/IDcard1.png';
+import IDcard1 from '../../../images/IDcard2.png';
+import IDcard2 from '../../../images/IDcard3.png';
 
 import AceForm from '../../common-mods/form/form';
 
@@ -30,7 +25,7 @@ export default class SecondStep extends Component {
         this.sameTips = [
             UPEX.lang.template('证件正面照实例提示文字'),
             UPEX.lang.template('证件反面照实例提示文字'),
-            UPEX.lang.template('手持证件照实例提示文字'),
+            UPEX.lang.template('手持证件照实例提示文字')
         ];
         this.picsData = [
             {
@@ -50,20 +45,27 @@ export default class SecondStep extends Component {
             }
         ];
         this.next = this.next.bind(this);
-
     }
 
     componentDidMount() {
-        getUserActionLimit().then(res => {
-            this.setState({
-                withdrawLimit: NumberUtil.separate(res.attachment.dayLimit)
+        getUserActionLimit()
+            .then(res => {
+                this.setState({
+                    withdrawLimit: NumberUtil.separate(res.attachment.dayLimit)
+                });
             })
-        }).catch(err => {
-            console.error(err)
-        });
+            .catch(err => {
+                console.error(err);
+            });
     }
 
-    changeSamplePic(num) {}
+    getPopvoer(i) {
+        return (
+            <div className="tip-lines">
+                {this.sameTips[i]}
+            </div>
+        )
+    }
 
     async next() {
         if (!this.state.oneUrl || !this.state.twoUrl || !this.state.threeUrl) {
@@ -107,16 +109,6 @@ export default class SecondStep extends Component {
         sampleIndex: 0,
         uploading: false
     };
-
-    toggleSample(item, index) {
-
-        this.setState({
-            samepleIndex: index,
-            samplePic: item ? IDcardPics['IDcard' + index]  : '',
-            sampleTitle: item ? item.showTip : '',
-            sampleShow: item ? true: false,
-        })
-    }
 
     _props = urlKey => {
         const token = UPEX.cache.getCache('token');
@@ -170,43 +162,49 @@ export default class SecondStep extends Component {
     };
 
     render() {
-        const {sameTips, picsData} = this;
+        const { sameTips, picsData } = this;
 
         return (
             <AceForm className="auth-step-2">
-                <div className={`sample-pic-content ${this.state.sampleShow ? 'show' : ''}`}  onClick={() => {this.toggleSample(false)}}>
-                    <div className="sample-inner">
-                        <header>{this.state.sampleTitle}</header>
-                        <article className="clearfix">
-                            <img className="pic-img" src={this.state.samplePic} style={{width: '300px', height: '180px'}}/>
-                            <p className="pic-message">
-                                {sameTips[this.state.sampleIndex]}
-                            </p>
-                        </article>
-                    </div>
+                <div className="ace-top-tips">
+                    <Icon type="info" />
+                    {UPEX.lang.template('完成此步骤确认，可获得每日NT$300.000提现额度', { num: this.state.withdrawLimit })}。
+                    {UPEX.lang.template('身份证上传图片大小限制')}
                 </div>
-                <div className="ace-top-tips">{UPEX.lang.template('完成此步骤确认，可获得每日NT$300.000提现额度', {num: this.state.withdrawLimit})}</div>
                 {picsData.map((item, i) => {
+                    let _url = this.state[item.url];
                     return (
-                        <div key={i} className="pic-item ace-upload-mod">
-                            <header>
-                                <span className="item-title">{item.title}</span>
-                                <span className="item-tip" onClick={() => {this.toggleSample(item, i)}}>{item.showTip}</span>
-                            </header>
-                            <section className={`${this.state[item.url] ? 'select' : 'no-select'} pic-upload-content`}>
+                        <div key={i} className="pic-item ace-upload-mod clearfix">
+                            <section className={`${this.state[item.url] ? 'select' : 'no-select'} pic-item-child pic-upload-content`}>
+                                <p className="pic-title">
+                                    <Icon className="block-space" type="check" />
+                                    {item.title}
+                                    <Icon className={_url ? '' : 'block-space'} type="check" />
+                                </p>
                                 <Upload className="pic-upload" {...this._props(item.url)}>
-                                    <img  className="pic-item-img target" src={this.state[item.url] ? UPEX.config.imgHost + '/' + this.state[item.url] : upload_pic} />
-                                    <img  className="pic-item-img hover" src={upload_pic_hover} />
+                                    <img className="pic-item-img target" src={_url ? UPEX.config.imgHost + '/' + _url : upload_pic} />
+                                    <img className="pic-item-img hover" src={upload_pic_hover} />
                                 </Upload>
-                                {this.state[item.url] ? (<Icon type="check-circle" />) : null}
+                                {_url ? null : (<span className="upload-icon-text">{UPEX.lang.template('点击上传')}</span>)}
+                            </section>
+                            <section className="pic-item-child sample-img">
+                                <p className="pic-title">
+                                    <Icon className="block-space" type="check" />
+                                    {item.showTip}
+                                    <Tooltip  overlayClassName="auth-step-2" placement="rightTop" arrowPointAtCenter={true} title={this.getPopvoer(i)}>
+                                        <Icon type="question" />
+                                    </Tooltip>
+
+                                </p>
+                                <img src={IDcardPics[`IDcard${i}`]} alt="" />
                             </section>
                         </div>
                     );
                 })}
-
-                <div className="pic-format">{UPEX.lang.template('身份证上传图片大小限制')}</div>
                 <div className="submit">
-                    <Button  className="ace-submit-item" onClick={this.next}>{UPEX.lang.template('提交审核')}</Button>
+                    <Button className="ace-submit-item" onClick={this.next}>
+                        {UPEX.lang.template('提交审核')}
+                    </Button>
                 </div>
             </AceForm>
         );
