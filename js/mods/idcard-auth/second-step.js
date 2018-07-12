@@ -5,9 +5,9 @@ import NumberUtil from '../../lib/util/number';
 import { Button, Icon, Upload, message, Tooltip } from 'antd';
 import upload_pic from '../../../images/upload-pic.png';
 import upload_pic_hover from '../../../images/upload-pic-hover.png';
-import IDcard0 from '../../../images/IDcard1.png';
-import IDcard1 from '../../../images/IDcard2.png';
-import IDcard2 from '../../../images/IDcard3.png';
+import IDcard0 from '../../../images/idcard-1.png';
+import IDcard1 from '../../../images/idcard-2.png';
+import IDcard2 from '../../../images/idcard-3.png';
 
 import AceForm from '../../common-mods/form/form';
 
