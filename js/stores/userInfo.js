@@ -437,15 +437,12 @@ class UserInfo {
                 message.success(UPEX.lang.template('修改成功'));
             } else {
                 const msgMap = {
-                    '500': UPEX.lang.template('请填写正确的原手机短信验证码'),
+                    '5558': UPEX.lang.template('请填写正确的Google验证码'),
+                    '405': UPEX.lang.template('请填写正确的原手机短信验证码'),
                     '403': UPEX.lang.template('请填写正确的新手机短信验证码')
                 };
                 let tempMsg;
-                if (res.message === '谷歌验证码不正确') {
-                    tempMsg = UPEX.lang.template('请填写正确的Google验证码');
-                } else {
-                    tempMsg = msgMap[res.status] || res.message;
-                }
+                tempMsg = msgMap[res.status] || res.message;
                 if(res.status === 0 || res.status === 9999) {
                     pickErrMsg(res, 'newModifyPhone');
                 } else {
