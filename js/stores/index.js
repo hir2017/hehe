@@ -1,4 +1,5 @@
 import CommonStore from './common';
+import CurrencyStore from './currency-point';
 import AuthStore from './auth';
 import LoginStore from './login';
 import CaptchaStore from './captcha';
@@ -27,6 +28,7 @@ class RootStore {
          */
         this.commonStore = new CommonStore(this);
         this.authStore = new AuthStore(this);
+        this.currencyStore = new CurrencyStore();
         this.captchaStore = new CaptchaStore(this);
         this.tradePwdStore = new TradePwdStore(this);
         /**

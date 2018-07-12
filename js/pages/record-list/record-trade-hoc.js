@@ -8,7 +8,7 @@ import { observer, inject } from 'mobx-react';
 import { browserHistory } from 'react-router';
 import { Breadcrumb } from 'antd';
 
-@inject('tradePwdStore', 'commonStore')
+@inject('tradePwdStore', 'currencyStore', 'commonStore')
 @observer
 class RecordPage extends Component {
 	constructor(props){
@@ -35,6 +35,7 @@ class RecordPage extends Component {
 
 	componentDidMount() {
 		this.props.commonStore.getAllCoinPoint();
+		this.props.currencyStore.getCurrencyPoints();
 		this.props.tradePwdStore.getPersonalTradingPwd();
 	}
 
@@ -76,7 +77,7 @@ class RecordPage extends Component {
 	        			</ul>
         			</div>
 	        		<div className="order-main">
-	        			{ this.props.commonStore.productDataReady ? this.props.children : null }
+	        			{ this.props.currencyStore.currencyDataReady ? this.props.children : null }
 	        		</div>
 	        	</div>
         	</div>

@@ -213,15 +213,17 @@ class List extends Component {
                                 <label>{UPEX.lang.template('币种')}</label>
                                 <Select size="large" defaultValue="0" onChange={this.onChangeCurrency}>
                                     <Option value="0">{UPEX.lang.template('全部')}</Option>
-                                    {this.props.commonStore.productList.map(item => {
-                                        if (item.currencyNameEn !== UPEX.config.baseCurrencyEn) {
-                                            return (
-                                                <Option value={item.currencyId} key={item.currencyId}>
-                                                    {item.currencyNameEn}
-                                                </Option>
-                                            );
-                                        }
-                                    })}
+                                    {
+                                        this.props.commonStore.productList.map(item => {
+                                            if (item.currencyNameEn !== UPEX.config.baseCurrencyEn) {
+                                                return (
+                                                    <Option value={item.currencyId} key={item.currencyId}>
+                                                        {item.currencyNameEn}
+                                                    </Option>
+                                                );
+                                            }
+                                        })
+                                    }
                                 </Select>
                             </li>
                             <li>

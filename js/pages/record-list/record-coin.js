@@ -11,7 +11,7 @@ const Option = Select.Option;
 import RechargeRecordList from '../../mods/record-list/coin-recharge-record';
 import WidthdrawRecordList from '../../mods/record-list/coin-withdraw-record';
 
-@inject('accountStore')
+@inject('currencyStore')
 @observer
 class RecordPage extends Component {
     constructor(props){
@@ -22,9 +22,9 @@ class RecordPage extends Component {
         }
     }
     componentDidMount(){
-        let store = this.props.accountStore;
+        let store = this.props.currencyStore;
 
-        store.getUserCoinAccount();
+        store.getCurrencyPoints();
     }
 
     handleChange=(value)=>{

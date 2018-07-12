@@ -127,7 +127,7 @@ class Login extends Component {
                         browserHistory.push('/user/authentication');
                     }
                 });
-                browserHistory.push('/home');
+                browserHistory.push('/webtrade');
                 break;
             case 1:
                 /*
@@ -137,16 +137,16 @@ class Login extends Component {
                  * 操作：取消，去绑定
                  * 文案：您当前的安全等级为A，请绑定银行卡以获取充提新台币的权限并开启交易
                 */
-                Modal.confirm({
-                    prefixCls: "ace-dialog",
-                    content: UPEX.lang.template('您当前的安全等级为A，请绑定银行卡以获取充提新台币的权限并开启交易'),
-                    okText: UPEX.lang.template('去认证'),
-                    cancelText: UPEX.lang.template('取消'),
-                    iconType: 'exclamation-circle',
-                    onOk() {    
-                        browserHistory.push('/user/bankInfo');
-                    }
-                });
+                // Modal.confirm({
+                //     prefixCls: "ace-dialog",
+                //     content: UPEX.lang.template('您当前的安全等级为A，请绑定银行卡以获取充提新台币的权限并开启交易'),
+                //     okText: UPEX.lang.template('去认证'),
+                //     cancelText: UPEX.lang.template('取消'),
+                //     iconType: 'exclamation-circle',
+                //     onOk() {    
+                //         browserHistory.push('/user/bankInfo');
+                //     }
+                // });
                 browserHistory.push('/webtrade');
                 break;
             default:

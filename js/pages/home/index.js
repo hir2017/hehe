@@ -13,37 +13,9 @@ import BtcNews from '../../mods/home/btcnews';
 import HotMarkets from '../../mods/home/hotmarkets';
 import IndexMarkets from '../../mods/home/indexmarkets';
 
-
-
-@inject('commonStore')
-@observer
-class Home extends Component {
-    componentWillMount() {
-        let { commonStore } = this.props;
-
-        commonStore.getAllCoinPoint();
-    }
-    
-    render() { 
-        let { commonStore } = this.props;
-        
-        // 用于切换交易币时内容切换
-        if (commonStore.productDataReady) {
-            return <HomeContent {...this.props}/>    
-        } else {
-            return (
-                <div className="home-wrapper">
-                    <div className="mini-loading"></div>
-                </div>   
-            )
-        }
-    }
-}
-
-
 @inject('authStore', 'homeStore')
 @observer
-class HomeContent extends Component {
+class Home extends Component {
     constructor(props){
         super(props);
     }

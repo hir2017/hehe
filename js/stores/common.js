@@ -3,7 +3,7 @@
  */
 import { observable, autorun, computed, action, runInAction } from 'mobx';
 import { socket } from '../api/socket';
-import { getBaseCoin } from '../api/http';
+import { getBaseCoin , getCurrencyPoints } from '../api/http';
 
 const getWindowDimensions = () => {
     return {
@@ -23,6 +23,7 @@ class CommonStore {
     // 业务公用的数据
     @observable productList = [];
     @observable productDataReady = false;
+    @observable coinDataReady = false;
     @observable coinsMap = {}; // { key:{}, key: {} } // 方便获取基础币信息 
     @observable coinsMapId = {};
 
@@ -63,13 +64,26 @@ class CommonStore {
         this.currentPathName = url;
     }
     /**
-     * 币种列表、以及币种对应的小数位点数
-     * 按数字币的权重排序
-     * TODO 基础信息缓存
      */
     @action
+    getAllTradeCoinPoint() {
+        this.coinDataReady = false;
+
+        getCurrencyPoints().then((data) => {
+            runInAction('get all coin point', () => {
+                if (data.status == 200) {
+                    
+                }
+
+                this.coinDataReady = true;
+            })
+        }).catch(()=>{
+            this.coinDataReady = true;
+        })
+    }
+
+    @action
     getAllCoinPoint() {
-        let list = UPEX.cache.getCache('productlist');
 
         this.productDataReady = false;
 
@@ -88,7 +102,7 @@ class CommonStore {
                     this.productList = list;
                     this.coinsMapId = this.getCoinsMapById(list);
                     this.coinsMap = this.getCoinsMapByName(list);
-                    UPEX.cache.setCache('productlist', list, 1 * 60 * 60 * 1000);  // 1小时
+                    // UPEX.cache.setCache('productlist', list, 1 * 60 * 60 * 1000);  // 1小时
                 }
 
                 this.productDataReady = true;

@@ -510,6 +510,9 @@ body .ant-popover-placement-bottomLeft>.ant-popover-content>.ant-popover-arrow {
     cursor: pointer;
     position: relative;
     z-index: 2;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
 }
 
 .app-trade .list-box-l .price {

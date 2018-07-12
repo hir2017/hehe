@@ -962,3 +962,12 @@ export function getUserActionLimit(actionId, currencyId) {
         currencyId
     })
 }
+/**
+ * 查询币对显示位数
+ */
+export function getCurrencyPoints(baseCurrencyId, tradeCurrencyId) {
+    return axios.post('/coin/currencyRelationPoints', {
+        baseCurrencyId,
+        tradeCurrencyId
+    })
+}
