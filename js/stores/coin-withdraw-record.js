@@ -22,7 +22,7 @@ class CoinWithdrawRecordStore {
         //     beginTime: '2018-05-30',
         //     endTime: '2018-05-31',
         //     status: 0, // 0全部；1充值中；2充值成功；3充值失败
-        //     currencyId: 0            
+        //     currencyId: 0
         // }
         this.params = {
         	status: 0, // 0全部；1充值中；2充值成功；3充值失败
@@ -65,11 +65,17 @@ class CoinWithdrawRecordStore {
         })
     }
 
-    
+
     parseData(arr) {
         arr.forEach((item, index) => {
             item.id = this.current + '' + index;
-            item.createTime = TimeUtil.formatDate(item.createTime, 'yyyy-MM-dd HH:mm:ss');
+            let _time = item.createTime;
+            // TODO: 需要后端去掉.0
+            if(_time && _time.indexOf('.0') !== -1) {
+                _time = _time.replace('.0', '')
+            }
+            item.createTime = _time;
+            // item.createTime = TimeUtil.formatDate(item.createTime, 'yyyy-MM-dd HH:mm:ss');
         })
 
         return arr;
