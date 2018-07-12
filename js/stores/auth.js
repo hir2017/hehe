@@ -8,31 +8,36 @@ class AuthStore {
 	constructor() {
         var handler = autorun(() => {
         	if(this.uid) {
-        		UPEX.cache.setCache('uid', this.uid);        			
+        		UPEX.cache.setCache('uid', this.uid);
         	} else {
-        		UPEX.cache.removeCache('uid');        			
+        		UPEX.cache.removeCache('uid');
         	}
 
         	if (this.token) {
-        		UPEX.cache.setCache('token', this.token);        			
+        		UPEX.cache.setCache('token', this.token);
         	} else {
-        		UPEX.cache.removeCache('token');        			
+        		UPEX.cache.removeCache('token');
         	}
         });
     }
 
-	@computed 
+	@computed
 	get isLogin() {
 		return this.uid && this.token;
 	}
 
-	@action 
+    @action
+    checkLoginState() {
+        return UPEX.cache.getCache('uid') && UPEX.cache.getCache('token');
+    }
+
+	@action
 	update = (user)=>{
 		this.token = user.token;
 		this.uid = user.uid;
 	}
 
-	@action 
+	@action
 	clear() {
 		this.uid = '';
 		this.token = '';
