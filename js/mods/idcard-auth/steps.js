@@ -48,7 +48,7 @@ export default class Steps extends Component {
           <span>
             <img src={step === 4 ? threeStep : no_threeStep} />
           </span>
-          <span>{UPEX.lang.template('安成认证')}</span>
+          <span>{UPEX.lang.template('安全认证')}</span>
         </div>
       </div>
     )

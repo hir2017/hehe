@@ -168,4 +168,5 @@ const TimeUtil = {
     }
 }
 
+window.TimeUtil = TimeUtil;
 export default TimeUtil;

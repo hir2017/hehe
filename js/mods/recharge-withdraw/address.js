@@ -47,6 +47,7 @@ class AddWithdrawAddress extends Component {
 						<div className="input-box">
                             <input
                                 type="text"
+                                autoComplete="off"
                                 onChange={this.action.onChangeAddress}
                                 onBlur={this.action.onBlurToVerify.bind(this, 'address')}
                             />
@@ -60,6 +61,7 @@ class AddWithdrawAddress extends Component {
 						<div className="input-box">
                             <input
                                 type="text"
+                                autoComplete="off"
                                 onChange={this.action.onChangeNote}
                                 onBlur={this.action.onBlurToVerify.bind(this, 'note')}
                             />
@@ -73,6 +75,7 @@ class AddWithdrawAddress extends Component {
 						<div className="input-box">
                             <input
                                 type="password"
+                                autoComplete="off"
                                 onChange={this.action.onChangePwd}
                                 onBlur={this.action.onBlurToVerify.bind(this, 'pwd')}
                             />

@@ -1,20 +1,71 @@
 import React, {Component} from 'react';
 import { observer, inject } from 'mobx-react';
 import { browserHistory, Link} from 'react-router';
-import { Slider, Tooltip , message } from 'antd';
+import { Slider, Tooltip , message , Modal } from 'antd';
 import PopupTradePwd from './tradepwd';
 import InputNumber from '../../input-number';
 
-@inject('tradeStore', 'authStore')
+@inject('tradeStore', 'authStore', 'userInfoStore')
 @observer
 class TradeForm extends Component{
 
 	goRecharge=(type, e)=>{
+		let userInfoStore = this.props.userInfoStore;
+
 		if (type == 'fiat') {
-			browserHistory.push('/account/balance/recharge');
+			// 点击充值，弹窗提示绑定银行卡后可以进行充值
+			switch(userInfoStore.userInfo.authLevel) {
+				case 0:
+					this.showDialogGuideAuth();
+					break;
+				case 1:
+					this.showDialogGuideBindCard();
+					break;
+				default:
+					browserHistory.push('/account/balance/recharge');
+			}
 		} else {
 			browserHistory.push('/account/coin/recharge');
 		}
+	}
+
+	showDialogGuideAuth() {
+		Modal.confirm({
+            prefixCls: "ace-dialog",
+            content: UPEX.lang.template('请先进行身份认证'),
+            okText: UPEX.lang.template('身份认证'),
+            cancelText: UPEX.lang.template('我再想想'),
+            iconType: 'exclamation-circle',
+            onOk() {    
+                browserHistory.push('/user/authentication');
+            }
+        });
+	}
+
+	showDialogGuideBindCard() {
+		Modal.confirm({
+            prefixCls: "ace-dialog",
+            content: UPEX.lang.template('绑定银行卡后可以进行充值'),
+            okText: UPEX.lang.template('绑定银行卡'),
+            cancelText: UPEX.lang.template('我再想想'),
+            iconType: 'exclamation-circle',
+            onOk() {    
+                browserHistory.push('/user/bankInfo');
+            }
+        });
+	}
+
+	showDialogGuideTradePWD(){
+		Modal.confirm({
+            prefixCls: "ace-dialog",
+            content: UPEX.lang.template('交易前请先设置资金密码'),
+            okText: UPEX.lang.template('资金密码设置'),
+            iconType: 'exclamation-circle',
+            okCancel: false,
+            onOk() {    
+                browserHistory.push('/user/bankInfo');
+            }
+        });
 	}
 
 
@@ -72,6 +123,17 @@ class TradeForm extends Component{
 	
 	submitOrder=(type) =>{
 		let { verifyInfoBeforeSubmit , createTradeOrder } = this.props.tradeStore;
+		let userInfoStore = this.props.userInfoStore;
+
+		if (userInfoStore.userInfo.authLeve == 0) {
+			this.showDialogGuideAuth();
+			return;
+		} else if (userInfoStore.userInfo.isValidatePass == 0) {
+			// 未设置交易密码
+			this.showDialogGuideTradePWD();
+			return;
+		}
+
 		let result = verifyInfoBeforeSubmit(type);
 		
 		if (result.pass) {

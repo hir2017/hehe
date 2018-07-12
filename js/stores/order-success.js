@@ -82,6 +82,7 @@ class OrderStore {
         item.price = NumberUtil.formatNumber(item.price, pointPrice);
         item.tradeAmount = NumberUtil.formatNumber(item.tradeAmount, pointPrice);
         item.tradePrice = NumberUtil.formatNumber(item.tradePrice, pointPrice);
+        item.fee = NumberUtil.scientificToNumber(item.fee);
         // 成交数量
         item.tradeNum = NumberUtil.formatNumber(item.tradeNum, pointNum);
         item.num = NumberUtil.formatNumber(item.num, pointNum);

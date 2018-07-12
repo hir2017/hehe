@@ -128,6 +128,7 @@ class WithdrawCoin extends Component {
 	                                    placeholder={UPEX.lang.template('地址备注')}
 	                                    value={store.note}
 	                                    data-key="note"
+	                                    autoComplete="off"
 	                                    onChange={action.onChangeInput}
 	                                />
 	                            </div>
@@ -137,6 +138,7 @@ class WithdrawCoin extends Component {
 	                                    placeholder={UPEX.lang.template('提币地址')}
 	                                    value={store.address}
 	                                    data-key="address"
+	                                    autoComplete="off"
 	                                    onChange={action.onChangeInput}
 	                                />
 	                            </div>
@@ -169,6 +171,7 @@ class WithdrawCoin extends Component {
 		                                type="text"
 		                                placeholder={ UPEX.lang.template('图片验证') }
 		                                data-key="vercode"
+		                                autoComplete="off"
 		                                value={store.vercode}
 		                                onChange={ action.onChangeInput}
 		                            />
@@ -212,6 +215,7 @@ class WithdrawCoin extends Component {
 			                                <input
 			                                    type="text"
 			                                    data-key="phonecode"
+			                                    autoComplete="off"
 			                                    value={store.phoneCode}
 			                                    placeholder={UPEX.lang.template('请填写短信验证码')}
 				                                onChange={action.onChangeInput}
@@ -226,6 +230,7 @@ class WithdrawCoin extends Component {
 									<div className="input-box">
 		                                <input
 		                                    type="number"
+		                                    autoComplete="off"
 		                                    data-key="googlecode"
 		                                    value={store.googleCode}
 		                                    placeholder={UPEX.lang.template('请填写Google验证码')}
@@ -243,6 +248,7 @@ class WithdrawCoin extends Component {
 	                            <input
 	                                type="password"
 	                                data-key="tradepwd"
+	                                autoComplete="off"
 	                                value={store.tradepwd}
 	                                placeholder={UPEX.lang.template('请输入资金密码')}
 	                                onChange={action.onChangeInput}

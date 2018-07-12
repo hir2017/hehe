@@ -35,6 +35,7 @@ export default class CardSelect extends Component {
                         <div className="input-box">
                             <input
                                 type="number"
+                                autoComplete="off"
                                 onChange={e => {
                                     const { value = '' } = e.target;
                                     setVal(value.trim(), 'balance');

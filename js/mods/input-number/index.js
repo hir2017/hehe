@@ -131,6 +131,7 @@ class NumberInput extends Component {
                 onBlur={this.blur} 
                 onKeyDown={this.keydown}
                 onKeyUp={this.keyup}
+                autoComplete="off"
             />
         );
     }

@@ -110,6 +110,7 @@ class Register extends Component {
                                             onInput={ action.onChangeEmail }
                                             onBlur={ action.onBlurEmail }
                                             autoFocus
+                                            autoComplete="off"
                                         />
                                     </div>
                                     { !store.validEmail ? <div className="warn">{ UPEX.lang.template('请填写正确的邮箱')}</div> : null }
@@ -125,6 +126,7 @@ class Register extends Component {
                                             onInput={  action.onChangePhone }
                                             onBlur={ this.queryHasPhone }
                                             autoFocus
+                                            autoComplete="off"
                                         />
                                     </div>
                                     { !store.validPhone ? <div className="warn">{ UPEX.lang.template('请填写正确的手机号')}</div> : null }
@@ -139,6 +141,7 @@ class Register extends Component {
                                     className={ store.validPwd ? '' : 'wrong'}
                                     placeholder={ UPEX.lang.template('密码') }
                                     maxLength="16"
+                                    autoComplete="off"
                                     onInput={ action.onChangePwd }
                                     onBlur={action.onBlurPwd}
                                 />
@@ -152,6 +155,7 @@ class Register extends Component {
                                     ref="twicepwd"
                                     className={ store.validTwicePwd ? '' : 'wrong'}
                                     maxLength="16"
+                                    autoComplete="off"
                                     placeholder={ UPEX.lang.template('确认密码') }
                                     onInput={ action.onChangeTwicePwd }
                                     onBlur={action.onBlurTwicePwd}
@@ -167,6 +171,7 @@ class Register extends Component {
                                     placeholder={ UPEX.lang.template('请参照右侧输入') }
                                     onInput={ action.onChangeImgCode }
                                     maxLength="5"
+                                    autoComplete="off"
                                     className={ store.validImgCode ? '' : 'wrong' }
                                 />
                                 <div className="codeimg">
@@ -182,6 +187,7 @@ class Register extends Component {
                                     ref="vercode" 
                                     placeholder={ store.mode == 'email' ? UPEX.lang.template('邮箱验证码') : UPEX.lang.template('手机验证码') }
                                     maxLength="6"
+                                    autoComplete="off"
                                     className={ store.validVercode ? '' : 'wrong' }
                                     onInput={ action.onChangeVercode }
                                 />
@@ -200,6 +206,7 @@ class Register extends Component {
                                 <input 
                                     type="text" 
                                     ref="invitecode"
+                                    autoComplete="off"
                                     placeholder={ UPEX.lang.template('邀请码')}
                                     onInput={ action.onChangeInviteCode }
                                 />

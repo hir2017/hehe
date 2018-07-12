@@ -111,7 +111,12 @@ class CoinRecharge extends Component{
 							<ul>
 								<li className="input-button-box">
 									<div className="input-box">
-										<input ref="address" data-address={store.currentCoin.address} value={store.currentCoin.address} readOnly/>
+										<input 
+											ref="address" 
+											data-address={store.currentCoin.address} 
+											value={store.currentCoin.address} 
+											readOnly
+										/>
 									</div>
 									<button id="copy-address" className="rw-sp-vcode-btn">{UPEX.lang.template('复制地址')}</button>
 								</li>
