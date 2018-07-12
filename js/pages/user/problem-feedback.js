@@ -114,7 +114,7 @@ export default class extends Component {
                     <Col span={24}>
                         <TextArea value={this.state.text} onChange={this.textAreaChange} rows={7} />
                         <p className={`placeholder ${this.state.text ? '' : 'show'}`}>{UPEX.lang.template('请填写您要反馈的问题')}</p>
-                        <div className="text-stats">{UPEX.lang.template('还可以输入{count}个字', { count: this.state.textLen}, 1)}</div>
+                        <div className="text-stats" dangerouslySetInnerHTML={{__html: UPEX.lang.template('还可以输入{count}个字', { count: this.state.textLen}, 1)}}></div>
                     </Col>
                 </Row>
 

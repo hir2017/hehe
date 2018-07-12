@@ -17,6 +17,32 @@ export default class ModifyPhone extends Component {
         this.onAreaCodeChange = this.onAreaCodeChange.bind(this);
         this.submit = this.submit.bind(this);
         this.captchaChange = this.captchaChange.bind(this);
+        const getProp = createGetProp(this);
+        this.inputsData = {
+            phone: {
+                label: UPEX.lang.template('新手机号'),
+                inputProps: getProp('phone', 'none')
+            },
+            ivCode: {
+                label: UPEX.lang.template('图片验证码'),
+                className: 'v-code',
+                inputProps: getProp('ivCode', 'none')
+            },
+            gaCode: {
+                label: UPEX.lang.template('谷歌验证码'),
+                className: 'v-code',
+                inputProps: getProp('gaCode', 'none')
+            },
+            vCode: {
+                label: UPEX.lang.template('原手机短信确认码'),
+                className: 'v-code',
+                inputProps: getProp('vCode', 'none')
+            },
+            nvCode: {
+                label: UPEX.lang.template('新手机短信确认码'),
+                inputProps: getProp('nvCode', 'none')
+            }
+        };
     }
 
     componentWillMount() {
@@ -72,10 +98,6 @@ export default class ModifyPhone extends Component {
             message.error(UPEX.lang.template('请填写手机号') );
             return false;
         }
-        // if(!UPEX.config.phoneReg.test(phone)) {
-        //     message.error(UPEX.lang.template('请填写正确的手机号'));
-        //     return false;
-        // }
         this.setState({
             vcodeAbled: true
         });
@@ -83,8 +105,6 @@ export default class ModifyPhone extends Component {
     }
 
     submit() {
-        const codeid = this.props.captchaStore.codeid;
-        const captcha = this.props.captchaStore.captcha;
         const gaBindSuccess = this.props.userInfoStore.gaBindSuccess;
         if (!this.state.phone) {
             message.error(UPEX.lang.template('请填写新手机号'));
@@ -127,32 +147,8 @@ export default class ModifyPhone extends Component {
                 </Option>
             );
         });
-        const getProp = createGetProp(this);
-        const inputsData = {
-            phone: {
-                label: UPEX.lang.template('新手机号'),
-                inputProps: getProp('phone', 'none')
-            },
-            ivCode: {
-                label: UPEX.lang.template('图片验证码'),
-                className: 'v-code',
-                inputProps: getProp('ivCode', 'none')
-            },
-            gaCode: {
-                label: UPEX.lang.template('谷歌验证码'),
-                className: 'v-code',
-                inputProps: getProp('gaCode', 'none')
-            },
-            vCode: {
-                label: UPEX.lang.template('原手机短信确认码'),
-                className: 'v-code',
-                inputProps: getProp('vCode', 'none')
-            },
-            nvCode: {
-                label: UPEX.lang.template('新手机短信确认码'),
-                inputProps: getProp('nvCode', 'none')
-            }
-        };
+
+        const {inputsData} = this;
 
         const PageProps = {
             title: UPEX.lang.template('修改绑定手机'),

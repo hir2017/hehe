@@ -328,3 +328,8 @@
     color: #cc9900;
     font-size: 14px;
 }
+
+
+.ace-dialog-content {
+    white-space: normal;
+}
