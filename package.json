@@ -63,7 +63,7 @@
     "webpack-dev-server": "^1.16.2",
     "webpack-hot-middleware": "^2.22.1"
   },
-  "gitlabGroup": "h5ex",
+  "gitlabGroup": "webex",
   "googleFileExport": "module.exports",
   "googleSpreadsheetId": "1SAiY0rhwJl01xfA6BZdS53z1JJwg0XvEEEYCiv6mrNM",
   "googleWorksheet": {
