@@ -125,22 +125,25 @@ class List extends Component {
                                         </tr>
                                     );
                                 })
-                                $detail[$detail.length] = (
-                                    <tr className="data" key={$detail.length}>
-                                        <td>
-                                            <span className="label"> {UPEX.lang.template('撤单时间')}：</span>
-                                            {item._detailInfo ? item._detailInfo.cancelTime : '--'}
-                                        </td>
-                                        <td>
-                                            <span className="label"> {UPEX.lang.template('撤单数量')}：</span>
-                                            {item._cancel.num}
-                                        </td>
-                                        <td>
-                                            <span className="label"> {UPEX.lang.template('撤单比例')}：</span>
-                                            {parseFloat(item._cancel.rate) * 100}%
-                                        </td>
-                                    </tr>
-                                )
+                                if(item.status === 5) {
+                                    $detail[$detail.length] = (
+                                        <tr className="data" key={$detail.length}>
+                                            <td>
+                                                <span className="label"> {UPEX.lang.template('撤单时间')}：</span>
+                                                {item._detailInfo ? item._detailInfo.cancelTime : '--'}
+                                            </td>
+                                            <td>
+                                                <span className="label"> {UPEX.lang.template('撤单数量')}：</span>
+                                                {item._cancel.num}
+                                            </td>
+                                            <td>
+                                                <span className="label"> {UPEX.lang.template('撤单比例')}：</span>
+                                                {parseFloat(item._cancel.rate) * 100}%
+                                            </td>
+                                        </tr>
+                                    )
+                                }
+
                             } else {
                                 if(item.status === 4) {
                                     $detail = (
