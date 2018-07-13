@@ -161,7 +161,7 @@ const origin = (function() {
     let origin;
 
     let hostname = location.hostname;
-    
+
     if (hostname.indexOf('io') > -1) {
         origin = hostname;
     } else {
@@ -192,9 +192,9 @@ const origin_ws = (function() {
     let origin;
 
     let hostname = location.hostname;
-    
+
     if (hostname.indexOf('io') > -1) {
-        origin = hostname == 'pre.ace.io' ? 'process.ace.io' : hostname; 
+        origin = hostname == 'pre.ace.io' ? 'process.ace.io' : hostname;
     } else {
         origin = '13.251.85.35';
     }
@@ -223,6 +223,38 @@ const uploadHost = host + '/upload/upload';
 const uploadImgHost = host + '/user/uploadImageSingle';
 const websocketHost = SOCKET_PROTOCOL + '//' + origin_ws + '/';
 const imgHost = PROTOCOL + '//' + origin + '/img';
+
+const pageLink = {
+    // 个人中心
+    user: '/user',
+    userBindCard: '/user/bankInfo',
+    userAuth: '/user/authentication',
+    userSetTradePwd: '/user/settingTraddingPassword',
+    userBindPhone: '/user/setting-phone',
+    userBindEmail: '/user/settingEmail',
+    userFeedBack: '/user/question',
+    userFeedBackList: '/user/questionList',
+    // PageFooter 帮助中心 help
+    helpAboutAce: '',
+    helpOurTeam: '',
+    helpInvestorRelations: '',
+    helpCenter: '',
+    helpFees: '',
+    helpContactus: '',
+    // PageFooter 用户协议 Agreement
+    AgreementPrivacy: '',
+    AgreementUserItem: '',
+    AgreementRisk: '',
+    // 上币申请
+    coinApply: '',
+    // 客户端下载
+    clientDownloads: '',
+    // 交易
+    trade: 'webtrade',
+    // 充值提现
+    fundRecharge: '/account/balance/recharge',
+    fundWithdraw: '/account/balance/withdraw',
+}
 
 const config = {
     baseCurrencyEn,

@@ -162,14 +162,9 @@ body .user-main .ant-select-dropdown-menu-item {
 
 /*  */
 
-
-
-
-
 .user-main .ace-form .center {
     text-align: center;
 }
-
 
 /* 底部提示统一样式 */
 
@@ -840,9 +835,6 @@ body .user-main .ant-select-dropdown-menu-item {
     outline: none;
 }
 
-
-
-
 .user-main .ace-form.auth-step-3 .info-line p {
     text-align: center;
     font-size: 14px;
@@ -918,8 +910,6 @@ body .user-main .ant-select-dropdown-menu-item {
     font-weight: bold;
 }
 
-
-
 .user-main .ace-form.auth-step-2 {
     box-sizing: border-box;
     padding: 10px 0;
@@ -955,7 +945,7 @@ body .user-main .ant-select-dropdown-menu-item {
     height: 260px;
     box-sizing: border-box;
     padding: 18px;
-    border: dashed  1px #e9e9e9;
+    border: dashed 1px #e9e9e9;
     overflow: hidden;
     border-radius: 6px;
     position: relative;
@@ -965,12 +955,10 @@ body .user-main .ant-select-dropdown-menu-item {
     margin-right: 40px;
 }
 
-.user-main .ace-form.auth-step-2 .pic-item-child:nth-child(1) .pic-title{
+.user-main .ace-form.auth-step-2 .pic-item-child:nth-child(1) .pic-title {
     padding: 10px 0 20px;
     color: #333;
 }
-
-
 
 .user-main .ace-form.auth-step-2 .pic-item-child .upload-icon-text {
     font-size: 14px;
@@ -981,28 +969,32 @@ body .user-main .ant-select-dropdown-menu-item {
     width: 260px;
     top: 75%;
 }
+
 .user-main .ace-form.auth-step-2 .pic-item-child:hover .upload-icon-text {
     color: #e8b802;
 }
 
-.user-main .ace-form.auth-step-2 .pic-item-child .pic-title .anticon{
+.user-main .ace-form.auth-step-2 .pic-item-child .pic-title .anticon {
     margin-left: 10px;
     color: #e8b802;
 }
+
 .user-main .ace-form.auth-step-2 .pic-item-child.sample-img .pic-title .anticon {
     margin-top: -1px;
     border-radius: 8px;
     border: solid 1px #e8b802;
 }
-.user-main .ace-form.auth-step-2 .pic-item-child.sample-img .pic-title .anticon:hover{
+
+.user-main .ace-form.auth-step-2 .pic-item-child.sample-img .pic-title .anticon:hover {
     color: #333;
     background-color: #e8b802;
 }
+
 .user-main .ace-form.auth-step-2 .pic-item-child .pic-title .anticon.block-space {
     opacity: 0;
 }
 
-.user-main .ace-form.auth-step-2 .pic-item-child .pic-title{
+.user-main .ace-form.auth-step-2 .pic-item-child .pic-title {
     font-size: 14px;
     color: #999;
     padding: 10px 0 25px;
@@ -1012,7 +1004,7 @@ body .user-main .ant-select-dropdown-menu-item {
     display: none;
 }
 
-.user-main .ace-form.auth-step-2 .sample-img img{
+.user-main .ace-form.auth-step-2 .sample-img img {
     width: 260px;
     height: 160px;
 }
@@ -1035,7 +1027,6 @@ body .user-main .ant-select-dropdown-menu-item {
 .user-main .ace-form.auth-step-2 .ace-submit-item {
     width: 450px;
 }
-
 
 .user-main .authentication-content .pic-item-message {
     width: 275px;
@@ -1215,6 +1206,71 @@ body .user-main .ant-select-dropdown-menu-item {
     text-align: center;
 }
 
+.user-main .bank-info .pic-item.ace-upload-mod {
+    text-align: center;
+}
+
+.user-main .bank-info .pic-upload .ant-upload-select {
+    text-align: center;
+    width: 100%;
+}
+
+.user-main .bank-info .pic-upload-content .pic-item-img {
+    width: 260px;
+    height: 170px;
+}
+
+.user-main .bank-info .pic-upload-content .pic-item-img.hover {
+    display: none;
+}
+
+.user-main .bank-info .no-select.pic-upload-content .pic-item-img.hover {
+    display: none;
+}
+
+.user-main .bank-info .no-select.pic-upload-content:hover .pic-item-img.target {
+    display: none;
+}
+
+.user-main .bank-info .no-select.pic-upload-content:hover .pic-item-img.hover {
+    display: inline-block;
+}
+
+.user-main .bank-info .ant-upload-list {
+    display: none;
+}
+
+.user-main .bank-info .ace-upload-mod.pic-item header {
+    overflow: hidden;
+    border-bottom: solid 1px #f4f4f4;
+    font-size: 14px;
+    height: 36px;
+    line-height: 36px;
+}
+
+.user-main .bank-info .ace-upload-mod.pic-item .item-title {
+    float: left;
+}
+
+.user-main .bank-info .ace-upload-mod.pic-item .item-tip {
+    float: right;
+    color: #cc9900;
+    cursor: pointer;
+}
+
+.user-main .bank-info .ace-upload-mod.pic-item .item-tip:hover {
+    text-decoration: underline;
+}
+.user-main .bank-info .pic-upload-content {
+    margin: 20px 0 40px;
+}
+.user-main .bank-info .ace-submit-item {
+    margin-top: 0;
+}
+.user-main .bank-info .tip.bottom {
+    margin-top: 30px;
+    border-top: solid 1px #f4f4f4;
+}
 /**
  * 密码设置
  */

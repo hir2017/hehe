@@ -261,7 +261,7 @@ export default class BindingBank extends Component {
                     <Button className="ace-submit-item" loading={loading} onClick={this.submit}>
                         {UPEX.lang.template('提交')}
                     </Button>
-                    <div className="tip" dangerouslySetInnerHTML={{__html: UPEX.lang.template('注意内容')}}></div>
+                    <div className="tip bottom" dangerouslySetInnerHTML={{__html: UPEX.lang.template('注意内容')}}></div>
                 </AceForm>
             </AceSection>
         );
