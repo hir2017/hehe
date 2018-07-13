@@ -1,10 +1,8 @@
 /**
  * 法币充值/提现记录
  */
-import { observable, computed, autorun, action, runInAction } from 'mobx';
+import { observable, action, runInAction } from 'mobx';
 import { getFundChangeList } from '../api/http';
-import TimeUtil from '../lib/util/date';
-import NumberUtil from '../lib/util/number';
 
 
 class FundChangeRecordStore {

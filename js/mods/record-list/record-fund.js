@@ -15,9 +15,7 @@ class List extends Component {
     }
 
     componentDidMount() {
-        this.props.fundChangeRecordStore.getData({
-            pageNumber: 1
-        });
+        this.props.fundChangeRecordStore.setDataType('all');
     }
 
     onChangePagination(page) {
