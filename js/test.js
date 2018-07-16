@@ -231,6 +231,15 @@ const mockData = {
     "entrustScale": 200
 }
 
+const charts = [];
+let askPrices = []; // 卖方出价
+let bidPrices = []; // 买方出价
+let askAmounts = { base: [], quote: [] }; // Array of ask amounts
+let bidAmounts = { base: [], quote: [] }; // Array of bid amounts
+const volumes = { base: {}, quote: {} };
+const askAmountsTooltip = {};
+const bidAmountsTooltip = {};
+let days = [];
 
 class App extends Component {
     componentDidMount() {
@@ -248,7 +257,24 @@ class App extends Component {
                     mode: 'index',
                     position: 'nearest',
                     custom: (tooltip) => {
+                        
+                        // const tooltipEl = this.prepareTooltip(tooltip, 'market-chart-depth');
 
+                        // tooltipEl.innerHTML =
+                        // `<div class="row-custom-tooltip">
+                        //   <span class="left">Price</span>
+                        //   <span class="right">1212</span>
+                        // </div>
+                        // <div class="row-custom-tooltip middle">
+                        //   <span class="left">SUM</span>
+                        //   <span class="right">345</span>
+                        // </div>
+                        // <div class="row-custom-tooltip">
+                        //   <span class="left">SUM</span>
+                        //   <span class="right">890</span>
+                        // </div>`;
+
+                        // tooltipEl.style.opacity = 1;
                     },
                 },
                 legend: {
@@ -271,6 +297,13 @@ class App extends Component {
 	    bidPrices = [];
 	    askAmounts = { base: [], quote: [] };
 	    bidAmounts = { base: [], quote: [] };
+        
+        const askAmountsGraph = [];
+        const bidAmountsGraph = [];
+        // let vals;
+
+
+        // this.depth.data.labels = vals;
 
         this.depth.data.datasets = [
         {
@@ -312,7 +345,36 @@ class App extends Component {
       	this.depth.update();
     }
 
-     render() {
+    prepareTooltip(tooltip, canvasId) {
+        let tooltipEl = document.getElementById('chartjs-tooltip');
+        
+        if (!tooltipEl) {
+            tooltipEl = document.createElement('div');
+            tooltipEl.id = 'chartjs-tooltip';
+            document.body.appendChild(tooltipEl);
+        }
+        // Hide if no tooltip
+        if (tooltip.opacity === 0) {
+            tooltipEl.style.opacity = 0;
+            return false;
+        }
+        // Set caret Position
+        tooltipEl.classList.remove('above', 'below', 'no-transform');
+        if (tooltip.yAlign) {
+            tooltipEl.classList.add(tooltip.yAlign);
+        } else {
+            tooltipEl.classList.add('no-transform');
+        }
+
+        const position = document.getElementById(canvasId).getBoundingClientRect();
+        tooltipEl.style.left = `${position.left + tooltip.caretX}px`;
+        tooltipEl.style.top = `${position.top + document.body.scrollTop + tooltip.caretY}px`;
+        tooltipEl.style.padding = `${tooltip.yPadding}px${tooltip.xPadding}px`;
+
+        return tooltipEl;
+    }
+
+    render() {
         return (
         	<div>
         		<canvas id="market-chart-depth" className="market-chart" width="375" height="195"></canvas>
