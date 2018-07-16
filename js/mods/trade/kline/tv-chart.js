@@ -151,6 +151,8 @@ class TVChartContainer extends Component {
             }).catch(err => {
                 console.log("Chunk loading failed");
             });
+        } else {
+            this.createTradingView();
         }
     }
 
@@ -181,7 +183,7 @@ class TVChartContainer extends Component {
         interval = this.getIntervalByPeriod();
         baseCurrencyNameEn = getTradeCoinById(baseCurrencyId).currencyNameEn;
         currencyNameEn = getTradeCoinById(currencyId).currencyNameEn;
-        
+
         let currentSymbolName = `${currencyNameEn}/${baseCurrencyNameEn}`;
         let datafeed = this.datafeed = new UDFCompatibleDatafeed({
             currencyNameEn,

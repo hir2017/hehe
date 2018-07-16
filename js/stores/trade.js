@@ -524,7 +524,7 @@ class TradeStore {
                 if (typeof data.content.length !== 'undefined') {
                     this.tradeHistory = this.parseTradeHistory(data);
                 } else {
-                    let item = this.parseTradeHistoryItem(data.content);
+                    let item = this.parseTradeHistoryItem(data.content[0]);
 
                     // 添加到数组头部, unshift 慎用！！性能太慢
                     this.tradeHistory.content.splice(0, 0, item);
