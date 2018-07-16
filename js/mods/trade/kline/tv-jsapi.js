@@ -59,7 +59,7 @@ class UDFCompatibleDatafeed {
                     "name": symbolName,
                     "ticker": [this.baseCurrencyNameEn, this.currencyNameEn].join('_').toLocaleLowerCase(),
                     "timezone": "Asia/Shanghai",
-                    "minmov": 0.01,
+                    "minmov": 1,
                     "minmove2": 0,
                     "session": "24x7",
                     "description": symbolName,
@@ -112,7 +112,7 @@ class UDFCompatibleDatafeed {
         getTradeKline({
             symbol: symbolInfo.ticker || '',
             interval: _resolution,
-            limit: 1440,
+            limit: 1440, 
             startTime: startDate, 
             endTime: endDate
         }).then((res)=>{
@@ -126,6 +126,7 @@ class UDFCompatibleDatafeed {
 
             if (res.status !== 200 || data.length == 0) {
                 meta.noData = true;
+                // meta.nextTime = 1531469480;
             } else {
                 for (var i = 0; i < data.length; ++i) {
                     let item = data[i];
@@ -186,7 +187,7 @@ class UDFCompatibleDatafeed {
      * @param {*Function()将在bars数据发生变化时执行} onResetCacheNeededCallback 
      */
     subscribeBars(symbolInfo, resolution, onRealtimeCallback, subscriberUID, onResetCacheNeededCallback) {
-        // console.log('------subscribeBars-------', symbolInfo, resolution);
+        console.log('------subscribeBars-------', symbolInfo, resolution);
 
         var symbol = symbolInfo.ticker || '';
 
@@ -232,7 +233,7 @@ class UDFCompatibleDatafeed {
         }
 
         this.timer && clearTimeout(this.timer);
-        fetch();
+        // fetch();
     }
     /**
      * 取消订阅K线数据

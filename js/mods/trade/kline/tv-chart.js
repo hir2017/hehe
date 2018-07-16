@@ -15,12 +15,7 @@ import React, {Component} from 'react';
 import { observer, inject } from 'mobx-react';
 import { Icon, Switch, Popover} from 'antd';
 import TradeCoinList from './coin-list';
-require('../../../lib/tradingview/charting_library.min');
-// require('../../../lib/tradingview/polyfills');
-// require('../../../lib/tradingview/bundle');
-// import '../../../lib/tradingview/test';
 import UDFCompatibleDatafeed from './tv-jsapi';
-import DepthChart from '../depth/index';
 
 @inject('tradeStore','commonStore')
 @observer
@@ -125,12 +120,7 @@ class TVChartContainer extends Component {
     }
 
     componentDidMount(){
-        setTimeout(()=>{
-            if (!this.refs.kline) {
-                return;
-            }
-            this.createTradingView();
-        }, 100)
+        this.drawChart();
 
         $.channel.on('switchTheme', (theme)=>{
             this.switchTheme(theme);
@@ -140,6 +130,38 @@ class TVChartContainer extends Component {
     componentWillUnmount(){
         $.channel.off('switchTheme');
         this.datafeed && this.datafeed.destroy();
+    }
+
+    drawChart() {
+        switch (this.state.chart) {
+            case 'depth':
+                this.asyncDepthChart();
+                break;
+            case 'kline':
+                this.asyncTradingView();
+                break;
+        }
+    }
+
+    asyncTradingView = ()=>{
+        if (typeof TradingView == 'undefined') {
+            // 注释不可省略，否则不能显示文件名称
+            import(/*webpackChunkName: "charting_library"*/'./../../../lib/tradingview/charting_library.min').then(module => {
+                this.createTradingView();
+            }).catch(err => {
+                console.log("Chunk loading failed");
+            });
+        } else {
+            this.createTradingView();
+        }
+    }
+
+    asyncDepthChart=()=>{
+        import(/*webpackChunkName: "depth"*/'../depth-chart/index').then(DepthChart => {
+            console.log(DepthChart);
+        }).catch(err => {
+            console.log("Chunk loading failed");
+        });
     }
 
 	createTradingView() {
@@ -501,6 +523,8 @@ class TVChartContainer extends Component {
     showChart=(type)=>{
         this.setState({
             chart: type
+        }, function() {
+            this.drawChart();
         });
     }
 
@@ -596,14 +620,7 @@ class TVChartContainer extends Component {
                     data-show={this.state.chart == 'kline' ? 'show': 'hide'}
                 />
                 {
-                    this.state.chart == 'depth' ? (
-                        <div
-                            className='trade-depth-chart'
-                            id="depth-chart"
-                        >   
-                        <DepthChart/>
-                        </div>
-                    ) : null
+                    this.state.chart == 'depth' ? <div className='trade-depth-chart' id="depth-chart" ref="depthchart"></div>: null
                 }
             </div>
         );
