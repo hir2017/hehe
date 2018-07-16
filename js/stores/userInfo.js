@@ -39,6 +39,7 @@ const pickErrMsg = (res, name) => {
     const statusMap = [0, 9999];
     if (statusMap.indexOf(res.status) !== -1) {
         console.error(`${name} error: ${res.message}`);
+        browserHistory.push('/login');
     } else {
         message.error(res.message);
     }
