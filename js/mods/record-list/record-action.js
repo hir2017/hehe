@@ -129,7 +129,7 @@ export default (store, authStore, tradeStore) => {
 
         submitCancelOrder(currencyId, orderNo, fdPassword) {
             cancelOrder({
-                currencyId,
+                // currencyId,
                 fdPassword: '',
                 orderNo,
                 source: 1
