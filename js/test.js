@@ -298,8 +298,20 @@ class App extends Component {
 	    askAmounts = { base: [], quote: [] };
 	    bidAmounts = { base: [], quote: [] };
         
-        const askAmountsGraph = [];
-        const bidAmountsGraph = [];
+        const askAmountsGraph = [{
+            x: 12,
+            y: 100
+        },{
+            x: 13,
+            y: 201
+        }];
+        const bidAmountsGraph = [{
+            x: 1,
+            y: 100
+        },{
+            x: 2,
+            y: 200
+        }];
         // let vals;
 
 

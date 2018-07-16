@@ -181,7 +181,7 @@ class TVChartContainer extends Component {
         interval = this.getIntervalByPeriod();
         baseCurrencyNameEn = getTradeCoinById(baseCurrencyId).currencyNameEn;
         currencyNameEn = getTradeCoinById(currencyId).currencyNameEn;
-
+        
         let currentSymbolName = `${currencyNameEn}/${baseCurrencyNameEn}`;
         let datafeed = this.datafeed = new UDFCompatibleDatafeed({
             currencyNameEn,

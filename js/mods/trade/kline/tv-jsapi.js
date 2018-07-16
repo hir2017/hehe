@@ -126,6 +126,7 @@ class UDFCompatibleDatafeed {
 
             if (res.status !== 200 || data.length == 0) {
                 meta.noData = true;
+                // meta.nextTime = 1531469480;
             } else {
                 for (var i = 0; i < data.length; ++i) {
                     let item = data[i];
@@ -186,7 +187,7 @@ class UDFCompatibleDatafeed {
      * @param {*Function()将在bars数据发生变化时执行} onResetCacheNeededCallback 
      */
     subscribeBars(symbolInfo, resolution, onRealtimeCallback, subscriberUID, onResetCacheNeededCallback) {
-        // console.log('------subscribeBars-------', symbolInfo, resolution);
+        console.log('------subscribeBars-------', symbolInfo, resolution);
 
         var symbol = symbolInfo.ticker || '';
 

@@ -104,8 +104,7 @@ class TradeStore {
     get currentTradeCoin() {
         let coins = this.marketListStore.cacheCoins.filter((item) => {
             return item.baseCurrencyId == this.baseCurrencyId && item.currencyId == this.currencyId
-        })
-        
+        })        
         return coins[0] || {};
     }
 
