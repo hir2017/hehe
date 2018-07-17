@@ -135,25 +135,27 @@ const baseCurrencySymbol = symbols[baseCurrencyEn];
 const initEnv = Url.query('env');
 
 var PROTOCOL = (function() {
-    if (initEnv == 'pro') {
-        return 'https:';
-    }
-    if (location.protocol === 'https:') {
-        return 'https:';
-    } else {
-        return 'http:';
-    }
+    // if (initEnv == 'pro') {
+    //     return 'https:';
+    // }
+    // if (location.protocol === 'https:') {
+    //     return 'https:';
+    // } else {
+    //     return 'http:';
+    // }
+    return 'https:';
 })();
 
 var SOCKET_PROTOCOL = (function() {
-    if (initEnv == 'pro') {
-        return 'wss:';
-    }
-    if (location.protocol === 'https:') {
-        return 'wss:';
-    } else {
-        return 'ws:';
-    }
+    // if (initEnv == 'pro') {
+    //     return 'wss:';
+    // }
+    // if (location.protocol === 'https:') {
+    //     return 'wss:';
+    // } else {
+    //     return 'ws:';
+    // }
+    return 'wss:';
 })();
 
 
@@ -162,20 +164,23 @@ const origin = (function() {
 
     let hostname = location.hostname;
 
-    if (hostname.indexOf('io') > -1) {
-        origin = hostname;
-    } else {
-        origin = '13.251.85.35';
+    switch (hostname) {
+        case 'stage.ace.io':
+        case 'dev.ace.io':
+            origin = hostname;
+            break;
+        default:
+            origin = 'dev.ace.io';
     }
 
     switch (initEnv) {
         case 'dev':
             // 开发环境
-            origin = '13.251.85.35';
+            origin = 'dev.ace.io';
             break;
         case 'stage':
             // 测试环境
-            origin = '54.169.140.238';
+            origin = 'stage.ace.io';
             break;
         case 'pro':
             origin = 'pre.ace.io';
@@ -193,20 +198,26 @@ const origin_ws = (function() {
 
     let hostname = location.hostname;
 
-    if (hostname.indexOf('io') > -1) {
-        origin = hostname == 'pre.ace.io' ? 'process.ace.io' : hostname;
-    } else {
-        origin = '13.251.85.35';
+    switch (hostname) {
+        case 'stage.ace.io':
+        case 'dev.ace.io':
+            origin = hostname;
+            break;
+        case 'pre.ace.io':
+            origin = 'process.ace.io';
+            break;
+        default:
+            origin = 'dev.ace.io';
     }
 
     switch (initEnv) {
         case 'dev':
             // 开发环境
-            origin = '13.251.85.35';
+            origin = 'dev.ace.io';
             break;
         case 'stage':
             // 测试环境
-            origin = '54.169.140.238';
+            origin = 'stage.ace.io';
             break;
         case 'pro':
             origin = 'process.ace.io';

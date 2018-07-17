@@ -89,7 +89,7 @@ class TVChartContainer extends Component {
 
         this.defaultThemes = {
             "light": {
-                url: "./bundles/day.css",
+                url: "https://ace-cdn.ace.io/webex/tradingview/1.0.0/static/bundles/day.css",
                 up: "#33c280",
                 down: "#ef5d7f",
                 bg: "#ffffff",
@@ -101,7 +101,7 @@ class TVChartContainer extends Component {
                 areadown: "rgba(71, 78, 112, 0.02)"
             },
             "dark": {
-                url: "./bundles/night.css",
+                url: "https://ace-cdn.ace.io/webex/tradingview/1.0.0/static/bundles/night.css",
                 up: "#33c280",
                 down: "#ef5d7f",
                 bg: "#161615",
