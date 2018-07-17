@@ -80,7 +80,7 @@
     "product": "NODE_ENV=product webpack -p",
     "reload": "pm2 reload server.js --name='upexchange-front'  -o ./logs/out.log -e ./logs/error.log",
     "restart": "pm2 restart server.js --name='upexchange-front'  -o ./logs/out.log -e ./logs/error.log",
-    "start": "pm2 start server.js -i 3 --name='upexchange-front'  -o ./logs/out.log -e ./logs/error.log ",
+    "start": "pm2 start server.js --name='upexchange-front'  -o ./logs/out.log -e ./logs/error.log ",
     "stop": "pm2 stop server.js --name='upexchange-front'"
   },
   "version": "1.0.0"
