@@ -35,7 +35,7 @@ const rootStore = new RootStore();
 @observer
 class App extends Component {
     static createElement(Component, props) {
-
+        
         if (props.location.pathname.indexOf('webtrade') > -1) {
             let  { pair} = props.params;
 
