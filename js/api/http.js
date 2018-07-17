@@ -3,6 +3,9 @@ import qs from "qs";
 import { hashHistory, browserHistory } from 'react-router';
 import { message } from 'antd';
 
+// 不需要携带用户uid和token信息
+const urlWhiteList = ['/quote/klineHistory'];
+
 // 设置baseURL
 axios.defaults.baseURL = UPEX.config.host;
 
@@ -28,23 +31,42 @@ axios.interceptors.request.use(function(config) {
         return config
     }
 
+    let _path =  config.url.replace(config.baseURL, '');
+
     if (config.method === 'post') {
         let data = qs.parse(config.data)
 
-        config.data = qs.stringify({
-            ...data,
-            token,
-            uid,
-            local,
-            tm: +new Date()
-        })
+        if (urlWhiteList.indexOf(_path) > -1) {
+            config.data = qs.stringify({
+                ...data,
+                local,
+                tm: +new Date()
+            })
+        } else {
+            config.data = qs.stringify({
+                ...data,
+                token,
+                uid,
+                local,
+                tm: +new Date()
+            })
+        }
     } else if (config.method === 'get' || config.method === 'delete') {
-        config.params = {
-            ...config.params,
-            token,
-            uid,
-            local,
-            tm: +new Date()
+        
+        if (urlWhiteList.indexOf(_path) > -1) {
+            config.params = {
+                ...config.params,
+                local,
+                tm: +new Date()
+            }
+        } else {
+            config.params = {
+                ...config.params,
+                token,
+                uid,
+                local,
+                tm: +new Date()
+            }
         }
     }
     return config;
