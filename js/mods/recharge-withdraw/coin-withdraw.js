@@ -206,6 +206,22 @@ class WithdrawCoin extends Component {
                         </div>
                     </div>
                     <div className="rw-form-item">
+                        <label className="rw-form-label">{UPEX.lang.template('资金密码')}</label>
+                        <div className="rw-form-info">
+                            <div className={`input-box ${store.validTradePwd ? '' : 'wrong'}`}>
+                                <input
+                                    type="password"
+                                    name="wid_no_auto_6"
+                                    data-key="tradepwd"
+                                    autoComplete="off"
+                                    value={store.tradepwd}
+                                    placeholder={UPEX.lang.template('请输入资金密码')}
+                                    onChange={action.onChangeInput}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="rw-form-item">
                         <label className="rw-form-label">{UPEX.lang.template('验证方式')}</label>
                         <div className="rw-form-info">
                             <ul className="tab-nav">
@@ -242,7 +258,7 @@ class WithdrawCoin extends Component {
                                             onChange={action.onChangeInput}
                                         />
                                     </div>
-                                    <button onClick={action.sendEmailPhoneCode} className={`rw-sp-vcode-btn ${store.sendingcode ? 'disabled' : ''}`}>
+                                    <button onClick={action.sendEmailPhoneCode} type="button" className={`rw-sp-vcode-btn ${store.sendingcode ? 'disabled' : ''}`}>
                                         <div className={store.sendingcode ? 'code-sending' : 'code-sending hidden'}>
                                             {UPEX.lang.template('重发')}（<span data-second="second" ref="second" />s）
                                         </div>
@@ -264,22 +280,7 @@ class WithdrawCoin extends Component {
                             )}
                         </div>
                     </div>
-                    <div className="rw-form-item">
-                        <label className="rw-form-label">{UPEX.lang.template('资金密码')}</label>
-                        <div className="rw-form-info">
-                            <div className={`input-box ${store.validTradePwd ? '' : 'wrong'}`}>
-                                <input
-                                    type="password"
-                                    name="wid_no_auto_6"
-                                    data-key="tradepwd"
-                                    autoComplete="off"
-                                    value={store.tradepwd}
-                                    placeholder={UPEX.lang.template('请输入资金密码')}
-                                    onChange={action.onChangeInput}
-                                />
-                            </div>
-                        </div>
-                    </div>
+
 
                     <div className="rw-form-item">
                         <div className="rw-form-info">
