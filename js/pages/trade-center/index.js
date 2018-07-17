@@ -113,7 +113,9 @@ class TradeContent extends Component {
             <div className="trade-wrapper" style={{ height: store.contentHeight + 10}}>
                 <div className="trade-main">
                     <div className="trade-main-chart grid-box" id="tradeMainKline" style={{ height: store.mainChartHeight}}>
-                        <TVChartContainer/>
+                        {
+                            store.pointPrice > -1 ? <TVChartContainer/> : null
+                        }
                     </div>
                     <div className="trade-main-order grid-box" id="tradeMainOrder" style={{ height: store.mainOrderHeight}}>
                         {

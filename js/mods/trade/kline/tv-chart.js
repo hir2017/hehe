@@ -130,6 +130,8 @@ class TVChartContainer extends Component {
     componentWillUnmount(){
         $.channel.off('switchTheme');
         this.datafeed && this.datafeed.destroy();
+        this.tvwidget = null;
+        window.tvwidget = null;
     }
 
     drawChart() {
@@ -147,12 +149,18 @@ class TVChartContainer extends Component {
         if (typeof TradingView == 'undefined') {
             // 注释不可省略，否则不能显示文件名称
             import(/*webpackChunkName: "charting_library"*/'./../../../lib/tradingview/charting_library.min').then(module => {
-                this.createTradingView();
+                this.createTradingView();    
             }).catch(err => {
                 console.log("Chunk loading failed");
             });
         } else {
-            this.createTradingView();
+            if (!this.tvwidget) {
+                if (this.refs.klinemask) {
+                    $(this.refs.klinemask).removeClass('hidden');    
+                }
+
+                this.createTradingView();
+            }
         }
     }
 
