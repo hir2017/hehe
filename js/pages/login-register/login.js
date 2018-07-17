@@ -60,14 +60,14 @@ class Login extends Component {
     }
 
     componentWillUnmount(){
-        this.action.destroy(); 
+        this.action.destroy();
     }
 
     handleLogin=()=>{
         let result = this.action.checkUser();
-        
+
         if (result == true ) {
-            
+
             this.setState({
                 loginErrorText: ''
             });
@@ -91,12 +91,12 @@ class Login extends Component {
                         case 405:
                             this.setState({
                                 loginErrorText: UPEX.lang.template('输入错误，您还有{num}次机会尝试',{ num: data.attachment.times})
-                            }); 
+                            });
                             break;
                         default:
                             this.setState({
                                 loginErrorText: data.message
-                            }); 
+                            });
                     }
                 })
         } else {
@@ -106,7 +106,7 @@ class Login extends Component {
         }
     }
 
-    handleLoginSuccess(result) { 
+    handleLoginSuccess(result) {
 
         if (result.authLevel == 0) {
             /*
@@ -122,7 +122,7 @@ class Login extends Component {
                 okText: UPEX.lang.template('身份认证'),
                 cancelText: UPEX.lang.template('我再想想'),
                 iconType: 'exclamation-circle',
-                onOk() {    
+                onOk() {
                     browserHistory.push('/user/authentication');
                 }
             });
@@ -133,7 +133,7 @@ class Login extends Component {
 
     handleLoginVerifyCode=(e)=>{
         let { step } =  this.state;
-        
+
         if (this.action.checkUser2(step)) {
             this.action.userLogin2(step).
                 then((data)=>{
@@ -144,7 +144,7 @@ class Login extends Component {
                         default:
                             this.setState({
                                 loginErrorText: data.message
-                            }); 
+                            });
                     }
                 })
         } else {
@@ -177,7 +177,7 @@ class Login extends Component {
             });
         }
 
-        this.action.onChangeMode(item);       
+        this.action.onChangeMode(item);
     }
 
     render() {
@@ -193,13 +193,13 @@ class Login extends Component {
 
         if (step == 'google' || step == 'phone') {
             let $inputbox;
-                
+
             if (step == 'google') {
                 $inputbox  =  (
                     <div className="input-wrapper">
                         <div className="input-box">
                             <input
-                                type="tel" 
+                                type="tel"
                                 onInput={ action.onChangeGoogleCode}
                                 maxLength="6"
                                 autoComplete="off"
@@ -215,7 +215,7 @@ class Login extends Component {
                     <div className="input-wrapper">
                         <div className="input-box useryz-box">
                             <input
-                                type="text" 
+                                type="text"
                                 onInput={ action.onChangeLoginVerCode}
                                 maxLength="6"
                                 autoComplete="off"
@@ -224,7 +224,7 @@ class Login extends Component {
                                 autoFocus
                             />
                             <div className="yzcode">
-                                <button onClick={ this.sendLoginVercode } className={ store.sendingphonecode ? 'disabled' : ''} >
+                                <button type="button" onClick={ this.sendLoginVercode } className={ store.sendingphonecode ? 'disabled' : ''} >
                                     <div className={ store.sendingphonecode ? 'code-sending': 'code-sending hidden'}>{ UPEX.lang.template('重发')}（<span data-second="second" ref="second2"></span>s）</div>
                                     <div className={ store.sendingphonecode ? 'code-txt hidden' : 'code-txt'}>{  UPEX.lang.template('发送验证码') }</div>
                                 </button>
@@ -241,14 +241,14 @@ class Login extends Component {
                         <div className="register-mode-content">
                             { $inputbox }
                             { this.state.loginErrorText ? <div className="error-tip">{this.state.loginErrorText}</div> : '' }
-                            
+
                             <div className="input-wrapper">
                                 <div className="login-input">
                                     {
-                                        store.submiting ?  
-                                        <button className="submit-btn login-btn">{ UPEX.lang.template('登录中') }</button>
+                                        store.submiting ?
+                                        <button type="button" className="submit-btn login-btn">{ UPEX.lang.template('登录中') }</button>
                                         :
-                                        <button className="submit-btn login-btn" onClick={ this.handleLoginVerifyCode }>{ UPEX.lang.template('登录') }</button>
+                                        <button type="button" className="submit-btn login-btn" onClick={ this.handleLoginVerifyCode }>{ UPEX.lang.template('登录') }</button>
                                     }
                                 </div>
                             </div>
@@ -267,7 +267,7 @@ class Login extends Component {
                             ['email', 'phone'].map((item, index)=>{
                                 let cls = 'register-mode-tab';
                                 let txt;
-                                
+
                                 if (store.mode === item) {
                                     cls += ' selected';
                                 }
@@ -280,7 +280,7 @@ class Login extends Component {
 
                                 return (
                                     <li key={item}>
-                                        <button className={cls} onClick={this.onChangeMode.bind(this, item)}>{ txt }</button>
+                                        <button type="button" className={cls} onClick={this.onChangeMode.bind(this, item)}>{ txt }</button>
                                     </li>
                                 )
                             })
@@ -303,7 +303,7 @@ class Login extends Component {
                                 <div className="input-wrapper" key='email'>
                                     <div className="input-box">
                                         <input
-                                            type="text" 
+                                            type="text"
                                             placeholder={ UPEX.lang.template('邮箱') }
                                             onInput={ action.onChangeEmail }
                                             onBlur={ action.onBlurEmail }
@@ -316,7 +316,7 @@ class Login extends Component {
                                 <div className="input-wrapper" key='phone'>
                                     <div className="input-box">
                                         <input
-                                            type="text" 
+                                            type="text"
                                             placeholder={ UPEX.lang.template('手机') }
                                             onInput={  action.onChangePhone }
                                             autoFocus
@@ -329,7 +329,7 @@ class Login extends Component {
                         <div className="input-wrapper">
                             <div className="input-box">
                                 <input
-                                    type="password" 
+                                    type="password"
                                     placeholder={ UPEX.lang.template('密码') }
                                     maxLength="16"
                                     onInput={ action.onChangePwd }
@@ -341,7 +341,7 @@ class Login extends Component {
                         <div className="input-wrapper hidden">
                             <div className="input-box yz-box">
                                 <input
-                                    type="text" 
+                                    type="text"
                                     placeholder={ UPEX.lang.template('验证码') }
                                     onInput={ action.onChangeImgCode }
                                     maxLength="6"
@@ -353,15 +353,15 @@ class Login extends Component {
                                 </div>
                             </div>
                         </div>
-                        
+
                         { this.state.loginErrorText ? <div className="error-tip">{this.state.loginErrorText}</div> : '' }
 
                         <div className="input-wrapper">
                             {
-                                store.submiting ?  
-                                <button className="submit-btn login-btn">{ UPEX.lang.template('登录中') }</button>
-                                : 
-                                <button className="submit-btn login-btn" onClick={ this.handleLogin }>{ UPEX.lang.template('登录') }</button>
+                                store.submiting ?
+                                <button type="button" className="submit-btn login-btn">{ UPEX.lang.template('登录中') }</button>
+                                :
+                                <button type="button" className="submit-btn login-btn" onClick={ this.handleLogin }>{ UPEX.lang.template('登录') }</button>
                             }
                         </div>
                         <div className="register-extra clearfix">
@@ -379,7 +379,7 @@ class Login extends Component {
                     <Popover placement="bottom" content={tgContent} trigger="click"></Popover>
                     <span>{ UPEX.lang.template('官方服务、交流') }</span>
                 </div>
-            </div> 
+            </div>
         );
     }
 }

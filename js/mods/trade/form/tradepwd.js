@@ -75,7 +75,7 @@ class PopupTradePwd extends Component{
                 <div className="popup-trade-password">
                     <div className="input-area clearfix">
                         <div className={ !this.state.validPwd ? 'input-box': 'input-box' }>
-                            <input 
+                            <input
                                 ref="input"
                                 type="password"
                                 onBlur={this.onBlur.bind(this)}
@@ -83,7 +83,7 @@ class PopupTradePwd extends Component{
                         </div>
                         <p className="warn-tip"></p>
                     </div>
-                    <button className="submit" onClick={this.handleSubmit.bind(this)}>{UPEX.lang.template('提交')}</button>
+                    <button type="button" className="submit" onClick={this.handleSubmit.bind(this)}>{UPEX.lang.template('提交')}</button>
                 </div>
             </Modal>
         )

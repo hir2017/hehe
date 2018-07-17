@@ -55,10 +55,10 @@ class InfoView extends Component {
                             	<em><span className="unit">{UPEX.config.baseCurrencySymbol}</span>{ store.visibleMoney ? `${store.baseCoinInfo.cashAmount || 0}` : '******'} </em>
                             </div>
                             <div className="actions">
-	                            <button className="btn recharge-btn" onClick={this.handleFiatRecharge}>
+	                            <button type="button" className="btn recharge-btn" onClick={this.handleFiatRecharge}>
 	                            	{ UPEX.lang.template('充值') }
 	                            </button>
-	                            <button className="btn withdraw-btn" onClick={this.handleFiatWidthdraw}>
+	                            <button type="button" className="btn withdraw-btn" onClick={this.handleFiatWidthdraw}>
 	                            	{ UPEX.lang.template('提现') }
 	                            </button>
 	                        </div>
@@ -75,11 +75,11 @@ class InfoView extends Component {
                         </ul>
                     </div>
                     <div className="account-record">
-                        <button className="btn" onClick={this.handleCoinRecord}>
+                        <button type="button" className="btn" onClick={this.handleCoinRecord}>
                         	<i></i>
                         	<span>{ UPEX.lang.template('数位资产记录') }</span>
                         </button>
-                        <button className="btn" onClick={this.handleFiatRecord}>
+                        <button type="button" className="btn" onClick={this.handleFiatRecord}>
                         	<i></i>
                         	<span>{ UPEX.lang.template('法币资金记录') }</span>
                         </button>

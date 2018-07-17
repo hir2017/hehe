@@ -133,7 +133,7 @@ class WithdrawCoin extends Component {
                                         {$addressOptions}
                                     </Select>
                                 </div>
-                                <button className="rw-sp-vcode-btn">
+                                <button type="button" className="rw-sp-vcode-btn">
                                     <Link to={`/account/coin/address/${store.currentCoin.currencyNameEn}`}>{UPEX.lang.template('添加地址')}</Link>
                                 </button>
                             </div>
@@ -290,7 +290,7 @@ class WithdrawCoin extends Component {
 
                     <div className="rw-form-item">
                         <div className="rw-form-info">
-                            <button className="submit-btn" onClick={action.handleSubmit}>
+                            <button type="button" className="submit-btn" onClick={action.handleSubmit}>
                                 {UPEX.lang.template('确认提币')}
                             </button>
                         </div>

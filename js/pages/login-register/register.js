@@ -33,7 +33,7 @@ class Register extends Component {
     }
 
     componentWillUnmount(){
-        this.action.destroy(); 
+        this.action.destroy();
     }
 
     sendVercode=(e)=>{
@@ -67,7 +67,7 @@ class Register extends Component {
                             ['email', 'phone'].map((item, index)=>{
                                 let cls = 'register-mode-tab';
                                 let txt;
-                                
+
                                 if (store.mode === item) {
                                     cls += ' selected';
                                 }
@@ -80,7 +80,7 @@ class Register extends Component {
 
                                 return (
                                     <li key={item}>
-                                        <button className={cls} onClick={ action.onChangeMode.bind(this, item)}>{ txt }</button>
+                                        <button type="button" className={cls} onClick={ action.onChangeMode.bind(this, item)}>{ txt }</button>
                                     </li>
                                 )
                             })
@@ -103,7 +103,7 @@ class Register extends Component {
                                 <div className="input-wrapper" key="email">
                                     <div className="input-box">
                                         <input
-                                            type="text" 
+                                            type="text"
                                             ref="email"
                                             className={ store.validEmail ? '' : 'wrong'}
                                             placeholder={ UPEX.lang.template('邮箱') }
@@ -119,7 +119,7 @@ class Register extends Component {
                                 <div className="input-wrapper" key="phone">
                                     <div className="input-box">
                                         <input
-                                            type="text" 
+                                            type="text"
                                             ref="phone"
                                             className={ store.validPhone && !store.hasPhone ? '' : 'wrong'}
                                             placeholder={ UPEX.lang.template('手机') }
@@ -136,7 +136,7 @@ class Register extends Component {
                         <div className="input-wrapper">
                             <div className="input-box">
                                 <input
-                                    type="password" 
+                                    type="password"
                                     ref="pwd"
                                     className={ store.validPwd ? '' : 'wrong'}
                                     placeholder={ UPEX.lang.template('密码') }
@@ -151,7 +151,7 @@ class Register extends Component {
                         <div className="input-wrapper">
                             <div className="input-box">
                                 <input
-                                    type="password" 
+                                    type="password"
                                     ref="twicepwd"
                                     className={ store.validTwicePwd ? '' : 'wrong'}
                                     maxLength="16"
@@ -165,9 +165,9 @@ class Register extends Component {
                         </div>
                         <div className="input-wrapper">
                             <div className="input-box yz-box">
-                                <input 
-                                    type="text" 
-                                    ref="picCode" 
+                                <input
+                                    type="text"
+                                    ref="picCode"
                                     placeholder={ UPEX.lang.template('请参照右侧输入') }
                                     onInput={ action.onChangeImgCode }
                                     maxLength="5"
@@ -182,9 +182,9 @@ class Register extends Component {
                         </div>
                         <div className="input-wrapper">
                             <div className="input-box useryz-box">
-                                <input 
-                                    type="text" 
-                                    ref="vercode" 
+                                <input
+                                    type="text"
+                                    ref="vercode"
                                     placeholder={ store.mode == 'email' ? UPEX.lang.template('邮箱验证码') : UPEX.lang.template('手机验证码') }
                                     maxLength="6"
                                     autoComplete="off"
@@ -192,7 +192,7 @@ class Register extends Component {
                                     onInput={ action.onChangeVercode }
                                 />
                                 <div className="yzcode">
-                                    <button onClick={ this.sendVercode } className={ store.sendingcode ? 'disabled' : ''} >
+                                    <button type="button" onClick={ this.sendVercode } className={ store.sendingcode ? 'disabled' : ''} >
                                         <div className={ store.sendingcode ? 'code-sending': 'code-sending hidden'}>{ UPEX.lang.template('重发')}（<span data-second="second" ref="second"></span>s）</div>
                                         <div className={ store.sendingcode ? 'code-txt hidden' : 'code-txt'}>{  UPEX.lang.template('发送验证码') }</div>
                                     </button>
@@ -203,8 +203,8 @@ class Register extends Component {
 
                         <div className="input-wrapper hidden">
                             <div className="input-box">
-                                <input 
-                                    type="text" 
+                                <input
+                                    type="text"
                                     ref="invitecode"
                                     autoComplete="off"
                                     placeholder={ UPEX.lang.template('邀请码')}
@@ -224,15 +224,15 @@ class Register extends Component {
 
                         <div className="input-wrapper">
                             {
-                                store.agree ? 
+                                store.agree ?
                                 (
-                                    store.submiting ? 
-                                    <button ref="signIn" className='submit-btn'>{ UPEX.lang.template('注册中') }</button>
+                                    store.submiting ?
+                                    <button type="button" ref="signIn" className='submit-btn'>{ UPEX.lang.template('注册中') }</button>
                                     :
-                                    <button ref="signIn" className='submit-btn' onClick={ this.submit }>{ UPEX.lang.template('注册') }</button>
+                                    <button type="button" ref="signIn" className='submit-btn' onClick={ this.submit }>{ UPEX.lang.template('注册') }</button>
                                 )
                                 :
-                                <button ref="signIn" className='submit-btn disabled'>{ UPEX.lang.template('注册') }</button>
+                                <button type="button" ref="signIn" className='submit-btn disabled'>{ UPEX.lang.template('注册') }</button>
                             }
                         </div>
 
@@ -241,7 +241,7 @@ class Register extends Component {
                         </div>
                     </div>
                 </div>
-            </div> 
+            </div>
         );
     }
 }
