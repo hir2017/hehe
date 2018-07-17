@@ -43,10 +43,11 @@ class CoinRechargeRecordStore {
         }
 
         getCoinRechargeList(this.params).then((data) => {
+            const  {points = [], total} = data.attachment || {};
             runInAction(() => {
                 if (data.status == 200) {
-                    this.orderList = this.parseData(data.attachment.points);
-                    this.total = data.attachment.total;
+                    this.orderList = this.parseData(points);
+                    this.total = total;
                     this.isFetching = false;
                 }
             })

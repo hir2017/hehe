@@ -107,7 +107,7 @@ class FundChangeRecordStore {
             item._actionName = `${UPEX.lang.template('银行卡')}${item.type === 1 ? UPEX.lang.template('充值') : UPEX.lang.template('提现')}`;
             item._payMethod = item.type === 1 ? item.openBank : UPEX.lang.template('法币账户');
             if(item.status === 6) {
-                item._status += ',' + UPEX.lang.template('原因：{reason}', {reason: item.reason});
+                item._status += ',' + UPEX.lang.template('原因：{reason}', {reason: item.refuseReason});
 
             }
         });
