@@ -9,57 +9,24 @@ const Option = Select.Option;
 import { browserHistory } from 'react-router';
 import Clipboard from 'clipboard';
 
-import { getCoinAccount, selectUserAddress } from '../../api/http';
+import { selectUserAddress } from '../../api/http';
+import {initStateAndChange, initCoinList} from './coin-actions';
+
 
 @inject('accountStore')
 @observer
 class CoinRecharge extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            coinsInfo: {},
-            coins: [],
-            currencyNameEn: '',
-            currencyId: '',
-            addressInfo: {}
-        };
+        this.state = {};
+        initStateAndChange(this);
     }
 
     componentDidMount() {
-        const currencyNameEn = this.props.params.code;
-        if (currencyNameEn) {
-            this.setState({
-                currencyNameEn
-            });
-        }
+        initCoinList(this);
 
-        this.fetchCoinList().then(() => {
-            const currCoin = this.state.coins.filter(item => item.currencyNameEn === currencyNameEn);
-            if (currCoin.length !== 0) {
-                const { currencyId } = currCoin[0];
-                this.setState({
-                    currencyId
-                });
-                this.fetchCoinAddress(currencyId);
-            } else {
-                console.error('componentDidMount fetchCoinList 暂无选中货币')
-            }
-        });
         this.bindCopyEvent();
         this.bindEvent();
-    }
-
-    fetchCoinList() {
-        return getCoinAccount()
-            .then(res => {
-                this.setState({
-                    coinsInfo: res,
-                    coins: res.attachment ? res.attachment.coinList : []
-                });
-            })
-            .catch(err => {
-                console.error('fetchCoinList getCoinAccount', err);
-            });
     }
 
     fetchCoinAddress(currencyId) {
@@ -74,14 +41,7 @@ class CoinRecharge extends Component {
             });
     }
 
-    handleChange = val => {
-        const [currencyId, currencyNameEn] = val.split('_');
-        this.setState({
-            currencyId,
-            currencyNameEn
-        });
-        this.fetchCoinAddress(currencyId);
-    };
+
     /**
      * 复制地址
      */
@@ -126,7 +86,7 @@ class CoinRecharge extends Component {
                     <div className="rw-form-item">
                         <label className="rw-form-label">{UPEX.lang.template('选择币种')}</label>
                         <div className="rw-form-info">
-                            <Select value={currencyId ? `${currencyId}_${currencyNameEn}` : ''} onChange={this.handleChange}>
+                            <Select value={currencyId ? `${currencyId}_${currencyNameEn}` : ''} onChange={this.coinChange}>
                                 {coins.map((item, i) => (
                                     <Option value={`${item.currencyId}_${item.currencyNameEn}`} key={i}>
                                         {item.currencyNameEn}
@@ -141,7 +101,7 @@ class CoinRecharge extends Component {
                             <ul>
                                 <li className="input-button-box">
                                     <div className="input-box">
-                                        <input ref="address" data-address={addressInfo} value={addressInfo.address} readOnly />
+                                        <input ref="address"  name="rec_no_auto_1" data-address={addressInfo} value={addressInfo.address} readOnly />
                                     </div>
                                     <button id="copy-address" className="rw-sp-vcode-btn">
                                         {UPEX.lang.template('复制地址')}

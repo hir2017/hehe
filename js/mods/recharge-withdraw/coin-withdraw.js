@@ -6,7 +6,7 @@ import { Link, browserHistory } from 'react-router';
 import toAction from './coin-withdraw-action';
 import InputNumber from '../input-number';
 
-@inject('coinWithdrawStore', 'accountStore', 'userInfoStore')
+@inject('coinWithdrawStore', 'accountStore', 'userInfoStore', 'commonStore')
 @observer
 class WithdrawCoin extends Component {
     static defaultProps = {
@@ -21,7 +21,9 @@ class WithdrawCoin extends Component {
     }
 
     componentDidMount() {
-        this.fetchCoinList();
+        this.props.commonStore.getAllCoinPoint().then(() => {
+            this.fetchCoinList();
+        });
         this.action.getImgCaptcha();
         this.initCodeVerifyType();
     }
@@ -139,6 +141,7 @@ class WithdrawCoin extends Component {
                                 <div className={`input-box ${store.validNote ? '' : 'wrong'}`}>
                                     <input
                                         type="text"
+                                        name="wid_no_auto_1"
                                         placeholder={UPEX.lang.template('地址备注')}
                                         value={store.note}
                                         data-key="note"
@@ -149,6 +152,7 @@ class WithdrawCoin extends Component {
                                 <div className={`input-box mt10 ${store.validAddress ? '' : 'wrong'}`}>
                                     <input
                                         type="text"
+                                        name="wid_no_auto_2"
                                         placeholder={UPEX.lang.template('提币地址')}
                                         value={store.address}
                                         data-key="address"
@@ -187,6 +191,7 @@ class WithdrawCoin extends Component {
                                 <div className={`input-box ${store.validImgCode ? '' : 'wrong'}`}>
                                     <input
                                         type="text"
+                                        name="wid_no_auto_3"
                                         placeholder={UPEX.lang.template('图片验证')}
                                         data-key="vercode"
                                         autoComplete="off"
@@ -229,6 +234,7 @@ class WithdrawCoin extends Component {
                                     <div className="input-box">
                                         <input
                                             type="text"
+                                            name="wid_no_auto_4"
                                             data-key="phonecode"
                                             autoComplete="off"
                                             value={store.phoneCode}
@@ -248,6 +254,7 @@ class WithdrawCoin extends Component {
                                     <input
                                         type="number"
                                         autoComplete="off"
+                                        name="wid_no_auto_5"
                                         data-key="googlecode"
                                         value={store.googleCode}
                                         placeholder={UPEX.lang.template('请填写Google验证码')}
@@ -263,6 +270,7 @@ class WithdrawCoin extends Component {
                             <div className={`input-box ${store.validTradePwd ? '' : 'wrong'}`}>
                                 <input
                                     type="password"
+                                    name="wid_no_auto_6"
                                     data-key="tradepwd"
                                     autoComplete="off"
                                     value={store.tradepwd}

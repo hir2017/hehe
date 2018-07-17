@@ -24,7 +24,7 @@ class CommonStore {
     @observable productList = [];
     @observable productDataReady = false;
     @observable coinDataReady = false;
-    @observable coinsMap = {}; // { key:{}, key: {} } // 方便获取基础币信息 
+    @observable coinsMap = {}; // { key:{}, key: {} } // 方便获取基础币信息
     @observable coinsMapId = {};
 
     constructor() {
@@ -72,7 +72,7 @@ class CommonStore {
         getCurrencyPoints().then((data) => {
             runInAction('get all coin point', () => {
                 if (data.status == 200) {
-                    
+
                 }
 
                 this.coinDataReady = true;
@@ -94,11 +94,11 @@ class CommonStore {
         //     return;
         // }
 
-        getBaseCoin().then((data) => {
+        return getBaseCoin().then((data) => {
             runInAction('get all coin point', () => {
                 if (data.status == 200) {
                     let list = data.attachment;
-                    
+
                     this.productList = list;
                     this.coinsMapId = this.getCoinsMapById(list);
                     this.coinsMap = this.getCoinsMapByName(list);
@@ -178,7 +178,7 @@ class CommonStore {
         })[0]
 
         point = product.pointPrice;
-        
+
         return point;
     }
 
@@ -192,7 +192,7 @@ class CommonStore {
         })[0]
 
         point = product.pointNum;
-        
+
         return point;
     }
 }
