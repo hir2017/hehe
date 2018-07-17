@@ -74,7 +74,7 @@ class FiatRechargeView extends Component {
                     <div className="rw-form-item">
                         <label className="rw-form-label" />
                         <div className="rw-form-info">
-                            <button className="submit-btn" onClick={this.onConfirm}>
+                            <button type="button" className="submit-btn" onClick={this.onConfirm}>
                                 {UPEX.lang.template('已完成支付')}
                             </button>
                         </div>
@@ -116,7 +116,7 @@ class FiatRechargeView extends Component {
                     </div>
                     <div className="rw-form-item">
                         <div className="rw-form-info">
-                            <button className="submit-btn" onClick={this.handleOrder}>
+                            <button type="button" className="submit-btn" onClick={this.handleOrder}>
                                 {UPEX.lang.template('去网上银行充值')}
                             </button>
                         </div>

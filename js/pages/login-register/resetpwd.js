@@ -24,7 +24,7 @@ class ResetPassword extends Component {
     }
 
     componentWillUnmount(){
-        this.action.destroy(); 
+        this.action.destroy();
     }
 
     sendVercode=(e)=>{
@@ -47,14 +47,14 @@ class ResetPassword extends Component {
 
         return (
             <div className="register-wrapper resetpwd-box">
-                <div className="register-form">                    
+                <div className="register-form">
                     <h3 className="title"> { UPEX.lang.template('忘记密码')} </h3>
                     <ul className="register-mode-tabs clearfix">
                         {
                             ['email', 'phone'].map((item, index)=>{
                                 let cls = 'register-mode-tab';
                                 let txt;
-                                
+
                                 if (store.mode === item) {
                                     cls += ' selected';
                                 }
@@ -67,7 +67,7 @@ class ResetPassword extends Component {
 
                                 return (
                                     <li key={item}>
-                                        <button className={cls} onClick={ action.onChangeMode.bind(this, item)}>{ txt }</button>
+                                        <button type="button" className={cls} onClick={ action.onChangeMode.bind(this, item)}>{ txt }</button>
                                     </li>
                                 )
                             })
@@ -90,7 +90,7 @@ class ResetPassword extends Component {
                                 <div className="input-wrapper" key='email'>
                                     <div className="input-box">
                                         <input
-                                            type="text" 
+                                            type="text"
                                             placeholder={ UPEX.lang.template('邮箱') }
                                             onInput={ action.onChangeEmail }
                                             onBlur={action.onBlurEmail}
@@ -104,7 +104,7 @@ class ResetPassword extends Component {
                                 <div className="input-wrapper" key='phone'>
                                     <div className="input-box">
                                         <input
-                                            type="text" 
+                                            type="text"
                                             placeholder={ UPEX.lang.template('手机') }
                                             onInput={  action.onChangePhone }
                                             onBlur={ action.onBlurPhone }
@@ -119,7 +119,7 @@ class ResetPassword extends Component {
                         <div className="input-wrapper">
                             <div className="input-box yz-box">
                                 <input
-                                    type="text" 
+                                    type="text"
                                     placeholder={ UPEX.lang.template('请参照右侧输入') }
                                     maxLength="5"
                                     autoComplete="off"
@@ -134,9 +134,9 @@ class ResetPassword extends Component {
                         </div>
                         <div className="input-wrapper">
                             <div className="input-box useryz-box">
-                                <input 
-                                    type="text" 
-                                    ref="vercode" 
+                                <input
+                                    type="text"
+                                    ref="vercode"
                                     maxLength="6"
                                     autoComplete="off"
                                     placeholder={ store.mode == 'email' ? UPEX.lang.template('邮箱验证码') : UPEX.lang.template('手机验证码') }
@@ -144,7 +144,7 @@ class ResetPassword extends Component {
                                     onInput={ action.onChangeVercode }
                                 />
                                 <div className="yzcode">
-                                    <button onClick={ this.sendVercode } className={ store.sendingcode ? 'disabled' : ''} >
+                                    <button type="button" onClick={ this.sendVercode } className={ store.sendingcode ? 'disabled' : ''} >
                                         <div className={ store.sendingcode ? 'code-sending': 'code-sending hidden'}>{ UPEX.lang.template('重发')}（<span data-second="second" ref="second"></span>s）</div>
                                         <div className={ store.sendingcode ? 'code-txt hidden' : 'code-txt'}>{  UPEX.lang.template('发送验证码') }</div>
                                     </button>
@@ -155,7 +155,7 @@ class ResetPassword extends Component {
                         <div className="input-wrapper">
                             <div className="input-box">
                                 <input
-                                    type="password" 
+                                    type="password"
                                     ref="pwd"
                                     maxLength="16"
                                     autoComplete="off"
@@ -170,7 +170,7 @@ class ResetPassword extends Component {
                         <div className="input-wrapper">
                             <div className="input-box">
                                 <input
-                                    type="password" 
+                                    type="password"
                                     ref="twicepwd"
                                     maxLength="16"
                                     autoComplete="off"
@@ -182,13 +182,13 @@ class ResetPassword extends Component {
                             </div>
                             { !store.validTwicePwd ? <div className="warn">{ UPEX.lang.template('两次密码输入不一致')}</div> : null }
                         </div>
-                        
+
                         <div className="input-wrapper">
                             {
-                                store.submiting ? 
-                                <button className="submit-btn">{ UPEX.lang.template('提交中') }</button>
+                                store.submiting ?
+                                <button type="button" className="submit-btn">{ UPEX.lang.template('提交中') }</button>
                                 :
-                                <button className="submit-btn" onClick={ this.submit }>{ UPEX.lang.template('提交') }</button>
+                                <button type="button" className="submit-btn" onClick={ this.submit }>{ UPEX.lang.template('提交') }</button>
                             }
                         </div>
                         <div className="register-extra clearfix">
@@ -201,7 +201,7 @@ class ResetPassword extends Component {
                         </div>
                     </div>
                 </div>
-            </div> 
+            </div>
         );
     }
 }

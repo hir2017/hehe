@@ -105,11 +105,11 @@ class AssetsListView extends Component {
                                 <dd className="freeze">{item.freezeAmount}</dd>
                                 <dd className="value">{item.twd_value}</dd>
                                 <dd className="actions">
-                                    <button onClick={this.handleCoinRecharge.bind(this, item)}>{UPEX.lang.template('充币')}</button>
+                                    <button type="button" onClick={this.handleCoinRecharge.bind(this, item)}>{UPEX.lang.template('充币')}</button>
                                     <span className="split">|</span>
-                                    <button onClick={this.handleCoinWithdraw.bind(this, item)}>{UPEX.lang.template('提币')}</button>
+                                    <button type="button" onClick={this.handleCoinWithdraw.bind(this, item)}>{UPEX.lang.template('提币')}</button>
                                     <span className="split">|</span>
-                                    <button onClick={this.handleCoinTrade.bind(this, item)}>{UPEX.lang.template('交易')}</button>
+                                    <button type="button" onClick={this.handleCoinTrade.bind(this, item)}>{UPEX.lang.template('交易')}</button>
                                 </dd>
                             </dl>
                         </li>

@@ -36,7 +36,7 @@ class TradeForm extends Component{
             okText: UPEX.lang.template('身份认证'),
             cancelText: UPEX.lang.template('我再想想'),
             iconType: 'exclamation-circle',
-            onOk() {    
+            onOk() {
                 browserHistory.push('/user/authentication');
             }
         });
@@ -49,7 +49,7 @@ class TradeForm extends Component{
             okText: UPEX.lang.template('绑定银行卡'),
             cancelText: UPEX.lang.template('我再想想'),
             iconType: 'exclamation-circle',
-            onOk() {    
+            onOk() {
                 browserHistory.push('/user/bankInfo');
             }
         });
@@ -62,7 +62,7 @@ class TradeForm extends Component{
             okText: UPEX.lang.template('资金密码设置'),
             iconType: 'exclamation-circle',
             okCancel: false,
-            onOk() {    
+            onOk() {
                 browserHistory.push('/user/bankInfo');
             }
         });
@@ -84,8 +84,8 @@ class TradeForm extends Component{
 
 	onChange=(key, e)=>{
 		let value = e.currentTarget.value.trim();
-		
-		
+
+
 		switch(key) {
 			case 'buyprice':
 				this.props.tradeStore.setDealBuyPrice(value);
@@ -112,7 +112,7 @@ class TradeForm extends Component{
 		let value = e.currentTarget.value.trim();
 
 		this.props.tradeStore.checkTradePrice(value, type);
-	}	
+	}
 
 	// 失去焦点的时候验证填入的数量
 	checkTradeNumber=(type, e)=>{
@@ -120,7 +120,7 @@ class TradeForm extends Component{
 
 		this.props.tradeStore.checkTradeNumber(value, type);
 	}
-	
+
 	submitOrder=(type) =>{
 		let { verifyInfoBeforeSubmit , createTradeOrder } = this.props.tradeStore;
 		let userInfoStore = this.props.userInfoStore;
@@ -135,7 +135,7 @@ class TradeForm extends Component{
 		}
 
 		let result = verifyInfoBeforeSubmit(type);
-		
+
 		if (result.pass) {
 			createTradeOrder(type).done(()=>{
 	        	// 下单成功
@@ -160,7 +160,7 @@ class TradeForm extends Component{
 			        })
 				});
 			} else {
-				message.error(result['message']);	
+				message.error(result['message']);
 			}
 		}
 	}
@@ -176,7 +176,7 @@ class TradeForm extends Component{
 			75: '75%',
 			100: '100%'
 		}
-		
+
 		return (
 			<div className="trade-form">
 				<div className="trade-form-hd">
@@ -215,7 +215,7 @@ class TradeForm extends Component{
 									<Link to='/register'>{ UPEX.lang.template('注册')}</Link>
 									<label>{ UPEX.lang.template('开始交易')}</label>
 								</div>
-							) 
+							)
 						}
 					</div>
 				</div>
@@ -236,7 +236,7 @@ class TradeForm extends Component{
 											value={store.dealBuyPrice }
 											precision={store.pointPrice}
 											onChange={this.onChange.bind(this, 'buyprice')}
-											onBlur={this.checkTradePrice.bind(this, 'buy')} 
+											onBlur={this.checkTradePrice.bind(this, 'buy')}
 										/>
 										</Tooltip>
 										<i>{ store.baseCurrencyNameEn }</i>
@@ -250,18 +250,18 @@ class TradeForm extends Component{
 											value={store.dealBuyNum}
 											precision={store.pointNum}
 											onChange={this.onChange.bind(this, 'buynum')}
-											onBlur={this.checkTradeNumber.bind(this, 'buy')} 
+											onBlur={this.checkTradeNumber.bind(this, 'buy')}
 										/>
 										<i>{store.currencyNameEn}</i>
 									</div>
 								</li>
 								<li className="item-slider">
 									<div className="slider-box">
-										<Slider 
+										<Slider
 										 	tipFormatter={null}
 										 	marks={sliderMarks}
 										 	tipFormatter={(value)=>`${value}%`}
-				                            onChange={this.onChangeBuySlider} 
+				                            onChange={this.onChangeBuySlider}
 				                            value={store.buySliderValue}
 				                            disabled={authStore.isLogin ? false : true}
 				                        />
@@ -277,7 +277,7 @@ class TradeForm extends Component{
 									<span>{store.baseCurrencyNameEn}</span>
 								</li>
 								<li>
-									<button className="btn buy" disabled={ authStore.isLogin ? false : true} onClick={this.submitOrder.bind(this, 'buy')}>{UPEX.lang.template('买入')}</button>
+									<button type="button" className="btn buy" disabled={ authStore.isLogin ? false : true} onClick={this.submitOrder.bind(this, 'buy')}>{UPEX.lang.template('买入')}</button>
 								</li>
 							</ul>
 						</div>
@@ -297,7 +297,7 @@ class TradeForm extends Component{
 											value={store.dealSellPrice}
 											precision={store.pointPrice}
 											onChange={this.onChange.bind(this, 'sellprice')}
-											onBlur={this.checkTradePrice.bind(this, 'sell')} 
+											onBlur={this.checkTradePrice.bind(this, 'sell')}
 										/>
 										<i>{ store.baseCurrencyNameEn }</i>
 									</div>
@@ -310,24 +310,24 @@ class TradeForm extends Component{
 											value={store.dealSellNum}
 											precision={store.pointNum}
 											onChange={this.onChange.bind(this, 'sellnum')}
-											onBlur={this.checkTradeNumber.bind(this, 'sell')} 
+											onBlur={this.checkTradeNumber.bind(this, 'sell')}
 										/>
 										<i>{store.currencyNameEn}</i>
 									</div>
 								</li>
 								<li className="item-slider">
 									<div className="slider-box">
-										<Slider 
-										 	defaultValue={0} 
+										<Slider
+										 	defaultValue={0}
 										 	tipFormatter={null}
 										 	marks={sliderMarks}
 										 	tipFormatter={(value)=>`${value}%`}
-				                            onChange={this.onChangeSellSlider} 
+				                            onChange={this.onChangeSellSlider}
 				                            value={store.sellSliderValue}
 				                            disabled={authStore.isLogin ? false : true}
 				                        />
 			                        </div>
-								</li>	
+								</li>
 								<li className="hidden">
 									<label>{UPEX.lang.template('手续费')}</label>
 									<em>{ store.dealSellFee }({store.currencyNameEn})</em>
@@ -338,7 +338,7 @@ class TradeForm extends Component{
 									<span>{store.baseCurrencyNameEn}</span>
 								</li>
 								<li>
-									<button className="btn sell" disabled={ authStore.isLogin ? false : true} onClick={this.submitOrder.bind(this, 'sell')}>{UPEX.lang.template('卖出')}</button>
+									<button type="button" className="btn sell" disabled={ authStore.isLogin ? false : true} onClick={this.submitOrder.bind(this, 'sell')}>{UPEX.lang.template('卖出')}</button>
 								</li>
 							</ul>
 						</div>

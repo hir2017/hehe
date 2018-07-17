@@ -77,7 +77,7 @@ class List extends Component {
 										<dd className="time">{item.createTime}</dd>
 										<dd className="address">{UPEX.lang.template('地址')} : {item.walletSn}</dd>
 										<dd className="action">
-											{ visible ? <button onClick={this.triggerShowDetail.bind(this, item.id)}>{ this.state.displayIndex == item.id ? UPEX.lang.template('收起') : UPEX.lang.template('展开')}</button> : '--'}
+											{ visible ? <button type="button" onClick={this.triggerShowDetail.bind(this, item.id)}>{ this.state.displayIndex == item.id ? UPEX.lang.template('收起') : UPEX.lang.template('展开')}</button> : '--'}
 										</dd>
 									</dl>
 									<div className="detail-content">

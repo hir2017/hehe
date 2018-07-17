@@ -62,7 +62,7 @@ class List extends Component {
                                         {item.tradeType || '--'}
                                     </dd>
                                     <dd className="action">
-                                        <button onClick={()=>this.toggleSubRow(item.id)}>{UPEX.lang.template('详情')}</button>
+                                        <button type="button" onClick={()=>this.toggleSubRow(item.id)}>{UPEX.lang.template('详情')}</button>
                                     </dd>
                                 </dl>
                                 <SubRow type={item._type} data={item}/>

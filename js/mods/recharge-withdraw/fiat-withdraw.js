@@ -111,7 +111,7 @@ class FiatRechargeView extends Component {
                                             onChange={action.onChangeInput}
                                         />
                                     </div>
-                                    <button onClick={action.sendEmailPhoneCode} className={`rw-sp-vcode-btn  ${store.sendingcode ? 'disabled' : ''}`}>
+                                    <button type="button" onClick={action.sendEmailPhoneCode} className={`rw-sp-vcode-btn  ${store.sendingcode ? 'disabled' : ''}`}>
                                         <div className={store.sendingcode ? 'code-sending' : 'code-sending hidden'}>
                                             {UPEX.lang.template('重发')}（<span data-second="second" ref="second" />s）
                                         </div>
@@ -155,7 +155,7 @@ class FiatRechargeView extends Component {
                     <div className="rw-form-item">
                         <label className="rw-form-label" />
                         <div className="rw-form-info">
-                            <button className="submit-btn" onClick={this.handleOrder}>
+                            <button type="button" className="submit-btn" onClick={this.handleOrder}>
                                 {UPEX.lang.template('确认提现')}
                             </button>
 
@@ -164,7 +164,7 @@ class FiatRechargeView extends Component {
                     <div className="rw-form-item">
                         <label className="rw-form-label" />
                         <div className="rw-form-info">
-                            <button className="problem-btn rw-sp-vcode-btn" onClick={this.handleBack}>
+                            <button type="button" className="problem-btn rw-sp-vcode-btn" onClick={this.handleBack}>
                                 {UPEX.lang.template('返回修改')}
                             </button>
                         </div>
@@ -187,7 +187,7 @@ class FiatRechargeView extends Component {
                     <div className="rw-form-item">
                         <label className="rw-form-label" />
                         <div className="rw-form-info">
-                            <button className="submit-btn" onClick={this.handleNextStep}>
+                            <button type="button" className="submit-btn" onClick={this.handleNextStep}>
                                 {UPEX.lang.template('下一步')}
                             </button>
                         </div>

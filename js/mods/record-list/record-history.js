@@ -186,7 +186,7 @@ class List extends Component {
                                     <dd className="num">{item.num}</dd>
                                     <dd className="status">{this.transVal(item.status)}</dd>
                                     <dd className="action pr10">
-                                        <button onClick={this.triggerShowDetail.bind(this, index, item)}>{UPEX.lang.template('详情')}</button>
+                                        <button type="button" onClick={this.triggerShowDetail.bind(this, index, item)}>{UPEX.lang.template('详情')}</button>
                                     </dd>
                                 </dl>
                                 <div className="detail-content">

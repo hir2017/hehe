@@ -88,9 +88,9 @@ class AddWithdrawAddress extends Component {
 						{
 							addressStore.$submiting
 							?
-							<button className="submit-btn disabled">{UPEX.lang.template('提交中')}</button>
+							<button  type="button" className="submit-btn disabled">{UPEX.lang.template('提交中')}</button>
 							:
-							<button className="submit-btn" onClick={this.action.handleSubmit}>{UPEX.lang.template('保存')}</button>
+							<button  type="button" className="submit-btn" onClick={this.action.handleSubmit}>{UPEX.lang.template('保存')}</button>
 
 						}
 					</div>

@@ -55,7 +55,7 @@ class List extends Component {
 	render() {
 		let store = this.props.coinWithdrawRecordStore;
 		let $content;
-		
+
 		if (!store.isFetching && store.orderList.length == 0) {
 			$content = <div className="mini-tip">{ UPEX.lang.template('您暂时没有提币记录') }</div>;
 		} else {
@@ -98,7 +98,7 @@ class List extends Component {
 										<dd className="address">{UPEX.lang.template('地址')} : {item.address}</dd>
 										<dd className="action pr10">
 											{
-												visible ? <button onClick={this.triggerShowDetail.bind(this, item.id)}>{ this.state.displayIndex == item.id ? UPEX.lang.template('收起') : UPEX.lang.template('展开')}</button> : '--'
+												visible ? <button type="button" onClick={this.triggerShowDetail.bind(this, item.id)}>{ this.state.displayIndex == item.id ? UPEX.lang.template('收起') : UPEX.lang.template('展开')}</button> : '--'
 											}
 										</dd>
 									</dl>
