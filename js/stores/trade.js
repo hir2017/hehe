@@ -521,14 +521,13 @@ class TradeStore {
                     return;
                 }
 
-                if (typeof data.content.length !== 'undefined') {
-                    this.tradeHistory = this.parseTradeHistory(data);
-                } else {
-                    let item = this.parseTradeHistoryItem(data.content[0]);
-
-                    // 添加到数组头部, unshift 慎用！！性能太慢
-                    this.tradeHistory.content.splice(0, 0, item);
-                }
+                let parsedData = this.parseTradeHistory(data);
+                // 添加到数组头部
+                // mobx对于数组的处理，会将它转换成observableArray，它不是一个数组类型，需要进行数组转换（如slice）
+                let oldHistoryList = this.tradeHistory.content.slice();
+                
+                parsedData.content = parsedData.content.concat(oldHistoryList);
+                this.tradeHistory = parsedData;
             });
         });
     }
