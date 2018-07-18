@@ -149,7 +149,9 @@ class TVChartContainer extends Component {
         if (typeof TradingView == 'undefined') {
             // 注释不可省略，否则不能显示文件名称
             import(/*webpackChunkName: "charting_library"*/'./../../../lib/tradingview/charting_library.min').then(module => {
-                this.createTradingView();    
+                setTimeout(()=>{
+                    this.createTradingView();        
+                }, 100);
             }).catch(err => {
                 console.log("Chunk loading failed");
             });
