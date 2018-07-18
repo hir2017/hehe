@@ -63,7 +63,11 @@ export default class BindingEmail extends Component {
             return;
         }
 
-        this.props.userInfoStore.bindPEAction(this.state.vCode, this.state.pvCode, this.state.email, 1);
+        this.props.userInfoStore.bindPEAction(this.state.vCode, this.state.pvCode, this.state.email, 1).then(data => {
+            if(!data) {
+                this.props.captchaStore.fetch();
+            }
+        });
     }
 
     render() {

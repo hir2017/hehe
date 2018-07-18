@@ -54,7 +54,11 @@ class Google extends Component {
             return;
         }
 
-        this.props.userInfoStore.bindGA(this.state.google, this.state.vCode);
+        this.props.userInfoStore.bindGA(this.state.google, this.state.vCode).then(data => {
+            if(!data) {
+                this.props.captchaStore.fetch();
+            }
+        });
     }
 
     render() {

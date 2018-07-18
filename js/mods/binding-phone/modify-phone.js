@@ -129,6 +129,8 @@ export default class ModifyPhone extends Component {
         this.props.userInfoStore.newModifyPhone(this.state.nvCode, this.state.areacode + this.state.phone, code, type).then(data => {
             if(data) {
                 browserHistory.push('/user/binding-phone');
+            } else {
+                this.props.captchaStore.fetch();
             }
         })
     }

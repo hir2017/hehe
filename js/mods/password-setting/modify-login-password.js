@@ -92,6 +92,8 @@ export default class ModifyPassword extends Component {
                     browserHistory.push('/login');
                 }, 300);
 
+            } else {
+                this.props.captchaStore.fetch();
             }
         });
     }

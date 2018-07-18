@@ -75,7 +75,11 @@ export default class BindingPhone extends Component {
             return;
         }
 
-        this.props.userInfoStore.bindPEAction(this.state.evCode, this.state.vCode, this.state.areacode + this.state.phone, 2);
+        this.props.userInfoStore.bindPEAction(this.state.evCode, this.state.vCode, this.state.areacode + this.state.phone, 2).then(data => {
+            if(!data) {
+                this.props.captchaStore.fetch();
+            }
+        });
     }
 
     render() {

@@ -296,11 +296,13 @@ class UserInfo {
 
     @action
     async bindGA(clientPassword, verCode) {
+        let result = false;
         try {
             this.submit_loading = true;
             const res = await bindGoogleAuth(clientPassword, verCode);
             this.submit_loading = false;
             if (res.status === 200) {
+                result = true;
                 this.gaBindSuccess = true;
                 this.getUserInfo();
                 message.success(UPEX.lang.template('绑定成功'));
@@ -312,6 +314,7 @@ class UserInfo {
             console.error(e);
             message.error('Network Error');
         }
+        return result;
     }
 
     @action
@@ -394,6 +397,7 @@ class UserInfo {
 
     @action
     async bindPEAction(EmailCode, phoneCode, phoneOrEmail, type) {
+        let result = true;
         try {
             this.submit_loading = true;
             const res = await bindPhoneOrEmailAction(EmailCode, phoneCode, phoneOrEmail, type);
@@ -406,13 +410,16 @@ class UserInfo {
                     browserHistory.push('/user/phoneSuccess');
                 }
             } else {
+                result = false;
                 pickErrMsg(res, 'bindPEAction');
             }
         } catch (e) {
             this.submit_loading = false;
             console.error(e);
+            result = false;
             message.error('Network Error');
         }
+        return result;
     }
 
     @action

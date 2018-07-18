@@ -142,7 +142,7 @@ export default class BindingBank extends Component {
                             {currTradePwd.label}
                         </Button>
                         {userInfo.isValidatePass ? (
-                            <Link className="ace-link forget-pwd" to="/user/forgetTradingPassword">
+                            <Link className="ace-link forget-pwd" to="/user/forget-trade-pwd">
                                 {UPEX.lang.template('忘记密码?')}
                             </Link>
                         ) : null}

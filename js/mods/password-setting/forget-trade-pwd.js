@@ -68,6 +68,8 @@ export default class SettingTradingPassword extends Component {
                 setTimeout(() => {
                     browserHistory.push('/user/setpwd');
                 }, 300)
+            } else {
+                this.props.captchaStore.fetch();
             }
         })
     }
