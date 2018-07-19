@@ -66,7 +66,8 @@ class News extends Component {
                 message.error(res.message);
             } else {
                 result = true;
-                const {count = 0, list = [], page } = res;
+                let tempData = res.attachment || {};
+                const {count = 0, list = [], page } = tempData;
                 this.setState({
                     list,
                     total: count,
@@ -81,6 +82,7 @@ class News extends Component {
         this.setState({
             isFetching: false
         })
+        return result;
     }
 
     pageChange(page) {
