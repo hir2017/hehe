@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
-import AceForm from '../../common-mods/form/form';
-import PageWrapper from '../../common-mods/page-user/page-wrapper';
+import AceForm from '../../components/form/form';
+import PageWrapper from '../../components/page-user/page-wrapper';
 
 export default class PageForm extends Component {
     render() {

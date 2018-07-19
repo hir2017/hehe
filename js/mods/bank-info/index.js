@@ -3,14 +3,14 @@ import { observer, inject } from 'mobx-react';
 import { Select, Button, Icon, message, Upload, Modal } from 'antd';
 const Option = Select.Option;
 
-import { createGetProp } from '../../common-mods/utils';
+import { createGetProp } from '../../components/utils';
 import upload_pic from '../../../images/card-bg.png';
 import upload_pic_hover from '../../../images/upload-pic-hover.png';
 import BankList from './banklist.json';
 import banckCardImg from '../../../images/bank-card.jpg';
-import AceSection from '../../common-mods/page-user/section';
-import AceForm from '../../common-mods/form/form';
-import InputItem from '../../common-mods/form/input-item';
+import AceSection from '../../components/page-user/section';
+import AceForm from '../../components/form/form';
+import InputItem from '../../components/form/input-item';
 
 @inject('userInfoStore', 'authStore')
 @observer

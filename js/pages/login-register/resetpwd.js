@@ -8,6 +8,7 @@ import { observer, inject } from 'mobx-react';
 import { Select } from 'antd';
 import { Link } from 'react-router';
 import toAction from './action';
+import {isPhone} from '../../lib/util/validate';
 const Option = Select.Option;
 
 @inject('loginStore')
@@ -17,6 +18,10 @@ class ResetPassword extends Component {
         super(props);
 
         this.action = toAction(this.props.loginStore);
+
+        this.state = {
+            phone: ''
+        }
     }
 
     componentDidMount() {
@@ -111,7 +116,18 @@ class ResetPassword extends Component {
                                     <input
                                         type="text"
                                         placeholder={UPEX.lang.template('手机')}
-                                        onInput={action.onChangePhone}
+                                        value={this.state.phone}
+                                        onInput={e => {
+                                            if (e.currentTarget.value.trim() !== '') {
+                                                if (!isPhone(e.currentTarget.value.trim())) {
+                                                    return;
+                                                }
+                                            }
+                                            this.setState({
+                                                phone: e.currentTarget.value.trim()
+                                            });
+                                            action.onChangePhone(e);
+                                        }}
                                         onBlur={action.onBlurPhone}
                                         autoFocus
                                         autoComplete="off"

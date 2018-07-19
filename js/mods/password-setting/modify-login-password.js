@@ -10,9 +10,9 @@ import { Link, browserHistory } from 'react-router';
 import Vcodebutton from '../common/authcode-btn';
 import md5 from '../../lib/md5';
 
-import InputItem from '../../common-mods/form/input-item';
-import PageForm from '../../common-mods/page-user/page-form';
-import { createGetProp } from '../../common-mods/utils';
+import InputItem from '../../components/form/input-item';
+import PageForm from '../../components/page-user/page-form';
+import { createGetProp } from '../../components/utils';
 
 @inject('userInfoStore', 'captchaStore', 'authStore')
 @observer

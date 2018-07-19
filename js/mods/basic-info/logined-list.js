@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 
-import AceSection from '../../common-mods/page-user/section';
+import AceSection from '../../components/page-user/section';
 
 
 class LoginListView extends Component {

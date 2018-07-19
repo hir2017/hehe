@@ -12,7 +12,7 @@ import gradeB from '../../../images/grade-b.png';
 import gradeC from '../../../images/grade-c.png';
 import upgradeBtn from '../../../images/up-grade-btn.png';
 
-import AceSection from '../../common-mods/page-user/section';
+import AceSection from '../../components/page-user/section';
 
 @inject('userInfoStore')
 @observer

@@ -93,6 +93,9 @@ class UserInfo {
         const res = await personalInfo();
         this.userInfo = res.attachment;
         this.isFetchingInfo = false;
+        if(res.status !== 200) {
+            pickErrMsg(res, 'getUserInfo');
+        }
     }
     /**
      * 安全等级
@@ -520,7 +523,12 @@ class UserInfo {
                 this.bankCardInfo();
                 message.success(UPEX.lang.template('绑定成功'));
             } else {
-                pickErrMsg(res, 'bindVerifyCard');
+                if (res.status === 13506 || res.status === 13501) {
+                    message.error('已有账号绑定该银行卡');
+                } else {
+                    pickErrMsg(res, 'bindVerifyCard');
+                }
+
             }
         } catch (e) {
             this.submit_loading = false;

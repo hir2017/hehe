@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import { message } from 'antd';
 import { getAnnounceDetail } from '../../api/http';
 
-import PageWrapper from '../../common-mods/page-user/page-wrapper';
+import PageWrapper from '../../components/page-user/page-wrapper';
 
 class News extends Component {
     constructor(props) {

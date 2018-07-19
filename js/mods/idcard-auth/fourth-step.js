@@ -3,7 +3,7 @@ import { observer, inject } from 'mobx-react';
 import { browserHistory } from 'react-router';
 import { Button } from 'antd';
 
-import AceForm from '../../common-mods/form/form';
+import AceForm from '../../components/form/form';
 
 @inject('userInfoStore')
 @observer

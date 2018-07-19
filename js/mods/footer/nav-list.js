@@ -36,7 +36,7 @@ const getNavList = () => {
             },
             {
                 name: UPEX.lang.template("帮助中心"),
-                route: "help"
+                path: UPEX.lang.template("帮助中心网站链接")
             },
             {
                 name: UPEX.lang.template("费率说明"),
@@ -85,15 +85,26 @@ class NavsView extends Component {
                 {navs.map((items, i) => {
                     return (
                         <li key={i}>
-                            {items.map((item, j) => (
-                                <Link
-                                    className="nav-item"
-                                    key={j}
-                                    to={`/${item.route}`}
-                                >
-                                    {item.name}
-                                </Link>
-                            ))}
+                            {items.map((item, j) => {
+                                return  item.path ?  (
+                                    <a
+                                        className="nav-item"
+                                        key={j}
+                                        target="_blank"
+                                        href={item.path}
+                                    >
+                                        {item.name}
+                                    </a>
+                                ) : (
+                                    <Link
+                                        className="nav-item"
+                                        key={j}
+                                        to={`/${item.route}`}
+                                    >
+                                        {item.name}
+                                    </Link>
+                                )
+                            })}
                         </li>
                     );
                 })}

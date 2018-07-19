@@ -67,7 +67,7 @@ export default {
         },
         {
             id: 'USER_AUTH_CODE_FAIL',
-            status: 5559
+            status: 5559,
             message: '验证码错误,请重新登录'
         },
         {

@@ -7,9 +7,9 @@ import dayjs from 'dayjs';
 const Option = Select.Option;
 const RadioGroup = Radio.Group;
 
-import InputItem from '../../common-mods/form/input-item';
-import AceForm from '../../common-mods/form/form';
-import { createGetProp } from '../../common-mods/utils';
+import InputItem from '../../components/form/input-item';
+import AceForm from '../../components/form/form';
+import { createGetProp } from '../../components/utils';
 
 @inject('userInfoStore')
 @observer

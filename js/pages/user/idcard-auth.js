@@ -8,7 +8,7 @@ import SecondStep from '../../mods/idcard-auth/second-step';
 import ThirdStep from '../../mods/idcard-auth/third-step';
 import FourthStep from '../../mods/idcard-auth/fourth-step';
 
-import PageWrapper from '../../common-mods/page-user/page-wrapper';
+import PageWrapper from '../../components/page-user/page-wrapper';
 
 @inject('userInfoStore')
 @observer
@@ -35,7 +35,7 @@ class IdentityAuthentication extends Component {
 
     nowStep(_step) {
         const step = _step;
-        
+
         if (step === 1) {
             return <FirstStep changeStep={this.changeStep} />;
         }

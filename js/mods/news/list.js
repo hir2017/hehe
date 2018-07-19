@@ -6,7 +6,7 @@ import {message, Pagination} from 'antd';
 import {browserHistory} from 'react-router';
 import { getAnnounceList } from '../../api/http';
 
-import PageWrapper from '../../common-mods/page-user/page-wrapper';
+import PageWrapper from '../../components/page-user/page-wrapper';
 
 class ListView extends Component {
     render() {
