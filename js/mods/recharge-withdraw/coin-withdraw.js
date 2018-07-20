@@ -189,6 +189,7 @@ class WithdrawCoin extends Component {
                         <div className="rw-form-info">
                             <div className="yz-box">
                                 <div className={`input-box ${store.validImgCode ? '' : 'wrong'}`}>
+                                    <input type="text" name="wid_no_auto_3" style={{display: 'none'}}/>
                                     <input
                                         type="text"
                                         name="wid_no_auto_3"
