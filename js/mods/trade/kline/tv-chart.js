@@ -198,7 +198,8 @@ class TVChartContainer extends Component {
         let datafeed = this.datafeed = new UDFCompatibleDatafeed({
             currencyNameEn,
             baseCurrencyNameEn,
-            pointPrice: this.props.tradeStore.pointPrice
+            pointPrice: this.props.tradeStore.pointPrice,
+            pointNum: this.props.tradeStore.pointNum
         });
 
 		var cfg = {
@@ -228,41 +229,38 @@ class TVChartContainer extends Component {
             datafeed: datafeed,
             overrides: this.getOverridesByTheme(theme),
             custom_css_url: this.getCustomCSSUrlByTheme(theme),
-            disabled_features: [
-            	"left_toolbar",
-                // 品种搜索框
-                "header_symbol_search",
-                // 周期设置按钮
-                "header_resolutions",
-                "header_interval_dialog_button",
-                "show_interval_dialog_on_key_press",
-                // 您可以使用此功能集从上下文菜单中删除“比较/覆盖”对话框
-                "compare_symbol",
-                "display_market_status",
-                "go_to_date",
-                "header_chart_type",
-                "header_compare",
-                "header_settings",
-                "header_screenshot",
-                "header_undo_redo",
-                "legend_context_menu",
-                "show_hide_button_in_legend",
-                "snapshot_trading_drawings",
-                "symbol_info",
-                "timeframes_toolbar",
-                "use_localstorage_for_settings",
-                "volume_force_overlay",
-                "header_saveload"
-            ],
             enabled_features: [
-                "dont_show_boolean_study_arguments", // 是否隐藏指标参数
+               "dont_show_boolean_study_arguments", // 是否隐藏指标参数
                 "hide_last_na_study_output", // 隐藏最后一次指标输出
                 "move_logo_to_main_pane", // 将标志放在主数据列窗格上，而不是底部窗格
                 "same_data_requery", // 允许您使用相同的商品调用setSymbol来刷新数据
                 "side_toolbar_in_fullscreen_mode", // 使用此功能，您可以在全屏模式下启用绘图工具栏
                 //显示的时间与DataFeed提供的时间完全一致，而不进行对齐。如果您希望图表构建一些分辨率，则不建议使用此方法。
                 "disable_resolution_rebuild",
-            ]
+            ],
+            disabled_features: [
+                "left_toolbar",
+                "header_symbol_search", 
+                "header_resolutions",
+                "symbol_info", 
+                "go_to_date",
+                "header_screenshot",
+                "header_undo_redo",
+                "header_compare", 
+                "header_chart_type", 
+                "header_settings",
+                "display_market_status", 
+                "symbol_search_hot_key", 
+                "compare_symbol", 
+                "border_around_the_chart", 
+                "remove_library_container_border", 
+                "header_interval_dialog_button", 
+                "show_interval_dialog_on_key_press", 
+                "show_hide_button_in_legend",
+                "snapshot_trading_drawings",
+                "volume_force_overlay",
+                "timeframes_toolbar"
+            ],
         };
 
         var callback = ()=>{

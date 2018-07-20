@@ -9,7 +9,6 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 // stage, product打包处理方式略有不同, 如assets资源的引用路径
 var env = process.env.NODE_ENV;
 
-console.log(process.env.NODE_ENV);
 // 读取项目配置文件
 // 获得项目名称及版本, 方便做打包处理assets cdn路径
 var package = require('./package.json');

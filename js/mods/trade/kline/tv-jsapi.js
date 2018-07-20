@@ -30,6 +30,7 @@ class UDFCompatibleDatafeed {
         this.currencyNameEn = cfg.currencyNameEn;
         this.baseCurrencyNameEn = cfg.baseCurrencyNameEn;
         this.pointPrice = cfg.pointPrice;
+        this.pointNum = cfg.pointNum;
         this.timezone = cfg.timezone;
         this.resolution = '';
         this.cacheResult = {};
@@ -61,6 +62,7 @@ class UDFCompatibleDatafeed {
                     "timezone": "Asia/Shanghai",
                     "minmov": 1,
                     "minmove2": 0,
+                    "volume_precision": this.pointNum,
                     "session": "24x7",
                     "description": symbolName,
                     "pricescale": Math.pow(10,this.pointPrice),
