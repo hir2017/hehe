@@ -109,6 +109,7 @@ class OrderStore {
         let currencyObj = this.currencyStore.getCurrencyById(`${item.baseCurrencyId}-${item.currencyId}`);
         let pointNum = currencyObj.pointNum;
         let pointPrice = currencyObj.pointPrice;
+        
         // 时间
         item.orderTime = TimeUtil.formatDate(item.orderTime, 'yyyy-MM-dd HH:mm:ss');
         // 委托价格

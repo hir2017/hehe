@@ -14,19 +14,20 @@ import HistoryOrder from '../../mods/trade/order/history-order';
 import MyOrder from '../../mods/trade/myorder/index';
 import TradeForm from '../../mods/trade/form/index';
 
-@inject('commonStore', 'tradeStore')
+@inject('commonStore', 'currencyStore','tradeStore')
 @observer
 class TradeCenter extends Component {
     componentWillMount() {
-        let { commonStore } = this.props;
+        let { commonStore, currencyStore } = this.props;
 
         commonStore.getAllCoinPoint();
+        currencyStore.getCurrencyPoints();
     }
     
     render() { 
-        let { commonStore, tradeStore } = this.props;
+        let { commonStore, tradeStore, currencyStore } = this.props;
         // 用于切换交易币时内容切换
-        if (commonStore.productDataReady) {
+        if (commonStore.productDataReady && currencyStore.currencyDataReady) {
             return <TradeContent {...this.props}/>    
         } else {
             return (

@@ -20,7 +20,7 @@ class List extends Component {
 	componentDidMount() {
 		if (!this.props.pagination) {
 			this.action.getData({
-				size: 0
+				size: 100
 			});
 		} else {
 			this.action.getData({
