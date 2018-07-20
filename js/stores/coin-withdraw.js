@@ -41,9 +41,9 @@ class CoinWithdrawStore {
     @observable isFetching = false;
     @observable authType = 'phone';
     // 每日限额
-    @observable dayLimit = ''; 
+    @observable dayLimit = '';
     // 每笔限额
-    @observable oneLimit = ''; 
+    @observable oneLimit = '';
     // 最小提现额度
     @observable amountLowLimit = 0;
     // 最大提现额度
@@ -102,7 +102,7 @@ class CoinWithdrawStore {
         getUserActionLimit(4, currencyId).then((data)=>{
             runInAction(() => {
                 if (data.status ==  200) {
-                    
+
                     let dayLimit = data.attachment.dayLimit;
                     let limit = data.attachment.limits[0];
 
@@ -134,9 +134,9 @@ class CoinWithdrawStore {
                 amount = this.amount - this.amount * fee;
             }
         }
-        
+
         if (amount > 0) {
-            amount = NumberUtil.initNumber(amount, point); 
+            amount = NumberUtil.initNumber(amount, point);
         }
 
         return amount;
@@ -149,7 +149,7 @@ class CoinWithdrawStore {
         if (this.takeCoinInfo.resp) {
             let point = this.takeCoinInfo.resp.point;
             let cashAmount = this.takeCoinInfo.resp.cashAmount || 0;
-            let res = NumberUtil.initNumber(cashAmount, point); 
+            let res = NumberUtil.initNumber(cashAmount, point);
 
             return res;
         } else {
@@ -262,10 +262,10 @@ class CoinWithdrawStore {
         }
         let amount = Number(this.amount);
 
-        if (!this.note) {
-            result.pass = false;
-            this.validNote = false;
-        }
+        // if (!this.note) {
+        //     result.pass = false;
+        //     this.validNote = false;
+        // }
 
         if (!this.address) {
             result.pass = false;

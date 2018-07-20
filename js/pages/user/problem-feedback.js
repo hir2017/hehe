@@ -42,7 +42,7 @@ export default class extends Component {
         }
         if (info.file.status === 'done') {
             if (info.file.response.status === 200) {
-                const url = info.file.response.attachment;
+                const url = info.file.response.attachment ? info.file.response.attachment.url : '';
                 this.uploudUrlS.push(url);
                 message.success(`${info.file.name} ${UPEX.lang.template('上传成功')}`);
             } else {

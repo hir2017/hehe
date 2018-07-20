@@ -234,7 +234,8 @@ const origin_ws = (function() {
 
 const host = PROTOCOL + '//' + origin + '/polarisex';
 const uploadHost = host + '/upload/upload';
-const uploadImgHost = host + '/user/uploadImageSingle';
+const uploadImgHost = host + '/upload/uploadQN';
+// const uploadImgHost = host + '/user/uploadImageSingle';
 const websocketHost = SOCKET_PROTOCOL + '//' + origin_ws + '/';
 const imgHost = PROTOCOL + '//' + origin + '/img';
 

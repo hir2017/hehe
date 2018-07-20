@@ -35,8 +35,9 @@ export default class CardSelect extends Component {
                 };
                 // 提现超出余额后修正
                 if(type === 'withdraw') {
-                    if(parseInt(temp, 10) > parseInt(count, 10)) {
+                    if(parseInt(temp, 10) > parseFloat(count, 10)) {
                         _data.number = count;
+                        temp = count;
                         _data.show = true;
                     } else {
                         _data.show = false;
