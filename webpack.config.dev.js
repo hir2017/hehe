@@ -4,7 +4,6 @@ var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');  // 导出额外的文件插件
 var StringReplacePlugin = require('string-replace-webpack-plugin'); // 字符串替换插件
 var HtmlWebpackPlugin = require('html-webpack-plugin');
-var AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
 
 // 获取环境变量, 方便做不同处理
 // stage, product打包处理方式略有不同, 如assets资源的引用路径
@@ -60,8 +59,8 @@ if (env == 'stage') {
 var config = {
     entry: {
         // 可对应多个入口文件
-        app: ['./js/app.js']
-        // vendor: ['react', 'react-dom', 'react-router', 'mobx-react', 'axio', 'antd']
+        webapp: ['./js/app.js'],
+        vendor: ['react', 'react-dom', 'react-router', 'mobx-react']
     },
     output: output,
     devtool: 'source-map', // 输出source-map
@@ -144,19 +143,27 @@ var config = {
     // 插件
     plugins: [
         extractCSS,
+        // new webpack.optimize.UglifyJsPlugin({
+        //     compress: {
+        //         warnings: false
+        //     },
+        //     output: {
+        //         comments: false,
+        //     }
+        // }),
         new StringReplacePlugin(),
         new webpack.optimize.CommonsChunkPlugin({
-            name: 'vendor',
-            minChunks: ({ resource }) => (
-                resource && resource.indexOf('node_modules') >= 0 && resource.match(/\.js$/)
-            )
+            name: "commons",
+            filename: "commons.js",
+            minChunks: 2, // (Modules must be shared between 3 entries)
+            chunks: ['vendor', 'webapp'] // (Only use these entries)
         }),
         new HtmlWebpackPlugin({
             filename: 'index.html',
             template: './template/index.html',
             hash: true,
             // 指定要加载的模块
-            chunks: ['vendor','app']
+            chunks: ['commons', 'webapp']
         })
     ]
 };

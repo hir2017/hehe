@@ -9,6 +9,7 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 // stage, product打包处理方式略有不同, 如assets资源的引用路径
 var env = process.env.NODE_ENV;
 
+console.log(process.env.NODE_ENV);
 // 读取项目配置文件
 // 获得项目名称及版本, 方便做打包处理assets cdn路径
 var package = require('./package.json');
@@ -38,7 +39,7 @@ var output = {
     path: path.resolve(__dirname, "build/assets"),
     filename: '[name].js',
     chunkFilename: '[name].[chunkhash:5].chunk.js',
-    publicPath: '/',
+    publicPath: '/'
 };
 
 // 为product环境打包时
@@ -59,7 +60,7 @@ if (env == 'stage') {
 var config = {
     entry: {
         // 可对应多个入口文件
-        webapp: ['./js/app.js'],
+        app: ['./js/app.js'],
         vendor: ['react', 'react-dom', 'react-router', 'mobx-react']
     },
     output: output,
@@ -156,14 +157,14 @@ var config = {
             name: "commons",
             filename: "commons.js",
             minChunks: 2, // (Modules must be shared between 3 entries)
-            chunks: ['vendor', 'webapp'] // (Only use these entries)
+            chunks: ['vendor', 'app'] // (Only use these entries)
         }),
         new HtmlWebpackPlugin({
             filename: 'index.html',
             template: './template/index.html',
             hash: true,
             // 指定要加载的模块
-            chunks: ['commons', 'webapp']
+            chunks: ['commons', 'app']
         })
     ]
 };
