@@ -60,7 +60,7 @@ if (env == 'stage') {
 var config = {
     entry: {
         // 可对应多个入口文件
-        app: ['./js/app.js'],
+        webapp: ['./js/app.js'],
         vendor: ['react', 'react-dom', 'react-router', 'mobx-react']
     },
     output: output,
@@ -157,14 +157,14 @@ var config = {
             name: "commons",
             filename: "commons.js",
             minChunks: 2, // (Modules must be shared between 3 entries)
-            chunks: ['vendor', 'app'] // (Only use these entries)
+            chunks: ['vendor', 'webapp'] // (Only use these entries)
         }),
         new HtmlWebpackPlugin({
             filename: 'index.html',
             template: './template/index.html',
             hash: true,
             // 指定要加载的模块
-            chunks: ['commons', 'app']
+            chunks: ['commons', 'webapp']
         })
     ]
 };

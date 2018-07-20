@@ -5,7 +5,7 @@ var webpack = require('webpack'),
     webpackDevMiddleware = require('webpack-dev-middleware'),
     webpackHotMiddleware = require('webpack-hot-middleware'),
     history = require('connect-history-api-fallback'),
-    webpackDevConfig = require('./webpack.config.prod.js');
+    webpackDevConfig = require('./webpack.prod.config.js');
 
 var port = 3000;
 
