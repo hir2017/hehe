@@ -59,7 +59,7 @@ if (env == 'stage') {
 var config = {
     entry: {
         // 可对应多个入口文件
-        webapp: ['babel-polyfill','./js/app.js'],
+        webapp: ['./js/app.js'],
         vendor: ['react', 'react-dom', 'react-router', 'mobx-react']
     },
     output: output,
