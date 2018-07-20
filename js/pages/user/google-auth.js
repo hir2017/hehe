@@ -10,7 +10,7 @@ import { Link } from 'react-router';
 import BindingGoogle from '../../mods/binding-google';
 import Success from '../../mods/binding-google/success';
 
-import PageWrapper from '../../common-mods/page-user/page-wrapper';
+import PageWrapper from '../../components/page-user/page-wrapper';
 
 @inject('userInfoStore')
 @observer

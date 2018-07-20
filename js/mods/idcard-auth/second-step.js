@@ -9,7 +9,7 @@ import IDcard0 from '../../../images/idcard-1.png';
 import IDcard1 from '../../../images/idcard-2.png';
 import IDcard2 from '../../../images/idcard-3.png';
 
-import AceForm from '../../common-mods/form/form';
+import AceForm from '../../components/form/form';
 
 const IDcardPics = {
     IDcard0,

@@ -3,7 +3,7 @@ import { Breadcrumb } from 'antd';
 import { inject } from 'mobx-react';
 import {Link} from 'react-router';
 
-import PageWrapper from '../../common-mods/page-user/page-wrapper';
+import PageWrapper from '../../components/page-user/page-wrapper';
 
 @inject('commonStore')
 export default class Agreements extends Component {

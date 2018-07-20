@@ -9,9 +9,9 @@ import { Button, message } from 'antd';
 import { Link } from 'react-router';
 import Vcodebutton from '../common/authcode-btn';
 
-import InputItem from '../../common-mods/form/input-item';
-import AceForm from '../../common-mods/form/form';
-import { createGetProp } from '../../common-mods/utils';
+import InputItem from '../../components/form/input-item';
+import AceForm from '../../components/form/form';
+import { createGetProp } from '../../components/utils';
 
 @inject('userInfoStore', 'captchaStore')
 @observer
@@ -54,7 +54,11 @@ class Google extends Component {
             return;
         }
 
-        this.props.userInfoStore.bindGA(this.state.google, this.state.vCode);
+        this.props.userInfoStore.bindGA(this.state.google, this.state.vCode).then(data => {
+            if(!data) {
+                this.props.captchaStore.fetch();
+            }
+        });
     }
 
     render() {

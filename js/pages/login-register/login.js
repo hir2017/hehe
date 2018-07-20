@@ -10,6 +10,7 @@ import { observer, inject } from 'mobx-react';
 import { Tabs , Icon , Popover, Select , Modal } from 'antd';
 import {  Link , browserHistory } from 'react-router';
 import toAction from './action';
+import {isPhone} from '../../lib/util/validate';
 const Option = Select.Option;
 
 const wechatContent = (
@@ -31,6 +32,7 @@ class Login extends Component {
 
         this.state = {
             loginErrorText: '',
+            phone: '',
             step: 'login' // login: 登录，google: 谷歌认证；phone：手机认证
         }
     }
@@ -317,8 +319,19 @@ class Login extends Component {
                                     <div className="input-box">
                                         <input
                                             type="text"
+                                            value={this.state.phone}
                                             placeholder={ UPEX.lang.template('手机') }
-                                            onInput={  action.onChangePhone }
+                                            onInput={ e => {
+                                                if(e.currentTarget.value.trim() !== '') {
+                                                    if(!isPhone(e.currentTarget.value.trim())) {
+                                                        return;
+                                                    }
+                                                }
+                                                this.setState({
+                                                    phone: e.currentTarget.value.trim()
+                                                })
+                                                action.onChangePhone(e)
+                                            } }
                                             autoFocus
                                             autoComplete="off"
                                         />

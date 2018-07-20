@@ -15,7 +15,8 @@ class AnnouncementStore {
         getAnnounceList(count)
             .then((data) => {
                 runInAction('get announcement success', () => {
-                    this.list = data.list;
+
+                    this.list = data.attachment ? data.attachment.list : [];
 
                     this.isLoading = false;
                 })

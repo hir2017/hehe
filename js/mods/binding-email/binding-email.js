@@ -4,9 +4,9 @@ import { Button, message } from 'antd';
 import { Link } from 'react-router';
 import Vcodebutton from '../common/authcode-btn';
 
-import InputItem from '../../common-mods/form/input-item';
-import PageForm from '../../common-mods/page-user/page-form';
-import { createGetProp } from '../../common-mods/utils';
+import InputItem from '../../components/form/input-item';
+import PageForm from '../../components/page-user/page-form';
+import { createGetProp } from '../../components/utils';
 
 @inject('userInfoStore', 'captchaStore')
 @observer
@@ -63,7 +63,11 @@ export default class BindingEmail extends Component {
             return;
         }
 
-        this.props.userInfoStore.bindPEAction(this.state.vCode, this.state.pvCode, this.state.email, 1);
+        this.props.userInfoStore.bindPEAction(this.state.vCode, this.state.pvCode, this.state.email, 1).then(data => {
+            if(!data) {
+                this.props.captchaStore.fetch();
+            }
+        });
     }
 
     render() {

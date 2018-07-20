@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router';
 import { observer, inject } from 'mobx-react';
 import { Input, Select, Checkbox, Button, Radio } from 'antd';
+import {isNumberOrCode} from '../../lib/util/validate';
 import dayjs from 'dayjs';
 
 const Option = Select.Option;
 const RadioGroup = Radio.Group;
 
-import InputItem from '../../common-mods/form/input-item';
-import AceForm from '../../common-mods/form/form';
-import { createGetProp } from '../../common-mods/utils';
+import InputItem from '../../components/form/input-item';
+import AceForm from '../../components/form/form';
+import { createGetProp } from '../../components/utils';
 
 @inject('userInfoStore')
 @observer
@@ -51,7 +51,7 @@ export default class FirstStep extends Component {
 
     setVal(e, name) {
         const data = {};
-        data[name] = e.target.value;
+        data[name] = e.target.value.trim();
         this.setState(data);
     }
     // params(3): msgField, name, val; params(2): name, val;
@@ -198,7 +198,17 @@ export default class FirstStep extends Component {
             },
             idCard: {
                 label: UPEX.lang.template('证件号码'),
-                inputProps: getProp('idCard', 'none'),
+                inputProps: {
+                    className: 'input',
+                    onChange: (e) => {
+                        if(e.target.value.trim() !== '') {
+                            if(!isNumberOrCode(e.target.value.trim())) {
+                                return;
+                            }
+                        }
+                        this.setVal(e, 'idCard');
+                    },
+                },
                 tip: UPEX.lang.template('为保证款项可能有退还的情形，因此填写真实身份证号'),
                 error: state.idCardMes
             }
@@ -259,7 +269,7 @@ export default class FirstStep extends Component {
                     <span className="message">{UPEX.lang.template('目前暂时只开放给拥有台湾身份证的用户使用')}</span>
                     <span className="error-message">{this.state.idCardTypeMes}</span>
                 </div>
-                <InputItem {...inputsData.idCard} />
+                <InputItem {...inputsData.idCard} value={this.state.idCard} />
                 <div className="muti-select clearfix">
                     <div className="ace-input-item select">
                         <span className="label">{UPEX.lang.template('职业')}</span>

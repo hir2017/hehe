@@ -7,7 +7,7 @@ import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import { Button } from 'antd';
 
-import AceForm from '../../common-mods/form/form';
+import AceForm from '../../components/form/form';
 
 @inject('userInfoStore')
 @observer

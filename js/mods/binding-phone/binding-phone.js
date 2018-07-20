@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import { Button, message, Select } from 'antd';
-import { Link } from 'react-router';
 import Vcodebutton from '../common/authcode-btn';
 import NumberUtil from '../../lib/util/number';
+import {isPhone} from '../../lib/util/validate';
 const Option = Select.Option;
 
-import InputItem from '../../common-mods/form/input-item';
-import PageForm from '../../common-mods/page-user/page-form';
-import { createGetProp } from '../../common-mods/utils';
+import InputItem from '../../components/form/input-item';
+import PageForm from '../../components/page-user/page-form';
+import { createGetProp } from '../../components/utils';
 
 @inject('userInfoStore', 'captchaStore', 'loginStore')
 @observer
@@ -18,6 +18,53 @@ export default class BindingPhone extends Component {
         this.submit = this.submit.bind(this);
         this.onAreaCodeChange = this.onAreaCodeChange.bind(this);
         this.captchaChange = this.captchaChange.bind(this);
+        const getProp = createGetProp(this);
+        this.state = {
+            phone: '',
+            vCode: '',
+            ivCode: '',
+            areacode: '',
+            evCode: '',
+            vcodeAbled: false,
+            submitAbled: false,
+        };
+
+        this.inputsData = {
+            phone: {
+                label: UPEX.lang.template('手机号'),
+                inputProps: {
+                    className: 'input',
+                    onChange: (e) => {
+                        if(e.target.value !== '') {
+                            if(!isPhone(e.target.value)) {
+                                return;
+                            }
+                        }
+                        this.setVal(e, 'phone');
+                    },
+                }
+            },
+            ivCode: {
+                label: UPEX.lang.template('图片验证码'),
+                className: 'v-code',
+                inputProps: getProp('ivCode', 'none')
+            },
+            vCode: {
+                label: UPEX.lang.template('短信验证码'),
+                className: 'v-code',
+                inputProps: getProp('vCode', 'none')
+            },
+            evCode: {
+                label: UPEX.lang.template('邮箱验证码'),
+                inputProps: getProp('evCode', 'none')
+            }
+        };
+
+        this.PageProps = {
+            title: UPEX.lang.template('绑定手机'),
+            formClass: 'modify-password-box'
+        };
+
     }
 
     componentWillMount() {
@@ -27,18 +74,8 @@ export default class BindingPhone extends Component {
         this.props.captchaStore.fetch();
     }
 
-    state = {
-        phone: '',
-        vCode: '',
-        ivCode: '',
-        areacode: '',
-        evCode: '',
-        vcodeAbled: false,
-        submitAbled: false,
-    };
-
     setVal(e, name) {
-        const val = e.target.value;
+        const val = e.target.value.trim();
         const state = this.state;
         const data = {};
         data[name] = val;
@@ -75,7 +112,11 @@ export default class BindingPhone extends Component {
             return;
         }
 
-        this.props.userInfoStore.bindPEAction(this.state.evCode, this.state.vCode, this.state.areacode + this.state.phone, 2);
+        this.props.userInfoStore.bindPEAction(this.state.evCode, this.state.vCode, this.state.areacode + this.state.phone, 2).then(data => {
+            if(!data) {
+                this.props.captchaStore.fetch();
+            }
+        });
     }
 
     render() {
@@ -92,32 +133,8 @@ export default class BindingPhone extends Component {
             );
         });
 
-        const getProp = createGetProp(this);
-        const inputsData = {
-            phone: {
-                label: UPEX.lang.template('手机号'),
-                inputProps: getProp('phone', 'none')
-            },
-            ivCode: {
-                label: UPEX.lang.template('图片验证码'),
-                className: 'v-code',
-                inputProps: getProp('ivCode', 'none')
-            },
-            vCode: {
-                label: UPEX.lang.template('短信验证码'),
-                className: 'v-code',
-                inputProps: getProp('vCode', 'none')
-            },
-            evCode: {
-                label: UPEX.lang.template('邮箱验证码'),
-                inputProps: getProp('evCode', 'none')
-            }
-        };
+        const {inputsData, PageProps} = this;
 
-        const PageProps = {
-            title: UPEX.lang.template('绑定手机'),
-            formClass: 'modify-password-box'
-        };
         return (
             <PageForm {...PageProps}>
                 <div className="item-area">
@@ -125,7 +142,7 @@ export default class BindingPhone extends Component {
                         {options}
                     </Select>
                 </div>
-                <InputItem {...inputsData.phone} />
+                <InputItem {...inputsData.phone} value={this.state.phone}/>
                 <div>
                      <InputItem {...inputsData.ivCode} />
                      <div className="item v-code-button">

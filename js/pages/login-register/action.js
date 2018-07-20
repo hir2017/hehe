@@ -32,7 +32,7 @@ export default (store) => {
 
         onBlurPhone(e){
             store.checkValidPhone();
-        }, 
+        },
 
         onChangeImgCode(e) {
             let value = e.currentTarget.value.trim();
@@ -168,17 +168,19 @@ export default (store) => {
 
             updateSubmiting(true);
 
-            resetPwd({
+            return resetPwd({
                 account: store.account,
                 pwd: store.pwd,
                 vercode: store.vercode,
                 imgcode: store.imgcode,
                 codeid: store.codeid
             }).then((data) => {
+                let result = false;
                 updateSubmiting(false);
 
                 switch (data.status) {
                     case 200:
+                        result = true;
                         // message.success(UPEX.lang.template('成功，将跳转登录页面'));
 
                         setTimeout(() => {
@@ -200,6 +202,7 @@ export default (store) => {
                 }
             }).catch(()=>{
                 updateSubmiting(false);
+                return false;
             })
         },
 
@@ -282,7 +285,7 @@ export default (store) => {
 
         checkUser() {
             let { verifyInfoBeforeLogin } = store;
-            
+
             //  验证表单信息
             if (verifyInfoBeforeLogin.pass) {
                 return true;
@@ -422,7 +425,7 @@ export default (store) => {
                         });
 
                         store.changeSendingPhoneCodeTo(true);
-                        
+
                         break;
                     case 412:
                         // 图片验证码错误

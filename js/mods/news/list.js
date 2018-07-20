@@ -6,7 +6,7 @@ import {message, Pagination} from 'antd';
 import {browserHistory} from 'react-router';
 import { getAnnounceList } from '../../api/http';
 
-import PageWrapper from '../../common-mods/page-user/page-wrapper';
+import PageWrapper from '../../components/page-user/page-wrapper';
 
 class ListView extends Component {
     render() {
@@ -66,7 +66,8 @@ class News extends Component {
                 message.error(res.message);
             } else {
                 result = true;
-                const {count = 0, list = [], page } = res;
+                let tempData = res.attachment || {};
+                const {count = 0, list = [], page } = tempData;
                 this.setState({
                     list,
                     total: count,
@@ -81,6 +82,7 @@ class News extends Component {
         this.setState({
             isFetching: false
         })
+        return result;
     }
 
     pageChange(page) {

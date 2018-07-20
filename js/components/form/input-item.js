@@ -3,11 +3,16 @@ import React, { Component } from 'react';
 class InputItem extends Component {
     render() {
         const {label, inputProps, tip, error, className} = this.props;
+        // 奇葩的实现方式，先这样吧
+        let _props = {};
+        if(this.props.hasOwnProperty('value')) {
+            _props.value = this.props.value;
+        }
         return (
             <div className={`ace-input-item ${className || ''}`}>
                 <span className="label">{label}</span>
                 {
-                    this.props.children ? this.props.children : (<input autoComplete="off" className="input" {...inputProps} />)
+                    this.props.children ? this.props.children : (<input autoComplete="off" {..._props} className="input" {...inputProps} />)
                 }
                 {tip ? (<div className="item-tip">{tip}</div>) : ''}
                 {error ? (<div className="item-error">{error}</div>) : ''}

@@ -10,8 +10,8 @@ import { Button, message } from 'antd';
 
 import BindingBank from '../../mods/bank-info/index';
 import BankList from '../../mods/bank-info/list';
-import PageWrapper from '../../common-mods/page-user/page-wrapper';
-import AceSection from '../../common-mods/page-user/section';
+import PageWrapper from '../../components/page-user/page-wrapper';
+import AceSection from '../../components/page-user/section';
 
 @inject('userInfoStore')
 @observer

@@ -93,6 +93,9 @@ class UserInfo {
         const res = await personalInfo();
         this.userInfo = res.attachment;
         this.isFetchingInfo = false;
+        if(res.status !== 200) {
+            pickErrMsg(res, 'getUserInfo');
+        }
     }
     /**
      * 安全等级
@@ -296,11 +299,13 @@ class UserInfo {
 
     @action
     async bindGA(clientPassword, verCode) {
+        let result = false;
         try {
             this.submit_loading = true;
             const res = await bindGoogleAuth(clientPassword, verCode);
             this.submit_loading = false;
             if (res.status === 200) {
+                result = true;
                 this.gaBindSuccess = true;
                 this.getUserInfo();
                 message.success(UPEX.lang.template('绑定成功'));
@@ -312,6 +317,7 @@ class UserInfo {
             console.error(e);
             message.error('Network Error');
         }
+        return result;
     }
 
     @action
@@ -394,6 +400,7 @@ class UserInfo {
 
     @action
     async bindPEAction(EmailCode, phoneCode, phoneOrEmail, type) {
+        let result = true;
         try {
             this.submit_loading = true;
             const res = await bindPhoneOrEmailAction(EmailCode, phoneCode, phoneOrEmail, type);
@@ -406,13 +413,16 @@ class UserInfo {
                     browserHistory.push('/user/phoneSuccess');
                 }
             } else {
+                result = false;
                 pickErrMsg(res, 'bindPEAction');
             }
         } catch (e) {
             this.submit_loading = false;
             console.error(e);
+            result = false;
             message.error('Network Error');
         }
+        return result;
     }
 
     @action
@@ -513,7 +523,12 @@ class UserInfo {
                 this.bankCardInfo();
                 message.success(UPEX.lang.template('绑定成功'));
             } else {
-                pickErrMsg(res, 'bindVerifyCard');
+                if (res.status === 13506 || res.status === 13501) {
+                    message.error('已有账号绑定该银行卡');
+                } else {
+                    pickErrMsg(res, 'bindVerifyCard');
+                }
+
             }
         } catch (e) {
             this.submit_loading = false;

@@ -8,7 +8,7 @@ import { observer, inject } from 'mobx-react';
 import { Button, Icon } from 'antd';
 import { Link } from 'react-router';
 
-import PageWrapper from '../../common-mods/page-user/page-wrapper';
+import PageWrapper from '../../components/page-user/page-wrapper';
 
 @inject('userInfoStore')
 @observer

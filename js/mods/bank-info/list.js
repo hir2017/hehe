@@ -41,7 +41,7 @@ class CardListView extends Component {
     }
 }
 
-import AceSection from '../../common-mods/page-user/section';
+import AceSection from '../../components/page-user/section';
 
 @inject('userInfoStore', 'captchaStore', 'authStore')
 @observer

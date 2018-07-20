@@ -5,7 +5,7 @@ import { Input, Upload, Icon, Button, message, Row, Col } from 'antd';
 const { TextArea } = Input;
 // import bitLength from '../../lib/util/bit-length';
 
-import PageWrapper from '../../common-mods/page-user/page-wrapper';
+import PageWrapper from '../../components/page-user/page-wrapper';
 
 @inject('userInfoStore')
 @observer

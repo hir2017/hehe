@@ -11,7 +11,7 @@ import google2 from '../../../images/google2.png';
 import google3 from '../../../images/google3.png';
 import {Link} from 'react-router';
 
-import PageWrapper from '../../common-mods/page-user/page-wrapper';
+import PageWrapper from '../../components/page-user/page-wrapper';
 
 @observer
 class GoogleGuide extends Component {
@@ -38,10 +38,10 @@ class GoogleGuide extends Component {
                         <div>
                             <div className="download">{UPEX.lang.template('下载并安裝Google验证器')}</div>
                             <div className="download">
-                                <a className="download-btn"  target="_blank" href="https://itunes.apple.com/us/app/google-authenticator/id388497605?mt=8">
+                                <a className="download-btn"  target="_blank" href={UPEX.lang.template('ios下载Google验证器网址')}>
                                     <Icon type="apple" />ios{UPEX.lang.template('下载')}
                                 </a>
-                                <a className="download-btn"  target="_blank" href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2">
+                                <a className="download-btn"  target="_blank" href={UPEX.lang.template('安卓下载Google验证器网址')}>
                                     <Icon type="android" />
                                     {UPEX.lang.template('安卓下载')}
                                 </a>

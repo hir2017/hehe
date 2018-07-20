@@ -4,9 +4,9 @@ import { Button, message } from 'antd';
 import { Link, browserHistory } from 'react-router';
 import Vcodebutton from '../common/authcode-btn';
 
-import InputItem from '../../common-mods/form/input-item';
-import PageForm from '../../common-mods/page-user/page-form';
-import { createGetProp } from '../../common-mods/utils';
+import InputItem from '../../components/form/input-item';
+import PageForm from '../../components/page-user/page-form';
+import { createGetProp } from '../../components/utils';
 
 @inject('userInfoStore', 'captchaStore')
 @observer
@@ -48,9 +48,11 @@ export default class ReBinding extends Component {
             return;
         }
 
-        this.props.userInfoStore.rmBindGA(this.state.google, this.state.vCode).then(res => {
-            if(res) {
+        this.props.userInfoStore.rmBindGA(this.state.google, this.state.vCode).then(data => {
+            if(data) {
                 browserHistory.push('/user/google');
+            } else {
+                this.props.captchaStore.fetch();
             }
         });
     }

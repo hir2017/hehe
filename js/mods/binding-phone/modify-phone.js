@@ -5,9 +5,10 @@ import { Link, browserHistory } from 'react-router';
 import Vcodebutton from '../common/authcode-btn';
 const Option = Select.Option;
 
-import InputItem from '../../common-mods/form/input-item';
-import PageForm from '../../common-mods/page-user/page-form';
-import { createGetProp } from '../../common-mods/utils';
+import {isPhone} from '../../lib/util/validate';
+import InputItem from '../../components/form/input-item';
+import PageForm from '../../components/page-user/page-form';
+import { createGetProp } from '../../components/utils';
 
 @inject('userInfoStore', 'captchaStore', 'loginStore')
 @observer
@@ -18,10 +19,31 @@ export default class ModifyPhone extends Component {
         this.submit = this.submit.bind(this);
         this.captchaChange = this.captchaChange.bind(this);
         const getProp = createGetProp(this);
+        this.state = {
+            phone: '',
+            vCode: '',
+            ivCode: '',
+            areacode: '',
+            nvCode: '',
+            gaCode: '',
+            vcodeAbled: false,
+            submitAbled: false,
+        };
+
         this.inputsData = {
             phone: {
                 label: UPEX.lang.template('新手机号'),
-                inputProps: getProp('phone', 'none')
+                inputProps: {
+                    className: 'input',
+                    onChange: (e) => {
+                        if(e.target.value.trim() !== '') {
+                            if(!isPhone(e.target.value)) {
+                                return;
+                            }
+                        }
+                        this.setVal(e, 'phone');
+                    },
+                }
             },
             ivCode: {
                 label: UPEX.lang.template('图片验证码'),
@@ -54,16 +76,6 @@ export default class ModifyPhone extends Component {
         });
     }
 
-    state = {
-        phone: '',
-        vCode: '',
-        ivCode: '',
-        areacode: '',
-        nvCode: '',
-        gaCode: '',
-        vcodeAbled: false,
-        submitAbled: false,
-    };
 
     onAreaCodeChange(val) {
         this.setState({
@@ -73,7 +85,7 @@ export default class ModifyPhone extends Component {
 
 
     setVal(e, name) {
-        const val = e.target.value;
+        const val = e.target.value.trim();
         const state = this.state;
         const data = {};
         data[name] = val;
@@ -129,6 +141,8 @@ export default class ModifyPhone extends Component {
         this.props.userInfoStore.newModifyPhone(this.state.nvCode, this.state.areacode + this.state.phone, code, type).then(data => {
             if(data) {
                 browserHistory.push('/user/binding-phone');
+            } else {
+                this.props.captchaStore.fetch();
             }
         })
     }
@@ -162,7 +176,7 @@ export default class ModifyPhone extends Component {
                         {options}
                     </Select>
                 </div>
-                <InputItem {...inputsData.phone} />
+                <InputItem {...inputsData.phone} value={this.state.phone} />
                 <div>
                     {/* 图片验证码可以优化 */}
                     <InputItem {...inputsData.ivCode} />
