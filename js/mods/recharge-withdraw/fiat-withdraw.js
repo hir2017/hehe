@@ -30,8 +30,9 @@ class FiatRechargeView extends Component {
 
     handleNextStep = e => {
         const {accountAmount, balance} = this.props.fiatWithdrawStore;
+        console.log(parseInt(balance), parseFloat(accountAmount), parseInt(balance) > parseFloat(accountAmount))
         try {
-            if(parseInt(balance) > parseInt(accountAmount)) {
+            if(parseInt(balance) > parseFloat(accountAmount)) {
                 message.error(UPEX.lang.template('请填写正确的提现金额'));
                 return;
             }
@@ -108,6 +109,11 @@ class FiatRechargeView extends Component {
                     <div className="rw-form-item">
                         <label className="rw-form-label" />
                         <div className="rw-form-info">
+                            <input
+                                type="text"
+                                name="fia_no_auto2"
+                                style={{display: 'none'}}
+                            />
                             {store.authType == 'phone' ? (
                                 <div className="input-button-box">
                                     <div className="input-box">
