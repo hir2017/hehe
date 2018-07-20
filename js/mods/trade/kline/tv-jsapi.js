@@ -146,6 +146,8 @@ class UDFCompatibleDatafeed {
                 }
             }
 
+            console.log(bars);
+
             this.historyData[_resolution] = {
                 bars: bars,
                 meta: meta,
@@ -233,7 +235,7 @@ class UDFCompatibleDatafeed {
         }
 
         this.timer && clearTimeout(this.timer);
-        // fetch();
+        fetch();
     }
     /**
      * 取消订阅K线数据

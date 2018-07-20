@@ -169,6 +169,9 @@ const origin = (function() {
         case 'dev.ace.io':
             origin = hostname;
             break;
+        case 'pre.ace.io':
+            origin = 'pre.ace.io';
+            break;
         default:
             origin = 'dev.ace.io';
     }

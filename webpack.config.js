@@ -2,7 +2,7 @@ var path = require('path');
 var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');  // 导出额外的文件插件
 var StringReplacePlugin = require('string-replace-webpack-plugin'); // 字符串替换插件
-var CopyWebpackPlugin = require('copy-webpack-plugin');
+// var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 // 获取环境变量, 方便做不同处理
 // stage, product打包处理方式略有不同, 如assets资源的引用路径
@@ -140,10 +140,10 @@ var config = {
         new webpack.optimize.CommonsChunkPlugin({
             names: ['vendor']
         }),
-        new CopyWebpackPlugin([{
-            from: __dirname + '/static',
-            to: __dirname + '/build/static',
-        }])
+        // new CopyWebpackPlugin([{
+        //     from: __dirname + '/static',
+        //     to: __dirname + '/build/static',
+        // }])
     ]
 
 };
