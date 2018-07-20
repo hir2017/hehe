@@ -61,7 +61,7 @@ export default class BindingBank extends Component {
                 }
                 if (info.file.status === 'done') {
                     if (info.file.response.status === 200) {
-                        const url = info.file.response.attachment;
+                        const url = info.file.response.attachment ? info.file.response.attachment.url : '';
                         ctx.setState({
                             imgUrl: url
                         });
@@ -250,7 +250,8 @@ export default class BindingBank extends Component {
                         </header>
                         <section className={`${this.state.imgUrl ? 'select' : 'no-select'} pic-upload-content`}>
                             <Upload className="pic-upload" {...this._props()}>
-                                <img className="pic-item-img target" src={this.state.imgUrl ? UPEX.config.imgHost + '/' + this.state.imgUrl : upload_pic} />
+                                {/* <img className="pic-item-img target" src={this.state.imgUrl ? UPEX.config.imgHost + '/' + this.state.imgUrl : upload_pic} /> */}
+                                <img className="pic-item-img target" src={this.state.imgUrl ? this.state.imgUrl : upload_pic} />
                                 <img  className="pic-item-img hover" src={upload_pic_hover} />
                             </Upload>
                         </section>

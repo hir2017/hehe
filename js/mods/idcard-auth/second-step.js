@@ -146,7 +146,7 @@ export default class SecondStep extends Component {
                         loading: false
                     });
                     if (info.file.response.status === 200) {
-                        const url = info.file.response.attachment;
+                        const url = info.file.response.attachment ? info.file.response.attachment.url : '';
                         ctx.setState({
                             [urlKey]: url
                         });
@@ -182,7 +182,8 @@ export default class SecondStep extends Component {
                                     <Icon className={_url ? '' : 'block-space'} type="check" />
                                 </p>
                                 <Upload className="pic-upload" {...this._props(item.url)}>
-                                    <img className="pic-item-img target" src={_url ? UPEX.config.imgHost + '/' + _url : upload_pic} />
+                                    {/* <img className="pic-item-img target" src={_url ? UPEX.config.imgHost + '/' + _url : upload_pic} /> */}
+                                    <img className="pic-item-img target" src={_url ? _url : upload_pic} />
                                     <img className="pic-item-img hover" src={upload_pic_hover} />
                                 </Upload>
                                 {_url ? null : (<span className="upload-icon-text">{UPEX.lang.template('点击上传')}</span>)}
