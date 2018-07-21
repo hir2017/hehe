@@ -910,6 +910,65 @@ body .user-main .ant-select-dropdown-menu-item {
     font-weight: bold;
 }
 
+
+.user-main .ace-form.auth-step-4 .up-limit .ant-btn{
+    margin: 0 30px;
+}
+.user-main .ace-form.auth-step-4 .up-limit .anticon.auth-fail {
+    font-size: 24px;
+    position: relative;
+    top: 4px;
+    color: #999;
+}
+.user-main .ace-form.auth-step-4 .up-limit .anticon.auth-fail.show {
+    cursor: pointer;
+}
+
+.user-main .ace-form.auth-step-4 .up-limit .anticon.auth-fail:hover {
+    color: #e8b802;
+}
+.user-main .ace-form.auth-step-4 .up-limit .anticon.auth-fail.none{
+    opacity: 0;
+}
+.user-main .ace-form.auth-step-4 .fail-reason-dialog-wrapper{
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 9999;
+}
+.user-main .ace-form.auth-step-4 .fail-reason-dialog {
+    width: 470px;
+    padding: 32px 32px 24px;
+    min-height: 100px;
+    box-sizing: border-box;
+    border-radius: 6px;
+    background-color: #fff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 4px 12px rgba(0,0,0,.15);
+    font-size: 13px;
+}
+.user-main .ace-form.auth-step-4 .fail-reason-dialog header{
+    font-size: 16px;
+    line-height: 40px;
+    color: #333;
+}
+.user-main .ace-form.auth-step-4 .fail-reason-dialog label {
+    color: #333;
+    display: inline-block;
+    padding: 0 10px;
+}
+.user-main .ace-form.auth-step-4 .fail-reason-dialog-wrapper.show{
+    display: block;
+}
+
+
+
 .user-main .ace-form.auth-step-2 {
     box-sizing: border-box;
     padding: 10px 0;

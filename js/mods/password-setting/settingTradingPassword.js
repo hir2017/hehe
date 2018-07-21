@@ -51,7 +51,7 @@ export default class SettingTradingPassword extends Component {
         }
         const reg = /(?=.*[a-zA-Z])(?=.*[0-9])[0-9A-Za-z+-@_=*]{6,16}/;
         if (this.state.password && !reg.test(this.state.password)) {
-            message.error(UPEX.lang.template('密码由6-18数字、字母和特殊字符组成'));
+            message.error(UPEX.lang.template('密码由6-16数字、字母和特殊字符组成'));
             return;
         }
         if (!this.state.comfirmPwd) {
