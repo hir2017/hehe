@@ -958,6 +958,15 @@ body .user-main .ant-select-dropdown-menu-item {
     line-height: 40px;
     color: #333;
 }
+.user-main .ace-form.auth-step-4 .fail-reason-dialog .anticon-close {
+    position: absolute;
+    right: 14px;
+    top: 14px;
+    cursor: pointer;
+}
+.user-main .ace-form.auth-step-4 .fail-reason-dialog .anticon-close:hover {
+    color: #333;
+}
 .user-main .ace-form.auth-step-4 .fail-reason-dialog label {
     color: #333;
     display: inline-block;

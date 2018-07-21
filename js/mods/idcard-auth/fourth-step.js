@@ -68,12 +68,23 @@ export default class FourthStep extends Component {
                             <Button loading={loading} className="ace-btn-large" onClick={this.submitKycC}>
                                 {UPEX.lang.template('申請更高限額')}
                             </Button>
-                            <div className={`fail-reason-dialog-wrapper ${this.state.visible ? 'show' : ''}`} onClick={e => {
-                                        this.setState({
-                                            visible: false
-                                        });
-                                    }}>
+                            <div
+                                className={`fail-reason-dialog-wrapper ${this.state.visible ? 'show' : ''}`}
+                                onClick={e => {
+                                    this.setState({
+                                        visible: false
+                                    });
+                                }}
+                            >
                                 <div className="fail-reason-dialog">
+                                    <Icon
+                                        type="close"
+                                        onClick={e => {
+                                            this.setState({
+                                                visible: false
+                                            });
+                                        }}
+                                    />
                                     <article className="">
                                         <header>{UPEX.lang.template('您之前一次的申请被驳回')}</header>
                                         <p>
