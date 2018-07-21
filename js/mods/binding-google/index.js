@@ -90,7 +90,6 @@ class Google extends Component {
                     {gaSecretKey.qrcode ? <img src={`data:image/png;base64,${gaSecretKey.qrcode}`} /> : <img />}
                     <div className="code-sms">{gaSecretKey.secretKey}</div>
                 </div>
-                <InputItem {...inputsData.google} />
                 <div>
                      <InputItem {...inputsData.ivCode} />
                      <div className="item v-code-button">
@@ -103,6 +102,8 @@ class Google extends Component {
                         <Vcodebutton imgCode={this.state.ivCode} codeid={codeid} type="phone" />
                     </div>
                 </div>
+                <InputItem {...inputsData.google} />
+
                 <Button loading={loading} className="ace-submit-item" onClick={this.submit}>
                     {UPEX.lang.template('绑定')}
                 </Button>
