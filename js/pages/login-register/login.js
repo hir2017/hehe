@@ -35,6 +35,8 @@ class Login extends Component {
                 title: UPEX.lang.template('手机号')
             }
         ];
+
+        this.sendLoginVercodeFirst = true;
     }
 
     componentWillReceiveProps(nextProps){
@@ -135,6 +137,12 @@ class Login extends Component {
                             this.handleLoginSuccess(data.attachment);
                             break;
                         default:
+                            if (data.status == 5556 && this.sendLoginVercodeFirst) {
+                                this.setState({
+                                    loginErrorText: UPEX.lang.template('请填写正确的短信验证码')
+                                });
+                                return;
+                            }
                             this.setState({
                                 loginErrorText: data.message
                             });
@@ -148,6 +156,7 @@ class Login extends Component {
     }
 
     sendLoginVercode=(e)=>{
+        this.sendLoginVercodeFirst = false;
         this.action.sendLoginCodeSend();
     }
 

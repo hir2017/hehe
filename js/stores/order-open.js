@@ -123,6 +123,7 @@ class OrderStore {
         // 成交数量
         item.tradeNum = NumberUtil.formatNumber(item.tradeNum, pointNum);
         // 成交率
+        item.tradeRate = item.tradeRate || 0;
         item.tradeRate = NumberUtil.formatNumber(item.tradeRate * 100, 2) + '%';
 
         return item;
