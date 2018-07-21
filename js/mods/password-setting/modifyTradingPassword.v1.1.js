@@ -67,7 +67,7 @@ export default class ModifyTradingPassword extends Component {
         const checkPwd = /(?=.*[a-zA-Z])(?=.*[0-9])[0-9A-Za-z+-@_=*]{6,16}/.test(this.state.newPwd);
 
         if (this.state.newPwd && !checkPwd) {
-            message.error(UPEX.lang.template('密码由6-18数字、字母和特殊字符组成'));
+            message.error(UPEX.lang.template('密码由6-16数字、字母和特殊字符组成'));
             return;
         }
 
