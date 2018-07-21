@@ -111,7 +111,7 @@ export default class SettingTradingPassword extends Component {
         return (
             <div className={`sms-btn ${state.show ? 'no-send' : 'sending'}`}>
                 <button type="button" style={props.style || null} disabled={props.disabled} onClick={this.sendCode}  className="send-v-code-button">
-                    {state.show ? UPEX.lang.template('发送验证码') : `${UPEX.lang.template('重发')}(${state.num})`}
+                    {state.show ? UPEX.lang.template('发送验证码') : `${UPEX.lang.template('重发')}(${state.num}s)`}
                 </button>
             </div>
         );

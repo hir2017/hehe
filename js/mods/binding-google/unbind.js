@@ -89,7 +89,6 @@ export default class ReBinding extends Component {
 
         return (
             <PageForm {...PageProps}>
-                <InputItem {...inputsData.google} />
                 <div>
                     <InputItem {...inputsData.ivCode} />
                     <div className="item v-code-button">
@@ -102,6 +101,7 @@ export default class ReBinding extends Component {
                         <Vcodebutton imgCode={this.state.ivCode} codeid={codeid} type="phone" />
                     </div>
                 </div>
+                <InputItem {...inputsData.google} />
                 <div className="info">
                     <Link to="/user/google-guide" className="ace-link underline">{UPEX.lang.template('Google验证器使用教程')}</Link>
                 </div>
