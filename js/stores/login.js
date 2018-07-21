@@ -21,19 +21,18 @@ class LoginInfoBaseStore {
         code: 'TW',
         name: 'Taiwan'
     }; // 选中的国家区域
-    @observable sendingcode = false;
-    @observable sendingphonecode = false;
+    @observable sending = false;
+    @observable disabledCodeBtn = false;
     @observable validImgCode = true; // 图片验证码
     @observable validVercode = true; // 邮箱or手机验证码
     @observable hasPhone = false; // 手机是否已经被占用
-    @observable submiting = false;
+    @observable submiting = false; // 提交中：登录、注册等请求
     @observable validPhone = true;
     @observable validEmail = true;
     @observable validPwd = true;
     @observable validTwicePwd = true;
 
     constructor(stores) {
-        this.captchaStore = stores.captchaStore;
         this.authStore = stores.authStore;
 
         if (UPEX.config.systemLanguage == 'zh-CN') {
@@ -58,22 +57,16 @@ class LoginInfoBaseStore {
         this.inviteId = ''; // 邀请码
         this.agree = false; // 同意协议 
         this.googlecode = ''; // 谷歌验证码
-        this.sendingcode = false;
-        this.sendingphonecode = false;
+        this.disabledCodeBtn = false; // 禁用发送验证码按钮
         this.validImgCode = true; // 图片验证码
         this.validVercode = true; // 邮箱or手机验证码
         this.hasPhone = false; // 手机是否已经被占用
         this.submiting = false;
-    }
-
-    @computed
-    get captcha() {
-        return this.captchaStore.captcha;
-    }
-
-    @computed
-    get codeid() {
-        return this.captchaStore.codeid;
+        this.sending = false;
+        this.validPhone = true;
+        this.validEmail = true;
+        this.validPwd = true;
+        this.validTwicePwd = true;
     }
 
     @computed
@@ -310,19 +303,20 @@ class LoginInfoBaseStore {
         this.submiting = status;
     }
 
+    @action.bound
+    updateSending(status){
+        this.sending = status;
+    }
+
     @action
     changeModeTo(mode) {
+        this.reset();
         this.mode = mode;
     }
 
     @action
-    changeSendingCodeTo(status) {
-        this.sendingcode = status;
-    }
-
-    @action
-    changeSendingPhoneCodeTo(status) {
-        this.sendingphonecode = status;
+    disabledSMSOrPhoneCode(status) {
+        this.disabledCodeBtn = status;
     }
 
     @action
@@ -331,7 +325,7 @@ class LoginInfoBaseStore {
     }
 
     @action
-    changeImgCodeTo(status) {
+    changeValidImgCodeTo(status) {
         this.validImgCode = status;
     }
 

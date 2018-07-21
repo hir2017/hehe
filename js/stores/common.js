@@ -4,6 +4,7 @@
 import { observable, autorun, computed, action, runInAction } from 'mobx';
 import { socket } from '../api/socket';
 import { getBaseCoin , getCurrencyPoints } from '../api/http';
+let isFirst = true;
 
 const getWindowDimensions = () => {
     return {
@@ -63,7 +64,9 @@ class CommonStore {
 
     @action
     getAllCoinPoint() {
-
+        if (!isFirst) {
+            return;
+        }
         this.productDataReady = false;
 
         // if (list) {
@@ -82,10 +85,13 @@ class CommonStore {
                     this.coinsMapId = this.getCoinsMapById(list);
                     this.coinsMap = this.getCoinsMapByName(list);
                     // UPEX.cache.setCache('productlist', list, 1 * 60 * 60 * 1000);  // 1小时
+
+                    isFirst = true; // 第一次成功
                 }
 
                 this.productDataReady = true;
             })
+
         }).catch(()=>{
             this.productDataReady = true;
         })

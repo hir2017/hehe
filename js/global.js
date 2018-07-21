@@ -135,26 +135,10 @@ const baseCurrencySymbol = symbols[baseCurrencyEn];
 const initEnv = Url.query('env');
 
 var PROTOCOL = (function() {
-    // if (initEnv == 'pro') {
-    //     return 'https:';
-    // }
-    // if (location.protocol === 'https:') {
-    //     return 'https:';
-    // } else {
-    //     return 'http:';
-    // }
     return 'https:';
 })();
 
 var SOCKET_PROTOCOL = (function() {
-    // if (initEnv == 'pro') {
-    //     return 'wss:';
-    // }
-    // if (location.protocol === 'https:') {
-    //     return 'wss:';
-    // } else {
-    //     return 'ws:';
-    // }
     return 'wss:';
 })();
 
@@ -285,8 +269,15 @@ const config = {
     emailReg: /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/,
     // 密码正则表达式，登录密码：8~16位
     pwdReg: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z\d\S]{8,16}$/,
-    // 手机号正则表达式
+    // 国内手机号
     phoneReg: /^1[3|4|5|7|8]\d{9}$/,
+    // 数字
+    numberReg: /^\d+$/,
+    // 汉字
+    replaceHZReg: /^[\u4E00-\u9FA5]+$/ig,
+    // 非数字
+    replaceNaNReg: /[^0-9]/ig,
+
     salt: 'dig?F*ckDang5PaSsWOrd&%(polarisex0160630).',
     // 资金密码加盐
     dealSalt: 'dig?F*ckDa2g5PaSsWOrd&%(POLARISEX0160630).',

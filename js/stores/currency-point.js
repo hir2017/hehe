@@ -4,6 +4,7 @@
 import { observable, autorun, computed, action, runInAction } from 'mobx';
 import { getCurrencyPoints } from '../api/http';
 
+let isFirst = true;
 
 class CurrencyStore {
     // 业务公用的数据
@@ -13,6 +14,9 @@ class CurrencyStore {
 
     @action
     getCurrencyPoints() {
+        if (!isFirst) {
+            return;
+        }
         this.currencyDataReady = false;
 
         getCurrencyPoints().then((data) => {
@@ -25,7 +29,9 @@ class CurrencyStore {
                 }
 
                 this.currencyDataReady = true;
+                isFirst = false;
             })
+
         }).catch(()=>{
             this.currencyDataReady = true;
         })

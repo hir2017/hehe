@@ -103,7 +103,7 @@ axios.interceptors.response.use(function(res) {
 
 
 // 获取图片验证码
-export function fetchPicCaptcha() {
+export function fetchIMGCaptcha() {
     return axios.post('/security/getCode');
 }
 

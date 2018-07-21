@@ -4,7 +4,7 @@ import { browserHistory } from 'react-router';
 import Timer from '../../lib/timer';
 import md5 from '../../lib/md5';
 
-export default (store) => {
+export default (store, captchaStore) => {
     return {
         onChangeMode(mode) {
             store.changeModeTo(mode);
@@ -16,7 +16,10 @@ export default (store) => {
 
         onChangeEmail(e) {
             let value = e.currentTarget.value.trim();
-
+            
+            // 不允许输入汉字
+            value = value.replace(UPEX.config.replaceHZReg, '');
+            
             store.setEmail(value);
         },
 
@@ -26,18 +29,18 @@ export default (store) => {
 
         onChangePhone(e) {
             let value = e.currentTarget.value.trim();
+            
+            // 替换所有的非数字
+            value = value.replace(UPEX.config.replaceNaNReg, '');
 
             store.setPhone(value);
         },
 
-        onBlurPhone(e){
-            store.checkValidPhone();
-        },
 
         onChangeImgCode(e) {
             let value = e.currentTarget.value.trim();
 
-            store.changeImgCodeTo(true);
+            store.changeValidImgCodeTo(true);
             store.setImgCode(value);
         },
 
@@ -91,12 +94,18 @@ export default (store) => {
         },
 
         getImgCaptcha() {
-            return store.captchaStore.fetch();
+            return captchaStore.fetch();
+        },
+        // bugfixed 自动获取焦点之后，鼠标光标没有在最后
+        moveCaretAtEnd(e) {
+            var temp_value = e.target.value
+            e.target.value = ''
+            e.target.value = temp_value;
         },
 
-        // 验证用户信息
+        // 注册的时候，发送短信验证码和游戏验证码
         sendVercode(type) {
-            let { verifyInfoBeforeSendCode } = store;
+            let { verifyInfoBeforeSendCode, updateSending } = store;
 
             //  验证表单信息
             if (!verifyInfoBeforeSendCode.pass) {
@@ -104,22 +113,30 @@ export default (store) => {
                 verifyInfoBeforeSendCode.message && message.error(verifyInfoBeforeSendCode.message);
                 return;
             }
-
-            if (store.sendingcode) {
+            
+            if (store.disabledCodeBtn) {
                 return;
             }
 
-            let fetchFn = type == 'resetpwd' ? sendMail : sendEmailForRegister;
+            updateSending(true);
 
+            let fetchFn = type == 'resetpwd' ? sendMail : sendEmailForRegister;
+            
             // 发送手机／邮件验证码
             fetchFn({
                 account: store.account,
                 imgcode: store.imgcode,
-                codeid: store.codeid
+                codeid: captchaStore.codeid
             }).then((data) => {
+                updateSending(false);
+
                 switch (data.status) {
                     case 200:
                         // 发送成功
+                        store.disabledSMSOrPhoneCode(true);
+                        store.changeValidImgCodeTo(true);
+                        store.changeValidVercodeTo(true);
+
                         let timer = this.timer = new Timer({
                             remainTime: 60,
                             isDoubleBit: true,
@@ -129,18 +146,13 @@ export default (store) => {
                         });
 
                         this.timer.on('end', () => {
-                            store.changeSendingCodeTo(false);
+                            store.disabledSMSOrPhoneCode(false);
                         });
-
-                        store.changeSendingCodeTo(true);
-                        store.changeImgCodeTo(true);
-                        store.changeValidVercodeTo(true);
-
                         break;
                     case 412:
                         // 图片验证码错误
                         message.error(data.message);
-                        store.changeImgCodeTo(false);
+                        store.changeValidImgCodeTo(false);
                         this.getImgCaptcha();
                         break;
                     case 414: // 邮箱已经绑定
@@ -149,7 +161,10 @@ export default (store) => {
                         message.error(data.message);
                         this.getImgCaptcha();
                 }
-            });
+            }).catch(()=>{
+                updateSending(false);
+                return false;
+            })
         },
 
         submitResetPwd() {
@@ -173,7 +188,7 @@ export default (store) => {
                 pwd: store.pwd,
                 vercode: store.vercode,
                 imgcode: store.imgcode,
-                codeid: store.codeid
+                codeid: captchaStore.codeid
             }).then((data) => {
                 let result = false;
                 updateSubmiting(false);
@@ -237,7 +252,7 @@ export default (store) => {
 
                 switch (data.status) {
                     case 200:
-                        store.changeSendingCodeTo(false);
+                        store.disabledSMSOrPhoneCode(false);
                         message.success(UPEX.lang.template('成功，将跳转登录页面'));
 
                         setTimeout(() => {
@@ -401,17 +416,26 @@ export default (store) => {
          * 发送手机验证码
          */
         sendLoginCodeSend() {
-            if (store.sendingphonecode) {
+            let { disabledCodeBtn, updateSending } = store;
+            
+            if (disabledCodeBtn) {
                 return;
             }
+
+            updateSending(true);
+
             // 发送手机／邮件验证码
             sendLoginCodeSend({
                 authType: 1,
                 emailOrPhone: store.account,
             }).then((data) => {
+                updateSending(false);
+
                 switch (data.status) {
                     case 200:
                         // 发送成功
+                        store.disabledSMSOrPhoneCode(true);
+
                         let timer = this.timer2 = new Timer({
                             remainTime: 60,
                             isDoubleBit: true,
@@ -421,11 +445,8 @@ export default (store) => {
                         });
 
                         this.timer2.on('end', () => {
-                            store.changeSendingPhoneCodeTo(false);
+                            store.disabledSMSOrPhoneCode(false);
                         });
-
-                        store.changeSendingPhoneCodeTo(true);
-
                         break;
                     case 412:
                         // 图片验证码错误
@@ -435,7 +456,10 @@ export default (store) => {
                         // 其他错误
                         message.error(data.message);
                 }
-            });
+            }).catch(()=>{
+                updateSending(false);
+                return false;
+            })
         },
 
         destroy() {
