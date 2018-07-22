@@ -1,4 +1,3 @@
-
 var path = require('path');
 var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');  // 导出额外的文件插件
