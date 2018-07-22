@@ -16,6 +16,7 @@ import { observer, inject } from 'mobx-react';
 import { Icon, Switch, Popover} from 'antd';
 import TradeCoinList from './coin-list';
 import UDFCompatibleDatafeed from './tv-jsapi';
+import DepthChart from './depth-chart';
 
 @inject('tradeStore','commonStore')
 @observer
@@ -115,7 +116,7 @@ class TVChartContainer extends Component {
         }
 
         this.state = {
-            chart: 'kline'
+            chartType: 'depth'
         }
     }
 
@@ -135,10 +136,7 @@ class TVChartContainer extends Component {
     }
 
     drawChart() {
-        switch (this.state.chart) {
-            case 'depth':
-                this.asyncDepthChart();
-                break;
+        switch (this.state.chartType) {
             case 'kline':
                 this.asyncTradingView();
                 break;
@@ -150,6 +148,7 @@ class TVChartContainer extends Component {
             // 注释不可省略，否则不能显示文件名称
             import(/*webpackChunkName: "charting_library"*/'./../../../lib/tradingview/charting_library.min').then(module => {
                 setTimeout(()=>{
+                    this.visibleKlineMask(true);
                     this.createTradingView();        
                 }, 100);
             }).catch(err => {
@@ -157,21 +156,24 @@ class TVChartContainer extends Component {
             });
         } else {
             if (!this.tvwidget) {
-                if (this.refs.klinemask) {
-                    $(this.refs.klinemask).removeClass('hidden');    
-                }
-
+                this.visibleKlineMask(true);
                 this.createTradingView();
             }
         }
     }
 
-    asyncDepthChart=()=>{
-        import(/*webpackChunkName: "depth"*/'../depth-chart/index').then(DepthChart => {
-            console.log(DepthChart);
-        }).catch(err => {
-            console.log("Chunk loading failed");
-        });
+    visibleKlineMask(visible){
+        let node = $(this.refs.klinemask);
+        
+        if (node.length == 0) { 
+            return;
+        }
+        
+        if (visible) {
+            node.removeClass('hidden');        
+        } else {
+            node.addClass('hidden');        
+        }
     }
 
 	createTradingView() {
@@ -267,7 +269,7 @@ class TVChartContainer extends Component {
         	let widget = window.tvwidget = this.tvwidget = new TradingView.widget(cfg);
 
         	widget.onChartReady(function() {
-                $(self.refs.klinemask).addClass('hidden');
+                self.visibleKlineMask(false);
                 // 要从菜单中删除现有项目，请在项目文本前面使用减号
                 widget.onContextMenu(function(t, e) {
                     return [{
@@ -408,7 +410,7 @@ class TVChartContainer extends Component {
 
 	switchTheme = (theme)=>{
         if (this.tvwidget) {
-            $(this.refs.klinemask).removeClass('hidden');
+            this.visibleKlineMask(true);
         	
             let overrides = this.getOverridesByTheme(theme);
         	let cssurl = this.getCustomCSSUrlByTheme(theme);
@@ -417,7 +419,7 @@ class TVChartContainer extends Component {
     		this.tvwidget.applyOverrides(overrides);
 
             setTimeout(()=>{
-                $(this.refs.klinemask).addClass('hidden');
+                this.visibleKlineMask(false);
             },0)
     	}
     }
@@ -530,7 +532,7 @@ class TVChartContainer extends Component {
 
     showChart=(type)=>{
         this.setState({
-            chart: type
+            chartType: type
         }, function() {
             this.drawChart();
         });
@@ -538,8 +540,10 @@ class TVChartContainer extends Component {
 
     render() {
     	let store = this.props.tradeStore;
+        let chartType = this.state.chartType;
         let checked = store.theme === 'dark';
         let arrowCls = {};
+        let $chartView;
 
         if (store.theme === 'dark') {
             arrowCls =  {
@@ -608,28 +612,29 @@ class TVChartContainer extends Component {
                     <ul className="chart-menu">
                         <li
                             onClick={this.showChart.bind(this, 'kline')}
-                            className={ this.state.chart == 'kline' ? 'selected' : ''}
+                            className={ chartType == 'kline' ? 'selected' : ''}
                         >
                             {UPEX.lang.template('K线图')}
                         </li>
                         <li
                             onClick={this.showChart.bind(this, 'depth')}
-                            className={ this.state.chart == 'depth' ? 'selected' : ''}
+                            className={ chartType == 'depth' ? 'selected' : ''}
                         >
                             {UPEX.lang.template('深度图')}
                         </li>
                     </ul>
 	            </div>
-                <div className="trade-kline-mask" ref="klinemask"><div className="mini-loading"></div></div>
+                <div className="trade-kline-mask hidden" ref="klinemask">
+                    <div className="mini-loading"></div>
+                </div>
                 <div
                     id="kline-chart"
                     ref="kline"
                     className='trade-kline-chart'
-                    data-show={this.state.chart == 'kline' ? 'show': 'hide'}
-                />
-                {
-                    this.state.chart == 'depth' ? <div className='trade-depth-chart' id="depth-chart" ref="depthchart"></div>: null
-                }
+                    data-show={chartType == 'kline' ? 'show': 'hide'}
+                >
+                </div>
+                <DepthChart key={store.currencyNameEn} depthAsks={store.depthAsks} depthBids={store.depthBids}/>
             </div>
         );
     }

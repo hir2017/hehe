@@ -129,6 +129,7 @@ class TradeStore {
         let entrust = JSON.parse(JSON.stringify(this.parsedEntrustData));
         let asks = entrust.sell;
 
+        // return asks;
         return this.processData(asks, 'asks', false);
     }
 
@@ -137,6 +138,7 @@ class TradeStore {
         let entrust = JSON.parse(JSON.stringify(this.parsedEntrustData));
         let bids = entrust.buy;
 
+        // return bids;
         return this.processData(bids, 'bids', true);
     }
     // 最佳买入价格
@@ -565,7 +567,7 @@ class TradeStore {
         })
 
         socket.on('subscribe', data => {
-            console.log('subscribe', data)
+            // console.log('subscribe', data)
         })
     }
 
@@ -890,16 +892,16 @@ class TradeStore {
         for (var i = 0; i < list.length; i++) {
             
             list[i] = {
-                value: Number(list[i].current), // 价格
+                price: Number(list[i].current), // 价格
                 volume: Number(list[i].number) // 成交数量
             };
         }
 
         // Sort list just in case
         list.sort(function(a, b) {
-            if (a.value > b.value) {
+            if (a.price > b.price) {
                 return 1;
-            } else if (a.value < b.value) {
+            } else if (a.price < b.price) {
                 return -1;
             } else {
                 return 0;
@@ -915,9 +917,9 @@ class TradeStore {
                     list[i].totalvolume = list[i].volume;
                 }
                 var dp = {};
-                dp['value'] = list[i].value;
-                dp[type + 'volume'] = list[i].volume;
-                dp[type + 'totalvolume'] = list[i].totalvolume;
+                dp['price'] = list[i].price;
+                dp['volume'] = list[i].volume;
+                dp['totalvolume'] = NumberUtil.formatNumber(list[i].totalvolume, this.pointNum); 
 
                 res.splice(0, 0, dp);
             }
@@ -929,9 +931,9 @@ class TradeStore {
                     list[i].totalvolume = list[i].volume;
                 }
                 var dp = {};
-                dp['value'] = list[i].value;
-                dp[type + 'volume'] = list[i].volume;
-                dp[type + 'totalvolume'] = list[i].totalvolume;
+                dp['price'] = list[i].price;
+                dp['volume'] = list[i].volume;
+                dp['totalvolume'] = NumberUtil.formatNumber(list[i].totalvolume, this.pointNum); 
                 res[res.length] = dp;
             }
         }
