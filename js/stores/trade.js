@@ -919,7 +919,7 @@ class TradeStore {
                 var dp = {};
                 dp['price'] = list[i].price;
                 dp['volume'] = list[i].volume;
-                dp['totalvolume'] = NumberUtil.formatNumber(list[i].totalvolume, this.pointNum); 
+                dp['totalvolume'] = NumberUtil.initNumber(list[i].totalvolume, this.pointNum); 
 
                 res.splice(0, 0, dp);
             }
@@ -933,7 +933,7 @@ class TradeStore {
                 var dp = {};
                 dp['price'] = list[i].price;
                 dp['volume'] = list[i].volume;
-                dp['totalvolume'] = NumberUtil.formatNumber(list[i].totalvolume, this.pointNum); 
+                dp['totalvolume'] = NumberUtil.initNumber(list[i].totalvolume, this.pointNum); 
                 res[res.length] = dp;
             }
         }
