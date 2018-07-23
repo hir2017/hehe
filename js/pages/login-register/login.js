@@ -268,16 +268,6 @@ class Login extends Component {
                 )
             }
 
-            if (store.submiting) {
-                $submitBtn = (
-                    <button type="button" className="submit-btn login-btn">{ UPEX.lang.template('登录中') }</button>
-                )
-            } else {
-                $submitBtn = (
-                    <button type="button" className="submit-btn login-btn" onClick={ this.handleLogin }>{ UPEX.lang.template('登录') }</button>
-                )
-            }  
-
             return (
                 <div className="register-wrapper login-box">
                     <div className="register-form">
@@ -301,6 +291,16 @@ class Login extends Component {
                 </div>
             );
         }
+
+        if (store.submiting) {
+            $submitBtn = (
+                <button type="button" className="submit-btn login-btn">{ UPEX.lang.template('登录中') }</button>
+            )
+        } else {
+            $submitBtn = (
+                <button type="button" className="submit-btn login-btn" onClick={ this.handleLogin }>{ UPEX.lang.template('登录') }</button>
+            )
+        }  
 
         return (
             <div className="register-wrapper">
