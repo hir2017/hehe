@@ -804,12 +804,16 @@ export function isUsedGoogleAuth() {
  */
 
 export function bindPhoneOrEmailAction(EmailCode, phoneCode, phoneOrEmail, type) {
-    return axios.post('/user/bindPhoneOrEmailAction', {
-        // EmailCode,
+    let temp = {
+        EmailCode,
         phoneCode,
         phoneOrEmail,
         type
-    })
+    };
+    if(type === 2) {
+        delete temp.EmailCode;
+    }
+    return axios.post('/user/bindPhoneOrEmailAction', temp)
 }
 
 /**
