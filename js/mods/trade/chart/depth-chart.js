@@ -52,7 +52,6 @@ class DepthChart extends Component{
 
 	// 深度图数据处理方法
 	setDepthData(data){
-		console.log(data);
         var chart = this.chart,
         	i = [],
         	o = [],
