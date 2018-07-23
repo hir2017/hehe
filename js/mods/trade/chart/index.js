@@ -116,7 +116,8 @@ class TVChartContainer extends Component {
         }
 
         this.state = {
-            chartType: 'kline'
+            chartType: 'kline',
+            fullscreen: false
         }
     }
 
@@ -241,6 +242,7 @@ class TVChartContainer extends Component {
                 "disable_resolution_rebuild",
             ],
             disabled_features: [
+                "header_fullscreen_button",
                 "left_toolbar",
                 "header_symbol_search", 
                 "header_resolutions",
@@ -538,9 +540,15 @@ class TVChartContainer extends Component {
         });
     }
 
+    handleFullScreen=(e)=>{
+        this.setState({
+            fullscreen: !this.state.fullscreen
+        })
+    }
+
     render() {
     	let store = this.props.tradeStore;
-        let chartType = this.state.chartType;
+        let { chartType , fullscreen } = this.state;
         let checked = store.theme === 'dark';
         let arrowCls = {};
         let $chartView;
@@ -573,7 +581,7 @@ class TVChartContainer extends Component {
         }
 
         return (
-        	<div className="chart-box">
+        	<div className={`chart-box ${fullscreen ? 'chart-box-mask' : '' }`}>
                 <div className="trade-current-coin">
                     <ul className="info-list">
                         <li className="coin" ref="coin">
@@ -621,6 +629,9 @@ class TVChartContainer extends Component {
                             className={ chartType == 'depth' ? 'selected' : ''}
                         >
                             {UPEX.lang.template('深度图')}
+                        </li>
+                        <li onClick={this.handleFullScreen}>
+                            { fullscreen ? <i className="icon-full"/> : <i className="icon-exit-full"/>}
                         </li>
                     </ul>
 	            </div>

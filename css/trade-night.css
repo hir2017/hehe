@@ -6,6 +6,10 @@
     background-color: #232323;
 }
 
+.app-trade-dark .trade-main-chart .chart-box{
+    background-color: #161615;
+}
+
 .app-trade-dark ::-webkit-scrollbar,
 .app-trade-dark ::-webkit-scrollbar-track {
     background-color: #161615;
@@ -204,7 +208,16 @@
     box-shadow: none;
     border: 1px solid #fee8c2;
 }
+.app-trade-dark .trade-main-chart .chart-menu li .icon-exit-full{
+    background: #24231f url('../images/fullscreen-o.png') no-repeat center center;
+    background-size: 20px 20px;
+    
+}
 
+.app-trade-dark .trade-main-chart .chart-menu li .icon-full{
+    background: #24231f  url('../images/exit-fullscreen-o.png') no-repeat center center;
+    background-size: 20px 20px;
+}
 /**
  * 左侧
  */

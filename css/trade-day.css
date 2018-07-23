@@ -5,6 +5,11 @@
 .app-trade-light {
 	background-color: #ececec;
 }
+
+.app-trade-light .trade-main-chart .chart-box{
+    background-color: #fff;
+}
+
 .app-trade-light .grid-box{
 	background-color: #fff;
 }
@@ -181,6 +186,17 @@
     box-shadow: none;
     border: 1px solid #cc9900;
 }
+
+.app-trade-light .trade-main-chart .chart-menu li .icon-exit-full{
+    background: #f4f4f4 url('../images/fullscreen-o-light.png') no-repeat center center;
+    background-size: 20px 20px;
+    
+}
+
+.app-trade-light .trade-main-chart .chart-menu li .icon-full{
+    background: #f4f4f4  url('../images/exit-fullscreen-o-light.png') no-repeat center center;
+    background-size: 20px 20px;
+}
 /**
  * 左侧
  */
@@ -273,3 +289,5 @@
     height: 40px;
     line-height: 40px;
 }
+
+

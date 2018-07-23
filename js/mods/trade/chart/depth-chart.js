@@ -73,7 +73,7 @@ class DepthChart extends Component{
         	grid: {
                 top: 10,
                 bottom: 30,
-                left: 50,
+                left: 60,
                 right: 10
             },
             tooltip: {
@@ -86,6 +86,14 @@ class DepthChart extends Component{
                 axisPointer: {
                     type: "line"
                 },
+                boundaryGap: false,
+                splitLine: {
+                    show: !0,
+                    lineStyle: { 
+                    	type:'dashed',     
+                        color: 'rgba(102,102,102,0.1)'
+                    }
+                },
                 axisLine: {
 	                lineStyle: {
 	                    color: '#666666'
@@ -95,18 +103,26 @@ class DepthChart extends Component{
             },
             yAxis: {
                 type: "value",
+                axisPointer: {
+                    type: "line"
+                },
                 splitLine: {
-                    show: !1
+                    show: !0,
+                    lineStyle: {  
+                    	type:'dashed',    
+                        color: 'rgba(102,102,102,0.1)'
+                    }
                 },
                 axisLine: {
 	                lineStyle: {
 	                    color: '#666666'
 	                }
-	            },
+	            }
             },
             series: [{
                 type: "line",
                 step: "start",
+                showAllSymbol: false,
                 lineStyle: {
                     normal: {
                         color: "#33c280",
@@ -123,6 +139,7 @@ class DepthChart extends Component{
             {
                 type: "line",
                 step: "start",
+                showAllSymbol: false,
                 lineStyle: {
                     normal: {
                         color: "#ef5d7f",

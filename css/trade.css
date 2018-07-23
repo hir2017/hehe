@@ -852,6 +852,15 @@ body .ant-popover-placement-bottomLeft>.ant-popover-content>.ant-popover-arrow {
     overflow: hidden;
 }
 
+.trade-main-chart .chart-box-mask{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 9;
+}
+
 .trade-main-chart .chart-menu {
     position: absolute;
     top: 0;
@@ -877,6 +886,13 @@ body .ant-popover-placement-bottomLeft>.ant-popover-content>.ant-popover-arrow {
     color: #cc9900;
 }
 
+.trade-main-chart .chart-menu li .icon-exit-full,
+.trade-main-chart .chart-menu li .icon-full{
+    width: 28px;
+    height: 28px;
+    margin-top: 6px;
+    display: inline-block;   
+}
 
 /**
  * 币种K线图
