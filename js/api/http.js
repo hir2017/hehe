@@ -52,7 +52,7 @@ axios.interceptors.request.use(function(config) {
             })
         }
     } else if (config.method === 'get' || config.method === 'delete') {
-        
+
         if (urlWhiteList.indexOf(_path) > -1) {
             config.params = {
                 ...config.params,
@@ -805,7 +805,7 @@ export function isUsedGoogleAuth() {
 
 export function bindPhoneOrEmailAction(EmailCode, phoneCode, phoneOrEmail, type) {
     return axios.post('/user/bindPhoneOrEmailAction', {
-        EmailCode,
+        // EmailCode,
         phoneCode,
         phoneOrEmail,
         type

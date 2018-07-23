@@ -32,7 +32,8 @@ export default class ModifyTradingPassword extends Component {
         newPwd: '',
         comfirmPwd: '',
         vCode: '',
-        ivCode: ''
+        ivCode: '',
+        loginErrorText: ''
     };
 
     setVal(e, name) {
@@ -75,13 +76,18 @@ export default class ModifyTradingPassword extends Component {
         let reqResult = this.props.userInfoStore.modifytradingPwd(this.state.newPwd, pwd);
         reqResult
             .then(data => {
-                console.log('after', data);
-                if (data) {
+                if (data.state) {
                     browserHistory.push('/user/setpwd');
+                } else {
+                    if(data.num !== 'none' && data.num !== null) {
+                        this.setState({
+                            loginErrorText: UPEX.lang.template('输入错误，您还有{num}次机会尝试',{ num: data.num})
+                        });
+                    }
                 }
             })
             .catch(err => {
-                console.log(err);
+                console.error(err);
             });
     }
 
@@ -95,6 +101,7 @@ export default class ModifyTradingPassword extends Component {
         const inputsData = [
             {
                 label: UPEX.lang.template('资金密码'),
+                error: this.state.loginErrorText,
                 className: 'new-pwd',
                 inputProps: getProp('password'),
                 tip: UPEX.lang.template('密码由6-18数字、字母和特殊字符组成')
@@ -105,6 +112,7 @@ export default class ModifyTradingPassword extends Component {
             },
             {
                 label: UPEX.lang.template('确认密码'),
+                className: 'set-trade-pwd-last-input',
                 inputProps: getProp('comfirmPwd')
             }
         ];
@@ -118,7 +126,6 @@ export default class ModifyTradingPassword extends Component {
                 {inputsData.map((item, i) => {
                     return <InputItem key={i} {...item} />;
                 })}
-
                 <Button loading={loading} className="ace-submit-item" onClick={this.submit}>
                     {UPEX.lang.template('提交')}
                 </Button>

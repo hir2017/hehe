@@ -619,15 +619,19 @@ class UserInfo {
 
     @action
     async modifytradingPwd(newFdPassWord, passWord) {
-        let reqResult = false;
+        let reqResult = {
+            state: false,
+            num: 'none'
+        };
         try {
             this.submit_loading_tpwd = true;
             const res = await modifyFdPwd(newFdPassWord, passWord);
             this.submit_loading_tpwd = false;
             if (res.status !== 200) {
                 pickErrMsg(res, 'modifytradingPwd');
+                reqResult.num = res.attachment;
             } else {
-                reqResult = true;
+                reqResult.state = true;
                 message.success(UPEX.lang.template('修改成功'));
             }
         } catch (e) {

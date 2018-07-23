@@ -11,6 +11,7 @@ import { Icon , Modal } from 'antd';
 import {  Link , browserHistory } from 'react-router';
 import toAction from './action';
 import { TabView , AreaCodeSelectView, SMSCodeView } from './views';
+import AutoCompleteHack from '../../mods/common/auto-complete-hack';
 
 @inject('loginStore', 'captchaStore')
 @observer
@@ -300,10 +301,11 @@ class Login extends Component {
             $submitBtn = (
                 <button type="button" className="submit-btn login-btn" onClick={ this.handleLogin }>{ UPEX.lang.template('登录') }</button>
             )
-        }  
+        }
 
         return (
             <div className="register-wrapper">
+                <AutoCompleteHack/>
                 <div className="register-form">
                     <h3 className="title"> { UPEX.lang.template('登录')} </h3>
                     <TabView data={this.tabs} current={store.mode} onClick={this.onChangeMode}/>
