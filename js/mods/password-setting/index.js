@@ -83,7 +83,7 @@ export default class BindingBank extends Component {
                 class: 'ace-secondary',
             },
             modify: {
-                path: '/user/modifyTraddingPassword',
+                path: '/user/modify-trade-pwd',
                 label: UPEX.lang.template('修改'),
                 class: 'ace-btn-white',
             }

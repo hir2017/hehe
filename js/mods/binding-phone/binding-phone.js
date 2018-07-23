@@ -51,7 +51,7 @@ export default class BindingPhone extends Component {
             },
             vCode: {
                 label: UPEX.lang.template('短信验证码'),
-                className: 'v-code',
+                className: 'v-code no-email',
                 inputProps: getProp('vCode', 'none')
             },
             evCode: {
@@ -82,9 +82,10 @@ export default class BindingPhone extends Component {
         if(['phone', 'ivCode'].indexOf(name) !== -1) {
             data.vcodeAbled = state[name === 'phone' ? 'ivCode' : 'ivCode'] !== '' && val !== '';
         }
-        if(['vCode', 'evCode'].indexOf(name) !== -1) {
-            data.submitAbled = state[name === 'vCode' ? 'evCode' : 'vCode'] !== '' && val !== '';
-        }
+        data.submitAbled = state.vCode !== '' && val !== '';
+        // if(['vCode', 'evCode'].indexOf(name) !== -1) {
+        //     data.submitAbled = state[name === 'vCode' ? 'evCode' : 'vCode'] !== '' && val !== '';
+        // }
         this.setState(data);
     }
 
@@ -107,10 +108,10 @@ export default class BindingPhone extends Component {
             message.error(UPEX.lang.template('请填写短信验证码'));
             return;
         }
-        if (!this.state.evCode) {
-            message.error(UPEX.lang.template('请填写邮箱验证码'));
-            return;
-        }
+        // if (!this.state.evCode) {
+        //     message.error(UPEX.lang.template('请填写邮箱验证码'));
+        //     return;
+        // }
 
         this.props.userInfoStore.bindPEAction(this.state.evCode, this.state.vCode, this.state.areacode + this.state.phone, 2).then(data => {
             if(!data) {
@@ -164,10 +165,10 @@ export default class BindingPhone extends Component {
                         imgCode={this.state.ivCode}
                         codeid={codeid}
                     />
-                    <p className="sp-tip">
+                    {/* <p className="sp-tip">
                         {UPEX.lang.template('请填写收到的验证码')}
-                    </p>
-                    <InputItem {...inputsData.evCode} />
+                    </p> */}
+                    {/* <InputItem {...inputsData.evCode} /> */}
                     <InputItem {...inputsData.vCode} />
                 </div>
                 <Button loading={loading} disabled={!this.state.submitAbled} className="ace-submit-item" onClick={this.submit}>

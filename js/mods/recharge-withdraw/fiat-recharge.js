@@ -10,6 +10,8 @@ import toAction from './fiat-recharge-action';
 
 import CardSelect from './bind-card-select';
 import OrderInfo from './fiat-order-info';
+import AutoCompleteHack from '../common/auto-complete-hack';
+
 
 // 金流類型
 const cashTypes = () => {
@@ -127,6 +129,7 @@ class FiatRechargeView extends Component {
 
         return (
             <div>
+                <AutoCompleteHack/>
                 {$formContent}
                 <div className="rw-form">
                     <div className="rw-form-info">

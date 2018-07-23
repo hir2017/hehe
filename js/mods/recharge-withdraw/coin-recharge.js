@@ -11,7 +11,7 @@ import Clipboard from 'clipboard';
 
 import { selectUserAddress } from '../../api/http';
 import {initStateAndChange, initCoinList} from './coin-actions';
-
+import AutoCompleteHack from '../common/auto-complete-hack';
 
 @inject('accountStore')
 @observer
@@ -80,6 +80,7 @@ class CoinRecharge extends Component {
         return (
             <div>
                 <div className="rw-form">
+                    <AutoCompleteHack/>
                     <div className="rw-form-item">
                         <Alert description={UPEX.lang.template('充币提醒信息内容')} type="warning" />
                     </div>

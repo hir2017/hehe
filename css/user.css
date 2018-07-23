@@ -995,11 +995,21 @@ body .user-main .ant-select-dropdown-menu-item {
     border-radius: 7px;
 }
 
-.user-main .ace-form.auth-step-2 .ant-upload-list-item-name,
-.user-main .ace-form.auth-step-2 .anticon-paper-clip {
-    display: none;
+.user-main .ace-form.auth-step-2 .ant-upload-list {
+    position: absolute;
+    top: 45%;
+    width: 88%;
 }
 
+.user-main .ace-form.auth-step-2 .ant-upload-list-item-name,
+.user-main .ace-form.auth-step-2 .anticon-paper-clip,
+.user-main .ace-form.auth-step-2 .ant-upload-list-item-done
+ {
+    display: none;
+}
+.user-main .ace-form.auth-step-2 .ant-upload-list-item-progress {
+    padding:0 15px;
+}
 .user-main .ace-form.auth-step-2 .ace-upload-mod {
     text-align: center;
     height: auto;
@@ -1265,7 +1275,7 @@ body .user-main .ant-select-dropdown-menu-item {
     line-height: 18px;
 }
 
-.user-main .page-content-inner.bank-info .ant-upload-list-item-info {
+.user-main .page-content-inner.bank-info .ant-upload-list-item-info, .user-main .ant-upload-list-item-done {
     display: none;
 }
 
@@ -1304,9 +1314,6 @@ body .user-main .ant-select-dropdown-menu-item {
     display: inline-block;
 }
 
-.user-main .bank-info .ant-upload-list {
-    display: none;
-}
 
 .user-main .bank-info .ace-upload-mod.pic-item header {
     overflow: hidden;
@@ -2204,4 +2211,10 @@ body .user-main .ant-select-dropdown-menu-item {
 
 .ace-form .user-sp-sms-btn-box .ace-input-item.v-code {
     margin-left: 40px;
+}
+
+
+.ace-form .user-sp-sms-btn-box .ace-input-item.v-code.no-email {
+    margin-left: 0;
+    width: 100%;
 }

@@ -1,9 +1,4 @@
-/*
- * modify by haiyang 2018-07-20
- * bugfix:
- *  描述：多添加了一个input用于抵消浏览器自动填充的bug
- *  解决方案：<input type="text" name="wid_no_auto_3" style={{display: 'none'}}/>
- */
+
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import { Select, message, Alert } from 'antd';
@@ -11,6 +6,7 @@ const Option = Select.Option;
 import { Link, browserHistory } from 'react-router';
 import toAction from './coin-withdraw-action';
 import InputNumber from '../input-number';
+import AutoCompleteHack from '../common/auto-complete-hack';
 
 @inject('coinWithdrawStore', 'accountStore', 'userInfoStore', 'commonStore')
 @observer
@@ -105,6 +101,7 @@ class WithdrawCoin extends Component {
         return (
             <div>
                 <form className="rw-form" autoComplete="off">
+                    <AutoCompleteHack/>
                     {store.isFetching ? <div className="mini-loading" /> : null}
                     <div className="rw-form-item">
                         <Alert

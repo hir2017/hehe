@@ -123,7 +123,7 @@ const routes = (
 				<Route path="bankInfo" component={BankInfo} />
 				<Route path="setpwd" component={PasswordSetting} />
 				<Route path="resetpwd" component={ModifyPassword} />
-				<Route path="modifyTraddingPassword" component={ModifyTraddingPassword} />
+				<Route path="modify-trade-pwd" component={ModifyTraddingPassword} />
 				<Route path="settingTraddingPassword" component={SettingTraddingPassword} />
 				<Route path="forget-trade-pwd" component={forgetTradePwd} />
 				<Route path="binding-phone" component={BindingPhone} />

@@ -3,10 +3,11 @@
  */
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
-import { Select, message } from 'antd';
+import { Select, message, AutoComplete } from 'antd';
 const Option = Select.Option;
 import toAction from './fiat-withdraw-action';
 
+import AutoCompleteHack from '../common/auto-complete-hack';
 import CardSelect from './bind-card-select';
 import OrderInfo from './fiat-order-info';
 
@@ -109,11 +110,7 @@ class FiatRechargeView extends Component {
                     <div className="rw-form-item">
                         <label className="rw-form-label" />
                         <div className="rw-form-info">
-                            <input
-                                type="text"
-                                name="fia_no_auto2"
-                                style={{display: 'none'}}
-                            />
+                            <AutoCompleteHack />
                             {store.authType == 'phone' ? (
                                 <div className="input-button-box">
                                     <div className="input-box">
