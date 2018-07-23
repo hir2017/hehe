@@ -97,7 +97,6 @@ class DepthChart extends Component{
             series: [{
                 type: "line",
                 step: "start",
-                data: o,
                 lineStyle: {
                     normal: {
                         color: "#33c280",
@@ -108,12 +107,12 @@ class DepthChart extends Component{
                     normal: {
                         color: "rgba(51, 194, 128, 0.2)"
                     }
-                }
+                },
+                data: o,
             },
             {
                 type: "line",
                 step: "start",
-                data: a,
                 lineStyle: {
                     normal: {
                         color: "#ef5d7f",
@@ -124,7 +123,8 @@ class DepthChart extends Component{
                     normal: {
                         color: "rgba(239, 93, 127, 0.2)"
                     }
-                }
+                },
+                data: a,
             }]
         });
 

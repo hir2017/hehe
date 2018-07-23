@@ -116,7 +116,7 @@ class TVChartContainer extends Component {
         }
 
         this.state = {
-            chartType: 'depth'
+            chartType: 'kline'
         }
     }
 
