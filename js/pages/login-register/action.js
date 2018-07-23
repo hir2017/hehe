@@ -246,7 +246,7 @@ export default (store, captchaStore) => {
                 vercode: store.vercode,
                 inviteId: store.inviteId,
                 imgcode: store.imgcode,
-                codeid: store.codeid
+                codeid: captchaStore.codeid
             }).then((data) => {
                 updateSubmiting(false);
 
@@ -339,7 +339,7 @@ export default (store, captchaStore) => {
                 email: store.account,
                 pwd: md5(store.pwd + UPEX.config.salt),
                 imgcode: store.imgcode,
-                codeid: store.codeid
+                codeid: captchaStore.codeid
             }).then((data) => {
                 updateSubmiting(false);
 
