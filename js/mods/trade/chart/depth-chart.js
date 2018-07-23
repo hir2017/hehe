@@ -85,13 +85,23 @@ class DepthChart extends Component{
                 axisPointer: {
                     type: "line"
                 },
+                axisLine: {
+	                lineStyle: {
+	                    color: '#666666'
+	                }
+	            },
                 data: i
             },
             yAxis: {
                 type: "value",
                 splitLine: {
                     show: !1
-                }
+                },
+                axisLine: {
+	                lineStyle: {
+	                    color: '#666666'
+	                }
+	            },
             },
             series: [{
                 type: "line",
