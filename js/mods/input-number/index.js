@@ -57,16 +57,14 @@ class NumberInput extends Component {
         }
     }
 
-    keyup = (e) => {
-
-    }
-
     change = (e) => {
         // negative->判断能否输负数 true->可为负数 false->不可为负数 默认为不可为负数
         const { negative } = this.props;
+        const node = e.target;
         const targetValue = e.target.value;
         const oldValue = this.state.value || '';
         const precision = this.props.precision;
+        const cursorStart = e.target.selectionStart;
         let formatValue;
 
         // 可以为负数
@@ -84,6 +82,7 @@ class NumberInput extends Component {
             this.setState({
                 value: formatValue
             });
+            
 
             if (formatValue.indexOf('.') > -1 && typeof precision !== 'undefined') {
                 let str = "" + formatValue, idx = str.indexOf(".") + Number(precision) + 1;
@@ -107,6 +106,8 @@ class NumberInput extends Component {
                 this.props.onChange(e, formatValue);
             }
         }
+
+        node.selectionStart = node.selectionEnd = cursorStart;
     }
 
     blur = (e) => {
