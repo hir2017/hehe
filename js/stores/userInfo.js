@@ -521,7 +521,7 @@ class UserInfo {
             if (res.status === 200) {
                 result = true;
                 this.bankCardInfo();
-                message.success(UPEX.lang.template('绑定成功'));
+                message.success(UPEX.lang.template('提交银行卡提示'));
             } else {
                 if (res.status === 13506 || res.status === 13501) {
                     message.error('已有账号绑定该银行卡');

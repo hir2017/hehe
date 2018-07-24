@@ -39,7 +39,7 @@ class InfoView extends Component {
 						<label>{ UPEX.lang.template('总资产折合')}</label>
 						<label>{UPEX.config.baseCurrencyEn}</label>
 					    <label>≈</label>
-					    <em>{`NT$${store.allMoney || '--'}`}</em>
+					    <em>{`NT$${store.allMoney || '0.00'}`}</em>
 					</div>
 				</div>
 				<div className="account-content clearfix">
