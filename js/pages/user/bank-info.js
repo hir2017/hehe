@@ -39,7 +39,7 @@ class BankInfo extends Component {
         const userInfo = this.props.userInfoStore.userInfo || {};
         let $content;
         let needTitle = false;
-
+        let bodyClass = 'height-full-sp';
         if (userInfo.authLevel < 1) {
             // 未通过KYC1
             needTitle = true;
@@ -61,6 +61,7 @@ class BankInfo extends Component {
                 </div>
             );
         } else {
+            bodyClass = '';
             $content = (
                 <div>
                     <BindingBank />
@@ -77,7 +78,7 @@ class BankInfo extends Component {
         }
 
         return (
-            <PageWrapper innerClass="bank-info" noPadding>
+            <PageWrapper innerClass="bank-info" bodyClass={bodyClass} noPadding>
                 {$content}
             </PageWrapper>
         );

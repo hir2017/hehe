@@ -78,6 +78,10 @@ class List extends Component {
         }
     }
 
+    parseItemRate(num) {
+        return (parseFloat(num) * 100).toFixed(2);
+    }
+
     transVal(val, field) {
         // 0. 未成交 1. 部分成交 2. 全部成交 3. 委托失败 4. 全部撤单 5. 部分成交后撤单
         // 委托历史只包含： 2、4、5
@@ -92,7 +96,7 @@ class List extends Component {
     render() {
         let store = this.props.historyStore;
         let $content;
-
+        const {parseItemRate} = this;
         if (!this.props.authStore.isLogin) {
             $content = <div className="mini-tip">{UPEX.lang.template('登录后可查看委托历史订单')}</div>;
         } else if (!store.isFetching && store.orderList.length == 0) {
@@ -120,7 +124,7 @@ class List extends Component {
                                             </td>
                                             <td>
                                                 <span className="label"> {UPEX.lang.template('成交率')}：</span>
-                                                {parseFloat(subItem.rate) * 100}%
+                                                {parseItemRate(subItem.rate)}%
                                             </td>
                                         </tr>
                                     );
@@ -138,7 +142,7 @@ class List extends Component {
                                             </td>
                                             <td>
                                                 <span className="label"> {UPEX.lang.template('撤单比例')}：</span>
-                                                {parseFloat(item._cancel.rate) * 100}%
+                                                {parseItemRate(item._cancel.rate)}%
                                             </td>
                                         </tr>
                                     )

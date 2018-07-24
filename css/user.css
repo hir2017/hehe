@@ -18,7 +18,9 @@ body .user-main .ant-select-dropdown-menu-item {
 }
 
 /* 头部提示 */
-
+.user-main .page-content-inner {
+    min-height: 620px;
+}
 .user-main .page-content-inner .ace-top-tips {
     background-color: #fefbe8;
     border: solid 1px #fbe59a;
@@ -367,6 +369,10 @@ body .user-main .ant-select-dropdown-menu-item {
     padding: 5px 0 0 20px;
 }
 
+.page-content-inner.base-info .ace-section.list .section-body{
+    min-height: 272px;
+}
+
 .page-content-inner.base-info .grade-label {
     color: #999;
     font-size: 14px;
@@ -522,6 +528,17 @@ body .user-main .ant-select-dropdown-menu-item {
     text-align: center;
 }
 
+/* user 高度对齐 */
+
+.user-main .content-body  {
+    min-height: 561px;
+}
+.user-main .height-full-1 {
+    min-height: 561px;
+}
+.user-main .height-full-sp .section-body{
+    min-height: 561px;
+}
 /**
  * 身份认证
  */
@@ -564,7 +581,7 @@ body .user-main .ant-select-dropdown-menu-item {
 }
 
 .user-main .authentication-message {
-    margin-top: 200px;
+    /* margin-top: 200px; */
     text-align: center;
     font-size: 18px;
     color: #333333;
