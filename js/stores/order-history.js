@@ -156,7 +156,7 @@ class OrderStore {
         let pointPrice = currencyObj.pointPrice;
 
         // 时间
-        item.orderTime = TimeUtil.formatDate(item.orderTime, 'yyyy-MM-dd HH:mm:ss');
+        item.orderTime = item.orderTime.split('.0')[0];
         // 委托价格
         item.price = NumberUtil.formatNumber(item.price, pointPrice);
         // 平均成交价
