@@ -340,11 +340,21 @@ body .ant-popover-placement-bottomLeft>.ant-popover-content>.ant-popover-arrow {
     flex-direction: column;
 }
 
-.app-trade .trade-extra-list .list-box-r,
+.app-trade .trade-extra-list .list-box-r{
+    width: 265px;
+    position: absolute;
+    height: 100%;
+    border-radius: 6px;
+    overflow: hidden;
+    right: 0;
+    top: 0;
+}
 .app-trade .trade-extra-list .list-box-l {
     width: 265px;
-    position: relative;
+    position: absolute;
     height: 100%;
+    left: 0;
+    top: 0;
     border-radius: 6px;
     overflow: hidden;
 }
@@ -357,7 +367,7 @@ body .ant-popover-placement-bottomLeft>.ant-popover-content>.ant-popover-arrow {
     flex: 1;
     margin-bottom: 10px;
     overflow: hidden;
-    /* min-height: 160px; */
+    position: relative;
 }
 
 
@@ -411,13 +421,13 @@ body .ant-popover-placement-bottomLeft>.ant-popover-content>.ant-popover-arrow {
     margin-right: 6px;
 }
 
-.app-trade .list-box-l {
+/* .app-trade .list-box-l {
     float: left;
 }
 
 .app-trade .list-box-r {
     float: right;
-}
+} */
 
 .app-trade .list-box-l {
     display: flex;

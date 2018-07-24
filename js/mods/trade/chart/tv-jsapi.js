@@ -148,13 +148,24 @@ class UDFCompatibleDatafeed {
                 }
             }
 
+            let _historyData = this.historyData[_resolution];
+
+            if (_historyData && bars.length > 0) {
+                if (_historyData.first && _historyData.first.time > bars[0].time) { 
+                    // 往前插入
+                    bars = bars.concat(_historyData.bars);
+                } else if (_historyData.last &&  _historyData.first.last < bars[bars.length-1].time) {
+                    // 往后追加
+                    bars = _historyData.bars.concat(bars);
+                }
+            }
             console.log(bars);
 
             this.historyData[_resolution] = {
                 bars: bars,
                 meta: meta,
-                last: bars[bars.length-1],
-                first: bars[0]
+                last: bars[bars.length-1], // 最新一笔
+                first: bars[0] // 最早一笔
             }
 
             onHistoryCallback(bars, meta);

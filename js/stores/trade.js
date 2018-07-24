@@ -861,6 +861,9 @@ class TradeStore {
                                 this.setDealSellNum('');
                                 this.setTradeSellPassword('');
                             }
+                            
+                            this.getUserAccount();
+
                             break;
                         case 2013: //"交易密码输入错误"
                             if (type == 'buy') {
