@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import { Input, Select, Checkbox, Button, Radio } from 'antd';
-import {isNumberOrCode} from '../../lib/util/validate';
+import { isNumberOrCode } from '../../lib/util/validate';
 import dayjs from 'dayjs';
 
 const Option = Select.Option;
@@ -57,11 +57,11 @@ export default class FirstStep extends Component {
     // params(3): msgField, name, val; params(2): name, val;
     selectChange(...params) {
         let data = {};
-        if(params.length === 3) {
+        if (params.length === 3) {
             data[0] = '';
-            data[params[1]] = params[2]
+            data[params[1]] = params[2];
         } else {
-            data[params[0]] = params[1]
+            data[params[0]] = params[1];
         }
         this.setState(data);
     }
@@ -133,8 +133,8 @@ export default class FirstStep extends Component {
             annualsalary: UPEX.lang.template('请选择年薪')
         };
 
-        for(let _name in mesMap) {
-            if(!this.state[_name]) {
+        for (let _name in mesMap) {
+            if (!this.state[_name]) {
                 mesData[_name + 'Mes'] = mesMap[_name];
                 allPass = false;
             } else {
@@ -200,20 +200,20 @@ export default class FirstStep extends Component {
                 label: UPEX.lang.template('证件号码'),
                 inputProps: {
                     className: 'input',
-                    onChange: (e) => {
-                        if(e.target.value.trim() !== '') {
-                            if(!isNumberOrCode(e.target.value.trim())) {
+                    onChange: e => {
+                        if (e.target.value.trim() !== '') {
+                            if (!isNumberOrCode(e.target.value.trim())) {
                                 return;
                             }
                         }
                         this.setVal(e, 'idCard');
-                    },
+                    }
                 },
                 tip: UPEX.lang.template('为保证款项可能有退还的情形，因此填写真实身份证号'),
                 error: state.idCardMes
             }
         };
-        const submitProp = this.state.check ? {onClick: this.next, className: 'ace-submit-item'} : {className:"ace-submit-item disabled", disabled: true}
+        const submitProp = this.state.check ? { onClick: this.next, className: 'ace-submit-item' } : { className: 'ace-submit-item disabled', disabled: true };
         return (
             <AceForm className="auth-step-1">
                 <div className="muti-filed clearfix">
@@ -224,7 +224,7 @@ export default class FirstStep extends Component {
                 <div className="ace-input-item select time-label">
                     <span className="label">{UPEX.lang.template('出生日期')}</span>
                     <div className="input">
-                        <Select placeholder={UPEX.lang.template('年')} onChange={this.selectChange.bind(this, 'year')} >
+                        <Select placeholder={UPEX.lang.template('年')} onChange={this.selectChange.bind(this, 'year')}>
                             {this.years().map((item, index) => {
                                 return (
                                     <Option key={index} value={item}>
@@ -234,7 +234,7 @@ export default class FirstStep extends Component {
                                 );
                             })}
                         </Select>
-                        <Select placeholder={UPEX.lang.template('月')} onChange={this.selectChange.bind(this, 'month')} >
+                        <Select placeholder={UPEX.lang.template('月')} onChange={this.selectChange.bind(this, 'month')}>
                             {this.months().map((item, index) => {
                                 return (
                                     <Option key={index} value={item}>
@@ -244,7 +244,7 @@ export default class FirstStep extends Component {
                                 );
                             })}
                         </Select>
-                        <Select className="last" placeholder={UPEX.lang.template('日')} onChange={this.selectChange.bind(this, 'birthdayMes', 'day')} >
+                        <Select className="last" placeholder={UPEX.lang.template('日')} onChange={this.selectChange.bind(this, 'birthdayMes', 'day')}>
                             {this.days().map((item, index) => {
                                 return (
                                     <Option key={index} value={item}>
@@ -286,7 +286,6 @@ export default class FirstStep extends Component {
                             </Select>
                         </div>
                         <span className="error-message">{this.state.professionMes}</span>
-
                     </div>
                     <div className="ace-input-item select last">
                         <span className="label">{UPEX.lang.template('年薪')}</span>
@@ -317,15 +316,20 @@ export default class FirstStep extends Component {
                 </div>
                 <div className="item align-left">
                     <Checkbox onChange={this.checkHandel}>
-                        <span className="checkbox-text">{UPEX.lang.template('勾选选项表示您同意我们的用户条款和隐私条款')}</span>
+                        <span
+                            className="checkbox-text"
+                            dangerouslySetInnerHTML={{
+                                __html: UPEX.lang.template('勾选选项表示您同意我们的用户条款和隐私条款', {
+                                    href1: UPEX.lang.template('服务条款网页链接'),
+                                    href2: UPEX.lang.template('隐私保护网页链接')
+                                })
+                            }}
+                        />
                     </Checkbox>
                 </div>
                 <div className="submit">
-                     <Button {...submitProp}>
-                        {UPEX.lang.template('下一步')}
-                    </Button>
+                    <Button {...submitProp}>{UPEX.lang.template('下一步')}</Button>
                 </div>
-
             </AceForm>
         );
     }
