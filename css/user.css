@@ -367,6 +367,10 @@ body .user-main .ant-select-dropdown-menu-item {
     padding: 5px 0 0 20px;
 }
 
+.page-content-inner.base-info .ace-section.list .section-body{
+    min-height: 272px;
+}
+
 .page-content-inner.base-info .grade-label {
     color: #999;
     font-size: 14px;
@@ -522,6 +526,13 @@ body .user-main .ant-select-dropdown-menu-item {
     text-align: center;
 }
 
+/* user 高度对齐 */
+.user-main .height-full-1 {
+    height: 561px;
+}
+.user-main .height-full-sp .section-body{
+    height: 561px;
+}
 /**
  * 身份认证
  */

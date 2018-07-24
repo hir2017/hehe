@@ -63,7 +63,8 @@ export default class extends Component {
                     <p className="content">{question.detail}</p>
                     <ul className="img-list">
                         {question.urlkey.split(',').map((item, index) => {
-                            let url = UPEX.config.imgHost + '/' + item;
+                            // let url = UPEX.config.imgHost + '/' + item;
+                            let url = item;
                             return item ? (
                                 <li
                                     key={index}
@@ -104,7 +105,7 @@ export default class extends Component {
                         });
                     }}
                 >
-                    <div className="img-box" style={this.state.boxStyle}>
+                    <div className="img-box">
                         <img style={this.state.imgStyle} src={this.state.imgUrl} />
                     </div>
                 </Modal>
