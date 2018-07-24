@@ -1275,7 +1275,7 @@ body .user-main .ant-select-dropdown-menu-item {
     line-height: 18px;
 }
 
-.user-main .page-content-inner.bank-info .ant-upload-list-item-info, .user-main .ant-upload-list-item-done {
+.user-main .page-content-inner.bank-info .ant-upload-list-item-info, .user-main .page-content-inner.bank-info .ant-upload-list-item-done {
     display: none;
 }
 

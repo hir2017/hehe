@@ -80,7 +80,7 @@ export default class extends Component {
             })
             .map(item => {
                 if (item.response) {
-                    return item.response.attachment;
+                    return item.response.attachment.url;
                 }
             })
             .join(',');
