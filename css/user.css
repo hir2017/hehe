@@ -18,7 +18,9 @@ body .user-main .ant-select-dropdown-menu-item {
 }
 
 /* 头部提示 */
-
+.user-main .page-content-inner {
+    min-height: 620px;
+}
 .user-main .page-content-inner .ace-top-tips {
     background-color: #fefbe8;
     border: solid 1px #fbe59a;
@@ -527,11 +529,15 @@ body .user-main .ant-select-dropdown-menu-item {
 }
 
 /* user 高度对齐 */
+
+.user-main .content-body  {
+    min-height: 561px;
+}
 .user-main .height-full-1 {
-    height: 561px;
+    min-height: 561px;
 }
 .user-main .height-full-sp .section-body{
-    height: 561px;
+    min-height: 561px;
 }
 /**
  * 身份认证
@@ -575,7 +581,7 @@ body .user-main .ant-select-dropdown-menu-item {
 }
 
 .user-main .authentication-message {
-    margin-top: 200px;
+    /* margin-top: 200px; */
     text-align: center;
     font-size: 18px;
     color: #333333;

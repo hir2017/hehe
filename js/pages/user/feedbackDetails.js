@@ -22,8 +22,8 @@ export default class extends Component {
             }
         };
         this.scrollFn = function() {
-            let $dom = $('.ant-modal.feedback-modal .ant-modal-content .img-box');
-            $dom.width($dom.height());
+            // let $dom = $('.ant-modal.feedback-modal .ant-modal-content .img-box');
+            // $dom.width($dom.height());
         }
     }
 
