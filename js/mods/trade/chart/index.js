@@ -460,6 +460,7 @@ class TVChartContainer extends Component {
 
 	getOverridesByTheme(theme) {
         var t = this.defaultThemes[theme];
+
         var overrides = {
             volumePaneSize: "medium",
             "scalesProperties.lineColor": t.text,
