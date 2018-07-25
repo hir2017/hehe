@@ -46,7 +46,8 @@ export default class FirstStep extends Component {
         profession: '',
         professionMes: '',
         annualsalary: '',
-        annualsalaryMes: ''
+        annualsalaryMes: '',
+        selectDays: []
     };
 
     setVal(e, name) {
@@ -54,6 +55,19 @@ export default class FirstStep extends Component {
         data[name] = e.target.value.trim();
         this.setState(data);
     }
+
+    isLeapYear(iYear) {
+        if (iYear % 4 == 0 && iYear % 100 != 0) {
+            return true;
+        } else {
+            if (iYear % 400 == 0) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+
     // params(3): msgField, name, val; params(2): name, val;
     selectChange(...params) {
         let data = {};
@@ -62,6 +76,20 @@ export default class FirstStep extends Component {
             data[params[1]] = params[2];
         } else {
             data[params[0]] = params[1];
+        }
+        if (['year', 'month'].indexOf(params[0]) !== -1) {
+            let tempVal = parseInt(params[1]);
+            let dayNum = 0;
+            // 暂时不处理年的
+            if (params[0] === 'month') {
+                if(tempVal === 2) {
+                    dayNum = this.isLeapYear() ? 29 : 28;
+                } else {
+                    dayNum = [1, 3, 5, 7, 8, 10, 12].indexOf(tempVal) !== -1 ? 31 : 30;
+                }
+                data.selectDays = this.days(dayNum);
+                data.day = '';
+            }
         }
         this.setState(data);
     }
@@ -90,8 +118,8 @@ export default class FirstStep extends Component {
         return monthA;
     }
 
-    days() {
-        let count = 30;
+    days(num) {
+        let count = num;
         const monthA = [];
         while (count) {
             let month = count--;
@@ -244,8 +272,8 @@ export default class FirstStep extends Component {
                                 );
                             })}
                         </Select>
-                        <Select className="last" placeholder={UPEX.lang.template('日')} onChange={this.selectChange.bind(this, 'birthdayMes', 'day')}>
-                            {this.days().map((item, index) => {
+                        <Select className="last" placeholder={UPEX.lang.template('日')}  value={this.state.day} onChange={this.selectChange.bind(this, 'birthdayMes', 'day')}>
+                            {this.state.selectDays.map((item, index) => {
                                 return (
                                     <Option key={index} value={item}>
                                         {item}
@@ -278,7 +306,7 @@ export default class FirstStep extends Component {
                                 <Option value={1}>{UPEX.lang.template('军公教')}</Option>
                                 <Option value={2}>{UPEX.lang.template('专业技术人员')}</Option>
                                 <Option value={3}>{UPEX.lang.template('行政人员')}</Option>
-                                <Option value={4}>{UPEX.lang.template('金融業')}</Option>
+                                <Option value={4}>{UPEX.lang.template('金融业')}</Option>
                                 <Option value={5}>{UPEX.lang.template('农、林、牧、渔、水利业生产人员')}</Option>
                                 <Option value={6}>{UPEX.lang.template('生产、运输设备操作')}</Option>
                                 <Option value={7}>{UPEX.lang.template('学生')}</Option>
