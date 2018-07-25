@@ -159,7 +159,7 @@ class UDFCompatibleDatafeed {
                     bars = _historyData.bars.concat(bars);
                 }
             }
-            console.log(bars);
+            // console.log(bars);
 
             this.historyData[_resolution] = {
                 bars: bars,

@@ -205,6 +205,9 @@ class TVChartContainer extends Component {
             pointNum: this.props.tradeStore.pointNum
         });
 
+        let overrides = this.getOverridesByTheme(theme);
+        let cssurl = this.getCustomCSSUrlByTheme(theme);
+
 		var cfg = {
             debug: false,
             symbol: currentSymbolName, // 商品名称
@@ -230,8 +233,8 @@ class TVChartContainer extends Component {
                 }]
             },
             datafeed: datafeed,
-            overrides: this.getOverridesByTheme(theme),
-            custom_css_url: this.getCustomCSSUrlByTheme(theme),
+            // overrides: overrides,
+            custom_css_url: cssurl,
             enabled_features: [
                "dont_show_boolean_study_arguments", // 是否隐藏指标参数
                 "hide_last_na_study_output", // 隐藏最后一次指标输出
@@ -270,8 +273,13 @@ class TVChartContainer extends Component {
         var callback = ()=>{
         	let widget = window.tvwidget = this.tvwidget = new TradingView.widget(cfg);
 
+            
+
         	widget.onChartReady(function() {
+                widget.applyOverrides(overrides);
+                
                 self.visibleKlineMask(false);
+
                 // 要从菜单中删除现有项目，请在项目文本前面使用减号
                 widget.onContextMenu(function(t, e) {
                     return [{
