@@ -61,8 +61,7 @@ export default class SecondStep extends Component {
 
     getPopvoer(i) {
         return (
-            <div className="tip-lines">
-                {this.sameTips[i]}
+            <div className="tip-lines" dangerouslySetInnerHTML={{__html: this.sameTips[i]}}>
             </div>
         )
     }

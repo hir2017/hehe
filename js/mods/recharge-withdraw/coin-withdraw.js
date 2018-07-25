@@ -171,9 +171,9 @@ class WithdrawCoin extends Component {
                         <div className="rw-form-info">
                             <div className={`input-box ${store.validAmount ? '' : 'wrong'}`}>
                                 <InputNumber
-                                    placeholder={UPEX.lang.template('最小提币数量为{count}', {
-                                        count: `${store.amountLowLimit}${store.currentCoin.currencyNameEn}`
-                                    })}
+                                    // placeholder={UPEX.lang.template('最小提币数量为{count}', {
+                                    //     count: `${store.amountLowLimit}${store.currentCoin.currencyNameEn}`
+                                    // })}
                                     value={store.amount}
                                     data-key="amount"
                                     min={store.amountLowLimit}
