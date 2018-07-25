@@ -1852,6 +1852,8 @@ body .user-main .ant-select-dropdown-menu-item {
 
 .ant-modal.feedback-modal .ant-modal-content .ant-modal-body .img-box {
     height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
     margin: 0 auto;
     position: relative;
 }
