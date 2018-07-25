@@ -80,6 +80,4 @@ class ChartData {
 
 }
 
-const klineChart =  new ChartData();
-
-export default klineChart;
+export default ChartData;
