@@ -386,7 +386,7 @@ class TradeStore {
 
         if (this.dealBuyPrice) {
             num = balance * value * 0.01 / this.dealBuyPrice;
-            this.dealBuyNum = NumberUtil.initNumber(num, this.pointPrice);
+            this.dealBuyNum = NumberUtil.initNumber(num, this.pointNum);
         }
 
         this.buySliderValue = value;
@@ -397,7 +397,7 @@ class TradeStore {
         let balance = this.tradeCoinBalance.value;
         let num = balance * value * 0.01;
 
-        this.dealSellNum = NumberUtil.initNumber(num, this.pointPrice);
+        this.dealSellNum = NumberUtil.initNumber(num, this.pointNum);
         this.sellSliderValue = value;
     }
     /**
