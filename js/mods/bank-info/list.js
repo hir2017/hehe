@@ -58,7 +58,6 @@ export default class BankList extends Component {
         this.props.userInfoStore.bankCardInfo();
         const gaBindSuccess = this.props.userInfoStore.gaBindSuccess;
         gaBindSuccess || this.props.userInfoStore.isGoogleAuth();
-        this.props.captchaStore.fetch();
     }
 
     status(num) {
@@ -103,6 +102,7 @@ export default class BankList extends Component {
                 }
             });
         } else if (num === 1) {
+            this.props.captchaStore.fetch();
             this.setState({
                 visible: true,
                 id: id
@@ -128,17 +128,27 @@ export default class BankList extends Component {
             return;
         }
         const pwd = md5(this.state.pwd + UPEX.config.dealSalt + this.props.authStore.uid);
+        let req;
         if (gaBindSuccess) {
-            this.props.userInfoStore.updateBindBankCard(this.state.id, pwd, this.state.vCode);
+            req = this.props.userInfoStore.updateBindBankCard(this.state.id, pwd, this.state.vCode);
         } else {
-            this.props.userInfoStore.updateBindBankCard(this.state.id, pwd, '', this.state.vCode);
+            req = this.props.userInfoStore.updateBindBankCard(this.state.id, pwd, '', this.state.vCode);
         }
-        this.setState({
-            visible: false,
-            vCode: '',
-            pwd: '',
-            ivCode: ''
-        });
+        req.then((res = {}) => {
+            if(res.status !== 200) {
+                this.props.captchaStore.fetch();
+            } else {
+                this.props.userInfoStore.bankCardInfo();
+                this.setState({
+                    visible: false,
+                    vCode: '',
+                    pwd: '',
+                    ivCode: ''
+                });
+            }
+
+        })
+
     };
 
     handleCancel = () => {

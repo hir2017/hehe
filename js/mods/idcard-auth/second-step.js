@@ -66,14 +66,14 @@ export default class SecondStep extends Component {
         )
     }
 
-    async next() {
+    next() {
         if (!this.state.oneUrl || !this.state.twoUrl || !this.state.threeUrl) {
             message.error(UPEX.lang.template('请上传照片'));
             return;
         }
 
         const info = this.props.userInfoStore.identityInfo;
-        const res = await this.props.userInfoStore.identityAuthentication({
+        this.props.userInfoStore.identityAuthentication({
             firstName: info.firstName,
             secondName: info.secondName,
             birthday: info.birthday,
@@ -88,13 +88,18 @@ export default class SecondStep extends Component {
             positiveImages: this.state.oneUrl,
             oppositeImages: this.state.twoUrl,
             handImages: this.state.threeUrl
+        }).then(res => {
+            if (res.status === 200) {
+
+                this.props.changeStep(3);
+            } else {
+                this.props.changeStep(1);
+            }
+            this.props.userInfoStore.getUserInfo();
+        }).catch(e => {
+            console.error('idcard-auth-step-2 next', e)
         });
 
-        if (res.status === 200) {
-            this.props.changeStep(3);
-        } else {
-            this.props.changeStep(1);
-        }
     }
 
     state = {

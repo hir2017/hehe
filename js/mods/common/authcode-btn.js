@@ -36,7 +36,7 @@ export default class SettingTradingPassword extends Component {
         }
     }
 
-    async sendCode() {
+    sendCode() {
         if (!this.state.show) {
             return false;
         }
