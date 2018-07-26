@@ -538,12 +538,7 @@ class TradeStore {
         data.content.forEach((item, index) => {
             this.parseTradeHistoryItem(item);
         });
-
-        // 按时间排序，时间最近－》历史
-        data.content.sort(function(a, b) {
-            return b.time - a.time;
-        });
-
+        
         return data;
     }
 
