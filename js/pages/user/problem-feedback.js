@@ -89,7 +89,7 @@ export default class extends Component {
                 this.setState({
                     text: '',
                     fileList: [],
-                    textLen: 200
+                    textLen: 450
                 });
             }
         });
