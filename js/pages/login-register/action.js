@@ -4,6 +4,9 @@ import { browserHistory } from 'react-router';
 import Timer from '../../lib/timer';
 import md5 from '../../lib/md5';
 
+const captchaId = 'c88c6015d79b4f26a3fbafae6bebe5c8';
+let captchaIns;
+
 export default (store, captchaStore) => {
     return {
         onChangeMode(mode) {
@@ -326,7 +329,7 @@ export default (store, captchaStore) => {
 
         },
 
-        userLogin() {
+        userLogin(validate) {
             const { updateSubmiting } = store;
 
             if (store.submiting) {
@@ -338,8 +341,8 @@ export default (store, captchaStore) => {
             return userLogin({
                 email: store.account,
                 pwd: md5(store.pwd + UPEX.config.salt),
-                imgcode: store.imgcode,
-                codeid: captchaStore.codeid
+                NECaptchaValidate: validate,
+                captchaId: captchaId,
             }).then((data) => {
                 updateSubmiting(false);
 
@@ -460,6 +463,51 @@ export default (store, captchaStore) => {
                 updateSending(false);
                 return false;
             })
+        },
+        // 滑动验证码
+        initSliderCaptcha(callback) {
+
+            initNECaptcha({
+                element: '#captcha',
+                captchaId: captchaId,
+                mode: 'popup',
+                width: '320px',
+                onReady: function(instance) {
+                    // console.log('instance', instance);
+                    // 验证码一切准备就绪，此时可正常使用验证码的相关功能
+                },
+                onVerify: function(err, data) {
+                    // console.log('onVerify', err, data);
+                    /**
+                     * 第一个参数是err（Error的实例），验证失败才有err对象
+                     * 第二个参数是data对象，验证成功后的相关信息，data数据结构为key-value，如下：
+                     * {
+                     *   validate: 'xxxxx' // 二次验证信息
+                     * }
+                     */
+                    if (!err && data.validate) {
+                      // 验证通过
+                        // alert('进行登录操作');
+                        callback && callback(data.validate)
+                    } else {
+                        // alert('验证失败');
+                    }
+                }
+            }, function onload(instance) {
+                // 初始化成功
+                // 初始化成功后得到验证实例instance，可以调用实例的方法
+              captchaIns = instance
+            }, function onerror(err) {
+               // 验证码初始化失败处理逻辑，例如：提示用户点击按钮重新初始化
+               
+            })
+        },
+
+        checkSliderCaptcha() {
+            if (captchaIns) {
+                captchaIns.refresh();
+                captchaIns.popUp();
+            }
         },
 
         destroy() {

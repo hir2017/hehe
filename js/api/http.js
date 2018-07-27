@@ -147,12 +147,11 @@ export function userRegister(data) {
 // 用户登录 - 不需要验证第一步
 export function userLogin(data) {
     return axios.post('/user/loginGAFirst', qs.stringify({
-        // email: data.email, // 兼容旧的代码环境，上线后去掉
         emailOrPhone: data.email,
         pwd: data.pwd,
-        vercode: data.imgcode,
-        source: 1,
-        codeid: data.codeid
+        NECaptchaValidate: data.NECaptchaValidate,
+        captchaId: data.captchaId,
+        source: 1
     }))
 }
 

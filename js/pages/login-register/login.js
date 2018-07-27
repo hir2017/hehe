@@ -11,7 +11,7 @@ import { Icon , Modal } from 'antd';
 import {  Link , browserHistory } from 'react-router';
 import toAction from './action';
 import { TabView , AreaCodeSelectView, SMSCodeView } from './views';
-import AutoCompleteHack from '../../mods/common/auto-complete-hack';
+// import AutoCompleteHack from '../../mods/common/auto-complete-hack';
 
 @inject('loginStore', 'captchaStore')
 @observer
@@ -39,6 +39,11 @@ class Login extends Component {
 
         this.sendLoginVercodeFirst = true;
     }
+    componentDidMount() { 
+        this.action.initSliderCaptcha((validate)=>{
+            this.handleUserLogin(validate);
+        })
+    }
 
     componentWillReceiveProps(nextProps){
         if (nextProps.location !== this.props.location) {
@@ -59,6 +64,7 @@ class Login extends Component {
         this.action.destroy();
     }
 
+
     handleLogin=()=>{
         let result = this.action.checkUser();
 
@@ -67,39 +73,41 @@ class Login extends Component {
             this.setState({
                 loginErrorText: ''
             });
-
-            this.action.userLogin().
-                then((data)=>{
-                    switch(data.status){
-                        case 200:
-                            this.handleLoginSuccess(data.attachment);
-                            break;
-                        case 5555: // 需要进行谷歌认证
-                            this.setState({
-                                step: 'google'
-                            });
-                            break;
-                        case 5557:
-                            this.setState({
-                                step: 'phone'
-                            });
-                            break;
-                        case 405:
-                            this.setState({
-                                loginErrorText: UPEX.lang.template('输入错误，您还有{num}次机会尝试',{ num: data.attachment.times})
-                            });
-                            break;
-                        default:
-                            this.setState({
-                                loginErrorText: data.message
-                            });
-                    }
-                })
+            this.action.checkSliderCaptcha();
         } else {
             this.setState({
                 loginErrorText: result
             });
         }
+    }
+
+    handleUserLogin(validate){
+        this.action.userLogin(validate).then((data)=>{
+            switch(data.status){
+                case 200:
+                    this.handleLoginSuccess(data.attachment);
+                    break;
+                case 5555: // 需要进行谷歌认证
+                    this.setState({
+                        step: 'google'
+                    });
+                    break;
+                case 5557:
+                    this.setState({
+                        step: 'phone'
+                    });
+                    break;
+                case 405:
+                    this.setState({
+                        loginErrorText: UPEX.lang.template('输入错误，您还有{num}次机会尝试',{ num: data.attachment.times})
+                    });
+                    break;
+                default:
+                    this.setState({
+                        loginErrorText: data.message
+                    });
+            }
+        })
     }
 
     handleLoginSuccess(result) {
@@ -271,20 +279,22 @@ class Login extends Component {
 
             return (
                 <div className="register-wrapper login-box">
-                    <div className="register-form">
-                        <h3 className="title"> { UPEX.lang.template('登录')} </h3>
-                        <div className="register-mode-content">
-                            { $inputbox }
-                            { this.state.loginErrorText ? <div className="error-tip">{this.state.loginErrorText}</div> : '' }
+                    <div className="register-form-wrapper">
+                        <div className="register-form">
+                            <h3 className="title"> { UPEX.lang.template('登录')} </h3>
+                            <div className="register-mode-content">
+                                { $inputbox }
+                                { this.state.loginErrorText ? <div className="error-tip">{this.state.loginErrorText}</div> : '' }
 
-                            <div className="input-wrapper">
-                                <div className="login-input">
-                                    {
-                                        store.submiting ?
-                                        <button type="button" className="submit-btn login-btn">{ UPEX.lang.template('登录中') }</button>
-                                        :
-                                        <button type="button" className="submit-btn login-btn" onClick={ this.handleLoginVerifyCode }>{ UPEX.lang.template('登录') }</button>
-                                    }
+                                <div className="input-wrapper">
+                                    <div className="login-input">
+                                        {
+                                            store.submiting ?
+                                            <button type="button" className="submit-btn login-btn">{ UPEX.lang.template('登录中') }</button>
+                                            :
+                                            <button type="button" className="submit-btn login-btn" onClick={ this.handleLoginVerifyCode }>{ UPEX.lang.template('登录') }</button>
+                                        }
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -305,37 +315,39 @@ class Login extends Component {
 
         return (
             <div className="register-wrapper">
-                <AutoCompleteHack/>
-                <div className="register-form">
-                    <h3 className="title"> { UPEX.lang.template('登录')} </h3>
-                    <TabView data={this.tabs} current={store.mode} onClick={this.onChangeMode}/>
-                    <div className="register-mode-content">
-                        { $selectAreaCode }
-                        { $inputAccount }
-                        <div className="input-wrapper">
-                            <div className="input-box">
-                                <input
-                                    type="password"
-                                    placeholder={ UPEX.lang.template('密码') }
-                                    maxLength="16"
-                                    onChange={ action.onChangePwd }
-                                    onKeyDown={ this.keyLogin }
-                                    autoComplete="off"
-                                />
+                <div className="register-form-wrapper">
+                    <div className="register-form">
+                        <h3 className="title"> { UPEX.lang.template('登录')} </h3>
+                        <TabView data={this.tabs} current={store.mode} onClick={this.onChangeMode}/>
+                        <div className="register-mode-content">
+                            { $selectAreaCode }
+                            { $inputAccount }
+                            <div className="input-wrapper">
+                                <div className="input-box">
+                                    <input
+                                        type="password"
+                                        value={store.pwd}
+                                        placeholder={ UPEX.lang.template('密码') }
+                                        maxLength="16"
+                                        onChange={ action.onChangePwd }
+                                        onKeyDown={ this.keyLogin }
+                                        autoComplete="off"
+                                    />
+                                </div>
                             </div>
-                        </div>
 
-                        { this.state.loginErrorText ? <div className="error-tip">{this.state.loginErrorText}</div> : '' }
+                            { this.state.loginErrorText ? <div className="error-tip">{this.state.loginErrorText}</div> : '' }
 
-                        <div className="input-wrapper">
-                            { $submitBtn }
-                        </div>
-                        <div className="register-extra clearfix">
-                            <div className="fl forget-pwd">
-                                <Link to="/resetpwd">{ UPEX.lang.template('忘记密码?') }</Link>
+                            <div className="input-wrapper">
+                                { $submitBtn }
                             </div>
-                            <div className="fr newser-register">
-                                <Link to="/register"> { UPEX.lang.template('立即注册')}</Link>
+                            <div className="register-extra clearfix">
+                                <div className="fl forget-pwd">
+                                    <Link to="/resetpwd">{ UPEX.lang.template('忘记密码?') }</Link>
+                                </div>
+                                <div className="fr newser-register">
+                                    <Link to="/register"> { UPEX.lang.template('立即注册')}</Link>
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -33,7 +33,7 @@ class HotCoin extends Component {
 				res.attachment.forEach((item, index)=>{
 					let arr = [];
 
-					arr[arr.length] = +new Date(item.createTime.replace(/-/g, '/')); // 时间
+					arr[arr.length] = item.currentTime; // 时间
 					arr[arr.length] = item.current; // 价格
 
 					hours24TrendList[hours24TrendList.length] = arr;
