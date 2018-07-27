@@ -154,31 +154,6 @@
     -webkit-text-fill-color: #b6bcc6 !important;
 }
 
-.register-mode-content .input-box input::placeholder {
-    color: #666 !important;
-}
-
-.register-mode-content .input-box input::-webkit-input-placeholder {
-    /* WebKit browsers*/
-    color: #666;
-}
-
-.register-mode-content .input-box input:-moz-placeholder {
-    /* Mozilla Firefox 4 to 18*/
-    color: #666;
-}
-
-.register-mode-content .input-box input::-moz-placeholder {
-    /* Mozilla Firefox 19+*/
-    color: #666;
-}
-
-
-.register-mode-content .input-box input:-ms-input-placeholder {
-    /* Internet Explorer 10+*/
-    color: #666;
-}
-
 .register-mode-content .input-box input:focus {
     border-bottom: 1px solid #e8b802;
 }

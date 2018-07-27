@@ -472,6 +472,7 @@ export default (store, captchaStore) => {
                 captchaId: captchaId,
                 mode: 'popup',
                 width: '320px',
+                lang: UPEX.lang.language == 'en-US' ? 'en': UPEX.lang.language,
                 onReady: function(instance) {
                     // console.log('instance', instance);
                     // 验证码一切准备就绪，此时可正常使用验证码的相关功能
