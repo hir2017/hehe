@@ -90,7 +90,7 @@ class FiatRechargeView extends Component {
             const SelectData = {
                 type: 'recharge',
                 setVal,
-                cards: store.bankCardsList,
+                cards: store.bankCardsList.filter(item => item.status === 1),
                 count: store.accountAmount,
                 labels: { card: UPEX.lang.template('选择充值的银行卡'), balance: UPEX.lang.template('充值金额') }
             };

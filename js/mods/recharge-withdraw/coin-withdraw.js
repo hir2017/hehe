@@ -23,8 +23,17 @@ class WithdrawCoin extends Component {
     }
 
     componentDidMount() {
+        let store = this.props.coinWithdrawStore;
         this.props.commonStore.getAllCoinPoint().then(() => {
-            this.fetchCoinList();
+            this.fetchCoinList().then(() => {
+                // 兼容ie11 placeholder会触发focus的bug
+                // setTimeout(() => {
+                //     this.refs.amountInput.placeholder = UPEX.lang.template('最小提币数量为{count}', {
+                //         count: `${store.amountLowLimit}${store.currentCoin.currencyNameEn}`
+                //     })
+                // }, 100)
+
+            });
         });
         this.action.getImgCaptcha();
         this.initCodeVerifyType();
@@ -37,7 +46,7 @@ class WithdrawCoin extends Component {
     fetchCoinList() {
         let { accountStore } = this.props;
 
-        accountStore.getUserCoinAccount(() => {
+        return accountStore.getUserCoinAccount(() => {
             const coinNameEn = this.props.params.code;
             let defaultCoin;
 
@@ -136,8 +145,10 @@ class WithdrawCoin extends Component {
                                         {$addressOptions}
                                     </Select>
                                 </div>
-                                <button type="button" className="rw-sp-vcode-btn">
-                                    <Link to={`/account/coin/address/${store.currentCoin.currencyNameEn}`}>{UPEX.lang.template('添加地址')}</Link>
+                                <button type="button" className="rw-sp-vcode-btn" onClick={e => {
+                                    browserHistory.push(`/account/coin/address/${store.currentCoin.currencyNameEn}`)
+                                }}>
+                                    {UPEX.lang.template('添加地址')}
                                 </button>
                             </div>
                             <div className="address-custom mt10">
@@ -174,6 +185,8 @@ class WithdrawCoin extends Component {
                                     // placeholder={UPEX.lang.template('最小提币数量为{count}', {
                                     //     count: `${store.amountLowLimit}${store.currentCoin.currencyNameEn}`
                                     // })}
+                                    className="amount-input"
+                                    ref="amountInput"
                                     value={store.amount}
                                     data-key="amount"
                                     min={store.amountLowLimit}

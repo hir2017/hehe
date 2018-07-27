@@ -53,15 +53,13 @@ class News extends Component {
         this.questions(1);
     }
 
-    async questions(pageNum) {
-        let result = false;
+    questions(pageNum) {
         this.setState({
             isFetching: true
         })
-        try {
-            const res = await getAnnounceList({
-                page: pageNum
-            });
+        getAnnounceList({
+            page: pageNum
+        }).then(res => {
             if(res.empty) {
                 message.error(res.message);
             } else {
@@ -74,15 +72,14 @@ class News extends Component {
                     current: page
                 });
             }
-
-        } catch (e) {
+        }).catch((e) => {
             console.error(e);
             message.error('Network Error');
-        }
-        this.setState({
-            isFetching: false
-        })
-        return result;
+        }).then( _ => {
+            this.setState({
+                isFetching: false
+            })
+        });
     }
 
     pageChange(page) {

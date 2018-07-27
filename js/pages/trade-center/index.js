@@ -6,7 +6,6 @@
 import React, {Component} from 'react';
 import { observer, inject } from 'mobx-react';
 import { Icon } from 'antd';
-import Url from '../../lib/url';
 import ChartContainer from '../../mods/trade/chart/index';
 import BuyOrder from '../../mods/trade/order/buy-order';
 import SellOrder from '../../mods/trade/order/sell-order';
@@ -23,17 +22,17 @@ class TradeCenter extends Component {
         commonStore.getAllCoinPoint();
         currencyStore.getCurrencyPoints();
     }
-    
-    render() { 
+
+    render() {
         let { commonStore, tradeStore, currencyStore } = this.props;
         // 用于切换交易币时内容切换
         if (commonStore.productDataReady && currencyStore.currencyDataReady) {
-            return <TradeContent {...this.props}/>    
+            return <TradeContent {...this.props}/>
         } else {
             return (
                 <div className="trade-wrapper" style={{ height: tradeStore.contentHeight}} >
                     <div className="mini-loading"></div>
-                </div>   
+                </div>
             )
         }
     }
@@ -58,7 +57,7 @@ class TradeContent extends Component {
             let b = pairArr[1].toUpperCase();
             let baseCurrencyId = commonStore.getTradeCoinByName(a).currencyId;
             let currencyId = commonStore.getTradeCoinByName(b).currencyId;
-            
+
             if (!baseCurrencyId || !currencyId) {
                 return;
             }
@@ -66,14 +65,14 @@ class TradeContent extends Component {
             UPEX.cache.setCache('currentCoin', {
                 baseCurrencyNameEn: a,
                 currencyNameEn: b
-            }) 
+            })
 
             tradeStore.updateCurrency({
                 baseCurrencyNameEn: a,
                 currencyNameEn: b,
-                baseCurrencyId, 
+                baseCurrencyId,
                 currencyId
-            });    
+            });
 
             tradeStore.getData();
             tradeStore.sendSubscribe();
@@ -90,17 +89,17 @@ class TradeContent extends Component {
         this.props.tradeStore.destorySocket();
     }
 
-    onChangeEntrustType=(type)=>{   
-        this.props.tradeStore.setType(type);    
+    onChangeEntrustType=(type)=>{
+        this.props.tradeStore.setType(type);
     }
 
     render() {
     	let store = this.props.tradeStore;
-        
+
         let trendIcon, trendColor = '';
 
         if (store.currentTradeCoin && store.currentTradeCoin.currentAmount) {
-           
+
             if (store.currentTradeCoin.currentAmount > store.currentTradeCoin.previousPrice) {
                 trendColor = 'greenrate';
                 trendIcon = <Icon type="arrow-up" style={{fontSize: 12}}/>;
@@ -174,12 +173,12 @@ class TradeContent extends Component {
                             <HistoryOrder/>
                         </div>
         			</div>
-        			
+
         			<div className="trade-extra-handle grid-box">
         				<TradeForm/>
         			</div>
             	</div>
-            </div> 
+            </div>
         );
     }
 }

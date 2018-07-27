@@ -112,7 +112,7 @@ class CoinRecharge extends Component {
                                 <li className="qrcode-box">
                                     <label className="qrcode-label">{UPEX.lang.template('{name}充值地址', { name: currencyNameEn })}</label>
                                     <div className="qrcode-img">
-                                        <img src={`data:image/png;base64,${addressInfo.image}`} alt="" />
+                                        <img src={addressInfo.image ?`data:image/png;base64,${addressInfo.image}` : ''} alt="" />
                                     </div>
                                 </li>
                                 <li>

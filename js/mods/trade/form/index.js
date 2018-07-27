@@ -25,7 +25,7 @@ class TradeForm extends Component{
 					browserHistory.push('/account/balance/recharge');
 			}
 		} else {
-			browserHistory.push('/account/coin/recharge');
+			browserHistory.push(`/account/coin/recharge/${this.props.tradeStore.currencyNameEn}`);
 		}
 	}
 
