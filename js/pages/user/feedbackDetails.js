@@ -27,7 +27,7 @@ export default class extends Component {
         }
     }
 
-    async showImage(src) {
+    showImage(src) {
         var image = new Image();
         image.onload = () => {
             const imgStyle = {};

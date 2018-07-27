@@ -699,13 +699,14 @@ class UserInfo {
 
     @action
     updateBindBankCard(id, tradePwd, gAuth, phoneCode) {
-        updateBindBankCardStatus(id, tradePwd, gAuth, phoneCode)
+        return updateBindBankCardStatus(id, tradePwd, gAuth, phoneCode)
             .then(res => {
                 if (res.status !== 200) {
                     pickErrMsg(res, 'updateBindBankCard');
                 } else {
                     message.success(UPEX.lang.template('解绑成功'));
                 }
+                return res
             })
             .catch(e => {
                 console.error(e);

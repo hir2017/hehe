@@ -19,7 +19,8 @@ export default class SettingTradingPassword extends Component {
 
     state = {
         num: 60,
-        show: true
+        show: true,
+        loading: false
     };
 
     get type() {
@@ -35,8 +36,8 @@ export default class SettingTradingPassword extends Component {
         }
     }
 
-    async sendCode() {
-        if(!this.state.show) {
+    sendCode() {
+        if (!this.state.show) {
             return false;
         }
         const { beforeClick } = this.props;
@@ -55,8 +56,9 @@ export default class SettingTradingPassword extends Component {
             message.error(UPEX.lang.template(this.props.message));
             return;
         }
-
-
+        this.setState({
+            loading: true
+        })
         let req;
         if (this.props.modifyBind) {
             //修改手机发送验证码
@@ -80,11 +82,12 @@ export default class SettingTradingPassword extends Component {
             req = this.props.userInfoStore.sendCode(this.type, this.props.imgCode, this.props.codeid);
         }
         req.then(res => {
+            const _state = {
+                loading: false,
+                show: false
+            }
             if (res.status === 200) {
                 const ctx = this;
-                this.setState({
-                    show: false
-                });
                 time = setInterval(() => {
                     let num = ctx.state.num;
                     ctx.setState({
@@ -99,14 +102,20 @@ export default class SettingTradingPassword extends Component {
                     }
                 }, 1000);
             } else {
+                _state.show = true;
                 this.props.captchaStore.fetch();
                 message.error(UPEX.lang.template(res.message));
             }
-        })
+            this.setState(_state)
+        }).catch(e => {
+            this.setState({
+                loading: false,
+                show: true
+            });
+            console.error('do sendCode', error);
+        });
 
         return;
-
-
     }
 
     componentWillUnmount() {
@@ -114,12 +123,18 @@ export default class SettingTradingPassword extends Component {
     }
 
     render() {
-        const {state, props} = this;
+        const { state, props } = this;
         return (
             <div className={`sms-btn ${state.show ? 'no-send' : 'sending'}`}>
-                <button type="button" style={props.style || null} disabled={props.disabled} onClick={this.sendCode}  className="send-v-code-button">
-                    {state.show ? UPEX.lang.template('发送验证码') : `${UPEX.lang.template('重发')}(${state.num}s)`}
-                </button>
+                {state.loading ? (
+                    <button type="button"  style={props.style || null} disabled={true}  className="send-v-code-button">
+                        {UPEX.lang.template('发送中')}
+                    </button>
+                ) : (
+                    <button type="button" style={props.style || null} disabled={!state.show} onClick={this.sendCode} className="send-v-code-button">
+                        {state.show ? UPEX.lang.template('发送验证码') : `${UPEX.lang.template('重发')}(${state.num}s)`}
+                    </button>
+                )}
             </div>
         );
     }
