@@ -49,9 +49,9 @@ import BasicInfo from './pages/user/basic-info';
 import IdCardAuth from './pages/user/idcard-auth';
 import BankInfo from './pages/user/bank-info';
 import PasswordSetting from './pages/user/password-setting'
-import ModifyPassword from './mods/password-setting/modify-login-password'
-import ModifyTraddingPassword from './mods/password-setting/modifyTradingPassword.v1.1'
-import SettingTraddingPassword from './mods/password-setting/settingTradingPassword'
+import ModifyPwd from './mods/password-setting/modify-login-pwd'
+import ModifyTradePwd from './mods/password-setting/modify-trade-pwd'
+import SetTradePwd from './mods/password-setting/setting-trade-pwd'
 import BindingPhone from './pages/user/binding-phone'
 import ModifyPhone from './mods/binding-phone/modify-phone'
 import SettingPhone from './mods/binding-phone/binding-phone'
@@ -122,9 +122,9 @@ const routes = (
 				<Route path="authentication" component={IdCardAuth} />
 				<Route path="bankInfo" component={BankInfo} />
 				<Route path="setpwd" component={PasswordSetting} />
-				<Route path="resetpwd" component={ModifyPassword} />
-				<Route path="modify-trade-pwd" component={ModifyTraddingPassword} />
-				<Route path="settingTraddingPassword" component={SettingTraddingPassword} />
+				<Route path="resetpwd" component={ModifyPwd} />
+				<Route path="modify-trade-pwd" component={ModifyTradePwd} />
+				<Route path="set-trade-pwd" component={SetTradePwd} />
 				<Route path="forget-trade-pwd" component={forgetTradePwd} />
 				<Route path="binding-phone" component={BindingPhone} />
 				<Route path="modify-phone" component={ModifyPhone} />

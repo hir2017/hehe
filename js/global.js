@@ -228,7 +228,7 @@ const pageLink = {
     user: '/user',
     userBindCard: '/user/bankInfo',
     userAuth: '/user/authentication',
-    userSetTradePwd: '/user/settingTraddingPassword',
+    userSetTradePwd: '/user/set-trade-pwd',
     userBindPhone: '/user/setting-phone',
     userBindEmail: '/user/settingEmail',
     userFeedBack: '/user/question',

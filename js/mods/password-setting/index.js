@@ -78,7 +78,7 @@ export default class BindingBank extends Component {
                 class: 'ace-secondary',
             },
             noPass: {
-                path: '/user/settingTraddingPassword',
+                path: '/user/set-trade-pwd',
                 label: UPEX.lang.template('添加'),
                 class: 'ace-secondary',
             },
