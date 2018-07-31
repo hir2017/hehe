@@ -12,6 +12,8 @@ import AceSection from '../../components/page-user/section';
 import AceForm from '../../components/form/form';
 import InputItem from '../../components/form/input-item';
 
+import AutoCompleteHack from '../common/auto-complete-hack';
+
 @inject('userInfoStore', 'authStore')
 @observer
 export default class BindingBank extends Component {
@@ -186,6 +188,7 @@ export default class BindingBank extends Component {
         return (
             <AceSection title={UPEX.lang.template('银行卡信息')} className="info">
                 <AceForm>
+                    <AutoCompleteHack />
                     <InputItem {...inputsData.uname} />
                     <InputItem {...inputsData.bank}>
                         <Select

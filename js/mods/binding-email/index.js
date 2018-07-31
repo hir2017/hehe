@@ -24,7 +24,7 @@ export default class Email extends Component {
                     <Col  span={8} />
                     <Col className="operator" span={8}>
                         {userInfo.email ? null : (
-                            <Button className="ace-secondary" onClick={e => {browserHistory.push('/user/settingEmail')}}>
+                            <Button className="ace-secondary" onClick={e => {browserHistory.push('/user/setting-email')}}>
                                 {UPEX.lang.template('添加')}
                             </Button>
                         )}

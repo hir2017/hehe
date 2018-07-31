@@ -230,7 +230,7 @@ const pageLink = {
     userAuth: '/user/authentication',
     userSetTradePwd: '/user/set-trade-pwd',
     userBindPhone: '/user/setting-phone',
-    userBindEmail: '/user/settingEmail',
+    userBindEmail: '/user/setting-email',
     userFeedBack: '/user/question',
     userFeedBackList: '/user/questionList',
     // PageFooter 帮助中心 help

@@ -130,7 +130,7 @@ const routes = (
 				<Route path="modify-phone" component={ModifyPhone} />
 				<Route path="setting-phone" component={SettingPhone} />
 				<Route path="binding-email" component={BindingEmail} />
-				<Route path="settingEmail" component={SettingEmail} />
+				<Route path="setting-email" component={SettingEmail} />
 				<Route path="google" component={GoogleAuth} />
 				<Route path="unbinding-google" component={UnbindingGoogle} />
 				<Route path="google-guide" component={GoogleGuide} />
