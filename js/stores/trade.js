@@ -585,7 +585,7 @@ class TradeStore {
                 if (this.first) {
                     // 默认买入价格是最佳价格
                     this.first = false;
-
+                    
                     this.dealBuyPrice = this.getBestBuyPrice();
                     this.dealSellPrice = this.getBestSellPrice();
                 }

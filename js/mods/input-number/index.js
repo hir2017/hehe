@@ -21,14 +21,15 @@ class NumberInput extends Component {
         }
 
         this.state = {
-            value: defaultValue
+            inputValue: defaultValue
         };
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.value !== this.state.value) {
+
+        if (nextProps.value !== this.state.inputValue) {
             this.setState({
-                value: nextProps.value
+                inputValue: nextProps.value
             });
         }
     }
@@ -62,7 +63,7 @@ class NumberInput extends Component {
         const { negative } = this.props;
         const node = e.target;
         const targetValue = e.target.value;
-        const oldValue = this.state.value || '';
+        const oldValue = this.state.inputValue || '';
         const precision = this.props.precision;
         const cursorStart = e.target.selectionStart;
         let formatValue;
@@ -80,7 +81,7 @@ class NumberInput extends Component {
             formatValue = targetValue === '.' ? '0.' : targetValue.trim();
 
             this.setState({
-                value: formatValue
+                inputValue: formatValue
             });
             
 
@@ -92,7 +93,7 @@ class NumberInput extends Component {
                     formatValue = str.substring(0, idx);  // 截取N位小数
 
                     this.setState({
-                        value: formatValue
+                        inputValue: formatValue
                     });
                 }
             }
@@ -122,17 +123,19 @@ class NumberInput extends Component {
     }
 
     render() {
-        const { value } = this.state;
+        const { inputValue } = this.state;
         const { onChange, onBlur, ...props } = this.props;
 
         return (
-            <input {...props} 
-                value={value} 
+            <input 
+                { ...props }
+                value={inputValue} 
                 onChange={this.change} 
                 onBlur={this.blur} 
                 onKeyDown={this.keydown}
                 onKeyUp={this.keyup}
                 autoComplete="off"
+                ref="input"
             />
         );
     }

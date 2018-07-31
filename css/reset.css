@@ -345,9 +345,10 @@ input:-ms-input-placeholder {
     color: #ccc;
 }
 
+
 ::-webkit-scrollbar {
-    width: 4px;
-    height: 0
+    width: 10px;
+    height: 0;
 }
 
 ::-webkit-scrollbar,::-webkit-scrollbar-track {
@@ -356,5 +357,7 @@ input:-ms-input-placeholder {
 
 ::-webkit-scrollbar-thumb {
     background-color: #e0e0e0;
-    border-radius: 4px;
+    width: 10px;
+    border-radius: 10px;
 }
+

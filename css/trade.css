@@ -192,7 +192,7 @@
 }
 
 .popover-tradecoins .coin-list-hd {
-    padding: 10px;
+    padding: 10px 20px;
 }
 
 .popover-tradecoins .coin-list-hd .search {
@@ -268,7 +268,7 @@
 .popover-tradecoins .coin-list-bd dd,
 .popover-tradecoins .coin-list-bd dt {
     overflow: hidden;
-    padding: 0 10px;
+    padding-left: 18px;
     height: 30px;
     line-height: 30px;
 }
@@ -309,12 +309,12 @@
 }
 
 .popover-tradecoins .coin-list-bd .cell.rate {
-    width: 110px;
+    width: 100px;
     text-align: right;
 }
 
 .popover-tradecoins .coin-list-bd .cell.volume {
-    width: 116px;
+    width: 110px;
     text-align: right;
 }
 
@@ -1064,6 +1064,7 @@ body .ant-popover-placement-bottomLeft>.ant-popover-content>.ant-popover-arrow {
 
 .tradeorder-bd .order-table .table-bd{
     flex: 1;
+    overflow: hidden;
     overflow-y: auto;
     padding: 0 20px;
 }

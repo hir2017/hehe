@@ -3,7 +3,7 @@ import { observer, inject } from 'mobx-react';
 import { Checkbox, Icon, Pagination, message } from 'antd';
 import toAction from './record-action';
 
-@inject('commonStore','openStore', 'authStore', 'tradeStore')
+@inject('commonStore','openStore', 'authStore')
 @observer
 class List extends Component {
 	static defaultProps = {

@@ -25,6 +25,16 @@ class MyOrder extends Component {
 		this.props.tradeStore.setTabIndex(index);
 	}
 
+	componentDidMount() {
+		$.channel.on('updateTradeUserAccount', ()=>{
+			this.props.tradeStore.getUserAccount();
+		})
+	}
+
+	componentWillUnmount(){
+		$.channel.off('updateTradeUserAccount');
+	}
+
 	render() {
 		let store = this.props.tradeStore;
 
