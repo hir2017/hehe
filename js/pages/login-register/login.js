@@ -209,11 +209,11 @@ class Login extends Component {
                             <input
                                 type="text"
                                 value={store.phone}
+                                name="phone"
                                 placeholder={ UPEX.lang.template('手机') }
                                 onChange={action.onChangePhone}
                                 onFocus={action.moveCaretAtEnd}
                                 autoFocus
-                                autoComplete="off"
                             />
                         </div>
                     </div>
@@ -225,12 +225,12 @@ class Login extends Component {
                         <div className="input-box">
                             <input
                                 type="text"
+                                name="email"
                                 placeholder={ UPEX.lang.template('邮箱') }
                                 onChange={ action.onChangeEmail }
                                 onBlur={ action.onBlurEmail }
                                 onFocus={action.moveCaretAtEnd}
                                 autoFocus
-                                autoComplete="off"
                             />
                         </div>
                     </div>
@@ -326,12 +326,12 @@ class Login extends Component {
                                 <div className="input-box">
                                     <input
                                         type="password"
+                                        name="password"
                                         value={store.pwd}
                                         placeholder={ UPEX.lang.template('密码') }
                                         maxLength="16"
                                         onChange={ action.onChangePwd }
                                         onKeyDown={ this.keyLogin }
-                                        autoComplete="off"
                                     />
                                 </div>
                             </div>
