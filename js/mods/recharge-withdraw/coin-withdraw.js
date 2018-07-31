@@ -191,9 +191,6 @@ class WithdrawCoin extends Component {
                                     </span>
                                 )}
                                 <InputNumber
-                                    // placeholder={UPEX.lang.template('最小提币数量为{count}', {
-                                    //     count: `${store.amountLowLimit}${store.currentCoin.currencyNameEn}`
-                                    // })}
                                     className="amount-input"
                                     value={store.amount}
                                     data-key="amount"
@@ -208,6 +205,7 @@ class WithdrawCoin extends Component {
                             </span>
                         </div>
                     </div>
+                    <AutoCompleteHack />
                     <div className="rw-form-item sp-v-code">
                         <label className="rw-form-label">{UPEX.lang.template('图片验证码')}</label>
                         <div className="rw-form-info">
