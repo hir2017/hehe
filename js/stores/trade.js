@@ -603,10 +603,10 @@ class TradeStore {
         buy.forEach((item, index) => {
             let cache = item.number * item.current / this.entrustScale;
 
-            cache = cache / 100; // 单位：百分比
-
+            cache = cache * 100; // 单位：百分比
+            
             let depth = parseInt(cache.toFixed(this.pointNum));
-
+            
             item.index = index + 1;
             item.depth = Math.max(depth > 100 ? 100 : depth, 1);
 
@@ -623,10 +623,10 @@ class TradeStore {
         sell.forEach((item, index) => {
             let cache = item.number * item.current / this.entrustScale;
 
-            cache = cache / 100; // 单位：百分比
+            cache = cache * 100; // 单位：百分比
 
             let depth = parseInt(cache.toFixed(this.pointNum));
-
+            
             item.index = index + 1;
             item.depth = Math.max(depth > 100 ? 100 : depth, 1);
             
