@@ -4,6 +4,8 @@ import { Button, message } from 'antd';
 import { Link, browserHistory } from 'react-router';
 import Vcodebutton from '../common/authcode-btn';
 
+import AutoCompleteHack from '../common/auto-complete-hack';
+
 import InputItem from '../../components/form/input-item';
 import PageForm from '../../components/page-user/page-form';
 import { createGetProp } from '../../components/utils';
@@ -116,6 +118,7 @@ export default class SettingTradingPassword extends Component {
         };
         return (
             <PageForm {...PageProps}>
+                <AutoCompleteHack />
                 <InputItem {...inputsData.password} />
                 <InputItem {...inputsData.comfirmPwd} />
                 <div>

@@ -10,6 +10,8 @@ import { Link, browserHistory } from 'react-router';
 import Vcodebutton from '../common/authcode-btn';
 import md5 from '../../lib/md5';
 
+import AutoCompleteHack from '../common/auto-complete-hack';
+
 import InputItem from '../../components/form/input-item';
 import PageForm from '../../components/page-user/page-form';
 import { createGetProp } from '../../components/utils';
@@ -123,6 +125,7 @@ export default class ModifyTradingPassword extends Component {
 
         return (
             <PageForm {...PageProps}>
+                <AutoCompleteHack />
                 {inputsData.map((item, i) => {
                     return <InputItem key={i} {...item} />;
                 })}
