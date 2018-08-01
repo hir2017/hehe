@@ -55,9 +55,7 @@ class BankInfo extends Component {
             $content = (
                 <div className="no-auth-message bank-message">
                     <p>{UPEX.lang.template('请先设置资金密码')}</p>
-                    <Button className="ace-main">
-                       <Link to="/user/set-trade-pwd">{UPEX.lang.template('设置资金密码')}</Link>
-                    </Button>
+                    <Link className="ace-btn"  to="/user/set-trade-pwd">{UPEX.lang.template('设置资金密码')}</Link>
                 </div>
             );
         } else {
