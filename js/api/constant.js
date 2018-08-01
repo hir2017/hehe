@@ -322,6 +322,10 @@ export default {
             id: 'SMS_SEND_ERROR',
             status: 501,
             message: '短信发送失败'
+        }, {
+            id: 'SYSTEM_ERROR',
+            status: -1,
+            message: 'response is empty'
         }
     ]
 }

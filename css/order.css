@@ -129,12 +129,27 @@
     top: -3px;
 }
 
+.order-header .filter-box .ant-calendar-picker-input {
+    background-color: transparent;
+}
+
 .order-header .filter-box li label{
     font-size: 14px;
 }
 
 .order-header .filter-box li .ant-input {
     border-radius: 3px;
+}
+
+.order-header .filter-box .ie11-hack{
+    position: absolute;
+    width: 100%;
+}
+.order-header .filter-box .ie11-hack .placeholder {
+    width: 50%;
+    display: inline-block;
+    text-align: center;
+    font-size: 14px;
 }
 .order-header label {
     padding-right: 6px;
