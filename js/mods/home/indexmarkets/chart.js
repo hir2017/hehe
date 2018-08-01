@@ -112,7 +112,11 @@ export default class extends Component {
             },
             yAxis: {
                 type: 'value',
-                show: false
+                scale: true,
+                show: false,
+                min: function(value) {
+                    return value.min  - (value.max - value.min) / hours24TrendList.length;
+                }
             },
             series: [{
                 data: hours24TrendList.map((item) => {
