@@ -15,6 +15,7 @@ import AutoCompleteHack from '../common/auto-complete-hack';
 import InputItem from '../../components/form/input-item';
 import PageForm from '../../components/page-user/page-form';
 import { createGetProp } from '../../components/utils';
+import YidunCaptcha from '../yidun-captcha';
 
 @inject('userInfoStore', 'captchaStore', 'authStore')
 @observer
@@ -23,20 +24,35 @@ export default class ModifyTradingPassword extends Component {
         super();
         this.submit = this.submit.bind(this);
         this.captchaChange = this.captchaChange.bind(this);
+
+        this.state = {
+            password: '',
+            newPwd: '',
+            comfirmPwd: '',
+            vCode: '',
+            ivCode: '',
+            loginErrorText: ''
+        };
+
+        this.yidunCaptcha = new YidunCaptcha({
+            element: '#floatCaptcha',
+            type: 'modify-pwd',
+            mode: 'float',
+            width: '100%',
+            lang: UPEX.lang.language == 'en-US' ? 'en': UPEX.lang.language
+        });
     }
 
     componentWillMount() {
-        this.props.captchaStore.fetch();
+        // this.props.captchaStore.fetch();
     }
 
-    state = {
-        password: '',
-        newPwd: '',
-        comfirmPwd: '',
-        vCode: '',
-        ivCode: '',
-        loginErrorText: ''
-    };
+    componentDidMount() {
+        this.yidunCaptcha.init((validate, captchaId)=>{
+            this.validate = validate;
+            this.captchaId = captchaId;
+        })
+    }
 
     setVal(e, name) {
         const data = {};
@@ -45,11 +61,12 @@ export default class ModifyTradingPassword extends Component {
     }
 
     captchaChange() {
-        this.props.captchaStore.fetch();
+        // this.props.captchaStore.fetch();
     }
 
     submit() {
         const codeid = this.props.captchaStore.codeid;
+        
         if (!this.state.password) {
             message.error(UPEX.lang.template('请输入资金密码'));
             return;
@@ -74,8 +91,15 @@ export default class ModifyTradingPassword extends Component {
             return;
         }
 
+        // 没有滑动易盾验证码
+        if (!this.validate) {
+            message.error(UPEX.lang.template('请完成滑动图片验证'));
+            return;
+        } 
+
         const pwd = md5(this.state.password + UPEX.config.dealSalt + this.props.authStore.uid);
-        let reqResult = this.props.userInfoStore.modifytradingPwd(this.state.newPwd, pwd);
+        let reqResult = this.props.userInfoStore.modifytradingPwd(this.state.newPwd, pwd, this.validate, this.captchaId);
+        
         reqResult
             .then(data => {
                 if (data.state) {
@@ -129,6 +153,7 @@ export default class ModifyTradingPassword extends Component {
                 {inputsData.map((item, i) => {
                     return <InputItem key={i} {...item} />;
                 })}
+                <div id="floatCaptcha"></div>
                 <Button loading={loading} className="ace-submit-item" onClick={this.submit}>
                     {UPEX.lang.template('提交')}
                 </Button>

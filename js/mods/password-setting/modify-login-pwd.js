@@ -15,6 +15,7 @@ import AutoCompleteHack from '../common/auto-complete-hack';
 import InputItem from '../../components/form/input-item';
 import PageForm from '../../components/page-user/page-form';
 import { createGetProp } from '../../components/utils';
+import YidunCaptcha from '../yidun-captcha';
 
 @inject('userInfoStore', 'captchaStore', 'authStore')
 @observer
@@ -22,7 +23,23 @@ export default class ModifyPassword extends Component {
     constructor() {
         super();
         this.submit = this.submit.bind(this);
-        this.captchaChange = this.captchaChange.bind(this);
+        // this.captchaChange = this.captchaChange.bind(this);
+
+        this.state = {
+            password: '',
+            newPwd: '',
+            comfirmPwd: '',
+            vCode: '',
+            ivCode: ''
+        }
+
+        this.yidunCaptcha = new YidunCaptcha({
+            element: '#floatCaptcha',
+            type: 'modify-pwd',
+            mode: 'float',
+            width: '100%',
+            lang: UPEX.lang.language == 'en-US' ? 'en': UPEX.lang.language
+        });
     }
 
     componentWillMount() {
@@ -33,16 +50,15 @@ export default class ModifyPassword extends Component {
         if(store.uid) {
             this.props.userInfoStore.isGoogleAuth();
         }
-        this.captchaChange();
+        // this.captchaChange();
     }
 
-    state = {
-        password: '',
-        newPwd: '',
-        comfirmPwd: '',
-        vCode: '',
-        ivCode: ''
-    };
+    componentDidMount() {
+        this.yidunCaptcha.init((validate, captchaId)=>{
+            this.validate = validate;
+            this.captchaId = captchaId;
+        })
+    }
 
     setVal(e, name) {
         const data = {};
@@ -51,13 +67,14 @@ export default class ModifyPassword extends Component {
     }
 
     captchaChange() {
-        this.props.captchaStore.fetch();
+        // this.props.captchaStore.fetch();
     }
 
     submit() {
         const userInfo = this.props.userInfoStore.userInfo || {};
         const gaBindSuccess = this.props.userInfoStore.gaBindSuccess;
         const codeid = this.props.captchaStore.codeid;
+        
         if (!this.state.password) {
             message.error(UPEX.lang.template('请输入登录密码'));
             return;
@@ -80,12 +97,19 @@ export default class ModifyPassword extends Component {
         if (this.state.newPwd && !checkPwd) {
             message.error(UPEX.lang.template('密码至少由大写字母+小写字母+数字，8-16位组成'));
             return;
-        }
+        }  
 
+        // 没有滑动易盾验证码
+        if (!this.validate) {
+            message.error(UPEX.lang.template('请完成滑动图片验证'));
+            return;
+        } 
+        
         const pwd = md5(this.state.password + UPEX.config.salt);
         const type = gaBindSuccess ? 1 : userInfo.phone ? 2 : 3;
 
-        let reqResult = this.props.userInfoStore.resetPwd(this.state.newPwd, this.state.vCode, this.state.ivCode, codeid, pwd, type);
+        let reqResult = this.props.userInfoStore.resetPwd(this.state.newPwd, this.state.vCode, this.state.ivCode, codeid, pwd, type, this.validate, this.captchaId);
+        
         reqResult.then(data => {
             if (data) {
                 this.props.userInfoStore.pwdTriggerClear();
@@ -120,11 +144,11 @@ export default class ModifyPassword extends Component {
                 inputProps: getProp('comfirmPwd')
             }
         ];
-        const vCodeData = {
-            label: UPEX.lang.template('图片验证码'),
-            className: 'v-code',
-            inputProps: getProp('ivCode', 'none')
-        };
+        // const vCodeData = {
+        //     label: UPEX.lang.template('图片验证码'),
+        //     className: 'v-code',
+        //     inputProps: getProp('ivCode', 'none')
+        // };
         // const GAData = {
         //     label: UPEX.lang.template('Google验证码'),
         //     inputProps: getProp('vCode', 'none')
@@ -145,13 +169,17 @@ export default class ModifyPassword extends Component {
                 {inputsData.map((item, i) => {
                     return <InputItem key={i} {...item} />;
                 })}
+                <div id="floatCaptcha"></div>
+                {
+
+                /* 
                 <div>
                     <InputItem {...vCodeData} />
                     <div className="item v-code-button">
                         <img onClick={this.captchaChange} src={captcha} />
                     </div>
                 </div>
-                {/* {gaBindSuccess ? (
+                {gaBindSuccess ? (
                     <InputItem {...GAData} />
                 ) : (
                     <div className="input-vcode-wrapper">

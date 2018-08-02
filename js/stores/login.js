@@ -13,7 +13,6 @@ class LoginInfoBaseStore {
     @observable twicepwd = ''; // 确认密码
     @observable vercode = ''; // 邮箱验证码或者短信验证码
     @observable phonecode = ''; // 手机验证码
-    @observable imgcode = ''; // 图片验证码
     @observable inviteId = ''; // 邀请码
     @observable agree = false; // 同意协议 
     @observable googlecode = ''; // 谷歌验证码
@@ -24,7 +23,6 @@ class LoginInfoBaseStore {
     }; // 选中的国家区域
     @observable sending = false;
     @observable disabledCodeBtn = false;
-    @observable validImgCode = true; // 图片验证码
     @observable validVercode = true; // 邮箱or手机验证码
     @observable hasPhone = false; // 手机是否已经被占用
     @observable submiting = false; // 提交中：登录、注册等请求
@@ -54,12 +52,10 @@ class LoginInfoBaseStore {
         this.twicepwd = ''; // 确认密码
         this.vercode = ''; // 邮箱验证码或者短信验证码
         this.phonecode = ''; // 手机验证码
-        this.imgcode = ''; // 图片验证码
         this.inviteId = ''; // 邀请码
         this.agree = false; // 同意协议 
         this.googlecode = ''; // 谷歌验证码
         this.disabledCodeBtn = false; // 禁用发送验证码按钮
-        this.validImgCode = true; // 图片验证码
         this.validVercode = true; // 邮箱or手机验证码
         this.hasPhone = false; // 手机是否已经被占用
         this.submiting = false;
@@ -192,7 +188,6 @@ class LoginInfoBaseStore {
         let email = this.email;
         let phone = this.phone;
         let pwd = this.pwd;
-        let imgcode = this.imgcode;
         
         if (mode == 'email') {
             if (!email) {
@@ -326,11 +321,6 @@ class LoginInfoBaseStore {
     }
 
     @action
-    changeValidImgCodeTo(status) {
-        this.validImgCode = status;
-    }
-
-    @action
     changeHasPhoneTo(status) {
         this.hasPhone = status;
     }
@@ -365,10 +355,6 @@ class LoginInfoBaseStore {
         this.selectedCountry = this.countries[code];
     }
 
-    @action
-    setImgCode(code) {
-        this.imgcode = code;
-    }
 
     @action
     setInviteCode(code) {

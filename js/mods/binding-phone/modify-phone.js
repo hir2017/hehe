@@ -9,6 +9,7 @@ import {isPhone} from '../../lib/util/validate';
 import InputItem from '../../components/form/input-item';
 import PageForm from '../../components/page-user/page-form';
 import { createGetProp } from '../../components/utils';
+import YidunCaptcha  from '../yidun-captcha';
 
 @inject('userInfoStore', 'captchaStore', 'loginStore')
 @observer
@@ -65,17 +66,27 @@ export default class ModifyPhone extends Component {
                 inputProps: getProp('nvCode', 'none')
             }
         };
+
+        this.yidunCaptcha = new YidunCaptcha({
+            type: 'modify-pwd',
+            lang: UPEX.lang.language == 'en-US' ? 'en': UPEX.lang.language
+        })
     }
 
     componentWillMount() {
         const gaBindSuccess = this.props.userInfoStore.gaBindSuccess;
         gaBindSuccess || this.props.userInfoStore.isGoogleAuth();
-        this.props.captchaStore.fetch();
+        // this.props.captchaStore.fetch();
         this.setState({
             areacode: this.props.loginStore.selectedCountry.areacode
         });
     }
 
+    componentDidMount() { 
+        this.yidunCaptcha.init((validate, captchaId)=>{
+            
+        })
+    }
 
     onAreaCodeChange(val) {
         this.setState({
@@ -101,7 +112,7 @@ export default class ModifyPhone extends Component {
     }
 
     captchaChange() {
-        this.props.captchaStore.fetch();
+        // this.props.captchaStore.fetch();
     }
 
     checkPhone() {
@@ -142,7 +153,7 @@ export default class ModifyPhone extends Component {
             if(data) {
                 browserHistory.push('/user/binding-phone');
             } else {
-                this.props.captchaStore.fetch();
+                // this.props.captchaStore.fetch();
             }
         })
     }
@@ -154,6 +165,7 @@ export default class ModifyPhone extends Component {
         const captcha = this.props.captchaStore.captcha;
         const loginStore = this.props.loginStore;
         let options = [];
+        
         $.map(loginStore.countries, (item, key) => {
             options[options.length] = (
                 <Option value={key} key={key}>
@@ -177,13 +189,17 @@ export default class ModifyPhone extends Component {
                     </Select>
                 </div>
                 <InputItem {...inputsData.phone} value={this.state.phone} />
-                <div>
-                    {/* 图片验证码可以优化 */}
-                    <InputItem {...inputsData.ivCode} />
-                    <div className="item v-code-button">
-                        <img onClick={this.captchaChange} src={captcha} />
-                    </div>
-                </div>
+                {
+
+                    // <div>
+                    //     {/* 图片验证码可以优化 */}
+                    //     <InputItem {...inputsData.ivCode} />
+                    //     <div className="item v-code-button">
+                    //         <img onClick={this.captchaChange} src={captcha} />
+                    //     </div>
+                    // </div>
+                }
+
                 <div className="user-sp-sms-btn-box">
                     <Vcodebutton
                         message={UPEX.lang.template('请填写新手机号')}
@@ -202,6 +218,7 @@ export default class ModifyPhone extends Component {
                     <InputItem {...inputsData.nvCode} />
                     {gaBindSuccess ? <InputItem {...inputsData.gaCode} /> : <InputItem {...inputsData.vCode} />}
                 </div>
+
                 <Button loading={loading} disabled={!this.state.submitAbled} className="ace-submit-item" onClick={this.submit}>
                     {UPEX.lang.template('提交')}
                 </Button>

@@ -232,10 +232,10 @@ class UserInfo {
     }
 
     @action
-    resetPwd(newPassWord, vercode, imgCode, imgCodeId, passWord, type) {
+    resetPwd(newPassWord, vercode, imgCode, imgCodeId, passWord, type, validate, captchaId) {
         let reqResult = false;
         this.submit_loading_pwd = true;
-        return resetPwdInUserCenter(newPassWord, vercode, imgCode, imgCodeId, passWord, type)
+        return resetPwdInUserCenter(newPassWord, vercode, imgCode, imgCodeId, passWord, type, validate, captchaId)
             .then(res => {
                 this.submit_loading_pwd = false;
                 if (res.status !== 200) {
@@ -671,13 +671,13 @@ class UserInfo {
     }
 
     @action
-    modifytradingPwd(newFdPassWord, passWord) {
+    modifytradingPwd(newFdPassWord, passWord, validate, captchaId) {
         let reqResult = {
             state: false,
             num: 'none'
         };
         this.submit_loading_tpwd = true;
-        return modifyFdPwd(newFdPassWord, passWord)
+        return modifyFdPwd(newFdPassWord, passWord, validate, captchaId)
             .then(res => {
                 this.submit_loading_tpwd = false;
                 if (res.status !== 200) {

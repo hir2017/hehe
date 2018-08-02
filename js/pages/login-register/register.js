@@ -11,16 +11,16 @@ import { observer, inject } from 'mobx-react';
 import { Icon, message, Checkbox } from 'antd';
 import { Link, browserHistory } from 'react-router';
 import toAction from './action';
-import ImgVerifyCode  from '../../mods/verify-code/img';
 import { TabView, AreaCodeSelectView , SMSCodeView } from './views';
+import YidunCaptcha  from '../../mods/yidun-captcha';
 
-@inject('loginStore', 'captchaStore')
+@inject('loginStore')
 @observer
 class Register extends Component {
     constructor(props) {
         super(props);
 
-        this.action = toAction(this.props.loginStore, this.props.captchaStore);
+        this.action = toAction(this.props.loginStore);
 
         this.state = {
             phone: ''
@@ -36,21 +36,36 @@ class Register extends Component {
                 title: UPEX.lang.template('手机注册')
             }
         ];
+
+        this.yidunCaptcha = new YidunCaptcha({
+            type: 'register-login',
+            lang: UPEX.lang.language == 'en-US' ? 'en': UPEX.lang.language
+        })
+    }
+
+    componentDidMount() { 
+        this.yidunCaptcha.init((validate, captchaId)=>{
+            this.action.sendVercode('register', validate, captchaId);
+        })
     }
 
     componentWillUnmount() {
         this.action.destroy();
     }
 
-    sendVercode = e => {
-        this.action.sendVercode();
+    sendVercode = (e) => {
+        let verifyResult = this.action.verifyInfoBeforeSendCode();
+
+        if (verifyResult) {
+            this.yidunCaptcha.show();    
+        }
     }
 
-    submit = e => {
+    submit = (e) => {
         this.action.submitRegister();
     }
 
-    queryHasPhone = e => {
+    queryHasPhone = (e) => {
         this.action.queryHasPhone();
     }
 
@@ -174,22 +189,6 @@ class Register extends Component {
                                     />
                                 </div>
                                 {!store.validTwicePwd ? <div className="warn">{UPEX.lang.template('两次密码输入不一致')}</div> : null}
-                            </div>
-                            <div className="input-wrapper">
-                                <div className="input-box yz-box">
-                                    <input
-                                        type="text"
-                                        ref="picCode"
-                                        value={store.imgcode}
-                                        placeholder={UPEX.lang.template('请参照右侧输入')}
-                                        onChange={action.onChangeImgCode}
-                                        maxLength="5"
-                                        autoComplete="off"
-                                        className={store.validImgCode ? '' : 'wrong'}
-                                    />
-                                    <ImgVerifyCode/>
-                                </div>
-                                {!store.validImgCode ? <div className="warn">{UPEX.lang.template('请填写正确的图片验证码')}</div> : null}
                             </div>
                             <div className="input-wrapper">
                                 <div className="input-box useryz-box">

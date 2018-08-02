@@ -11,15 +11,15 @@ import { Icon , Modal } from 'antd';
 import {  Link , browserHistory } from 'react-router';
 import toAction from './action';
 import { TabView , AreaCodeSelectView, SMSCodeView } from './views';
-// import AutoCompleteHack from '../../mods/common/auto-complete-hack';
+import YidunCaptcha  from '../../mods/yidun-captcha';
 
-@inject('loginStore', 'captchaStore')
+@inject('loginStore')
 @observer
 class Login extends Component {
     constructor(props){
         super(props);
 
-        this.action = toAction(this.props.loginStore, this.props.captchaStore);
+        this.action = toAction(this.props.loginStore);
 
         this.state = {
             loginErrorText: '',
@@ -38,10 +38,16 @@ class Login extends Component {
         ];
 
         this.sendLoginVercodeFirst = true;
+
+        this.yidunCaptcha = new YidunCaptcha({
+            type: 'register-login',
+            lang: UPEX.lang.language == 'en-US' ? 'en': UPEX.lang.language
+        })
     }
+    
     componentDidMount() { 
-        this.action.initSliderCaptcha((validate)=>{
-            this.handleUserLogin(validate);
+        this.yidunCaptcha.init((validate, captchaId)=>{
+            this.handleUserLogin(validate, captchaId);
         })
     }
 
@@ -73,7 +79,7 @@ class Login extends Component {
             this.setState({
                 loginErrorText: ''
             });
-            this.action.checkSliderCaptcha();
+            this.yidunCaptcha.show();
         } else {
             this.setState({
                 loginErrorText: result
@@ -81,8 +87,8 @@ class Login extends Component {
         }
     }
 
-    handleUserLogin(validate){
-        this.action.userLogin(validate).then((data)=>{
+    handleUserLogin(validate, captchaId){
+        this.action.userLogin(validate, captchaId).then((data)=>{
             switch(data.status){
                 case 200:
                     this.handleLoginSuccess(data.attachment);

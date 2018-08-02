@@ -123,8 +123,10 @@ export function queryPhone(phone) {
 export function sendEmailForRegister(data) {
     return axios.post('/user/sendEmailForRegister', qs.stringify({
         email: data.account,
-        imgcode: data.imgcode,
-        codeid: data.codeid
+        NECaptchaValidate: data.validate,
+        captchaId: data.captchaId,
+        imgcode: 0,
+        codeid: 0
     }))
 }
 
@@ -132,8 +134,10 @@ export function sendEmailForRegister(data) {
 export function sendMail(data) {
     return axios.post('/user/sendMail', qs.stringify({
         email: data.account,
-        imgcode: data.imgcode,
-        codeid: data.codeid
+        NECaptchaValidate: data.validate,
+        captchaId: data.captchaId,
+        imgcode: 0,
+        codeid: 0
     }))
 }
 
@@ -144,8 +148,8 @@ export function userRegister(data) {
         pwd: data.pwd,
         vercode: data.vercode,
         inviteId: data.inviteId,
-        imgcode: data.imgcode,
-        codeid: data.codeid
+        imgcode: 0,
+        codeid: 0
     }))
 }
 
@@ -154,7 +158,7 @@ export function userLogin(data) {
     return axios.post('/user/loginGAFirst', qs.stringify({
         emailOrPhone: data.email,
         pwd: data.pwd,
-        NECaptchaValidate: data.NECaptchaValidate,
+        NECaptchaValidate: data.validate,
         captchaId: data.captchaId,
         source: 1
     }))
@@ -194,8 +198,8 @@ export function resetPwd(data) {
         email: data.account,
         newPwd: data.pwd,
         vercode: data.vercode,
-        imgcode: data.imgcode,
-        codeid: data.codeid
+        imgcode: 0,
+        codeid: 0
     }))
 }
 /*
@@ -650,10 +654,12 @@ export function bindFdPwd(newFdPassWord, vercode, imgCode, imgCodeId, oldFdPassW
  * 修改资金密码
  */
 
-export function modifyFdPwd(newFdPassWord, oldFdPassWord) {
+export function modifyFdPwd(newFdPassWord, oldFdPassWord, validate, captchaId) {
     return axios.post('/user/modifyFdPwd', {
         newFdPassWord: newFdPassWord,
         oldFdPassWord: oldFdPassWord,
+        NECaptchaValidate: validate,
+        captchaId: captchaId,
     })
 }
 
@@ -661,14 +667,16 @@ export function modifyFdPwd(newFdPassWord, oldFdPassWord) {
  * 修改登录密码
  */
 
-export function resetPwdInUserCenter(newPwd, vercode, imgCode, imgCodeId, oldPwd, type) {
+export function resetPwdInUserCenter(newPwd, vercode, imgCode, imgCodeId, oldPwd, type, validate, captchaId) {
     return axios.post('/user/resetPwdInUserCenter', {
         newPwd: newPwd,
         oldPwd: oldPwd, // 如果首次设置可以不传.传个空串
         vercode: vercode,
-        imgcode: imgCode,
-        codeid: imgCodeId,
-        type: type
+        // imgcode: imgCode,
+        // codeid: imgCodeId,
+        type: type,
+        NECaptchaValidate: validate,
+        captchaId: captchaId
     })
 }
 

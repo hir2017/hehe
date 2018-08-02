@@ -4,10 +4,7 @@ import { browserHistory } from 'react-router';
 import Timer from '../../lib/timer';
 import md5 from '../../lib/md5';
 
-const captchaId = 'c88c6015d79b4f26a3fbafae6bebe5c8';
-let captchaIns;
-
-export default (store, captchaStore) => {
+export default (store) => {
     return {
         onChangeMode(mode) {
             store.changeModeTo(mode);
@@ -40,12 +37,12 @@ export default (store, captchaStore) => {
         },
 
 
-        onChangeImgCode(e) {
-            let value = e.currentTarget.value.trim();
+        // onChangeImgCode(e) {
+        //     let value = e.currentTarget.value.trim();
 
-            store.changeValidImgCodeTo(true);
-            store.setImgCode(value);
-        },
+        //     // store.changeValidImgCodeTo(true);
+        //     // store.setImgCode(value);
+        // },
 
         onChangeGoogleCode(e) {
             let value = e.currentTarget.value.trim();
@@ -96,9 +93,6 @@ export default (store, captchaStore) => {
             store.setAgress(e.target.checked);
         },
 
-        getImgCaptcha() {
-            return captchaStore.fetch();
-        },
         // bugfixed 自动获取焦点之后，鼠标光标没有在最后
         moveCaretAtEnd(e) {
             var temp_value = e.target.value
@@ -106,20 +100,26 @@ export default (store, captchaStore) => {
             e.target.value = temp_value;
         },
 
-        // 注册的时候，发送短信验证码和邮箱验证码
-        sendVercode(type) {
-            let { verifyInfoBeforeSendCode, updateSending } = store;
+        verifyInfoBeforeSendCode() {
+            let { verifyInfoBeforeSendCode } = store;
 
             //  验证表单信息
             if (!verifyInfoBeforeSendCode.pass) {
                 message.destroy();
                 verifyInfoBeforeSendCode.message && message.error(verifyInfoBeforeSendCode.message);
-                return;
+                return false;
             }
             
             if (store.disabledCodeBtn) {
-                return;
+                return false;
             }
+
+            return true;
+        },
+
+        // 注册的时候，发送短信验证码和邮箱验证码
+        sendVercode(type, validate, captchaId) {
+            let { updateSending } = store;
 
             updateSending(true);
 
@@ -128,8 +128,8 @@ export default (store, captchaStore) => {
             // 发送手机／邮件验证码
             fetchFn({
                 account: store.account,
-                imgcode: store.imgcode,
-                codeid: captchaStore.codeid
+                validate: validate,
+                captchaId: captchaId
             }).then((data) => {
                 updateSending(false);
 
@@ -137,7 +137,7 @@ export default (store, captchaStore) => {
                     case 200:
                         // 发送成功
                         store.disabledSMSOrPhoneCode(true);
-                        store.changeValidImgCodeTo(true);
+                        // store.changeValidImgCodeTo(true);
                         store.changeValidVercodeTo(true);
 
                         let timer = this.timer = new Timer({
@@ -155,14 +155,12 @@ export default (store, captchaStore) => {
                     case 412:
                         // 图片验证码错误
                         message.error(data.message);
-                        store.changeValidImgCodeTo(false);
-                        this.getImgCaptcha();
+                        // store.changeValidImgCodeTo(false);
                         break;
                     case 414: // 邮箱已经绑定
                     default:
                         // 其他错误
                         message.error(data.message);
-                        this.getImgCaptcha();
                 }
             }).catch(()=>{
                 updateSending(false);
@@ -189,9 +187,7 @@ export default (store, captchaStore) => {
             return resetPwd({
                 account: store.account,
                 pwd: store.pwd,
-                vercode: store.vercode,
-                imgcode: store.imgcode,
-                codeid: captchaStore.codeid
+                vercode: store.vercode
             }).then((data) => {
                 let result = false;
                 updateSubmiting(false);
@@ -210,13 +206,11 @@ export default (store, captchaStore) => {
                         // 邮箱或者手机验证码错误
                         message.error(data.message);
                         store.changeValidVercodeTo(false);
-                        this.getImgCaptcha();
                         break;
                     case 402: // 验证码过期
                     default:
                         // 其他错误
                         message.error(data.message);
-                        this.getImgCaptcha();
                 }
             }).catch(()=>{
                 updateSubmiting(false);
@@ -247,9 +241,7 @@ export default (store, captchaStore) => {
                 account: store.account,
                 pwd: store.pwd,
                 vercode: store.vercode,
-                inviteId: store.inviteId,
-                imgcode: store.imgcode,
-                codeid: captchaStore.codeid
+                inviteId: store.inviteId
             }).then((data) => {
                 updateSubmiting(false);
 
@@ -265,11 +257,9 @@ export default (store, captchaStore) => {
                         break;
                     case 403:
                         store.changeValidVercodeTo(false);
-                        this.getImgCaptcha();
                         break;
                     default:
                         message.error(data.message);
-                        this.getImgCaptcha();
                         break;
                 }
             }).catch(() => {
@@ -329,7 +319,7 @@ export default (store, captchaStore) => {
 
         },
 
-        userLogin(validate) {
+        userLogin(validate, captchaId) {
             const { updateSubmiting } = store;
 
             if (store.submiting) {
@@ -341,7 +331,7 @@ export default (store, captchaStore) => {
             return userLogin({
                 email: store.account,
                 pwd: md5(store.pwd + UPEX.config.salt),
-                NECaptchaValidate: validate,
+                validate: validate,
                 captchaId: captchaId,
             }).then((data) => {
                 updateSubmiting(false);
@@ -356,7 +346,7 @@ export default (store, captchaStore) => {
                     case 5555:
                         break;
                     default:
-                        // this.getImgCaptcha();
+                        // do something
                 }
 
                 return data;
@@ -463,52 +453,6 @@ export default (store, captchaStore) => {
                 updateSending(false);
                 return false;
             })
-        },
-        // 滑动验证码
-        initSliderCaptcha(callback) {
-
-            initNECaptcha({
-                element: '#captcha',
-                captchaId: captchaId,
-                mode: 'popup',
-                width: '320px',
-                lang: UPEX.lang.language == 'en-US' ? 'en': UPEX.lang.language,
-                onReady: function(instance) {
-                    // console.log('instance', instance);
-                    // 验证码一切准备就绪，此时可正常使用验证码的相关功能
-                },
-                onVerify: function(err, data) {
-                    // console.log('onVerify', err, data);
-                    /**
-                     * 第一个参数是err（Error的实例），验证失败才有err对象
-                     * 第二个参数是data对象，验证成功后的相关信息，data数据结构为key-value，如下：
-                     * {
-                     *   validate: 'xxxxx' // 二次验证信息
-                     * }
-                     */
-                    if (!err && data.validate) {
-                      // 验证通过
-                        // alert('进行登录操作');
-                        callback && callback(data.validate)
-                    } else {
-                        // alert('验证失败');
-                    }
-                }
-            }, function onload(instance) {
-                // 初始化成功
-                // 初始化成功后得到验证实例instance，可以调用实例的方法
-              captchaIns = instance
-            }, function onerror(err) {
-               // 验证码初始化失败处理逻辑，例如：提示用户点击按钮重新初始化
-               
-            })
-        },
-
-        checkSliderCaptcha() {
-            if (captchaIns) {
-                captchaIns.refresh();
-                captchaIns.popUp();
-            }
         },
 
         destroy() {

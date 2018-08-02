@@ -9,6 +9,7 @@ const Option = Select.Option;
 import InputItem from '../../components/form/input-item';
 import PageForm from '../../components/page-user/page-form';
 import { createGetProp } from '../../components/utils';
+import YidunCaptcha  from '../yidun-captcha';
 
 @inject('userInfoStore', 'captchaStore', 'loginStore')
 @observer
@@ -65,13 +66,23 @@ export default class BindingPhone extends Component {
             formClass: 'modify-password-box'
         };
 
+        this.yidunCaptcha = new YidunCaptcha({
+            type: 'modify-pwd',
+            lang: UPEX.lang.language == 'en-US' ? 'en': UPEX.lang.language
+        })
     }
 
     componentWillMount() {
         this.setState({
             areacode: NumberUtil.prefixed(this.props.loginStore.selectedCountry.areacode, 4)
         });
-        this.props.captchaStore.fetch();
+        // this.props.captchaStore.fetch();
+    }
+
+    componentDidMount() { 
+        this.yidunCaptcha.init((validate, captchaId)=>{
+            
+        })
     }
 
     setVal(e, name) {
@@ -96,7 +107,7 @@ export default class BindingPhone extends Component {
     }
 
     captchaChange() {
-        this.props.captchaStore.fetch();
+        // this.props.captchaStore.fetch();
     }
 
     submit() {
@@ -115,7 +126,7 @@ export default class BindingPhone extends Component {
 
         this.props.userInfoStore.bindPEAction(this.state.evCode, this.state.vCode, this.state.areacode + this.state.phone, 2).then(data => {
             if(!data) {
-                this.props.captchaStore.fetch();
+                // this.props.captchaStore.fetch();
             }
         });
     }
@@ -126,6 +137,8 @@ export default class BindingPhone extends Component {
         const captcha = this.props.captchaStore.captcha;
         const loginStore = this.props.loginStore;
         let options = [];
+        
+
         $.map(loginStore.countries, (item, key) => {
             options[options.length] = (
                 <Option value={key} key={key}>
