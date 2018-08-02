@@ -17,7 +17,7 @@ changelog:
 * 修改登录密码接口：`user/resetPwdInUserCenter`
 
 
-* 绑定手机（拦截手机发送验证码）：`user/bindPhoneOrEmailSendCode`； type=2
+* 绑定手机 or 绑定邮箱（拦截发送验证码）：`user/bindPhoneOrEmailSendCode`
 * 修改绑定手机（拦新手机发送验证码）：`/user/modifyPhoneSendCode`；
 
   	发送新手机。这个接口逻辑需要大改，建议理下，

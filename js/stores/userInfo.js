@@ -407,8 +407,8 @@ class UserInfo {
     }
 
     @action
-    bindPESendCode(codeid, imgcode, phoneOrEmail, type) {
-        return bindPhoneOrEmailSendCode(codeid, imgcode, phoneOrEmail, type)
+    bindPESendCode(codeid, imgcode, phoneOrEmail, type, validate, captchaId) {
+        return bindPhoneOrEmailSendCode(codeid, imgcode, phoneOrEmail, type, validate, captchaId)
             .then(res => {
                 return res;
             })

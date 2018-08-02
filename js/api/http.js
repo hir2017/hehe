@@ -689,7 +689,7 @@ export function bindPhoneSendMsg(imgCode, imgCodeId, type, phone = '') {
         type: type,
         phone: phone,
         imgcode: imgCode,
-        codeid: imgCodeId
+        codeid: imgCodeId,
     })
 }
 
@@ -776,7 +776,7 @@ export function selectAuthLevel() {
 }
 
 /**
- *  修改绑定修改邮箱
+ *  修改绑定手机
  */
 
 export function bindPhone(newDevice, oldDevice, oldVercode, vercode, codeid, imgcode) {
@@ -792,12 +792,14 @@ export function bindPhone(newDevice, oldDevice, oldVercode, vercode, codeid, img
  *  type=1、手机注册用户;type=2、邮箱注册用户;
  */
 
-export function bindPhoneOrEmailSendCode(codeid, imgcode, phoneOrEmail, type) {
+export function bindPhoneOrEmailSendCode(codeid, imgcode, phoneOrEmail, type, validate, captchaId) {
     return axios.post('/user/bindPhoneOrEmailSendCode', {
         codeid,
         imgcode,
         phoneOrEmail,
-        type
+        type,
+        NECaptchaValidate: validate,
+        captchaId
     })
 }
 
@@ -833,13 +835,21 @@ export function bindPhoneOrEmailAction(EmailCode, phoneCode, phoneOrEmail, type)
  *  type=1:google+新手机，发新手机短信；type=2:旧手机+新手机，发2条手机短信
  */
 
-export function modifyPhoneSendMsg(phone, codeid, imgcode, type) {
-    return axios.post('/user/modifyPhoneSendCode', {
+export function modifyPhoneSendMsg(phone, codeid, imgcode, type, validate, captchaId) {
+    let data = {
         phone,
         codeid,
         imgcode,
         type
-    })
+    }
+
+    if (type == 1) {
+        // type=1:新手机发送验证码, 需要验证图片滑块
+        data.NECaptchaValidate = validate;
+        data.captchaId = captchaId;
+    }
+
+    return axios.post('/user/modifyPhoneSendCode', data);
 }
 
 /**
