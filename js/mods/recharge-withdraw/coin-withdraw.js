@@ -1,4 +1,3 @@
-
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import { Select, message, Alert } from 'antd';
@@ -23,8 +22,16 @@ class WithdrawCoin extends Component {
     }
 
     componentDidMount() {
+        let store = this.props.coinWithdrawStore;
         this.props.commonStore.getAllCoinPoint().then(() => {
-            this.fetchCoinList();
+            this.fetchCoinList().then(() => {
+                // 兼容ie11 placeholder会触发focus的bug
+                // setTimeout(() => {
+                //     this.refs.amountInput.placeholder = UPEX.lang.template('最小提币数量为{count}', {
+                //         count: `${store.amountLowLimit}${store.currentCoin.currencyNameEn}`
+                //     })
+                // }, 100)
+            });
         });
         this.action.getImgCaptcha();
         this.initCodeVerifyType();
@@ -37,7 +44,7 @@ class WithdrawCoin extends Component {
     fetchCoinList() {
         let { accountStore } = this.props;
 
-        accountStore.getUserCoinAccount(() => {
+        return accountStore.getUserCoinAccount(() => {
             const coinNameEn = this.props.params.code;
             let defaultCoin;
 
@@ -101,7 +108,7 @@ class WithdrawCoin extends Component {
         return (
             <div>
                 <form className="rw-form" autoComplete="off">
-                    <AutoCompleteHack/>
+                    <AutoCompleteHack />
                     {store.isFetching ? <div className="mini-loading" /> : null}
                     <div className="rw-form-item">
                         <Alert
@@ -136,8 +143,14 @@ class WithdrawCoin extends Component {
                                         {$addressOptions}
                                     </Select>
                                 </div>
-                                <button type="button" className="rw-sp-vcode-btn">
-                                    <Link to={`/account/coin/address/${store.currentCoin.currencyNameEn}`}>{UPEX.lang.template('添加地址')}</Link>
+                                <button
+                                    type="button"
+                                    className="rw-sp-vcode-btn"
+                                    onClick={e => {
+                                        browserHistory.push(`/account/coin/address/${store.currentCoin.currencyNameEn}`);
+                                    }}
+                                >
+                                    {UPEX.lang.template('添加地址')}
                                 </button>
                             </div>
                             <div className="address-custom mt10">
@@ -169,11 +182,16 @@ class WithdrawCoin extends Component {
                     <div className="rw-form-item">
                         <label className="rw-form-label">{UPEX.lang.template('提币数量')}</label>
                         <div className="rw-form-info">
-                            <div className={`input-box ${store.validAmount ? '' : 'wrong'}`}>
+                            <div className={`input-coin-account input-box ${store.validAmount ? '' : 'wrong'}`}>
+                                {store.amount ? null : (
+                                    <span className="ie11-placeholder-hack">
+                                        {UPEX.lang.template('最小提币数量为{count}', {
+                                            count: `${store.amountLowLimit}${store.currentCoin.currencyNameEn}`
+                                        })}
+                                    </span>
+                                )}
                                 <InputNumber
-                                    placeholder={UPEX.lang.template('最小提币数量为{count}', {
-                                        count: `${store.amountLowLimit}${store.currentCoin.currencyNameEn}`
-                                    })}
+                                    className="amount-input"
                                     value={store.amount}
                                     data-key="amount"
                                     min={store.amountLowLimit}
@@ -187,12 +205,13 @@ class WithdrawCoin extends Component {
                             </span>
                         </div>
                     </div>
+                    <AutoCompleteHack />
                     <div className="rw-form-item sp-v-code">
                         <label className="rw-form-label">{UPEX.lang.template('图片验证码')}</label>
                         <div className="rw-form-info">
                             <div className="yz-box">
                                 <div className={`input-box ${store.validImgCode ? '' : 'wrong'}`}>
-                                    <input type="text" name="wid_no_auto_3" style={{display: 'none'}}/>
+                                    <input type="text" name="wid_no_auto_3" style={{ display: 'none' }} />
                                     <input
                                         type="text"
                                         name="wid_no_auto_3"
@@ -262,7 +281,11 @@ class WithdrawCoin extends Component {
                                             onChange={action.onChangeInput}
                                         />
                                     </div>
-                                    <button onClick={action.sendEmailPhoneCode} type="button" className={`rw-sp-vcode-btn ${store.sendingcode ? 'disabled' : ''}`}>
+                                    <button
+                                        onClick={action.sendEmailPhoneCode}
+                                        type="button"
+                                        className={`rw-sp-vcode-btn ${store.sendingcode ? 'disabled' : ''}`}
+                                    >
                                         <div className={store.sendingcode ? 'code-sending' : 'code-sending hidden'}>
                                             {UPEX.lang.template('重发')}（<span data-second="second" ref="second" />s）
                                         </div>
@@ -284,7 +307,6 @@ class WithdrawCoin extends Component {
                             )}
                         </div>
                     </div>
-
 
                     <div className="rw-form-item">
                         <div className="rw-form-info">

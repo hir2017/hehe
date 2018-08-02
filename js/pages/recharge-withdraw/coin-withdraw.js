@@ -19,7 +19,7 @@ class Withdraw extends Component{
 	}
 
 	clickSetTradePwd=(e)=>{
-		browserHistory.push('/user/settingTraddingPassword');
+		browserHistory.push('/user/set-trade-pwd');
 	}
 
 	clickAuthUserIDCard=(e)=>{

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { observer, inject } from 'mobx-react';
 import { Icon } from 'antd';
-import klineChart from './chart';
+import Chart from './chart';
 import { browserHistory } from 'react-router';
 import { getTradeKline }  from '../../../api/http';
 
@@ -13,6 +13,7 @@ class HotCoin extends Component {
     
 	constructor(props){
 		super(props);
+		this.klineChart = new Chart();
 	}
 	
 	componentDidMount() {
@@ -32,7 +33,7 @@ class HotCoin extends Component {
 				res.attachment.forEach((item, index)=>{
 					let arr = [];
 
-					arr[arr.length] = +new Date(item.createTime.replace(/-/g, '/')); // 时间
+					arr[arr.length] = item.currentTime; // 时间
 					arr[arr.length] = item.current; // 价格
 
 					hours24TrendList[hours24TrendList.length] = arr;
@@ -48,14 +49,14 @@ class HotCoin extends Component {
 		let width = node.width();
 		let height = node.height();
 
-		klineChart.setData({
+		this.klineChart.setData({
 			data: data,
 			width: width,
 			height: height
 		});
 
-		let linePath = klineChart.getPath();
-		let fillPath = klineChart.getFill();
+		let linePath = this.klineChart.getPath();
+		let fillPath = this.klineChart.getFill();
 
 		$(this.refs.testchart).attr('d', linePath);
 		$(this.refs.testfill).attr('d', fillPath);

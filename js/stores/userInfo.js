@@ -1,5 +1,5 @@
 import { observable, action, computed } from 'mobx';
-import {  browserHistory } from 'react-router';
+import { browserHistory } from 'react-router';
 import {
     personalInfo,
     loginRecord,
@@ -36,6 +36,9 @@ import {
 import { message } from 'antd';
 
 const pickErrMsg = (res, name) => {
+    if (res.status === 200) {
+        return;
+    }
     const statusMap = [0, 9999];
     if (statusMap.indexOf(res.status) !== -1) {
         console.error(`${name} error: ${res.message}`);
@@ -88,14 +91,17 @@ class UserInfo {
     }
 
     @action
-    async getUserInfo() {
+    getUserInfo() {
         this.isFetchingInfo = true;
-        const res = await personalInfo();
-        this.userInfo = res.attachment;
-        this.isFetchingInfo = false;
-        if(res.status !== 200) {
-            pickErrMsg(res, 'getUserInfo');
-        }
+        personalInfo()
+            .then(res => {
+                this.userInfo = res.attachment;
+                this.isFetchingInfo = false;
+                pickErrMsg(res, 'getUserInfo');
+            })
+            .catch(err => {
+                console.error(err, 'getUserInfo');
+            });
     }
     /**
      * 安全等级
@@ -124,9 +130,14 @@ class UserInfo {
     }
 
     @action
-    async getLoginRecord() {
-        const res = await loginRecord();
-        this.loginRecord = res.attachment;
+    getLoginRecord() {
+        loginRecord()
+            .then(res => {
+                this.loginRecord = res.attachment;
+            })
+            .catch(err => {
+                console.error(err, 'getLoginRecord');
+            });
     }
 
     @action
@@ -163,525 +174,573 @@ class UserInfo {
     }
 
     @action
-    async sendCode(type, imgCode, imgCodeId) {
-        const res = await sendCodeInUserCenter(type, imgCode, imgCodeId);
-        if (res.status !== 200) {
-            console.error('sendCode error');
-        } else {
-            this.showCountDown = true;
-        }
-
-        return res;
-    }
-
-    @action
-    async bindSendCode(imgCode, imgCodeId, type, phone) {
-        const res = await bindPhoneSendMsg(imgCode, imgCodeId, type, phone);
-        if (res.status !== 200) {
-            console.error('bindSendCode error');
-        }
-
-        return res;
-    }
-
-    @action
-    async bindTradingPwd(newFdPassWord, vercode, imgCode, imgCodeId, passWord) {
-        let reqResult = false;
-        try {
-            this.submit_loading_tpwd = true;
-            const res = await bindFdPwd(newFdPassWord, vercode, imgCode, imgCodeId, passWord);
-            this.submit_loading_tpwd = false;
-            if (res.status !== 200) {
-                if (res.status === 412) {
-                    this.captchaStore.fetch();
-                }
-                pickErrMsg(res, 'bindTradingPwd');
-            } else {
-                reqResult = true;
-                this.getUserInfo();
-                message.success(UPEX.lang.template('设置成功'));
-            }
-        } catch (e) {
-            console.error(e);
-            this.submit_loading_tpwd = false;
-            message.error('Network Error');
-        }
-        return reqResult;
-    }
-
-    @action
-    async resetPwd(newPassWord, vercode, imgCode, imgCodeId, passWord, type) {
-        let reqResult = false;
-        try {
-            this.submit_loading_pwd = true;
-            const res = await resetPwdInUserCenter(newPassWord, vercode, imgCode, imgCodeId, passWord, type);
-            this.submit_loading_pwd = false;
-            if (res.status !== 200) {
-                if (res.status === 412) {
-                    this.captchaStore.fetch();
-                }
-                pickErrMsg(res, 'resetPwd');
-            } else {
-                reqResult = true;
-                message.success(UPEX.lang.template('登录密码修改成功，请重新登录'));
-            }
-        } catch (e) {
-            console.error(e);
-            this.submit_loading_pwd = false;
-            message.error('Network Error');
-        }
-        return reqResult;
-    }
-
-    @action
-    async getGaSecretKey() {
-        try {
-            const res = await getSecretKey();
-            this.gaSecretKey = res.attachment;
-        } catch (e) {
-            console.error(e);
-            message.error('Network Error');
-        }
-    }
-
-    @action
-    async ask(detail, urlkey) {
-        let result = false;
-        try {
-            this.submit_loading = true;
-            const res = await addAsk(detail, urlkey);
-            this.submit_loading = false;
-            if (res.status !== 200) {
-                pickErrMsg(res, 'ask');
-            } else {
-                result = true;
-                message.success(UPEX.lang.template('问题反馈成功'));
-            }
-        } catch (e) {
-            console.error(e);
-            this.submit_loading = false;
-            message.error('Network Error');
-        }
-        return result;
-    }
-
-    @action
-    async questions(page) {
-        try {
-            const res = await getQuestions(page);
-            this.questionsLsit = res.attachment || {};
-        } catch (e) {
-            console.error(e);
-            message.error('Network Error');
-        }
-    }
-
-    @action
-    async identityAuthentication(info) {
-        try {
-            const res = await submitUserInfo(info);
-            if (res.status === 200) {
-                this.getUserInfo();
-                return res;
-            } else {
-                if (res.status === 2006) {
-                    message.error(UPEX.lang.template('提交身份证已存在'));
+    sendCode(type, imgCode, imgCodeId) {
+        return sendCodeInUserCenter(type, imgCode, imgCodeId)
+            .then(res => {
+                if (res.status !== 200) {
+                    console.error('sendCode error');
                 } else {
-                    pickErrMsg(res, 'identityAuthentication');
+                    this.showCountDown = true;
+                }
+
+                return res;
+            })
+            .catch(err => {
+                console.error(err, 'sendCode');
+            });
+    }
+
+    @action
+    bindSendCode(imgCode, imgCodeId, type, phone) {
+        return bindPhoneSendMsg(imgCode, imgCodeId, type, phone)
+            .then(res => {
+                if (res.status !== 200) {
+                    console.error('bindSendCode error');
                 }
                 return res;
-            }
-        } catch (e) {
-            console.error(e);
-            message.error('Network Error');
-        }
+            })
+            .catch(err => {
+                console.error(err, 'bindSendCode');
+            });
     }
 
     @action
-    async bindGA(clientPassword, verCode) {
-        let result = false;
-        try {
-            this.submit_loading = true;
-            const res = await bindGoogleAuth(clientPassword, verCode);
-            this.submit_loading = false;
-            if (res.status === 200) {
-                result = true;
-                this.gaBindSuccess = true;
-                this.getUserInfo();
-                message.success(UPEX.lang.template('绑定成功'));
-            } else {
-                pickErrMsg(res, 'bindGA');
-            }
-        } catch (e) {
-            this.submit_loading = false;
-            console.error(e);
-            message.error('Network Error');
-        }
-        return result;
-    }
-
-    @action
-    async rmBindGA(clientPassword, verCode) {
-        let result = false;
-        try {
-            this.submit_loading = true;
-            const res = await closeGoogleAuth(clientPassword, verCode);
-            this.submit_loading = false;
-            if (res.status === 200) {
-                result = true;
-                this.gaBindSuccess = false;
-                message.success(UPEX.lang.template('解除绑定成功'));
-            } else {
-                pickErrMsg(res, 'rmBindGA');
-            }
-        } catch (e) {
-            this.submit_loading = false;
-            console.error(e);
-            message.error('Network Error');
-        }
-        return result;
-    }
-
-    @action
-    async authInfo() {
-        try {
-            const res = await selectAuthLevel();
-            if (res.data.status === 200) {
-                console.log(res.data, 'data');
-            } else {
-                pickErrMsg(res.data, 'authInfo');
-            }
-        } catch (e) {
-            console.error(e);
-            message.error('Network Error');
-        }
-    }
-
-    @action
-    async modifyPhone(newPhone, oldPhone, oldVercode, vercode) {
-        try {
-            const res = await bindPhone(newPhone, oldPhone, oldVercode, vercode);
-            if (res.status === 200) {
-                console.log(res.data, 'data');
-            } else {
-                pickErrMsg(res, 'modifyPhone');
-            }
-        } catch (e) {
-            console.error(e);
-            message.error('Network Error');
-        }
-    }
-
-    @action
-    async bindPESendCode(codeid, imgcode, phoneOrEmail, type) {
-        try {
-            const res = await bindPhoneOrEmailSendCode(codeid, imgcode, phoneOrEmail, type);
-            return res;
-        } catch (e) {
-            console.error(e);
-            message.error('Network Error');
-        }
-    }
-
-    @action
-    async isGoogleAuth() {
-        try {
-            const res = await isUsedGoogleAuth();
-            if (res.status === 200) {
-                this.gaBindSuccess = res.attachment.isUsed === 1;
-            } else {
-                pickErrMsg(res, 'isGoogleAuth');
-            }
-        } catch (e) {
-            console.error(e);
-            message.error('Network Error');
-        }
-    }
-
-    @action
-    async bindPEAction(EmailCode, phoneCode, phoneOrEmail, type) {
-        let result = true;
-        try {
-            this.submit_loading = true;
-            const res = await bindPhoneOrEmailAction(EmailCode, phoneCode, phoneOrEmail, type);
-            this.submit_loading = false;
-            if (res.status === 200) {
-                message.success(UPEX.lang.template('绑定成功'));
-                if (type === 1) {
-                    browserHistory.push('/user/emailSuccess');
-                } else if (type === 2) {
-                    browserHistory.push('/user/phoneSuccess');
+    bindTradingPwd(newFdPassWord, vercode, imgCode, imgCodeId, passWord) {
+        let reqResult = false;
+        this.submit_loading_tpwd = true;
+        return bindFdPwd(newFdPassWord, vercode, imgCode, imgCodeId, passWord)
+            .then(res => {
+                this.submit_loading_tpwd = false;
+                if (res.status !== 200) {
+                    if (res.status === 412) {
+                        this.captchaStore.fetch();
+                    }
+                    pickErrMsg(res, 'bindTradingPwd');
+                } else {
+                    reqResult = true;
+                    this.getUserInfo();
+                    message.success(UPEX.lang.template('设置成功'));
                 }
-            } else {
+                return reqResult;
+            })
+            .catch(e => {
+                console.error(e);
+                this.submit_loading_tpwd = false;
+                message.error('Network Error');
+                return reqResult;
+            });
+    }
+
+    @action
+    resetPwd(newPassWord, vercode, imgCode, imgCodeId, passWord, type) {
+        let reqResult = false;
+        this.submit_loading_pwd = true;
+        return resetPwdInUserCenter(newPassWord, vercode, imgCode, imgCodeId, passWord, type)
+            .then(res => {
+                this.submit_loading_pwd = false;
+                if (res.status !== 200) {
+                    if (res.status === 412) {
+                        this.captchaStore.fetch();
+                    }
+                    pickErrMsg(res, 'resetPwd');
+                } else {
+                    reqResult = true;
+                    message.success(UPEX.lang.template('登录密码修改成功，请重新登录'));
+                }
+                return reqResult;
+            })
+            .catch(e => {
+                console.error(e);
+                this.submit_loading_pwd = false;
+                message.error('Network Error');
+                return reqResult;
+            });
+    }
+
+    @action
+    getGaSecretKey() {
+        return getSecretKey()
+            .then(res => {
+                this.gaSecretKey = res.attachment;
+            })
+            .catch(err => {
+                console.error(err, 'getGaSecretKey');
+            });
+    }
+
+    @action
+    ask(detail, urlkey) {
+        let result = false;
+        this.submit_loading = true;
+        return addAsk(detail, urlkey)
+            .then(res => {
+                this.submit_loading = false;
+                if (res.status !== 200) {
+                    pickErrMsg(res, 'ask');
+                } else {
+                    result = true;
+                    message.success(UPEX.lang.template('问题反馈成功'));
+                }
+                return result;
+            })
+            .catch(e => {
+                console.error(e);
+                this.submit_loading = false;
+                message.error('Network Error');
+                return result;
+            });
+    }
+
+    @action
+    questions(page) {
+        getQuestions(page)
+            .then(res => {
+                this.questionsLsit = res.attachment || {};
+            })
+            .catch(e => {
+                console.error(e, 'questions');
+                message.error('Network Error');
+            });
+    }
+
+    @action
+    identityAuthentication(info) {
+        return submitUserInfo(info)
+            .then(res => {
+                if (res.status === 200) {
+                    this.getUserInfo();
+                    return res;
+                } else {
+                    if (res.status === 2006) {
+                        message.error(UPEX.lang.template('提交身份证已存在'));
+                    } else {
+                        pickErrMsg(res, 'identityAuthentication');
+                    }
+                    return res;
+                }
+            })
+            .catch(e => {
+                console.error(e);
+                message.error('Network Error');
+            });
+    }
+
+    @action
+    bindGA(clientPassword, verCode) {
+        let result = false;
+        this.submit_loading = true;
+        return bindGoogleAuth(clientPassword, verCode)
+            .then(res => {
+                this.submit_loading = false;
+                if (res.status === 200) {
+                    result = true;
+                    this.gaBindSuccess = true;
+                    this.getUserInfo();
+                    message.success(UPEX.lang.template('绑定成功'));
+                } else {
+                    pickErrMsg(res, 'bindGA');
+                }
+                return result;
+            })
+            .catch(e => {
+                this.submit_loading = false;
+                console.error(e);
+                message.error('Network Error');
+                return result;
+            });
+    }
+
+    @action
+    rmBindGA(clientPassword, verCode) {
+        let result = false;
+        this.submit_loading = true;
+        return closeGoogleAuth(clientPassword, verCode)
+            .then(res => {
+                this.submit_loading = false;
+                if (res.status === 200) {
+                    result = true;
+                    this.gaBindSuccess = false;
+                    message.success(UPEX.lang.template('解除绑定成功'));
+                } else {
+                    pickErrMsg(res, 'rmBindGA');
+                }
+                return result;
+            })
+            .catch(e => {
+                this.submit_loading = false;
+                console.error(e);
+                message.error('Network Error');
+                return result;
+            });
+    }
+
+    @action
+    authInfo() {
+        selectAuthLevel()
+            .then(res => {
+                if (res.data.status === 200) {
+                    console.log(res.data, 'data');
+                } else {
+                    pickErrMsg(res.data, 'authInfo');
+                }
+            })
+            .catch(e => {
+                console.error(e);
+                message.error('Network Error');
+            });
+    }
+
+    @action
+    modifyPhone(newPhone, oldPhone, oldVercode, vercode) {
+        bindPhone(newPhone, oldPhone, oldVercode, vercode)
+            .then(res => {
+                if (res.status === 200) {
+                    console.log(res.data, 'data');
+                } else {
+                    pickErrMsg(res, 'modifyPhone');
+                }
+            })
+            .catch(e => {
+                console.error(e);
+                message.error('Network Error');
+            });
+    }
+
+    @action
+    bindPESendCode(codeid, imgcode, phoneOrEmail, type) {
+        return bindPhoneOrEmailSendCode(codeid, imgcode, phoneOrEmail, type)
+            .then(res => {
+                return res;
+            })
+            .catch(e => {
+                console.error(e);
+                message.error('Network Error');
+            });
+    }
+
+    @action
+    isGoogleAuth() {
+        isUsedGoogleAuth()
+            .then(res => {
+                if (res.status === 200) {
+                    this.gaBindSuccess = res.attachment.isUsed === 1;
+                } else {
+                    pickErrMsg(res, 'isGoogleAuth');
+                }
+            })
+            .catch(e => {
+                console.error(e);
+                message.error('Network Error');
+            });
+    }
+
+    @action
+    bindPEAction(EmailCode, phoneCode, phoneOrEmail, type) {
+        let result = true;
+        this.submit_loading = true;
+        return bindPhoneOrEmailAction(EmailCode, phoneCode, phoneOrEmail, type)
+            .then(res => {
+                this.submit_loading = false;
+                if (res.status === 200) {
+                    message.success(UPEX.lang.template('绑定成功'));
+                    if (type === 1) {
+                        browserHistory.push('/user/emailSuccess');
+                    } else if (type === 2) {
+                        browserHistory.push('/user/phoneSuccess');
+                    }
+                } else {
+                    result = false;
+                    pickErrMsg(res, 'bindPEAction');
+                }
+                return result;
+            })
+            .catch(e => {
+                this.submit_loading = false;
+                console.error(e);
                 result = false;
-                pickErrMsg(res, 'bindPEAction');
-            }
-        } catch (e) {
-            this.submit_loading = false;
-            console.error(e);
-            result = false;
-            message.error('Network Error');
-        }
-        return result;
+                message.error('Network Error');
+                return result;
+            });
     }
 
     @action
-    async mPhoneSendMsg(phone, codeid, imgcode, type) {
-        try {
-            const res = await modifyPhoneSendMsg(phone, codeid, imgcode, type);
-            return res;
-        } catch (e) {
-            console.error(e);
-            message.error('Network Error');
-        }
+    mPhoneSendMsg(phone, codeid, imgcode, type) {
+        return modifyPhoneSendMsg(phone, codeid, imgcode, type)
+            .then(res => {
+                return res;
+            })
+            .catch(e => {
+                console.error(e);
+                message.error('Network Error');
+            });
     }
 
     @action
-    async newModifyPhone(newCode, newPhone, oldCode, type) {
+    newModifyPhone(newCode, newPhone, oldCode, type) {
         let result = false;
-        try {
-            this.submit_loading = true;
-            const res = await modifyPhoneAction(newCode, newPhone, oldCode, type);
-            this.submit_loading = false;
-            if (res.status === 200) {
-                result = true;
-                message.success(UPEX.lang.template('修改成功'));
-            } else {
-                const msgMap = {
-                    '5558': UPEX.lang.template('请填写正确的Google验证码'),
-                    '405': UPEX.lang.template('请填写正确的原手机短信验证码'),
-                    '403': UPEX.lang.template('请填写正确的新手机短信验证码')
-                };
-                let tempMsg;
-                tempMsg = msgMap[res.status] || res.message;
-                if(res.status === 0 || res.status === 9999) {
-                    pickErrMsg(res, 'newModifyPhone');
+        this.submit_loading = true;
+        return modifyPhoneAction(newCode, newPhone, oldCode, type)
+            .then(res => {
+                this.submit_loading = false;
+                if (res.status === 200) {
+                    result = true;
+                    message.success(UPEX.lang.template('修改成功'));
                 } else {
-                    message.error(tempMsg);
+                    const msgMap = {
+                        '5558': UPEX.lang.template('请填写正确的Google验证码'),
+                        '405': UPEX.lang.template('请填写正确的原手机短信验证码'),
+                        '403': UPEX.lang.template('请填写正确的新手机短信验证码')
+                    };
+                    let tempMsg;
+                    tempMsg = msgMap[res.status] || res.message;
+                    if (res.status === 0 || res.status === 9999) {
+                        pickErrMsg(res, 'newModifyPhone');
+                    } else {
+                        message.error(tempMsg);
+                    }
                 }
-            }
-        } catch (e) {
-            this.submit_loading = false;
-            console.error(e);
-            message.error('Network Error');
-        }
-        return result;
+                return result;
+            })
+            .catch(e => {
+                this.submit_loading = false;
+                console.error(e);
+                message.error('Network Error');
+                return result;
+            });
     }
 
     @action
-    async phoneSwitch(smsCode, status) {
+    phoneSwitch(smsCode, status) {
         let result = false;
-        try {
-            this.submit_loading = true;
-            const res = await phoneAuthSwitch(smsCode, status);
-            this.submit_loading = false;
-            if (res.status === 200) {
-                result = true;
-                message.success(UPEX.lang.template('修改成功'));
-            } else {
-                pickErrMsg(res, 'phoneSwitch');
-            }
-        } catch (e) {
-            this.submit_loading = false;
-            console.error(e);
-            message.error('Network Error');
-        }
-        return result;
-    }
-
-    @action
-    async fdPwdSwitch(fdPwd, enabled) {
-        let result = false;
-        try {
-            this.submit_loading = true;
-            const res = await updateFdPwdEnabled(fdPwd, enabled);
-            this.submit_loading = false;
-            if (res.status === 200) {
-                result = true;
-                this.getUserInfo();
-                message.success(UPEX.lang.template('修改成功'));
-            } else {
-                pickErrMsg(res, 'fdPwdSwitch');
-            }
-        } catch (e) {
-            this.submit_loading = false;
-            console.error(e);
-            message.error('Network Error');
-        }
-        return result;
-    }
-
-    @action
-    async bindVerifyCard(cardNo, userName, openBank, branchNo, branchName, tradePwd, imgUrl) {
-        let result = false;
-        try {
-            this.submit_loading = true;
-            const res = await bindVerifyCardInfo(cardNo, userName, openBank, branchNo, branchName, tradePwd, imgUrl);
-            this.submit_loading = false;
-            if (res.status === 200) {
-                result = true;
-                this.bankCardInfo();
-                message.success(UPEX.lang.template('提交银行卡提示'));
-            } else {
-                if (res.status === 13506 || res.status === 13501) {
-                    message.error('已有账号绑定该银行卡');
+        this.submit_loading = true;
+        return phoneAuthSwitch(smsCode, status)
+            .then(res => {
+                this.submit_loading = false;
+                if (res.status === 200) {
+                    result = true;
+                    message.success(UPEX.lang.template('修改成功'));
                 } else {
-                    pickErrMsg(res, 'bindVerifyCard');
+                    pickErrMsg(res, 'phoneSwitch');
                 }
-
-            }
-        } catch (e) {
-            this.submit_loading = false;
-            console.error(e);
-            message.error('Network Error');
-        }
-        return result;
+                return result;
+            })
+            .catch(e => {
+                this.submit_loading = false;
+                console.error(e);
+                message.error('Network Error');
+                return result;
+            });
     }
 
     @action
-    async bankCardInfo() {
-        try {
-            const res = await getBindBankCardInfo();
-            this.bankCardList = res.attachment || [];
-        } catch (e) {
-            console.error(e);
-            message.error('Network Error');
-        }
+    fdPwdSwitch(fdPwd, enabled) {
+        let result = false;
+        this.submit_loading = true;
+        return updateFdPwdEnabled(fdPwd, enabled)
+            .then(res => {
+                this.submit_loading = false;
+                if (res.status === 200) {
+                    result = true;
+                    this.getUserInfo();
+                    message.success(UPEX.lang.template('修改成功'));
+                } else {
+                    pickErrMsg(res, 'fdPwdSwitch');
+                }
+                return result;
+            })
+            .catch(e => {
+                this.submit_loading = false;
+                console.error(e);
+                message.error('Network Error');
+                return result;
+            });
     }
 
     @action
-    async forgetTradingPwd(newPwd, vercode, imgCode, imgCodeId, type) {
+    bindVerifyCard(cardNo, userName, openBank, branchNo, branchName, tradePwd, imgUrl) {
+        let result = false;
+        this.submit_loading = true;
+        return bindVerifyCardInfo(cardNo, userName, openBank, branchNo, branchName, tradePwd, imgUrl)
+            .then(res => {
+                this.submit_loading = false;
+                if (res.status === 200) {
+                    result = true;
+                    this.bankCardInfo();
+                    message.success(UPEX.lang.template('提交银行卡提示'));
+                } else {
+                    if (res.status === 13506 || res.status === 13501) {
+                        message.error('已有账号绑定该银行卡');
+                    } else {
+                        pickErrMsg(res, 'bindVerifyCard');
+                    }
+                }
+                return result;
+            })
+            .catch(e => {
+                this.submit_loading = false;
+                console.error(e);
+                message.error('Network Error');
+                return result;
+            });
+    }
+
+    @action
+    bankCardInfo() {
+        getBindBankCardInfo()
+            .then(res => {
+                this.bankCardList = res.attachment || [];
+            })
+            .catch(e => {
+                console.error(e);
+                message.error('Network Error');
+            });
+    }
+
+    @action
+    forgetTradingPwd(newPwd, vercode, imgCode, imgCodeId, type) {
         let reqResult = false;
-        try {
-            this.submit_loading = true;
-            const res = await forgetFdPwd(newPwd, vercode, imgCode, imgCodeId, type);
-            this.submit_loading = false;
-            if (res.status === 200) {
-                reqResult = true;
-                message.success(UPEX.lang.template('修改成功'));
-            } else {
-                pickErrMsg(res, 'forgetTradingPwd');
-            }
-        } catch (e) {
-            this.submit_loading = false;
-            console.error(e);
-            message.error('Network Error');
-        }
-        return reqResult;
-    }
-
-    @action
-    async questionDetails(id) {
-        try {
-            const res = await questionDetail(id);
-            this.questionObj = res.attachment;
-        } catch (e) {
-            console.error(e);
-            message.error('Network Error');
-        }
-    }
-
-    @action
-    async phAuthSendCode(type) {
-        try {
-            const res = await phoneAuthSendCode(type);
-            return res;
-        } catch (e) {
-            console.error(e);
-            message.error('Network Error');
-        }
-    }
-
-    @action
-    async kycC() {
-        let result = true;
-        try {
-            this.submit_loading = true;
-            const res = await submitKycC();
-            this.submit_loading = false;
-            if (res.status === 200) {
-                result = true;
-                message.success(UPEX.lang.template('申请成功'));
-            } else {
-                if (res.status === 41731) {
-                    message.error(UPEX.lang.template('您的条件尚不符合提额条件'));
+        this.submit_loading = true;
+        return forgetFdPwd(newPwd, vercode, imgCode, imgCodeId, type)
+            .then(res => {
+                this.submit_loading = false;
+                if (res.status === 200) {
+                    reqResult = true;
+                    message.success(UPEX.lang.template('修改成功'));
                 } else {
-                    pickErrMsg(res, 'kycC');
+                    pickErrMsg(res, 'forgetTradingPwd');
                 }
-            }
-        } catch (e) {
-            this.submit_loading = false;
-            console.error(e);
-            message.error('Network Error');
-        }
-        return result;
+                return reqResult;
+            })
+            .catch(e => {
+                this.submit_loading = false;
+                console.error(e);
+                message.error('Network Error');
+                return reqResult;
+            });
     }
 
     @action
-    async modifytradingPwd(newFdPassWord, passWord) {
+    questionDetails(id) {
+        questionDetail(id)
+            .then(res => {
+                this.questionObj = res.attachment;
+            })
+            .catch(e => {
+                console.error(e);
+                message.error('Network Error');
+            });
+    }
+
+    @action
+    phAuthSendCode(type) {
+        return phoneAuthSendCode(type)
+            .then(res => {
+                return res;
+            })
+            .catch(e => {
+                console.error(e);
+                message.error('Network Error');
+            });
+    }
+
+    @action
+    kycC() {
+        let result = true;
+        this.submit_loading = true;
+        return submitKycC()
+            .then(res => {
+                this.submit_loading = false;
+                if (res.status === 200) {
+                    result = true;
+                    message.success(UPEX.lang.template('申请成功'));
+                } else {
+                    if (res.status === 41731) {
+                        message.error(UPEX.lang.template('您的条件尚不符合提额条件'));
+                    } else {
+                        pickErrMsg(res, 'kycC');
+                    }
+                }
+                return result;
+            })
+            .catch(e => {
+                this.submit_loading = false;
+                console.error(e);
+                message.error('Network Error');
+                return result;
+            });
+    }
+
+    @action
+    modifytradingPwd(newFdPassWord, passWord) {
         let reqResult = {
             state: false,
             num: 'none'
         };
-        try {
-            this.submit_loading_tpwd = true;
-            const res = await modifyFdPwd(newFdPassWord, passWord);
-            this.submit_loading_tpwd = false;
-            if (res.status !== 200) {
-                pickErrMsg(res, 'modifytradingPwd');
-                reqResult.num = res.attachment;
-            } else {
-                reqResult.state = true;
-                message.success(UPEX.lang.template('修改成功'));
-            }
-        } catch (e) {
-            console.error(e);
-            this.submit_loading_tpwd = false;
-            message.error('Network Error');
-        }
-        return reqResult;
+        this.submit_loading_tpwd = true;
+        return modifyFdPwd(newFdPassWord, passWord)
+            .then(res => {
+                this.submit_loading_tpwd = false;
+                if (res.status !== 200) {
+                    pickErrMsg(res, 'modifytradingPwd');
+                    reqResult.num = res.attachment;
+                } else {
+                    reqResult.state = true;
+                    message.success(UPEX.lang.template('修改成功'));
+                }
+                return reqResult;
+            })
+            .catch(e => {
+                console.error(e);
+                this.submit_loading_tpwd = false;
+                message.error('Network Error');
+                return reqResult;
+            });
     }
 
     @action
-    async updateBindBankCard(id, tradePwd, gAuth, phoneCode) {
-        try {
-            const res = await updateBindBankCardStatus(id, tradePwd, gAuth, phoneCode);
-            if (res.status !== 200) {
-                pickErrMsg(res, 'updateBindBankCard');
-            } else {
-                message.success(UPEX.lang.template('解绑成功'));
-            }
-        } catch (e) {
-            console.error(e);
-            message.error('Network Error');
-        }
+    updateBindBankCard(id, tradePwd, gAuth, phoneCode) {
+        return updateBindBankCardStatus(id, tradePwd, gAuth, phoneCode)
+            .then(res => {
+                if (res.status !== 200) {
+                    pickErrMsg(res, 'updateBindBankCard');
+                } else {
+                    message.success(UPEX.lang.template('解绑成功'));
+                }
+                return res
+            })
+            .catch(e => {
+                console.error(e);
+                message.error('Network Error');
+            });
     }
 
     @action
-    async deleteBindBankCard(id) {
-        try {
-            const res = await deleteBindBankCardRecord(id);
-            if (res.status !== 200) {
-                pickErrMsg(res, 'deleteBindBankCard');
-            } else {
-                this.bankCardInfo();
-                message.success(UPEX.lang.template('删除成功'));
-            }
-        } catch (e) {
-            console.error(e);
-            message.error('Network Error');
-        }
+    deleteBindBankCard(id) {
+        deleteBindBankCardRecord(id)
+            .then(res => {
+                if (res.status !== 200) {
+                    pickErrMsg(res, 'deleteBindBankCard');
+                } else {
+                    this.bankCardInfo();
+                    message.success(UPEX.lang.template('删除成功'));
+                }
+            })
+            .catch(e => {
+                console.error(e);
+                message.error('Network Error');
+            });
     }
 
     @action
-    async sendMessageBankAndWithdraw(vercode, codeid) {
-        try {
-            const res = await sendMessageWithdraw(vercode, codeid);
-            return res;
-        } catch (e) {
-            console.error(e);
-            message.error('Network Error');
-        }
+    sendMessageBankAndWithdraw(vercode, codeid) {
+        return sendMessageWithdraw(vercode, codeid)
+            .then(res => {
+                return res;
+            })
+            .catch(e => {
+                console.error(e);
+                message.error('Network Error');
+            });
     }
 }
 

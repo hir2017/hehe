@@ -80,9 +80,9 @@ export default class BindingPhone extends Component {
         const data = {};
         data[name] = val;
         if(['phone', 'ivCode'].indexOf(name) !== -1) {
-            data.vcodeAbled = state[name === 'phone' ? 'ivCode' : 'ivCode'] !== '' && val !== '';
+            data.vcodeAbled = state[name === 'phone' ? 'ivCode' : 'phone'] !== '' && val !== '';
         }
-        data.submitAbled = state.vCode !== '' && val !== '';
+        data.submitAbled = state[name === 'vCode' ? 'phone' : 'vCode'] && val !== '';
         // if(['vCode', 'evCode'].indexOf(name) !== -1) {
         //     data.submitAbled = state[name === 'vCode' ? 'evCode' : 'vCode'] !== '' && val !== '';
         // }

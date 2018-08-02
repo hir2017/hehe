@@ -538,12 +538,7 @@ class TradeStore {
         data.content.forEach((item, index) => {
             this.parseTradeHistoryItem(item);
         });
-
-        // 按时间排序，时间最近－》历史
-        data.content.sort(function(a, b) {
-            return b.time - a.time;
-        });
-
+        
         return data;
     }
 
@@ -590,7 +585,7 @@ class TradeStore {
                 if (this.first) {
                     // 默认买入价格是最佳价格
                     this.first = false;
-
+                    
                     this.dealBuyPrice = this.getBestBuyPrice();
                     this.dealSellPrice = this.getBestSellPrice();
                 }
@@ -608,10 +603,10 @@ class TradeStore {
         buy.forEach((item, index) => {
             let cache = item.number * item.current / this.entrustScale;
 
-            cache = cache / 100; // 单位：百分比
-
+            cache = cache * 100; // 单位：百分比
+            
             let depth = parseInt(cache.toFixed(this.pointNum));
-
+            
             item.index = index + 1;
             item.depth = Math.max(depth > 100 ? 100 : depth, 1);
 
@@ -628,10 +623,10 @@ class TradeStore {
         sell.forEach((item, index) => {
             let cache = item.number * item.current / this.entrustScale;
 
-            cache = cache / 100; // 单位：百分比
+            cache = cache * 100; // 单位：百分比
 
             let depth = parseInt(cache.toFixed(this.pointNum));
-
+            
             item.index = index + 1;
             item.depth = Math.max(depth > 100 ? 100 : depth, 1);
             

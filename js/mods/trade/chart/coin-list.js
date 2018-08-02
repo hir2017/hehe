@@ -53,7 +53,7 @@ class CoinList extends Component {
 
     collectIcon(data) {
         const collectCoinsList = this.props.tradeStore.marketListStore.collectCoinsList;
-        
+
         const res = collectCoinsList.some(item => {
             if (item.tradeCurrencyId === data.currencyId && item.baseCurrencyId === data.baseCurrencyId){
                 return true;
@@ -75,9 +75,9 @@ class CoinList extends Component {
         }
 
         if (this.props.tradeStore.marketListStore.sortByType == 'asc') {
-            return <Icon type='arrow-up' /> 
+            return <Icon type='arrow-up' />
         } else {
-            return <Icon type='arrow-down'/> 
+            return <Icon type='arrow-down'/>
         }
     }
 
@@ -85,7 +85,7 @@ class CoinList extends Component {
 
     render() {
         let store = this.props.tradeStore.marketListStore;
-        
+
         return (
             <div className="coin-list">
                 <div className="coin-list-hd clearfix">
@@ -134,7 +134,7 @@ class CoinList extends Component {
                                 }
 
                                 return (
-                                    <dd key={item.id} className={`clearfix`}>
+                                    <dd key={index} className={`clearfix`}>
                                         <div className="cell star">
                                             {this.collectIcon(item)}
                                         </div>

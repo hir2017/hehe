@@ -123,87 +123,89 @@ class ResetPassword extends Component {
 
         return (
             <div className="register-wrapper resetpwd-box">
-                <div className="register-form">
-                    <h3 className="title"> {UPEX.lang.template('忘记密码')} </h3>
-                    <TabView data={this.tabs} current={store.mode} onClick={action.onChangeMode}/>
-                    <div className="register-mode-content">
-                        { $selectAreaCode }
-                        { $inputAccount }
-                        <div className="input-wrapper">
-                            <div className="input-box yz-box">
-                                <input
-                                    type="text"
-                                    placeholder={UPEX.lang.template('请参照右侧输入')}
-                                    maxLength="5"
-                                    autoComplete="off"
-                                    onChange={action.onChangeImgCode}
-                                    className={store.validImgCode ? '' : 'wrong'}
-                                />
-                                <ImgVerifyCode/>
+                <div className="register-form-wrapper">
+                    <div className="register-form">
+                        <h3 className="title"> {UPEX.lang.template('忘记密码')} </h3>
+                        <TabView data={this.tabs} current={store.mode} onClick={action.onChangeMode}/>
+                        <div className="register-mode-content">
+                            { $selectAreaCode }
+                            { $inputAccount }
+                            <div className="input-wrapper">
+                                <div className="input-box yz-box">
+                                    <input
+                                        type="text"
+                                        placeholder={UPEX.lang.template('请参照右侧输入')}
+                                        maxLength="5"
+                                        autoComplete="off"
+                                        onChange={action.onChangeImgCode}
+                                        className={store.validImgCode ? '' : 'wrong'}
+                                    />
+                                    <ImgVerifyCode/>
+                                </div>
+                                { !store.validImgCode ? <div className="warn">{UPEX.lang.template('请填写正确的图片验证码')}</div> : null }
                             </div>
-                            { !store.validImgCode ? <div className="warn">{UPEX.lang.template('请填写正确的图片验证码')}</div> : null }
-                        </div>
-                        <div className="input-wrapper">
-                            <div className="input-box useryz-box">
-                                <input
-                                    type="text"
-                                    ref="vercode"
-                                    maxLength="6"
-                                    autoComplete="off"
-                                    placeholder={store.mode == 'email' ? UPEX.lang.template('邮箱验证码') : UPEX.lang.template('手机验证码')}
-                                    className={store.validVercode ? '' : 'wrong'}
-                                    onChange={action.onChangeVercode}
-                                />
-                                <SMSCodeView onClick={this.sendVercode} disabled={store.disabledCodeBtn} fetching={store.sending}/>
+                            <div className="input-wrapper">
+                                <div className="input-box useryz-box">
+                                    <input
+                                        type="text"
+                                        ref="vercode"
+                                        maxLength="6"
+                                        autoComplete="off"
+                                        placeholder={store.mode == 'email' ? UPEX.lang.template('邮箱验证码') : UPEX.lang.template('手机验证码')}
+                                        className={store.validVercode ? '' : 'wrong'}
+                                        onChange={action.onChangeVercode}
+                                    />
+                                    <SMSCodeView onClick={this.sendVercode} disabled={store.disabledCodeBtn} fetching={store.sending}/>
+                                </div>
+                                {
+                                    !store.validVercode ? (
+                                        <div className="warn">
+                                            {store.mode == 'email' ? UPEX.lang.template('请填写正确的邮箱验证码') : UPEX.lang.template('请填写正确的手机验证码')}
+                                        </div>
+                                    ) : null
+                                }
                             </div>
-                            {
-                                !store.validVercode ? (
-                                    <div className="warn">
-                                        {store.mode == 'email' ? UPEX.lang.template('请填写正确的邮箱验证码') : UPEX.lang.template('请填写正确的手机验证码')}
-                                    </div>
-                                ) : null
-                            }
-                        </div>
-                        <div className="input-wrapper">
-                            <div className="input-box">
-                                <input
-                                    type="password"
-                                    ref="pwd"
-                                    maxLength="16"
-                                    autoComplete="off"
-                                    className={store.validPwd ? '' : 'wrong'}
-                                    placeholder={UPEX.lang.template('密码')}
-                                    onChange={action.onChangePwd}
-                                    onBlur={action.onBlurPwd}
-                                />
+                            <div className="input-wrapper">
+                                <div className="input-box">
+                                    <input
+                                        type="password"
+                                        ref="pwd"
+                                        maxLength="16"
+                                        autoComplete="off"
+                                        className={store.validPwd ? '' : 'wrong'}
+                                        placeholder={UPEX.lang.template('密码')}
+                                        onChange={action.onChangePwd}
+                                        onBlur={action.onBlurPwd}
+                                    />
+                                </div>
+                                { !store.validPwd ? <div className="warn">{UPEX.lang.template('密码至少由大写字母+小写字母+数字，8-16位组成')}</div> : null }
                             </div>
-                            { !store.validPwd ? <div className="warn">{UPEX.lang.template('密码至少由大写字母+小写字母+数字，8-16位组成')}</div> : null }
-                        </div>
-                        <div className="input-wrapper">
-                            <div className="input-box">
-                                <input
-                                    type="password"
-                                    ref="twicepwd"
-                                    maxLength="16"
-                                    autoComplete="off"
-                                    className={store.validTwicePwd ? '' : 'wrong'}
-                                    placeholder={UPEX.lang.template('确认密码')}
-                                    onChange={action.onChangeTwicePwd}
-                                    onBlur={action.onBlurTwicePwd}
-                                />
+                            <div className="input-wrapper">
+                                <div className="input-box">
+                                    <input
+                                        type="password"
+                                        ref="twicepwd"
+                                        maxLength="16"
+                                        autoComplete="off"
+                                        className={store.validTwicePwd ? '' : 'wrong'}
+                                        placeholder={UPEX.lang.template('确认密码')}
+                                        onChange={action.onChangeTwicePwd}
+                                        onBlur={action.onBlurTwicePwd}
+                                    />
+                                </div>
+                                { !store.validTwicePwd ? <div className="warn">{UPEX.lang.template('两次密码输入不一致')}</div> : null }
                             </div>
-                            { !store.validTwicePwd ? <div className="warn">{UPEX.lang.template('两次密码输入不一致')}</div> : null }
-                        </div>
 
-                        <div className="input-wrapper">
-                            { $submitBtn }
-                        </div>
-                        <div className="register-extra clearfix">
-                            <div className="fl login">
-                                <Link to="/login">{UPEX.lang.template('登录')}</Link>
+                            <div className="input-wrapper">
+                                { $submitBtn }
                             </div>
-                            <div className="fr register">
-                                <Link to="/register"> {UPEX.lang.template('注册')}</Link>
+                            <div className="register-extra clearfix">
+                                <div className="fl login">
+                                    <Link to="/login">{UPEX.lang.template('登录')}</Link>
+                                </div>
+                                <div className="fr register">
+                                    <Link to="/register"> {UPEX.lang.template('注册')}</Link>
+                                </div>
                             </div>
                         </div>
                     </div>

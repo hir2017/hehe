@@ -19,7 +19,8 @@ export default class SettingTradingPassword extends Component {
 
     state = {
         num: 60,
-        show: true
+        show: true,
+        loading: false
     };
 
     get type() {
@@ -35,8 +36,8 @@ export default class SettingTradingPassword extends Component {
         }
     }
 
-    async sendCode() {
-        if(!this.state.show) {
+    sendCode() {
+        if (!this.state.show) {
             return false;
         }
         const { beforeClick } = this.props;
@@ -55,51 +56,66 @@ export default class SettingTradingPassword extends Component {
             message.error(UPEX.lang.template(this.props.message));
             return;
         }
-
-        let res;
+        this.setState({
+            loading: true
+        })
+        let req;
         if (this.props.modifyBind) {
             //修改手机发送验证码
             const phone = this.props.areacode + this.props.phone;
-            res = await this.props.userInfoStore.mPhoneSendMsg(phone, this.props.codeid, this.props.imgCode, this.props.type);
+            req = this.props.userInfoStore.mPhoneSendMsg(phone, this.props.codeid, this.props.imgCode, this.props.type);
         } else if (this.props.newBind) {
             //绑定手机邮箱发送验证
             const emailOrphone = this.props.areacode + this.props.emailOrphone;
-            res = await this.props.userInfoStore.bindPESendCode(this.props.codeid, this.props.imgCode, emailOrphone, this.props.type);
+            req = this.props.userInfoStore.bindPESendCode(this.props.codeid, this.props.imgCode, emailOrphone, this.props.type);
         } else if (this.props.bind) {
             //老版本绑定修改手机邮箱发送验证码
             const phone = this.props.areacode == '86' ? this.props.phone : this.props.areacode + this.props.phone;
-            res = await this.props.userInfoStore.bindSendCode(this.props.imgCode, this.props.codeid, this.props.type, phone);
+            req = this.props.userInfoStore.bindSendCode(this.props.imgCode, this.props.codeid, this.props.type, phone);
         } else if (this.props.phoneAuth) {
             //开关手机认证发送验证码
-            res = await this.props.userInfoStore.phAuthSendCode(this.props.type);
+            req = this.props.userInfoStore.phAuthSendCode(this.props.type);
         } else if (this.props.bankAndWithdraw) {
             //解绑银行卡/提现发送手机证码
-            res = await this.props.userInfoStore.sendMessageBankAndWithdraw(this.props.imgCode, this.props.codeid);
+            req = this.props.userInfoStore.sendMessageBankAndWithdraw(this.props.imgCode, this.props.codeid);
         } else {
-            res = await this.props.userInfoStore.sendCode(this.type, this.props.imgCode, this.props.codeid);
+            req = this.props.userInfoStore.sendCode(this.type, this.props.imgCode, this.props.codeid);
         }
-        if (res.status === 200) {
-            const ctx = this;
-            this.setState({
+        req.then(res => {
+            const _state = {
+                loading: false,
                 show: false
-            });
-            time = setInterval(() => {
-                let num = ctx.state.num;
-                ctx.setState({
-                    num: num - 1
-                });
-                if (num === 1) {
-                    clearInterval(time);
+            }
+            if (res.status === 200) {
+                const ctx = this;
+                time = setInterval(() => {
+                    let num = ctx.state.num;
                     ctx.setState({
-                        num: 60,
-                        show: true
+                        num: num - 1
                     });
-                }
-            }, 1000);
-        } else {
-            this.props.captchaStore.fetch();
-            message.error(UPEX.lang.template(res.message));
-        }
+                    if (num === 1) {
+                        clearInterval(time);
+                        ctx.setState({
+                            num: 60,
+                            show: true
+                        });
+                    }
+                }, 1000);
+            } else {
+                _state.show = true;
+                this.props.captchaStore.fetch();
+                message.error(UPEX.lang.template(res.message));
+            }
+            this.setState(_state)
+        }).catch(e => {
+            this.setState({
+                loading: false,
+                show: true
+            });
+            console.error('do sendCode', error);
+        });
+
+        return;
     }
 
     componentWillUnmount() {
@@ -107,12 +123,18 @@ export default class SettingTradingPassword extends Component {
     }
 
     render() {
-        const {state, props} = this;
+        const { state, props } = this;
         return (
             <div className={`sms-btn ${state.show ? 'no-send' : 'sending'}`}>
-                <button type="button" style={props.style || null} disabled={props.disabled} onClick={this.sendCode}  className="send-v-code-button">
-                    {state.show ? UPEX.lang.template('发送验证码') : `${UPEX.lang.template('重发')}(${state.num}s)`}
-                </button>
+                {state.loading ? (
+                    <button type="button"  style={props.style || null} disabled={true}  className="send-v-code-button">
+                        {UPEX.lang.template('发送中')}
+                    </button>
+                ) : (
+                    <button type="button" style={props.style || null} disabled={!state.show} onClick={this.sendCode} className="send-v-code-button">
+                        {state.show ? UPEX.lang.template('发送验证码') : `${UPEX.lang.template('重发')}(${state.num}s)`}
+                    </button>
+                )}
             </div>
         );
     }

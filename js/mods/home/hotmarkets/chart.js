@@ -17,8 +17,11 @@ class ChartData {
     setData(cfg) {
         this.width = cfg.width;
         this.height = cfg.height;
+
         let data = this.data = cfg.data;
         let len = data.length;
+        
+        this.barCount = len - 1;
 
         // 遍历数组，查找最大的值, 最小值
         for (let i = 0; i < len; i++) {
@@ -44,11 +47,11 @@ class ChartData {
 
     getPath() {
         let arr = [];
-
+        console.log('-----');
         this.data.forEach((item, i) =>{
 
             let closePrice = Number(item[1]);
-
+            
             if (i == 0) {
                 arr.push("M" + this.getX(i) + " " + this.getY(closePrice || 1));
             } else {
@@ -80,6 +83,4 @@ class ChartData {
 
 }
 
-const klineChart =  new ChartData();
-
-export default klineChart;
+export default ChartData;

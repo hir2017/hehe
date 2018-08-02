@@ -1,23 +1,75 @@
 .register-wrapper {
-    padding-top: 80px;
-    padding-bottom: 100px;
-}
-
-.register-wrapper {}
-
-.register-wrapper .register-form {
     position: relative;
-    width: 450px;
-    margin: 0 auto;
-    color: #fff;
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 45px;
+    margin-bottom: 45px;
+    background-color: #191b1d;
+    border: 1px solid #272a2d;
+    border-radius: 4px;
 }
+
+.register-wrapper .register-form-wrapper{
+    position: relative;
+    margin: 10px auto;
+    width: 480px;
+    color: #fff;
+    padding-bottom: 45px;
+    background-color: #24272c;
+}
+.register-wrapper:before,
+.register-wrapper:after,
+.register-wrapper .register-form-wrapper:before,
+.register-wrapper .register-form-wrapper:after{
+    content: '';
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    position: absolute;
+    z-index: 2;
+}
+
+.register-wrapper:before{
+    background: url('../images/login-arrow-lt.png') no-repeat center center;
+    background-size: 100% 100%;
+    left: 10px;
+    top: 10px;
+}
+
+.register-wrapper:after{
+    background: url('../images/login-arrow-rt.png') no-repeat center center;
+    background-size: 100% 100%;
+    right: 10px;
+    top: 10px;
+}
+
+.register-wrapper .register-form-wrapper:before{
+    background: url('../images/login-arrow-lb.png') no-repeat center center;
+    background-size: 100% 100%;
+    left: 0;
+    bottom: 0;
+}
+
+.register-wrapper  .register-form-wrapper:after{
+    background: url('../images/login-arrow-rb.png') no-repeat center center;
+    background-size: 100% 100%;
+    right: 0;
+    bottom: 0;
+}
+
+.register-wrapper .register-form{
+    width: 400px;
+    margin: 0 auto;
+}
+
 
 .register-wrapper .register-mode-tabs {
     position: absolute;
-    right: 0;
+    right: 40px;
     top: 0;
     height: 60px;
-    width: 450px;
+    width: 400px;
     margin: 0 auto;
     text-align: right;
 }
@@ -48,7 +100,7 @@
     margin: 0 auto;
     text-align: center;
     line-height: 60px;
-    color: #666;
+    color: #838891;
     background: none;
     font-size: 14px;
 }
@@ -97,32 +149,9 @@
     outline: none;
     font-size: 14px;
     background: none;
-    color: #fee8c2;
-}
-
-.register-mode-content .input-box input::placeholder {
-    color: #666 !important;
-}
-
-.register-mode-content .input-box input::-webkit-input-placeholder {
-    /* WebKit browsers*/
-    color: #666;
-}
-
-.register-mode-content .input-box input:-moz-placeholder {
-    /* Mozilla Firefox 4 to 18*/
-    color: #666;
-}
-
-.register-mode-content .input-box input::-moz-placeholder {
-    /* Mozilla Firefox 19+*/
-    color: #666;
-}
-
-
-.register-mode-content .input-box input:-ms-input-placeholder {
-    /* Internet Explorer 10+*/
-    color: #666;
+    color: #b6bcc6;
+    -webkit-box-shadow:  0 0 0 30px #24272c inset;
+    -webkit-text-fill-color: #b6bcc6 !important;
 }
 
 .register-mode-content .input-box input:focus {
@@ -145,7 +174,7 @@
 }
 
 .register-mode-content .input-box .ant-select-selection {
-    color: #fee8c2;
+    color: #b6bcc6;
     border: 0 none;
     border-bottom: 1px solid #333;
     background-color: transparent;
@@ -245,7 +274,7 @@
 }
 
 .register-mode-content .input-box.user-protocol .ant-checkbox-wrapper {
-    color: #fee8c2;
+    color: #b6bcc6;
 }
 
 .register-mode-content .input-box.user-protocol input {
@@ -283,8 +312,8 @@
 
 .register-mode-content .submit-btn.disabled {
     color: #666;
-    border: 1px solid #333;
-    background-color: #333;
+    border: 1px solid #34373e;
+    background-color: #34373e;
 }
 
 .register-mode-content .error-tip {

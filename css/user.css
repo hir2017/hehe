@@ -62,6 +62,7 @@ body .user-main .ant-select-dropdown-menu-item {
 .user-main .modify-password-box .v-code-button .sms-btn {
     position: relative;
     width: 115px;
+    overflow: hidden;
     height: 100%;
     right: 4px;
     top: 1px;
@@ -70,6 +71,9 @@ body .user-main .ant-select-dropdown-menu-item {
     border: solid 1px #ccc;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
+}
+.user-main .modify-password-box .v-code-button .sms-btn button {
+    width: 100%;
 }
 
 .user-main .modify-password-box .v-code-button img {
@@ -1852,6 +1856,8 @@ body .user-main .ant-select-dropdown-menu-item {
 
 .ant-modal.feedback-modal .ant-modal-content .ant-modal-body .img-box {
     height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
     margin: 0 auto;
     position: relative;
 }

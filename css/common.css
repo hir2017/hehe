@@ -7,6 +7,7 @@ html {
 #wrap {
     /* background: #fff; */
     min-height: 100%;
+    width:100vw;
     overflow: hidden;
 }
 
@@ -668,7 +669,6 @@ body .ant-select-dropdown-menu-item-selected:hover{
 .app-page[data-path="/resetpwd"] .app-content{
     background: #141414 url('../images/loginbg.png') no-repeat center 100px;
     background-size: 1200px 515px;
-    min-height: 550px;
 }
 
 .app-page[data-path="/login"] .tobottom-footer,

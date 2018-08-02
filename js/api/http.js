@@ -79,8 +79,13 @@ let preTime = +new Date(), nowTime;
 
 // 添加响应拦截器
 axios.interceptors.response.use(function(res) {
+    let tempData = res.data || {
+        id: 'SYSTEM_ERROR',
+        status: -1,
+        message: 'response is empty'
+    }
     // 对响应数据做点什么
-    let status = res.data.status
+    let status = tempData.status
 
     if (status == 9999) {
         nowTime = +new Date();
@@ -94,7 +99,7 @@ axios.interceptors.response.use(function(res) {
         }
     }
 
-    return res.data;
+    return tempData;
 
 }, function(error) {
     // 对响应错误做点什么
@@ -147,12 +152,11 @@ export function userRegister(data) {
 // 用户登录 - 不需要验证第一步
 export function userLogin(data) {
     return axios.post('/user/loginGAFirst', qs.stringify({
-        // email: data.email, // 兼容旧的代码环境，上线后去掉
         emailOrPhone: data.email,
         pwd: data.pwd,
-        vercode: data.imgcode,
-        source: 1,
-        codeid: data.codeid
+        NECaptchaValidate: data.NECaptchaValidate,
+        captchaId: data.captchaId,
+        source: 1
     }))
 }
 

@@ -192,7 +192,7 @@ class FiatRechargeView extends Component {
                 setVal: (val, field) => {
                     store.setVal(val, field);
                 },
-                cards: store.bankCardsList,
+                cards: store.bankCardsList.filter(item => item.status === 1),
                 count: store.accountAmount,
                 labels: { card: UPEX.lang.template('选择提现的银行卡'), balance: UPEX.lang.template('提现金额') }
             };

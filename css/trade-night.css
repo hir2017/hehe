@@ -4,6 +4,14 @@
 
 .app-trade-dark {
     background-color: #232323;
+    scrollbar-arrow-color:#61688a;
+    scrollbar-face-color:transparent;
+    scrollbar-3dlight-color: transparent;
+    scrollbar-highlight-color:#181b2a;
+    scrollbar-shadow-color:rgba(0,0,0,.15);
+    scrollbar-darkshadow-color: transparent;
+    scrollbar-track-color:#181b2a;
+    scrollbar-base-color:rgba(97,104,138,.15)
 }
 
 .app-trade-dark .trade-main-chart .chart-box{

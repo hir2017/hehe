@@ -87,7 +87,7 @@ class Account {
         this.originAccountData = {};
         this.accountData = {};
 
-        getCoinAccount().then((data) => {
+        return getCoinAccount().then((data) => {
             // data = require('../mock/assets.json');
             runInAction(() => {
                 if (data.status == 200) {
