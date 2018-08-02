@@ -106,7 +106,7 @@ export default (store, captchaStore) => {
             e.target.value = temp_value;
         },
 
-        // 注册的时候，发送短信验证码和游戏验证码
+        // 注册的时候，发送短信验证码和邮箱验证码
         sendVercode(type) {
             let { verifyInfoBeforeSendCode, updateSending } = store;
 
