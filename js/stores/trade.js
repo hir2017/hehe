@@ -104,7 +104,7 @@ class TradeStore {
     get currentTradeCoin() {
         let coins = this.marketListStore.cacheCoins.filter((item) => {
             return item.baseCurrencyId == this.baseCurrencyId && item.currencyId == this.currencyId
-        })        
+        })
         return coins[0] || {};
     }
 
@@ -396,8 +396,14 @@ class TradeStore {
     setSellSliderValue(value) {
         let balance = this.tradeCoinBalance.value;
         let num = balance * value * 0.01;
+        let dealNum = num.toString();
+        // this.dealSellNum = NumberUtil.initNumber(num, this.pointNum);
+        if(dealNum.indexOf('e') !== -1) {
+            dealNum = NumberUtil.scientificToNumber(num);
+        }
+        dealNum = NumberUtil.toFixed(dealNum, this.pointNum);
+        this.dealSellNum = dealNum;
 
-        this.dealSellNum = NumberUtil.initNumber(num, this.pointNum);
         this.sellSliderValue = value;
     }
     /**
@@ -527,7 +533,7 @@ class TradeStore {
                 // 添加到数组头部
                 // mobx对于数组的处理，会将它转换成observableArray，它不是一个数组类型，需要进行数组转换（如slice）
                 let oldHistoryList = this.tradeHistory.content.slice();
-                
+
                 parsedData.content = parsedData.content.concat(oldHistoryList);
                 this.tradeHistory = parsedData;
             });
@@ -538,7 +544,7 @@ class TradeStore {
         data.content.forEach((item, index) => {
             this.parseTradeHistoryItem(item);
         });
-        
+
         return data;
     }
 
@@ -585,7 +591,7 @@ class TradeStore {
                 if (this.first) {
                     // 默认买入价格是最佳价格
                     this.first = false;
-                    
+
                     this.dealBuyPrice = this.getBestBuyPrice();
                     this.dealSellPrice = this.getBestSellPrice();
                 }
@@ -612,7 +618,7 @@ class TradeStore {
 
             item.current = NumberUtil.initNumber(item.current, this.pointPrice); // 价格
             item.newcurrent = NumberUtil.formatNumber(item.current, this.pointPrice); // 价格
-            
+
             item.number = NumberUtil.initNumber(item.number, this.pointNum); // 数量
             item.newnumber = NumberUtil.formatNumber(item.number, this.pointNum); // 数量
 
@@ -629,15 +635,15 @@ class TradeStore {
             
             item.index = index + 1;
             item.depth = Math.max(depth > 100 ? 100 : depth, 1);
-            
+
             item.current = NumberUtil.initNumber(item.current, this.pointPrice); // 价格
             item.newcurrent = NumberUtil.formatNumber(item.current, this.pointPrice); // 价格
 
             item.number = NumberUtil.initNumber(item.number, this.pointNum); // 数量
             item.newnumber = NumberUtil.formatNumber(item.number, this.pointNum); // 数量
-            
+
             item.newtotal = NumberUtil.formatNumber(item.current * item.number, this.pointPrice); // 总金额
-            
+
         });
 
         // 降序排序
@@ -856,7 +862,7 @@ class TradeStore {
                                 this.setDealSellNum('');
                                 this.setTradeSellPassword('');
                             }
-                            
+
                             this.getUserAccount();
 
                             break;
@@ -888,7 +894,7 @@ class TradeStore {
 
         // Convert to data points
         for (var i = 0; i < list.length; i++) {
-            
+
             list[i] = {
                 price: Number(list[i].current), // 价格
                 volume: Number(list[i].number) // 成交数量
@@ -917,7 +923,7 @@ class TradeStore {
                 var dp = {};
                 dp['price'] = list[i].price;
                 dp['volume'] = list[i].volume;
-                dp['totalvolume'] = NumberUtil.initNumber(list[i].totalvolume, this.pointNum); 
+                dp['totalvolume'] = NumberUtil.initNumber(list[i].totalvolume, this.pointNum);
 
                 res.splice(0, 0, dp);
             }
@@ -931,7 +937,7 @@ class TradeStore {
                 var dp = {};
                 dp['price'] = list[i].price;
                 dp['volume'] = list[i].volume;
-                dp['totalvolume'] = NumberUtil.initNumber(list[i].totalvolume, this.pointNum); 
+                dp['totalvolume'] = NumberUtil.initNumber(list[i].totalvolume, this.pointNum);
                 res[res.length] = dp;
             }
         }
