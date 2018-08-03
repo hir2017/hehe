@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 class InputItem extends Component {
     render() {
-        const {label, inputProps, tip, error, className} = this.props;
+        const {label, inputProps, tip, error, className, afterNode} = this.props;
         // 奇葩的实现方式，先这样吧
         let _props = {};
         if(this.props.hasOwnProperty('value')) {
@@ -16,6 +16,7 @@ class InputItem extends Component {
                 }
                 {tip ? (<div className="item-tip">{tip}</div>) : ''}
                 {error ? (<div className="item-error">{error}</div>) : ''}
+                {afterNode ? afterNode : null}
             </div>
         );
     }

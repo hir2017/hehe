@@ -85,6 +85,34 @@ body .user-main .ant-select-dropdown-menu-item {
     margin-top: -3px;
 }
 
+.user-main .ace-form .ace-input-item.sms-code {
+    position: relative;
+}
+.user-main .ace-form .ace-input-item.sms-code .input{
+    width: 350px;
+    border-right: none;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.user-main .ace-form .ace-input-item.sms-code .ant-btn{
+    height: 40px;
+    width: 100px;
+    padding: 0;
+    text-align: center;
+    overflow: hidden;
+    float: right;
+    border-radius: 3px;
+    background-color: transparent;
+    border: solid 1px #ccc;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+.user-main .ace-form .ace-input-item.sms-code .ant-btn:hover, .user-main .ace-form .ace-input-item.sms-code .ant-btn:active{
+    color: #e8b802;
+}
+.user-main .ace-form .ace-input-item.sms-code .ant-btn:hover:disabled, .user-main .ace-form .ace-input-item.sms-code .ant-btn:active:disabled {
+    color: rgba(0, 0, 0, 0.25);
+}
 /* 按钮 */
 
 .user-main .content-body .ant-btn.ace-btn-large,

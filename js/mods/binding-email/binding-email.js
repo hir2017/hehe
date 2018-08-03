@@ -1,99 +1,108 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import { Button, message } from 'antd';
-import { Link } from 'react-router';
-import Vcodebutton from '../common/authcode-btn';
-
+import SendVCodeBtn from '../common/v-code-btn';
+import { browserHistory } from 'react-router';
 import InputItem from '../../components/form/input-item';
 import PageForm from '../../components/page-user/page-form';
 import { createGetProp } from '../../components/utils';
 
-@inject('userInfoStore', 'captchaStore')
+import { bindPhoneOrEmailSendCode, bindPhoneOrEmailAction } from '../../api/http';
+
+@inject('userInfoStore')
 @observer
 export default class BindingEmail extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
+        this.state = {
+            email: '',
+            vCode: '',
+            loading: false
+        };
         this.submit = this.submit.bind(this);
     }
 
-    componentWillMount() {
-        this.props.captchaStore.fetch();
-    }
-
-    state = {
-        email: '',
-        vCode: '',
-        ivCode: '',
-        pvCode: '',
-        vcodeAbled: false,
-        submitAbled: false,
-    };
-
-    captchaChange() {
-        this.props.captchaStore.fetch();
-    }
+    componentWillMount() {}
 
     setVal(e, name) {
-        const val = e.target.value;
-        const state = this.state;
-        const data = {};
-        data[name] = val;
-        if(['email', 'ivCode'].indexOf(name) !== -1) {
-            data.vcodeAbled = state[name === 'email' ? 'ivCode' : 'email'] !== '' && val !== '';
-        }
-        if(['vCode', 'pvCode'].indexOf(name) !== -1) {
-            data.submitAbled = state[name === 'vCode' ? 'pvCode' : 'vCode'] !== '' && val !== '';
-        }
-        this.setState(data);
+        this.setState({
+            [name]: e.target.value.trim()
+        });
+    }
 
+    sendCode({ validate, captchaId }) {
+        return bindPhoneOrEmailSendCode({
+            NECaptchaValidate: validate,
+            captchaId,
+            phoneOrEmail: this.state.email,
+            type: 1
+        })
+            .then(res => {
+                if (res.status !== 200) {
+                    message.error(res.message);
+                }
+                return res;
+            })
+            .catch(e => {
+                console.error(e);
+                message.error('Network Error');
+                return false;
+            });
+    }
+
+    validateFrom(type = 'all') {
+        const {state} = this;
+        if (!state.email) {
+            message.error(UPEX.lang.template('请填写邮箱'));
+            return false;
+        }
+        if (type === 'all') {
+            if (!state.vCode) {
+                message.error(UPEX.lang.template('请填写邮箱验证码'));
+                return false;
+            }
+        }
+        return true;
     }
 
     submit() {
-        const codeid = this.props.captchaStore.codeid;
-        if (!this.state.email) {
-            message.error(UPEX.lang.template('请填写邮箱'));
+        const { state } = this;
+        if (!this.validateFrom()) {
             return;
         }
-        if (!this.state.vCode) {
-            message.error(UPEX.lang.template('请填写邮箱验证码'));
-            return;
-        }
-        if (!this.state.pvCode) {
-            message.error(UPEX.lang.template('请填写手机验证码'));
-            return;
-        }
-
-        this.props.userInfoStore.bindPEAction(this.state.vCode, this.state.pvCode, this.state.email, 1).then(data => {
-            if(!data) {
-                this.props.captchaStore.fetch();
+        this.setState({
+            loading: true
+        });
+        bindPhoneOrEmailAction({
+            code: state.vCode,
+            phoneOrEmail: state.email,
+            type: 1,
+        }).then(res => {
+            this.setState({
+                loading: false
+            });
+            if (res.status === 200) {
+                message.success(UPEX.lang.template('绑定成功'));
+                browserHistory.push('/user/emailSuccess');
+            } else {
+                result = false;
+                this.props.userInfoStore.pickErrMsg(res, 'bindPEAction');
             }
         });
     }
 
     render() {
-        const loading = this.props.userInfoStore.submit_loading;
-        const codeid = this.props.captchaStore.codeid;
-        const captcha = this.props.captchaStore.captcha;
-
+        const { disabled, timer, loading } = this.state;
         const getProp = createGetProp(this);
         const inputsData = {
             email: {
                 label: UPEX.lang.template('邮箱'),
                 inputProps: getProp('email', 'none')
             },
-            ivCode: {
-                label: UPEX.lang.template('图片验证码'),
-                className: 'v-code',
-                inputProps: getProp('ivCode', 'none')
-            },
             vCode: {
                 label: UPEX.lang.template('邮箱验证码'),
+                className: 'sms-code',
                 inputProps: getProp('vCode', 'none')
-            },
-            pvCode: {
-                label: UPEX.lang.template('短信验证码'),
-                className: 'v-code',
-                inputProps: getProp('pvCode', 'none')
             }
         };
 
@@ -101,32 +110,12 @@ export default class BindingEmail extends Component {
             title: UPEX.lang.template('绑定邮箱'),
             formClass: 'modify-password-box'
         };
-
+        let afterNode = <SendVCodeBtn sendCode={this.sendCode.bind(this)} validateFn={this.validateFrom.bind(this, 'partical')} />;
         return (
             <PageForm {...PageProps}>
                 <InputItem {...inputsData.email} />
-                <div>
-                    <InputItem {...inputsData.ivCode} />
-                    <div className="item v-code-button">
-                        <img onClick={this.captchaChange.bind(this)} src={captcha} />
-                    </div>
-                </div>
-                <div className="user-sp-sms-btn-box">
-                    <Vcodebutton
-                            message={UPEX.lang.template('请填写邮箱')}
-                            emailOrphone={this.state.email}
-                            areacode=""
-                            disabled={!this.state.vcodeAbled}
-                            newBind={true}
-                            type={1}
-                            imgCode={this.state.ivCode}
-                            codeid={codeid}
-                        />
-                    <p className="sp-tip">{UPEX.lang.template('请填写收到的验证码')}</p>
-                    <InputItem {...inputsData.vCode} />
-                    <InputItem {...inputsData.pvCode} />
-                </div>
-                <Button loading={loading} disabled={!this.state.submitAbled} className="ace-submit-item" onClick={this.submit}>
+                <InputItem {...inputsData.vCode} afterNode={afterNode} />
+                <Button loading={this.state.loading} className="ace-submit-item" onClick={this.submit.bind(this)}>
                     {UPEX.lang.template('提交')}
                 </Button>
             </PageForm>

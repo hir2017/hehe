@@ -792,16 +792,10 @@ export function bindPhone(newDevice, oldDevice, oldVercode, vercode, codeid, img
  *  type=1、手机注册用户;type=2、邮箱注册用户;
  */
 
-export function bindPhoneOrEmailSendCode(codeid, imgcode, phoneOrEmail, type, validate, captchaId) {
-    return axios.post('/user/bindPhoneOrEmailSendCode', {
-        codeid,
-        imgcode,
-        phoneOrEmail,
-        type,
-        NECaptchaValidate: validate,
-        captchaId
-    })
+export function bindPhoneOrEmailSendCode(params) {
+    return axios.post('/user/bindPhoneOrEmailSendCode', params)
 }
+
 
 /**
  *  查询当前账户谷歌认证
@@ -817,55 +811,29 @@ export function isUsedGoogleAuth() {
  *  type=1、手机注册用户;type=2、邮箱注册用户;
  */
 
-export function bindPhoneOrEmailAction(EmailCode, phoneCode, phoneOrEmail, type) {
-    let temp = {
-        EmailCode,
-        phoneCode,
-        phoneOrEmail,
-        type
-    };
-    if(type === 2) {
-        delete temp.EmailCode;
-    }
-    return axios.post('/user/bindPhoneOrEmailAction', temp)
+export function bindPhoneOrEmailAction(params) {
+    return axios.post('/user/bindPhoneOrEmailAction', params)
 }
+
 
 /**
  *  修改手机绑定发送验证码
- *  type=1:google+新手机，发新手机短信；type=2:旧手机+新手机，发2条手机短信
+ *  type=1:发新手机短信；type=2:发旧手机短信
+ *  type=1:新手机发送验证码, 需要验证图片滑块
  */
 
-export function modifyPhoneSendMsg(phone, codeid, imgcode, type, validate, captchaId) {
-    let data = {
-        phone,
-        codeid,
-        imgcode,
-        type
-    }
-
-    if (type == 1) {
-        // type=1:新手机发送验证码, 需要验证图片滑块
-        data.NECaptchaValidate = validate;
-        data.captchaId = captchaId;
-    }
-
-    return axios.post('/user/modifyPhoneSendCode', data);
+export function modifyPhoneSendMsg(params) {
+    return axios.post('/user/modifyPhoneSendCode', params);
 }
+
 
 /**
  *  修改绑定手机
  *  type=1:验证google和新手机验证码，type=2:验证旧手机，新手机验证码
  */
-
-export function modifyPhoneAction(newCode, newPhone, oldCode, type) {
-    return axios.post('/user/modifyPhoneAction', {
-        newCode,
-        newPhone,
-        oldCode,
-        type
-    })
+export function modifyPhoneAction(params) {
+    return axios.post('/user/modifyPhoneAction', params)
 }
-
 /**
  *  手机二级认证开关
  *
