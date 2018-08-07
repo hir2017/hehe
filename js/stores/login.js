@@ -3,7 +3,7 @@ import Countries from '../mods/select-country/country-list';
 import { personalInfo } from '../api/http';
 import NumberUtil from '../lib/util/number';
 
-console.log(Countries);
+
 class LoginInfoBaseStore {
     @observable countries = Countries;
     @observable mode = 'email'; // 注册方式，邮箱：email；手机：phone

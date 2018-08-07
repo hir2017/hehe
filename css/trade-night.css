@@ -3,7 +3,7 @@
  */
 
 .app-trade-dark {
-    background-color: #232323;
+    background-color: #191b1d;
     scrollbar-arrow-color:#61688a;
     scrollbar-face-color:transparent;
     scrollbar-3dlight-color: transparent;
@@ -15,12 +15,12 @@
 }
 
 .app-trade-dark .trade-main-chart .chart-box{
-    background-color: #161615;
+    background-color: #24272c;
 }
 
 .app-trade-dark ::-webkit-scrollbar,
 .app-trade-dark ::-webkit-scrollbar-track {
-    background-color: #161615;
+    background-color: #24272c;
 }
 
 .app-trade-dark ::-webkit-scrollbar-thumb {
@@ -28,7 +28,7 @@
 }
 
 .app-trade-dark .grid-box {
-    background-color: #161615;
+    background-color: #24272c;
 }
 
 .app-trade-dark .trade-form-bd button.btn:disabled {
@@ -230,7 +230,7 @@
  * 左侧
  */
 .app-trade-dark .trade-kline-mask {
-	background-color: #161615;
+	background-color: #24272c;
 }
 .app-trade-dark .trade-current-coin{
 	border-color: #20201e;

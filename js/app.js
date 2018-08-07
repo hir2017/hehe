@@ -1,11 +1,12 @@
 import '../css/reset.css';
 import '../css/common.css';
+import '../css/common.less';
 import '../css/index.css';
 import '../css/login-register.css';
 import '../css/agreements.css';
-import '../css/trade.css';
-import '../css/trade-night.css';
-import '../css/trade-day.css';
+import '../css/trade.less';
+// import '../css/trade-night.css';
+// import '../css/trade-day.css';
 import '../css/user.css';
 import '../css/news.css';
 import '../css/account.css';

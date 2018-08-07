@@ -7,7 +7,7 @@ html {
 #wrap {
     /* background: #fff; */
     min-height: 100%;
-    width:100vw;
+    width: 100vw;
     overflow: hidden;
 }
 
@@ -68,6 +68,7 @@ select:-webkit-autofill {
     background: none;
 }
 
+
 /**
  * 重写antd颜色
  */
@@ -81,7 +82,8 @@ body .ant-checkbox-indeterminate .ant-checkbox-inner {
 body .ant-checkbox-checked:after {
     border: 1px solid #e6bc1d;
 }
-body .ant-checkbox-checked .ant-checkbox-inner:after{
+
+body .ant-checkbox-checked .ant-checkbox-inner:after {
     border: 2px solid #333;
     border-top: 0;
     border-left: 0;
@@ -141,30 +143,30 @@ body .ant-radio-button-wrapper-checked:first-child {
     border-color: #e6bc1d;
 }
 
-body .ant-pagination-item-active{
+body .ant-pagination-item-active {
     background-color: transparent;
     border-color: #ecc42d;
 }
 
 body .ant-pagination-item-active:focus,
 body .ant-pagination-item-active:hover {
-  background-color: transparent;
-  border-color: #ecc42d;
+    background-color: transparent;
+    border-color: #ecc42d;
 }
 
 body .ant-pagination-item:focus,
 body .ant-pagination-item:hover {
-  border-color: #ecc42d;
+    border-color: #ecc42d;
 }
 
 body .ant-pagination-item:focus a,
 body .ant-pagination-item:hover a {
-  color: #ecc42d;
+    color: #ecc42d;
 }
 
 body .ant-pagination-item-active a,
 body .ant-pagination-item-active:focus a,
-body .ant-pagination-item-active:hover a{
+body .ant-pagination-item-active:hover a {
     color: #ecc42d;
 }
 
@@ -172,8 +174,8 @@ body .ant-pagination-prev:focus .ant-pagination-item-link,
 body .ant-pagination-next:focus .ant-pagination-item-link,
 body .ant-pagination-prev:hover .ant-pagination-item-link,
 body .ant-pagination-next:hover .ant-pagination-item-link {
-  border-color: #ecc42d;
-  color: #ecc42d;
+    border-color: #ecc42d;
+    color: #ecc42d;
 }
 
 body .ant-pagination-disabled a,
@@ -182,55 +184,58 @@ body .ant-pagination-disabled:focus a,
 body .ant-pagination-disabled .ant-pagination-item-link,
 body .ant-pagination-disabled:hover .ant-pagination-item-link,
 body .ant-pagination-disabled:focus .ant-pagination-item-link {
-  border-color: #d9d9d9;
-  color: rgba(0, 0, 0, 0.25);
-  cursor: not-allowed;
+    border-color: #d9d9d9;
+    color: rgba(0, 0, 0, 0.25);
+    cursor: not-allowed;
 }
 
-body .app-page .ant-carousel .slick-dots li button{
+body .app-page .ant-carousel .slick-dots li button {
     width: 30px;
     height: 4px;
     border-radius: 4px;
 }
 
-body .ant-carousel .slick-dots{
+body .ant-carousel .slick-dots {
     bottom: 20px;
 }
 
-body .ant-carousel .slick-dots li{
+body .ant-carousel .slick-dots li {
     margin: 0 5px;
 }
 
-body .ant-checkbox-wrapper + span, body .ant-checkbox + span{
+body .ant-checkbox-wrapper+span,
+body .ant-checkbox+span {
     height: 30px;
     height: 30px;
     padding-left: 6px;
     padding-right: 6px;
 }
-body .ant-input{
+
+body .ant-input {
     border: 1px solid #ccc;
     color: #333;
 }
-body .ant-input-search:not(.ant-input-search-small) > .ant-input-suffix{
+
+body .ant-input-search:not(.ant-input-search-small)>.ant-input-suffix {
     right: 15px;
     width: 14px;
 }
 
-body .ant-select-dropdown-menu-item{
+body .ant-select-dropdown-menu-item {
     height: 40px;
     line-height: 40px;
     font-size: 14px;
     color: #999;
 }
 
-body  .ant-select-dropdown-menu-item:hover {
+body .ant-select-dropdown-menu-item:hover {
     background-color: #f8f8f8;
     text-decoration: none;
     color: #333;
 }
 
 body .ant-select-dropdown-menu-item-selected,
-body .ant-select-dropdown-menu-item-selected:hover{
+body .ant-select-dropdown-menu-item-selected:hover {
     background-color: #f8f8f8;
     text-decoration: none;
     color: #333;
@@ -279,30 +284,35 @@ body .ant-select-dropdown-menu-item-selected:hover{
 .widget-tooltip .menu-list dd.selected {
     color: #cc9900;
 }
+
+
 /* use css to set position of modal */
+
 .vertical-center-modal {
-  text-align: center;
-  white-space: nowrap;
+    text-align: center;
+    white-space: nowrap;
 }
 
 .vertical-center-modal:before {
-  content: '';
-  display: inline-block;
-  height: 100%;
-  vertical-align: middle;
-  width: 0;
+    content: '';
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+    width: 0;
 }
 
 .vertical-center-modal .ant-modal {
-  display: inline-block;
-  vertical-align: middle;
-  top: 0;
-  text-align: left;
+    display: inline-block;
+    vertical-align: middle;
+    top: 0;
+    text-align: left;
 }
+
 
 /**
  * 图片验证码
  */
+
 .ex-captcha {
     display: inline-block;
     width: 100px;
@@ -322,17 +332,19 @@ body .ant-select-dropdown-menu-item-selected:hover{
     cursor: pointer;
 }
 
+
 /**
  * 页面头部
  */
 
 .app-header {
-    height: 60px;
-    background-color: #141414;
-    color: #fff;
+    height: 50px;
+    line-height: 50px;
     width: 100%;
+    color: #fff;
+    border-bottom: 1px solid #26282b;
+    background-color: #191b1d;
     overflow: hidden;
-    border-bottom: 1px solid #333;
 }
 
 .app-page[data-path="/home"] .app-header {
@@ -345,26 +357,19 @@ body .ant-select-dropdown-menu-item-selected:hover{
     font-size: 16px;
 }
 
-/* .app-trade .header-box{
-    padding: 0 20px;
-} */
-
 .header-box .logo {
     float: left;
-    width: 80px;
-    margin-right: 30px;
-    height: 60px;
+    width: 160px;
+    height: 50px;
 }
 
 .header-box .logo a {
-    width: 80px;
-    height: 60px;
-    line-height: 60px;
+    display: block;
+    text-align: left;
 }
 
 .header-box .logo img {
-    width: 80px;
-    height: 29px;
+    height: 28px;
     vertical-align: middle;
 }
 
@@ -374,47 +379,55 @@ body .ant-select-dropdown-menu-item-selected:hover{
 
 .header-box .header-box-l li {
     float: left;
-    margin-right: 30px;
-    line-height: 60px;
+    min-width: 120px;
+    text-align: center;
     font-size: 16px;
+    color: #fff;
 }
 
-.header-box .header-box-l li a:hover{
-    color: #cc9900
+.header-box .header-box-l li a {
+    display: block;
 }
 
-.app-trade .header-box .header-box-l li.trade a{
+.header-box .header-box-l li a:hover {
     color: #cc9900;
 }
 
-.app-page[data-path="/news"] .header-box .header-box-l li.news a{
+.app-trade .header-box .header-box-l li.trade a {
     color: #cc9900;
 }
 
-.app-page[data-path="/download"] .header-box .header-box-l li.download a{
+.app-page[data-path="/news"] .header-box .header-box-l li.news a {
+    color: #cc9900;
+}
+
+.app-page[data-path="/download"] .header-box .header-box-l li.download a {
     color: #cc9900;
 }
 
 .header-box .header-box-r {
     float: right;
+    line-height: 50px;
 }
 
 .header-box .header-box-r ul {
-    float: left;
+    display: inline-block;
+    vertical-align: middle;
 }
 
 .header-box .header-box-r li {
     float: left;
-    padding: 0 12px;
-    line-height: 60px;
     color: #999;
+    padding: 0 12px;
     font-size: 14px;
 }
-.header-box .header-box-r li a{
+
+.header-box .header-box-r li a {
     display: inline-block;
     vertical-align: middle;
 }
-.header-box .header-box-r li a:hover{
+
+.header-box .header-box-r li a:hover {
     color: #fff;
 }
 
@@ -427,7 +440,7 @@ body .ant-select-dropdown-menu-item-selected:hover{
     cursor: pointer;
 }
 
-.header-box .header-box-r li.split{
+.header-box .header-box-r li.split {
     font-size: 10px;
     width: 1px;
     padding: 0;
@@ -437,35 +450,36 @@ body .ant-select-dropdown-menu-item-selected:hover{
 
 
 
-.header-box .header-box-r .ant-switch{
+.header-box .header-box-r .ant-switch {
     background-color: #ccc;
     min-width: 28px;
     height: 16px;
     line-height: 14px;
 }
+
 .header-box .header-box-r .ant-switch-checked {
     border-color: #e8b802;
     background-color: #e8b802;
 }
 
 .header-box .header-box-r .ant-switch:before,
-.header-box .header-box-r .ant-switch:after{
+.header-box .header-box-r .ant-switch:after {
     width: 12px;
     height: 12px;
 }
 
 .header-box .header-box-r .ant-switch-checked:before,
-.header-box .header-box-r .ant-switch-checked:after{
+.header-box .header-box-r .ant-switch-checked:after {
     margin-left: -13px;
 }
 
 
-.header-box .header-box-r .ant-switch-checked .ant-switch-inner{
+.header-box .header-box-r .ant-switch-checked .ant-switch-inner {
     margin-right: 20px;
     margin-left: 6px;
 }
 
-.header-box .header-box-r .ant-switch-inner{
+.header-box .header-box-r .ant-switch-inner {
     margin-left: 20px;
     margin-right: 6px;
 }
@@ -482,16 +496,11 @@ body .ant-select-dropdown-menu-item-selected:hover{
     color: #666;
 }
 
-
-.header-box .theme-menu {
-    line-height: 60px;
-}
-
-.header-box .theme-menu[data-theme="dark"] .off{
+.header-box .theme-menu[data-theme="dark"] .off {
     color: #cc9900;
 }
 
-.header-box .theme-menu[data-theme="light"] .on{
+.header-box .theme-menu[data-theme="light"] .on {
     color: #cc9900;
 }
 
@@ -499,11 +508,8 @@ body .ant-select-dropdown-menu-item-selected:hover{
     padding: 0 5px;
 }
 
-
 .header-box .language-menu {
     position: relative;
-    height: 60px;
-    line-height: 60px;
     text-align: center;
     box-sizing: border-box;
     cursor: pointer;
@@ -521,17 +527,13 @@ body .ant-select-dropdown-menu-item-selected:hover{
     padding: 0 3px;
 }
 
-
 .header-box .usertxt {
     cursor: pointer;
     display: inline-block;
     vertical-align: middle;
-    min-height: 30px;
     margin-right: 6px;
-    padding-left: 18px;
-    background: url('../images/icon-profile.png') no-repeat left center;
-    background-size: 12px 12px;
 }
+
 
 /**
  * 页脚
@@ -666,30 +668,30 @@ body .ant-select-dropdown-menu-item-selected:hover{
 
 .app-page[data-path="/login"] .app-content,
 .app-page[data-path="/register"] .app-content,
-.app-page[data-path="/resetpwd"] .app-content{
+.app-page[data-path="/resetpwd"] .app-content {
     background: #141414 url('../images/loginbg.png') no-repeat center 100px;
     background-size: 1200px 515px;
 }
 
 .app-page[data-path="/login"] .tobottom-footer,
 .app-page[data-path="/register"] .tobottom-footer,
-.app-page[data-path="/resetpwd"] .tobottom-footer{
+.app-page[data-path="/resetpwd"] .tobottom-footer {
     background-color: #141414;
 }
 
 .app-page[data-path="/login"] .app-footer,
 .app-page[data-path="/register"] .app-footer,
-.app-page[data-path="/resetpwd"] .app-footer{
+.app-page[data-path="/resetpwd"] .app-footer {
     background-color: rgba(42, 42, 42, 0.2);
 }
 
-.redrate {
+/* .redrate {
     color: #ef5d7f;
 }
 
 .greenrate {
     color: #33c280;
-}
+} */
 
 .greenbg {
     background-color: #33c280;
@@ -740,6 +742,7 @@ body .ant-select-dropdown-menu-item-selected:hover{
 }
 
 
+
 /* page-content */
 
 .ace-page-content {
@@ -751,7 +754,8 @@ body .ant-select-dropdown-menu-item-selected:hover{
     /* background-color: #f2f2f2; */
 }
 
-.ace-page-content .content-title, .ace-page-content .ace-section .section-title {
+.ace-page-content .content-title,
+.ace-page-content .ace-section .section-title {
     height: 60px;
     line-height: 60px;
     /* margin-bottom: 1px; */
@@ -761,7 +765,8 @@ body .ant-select-dropdown-menu-item-selected:hover{
     padding-left: 20px;
 }
 
-.ace-page-content .content-body, .ace-page-content .ace-section .section-body {
+.ace-page-content .content-body,
+.ace-page-content .ace-section .section-body {
     padding: 10px 20px 20px;
     background-color: #fff;
 }
@@ -777,7 +782,7 @@ body .ant-select-dropdown-menu-item-selected:hover{
 }
 
 
-.ace-form .ace-input-item .item-error{
+.ace-form .ace-input-item .item-error {
     color: #ff6666;
     font-size: 12px;
 }
@@ -787,86 +792,95 @@ body .ant-select-dropdown-menu-item-selected:hover{
     width: 100%;
 }
 
+
 /**
  * 通用form样式
  */
 
- .ace-form .ace-input-item,
- .ace-form .ace-input-item .label,
- .ace-form .ace-input-item .input,
- .ace-form .ace-input-item .tip {
-     width: 100%;
- }
+.ace-form .ace-input-item,
+.ace-form .ace-input-item .label,
+.ace-form .ace-input-item .input,
+.ace-form .ace-input-item .tip {
+    width: 100%;
+}
 
- .ace-form {
-     margin: 0 auto;
-     padding: 30px 0 20px;
- }
+.ace-form {
+    margin: 0 auto;
+    padding: 30px 0 20px;
+}
 
 
- .ace-form.width-common {
-     width: 450px;
- }
+.ace-form.width-common {
+    width: 450px;
+}
 
- .ace-form .ace-input-item {
-     margin-bottom: 27px;
- }
+.ace-form .ace-input-item {
+    margin-bottom: 27px;
+}
 
- .ace-form .ace-input-item .label {
-     font-size: 14px;
-     color: #999999;
-     display: inline-block;
-     padding-bottom: 2px;
- }
+.ace-form .ace-input-item .label {
+    font-size: 14px;
+    color: #999999;
+    display: inline-block;
+    padding-bottom: 2px;
+}
 
- .ace-form .ace-input-item .input {
-     height: 40px;
-     box-sizing: border-box;
-     border-image: initial;
-     border-radius: 3px;
-     border: solid 1px #ccc;
-     text-indent: 10px;
-     outline: none;
- }
- .ace-form  .ant-select-selection__placeholder,
- .ace-form  .ant-select-search__field__placeholder {
-     color: #ccc;
-     font-weight: normal;
- }
-
- .ace-form .ace-input-item .input,  .ace-form .ace-input-item .ant-select {
-    font-size: 18px;
-     color: #333;
- }
- .ace-form .ant-select-selection {
+.ace-form .ace-input-item .input {
+    height: 40px;
+    box-sizing: border-box;
+    border-image: initial;
+    border-radius: 3px;
     border: solid 1px #ccc;
- }
- .ace-form .ace-input-item .item-tip, .ace-form .ace-input-item.select .message {
+    text-indent: 10px;
+    outline: none;
+}
+
+.ace-form .ant-select-selection__placeholder,
+.ace-form .ant-select-search__field__placeholder {
+    color: #ccc;
+    font-weight: normal;
+}
+
+.ace-form .ace-input-item .input,
+.ace-form .ace-input-item .ant-select {
+    font-size: 18px;
+    color: #333;
+}
+
+.ace-form .ant-select-selection {
+    border: solid 1px #ccc;
+}
+
+.ace-form .ace-input-item .item-tip,
+.ace-form .ace-input-item.select .message {
     color: #999;
     padding-top: 2px;
- }
- .ace-input-item.select .message {
-    display: inline-block;
- }
- .ace-form .ace-submit-item {
-     width: 100%;
-     background-color: #e8b802;
-     color: #333;
-     height: 40px;
-     border-radius: 3px;
-     border:solid 1px transparent;
-     margin-top: 20px;
- }
- .ace-form .ace-submit-item:disabled {
-     border-color: #d9d9d9;
- }
+}
 
- .ace-form .ace-submit-item:hover {
+.ace-input-item.select .message {
+    display: inline-block;
+}
+
+.ace-form .ace-submit-item {
+    width: 100%;
+    background-color: #e8b802;
+    color: #333;
+    height: 40px;
+    border-radius: 3px;
+    border: solid 1px transparent;
+    margin-top: 20px;
+}
+
+.ace-form .ace-submit-item:disabled {
+    border-color: #d9d9d9;
+}
+
+.ace-form .ace-submit-item:hover {
     background-color: #ffdc57;
     color: #333;
     border-color: #ffdc57;
- }
+}
 
- .align-right {
-     text-align: right;
- }
+.align-right {
+    text-align: right;
+}

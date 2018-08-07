@@ -105,7 +105,7 @@ class TVChartContainer extends Component {
                 url: "./bundles/night.css",
                 up: "#33c280",
                 down: "#ef5d7f",
-                bg: "#161615",
+                bg: "#24272c",
                 grid: "#20201e", // 分隔线
                 cross: "#fee8c2", // 十字线
                 border: "#666",
@@ -565,14 +565,14 @@ class TVChartContainer extends Component {
         if (store.theme === 'dark') {
             arrowCls =  {
                 fontSize: 12,
-                color: '#e8b802',
-                padding:'0 5px',
+                color: '#545960',
+                padding:'0 10px',
             }
         } else {
             arrowCls =  {
                 fontSize: 12,
                 color:'#e8b802',
-                padding:'0 5px',
+                padding:'0 10px',
             }
         }
 
@@ -592,40 +592,40 @@ class TVChartContainer extends Component {
         return (
         	<div className={`chart-box ${fullscreen ? 'chart-box-mask' : '' }`}>
                 <div className="trade-current-coin">
-                    <ul className="info-list">
-                        <li className="coin" ref="coin">
-                               <Popover 
-                                content={<TradeCoinList/>} 
-                                placement="bottomLeft" 
-                                trigger="click" 
-                                getPopupContainer={()=>this.refs.coin} 
-                                overlayClassName={ store.theme === 'dark' ? 'popover-tradecoins popover-tradecoins-dark' : 'popover-tradecoins popover-tradecoins-light'}
-                                >
-                                   <label>{ store.currencyNameEn }</label>
-                                   <Icon type="caret-down" style={arrowCls} />
-                               </Popover>
-                               <span className={`current-amount ${trendColor}`}>
-                                    <em>{store.currentTradeCoin.currentAmountText}</em>
-                                    {trendIcon}
-                                </span>
-                           </li>
-                        <li>
+                    <dl className="info-list">
+                        <dt className="coin" ref="coin">
+                           <Popover 
+                            content={<TradeCoinList/>} 
+                            placement="bottomLeft" 
+                            trigger="click" 
+                            getPopupContainer={()=>this.refs.coin} 
+                            overlayClassName={ store.theme === 'dark' ? 'popover-tradecoins popover-tradecoins-dark' : 'popover-tradecoins popover-tradecoins-light'}
+                            >
+                               <label>{store.currencyNameEn}/{store.baseCurrencyNameEn}</label>
+                               <Icon type="caret-down" style={arrowCls} />
+                           </Popover>
+                           <span className={`current-amount ${trendColor}`}>
+                                <em>{store.currentTradeCoin.currentAmountText}</em>
+                                {trendIcon}
+                            </span>
+                       </dt>
+                        <dd>
                             <label>{ UPEX.lang.template('涨幅') }</label>
                             <em className={store.currentTradeCoin.changeRate >= 0 ? 'greenrate': 'redrate'}>{ store.currentTradeCoin.changeRateText }</em>
-                        </li>
-                        <li>
+                        </dd>
+                        <dd>
                             <label>{ UPEX.lang.template('高')}</label>
-                            <em> { store.currentTradeCoin.highPriceText }</em>
-                        </li>
-                        <li>
+                            <em>{ store.currentTradeCoin.highPriceText }</em>
+                        </dd>
+                        <dd>
                             <label>{ UPEX.lang.template('低')}</label>
-                            <em>{  store.currentTradeCoin.lowPriceText }</em>
-                        </li>
-                        <li>
+                            <em>{ store.currentTradeCoin.lowPriceText }</em>
+                        </dd>
+                        <dd>
                             <label>{ UPEX.lang.template('24H量')}</label>
                             <em>{ store.currentTradeCoin.volumeText }{ store.currencyNameEn }</em>
-                        </li>
-                    </ul>
+                        </dd>
+                    </dl>
                     <ul className="chart-menu">
                         <li
                             onClick={this.showChart.bind(this, 'kline')}
@@ -639,10 +639,10 @@ class TVChartContainer extends Component {
                         >
                             {UPEX.lang.template('深度图')}
                         </li>
-                        <li onClick={this.handleFullScreen}>
-                            { fullscreen ? <i className="icon-full"/> : <i className="icon-exit-full"/>}
-                        </li>
                     </ul>
+                    <div className="full-btn" onClick={this.handleFullScreen}>
+                        { fullscreen ? <i className="icon-full"/> : <i className="icon-exit-full"/>}
+                    </div>
 	            </div>
                 <div className="trade-kline-mask hidden" ref="klinemask">
                     <div className="mini-loading"></div>
