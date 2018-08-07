@@ -398,10 +398,12 @@ class TradeStore {
         let num = balance * value * 0.01;
         let dealNum = num.toString();
         // this.dealSellNum = NumberUtil.initNumber(num, this.pointNum);
+        
         if(dealNum.indexOf('e') !== -1) {
             dealNum = NumberUtil.scientificToNumber(num);
         }
         dealNum = NumberUtil.toFixed(dealNum, this.pointNum);
+        
         this.dealSellNum = dealNum;
 
         this.sellSliderValue = value;
@@ -420,7 +422,13 @@ class TradeStore {
             if (baseBalance === 0) {
                 precent = 0;
             } else {
-                precent = (this.dealBuyPrice * value / baseBalance) * 100;
+                if (this.dealBuyPrice * value > baseBalance ) {
+                    // 输入框值溢出处理
+                    value = NumberUtil.toFixed(baseBalance / this.dealBuyPrice, this.pointNum); 
+                    precent = 100;
+                } else {
+                    precent = (this.dealBuyPrice * value / baseBalance) * 100;    
+                }
 
                 if (precent > 100) {
                     precent = 100;
@@ -443,7 +451,13 @@ class TradeStore {
         if (balance === 0) {
             precent = 0;
         } else {
-            precent = (value / balance) * 100;
+            if( value > balance) {
+                // 输入框值溢出处理
+                value = NumberUtil.toFixed(balance, this.pointNum);
+                precent = 100;
+            } else {
+                precent = (value / balance) * 100;
+            }
 
             if (precent > 100) {
                 precent = 100;
@@ -865,6 +879,7 @@ class TradeStore {
 
                             this.getUserAccount();
 
+                            defer.resolve(data);
                             break;
                         case 2013: //"交易密码输入错误"
                             if (type == 'buy') {
@@ -984,11 +999,23 @@ class TradeStore {
      * 委托订单事件，每一次状态变更都会收到通知
      */
     bindUserOpenList() {
+        let update = (item)=>{
+            item = item || {};
+            this.openStore.updateItem(item);
+            this.personalAccount.baseCoinBalance = item.baseCurrencyNum;
+            this.personalAccount.tradeCoinBalance = item.currencyNum;
+        }
+
         socket.on('userOrder', (data) => {
             console.log('---userOrder--------', data);
-            this.openStore.updateItem(data);
-            this.personalAccount.baseCoinBalance = data.baseCurrencyNum;
-            this.personalAccount.tradeCoinBalance = data.currencyNum;
+            
+            if ($.isArray(data)) {
+                for (var i = 0, length = data.length; i < length; i++ ) {
+                    update(data[i]);
+                }
+            } else {
+                update(data);
+            }
         })
     }
 
@@ -996,12 +1023,23 @@ class TradeStore {
      *  成交订单事件，每一次状态变更都会收到通知
      */
     bindUserSuccessList() {
+        let update = (item)=>{
+            item = item || {};
+            this.successStore.updateItem(item);
+            this.openStore.updateItem(item); // 删除委托中的该订单
+            this.personalAccount.baseCoinBalance = item.baseCurrencyNum;
+            this.personalAccount.tradeCoinBalance = item.currencyNum;
+        }
+
         socket.on('userTrade', (data) => {
             console.log('------userTrade--------', data);
-            this.successStore.updateItem(data);
-            this.openStore.updateItem(data); // 删除委托中的该订单
-            this.personalAccount.baseCoinBalance = data.baseCurrencyNum;
-            this.personalAccount.tradeCoinBalance = data.currencyNum;
+            if ($.isArray(data)) {
+                for (var i = 0, length = data.length; i < length; i++ ) {
+                    update(data[i]);
+                }
+            } else {
+                update(data);
+            }
         })
     }
 

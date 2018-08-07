@@ -92,29 +92,8 @@ class OrderStore {
 
     @action
     updateItem(data) {
-        let flag = false; // 是否存在
-
-        // 过滤其他状态的数据
-        $.each(this.orderList, (i, item) => {
-            if (item.orderNo == data.orderNo) {
-
-                if (statusList.indexOf(data.status) > -1) {
-                    this.orderList[i] = this.parseItem(data);    
-                } else {
-                    this.orderList.splice(i, 1);
-                }
-                
-                flag = true;
-                return false;
-            }
-        })
-
-        // 列表中没有，则新增
-        if (!flag) {
-            
-            if (statusList.indexOf(data.status) > -1) {
-                this.orderList.splice(0,0,this.parseItem(data));
-            }
+        if (statusList.indexOf(data.status) > -1) {
+            this.orderList.splice(0,0,this.parseItem(data));
         }
     }
 }
