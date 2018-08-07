@@ -637,6 +637,18 @@ export function sendCodeInUserCenter(type, imgCode, imgCodeId) {
 }
 
 /**
+ * 发送验证码 绑定、解绑谷歌验证码 设置、忘记交易密码
+ */
+
+export function sendCodeInGAOrTadePwd(type, imgCode, imgCodeId) {
+    return axios.post('/user/phoneAuthSendCode', {
+        type: 1,
+        imgcode: imgCode,
+        codeid: imgCodeId
+    })
+}
+
+/**
  * 设置修改资金密码
  */
 

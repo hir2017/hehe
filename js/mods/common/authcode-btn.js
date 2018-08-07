@@ -78,7 +78,10 @@ export default class SettingTradingPassword extends Component {
         } else if (this.props.bankAndWithdraw) {
             //解绑银行卡/提现发送手机证码
             req = this.props.userInfoStore.sendMessageBankAndWithdraw(this.props.imgCode, this.props.codeid);
-        } else {
+        } else if(this.props.GaOrTradePwd) {
+            req = this.props.userInfoStore.sendCodeGaOrTradePwd(this.type, this.props.imgCode, this.props.codeid);
+        }
+         else {
             req = this.props.userInfoStore.sendCode(this.type, this.props.imgCode, this.props.codeid);
         }
         req.then(res => {

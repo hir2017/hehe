@@ -99,7 +99,7 @@ class Google extends Component {
                 <div className="input-vcode-wrapper">
                     <InputItem {...inputsData.vCode} />
                     <div className="item v-code-button">
-                        <Vcodebutton imgCode={this.state.ivCode} codeid={codeid} type="phone" />
+                        <Vcodebutton GaOrTradePwd={true} imgCode={this.state.ivCode} codeid={codeid} type="phone" />
                     </div>
                 </div>
                 <InputItem {...inputsData.google} />
