@@ -98,7 +98,7 @@ export default class ReBinding extends Component {
                 <div className="input-vcode-wrapper">
                     <InputItem {...inputsData.vCode} />
                     <div className="item v-code-button">
-                        <Vcodebutton imgCode={this.state.ivCode} codeid={codeid} type="phone" />
+                        <Vcodebutton imgCode={this.state.ivCode} GaOrTradePwd={true} codeid={codeid} type="phone" />
                     </div>
                 </div>
                 <InputItem {...inputsData.google} />

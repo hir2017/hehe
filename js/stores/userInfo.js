@@ -4,6 +4,7 @@ import {
     personalInfo,
     loginRecord,
     sendCodeInUserCenter,
+    sendCodeInGAOrTadePwd,
     bindFdPwd,
     resetPwdInUserCenter,
     bindPhoneSendMsg,
@@ -188,6 +189,22 @@ class UserInfo {
     @action
     sendCode(type, imgCode, imgCodeId) {
         return sendCodeInUserCenter(type, imgCode, imgCodeId)
+            .then(res => {
+                if (res.status !== 200) {
+                    console.error('sendCode error');
+                } else {
+                    this.showCountDown = true;
+                }
+
+                return res;
+            })
+            .catch(err => {
+                console.error(err, 'sendCode');
+            });
+    }
+    @action
+    sendCodeGaOrTradePwd(type, imgCode, imgCodeId) {
+        return sendCodeInGAOrTadePwd(type, imgCode, imgCodeId)
             .then(res => {
                 if (res.status !== 200) {
                     console.error('sendCode error');

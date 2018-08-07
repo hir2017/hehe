@@ -241,6 +241,7 @@ class LoginInfoBaseStore {
         let phone = this.phone;
         let pwd = this.pwd;
         let vercode = this.vercode;
+        let validTwicePwd = this.validTwicePwd;
         // 1. 邮箱 or 电话号码
         // 2. 密码 or 二次确认密码
 
@@ -275,6 +276,13 @@ class LoginInfoBaseStore {
         if (!pwd) {
             result.pass = false;
             result.message = UPEX.lang.template('请输入密码');
+
+            return result;
+        }
+
+        if (!validTwicePwd) {
+            result.pass = false;
+            result.message = UPEX.lang.template('两次密码输入不一致');
 
             return result;
         }

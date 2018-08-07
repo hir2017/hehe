@@ -780,8 +780,6 @@ class TradeStore {
             password = this.tradeSellPassword;
         }
 
-        console.log(price, num, validPrice, validNum, password);
-
         if (!price) {
             result = {
                 pass: false,
