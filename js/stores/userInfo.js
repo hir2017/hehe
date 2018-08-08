@@ -26,6 +26,7 @@ import {
     forgetFdPwd,
     questionDetail,
     phoneAuthSendCode,
+    setTradePwdSendCode,
     submitKycC,
     modifyFdPwd,
     updateBindBankCardStatus,
@@ -202,6 +203,24 @@ class UserInfo {
                 console.error(err, 'sendCode');
             });
     }
+
+    @action
+    setTradePwdSendCode(type, imgCode, imgCodeId) {
+        return setTradePwdSendCode(type, imgCode, imgCodeId)
+            .then(res => {
+                if (res.status !== 200) {
+                    console.error('sendCode error');
+                } else {
+                    this.showCountDown = true;
+                }
+
+                return res;
+            })
+            .catch(err => {
+                console.error(err, 'sendCode');
+            });
+    }
+
     @action
     sendCodeGaOrTradePwd(type, imgCode, imgCodeId) {
         return sendCodeInGAOrTadePwd(type, imgCode, imgCodeId)
