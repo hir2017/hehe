@@ -9,7 +9,7 @@ import { Icon } from 'antd';
 import ChartContainer from '../../mods/trade/chart/index';
 import BuyOrder from '../../mods/trade/order/buy-order';
 import SellOrder from '../../mods/trade/order/sell-order';
-import HistoryOrder from '../../mods/trade/order/history-order';
+import TradeHistory from '../../mods/trade/trade-history';
 import MyOrder from '../../mods/trade/myorder/index';
 import TradeForm from '../../mods/trade/form/index';
 
@@ -25,6 +25,7 @@ class TradeCenter extends Component {
 
     render() {
         let { commonStore, tradeStore, currencyStore } = this.props;
+        
         // 用于切换交易币时内容切换
         if (commonStore.productDataReady && currencyStore.currencyDataReady) {
             return <TradeContent {...this.props}/>
@@ -170,7 +171,7 @@ class TradeContent extends Component {
                             </div>
                         </div>
                         <div className="list-box-r grid-box" >
-                            <HistoryOrder/>
+                            <TradeHistory/>
                         </div>
         			</div>
 
