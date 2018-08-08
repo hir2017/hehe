@@ -133,7 +133,8 @@
     font-size: 12px;
     white-space: nowrap;
     color: @text-color01;
-    border-bottom: 1px solid transparent;
+    border-bottom: 1px solid @border-dark-color;
+    background-color: @bg-module;
 }
 
 .trade-current-coin dl{
@@ -166,9 +167,12 @@
     line-height: 40px;
     font-size: 12px;
     overflow: hidden;
+    padding-left: 20px;
+    background-color: @bg-module;
 }
 
 .trade-current-coin .chart-menu li {
+    position: relative;
     display: inline-block;
     vertical-align: middle;
     height: 40px;
@@ -182,9 +186,20 @@
 	color: @text-yellow-color;
 }
 
-.trade-current-coin .chart-menu li.selected {
-    border-bottom: 2px solid #e8b802 !important;
+.trade-current-coin .chart-menu li.selected{
     color: @text-yellow-color;
+}
+
+.trade-current-coin .chart-menu li.selected:after{
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom:0;
+    margin-left: -10px;
+    border-radius: 2px;
+    width: 20px;
+    height: 2px;
+    background-color: @theme-yellow;
 }
 
 .trade-current-coin .full-btn{
@@ -194,6 +209,7 @@
 	height: 40px;
 	width: 20px;
 	cursor: pointer;
+    background-color: @bg-module;
 }
 
 .trade-current-coin .full-btn .icon-exit-full,
@@ -411,12 +427,11 @@ body .ant-popover-placement-bottomLeft>.ant-popover-content>.ant-popover-arrow {
     position: relative;
 }
 
-
 .app-trade .trade-extra-list .list-box-hd {
-    height: 40px;
-    line-height: 40px;
+    height: 30px;
+    line-height: 30px;
     padding: 0 6px;
-    font-size: 14px;
+    font-size: 12px;
     border-bottom: 1px solid transparent;
 }
 
@@ -897,7 +912,7 @@ body .ant-popover-placement-bottomLeft>.ant-popover-content>.ant-popover-arrow {
 .trade-main-chart .chart-box {
     position: relative;
     height: 100%;
-    padding-top: 40px;
+    padding-top: 38px;
     width: 100%;
     border-radius: 6px;
     overflow: hidden;

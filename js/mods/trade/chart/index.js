@@ -13,7 +13,7 @@
  */
 import React, {Component} from 'react';
 import { observer, inject } from 'mobx-react';
-import { Icon, Switch, Popover} from 'antd';
+import { Icon, Switch, Popover, Tooltip } from 'antd';
 import TradeCoinList from './coin-list';
 import UDFCompatibleDatafeed from './tv-jsapi';
 import DepthChart from './depth-chart';
@@ -641,7 +641,11 @@ class TVChartContainer extends Component {
                         </li>
                     </ul>
                     <div className="full-btn" onClick={this.handleFullScreen}>
-                        { fullscreen ? <i className="icon-full"/> : <i className="icon-exit-full"/>}
+                        { 
+                            fullscreen ? 
+                            <Tooltip placement="right" title={UPEX.lang.template('退出全屏')}><i className="icon-full"/></Tooltip>: 
+                            <Tooltip placement="right" title={UPEX.lang.template('全屏')}><i className="icon-exit-full"/></Tooltip>
+                        }
                     </div>
 	            </div>
                 <div className="trade-kline-mask hidden" ref="klinemask">
