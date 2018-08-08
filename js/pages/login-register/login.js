@@ -117,7 +117,8 @@ class Login extends Component {
     }
 
     handleLoginSuccess(result) {
-
+        browserHistory.push('/webtrade');
+        
         if (result.authLevel == 0) {
             /*
              * 如果用户等级为KYC0
@@ -137,8 +138,6 @@ class Login extends Component {
                 }
             });
         }
-
-        browserHistory.push('/webtrade');
     }
 
     handleLoginVerifyCode=(e)=>{

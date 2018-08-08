@@ -125,7 +125,7 @@ class TradeForm extends Component{
 		let { verifyInfoBeforeSubmit , createTradeOrder } = this.props.tradeStore;
 		let userInfoStore = this.props.userInfoStore;
 
-		if (userInfoStore.userInfo.authLeve == 0) {
+		if (userInfoStore.userInfo.authLevel == 0) {
 			this.showDialogGuideAuth();
 			return;
 		} else if (userInfoStore.userInfo.isValidatePass == 0) {
