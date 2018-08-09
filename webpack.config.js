@@ -17,6 +17,10 @@ var cssmode = package.cssmode;
 var gitlabGroup = package.gitlabGroup;
 var cdnDomain = package.cdnDomain;
 
+function resolve (dir) {
+    return path.join(__dirname, './', dir)
+}
+
 const extractCSS = new ExtractTextPlugin({
     allChunks: true,
     filename: '[name].css'
@@ -73,9 +77,9 @@ var config = {
                 query: {
                     presets: ['es2015', 'react', 'stage-0'],
                     plugins: [
-                        'transform-remove-strict-mode', 
-                        'transform-decorators-legacy', 
-                        ["transform-runtime", {"helpers": false, "polyfill": false, "regenerator": true, "moduleName": "babel-runtime"}], 
+                        'transform-remove-strict-mode',
+                        'transform-decorators-legacy',
+                        ["transform-runtime", {"helpers": false, "polyfill": false, "regenerator": true, "moduleName": "babel-runtime"}],
                         ["import", [{ "libraryName": "antd", "style": "css" }]]
                     ]
                 }
@@ -85,7 +89,7 @@ var config = {
                 loader: 'vue'
             },
             cssLoader,
-            { 
+            {
                 test: /\.css|less|jsx?$/,
                 loader: StringReplacePlugin.replace({
                     replacements: [
@@ -105,20 +109,20 @@ var config = {
                     ]
                 })
             },
-            { 
-                test: /\.png$/, 
+            {
+                test: /\.png$/,
                 loader: "url-loader?limit=6000" // 小于3k, 转成base64
             },
-            { 
-                test: /\.jpg|mp3|mp4|gif$/, 
-                loader: "file-loader" 
+            {
+                test: /\.jpg|mp3|mp4|gif$/,
+                loader: "file-loader"
             }
         ]
     },
     resolve: {
         extensions: ['.js', '.vue'], // 确保引用时省略模块扩展名
         alias:{
-            'vue$': 'vue/dist/vue.common.js'  // 可同时使用独立构建和运行构建
+            '@': resolve('js')
         }
     },
     // server配置
