@@ -11,15 +11,15 @@ class SellOrderView extends Component {
 		this.resetScrollTop();
 	}
 
+	resetScrollTop(){
+		this.refs.scroller.scrollTop = 2000;
+	}
+
 	haneleClickOrder(item){
 		let store = this.props.tradeStore;
 
 		store.setDealBuyPrice(item.current); // 买入价格
 		store.setDealSellPrice(item.current); // 卖出价格
-	}
-
-	resetScrollTop(){
-		this.refs.scroller.scrollTop = 2000;
 	}
 
 	render() {

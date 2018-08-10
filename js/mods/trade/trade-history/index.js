@@ -20,9 +20,7 @@ class TradeHistory extends Component {
 		
 		return (
 			<div className="trade-history">
-				<div className="list-box-hd">
-					{UPEX.lang.template('实时成交')}
-				</div>
+				<div className="list-box-hd">{UPEX.lang.template('实时成交')}</div>
 				<div className="list-box-bd">
 					<div className="table-hd">
 						<div className="time">{ UPEX.lang.template('时间')}</div>
@@ -34,6 +32,7 @@ class TradeHistory extends Component {
 							{
 								store.tradeHistory.content.map((item, index)=>{
 									let color = item.buyOrSell == 1 ? 'greenrate' : 'redrate';
+									
 									return (
 										<li 
 											key={index} 

@@ -1,0 +1,61 @@
+.app-trade {
+    background-color: @bg-color;
+}
+
+.app-trade .app-content {
+    padding: 10px;
+}
+
+.app-trade .trade-wrapper {
+    position: relative;
+    display: flex;
+}
+
+.app-trade .grid-box {
+    background-color: @bg-module;
+    border-radius: 6px;
+}
+/**
+ * 左侧
+ */
+.app-trade .trade-main {
+    flex: 1;
+    margin-right: 10px;
+}
+
+/**
+ * 右侧
+ */
+
+.app-trade .trade-extra {
+    width: 540px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.app-trade .trade-extra-list {
+    flex: 1;
+    margin-bottom: 10px;
+    overflow: hidden;
+    position: relative;
+}
+
+.app-trade .trade-extra-list .list-box-r{
+    width: 265px;
+    position: absolute;
+    height: 100%;
+    border-radius: 6px;
+    overflow: hidden;
+    right: 0;
+    top: 0;
+}
+.app-trade .trade-extra-list .list-box-l {
+    width: 265px;
+    position: absolute;
+    height: 100%;
+    left: 0;
+    top: 0;
+    border-radius: 6px;
+    overflow: hidden;
+}

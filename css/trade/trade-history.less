@@ -1,0 +1,88 @@
+/*
+ * 实时交易模块样式
+ */
+.app-trade .trade-history {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+.app-trade .trade-history .list-box-hd {
+    height: 30px;
+    line-height: 30px;
+    padding: 0 6px;
+    font-size: 12px;
+    color: @text-color01;
+    border-bottom: 1px solid @border-dark-color;
+}
+
+.app-trade .trade-history .list-box-bd {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.app-trade .trade-history .list-box-bd .table-hd {
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    font-size: 12px;
+    padding: 0 6px;
+    color: @text-color02;
+    border-bottom: 1px solid @border-dark-color;
+}
+
+.app-trade .trade-history .list-box-bd .table-bd {
+    flex: 1;
+    overflow-y: auto;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    margin-right: -15px; /* fixed处理滚动条 */
+}
+
+.app-trade .trade-history li {
+    line-height: 24px;
+    height: 24px;
+    margin-bottom: 5px;
+    padding: 0 12px 0 6px;
+    cursor: pointer;
+}
+
+.app-trade .trade-history li:hover{
+    background-color: @list-hoverbg-color01;
+}
+
+.app-trade .trade-history .time {
+    width: 25%;
+    float: left;
+    text-align: left;
+    color: @text-color03;
+}
+
+.app-trade .trade-history .table-hd .time{
+    color: @text-color02;
+}
+
+.app-trade .trade-history .price {
+    width: 35%;
+    float: left;
+    text-align: right;
+}
+
+.app-trade .trade-history .number {
+    width: 40%;
+    float: left;
+    text-align: right;
+    color: @text-color02;
+}
+
+.app-trade .trade-history li:hover .time,
+.app-trade .trade-history li:hover .number{
+    color: @text-color01;
+}

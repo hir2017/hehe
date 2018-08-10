@@ -1,0 +1,190 @@
+/**
+ * 订单
+ */
+.app-trade .trade-main-order {
+    position: relative;
+    border-radius: 6px;
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+.app-trade .tradeorder-wrapper {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+
+.app-trade .tradeorder-hd {
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    border-bottom: 1px solid transparent;
+}
+
+.app-trade .tradeorder-hd ul {
+    height: 40px;
+    line-height: 40px;
+    padding: 0 20px;
+    font-size: 16px;
+    overflow: hidden;
+}
+
+.app-trade .tradeorder-hd li {
+    float: left;
+    margin-right: 10px;
+    cursor: pointer;
+    height: 40px;
+    font-size: 14px;
+}
+
+.app-trade .tradeorder-hd .extra {
+    position: absolute;
+    right: 10px;
+    top: 0;
+    height: 40px;
+    line-height: 40px;
+    font-size: 14px;
+}
+
+.app-trade .tradeorder-hd .extra label {
+    padding: 0 10px;
+}
+
+.app-trade .tradeorder-hd li.selected {
+    border-bottom: 2px solid #e8b802;
+    color: #cc9900;
+}
+
+.app-trade .tradeorder-bd{
+    position: relative;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.app-trade .tradeorder-bd .order-table .table-hd{
+    border-top: 1px solid transparent;
+    border-bottom: 1px solid transparent;
+    height: 40px;
+    padding: 0 20px;
+}
+
+.app-trade .tradeorder-bd .order-table .table-hd th{
+    height: 40px;
+    line-height: 40px;
+    font-size: 12px;
+}
+
+.app-trade .tradeorder-bd .order-table .table-bd dl dd{
+    font-size: 12px;
+}
+
+.tradeorder-bd .order-main-box{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+}
+
+.tradeorder-bd .order-table {
+    margin: 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    border-bottom: 5px solid transparent;
+}
+
+.tradeorder-bd .order-table .table-bd{
+    flex: 1;
+    overflow: hidden;
+    overflow-y: auto;
+    padding: 0 20px;
+}
+
+.tradeorder-bd .order-header,
+.tradeorder-bd .order-table .table-ft{
+    display: none;
+}
+
+
+
+.app-trade .tradeorder-wrapper .order-table .table-bd dl {
+    height: 40px;
+    line-height: 40px;
+}
+
+.app-trade .tradeorder-wrapper .mini-tip {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 12px;
+}
+
+.tradeorder-bd .mini-loading {
+    background-color: transparent !important;
+}
+
+.tradeorder-bd .order-table .table-bd dl {
+    border-bottom: 0 none;
+}
+
+.tradeorder-bd .order-table .table-bd dl:hover {
+    background-color: #f4f4f4;
+}
+
+/**
+ * 委托中
+ */
+.tradeorder-bd .order-main-box .open-list-table .action {
+    width: 10%;
+}
+
+.tradeorder-bd .order-main-box .open-list-table .time {
+    width: 20%;
+}
+
+.tradeorder-bd .order-main-box .open-list-table .name {
+    width: 10%;
+}
+
+.tradeorder-bd .order-main-box .open-list-table .buyorsell {
+    width: 10%;
+}
+
+.tradeorder-bd .order-main-box .open-list-table .num {
+    width: 20%;
+}
+
+.tradeorder-bd .order-main-box .open-list-table .price,
+.tradeorder-bd .order-main-box .open-list-table .rate,
+.tradeorder-bd .order-main-box .open-list-table .amount {
+    width: 10%;
+    text-align: right;
+}
+
+/**
+* 已成交订单
+*/
+
+.tradeorder-bd .order-main-box .success-list-table .time {
+    width: 20%;
+}
+
+.tradeorder-bd .order-main-box .success-list-table .name {
+    width: 10%;
+}
+
+.tradeorder-bd .order-main-box .success-list-table .buyorsell {
+    width: 10%;
+}
+
+.tradeorder-bd .order-main-box .success-list-table .num {
+    width: 15%;
+}
+
+.tradeorder-bd .order-main-box .success-list-table .tradeprice,
+.tradeorder-bd .order-main-box .success-list-table .fee,
+.tradeorder-bd .order-main-box .success-list-table .amount {
+    width: 15%;
+    text-align: right;
+}

@@ -7,8 +7,7 @@ import React, {Component} from 'react';
 import { observer, inject } from 'mobx-react';
 import { Icon } from 'antd';
 import ChartContainer from '../../mods/trade/chart/index';
-import BuyOrder from '../../mods/trade/order/buy-order';
-import SellOrder from '../../mods/trade/order/sell-order';
+import OrderBook from '../../mods/trade/order-book';
 import TradeHistory from '../../mods/trade/trade-history';
 import MyOrder from '../../mods/trade/myorder/index';
 import TradeForm from '../../mods/trade/form/index';
@@ -90,9 +89,6 @@ class TradeContent extends Component {
         this.props.tradeStore.destorySocket();
     }
 
-    onChangeEntrustType=(type)=>{
-        this.props.tradeStore.setType(type);
-    }
 
     render() {
     	let store = this.props.tradeStore;
@@ -126,49 +122,8 @@ class TradeContent extends Component {
                 </div>
             	<div className="trade-extra">
         			<div className="trade-extra-list clearfix">
-                        <div className="list-box-l grid-box" data-type={store.type}>
-                            <div className="list-box-hd">
-                                <ul className="tab">
-                                    {
-                                       ['all', 'sell', 'buy'].map((item, index)=>{
-                                            let cls = store.type == item ? `${item} selected`: item;
-
-                                            return (
-                                                <li className={cls} key={item} onClick={this.onChangeEntrustType.bind(this, item)}></li>
-                                            )
-                                       })
-                                    }
-                                </ul>
-                            </div>
-                            <div className="list-box-bd">
-                                <div className="table-hd">
-                                    <div className="price">{ UPEX.lang.template('价格')}</div>
-                                    <div className="number">{ UPEX.lang.template('数量')}</div>
-                                    <div className="total">{ UPEX.lang.template('金额')}</div>
-                                </div>
-                                <div className="table-bd" key={store.type}>
-                                    {
-                                        store.type !== 'buy' ? (
-                                            <div className="trade-buy-box">
-                                                <SellOrder ref="sellorder"/>
-                                            </div>
-                                        ) : null
-                                    }
-                                    <div className={`trade-current-amount ${trendColor}`}>
-                                        <div className="count">
-                                            <em>{store.currentTradeCoin.currentAmountText}</em>
-                                            {trendIcon}
-                                        </div>
-                                    </div>
-                                    {
-                                        store.type !==  'sell' ? (
-                                            <div className="trade-sell-box">
-                                                <BuyOrder ref="buyorder"/>
-                                            </div>
-                                        ) : null
-                                    }
-                                </div>
-                            </div>
+                        <div className="list-box-l grid-box">
+                            <OrderBook/>
                         </div>
                         <div className="list-box-r grid-box" >
                             <TradeHistory/>

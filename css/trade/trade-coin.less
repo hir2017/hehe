@@ -1,0 +1,121 @@
+/**
+ * 币种信息模块
+ */
+.trade-current-coin {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 10px;
+    z-index: 3;
+    font-size: 12px;
+    white-space: nowrap;
+    color: @text-color01;
+    border-bottom: 1px solid @border-dark-color;
+    background-color: @bg-module;
+}
+
+.trade-current-coin dl{
+    overflow: hidden;
+}
+
+.trade-current-coin dl *{
+	display: inline-block;
+    vertical-align: middle;
+}
+
+.trade-current-coin dt{
+	font-size: 16px;
+}
+
+.trade-current-coin dd {
+    font-size: 12px;
+  	margin-left: 20px;
+}
+
+.trade-current-coin dd em{
+	padding-left: 6px;
+}
+
+.trade-current-coin .chart-menu {
+    position: absolute;
+    top: 0;
+    right: 30px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 12px;
+    overflow: hidden;
+    padding-left: 20px;
+    background-color: @bg-module;
+}
+
+.trade-current-coin .chart-menu li {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    height: 40px;
+    margin-right: 20px;
+    cursor: pointer;
+    color: @text-color02;
+    border-bottom: 2px solid transparent;
+}
+
+.trade-current-coin .chart-menu li:hover{
+	color: @text-yellow-color;
+}
+
+.trade-current-coin .chart-menu li.selected{
+    color: @text-yellow-color;
+}
+
+.trade-current-coin .chart-menu li.selected:after{
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom:0;
+    margin-left: -10px;
+    border-radius: 2px;
+    width: 20px;
+    height: 2px;
+    background-color: @theme-yellow;
+}
+
+.trade-current-coin .full-btn{
+	position: absolute;
+	right: 10px;
+	top: 0;
+	height: 40px;
+	width: 20px;
+	cursor: pointer;
+    background-color: @bg-module;
+}
+
+.trade-current-coin .full-btn .icon-exit-full,
+.trade-current-coin .full-btn .icon-full{
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.trade-current-coin .full-btn .icon-exit-full{
+    background: url('../../images/fullscreen-e.png') no-repeat center center;
+    background-size: 12px 12px;
+}
+
+.trade-current-coin .full-btn .icon-exit-full:hover{
+	background: url('../../images/fullscreen-hover-e.png') no-repeat center center;
+    background-size: 12px 12px;
+}
+
+.trade-current-coin .full-btn .icon-full{
+    background: url('../../images/fullscreen-o.png') no-repeat center center;
+    background-size: 12px 12px;
+}
+
+.trade-current-coin .full-btn .icon-full:hover{
+	background: url('../../images/fullscreen-hover-o.png') no-repeat center center;
+    background-size: 12px 12px;
+}

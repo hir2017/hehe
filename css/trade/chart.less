@@ -1,0 +1,84 @@
+/**
+ * 图表模块
+ */
+
+.trade-main-chart {
+    min-height: 270px;
+    position: relative;
+}
+
+.trade-main-chart .chart-box {
+    position: relative;
+    height: 100%;
+    padding-top: 38px;
+    width: 100%;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.trade-main-chart .chart-box-mask {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 9;
+}
+
+/**
+ * 币种K线图
+ */
+
+.trade-kline-chart {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    display: block;
+}
+
+.trade-kline-chart[data-show="hide"] {
+    display: none;
+}
+
+
+.trade-kline-chart iframe {
+    position: absolute;
+    left: 0;
+    top: 0;
+    margin-top: 2px;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.trade-kline-mask {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 40px;
+    left: 0;
+    z-index: 10;
+}
+
+.trade-depth-chart {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.06);
+    left: 0;
+    display: block;
+    overflow: hidden;
+}
+
+.app-trade[data-theme="dark"] .trade-depth-chart {
+    background: #24272c;
+}
+
+.trade-depth-chart[data-show="hide"] {
+    display: none;
+}
+
+.trade-depth-chart[data-show="show"] {
+    display: block
+}

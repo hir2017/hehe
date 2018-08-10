@@ -1,0 +1,240 @@
+
+.popup-trade-password .input-box {
+    border: 1px solid rgb(216, 217, 221);
+    outline: 0 none;
+    height: 40px;
+    margin: 0 auto;
+    width: 460px;
+}
+
+.popup-trade-password .input-box input {
+    border: 0 none;
+    background: none;
+    outline: 0 none;
+    line-height: 21px;
+    padding: 10px 10px;
+    width: 100%;
+}
+
+.popup-trade-password .input-box.wrong {
+    border-right: 1px solid #ff6666;
+}
+
+.popup-trade-password .warn-tip {
+    color: #ff6666;
+    min-height: 20px;
+    line-height: 20px;
+    font-size: 14px;
+    width: 362px;
+    margin: 0 auto;
+}
+
+.popup-trade-password .submit {
+    width: 120px;
+    height: 30px;
+    line-height: 30px;
+    margin: 0 auto;
+    background-color: #e8b802;
+    color: #333333;
+    text-align: center;
+    display: block;
+    border-radius: 3px;
+}
+
+.popup-trade-password .submit:hover{
+    background-color: #ffdc57;
+}
+
+
+
+/**
+ * 提示弹出框
+ */
+/* use css to set position of modal */
+.ace-dialog {
+  text-align: center;
+  white-space: nowrap;
+}
+
+.ace-dialog:before {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+  width: 0;
+}
+
+.ace-dialog-body-wrapper{
+    margin-top: 10px;
+    text-align: left;
+}
+
+.ace-dialog-body-content{
+    padding-bottom: 30px;
+}
+.ace-dialog-body-wrapper .anticon{
+    font-size: 22px;
+    margin-right: 16px;
+    float: left;
+    color: #faad14;
+}
+
+.ace-dialog-btns{
+    padding-top: 20px;
+    text-align: center;
+}
+.ace-dialog-btns button{
+    width: 120px;
+    height: 30px;
+    line-height: 30px;
+}
+.ace-dialog-btns button+button {
+    margin-left: 10px;
+}
+
+
+/**
+ * 下拉币种pop列表
+ */
+.popover-tradecoins .coin-list {
+    width: 490px;
+    min-height: 242px;
+}
+
+.popover-tradecoins .coin-list-hd {
+    padding: 10px 20px;
+}
+
+.popover-tradecoins .coin-list-hd .search {
+    width: 230px;
+    height: 30px;
+    border: 0 none;
+    float: left;
+    margin-right: 10px;
+    border-radius: 4px;
+}
+
+.popover-tradecoins .ant-checkbox-wrapper+span,
+.popover-tradecoins .ant-checkbox+span {
+    padding-right: 0;
+}
+
+.popover-tradecoins .coin-list-hd .tab {
+    float: right;
+    height: 28px;
+    line-height: 28px;
+}
+
+.popover-tradecoins .coin-list-hd input {
+    height: 30px;
+    line-height: 30px;
+    color: #333;
+    border: 0 none;
+    outline: 0 none;
+    background: none;
+}
+
+.popover-tradecoins .coin-list-hd .anticon-search {
+    width: 30px;
+}
+
+.popover-tradecoins .coin-list-bd {
+    padding-bottom: 10px;
+}
+.popover-tradecoins .coin-list-bd dl.list-hd {
+    font-weight: normal;
+}
+.popover-tradecoins .coin-list-bd dl.list-hd .price,
+.popover-tradecoins .coin-list-bd dl.list-hd .rate,
+.popover-tradecoins .coin-list-bd dl.list-hd .volume {
+    cursor: pointer;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+/*
+.popover-tradecoins .coin-list-bd dd:hover .redrate {
+    color: #ff7293;
+}
+
+.popover-tradecoins .coin-list-bd dd:hover .greenrate {
+    color: #4feaa2
+}
+*/
+
+
+.popover-tradecoins .coin-list-bd dl.list {
+    max-height: 150px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 100%;
+}
+
+.popover-tradecoins .coin-list-bd dd {
+    cursor: pointer;
+}
+
+.popover-tradecoins .coin-list-bd dd,
+.popover-tradecoins .coin-list-bd dt {
+    overflow: hidden;
+    padding-left: 18px;
+    height: 30px;
+    line-height: 30px;
+}
+
+.popover-tradecoins .coin-list-bd dt {
+    font-size: 12px;
+}
+
+.popover-tradecoins .coin-list-bd dd {
+    font-size: 12px;
+}
+
+.popover-tradecoins .coin-list-bd .cell {
+    float: left;
+}
+
+.popover-tradecoins .coin-list-bd .cell.star {
+    width: 70px;
+    text-align: left;
+}
+
+.popover-tradecoins .coin-list-bd .list.collected .false {
+    display: none;
+}
+
+.popover-tradecoins .coin-list-bd .cell.star .anticon-star {
+    color: #e6bc1d;
+}
+
+.popover-tradecoins .coin-list-bd .cell.name {
+    width: 60px;
+    text-align: center;
+}
+
+.popover-tradecoins .coin-list-bd .cell.price {
+    width: 110px;
+    text-align: right;
+}
+
+.popover-tradecoins .coin-list-bd .cell.rate {
+    width: 100px;
+    text-align: right;
+}
+
+.popover-tradecoins .coin-list-bd .cell.volume {
+    width: 110px;
+    text-align: right;
+}
+
+body .ant-popover-placement-bottomLeft>.ant-popover-content>.ant-popover-arrow {
+    left: 43px;
+    width: 8px;
+    height: 8px;
+    top: 5px;
+}
+.popover-tradecoins .ant-popover-inner-content {
+    padding: 0;
+    border-radius: 6px;
+}

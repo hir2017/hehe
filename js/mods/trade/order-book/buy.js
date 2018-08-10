@@ -7,8 +7,13 @@ import { observer, inject } from 'mobx-react';
 @inject('tradeStore')
 @observer
 class BuyOrderView extends Component {
+	componentDidMount() {
+		this.resetScrollTop();
+	}
+
 	haneleClickOrder(item){
 		let store = this.props.tradeStore;
+		
 		store.setDealBuyPrice(item.current); // 买入价格
 		store.setDealSellPrice(item.current); // 卖出价格
 	}

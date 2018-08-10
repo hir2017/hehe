@@ -1,0 +1,269 @@
+
+/**
+ * 买卖盘口，css虽然和实时交易很多公用，为了后期定制开发，分别书写
+ */
+.app-trade .order-book {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+.app-trade .order-book .list-box-hd {
+    position:relative;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 6px;
+    font-size: 12px;
+    color: @text-color01;
+    border-bottom: 1px solid @border-dark-color;
+}
+
+.app-trade .order-book .list-box-hd .tab{
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 30px;
+}
+.app-trade .order-book .list-box-hd li {
+    float: left;
+    margin-right: 20px;
+    height: 30px;
+    width: 12px;
+    cursor: pointer;
+}
+
+.app-trade .order-book .list-box-hd li:last-child{
+    margin-right: 6px;
+}
+
+.app-trade .order-book .list-box-hd li.all {
+    background: url('../../images/tabicon/all.png') no-repeat center center;
+    background-size: 12px 12px;
+}
+
+
+.app-trade .order-book .list-box-hd li.all:hover {
+    background: url('../../images/tabicon/all-hover.png') no-repeat center center;
+    background-size: 12px 12px;
+}
+
+.app-trade .order-book .list-box-hd li.all.selected {
+    background: url('../../images/tabicon/all-hover.png') no-repeat center center;
+    background-size: 12px 12px;
+}
+
+.app-trade .order-book .list-box-hd li.sell {
+    background: url('../../images/tabicon/sell.png') no-repeat center center;
+    background-size: 12px 12px;
+}
+
+.app-trade .order-book .list-box-hd li.sell:hover {
+    background: url('../../images/tabicon/sell-hover.png') no-repeat center center;
+    background-size: 12px 12px;
+}
+
+.app-trade .order-book .list-box-hd li.sell.selected {
+    background: url('../../images/tabicon/sell-hover.png') no-repeat center center;
+    background-size: 12px 12px;
+}
+
+.app-trade .order-book .list-box-hd li.buy {
+    background: url('../../images/tabicon/buy.png') no-repeat center center;
+    background-size: 12px 12px;
+}
+
+
+.app-trade .order-book .list-box-hd li.buy:hover {
+    background: url('../../images/tabicon/buy-hover.png') no-repeat center center;
+    background-size: 12px 12px;
+}
+
+.app-trade .order-book .list-box-hd li.buy.selected {
+    background: url('../../images/tabicon/buy-hover.png') no-repeat center center;
+    background-size: 12px 12px;
+}
+
+.app-trade .order-book .list-box-bd {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    overflow: hidden;
+}
+
+.app-trade .order-book .table-hd {
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    font-size: 12px;
+    padding: 0 6px;
+    color: @text-color02;
+    border-bottom: 1px solid @border-dark-color;
+}
+
+.app-trade .order-book .table-bd {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    overflow: hidden;
+    font-size: 12px;
+}
+
+.app-trade .order-book .table-bd li{
+    position: relative;
+    width: 100%;
+    height: 24px;
+    line-height: 24px;
+    margin-bottom: 5px;
+    padding: 0 6px;
+    cursor: pointer;
+}
+
+.app-trade .order-book .table-bd li:hover{
+    background-color: @list-hoverbg-color01;
+}
+
+.app-trade .order-book .trade-buy-box,
+.app-trade .order-book .trade-sell-box {
+    position: relative;
+    flex: 1;
+}
+
+.app-trade .order-book .trade-buy-box:after,
+.app-trade .order-book .trade-sell-box:after {
+    width: 100%;
+    height: 1px;
+    content: '';
+    display: block;
+    position: absolute;
+    background-color: @bg-color;
+}
+
+.app-trade .order-book .trade-buy-box:after{
+     bottom: 0;
+}
+
+.app-trade .order-book .trade-sell-box:after{
+    top: 0;
+}
+
+
+.app-trade .order-book .trade-sell,
+.app-trade .order-book .trade-buy {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-bottom: 5px solid transparent;
+    border-top: 5px solid transparent;
+}
+
+.app-trade .order-book .trade-buy {
+    bottom: 0;
+}
+
+.app-trade .order-book .trade-sell {
+    top: 0;
+}
+
+.app-trade .order-book[data-type="buy"] .trade-buy ul{
+    max-height: 100%;
+    overflow-y: auto;
+    margin-right: -15px;
+}
+
+.app-trade .order-book[data-type="buy"] .trade-buy ul li{
+    padding-right: 21px;
+}
+
+.app-trade .order-book[data-type="sell"] .trade-sell ul{
+    max-height: 100%;
+    overflow-y: auto;
+    margin-right: -15px;
+    padding-right: 6px;
+}
+
+.app-trade .order-book .trade-buy-box:after {
+    width: 100%;
+    height: 1px;
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: 0;
+}
+
+.app-trade .order-book .trade-sell-box:after {
+    width: 100%;
+    height: 1px;
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+}
+
+.app-trade .order-book .cell {
+    cursor: pointer;
+    position: relative;
+    z-index: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.app-trade .order-book .price {
+    width: 30%;
+    float: left;
+}
+
+.app-trade .order-book .number {
+    width: 30%;
+    float: left;
+    text-align: right;
+    color: @text-color02;
+}
+
+.app-trade .order-book .total {
+    width: 40%;
+    float: left;
+    text-align: right;
+    color: @text-color02;
+}
+
+.app-trade .order-book li:hover .number,
+.app-trade .order-book li:hover .total{
+    color: @text-color01;
+}
+
+.app-trade .order-book .bar {
+    height: 24px;
+    position: absolute;
+    right: 0;
+    top: 1px;
+}
+
+.app-trade .order-book .table-bd li[data-type="buy"] .bar {
+    background: rgba(12, 155, 120, 0.15);
+}
+
+.app-trade .order-book .table-bd li[data-type="sell"] .bar {
+    background: rgba(219, 78, 78, 0.15);
+}
+
+.app-trade .order-book .trade-current-amount {
+    height: 30px;
+    line-height: 30px;
+    padding: 0 6px;
+    color: @text-color01;
+}
+
+.app-trade .order-book .trade-current-amount em {
+    margin-right: 6px;
+    font-size: 16px;
+}
