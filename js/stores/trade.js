@@ -58,6 +58,7 @@ class TradeStore {
     @observable tradeBuyPassword = '';
     @observable tradeSellPassword = '';
     @observable tradePasswordStatus = 2; // 交易.  1：需要资金密码；2：不需要资金密码
+    @observable tradeType = 'xj';
 
     first = true;
 
@@ -97,6 +98,7 @@ class TradeStore {
         this.tradeNumberErr = '';
         this.tradeBuyPassword = '';
         this.tradeSellPassword = '';
+        this.tradeType = 'xj';
         this.first = true;
     }
 
@@ -674,6 +676,13 @@ class TradeStore {
     @action
     setTabIndex(index) {
         this.tabIndex = index;
+    }
+    /**
+     * 设置Tab索引值
+     */
+    @action
+    setTradeType(index) {
+        this.tradeType = index;
     }
 
     /**

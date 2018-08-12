@@ -1,228 +1,309 @@
 /**
  * 买卖操作模块
  */
-
-.app-trade .trade-extra-handle {
-    height: 300px;
+.app-trade {
+    .trade-form {
+        height: 300px;
+        overflow: hidden;
+        .trade-form-hd {
+            height: 40px;
+            line-height: 40px;
+            font-size: 14px;
+            padding: 0 10px;
+            border-bottom: 1px solid @bg-color;
+            ul {
+                height: 40px;
+                font-size: 14px;
+                overflow: hidden;
+                li {
+                    position: relative;
+                    float: left;
+                    height: 39px;
+                    line-height: 39px;
+                    margin-right: 10px;
+                    cursor: pointer;
+                    margin-right: 20px;
+                    color: @text-color02;
+                    &:hover {
+                        color: @text-yellow-color;
+                    }
+                    &.selected {
+                        color: @text-yellow-color;
+                        &:after {
+                            content: '';
+                            position: absolute;
+                            left: 50%;
+                            bottom: -1px;
+                            margin-left: -10px;
+                            border-radius: 2px;
+                            width: 20px;
+                            height: 2px;
+                            background-color: @theme-yellow;
+                        }
+                    }
+                }
+            }
+        }
+        .trade-form-bd {
+            position: relative;
+            .trade-form-l,
+            .trade-form-r {
+                position: relative;
+                float: left;
+                width: 50%;
+            }
+            &:before {
+                content: '';
+                position: absolute;
+                width: 1px;
+                height: 260px;
+                background-color: @bg-color;
+                left: 50%;
+                top: 0;
+            }
+            .form-mod-hd {
+                position: relative;
+                height: 36px;
+                line-height: 36px;
+                font-size: 12px;
+                padding: 0 10px;
+                display: flex;
+                flex-direction: row;
+                .name {
+                    color: @text-color01;
+                    margin-right: 20px;
+                }
+                .count {
+                    color: @text-color02;
+                    flex: 1;
+                    display: flex;
+                    flex-direction: row;
+                    em {
+                        flex: 1;
+                        text-align: center;
+                    }
+                }
+                .icon {
+                    display: block;
+                    cursor: pointer;
+                    width: 12px;
+                    height: 36px;
+                    margin-left: 20px;
+                    background: url(../../images/icon-recharge.png) no-repeat center center;
+                    background-size: 12px 12px;
+                    &:hover {
+                        background: url(../../images/icon-recharge-hover.png) no-repeat center center;
+                        background-size: 12px 12px;
+                    }
+                }
+            }
+            .form-mod-bd {
+                padding: 0 10px;
+                li {
+                    margin-bottom: 10px;
+                }
+                .item-input {
+                    position: relative;
+                    width: 250px;
+                    margin-left: auto;
+                    margin-right: auto;
+                    height: 36px;
+                    line-height: 36px;
+                    font-size: 14px;
+                    color: @text-color02;
+                    background-color: @input-bg-color;
+                    border: 1px solid @input-border-color;
+                    border-radius: 3px;
+                    label {
+                        display: block;
+                        float: left;
+                        height: 35px;
+                        width: 60px;
+                        text-indent: 10px;
+                        font-size: 12px;
+                        border-right: 1px solid @input-border-color;
+                    }
+                    .input-box {
+                        position: relative;
+                        float: left;
+                        width: 188px;
+                        padding-left: 10px;
+                        input {
+                            border: 0 none;
+                            background: none;
+                            line-height: 20px;
+                            padding: 8px 0;
+                            outline: 0 none;
+                            width: 100%;
+                            color: @text-color01;
+                            
+                        }
+                    }
+                    &.disabled {
+                        background-color: @input-disabled-bg-color;
+                        .input-box {
+                            input{
+                                color: @text-color02;
+                            }
+                        }
+                    }
+                    i {
+                        position: absolute;
+                        right: 0;
+                        top: 0;
+                        padding: 0 10px;
+                        font-style: normal;
+                    }
+                }
+                .item-submit {
+                    .btn-box {
+                        width: 250px;
+                        margin: 0 auto;
+                        height: 36px;
+                        line-height: 36px;
+                        text-align: center;
+                        font-size: 14px;
+                        border-radius: 3px;
+                        color: @text-color03;
+                        background-color: @btn-bg-color;
+                        border: 1px solid @btn-border-color;
+                        &.sell {
+                            background-color: @btn-sell-bg-color;
+                            border: 1px solid @btn-sell-border-color;
+                            color: @text-red-color;
+                            &:hover{
+                               background-color: @btn-sell-hoverbg-color; 
+                            }
+                        }
+                        &.buy {
+                            background-color: @btn-buy-bg-color;
+                            border: 1px solid @btn-buy-border-color;
+                            color: @text-green-color;
+                            &:hover{
+                               background-color: @btn-buy-hoverbg-color; 
+                            }
+                        }
+                        a,
+                        a:hover {
+                            color: @text-yellow-color;
+                            padding: 0 5px;
+                        }
+                    }
+                }
+                .item-slider {
+                    width: 240px;
+                    height: 40px;
+                    margin: 0 auto;
+                    .ant-slider-mark {
+                        font-size: 12px;
+                    }
+                    .ant-slider-dot{
+                        width: 8px;
+                        height: 8px;
+                        margin-left: -5px;
+                        margin-top: -1px;
+                        border-color: @slider-dot-border-color;
+                        background-color: @slider-dot-bg-color;
+                    }
+                    .ant-slider-dot-active{
+                        border-color: @slider-dot-border-scolor;
+                    }
+                    .ant-slider-track {
+                        height: 2px;
+                        border-radius: 2px;
+                        background-color: @slider-track-color;
+                    }
+                    .ant-slider-rail {
+                        height: 2px;
+                        border-radius: 1px;
+                        background-color: @text-color03;
+                    }
+                    .ant-slider-mark-text{
+                        color: @text-color03;
+                    }
+                    .ant-slider-mark-text-active{
+                        color: @text-yellow-color;
+                    }
+                    .ant-slider-handle{
+                        width: 12px;
+                        height: 12px;
+                        border-color: @slider-dot-border-scolor;
+                        background-color: @slider-dot-bg-color;
+                    }
+                    .ant-slider-disabled {
+                        .ant-slider-handle{
+                            border-color: @slider-dot-border-sdcolor !important;
+                            background-color: @slider-dot-bg-color;
+                        }
+                        .ant-slider-track {
+                            background-color: @slider-track-color;
+                        }
+                        .ant-slider-dot{
+                            border-color: @slider-dot-border-color !important;
+                            background-color: @slider-dot-bg-color;
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
-.app-trade .trade-form-hd {
-    height: 40px;
-    line-height: 40px;
-    border-bottom: 1px solid transparent;
-    font-size: 14px;
-    padding: 0 10px;
-}
-
-.app-trade .trade-form-hd .hd-box {
-    padding: 0 10px;
-}
-
-.app-trade .trade-form-hd em {
-    padding: 0 5px;
-}
-
-.app-trade .trade-form-hd label {
-    padding: 0 5px;
-}
-
-.app-trade .trade-form-hd a,
-.app-trade .trade-form-hd a:hover {
-    color: #cc9900;
-}
-
-.app-trade .trade-form-hd .recharge {
-    position: absolute;
-    right: 10px;
-    top: 0;
-    height: 40px;
-    line-height: 40px;
-    cursor: pointer;
-}
-
-.app-trade .trade-form-hd .recharge:hover {
-    text-decoration: underline;
-}
-
-.app-trade .trade-form-l,
-.app-trade .trade-form-r {
-    position: relative;
-    float: left;
-    width: 50%;
-}
-
-.app-trade .trade-form-bd {
-    font-size: 12px;
-    padding: 0 10px;
-}
-
-.app-trade .trade-form-bd ul li {
-    overflow: hidden;
-    padding: 0 10px;
-}
-
-
-.app-trade .trade-form-bd em {
-    padding: 0 5px;
-    display: inline-block;
-    overflow: hidden;
-    vertical-align: middle;
-}
-
-.app-trade .trade-form-bd label {
-    line-height: 32px;
-    height: 27px;
-    display: block;
-    overflow: hidden;
-}
-
-.app-trade .trade-form-bd .input-box {
-    position: relative;
-    border: 1px solid transparent;
-    border-radius: 3px;
-    padding-left: 10px;
-    padding-right: 40px;
-    height: 40px;
-    line-height: 40px;
-    font-size: 16px;
-}
-
-.app-trade .trade-form-bd .input-box i {
-    position: absolute;
-    right: 0;
-    top: 0;
-    padding: 0 10px;
-    font-style: normal;
-    font-size: 14px;
-}
-
-.trade-form-bd .input-box input {
-    border: 0 none;
-    background: none;
-    height: 40px;
-    line-height: 20px;
-    padding: 10px 0;
-    outline: 0 none;
-    width: 100%;
-}
-
-
-.app-trade .trade-form-bd .item-total {
-    height: 20px;
-    line-height: 20px;
-}
-
-.app-trade .trade-form-bd .item-total label {
-    display: inline-block;
-    vertical-align: middle;
-    max-width: 30px;
-    line-height: 20px;
-    height: 20px;
-}
-
-.app-trade .trade-form-bd .item-total span {
-    display: inline-block;
-    vertical-align: middle;
-}
-
-.app-trade .trade-form-bd .item-total em {
-    text-align: center;
-    padding: 0 10px;
-    display: inline-block;
-    vertical-align: middle;
-}
-
-.app-trade .trade-form-bd .btn {
-    border-radius: 3px;
-    width: 240px;
-    height: 40px;
-    line-height: 40px;
-    text-align: center;
-    color: #fff;
-    font-size: 14px;
-}
-
-.app-trade .trade-form-bd .btn.buy {
-    background-color: #33c280;
-}
-
-.app-trade .trade-form-bd .btn.buy:hover {
-    background-color: #4feaa2;
-}
-
-.app-trade .trade-form-bd .btn.sell {
-    background-color: #ef5d7f;
-}
-
-.app-trade .trade-form-bd .btn.sell:hover {
-    background-color: #ff7293;
-}
-
-.app-trade .trade-form-bd button.btn:disabled {
-    cursor: not-allowed;
-    color: #999;
-    background-color: #f2f2f2 !important;
-    border: 1px solid #f2f2f2;
-}
-
-.app-trade .trade-form-bd .item-slider {
-    padding-right: 17px;
-}
-
-.app-trade .trade-form-bd .ant-slider {
-    font-size: 12px;
-    height: 40px;
-    margin-left: 0;
-    margin-right: 0;
-}
-
-.app-trade .trade-form-bd .ant-slider-mark {
-    font-size: 12px;
-}
-
-.app-trade .trade-form-bd .ant-slider-dot:first-child {
-    margin-left: 0;
-}
-
-.app-trade .trade-form-bd .ant-slider-dot:last-child {
-    margin-left: 0;
-}
-
-
-.app-trade .trade-form-bd .ant-slider-rail {
-    height: 1px;
-}
-
-
-.app-trade .trade-form-bd .ant-slider-step,
-.app-trade .trade-form-bd .ant-slider-track {
-    height: 1px;
-}
-
-
-.app-trade .trade-form-bd .ant-slider-dot {
-    width: 7px;
-    height: 7px;
-    border: 0 none;
-    top: -3px;
-    margin-left: 0px;
-}
-
-.app-trade .trade-form-bd .ant-slider-mark-text:first-child {
-    text-indent: 17px;
-}
-
-.app-trade .trade-form-bd .ant-slider-mark-text:last-child {
-    text-indent: -17px;
-}
-
-.app-trade .trade-form-bd .ant-slider-handle {
-    margin-left: -1px;
-    margin-top: -4px;
-    width: 9px;
-    height: 9px;
-}
-
-.app-trade .trade-form-bd .ant-slider-with-marks {
-    margin-bottom: 0;
+.app-trade-light {
+    .trade-form {
+        .trade-form-hd {
+            border-bottom: 1px solid @bg-color-light;
+            ul {
+                li {
+                    color: @text-color02-light;
+                }
+            }
+        }
+        .trade-form-bd {
+            &:before {
+                background-color: @bg-color-light;
+            }
+            .form-mod-hd {
+                .name {
+                    color: @text-color01-light
+                }
+                .count {
+                    color: @text-color02-light;
+                }
+            }
+            .form-mod-bd {
+                .item-input {
+                    color: @text-color02-light;
+                    background-color: @input-bg-color-light;
+                    border: 1px solid @input-border-color-light;
+                    label {
+                        border-right: 1px solid @input-border-color-light;
+                    }
+                    .input-box {
+                        input {
+                            color: @text-color01-light;
+                            &.disabled{
+                                color: @text-color02-light;
+                            }
+                        }
+                    }
+                }
+                .item-submit {
+                    .btn-box {
+                        color: @text-color03;
+                        background-color: @btn-bg-color-light;
+                        border: 1px solid @btn-border-color-light;
+                        &.sell {
+                            background-color: @btn-sell-bg-color-light;
+                            border: 1px solid @btn-sell-border-color-light;
+                        }
+                        &.buy {
+                            background-color: @btn-buy-bg-color-light;
+                            border: 1px solid @btn-buy-border-color-light;
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

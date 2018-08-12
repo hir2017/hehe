@@ -7,10 +7,10 @@ import React, {Component} from 'react';
 import { observer, inject } from 'mobx-react';
 import { Icon } from 'antd';
 import ChartContainer from '../../mods/trade/chart/index';
-import OrderBook from '../../mods/trade/order-book';
 import TradeHistory from '../../mods/trade/trade-history';
 import MyOrder from '../../mods/trade/myorder/index';
-import TradeForm from '../../mods/trade/form/index';
+import OrderBook from '../../mods/trade/order-book';
+import OrderForm from '../../mods/trade/order-form';
 
 @inject('commonStore', 'currencyStore','tradeStore')
 @observer
@@ -131,7 +131,7 @@ class TradeContent extends Component {
         			</div>
 
         			<div className="trade-extra-handle grid-box">
-        				<TradeForm/>
+        				<OrderForm/>
         			</div>
             	</div>
             </div>

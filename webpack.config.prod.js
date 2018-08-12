@@ -10,12 +10,12 @@ var env = process.env.NODE_ENV;
 
 // 读取项目配置文件
 // 获得项目名称及版本, 方便做打包处理assets cdn路径
-var package = require('./package.json');
-var projectVersion = package.version;
-var projectName = package.name;
-var cssmode = package.cssmode;
-var gitlabGroup = package.gitlabGroup;
-var cdnDomain = package.cdnDomain;
+var packageJSON = require('./package.json');
+var projectVersion = packageJSON.version;
+var projectName = packageJSON.name;
+var cssmode = packageJSON.cssmode;
+var gitlabGroup = packageJSON.gitlabGroup;
+var cdnDomain = packageJSON.cdnDomain;
 
 const extractCSS = new ExtractTextPlugin({
     allChunks: true,
