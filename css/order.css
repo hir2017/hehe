@@ -175,11 +175,11 @@
  * 表格内容
  */
 .order-table {
-    font-size: 14px;
+    font-size: 12px;
 }
 
 .order-table .mini-tip {
-    margin-top: 100px;
+    margin-top: 60px;
     color: #ccc;
     text-align: center;
     min-height: 46px;
@@ -201,22 +201,23 @@
 }
 
 .order-table .table-hd table th {
-    height: 60px;
+    height: 30px;
 }
 
 .order-table .table-bd {
     position: relative;
-    min-height: 60px;
+    min-height: 30px;
 }
 
 .order-table .table-bd dl {
+    cursor: pointer;
     border-bottom: 1px solid #f4f4f4;
 }
 
 
 .order-table .table-bd dl{
-    height: 60px;
-    line-height: 60px;
+    height: 30px;
+    line-height: 30px;
 }
 
 .order-table .table-bd dl:hover{
