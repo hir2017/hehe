@@ -109,7 +109,7 @@ class TradeContent extends Component {
         return (
             <div className="trade-wrapper" style={{ height: store.contentHeight + 10}}>
                 <div className="trade-main">
-                    <div className="trade-main-chart grid-box" style={{ height: store.mainChartHeight}}>
+                    <div className={`trade-main-chart grid-box ${store.expandOrderTable ? 'hidden' : ''}`} style={{ height: store.mainChartHeight}}>
                         {
                             store.pointPrice > -1 ? <ChartContainer/> : null
                         }

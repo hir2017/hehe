@@ -59,6 +59,7 @@ class TradeStore {
     @observable tradeSellPassword = '';
     @observable tradePasswordStatus = 2; // 交易.  1：需要资金密码；2：不需要资金密码
     @observable tradeType = 'xj';
+    @observable expandOrderTable = false;
 
     first = true;
 
@@ -99,6 +100,7 @@ class TradeStore {
         this.tradeBuyPassword = '';
         this.tradeSellPassword = '';
         this.tradeType = 'xj';
+        this.expandOrderTable = false;
         this.first = true;
     }
 
@@ -122,9 +124,12 @@ class TradeStore {
 
     @computed
     get mainOrderHeight() {
-        return Math.max(this.contentHeight * 0.3, 0);
+        if (this.expandOrderTable) {
+            return Math.max(this.contentHeight + this.space, 0);
+        } else {
+            return Math.max(this.contentHeight * 0.3, 0);
+        }
     }
-
 
     @computed
     get depthAsks() {
@@ -343,7 +348,12 @@ class TradeStore {
     changeThemeTo = value => {
         this.theme = value;
         UPEX.cache.setCache('theme', value);
-    };
+    }
+
+    @action
+    isExpandOrderTable(status){
+        this.expandOrderTable = status;
+    }
     /**
      * 修改买入价格
      */

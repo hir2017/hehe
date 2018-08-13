@@ -1,11 +1,97 @@
 /**
  * 订单
  */
+
+.app-trade {
+    .trade-order-hd {
+        height: 40px;
+        line-height: 40px;
+        font-size: 14px;
+        padding: 0 10px;
+        border-bottom: 1px solid @bg-color;
+        ul {
+            height: 40px;
+            font-size: 14px;
+            overflow: hidden;
+            li {
+                position: relative;
+                float: left;
+                height: 39px;
+                line-height: 39px;
+                margin-right: 10px;
+                cursor: pointer;
+                margin-right: 20px;
+                color: @text-color02;
+                &:hover {
+                    color: @text-yellow-color;
+                }
+                &.selected {
+                    color: @text-yellow-color;
+                    &:after {
+                        content: '';
+                        position: absolute;
+                        left: 50%;
+                        bottom: -1px;
+                        margin-left: -10px;
+                        border-radius: 2px;
+                        width: 20px;
+                        height: 2px;
+                        background-color: @theme-yellow;
+                    }
+                }
+            }
+        }
+        .action-btn {
+            position: absolute;
+            right: 10px;
+            top: 0;
+            height: 39px;
+            width: 20px;
+            cursor: pointer;
+            .icon-open {
+                width: 20px;
+                height: 20px;
+                display: inline-block;
+                vertical-align: middle;
+                background: url('../../images/zhankai.png') no-repeat center center;
+                background-size: 12px 12px;
+                &:hover {
+                    background: url('../../images/zhankai-hover.png') no-repeat center center;
+                    background-size: 12px 12px;
+                }
+            }
+
+            .icon-close {
+                width: 20px;
+                height: 20px;
+                display: inline-block;
+                vertical-align: middle;
+                background: url('../../images/shouqi.png') no-repeat center center;
+                background-size: 12px 12px;
+                &:hover {
+                    background: url('../../images/shouqi-hover.png') no-repeat center center;
+                    background-size: 12px 12px;
+                }
+            }
+        }
+    }
+}
+
+.app-trade-light {
+    .trade-order-hd {
+        border-color: @bg-color-light;
+        ul {
+            li {
+                color: @text-color02-light;
+            }
+        }
+    }
+}
+
 .app-trade .trade-main-order {
     position: relative;
     border-radius: 6px;
     overflow: hidden;
-    margin-top: 10px;
 }
 
 .app-trade .tradeorder-wrapper {
@@ -56,31 +142,31 @@
     color: #cc9900;
 }
 
-.app-trade .tradeorder-bd{
+.app-trade .tradeorder-bd {
     position: relative;
     flex: 1;
     display: flex;
     flex-direction: column;
 }
 
-.app-trade .tradeorder-bd .order-table .table-hd{
+.app-trade .tradeorder-bd .order-table .table-hd {
     border-top: 1px solid transparent;
     border-bottom: 1px solid transparent;
     height: 40px;
     padding: 0 20px;
 }
 
-.app-trade .tradeorder-bd .order-table .table-hd th{
+.app-trade .tradeorder-bd .order-table .table-hd th {
     height: 40px;
     line-height: 40px;
     font-size: 12px;
 }
 
-.app-trade .tradeorder-bd .order-table .table-bd dl dd{
+.app-trade .tradeorder-bd .order-table .table-bd dl dd {
     font-size: 12px;
 }
 
-.tradeorder-bd .order-main-box{
+.tradeorder-bd .order-main-box {
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -95,7 +181,7 @@
     border-bottom: 5px solid transparent;
 }
 
-.tradeorder-bd .order-table .table-bd{
+.tradeorder-bd .order-table .table-bd {
     flex: 1;
     overflow: hidden;
     overflow-y: auto;
@@ -103,7 +189,7 @@
 }
 
 .tradeorder-bd .order-header,
-.tradeorder-bd .order-table .table-ft{
+.tradeorder-bd .order-table .table-ft {
     display: none;
 }
 
@@ -132,9 +218,11 @@
     background-color: #f4f4f4;
 }
 
+
 /**
  * 委托中
  */
+
 .tradeorder-bd .order-main-box .open-list-table .action {
     width: 10%;
 }
@@ -161,6 +249,7 @@
     width: 10%;
     text-align: right;
 }
+
 
 /**
 * 已成交订单

@@ -3,8 +3,7 @@
  */
 import React, {Component} from 'react';
 import { observer, inject } from 'mobx-react';
-// import OpenOrder from './open-order';
-// import HistoryOrder from './history-order';
+import { Tooltip } from 'antd';
 import OpenOrder from '../../record-list/record-open';
 import HistoryOrder from '../../record-list/record-success';
 
@@ -35,12 +34,18 @@ class MyOrder extends Component {
 		$.channel.off('updateTradeUserAccount');
 	}
 
+	handleExpand=(e)=>{
+		let status = !this.props.tradeStore.expandOrderTable;
+
+		this.props.tradeStore.isExpandOrderTable(status);
+	}
+
 	render() {
 		let store = this.props.tradeStore;
 
 		return (
-			<div className="tradeorder-wrapper">
-				<div className="tradeorder-hd clearfix">
+			<div className="trade-order-wrapper">
+				<div className="trade-order-hd clearfix">
 					<ul>
 						{
 							this.tabs.map((item, index)=>{
@@ -51,8 +56,15 @@ class MyOrder extends Component {
 							})
 						}
 					</ul>
+					<div className="action-btn" onClick={this.handleExpand}>
+                        { 
+                            store.expandOrderTable ? 
+                            <Tooltip placement="right" title={UPEX.lang.template('收起')}><i className="icon-close"/></Tooltip>: 
+                            <Tooltip placement="right" title={UPEX.lang.template('展开')}><i className="icon-open"/></Tooltip>
+                        }
+                    </div>
 				</div>
-				<div className="tradeorder-bd">
+				<div className="trade-order-bd">
 					{
 						store.tabIndex == 0 ? <OpenOrder pagination={false}/> : <HistoryOrder pagination={false}/>
 					}

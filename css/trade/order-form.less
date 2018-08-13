@@ -154,6 +154,10 @@
                         padding: 0 10px;
                         font-style: normal;
                     }
+                    .total {
+                        font-size: 12px;
+                        text-align: center;
+                    }
                 }
                 .item-submit {
                     .btn-box {
@@ -212,11 +216,15 @@
                         height: 2px;
                         border-radius: 2px;
                         background-color: @slider-track-color;
+                        -webkit-transition: none;
+                        transition: none;
                     }
                     .ant-slider-rail {
                         height: 2px;
                         border-radius: 1px;
                         background-color: @text-color03;
+                        -webkit-transition: none;
+                        transition: none;
                     }
                     .ant-slider-mark-text{
                         color: @text-color03;
@@ -287,6 +295,14 @@
                             }
                         }
                     }
+                    &.disabled {
+                        background-color: @input-disabled-bg-color-light;
+                        .input-box {
+                            input{
+                                color: @text-color02-light;
+                            }
+                        }
+                    }
                 }
                 .item-submit {
                     .btn-box {
@@ -296,10 +312,41 @@
                         &.sell {
                             background-color: @btn-sell-bg-color-light;
                             border: 1px solid @btn-sell-border-color-light;
+                            color: @text-color;
                         }
                         &.buy {
                             background-color: @btn-buy-bg-color-light;
                             border: 1px solid @btn-buy-border-color-light;
+                            color: @text-color;
+                        }
+                    }
+                }
+                .item-slider {
+                    .ant-slider-dot{
+                        border-color: @slider-dot-border-color-light;
+                        background-color: @slider-dot-bg-color-light;
+                    }
+                    .ant-slider-rail {
+                        background-color: @text-color03-light;
+                    }
+                    .ant-slider-dot-active{
+                        border-color: @slider-dot-border-scolor;
+                    }
+                    .ant-slider-handle{
+                        border-color: @slider-dot-border-scolor;
+                        background-color: @slider-dot-bg-color-light;
+                    }
+                    .ant-slider-disabled {
+                        .ant-slider-handle{
+                            border-color: @slider-dot-border-sdcolor !important;
+                            background-color: @slider-dot-bg-color-light;
+                        }
+                        .ant-slider-track {
+                            background-color: @slider-track-color-light;
+                        }
+                        .ant-slider-dot{
+                            border-color: @slider-dot-border-color-light !important;
+                            background-color: @slider-dot-bg-color-light;
                         }
                     }
                 }
