@@ -24,7 +24,7 @@ class AnnouncementList extends Component {
 		}
 
 		return (
-			<div className="announcement-wrapper">
+			<div className="noticelist">
 				<div className="content">
 					<Carousel autoplay vertical dots={false} speed={500}>
 					{

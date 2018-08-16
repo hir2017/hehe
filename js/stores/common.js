@@ -47,6 +47,16 @@ class CommonStore {
         return this.currentPathName.indexOf('/webtrade') > -1;
     }
 
+    @computed get pageClassName() {
+        if (this.currentPathName.indexOf('/webtrade') > -1) {
+            return 'app-trade';
+        } else if (this.currentPathName.indexOf('/news') > -1){
+            return 'app-news';
+        } else {
+            return '';
+        }
+    }
+
     @action
     changeLanguageTo = (value) => {
         this.language = value

@@ -1,0 +1,205 @@
+/**
+ * 货币行情
+ */
+
+.index-markets {
+    position: relative;
+    height: 650px;
+    width: 1200px;
+    margin: 20px auto 0;
+    background-color: #fff;
+    border-radius: 6px;
+    .market-nav {}
+    .market-panel {
+        .coin-list {
+            .coin-list-title {
+                position: absolute;
+                right: 10px;
+                top: -60px;
+                height: 60px;
+                line-height: 60px;
+                box-sizing: border-box;
+                text-align: right;
+                -webkit-user-select: none;
+                -webkit-touch-callout: none;
+            }
+
+            .coin-list-content {
+                li {
+                    height: 50px;
+                    line-height: 50px;
+                    padding: 0 20px;
+                    border-bottom: 1px solid #f4f4f4;
+                    cursor: pointer;
+                    color: @text-color02-light;
+                }
+                li.selected {
+                    background-color: #f8f8f8;
+                }
+                .table-header li {
+                    color: @text-color01-light;
+                }
+                .table-body li:hover {
+                    background-color: #f8f8f8;
+                }
+                .cell {
+                    float: left;
+                    font-size: 14px;
+                    -webkit-user-select: none;
+                    -webkit-touch-callout: none;
+                }
+                .name {
+                    width: 150px;
+                    text-align: left;
+                    color: @text-color01-light;
+                    i {
+                        color: @text-color02-light;
+                        font-style: normal;
+                    }
+                    img {
+                        display: inline-block;
+                        vertical-align: middle;
+                        width: 23px;
+                        height: 23px;
+                        margin: 0 4px;
+                        background: url('../../images/coin-default.png') no-repeat center center;
+                        background-size: 100% 100%;
+                    }
+                }
+                .amount {
+                    width: 270px;
+                    text-align: right;
+                }
+                .rate {
+                    width: 270px;
+                    text-align: right;
+                }
+                .volume {
+                    width: 320px;
+                    text-align: right;
+                }
+                .action {
+                    width: 150px;
+                    text-align: right;
+                }
+            }
+        }
+    }
+}
+
+.index-markets-hd {
+    height: 60px;
+    line-height: 60px;
+    border-bottom: 1px solid #f2f2f2;
+}
+
+.index-markets-hd .title {
+    font-size: 18px;
+    padding: 0 20px;
+}
+
+.index-markets-right {
+    float: right;
+    width: 900px;
+    height: 590px;
+    position: relative;
+}
+
+.index-markets-left {
+    position: relative;
+    float: left;
+    width: 300px;
+    height: 590px;
+    border-right: 1px solid #f2f2f2;
+}
+
+.index-markets-left .coin-hd {
+    position: relative;
+    padding: 20px 0;
+    color: #333333;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.index-markets-left .coin-hd h4 {
+    padding: 0 20px;
+}
+
+.index-markets-left .coin-hd h4 em {
+    padding: 0 10px;
+}
+
+.index-markets-left .coin-hd .rate {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    height: 20px;
+    line-height: 20px;
+    margin-top: -10px;
+    font-size: 18px;
+    text-align: center;
+    border-radius: 20px 0 0 20px;
+}
+
+.index-markets-left .coin-bd {
+    width: 260px;
+    margin: 0 auto;
+    border-bottom: 2px solid #f4f4f4;
+}
+
+.index-markets-left .coin-bd li {
+    font-size: 12px;
+    color: #999999;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.index-markets-left .coin-bd li label {
+    float: left;
+}
+
+
+.index-markets-left .coin-bd li em {
+    float: right;
+}
+
+.index-markets-left .coin-ft {
+    position: relative;
+}
+
+.index-markets-left .realtime-hd {
+    position: relative;
+    padding: 20px;
+    margin-bottom: 10px;
+}
+
+.index-markets-left .realtime-hd h4 {
+    font-size: 14px;
+}
+
+.index-markets-left .realtime-hd label {
+    position: absolute;
+    right: 0;
+    height: 23px;
+    line-height: 23px;
+    top: 50%;
+    font-size: 14px;
+    margin-top: -12px;
+    padding-right: 20px;
+}
+
+.index-markets-left .realtime-hd label a,
+.index-markets-left .realtime-hd label a:hover {
+    color: #cc9900;
+}
+
+.index-markets-left .coin-line-box {
+    height: 200px;
+    width: 260px;
+    margin: 0 auto;
+}
+
+
+.index-markets-right .anticon-star {
+    color: #e6bc1d;
+}

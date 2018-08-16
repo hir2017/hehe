@@ -73,7 +73,7 @@ class TradeForm extends Component{
             iconType: 'exclamation-circle',
             okCancel: false,
             onOk() {
-                browserHistory.push('/user/bankInfo');
+                browserHistory.push('/user/set-trade-pwd');
             }
         });
 	}

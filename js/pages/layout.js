@@ -40,7 +40,7 @@ class Layout extends Component {
             );
         } else {
             return (
-                <div className="tobottom-footer" style={{ minHeight: commonStore.windowDimensions.height }}>
+                <div className={`${commonStore.pageClassName} tobottom-footer`} style={{ minHeight: commonStore.windowDimensions.height }}>
                     <Header/>
                     <div className="app-content">
                         { this.props.children }

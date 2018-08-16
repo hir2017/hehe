@@ -50,6 +50,7 @@ class Banner extends Component {
                     	}
                     </Carousel>
                 </div>
+                { this.props.children }
 			</div>
 		);
 	}

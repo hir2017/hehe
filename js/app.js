@@ -1,7 +1,8 @@
 import '../css/reset.css';
 import '../css/common.css';
 import '../css/common.less';
-import '../css/index.css';
+// import '../css/index.css';
+import '../css/home.less';
 import '../css/login-register.css';
 import '../css/agreements.css';
 import '../css/trade.less';
