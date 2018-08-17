@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
-import { Link } from 'react-router';
+import { Link, browserHistory } from 'react-router';
 import { Switch, Button, Row, Col } from 'antd';
 
 import bindPhone from '../../../images/bind-phone.png';
@@ -24,6 +24,13 @@ class Info extends Component {
 
     componentWillMount() {
         this.props.userInfoStore.getUserInfo();
+    }
+
+    doSkip(type, abled) {
+        if(abled) {
+            return;
+        }
+        browserHistory.push(type === 'phone' ? '/user/setting-phone' : '/user/setting-email');
     }
 
     gradeImg() {
@@ -69,12 +76,12 @@ class Info extends Component {
                             {userInfo.userLoginRecord && userInfo.userLoginRecord.time}
                         </div>
                         <Row className="bind-status">
-                            <Col span={12} className={userInfo.isValidatePhone ? 'auth' : ''}>
+                            <Col span={12} className={userInfo.isValidatePhone ? 'auth' : ''} onClick={this.doSkip.bind(this, 'phone', userInfo.isValidatePhone)}>
                                 <img src={userInfo.isValidatePhone ? bindPhone : unbindPhone} />
                                 <p>{userInfo.isValidatePhone ? UPEX.lang.template('手机已绑定') : UPEX.lang.template('手机未绑定')}</p>
                             </Col>
                             <Col span={12} className={userInfo.isValidateEmail ? 'auth' : ''}>
-                                <img src={userInfo.isValidateEmail ? bindEmail : unbindEmail} />
+                                <img src={userInfo.isValidateEmail ? bindEmail : unbindEmail} onClick={this.doSkip.bind(this, 'mail', userInfo.isValidateEmail)}/>
                                 <p>{userInfo.isValidateEmail ? UPEX.lang.template('邮箱已绑定') : UPEX.lang.template('邮箱未绑定')}</p>
                             </Col>
                         </Row>

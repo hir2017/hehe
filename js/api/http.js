@@ -635,6 +635,17 @@ export function sendCodeInUserCenter(type, imgCode, imgCodeId) {
         codeid: imgCodeId
     })
 }
+/**
+ * 发送验证码 设置、忘记交易密码
+ */
+
+export function setTradePwdSendCode(type, imgCode, imgCodeId) {
+    return axios.post('/user/setTradePwdSendCode', {
+        type: type,
+        imgcode: imgCode,
+        codeid: imgCodeId
+    })
+}
 
 /**
  * 发送验证码 绑定、解绑谷歌验证码 设置、忘记交易密码

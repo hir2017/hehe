@@ -1,5 +1,6 @@
 module.exports={
     "enus": {
+<<<<<<< HEAD
         "0-50万": "0-500K",
         "150-200万": "1M-2M",
         "15min": "15min",
@@ -23,6 +24,8 @@ module.exports={
         "5min": "5min",
         "7X24小时委托交易": "7X24-hour trading ",
         "ACE王牌数字币交易": "Infinitex Crypto Currency Exchange ",
+=======
+>>>>>>> origin/daily/1.0.0
         "AD": "Andorra",
         "AE": "United Arab Emirates",
         "AF": "Afghanistan",
@@ -77,7 +80,6 @@ module.exports={
         "CX": "Christmas Islands",
         "CY": "Cyprus",
         "CZ": "Czech Republic",
-        "Copyright": "Copyright ©️ 2017-2018 ACE.IO All Rights Reserved",
         "DE": "Germany",
         "DJ": "Djibouti",
         "DK": "Denmark",
@@ -113,11 +115,14 @@ module.exports={
         "GU": "Guam",
         "GW": "Guinea-Bissau",
         "GY": "Guyana",
+<<<<<<< HEAD
         "Google认证指南": "Google Verification Guide",
         "Google验证": "Google verification",
         "Google验证器": "Google Authenticator",
         "Google验证器使用教程": "Google Auth code Tutorial",
         "Google验证码": "Google Anthentiator Code",
+=======
+>>>>>>> origin/daily/1.0.0
         "HK": "Hong Kong",
         "HN": "Honduras",
         "HR": "Croatia",
@@ -129,7 +134,6 @@ module.exports={
         "IM": "Isle of Man",
         "IN": "India",
         "IO": "British Indian Ocean Territory",
-        "IP": "IP",
         "IQ": "Iraq",
         "IR": "Iran",
         "IS": "Iceland",
@@ -149,8 +153,11 @@ module.exports={
         "KW": "Kuwait",
         "KY": "Cayman Islands",
         "KZ": "Kazakhstan",
+<<<<<<< HEAD
         "K线": "K-Line",
         "K线图": "Candlestick chart",
+=======
+>>>>>>> origin/daily/1.0.0
         "LA": "Laos",
         "LB": "Lebanon",
         "LC": "Saint Lucia",
@@ -252,7 +259,6 @@ module.exports={
         "TV": "Tuvalu",
         "TW": "Taiwan",
         "TZ": "Tanzania",
-        "Txid:{value}": "Txid:{value}",
         "UA": "Ukraine",
         "UG": "Uganda",
         "US": "United States",
@@ -272,6 +278,7 @@ module.exports={
         "YT": "Mayotte",
         "ZA": "South Africa",
         "ZM": "Zambia",
+<<<<<<< HEAD
         "ZW": "Zimbabwe",
         "ios下载Google验证器网址": "https://itunes.apple.com/us/app/google-authenticator/id388497605?mt=8",
         "service@acex.one": "support@ace.io",
@@ -843,31 +850,11 @@ module.exports={
         "验证方式": "Verification method",
         "验证码": "Verification code",
         "高": "High"
+=======
+        "ZW": "Zimbabwe"
+>>>>>>> origin/daily/1.0.0
     },
     "zhcn": {
-        "0-50万": "0-50万",
-        "150-200万": "100-200万",
-        "15min": "15min",
-        "1day": "1day",
-        "1hour": "1hour",
-        "1min": "1min",
-        "1mon": "1mon",
-        "1week": "1week",
-        "200-250万": "200-250万",
-        "24H量": "24H量",
-        "24h成交量": "24h成交量",
-        "24h最低价": "24h最低价",
-        "24h最高价": "24h最高价",
-        "24h涨跌": "24h涨跌",
-        "250万以上": "250万以上",
-        "30min": "30min",
-        "400-666-8888": "400-666-8888",
-        "4hour": "4hour",
-        "50-100万": "50-100万",
-        "5day": "5day",
-        "5min": "5min",
-        "7X24小时委托交易": "7X24小时委托交易",
-        "ACE王牌数字币交易": "ACE王牌数字币交易",
         "AD": "安道尔",
         "AE": "阿拉伯联合酋长国",
         "AF": "阿富汗",
@@ -922,7 +909,6 @@ module.exports={
         "CX": "圣诞岛",
         "CY": "塞浦路斯",
         "CZ": "捷克共和国",
-        "Copyright": "Copyright ©️ 2017-2018 ACE.IO All Rights Reserved",
         "DE": "德国",
         "DJ": "吉布提",
         "DK": "丹麦",
@@ -958,11 +944,6 @@ module.exports={
         "GU": "关岛",
         "GW": "几内亚比绍",
         "GY": "圭亚那",
-        "Google认证指南": "Google认证指南",
-        "Google验证": "Google验证",
-        "Google验证器": "Google验证器",
-        "Google验证器使用教程": "Google验证器使用教程",
-        "Google验证码": "Google验证码",
         "HK": "香港",
         "HN": "洪都拉斯",
         "HR": "克罗地亚",
@@ -974,7 +955,6 @@ module.exports={
         "IM": "马恩岛",
         "IN": "印度",
         "IO": "英属印度洋领地",
-        "IP": "IP",
         "IQ": "伊拉克",
         "IR": "伊朗",
         "IS": "冰岛",
@@ -994,8 +974,6 @@ module.exports={
         "KW": "科威特",
         "KY": "开曼群岛",
         "KZ": "哈萨克斯坦",
-        "K线": "K线",
-        "K线图": "K线图",
         "LA": "老挝",
         "LB": "黎巴嫩",
         "LC": "圣卢西亚",
@@ -1097,7 +1075,6 @@ module.exports={
         "TV": "图瓦卢",
         "TW": "台湾",
         "TZ": "坦桑尼亚",
-        "Txid:{value}": "Txid:{value}",
         "UA": "乌克兰",
         "UG": "乌干达",
         "US": "美国",
@@ -1117,6 +1094,7 @@ module.exports={
         "YT": "马约特",
         "ZA": "南非",
         "ZM": "赞比亚",
+<<<<<<< HEAD
         "ZW": "津巴布韦",
         "ios下载Google验证器网址": "https://itunes.apple.com/us/app/google-authenticator/id388497605?mt=8",
         "service@acex.one": "support@ace.io",
@@ -1703,6 +1681,11 @@ module.exports={
         "5min": "5min",
         "7X24小时委托交易": "7X24小時委託交易",
         "ACE王牌数字币交易": "ACE王牌數位貨幣交易",
+=======
+        "ZW": "津巴布韦"
+    },
+    "zhtw": {
+>>>>>>> origin/daily/1.0.0
         "AD": "安道​​爾",
         "AE": "阿拉伯聯合酋長國",
         "AF": "阿富汗",
@@ -1757,7 +1740,6 @@ module.exports={
         "CX": "聖誕島",
         "CY": "塞浦路斯",
         "CZ": "捷克共和國",
-        "Copyright": "Copyright ©️ 2017-2018 ACE.IO All Rights Reserved",
         "DE": "德國",
         "DJ": "吉布提",
         "DK": "丹麥",
@@ -1793,11 +1775,6 @@ module.exports={
         "GU": "關島",
         "GW": "幾內亞比紹",
         "GY": "圭亞那",
-        "Google认证指南": "Google驗證指南",
-        "Google验证": "Google驗證",
-        "Google验证器": "Google驗證器",
-        "Google验证器使用教程": "Google驗證器使用教學",
-        "Google验证码": "Google驗證碼",
         "HK": "香港",
         "HN": "洪都拉斯",
         "HR": "克羅地亞",
@@ -1809,7 +1786,6 @@ module.exports={
         "IM": "馬恩島",
         "IN": "印度",
         "IO": "英屬印度洋領地",
-        "IP": "IP",
         "IQ": "伊拉克",
         "IR": "伊朗",
         "IS": "冰島",
@@ -1829,8 +1805,11 @@ module.exports={
         "KW": "科威特",
         "KY": "開曼群島",
         "KZ": "哈薩克斯坦",
+<<<<<<< HEAD
         "K线": "K線",
         "K线图": "K線圖",
+=======
+>>>>>>> origin/daily/1.0.0
         "LA": "老撾",
         "LB": "黎巴嫩",
         "LC": "聖盧西亞",
@@ -1932,7 +1911,6 @@ module.exports={
         "TV": "圖瓦盧",
         "TW": "台灣",
         "TZ": "坦桑尼亞",
-        "Txid:{value}": "Txid:{value}",
         "UA": "烏克蘭",
         "UG": "烏干達",
         "US": "美國",
@@ -1952,6 +1930,7 @@ module.exports={
         "YT": "馬約特",
         "ZA": "南非",
         "ZM": "贊比亞",
+<<<<<<< HEAD
         "ZW": "津巴布韋",
         "ios下载Google验证器网址": "https://itunes.apple.com/us/app/google-authenticator/id388497605?mt=8",
         "service@acex.one": "support@ace.io",
@@ -2513,5 +2492,8 @@ module.exports={
         "验证方式": "驗證方式",
         "验证码": "驗證碼",
         "高": "高"
+=======
+        "ZW": "津巴布韋"
+>>>>>>> origin/daily/1.0.0
     }
 }

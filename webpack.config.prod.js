@@ -17,6 +17,10 @@ var cssmode = packageJSON.cssmode;
 var gitlabGroup = packageJSON.gitlabGroup;
 var cdnDomain = packageJSON.cdnDomain;
 
+function resolve (dir) {
+    return path.join(__dirname, './', dir)
+}
+
 const extractCSS = new ExtractTextPlugin({
     allChunks: true,
     filename: '[name].css'
@@ -79,9 +83,9 @@ var config = {
                 query: {
                     presets: ['es2015', 'react', 'stage-0'],
                     plugins: [
-                        'transform-remove-strict-mode', 
-                        'transform-decorators-legacy', 
-                        ["transform-runtime", {"helpers": false, "polyfill": false, "regenerator": true, "moduleName": "babel-runtime"}], 
+                        'transform-remove-strict-mode',
+                        'transform-decorators-legacy',
+                        ["transform-runtime", {"helpers": false, "polyfill": false, "regenerator": true, "moduleName": "babel-runtime"}],
                         ["import", [{ "libraryName": "antd", "style": "css" }]]
                     ]
                 }
@@ -124,7 +128,7 @@ var config = {
     resolve: {
         extensions: ['.js', '.vue'], // 确保引用时省略模块扩展名
         alias:{
-            'vue$': 'vue/dist/vue.common.js'  // 可同时使用独立构建和运行构建
+            '@': resolve('js')
         }
     },
     // server配置
@@ -138,7 +142,7 @@ var config = {
         disableHostCheck: true,
         port: 80 // 启动端口
     },
-    
+
     // 插件
     plugins: [
         extractCSS,
