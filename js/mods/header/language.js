@@ -14,7 +14,8 @@ class LanguageSwitchView extends Component {
 	}
 	render() {
 		let commonStore = this.props.commonStore;
-		let { list, cfg } = UPEX.languages;
+		let list = UPEX.config.languages;
+		let cfg = UPEX.languagesMap;
 		let curLang = cfg[commonStore.language];
 		let $content;
 

@@ -19,6 +19,8 @@ class MarketListStore {
     @observable sortByType = 'desc'; // 排序方式，升序:asc, 降序: desc
     @observable onlyCollectedCoins = false; // 只查看收藏的交易币
     @observable searchValue = '';
+    @observable marketList = [];
+    @observable selectedMarket = {};
 
     tradeCoinsCollected = {};
     tradeCoinsSearched = {};
@@ -44,6 +46,7 @@ class MarketListStore {
         this.searchValue = '';
         this.isFirst = true;
     }
+
     @computed
     get hotCoins() {
         let hotCoins = [];
@@ -117,6 +120,12 @@ class MarketListStore {
         socket.on('list', (data) => {
             runInAction('quote list', () => {
                 this.dataReady = true;
+
+                this.marketList = data;
+                
+                if (this.isFirst) {
+                    this.selectedMarket = this.marketList[0].info.currencyNameEn;
+                }
 
                 let result = data.filter((item) => {
                     return item.info.currencyNameEn === UPEX.config.baseCurrencyEn; // 只显示基础币=TWD
@@ -257,6 +266,10 @@ class MarketListStore {
         this.selectedCoin = item;
     }
 
+    @action
+    setSelectedMarket(value){
+        this.selectedMarket = value;
+    }
     /**
      * 排序
      */

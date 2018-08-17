@@ -191,15 +191,17 @@ export default (store) => {
             }).then((data) => {
                 let result = false;
                 updateSubmiting(false);
-
+                    
                 switch (data.status) {
                     case 200:
                         result = true;
-                        // message.success(UPEX.lang.template('成功，将跳转登录页面'));
+                        
+                        message.success(UPEX.lang.template('成功，将跳转登录页面'));
 
                         setTimeout(() => {
+                            message.destroy();
                             browserHistory.push('/login');
-                        }, 100)
+                        }, 300)
 
                         break;
                     case 403:

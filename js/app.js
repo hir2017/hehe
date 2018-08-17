@@ -27,6 +27,7 @@ message.config({
     top: 100
 });
 
+import './config';
 import './global';
 import routes from './routes';
 

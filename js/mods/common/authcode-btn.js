@@ -80,6 +80,8 @@ export default class SettingTradingPassword extends Component {
             req = this.props.userInfoStore.sendMessageBankAndWithdraw(this.props.imgCode, this.props.codeid);
         } else if(this.props.GaOrTradePwd) {
             req = this.props.userInfoStore.sendCodeGaOrTradePwd(this.type, this.props.imgCode, this.props.codeid);
+        } else if(this.props.tradePwd) {
+            req = this.props.userInfoStore.setTradePwdSendCode(this.type, this.props.imgCode, this.props.codeid);
         }
          else {
             req = this.props.userInfoStore.sendCode(this.type, this.props.imgCode, this.props.codeid);

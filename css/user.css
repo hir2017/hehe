@@ -417,10 +417,12 @@ body .user-main .ant-select-dropdown-menu-item {
 
 .page-content-inner.base-info .ant-row.bind-status .ant-col-12 {
     color: #ccc;
+    cursor: pointer;
 }
 
 .page-content-inner.base-info .ant-row.bind-status .ant-col-12.auth {
     color: #cc9900;
+    cursor: inherit;
 }
 
 .page-content-inner.base-info .grade-info {
