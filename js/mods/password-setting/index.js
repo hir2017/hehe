@@ -75,17 +75,17 @@ export default class BindingBank extends Component {
             noPhone: {
                 path: '/user/setting-phone',
                 label: UPEX.lang.template('绑定手机'),
-                class: 'ace-secondary',
+                class: 'exchange-secondary',
             },
             noPass: {
                 path: '/user/set-trade-pwd',
                 label: UPEX.lang.template('添加'),
-                class: 'ace-secondary',
+                class: 'exchange-secondary',
             },
             modify: {
                 path: '/user/modify-trade-pwd',
                 label: UPEX.lang.template('修改'),
-                class: 'ace-btn-white',
+                class: 'exchange-btn-white',
             }
         };
         let currTradePwd;
@@ -114,7 +114,7 @@ export default class BindingBank extends Component {
                             onClick={e => {
                                 browserHistory.push('/user/resetpwd');
                             }}
-                            className="ace-btn-white"
+                            className="exchange-btn-white"
                         >
                             {UPEX.lang.template('修改')}
                         </Button>
@@ -142,7 +142,7 @@ export default class BindingBank extends Component {
                             {currTradePwd.label}
                         </Button>
                         {userInfo.isValidatePass ? (
-                            <Link className="ace-link forget-pwd" to="/user/forget-trade-pwd">
+                            <Link className="exchange-link forget-pwd" to="/user/forget-trade-pwd">
                                 {UPEX.lang.template('忘记密码?')}
                             </Link>
                         ) : null}

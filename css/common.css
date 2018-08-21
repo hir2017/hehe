@@ -557,7 +557,7 @@ body .ant-select-dropdown-menu-item-selected:hover {
 
 /* page-content */
 
-.ace-page-content {
+.exchange-page-content {
     float: right;
     width: 100%;
     margin: 0 0 10px;
@@ -566,8 +566,8 @@ body .ant-select-dropdown-menu-item-selected:hover {
     /* background-color: #f2f2f2; */
 }
 
-.ace-page-content .content-title,
-.ace-page-content .ace-section .section-title {
+.exchange-page-content .content-title,
+.exchange-page-content .exchange-section .section-title {
     height: 60px;
     line-height: 60px;
     /* margin-bottom: 1px; */
@@ -577,30 +577,30 @@ body .ant-select-dropdown-menu-item-selected:hover {
     padding-left: 20px;
 }
 
-.ace-page-content .content-body,
-.ace-page-content .ace-section .section-body {
+.exchange-page-content .content-body,
+.exchange-page-content .exchange-section .section-body {
     padding: 10px 20px 20px;
     background-color: #fff;
 }
 
-.ace-page-content .page-content-inner.no-padding .content-body {
+.exchange-page-content .page-content-inner.no-padding .content-body {
     padding: 0;
     background-color: transparent;
 }
 
-.ace-page-content .ace-section {
+.exchange-page-content .exchange-section {
     margin-bottom: 20px;
     border-radius: 5px;
 }
 
 
-.ace-form .ace-input-item .item-error {
+.exchange-form .exchange-input-item .item-error {
     color: #ff6666;
     font-size: 12px;
 }
 
 
-.ace-form .ace-input-item .ant-select {
+.exchange-form .exchange-input-item .ant-select {
     width: 100%;
 }
 
@@ -609,35 +609,35 @@ body .ant-select-dropdown-menu-item-selected:hover {
  * 通用form样式
  */
 
-.ace-form .ace-input-item,
-.ace-form .ace-input-item .label,
-.ace-form .ace-input-item .input,
-.ace-form .ace-input-item .tip {
+.exchange-form .exchange-input-item,
+.exchange-form .exchange-input-item .label,
+.exchange-form .exchange-input-item .input,
+.exchange-form .exchange-input-item .tip {
     width: 100%;
 }
 
-.ace-form {
+.exchange-form {
     margin: 0 auto;
     padding: 30px 0 20px;
 }
 
 
-.ace-form.width-common {
+.exchange-form.width-common {
     width: 450px;
 }
 
-.ace-form .ace-input-item {
+.exchange-form .exchange-input-item {
     margin-bottom: 27px;
 }
 
-.ace-form .ace-input-item .label {
+.exchange-form .exchange-input-item .label {
     font-size: 14px;
     color: #999999;
     display: inline-block;
     padding-bottom: 2px;
 }
 
-.ace-form .ace-input-item .input {
+.exchange-form .exchange-input-item .input {
     height: 40px;
     box-sizing: border-box;
     border-image: initial;
@@ -647,33 +647,33 @@ body .ant-select-dropdown-menu-item-selected:hover {
     outline: none;
 }
 
-.ace-form .ant-select-selection__placeholder,
-.ace-form .ant-select-search__field__placeholder {
+.exchange-form .ant-select-selection__placeholder,
+.exchange-form .ant-select-search__field__placeholder {
     color: #ccc;
     font-weight: normal;
 }
 
-.ace-form .ace-input-item .input,
-.ace-form .ace-input-item .ant-select {
+.exchange-form .exchange-input-item .input,
+.exchange-form .exchange-input-item .ant-select {
     font-size: 18px;
     color: #333;
 }
 
-.ace-form .ant-select-selection {
+.exchange-form .ant-select-selection {
     border: solid 1px #ccc;
 }
 
-.ace-form .ace-input-item .item-tip,
-.ace-form .ace-input-item.select .message {
+.exchange-form .exchange-input-item .item-tip,
+.exchange-form .exchange-input-item.select .message {
     color: #999;
     padding-top: 2px;
 }
 
-.ace-input-item.select .message {
+.exchange-input-item.select .message {
     display: inline-block;
 }
 
-.ace-form .ace-submit-item {
+.exchange-form .exchange-submit-item {
     width: 100%;
     background-color: #e8b802;
     color: #333;
@@ -683,11 +683,11 @@ body .ant-select-dropdown-menu-item-selected:hover {
     margin-top: 20px;
 }
 
-.ace-form .ace-submit-item:disabled {
+.exchange-form .exchange-submit-item:disabled {
     border-color: #d9d9d9;
 }
 
-.ace-form .ace-submit-item:hover {
+.exchange-form .exchange-submit-item:hover {
     background-color: #ffdc57;
     color: #333;
     border-color: #ffdc57;

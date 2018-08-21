@@ -13,14 +13,13 @@ import Item from './item';
 class HotMarkets extends Component{
 	render() {
 		let store = this.props.homeStore.marketListStore;
-		
 		return (
 			<div className="hot-markets">
 				<ul>
 				{
 					store.hotCoins.map((item, index)=>{
 						let pair = item.baseCurrencyNameEn + '_' + item.currencyNameEn;
-						
+
 						return (
 							<li key={pair}>
 								<Item data={item} pair={pair}/>

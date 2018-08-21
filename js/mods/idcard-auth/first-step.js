@@ -241,7 +241,7 @@ export default class FirstStep extends Component {
                 error: state.idCardMes
             }
         };
-        const submitProp = this.state.check ? { onClick: this.next, className: 'ace-submit-item' } : { className: 'ace-submit-item disabled', disabled: true };
+        const submitProp = this.state.check ? { onClick: this.next, className: 'exchange-submit-item' } : { className: 'exchange-submit-item disabled', disabled: true };
         return (
             <AceForm className="auth-step-1">
                 <div className="muti-filed clearfix">
@@ -249,7 +249,7 @@ export default class FirstStep extends Component {
                     <InputItem {...inputsData.secondName} />
                     <div className="message">{UPEX.lang.template('填写之姓名必须与日后提领的银行账户名相同')}</div>
                 </div>
-                <div className="ace-input-item select time-label">
+                <div className="exchange-input-item select time-label">
                     <span className="label">{UPEX.lang.template('出生日期')}</span>
                     <div className="input">
                         <Select placeholder={UPEX.lang.template('年')} onChange={this.selectChange.bind(this, 'year')}>
@@ -287,7 +287,7 @@ export default class FirstStep extends Component {
                 </div>
                 <InputItem {...inputsData.address} />
                 <InputItem {...inputsData.areaCode} />
-                <div className="ace-input-item select">
+                <div className="exchange-input-item select">
                     <span className="label">{UPEX.lang.template('证件类型')}</span>
                     <div className="input">
                         <Select onChange={this.selectChange.bind(this, 'idCardTypeMes', 'idCardType')} placeholder={UPEX.lang.template('请选择')}>
@@ -299,7 +299,7 @@ export default class FirstStep extends Component {
                 </div>
                 <InputItem {...inputsData.idCard} value={this.state.idCard} />
                 <div className="muti-select clearfix">
-                    <div className="ace-input-item select">
+                    <div className="exchange-input-item select">
                         <span className="label">{UPEX.lang.template('职业')}</span>
                         <div className="input">
                             <Select onChange={this.selectChange.bind(this, 'professionMes', 'profession')} placeholder={UPEX.lang.template('请选择职业')}>
@@ -315,7 +315,7 @@ export default class FirstStep extends Component {
                         </div>
                         <span className="error-message">{this.state.professionMes}</span>
                     </div>
-                    <div className="ace-input-item select last">
+                    <div className="exchange-input-item select last">
                         <span className="label">{UPEX.lang.template('年薪')}</span>
                         <div className="input">
                             <Select onChange={this.selectChange.bind(this, 'annualsalaryMes', 'annualsalary')} placeholder={UPEX.lang.template('请选择年薪')}>
@@ -331,7 +331,7 @@ export default class FirstStep extends Component {
                     <div className="message">{UPEX.lang.template('目前暂时只开放给拥有台湾身份证的用户使用')}</div>
                 </div>
 
-                <div className="ace-input-item select radio">
+                <div className="exchange-input-item select radio">
                     <span className="label">{UPEX.lang.template('资金用途')}</span>
                     <div className="input">
                         <RadioGroup onChange={this.useOfFundsChange} value={this.state.resortType}>

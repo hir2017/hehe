@@ -44,8 +44,8 @@ class Login extends Component {
             lang: UPEX.lang.language == 'en-US' ? 'en': UPEX.lang.language
         })
     }
-    
-    componentDidMount() { 
+
+    componentDidMount() {
         this.yidunCaptcha.init((validate, captchaId)=>{
             this.handleUserLogin(validate, captchaId);
         })
@@ -88,6 +88,7 @@ class Login extends Component {
     }
 
     handleUserLogin(validate, captchaId){
+        let store = this.props.loginStore;
         this.action.userLogin(validate, captchaId).then((data)=>{
             switch(data.status){
                 case 200:
@@ -99,6 +100,8 @@ class Login extends Component {
                     });
                     break;
                 case 5557:
+                    store.disabledSMSOrPhoneCode(false);
+                    store.updateSending(false);
                     this.setState({
                         step: 'phone'
                     });
@@ -118,7 +121,7 @@ class Login extends Component {
 
     handleLoginSuccess(result) {
         browserHistory.push('/webtrade');
-        
+
         if (result.authLevel == 0) {
             /*
              * 如果用户等级为KYC0
@@ -128,7 +131,7 @@ class Login extends Component {
              * 文案：您尚未进行安全级别认证，请完成身份认证及银行卡绑定获取充提和交易权限
             */
             Modal.confirm({
-                prefixCls: "ace-dialog",
+                prefixCls: "exchange-dialog",
                 content: UPEX.lang.template('请先进行身份认证'),
                 okText: UPEX.lang.template('身份认证'),
                 cancelText: UPEX.lang.template('我再想想'),

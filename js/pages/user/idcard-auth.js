@@ -89,7 +89,7 @@ class IdentityAuthentication extends Component {
                     ) : (
                         <div className="no-auth-message  authentication-message">
                             <p>{UPEX.lang.template('请绑定手机')}</p>
-                            <Link className="ace-btn" to="/user/setting-phone">{UPEX.lang.template('手机绑定')}</Link>
+                            <Link className="exchange-btn" to="/user/setting-phone">{UPEX.lang.template('手机绑定')}</Link>
                         </div>
                     )}
                 </div>

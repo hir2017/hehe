@@ -189,7 +189,7 @@ export default class BindingPhone extends Component {
                 <InputItem {...inputsData.nvCode} afterNode={nvCodeBtn} />
                 {userInfo.isGoogleAuth ? <InputItem {...inputsData.gaCode} /> : <InputItem {...inputsData.vCode} afterNode={vCodeBtn} />}
                 {/* <InputItem {...inputsData.vCode} afterNode={vCodeBtn} /> */}
-                <Button loading={this.state.loading} className="ace-submit-item" onClick={this.submit}>
+                <Button loading={this.state.loading} className="exchange-submit-item" onClick={this.submit}>
                     {UPEX.lang.template('提交')}
                 </Button>
             </PageForm>

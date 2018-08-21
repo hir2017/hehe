@@ -135,7 +135,7 @@ export default class extends Component {
                         {UPEX.lang.template('每个文件大小不得超过5M。附件支持的格式有:jpg、jpeg、bmp、png、gif')}
                     </Col>
                     <Col className="align-right" span={8}>
-                        <Button loading={loading} className="ace-secondary" onClick={this.submit}>
+                        <Button loading={loading} className="exchange-secondary" onClick={this.submit}>
                             {UPEX.lang.template('提交')}
                         </Button>
                     </Col>

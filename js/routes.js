@@ -32,6 +32,7 @@ import CoinRecharge from './pages/recharge-withdraw/coin-recharge';
 import FiatWithdraw from './pages/recharge-withdraw/fiat-withdraw';
 import CoinWithdraw from './pages/recharge-withdraw/coin-withdraw';
 import CoinAddress from './pages/recharge-withdraw/address';
+import AssetsChange from './pages/record-list/assets-change';
 
 // 订单相关
 // 交易订单
@@ -98,6 +99,7 @@ const routes = (
 	        <Route path="account" component={Auth}>
 	        	<IndexRoute getComponent={Assets}/>
 	        	<Route path="assets" getComponent={Assets}/>
+	        	<Route path="assets-change-record/:type" getComponent={AssetsChange}/>
 	        	<Route path="coinrecord" component={CoinRecord}/>
 	        	<Route path="fiatrecord" component={FiatRecord}/>
 	        	<Route path="balance">

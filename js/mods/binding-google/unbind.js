@@ -103,9 +103,9 @@ export default class ReBinding extends Component {
                 </div>
                 <InputItem {...inputsData.google} />
                 <div className="info">
-                    <Link to="/user/google-guide" className="ace-link underline">{UPEX.lang.template('Google验证器使用教程')}</Link>
+                    <Link to="/user/google-guide" className="exchange-link underline">{UPEX.lang.template('Google验证器使用教程')}</Link>
                 </div>
-                <Button className="ace-submit-item" loading={loading} onClick={this.submit}>
+                <Button className="exchange-submit-item" loading={loading} onClick={this.submit}>
                     {UPEX.lang.template('解绑')}
                 </Button>
             </PageForm>

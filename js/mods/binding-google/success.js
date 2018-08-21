@@ -15,7 +15,7 @@ export default class Success extends Component {
                     </Col>
                     <Col  span={8} />
                     <Col className="operator" span={8}>
-                        <Button className="ace-btn-white" onClick={e => {browserHistory.push('/user/unbinding-google')}}>
+                        <Button className="exchange-btn-white" onClick={e => {browserHistory.push('/user/unbinding-google')}}>
                             {UPEX.lang.template('解绑')}
                         </Button>
                     </Col>
