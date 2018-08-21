@@ -9,7 +9,7 @@ export default class Form extends Component {
 
         const {widthStyle = 'common', className} = this.props;
         return (
-            <form className={`exchange-form ${className} width-${widthStyle}`}>
+            <form className={`exc-form ${className} width-${widthStyle}`}>
                 {this.props.children}
             </form>
         );

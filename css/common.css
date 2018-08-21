@@ -557,7 +557,7 @@ body .ant-select-dropdown-menu-item-selected:hover {
 
 /* page-content */
 
-.exchange-page-content {
+.exc-page-content {
     float: right;
     width: 100%;
     margin: 0 0 10px;
@@ -566,8 +566,8 @@ body .ant-select-dropdown-menu-item-selected:hover {
     /* background-color: #f2f2f2; */
 }
 
-.exchange-page-content .content-title,
-.exchange-page-content .exchange-section .section-title {
+.exc-page-content .content-title,
+.exc-page-content .exc-section .section-title {
     height: 60px;
     line-height: 60px;
     /* margin-bottom: 1px; */
@@ -577,30 +577,30 @@ body .ant-select-dropdown-menu-item-selected:hover {
     padding-left: 20px;
 }
 
-.exchange-page-content .content-body,
-.exchange-page-content .exchange-section .section-body {
+.exc-page-content .content-body,
+.exc-page-content .exc-section .section-body {
     padding: 10px 20px 20px;
     background-color: #fff;
 }
 
-.exchange-page-content .page-content-inner.no-padding .content-body {
+.exc-page-content .page-content-inner.no-padding .content-body {
     padding: 0;
     background-color: transparent;
 }
 
-.exchange-page-content .exchange-section {
+.exc-page-content .exc-section {
     margin-bottom: 20px;
     border-radius: 5px;
 }
 
 
-.exchange-form .exchange-input-item .item-error {
+.exc-form .exc-input-item .item-error {
     color: #ff6666;
     font-size: 12px;
 }
 
 
-.exchange-form .exchange-input-item .ant-select {
+.exc-form .exc-input-item .ant-select {
     width: 100%;
 }
 
@@ -609,35 +609,35 @@ body .ant-select-dropdown-menu-item-selected:hover {
  * 通用form样式
  */
 
-.exchange-form .exchange-input-item,
-.exchange-form .exchange-input-item .label,
-.exchange-form .exchange-input-item .input,
-.exchange-form .exchange-input-item .tip {
+.exc-form .exc-input-item,
+.exc-form .exc-input-item .label,
+.exc-form .exc-input-item .input,
+.exc-form .exc-input-item .tip {
     width: 100%;
 }
 
-.exchange-form {
+.exc-form {
     margin: 0 auto;
     padding: 30px 0 20px;
 }
 
 
-.exchange-form.width-common {
+.exc-form.width-common {
     width: 450px;
 }
 
-.exchange-form .exchange-input-item {
+.exc-form .exc-input-item {
     margin-bottom: 27px;
 }
 
-.exchange-form .exchange-input-item .label {
+.exc-form .exc-input-item .label {
     font-size: 14px;
     color: #999999;
     display: inline-block;
     padding-bottom: 2px;
 }
 
-.exchange-form .exchange-input-item .input {
+.exc-form .exc-input-item .input {
     height: 40px;
     box-sizing: border-box;
     border-image: initial;
@@ -647,33 +647,33 @@ body .ant-select-dropdown-menu-item-selected:hover {
     outline: none;
 }
 
-.exchange-form .ant-select-selection__placeholder,
-.exchange-form .ant-select-search__field__placeholder {
+.exc-form .ant-select-selection__placeholder,
+.exc-form .ant-select-search__field__placeholder {
     color: #ccc;
     font-weight: normal;
 }
 
-.exchange-form .exchange-input-item .input,
-.exchange-form .exchange-input-item .ant-select {
+.exc-form .exc-input-item .input,
+.exc-form .exc-input-item .ant-select {
     font-size: 18px;
     color: #333;
 }
 
-.exchange-form .ant-select-selection {
+.exc-form .ant-select-selection {
     border: solid 1px #ccc;
 }
 
-.exchange-form .exchange-input-item .item-tip,
-.exchange-form .exchange-input-item.select .message {
+.exc-form .exc-input-item .item-tip,
+.exc-form .exc-input-item.select .message {
     color: #999;
     padding-top: 2px;
 }
 
-.exchange-input-item.select .message {
+.exc-input-item.select .message {
     display: inline-block;
 }
 
-.exchange-form .exchange-submit-item {
+.exc-form .exc-submit-item {
     width: 100%;
     background-color: #e8b802;
     color: #333;
@@ -683,11 +683,11 @@ body .ant-select-dropdown-menu-item-selected:hover {
     margin-top: 20px;
 }
 
-.exchange-form .exchange-submit-item:disabled {
+.exc-form .exc-submit-item:disabled {
     border-color: #d9d9d9;
 }
 
-.exchange-form .exchange-submit-item:hover {
+.exc-form .exc-submit-item:hover {
     background-color: #ffdc57;
     color: #333;
     border-color: #ffdc57;

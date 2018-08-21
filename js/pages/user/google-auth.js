@@ -28,7 +28,7 @@ class GoogleAuthenticator extends Component {
 
         return (
             <PageWrapper title={UPEX.lang.template('Google验证器')}>
-                {userInfo.phone && !gaBindSuccess ? <div className="exchange-top-tips">{UPEX.lang.template('为了您的资金安全，修改Google验证码后，24小时不可以提币')}</div> : null}
+                {userInfo.phone && !gaBindSuccess ? <div className="exc-top-tips">{UPEX.lang.template('为了您的资金安全，修改Google验证码后，24小时不可以提币')}</div> : null}
 
                 {userInfo.phone ? (
                     !gaBindSuccess ? (
@@ -40,7 +40,7 @@ class GoogleAuthenticator extends Component {
                     <div className="no-auth-message  google-no-binding-phone">
                         {UPEX.lang.template('添加Google绑定前，请先绑定手机号')}
                         <div>
-                            <Button className="exchange-main">
+                            <Button className="exc-main">
                                 <Link to="/user/setting-phone">{UPEX.lang.template('去绑定手机')}</Link>
                             </Button>
                         </div>

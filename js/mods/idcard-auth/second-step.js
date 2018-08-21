@@ -170,7 +170,7 @@ export default class SecondStep extends Component {
 
         return (
             <AceForm className="auth-step-2">
-                <div className="exchange-top-tips">
+                <div className="exc-top-tips">
                     <Icon type="info" />
                     {UPEX.lang.template('完成此步骤确认，可获得每日NT$300.000提现额度', { num: this.state.withdrawLimit })}。
                     {UPEX.lang.template('身份证上传图片大小限制')}
@@ -178,7 +178,7 @@ export default class SecondStep extends Component {
                 {picsData.map((item, i) => {
                     let _url = this.state[item.url];
                     return (
-                        <div key={i} className="pic-item exchange-upload-mod clearfix">
+                        <div key={i} className="pic-item exc-upload-mod clearfix">
                             <section className={`${this.state[item.url] ? 'select' : 'no-select'} pic-item-child pic-upload-content`}>
                                 <p className="pic-title">
                                     <Icon className="block-space" type="check" />
@@ -207,7 +207,7 @@ export default class SecondStep extends Component {
                     );
                 })}
                 <div className="submit">
-                    <Button className="exchange-submit-item" onClick={this.next}>
+                    <Button className="exc-submit-item" onClick={this.next}>
                         {UPEX.lang.template('提交审核')}
                     </Button>
                 </div>

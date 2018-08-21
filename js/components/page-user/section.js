@@ -4,7 +4,7 @@ export default class Wrapper extends Component {
     render() {
         const { title, className, rightContent } = this.props;
         return (
-            <section className={`exchange-section ${className || ''}`}>
+            <section className={`exc-section ${className || ''}`}>
                 {title ? (
                     <header className="section-title">
                         {title}

@@ -242,7 +242,7 @@ export default class BindingBank extends Component {
                     >
                         <img src={banckCardImg} style={{width: '300px', height: '180px'}}/>
                     </Modal>
-                    <div className="pic-item exchange-upload-mod">
+                    <div className="pic-item exc-upload-mod">
                         <header>
                             <span className="item-title">{UPEX.lang.template('上传银行账户簿图片')}</span>
                             <span className="item-tip" onClick={e => {
@@ -262,7 +262,7 @@ export default class BindingBank extends Component {
                     <div className="tip">
                         <p>{UPEX.lang.template('上传银行账户簿图片大小限制文案')}</p>
                     </div>
-                    <Button className="exchange-submit-item" loading={loading} onClick={this.submit}>
+                    <Button className="exc-submit-item" loading={loading} onClick={this.submit}>
                         {UPEX.lang.template('提交')}
                     </Button>
                     <div className="tip bottom" dangerouslySetInnerHTML={{__html: UPEX.lang.template('注意内容')}}></div>

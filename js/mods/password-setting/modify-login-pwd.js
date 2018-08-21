@@ -189,7 +189,7 @@ export default class ModifyPassword extends Component {
                         </div>
                     </div>
                 )} */}
-                <Button loading={loading} className="exchange-submit-item" onClick={this.submit}>
+                <Button loading={loading} className="exc-submit-item" onClick={this.submit}>
                     {UPEX.lang.template('提交')}
                 </Button>
             </PageForm>

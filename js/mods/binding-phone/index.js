@@ -69,12 +69,12 @@ export default class Phone extends Component {
             set: {
                 path: '/user/setting-phone',
                 label: UPEX.lang.template('添加'),
-                class: 'exchange-secondary',
+                class: 'exc-secondary',
             },
             modify: {
                 path: '/user/modify-phone',
                 label: UPEX.lang.template('修改'),
-                class: 'exchange-btn-white',
+                class: 'exc-btn-white',
             },
         }
         let currBtn = optData[userInfo.phone ? 'modify' : 'set'];

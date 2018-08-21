@@ -99,7 +99,9 @@ const routes = (
 	        <Route path="account" component={Auth}>
 	        	<IndexRoute getComponent={Assets}/>
 	        	<Route path="assets" getComponent={Assets}/>
-	        	<Route path="assets-change-record/:type" getComponent={AssetsChange}/>
+                <Route path="record">
+	        		<Route path="assets-change/:type" component={AssetsChange}/>
+	        	</Route>
 	        	<Route path="coinrecord" component={CoinRecord}/>
 	        	<Route path="fiatrecord" component={FiatRecord}/>
 	        	<Route path="balance">
