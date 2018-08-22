@@ -7,7 +7,7 @@ breadcrumbs 判断是字符串还是对象，如果是对象就是链接，label
 const Wrapper = props => {
     const { breadcrumbs, separator = '>' } = props;
     return (
-        <div className="exc-page-wrapper middle">
+        <div className={`exc-page-wrapper ${props.className}`}>
             {breadcrumbs ? (
                 <Breadcrumb separator={separator}>
                     {breadcrumbs.map((item, i) => (
@@ -15,7 +15,7 @@ const Wrapper = props => {
                     ))}
                 </Breadcrumb>
             ) : null}
-            <div className="exc-page-content">{props.children}</div>
+            <div className="exc-page">{props.children}</div>
         </div>
     );
 };

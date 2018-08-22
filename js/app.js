@@ -1,6 +1,7 @@
 import '../css/reset.css';
 import '../css/common.css';
 import '../css/common.less';
+import '../css/exc-style/index.less';
 // import '../css/index.css';
 import '../css/home.less';
 import '../css/login-register.css';
@@ -11,7 +12,8 @@ import '../css/trade.less';
 import '../css/user.css';
 import '../css/news.css';
 import '../css/account.css';
-import '../css/order.css';
+// import '../css/order.css';
+import '../css/order.less';
 import '../css/recharge-withdraw.css';
 
 import './lib/object.assign';
@@ -38,7 +40,7 @@ const rootStore = new RootStore();
 @observer
 class App extends Component {
     static createElement(Component, props) {
-        
+
         if (props.location.pathname.indexOf('webtrade') > -1) {
             let  { pair} = props.params;
 

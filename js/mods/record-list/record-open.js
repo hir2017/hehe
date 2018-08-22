@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import { observer, inject } from 'mobx-react';
-import { Checkbox, Icon, Pagination, message } from 'antd';
+import {  Pagination } from 'antd';
 import toAction from './record-action';
+import Form from './order-query-form';
 
 @inject('commonStore','openStore', 'authStore')
 @observer
@@ -14,24 +15,39 @@ class List extends Component {
 		super(props);
 
 		this.action = toAction(this.props.openStore, this.props.authStore);
-		this.currentOrderNo = '';
+        this.currentOrderNo = '';
+        this.params = {
+            beginTime: '',
+            endTime: '',
+            status: '0',
+            buyOrSell: '',
+            currencyId: '',
+            baseCurrencyId: '',
+            priceType: 0,
+        };
 	}
 
 	componentDidMount() {
-		if (!this.props.pagination) {
-			this.action.getData({
-				size: 100
-			});
-		} else {
-			this.action.getData({
-				size: 10
-			});
-		}
+        this.action.getData({
+            ...this.params,
+            size: !this.props.pagination ? 100 : 10
+        });
 	}
+
+    onQuery(data) {
+        for (const key in this.params) {
+            this.params[key] = data[key] === '' ? this.params[key] : data[key];
+        }
+        this.action.getData({
+            ...this.params,
+            size: !this.props.pagination ? 100 : 10
+        });
+    }
 
 	onChangePagination(page){
 		this.action.handleFilter('page', {
-			page
+            page,
+            ...this.params
 		});
 	}
 	/**
@@ -39,7 +55,11 @@ class List extends Component {
 	 */
 	handleCancel=(item)=>{
 		this.action.cancelOrder(item.currencyId , item.orderNo);
-	}
+    }
+
+    onCancelAll() {
+        // TODO 遍历当前页, 是否显示结果，错了怎么办
+    }
 
 	render() {
 		let store = this.props.openStore;
@@ -68,7 +88,7 @@ class List extends Component {
 								<li key={index}>
 									<dl>
 										<dd className="time">{item.orderTime}</dd>
-										<dd className="name">{item.currencyNameEn}</dd>
+										<dd className="name">{item.currencyNameEn} / {item.baseCurrencyNameEn}</dd>
 										<dd className="buyorsell">
 											{
 	                                            item.buyOrSell == 1 ? (
@@ -96,13 +116,14 @@ class List extends Component {
 
 		return (
 			<div className="order-main-box">
+                <Form onClick={this.onQuery.bind(this)} action="open"/>
 				<div className="order-table open-list-table">
 					<div className="table-hd">
 						<table>
 							<tbody>
 								<tr>
 									<th className="time">{UPEX.lang.template('时间')}</th>
-									<th className="name">{UPEX.lang.template('币种')}</th>
+									<th className="name">{UPEX.lang.template('币种/市场')}</th>
 									<th className="buyorsell">{UPEX.lang.template('买卖')}</th>
 									<th className="num">{UPEX.lang.template('数量(成交/委托)')}</th>
 									<th className="price">{UPEX.lang.template('委托价')}</th>
@@ -118,6 +139,7 @@ class List extends Component {
 						{ store.isFetching ? <div className="mini-loading"></div> : null }
 					</div>
 					<div className="table-ft">
+                    { store.total > 0 && this.props.pagination ? <div className="cancel-all" onClick={this.onCancelAll.bind(this)}>{UPEX.lang.template('撤销全部订单')}</div> : null }
 						{ store.total > 0 && this.props.pagination ? <Pagination current={store.current} total={store.total} pageSize={store.pageSize} onChange={this.onChangePagination.bind(this)} /> : null }
 					</div>
 				</div>

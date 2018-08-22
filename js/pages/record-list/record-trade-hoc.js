@@ -55,7 +55,7 @@ class RecordPage extends Component {
 		}
 
         return (
-        	<div className="order-wrapper">
+        	<div className="order-wrapper page-order">
         		<Breadcrumb separator=">">
                     <Breadcrumb.Item>ACE</Breadcrumb.Item>
                     <Breadcrumb.Item>{UPEX.lang.template('订单中心')}</Breadcrumb.Item>

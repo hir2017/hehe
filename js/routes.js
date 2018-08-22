@@ -32,7 +32,8 @@ import CoinRecharge from './pages/recharge-withdraw/coin-recharge';
 import FiatWithdraw from './pages/recharge-withdraw/fiat-withdraw';
 import CoinWithdraw from './pages/recharge-withdraw/coin-withdraw';
 import CoinAddress from './pages/recharge-withdraw/address';
-import AssetsChange from './pages/record-list/assets-change';
+import RecordAssetsChange from './pages/record-list/assets-change';
+import RecordOrder from './pages/record-list/order';
 
 // 订单相关
 // 交易订单
@@ -98,10 +99,7 @@ const routes = (
 
 	        <Route path="account" component={Auth}>
 	        	<IndexRoute getComponent={Assets}/>
-	        	<Route path="assets" getComponent={Assets}/>
-                <Route path="record">
-	        		<Route path="assets-change/:type" component={AssetsChange}/>
-	        	</Route>
+                <Route path="assets" getComponent={Assets}/>
 	        	<Route path="coinrecord" component={CoinRecord}/>
 	        	<Route path="fiatrecord" component={FiatRecord}/>
 	        	<Route path="balance">
@@ -118,6 +116,16 @@ const routes = (
 		        	<Route path="open" component={OpenRecordList} />
 		        	<Route path="history" component={HistoryRecordList} />
 		        	<Route path="success" component={SuccessRecordList} />
+                    <Route path="order" component={RecordOrder}/>
+                    <Route path="order/:type" component={RecordOrder}/>
+		        </Route>
+                <Route path="record-order">
+                    <IndexRoute component={RecordOrder}/>
+                    <Route path=":type" component={RecordOrder}/>
+		        </Route>
+                <Route path="record-assets-change">
+                    <IndexRoute component={RecordAssetsChange}/>
+                    <Route path=":type" component={RecordAssetsChange}/>
 		        </Route>
 	        </Route>
 

@@ -1,8 +1,8 @@
 import React from 'react';
 import { Breadcrumb } from 'antd';
-import List from './list';
+import List from '@/components/list';
 
-import Wrapper from './wrapper';
+import Wrapper from '@/components/wrapper';
 
 class View extends React.Component {
     constructor(props) {
