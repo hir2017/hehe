@@ -8,13 +8,11 @@ import React, {Component} from 'react';
 import { observer, inject } from 'mobx-react'; 
 import { Carousel } from 'antd';
 
-const bannerImage = require('../../../../images/banner1.jpg');
-
 @inject('bannerStore')
 @observer
 class Banner extends Component {
 	static defaultProps = {
-		list: [bannerImage, bannerImage, bannerImage]
+		list: []
 	}
 
 	componentDidMount(){

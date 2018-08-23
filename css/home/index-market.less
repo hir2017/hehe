@@ -4,12 +4,13 @@
 
 .index-markets {
     position: relative;
-    height: 650px;
+    min-height: 650px;
     width: 1200px;
-    margin: 20px auto 0;
+    margin: 30px auto 0;
     background-color: #fff;
     border-radius: 6px;
     .market-nav {
+        position: relative;
         height: 60px;
         line-height: 60px;
         padding: 0 20px;
@@ -39,23 +40,81 @@
                 color: @text-yellow-color;
             }
         }
+        .search {
+            position: absolute;
+            right: 20px;
+            top: 0;
+            width: 240px;
+        }
+    }
+    .market-panel-fixed {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 999;
+        background-color: #fff;
+        box-shadow: 0px 4px 4px 0px rgba(23, 31, 39, 0.04);
     }
     .market-panel {
         .market-panel-hd {
-            height: 150px;
             border-bottom: 1px solid @space-color-light;
+            .wrapper {
+                width: 1200px;
+                margin: 0 auto;
+                height: 150px;
+            }
             .market-coin {
                 float: left;
                 height: 150px;
                 width: 50%;
                 border-right: 1px solid @space-color-light;
                 .coin-hd {
+                    position: relative;
                     width: 560px;
                     margin: 10px auto;
                     height: 40px;
                     line-height: 40px;
                     border-radius: 40px;
+                    font-size: 14px;
                     border: 2px solid #f1f4f6;
+                    * {
+                        float: left;
+                    }
+                    .icon {
+                        width: 24px;
+                        margin: 6px;
+                        height: 24px;
+                    }
+                    .name {
+                        font-size: 18px;
+                        color: @text-color01-light;
+                    }
+                    .name i {
+                        color: @text-color02-light;
+                        font-style: normal;
+                        font-size: 18px;
+                    }
+                    em {
+                        padding-left: 10px;
+                    }
+                    .rate {
+                        position: absolute;
+                        right: 6px;
+                        top: 6px;
+                        width: 100px;
+                        height: 24px;
+                        border-radius: 24px;
+                        line-height: 24px;
+                        text-align: center;
+                        &.greenrate{
+                            background-color: rgba(29,193,153,0.15);
+                            color: @text-green-color01;
+                        }
+                        &.redrate{
+                            color: @text-red-color01;
+                        }
+                    }
                 }
                 .coin-bd li {
                     float: left;
@@ -79,12 +138,12 @@
                 float: left;
                 width: 50%;
                 height: 150px;
-                .coin-line-box{
+                .coin-line-box {
                     position: absolute;
                     width: 600px;
-                    height: 150px;
+                    height: 130px;
                     left: 0;
-                    top: 0;
+                    bottom: 0;
                 }
             }
         }
@@ -92,7 +151,7 @@
             .coin-list-title {
                 position: absolute;
                 right: 10px;
-                top: -60px;
+                top: 0;
                 height: 60px;
                 line-height: 60px;
                 box-sizing: border-box;
@@ -162,121 +221,4 @@
             }
         }
     }
-}
-
-.index-markets-hd {
-    height: 60px;
-    line-height: 60px;
-    border-bottom: 1px solid #f2f2f2;
-}
-
-.index-markets-hd .title {
-    font-size: 18px;
-    padding: 0 20px;
-}
-
-.index-markets-right {
-    float: right;
-    width: 900px;
-    height: 590px;
-    position: relative;
-}
-
-.index-markets-left {
-    position: relative;
-    float: left;
-    width: 300px;
-    height: 590px;
-    border-right: 1px solid #f2f2f2;
-}
-
-.index-markets-left .coin-hd {
-    position: relative;
-    padding: 20px 0;
-    color: #333333;
-    font-size: 14px;
-    box-sizing: border-box;
-}
-
-.index-markets-left .coin-hd h4 {
-    padding: 0 20px;
-}
-
-.index-markets-left .coin-hd h4 em {
-    padding: 0 10px;
-}
-
-.index-markets-left .coin-hd .rate {
-    position: absolute;
-    right: 20px;
-    top: 50%;
-    height: 20px;
-    line-height: 20px;
-    margin-top: -10px;
-    font-size: 18px;
-    text-align: center;
-    border-radius: 20px 0 0 20px;
-}
-
-.index-markets-left .coin-bd {
-    width: 260px;
-    margin: 0 auto;
-    border-bottom: 2px solid #f4f4f4;
-}
-
-.index-markets-left .coin-bd li {
-    font-size: 12px;
-    color: #999999;
-    overflow: hidden;
-    margin-bottom: 20px;
-}
-
-.index-markets-left .coin-bd li label {
-    float: left;
-}
-
-
-.index-markets-left .coin-bd li em {
-    float: right;
-}
-
-.index-markets-left .coin-ft {
-    position: relative;
-}
-
-.index-markets-left .realtime-hd {
-    position: relative;
-    padding: 20px;
-    margin-bottom: 10px;
-}
-
-.index-markets-left .realtime-hd h4 {
-    font-size: 14px;
-}
-
-.index-markets-left .realtime-hd label {
-    position: absolute;
-    right: 0;
-    height: 23px;
-    line-height: 23px;
-    top: 50%;
-    font-size: 14px;
-    margin-top: -12px;
-    padding-right: 20px;
-}
-
-.index-markets-left .realtime-hd label a,
-.index-markets-left .realtime-hd label a:hover {
-    color: #cc9900;
-}
-
-.index-markets-left .coin-line-box {
-    height: 200px;
-    width: 260px;
-    margin: 0 auto;
-}
-
-
-.index-markets-right .anticon-star {
-    color: #e6bc1d;
 }

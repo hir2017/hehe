@@ -88,13 +88,15 @@ export default class extends Component {
                         `时间：${data.name}`,
                         `价格：${UPEX.config.baseCurrencySymbol}${price}`
                     ].join('<br/>')
-                }
+                },
+                extraCssText: "font-size: 12px;"
             },
             grid: [{
-                left: '0%',
-                top: '0%',
+                left: '3%',
+                top: '5%',
                 right: '0%',
-                height: '90%'
+                width: '94%',
+                height: '75%'
             }],
             xAxis: {
                 nameLocation: 'center',
@@ -102,12 +104,13 @@ export default class extends Component {
                 boundaryGap: false,
                 data: hours24TrendList.map((item) => {
                     return DateUtil.formatDate(item.currentTime, 'HH:mm');
-                }), // ['7:00', '9:00', '11:00', '12:00', '14:00'],
+                }), 
                 axisLine: {
                     lineStyle: {
-                        color: '#c5c5c5',
-                        fontSize: '14px',
-                    }
+                        color: '#c1c5c8',
+                        fontSize: '12px'
+                    },
+                    show: false
                 },
             },
             yAxis: {
@@ -121,13 +124,13 @@ export default class extends Component {
             series: [{
                 data: hours24TrendList.map((item) => {
                     return item.current;
-                }), // [820, 932, 901, 934, 1290, 1330, 1320],
+                }), 
                 type: 'line',
                 itemStyle: {
-                    color: '#9bbff7'
+                    color: '#e8b802'
                 },
                 lineStyle: {
-                    color: '#9bbff7'
+                    color: 'rgba(232,184,2,0.3)'
                 },
                 areaStyle: {
                     color: {
@@ -138,7 +141,7 @@ export default class extends Component {
                         y2: 1,
                         colorStops: [{
                             offset: 0,
-                            color: '#9bbff7' // 0% 处的颜色
+                            color: 'rgba(255,231,140,0.3)' // 0% 处的颜色
                         }, {
                             offset: 1,
                             color: '#fff' // 100% 处的颜色

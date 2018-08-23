@@ -14,13 +14,14 @@ class MarketListStore {
     @observable collectCoinsList = []; // 用户收藏列表
     @observable dataReady = false; // 获取币种
     @observable noCoin = false; // 没有币种
-    @observable selectedCoin = {}; // 选中的币种
     @observable sortByKey = ''; // 按{key}排序
     @observable sortByType = 'desc'; // 排序方式，升序:asc, 降序: desc
     @observable onlyCollectedCoins = false; // 只查看收藏的交易币
     @observable searchValue = '';
-    @observable marketList = [];
-    @observable selectedMarket = {};
+    @observable marketList = []; // ['TWDT','BTC','Optional']
+    @observable marketMap = {};
+    @observable selectedMarketCode = '';
+    @observable selectedCoinCode = '';
 
     tradeCoinsCollected = {};
     tradeCoinsSearched = {};
@@ -29,6 +30,11 @@ class MarketListStore {
     constructor(stores) {
         this.commonStore = stores.commonStore;
         this.authStore = stores.authStore;
+
+        this.handler = autorun(() => {
+            // do something
+            
+        })
     }
 
     @action
@@ -39,41 +45,80 @@ class MarketListStore {
         this.collectCoinsList = []; // 用户收藏列表
         this.dataReady = false; // 获取币种
         this.noCoin = false; // 没有币种
-        this.selectedCoin = {}; // 选中的币种
         this.sortByKey = ''; // 按{key}排序
         this.sortByType = 'desc'; // 排序方式，升序:asc, 降序: desc
         this.onlyCollectedCoins = false; // 只查看收藏的交易币
         this.searchValue = '';
+        this.selectedMarketCode = '';
+        this.selectedCoinCode = '';
         this.isFirst = true;
     }
 
-    @computed
-    get hotCoins() {
-        let hotCoins = [];
+    // 法币市场。币对列表
+    @computed get hotCoins() {
+        let market = this.marketMap[UPEX.config.baseCurrencyEn];
+        let hotCoins;
 
-        if (this.cacheCoins.length > 0) {
-            hotCoins = this.cacheCoins.filter((item) => {
-                return item.recommend === 1;
-            })
+        if (market.length > 0) {
+            hotCoins = market.filter((item) => {
+                if (item.recommend === 1) {
+                    item = this.parseCoinItem(item);
+                    return true;
+                }
+            });
         }
 
-        return hotCoins.slice(0, 5); // 返回最新的5个即可
+        return hotCoins;
     }
 
+    // 选中的市场列表
+    @computed get selectedTradeCoins() {
+        let tradeCoins = this.marketMap[this.selectedMarketCode];
+
+        tradeCoins.forEach((item, index) => {
+            item.index = index;
+            item = this.parseCoinItem(item);
+        });
+
+        return tradeCoins;
+    }
+    /**
+     * 市场默认的币种
+     */
+    @computed get defaultTradeCoin() {
+        let tradeCoins = this.marketMap[this.selectedMarketCode];
+
+        return tradeCoins[0];
+    }
+
+    @computed get selectedCoin() {
+        let tradeCoins, coin;
+
+        if (this.selectedCoinCode) {
+            tradeCoins = this.marketMap[this.selectedMarketCode];
+
+            coin = tradeCoins.filter((item) => {
+                return item.currencyNameEn === this.selectedCoinCode;
+            })[0]
+
+        }
+
+        return coin || this.defaultTradeCoin;
+    }
 
     @action
     getData() {
         let timer;
         let fetch = () => {
-            this.getMarketList();
+            this.getMarketListInfo();
             timer && clearTimeout(timer);
             timer = setTimeout(() => {
                 fetch();
             }, 10 * 1000); // 10秒钟轮询查询
         }
 
-
         fetch();
+
         this.quoteNotify();
 
         if (this.authStore.isLogin) {
@@ -81,6 +126,69 @@ class MarketListStore {
         } else {
             this.getCollectDataFromLocal();
         }
+    }
+
+    /**
+     * 行情列表
+     */
+    @action
+    getMarketListInfo() {
+        socket.off('list');
+        socket.emit('list');
+        socket.on('list', (data) => {
+            runInAction('quote list', () => {
+                this.dataReady = true;
+
+                let marketMap = {};
+                let marketList = [];
+
+                data.forEach((market, index) => {
+                    marketList[marketList.length] = market.info.currencyNameEn;
+                    market.tradeCoins[0].currentAmount = +new Date() % 9;
+                    marketMap[market.info.currencyNameEn] = market.tradeCoins;
+                })
+
+                if (this.isFirst) {
+                    // 添加自选
+                    marketList[marketList.length] = 'Optional';
+                    this.marketList = marketList;
+                    // 默认选中的是第一个基础币
+                    this.selectedMarketCode = data[0].info.currencyNameEn;
+                }
+
+                this.isFirst = false;
+
+                this.marketMap = marketMap;
+
+                // if (result) {
+                //     this.baseCoinInfo = result.info;
+
+                //     let tradeCoinsMap = {};
+
+                //     for (var i = result.tradeCoins.length - 1; i >= 0; i--) {
+                //         tradeCoinsMap[result.tradeCoins[i].currencyId] = result.tradeCoins[i];
+                //     }
+
+                //     if (this.isFirst) {
+                //         this.cacheCoins = this.parseCoinList(result.tradeCoins);
+                //         this.tradeCoins = [...this.cacheCoins];
+                //         this.selectedCoin = this.tradeCoins[0];
+                //     } else {
+                //         this.cacheCoins = this.parseCoinList(result.tradeCoins);
+
+                //         if (this.tradeCoins.length > 0) {
+                //             this.tradeCoins.forEach((item, index) => {
+                //                 this.tradeCoins[index] = tradeCoinsMap[item.currencyId];
+                //             })
+                //         }
+                //         // 更新选中的数据
+                //         this.selectedCoin = tradeCoinsMap[this.selectedCoin.currencyId];
+                //     }
+                // } else {
+                //     this.noCoin = true;
+                // }
+            })
+        })
     }
 
     @action
@@ -111,59 +219,6 @@ class MarketListStore {
         UPEX.cache.removeCache('collectist');
     }
     /**
-     * 行情列表
-     */
-    @action
-    getMarketList() {
-        socket.off('list');
-        socket.emit('list');
-        socket.on('list', (data) => {
-            runInAction('quote list', () => {
-                this.dataReady = true;
-
-                this.marketList = data;
-                
-                if (this.isFirst) {
-                    this.selectedMarket = this.marketList[0].info.currencyNameEn;
-                }
-
-                let result = data.filter((item) => {
-                    return item.info.currencyNameEn === UPEX.config.baseCurrencyEn; // 只显示基础币=TWD
-                })[0];
-
-                if (result) {
-                    this.baseCoinInfo = result.info;
-
-                    let tradeCoinsMap = {};
-
-                    for (var i = result.tradeCoins.length - 1; i >= 0; i--) {
-                        tradeCoinsMap[result.tradeCoins[i].currencyId] = result.tradeCoins[i];
-                    }
-
-                    if (this.isFirst) {
-                        this.cacheCoins = this.parseCoinList(result.tradeCoins);
-                        this.tradeCoins = [...this.cacheCoins];
-                        this.selectedCoin = this.tradeCoins[0];
-                    } else {
-                        this.cacheCoins = this.parseCoinList(result.tradeCoins);
-
-                        if (this.tradeCoins.length > 0) {
-                            this.tradeCoins.forEach((item, index) => {
-                                this.tradeCoins[index] = tradeCoinsMap[item.currencyId];
-                            })
-                        }
-                        // 更新选中的数据
-                        this.selectedCoin = tradeCoinsMap[this.selectedCoin.currencyId];
-                    }
-                } else {
-                    this.noCoin = true;
-                }
-
-                this.isFirst = false;
-            })
-        })
-    }
-    /**
      * 行情通知
      */
     @action
@@ -182,7 +237,6 @@ class MarketListStore {
 
     @action
     getCollectCoinsList() {
-
         listOptional().then((res) => {
             if (res.status == 200) {
                 runInAction(() => {
@@ -262,13 +316,13 @@ class MarketListStore {
     }
     // 更新选中的交易币
     @action
-    setSelectedCoin(item) {
-        this.selectedCoin = item;
+    updateSelectedCoinCode(value) {
+        this.selectedCoinCode = value;
     }
 
     @action
-    setSelectedMarket(value){
-        this.selectedMarket = value;
+    updateSelectedMarketCode(value) {
+        this.selectedMarketCode = value;
     }
     /**
      * 排序
@@ -376,11 +430,10 @@ class MarketListStore {
             });
         } else {
             // 若用户不登录，维护一套本地缓存的收藏列表
-            
             let item = {
                 baseCurrencyId: data.baseCurrencyId,
                 tradeCurrencyId: data.currencyId,
-                status:1
+                status: 1
             }
 
             if (data.selected) {

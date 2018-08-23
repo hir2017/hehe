@@ -146,14 +146,14 @@ var config = {
     // 插件
     plugins: [
         extractCSS,
-        new webpack.optimize.UglifyJsPlugin({
-            compress: {
-                warnings: false
-            },
-            output: {
-                comments: false,
-            }
-        }),
+        // new webpack.optimize.UglifyJsPlugin({
+        //     compress: {
+        //         warnings: false
+        //     },
+        //     output: {
+        //         comments: false,
+        //     }
+        // }),
         new StringReplacePlugin(),
         new webpack.optimize.CommonsChunkPlugin({
             name: "commons",

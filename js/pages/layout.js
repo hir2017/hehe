@@ -18,10 +18,8 @@ class Layout extends Component {
         let { action, query } = this.props.location;
         let { action: actionNext, query: queryNext, pathname } = nextProps.location;
         
-        if ((action == 'POP' || action == 'REPLACE') && (actionNext == 'PUSH' || actionNext == 'REPLACE')) {
-            if (query.env && !queryNext.env) {
-                browserHistory.replace(`${pathname}?env=${query.env}`);
-            }
+        if (query.env && !queryNext.env) {
+            browserHistory.replace(`${pathname}?env=${query.env}`);
         }
     }
 

@@ -12,6 +12,7 @@ import NoticeList from '../../mods/home/noticelist';
 import BtcNews from '../../mods/home/btcnews';
 import HotMarkets from '../../mods/home/hotmarkets';
 import IndexMarkets from '../../mods/home/indexmarkets';
+import { BackTop } from 'antd';
 
 @inject('authStore', 'homeStore')
 @observer
@@ -27,26 +28,22 @@ class Home extends Component {
     render() {
         let store = this.props.homeStore.marketListStore;
 
-        if (store.dataReady) {
-            return (
-                <div className="home-wrapper">
-                    { !this.props.authStore.isLogin ? <LoginGuide/> : null }
-                    <Banner>
-                        <NoticeList/>
-                    </Banner>
-                    { store.hotCoins.length > 0 ? <HotMarkets/> : null }
-                    { store.cacheCoins.length > 0  ? <IndexMarkets/>: null }
-                    <Features/>
-                </div>
-            )
-        } else {
-            return (
-                <div className="home-wrapper">
-                    <div className="mini-loading"></div>
-                </div>   
-            )
-        }
+        return  (
+            <div className="home-wrapper">
+                { !this.props.authStore.isLogin ? <LoginGuide/> : null }
+                <Banner>
+                    <NoticeList/>
+                </Banner>
+                <HotMarkets />
+                <IndexMarkets/>
+                <Features/>
+                <BackTop>
+                  <div className="ant-back-top-inner"></div>
+                </BackTop>
+            </div>
+        );
     }
 }
+
 
 export default Home;
