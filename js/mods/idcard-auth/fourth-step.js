@@ -36,7 +36,7 @@ export default class FourthStep extends Component {
             // 未绑定银行卡
             $bottom = (
                 <Button
-                    className="ace-btn-large"
+                    className="exc-btn-large"
                     onClick={e => {
                         browserHistory.push('/user/bankInfo');
                     }}
@@ -52,7 +52,7 @@ export default class FourthStep extends Component {
                 case 2:
                     $bottom = (
                         <Button
-                            className="ace-btn-large"
+                            className="exc-btn-large"
                             onClick={e => {
                                 browserHistory.push('/webtrade');
                             }}
@@ -65,7 +65,7 @@ export default class FourthStep extends Component {
                     $bottom = (
                         <div className="up-limit">
                             {userInfo.isAuthVideo === -1 ? <Icon className="auth-fail none" type="exclamation-circle-o" /> : null}
-                            <Button loading={loading} className="ace-btn-large" onClick={this.submitKycC}>
+                            <Button loading={loading} className="exc-btn-large" onClick={this.submitKycC}>
                                 {UPEX.lang.template('申請更高限額')}
                             </Button>
                             <div
@@ -112,7 +112,7 @@ export default class FourthStep extends Component {
         } else if (userInfo.authLevel === 3) {
             $bottom = (
                 <Button
-                    className="ace-btn-large"
+                    className="exc-btn-large"
                     onClick={e => {
                         browserHistory.push('/webtrade');
                     }}

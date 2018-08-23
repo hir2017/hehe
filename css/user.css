@@ -21,7 +21,7 @@ body .user-main .ant-select-dropdown-menu-item {
 .user-main .page-content-inner {
     min-height: 620px;
 }
-.user-main .page-content-inner .ace-top-tips {
+.user-main .page-content-inner .exc-top-tips {
     background-color: #fefbe8;
     border: solid 1px #fbe59a;
     font-size: 14px;
@@ -85,16 +85,16 @@ body .user-main .ant-select-dropdown-menu-item {
     margin-top: -3px;
 }
 
-.user-main .ace-form .ace-input-item.sms-code {
+.user-main .exc-form .exc-input-item.sms-code {
     position: relative;
 }
-.user-main .ace-form .ace-input-item.sms-code .input{
+.user-main .exc-form .exc-input-item.sms-code .input{
     width: 350px;
     border-right: none;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
 }
-.user-main .ace-form .ace-input-item.sms-code .ant-btn{
+.user-main .exc-form .exc-input-item.sms-code .ant-btn{
     height: 40px;
     width: 100px;
     padding: 0;
@@ -107,35 +107,35 @@ body .user-main .ant-select-dropdown-menu-item {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
 }
-.user-main .ace-form .ace-input-item.sms-code .ant-btn:hover, .user-main .ace-form .ace-input-item.sms-code .ant-btn:active{
+.user-main .exc-form .exc-input-item.sms-code .ant-btn:hover, .user-main .exc-form .exc-input-item.sms-code .ant-btn:active{
     color: #e8b802;
 }
-.user-main .ace-form .ace-input-item.sms-code .ant-btn:hover:disabled, .user-main .ace-form .ace-input-item.sms-code .ant-btn:active:disabled {
+.user-main .exc-form .exc-input-item.sms-code .ant-btn:hover:disabled, .user-main .exc-form .exc-input-item.sms-code .ant-btn:active:disabled {
     color: rgba(0, 0, 0, 0.25);
 }
 /* 按钮 */
 
-.user-main .content-body .ant-btn.ace-btn-large,
-.user-main .content-body .ant-btn.ace-btn-middle,
-.user-main .content-body .ant-btn.ace-btn-small {
+.user-main .content-body .ant-btn.exc-btn-large,
+.user-main .content-body .ant-btn.exc-btn-middle,
+.user-main .content-body .ant-btn.exc-btn-small {
     background-color: #e8b802;
     border: none;
     color: #333;
 }
 
-.user-main .content-body .ant-btn.ace-btn-large {
+.user-main .content-body .ant-btn.exc-btn-large {
     height: 40px;
 }
 
-.user-main .content-body .ant-btn.ace-btn-middle {
+.user-main .content-body .ant-btn.exc-btn-middle {
     height: 30px;
 }
 
-.user-main .content-body .ant-btn.ace-btn-small {
+.user-main .content-body .ant-btn.exc-btn-small {
     height: 24px;
 }
 
-.user-main .content-body .ant-btn.ace-btn-white {
+.user-main .content-body .ant-btn.exc-btn-white {
     background-color: #fff;
     border: solid 1px #ccc;
     color: #333;
@@ -144,12 +144,12 @@ body .user-main .ant-select-dropdown-menu-item {
     font-size: 12px;
 }
 
-.user-main .content-body .ant-btn.ace-btn-white:hover {
+.user-main .content-body .ant-btn.exc-btn-white:hover {
     background-color: #e8b802;
     border-color: #e8b802;
 }
 
-.user-main .ant-btn.ace-secondary {
+.user-main .ant-btn.exc-secondary {
     border-radius: 2px;
     height: 24px;
     font-size: 12px;
@@ -157,7 +157,7 @@ body .user-main .ant-select-dropdown-menu-item {
     border-color: #e7b508;
 }
 
-.user-main .ant-btn.ace-secondary:hover {
+.user-main .ant-btn.exc-secondary:hover {
     background-color: #ffdc57;
     color: #333;
     border-color: #ffdc57;
@@ -173,13 +173,13 @@ body .user-main .ant-select-dropdown-menu-item {
     border-color: #ffdc57;
 }
 
-.user-main .ant-btn.ace-main {
+.user-main .ant-btn.exc-main {
     background-color: #e8b802;
     color: #333;
     height: 40px;
 }
 
-.user-main .content-body .ace-btn {
+.user-main .content-body .exc-btn {
     border-radius: 3px;
     height: 40px;
     line-height: 40px;
@@ -190,13 +190,13 @@ body .user-main .ant-select-dropdown-menu-item {
     font-size: 14px;
 }
 
-.user-main .content-body .ace-btn:hover {
+.user-main .content-body .exc-btn:hover {
     background-color: #ffdc57;
 }
 
 /*  */
 
-.user-main .ace-form .center {
+.user-main .exc-form .center {
     text-align: center;
 }
 
@@ -212,11 +212,11 @@ body .user-main .ant-select-dropdown-menu-item {
     color: #999;
 }
 
-.user-main a.ace-link {
+.user-main a.exc-link {
     color: #cc9900;
 }
 
-.user-main a.ace-link.underline:hover {
+.user-main a.exc-link.underline:hover {
     text-decoration-line: underline;
 }
 
@@ -224,7 +224,7 @@ body .user-main .ant-select-dropdown-menu-item {
     text-decoration: none;
 }
 
-.user-main .no-auth-message a.ace-btn {
+.user-main .no-auth-message a.exc-btn {
     margin-top: 10px;
 }
 
@@ -338,20 +338,20 @@ body .user-main .ant-select-dropdown-menu-item {
     border-bottom-right-radius: 6px;
 }
 
-.user-main.ace-page-content .content-title,
-.user-main.ace-page-content .section-title {
+.user-main.exc-page-content .content-title,
+.user-main.exc-page-content .section-title {
     border-top-left-radius: 6px;
     border-top-right-radius: 6px;
     color: #333;
 }
 
-.user-main.ace-page-content .content-body,
-.user-main.ace-page-content .section-body {
+.user-main.exc-page-content .content-body,
+.user-main.exc-page-content .section-body {
     border-bottom-left-radius: 6px;
     border-bottom-right-radius: 6px;
 }
 
-.user-main .no-auth-message .ant-btn.ace-main {
+.user-main .no-auth-message .ant-btn.exc-main {
     margin-top: 30px;
 }
 
@@ -359,12 +359,12 @@ body .user-main .ant-select-dropdown-menu-item {
  * 基本信息
  */
 
-.page-content-inner.base-info .ace-section.info .section-body {
+.page-content-inner.base-info .exc-section.info .section-body {
     position: relative;
     overflow: hidden;
 }
 
-.page-content-inner.base-info .ace-section.info .section-body::after {
+.page-content-inner.base-info .exc-section.info .section-body::after {
     display: block;
     content: '';
     width: 1px;
@@ -375,33 +375,33 @@ body .user-main .ant-select-dropdown-menu-item {
     top: 0;
 }
 
-.page-content-inner.base-info .ace-section.info .ant-col-12.left {
+.page-content-inner.base-info .exc-section.info .ant-col-12.left {
     padding-right: 20px;
     padding-top: 30px;
     text-align: center;
 }
 
-.page-content-inner.base-info .ace-section .ant-row .phone {
+.page-content-inner.base-info .exc-section .ant-row .phone {
     font-size: 24px;
     height: 33px;
     color: #333;
 }
 
-.page-content-inner.base-info .ace-section .ant-row .login-time {
+.page-content-inner.base-info .exc-section .ant-row .login-time {
     font-size: 14px;
     color: #999;
 }
 
-.page-content-inner.base-info .ace-section .ant-row.bind-status {
+.page-content-inner.base-info .exc-section .ant-row.bind-status {
     width: 210px;
     margin: 20px auto;
 }
 
-.page-content-inner.base-info .ace-section.info .ant-col-12.right {
+.page-content-inner.base-info .exc-section.info .ant-col-12.right {
     padding: 5px 0 0 20px;
 }
 
-.page-content-inner.base-info .ace-section.list .section-body{
+.page-content-inner.base-info .exc-section.list .section-body{
     min-height: 272px;
 }
 
@@ -651,139 +651,139 @@ body .user-main .ant-select-dropdown-menu-item {
     border-color: #e9bb0d;
 }
 
-.user-main .ace-form.auth-step-1 .muti-filed,
-.user-main .ace-form.auth-step-1 .muti-select {
+.user-main .exc-form.auth-step-1 .muti-filed,
+.user-main .exc-form.auth-step-1 .muti-select {
     position: relative;
 }
 
-.user-main .ace-form.auth-step-1 .ace-input-item .error-message,
-.user-main .ace-form.auth-step-1 .ace-input-item .item-error {
+.user-main .exc-form.auth-step-1 .exc-input-item .error-message,
+.user-main .exc-form.auth-step-1 .exc-input-item .item-error {
     color: #ff6666;
 }
 
-.user-main .ace-form.auth-step-1 .ace-input-item.select .message {
+.user-main .exc-form.auth-step-1 .exc-input-item.select .message {
     padding-top: 4px;
 }
 
-.user-main .ace-form.auth-step-1 .muti-filed .ace-input-item,
-.user-main .ace-form.auth-step-1 .muti-select .ace-input-item {
+.user-main .exc-form.auth-step-1 .muti-filed .exc-input-item,
+.user-main .exc-form.auth-step-1 .muti-select .exc-input-item {
     width: 210px;
     float: left;
     margin-right: 30px;
 }
 
-.user-main .ace-form.auth-step-1 .muti-filed .ace-input-item .item-error,
-.user-main .ace-form.auth-step-1 .select.time-label .error-message {
+.user-main .exc-form.auth-step-1 .muti-filed .exc-input-item .item-error,
+.user-main .exc-form.auth-step-1 .select.time-label .error-message {
     padding-top: 4px;
     color: #ff6666;
 }
 
-.user-main .ace-form.auth-step-1 .muti-select .ace-input-item .error-message {
+.user-main .exc-form.auth-step-1 .muti-select .exc-input-item .error-message {
     padding-top: 6px;
     color: #ff6666;
 }
 
-.user-main .ace-form.auth-step-1 .muti-filed .ace-input-item input.input,
-.user-main .ace-form.auth-step-1 .muti-select div.input {
+.user-main .exc-form.auth-step-1 .muti-filed .exc-input-item input.input,
+.user-main .exc-form.auth-step-1 .muti-select div.input {
     margin-bottom: 15px;
 }
 
-.user-main .ace-form.auth-step-1 .muti-filed .message,
-.user-main .ace-form.auth-step-1 .muti-select .message {
+.user-main .exc-form.auth-step-1 .muti-filed .message,
+.user-main .exc-form.auth-step-1 .muti-select .message {
     position: absolute;
     top: 65px;
     font-size: 12px;
     color: #999;
 }
 
-.user-main .ace-form.auth-step-1 .muti-select .message {
+.user-main .exc-form.auth-step-1 .muti-select .message {
     top: 67px;
 }
 
-.user-main .ace-form.auth-step-1 .muti-filed .ace-input-item.last,
-.user-main .ace-form.auth-step-1 .muti-select .ace-input-item.last {
+.user-main .exc-form.auth-step-1 .muti-filed .exc-input-item.last,
+.user-main .exc-form.auth-step-1 .muti-select .exc-input-item.last {
     margin-right: 0;
 }
 
-.user-main .ace-form.auth-step-1 .ace-input-item.select::after {
+.user-main .exc-form.auth-step-1 .exc-input-item.select::after {
     display: block;
     height: 1px;
     content: '';
     clear: both;
 }
 
-.user-main .ace-form.auth-step-1 .ace-input-item.select div.input {
+.user-main .exc-form.auth-step-1 .exc-input-item.select div.input {
     border: none;
 }
 
-.user-main .ace-form.auth-step-1 .ace-input-item.select.time-label .ant-select {
+.user-main .exc-form.auth-step-1 .exc-input-item.select.time-label .ant-select {
     float: left;
     width: 130px;
     margin-right: 29px;
 }
 
-.user-main .ace-form.auth-step-1 .ace-input-item.select.time-label .ant-select.last {
+.user-main .exc-form.auth-step-1 .exc-input-item.select.time-label .ant-select.last {
     margin-right: 0;
 }
 
-.user-main .ace-form.auth-step-1 .ant-select {
+.user-main .exc-form.auth-step-1 .ant-select {
     width: 100%;
     display: block;
 }
 
-.user-main .ace-form.auth-step-1 .ant-select-selection--single {
+.user-main .exc-form.auth-step-1 .ant-select-selection--single {
     height: 42px;
 }
 
-.user-main .ace-form.auth-step-1 .ant-select-selection__placeholder {
+.user-main .exc-form.auth-step-1 .ant-select-selection__placeholder {
     top: 37%;
     height: 32px;
     line-height: 32px;
 }
 
-.user-main .ace-form.auth-step-1 .ant-select-selection__rendered {
+.user-main .exc-form.auth-step-1 .ant-select-selection__rendered {
     line-height: 42px;
 }
 
-.user-main .ace-form.auth-step-1 .ace-input-item.select.radio .label {
+.user-main .exc-form.auth-step-1 .exc-input-item.select.radio .label {
     padding-bottom: 10px;
     margin-bottom: 20px;
     border-bottom: solid 1px #f2f2f2;
 }
 
-.user-main .ace-form.auth-step-1 .ace-input-item.select.radio {
+.user-main .exc-form.auth-step-1 .exc-input-item.select.radio {
     position: relative;
 }
 
-.user-main .ace-form.auth-step-1 .ace-input-item.select.radio div.input {
+.user-main .exc-form.auth-step-1 .exc-input-item.select.radio div.input {
     text-indent: 0;
 }
 
-.user-main .ace-form.auth-step-1 .ace-input-item.select.radio .ant-input {
+.user-main .exc-form.auth-step-1 .exc-input-item.select.radio .ant-input {
     position: absolute;
     left: 79%;
     width: 120px;
     top: 49px;
 }
 
-.user-main .ace-form.auth-step-1 .ace-input-item.select .error-message,
-.user-main .ace-form.auth-step-1 .ace-input-item.select .message {
+.user-main .exc-form.auth-step-1 .exc-input-item.select .error-message,
+.user-main .exc-form.auth-step-1 .exc-input-item.select .message {
     display: block;
     width: 100%;
     float: left;
 }
 
-.user-main .ace-form.auth-step-1 .ant-select-selection__rendered {
+.user-main .exc-form.auth-step-1 .ant-select-selection__rendered {
     margin-left: 0px;
 }
 
-.user-main .ace-form.auth-step-1 .ant-upload-list {
+.user-main .exc-form.auth-step-1 .ant-upload-list {
     width: 240px;
     margin-left: 20px;
     display: none;
 }
 
-.user-main .ace-form.auth-step-1 .item.center {
+.user-main .exc-form.auth-step-1 .item.center {
     text-align: center;
 }
 
@@ -886,56 +886,56 @@ body .user-main .ant-select-dropdown-menu-item {
     outline: none;
 }
 
-.user-main .ace-form.auth-step-3 .info-line p {
+.user-main .exc-form.auth-step-3 .info-line p {
     text-align: center;
     font-size: 14px;
     line-height: 30px;
 }
 
-.user-main .ace-form.auth-step-3 .info-line .title {
+.user-main .exc-form.auth-step-3 .info-line .title {
     color: #333;
     font-size: 20px;
     line-height: 50px;
 }
 
-.user-main .ace-form.auth-step-3 .info-line.loading .info {
+.user-main .exc-form.auth-step-3 .info-line.loading .info {
     color: #999999;
 }
 
-.user-main .ace-form.auth-step-3 .info-line.fail .info {
+.user-main .exc-form.auth-step-3 .info-line.fail .info {
     color: #e8b802;
 }
 
-.user-main .ace-form.auth-step-3 .info-line .tip {
+.user-main .exc-form.auth-step-3 .info-line .tip {
     font-size: 12px;
     color: #999999;
     padding-top: 25px;
 }
 
-.user-main .ace-form.auth-step-3 .submit,
-.user-main .ace-form.auth-step-4 .submit {
+.user-main .exc-form.auth-step-3 .submit,
+.user-main .exc-form.auth-step-4 .submit {
     text-align: center;
 }
 
-.user-main .ace-form.auth-step-3 .submit .ant-btn,
-.user-main .ace-form.auth-step-4 .submit .ant-btn {
+.user-main .exc-form.auth-step-3 .submit .ant-btn,
+.user-main .exc-form.auth-step-4 .submit .ant-btn {
     width: 160px;
     height: 40px;
 }
 
-.user-main .ace-form.auth-step-4 .title {
+.user-main .exc-form.auth-step-4 .title {
     text-align: center;
     font-size: 20px;
     color: #333;
     line-height: 70px;
 }
 
-.user-main .ace-form.auth-step-4 .info tr {
+.user-main .exc-form.auth-step-4 .info tr {
     height: 30px;
     line-height: 30px;
 }
 
-.user-main .ace-form.auth-step-4 .info tr td {
+.user-main .exc-form.auth-step-4 .info tr td {
     width: 50%;
     font-size: 14px;
     color: #999999;
@@ -943,45 +943,45 @@ body .user-main .ant-select-dropdown-menu-item {
     padding: 5px 15px;
 }
 
-.user-main .ace-form.auth-step-4 .info tr td:nth-child(1) {
+.user-main .exc-form.auth-step-4 .info tr td:nth-child(1) {
     text-align: right;
 }
 
-.user-main .ace-form.auth-step-4 .info tr td:nth-child(2) {
+.user-main .exc-form.auth-step-4 .info tr td:nth-child(2) {
     text-align: left;
     color: #333333;
 }
 
-.user-main .ace-form.auth-step-4 .tip p {
+.user-main .exc-form.auth-step-4 .tip p {
     padding-bottom: 5px;
 }
 
-.user-main .ace-form.auth-step-4 .info tr .money {
+.user-main .exc-form.auth-step-4 .info tr .money {
     font-size: 20px;
     font-weight: bold;
 }
 
 
-.user-main .ace-form.auth-step-4 .up-limit .ant-btn{
+.user-main .exc-form.auth-step-4 .up-limit .ant-btn{
     margin: 0 30px;
 }
-.user-main .ace-form.auth-step-4 .up-limit .anticon.auth-fail {
+.user-main .exc-form.auth-step-4 .up-limit .anticon.auth-fail {
     font-size: 24px;
     position: relative;
     top: 4px;
     color: #999;
 }
-.user-main .ace-form.auth-step-4 .up-limit .anticon.auth-fail.show {
+.user-main .exc-form.auth-step-4 .up-limit .anticon.auth-fail.show {
     cursor: pointer;
 }
 
-.user-main .ace-form.auth-step-4 .up-limit .anticon.auth-fail:hover {
+.user-main .exc-form.auth-step-4 .up-limit .anticon.auth-fail:hover {
     color: #e8b802;
 }
-.user-main .ace-form.auth-step-4 .up-limit .anticon.auth-fail.none{
+.user-main .exc-form.auth-step-4 .up-limit .anticon.auth-fail.none{
     opacity: 0;
 }
-.user-main .ace-form.auth-step-4 .fail-reason-dialog-wrapper{
+.user-main .exc-form.auth-step-4 .fail-reason-dialog-wrapper{
     display: none;
     position: fixed;
     top: 0;
@@ -990,7 +990,7 @@ body .user-main .ant-select-dropdown-menu-item {
     width: 100%;
     z-index: 9999;
 }
-.user-main .ace-form.auth-step-4 .fail-reason-dialog {
+.user-main .exc-form.auth-step-4 .fail-reason-dialog {
     width: 470px;
     padding: 32px 32px 24px;
     min-height: 100px;
@@ -1004,71 +1004,71 @@ body .user-main .ant-select-dropdown-menu-item {
     box-shadow: 0 4px 12px rgba(0,0,0,.15);
     font-size: 13px;
 }
-.user-main .ace-form.auth-step-4 .fail-reason-dialog header{
+.user-main .exc-form.auth-step-4 .fail-reason-dialog header{
     font-size: 16px;
     line-height: 40px;
     color: #333;
 }
-.user-main .ace-form.auth-step-4 .fail-reason-dialog .anticon-close {
+.user-main .exc-form.auth-step-4 .fail-reason-dialog .anticon-close {
     position: absolute;
     right: 14px;
     top: 14px;
     cursor: pointer;
 }
-.user-main .ace-form.auth-step-4 .fail-reason-dialog .anticon-close:hover {
+.user-main .exc-form.auth-step-4 .fail-reason-dialog .anticon-close:hover {
     color: #333;
 }
-.user-main .ace-form.auth-step-4 .fail-reason-dialog label {
+.user-main .exc-form.auth-step-4 .fail-reason-dialog label {
     color: #333;
     display: inline-block;
     padding: 0 10px;
 }
-.user-main .ace-form.auth-step-4 .fail-reason-dialog-wrapper.show{
+.user-main .exc-form.auth-step-4 .fail-reason-dialog-wrapper.show{
     display: block;
 }
 
 
 
-.user-main .ace-form.auth-step-2 {
+.user-main .exc-form.auth-step-2 {
     box-sizing: border-box;
     padding: 10px 0;
     width: 100%;
 }
 
-.user-main .ace-form.auth-step-2 .ace-top-tips {
+.user-main .exc-form.auth-step-2 .exc-top-tips {
     margin-bottom: 40px;
 }
 
-.user-main .ace-form.auth-step-2 .ace-top-tips .anticon {
+.user-main .exc-form.auth-step-2 .exc-top-tips .anticon {
     color: #fff;
     background-color: #f0af41;
     margin: 0 6px;
     border-radius: 7px;
 }
 
-.user-main .ace-form.auth-step-2 .ant-upload-list {
+.user-main .exc-form.auth-step-2 .ant-upload-list {
     position: absolute;
     top: 45%;
     width: 88%;
 }
 
-.user-main .ace-form.auth-step-2 .ant-upload-list-item-name,
-.user-main .ace-form.auth-step-2 .anticon-paper-clip,
-.user-main .ace-form.auth-step-2 .ant-upload-list-item-done
+.user-main .exc-form.auth-step-2 .ant-upload-list-item-name,
+.user-main .exc-form.auth-step-2 .anticon-paper-clip,
+.user-main .exc-form.auth-step-2 .ant-upload-list-item-done
  {
     display: none;
 }
-.user-main .ace-form.auth-step-2 .ant-upload-list-item-progress {
+.user-main .exc-form.auth-step-2 .ant-upload-list-item-progress {
     padding:0 15px;
 }
-.user-main .ace-form.auth-step-2 .ace-upload-mod {
+.user-main .exc-form.auth-step-2 .exc-upload-mod {
     text-align: center;
     height: auto;
     padding-bottom: 40px;
     padding-left: 150px;
 }
 
-.user-main .ace-form.auth-step-2 .pic-item-child {
+.user-main .exc-form.auth-step-2 .pic-item-child {
     float: left;
     width: 300px;
     height: 260px;
@@ -1080,16 +1080,16 @@ body .user-main .ant-select-dropdown-menu-item {
     position: relative;
 }
 
-.user-main .ace-form.auth-step-2 .pic-item-child:nth-child(1) {
+.user-main .exc-form.auth-step-2 .pic-item-child:nth-child(1) {
     margin-right: 40px;
 }
 
-.user-main .ace-form.auth-step-2 .pic-item-child:nth-child(1) .pic-title {
+.user-main .exc-form.auth-step-2 .pic-item-child:nth-child(1) .pic-title {
     padding: 10px 0 20px;
     color: #333;
 }
 
-.user-main .ace-form.auth-step-2 .pic-item-child .upload-icon-text {
+.user-main .exc-form.auth-step-2 .pic-item-child .upload-icon-text {
     font-size: 14px;
     color: #ccc;
     display: block;
@@ -1099,46 +1099,46 @@ body .user-main .ant-select-dropdown-menu-item {
     top: 75%;
 }
 
-.user-main .ace-form.auth-step-2 .pic-item-child:hover .upload-icon-text {
+.user-main .exc-form.auth-step-2 .pic-item-child:hover .upload-icon-text {
     color: #e8b802;
 }
 
-.user-main .ace-form.auth-step-2 .pic-item-child .pic-title .anticon {
+.user-main .exc-form.auth-step-2 .pic-item-child .pic-title .anticon {
     margin-left: 10px;
     color: #e8b802;
 }
 
-.user-main .ace-form.auth-step-2 .pic-item-child.sample-img .pic-title .anticon {
+.user-main .exc-form.auth-step-2 .pic-item-child.sample-img .pic-title .anticon {
     margin-top: -1px;
     border-radius: 8px;
     border: solid 1px #e8b802;
 }
 
-.user-main .ace-form.auth-step-2 .pic-item-child.sample-img .pic-title .anticon:hover {
+.user-main .exc-form.auth-step-2 .pic-item-child.sample-img .pic-title .anticon:hover {
     color: #333;
     background-color: #e8b802;
 }
 
-.user-main .ace-form.auth-step-2 .pic-item-child .pic-title .anticon.block-space {
+.user-main .exc-form.auth-step-2 .pic-item-child .pic-title .anticon.block-space {
     opacity: 0;
 }
 
-.user-main .ace-form.auth-step-2 .pic-item-child .pic-title {
+.user-main .exc-form.auth-step-2 .pic-item-child .pic-title {
     font-size: 14px;
     color: #999;
     padding: 10px 0 25px;
 }
 
-.user-main .ace-form.auth-step-2 .pic-upload-content .pic-item-img.hover {
+.user-main .exc-form.auth-step-2 .pic-upload-content .pic-item-img.hover {
     display: none;
 }
 
-.user-main .ace-form.auth-step-2 .sample-img img {
+.user-main .exc-form.auth-step-2 .sample-img img {
     width: 260px;
     height: 160px;
 }
 
-.user-main .ace-form.auth-step-2 .pic-upload-content .pic-item-img {
+.user-main .exc-form.auth-step-2 .pic-upload-content .pic-item-img {
     display: block;
     width: 260px;
     height: 170px;
@@ -1153,7 +1153,7 @@ body .user-main .ant-select-dropdown-menu-item {
     display: block;
 }
 
-.user-main .ace-form.auth-step-2 .ace-submit-item {
+.user-main .exc-form.auth-step-2 .exc-submit-item {
     width: 450px;
 }
 
@@ -1300,7 +1300,7 @@ body .user-main .ant-select-dropdown-menu-item {
  * 银行卡
  */
 
-.user-main .page-content-inner.bank-info .ace-section.info header .pic-tip {
+.user-main .page-content-inner.bank-info .exc-section.info header .pic-tip {
     float: right;
     color: #cc9900;
     cursor: pointer;
@@ -1335,7 +1335,7 @@ body .user-main .ant-select-dropdown-menu-item {
     text-align: center;
 }
 
-.user-main .bank-info .pic-item.ace-upload-mod {
+.user-main .bank-info .pic-item.exc-upload-mod {
     text-align: center;
 }
 
@@ -1366,7 +1366,7 @@ body .user-main .ant-select-dropdown-menu-item {
 }
 
 
-.user-main .bank-info .ace-upload-mod.pic-item header {
+.user-main .bank-info .exc-upload-mod.pic-item header {
     overflow: hidden;
     border-bottom: solid 1px #f4f4f4;
     font-size: 14px;
@@ -1374,23 +1374,23 @@ body .user-main .ant-select-dropdown-menu-item {
     line-height: 36px;
 }
 
-.user-main .bank-info .ace-upload-mod.pic-item .item-title {
+.user-main .bank-info .exc-upload-mod.pic-item .item-title {
     float: left;
 }
 
-.user-main .bank-info .ace-upload-mod.pic-item .item-tip {
+.user-main .bank-info .exc-upload-mod.pic-item .item-tip {
     float: right;
     color: #cc9900;
     cursor: pointer;
 }
 
-.user-main .bank-info .ace-upload-mod.pic-item .item-tip:hover {
+.user-main .bank-info .exc-upload-mod.pic-item .item-tip:hover {
     text-decoration: underline;
 }
 .user-main .bank-info .pic-upload-content {
     margin: 20px 0 40px;
 }
-.user-main .bank-info .ace-submit-item {
+.user-main .bank-info .exc-submit-item {
     margin-top: 0;
 }
 .user-main .bank-info .tip.bottom {
@@ -1477,8 +1477,8 @@ body .user-main .ant-select-dropdown-menu-item {
     color: #999;
 }
 
-.user-main .common-setting-box .ant-col-8.operator .ant-btn.ace-secondary,
-.user-main .common-setting-box .ant-col-8.operator .ant-btn.ace-btn-white {
+.user-main .common-setting-box .ant-col-8.operator .ant-btn.exc-secondary,
+.user-main .common-setting-box .ant-col-8.operator .ant-btn.exc-btn-white {
     margin-left: 30px;
 }
 
@@ -2223,7 +2223,7 @@ body .user-main .ant-select-dropdown-menu-item {
     margin-right: 0px;
 }
 
-.ace-form .user-sp-sms-btn-box .send-v-code-button {
+.exc-form .user-sp-sms-btn-box .send-v-code-button {
     width: 100%;
     border-radius: 3px;
     border: solid 1px #e8b802;
@@ -2232,28 +2232,28 @@ body .user-main .ant-select-dropdown-menu-item {
     color: #cc9900;
 }
 
-.ace-form .user-sp-sms-btn-box .send-v-code-button:disabled,
-.ace-form .user-sp-sms-btn-box .sms-btn.sending .send-v-code-button,
-.ace-form .user-sp-sms-btn-box .send-v-code-button:disabled:hover {
+.exc-form .user-sp-sms-btn-box .send-v-code-button:disabled,
+.exc-form .user-sp-sms-btn-box .sms-btn.sending .send-v-code-button,
+.exc-form .user-sp-sms-btn-box .send-v-code-button:disabled:hover {
     border-color: #d9d9d9;
     background-color: #f5f5f5;
     color: #ccc;
 }
 
-.ace-form .user-sp-sms-btn-box .send-v-code-button:hover {
+.exc-form .user-sp-sms-btn-box .send-v-code-button:hover {
     border-color: #e8b802;
     background-color: #e8b802;
     color: #333;
 }
 
-.ace-form .user-sp-sms-btn-box .ace-input-item {
+.exc-form .user-sp-sms-btn-box .exc-input-item {
     width: 205px;
     float: left;
     margin-right: 0;
     margin-bottom: 10px;
 }
 
-.ace-form .user-sp-sms-btn-box .sp-tip {
+.exc-form .user-sp-sms-btn-box .sp-tip {
     font-size: 14px;
     line-height: 14px;
     color: #333;
@@ -2262,12 +2262,12 @@ body .user-main .ant-select-dropdown-menu-item {
     margin: 13px 0 26px;
 }
 
-.ace-form .user-sp-sms-btn-box .ace-input-item.v-code {
+.exc-form .user-sp-sms-btn-box .exc-input-item.v-code {
     margin-left: 40px;
 }
 
 
-.ace-form .user-sp-sms-btn-box .ace-input-item.v-code.no-email {
+.exc-form .user-sp-sms-btn-box .exc-input-item.v-code.no-email {
     margin-left: 0;
     width: 100%;
 }

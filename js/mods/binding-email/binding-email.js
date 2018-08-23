@@ -115,7 +115,7 @@ export default class BindingEmail extends Component {
             <PageForm {...PageProps}>
                 <InputItem {...inputsData.email} />
                 <InputItem {...inputsData.vCode} afterNode={afterNode} />
-                <Button loading={this.state.loading} className="ace-submit-item" onClick={this.submit.bind(this)}>
+                <Button loading={this.state.loading} className="exc-submit-item" onClick={this.submit.bind(this)}>
                     {UPEX.lang.template('提交')}
                 </Button>
             </PageForm>

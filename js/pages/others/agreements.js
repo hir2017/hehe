@@ -87,7 +87,7 @@ export default class Agreements extends Component {
                             })}
                         </div>
                     </div>
-                    <div className="user-main ace-page-content">
+                    <div className="user-main exc-page-content">
                     <PageWrapper title={currNav.text}>
                         
                     </PageWrapper>

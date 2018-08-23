@@ -104,7 +104,7 @@ class Google extends Component {
                 </div>
                 <InputItem {...inputsData.google} />
 
-                <Button loading={loading} className="ace-submit-item" onClick={this.submit}>
+                <Button loading={loading} className="exc-submit-item" onClick={this.submit}>
                     {UPEX.lang.template('绑定')}
                 </Button>
                 <div className="info">

@@ -4,6 +4,7 @@ import { Select, DatePicker, Pagination } from 'antd';
 const Option = Select.Option;
 const { RangePicker } = DatePicker;
 import toAction from './record-action';
+import Form from './order-query-form';
 
 @inject('commonStore', 'historyStore', 'authStore')
 @observer
@@ -20,53 +21,33 @@ class List extends Component {
         this.state = {
             displayIndex: -1
         };
+        this.params = {
+            beginTime: '',
+            endTime: '',
+            status: '12',
+            buyOrSell: '0',
+            currencyId: '0',
+            baseCurrencyId: '0',
+            priceType: 0,
+        };
     }
 
     componentDidMount() {
-        this.action.getData();
+        this.action.getData({
+            ...this.params
+        });
     }
 
     componentWillUnmount() {
         this.action.handleFilter('dateArr', ['', '']);
     }
 
-    handleChange = (val, field, targetFiled) => {
-        const data = {};
-        data[targetFiled || field] = val;
-        this.action.handleFilter(field, data);
-    };
 
     onChangePagination(page) {
         this.action.handleFilter('page', {
             page
         });
     }
-
-    onChangeDate(dates, dateStrs) {
-        this.action.handleFilter('dateArr', dateStrs);
-    }
-
-    onChangeTime = value => {
-        console.log(value);
-    };
-
-    onChangeCurrency = value => {
-        this.action.handleFilter('currencyId', {
-            currencyId: value
-        });
-    };
-
-    onChangeBuyOrSell = value => {
-        this.action.handleFilter('buyOrSell', {
-            buyOrSell: value
-        });
-    };
-
-    onChangeStatus = value => {
-        this.action.handleFilter('status', {
-            status: value
-        });
-    };
 
     triggerShowDetail(index, item) {
         if (item.orderNo == this.state.displayIndex) {
@@ -95,6 +76,16 @@ class List extends Component {
             5: UPEX.lang.template('部分成交后撤单')
         };
         return maps[val] || '--';
+    }
+
+    onQuery(data) {
+        for (const key in this.params) {
+            this.params[key] =  data[key] === '' ? this.params[key] : data[key];
+        }
+        this.action.getData({
+            ...this.params,
+            size: !this.props.pagination ? 100 : 10
+        });
     }
 
     render() {
@@ -182,7 +173,7 @@ class List extends Component {
                             <li key={index} className={item.orderNo === this.state.displayIndex ? 'collapse-content-active' : ''}>
                                 <dl>
                                     <dd className="time">{item.orderTime}</dd>
-                                    <dd className="name">{item.currencyNameEn}</dd>
+                                    <dd className="name">{item.currencyNameEn} / {item.baseCurrencyNameEn}</dd>
                                     <dd className="buyorsell">
                                         {item.buyOrSell == 1 ? (
                                             <label className="greenrate">{UPEX.lang.template('买入')}</label>
@@ -214,60 +205,14 @@ class List extends Component {
 
         return (
             <div className="order-main-box">
-                <div className="order-header">
-                    <div className="filter-box">
-                        <ul>
-                            <li>
-                                {store.params.beginTime ? null : (
-                                    <div className="ie11-hack">
-                                        <span className="placeholder">{UPEX.lang.template('选择日期')}</span>
-                                        <span className="placeholder">{UPEX.lang.template('选择日期')}</span>
-                                    </div>
-                                )}
-                                <RangePicker size="large" onChange={this.onChangeDate.bind(this)} placeholder={['', '']} allowClear={false} />
-                            </li>
-                            <li>
-                                <label>{UPEX.lang.template('币种')}</label>
-                                <Select size="large" defaultValue="0" onChange={this.onChangeCurrency}>
-                                    <Option value="0">{UPEX.lang.template('全部')}</Option>
-                                    {this.props.commonStore.productList.map(item => {
-                                        if (item.currencyNameEn !== UPEX.config.baseCurrencyEn) {
-                                            return (
-                                                <Option value={item.currencyId} key={item.currencyId}>
-                                                    {item.currencyNameEn}
-                                                </Option>
-                                            );
-                                        }
-                                    })}
-                                </Select>
-                            </li>
-                            <li>
-                                <label>{UPEX.lang.template('类型')}</label>
-                                <Select size="large" defaultValue="0" onChange={this.onChangeBuyOrSell}>
-                                    <Option value="0">{UPEX.lang.template('全部')}</Option>
-                                    <Option value="1">{UPEX.lang.template('买')}</Option>
-                                    <Option value="2">{UPEX.lang.template('卖')}</Option>
-                                </Select>
-                            </li>
-                            <li>
-                                <label>{UPEX.lang.template('状态')}</label>
-                                <Select size="large" defaultValue="12" onChange={this.onChangeStatus}>
-                                    <Option value="12">{UPEX.lang.template('全部')}</Option>
-                                    <Option value="2">{UPEX.lang.template('全部成交')}</Option>
-                                    <Option value="4">{UPEX.lang.template('全部撤单')}</Option>
-                                    <Option value="5">{UPEX.lang.template('部分成交')}</Option>
-                                </Select>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+                <Form onClick={this.onQuery.bind(this)} action="history"/>
                 <div className="order-table history-list-table">
                     <div className="table-hd">
                         <table>
                             <tbody>
                                 <tr>
                                     <th className="time">{UPEX.lang.template('时间')}</th>
-                                    <th className="name">{UPEX.lang.template('币种')}</th>
+                                    <th className="name">{UPEX.lang.template('币种/市场')}</th>
                                     <th className="buyorsell">{UPEX.lang.template('买卖')}</th>
                                     <th className="tradeprice">{UPEX.lang.template('成交均价')}</th>
                                     <th className="price">{UPEX.lang.template('委托价格')}</th>

@@ -20,6 +20,9 @@ app.use(webpackDevMiddleware(compiler, {
     quiet: true
 }));
 
+// static
+app.use('/static', express.static('static'));
+
 app.use(webpackHotMiddleware(compiler));
 
 console.log('> Starting server...');

@@ -155,7 +155,7 @@ export default class BindingPhone extends Component {
                 </div>
                 <InputItem {...inputsData.phone} value={this.state.phone} />
                 <InputItem {...inputsData.vCode} afterNode={afterNode} />
-                <Button loading={this.state.loading} className="ace-submit-item" onClick={this.submit.bind(this)}>
+                <Button loading={this.state.loading} className="exc-submit-item" onClick={this.submit.bind(this)}>
                     {UPEX.lang.template('提交')}
                 </Button>
             </PageForm>

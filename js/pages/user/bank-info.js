@@ -46,7 +46,7 @@ class BankInfo extends Component {
             $content = (
                 <div className="no-auth-message bank-message">
                     <p>{UPEX.lang.template('请先身份认证')}</p>
-                    <Link className="ace-btn" to="/user/authentication">{UPEX.lang.template('身份认证')}</Link>
+                    <Link className="exc-btn" to="/user/authentication">{UPEX.lang.template('身份认证')}</Link>
                 </div>
             );
         } else if (!userInfo.isValidatePass) {
@@ -55,7 +55,7 @@ class BankInfo extends Component {
             $content = (
                 <div className="no-auth-message bank-message">
                     <p>{UPEX.lang.template('请先设置资金密码')}</p>
-                    <Link className="ace-btn"  to="/user/set-trade-pwd">{UPEX.lang.template('设置资金密码')}</Link>
+                    <Link className="exc-btn"  to="/user/set-trade-pwd">{UPEX.lang.template('设置资金密码')}</Link>
                 </div>
             );
         } else {

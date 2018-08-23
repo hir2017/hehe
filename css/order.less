@@ -1,0 +1,593 @@
+.page-order {
+    .ant-radio-button-wrapper {
+        width: 400px;
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+        border-color: transparent;
+        background-color: #f9fafb;
+        &:first-child,
+        &:last-child {
+            border-radius: 0;
+        }
+        &.ant-radio-button-wrapper-checked {
+            border-color: transparent;
+            background-color: #fff;
+        }
+    }
+    .order-menu ul {
+        height: 41px;
+        li {
+            height: 40px;
+            line-height: 40px;
+            background-color: #f9fafb;
+            &.selected h3:before {
+                content: '';
+                height: 2px;
+                width: 24px;
+                background: #e8b802;
+                position: absolute;
+                left: 50%;
+                top: 100%;
+                bottom: 0;
+                margin-top: -2px;
+                margin-left: -12px;
+            }
+        }
+    }
+    .order-header {
+        .filter-box {
+            .form-content {
+                float: left;
+            }
+            .ant-btn {
+                background-color: #e8b802;
+                border: none;
+                color: #333;
+                width: 120px;
+                height: 30px;
+            }
+            li .ant-calendar-picker {
+                top: 2px;
+            }
+        }
+        & .ant-calendar-picker-input,
+        & .ant-select-selection--single {
+            height: 30px;
+        }
+        .ant-select-selection__rendered {
+            line-height: 28px;
+        }
+        .order-menu ul {
+            height: 41px;
+            li {
+                height: 40px;
+                line-height: 40px;
+                background-color: #f9fafb;
+                &.selected h3:before {
+                    content: '';
+                    height: 2px;
+                    width: 24px;
+                    background: #e8b802;
+                    position: absolute;
+                    left: 50%;
+                    top: 100%;
+                    bottom: 0;
+                    margin-top: -2px;
+                    margin-left: -12px;
+                }
+            }
+        }
+    }
+    .order-table .table-hd {
+        position: relative;
+        table th {
+            height: 50px;
+            color: #969da9;
+        }
+        &::before {
+            content: '';
+            display: block;
+            width: 100%;
+            height: 48px;
+            padding: 0 20px;
+            left: -20px;
+            box-sizing: content-box;
+            position: absolute;
+            border-top: 1px solid #f0f3f5;
+            border-bottom: 1px solid #f0f3f5;
+        }
+        dl {
+            height: 50px;
+            line-height: 50px;
+            border-bottom: 1px solid #f0f3f5;
+            font-size: 12px;
+        }
+    }
+    & .order-header,
+    & .order-table .table-hd {
+        border: none;
+        font-size: 12px;
+    }
+    & .buyorsell .redrate,
+    & .buyorsell .greenrate {
+        padding: 3px 7px;
+        border-radius: 3px;
+    }
+    .buyorsell .redrate {
+        background-color: #fef3f3;
+    }
+    .buyorsell .greenrate {
+        background-color: #e8f9f5;
+    }
+}
+
+.order-wrapper {
+    position: relative;
+    width: 1200px;
+    margin: 0 auto 30px;
+    color: #999999;
+    .ant-breadcrumb {
+        height: 50px;
+        line-height: 50px;
+    }
+}
+
+.order-body-inner {
+    background-color: #fff;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+/**
+ * 导航
+ */
+
+.order-menu ul {
+    height: 51px;
+    border-bottom: 1px solid #f4f4f4;
+    li {
+        position: relative;
+        width: 400px;
+        float: left;
+        cursor: pointer;
+        height: 50px;
+        line-height: 50px;
+        font-size: 14px;
+        text-align: center;
+        border-right: 1px solid #f4f4f4;
+        background-color: #f9f9f9;
+        &:last-child {
+            border-right: 0 none;
+        }
+        &.selected {
+            background-color: #fff;
+            h3 {
+                color: #333333;
+                &:before {
+                    content: '';
+                    height: 14px;
+                    width: 2px;
+                    background: #e8b802;
+                    position: absolute;
+                    left: 0;
+                    top: 50%;
+                    margin-top: -7px;
+                }
+            }
+        }
+        h3 {
+            position: relative;
+            display: inline-block;
+            color: #999999;
+            font-weight: normal;
+            padding: 0 5px;
+        }
+    }
+}
+
+.order-main {
+    width: 100%;
+    min-height: 420px;
+}
+
+.order-main-box {
+    padding: 0 20px;
+}
+
+/**
+ * 头部过滤条
+ */
+
+.order-body-inner.coin-list .order-header {
+    height: 60px;
+    line-height: 60px;
+}
+
+.order-header {
+    height: 90px;
+    line-height: 90px;
+    border-bottom: 1px solid #f4f4f4;
+    h2 {
+        float: left;
+        font-size: 18px;
+        padding: 0 20px;
+        text-align: left;
+    }
+    .type-select {
+        float: right;
+        padding-right: 20px;
+    }
+    .filter-box {
+        width: 100%;
+        text-align: right;
+        ul {
+            white-space: nowrap;
+            text-align: center;
+        }
+        li {
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 30px;
+            position: relative;
+            .ant-calendar-picker {
+                position: relative;
+                top: -3px;
+            }
+            label {
+                font-size: 14px;
+            }
+            .ant-input {
+                border-radius: 3px;
+            }
+            button {
+                min-width: 108px;
+                height: 30px;
+                text-align: center;
+                line-height: 30px;
+                border: 1px solid #d8d9dd;
+                color: #666666;
+                border-radius: 30px;
+            }
+        }
+        .ant-calendar-picker-input {
+            background-color: transparent;
+        }
+        .ie11-hack {
+            position: absolute;
+            width: 100%;
+            .placeholder {
+                width: 50%;
+                display: inline-block;
+                text-align: center;
+                font-size: 14px;
+            }
+        }
+        label {
+            padding-right: 6px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .ant-select {
+            min-width: 100px;
+        }
+    }
+}
+
+.order-table {
+    font-size: 12px;
+    .mini-tip {
+        margin-top: 60px;
+        color: #ccc;
+        text-align: center;
+        min-height: 46px;
+        line-height: 46px;
+    }
+    .mini-loading {
+        background-color: rgba(255, 255, 255, 0.7);
+    }
+    .table-hd {
+        border-bottom: 1px solid #f4f4f4;
+        table {
+            width: 100%;
+            color: #999999;
+            box-sizing: border-box;
+            th {
+                height: 30px;
+            }
+        }
+    }
+    .table-bd {
+        position: relative;
+        min-height: 30px;
+        dl {
+            cursor: pointer;
+            border-bottom: 1px solid #f4f4f4;
+            height: 50px;
+            line-height: 50px;
+            &:hover {
+                background: #f8f8f8;
+            }
+            dd {
+                display: inline-block;
+                word-wrap: break-word;
+                word-break: break-all;
+                line-height: 16px;
+                color: #333;
+            }
+        }
+        .collapse-content-active {
+            outline: 1px solid #cc9900;
+            dl:hover {
+                background: none;
+            }
+        }
+    }
+    /**
+    *  表格尾－分页
+    */
+    .table-ft {
+        padding: 30px 0;
+        position: relative;
+        .ant-pagination {
+            text-align: center;
+        }
+        .cancel-all {
+            cursor: pointer;
+            position: absolute;
+            right: 0;
+            top: 0;
+            color: #cc9900;
+            padding: 15px;
+        }
+    }
+    /**
+    * 公共样式
+    */
+    .time {
+        width: 200px;
+        text-align: left;
+        text-indent: 10px;
+    }
+    .name {
+        width: 80px;
+        text-align: right;
+    }
+    .buyorsell {
+        width: 140px;
+        text-align: right;
+    }
+    .detail-content {
+        position: relative;
+        display: none;
+        padding: 30px 10%;
+        min-height: 60px;
+        background-color: #f8f8f8;
+        &:after {
+            content: '';
+            position: absolute;
+            right: 70px;
+            top: -9px;
+            z-index: 2;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 0 10px 10px 10px;
+            border-color: transparent transparent #f8f8f8 transparent;
+        }
+        table {
+            width: 100%;
+            tr {
+                &.data span.label {
+                    display: inline-block;
+                    width: 75px;
+                }
+                td.cancel {
+                    text-align: left;
+                    span {
+                        display: inline-block;
+                        padding: 0;
+                    }
+                }
+            }
+            & tr td.cancel,
+            & tr td.none {
+                text-align: center;
+            }
+        }
+        & table,
+        & tr th,
+        & table tr td {
+            text-align: left;
+            font-size: 12px;
+        }
+        & tr th,
+        & tr td {
+            padding: 4px 0;
+        }
+    }
+    .collapse-content-active {
+        .detail-content {
+            display: block;
+        }
+        .action button {
+            background: url('../images/icon-arrow-detail.png') no-repeat left center;
+            background-size: 15px 15px;
+        }
+    }
+}
+
+.order-main-box {
+    .action {
+        width: 100px;
+        text-align: right;
+        button {
+            background: none;
+            border: 0 none;
+            color: #cc9900;
+            display: inline-block;
+            padding-left: 16px;
+            &:hover {
+                text-decoration-line: underline;
+            }
+        }
+    }
+    /**
+    * 委托中
+    */
+    .open-list-table {
+        & .num,
+        & .price,
+        & .rate,
+        & .amount {
+            width: 160px;
+            text-align: right;
+        }
+    }
+    /**
+    * 已成交订单
+    */
+    .success-list-table {
+        & .num,
+        & .tradeprice,
+        & .fee,
+        & .amount {
+            width: 185px;
+            text-align: right;
+        }
+    }
+
+    /**
+    * 历史委托
+    */
+    .history-list-table {
+        & .num,
+        & .price,
+        & .tradeprice,
+        & .status {
+            width: 160px;
+            text-align: right;
+        }
+    }
+
+}
+
+
+
+/**
+ * 充币记录
+ */
+
+.coin-recharge-list .collapse-content-active .detail-content {
+    text-align: center;
+    line-height: 60px;
+}
+
+.coin-recharge-list .status {
+    width: 180px;
+    text-indent: 10px;
+    text-align: left;
+}
+
+.coin-recharge-list .name {
+    text-align: center;
+}
+
+.coin-recharge-list .num {
+    width: 185px;
+    text-align: right;
+}
+
+.coin-recharge-list .time {
+    width: 180px;
+    text-align: right;
+}
+
+.coin-recharge-list .address {
+    width: 435px;
+    text-align: right;
+}
+
+/**
+ * 提币记录
+ */
+
+.coin-withdraw-list .status {
+    width: 180px;
+    text-indent: 10px;
+    text-align: left;
+}
+
+.coin-withdraw-list .name {
+    text-align: left;
+}
+
+.coin-withdraw-list .num {
+    width: 180px;
+    text-align: left;
+}
+
+.coin-withdraw-list .time {
+    width: 180px;
+    text-align: left;
+}
+
+.coin-withdraw-list .fee {
+    width: 140px;
+    text-align: left;
+}
+
+.coin-withdraw-list .address {
+    width: 300px;
+    text-align: right;
+}
+
+.coin-withdraw-list .collapse-content-active .detail-content {
+    text-align: center;
+    line-height: 60px;
+}
+
+/**
+ * 资金记录
+ */
+
+.fiat-list-table .swift-no {
+    width: 322px;
+    text-align: left;
+    text-indent: 10px;
+}
+
+.fiat-list-table .time {
+    width: 166px;
+    text-align: right;
+}
+
+.fiat-list-table .name {
+    width: 140px;
+    text-align: right;
+}
+
+.fiat-list-table .balance {
+    width: 152px;
+    text-align: right;
+}
+
+.fiat-list-table .status {
+    width: 160px;
+    text-align: right;
+}
+
+.fiat-list-table .pay-method {
+    width: 120px;
+    text-align: right;
+}
+
+.fiat-list-table .extra-info {
+    width: 100%;
+    display: none;
+    background-color: #f7f7f7;
+}
+
+.fiat-list-table .extra-info.show {
+    display: block;
+}

@@ -14,7 +14,7 @@ class LoginInfoBaseStore {
     @observable vercode = ''; // 邮箱验证码或者短信验证码
     @observable phonecode = ''; // 手机验证码
     @observable inviteId = ''; // 邀请码
-    @observable agree = false; // 同意协议 
+    @observable agree = false; // 同意协议
     @observable googlecode = ''; // 谷歌验证码
     @observable selectedCountry = {
         areacode: '0886',
@@ -34,7 +34,7 @@ class LoginInfoBaseStore {
     constructor(stores) {
         this.authStore = stores.authStore;
 
-        if (UPEX.config.systemLanguage == 'zh-CN') {
+        if (UPEX.systemLanguage == 'zh-CN') {
             this.selectedCountry = {
                 areacode: '0086',
                 code: 'CN',
@@ -53,7 +53,7 @@ class LoginInfoBaseStore {
         this.vercode = ''; // 邮箱验证码或者短信验证码
         this.phonecode = ''; // 手机验证码
         this.inviteId = ''; // 邀请码
-        this.agree = false; // 同意协议 
+        this.agree = false; // 同意协议
         this.googlecode = ''; // 谷歌验证码
         this.disabledCodeBtn = false; // 禁用发送验证码按钮
         this.validVercode = true; // 邮箱or手机验证码
@@ -77,7 +77,7 @@ class LoginInfoBaseStore {
         let ret = true;
 
         if (this.email) {
-            if (UPEX.config.emailReg.test(this.email)) {
+            if (UPEX.emailReg.test(this.email)) {
                 ret = true;
             } else {
                 ret = false;
@@ -93,8 +93,7 @@ class LoginInfoBaseStore {
     @action
     checkValidPwd() {
         let ret;
-
-        if (UPEX.config.pwdReg.test(this.pwd) || this.pwd.length === 0) {
+        if (UPEX.pwdReg.test(this.pwd) || this.pwd.length === 0) {
             ret = true;
         } else {
             ret = false;
@@ -109,7 +108,7 @@ class LoginInfoBaseStore {
     checkValidPhone() {
         let ret;
 
-        if (UPEX.config.phoneReg.test(this.phone) || this.phone.length === 0) {
+        if (UPEX.phoneReg.test(this.phone) || this.phone.length === 0) {
             ret = true;
         } else {
             ret = true; //不限制手机格式
@@ -149,7 +148,7 @@ class LoginInfoBaseStore {
         if (mode == 'email') {
             if (!email) {
                 result.pass = false;
-                result.message = UPEX.lang.template('请填写邮箱'); 
+                result.message = UPEX.lang.template('请填写邮箱');
                 return result;
             }
             if (!this.validEmail) {
@@ -188,11 +187,11 @@ class LoginInfoBaseStore {
         let email = this.email;
         let phone = this.phone;
         let pwd = this.pwd;
-        
+
         if (mode == 'email') {
             if (!email) {
                 result.pass = false;
-                result.message = UPEX.lang.template('请填写邮箱'); 
+                result.message = UPEX.lang.template('请填写邮箱');
                 return result;
             }
 
@@ -248,7 +247,7 @@ class LoginInfoBaseStore {
         if (mode == 'email') {
             if (!email) {
                 result.pass = false;
-                result.message = UPEX.lang.template('请填写邮箱'); 
+                result.message = UPEX.lang.template('请填写邮箱');
                 return result;
             }
             if (!this.validEmail) {
@@ -289,7 +288,7 @@ class LoginInfoBaseStore {
 
         if (!vercode) {
             result.pass = false;
-            
+
             if (mode == 'email') {
                 result.message = UPEX.lang.template('请填写邮箱验证码');
             } else {

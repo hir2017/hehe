@@ -9,7 +9,7 @@ class InputItem extends Component {
             _props.value = this.props.value;
         }
         return (
-            <div className={`ace-input-item ${className || ''}`}>
+            <div className={`exc-input-item ${className || ''}`}>
                 <span className="label">{label}</span>
                 {
                     this.props.children ? this.props.children : (<input autoComplete="off" {..._props} className="input" {...inputProps} />)
