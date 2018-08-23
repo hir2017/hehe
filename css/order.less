@@ -1,3 +1,4 @@
+@import './variable.less';
 .page-order {
     .ant-radio-button-wrapper {
         width: 400px;
@@ -17,21 +18,54 @@
     }
     .order-menu ul {
         height: 41px;
+        border-bottom: 1px solid @page-split-border-color;
         li {
+            position: relative;
+            width: 400px;
+            float: left;
+            cursor: pointer;
             height: 40px;
             line-height: 40px;
-            background-color: #f9fafb;
-            &.selected h3:before {
-                content: '';
-                height: 2px;
-                width: 24px;
-                background: #e8b802;
-                position: absolute;
-                left: 50%;
-                top: 100%;
-                bottom: 0;
-                margin-top: -2px;
-                margin-left: -12px;
+            background-color: #f5f7f9;
+            font-size: 14px;
+            text-align: center;
+            border-right: 1px solid @page-split-border-color;
+            transition: all 0.5s ease;
+            &:hover {
+
+                background-color: #fff;
+                h3 {
+                    color: #323e48;
+                }
+            }
+            &:last-child {
+                border-right: 0 none;
+            }
+            &.selected {
+                background-color: #fff;
+                h3 {
+                    color: #323e48;
+                    &:before {
+                        content: '';
+                        height: 2px;
+                        width: 24px;
+                        background: #e8b802;
+                        position: absolute;
+                        left: 50%;
+                        top: 100%;
+                        bottom: 0;
+                        margin-top: -1px;
+                        margin-left: -12px;
+                        border-radius: 1px;
+                    }
+                }
+            }
+            h3 {
+                position: relative;
+                display: inline-block;
+                color: #969da9;
+                font-weight: normal;
+                padding: 0 5px;
             }
         }
     }
@@ -41,11 +75,7 @@
                 float: left;
             }
             .ant-btn {
-                background-color: #e8b802;
-                border: none;
-                color: #333;
                 width: 120px;
-                height: 30px;
             }
             li .ant-calendar-picker {
                 top: 2px;
@@ -58,26 +88,7 @@
         .ant-select-selection__rendered {
             line-height: 28px;
         }
-        .order-menu ul {
-            height: 41px;
-            li {
-                height: 40px;
-                line-height: 40px;
-                background-color: #f9fafb;
-                &.selected h3:before {
-                    content: '';
-                    height: 2px;
-                    width: 24px;
-                    background: #e8b802;
-                    position: absolute;
-                    left: 50%;
-                    top: 100%;
-                    bottom: 0;
-                    margin-top: -2px;
-                    margin-left: -12px;
-                }
-            }
-        }
+
     }
     .order-table .table-hd {
         position: relative;
@@ -94,8 +105,8 @@
             left: -20px;
             box-sizing: content-box;
             position: absolute;
-            border-top: 1px solid #f0f3f5;
-            border-bottom: 1px solid #f0f3f5;
+            border-top: 1px solid @page-split-border-color;
+            border-bottom: 1px solid @page-split-border-color;
         }
         dl {
             height: 50px;
@@ -135,7 +146,7 @@
 
 .order-body-inner {
     background-color: #fff;
-    border-radius: 4px;
+    border-radius: 6px;
     overflow: hidden;
 }
 
@@ -143,48 +154,7 @@
  * 导航
  */
 
-.order-menu ul {
-    height: 51px;
-    border-bottom: 1px solid #f4f4f4;
-    li {
-        position: relative;
-        width: 400px;
-        float: left;
-        cursor: pointer;
-        height: 50px;
-        line-height: 50px;
-        font-size: 14px;
-        text-align: center;
-        border-right: 1px solid #f4f4f4;
-        background-color: #f9f9f9;
-        &:last-child {
-            border-right: 0 none;
-        }
-        &.selected {
-            background-color: #fff;
-            h3 {
-                color: #333333;
-                &:before {
-                    content: '';
-                    height: 14px;
-                    width: 2px;
-                    background: #e8b802;
-                    position: absolute;
-                    left: 0;
-                    top: 50%;
-                    margin-top: -7px;
-                }
-            }
-        }
-        h3 {
-            position: relative;
-            display: inline-block;
-            color: #999999;
-            font-weight: normal;
-            padding: 0 5px;
-        }
-    }
-}
+
 
 .order-main {
     width: 100%;
@@ -302,7 +272,7 @@
         min-height: 30px;
         dl {
             cursor: pointer;
-            border-bottom: 1px solid #f4f4f4;
+            border-bottom: 1px solid @page-split-border-color;
             height: 50px;
             line-height: 50px;
             &:hover {
