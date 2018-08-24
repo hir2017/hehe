@@ -4,7 +4,8 @@ import '../css/common.less';
 import '../css/exc-style/index.less';
 // import '../css/index.css';
 import '../css/home.less';
-import '../css/login-register.css';
+// import '../css/login-register.css';
+import '../css/login-register.less';
 import '../css/agreements.css';
 import '../css/trade.less';
 // import '../css/trade-night.css';
@@ -15,6 +16,7 @@ import '../css/account.css';
 // import '../css/order.css';
 import '../css/order.less';
 import '../css/recharge-withdraw.css';
+import '../css/antd-reset.less';
 
 import './lib/object.assign';
 import './lib/promise';

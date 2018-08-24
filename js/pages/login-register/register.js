@@ -43,7 +43,7 @@ class Register extends Component {
         })
     }
 
-    componentDidMount() { 
+    componentDidMount() {
         this.yidunCaptcha.init((validate, captchaId)=>{
             this.action.sendVercode('register', validate, captchaId);
         })
@@ -57,7 +57,7 @@ class Register extends Component {
         let verifyResult = this.action.verifyInfoBeforeSendCode();
 
         if (verifyResult) {
-            this.yidunCaptcha.show();    
+            this.yidunCaptcha.show();
         }
     }
 
@@ -236,7 +236,7 @@ class Register extends Component {
                                 { $submitBtn }
                             </div>
                             <div className="register-extra">
-                                <Link to="/login"> {UPEX.lang.template('我有账号，去登录')}</Link>
+                                <Link to="/login"> <span className="login-link" dangerouslySetInnerHTML={{__html: UPEX.lang.template('我有账号，去登录')}}></span></Link>
                             </div>
                         </div>
                     </div>

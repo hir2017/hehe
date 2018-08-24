@@ -136,7 +136,7 @@ class View extends React.Component {
                             </li>
                         ) : null}
                     </ul>
-                    <Button onClick={this.handleClick.bind(this)}>{UPEX.lang.template('搜索')}</Button>
+                    <Button className="exc-btn-submit" onClick={this.handleClick.bind(this)}>{UPEX.lang.template('搜索')}</Button>
                 </div>
             </div>
         );
