@@ -1,17 +1,16 @@
 .app-trade {
+    width: 100%;
+    height: 100%;
     background-color: @bg-color;
     .app-content {
-        padding: 10px;
-    }
-
-    .trade-wrapper {
-        position: relative;
         display: flex;
+        flex-direction: column;
+        padding: 10px;
+        box-sizing: border-box;
     }
-
-    .grid-box {
-        background-color: @bg-module;
-        border-radius: 6px;
+    .trade-wrapper {
+        flex: 1;
+        display: flex;
     }
     /**
      * 左侧
@@ -28,6 +27,11 @@
         position: relative;
         display: flex;
         flex-direction: column;
+    }
+
+    .grid-box {
+        background-color: @bg-module;
+        border-radius: 6px;
     }
 
     .trade-extra-list {
@@ -53,6 +57,10 @@
             border-radius: 6px;
             overflow: hidden;
         }
+    }
+    .trade-extra-handle{
+        height: 300px;
+        overflow: hidden;
     }
 }
 

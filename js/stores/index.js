@@ -3,11 +3,14 @@ import CurrencyStore from './currency-point';
 import AuthStore from './auth';
 import LoginStore from './login';
 import CaptchaStore from './captcha';
+
 import AnnouncementStore from './announcement';
-import HomeStore from './home';
 import BannerStore from './banner';
 import HotListStore from './hot-list';
+import HomeStore from './home';
+
 import TradeStore from './trade';
+
 import AccountStore from './account';
 import TradePwdStore from './tradepwd';
 import OrderOpenStore from './order-open';
@@ -45,6 +48,7 @@ class RootStore {
         this.successStore = new OrderSuccessStore(this);
         
         this.tradeStore = new TradeStore(this);
+
         this.accountStore = new AccountStore(this);
         this.userInfoStore = new UserInfoStore(this);
         this.coinRechargeRecordStore = new CoinRechargeRecordStore(this);

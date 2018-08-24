@@ -246,16 +246,22 @@
             }
         }
 
+        .trade-buy-box .bar {
+            background: rgba(219, 78, 78, 0.15);
+        }
+
+
+        .trade-sell-box .bar {
+            background: rgba(12, 155, 120, 0.15);
+        }
+
         &[data-type="buy"] {
             .trade-buy {
                 ul {
                     max-height: 100%;
                     overflow-y: auto;
                     margin-right: -15px;
-                    padding-right: 6px;
-                    .bar {
-                        background: rgba(12, 155, 120, 0.15);
-                    }
+                    padding-right: 15px;
                 }
             }
         }
@@ -267,9 +273,6 @@
                     overflow-y: auto;
                     margin-right: -15px;
                     padding-right: 6px;
-                }
-                .bar {
-                    background: rgba(219, 78, 78, 0.15);
                 }
             }
         }

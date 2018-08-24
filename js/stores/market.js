@@ -75,7 +75,7 @@ export default class MarketStore {
         let list = [];
 
         this.collectCoinsList.forEach((item, index) => {
-            let key = [item.baseCurrencyId, item.tradeCurrencyId].join('-');
+            let key = [item.baseCurrencyId, item.tradeCurrencyId].join('_');
 
             if (this.currencyMap[key]) {
                 list[list.length] = this.currencyMap[key];
@@ -147,39 +147,11 @@ export default class MarketStore {
 
         fetch();
 
-        this.quoteNotify();
-
         if (this.authStore.isLogin) {
             this.getCollectCoinsList();
         } else {
             this.getCollectDataFromLocal();
         }
-    }
-
-    /**
-     * 行情通知
-     */
-    @action quoteNotify() {
-        socket.off('quoteNotify');
-        socket.emit('quoteNotify');
-        socket.on('quoteNotify', (data) => {
-            runInAction('quote change', () => {
-                this.updateTradeCoin(data);
-            })
-        })
-    }
-
-    /**
-     * 更新交易币信息
-     */
-    @action updateTradeCoin(data) {
-
-        this.selectedCurrencies.map((item, index) => {
-            if (item.baseCurrencyId === data.baseCurrencyId && item.currencyId === data.currencyId) {
-                this.selectedCurrencies[index] = this.parseCoinItem(data);
-                return false;
-            }
-        })
     }
 
     // 获取行情列表信息
@@ -197,7 +169,7 @@ export default class MarketStore {
                     marketMap[market.info.currencyNameEn] = market.tradeCoins;
 
                     market.tradeCoins.map((item, index) => {
-                        item.key = [item.baseCurrencyId, item.currencyId].join('-');
+                        item.key = [item.baseCurrencyId, item.currencyId].join('_');
                         item.currentAmount = item.currentAmount + (+new Date() % 8);
                         this.parseCoinItem(item);
                         currencyMap[item.key] = item;

@@ -17,8 +17,8 @@ class CoinList extends Component {
         super(props)
     }
 
-    componentWillUnmount(){
-        this.props.tradeStore.marketListStore.reset();
+    componentWillUnmount() {
+        
     }
 
     handleSearch = e => {

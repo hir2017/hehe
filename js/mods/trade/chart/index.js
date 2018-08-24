@@ -22,8 +22,16 @@ import DepthChart from './depth-chart';
 @observer
 class TVChartContainer extends Component {
 	static defaultProps = {
-
+        data: {
+            baseCurrencyId: '',
+            baseCurrencyNameEn: '',
+            tradeCurrencyId: '',
+            tradeCurrencyNameEn: '',
+            pointPrice: '',
+            pointNum: ''
+        }
 	}
+
 	constructor(props){
 		super(props);
         // 分钟线；天线；月线
@@ -179,30 +187,20 @@ class TVChartContainer extends Component {
 
 	createTradingView() {
         let self = this;
-        let { getTradeCoinById, getPointPrice } = this.props.commonStore;
 		let theme = this.props.tradeStore.theme;
-        let currencyId = this.props.tradeStore.currencyId;
-        let baseCurrencyId = this.props.tradeStore.baseCurrencyId;
+        let { baseCurrencyId, tradeCurrencyId , baseCurrencyNameEn, tradeCurrencyNameEn , pointNum, pointPrice } = this.props.data;
 		let locale; 
 		let interval; 
-        let baseCurrencyNameEn; 
-        let currencyNameEn; 
-
-        if (!baseCurrencyId || !currencyId) {
-            throw new Error("no such symbol");
-        }
 
         locale = this.getLocale();
         interval = this.getIntervalByPeriod();
-        baseCurrencyNameEn = getTradeCoinById(baseCurrencyId).currencyNameEn;
-        currencyNameEn = getTradeCoinById(currencyId).currencyNameEn;
 
-        let currentSymbolName = `${currencyNameEn}/${baseCurrencyNameEn}`;
+        let currentSymbolName = `${tradeCurrencyNameEn}/${baseCurrencyNameEn}`;
         let datafeed = this.datafeed = new UDFCompatibleDatafeed({
-            currencyNameEn,
+            currencyNameEn: tradeCurrencyNameEn,
             baseCurrencyNameEn,
-            pointPrice: this.props.tradeStore.pointPrice,
-            pointNum: this.props.tradeStore.pointNum
+            pointPrice: pointPrice,
+            pointNum: pointNum
         });
 
         let overrides = this.getOverridesByTheme(theme);
@@ -601,7 +599,7 @@ class TVChartContainer extends Component {
                             getPopupContainer={()=>this.refs.coin} 
                             overlayClassName={ store.theme === 'dark' ? 'popover-tradecoins popover-tradecoins-dark' : 'popover-tradecoins popover-tradecoins-light'}
                             >
-                               <label>{store.currencyNameEn}/{store.baseCurrencyNameEn}</label>
+                               <label>{store.currentTradeCoin.currencyNameEn}/{store.currentTradeCoin.baseCurrencyNameEn}</label>
                                <Icon type="caret-down" style={arrowCls} />
                            </Popover>
                            <span className={`current-amount ${trendColor}`}>
@@ -623,7 +621,7 @@ class TVChartContainer extends Component {
                         </dd>
                         <dd>
                             <label>{ UPEX.lang.template('24H量')}</label>
-                            <em>{ store.currentTradeCoin.volumeText }{ store.currencyNameEn }</em>
+                            <em>{ store.currentTradeCoin.volumeText }{ store.currentTradeCoin.currencyNameEn }</em>
                         </dd>
                     </dl>
                     <ul className="chart-menu">
@@ -658,7 +656,7 @@ class TVChartContainer extends Component {
                     data-show={chartType == 'kline' ? 'show': 'hide'}
                 >
                 </div>
-                <DepthChart key={store.currencyNameEn} depthAsks={store.depthAsks} depthBids={store.depthBids}/>
+                <DepthChart depthAsks={store.asks} depthBids={store.bids}/>
             </div>
         );
     }

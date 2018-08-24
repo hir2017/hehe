@@ -29,7 +29,7 @@ class SellOrderView extends Component {
 			<div className="trade-sell">
 				<ul className="list" ref="scroller">
 					{ 
-						store.newEntrustData.sell.map((item, index)=>{
+						store.entrust.sell.map((item, index)=>{
 							return (
 								<li key={index} data-type="sell" data-index={item.index} onClick={this.haneleClickOrder.bind(this, item)}>
 									<div className="cell price redrate">{item.newcurrent}</div>

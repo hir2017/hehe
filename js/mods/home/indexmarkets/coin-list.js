@@ -9,10 +9,6 @@ const Search = Input.Search;
 class MarketCoinList extends Component {
 	constructor(props){
 		super(props);
-
-        this.state = {
-
-        }
 	}
 
     componentWillUnmount() {

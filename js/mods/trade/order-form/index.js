@@ -8,6 +8,17 @@ import InputNumber from '../../input-number';
 @inject('tradeStore', 'authStore', 'userInfoStore')
 @observer
 class TradeForm extends Component{
+	static defaultProps = {
+		data: {
+            baseCurrencyId: '',
+            baseCurrencyNameEn: '',
+            tradeCurrencyId: '',
+            tradeCurrencyNameEn: '',
+            pointPrice: '',
+            pointNum: ''
+        }
+	}
+	
 	constructor(props){
 		super(props);
 
@@ -19,6 +30,7 @@ class TradeForm extends Component{
 			title: UPEX.lang.template('市价交易')
 		}]
 	}
+
 	goRecharge=(type, e)=>{
 		let userInfoStore = this.props.userInfoStore;
 

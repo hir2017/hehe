@@ -11,13 +11,29 @@ import SellOrderView from './sell';
 @inject('tradeStore')
 @observer
 class OrderBook extends Component { 
-	
+    static defaultProps = {
+        tabs: ['all', 'sell', 'buy']
+    }
+
+	constructor(props){
+        super(props);
+
+        this.state = {
+            selectedTab: 'all'
+        }
+
+    }
+
 	onChangeEntrustType=(type)=>{
-        this.props.tradeStore.setType(type);
+    
+        this.setState({
+            selectedTab: type
+        });
     }
 
 	render() {
 		let store = this.props.tradeStore;
+        let selectedTab =  this.state.selectedTab;
 
 		let trendIcon, trendColor = '';
 
@@ -33,13 +49,13 @@ class OrderBook extends Component {
         }
 
 		return (
-			<div className="order-book" data-type={store.type}>
+			<div className="order-book" data-type={selectedTab}>
 				<div className="list-box-hd">
 					{UPEX.lang.template('挂单簿')}
 					<ul className="tab">
                         {
-                           ['all', 'sell', 'buy'].map((item, index)=>{
-                                let cls = store.type == item ? `${item} selected`: item;
+                           this.props.tabs.map((item, index)=>{
+                                let cls = selectedTab == item ? `${item} selected`: item;
 
                                 return (
                                     <li className={cls} key={item} onClick={this.onChangeEntrustType.bind(this, item)}></li>
@@ -54,9 +70,9 @@ class OrderBook extends Component {
                         <div className="number">{ UPEX.lang.template('数量')}</div>
                         <div className="total">{ UPEX.lang.template('金额')}</div>
                     </div>
-                    <div className="table-bd" key={store.type}>
+                    <div className="table-bd" key={selectedTab}>
                     	{
-                            store.type !== 'buy' ? (
+                            selectedTab !== 'buy' ? (
                                 <div className="trade-buy-box">
                                     <SellOrderView ref="sellorder"/>
                                 </div>
@@ -69,7 +85,7 @@ class OrderBook extends Component {
 	                        </div>
 	                    </div>
 	                    {
-                            store.type !==  'sell' ? (
+                            selectedTab !==  'sell' ? (
                                 <div className="trade-sell-box">
                                     <BuyOrderView ref="buyorder"/>
                                 </div>

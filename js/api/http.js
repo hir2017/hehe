@@ -245,7 +245,7 @@ export function getAllCurrencyRelations() {
  *  获取基础币对应交易币列表
  */
 export function getTradeCoinsOfBaseCoin() {
-    return axios.get(' /coin/tradeCoinsOfBaseCoin')
+    return axios.get('/coin/tradeCoinsOfBaseCoin')
 }
 
 /**

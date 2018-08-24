@@ -50,7 +50,7 @@ class App extends Component {
                 if (coin) {
                     pair = [coin.baseCurrencyNameEn, coin.currencyNameEn].join('_');
                 } else {
-                   pair = 'TWD_BTC';
+                   pair = [UPEX.config.baseCurrencyEn, 'BTC'].join('_');
                 }
 
                 props.params.pair = pair;

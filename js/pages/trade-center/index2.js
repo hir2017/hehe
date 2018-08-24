@@ -6,39 +6,31 @@
 import React, {Component} from 'react';
 import { observer, inject } from 'mobx-react';
 import { Icon } from 'antd';
-
 import ChartContainer from '../../mods/trade/chart/index';
 import TradeHistory from '../../mods/trade/trade-history';
+import MyOrder from '../../mods/trade/myorder/index';
 import OrderBook from '../../mods/trade/order-book';
 import OrderForm from '../../mods/trade/order-form';
-import MyOrder from '../../mods/trade/myorder/index';
-
-import toAction from './index.action';
 
 @inject('commonStore', 'currencyStore','tradeStore')
 @observer
 class TradeCenter extends Component {
-    constructor(props){
-        super(props);
-    }
-
     componentWillMount() {
-        let { currencyStore } = this.props;
+        let { commonStore, currencyStore } = this.props;
 
-        currencyStore.getAllCurrencyRelations();
-
-        $('#wrap').addClass('page-fullscreen');
+        commonStore.getAllCoinPoint();
+        currencyStore.getCurrencyPoints();
     }
 
     render() {
-        let { tradeStore, currencyStore } = this.props;
+        let { commonStore, tradeStore, currencyStore } = this.props;
         
         // 用于切换交易币时内容切换
-        if (currencyStore.currencyDataReady) {
-            return <TradeContent {...this.props}/>;
+        if (commonStore.productDataReady && currencyStore.currencyDataReady) {
+            return <TradeContent {...this.props}/>
         } else {
             return (
-                <div className="trade-wrapper" style={{ height: tradeStore.contentHeight}}>
+                <div className="trade-wrapper" style={{ height: tradeStore.contentHeight}} >
                     <div className="mini-loading"></div>
                 </div>
             )
@@ -49,45 +41,15 @@ class TradeCenter extends Component {
 @inject('tradeStore', 'commonStore')
 @observer
 class TradeContent extends Component {
-    constructor(props){
-        super(props);
-
-        this.action = toAction(this.props.tradeStore, this.props.currencyStore);
-
-
-        this.state = {
-            data: null
-        }
+    static defaultProps = {
+        entrustTab: ['all', 'buy', 'sell']
     }
 
     componentWillMount() {
-        let { currencyStore } = this.props;
+        // let { tradeStore, commonStore } = this.props;
 
-        let pair = this.props.params.pair;
-
-        if (!pair) {
-            return;
-        }
-
-        let tradePair = currencyStore.getCurrencyByPair(pair);
-        let { baseCurrencyId, tradeCurrencyId } = tradePair;
-
-        if (!baseCurrencyId  || !tradeCurrencyId) {
-            return;
-        }
-        
-        // 当前币信息获取以及监听币种变更的消息通知
-        this.action.getCurrentCoin(baseCurrencyId, tradeCurrencyId);    
-        this.action.listenQuoteNotify();
-        this.action.sendSubscribe(baseCurrencyId, tradeCurrencyId);
-
-
-        this.action.getEntrust(baseCurrencyId, tradeCurrencyId);
-        this.action.getTradeHistory(baseCurrencyId, tradeCurrencyId);
-
-        this.setState({
-            data: tradePair
-        });
+        // // 更新交易币对
+        // let pair = this.props.params.pair;
 
         // if (pair) {
         //     let pairArr = pair.split('_');
@@ -112,48 +74,66 @@ class TradeContent extends Component {
         //         currencyId
         //     });
 
-        
+        //     tradeStore.getData();
+        //     tradeStore.sendSubscribe();
+        //     tradeStore.getEntrust();
+        //     tradeStore.getTradeHistory();
         //     tradeStore.getUserAccount();
         //     tradeStore.getPersonalTradingPwd();
         //     tradeStore.getPersonalInfo();
         //     tradeStore.bindOrderSocket();
-        
+        }
     }
 
-    componentWillUnmount() {
-        this.action.destroy();
+    componentWillUnmount(){
+        this.props.tradeStore.destorySocket();
     }
+
 
     render() {
     	let store = this.props.tradeStore;
-        let { data } = this.state;
+
+        let trendIcon, trendColor = '';
+
+        if (store.currentTradeCoin && store.currentTradeCoin.currentAmount) {
+
+            if (store.currentTradeCoin.currentAmount > store.currentTradeCoin.previousPrice) {
+                trendColor = 'greenrate';
+                trendIcon = <Icon type="arrow-up" style={{fontSize: 12}}/>;
+            } else if(store.currentTradeCoin.currentAmount < store.currentTradeCoin.previousPrice){
+                trendColor = 'redrate';
+                trendIcon = <Icon type="arrow-down" style={{fontSize: 12}}/>;
+            }
+        }
 
         return (
-            <div className="trade-wrapper" style={{ height: store.contentHeight}}>
+            <div className="trade-wrapper" style={{ height: store.contentHeight + 10}}>
                 <div className="trade-main">
                     <div className={`trade-main-chart grid-box ${store.expandOrderTable ? 'hidden' : ''}`} style={{ height: store.mainChartHeight}}>
-                        { data ? <ChartContainer key={`${data.baseCurrencyId}${data.currencyId}`} data={data}/> : null }
+                        {
+                            store.pointPrice > -1 ? <ChartContainer/> : null
+                        }
                     </div>
-                    <div className="trade-main-order grid-box" style={{ height: store.mainOrderHeight}}>
-                        <MyOrder/>
+                    <div className="trade-main-order grid-box" id="tradeMainOrder" style={{ height: store.mainOrderHeight}}>
+                        {
+                            <MyOrder/>
+                        }
                     </div>
                 </div>
-                <div className="trade-extra">
-                    <div className="trade-extra-list clearfix">
+            	<div className="trade-extra">
+        			<div className="trade-extra-list clearfix">
                         <div className="list-box-l grid-box">
                             <OrderBook/>
                         </div>
                         <div className="list-box-r grid-box" >
                             <TradeHistory/>
                         </div>
-                    </div>
+        			</div>
 
-                    <div className="trade-extra-handle grid-box">
-                        { 
-                            // data ? <OrderForm data={data}/> : null 
-                        }
-                    </div>
-                </div>
+        			<div className="trade-extra-handle grid-box">
+        				<OrderForm/>
+        			</div>
+            	</div>
             </div>
         );
     }

@@ -17,8 +17,6 @@ class CommonStore {
     @observable currentPathName = '';
     // 当前语言
     @observable language = UPEX.cache.getCache('lang') || UPEX.config.defaultLanguage;
-    // 页面主题。浅色：light；深色：dark
-    @observable theme = 'dark';
     // 窗口尺寸
     @observable.struct windowDimensions = getWindowDimensions();
     // 业务公用的数据
@@ -60,11 +58,6 @@ class CommonStore {
     @action
     changeLanguageTo = (value) => {
         this.language = value
-    }
-
-    @action
-    changeThemeTo = (value) => {
-        this.theme = value
     }
 
     @action
@@ -129,8 +122,7 @@ class CommonStore {
     /**
      * 根据ID获取币信息
      */
-    @action.bound
-    getTradeCoinById(currencyId) {
+    @action.bound getTradeCoinById(currencyId) {
         let ret = this.coinsMapId[currencyId] || {};
 
         return ret;
@@ -138,15 +130,13 @@ class CommonStore {
     /**
      * 根据币名称获取币信息
      */
-    @action.bound
-    getTradeCoinByName(name) {
+    @action.bound getTradeCoinByName(name) {
         return this.coinsMap[name] || {};
     }
     /**
      * 价格小数点后几位
      */
-    @action.bound
-    getPointPrice(name) {
+    @action.bound getPointPrice(name) {
         if (!name) {
             return ;
         }
@@ -155,8 +145,7 @@ class CommonStore {
     /**
      * 数量小数点后几位
      */
-    @action.bound
-    getPointNum(name) {
+    @action.bound getPointNum(name) {
         if (!name) {
             return ;
         }
@@ -164,8 +153,7 @@ class CommonStore {
     }
 
     // 基础币TWD的价格
-    @computed
-    get pointPrice() {
+    @computed get pointPrice() {
         let point;
 
         let product = this.productList.filter(function(item) {
@@ -178,8 +166,7 @@ class CommonStore {
     }
 
     // 基础币TWD的数量
-    @computed
-    get pointNum() {
+    @computed get pointNum() {
         let point;
 
         let product = this.productList.filter(function(item) {
