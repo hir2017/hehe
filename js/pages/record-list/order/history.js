@@ -1,16 +1,43 @@
 import React from 'react';
 import Form from './header-form';
 import { observer, inject } from 'mobx-react';
+import { Pagination } from 'antd';
 import List from '@/components/list';
-import { getUserHistoryOrderList } from '@/api/http';
+import { getUserHistoryOrderList, getUserHistoryOrderDetail } from '@/api/http';
 import NumberUtil from '@/lib/util/number';
 
-@inject('openStore')
+const Detail = ({ row, data }) => {
+    let $tbody = null;
+    if (row.status === 5) {
+        // 全部撤单
+        $tbody = (
+            <tbody>
+                <tr>
+                    <td>
+                        <span className="label"> {UPEX.lang.template('撤单时间')}：</span>
+                        {data.cancelTime}
+                    </td>
+                    <td>
+                        <span className="label"> {UPEX.lang.template('撤单数量')}：</span>
+                        {data.num}
+                    </td>
+                    <td>
+                        <span className="label"> {UPEX.lang.template('撤单比例')}：</span>
+                        {(parseFloat(num) * 100).toFixed(2)}%
+                    </td>
+                </tr>
+            </tbody>
+        );
+    }
+    return <table>{$tbody}</table>;
+};
+
+@inject('historyStore')
 @observer
 class View extends React.Component {
     constructor(props) {
         super(props);
-
+        // TODO: loading
         this.lists = [
             { title: UPEX.lang.template('时间'), className: 'time', dataIndex: 'orderTime' },
             {
@@ -33,25 +60,44 @@ class View extends React.Component {
             },
             {
                 title: UPEX.lang.template('成交均价'),
-                className: 'num',
-                render: row => {
-                    return `${row.tradeNum}/${row.num}`;
-                }
+                className: 'tradeprice',
+                dataIndex: 'averagePrice'
             },
             { title: UPEX.lang.template('委托价格'), className: 'price', dataIndex: 'price' },
-            { title: UPEX.lang.template('委托数量'), className: 'rate', dataIndex: 'tradeRate' },
-            { title: UPEX.lang.template('状态'), className: 'amount', dataIndex: 'tradeAmount' },
-            { title: UPEX.lang.template('操作'), className: 'action', render: row => {
-                return UPEX.lang.template('详情');
-            } }
+            { title: UPEX.lang.template('委托数量'), className: 'num', dataIndex: 'num' },
+            { title: UPEX.lang.template('成交数量'), className: 'trade-num', dataIndex: 'tradeNum' },
+            { title: UPEX.lang.template('成交率'), className: 'rate', dataIndex: 'tradeRate' },
+            {
+                title: UPEX.lang.template('状态'),
+                className: 'status',
+                render: row => {
+                    const maps = {
+                        2: UPEX.lang.template('全部成交'),
+                        4: UPEX.lang.template('全部撤单'),
+                        5: UPEX.lang.template('部分成交后撤单')
+                    };
+                    return maps[row.status];
+                }
+            },
+            {
+                title: UPEX.lang.template('操作'),
+                className: 'action',
+                render: (row, col, index) => {
+                    return <p onClick={this.toggleDetail.bind(this, row, col, index)}>{UPEX.lang.template('详情')}</p>;
+                }
+            }
         ];
-
+        this.subRow = (data, rowData) => <Detail row={rowData} data={data} />;
         this.state = {
             data: [],
             total: 0,
-            current: 1
+            current: 1,
+            pageSize: 10,
+            detail: [],
+            subIndex: 0,
+            subShow: false,
+            subLoading: false
         };
-
         this.params = {
             beginTime: '',
             endTime: '',
@@ -59,33 +105,58 @@ class View extends React.Component {
             buyOrSell: '0',
             currencyId: '0',
             baseCurrencyId: '0',
-            priceType: 0,
+            priceType: 0
         };
+        this.parseItem = this.props.historyStore.getParseRowFn();
     }
 
-    parseItem(item) {
-        const {openStore} = this.props;
-        let currencyObj = openStore.currencyStore.getCurrencyById(`${item.baseCurrencyId}-${item.currencyId}`);
-        let pointNum = currencyObj.pointNum;
-        let pointPrice = currencyObj.pointPrice;
-
-        // 时间
-        item.orderTime = item.orderTime.split('.')[0];
-        // 委托价格
-        item.price = NumberUtil.formatNumber(item.price, pointPrice);
-        // 成交金额
-        item.tradeAmount = NumberUtil.formatNumber(item.tradeAmount || 0, pointPrice);
-        // 成交价格
-        item.tradePrice = NumberUtil.formatNumber(item.tradePrice, pointPrice);
-        // 委托数量
-        item.num = NumberUtil.formatNumber(item.num, pointNum);
-        // 成交数量
-        item.tradeNum = NumberUtil.formatNumber(item.tradeNum, pointNum);
-        // 成交率
-        item.tradeRate = item.tradeRate || 0;
-        item.tradeRate = NumberUtil.formatNumber(item.tradeRate * 100, 2) + '%';
-
-        return item;
+    toggleDetail(row, col, rowIndex) {
+        const { state } = this;
+        // 1：成交，2：撤单 3: 部分成交撤单
+        let typeMap = {
+            '2': 1,
+            '4': 2,
+            '5': 3
+        };
+        this.setState({
+            subIndex: rowIndex,
+            subShow: true,
+            subLoading: true
+        });
+        getUserHistoryOrderDetail({
+            buyOrSell: row.buyOrSell,
+            orderNo: row.orderNo,
+            type: typeMap[row.status]
+        }).then(res => {
+            if (res.status == 200) {
+                let { details = [] } = res.attachment;
+                // null不严格等于undefined
+                details = details === null ? [] : details;
+                this.setState({
+                    detail: details,
+                    subLoading: false
+                });
+                return;
+                if (item.status === 5) {
+                    let temp = details.reduce(
+                        (total, curr) => {
+                            return {
+                                num: NumberUtil.add(total.num, curr.num),
+                                rate: NumberUtil.add(total.rate, curr.rate)
+                            };
+                        },
+                        {
+                            num: 0,
+                            rate: 0
+                        }
+                    );
+                    cancelInfo = {
+                        num: item.num - temp.num,
+                        rate: 1 - temp.rate
+                    };
+                }
+            }
+        });
     }
 
     onQuery(data) {
@@ -99,7 +170,12 @@ class View extends React.Component {
         this.getData();
     }
 
-    onChangePagination() {}
+    onChangePagination(page) {
+        this.setState({
+            current: page
+        });
+        this.getData();
+    }
 
     getData() {
         getUserHistoryOrderList({
@@ -112,9 +188,10 @@ class View extends React.Component {
                 total: 0
             };
             if (res.status === 200) {
+                let listData = res.attachment.list.map(this.parseItem);
                 _state = {
-                    data: res.attachment.list.map(this.parseItem.bind(this)),
-                    total: res.total
+                    data: listData,
+                    total: res.attachment.total
                 };
             } else {
                 // TODO errorMsg
@@ -124,11 +201,22 @@ class View extends React.Component {
     }
 
     render() {
-        const {state, lists} = this;
+        const { state, lists } = this;
+        const { subIndex, subShow, subLoading } = state;
+        const detailData = {
+            subData: state.detail,
+            subIndex,
+            subShow,
+            subLoading
+        };
+        let $pagination =
+            state.total > 0 ? (
+                <Pagination current={state.current} total={state.total} pageSize={state.pageSize} onChange={this.onChangePagination.bind(this)} />
+            ) : null;
         return (
             <div className="record-box">
-                <Form onClick={this.onQuery.bind(this)} action="history"/>
-                <List dataSource={state.data} columns={lists} expandedRowRender={(row) => <p>{row.a}</p>}/>
+                <Form onClick={this.onQuery.bind(this)} action="history" />
+                <List dataSource={state.data} {...detailData} columns={lists} expandedRowRender={this.subRow} pagination={$pagination} />
             </div>
         );
     }
