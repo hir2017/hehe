@@ -289,7 +289,7 @@ class Login extends Component {
                 <div className="register-wrapper login-box">
                     <div className="register-form-wrapper">
                         <div className="register-form">
-                            <h3 className="title"> { UPEX.lang.template('登录')} </h3>
+                            <h3 className="register-form-title"> { UPEX.lang.template('登录')} </h3>
                             <div className="register-mode-content">
                                 { $inputbox }
                                 { this.state.loginErrorText ? <div className="error-tip">{this.state.loginErrorText}</div> : '' }
@@ -325,7 +325,7 @@ class Login extends Component {
             <div className="register-wrapper">
                 <div className="register-form-wrapper">
                     <div className="register-form">
-                        <h3 className="title"> { UPEX.lang.template('登录')} </h3>
+                        <h3 className="register-form-title">{ UPEX.lang.template('登录')}</h3>
                         <TabView data={this.tabs} current={store.mode} onClick={this.onChangeMode}/>
                         <div className="register-mode-content">
                             { $selectAreaCode }

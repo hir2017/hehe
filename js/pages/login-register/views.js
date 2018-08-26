@@ -48,9 +48,9 @@ export const AreaCodeSelectView = (props)=>{
     });
 
     return (
-    	<div className="input-wrapper">
+    	<div className="input-wrapper" ref="box">
             <div className="input-box">
-                <Select onChange={onChange} defaultValue={defaultValue}>
+                <Select onChange={onChange} defaultValue={defaultValue} dropdownClassName="country-select-menu">
                     {options}
                 </Select>
             </div>

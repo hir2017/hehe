@@ -153,7 +153,7 @@ class Register extends Component {
             <div className="register-wrapper register-box">
                 <div className="register-form-wrapper">
                     <div className="register-form">
-                        <h3 className="title"> {UPEX.lang.template('注册')} </h3>
+                        <h3 className="register-form-title">{UPEX.lang.template('注册')}</h3>
                         <TabView data={this.tabs} current={store.mode} onClick={action.onChangeMode}/>
                         <div className="register-mode-content">
                             { $selectAreaCode }
