@@ -64,7 +64,7 @@ class List extends Component {
         if (!this.props.authStore.isLogin) {
             $content = <div className="mini-tip">{UPEX.lang.template('登录后可查看已完成订单')}</div>;
         } else if (!store.isFetching && store.orderList.length == 0) {
-            $content = <div className="mini-tip">{UPEX.lang.template('暂无数据')}</div>;
+            $content = <div className="mini-tip list-is-empty">{UPEX.lang.template('暂无数据')}</div>;
         } else {
             $content = (
                 <ul className="list">
@@ -106,7 +106,7 @@ class List extends Component {
                                     <th className="time">{UPEX.lang.template('时间')}</th>
                                     <th className="name">{UPEX.lang.template('币种/市场')}</th>
                                     <th className="buyorsell">{UPEX.lang.template('买卖')}</th>
-                                    <th className="tradeprice">{UPEX.lang.template('成交均价')}</th>
+                                    <th className="tradeprice">{UPEX.lang.template('成交价')}</th>
                                     <th className="num">{UPEX.lang.template('成交数量')}</th>
                                     <th className="fee">{UPEX.lang.template('手续费')}</th>
                                     <th className="amount pr10">{UPEX.lang.template('成交金额')}</th>

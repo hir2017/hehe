@@ -68,7 +68,7 @@ class List extends Component {
 		if (!this.props.authStore.isLogin) {
 			$content = <div className="mini-tip">{ UPEX.lang.template('登录后可查看当前委托订单')}</div>
 		} else if (!store.isFetching && store.orderList.length == 0) {
-			$content = <div className="mini-tip">{UPEX.lang.template('暂无当前委托订单')}</div>;
+			$content = <div className="mini-tip list-is-empty">{UPEX.lang.template('暂无当前委托订单')}</div>;
 		} else {
 			$content = (
 				<ul className="list">
@@ -99,7 +99,7 @@ class List extends Component {
                                         	}
 										</dd>
 										<dd className="num">
-											{`${item.tradeNum}/${item.num}`}
+											{`${item.tradeNum} / ${item.num}`}
 										</dd>
 										<dd className="price">{item.price}</dd>
 										<dd className="rate">{item.tradeRate}</dd>

@@ -1,4 +1,5 @@
 @import './variable.less';
+@query-item-height: 30px;
 .page-order {
     .ant-radio-button-wrapper {
         width: 400px;
@@ -32,7 +33,6 @@
             border-right: 1px solid @page-split-border-color;
             transition: all 0.5s ease;
             &:hover {
-
                 background-color: #fff;
                 h3 {
                     color: #323e48;
@@ -70,15 +70,70 @@
         }
     }
     .order-header {
+        padding: 30px 0;
         .filter-box {
+            width: 100%;
+            text-align: right;
             .form-content {
                 float: left;
             }
             .ant-btn {
                 width: 120px;
             }
-            li .ant-calendar-picker {
-                top: 2px;
+            ul {
+                white-space: nowrap;
+                text-align: center;
+            }
+            li {
+                float: left;
+                height: @query-item-height;
+                margin-right: 30px;
+                position: relative;
+                &:last-child {
+                    margin-right: 0;
+                }
+                .ant-calendar-picker {
+                    position: relative;
+                    width: 300px;
+                }
+                label {
+                    font-size: 14px;
+                    line-height: @query-item-height;
+                    color: @text-color02-light;
+                    padding-right: 6px;
+                    display: inline-block;
+                }
+                .ie11-hack {
+                    position: absolute;
+                    width: 100%;
+                    height: @query-item-height;
+                    line-height: @query-item-height;
+                    .placeholder {
+                        width: 50%;
+                        display: inline-block;
+                        text-align: center;
+                        color: @text-color02-light;
+                        font-size: 14px;
+                    }
+                }
+                .ant-calendar-picker-input {
+                    background-color: transparent;
+                }
+                .ant-calendar-range-picker-input {
+                    line-height: 17px;
+                }
+                .ant-select {
+                    min-width: 100px;
+                }
+                button {
+                    min-width: 108px;
+                    height: @query-item-height;
+                    text-align: center;
+                    line-height: @query-item-height;
+                    border: 1px solid #d8d9dd;
+                    color: #666666;
+                    border-radius: 30px;
+                }
             }
         }
         & .ant-calendar-picker-input,
@@ -88,13 +143,157 @@
         .ant-select-selection__rendered {
             line-height: 28px;
         }
-
+    }
+    .order-table {
+        // 单元格宽度
+        &.open-list-table {
+            .time {
+                width: 180px;
+            }
+            .name {
+                width: 110px;
+            }
+            .buyorsell {
+                width: 70px;
+            }
+            .num {
+                width: 240px;
+            }
+            .price {
+                width: 160px;
+            }
+            .rate {
+                width: 120px;
+            }
+            .amount {
+                width: 180px;
+            }
+            .action {
+                width: 100px;
+            }
+        }
+        &.history-list-table {
+            .time {
+                width: 160px;
+            }
+            .name {
+                width: 90px;
+            }
+            .buyorsell {
+                width: 50px;
+            }
+            .tradeprice {
+                width: 140px;
+            }
+            .price {
+                width: 150px;
+            }
+            .num {
+                width: 150px;
+            }
+            .trade-num {
+                width: 150px;
+            }
+            .rate {
+                width: 90px;
+            }
+            .status {
+                width: 100px;
+            }
+            .action {
+                width: 80px;
+            }
+        }
+        // 180+100+100+150+210+210+210
+        &.success-list-table {
+            .time {
+                width: 180px;
+            }
+            .name {
+                width: 100px;
+            }
+            .buyorsell {
+                width: 100px;
+            }
+            .tradeprice {
+                width: 150px;
+            }
+            .num {
+                width: 210px;
+            }
+            .fee {
+                width: 210px;
+            }
+            .amount {
+                width: 210px;
+            }
+        }
+        .table-bd {
+            position: relative;
+            min-height: 30px;
+            dl {
+                cursor: pointer;
+                border-bottom: 1px solid @page-split-border-color;
+                height: 50px;
+                line-height: 50px;
+                &:hover {
+                    background: @list-hoverbg-color01-light;
+                    .time {
+                        color: @text-color01-light;
+                    }
+                }
+                dd {
+                    display: inline-block;
+                    word-wrap: break-word;
+                    word-break: break-all;
+                    line-height: 16px;
+                    color: @text-color01-light;
+                }
+            }
+            .collapse-content-active {
+                outline: 1px solid #cc9900;
+                dl:hover {
+                    background: none;
+                }
+            }
+            .time {
+                color: @text-color02-light;
+            }
+        }
+        .table-hd th,
+        .table-bd dl dd {
+            text-align: right;
+        }
+        .table-hd th:nth-child(1),
+        .table-hd th:nth-child(2),
+        .table-bd dl dd:nth-child(1),
+        .table-bd dl dd:nth-child(2) {
+            text-align: left;
+        }
     }
     .order-table .table-hd {
         position: relative;
-        table th {
-            height: 50px;
-            color: #969da9;
+        table {
+            position: relative;
+            z-index: 3;
+            th {
+                height: 50px;
+                color: #969da9;
+            }
+        }
+        &::after {
+            content: '';
+            display: block;
+            width: 100%;
+            height: 1px;
+            left: -20px;
+            padding: 0 20px;
+            left: -20px;
+            box-sizing: content-box;
+            position: absolute;
+            z-index: 4;
+            top: 0;
+            box-shadow: 0px 1px 2px rgba(23, 31, 39, 0.1);
         }
         &::before {
             content: '';
@@ -105,6 +304,7 @@
             left: -20px;
             box-sizing: content-box;
             position: absolute;
+            z-index: 1;
             border-top: 1px solid @page-split-border-color;
             border-bottom: 1px solid @page-split-border-color;
         }
@@ -131,6 +331,17 @@
     .buyorsell .greenrate {
         background-color: #e8f9f5;
     }
+    .list-is-empty {
+        background-image: ~'url(../images/list-empty.png)';
+        background-position: center 4px;
+        background-size: 37px 37px;
+        background-repeat: no-repeat;
+        &.mini-tip {
+            margin-top: 92px;
+            padding-top: 40px;
+            color: @text-color02-light;
+        }
+    }
 }
 
 .order-wrapper {
@@ -149,12 +360,216 @@
     border-radius: 6px;
     overflow: hidden;
 }
-
+// 冗余代码
+.order-header {
+    .filter-box {
+        width: 100%;
+        text-align: right;
+        .form-content {
+            float: left;
+        }
+        .ant-btn {
+            width: 120px;
+        }
+        ul {
+            white-space: nowrap;
+            text-align: center;
+        }
+        li {
+            float: left;
+            height: @query-item-height;
+            margin-right: 30px;
+            position: relative;
+            &:last-child {
+                margin-right: 0;
+            }
+            .ant-calendar-picker {
+                position: relative;
+                width: 300px;
+            }
+            label {
+                font-size: 14px;
+                line-height: @query-item-height;
+                color: @text-color02-light;
+                padding-right: 6px;
+                display: inline-block;
+            }
+            .ie11-hack {
+                position: absolute;
+                width: 100%;
+                height: @query-item-height;
+                line-height: @query-item-height;
+                .placeholder {
+                    width: 50%;
+                    display: inline-block;
+                    text-align: center;
+                    color: @text-color02-light;
+                    font-size: 14px;
+                }
+            }
+            .ant-calendar-picker-input {
+                background-color: transparent;
+            }
+            .ant-calendar-range-picker-input {
+                line-height: 17px;
+            }
+            .ant-select {
+                min-width: 100px;
+            }
+            button {
+                min-width: 108px;
+                height: @query-item-height;
+                text-align: center;
+                line-height: @query-item-height;
+                border: 1px solid #d8d9dd;
+                color: #666666;
+                border-radius: 30px;
+            }
+        }
+    }
+    & .ant-calendar-picker-input,
+    & .ant-select-selection--single {
+        height: 30px;
+    }
+    .ant-select-selection__rendered {
+        line-height: 28px;
+    }
+}
+.order-table .table-hd {
+    position: relative;
+    table {
+        position: relative;
+        z-index: 3;
+        th {
+            height: 50px !important;
+            color: #969da9;
+        }
+    }
+    &::after {
+        content: '';
+        display: block;
+        width: 100%;
+        height: 1px;
+        left: -20px;
+        padding: 0 20px;
+        left: -20px;
+        box-sizing: content-box;
+        position: absolute;
+        z-index: 4;
+        top: 0;
+        box-shadow: 0px 1px 2px rgba(23, 31, 39, 0.1);
+    }
+    &::before {
+        content: '';
+        display: block;
+        width: 100%;
+        height: 48px;
+        padding: 0 20px;
+        left: -20px;
+        box-sizing: content-box;
+        position: absolute;
+        z-index: 1;
+        border-top: 1px solid @page-split-border-color;
+        border-bottom: 1px solid @page-split-border-color;
+    }
+    dl {
+        height: 50px;
+        line-height: 50px;
+        border-bottom: 1px solid #f0f3f5;
+        font-size: 12px;
+    }
+}
+.order-table {
+    .table-bd {
+        position: relative;
+        min-height: 30px;
+        dl {
+            cursor: pointer;
+            border-bottom: 1px solid @page-split-border-color;
+            height: 50px;
+            line-height: 50px;
+            &:hover {
+                background: @list-hoverbg-color01-light;
+                .time {
+                    color: @text-color01-light;
+                }
+            }
+            dd {
+                display: inline-block;
+                word-wrap: break-word;
+                word-break: break-all;
+                line-height: 16px;
+                color: @text-color01-light;
+            }
+        }
+        .collapse-content-active {
+            outline: 1px solid #cc9900;
+            dl:hover {
+                background: none;
+            }
+        }
+        .time {
+            color: @text-color02-light;
+        }
+    }
+    .table-hd th,
+    .table-bd dl dd {
+        text-align: right;
+    }
+    .table-hd th:nth-child(1),
+    .table-hd th:nth-child(2),
+    .table-bd dl dd:nth-child(1),
+    .table-bd dl dd:nth-child(2) {
+        text-align: left;
+    }
+}
+.order-table .table-hd {
+    position: relative;
+    table {
+        position: relative;
+        z-index: 3;
+        th {
+            height: 50px;
+            color: #969da9;
+        }
+    }
+    &::after {
+        content: '';
+        display: block;
+        width: 100%;
+        height: 1px;
+        left: -20px;
+        padding: 0 20px;
+        left: -20px;
+        box-sizing: content-box;
+        position: absolute;
+        z-index: 4;
+        top: 0;
+        box-shadow: 0px 1px 2px rgba(23, 31, 39, 0.1);
+    }
+    &::before {
+        content: '';
+        display: block;
+        width: 100%;
+        height: 48px;
+        padding: 0 20px;
+        left: -20px;
+        box-sizing: content-box;
+        position: absolute;
+        z-index: 1;
+        border-top: 1px solid @page-split-border-color;
+        border-bottom: 1px solid @page-split-border-color;
+    }
+    dl {
+        height: 50px;
+        line-height: 50px;
+        border-bottom: 1px solid #f0f3f5;
+        font-size: 12px;
+    }
+}
 /**
  * 导航
  */
-
-
 
 .order-main {
     width: 100%;
@@ -175,8 +590,6 @@
 }
 
 .order-header {
-    height: 90px;
-    line-height: 90px;
     border-bottom: 1px solid #f4f4f4;
     h2 {
         float: left;
@@ -187,60 +600,6 @@
     .type-select {
         float: right;
         padding-right: 20px;
-    }
-    .filter-box {
-        width: 100%;
-        text-align: right;
-        ul {
-            white-space: nowrap;
-            text-align: center;
-        }
-        li {
-            display: inline-block;
-            vertical-align: middle;
-            margin-right: 30px;
-            position: relative;
-            .ant-calendar-picker {
-                position: relative;
-                top: -3px;
-            }
-            label {
-                font-size: 14px;
-            }
-            .ant-input {
-                border-radius: 3px;
-            }
-            button {
-                min-width: 108px;
-                height: 30px;
-                text-align: center;
-                line-height: 30px;
-                border: 1px solid #d8d9dd;
-                color: #666666;
-                border-radius: 30px;
-            }
-        }
-        .ant-calendar-picker-input {
-            background-color: transparent;
-        }
-        .ie11-hack {
-            position: absolute;
-            width: 100%;
-            .placeholder {
-                width: 50%;
-                display: inline-block;
-                text-align: center;
-                font-size: 14px;
-            }
-        }
-        label {
-            padding-right: 6px;
-            display: inline-block;
-            vertical-align: middle;
-        }
-        .ant-select {
-            min-width: 100px;
-        }
     }
 }
 
@@ -267,32 +626,7 @@
             }
         }
     }
-    .table-bd {
-        position: relative;
-        min-height: 30px;
-        dl {
-            cursor: pointer;
-            border-bottom: 1px solid @page-split-border-color;
-            height: 50px;
-            line-height: 50px;
-            &:hover {
-                background: #f8f8f8;
-            }
-            dd {
-                display: inline-block;
-                word-wrap: break-word;
-                word-break: break-all;
-                line-height: 16px;
-                color: #333;
-            }
-        }
-        .collapse-content-active {
-            outline: 1px solid #cc9900;
-            dl:hover {
-                background: none;
-            }
-        }
-    }
+
     /**
     *  表格尾－分页
     */
@@ -315,7 +649,7 @@
     * 公共样式
     */
     .time {
-        width: 200px;
+        width: 180px;
         text-align: left;
         text-indent: 10px;
     }
@@ -332,7 +666,7 @@
         display: none;
         padding: 30px 10%;
         min-height: 60px;
-        background-color: #f8f8f8;
+        background-color: @list-hoverbg-color01-light;
         &:after {
             content: '';
             position: absolute;
@@ -348,6 +682,7 @@
         table {
             width: 100%;
             tr {
+                color: @text-color02-light;
                 &.data span.label {
                     display: inline-block;
                     width: 75px;
@@ -405,15 +740,15 @@
     /**
     * 委托中
     */
-    .open-list-table {
-        & .num,
-        & .price,
-        & .rate,
-        & .amount {
-            width: 160px;
-            text-align: right;
-        }
-    }
+    // .open-list-table {
+    //     & .num,
+    //     & .price,
+    //     & .rate,
+    //     & .amount {
+    //         width: 160px;
+    //         text-align: right;
+    //     }
+    // }
     /**
     * 已成交订单
     */
@@ -426,7 +761,6 @@
             text-align: right;
         }
     }
-
     /**
     * 历史委托
     */
@@ -439,10 +773,7 @@
             text-align: right;
         }
     }
-
 }
-
-
 
 /**
  * 充币记录
@@ -453,29 +784,27 @@
     line-height: 60px;
 }
 
-.coin-recharge-list .status {
-    width: 180px;
-    text-indent: 10px;
-    text-align: left;
-}
-
-.coin-recharge-list .name {
-    text-align: center;
-}
-
-.coin-recharge-list .num {
-    width: 185px;
-    text-align: right;
-}
-
-.coin-recharge-list .time {
-    width: 180px;
-    text-align: right;
-}
-
-.coin-recharge-list .address {
-    width: 435px;
-    text-align: right;
+.coin-recharge-list {
+    .status {
+        width: 180px;
+        text-indent: 10px;
+        text-align: left;
+    }
+    .name {
+        text-align: center;
+    }
+    .num {
+        width: 185px;
+        text-align: right;
+    }
+    .time {
+        width: 180px;
+        text-align: right;
+    }
+    .address {
+        width: 435px;
+        text-align: right;
+    }
 }
 
 /**

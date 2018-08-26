@@ -1,11 +1,11 @@
 import React from 'react';
 
 const Thead = props => (
-    <thead>
+    <thead className="exc-list-thead">
         <tr>
             {props.columns.map((col, i) => {
                 return (
-                    <th key={i} className={`column-${i + 1} ${col.className || ''}`}>
+                    <th key={i} className={`list-col column-${i + 1} ${col.className || ''}`}>
                         {col.title}
                     </th>
                 );
@@ -28,7 +28,7 @@ const Tbody = props => {
     let len = dataSource.length;
     if (len === 0) {
         return (
-            <tbody>
+            <tbody className="exc-list-tbody">
                 <tr>
                     <td colSpan={columns.length}>{UPEX.lang.template('暂无数据')}</td>
                 </tr>
@@ -37,7 +37,7 @@ const Tbody = props => {
     }
     if (props.expandedRowRender) {
         return (
-            <tbody>
+            <tbody className="exc-list-tbody">
                 {Array.apply(null, { length: len * 2 }).map((a, i) => {
                     let rowData = null;
                     if(i === 0 || i === 1) {
@@ -56,7 +56,7 @@ const Tbody = props => {
                             <tr key={i} className="list-row">
                                 {columns.map((col, j) => {
                                     return (
-                                        <td key={j} className={`list-cell cell-${j + 1} ${col.className || ''}`}>
+                                        <td key={j} className={`list-col cell-${j + 1} ${col.className || ''}`}>
                                             <Cell col={col} row={rowData} />
                                         </td>
                                     );
@@ -70,13 +70,13 @@ const Tbody = props => {
         );
     }
     return (
-        <tbody>
+        <tbody className="exc-list-tbody">
             {dataSource.map((rowData, i) => {
                 return (
                     <tr key={i} className="list-row">
                         {columns.map((col, j) => {
                             return (
-                                <td key={j} className={`list-cell cell-${j + 1} ${rowData.className || ''}`}>
+                                <td key={j} className={`list-col row-cell cell-${j + 1} ${col.className || ''}`}>
                                     <Cell col={col} row={rowData} />
                                 </td>
                             );

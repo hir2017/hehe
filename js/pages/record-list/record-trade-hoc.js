@@ -28,7 +28,7 @@ class RecordPage extends Component {
 			{
 				index: 2,
 				path: 'success',
-				title: UPEX.lang.template('已成交')
+				title: UPEX.lang.template('成交明细')
 			},
 		];
 	}

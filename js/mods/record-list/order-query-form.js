@@ -93,10 +93,10 @@ class View extends React.Component {
                                     <span className="placeholder">{UPEX.lang.template('选择日期')}</span>
                                 </div>
                             )}
-                            <RangePicker size="large" onChange={this.onChange.bind(this, 'date')} placeholder={['', '']} allowClear={false} />
+                            <RangePicker size="small" onChange={this.onChange.bind(this, 'date')} placeholder={['', '']} allowClear={false} />
                         </li>
                         <li>
-                            <label>{UPEX.lang.template('币种')}</label>
+                            <label>{UPEX.lang.template('币种')}/{UPEX.lang.template('市场')}</label>
                             <Select size="large" defaultValue="0" onChange={this.onChange.bind(this, 'currencyId')}>
                                 <Option value="0">{UPEX.lang.template('全部')}</Option>
                                 {state.currencyIdData.map(item => (
@@ -105,7 +105,7 @@ class View extends React.Component {
                                     </Option>
                                 ))}
                             </Select>
-                            /<label>{UPEX.lang.template('市场')}</label>
+                            <label></label><label>/</label>
                             <Select size="large" defaultValue="0" onChange={this.onChange.bind(this, 'baseCurrencyId')}>
                                 <Option value="0">{UPEX.lang.template('全部')}</Option>
                                 {state.baseCurrencyIdData.map(item => (
@@ -120,8 +120,8 @@ class View extends React.Component {
                             <label>{UPEX.lang.template('类型')}</label>
                             <Select size="large" defaultValue="0" onChange={this.onChange.bind(this, 'buyOrSell')}>
                                 <Option value="0">{UPEX.lang.template('全部')}</Option>
-                                <Option value="1">{UPEX.lang.template('买')}</Option>
-                                <Option value="2">{UPEX.lang.template('卖')}</Option>
+                                <Option value="1">{UPEX.lang.template('买入')}</Option>
+                                <Option value="2">{UPEX.lang.template('卖出')}</Option>
                             </Select>
                         </li>
                         {action === 'history' ? (

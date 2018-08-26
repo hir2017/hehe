@@ -95,7 +95,7 @@ class List extends Component {
         if (!this.props.authStore.isLogin) {
             $content = <div className="mini-tip">{UPEX.lang.template('登录后可查看委托历史订单')}</div>;
         } else if (!store.isFetching && store.orderList.length == 0) {
-            $content = <div className="mini-tip">{UPEX.lang.template('暂无委托历史订单')}</div>;
+            $content = <div className="mini-tip list-is-empty">{UPEX.lang.template('暂无委托历史订单')}</div>;
         } else {
             $content = (
                 <ul className="list">
@@ -184,6 +184,8 @@ class List extends Component {
                                     <dd className="tradeprice">{item.averagePrice}</dd>
                                     <dd className="price">{item.price}</dd>
                                     <dd className="num">{item.num}</dd>
+                                    <dd className="trade-num">{item.tradeNum}</dd>
+                                    <dd className="rate">{item.tradeRate}</dd>
                                     <dd className="status">{this.transVal(item.status)}</dd>
                                     <dd className="action pr10">
                                         <button type="button" onClick={this.triggerShowDetail.bind(this, index, item)}>
@@ -217,6 +219,8 @@ class List extends Component {
                                     <th className="tradeprice">{UPEX.lang.template('成交均价')}</th>
                                     <th className="price">{UPEX.lang.template('委托价格')}</th>
                                     <th className="num">{UPEX.lang.template('委托数量')}</th>
+                                    <th className="trade-num">{UPEX.lang.template('成交数量')}</th>
+                                    <th className="rate">{UPEX.lang.template('成交率')}</th>
                                     <th className="status">{UPEX.lang.template('状态')}</th>
                                     <th className="action pr10">{UPEX.lang.template('操作')}</th>
                                 </tr>

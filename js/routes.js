@@ -116,8 +116,6 @@ const routes = (
 		        	<Route path="open" component={OpenRecordList} />
 		        	<Route path="history" component={HistoryRecordList} />
 		        	<Route path="success" component={SuccessRecordList} />
-                    <Route path="order" component={RecordOrder}/>
-                    <Route path="order/:type" component={RecordOrder}/>
 		        </Route>
                 <Route path="record-order">
                     <IndexRoute component={RecordOrder}/>

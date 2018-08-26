@@ -1,6 +1,6 @@
 import React from 'react';
 import { observer, inject } from 'mobx-react';
-import Form from './form';
+import Form from './header-form';
 import List from '@/components/list';
 import { getUserOpenOrderList } from '@/api/http';
 import NumberUtil from '@/lib/util/number';
@@ -12,15 +12,17 @@ class View extends React.Component {
         super(props);
 
         this.lists = [
-            { title: UPEX.lang.template('时间'), dataIndex: 'orderTime' },
+            { title: UPEX.lang.template('时间'), className: 'time', dataIndex: 'orderTime' },
             {
                 title: `${UPEX.lang.template('币种')} / ${UPEX.lang.template('市场')}`,
+                className: 'name',
                 render: row => {
                     return `${row.currencyNameEn} / ${row.baseCurrencyNameEn}`;
                 }
             },
             {
                 title: UPEX.lang.template('买卖'),
+                className: 'buyorsell',
                 render: row => {
                     return row.buyOrSell == 1 ? (
                         <label className="greenrate">{UPEX.lang.template('买入')}</label>
@@ -31,15 +33,16 @@ class View extends React.Component {
             },
             {
                 title: UPEX.lang.template('数量(成交/委托)'),
+                className: 'num',
                 render: row => {
                     return `${row.tradeNum}/${row.num}`;
                 }
             },
-            { title: UPEX.lang.template('委托价'), dataIndex: 'price' },
-            { title: UPEX.lang.template('成交率'), dataIndex: 'tradeRate' },
-            { title: UPEX.lang.template('成交金额'), dataIndex: 'tradeAmount' },
-            { title: UPEX.lang.template('操作'), render: row => {
-                return '操作';
+            { title: UPEX.lang.template('委托价'), className: 'price', dataIndex: 'price' },
+            { title: UPEX.lang.template('成交率'), className: 'rate', dataIndex: 'tradeRate' },
+            { title: UPEX.lang.template('成交金额'), className: 'amount', dataIndex: 'tradeAmount' },
+            { title: UPEX.lang.template('操作'), className: 'action', render: row => {
+                return UPEX.lang.template('撤单');
             } }
         ];
 
@@ -117,6 +120,7 @@ class View extends React.Component {
         for (const key in this.params) {
             this.params[key] = data[key] === '' ? this.params[key] : data[key];
         }
+        this.getData();
     }
 
     render() {
