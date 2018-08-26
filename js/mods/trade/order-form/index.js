@@ -4,6 +4,7 @@ import { browserHistory, Link} from 'react-router';
 import { Slider, Tooltip , message , Modal } from 'antd';
 import PopupTradePwd from './tradepwd';
 import InputNumber from '../../input-number';
+import toAction from './action';
 
 @inject('tradeStore', 'authStore', 'userInfoStore')
 @observer
@@ -29,6 +30,8 @@ class TradeForm extends Component{
 			id: 'sj',
 			title: UPEX.lang.template('市价交易')
 		}]
+
+		this.action = toAction(this.props.tradeStore, this.props.authStore);
 	}
 
 	goRecharge=(type, e)=>{
@@ -105,29 +108,10 @@ class TradeForm extends Component{
 	}
 
 	onChange=(key, e)=>{
+		
 		let value = e.currentTarget.value.trim();
 
-
-		switch(key) {
-			case 'buyprice':
-				this.props.tradeStore.setDealBuyPrice(value);
-				break;
-			case 'buynum':
-				this.props.tradeStore.setDealBuyNum(value);
-				break;
-			case 'sellprice':
-				this.props.tradeStore.setDealSellPrice(value);
-				break;
-			case 'sellnum':
-				this.props.tradeStore.setDealSellNum(value);
-				break;
-			case 'sellpwd':
-				this.props.tradeStore.setTradeSellPassword(value);
-				break;
-			case 'buypwd':
-				this.props.tradeStore.setTradeBuyPassword(value);
-				break;
-		}
+		this.action.updateInput(key, value);
 	}
 	// 失去焦点的时候验证填入的价格
 	checkTradePrice=(type, e)=>{
@@ -159,12 +143,7 @@ class TradeForm extends Component{
 		let result = verifyInfoBeforeSubmit(type);
 
 		if (result.pass) {
-			createTradeOrder(type).done(()=>{
-	        	// 下单成功
-	        	message.success(UPEX.lang.template('下单成功'));
-	        }).fail((data)=>{
-	        	message.error(data.message);
-	        })
+			this.action.createTradeOrder(type);
 		} else {
 			if (result.action == 'pwdpop') {
 				this.refs.pwdpop.show((value)=>{
@@ -174,12 +153,7 @@ class TradeForm extends Component{
 						this.props.tradeStore.setTradeSellPassword(value);
 					}
 
-					createTradeOrder(type).done(()=>{
-			        	// 下单成功
-			        	message.success(UPEX.lang.template('下单成功'));
-			        }).fail((data)=>{
-			        	message.error(data.message);
-			        })
+					this.action.createTradeOrder(type);
 				});
 			} else {
 				message.error(result['message']);
@@ -188,7 +162,7 @@ class TradeForm extends Component{
 	}
 
 	handleClickTab(index){
-		this.props.tradeStore.setTradeType(index);
+		this.props.tradeStore.updateTradeType(index);
 	}
 
 	render() {
@@ -204,6 +178,8 @@ class TradeForm extends Component{
 			100: '100%'
 		}
 
+		let { baseCurrencyNameEn, currencyNameEn } = store.currentTradeCoin;
+
 		btnGuideToLogin = (
 			<div className="btn-box guide-btn">
 				<Link to='/login'>{ UPEX.lang.template('登录')}</Link>
@@ -212,6 +188,283 @@ class TradeForm extends Component{
 				<label>{ UPEX.lang.template('开始交易')}</label>
 			</div>
 		)
+
+		let xjcontent = (
+			<div className={ store.tradeType == 'xj' ? 'trade-form-mod' : 'trade-form-mod hidden'}>
+				<div className="trade-form-l">
+					<ul className="form-mod-hd">
+						<li className="name">{UPEX.lang.template('买入')} {currencyNameEn}</li>
+						<li className="count">
+							<label>{UPEX.lang.template('余额')}</label>
+							<em>{store.personalAccount.baseCoinBalanceText}</em>
+							<label>{baseCurrencyNameEn}</label>
+						</li>
+						<li className="icon" onClick={this.goRecharge.bind(this,'fiat')}></li>
+					</ul>
+					<ul className="form-mod-bd">
+						<li className="hidden">
+							<label>{UPEX.lang.template('最佳买价')}</label>
+							<em>{ store.bestBuyPrice } ({baseCurrencyNameEn}) </em>
+						</li>
+						<li className="item-input">
+							<label>{UPEX.lang.template('价格')}</label>
+							<div className="input-box">
+								<Tooltip placement="top" visible={store.tradePriceErr == '' ? false : true} title={store.tradePriceErr}>
+								<InputNumber
+									type="text"
+									value={store.dealBuyPrice }
+									precision={store.pointPrice}
+									onChange={this.onChange.bind(this, 'buyprice')}
+									onBlur={this.checkTradePrice.bind(this, 'buy')}
+								/>
+								</Tooltip>
+							</div>
+							<i>{ baseCurrencyNameEn}</i>
+						</li>
+						<li className="item-input">
+							<label>{UPEX.lang.template('数量')}</label>
+							<div className="input-box">
+								<InputNumber
+									type="text"
+									value={store.dealBuyNum}
+									precision={store.pointNum}
+									onChange={this.onChange.bind(this, 'buynum')}
+									onBlur={this.checkTradeNumber.bind(this, 'buy')}
+								/>
+							</div>
+							<i>{currencyNameEn}</i>
+						</li>
+						<li className="item-slider">
+							<div className="slider-box">
+								<Slider
+								 	tipFormatter={null}
+								 	marks={sliderMarks}
+								 	tipFormatter={(value)=>`${value}%`}
+		                            onChange={this.onChangeBuySlider}
+		                            value={store.buySliderValue}
+		                            disabled={authStore.isLogin ? false : true}
+		                        />
+	                        </div>
+						</li>
+						<li className="item-input disabled">
+							<label>{UPEX.lang.template('总金额')}</label>
+							<div className="input-box">
+								<input value={store.dealBuyTotalAmount} disabled/>
+							</div>
+							<i>{baseCurrencyNameEn}</i>
+						</li>
+						<li className="item-submit">
+							{
+								authStore.isLogin ? <button type="button" className="btn-box buy" onClick={this.submitOrder.bind(this, 'buy')}>{UPEX.lang.template('买入')}</button> : btnGuideToLogin
+							}
+						</li>
+					</ul>
+				</div>
+
+				<div className="trade-form-r">
+					<ul className="form-mod-hd">
+						<li className="name">{UPEX.lang.template('卖出')} {currencyNameEn}</li>
+						<li className="count">
+							<label>{UPEX.lang.template('余额')}</label>
+							<em>{ store.personalAccount.tradeCoinBalanceText }</em>
+							<label>{currencyNameEn}</label>
+						</li>
+						<li className="icon" onClick={this.goRecharge.bind(this, 'coin')}></li>
+					</ul>
+					<ul className="form-mod-bd">
+						<li className="hidden">
+							<label>{UPEX.lang.template('最佳卖价')}</label>
+							<em>{ store.bestSellPrice } ({baseCurrencyNameEn}) </em>
+						</li>
+						<li className="item-input">
+							<label>{UPEX.lang.template('价格')}</label>
+							<div className="input-box">
+								<InputNumber
+									type="text"
+									value={store.dealSellPrice}
+									precision={store.pointPrice}
+									onChange={this.onChange.bind(this, 'sellprice')}
+									onBlur={this.checkTradePrice.bind(this, 'sell')}
+								/>
+							</div>
+							<i>{ baseCurrencyNameEn }</i>
+						</li>
+						<li className="item-input">
+							<label>{UPEX.lang.template('数量')}</label>
+							<div className="input-box">
+								<InputNumber
+									type="text"
+									value={store.dealSellNum}
+									precision={store.pointNum}
+									onChange={this.onChange.bind(this, 'sellnum')}
+									onBlur={this.checkTradeNumber.bind(this, 'sell')}
+								/>
+							</div>
+							<i>{currencyNameEn}</i>
+						</li>
+						<li className="item-slider">
+							<div className="slider-box">
+								<Slider
+								 	defaultValue={0}
+								 	tipFormatter={null}
+								 	marks={sliderMarks}
+								 	tipFormatter={(value)=>`${value}%`}
+		                            onChange={this.onChangeSellSlider}
+		                            value={store.sellSliderValue}
+		                            disabled={authStore.isLogin ? false : true}
+		                        />
+	                        </div>
+						</li>
+						<li className="item-input disabled">
+							<label>{UPEX.lang.template('总金额')}</label>
+							<div className="input-box">
+								<input value={store.dealSellTotalAmount} disabled/>
+							</div>
+							<i>{baseCurrencyNameEn}</i>
+						</li>
+						<li className="item-submit">
+							{
+								authStore.isLogin ? <button type="button" className="btn-box sell" onClick={this.submitOrder.bind(this, 'sell')}>{UPEX.lang.template('卖出')}</button> : btnGuideToLogin
+							}
+						</li>
+					</ul>
+				</div>
+			</div>
+		);
+
+		let sjcontent = (
+			<div className={ store.tradeType == 'sj' ? 'trade-form-mod' : 'trade-form-mod hidden'}>
+				<div className="trade-form-l">
+					<ul className="form-mod-hd">
+						<li className="name">{UPEX.lang.template('买入')} {currencyNameEn}</li>
+						<li className="count">
+							<label>{UPEX.lang.template('余额')}</label>
+							<em>{ store.personalAccount.baseCoinBalanceText }</em>
+							<label>{ baseCurrencyNameEn}</label>
+						</li>
+						<li className="icon" onClick={this.goRecharge.bind(this,'fiat')}></li>
+					</ul>
+					<ul className="form-mod-bd">
+						<li className="hidden">
+							<label>{UPEX.lang.template('最佳买价')}</label>
+							<em>{ store.bestBuyPrice } ({baseCurrencyNameEn}) </em>
+						</li>
+						<li className="item-input disabled">
+							<label>{UPEX.lang.template('价格')}</label>
+							<div className="input-box">
+								<InputNumber
+									type="text"
+									disabled
+									value={store.currentTradeCoin.currentAmountText}
+									precision={store.pointPrice}
+									onChange={this.onChange.bind(this, 'buyprice')}
+									onBlur={this.checkTradePrice.bind(this, 'buy')}
+								/>
+							</div>
+							<i>{ baseCurrencyNameEn }</i>
+						</li>
+						<li className="item-input">
+							<label>{UPEX.lang.template('数量')}</label>
+							<div className="input-box">
+								<InputNumber
+									type="text"
+									value={store.dealBuyNum}
+									precision={store.pointNum}
+									onChange={this.onChange.bind(this, 'buynum')}
+									onBlur={this.checkTradeNumber.bind(this, 'buy')}
+								/>
+							</div>
+							<i>{currencyNameEn}</i>
+						</li>
+						<li className="item-slider">
+							<div className="slider-box">
+								<Slider
+								 	tipFormatter={null}
+								 	marks={sliderMarks}
+								 	tipFormatter={(value)=>`${value}%`}
+		                            onChange={this.onChangeBuySlider}
+		                            value={store.buySliderValue}
+		                            disabled={authStore.isLogin ? false : true}
+		                        />
+	                        </div>
+						</li>
+						<li className="item-input disabled">
+							<div className="total">{UPEX.lang.template('总金额')} &asymp; {store.dealBuyTotalAmount}{baseCurrencyNameEn}({UPEX.lang.template('仅供参考')})</div>
+						</li>
+						<li className="item-submit">
+							{
+								authStore.isLogin ? <button type="button" className="btn-box buy" onClick={this.submitOrder.bind(this, 'buy')}>{UPEX.lang.template('买入')}</button> : btnGuideToLogin
+							}
+						</li>
+					</ul>
+				</div>
+				<div className="trade-form-r">
+					<ul className="form-mod-hd">
+						<li className="name">{UPEX.lang.template('卖出')} {currencyNameEn}</li>
+						<li className="count">
+							<label>{UPEX.lang.template('余额')}</label>
+							<em>{ store.personalAccount.tradeCoinBalanceText }</em>
+							<label>{ currencyNameEn }</label>
+						</li>
+						<li className="icon" onClick={this.goRecharge.bind(this, 'coin')}></li>
+					</ul>
+					<ul className="form-mod-bd">
+						<li className="hidden">
+							<label>{UPEX.lang.template('最佳卖价')}</label>
+							<em>{ store.bestSellPrice } ({baseCurrencyNameEn}) </em>
+						</li>
+						<li className="item-input disabled">
+							<label>{UPEX.lang.template('价格')}</label>
+							<div className="input-box">
+								<InputNumber
+									type="text"
+									disabled
+									value={store.currentTradeCoin.currentAmountText}
+									precision={store.pointPrice}
+									onChange={this.onChange.bind(this, 'sellprice')}
+									onBlur={this.checkTradePrice.bind(this, 'sell')}
+								/>
+							</div>
+							<i>{ baseCurrencyNameEn }</i>
+						</li>
+						<li className="item-input">
+							<label>{UPEX.lang.template('数量')}</label>
+							<div className="input-box">
+								<InputNumber
+									type="text"
+									value={store.dealSellNum}
+									precision={store.pointNum}
+									onChange={this.onChange.bind(this, 'sellnum')}
+									onBlur={this.checkTradeNumber.bind(this, 'sell')}
+								/>
+							</div>
+							<i>{currencyNameEn}</i>
+						</li>
+						<li className="item-slider">
+							<div className="slider-box">
+								<Slider
+								 	defaultValue={0}
+								 	tipFormatter={null}
+								 	marks={sliderMarks}
+								 	tipFormatter={(value)=>`${value}%`}
+		                            onChange={this.onChangeSellSlider}
+		                            value={store.sellSliderValue}
+		                            disabled={authStore.isLogin ? false : true}
+		                        />
+	                        </div>
+						</li>
+						<li className="item-input disabled">
+							<div className="total">{UPEX.lang.template('总金额')} &asymp; {store.dealSellTotalAmount}{baseCurrencyNameEn}({UPEX.lang.template('仅供参考')})</div>
+						</li>
+						<li className="item-submit">
+							{
+								authStore.isLogin ? <button type="button" className="btn-box sell" onClick={this.submitOrder.bind(this, 'sell')}>{UPEX.lang.template('卖出')}</button> : btnGuideToLogin
+							}
+						</li>
+					</ul>
+				</div>
+			</div>
+		);
 
 		return (
 			<div className="trade-form">
@@ -229,280 +482,12 @@ class TradeForm extends Component{
 					</ul>
 				</div>
 				<div className="trade-form-bd clearfix">
-					<div className={ store.tradeType == 'xj' ? 'trade-form-mod' : 'trade-form-mod hidden'}>
-						<div className="trade-form-l">
-							<ul className="form-mod-hd">
-								<li className="name">{UPEX.lang.template('买入')} {store.currencyNameEn}</li>
-								<li className="count">
-									<label>{UPEX.lang.template('余额')}</label>
-									<em>{ store.baseCoinBalance.text }</em>
-									<label>{ store.baseCurrencyNameEn}</label>
-								</li>
-								<li className="icon" onClick={this.goRecharge.bind(this,'fiat')}></li>
-							</ul>
-							<ul className="form-mod-bd">
-								<li className="hidden">
-									<label>{UPEX.lang.template('最佳买价')}</label>
-									<em>{ store.bestBuyPrice } ({store.baseCurrencyNameEn}) </em>
-								</li>
-								<li className="item-input">
-									<label>{UPEX.lang.template('价格')}</label>
-									<div className="input-box">
-										<Tooltip placement="top" visible={store.tradePriceErr == '' ? false : true} title={store.tradePriceErr}>
-										<InputNumber
-											type="text"
-											value={store.dealBuyPrice }
-											precision={store.pointPrice}
-											onChange={this.onChange.bind(this, 'buyprice')}
-											onBlur={this.checkTradePrice.bind(this, 'buy')}
-										/>
-										</Tooltip>
-									</div>
-									<i>{ store.baseCurrencyNameEn }</i>
-								</li>
-								<li className="item-input">
-									<label>{UPEX.lang.template('数量')}</label>
-									<div className="input-box">
-										<InputNumber
-											type="text"
-											value={store.dealBuyNum}
-											precision={store.pointNum}
-											onChange={this.onChange.bind(this, 'buynum')}
-											onBlur={this.checkTradeNumber.bind(this, 'buy')}
-										/>
-									</div>
-									<i>{store.currencyNameEn}</i>
-								</li>
-								<li className="item-slider">
-									<div className="slider-box">
-										<Slider
-										 	tipFormatter={null}
-										 	marks={sliderMarks}
-										 	tipFormatter={(value)=>`${value}%`}
-				                            onChange={this.onChangeBuySlider}
-				                            value={store.buySliderValue}
-				                            
-				                        />
-			                        </div>
-								</li>
-								<li className="item-input disabled">
-									<label>{UPEX.lang.template('总金额')}</label>
-									<div className="input-box">
-										<input value={store.dealBuyTotalAmount} disabled/>
-									</div>
-									<i>{store.baseCurrencyNameEn}</i>
-								</li>
-								<li className="item-submit">
-									{
-										authStore.isLogin ? <button type="button" className="btn-box buy" onClick={this.submitOrder.bind(this, 'buy')}>{UPEX.lang.template('买入')}</button> : btnGuideToLogin
-									}
-								</li>
-							</ul>
-						</div>
-						<div className="trade-form-r">
-							<ul className="form-mod-hd">
-								<li className="name">{UPEX.lang.template('卖出')} {store.currencyNameEn}</li>
-								<li className="count">
-									<label>{UPEX.lang.template('余额')}</label>
-									<em>{ store.tradeCoinBalance.text }</em>
-									<label>{ store.currencyNameEn }</label>
-								</li>
-								<li className="icon" onClick={this.goRecharge.bind(this, 'coin')}></li>
-							</ul>
-							<ul className="form-mod-bd">
-								<li className="hidden">
-									<label>{UPEX.lang.template('最佳卖价')}</label>
-									<em>{ store.bestSellPrice } ({store.baseCurrencyNameEn}) </em>
-								</li>
-								<li className="item-input">
-									<label>{UPEX.lang.template('价格')}</label>
-									<div className="input-box">
-										<InputNumber
-											type="text"
-											value={store.dealSellPrice}
-											precision={store.pointPrice}
-											onChange={this.onChange.bind(this, 'sellprice')}
-											onBlur={this.checkTradePrice.bind(this, 'sell')}
-										/>
-									</div>
-									<i>{ store.baseCurrencyNameEn }</i>
-								</li>
-								<li className="item-input">
-									<label>{UPEX.lang.template('数量')}</label>
-									<div className="input-box">
-										<InputNumber
-											type="text"
-											value={store.dealSellNum}
-											precision={store.pointNum}
-											onChange={this.onChange.bind(this, 'sellnum')}
-											onBlur={this.checkTradeNumber.bind(this, 'sell')}
-										/>
-									</div>
-									<i>{store.currencyNameEn}</i>
-								</li>
-								<li className="item-slider">
-									<div className="slider-box">
-										<Slider
-										 	defaultValue={0}
-										 	tipFormatter={null}
-										 	marks={sliderMarks}
-										 	tipFormatter={(value)=>`${value}%`}
-				                            onChange={this.onChangeSellSlider}
-				                            value={store.sellSliderValue}
-				                            disabled={authStore.isLogin ? false : true}
-				                        />
-			                        </div>
-								</li>
-								<li className="item-input disabled">
-									<label>{UPEX.lang.template('总金额')}</label>
-									<div className="input-box">
-										<input value={store.dealSellTotalAmount}  disabled/>
-									</div>
-									<i>{store.baseCurrencyNameEn}</i>
-								</li>
-								<li className="item-submit">
-									{
-										authStore.isLogin ? <button type="button" className="btn-box sell" onClick={this.submitOrder.bind(this, 'sell')}>{UPEX.lang.template('卖出')}</button> : btnGuideToLogin
-									}
-								</li>
-							</ul>
-						</div>
-					</div>
-					<div className={ store.tradeType == 'sj' ? 'trade-form-mod' : 'trade-form-mod hidden'}>
-						<div className="trade-form-l">
-							<ul className="form-mod-hd">
-								<li className="name">{UPEX.lang.template('买入')} {store.currencyNameEn}</li>
-								<li className="count">
-									<label>{UPEX.lang.template('余额')}</label>
-									<em>{ store.baseCoinBalance.text }</em>
-									<label>{ store.baseCurrencyNameEn}</label>
-								</li>
-								<li className="icon" onClick={this.goRecharge.bind(this,'fiat')}></li>
-							</ul>
-							<ul className="form-mod-bd">
-								<li className="hidden">
-									<label>{UPEX.lang.template('最佳买价')}</label>
-									<em>{ store.bestBuyPrice } ({store.baseCurrencyNameEn}) </em>
-								</li>
-								<li className="item-input disabled">
-									<label>{UPEX.lang.template('价格')}</label>
-									<div className="input-box">
-										<InputNumber
-											type="text"
-											disabled
-											value={store.dealBuyPrice }
-											precision={store.pointPrice}
-											onChange={this.onChange.bind(this, 'buyprice')}
-											onBlur={this.checkTradePrice.bind(this, 'buy')}
-										/>
-									</div>
-									<i>{ store.baseCurrencyNameEn }</i>
-								</li>
-								<li className="item-input">
-									<label>{UPEX.lang.template('数量')}</label>
-									<div className="input-box">
-										<InputNumber
-											type="text"
-											value={store.dealBuyNum}
-											precision={store.pointNum}
-											onChange={this.onChange.bind(this, 'buynum')}
-											onBlur={this.checkTradeNumber.bind(this, 'buy')}
-										/>
-									</div>
-									<i>{store.currencyNameEn}</i>
-								</li>
-								<li className="item-slider">
-									<div className="slider-box">
-										<Slider
-										 	tipFormatter={null}
-										 	marks={sliderMarks}
-										 	tipFormatter={(value)=>`${value}%`}
-				                            onChange={this.onChangeBuySlider}
-				                            value={store.buySliderValue}
-				                            disabled={authStore.isLogin ? false : true}
-				                        />
-			                        </div>
-								</li>
-								<li className="item-input disabled">
-									<div className="total">{UPEX.lang.template('总金额')} &asymp; {store.dealBuyTotalAmount}{store.baseCurrencyNameEn}({UPEX.lang.template('仅供参考')})</div>
-								</li>
-								<li className="item-submit">
-									{
-										authStore.isLogin ? <button type="button" className="btn-box buy" onClick={this.submitOrder.bind(this, 'buy')}>{UPEX.lang.template('买入')}</button> : btnGuideToLogin
-									}
-								</li>
-							</ul>
-						</div>
-						<div className="trade-form-r">
-							<ul className="form-mod-hd">
-								<li className="name">{UPEX.lang.template('卖出')} {store.currencyNameEn}</li>
-								<li className="count">
-									<label>{UPEX.lang.template('余额')}</label>
-									<em>{ store.tradeCoinBalance.text }</em>
-									<label>{ store.currencyNameEn }</label>
-								</li>
-								<li className="icon" onClick={this.goRecharge.bind(this, 'coin')}></li>
-							</ul>
-							<ul className="form-mod-bd">
-								<li className="hidden">
-									<label>{UPEX.lang.template('最佳卖价')}</label>
-									<em>{ store.bestSellPrice } ({store.baseCurrencyNameEn}) </em>
-								</li>
-								<li className="item-input disabled">
-									<label>{UPEX.lang.template('价格')}</label>
-									<div className="input-box">
-										<InputNumber
-											type="text"
-											disabled
-											value={store.dealSellPrice}
-											precision={store.pointPrice}
-											onChange={this.onChange.bind(this, 'sellprice')}
-											onBlur={this.checkTradePrice.bind(this, 'sell')}
-										/>
-									</div>
-									<i>{ store.baseCurrencyNameEn }</i>
-								</li>
-								<li className="item-input">
-									<label>{UPEX.lang.template('数量')}</label>
-									<div className="input-box">
-										<InputNumber
-											type="text"
-											value={store.dealSellNum}
-											precision={store.pointNum}
-											onChange={this.onChange.bind(this, 'sellnum')}
-											onBlur={this.checkTradeNumber.bind(this, 'sell')}
-										/>
-									</div>
-									<i>{store.currencyNameEn}</i>
-								</li>
-								<li className="item-slider">
-									<div className="slider-box">
-										<Slider
-										 	defaultValue={0}
-										 	tipFormatter={null}
-										 	marks={sliderMarks}
-										 	tipFormatter={(value)=>`${value}%`}
-				                            onChange={this.onChangeSellSlider}
-				                            value={store.sellSliderValue}
-				                            disabled={authStore.isLogin ? false : true}
-				                        />
-			                        </div>
-								</li>
-								<li className="item-input disabled">
-									<div className="total">{UPEX.lang.template('总金额')} &asymp; {store.dealSellTotalAmount}{store.baseCurrencyNameEn}({UPEX.lang.template('仅供参考')})</div>
-								</li>
-								<li className="item-submit">
-									{
-										authStore.isLogin ? <button type="button" className="btn-box sell" onClick={this.submitOrder.bind(this, 'sell')}>{UPEX.lang.template('卖出')}</button> : btnGuideToLogin
-									}
-								</li>
-							</ul>
-						</div>
-					</div>
+					{xjcontent}
+					{sjcontent}
 				</div>
 				<PopupTradePwd ref="pwdpop" prefix={`antd-modal-${store.theme}`}/>
 			</div>
-		)
+		);
 	}
 }
 

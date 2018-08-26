@@ -18,10 +18,16 @@ class MyOrder extends Component {
 		}, {
 			title: UPEX.lang.template('已完成订单')
 		}]
+
+		this.state = {
+			tabIndex: 0
+		}
 	}
 
 	handleClickTab(index){
-		this.props.tradeStore.setTabIndex(index);
+		this.setState({
+			tabIndex: index
+		});
 	}
 
 	componentDidMount() {
@@ -42,6 +48,7 @@ class MyOrder extends Component {
 
 	render() {
 		let store = this.props.tradeStore;
+		let { tabIndex } = this.state;
 
 		return (
 			<div className="trade-order-wrapper">
@@ -49,7 +56,7 @@ class MyOrder extends Component {
 					<ul>
 						{
 							this.tabs.map((item, index)=>{
-								let cls = store.tabIndex == index ? 'selected' : '';
+								let cls = tabIndex == index ? 'selected' : '';
 								return (
 									<li key={index} className={cls} onClick={this.handleClickTab.bind(this, index)}>{item.title}</li>
 								)
@@ -66,7 +73,7 @@ class MyOrder extends Component {
 				</div>
 				<div className="trade-order-bd">
 					{
-						store.tabIndex == 0 ? <OpenOrder pagination={false}/> : <HistoryOrder pagination={false}/>
+						tabIndex == 0 ? <OpenOrder pagination={false}/> : <HistoryOrder pagination={false}/>
 					}
 				</div>				
 			</div>

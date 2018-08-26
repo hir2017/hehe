@@ -22,7 +22,7 @@ class Home extends Component {
     }
 
     componentDidMount() {
-        this.props.homeStore.getData();        
+        this.props.homeStore.getData();
     }
 
     render() {

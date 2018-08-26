@@ -14,7 +14,7 @@
 import React, {Component} from 'react';
 import { observer, inject } from 'mobx-react';
 import { Icon, Switch, Popover, Tooltip } from 'antd';
-import TradeCoinList from './coin-list';
+import TradeCoinList from './market';
 import UDFCompatibleDatafeed from './tv-jsapi';
 import DepthChart from './depth-chart';
 
@@ -139,6 +139,7 @@ class TVChartContainer extends Component {
 
     componentWillUnmount(){
         $.channel.off('switchTheme');
+        
         this.datafeed && this.datafeed.destroy();
         this.tvwidget = null;
         window.tvwidget = null;

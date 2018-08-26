@@ -12,7 +12,7 @@ class MarketCoinList extends Component {
 	}
 
     componentWillUnmount() {
-        this.props.homeStore.marketListStore.reset();
+        
     }
 
 	sortHandle=(field, e)=>{
@@ -71,7 +71,6 @@ class MarketCoinList extends Component {
     }
 
 	render(){
-		let homeStore = this.props.homeStore;
         let marketListStore = this.props.homeStore.marketListStore;
 		
 		return (

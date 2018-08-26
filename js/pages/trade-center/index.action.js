@@ -1,12 +1,14 @@
-import { getAllCurrencyRelations } from '../../api/http';
+import { getAllCurrencyRelations, getPersonalTradingPwd } from '../../api/http';
 import { socket } from '../../api/socket';
+import NumberUtil from '../../lib/util/number';
 
 export default (store, currencyStore) => {
     return {
         /**
          * ------------------- 订阅订单信息 {{ -------------------
          */
-        sendSubscribe(baseCurrencyId, tradeCurrencyId) {
+        sendSubscribe() {
+            let { baseCurrencyId, tradeCurrencyId } = store.tradePair;
             socket.off('subscribe');
             socket.emit('subscribe', {
                 baseCurrencyId,
@@ -16,10 +18,127 @@ export default (store, currencyStore) => {
                 // success console.log('subscribe', data)
             })
         },
+
+        bindOrderSocket(uid, token) {
+            this.bindRegister(uid, token);
+            this.bindUserOpenList();
+            this.bindUserSuccessList();
+        },
+        /**
+         * 注册
+         */
+        bindRegister(uid, token) {
+            let count = 0;
+
+            let register = () => {
+                socket.emit('register', {
+                    uid,
+                    token
+                });
+
+                socket.on('register', (data) => {
+
+                    if (!data || data !== 'succ') {
+                        count++;
+
+                        if (count < 3) {
+                            register();
+                        }
+                    }
+                })
+            }
+
+            register();
+        },
+
+        /**
+         * 委托订单事件，每一次状态变更都会收到通知
+         */
+        bindUserOpenList() {
+            let update = (item) => {
+                item = item || {};
+                store.openStore.updateItem(item);
+
+                store.updatePersonalAccount({
+                    baseCoinBalance: item.baseCurrencyNum,
+                    tradeCoinBalance: item.currencyNum
+                })
+            }
+
+            socket.on('userOrder', (data) => {
+                console.log('---userOrder--------', data);
+
+                if ($.isArray(data)) {
+                    for (var i = 0, length = data.length; i < length; i++) {
+                        update(data[i]);
+                    }
+                } else {
+                    update(data);
+                }
+            })
+        },
+
+        /**
+         *  成交订单事件，每一次状态变更都会收到通知
+         */
+        bindUserSuccessList() {
+            let update = (item) => {
+                item = item || {};
+                store.successStore.updateItem(item);
+                store.openStore.updateItem(item); // 删除委托中的该订单
+
+                store.updatePersonalAccount({
+                    baseCoinBalance: item.baseCurrencyNum,
+                    tradeCoinBalance: item.currencyNum
+                })
+            }
+
+            socket.on('userTrade', (data) => {
+                console.log('------userTrade--------', data);
+                if ($.isArray(data)) {
+                    for (var i = 0, length = data.length; i < length; i++) {
+                        update(data[i]);
+                    }
+                } else {
+                    update(data);
+                }
+            })
+        },
+
+        getPersonalTradingPwd() {
+            getPersonalTradingPwd().then(data => {
+                if (data.status == 200) {
+                    store.updateTradePasswordStatus(data.attachment.enabled); // 1: 启用 ; 2: 不启用
+                }
+            });
+        },
+        /**
+         * 查询个人币种余额
+         */
+        getUserAccount(uid, token) {
+            let { baseCurrencyId, tradeCurrencyId } = store.tradePair;
+
+            socket.off('userAccount');
+            socket.emit('userAccount', {
+                uid,
+                token,
+                tradeCurrencyId,
+                baseCurrencyId
+            });
+
+            socket.on('userAccount', data => {
+                data.baseCoinBalance = data.baseCoinBalance || 0;
+                data.tradeCoinBalance = data.tradeCoinBalance || 0;
+
+                store.updatePersonalAccount(data);
+            });
+        },
         /**
          * ------------------- 当前货币信息处理 {{ -------------------
          */
-        getCurrentCoin(baseCurrencyId, tradeCurrencyId) {
+        getCurrentCoin() {
+            let { baseCurrencyId, tradeCurrencyId } = store.tradePair;
+
             socket.off('quoteOne');
             socket.emit('quoteOne', {
                 baseCurrencyId,
@@ -32,6 +151,7 @@ export default (store, currencyStore) => {
 
                 if (data.length > 0 && data[0].tradeCoins.length > 0) {
                     ret = this.parseCoinItem(data[0].tradeCoins[0]);
+                    console.log(ret);
                     store.updateCurrentTradeCoin(ret);
                 }
             })
@@ -74,10 +194,13 @@ export default (store, currencyStore) => {
         /**
          * ------------------- 盘口处理 {{ -------------------
          */
+        fetchEntrustFirst: true,
         /**
          * 获取盘口【买入，卖出】
          */
-        getEntrust(baseCurrencyId, tradeCurrencyId) {
+        getEntrust() {
+            let { baseCurrencyId, tradeCurrencyId } = store.tradePair;
+
             socket.off('entrust');
             socket.emit('entrust', {
                 baseCurrencyId,
@@ -99,13 +222,32 @@ export default (store, currencyStore) => {
 
                 let asks = this.processData(data.sell, 'asks', false, pointNum, pointPrice);
                 let bids = this.processData(data.buy, 'bids', true, pointNum, pointPrice);
-                
+
                 store.updateAsks(asks);
                 store.updateBids(bids);
+
+                if (this.fetchEntrustFirst) {
+                    let bestBuyPrice =  this.parseBestPrice(data.buy, pointPrice);
+                    let bestSellPrice =  this.parseBestPrice(data.sell, pointPrice);
+
+                    store.setDealBuyPrice(bestBuyPrice);
+                    store.setDealSellPrice(bestSellPrice);
+                }
+
+                this.fetchEntrustFirst = false;                
+
             });
         },
 
-        parseEntrust(data, pointNum, pointPrice ) {
+        parseBestPrice(data, pointPrice) {
+            let price = data && data[0] ? data[0].current : 0; //行情中最新买入价格
+
+            price = price ? price : store.currentTradeCoin.currentAmount;
+
+            return NumberUtil.initNumber(price || 0, pointPrice);
+        },
+
+        parseEntrust(data, pointNum, pointPrice) {
             let buy = data.buy || [];
             let sell = data.sell || [];
             let entrustScale = data.entrustScale;
@@ -224,7 +366,9 @@ export default (store, currencyStore) => {
         /**
          * 交易历史, 最右侧实时行情图
          */
-        getTradeHistory(baseCurrencyId, tradeCurrencyId) {
+        getTradeHistory() {
+            let { baseCurrencyId, tradeCurrencyId } = store.tradePair;
+
             socket.off('tradeHistory');
             socket.emit('tradeHistory', {
                 baseCurrencyId,
@@ -281,6 +425,7 @@ export default (store, currencyStore) => {
             socket.off('subscribe');
             socket.off('tradeHistory');
             socket.off('quoteOne');
+            socket.off('userAccount');
         }
     }
 }

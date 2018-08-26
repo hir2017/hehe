@@ -5,7 +5,7 @@
  */
 import React, {Component} from 'react';
 import { observer, inject } from 'mobx-react';
-import { Icon } from 'antd';
+import { Icon, message } from 'antd';
 
 import ChartContainer from '../../mods/trade/chart/index';
 import TradeHistory from '../../mods/trade/trade-history';
@@ -23,18 +23,19 @@ class TradeCenter extends Component {
     }
 
     componentWillMount() {
-        let { currencyStore } = this.props;
+        let { currencyStore , commonStore } = this.props;
 
+        commonStore.getAllCoinPoint();
         currencyStore.getAllCurrencyRelations();
 
         $('#wrap').addClass('page-fullscreen');
     }
 
     render() {
-        let { tradeStore, currencyStore } = this.props;
+        let { tradeStore, currencyStore, commonStore } = this.props;
         
         // 用于切换交易币时内容切换
-        if (currencyStore.currencyDataReady) {
+        if (currencyStore.currencyDataReady && commonStore.productDataReady) {
             return <TradeContent {...this.props}/>;
         } else {
             return (
@@ -46,7 +47,7 @@ class TradeCenter extends Component {
     }
 }
 
-@inject('tradeStore', 'commonStore')
+@inject('tradeStore', 'commonStore', 'authStore')
 @observer
 class TradeContent extends Component {
     constructor(props){
@@ -61,7 +62,7 @@ class TradeContent extends Component {
     }
 
     componentWillMount() {
-        let { currencyStore } = this.props;
+        let { tradeStore, currencyStore , authStore } = this.props;
 
         let pair = this.props.params.pair;
 
@@ -73,51 +74,56 @@ class TradeContent extends Component {
         let { baseCurrencyId, tradeCurrencyId } = tradePair;
 
         if (!baseCurrencyId  || !tradeCurrencyId) {
+            UPEX.cache.removeCache('currentCoin');
             return;
         }
         
         // 当前币信息获取以及监听币种变更的消息通知
-        this.action.getCurrentCoin(baseCurrencyId, tradeCurrencyId);    
+        tradeStore.updateTradePair({
+            baseCurrencyId,
+            tradeCurrencyId
+        });
+        this.action.getCurrentCoin();    
         this.action.listenQuoteNotify();
-        this.action.sendSubscribe(baseCurrencyId, tradeCurrencyId);
+        this.action.sendSubscribe();
 
+        // 获取买卖盘口数据
+        this.action.getEntrust();
+        // 获取实时交易历史数据
+        this.action.getTradeHistory();
 
-        this.action.getEntrust(baseCurrencyId, tradeCurrencyId);
-        this.action.getTradeHistory(baseCurrencyId, tradeCurrencyId);
+        // 若用户已登录，还需获取用户相关信息
+        if (authStore.isLogin) {
+            let uid = authStore.uid;
+            let token = authStore.token;
+
+            this.action.getUserAccount(uid, token);
+            this.action.bindOrderSocket(uid, token);
+            this.action.getPersonalTradingPwd();
+        }
 
         this.setState({
             data: tradePair
         });
 
-        // if (pair) {
-        //     let pairArr = pair.split('_');
-        //     let a = pairArr[0].toUpperCase();
-        //     let b = pairArr[1].toUpperCase();
-        //     let baseCurrencyId = commonStore.getTradeCoinByName(a).currencyId;
-        //     let currencyId = commonStore.getTradeCoinByName(b).currencyId;
+        // 缓存上次浏览器的交易币对
+        UPEX.cache.setCache('currentCoin', {
+            baseCurrencyNameEn: tradePair.baseCurrencyNameEn,
+            currencyNameEn: tradePair.tradeCurrencyNameEn
+        })
 
-        //     if (!baseCurrencyId || !currencyId) {
-        //         return;
-        //     }
-        //     // 缓存上次浏览器的交易币对
-        //     UPEX.cache.setCache('currentCoin', {
-        //         baseCurrencyNameEn: a,
-        //         currencyNameEn: b
-        //     })
-
-        //     tradeStore.updateCurrency({
-        //         baseCurrencyNameEn: a,
-        //         currencyNameEn: b,
-        //         baseCurrencyId,
-        //         currencyId
-        //     });
-
-        
-        //     tradeStore.getUserAccount();
-        //     tradeStore.getPersonalTradingPwd();
         //     tradeStore.getPersonalInfo();
-        //     tradeStore.bindOrderSocket();
         
+    }
+
+    componentDidMount(){
+        let { authStore } = this.props;
+        let uid = authStore.uid;
+        let token = authStore.token;
+
+        $.channel.on('updateUserAccount', ()=>{
+            this.action.getUserAccount(uid, token);
+        })
     }
 
     componentWillUnmount() {
@@ -150,7 +156,7 @@ class TradeContent extends Component {
 
                     <div className="trade-extra-handle grid-box">
                         { 
-                            // data ? <OrderForm data={data}/> : null 
+                            data ? <OrderForm data={data}/> : null 
                         }
                     </div>
                 </div>

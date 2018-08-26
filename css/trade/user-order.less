@@ -3,6 +3,16 @@
  */
 
 .app-trade {
+    .trade-main-order{
+        display: flex;
+        flex-direction: column;
+    }
+    .trade-order-wrapper{
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+    }
     .trade-order-hd {
         position: relative;
         height: 40px;
@@ -78,6 +88,7 @@
     }
 
     .trade-order-bd {
+        flex: 1;
         .mini-loading {
             background-color: transparent !important;
         }

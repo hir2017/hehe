@@ -11,8 +11,7 @@ class HomeStore {
         this.marketListStore = new MarketListStore(stores);
     }
 
-    @action
-    getData() {
+    @action getData() {
         this.marketListStore.getData();
     }
 }

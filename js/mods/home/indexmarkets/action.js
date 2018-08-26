@@ -25,44 +25,32 @@ export default (store, authStore) => {
         },
 
         getMarketListInfo() {
-        	socket.off('list');
-        socket.emit('list');
-        socket.on('list', (data) => {
-            runInAction('quote list', () => {
-                this.dataReady = true;
-                
-                let marketMap = {};
-                let marketList = [];
+            socket.off('list');
+            socket.emit('list');
+            socket.on('list', (data) => {
+                runInAction('quote list', () => {
+                    this.dataReady = true;
 
-                data.forEach((market, index)=>{
-                    marketList[marketList.length] = market.info.currencyNameEn;
-                    market.tradeCoins[0].currentAmount = + new Date() % 9;
-                    marketMap[market.info.currencyNameEn] = market.tradeCoins;
+                    let marketMap = {};
+                    let marketList = [];
+
+                    data.forEach((market, index) => {
+                        marketList[marketList.length] = market.info.currencyNameEn;
+                        market.tradeCoins[0].currentAmount = +new Date() % 9;
+                        marketMap[market.info.currencyNameEn] = market.tradeCoins;
+                    })
+
+                    if (this.isFirst) {
+                        // 默认选中的是第一个基础币
+                        this.marketList = marketList;
+                        this.selectedMarketCode = data[0].info.currencyNameEn;
+                    }
+
+                    this.isFirst = false;
+
+                    this.marketMap = marketMap;
                 })
-
-                if (this.isFirst) {
-                    // 默认选中的是第一个基础币
-                    this.marketList = marketList;
-                    this.selectedMarketCode = data[0].info.currencyNameEn;
-                }
-
-                this.isFirst = false;  
-
-                this.marketMap = marketMap;
             })
-        })
-        },
-
-        quoteNotify() {
-
-        },
-
-        getCollectCoinsList() {
-
-        },
-
-        getCollectDataFromLocal() {
-
         }
     }
 })
