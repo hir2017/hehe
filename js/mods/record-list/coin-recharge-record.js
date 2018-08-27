@@ -60,12 +60,12 @@ class List extends Component {
 
 							switch(item.confirms){
 								case 'success':
-									status =  UPEX.lang.template('已完成');
+									status =  <span className="all-success"><Icon type="check-circle-o" />{UPEX.lang.template('已完成')}</span>;
 									visible = true;
 									break;
 								default:
 									// 数字：网络确认数
-									status = `${item.confirms}/${item.finalConfirms}`;
+									status = `(${item.confirms}/${item.finalConfirms})`;
 							}
 
 							return (
