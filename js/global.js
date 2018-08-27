@@ -84,7 +84,7 @@ config.defaultLanguage = (function() {
         if (config.languages.indexOf(systemLanguage) > -1) {
             lang = systemLanguage;
         } else {
-            lang = 'en-US';
+            lang = config.initLanguage;
         }
     }
 

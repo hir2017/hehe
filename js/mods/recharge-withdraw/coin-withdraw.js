@@ -19,6 +19,9 @@ class WithdrawCoin extends Component {
         let { coinWithdrawStore, accountStore } = this.props;
 
         this.action = toAction(coinWithdrawStore, accountStore);
+        this.state = {
+            msgCode: ''
+        }
     }
 
     componentDidMount() {
@@ -82,9 +85,29 @@ class WithdrawCoin extends Component {
         });
     };
 
+    selectAddress(resp, value) {
+        action.selectChangeAddress(value);
+        let item = resp.addressList.filter((item) => {
+            return item.address === value;
+        })
+        this.setState({
+            msgCode: item[0].msgCode
+        })
+    }
+
+    onSubmit() {
+        let msgCode = '';
+        const { resp } = this.props.coinWithdrawStore.takeCoinInfo;
+        if(resp.needMsgCode === 1) {
+            msgCode = this.state.msgCode;
+        }
+        this.action.handleSubmit(msgCode)
+    }
+
     render() {
         let { accountStore, userInfoStore } = this.props;
         let store = this.props.coinWithdrawStore;
+        const { detail, resp } = store.takeCoinInfo;
         let action = this.action;
         let $options = [];
         let $addressOptions = [];
@@ -138,7 +161,7 @@ class WithdrawCoin extends Component {
                                         key={store.currentCoin.currencyNameEn}
                                         value={store.defaultAddress.address || UPEX.lang.template('请在下方输入本次提币地址')}
                                         notFoundContent={UPEX.lang.template('无')}
-                                        onChange={action.selectChangeAddress}
+                                        onChange={this.selectAddress.bind(this, resp)}
                                     >
                                         {$addressOptions}
                                     </Select>
@@ -205,6 +228,26 @@ class WithdrawCoin extends Component {
                             </span>
                         </div>
                     </div>
+                    {resp.needMsgCode === 1 ? (
+                        <div className="rw-form-item">
+                            <label className="rw-form-label">{UPEX.lang.template('标签')}</label>
+                            <div className="rw-form-info">
+                                <div className="input-box">
+                                    <input
+                                        type="text"
+                                        autoComplete="off"
+                                        value={this.state.msgCode}
+                                        placeholder={UPEX.lang.template('请输入标签信息')}
+                                        onChange={(e) => {
+                                            this.setState({
+                                                msgCode: e.target.value.trim()
+                                            })
+                                        }}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    ) : null}
                     <AutoCompleteHack />
                     <div className="rw-form-item sp-v-code">
                         <label className="rw-form-label">{UPEX.lang.template('图片验证码')}</label>
@@ -287,7 +330,8 @@ class WithdrawCoin extends Component {
                                         className={`rw-sp-vcode-btn ${store.sendingcode ? 'disabled' : ''}`}
                                     >
                                         <div className={store.sendingcode ? 'code-sending' : 'code-sending hidden'}>
-                                            {UPEX.lang.template('重发')}（<span data-second="second" ref="second" />s）
+                                            {UPEX.lang.template('重发')}（<span data-second="second" ref="second" />
+                                            s）
                                         </div>
                                         <div className={store.sendingcode ? 'code-txt hidden' : 'code-txt'}>{UPEX.lang.template('获取验证码')}</div>
                                     </button>
@@ -316,7 +360,7 @@ class WithdrawCoin extends Component {
 
                     <div className="rw-form-item">
                         <div className="rw-form-info">
-                            <button type="button" className="submit-btn" onClick={action.handleSubmit}>
+                            <button type="button" className="submit-btn" onClick={this.onSubmit.bind(this)}>
                                 {UPEX.lang.template('确认提币')}
                             </button>
                         </div>

@@ -30,10 +30,6 @@ export default (store) => {
         	store.setNote(note);
         },
 
-        getImgCaptcha() {
-        	store.getImgCaptcha();
-        },
-
         changeAuthTypeTo(type){
             if (type == 'google') {
                 store.setPhoneCode('');
@@ -114,20 +110,17 @@ export default (store) => {
                         // 图片验证码错误
                         message.error(data.message);
                         store.changeImgCodeTo(false);
-                        store.getImgCaptcha();
                         break;
                     case 414: // 邮箱已经绑定
                     default:
                         // 其他错误
                         message.error(data.message);
-                        store.getImgCaptcha();
                 }
             });
         },
 
-        handleSubmit(msgCode) {
+        handleSubmit(params) {
         	const { verifyBeforeSubmit } = store;
-
             if (store.$submiting) {
                 return;
             }
@@ -136,23 +129,18 @@ export default (store) => {
 
             if (result.pass) {
                 store.changeSubmitingStatusTo(true);
-                let params = {
+
+                takeCoin({
 		            currencyId: store.currentCoin.currencyId,
 		            fdPwd: store.md5TradePassword,
 		            note: store.note,
 		            address: store.address,
-		            // emailCode: store.emailCode,
-		            phoneCode: store.phoneCode,
-		            vercode: store.vercode,
-		            codeid: store.captchaStore.codeid,
+		            phoneCode: params.smsCode,
+		            vercode: '1',
+		            codeid: '1',
 		            amount: store.amount,
-		            gAuth: store.googleCode,
-                };
-                if(msgCode) {
-                    params.msgCode = msgCode;
-                }
-
-                takeCoin(params).then((data) => {
+		            gAuth: params.gaCode,
+		        }).then((data) => {
                     store.changeSubmitingStatusTo(false);
                     switch (data.status) {
                         case 200:
@@ -161,7 +149,6 @@ export default (store) => {
                             break;
                         default:
                             message.error(data.message);
-                            store.getImgCaptcha();
                     }
 		        }).catch(()=>{
                     store.changeSubmitingStatusTo(false);

@@ -23,6 +23,7 @@ import LanguageSwitchView from './language';
 import ThemeSwitchView from './theme';
 import { browserHistory } from 'react-router';
 
+const logoIMG = require('../../../images/infinitex-logo.png');
 
 @inject('authStore','commonStore','userInfoStore')
 @observer
@@ -36,6 +37,7 @@ class HeaderView extends Component {
 	logout=(e)=>{
 		this.props.authStore.logout().then((data)=>{
 			if (data.status == 200) {
+				// message.success(UPEX.lang.template('退出成功'));
 				browserHistory.push('/home');
 			}
 		});
@@ -72,7 +74,7 @@ class HeaderView extends Component {
 				<div className="header-box clearfix">
 					<h1 className="logo">
 						<Link to="/">
-							<img src={UPEX.config.logourl}/>
+							<img src={logoIMG}/>
 						</Link>
 					</h1>
 					<div className="header-box-l">
@@ -82,6 +84,9 @@ class HeaderView extends Component {
 							</li>
 							<li className="news">
 								<Link to="/news">{ UPEX.lang.template('公告中心')}</Link>
+							</li>
+							<li className="download hidden">
+								<Link to="/download">{ UPEX.lang.template('客户端下载')}</Link>
 							</li>
 						</ul>
 					</div>
@@ -114,7 +119,7 @@ class HeaderView extends Component {
 						<ul className="help-language">
 							<li className="split">|</li>
 							<li className="help">
-                                <a target="_blank" href={UPEX.lang.template("帮助中心网站链接")}>{ UPEX.lang.template('帮助中心')}</a>
+                                <a  target="_blank" href={UPEX.lang.template("帮助中心网站链接")}>{ UPEX.lang.template('帮助中心')}</a>
 							</li>
 							<li className="split">|</li>
 							<li ref="lang">

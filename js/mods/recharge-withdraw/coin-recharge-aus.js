@@ -4,13 +4,13 @@
  */
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
-import { Select, message, Alert, Input, Popover, Icon, Modal, Button } from 'antd';
+import { Select, message, Alert, Input, Popover, Icon } from 'antd';
 const Option = Select.Option;
 import { browserHistory } from 'react-router';
 import Clipboard from 'clipboard';
 
 import { selectUserAddress } from '@/api/http';
-import { initStateAndChange, initCoinList } from './coin-actions';
+import { initStateAndChange, initCoinList } from './coin-actions-aus';
 import FormView from '@/mods/common/form';
 import FormItem from '@/mods/common/form/item';
 
@@ -19,34 +19,23 @@ import FormItem from '@/mods/common/form/item';
 class CoinRecharge extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            msgCode: '',
-            visible: false
-        };
+        this.state = {};
         initStateAndChange(this);
     }
 
     componentDidMount() {
         initCoinList(this);
 
-        this.bindCopyEvent('address');
-        this.bindCopyEvent('msgcode');
+        this.bindCopyEvent();
         this.bindEvent();
     }
 
     fetchCoinAddress(currencyId) {
-
         selectUserAddress(currencyId)
             .then(res => {
-                let data = res.attachment ? res.attachment : {};
-                let _state = {
-                    addressInfo: data,
-                    msgCode: data.msgCode || ''
-                }
-                if(['none', ''].indexOf(_state.msgCode) === -1) {
-                    _state.visible = true;
-                }
-                this.setState(_state);
+                this.setState({
+                    addressInfo: res.attachment ? res.attachment : {}
+                });
             })
             .catch(err => {
                 console.error('fetchCoinList getCoinAccount', err);
@@ -56,12 +45,12 @@ class CoinRecharge extends Component {
     /**
      * 复制地址
      */
-    bindCopyEvent(name) {
+    bindCopyEvent() {
         let self = this;
 
-        const clip = (this.clip = new Clipboard(`#copy-${name}`, {
+        const clip = (this.clip = new Clipboard('#copy-address', {
             text() {
-                let node = $(self.refs[name]);
+                let node = $(self.refs.address);
 
                 return node.val();
             }
@@ -85,26 +74,11 @@ class CoinRecharge extends Component {
     }
 
     render() {
-        const {state} = this;
         const { coins, currencyId, addressInfo, currencyNameEn } = this.state;
         let store = this.props.accountStore;
 
         return (
             <div>
-                <Modal
-                    closable={false}
-                    visible={this.state.visible}
-                    footer={null}
-                    wrapClassName="recharge-eos-dialog-warn"
-                    >
-                    <p className="warn-text">
-                        {UPEX.lang.template('充值 {name} 到 ACE 同时需要一个充值地址和 {name} 标签!', {name: currencyNameEn})}
-                    </p>
-                    <p className="warn-text">
-                        {UPEX.lang.template('警告：如果未遵守正确的 {name} 充值步骤，币会丢失!', {name: currencyNameEn})}
-                    </p>
-                    <Button onClick={e => {this.setState({visible: false})}}>{UPEX.lang.template('我了解风险，继续')}</Button>
-                </Modal>
                 <Alert className="ace-form-tips" type="warning" showIcon message={UPEX.lang.template('充币提醒信息内容')} />
                 <FormView>
                     <FormItem label={UPEX.lang.template('选择币种')}>
@@ -119,7 +93,7 @@ class CoinRecharge extends Component {
                     <FormItem label={UPEX.lang.template('{name}充值地址', { name: currencyNameEn })}>
                         <input
                             type="text"
-                            className="ant-input exc-input address"
+                            className="ant-input exchange-input address"
                             value={addressInfo.address}
                             ref="address"
                             data-address={addressInfo}
@@ -127,9 +101,9 @@ class CoinRecharge extends Component {
                         />
 
                         <div className="input-right-tag" id="copy-address">
-                            {UPEX.lang.template('复制')}
+                            {UPEX.lang.template('Copy')}
                         </div>
-                        {/* <p className="fee">{UPEX.lang.template('网络手续费: {fee}', { fee: addressInfo.fee || '--' })}</p> */}
+                        <p className="fee">{UPEX.lang.template('网络手续费: {fee}', { fee: addressInfo.fee || '--' })}</p>
                         <Popover
                             placement="right"
                             content={
@@ -141,29 +115,6 @@ class CoinRecharge extends Component {
                             <Icon type="qrcode" />
                         </Popover>
                     </FormItem>
-                    {state.msgCode === '' || state.msgCode === 'none' ? null : (
-                        <FormItem label={UPEX.lang.template('标签')}>
-                            <input
-                                type="text"
-                                className="ant-input exc-input address"
-                                value={addressInfo.msgCode}
-                                ref="msgcode"
-                                data-address={addressInfo}
-                                readOnly
-                            />
-
-                            <div className="input-right-tag" id="copy-msgcode">
-                                {UPEX.lang.template('复制')}
-                            </div>
-                            <Alert message={(
-                                <span className="warn-text">
-                                    <Icon type="exclamation-circle" />
-                                    {UPEX.lang.template('警告！充值 {name} 到ACE同时需要一个充值地址和 {name} 标签。如果未遵守正确的 {name} 充值步骤，币会丢失', {name: currencyNameEn})}
-                                </span>
-                            )} type="error"/>
-                        </FormItem>
-                    )}
-
                     <FormItem>
                         <div className="bottom-tips">
                             <div className="warmprompt-title">{UPEX.lang.template('温馨提示')}</div>
