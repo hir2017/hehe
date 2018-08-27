@@ -3,7 +3,7 @@ import { Route, IndexRedirect, IndexRoute } from 'react-router';
 
 import Layout from './pages/layout';
 
-import News from './pages/others/news-aus';
+import News from './pages/others/news';
 import NewsList from './mods/news/list';
 import NewsDetail from './mods/news/detail';
 import NotFound from './pages/others/404';

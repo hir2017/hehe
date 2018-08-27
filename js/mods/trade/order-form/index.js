@@ -38,16 +38,27 @@ class TradeForm extends Component{
 		let userInfoStore = this.props.userInfoStore;
 
 		if (type == 'fiat') {
-			// 点击充值，弹窗提示绑定银行卡后可以进行充值
-			switch(userInfoStore.userInfo.authLevel) {
-				case 0:
-					this.showDialogGuideAuth();
-					break;
-				case 1:
-					this.showDialogGuideBindCard();
-					break;
-				default:
-					browserHistory.push('/account/balance/recharge');
+			if (UPEX.config.version == 'infinitex') {
+				// 澳洲版，leve=1即可进行下单
+				switch(userInfoStore.userInfo.authLevel) {
+					case 0:
+						this.showDialogGuideAuth();
+						break;
+					default:
+						browserHistory.push('/account/balance/recharge');
+				}
+			} else {
+				// 点击充值，弹窗提示绑定银行卡后可以进行充值
+				switch(userInfoStore.userInfo.authLevel) {
+					case 0:
+						this.showDialogGuideAuth();
+						break;
+					case 1:
+						this.showDialogGuideBindCard();
+						break;
+					default:
+						browserHistory.push('/account/balance/recharge');
+				}
 			}
 		} else {
 			browserHistory.push(`/account/coin/recharge/${this.props.tradeStore.currencyNameEn}`);

@@ -98,9 +98,6 @@
         top: 5px;
         background-color: @bg-pop-color;
     }
-    div {
-        display: block;
-    }
     .ant-popover-inner-content {
         padding: 0;
         border-radius: 6px;
@@ -120,18 +117,21 @@
         padding: 0 20px;
         font-size: 14px;
         .title {
+            float: left;
             width: 70px;
             color: #fff;
         }
         .tabs {
-            height: 40px;
+            float: left;
+            height: 50px;
+            line-height: 50px;
             font-size: 14px;
             overflow: hidden;
             li {
                 position: relative;
                 float: left;
-                height: 39px;
-                line-height: 39px;
+                height: 49px;
+                line-height: 49px;
                 margin-right: 10px;
                 cursor: pointer;
                 margin-right: 20px;
@@ -155,10 +155,9 @@
                 }
             }
         }
-        .search {            
+        .search {  
+            float: left;          
             width: 235px;
-            display: inline-block;
-            vertical-align: middle;
             margin-right: 30px;
             .ant-input{
                 height: 30px;

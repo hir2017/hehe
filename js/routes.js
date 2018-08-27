@@ -13,12 +13,10 @@ import Login from './pages/login-register/login';
 import Register from './pages/login-register/register';
 import ResetPwd from './pages/login-register/resetpwd';
 
-// import Home from './pages/home';
 // 授权登陆容器HOC
 import Auth from './mods/authhoc/index';
 
 // 我的资产
-// import Assets from './pages/account/index';
 // 充值＋充币＋提现＋提币
 import FiatRecharge from './pages/recharge-withdraw/fiat-recharge';
 import CoinRecharge from './pages/recharge-withdraw/coin-recharge';

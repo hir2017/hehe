@@ -11,8 +11,8 @@ const getNavList = () => {
                 path: UPEX.lang.template('关于我们网页链接')
             },
             {
-                name: UPEX.lang.template('关于ACE'),
-                path: UPEX.lang.template('关于ACE网页链接')
+                name: UPEX.lang.template('关于网站'),
+                path: UPEX.lang.template('关于网站网页链接')
             },
             {
                 name: UPEX.lang.template('团队介绍'),

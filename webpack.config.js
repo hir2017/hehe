@@ -38,11 +38,10 @@ var cssLoader = {
     test: /\.(css|less)$/,
     use: [
         'style-loader',
-        'css-loader',
+        'css-loader?minimize=true',
         'postcss-loader',
         'less-loader'
     ],
-};
 
 // 为product环境打包时
 if (env == 'product') {

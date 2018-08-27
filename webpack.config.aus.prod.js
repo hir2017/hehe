@@ -29,7 +29,7 @@ const extractCSS = new ExtractTextPlugin({
 var cssLoader = {
     test: /\.(css|less)$/,
     loader: ExtractTextPlugin.extract([
-        'css-loader',
+        'css-loader?minimize=true',
         'postcss-loader',
         'less-loader'
     ])
