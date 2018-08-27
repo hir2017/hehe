@@ -79,7 +79,7 @@ class CoinWithdrawStore {
         this.isFetching = true;
 
         // 提币详细信息
-        getTakeCoinInfo(currencyId)
+        let result = getTakeCoinInfo(currencyId)
             .then((data) => {
                 runInAction(() => {
                     if (data.status == 200) {
@@ -116,6 +116,7 @@ class CoinWithdrawStore {
                 }
             })
         })
+        return result;
     }
     /**
      * 实际到账金额
