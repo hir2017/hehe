@@ -26,6 +26,7 @@ class WithdrawCoin extends Component {
             dayLimit: 0,
             smsCode: '',
             gaCode: '',
+            msgCode: ''
         };
         this.inputData = {
             smsCode: {
@@ -41,6 +42,13 @@ class WithdrawCoin extends Component {
                 target: '',
                 inputProps: {
                     onChange: this.setVal.bind(this, 'gaCode')
+                }
+            },
+            msgCode: {
+                label: UPEX.lang.template('标签'),
+                target: '',
+                inputProps: {
+                    onChange: this.setVal.bind(this, 'msgCode')
                 }
             }
         };
@@ -117,24 +125,38 @@ class WithdrawCoin extends Component {
         this.action.initWithdrawCoin({
             currencyId: value.key,
             currencyNameEn: value.label
+        }).then(res => {
+            const {resp} = this.props.coinWithdrawStore.takeCoinInfo;
+            let item = resp.addressList.filter((item) => {
+                return item.currencyId === value.key;
+            })
+            if(item.length > 0) {
+                this.setState({
+                    msgCode: item[0].msgCode
+                })
+            }
+
         });
+
     };
 
     addressChange(address) {
         this.props.coinWithdrawStore.setAddress(address);
     }
 
+
+
     submit() {
         const { state, props } = this;
-        if(props.coinWithdrawStore.address === '') {
+        if (props.coinWithdrawStore.address === '') {
             message.error(UPEX.lang.template('请填写提币地址'));
             return;
         }
-        if(props.coinWithdrawStore.amount === '') {
+        if (props.coinWithdrawStore.amount === '') {
             message.error(UPEX.lang.template('请填写提币数量'));
             return;
         }
-        if(props.coinWithdrawStore.tradepwd === '') {
+        if (props.coinWithdrawStore.tradepwd === '') {
             message.error(UPEX.lang.template('请填写资金密码'));
             return;
         }
@@ -149,14 +171,19 @@ class WithdrawCoin extends Component {
                 return;
             }
         }
-
-        this.action.handleSubmit(state);
+        let msgCode = '';
+        const info = this.props.coinWithdrawStore.takeCoinInfo;
+        if(info.resp.needMsgCode === 1) {
+            msgCode = this.state.msgCode;
+        }
+        this.action.handleSubmit(state, msgCode);
     }
 
     render() {
         const { state, props, inputData, action, $sendBtn } = this;
         let { accountStore, userInfoStore, coinWithdrawStore } = props;
         let store = coinWithdrawStore;
+        const { resp } = store.takeCoinInfo;
         let $options = [];
 
         $options = accountStore.coinList.map((item, index) => {
@@ -245,6 +272,7 @@ class WithdrawCoin extends Component {
                         </div>
                     </FormItem>
                     <AutoCompleteHack />
+                    {resp.needMsgCode === 1 ? <FormItem value={state.msgCode} {...inputData.msgCode} /> : null}
                     {userInfoStore.userInfo.isGoogleAuth ? <FormItem {...inputData.gaCode} /> : <FormItem {...inputData.smsCode} after={$sendBtn} />}
                     <FormItem label={UPEX.lang.template('资金密码')}>
                         <div className={`input-box ${store.validTradePwd ? '' : 'wrong'}`}>
