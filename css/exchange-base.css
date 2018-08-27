@@ -1,0 +1,178 @@
+.header-box .logo {
+    width: 150px;
+}
+.header-box .logo a, .header-box .logo img {
+    width: auto;
+}
+
+/* form */
+
+.exchange-form-item {
+    margin-bottom: 27px;
+    position: relative;
+}
+
+.exchange-form-item .inner-label,
+.exchange-form-item .inner-item {
+    display: block;
+    width: 100%;
+}
+
+.exchange-form-item .inner-label {
+    font-size: 14px;
+    color: #999999;
+    padding-bottom: 2px;
+}
+.exchange-form-item .inner-error {
+    color: #ff6666;
+}
+.exchange-form-item .ant-input,
+.exchange-form-item .ant-calendar-picker,
+.exchange-form-item .ant-select,
+.exchange-form-item .ant-select-selection,
+.exchange-form-item .ant-btn.submit-btn {
+    width: 100%;
+    box-sizing: border-box;
+    height: 40px;
+}
+.exchange-form-item a.ant-btn {
+    line-height: 40px;
+}
+
+.exchange-form-item .input-right-tag {
+    position: absolute;
+    font-size: 14px;
+    color: #999999;
+    z-index: 10;
+    right: 15px;
+    top: 33px;
+}
+.exchange-form-item.img-code .captcha-img, .exchange-form-item.sms-code .ant-btn{
+    position: absolute !important;
+    height: 40px;
+    min-width: 110px;
+    box-sizing: border-box;
+    padding: 5px;
+    right: 0;
+    top: 23px;
+}
+
+.exchange-form-item.sms-code .ant-btn {
+    border-top-left-radius: 0;
+    /* width: auto; */
+    border-bottom-left-radius: 0;
+}
+
+.ace-form-tips.ant-alert{
+    margin: 0 20px 30px;
+    height: 30px;
+    padding: 0;
+    line-height: 30px;
+    background-color: #fcf4d9;
+    text-align: center;
+    border: solid 1px transparent;
+    border-radius: 3px;
+}
+.ace-form-tips.ant-alert .ant-alert-icon {
+    position: initial;
+    margin-right: 6px;
+}
+
+.exchange-form-item .ant-select-selection__rendered {
+    line-height: 40px;
+}
+
+.exchange-form-item .ant-btn.submit-btn {
+    background-color: #e8b802;
+    color: #333333;
+    text-align: center;
+}
+
+.exchange-form-item .ant-btn.width-auto {
+    width: auto;
+}
+
+.exchange-form-item .ant-btn.submit-btn:active, .exchange-form-item .ant-btn.submit-btn:hover {
+    border-color: #e8b802;
+}
+
+.exchange-form-item .ant-btn.submit-btn:disabled,
+.exchange-form-item .ant-btn.submit-btn:disabled:hover {
+    color: rgba(0, 0, 0, 0.25);
+    background-color: #f5f5f5;
+    border-color: #d9d9d9;
+}
+
+.exchange-form-item .ant-btn.submit-btn:hover {
+    background-color: #ffdc57;
+    color: #333333;
+}
+
+.exchange-form-item a,
+.exchange-form-item a:hover,
+.exchange-form-item a:active {
+    color: #cc9900;
+}
+
+.exchange-form-item .link-btn {
+    border: none;
+    color: #cc9900;
+}
+
+/* page-wrapper */
+
+.exchange-full-page-wrapper {
+    width: 1200px;
+    margin: 0 auto;
+    font-size: 14px;
+    color: #333333;
+    padding-top: 30px;
+    padding-bottom: 20px;
+}
+
+.exchange-full-page {
+    border-radius: 6px;
+    background-color: #fff;
+    position: relative;
+}
+
+.exchange-full-page .page-title {
+    padding: 0 20px;
+    font-size: 18px;
+    height: 60px;
+    line-height: 60px;
+    font-weight: normal;
+    color: #333333;
+    border-bottom: 1px solid #f4f4f4;
+}
+
+.exchange-full-page-wrapper.header-shadow .page-title {
+    box-shadow: 0 2px 4px rgba(23, 31, 39, 0.04)
+}
+
+.exchange-full-page .page-content {
+    position: relative;
+    min-height: 300px;
+    padding: 20px 0 10px;
+}
+
+.exchange-form {
+    width: 450px;
+    margin: 0 auto;
+}
+
+.bottom-tips {
+    border-top: solid 1px #f4f4f4;
+    padding: 20px 0 0;
+    color: #969da9;
+    font-size: 12px;
+}
+
+.bottom-tips a {
+    color: #cc9900;
+    cursor: pointer;
+}
+.bottom-tips em.name {
+    padding: 0 3px;
+    color: #e6bc1d;
+}
