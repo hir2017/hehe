@@ -79,13 +79,14 @@ config.defaultLanguage = (function() {
     const systemLanguage = SYSTEM_LANGUAGE;
 
     let lang = cache.getCache('lang');
-
+    
     if (!lang) {
-        if (config.languages.indexOf(systemLanguage) > -1) {
-            lang = systemLanguage;
-        } else {
-            lang = config.initLanguage;
-        }
+        // if (config.languages.indexOf(systemLanguage) > -1) {
+        //     lang = systemLanguage;
+        // } else {
+        //      lang = config.initLanguage;
+        // }
+        lang = config.initLanguage;
     }
 
     return lang;

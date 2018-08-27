@@ -1,5 +1,4 @@
 import '../css/reset.css';
-import '../css/common.css';
 import '../css/common.less';
 import '../css/exc-style/index.less';
 import '../css/home.less';
@@ -20,8 +19,11 @@ import { Router, Route, hashHistory, browserHistory, useRouterHistory} from 'rea
 import { observer, Provider } from 'mobx-react';
 import { message } from 'antd';
 import Url from './lib/url';
-import './config';  
 
+import LangPack from './lang/app/pack.js';
+window.LangPack = LangPack;
+
+import './config';  
 import './global';
 import routes from './routes';
 import RootStore from './stores/index';

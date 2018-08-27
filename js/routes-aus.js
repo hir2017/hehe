@@ -1,20 +1,12 @@
 import React, { Component } from 'react';
 import { Route, IndexRedirect, IndexRoute } from 'react-router';
 
-import Layout from './pages/layout-aus';
+import Layout from './pages/layout';
 
 import News from './pages/others/news-aus';
 import NewsList from './mods/news/list';
 import NewsDetail from './mods/news/detail';
-import Agreements from './pages/others/agreements';
-import Help from './pages/others/help';
-import AboutUs from './pages/others/about';
-import Careers from './pages/others/careers';
 import NotFound from './pages/others/404';
-import Feedback from './pages/others/feedback';
-import Download from './pages/others/download';
-import ContactUs from './pages/others/contact';
-import Cooperation from './pages/others/cooperation';
 
 import Login from './pages/login-register/login';
 import Register from './pages/login-register/register';
@@ -152,22 +144,13 @@ const routes = (
 				<Route path="emailSuccess" component={EmailSuccess} />
 				<Route path="phoneSuccess" component={PhoneSuccess} />
 			</Route>
-			<Route path="login" component={Login} />
-			<Route path="register" component={Register} />
-			<Route path="resetpwd" component={ResetPwd} />
-			<Route path="help" component={Help} />
-			<Route path="about" component={AboutUs} />
 			<Route path="news" component={News}>
                 <IndexRoute component={NewsList}/>
                 <Route path="detail/:id" component={NewsDetail} />
             </Route>
-            <Route path="agreements/:name" component={Agreements} />
-			<Route path="contact" component={ContactUs} />
-			<Route path="feedback" component={Feedback} />
-			<Route path="cooperation" component={Cooperation} />
-			<Route path="careers" component={Careers} />
-			<Route path="download" component={Download} />
-
+            <Route path="login" component={Login} />
+			<Route path="register" component={Register} />
+			<Route path="resetpwd" component={ResetPwd} />
 		</Route>
 		<Route path="*" component={NotFound} />
 	</Route>

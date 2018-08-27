@@ -1,5 +1,4 @@
 import '../css/reset.css';
-import '../css/common.css';
 import '../css/common.less';
 import '../css/exc-style/index.less';
 import '../css/home.less';
@@ -21,10 +20,12 @@ import { observer, Provider } from 'mobx-react';
 import { message } from 'antd';
 import Url from './lib/url';
 
-import './config-aus';  
+import LangPack from './lang/appaus/pack.js';
+window.LangPack = LangPack;
+
+import './config-aus';
 import './global';
 import routes from './routes-aus';
-
 import RootStore from './stores/index';
 
 const rootStore = new RootStore();

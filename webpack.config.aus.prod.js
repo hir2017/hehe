@@ -58,26 +58,11 @@ if (env == 'stage') {
     delete cssLoader.use;
 }
 
-var htmlTempl = new HtmlWebpackPlugin({
-    filename: 'index.html',
-    template: './template/index.html',
-    hash: true,
-    // 指定要加载的模块
-    chunks: ['commons', 'webapp']
-})
-
-var htmlTemplAus = new HtmlWebpackPlugin({
-    filename: 'index.html',
-    template: './template/index-aus.html',
-    hash: true,
-    // 指定要加载的模块
-    chunks: ['commons', 'webapp']
-})
 
 var config = {
     entry: {
         // 可对应多个入口文件
-        webapp: ['./js/app.js'],
+        webapp: ['./js/app-aus.js'],
         vendor: ['react', 'react-dom', 'react-router', 'mobx-react']
     },
     output: output,
