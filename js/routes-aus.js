@@ -63,28 +63,19 @@ import PhoneSuccess from './mods/binding-phone/success'
 import forgetTradePwd from './mods/password-setting/forget-trade-pwd-aus'
 
 
-// const Home = (location, cb)=>{
-//     require.ensure([], require=>{
-//         cb(null, require('./pages/home').default);
-//     }, 'home');
-// };
 const Home = (location, cb)=>{
     require.ensure([], require=>{
-        cb(null, require('./pages/home-aus').default);
+        cb(null, require('./pages/home').default);
     }, 'home');
 };
 
 const TradeCenter = (location, cb)=>{
     require.ensure([], require=>{
-        cb(null, require('./pages/trade-center/index-aus').default);
+        cb(null, require('./pages/trade-center/index').default);
     }, 'webtrade');
 };
 
-// const Assets = (location, cb)=>{
-//     require.ensure([], require=>{
-//         cb(null, require('./pages/account/index').default);
-//     }, 'assets');
-// };
+
 const Assets = (location, cb)=>{
     require.ensure([], require=>{
         cb(null, require('./pages/account-aus/index').default);
