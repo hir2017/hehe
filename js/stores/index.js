@@ -6,7 +6,6 @@ import CaptchaStore from './captcha';
 
 import AnnouncementStore from './announcement';
 import BannerStore from './banner';
-import HotListStore from './hot-list';
 import HomeStore from './home';
 
 import TradeStore from './trade';
@@ -40,7 +39,6 @@ class RootStore {
          */
         this.loginStore = new LoginStore(this);
         this.announcementStore = new AnnouncementStore(this);
-        this.hotListStore = new HotListStore(this);
         this.homeStore = new HomeStore(this);
         this.bannerStore = new BannerStore(this);
         this.openStore = new OrderOpenStore(this);
