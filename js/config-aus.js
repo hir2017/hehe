@@ -2,7 +2,7 @@ import Url from './lib/url';
 
 let config = {};
 
-config.sitename = 'infinitex';
+config.sitename = 'INFINITEX';
 config.languages = ['zh-CN','en-US']; // 网站支持的语言列表
 config.initLanguage = 'en-US'; // 默认语言
 config.logourl = require('../images/aus/infinitex-logo.png');
@@ -12,7 +12,7 @@ config.baseCurrencySymbol = 'AUD';
 const protocol = 'https:';
 const socket_protocol = 'wss:';
 
-const website = ['stage.infinitex.com.au', 'pre.infinitex.com.au', 'www.infinitex.com.au']; 
+const website = ['stage.infinitex.com.au', 'pre.infinitex.com.au', 'www.infinitex.com.au'];
 const origin_java = (function() {
     let hostname = location.hostname;
     let env = Url.query('env');

@@ -9,6 +9,8 @@ import '../css/news.css';
 import '../css/account.css';
 import '../css/order.less';
 import '../css/recharge-withdraw.less';
+import '../css/aus/exchange-base.less';
+import '../css/aus/aus-style-aus.less';
 import '../css/antd-reset.less';
 
 import './lib/object.assign';

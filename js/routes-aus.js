@@ -29,7 +29,7 @@ import CoinAddress from './pages/recharge-withdraw/address';
 
 // 订单相关
 // 交易订单
-import OrderHoc from './pages/record-list-aus/record-trade-hoc';
+import OrderHoc from './pages/record-list/record-trade-hoc';
 import OpenRecordList from './mods/record-list/record-open';
 import HistoryRecordList from './mods/record-list/record-history';
 import SuccessRecordList from './mods/record-list/record-success';
@@ -76,7 +76,7 @@ const Home = (location, cb)=>{
 
 const TradeCenter = (location, cb)=>{
     require.ensure([], require=>{
-        cb(null, require('./pages/trade-center/index-aus').default);
+        cb(null, require('./pages/trade-center/index').default);
     }, 'webtrade');
 };
 

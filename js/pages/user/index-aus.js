@@ -139,7 +139,7 @@ class UserPage extends Component {
                             })}
                         </div>
                     </div>
-                    <div className="user-main ace-page-content">{this.props.children}</div>
+                    <div className="user-main exc-page-content">{this.props.children}</div>
                 </div>
             </div>
         );
