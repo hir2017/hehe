@@ -121,7 +121,7 @@ class IndexMarkets extends Component{
      							);
      						})
      					}
-     					<li className="marked" onClick={this.handleTab.bind(this, 'Marked')}>
+     					<li className={`marked${store.selectedMarketCode == 'Marked' ? ' selected' : ''}`} onClick={this.handleTab.bind(this, 'Marked')}>
      						{
      							store.selectedMarketCode == 'Marked' ?  
      							<Icon style={{color: '#e6bc1d', fontSize: '14'}} type='star' /> :

@@ -43,7 +43,15 @@ class Markets extends Component{
 		return (
   			<div className="coin-list-wrap">
      			<div className="coin-list-nav">
-     				<ul>
+                    <h3 className="title">{store.selectedMarketCode == 'Marked' ? UPEX.lang.template('收藏') : store.selectedMarketCode }</h3>
+                    <div className="search">
+                        <Search
+                            onChange={this.filterHandle}
+                            value={store.searchValue}
+                            placeholder={UPEX.lang.template('搜索数字币')}
+                        />
+                    </div>
+     				<ul className="tabs">
      					{
      						store.marketNav.map((item, index)=>{
      							let clsName = item == store.selectedMarketCode ? 'selected' : '';
@@ -55,7 +63,7 @@ class Markets extends Component{
      							);
      						})
      					}
-     					<li className="marked" onClick={this.handleTab.bind(this, 'Marked')}>
+     					<li className={`marked${store.selectedMarketCode == 'Marked' ? ' selected' : ''}`} onClick={this.handleTab.bind(this, 'Marked')}>
      						{
      							store.selectedMarketCode == 'Marked' ?  
      							<Icon style={{color: '#e6bc1d', fontSize: '14'}} type='star' /> :
@@ -63,13 +71,6 @@ class Markets extends Component{
      						}
      					</li>
      				</ul>
-     				<div className="search">
-	 				  	<Search
-	                        onChange={this.filterHandle}
-	                        value={store.searchValue}
-	                        placeholder={UPEX.lang.template('搜索数字币')}
-	                    />
-                    </div>
      			</div>
                 <div className="coin-list-panel">
                 	<CoinList/>

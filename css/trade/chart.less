@@ -1,6 +1,7 @@
 /**
  * 图表模块
  */
+
 .trade-main-chart {
     min-height: 270px;
     position: relative;
@@ -24,6 +25,8 @@
     right: 0;
     z-index: 10;
 }
+
+
 
 /**
  * 币种K线图
@@ -81,4 +84,137 @@
 
 .app-trade-light .trade-kline-mask {
     background: @bg-module-light;
+}
+
+
+
+
+/**
+ * 下拉币种pop列表
+ */
+
+.popover-tradecoins {
+    &.ant-popover {
+        margin-top: -32px;
+    }
+    &.ant-popover-placement-bottomLeft .ant-popover-content .ant-popover-arrow {
+        left: 43px;
+        width: 8px;
+        height: 8px;
+        top: 5px;
+        background-color: @bg-pop-color;
+    }
+    div {
+        display: block;
+    }
+    .ant-popover-inner-content {
+        padding: 0;
+        border-radius: 6px;
+    }
+    .coin-list-wrap {
+        width: 600px;
+        height: 330px;
+        display: block;
+        font-size: 12px;
+        background-color: @bg-pop-color;
+    }
+    .coin-list-nav {
+        position: relative;
+        height: 50px;
+        line-height: 50px;
+        border-bottom: 1px solid @bg-color;
+        padding: 0 20px;
+        font-size: 14px;
+        .title {
+            width: 70px;
+            color: #fff;
+        }
+        .tabs {
+            height: 40px;
+            font-size: 14px;
+            overflow: hidden;
+            li {
+                position: relative;
+                float: left;
+                height: 39px;
+                line-height: 39px;
+                margin-right: 10px;
+                cursor: pointer;
+                margin-right: 20px;
+                color: @text-color02;
+                &:hover {
+                    color: @text-yellow-color;
+                }
+                &.selected {
+                    color: @text-yellow-color;
+                    &:after {
+                        content: '';
+                        position: absolute;
+                        left: 50%;
+                        bottom: -1px;
+                        margin-left: -10px;
+                        border-radius: 2px;
+                        width: 20px;
+                        height: 2px;
+                        background-color: @theme-yellow;
+                    }
+                }
+            }
+        }
+        .search {            
+            width: 240px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+    }
+    .table-header ul{
+        width: 100%;
+        font-size: 12px;
+        color: @text-color02;
+        border-bottom: 1px solid #282b2e;
+        li {
+            padding: 0 20px;
+            height: 30px;
+            line-height: 30px;
+            cursor: pointer;
+        }
+    }
+    .table-body ul {
+        width: 100%;
+        border-bottom: 5px solid transparent;
+        li {
+            padding: 0 20px;
+            height: 30px;
+            line-height: 30px;
+            cursor: pointer;
+            color: @text-color02;
+            &:hover {
+                background-color: @list-hoverbg-color01;
+                color: @text-color01;
+            }
+        }
+    }
+    .cell {
+        float: left;
+        &.name {
+            width: 90px;
+            text-align: left;
+        }
+        &.amount {
+            width: 150px;
+            text-align: right;
+        }
+        &.rate {
+            width: 100px;
+            text-align: right;
+        }
+        &.volume {
+            width: 160px;
+            text-align: right;
+        }
+        &.action {
+            width: 60px;
+            text-align: right;
+        }
+    }
 }
