@@ -125,7 +125,7 @@ export default (store) => {
             });
         },
 
-        handleSubmit() {
+        handleSubmit(msgCode) {
         	const { verifyBeforeSubmit } = store;
 
             if (store.$submiting) {
@@ -136,8 +136,7 @@ export default (store) => {
 
             if (result.pass) {
                 store.changeSubmitingStatusTo(true);
-
-                takeCoin({
+                let params = {
 		            currencyId: store.currentCoin.currencyId,
 		            fdPwd: store.md5TradePassword,
 		            note: store.note,
@@ -148,7 +147,12 @@ export default (store) => {
 		            codeid: store.captchaStore.codeid,
 		            amount: store.amount,
 		            gAuth: store.googleCode,
-		        }).then((data) => {
+                };
+                if(msgCode) {
+                    params.msgCode = msgCode;
+                }
+
+                takeCoin(params).then((data) => {
                     store.changeSubmitingStatusTo(false);
                     switch (data.status) {
                         case 200:

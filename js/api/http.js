@@ -407,7 +407,7 @@ export function takeCoinSendPhoneCode(data) {
 export function takeCoin(data) {
     return axios.post(`/coin/takeCoin?address=${data.address}`, qs.stringify({
         actionId: 4,
-        msgCode: '',
+        msgCode: data.msgCode,
         currencyId: data.currencyId,
         fdPwd: data.fdPwd,
         note: data.note,

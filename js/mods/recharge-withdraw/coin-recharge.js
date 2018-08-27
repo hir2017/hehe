@@ -43,7 +43,7 @@ class CoinRecharge extends Component {
                     addressInfo: data,
                     msgCode: data.msgCode || ''
                 }
-                if(_state.msgCode !== 'none' || _state.msgCode !== '') {
+                if(['none', ''].indexOf(_state.msgCode) === -1) {
                     _state.visible = true;
                 }
                 this.setState(_state);
