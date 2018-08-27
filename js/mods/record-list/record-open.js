@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
-import { Pagination, Popconfirm } from 'antd';
+import { Pagination, Popconfirm, message } from 'antd';
 import { cancelOrder } from '@/api/http';
 import toAction from './record-action';
 import Form from './order-query-form';
@@ -24,8 +24,13 @@ class List extends Component {
             buyOrSell: '',
             currencyId: '',
             baseCurrencyId: '',
-            priceType: 0
+            priceType: 0,
         };
+        this.state= {
+            cancelTotal: 0,
+            completeNum: 0,
+            percent: 0,
+        }
     }
 
     componentDidMount() {
@@ -61,6 +66,11 @@ class List extends Component {
     onCancelAll() {
         // TODO 遍历当前页, 是否显示结果，错了怎么办
         const { orderList } = this.props.openStore;
+        this.setState({
+            cancelTotal: orderList.length,
+            successNum: 0,
+            percent: 0,
+        });
         Promise.all(
             orderList.map(item =>
                 cancelOrder({
@@ -70,10 +80,10 @@ class List extends Component {
                 })
             )
         ).then((...results) => {
-            console.log(results);
+            message.success(UPEX.lang.template('当前列表撤销成功'));
+            this.onQuery({});
         });
     }
-
     render() {
         let store = this.props.openStore;
         let $content;
