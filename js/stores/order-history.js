@@ -124,7 +124,7 @@ class OrderStore {
             this.current = params.start;
         }
 
-        getUserHistoryOrderList(this.params)
+        return getUserHistoryOrderList(this.params)
             .then(data => {
                 runInAction(() => {
                     if (data.status == 200) {
@@ -149,8 +149,13 @@ class OrderStore {
         return arr;
     }
 
+    @action
+    getParseRowFn() {
+        return this.parseItem.bind(this);
+    }
+
     parseItem(item) {
-        
+
         let currencyObj = this.currencyStore.getCurrencyById(`${item.baseCurrencyId}-${item.currencyId}`);
         let pointNum = currencyObj.pointNum;
         let pointPrice = currencyObj.pointPrice;

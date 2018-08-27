@@ -1,0 +1,125 @@
+/* form */
+.exc-form {
+    width: 450px;
+    margin: 0 auto;
+    .exc-form-item {
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+}
+.exc-form-item {
+    margin-bottom: 30px;
+    position: relative;
+    .ant-select-selection {
+        border: solid 1px  @input-border-color;
+    }
+    .inner-label,
+    .inner-item {
+        display: block;
+        width: 100%;
+    }
+    .inner-label {
+        font-size: 12px;
+        color: @text-color02-light;
+        height: 22px;
+        line-height: 12px;
+        padding-bottom: 10px;
+
+    }
+    .inner-error {
+        color: #ff6666;
+    }
+    .ant-input,
+    .ant-calendar-picker,
+    .ant-select,
+    .ant-select-selection,
+    .ant-btn.submit-btn {
+        width: 100%;
+        box-sizing: border-box;
+        height: 40px;
+    }
+    a.ant-btn {
+        line-height: 40px;
+    }
+    .input-right-tag {
+        position: absolute;
+        font-size: 14px;
+        color: #999999;
+        z-index: 10;
+        right: 15px;
+        top: 22px;
+    }
+    &.img-code .captcha-img,
+    &.sms-code .ant-btn {
+        position: absolute !important;
+        height: 40px;
+        min-width: 110px;
+        box-sizing: border-box;
+        padding: 5px;
+        right: 0;
+        top: 23px;
+    }
+    &.sms-code .ant-btn {
+        border-top-left-radius: 0;
+        /* width: auto; */
+        border-bottom-left-radius: 0;
+    }
+    .ant-select-selection__rendered {
+        line-height: 40px;
+    }
+    .ant-btn {
+        &.submit-btn {
+            background-color: #e8b802;
+            color: #333333;
+            text-align: center;
+        }
+        &.width-auto {
+            width: auto;
+        }
+        &.submit-btn {
+            &:active,
+            &:hover {
+                border-color: #e8b802;
+            }
+            &:disabled,
+            &:disabled:hover {
+                color: rgba(0, 0, 0, 0.25);
+                background-color: #f5f5f5;
+                border-color: #d9d9d9;
+            }
+            &:hover {
+                background-color: #ffdc57;
+                color: #333333;
+            }
+        }
+    }
+    a,
+    a:hover,
+    a:active {
+        color: #cc9900;
+    }
+    .link-btn {
+        border: none;
+        color: #cc9900;
+    }
+}
+
+.ace-form-tips {
+    &.ant-alert {
+        margin: 0 20px 30px;
+        height: 30px;
+        padding: 0;
+        line-height: 30px;
+        font-size: 12px;
+        color: @text-color01-light;
+        background-color: #fcf4d9;
+        text-align: center;
+        border: solid 1px transparent;
+        border-radius: 3px;
+        .ant-alert-icon {
+            position: initial;
+            margin-right: 6px;
+        }
+    }
+}

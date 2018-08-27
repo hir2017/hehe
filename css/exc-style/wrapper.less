@@ -1,3 +1,4 @@
+@import '../variable.less';
 .exc-page-wrapper {
     position: relative;
     width: 1200px;
@@ -14,3 +15,37 @@
         border-radius: 6px;
     }
 }
+
+.exc-full-page-wrapper {
+    width: 1200px;
+    margin: 0 auto;
+    font-size: 14px;
+    color: @text-color01-light;
+    padding-top: 30px;
+    padding-bottom: 20px;
+    &.header-shadow .page-title {
+        box-shadow: 0px 1px 2px rgba(23, 31, 39, 0.1);
+    }
+}
+
+.exc-full-page {
+    border-radius: 6px;
+    background-color: #fff;
+    position: relative;
+    .page-title {
+        padding: 0 20px;
+        font-size: 16px;
+        height: 50px;
+        line-height: 50px;
+        font-weight: normal;
+        color: @text-color01-light;
+        border-bottom: 1px solid #f4f4f4;
+    }
+    .page-content {
+        position: relative;
+        min-height: 300px;
+        padding: 10px 0 10px;
+    }
+}
+
+

@@ -1,11 +1,13 @@
 import React from 'react';
 import { Radio } from 'antd';
 import { browserHistory } from 'react-router';
+import { inject } from 'mobx-react';
 import Wrapper from '@/components/wrapper';
 import RecordHistory from './history';
 import RecordOpen from './open';
 import RecordSuccess from './success';
 
+@inject('tradePwdStore', 'currencyStore', 'commonStore')
 class View extends React.Component {
     constructor(props) {
         super(props);
@@ -41,6 +43,12 @@ class View extends React.Component {
             page: target.value
         });
     }
+
+    componentDidMount() {
+		this.props.commonStore.getAllCoinPoint();
+		this.props.currencyStore.getCurrencyPoints();
+		this.props.tradePwdStore.getPersonalTradingPwd();
+	}
 
     render() {
         const { state, pageInfo, radios, defaultRadio } = this;
