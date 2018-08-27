@@ -16,9 +16,9 @@ export const TabView = (props)=>{
                 data.map((item, index) => {
                     return (
                         <li key={item.id}>
-                            <button 
-                                type="button" 
-                                className={ current === item.id ? 'register-mode-tab selected' : 'register-mode-tab'} 
+                            <button
+                                type="button"
+                                className={ current === item.id ? 'register-mode-tab selected' : 'register-mode-tab'}
                                 onClick={onClick.bind(this, item.id)}
                             >
                                 { item.title }
@@ -35,29 +35,35 @@ export const TabView = (props)=>{
  * 手机区域码选择
  * <AreaCodeSelectView defaultValue={store.selectedCountry.code} onChange={action.onAreaCodeChange}/>
  */
-export const AreaCodeSelectView = (props)=>{
-	let { defaultValue, onChange } = props;
-	let options = [];
+export class AreaCodeSelectView extends Component  {
+    constructor(props) {
+        super(props);
+    }
 
-    $.map(Countries, (item, key) => {
-        options[options.length] = (
-            <Option value={key} key={key}>
-                {UPEX.lang.template(key)}(+{item.areacode})
-            </Option>
-        );
-    });
+    render(){
+        const {props} = this;
+        let { defaultValue, onChange } = props;
+        let options = [];
 
-    return (
-    	<div className="input-wrapper" ref="box">
-            <div className="input-box">
-                <Select onChange={onChange} defaultValue={defaultValue} dropdownClassName="country-select-menu">
-                    {options}
-                </Select>
+        $.map(Countries, (item, key) => {
+            options[options.length] = (
+                <Option value={key} key={key}>
+                    {UPEX.lang.template(key)}(+{item.areacode})
+                </Option>
+            );
+        });
+
+        return (
+            <div className="input-wrapper" ref="box">
+                <div className="input-box">
+                    <Select onChange={onChange} defaultValue={defaultValue} dropdownClassName="country-select-menu">
+                        {options}
+                    </Select>
+                </div>
             </div>
-        </div>
-    )
+        )
+    }
 }
-
 /**
  * 短信验证码
  * <SMSCodeView onClick={this.sendVercode} disabled={store.sendingcode} fetching={}/>
@@ -75,13 +81,13 @@ export const SMSCodeView =(props) =>{
         )
     } else {
     	let _props = {};
-    	
+
     	if (disabled) {
     		_props.className = 'disabled';
     	} else {
-    		_props.onClick = onClick;	
+    		_props.onClick = onClick;
     	}
-    	
+
     	return (
     		<div className="yzcode">
     			<button type="button" {..._props}>
