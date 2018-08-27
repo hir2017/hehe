@@ -2,15 +2,15 @@ import Url from './lib/url';
 
 let config = {};
 
-config.sitename = 'ace';
-config.languages = ['zh-CN', 'zh-TW', 'en-US']; // 网站支持的语言列表
-config.baseCurrencyEn = 'TWD';
-config.baseCurrencySymbol = 'NT$';
+config.sitename = 'infinitex';
+config.languages = ['zh-CN','en-US']; // 网站支持的语言列表
+config.baseCurrencyEn = 'AUD';
+config.baseCurrencySymbol = 'AUD';
 
 const protocol = 'https:';
 const socket_protocol = 'wss:';
 
-const website = ['dev.ace.io', 'stage.ace.io', 'pre.ace.io', 'www.ace.io']; // 网站域名 0:dev, 1: stage; 2:线上
+const website = ['stage.infinitex.com.au', 'pre.infinitex.com.au', 'www.infinitex.com.au']; 
 const origin_java = (function() {
     let hostname = location.hostname;
     let env = Url.query('env');
@@ -22,16 +22,12 @@ const origin_java = (function() {
         origin = website[0];
     }
     switch (env) {
-        case 'dev':
-            // 开发环境
-            origin = website[0];
-            break;
         case 'stage':
             // 测试环境
-            origin = website[1];
+            origin = website[0];
             break;
         case 'pro':
-            origin = website[2];
+            origin = website[1];
             break;
         default:
             origin = origin || hostname;
@@ -52,16 +48,12 @@ const origin_ws = (function() {
     }
 
     switch (env) {
-        case 'dev':
-            // 开发环境
-            origin = website[0];
-            break;
         case 'stage':
             // 测试环境
-            origin = website[1];
+            origin = website[0];
             break;
         case 'pro':
-            origin = website[2].replace('pre', 'process');
+            origin = website[1].replace('pre', 'process');
             break;
         default:
             origin = origin || hostname;

@@ -20,10 +20,11 @@ import { Router, Route, hashHistory, browserHistory, useRouterHistory} from 'rea
 import { observer, Provider } from 'mobx-react';
 import { message } from 'antd';
 import Url from './lib/url';
-import './config';  
 
+import './config-aus';  
 import './global';
-import routes from './routes';
+import routes from './routes-aus';
+
 import RootStore from './stores/index';
 
 const rootStore = new RootStore();
@@ -84,4 +85,5 @@ class App extends Component {
 message.config({
     top: 100
 });
+
 render(<App/>, document.getElementById('wrap'));

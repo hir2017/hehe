@@ -1,0 +1,31 @@
+{
+    "apps": [
+    {
+        "name": "aceindex",
+        "script": "./server.js",
+        "exec_mode": "cluster",
+        "instances": 1,
+        "env":
+        {
+            "NODE_ENV": "development"
+        },
+        "env_production":
+        {
+            "NODE_ENV": "production"
+        }
+    },
+    {
+        "name": "infinitex",
+        "script": "./server-aus.js",
+        "exec_mode": "cluster",
+        "instances": 1,
+        "env":
+        {
+            "NODE_ENV": "development"
+        },
+        "env_production":
+        {
+            "NODE_ENV": "production"
+        }
+    }]
+}

@@ -70,8 +70,13 @@
   "googleFileExport": "module.exports",
   "googleSpreadsheetId": "1SAiY0rhwJl01xfA6BZdS53z1JJwg0XvEEEYCiv6mrNM",
   "googleWorksheet": {
-    "app": [
+    "app": [      
       "台湾站多语言定制",
+      "PC通用多语言翻译文档",
+      "CountryCode"
+    ],
+    "appaus": [
+      "澳州站多语言定制",
       "PC通用多语言翻译文档",
       "CountryCode"
     ]
@@ -83,8 +88,8 @@
     "dev": "sudo webpack-dev-server",
     "product": "NODE_ENV=product webpack -p",
     "restart": "pm2 restart server.js --name='upexchange-front'  -o ./logs/out.log -e ./logs/error.log",
-    "start": "pm2 start server.js --name='upexchange-front'  -o ./logs/out.log -e ./logs/error.log ",
-    "stop": "pm2 stop server.js --name='upexchange-front'"
+    "start": "pm2 start server.js  -o ./logs/out.log -e ./logs/error.log ",
+    "stop": "pm2 stop server.js"
   },
   "version": "2.0.0"
 }

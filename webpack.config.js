@@ -144,11 +144,6 @@ var config = {
         new webpack.optimize.CommonsChunkPlugin({
             names: ['vendor']
         })
-        //,
-        // new CopyWebpackPlugin([{
-        //     from: __dirname + '/static',
-        //     to: __dirname + '/build/static',
-        // }])
     ]
 
 };
