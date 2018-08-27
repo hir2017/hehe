@@ -86,17 +86,11 @@
     background: @bg-module-light;
 }
 
-
-
-
 /**
  * 下拉币种pop列表
  */
 
 .popover-tradecoins {
-    &.ant-popover {
-        margin-top: -32px;
-    }
     &.ant-popover-placement-bottomLeft .ant-popover-content .ant-popover-arrow {
         left: 43px;
         width: 8px;
@@ -162,9 +156,40 @@
             }
         }
         .search {            
-            width: 240px;
+            width: 235px;
             display: inline-block;
             vertical-align: middle;
+            margin-right: 30px;
+            .ant-input{
+                height: 30px;
+                border: 1px solid @input-border-color;
+                background-color: @input-bg-color;
+                color: @text-color01;
+                &::placeholder {
+                    color: @text-color03 !important;
+                }
+
+                &::-webkit-input-placeholder {
+                    /* WebKit browsers */
+                    color: @text-color03 !important;
+                }
+                &:-moz-placeholder {
+                    /* Mozilla Firefox 4 to 18 */
+                    color: @text-color03 !important;
+                }
+                &::-moz-placeholder {
+                    /* Mozilla Firefox 19+ */
+                    color: @text-color03 !important;
+                }
+                &:-ms-input-placeholder {
+                    /* Internet Explorer 10+ */
+                    color: @text-color03 !important;
+                }
+            }
+
+            .ant-input-search-icon{
+                color: @text-color03;
+            }
         }
     }
     .table-header ul{

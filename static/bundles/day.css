@@ -206,7 +206,6 @@ body .context-menu-hover td.text{
 }
 
 .chart-page .apply-common-tooltip {
-    background-color: #ffffff;
     border: 1px solid transparent;
     color: #9194a4;
 }
@@ -289,6 +288,7 @@ body .context-menu-hover td.text{
 .chart-page .header-chart-panel .group .button.selected {
     background: #ccc;
     color: #333;
+    border-color: #ccc;
 }
 
 .chart-page .tv-side-toolbar .group .button:hover svg,

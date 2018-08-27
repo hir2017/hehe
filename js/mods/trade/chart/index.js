@@ -99,25 +99,25 @@ class TVChartContainer extends Component {
         this.defaultThemes = {
             "light": {
                 url: "./bundles/day.css",
-                up: "#33c280",
-                down: "#ef5d7f",
+                up: "#db4e4e",
+                down: "#0c9b78",
                 bg: "#ffffff",
                 grid: "#f7f8fa",
                 cross: "#23283D",
                 border: "#9194a4",
                 text: "#9194a4",
-                areatop: "rgba(71, 78, 112, 0.1)",
-                areadown: "rgba(71, 78, 112, 0.02)"
+                areatop: "rgba(122, 152, 247, .1)",
+                areadown: "rgba(122, 152, 247, .02)"
             },
             "dark": {
                 url: "./bundles/night.css",
-                up: "#33c280",
-                down: "#ef5d7f",
-                bg: "#24272c",
-                grid: "#20201e", // 分隔线
-                cross: "#fee8c2", // 十字线
-                border: "#666",
-                text: "#666",
+                up: '#db4e4e', // K红
+                down: "#0c9b78", //K绿色
+                bg: "#24272c", // canvas背景色
+                grid: '#2a2e33', // 分隔线
+                cross: "#c5cedd", // 十字线
+                border: "#545960",
+                text: "#545960",
                 areatop: "rgba(122, 152, 247, .1)",
                 areadown: "rgba(122, 152, 247, .02)"
             }
