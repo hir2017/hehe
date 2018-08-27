@@ -20,8 +20,8 @@ import Auth from './mods/authhoc/index';
 // import Assets from './pages/account/index';
 // 充值＋充币＋提现＋提币
 // import FiatRecharge from './pages/recharge-withdraw/fiat-recharge';
-import FiatRecharge from './pages/recharge-withdraw-aus/fiat-recharge';
 // import CoinRecharge from './pages/recharge-withdraw/coin-recharge';
+import FiatRecharge from './pages/recharge-withdraw-aus/fiat-recharge';
 import CoinRecharge from './pages/recharge-withdraw/coin-recharge';
 import FiatWithdraw from './pages/recharge-withdraw-aus/fiat-withdraw';
 import CoinWithdraw from './pages/recharge-withdraw-aus/coin-withdraw';
