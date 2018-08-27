@@ -19,16 +19,12 @@ class MarketCoinList extends Component {
         this.props.tradeStore.marketListStore.sortByCondition(field);
 	}
 
-	selectCoin=(item, e)=>{ 
+	handleCurrency=(item, e)=>{ 
         if ($(e.target).hasClass('anticon')) {
             return;
         }
 
-        if ($(e.target).hasClass('symbol')) {
-            browserHistory.push(`/webtrade/${item.baseCurrencyNameEn}_${item.currencyNameEn}`);
-        } else {
-            this.props.tradeStore.marketListStore.updateCurrency(item);    
-        }
+        browserHistory.push(`/webtrade/${item.baseCurrencyNameEn}_${item.currencyNameEn}`);
 	}
 
 	sortIcon(show) {
@@ -120,7 +116,7 @@ class MarketCoinList extends Component {
                                         }
 
                                         return (
-                                            <li className={`clearfix${item.currencyNameEn === marketListStore.selectedCurrency.currencyNameEn ? ' selected': ''}`} key={item.currencyId} onClick={this.selectCoin.bind(this, item)}>
+                                            <li className={`clearfix${item.currencyNameEn === marketListStore.selectedCurrency.currencyNameEn ? ' selected': ''}`} key={item.currencyId} onClick={this.handleCurrency.bind(this, item)}>
                                                 <span className="cell name">
                                                     <span className="symbol">{item.currencyNameEn || '--'}/{item.baseCurrencyNameEn}</span>
                                                 </span>
