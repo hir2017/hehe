@@ -27,8 +27,6 @@ class TradeCenter extends Component {
 
         commonStore.getAllCoinPoint();
         currencyStore.getAllCurrencyRelations();
-
-        $('#wrap').addClass('page-fullscreen');
     }
 
     render() {

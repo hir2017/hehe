@@ -170,7 +170,7 @@ export default class MarketStore {
 
                     market.tradeCoins.map((item, index) => {
                         item.key = [item.baseCurrencyId, item.currencyId].join('_');
-                        item.currentAmount = item.currentAmount + (+new Date() % 8);
+                        
                         this.parseCoinItem(item);
                         currencyMap[item.key] = item;
 

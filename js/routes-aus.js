@@ -3,7 +3,7 @@ import { Route, IndexRedirect, IndexRoute } from 'react-router';
 
 import Layout from './pages/layout';
 
-import News from './pages/others/news-aus';
+import News from './pages/others/news';
 import NewsList from './mods/news/list';
 import NewsDetail from './mods/news/detail';
 import NotFound from './pages/others/404';
@@ -20,8 +20,8 @@ import Auth from './mods/authhoc/index';
 // import Assets from './pages/account/index';
 // 充值＋充币＋提现＋提币
 // import FiatRecharge from './pages/recharge-withdraw/fiat-recharge';
-import FiatRecharge from './pages/recharge-withdraw-aus/fiat-recharge';
 // import CoinRecharge from './pages/recharge-withdraw/coin-recharge';
+import FiatRecharge from './pages/recharge-withdraw-aus/fiat-recharge';
 import CoinRecharge from './pages/recharge-withdraw/coin-recharge';
 import FiatWithdraw from './pages/recharge-withdraw-aus/fiat-withdraw';
 import CoinWithdraw from './pages/recharge-withdraw-aus/coin-withdraw';

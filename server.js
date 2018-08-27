@@ -22,6 +22,7 @@ app.use(webpackDevMiddleware(compiler, {
 
 // static
 app.use('/static', express.static('static'));
+app.use('/images', express.static('images'));
 
 app.use(webpackHotMiddleware(compiler));
 
