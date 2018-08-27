@@ -1,7 +1,4 @@
 @import './variable.less';
-.recharge-eos-dialog-warn {
-
-}
 .coin-recharge {
     position: relative;
     min-height: 300px;
@@ -17,11 +14,11 @@
     }
     .exc-full-page-wrapper.record {
         padding-top: 0;
-        .page-content{
+        .page-content {
             padding-top: 0;
         }
     }
-     .anticon-qrcode {
+    .anticon-qrcode {
         position: absolute;
         right: -35px;
         top: 34px;
@@ -33,18 +30,18 @@
             background-image: url('../images/qrcode16-hover.png');
         }
     }
-     .fee {
+    .fee {
         padding: 10px 0;
     }
-     .exc-input.address {
+    .exc-input.address {
         padding-right: 60px;
         background-color: #f7f9fa;
     }
     .exc-form-item {
-        &
-        .ant-input.address{
+        & .ant-input.address {
             border-color: transparent;
-            &:active, &:focus {
+            &:active,
+            &:focus {
                 border-color: transparent;
                 box-shadow: none;
             }
@@ -64,8 +61,7 @@
             }
         }
     }
-
-     .input-right-tag {
+    .input-right-tag {
         color: @text-yellow-color;
         width: 60px;
         height: 40px;
@@ -76,7 +72,7 @@
         text-align: center;
         cursor: pointer;
     }
-     .input-right-tag::before {
+    .input-right-tag::before {
         content: '';
         width: 1px;
         height: 10px;
@@ -84,7 +80,7 @@
         float: left;
         margin-top: 15px;
     }
-     .all-success .anticon-check-circle-o {
+    .all-success .anticon-check-circle-o {
         color: #1dc199;
         margin-right: 6px;
     }
@@ -93,45 +89,74 @@
     }
 }
 
+.ant-modal-wrap.recharge-eos-dialog-warn {
+    .ant-modal-body {
+        padding-bottom: 40px;
+        padding-top: 40px;
+        .warn-text {
+            text-align: center;
+            padding: 0 0 10px;
+            &:nth-child(2) {
+                color: @text-red-color01;
+                padding-bottom: 20px;
+
+            }
+        }
+        position: relative;
+        .ant-btn {
+            position: absolute;
+            width: 100%;
+            height: 40px;
+            border: none;
+            bottom: 0;
+            left: 0;
+            color: @text-yellow-color;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+            & :hover,
+            & :active {
+                color: @text-yellow-color;
+            }
+        }
+    }
+}
 
 /**
  * 充值提现
  */
 
-
 /**
  * 充值提现通用样式
  */
+
 .exc-full-page {
-    .module-box{
+    .module-box {
         border-radius: 6px;
         background-color: #fff;
         margin-top: 30px;
         padding-bottom: 20px;
     }
-
     .module-box .title {
         padding: 0 20px;
         font-size: 18px;
         height: 60px;
         line-height: 60px;
-        font-weight:  normal;
+        font-weight: normal;
         color: #333333;
         border-bottom: 1px solid #f4f4f4;
     }
-
     .module-box .sub-title {
         padding: 10px 0;
         font-size: 21px;
         font-weight: normal;
         border-bottom: 1px solid #e7ebf1;
     }
-
     .module-box .content {
         position: relative;
         min-height: 300px;
     }
 }
+
 .rw-wrapper {
     width: 1200px;
     margin: 0 auto;
@@ -139,7 +164,7 @@
     color: #333333;
 }
 
-.rw-wrapper .module-box{
+.rw-wrapper .module-box {
     border-radius: 6px;
     background-color: #fff;
     margin-top: 30px;
@@ -151,7 +176,7 @@
     font-size: 18px;
     height: 60px;
     line-height: 60px;
-    font-weight:  normal;
+    font-weight: normal;
     color: #333333;
     border-bottom: 1px solid #f4f4f4;
 }
@@ -167,7 +192,6 @@
     position: relative;
     min-height: 300px;
 }
-
 
 .rw-wrapper .userauth-guide h4 {
     padding-top: 60px;
@@ -199,7 +223,7 @@
     overflow: hidden;
 }
 
-.rw-form-item .ant-alert{
+.rw-form-item .ant-alert {
     width: 450px;
 }
 
@@ -221,13 +245,11 @@
     color: #333;
 }
 
-
 .rw-form-info .ant-select-selection--single,
 .rw-form-info .ant-select-selection__rendered {
     height: 40px;
     line-height: 40px;
 }
-
 
 .rw-form-info .input-box {
     height: 38px;
@@ -248,11 +270,9 @@
     background: none;
 }
 
-
 .rw-form-info .input-box.wrong {
     border: 1px solid #ff3245;
 }
-
 
 .rw-form-info .input-button-box .input-box,
 .rw-form-info .select-button-box .select-box {
@@ -261,10 +281,9 @@
     vertical-align: middle;
 }
 
-.rw-form-info .select-button-box .select-box .ant-select{
-	width: 100%;
+.rw-form-info .select-button-box .select-box .ant-select {
+    width: 100%;
 }
-
 
 .rw-form-info .input-button-box button,
 .rw-form-info .select-button-box button {
@@ -301,11 +320,10 @@
     overflow: hidden;
 }
 
-.rw-form-info .yz-box .input-box .codeimg img{
-	width: 100%;
-	height: 100%;
+.rw-form-info .yz-box .input-box .codeimg img {
+    width: 100%;
+    height: 100%;
 }
-
 
 .rw-form-info .tab-nav {
     height: 38px;
@@ -339,8 +357,8 @@
     color: #cc9900;
 }
 
-
-.rw-form-info .input-button-box button.rw-sp-vcode-btn, .rw-form-info .select-button-box button.rw-sp-vcode-btn{
+.rw-form-info .input-button-box button.rw-sp-vcode-btn,
+.rw-form-info .select-button-box button.rw-sp-vcode-btn {
     color: #cc9900;
     border: none;
     background-color: transparent;
@@ -351,11 +369,10 @@
     text-decoration-line: underline;
 }
 
-.rw-form-info .remain-amount{
+.rw-form-info .remain-amount {
     height: 30px;
     line-height: 30px;
 }
-
 
 .rw-form-info button.submit-btn {
     width: 450px;
@@ -373,21 +390,24 @@
     color: #333333;
 }
 
-.rw-form-info .warn{
+.rw-form-info .warn {
     line-height: 21px;
     font-size: 12px;
     color: #ff3245 !important;
 }
 
-.rw-form-info a{
+.rw-form-info a {
     padding: 0 20px;
     color: #cc9900;
 }
+
 .rw-form-info .warmprompt {
     padding: 0;
     width: 600px;
 }
-.rw-form-info .warmprompt-title, .rw-form-info .warmprompt-content li {
+
+.rw-form-info .warmprompt-title,
+.rw-form-info .warmprompt-content li {
     color: #999;
     font-size: 12px;
 }
@@ -401,9 +421,7 @@
     font-size: 12px;
     line-height: 21px;
     margin: 0;
-
 }
-
 
 .rw-form-info .warmprompt-content li em {
     padding: 0 3px;
@@ -425,12 +443,11 @@
     border-bottom: 1px solid #f4f4f4;
 }
 
-
 .r-coin-wrapper .qrcode-img {
     display: block;
     width: 194px;
     height: 194px;
-    margin:  0 auto;
+    margin: 0 auto;
 }
 
 .r-coin-wrapper .qrcode-box img {
@@ -445,24 +462,17 @@
     text-align: center;
 }
 
-
-
-
-
 /**
  * 提币样式
  */
 
 .w-coin-wrapper {}
 
-
-
 /**
  * 充值样式
  */
 
 .r-fait-wrapper {}
-
 
 .r-fait-wrapper .bank-card,
 .w-fait-wrapper .bank-card {
@@ -475,7 +485,7 @@
 }
 
 .r-fait-wrapper .bank-card-box,
-.w-fait-wrapper .bank-card-box  {
+.w-fait-wrapper .bank-card-box {
     padding: 0;
     position: relative;
 }
@@ -486,22 +496,28 @@
     color: #cc9900;
     padding: 10px 0 0 10px;
 }
-.r-fait-wrapper .bank-card .center-box, .w-fait-wrapper .bank-card .center-box{
+
+.r-fait-wrapper .bank-card .center-box,
+.w-fait-wrapper .bank-card .center-box {
     text-align: center;
     height: 20px;
     line-height: 20px;
     margin-top: 10px;
 }
 
-.r-fait-wrapper .rw-form-info.order-amount, .w-fait-wrapper .rw-form-info.order-amount{
+.r-fait-wrapper .rw-form-info.order-amount,
+.w-fait-wrapper .rw-form-info.order-amount {
     font-size: 20px;
 }
-.r-fait-wrapper .rw-form-info.order-amount .unit, .w-fait-wrapper .rw-form-info.order-amount .unit {
+
+.r-fait-wrapper .rw-form-info.order-amount .unit,
+.w-fait-wrapper .rw-form-info.order-amount .unit {
     display: inline-block;
     padding-right: 6px;
 }
 
-.r-fait-wrapper .bank-card .center-box  div, .w-fait-wrapper .bank-card .center-box div {
+.r-fait-wrapper .bank-card .center-box div,
+.w-fait-wrapper .bank-card .center-box div {
     display: inline-block;
     color: #333;
 }
@@ -523,7 +539,7 @@
 
 .w-fait-wrapper {}
 
-.w-fait-wrapper button.problem-btn{
+.w-fait-wrapper button.problem-btn {
     display: inline-block;
     vertical-align: middle;
     border-radius: 3px;
@@ -535,6 +551,7 @@
     font-size: 14px;
     color: #cc9900;
 }
+
 .w-fait-wrapper .rw-form .rw-form-item:nth-child(7) {
     margin-bottom: 8px;
 }

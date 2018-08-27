@@ -97,7 +97,12 @@ class CoinRecharge extends Component {
                     footer={null}
                     wrapClassName="recharge-eos-dialog-warn"
                     >
-                    <p className="warn-text">{UPEX.lang.template('充值 {name} 到 ACE 同时需要一个充值地址和 {name} 标签!警告：如果未遵守正确的 {name} 充值步骤，币会丢失!', {name: currencyNameEn})}</p>
+                    <p className="warn-text">
+                        {UPEX.lang.template('充值 {name} 到 ACE 同时需要一个充值地址和 {name} 标签!', {name: currencyNameEn})}
+                    </p>
+                    <p className="warn-text">
+                        {UPEX.lang.template('警告：如果未遵守正确的 {name} 充值步骤，币会丢失!', {name: currencyNameEn})}
+                    </p>
                     <Button onClick={e => {this.setState({visible: false})}}>{UPEX.lang.template('我了解风险，继续')}</Button>
                 </Modal>
                 <Alert className="ace-form-tips" type="warning" showIcon message={UPEX.lang.template('充币提醒信息内容')} />
