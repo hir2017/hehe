@@ -22,7 +22,7 @@ import Auth from './mods/authhoc/index';
 // import FiatRecharge from './pages/recharge-withdraw/fiat-recharge';
 import FiatRecharge from './pages/recharge-withdraw-aus/fiat-recharge';
 // import CoinRecharge from './pages/recharge-withdraw/coin-recharge';
-import CoinRecharge from './pages/recharge-withdraw-aus/coin-recharge';
+import CoinRecharge from './pages/recharge-withdraw/coin-recharge';
 import FiatWithdraw from './pages/recharge-withdraw-aus/fiat-withdraw';
 import CoinWithdraw from './pages/recharge-withdraw-aus/coin-withdraw';
 import CoinAddress from './pages/recharge-withdraw/address';

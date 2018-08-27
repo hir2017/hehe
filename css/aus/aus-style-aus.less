@@ -1,3 +1,4 @@
+@import '../variable.less';
 .page-content-inner.base-info .grade-label {
     height: 12px;
     opacity: 0;
@@ -7,7 +8,7 @@
 .page-content-inner.base-info .grade-info .state-inner img.aus {
     margin: 10px 10px 20px 0;
 }
-.auth-base-info .exchange-form-item.default input.ant-calendar-picker-input{
+.auth-base-info .exc-form-item.default input.ant-calendar-picker-input{
     color: transparent;
 }
 /* fiat-recharge */
@@ -26,13 +27,20 @@
 .fiat-recharge-aus .ant-radio-button-wrapper .anticon {
     margin-right: 6px;
 }
-.fiat-recharge-aus .ant-radio-button-wrapper-checked {
-    background-color: #e8b802;
-    color: #fff;
+.fiat-recharge-aus .ant-radio-button-wrapper:hover, .fiat-recharge-aus .ant-radio-button-wrapper-focused {
+    color: @theme-yellow;
 }
-.fiat-recharge-aus .ant-radio-button-wrapper-checked:hover {
-    color: #fff;
-    border-color: #e8b802;
+.fiat-recharge-aus .ant-radio-button-wrapper-checked {
+    &:first-child, &, &:hover {
+        border-color: @theme-yellow;
+        background-color: @theme-yellow;
+        color: #fff;
+        box-shadow: -1px 0 0 0 @theme-yellow;
+    }
+}
+
+.fiat-recharge-aus  .ant-radio-button-wrapper-checked::before {
+    background-color: @theme-yellow !important;
 }
 .fiat-recharge-aus .ant-radio-button-wrapper:first-child{
     border-radius: 20px 0 0 20px;
@@ -133,12 +141,12 @@
     right: 15px;
     top: 33px;
 }
-.exchange-form-item .amount-tips {
+.exc-form-item .amount-tips {
     font-size: 12px;
     color: #969da9;
     padding-top: 12px;
 }
-.exchange-form-item .amount-tips .balance{
+.exc-form-item .amount-tips .balance{
     height: 60px;
     text-align: center;
     background-color: #f7f9fa;
@@ -146,7 +154,7 @@
     box-sizing: border-box;
     padding: 13px 0 0;
 }
-.exchange-form-item .amount-tips .balance em {
+.exc-form-item .amount-tips .balance em {
     color: #323e48;
 }
 .fiat-withdraw-aus .ant-card-body {
@@ -175,20 +183,20 @@
     color: #333;
 }
 
-.fiat-withdraw-aus .exchange-form-item.amount-info .inner-item {
+.fiat-withdraw-aus .exc-form-item.amount-info .inner-item {
     overflow: hidden;
 }
-.fiat-withdraw-aus .exchange-form-item.amount-info .source{
+.fiat-withdraw-aus .exc-form-item.amount-info .source{
     font-size: 14px;
     color: #999999;
     float: left;
     width: 50%;
 }
-.fiat-withdraw-aus .exchange-form-item.amount-info .source .val{
+.fiat-withdraw-aus .exc-form-item.amount-info .source .val{
     font-size: 20px;
     color: #333;
 }
-.fiat-withdraw-aus .exchange-form-item.amount-info .real{
+.fiat-withdraw-aus .exc-form-item.amount-info .real{
     width: 50%;
     float: right;
     text-align: right;
@@ -238,7 +246,7 @@
     color: #333;
     padding: 10px 0 20px;
 }
-.ant-modal.account-no-auth .ant-modal-body .exchange-form-item .submit-btn{
+.ant-modal.account-no-auth .ant-modal-body .exc-form-item .submit-btn{
     padding: 0 32px;
 }
 

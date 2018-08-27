@@ -86,9 +86,8 @@ class CoinRecharge extends Component {
 
     render() {
         const {state} = this;
-        const { coins, currencyId, addressInfo, currencyNameEn } = this.state;
+        let { coins, currencyId, addressInfo, currencyNameEn } = this.state;
         let store = this.props.accountStore;
-
         return (
             <div>
                 <Modal

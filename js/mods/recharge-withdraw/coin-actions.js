@@ -30,7 +30,7 @@ export function initCoinList(ctx) {
     getCoinAccount()
         .then(res => {
             let coins = res.attachment ? res.attachment.coinList : [];
-            coins = coins.filter(item => item.currencyNameEn !== 'TWD');
+            coins = coins.filter(item => item.currencyNameEn !== UPEX.config.baseCurrencyEn);
             ctx.setState({
                 coinsInfo: res,
                 coins
