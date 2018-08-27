@@ -107,14 +107,16 @@ class UserInfo {
     @action
     getUserInfo() {
         this.isFetchingInfo = true;
-        personalInfo()
+        return personalInfo()
             .then(res => {
                 this.userInfo = res.attachment;
                 this.isFetchingInfo = false;
                 pickErrMsg(res, 'getUserInfo');
+                return res;
             })
             .catch(err => {
                 console.error(err, 'getUserInfo');
+                return false;
             });
     }
     /**

@@ -1025,3 +1025,66 @@ export function getCurrencyPoints(baseCurrencyId, tradeCurrencyId) {
         tradeCurrencyId
     })
 }
+
+
+/**
+ *  =================澳洲版API=================
+ */
+
+/**
+ *  澳洲版获取用户KYC等级限额信息
+ */
+export function ausGetQuotaManagementInfo(data) {
+    return axios.post('/ausCommon/getQuotaManagementInfo', data)
+}
+/**
+ * 澳洲版bpay充值获取referenceID
+ */
+export function getBPAYreferenceNo() {
+    return axios.post('/ausCommon/getBpayRefId')
+}
+/**
+ * 澳洲版充值/提现查询记录
+ * @param {type， pageNumber， pageSize}
+ * type: recharge: 1, withdraw: 2
+ */
+export function ausGetFundChangeList(data) {
+    let url = data.type === 1 ? '/ausRecharge/getRechargeBillInfo' : 'ausWithdraw/getWithdrawBillInfo';
+    return axios.post(url, qs.stringify({
+        ...data
+    }))
+}
+/**
+ * 澳洲版获取用户资金可用余额
+ * @param {currencyId} data
+ */
+export function ausGetUserAvailableAmount(data) {
+    return axios.post('/ausRechargeWithdraw/getUserAvailableAmount', qs.stringify({
+        currencyId: 1
+    }))
+}
+/**
+ * 澳洲版获取用户提现手续费
+ * @param {currencyId, amount（提现金额）, actionId（行为id，2代表提现）: 2} data
+ */
+export function ausGetWithdrawCashFee(data) {
+    data.currencyId = 1;
+    data.actionId = 2;
+    return axios.post('/ausWithdraw/getWithdrawCashFee', qs.stringify(data))
+}
+
+/**
+ * 澳洲版创建提现订单
+ * @param { amount, currencyId, accountNumber, accountName, bsb, swiftCode, address, tradePwd, gAuth/phoneCode }
+ */
+export function ausOrderFiatWithdraw(data) {
+    return axios.post('/ausWithdraw/createWithdrawCashBill', data)
+}
+
+/**
+ * 澳洲版获取poli地址
+ * @param {amount}
+ */
+export function ausGetPoliUrl(data) {
+    return axios.post('/ausRecharge/getFrontPageJsonData', data)
+}

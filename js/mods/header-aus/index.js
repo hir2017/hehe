@@ -23,7 +23,7 @@ import LanguageSwitchView from './language';
 import ThemeSwitchView from './theme';
 import { browserHistory } from 'react-router';
 
-const logoIMG = require('../../../images/infinitex-logo.png');
+const logoIMG = require('@/../images/aus/infinitex-logo.png');
 
 @inject('authStore','commonStore','userInfoStore')
 @observer
