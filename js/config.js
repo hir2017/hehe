@@ -2,6 +2,7 @@ import Url from './lib/url';
 
 let config = {};
 
+config.version="ace";
 config.sitename = 'ace';
 config.languages = ['zh-CN', 'zh-TW', 'en-US']; // 网站支持的语言列表
 config.initLanguage = 'zh-TW'; // 默认语言

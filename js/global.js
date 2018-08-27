@@ -69,7 +69,7 @@ const SYSTEM_LANGUAGE = (function() {
 })();
 
 const cache = new Cache({
-    prefix: config.sitename
+    prefix: config.version
 });
 /**
  * 网站初始化默认语言
@@ -79,7 +79,7 @@ config.defaultLanguage = (function() {
     const systemLanguage = SYSTEM_LANGUAGE;
 
     let lang = cache.getCache('lang');
-    
+
     if (!lang) {
         // if (config.languages.indexOf(systemLanguage) > -1) {
         //     lang = systemLanguage;
