@@ -4,7 +4,7 @@ body {
     .ant-select {
         &-selection {
             border-radius: 3px;
-            border: 1px solid @input-border-color;
+            border: 1px solid @input-border-color2;
             &:hover {
                 border-color: @theme-yellow;
             }
@@ -39,7 +39,7 @@ body {
     .ant-select-focused .ant-select-selection,
     .ant-select-selection:focus,
     .ant-select-selection:active {
-        border-color: @input-border-color;
+        border-color: @input-border-color2;
         box-shadow: 0 0 0 2px @theme-yellow-opacity01;
     }
     // 日期
@@ -94,6 +94,24 @@ body {
         }
         &:focus {
             box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+        }
+    }
+    .ant-btn-primary {
+        background-color: @btn-submit-color;
+        border-radius: 3px;
+        border: none;
+        color: @text-color01-light;
+        &:hover, &:focus {
+            background-color: @btn-submit-hover-color;
+            color: @text-color01-light;
+        }
+        &:active, &.active {
+            border-color: @theme-yellow-opacity01;
+            background-color: @btn-submit-hover-color;
+            color: @text-color01-light;
+        }
+        &.ant-btn-clicked:after {
+            border: 0 solid @theme-yellow;
         }
     }
 }
