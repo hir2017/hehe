@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import { Link, browserHistory } from 'react-router';
 import { Switch, Button, Row, Col } from 'antd';
+import TimeUtil from '@/lib/util/date';
 import { ausGetQuotaManagementInfo } from '@/api/http';
 import NumberUtils from '@/lib/util/number';
 import bindPhone from '@/../images/bind-phone.png';
@@ -41,7 +42,7 @@ class Info extends Component {
             })
         ])
             .then(([res1, res2]) => {
-                const {authLevel = 1} = this.props.userInfoStore.userInfo;
+                const { authLevel = 1 } = this.props.userInfoStore.userInfo;
                 let result = {};
                 if (res1.status === 200) {
                     result.cashLimit = res1.attachment[0][`kyc${authLevel}DayLimit`];
@@ -96,11 +97,11 @@ class Info extends Component {
                     <Col span={12} className="left">
                         <div className="phone">{userInfo.phone || userInfo.email}</div>
                         <div className="login-time">
-                            {UPEX.lang.template('最后登录时间')}：{userInfo.userLoginRecord && userInfo.userLoginRecord.time}
+                            {UPEX.lang.template('最后登录时间')}：{userInfo.userLoginRecord && TimeUtil.formatDate(userInfo.userLoginRecord.timeStamp)}
                         </div>
                         <Row className="bind-status">
                             <Col span={12} className={userInfo.isValidatePhone ? 'auth' : ''}>
-                                <img  src={userInfo.isValidatePhone ? bindPhone : unbindPhone} />
+                                <img src={userInfo.isValidatePhone ? bindPhone : unbindPhone} />
                                 <p>{userInfo.isValidatePhone ? UPEX.lang.template('手机已绑定') : UPEX.lang.template('手机未绑定')}</p>
                             </Col>
                             <Col span={12} className={userInfo.isValidateEmail ? 'auth' : ''}>
@@ -122,15 +123,13 @@ class Info extends Component {
                                         <p className="money">
                                             {UPEX.lang.template('当前日提现限额')}：
                                             <span>
-                                             {NumberUtils.separate(state.cashLimit)}   {UPEX.config.baseCurrencySymbol}
+                                                {NumberUtils.separate(state.cashLimit)} {UPEX.config.baseCurrencySymbol}
                                             </span>
-
-
                                         </p>
                                         <p className="money">
                                             {UPEX.lang.template('当前日提币限额')}：
                                             <span>
-                                             {NumberUtils.separate(state.coinLimit)}   {UPEX.config.baseCurrencySymbol}
+                                                {NumberUtils.separate(state.coinLimit)} {UPEX.config.baseCurrencySymbol}
                                             </span>
                                         </p>
                                     </div>

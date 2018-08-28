@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
+import TimeUtil from '@/lib/util/date';
 
-import AceSection from '../../components/page-user/section';
+import AceSection from '@/components/page-user/section';
 
 
 class LoginListView extends Component {
@@ -13,7 +14,7 @@ class LoginListView extends Component {
                     return (
                         <li key={index}>
                             <dl>
-                                <dd className="time">{item.time}</dd>
+                                <dd className="time">{TimeUtil.formatDate(item.timeStamp)}</dd>
                                 <dd>{item.host}</dd>
                                 <dd className="location">{item.location}</dd>
                             </dl>

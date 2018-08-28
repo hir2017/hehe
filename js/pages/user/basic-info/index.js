@@ -1,14 +1,9 @@
-/**
- * @fileoverview  用户个人信息
- * @author xia xiang feng
- * @date 2018-05-21
- */
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
-import Info from '../../mods/basic-info/info';
-import List from '../../mods/basic-info/logined-list';
+import Info from './info';
+import List from './logined-list';
 
-import PageWrapper from '../../components/page-user/page-wrapper';
+import PageWrapper from '@/components/page-user/page-wrapper';
 
 @inject('userInfoStore')
 @observer

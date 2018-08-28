@@ -1,18 +1,19 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import { Link, browserHistory } from 'react-router';
-import { Switch, Button, Row, Col } from 'antd';
+import { Row, Col } from 'antd';
+import TimeUtil from '@/lib/util/date';
 
-import bindPhone from '../../../images/bind-phone.png';
-import unbindPhone from '../../../images/unbind-phone.png';
-import bindEmail from '../../../images/bind-email.png';
-import unbindEmail from '../../../images/unbind-email.png';
-import gradeA from '../../../images/grade-a.png';
-import gradeB from '../../../images/grade-b.png';
-import gradeC from '../../../images/grade-c.png';
-import upgradeBtn from '../../../images/up-grade-btn.png';
+import bindPhone from '@/../images/bind-phone.png';
+import unbindPhone from '@/../images/unbind-phone.png';
+import bindEmail from '@/../images/bind-email.png';
+import unbindEmail from '@/../images/unbind-email.png';
+import gradeA from '@/../images/grade-a.png';
+import gradeB from '@/../images/grade-b.png';
+import gradeC from '@/../images/grade-c.png';
+import upgradeBtn from '@/../images/up-grade-btn.png';
 
-import AceSection from '../../components/page-user/section';
+import AceSection from '@/components/page-user/section';
 
 @inject('userInfoStore')
 @observer
@@ -73,7 +74,7 @@ class Info extends Component {
                         <div className="phone">{userInfo.phone || userInfo.email}</div>
                         <div className="login-time">
                             {UPEX.lang.template('最后登录时间')}：
-                            {userInfo.userLoginRecord && userInfo.userLoginRecord.time}
+                            {userInfo.userLoginRecord && TimeUtil.formatDate(userInfo.userLoginRecord.timeStamp)}
                         </div>
                         <Row className="bind-status">
                             <Col span={12} className={userInfo.isValidatePhone ? 'auth' : ''} onClick={this.doSkip.bind(this, 'phone', userInfo.isValidatePhone)}>
