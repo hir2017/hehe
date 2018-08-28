@@ -30,9 +30,9 @@ import CoinAddress from './pages/recharge-withdraw/address';
 // 订单相关
 // 交易订单
 import OrderHoc from './pages/record-list/record-trade-hoc';
-import OpenRecordList from './mods/record-list/record-open';
-import HistoryRecordList from './mods/record-list/record-history';
-import SuccessRecordList from './mods/record-list/record-success';
+import OpenRecordList from './pages/record-list/order/open';
+import HistoryRecordList from './pages/record-list/order/history';
+import SuccessRecordList from './pages/record-list/order/success';
 // 充值＋充币＋提现＋提币
 import CoinRecord from './pages/record-list/coin';
 import FiatRecord from './pages/record-list-aus/record-fiat/index';

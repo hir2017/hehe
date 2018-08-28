@@ -4,8 +4,8 @@
 import React, {Component} from 'react';
 import { observer, inject } from 'mobx-react';
 import { Tooltip } from 'antd';
-import OpenOrder from '../../record-list/record-open';
-import HistoryOrder from '../../record-list/record-success';
+import OpenOrder from '@/pages/record-list/order/open';
+import HistoryOrder from '@/pages/record-list/order/success';
 
 @inject('tradeStore')
 @observer
@@ -64,9 +64,9 @@ class MyOrder extends Component {
 						}
 					</ul>
 					<div className="action-btn" onClick={this.handleExpand}>
-                        { 
-                            store.expandOrderTable ? 
-                            <Tooltip placement="right" title={UPEX.lang.template('收起')}><i className="icon-close"/></Tooltip>: 
+                        {
+                            store.expandOrderTable ?
+                            <Tooltip placement="right" title={UPEX.lang.template('收起')}><i className="icon-close"/></Tooltip>:
                             <Tooltip placement="right" title={UPEX.lang.template('展开')}><i className="icon-open"/></Tooltip>
                         }
                     </div>
@@ -75,7 +75,7 @@ class MyOrder extends Component {
 					{
 						tabIndex == 0 ? <OpenOrder pagination={false}/> : <HistoryOrder pagination={false}/>
 					}
-				</div>				
+				</div>
 			</div>
 		);
 	}

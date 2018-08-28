@@ -1,48 +1,21 @@
-import React from 'react';
-import Form from './header-form';
+import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
-import List from '@/components/list';
-import { getUserSuccessOrderList } from '@/api/http';
-import NumberUtil from '@/lib/util/number';
+import { Pagination } from 'antd';
+import TimeUtil from '@/lib/util/date';
+import toAction from './page-action';
+import Form from './query-form';
 
-@inject('openStore')
+@inject('commonStore', 'successStore', 'authStore')
 @observer
-class View extends React.Component {
+class List extends Component {
+    static defaultProps = {
+        pagination: true // 是否分页， true分页，false不分页
+    };
+
     constructor(props) {
         super(props);
 
-        this.lists = [
-            { title: UPEX.lang.template('时间'), className: 'time', dataIndex: 'orderTime' },
-            {
-                title: `${UPEX.lang.template('币种')} / ${UPEX.lang.template('市场')}`,
-                className: 'name',
-                render: row => {
-                    return `${row.currencyNameEn} / ${row.baseCurrencyNameEn}`;
-                }
-            },
-            {
-                title: UPEX.lang.template('买卖'),
-                className: 'buyorsell',
-                render: row => {
-                    return row.buyOrSell == 1 ? (
-                        <label className="greenrate">{UPEX.lang.template('买入')}</label>
-                    ) : (
-                        <label className="redrate">{UPEX.lang.template('卖出')}</label>
-                    );
-                }
-            },
-            { title: UPEX.lang.template('成交均价'), className: 'price', dataIndex: 'price' },
-            { title: UPEX.lang.template('成交数量'), className: 'price', dataIndex: 'price' },
-            { title: UPEX.lang.template('手续费'), className: 'rate', dataIndex: 'tradeRate' },
-            { title: UPEX.lang.template('委托数量'), className: 'amount', dataIndex: 'tradeAmount' },
-        ];
-
-        this.state = {
-            data: [],
-            total: 0,
-            current: 1
-        };
-
+        this.action = toAction(this.props.successStore, this.props.authStore);
         this.params = {
             beginTime: '',
             endTime: '',
@@ -54,75 +27,104 @@ class View extends React.Component {
         };
     }
 
-    parseItem(item) {
-        const {openStore} = this.props;
-        let currencyObj = openStore.currencyStore.getCurrencyById(`${item.baseCurrencyId}-${item.currencyId}`);
-        let pointNum = currencyObj.pointNum;
-        let pointPrice = currencyObj.pointPrice;
+    componentDidMount() {
+        this.action.getData({
+            ...this.params,
+            size: !this.props.pagination ? 100 : 10
+        });
+    }
 
-        // 时间
-        item.orderTime = item.orderTime.split('.')[0];
-        // 委托价格
-        item.price = NumberUtil.formatNumber(item.price, pointPrice);
-        // 成交金额
-        item.tradeAmount = NumberUtil.formatNumber(item.tradeAmount || 0, pointPrice);
-        // 成交价格
-        item.tradePrice = NumberUtil.formatNumber(item.tradePrice, pointPrice);
-        // 委托数量
-        item.num = NumberUtil.formatNumber(item.num, pointNum);
-        // 成交数量
-        item.tradeNum = NumberUtil.formatNumber(item.tradeNum, pointNum);
-        // 成交率
-        item.tradeRate = item.tradeRate || 0;
-        item.tradeRate = NumberUtil.formatNumber(item.tradeRate * 100, 2) + '%';
+    componentWillUnmount() {
+        this.action.handleFilter('dateArr', ['', '']);
+    }
 
-        return item;
+    onChangePagination(page) {
+        this.action.handleFilter('page', {
+            page,
+            ...this.params
+        });
     }
 
     onQuery(data) {
         for (const key in this.params) {
             this.params[key] = data[key] === '' ? this.params[key] : data[key];
         }
-        this.getData();
-    }
-
-    componentDidMount() {
-        this.getData();
-    }
-
-    onChangePagination() {}
-
-    getData() {
-        getUserSuccessOrderList({
+        this.action.getData({
             ...this.params,
-            start: this.state.current,
-            size: 10
-        }).then(res => {
-            let _state = {
-                data: [],
-                total: 0
-            };
-            if (res.status === 200) {
-                _state = {
-                    data: res.attachment.list.map(this.parseItem.bind(this)),
-                    total: res.total
-                };
-            } else {
-                // TODO errorMsg
-            }
-            this.setState(_state);
+            size: !this.props.pagination ? 100 : 10
         });
     }
 
     render() {
-        const {state, lists} = this;
+        let store = this.props.successStore;
+        let $content;
+
+        if (!this.props.authStore.isLogin) {
+            $content = <div className="mini-tip">{UPEX.lang.template('登录后可查看已完成订单')}</div>;
+        } else if (!store.isFetching && store.orderList.length == 0) {
+            $content = <div className="mini-tip list-is-empty">{UPEX.lang.template('暂无数据')}</div>;
+        } else {
+            $content = (
+                <ul className="list">
+                    {store.orderList.map((item, index) => {
+                        return (
+                            <li key={index}>
+                                <dl>
+                                    <dd className="time">{TimeUtil.formatDate(item.orderTimeStamp)}</dd>
+                                    <dd className="name">{item.currencyNameEn} / {item.baseCurrencyNameEn}</dd>
+                                    <dd className="buyorsell">
+                                        {item.buyOrSell == 1 ? (
+                                            <label className="greenrate">{UPEX.lang.template('买入')}</label>
+                                        ) : (
+                                            <label className="redrate">{UPEX.lang.template('卖出')}</label>
+                                        )}
+                                    </dd>
+                                    <dd className="tradeprice">{item.tradePrice}</dd>
+                                    <dd className="num">{item.tradeNum}</dd>
+                                    <dd className="fee">{item.fee}</dd>
+                                    <dd className="amount">
+                                        <span className="pr10">{item.tradeAmount}</span>
+                                    </dd>
+                                </dl>
+                            </li>
+                        );
+                    })}
+                </ul>
+            );
+        }
+
         return (
-            <div className="record-box">
+            <div className="order-main-box">
                 <Form onClick={this.onQuery.bind(this)} action="success"/>
-                <List dataSource={state.data} columns={lists} expandedRowRender={(row) => <p>{row.a}</p>}/>
+                <div className="order-table success-list-table">
+                    <div className="table-hd">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <th className="time">{UPEX.lang.template('时间')}</th>
+                                    <th className="name">{UPEX.lang.template('币种/市场')}</th>
+                                    <th className="buyorsell">{UPEX.lang.template('买卖')}</th>
+                                    <th className="tradeprice">{UPEX.lang.template('成交价')}</th>
+                                    <th className="num">{UPEX.lang.template('成交数量')}</th>
+                                    <th className="fee">{UPEX.lang.template('手续费')}</th>
+                                    <th className="amount pr10">{UPEX.lang.template('成交金额')}</th>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div className="table-bd">
+                        {$content}
+                        {store.isFetching ? <div className="mini-loading" /> : null}
+                    </div>
+                    <div className="table-ft">
+                        {store.total > 0 && this.props.pagination ? (
+                            <Pagination current={store.current} total={store.total} pageSize={store.pageSize} onChange={this.onChangePagination.bind(this)} />
+                        ) : null}
+                    </div>
+                </div>
             </div>
         );
     }
 }
 
-export default View;
+export default List;

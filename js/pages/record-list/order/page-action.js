@@ -1,6 +1,6 @@
 import { message } from 'antd';
-import { getPersonalTradingPwd, cancelOrder } from '../../api/http';
-import { socket } from '../../api/socket';
+import { getPersonalTradingPwd, cancelOrder } from '@/api/http';
+import { socket } from '@/api/socket';
 import { browserHistory } from 'react-router';
 
 export default (store, authStore, tradeStore) => {
