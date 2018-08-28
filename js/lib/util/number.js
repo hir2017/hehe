@@ -126,7 +126,7 @@ const NumberUtil = {
      * @return {String} 截取后的数字
      */
     toFixed: function(num, digit) {
-        
+
         var str = "" + num,
             idx = str.indexOf(".") + digit + 1;
         if (idx > digit && idx < str.length) // 超过N位小数
@@ -210,7 +210,7 @@ const NumberUtil = {
                 num = coeff_array.join('') + new Array(l + 1).join(zero);
             }
         }
-        
+
         return num;
     },
     // 小数相加
@@ -233,6 +233,14 @@ const NumberUtil = {
         const len = Math.max(len1, len2);
         let result = [_add(arr1[0], arr2[0]), _add(arr1[1] || 0, arr2[1] || 0, [len - len1, len - len2])];
         return parseInt(result[0]) + parseInt(result[1]) / Math.pow(10, len);
+    },
+    // 正整数校验
+    isInteger(str) {
+        return (/^[0-9]*[1-9][0-9]*$/.test(str))
+    },
+    // 两位小数
+    isFloatWithTwoDecimal(str) {
+        return (/^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$/.test(str))
     }
 
 };
