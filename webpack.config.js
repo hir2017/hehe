@@ -41,7 +41,8 @@ var cssLoader = {
         'css-loader?minimize=true',
         'postcss-loader',
         'less-loader'
-    ],
+    ]
+}
 
 // 为product环境打包时
 if (env == 'product') {
