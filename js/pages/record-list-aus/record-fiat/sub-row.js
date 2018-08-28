@@ -5,8 +5,14 @@ class SubRow extends Component {
         super(props);
 
         this.columns = {
-            rechargeCol:[
-                { label: UPEX.lang.template('创建时间'), field: 'createTime' },
+            rechargeCol: [
+                {
+                    label: UPEX.lang.template('创建时间'),
+                    field: 'createTimeStamp',
+                    render(row) {
+                        return TimeUtil.formatDate(row.createTimeStamp);
+                    }
+                },
                 { label: UPEX.lang.template('付款账号'), field: 'cardNo' },
                 { label: UPEX.lang.template('实际付款'), field: 'tradeAmount' },
                 { label: UPEX.lang.template('手续费'), field: 'fee' }
@@ -19,25 +25,23 @@ class SubRow extends Component {
                 { label: UPEX.lang.template('到账金额'), field: 'receiveAmount' },
                 { label: UPEX.lang.template('手续费'), field: 'fee' }
             ]
-        }
+        };
     }
     render() {
-        const {rechargeCol, withdrawCol} = this.columns;
-        const {type, data} = this.props
-        let cols = type === 'recharge' ? rechargeCol : withdrawCol
+        const { rechargeCol, withdrawCol } = this.columns;
+        const { type, data } = this.props;
+        let cols = type === 'recharge' ? rechargeCol : withdrawCol;
 
         return (
             <div className="detail-content">
-                {
-                    cols.map((col, colIndex) => {
-                        return (
-                            <div key={colIndex} className="text">
-                                <span className="label">{col.label}：</span>
-                                {data[col.field]}
-                            </div>
-                        );
-                    })
-                }
+                {cols.map((col, colIndex) => {
+                    return (
+                        <div key={colIndex} className="text">
+                            <span className="label">{col.label}：</span>
+                            {col.render ? col.render(data) : data[col.field]}
+                        </div>
+                    );
+                })}
             </div>
         );
     }

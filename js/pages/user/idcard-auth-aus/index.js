@@ -57,7 +57,7 @@ class PageView extends Component {
                                 <div className="submit">
                                     <Button  onClick={e => {
                                         browserHistory.push('/user/setting-phone');
-                                    }} className="ace-submit-item">
+                                    }} className="exc-submit-item">
                                         {UPEX.lang.template('请先绑定手机')}
                                     </Button>
                                 </div>

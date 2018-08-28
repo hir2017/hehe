@@ -34,7 +34,7 @@ import HistoryRecordList from './mods/record-list/record-history';
 import SuccessRecordList from './mods/record-list/record-success';
 // 充值＋充币＋提现＋提币
 import CoinRecord from './pages/record-list/record-coin';
-import FiatRecord from './pages/record-list/record-fiat';
+import FiatRecord from './pages/record-list/fiat';
 
 // 个人中心
 import UserInfo from './pages/user';

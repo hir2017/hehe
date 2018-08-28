@@ -112,7 +112,7 @@ export default class SettingTradingPassword extends Component {
                     <FormItem {...inputsData.vCode} after={$sendBtn} />
                 </FormView>
                 <div className="submit">
-                    <Button loading={loading} className="ace-submit-item" onClick={this.submit}>
+                    <Button loading={loading} className="exc-submit-item" onClick={this.submit}>
                         {UPEX.lang.template('提交')}
                     </Button>
                 </div>

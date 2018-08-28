@@ -58,7 +58,7 @@ export default class View extends React.Component {
                 <div>
                     <div className="submit">
                         {userInfo.isAuthPrimary == 1 ? null : (
-                            <Button disabled={this.state.loading} onClick={this.submit.bind(this)} className="ace-submit-item">
+                            <Button disabled={this.state.loading} onClick={this.submit.bind(this)} className="exc-submit-item">
                                 {UPEX.lang.template('重新提交')}
                             </Button>
                         )}

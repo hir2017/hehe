@@ -7,8 +7,7 @@ import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import { Select, Breadcrumb } from 'antd';
 const Option = Select.Option;
-
-import RecordList from '../../mods/record-list/record-fund';
+import RecordList from './list';
 
 @inject('accountStore', 'fundChangeRecordStore')
 @observer
@@ -28,7 +27,7 @@ class RecordPage extends Component {
         return (
             <div className="order-wrapper">
                 <Breadcrumb separator=">">
-                    <Breadcrumb.Item>ACE</Breadcrumb.Item>
+                    <Breadcrumb.Item>{UPEX.config.sitename}</Breadcrumb.Item>
                     <Breadcrumb.Item>{UPEX.lang.template('资产管理')}</Breadcrumb.Item>
                 </Breadcrumb>
                 <div className="order-body-inner coin-list">

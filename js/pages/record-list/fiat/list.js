@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import { Checkbox, Icon, Pagination } from 'antd';
-import SubRow from './record-fund-sub-row';
+import SubRow from './sub-row';
+import TimeUtil from '@/lib/util/date';
 
 @inject('fundChangeRecordStore')
 @observer
@@ -51,7 +52,7 @@ class List extends Component {
                             <li key={index} className={this.state.displayIndex == item.id ? 'collapse-content-active' : ''}>
                                 <dl className="row">
                                     <dd className="swift-no">{item.orderNo}</dd>
-                                    <dd className="time">{item.tradeTime}</dd>
+                                    <dd className="time">{item.tradeTimeStamp ? TimeUtil.formatDate(item.tradeTimeStamp) : '--'}</dd>
                                     <dd className="name">{item._actionName}</dd>
                                     <dd className="balance">
                                         {item._type === 'recharge' ? '+' : '-'}
