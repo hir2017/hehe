@@ -87,9 +87,9 @@
   "scripts": {
     "dev": "sudo webpack-dev-server",
     "product": "NODE_ENV=product webpack -p",
-    "restart": "pm2 restart server.js --name='upexchange-front'  -o ./logs/out.log -e ./logs/error.log",
-    "start": "pm2 start server.js  -o ./logs/out.log -e ./logs/error.log ",
-    "stop": "pm2 stop server.js"
+    "restart": "pm2 restart server-aus.js --name='upexchange-front'  -o ./logs/out.log -e ./logs/error.log",
+    "start": "pm2 start server-aus.js  -o ./logs/out.log -e ./logs/error.log ",
+    "stop": "pm2 stop server-aus.js"
   },
   "version": "2.0.0"
 }

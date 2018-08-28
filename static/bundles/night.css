@@ -2,12 +2,12 @@
 .context-menu-wrapper, 
 .insert-study-dialog{
     border-color: #424242;
-    background-color: #24272c;
+    background-color: #2f343b;
 }
 
 .context-menu .action-separator td{
     background-color: #424242;
-    border-color: #24272c;
+    border-color: #2f343b;
 }
 
 body .context-menu td.text{
@@ -19,7 +19,7 @@ tr.context-menu-hover{
 }
 
 body .context-menu-hover td.text{
-    background-color: #272727;
+    background-color: #2a2f37;
     color: #c5cedd;
 }
 
@@ -27,7 +27,7 @@ body .context-menu-hover td.text{
     height: 37px;
 }
 ._tv-dialog{
-    border-color: #24272c;
+    border-color: #2f343b;
 }
 
 ._tv-dialog-content, 
@@ -71,7 +71,7 @@ body .context-menu-hover td.text{
 ._tv-dialog, 
 .custom-select .switcher, 
 .tvcolorpicker-popup{
-    background: #24272c;
+    background: #2f343b;
 }
 
 .chart-page {
