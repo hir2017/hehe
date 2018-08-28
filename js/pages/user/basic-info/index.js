@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import Info from './info';
+import InfoAus from './info-aus';
 import List from './logined-list';
 
 import PageWrapper from '@/components/page-user/page-wrapper';
@@ -19,7 +20,7 @@ class Information extends Component {
     render() {
         return (
             <PageWrapper innerClass="base-info" noPadding>
-                <Info />
+                { UPEX.config.version === 'ace' ?<Info /> : <InfoAus/>}
                 <List />
             </PageWrapper>
         );
