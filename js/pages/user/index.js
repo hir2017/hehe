@@ -17,8 +17,7 @@ class UserPage extends Component {
         this.state = {
             isLogin: true
         };
-
-        this.navData = [
+        let navData = [
             {
                 title: UPEX.lang.template('个人信息'),
                 subItems: [
@@ -80,6 +79,10 @@ class UserPage extends Component {
                 ]
             }
         ];
+        if(UPEX.config.version === 'infinitex') {
+            navData[0].subItems.pop();
+        }
+        this.navData = navData;
     }
 
     componentWillReceiveProps() {
@@ -114,7 +117,7 @@ class UserPage extends Component {
         return (
             <div className="user-wrapper">
                 <Breadcrumb className="user-breadcrumb" separator=">">
-                    <Breadcrumb.Item>ACE</Breadcrumb.Item>
+                    <Breadcrumb.Item>{UPEX.config.sitename}</Breadcrumb.Item>
                     <Breadcrumb.Item>{UPEX.lang.template('个人中心')}</Breadcrumb.Item>
                 </Breadcrumb>
                 <div className="user-body-inner clearfix">
