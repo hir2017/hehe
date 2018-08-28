@@ -33,7 +33,7 @@ import OpenRecordList from './mods/record-list/record-open';
 import HistoryRecordList from './mods/record-list/record-history';
 import SuccessRecordList from './mods/record-list/record-success';
 // 充值＋充币＋提现＋提币
-import CoinRecord from './pages/record-list/record-coin';
+import CoinRecord from './pages/record-list/coin';
 import FiatRecord from './pages/record-list/fiat';
 
 // 个人中心

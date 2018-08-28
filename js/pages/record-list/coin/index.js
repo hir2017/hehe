@@ -8,8 +8,8 @@ import { observer, inject } from 'mobx-react';
 import { Select, Breadcrumb } from 'antd';
 const Option = Select.Option;
 
-import RechargeRecordList from '../../mods/record-list/coin-recharge-record';
-import WidthdrawRecordList from '../../mods/record-list/coin-withdraw-record';
+import RechargeRecordList from '@/mods/record-list/coin-recharge-record';
+import WidthdrawRecordList from '@/mods/record-list/coin-recharge-record';
 
 @inject('currencyStore')
 @observer

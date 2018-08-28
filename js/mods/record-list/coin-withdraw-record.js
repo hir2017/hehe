@@ -8,7 +8,7 @@
 import React, {Component} from 'react';
 import { observer, inject } from 'mobx-react';
 import { Pagination} from 'antd';
-
+import TimeUtil from '@/lib/util/date';
 
 @inject('coinWithdrawRecordStore')
 @observer
@@ -93,7 +93,7 @@ class List extends Component {
 										<dd className="status">{status}</dd>
 										<dd className="name">{item.currencyNameEn}</dd>
 										<dd className="num">{item.amount}</dd>
-										<dd className="time">{item.createTime}</dd>
+										<dd className="time">{TimeUtil.formatDate(item.createTimeStamp)}</dd>
 										<dd className="fee">{item.fee}</dd>
 										<dd className="address">{UPEX.lang.template('地址')} : {item.address}</dd>
 										<dd className="action pr10">
