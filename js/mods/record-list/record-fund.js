@@ -50,16 +50,16 @@ class List extends Component {
                         return (
                             <li key={index} className={this.state.displayIndex == item.id ? 'collapse-content-active' : ''}>
                                 <dl className="row">
-                                    <dd className="swift-no">{item.orderNo || '--'}</dd>
-                                    <dd className="time">{item.tradeTime || '--'}</dd>
-                                    <dd className="name">{item._actionName || '--'}</dd>
+                                    <dd className="swift-no">{item.orderNo}</dd>
+                                    <dd className="time">{item.tradeTime}</dd>
+                                    <dd className="name">{item._actionName}</dd>
                                     <dd className="balance">
                                         {item._type === 'recharge' ? '+' : '-'}
                                         {item.amount}
                                     </dd>
-                                    <dd className="status" title={item.status === 1 ? UPEX.lang.template('已放款，到账速度取决于银行进度') : ''}>{item._status || '--'}</dd>
+                                    <dd className="status" title={item.status === 1 ? UPEX.lang.template('已放款，到账速度取决于银行进度') : ''}>{item._status}</dd>
                                     <dd className="pay-method">
-                                        {item.tradeType || '--'}
+                                        {item.tradeType}
                                     </dd>
                                     <dd className="action">
                                         <button type="button" onClick={()=>this.toggleSubRow(item.id)}>{UPEX.lang.template('详情')}</button>

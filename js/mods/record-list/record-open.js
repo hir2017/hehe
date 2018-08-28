@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import { Pagination, Popconfirm, message } from 'antd';
 import { cancelOrder } from '@/api/http';
-// import TimeUtil from '@/lib/util/date';
+import TimeUtil from '@/lib/util/date';
 import toAction from './record-action';
 import Form from './order-query-form';
 
@@ -110,8 +110,7 @@ class List extends Component {
                         return (
                             <li key={index}>
                                 <dl>
-                                    {/* <dd className="time">{TimeUtil.formatDate(item.orderTimeStamp)}</dd> */}
-                                    <dd className="time">{item.orderTime}</dd>
+                                    <dd className="time">{TimeUtil.formatDate(item.orderTimeStamp)}</dd>
                                     <dd className="name">
                                         {item.currencyNameEn} / {item.baseCurrencyNameEn}
                                     </dd>

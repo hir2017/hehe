@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
-import { Select, DatePicker, Pagination } from 'antd';
-const Option = Select.Option;
-const { RangePicker } = DatePicker;
+import { Pagination } from 'antd';
+import TimeUtil from '@/lib/util/date';
 import toAction from './record-action';
 import Form from './order-query-form';
 
@@ -172,7 +171,7 @@ class List extends Component {
                         return (
                             <li key={index} className={item.orderNo === this.state.displayIndex ? 'collapse-content-active' : ''}>
                                 <dl>
-                                    <dd className="time">{item.orderTime}</dd>
+                                    <dd className="time">{TimeUtil.formatDate(item.orderTimeStamp)}</dd>
                                     <dd className="name">{item.currencyNameEn} / {item.baseCurrencyNameEn}</dd>
                                     <dd className="buyorsell">
                                         {item.buyOrSell == 1 ? (
