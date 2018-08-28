@@ -7,7 +7,7 @@ var webpack = require('webpack'),
     history = require('connect-history-api-fallback'),
     webpackDevConfig = require('./webpack.config.aus.prod.js');
 
-var port =  process.env.PORT || 3001;
+var port =  process.env.PORT || 3000;
 
 var compiler = webpack(webpackDevConfig);
 var app = express();
