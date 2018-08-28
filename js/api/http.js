@@ -345,7 +345,7 @@ export function getWithdrawCashFee(data) {
 
 /**
  * 创建提现订单
- * @param {amount, currencyId, cardId（此用户当前绑定银行卡id）, tradePwd, gAuth/phoneCode,
+ * @param {amount, currencyId, cardId（此用户当前绑定银行卡id）, tradePwd, gAuth/phoneCode}
  */
 export function orderFiatWithdraw(data) {
     data.currencyId = 1;
@@ -654,12 +654,18 @@ export function sendCodeInUserCenter(type, imgCode, imgCodeId) {
  * 发送验证码 设置、忘记交易密码
  */
 
-export function setTradePwdSendCode(type, imgCode, imgCodeId) {
-    return axios.post('/user/setTradePwdSendCode', {
-        type: type,
+export function setTradePwdSendCode(data, imgCode, imgCodeId) {
+    let params = imgCode ? {
+        type: data,
         imgcode: imgCode,
         codeid: imgCodeId
-    })
+    } : {
+        vercode: 1,
+        codeid: 1,
+        imgcode: 1,
+        ...data
+    }
+    return axios.post('/user/setTradePwdSendCode', params)
 }
 
 /**
