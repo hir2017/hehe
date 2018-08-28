@@ -1,15 +1,11 @@
-/**
- * @fileoverview  用户个人信息
- * @author xia xiang feng
- * @date 2018-05-23
- */
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import { Modal, Input, message } from 'antd';
-import Vcodebutton from '../common/authcode-btn';
+import Vcodebutton from '@/mods/common/authcode-btn';
+import AceSection from '@/components/page-user/section';
 const Confirm = Modal.confirm;
 
-class CardListView extends Component {
+class List extends Component {
     render() {
         const { dataSource, getStatus, clickHandle } = this.props;
         return (
@@ -41,7 +37,7 @@ class CardListView extends Component {
     }
 }
 
-import AceSection from '../../components/page-user/section';
+
 
 @inject('userInfoStore', 'captchaStore', 'authStore')
 @observer
@@ -191,7 +187,7 @@ export default class BankList extends Component {
         if (bankCardList.length == 0) {
             $content = <div className="mini-tip">{UPEX.lang.template('暂无数据')}</div>;
         } else {
-            $content = <CardListView getStatus={this.status.bind(this)} clickHandle={this.bankHandle.bind(this)} dataSource={bankCardList}/>;
+            $content = <List getStatus={this.status.bind(this)} clickHandle={this.bankHandle.bind(this)} dataSource={bankCardList}/>;
         }
         return (
             <AceSection title={UPEX.lang.template('银行卡账号设定记录')} className="list">

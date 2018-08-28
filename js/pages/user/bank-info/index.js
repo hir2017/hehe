@@ -8,10 +8,10 @@ import { Link } from 'react-router';
 import { observer, inject } from 'mobx-react';
 import { Button, message } from 'antd';
 
-import BindingBank from '../../mods/bank-info/index';
-import BankList from '../../mods/bank-info/list';
-import PageWrapper from '../../components/page-user/page-wrapper';
-import AceSection from '../../components/page-user/section';
+import BindingBank from './bind';
+import BankList from './list';
+import PageWrapper from '@/components/page-user/page-wrapper';
+import AceSection from '@/components/page-user/section';
 
 @inject('userInfoStore')
 @observer
