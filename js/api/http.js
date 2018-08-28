@@ -1088,3 +1088,19 @@ export function ausOrderFiatWithdraw(data) {
 export function ausGetPoliUrl(data) {
     return axios.post('/ausRecharge/getFrontPageJsonData', data)
 }
+
+
+/**
+ *  更新驳回原因读取状态
+ *  @status: 默认0 已读，1：未读
+ */
+export function updateAuthFailReasonStatus(data) {
+    return axios.post('/user/updateAuthFailReasonStatus', data)
+}
+
+/**
+ *  用户身份认证信息查询
+ */
+export function getUserAuthInfo(info) {
+    return axios.post('/user/userAuthInfo', {})
+}
