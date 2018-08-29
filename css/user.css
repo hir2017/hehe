@@ -1947,9 +1947,15 @@ body .user-main .ant-select-dropdown-menu-item {
 }
 
 .user-main .content-body.feedback .upload-box .ant-upload-select .ant-upload {
+    /* opacity: 0; */
+}
+.user-main .content-body.feedback .upload-box .ant-upload-select .ant-upload .anticon {
     opacity: 0;
 }
-
+.user-main .content-body.feedback .upload-box .ant-upload-select .ant-upload .ant-upload-text {
+    color: transparent;
+    background-color: #fafafa;
+}
 .user-main .content-body.feedback .upload-box::after {
     content: '';
     clear: both;
