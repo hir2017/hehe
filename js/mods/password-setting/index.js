@@ -14,7 +14,8 @@ export default class BindingBank extends Component {
     passwordSwitch = checked => {
         const userInfo = this.props.userInfoStore.userInfo || {};
         let msg = 'none';
-        msg = (userInfo.isValidatePhone === 0 && UPEX.lang.template('请先绑定手机')) || (userInfo.isValidatePass === 0 && UPEX.lang.template('请先设置资金密码'));
+        msg =
+            (userInfo.isValidatePhone === 0 && UPEX.lang.template('请先绑定手机')) || (userInfo.isValidatePass === 0 && UPEX.lang.template('请先设置资金密码'));
         if (msg === 'none' || msg !== false) {
             message.error(msg);
             return;
@@ -75,17 +76,17 @@ export default class BindingBank extends Component {
             noPhone: {
                 path: '/user/setting-phone',
                 label: UPEX.lang.template('绑定手机'),
-                class: 'exc-secondary',
+                class: 'exc-secondary'
             },
             noPass: {
                 path: '/user/set-trade-pwd',
                 label: UPEX.lang.template('添加'),
-                class: 'exc-secondary',
+                class: 'exc-secondary'
             },
             modify: {
                 path: '/user/modify-trade-pwd',
                 label: UPEX.lang.template('修改'),
-                class: 'exc-btn-white',
+                class: 'exc-btn-white'
             }
         };
         let currTradePwd;
@@ -122,17 +123,17 @@ export default class BindingBank extends Component {
                 </Row>
                 <Row className="pwd bottom-radius-6">
                     <Col className="title" span={8}>
-                        <p>
-                            {UPEX.lang.template('资金密码')}
-                        </p>
+                        <p>{UPEX.lang.template('资金密码')}</p>
                         <p>{UPEX.lang.template('用于交易、绑定解绑银行卡充币提现等资金操作，需要严格保密')}</p>
                     </Col>
                     <Col className="level" span={8} />
                     <Col className="operator" span={8}>
-                        <span className="switch">
-                            {UPEX.lang.template('启用委托认证')}
-                            {userInfo.isValidatePhone ? <Switch onChange={this.passwordSwitch} checked={isEnableFdPassword} /> : null}
-                        </span>
+                        {userInfo.isValidatePhone ? (
+                            <span className="switch">
+                                {UPEX.lang.template('启用委托认证')}
+                                <Switch onChange={this.passwordSwitch} checked={isEnableFdPassword} />
+                            </span>
+                        ) : null}
                         <Button
                             onClick={e => {
                                 browserHistory.push(currTradePwd.path);

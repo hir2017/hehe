@@ -94,7 +94,8 @@ export default class extends React.Component {
                                 {UPEX.lang.template('唯一正确入口')}
                             </Col>
                             <Col span={12}>
-                                <a target="_blank" href={state.url} onClick={this.showTip.bind(this)}>
+                                <div className={`empty ${state.amount === '' ? 'is' : 'not'}`} onClick={this.showTip.bind(this)}></div>
+                                <a target="_blank" href={state.url}>
                                     <img src="https://resources.apac.paywithpoli.com/poli-logo-37.png"  alt="POLi Logo" />
                                 </a>
                             </Col>
