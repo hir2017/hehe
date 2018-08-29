@@ -23,7 +23,8 @@ class RecordPage extends Component {
     }
 
     render() {
-        let store = this.props.fundChangeRecordStore
+        let store = this.props.fundChangeRecordStore;
+        
         return (
             <div className="order-wrapper">
                 <Breadcrumb separator=">">
