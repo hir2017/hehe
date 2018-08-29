@@ -349,7 +349,7 @@
 }
 .ie11-placeholder-hack {
     position: absolute;
-    z-index: 10;
+    z-index: 14;
     line-height: 30px;
     font-size: 18px;
     color: #ccc;

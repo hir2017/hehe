@@ -45,8 +45,7 @@ export default class View extends React.Component {
                         let { value = '' } = e.target;
                         // 保留两位小数
                         if (value !== '') {
-                            let _value = parseFloat(value);
-                            if (!NumberUtils.isFloatWithTwoDecimal(_value)) {
+                            if (!NumberUtils.isFloatWithTwoDecimal(value)) {
                                 return;
                             }
                         }
