@@ -61,7 +61,7 @@ class View extends React.Component {
         let pointPrice = currencyObj.pointPrice;
 
         // 时间
-        item.orderTime = item.orderTime.split('.')[0];
+        item.orderTime = item.orderTime;
         // 委托价格
         item.price = NumberUtil.formatNumber(item.price, pointPrice);
         // 成交金额

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import { Checkbox, Icon, Pagination } from 'antd';
-import SubRow from './sub-row';
+import DetailRow from './detail-row';
 import TimeUtil from '@/lib/util/date';
 
 @inject('fundChangeRecordStore')
@@ -14,10 +14,6 @@ class List extends Component {
             displayIndex: -1
         }
         this.defaultType = ''
-        this.tradeTypeMap = {
-            '1': 'BPAY',
-            'withdraw': UPEX.lang.template('银行卡转账')
-        }
     }
 
     componentDidMount() {
@@ -46,33 +42,34 @@ class List extends Component {
     render() {
         let store = this.props.fundChangeRecordStore;
         let $content;
-        const {tradeTypeMap} = this;
         if (!store.isFetching && store.orderList.length == 0) {
             $content = <div className="mini-tip">{UPEX.lang.template('暂无资金变动记录')}</div>;
         } else {
             $content = (
                 <ul>
                     {store.orderList.map((item, index) => {
-                        let timeStr = item._type === 'recharge' ? 'tradeTimeStamp' : 'createTimeStamp';
+                        // let timeStr = item._type === 'recharge' ? 'tradeTimeStamp' : 'createTimeStamp';
+                        let timeStr = 'createTimeStamp';
                         return (
                             <li key={index} className={this.state.displayIndex == item.id ? 'collapse-content-active' : ''}>
                                 <dl className="row">
-                                    <dd className="swift-no">{item[item._type === 'recharge' ? 'thdNo' : 'orderNo']}</dd>
-                                    <dd className="time">{item[timeStr] ? TimeUtil.formatDate(item[timeStr]) : '--'}</dd>
+                                    {/* <dd className="swift-no">{item[item._type === 'recharge' ? 'thdNo' : 'orderNo']}</dd> */}
+                                    <dd className="swift-no">{item.orderNo}</dd>
+                                    <dd className="time">{item[timeStr] ? TimeUtil.formatDate(item[timeStr]) : ''}</dd>
                                     <dd className="name">{item._actionName}</dd>
                                     <dd className="balance">
                                         {item._type === 'recharge' ? '+' : '-'}
                                         {item[item._type === 'recharge' ? 'amount' : 'withdrawAmount']}
                                     </dd>
-                                    <dd className="status" title={item.status === 1 ? UPEX.lang.template('已放款，到账速度取决于银行进度') : ''}>{item._status || '--'}</dd>
+                                    <dd className="status" title={item.status === 1 ? UPEX.lang.template('已放款，到账速度取决于银行进度') : ''}>{item._status || ''}</dd>
                                     <dd className="pay-method">
-                                        {tradeTypeMap[item._tradeType]}
+                                        {item._payMethod}
                                     </dd>
                                     <dd className="action">
-                                         {item._type === 'recharge' ? '' : (<button type="button" onClick={()=>this.toggleSubRow(item.id)}>{UPEX.lang.template('详情')}</button>)}
+                                         {item._type === 'recharge' ? '--' : (<button type="button" onClick={()=>this.toggleSubRow(item.id)}>{UPEX.lang.template('详情')}</button>)}
                                     </dd>
                                 </dl>
-                                <SubRow type={item._type} data={item}/>
+                                <DetailRow type={item._type} data={item}/>
                             </li>
                         );
                     })}

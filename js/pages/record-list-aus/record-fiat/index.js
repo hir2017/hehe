@@ -8,7 +8,7 @@ import { observer, inject } from 'mobx-react';
 import { Select, Breadcrumb } from 'antd';
 const Option = Select.Option;
 
-import RecordList from './list';
+import RecordList from './record-list';
 
 @inject('fundChangeRecordStore')
 @observer

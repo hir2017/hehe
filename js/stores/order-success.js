@@ -42,8 +42,8 @@ class OrderStore {
 
 		this.isFetching = true;
 
-		this.params = Object.assign(this.params, params);		
-        
+		this.params = Object.assign(this.params, params);
+
         // 更新当前页数
         if (params.start && params.start !== this.current) {
             this.current = params.start;
@@ -76,8 +76,8 @@ class OrderStore {
         let currencyObj = this.currencyStore.getCurrencyById(`${item.baseCurrencyId}-${item.currencyId}`);
         let pointNum = currencyObj.pointNum;
         let pointPrice = currencyObj.pointPrice;
-        
-        item.orderTime = item.orderTime.split('.')[0];
+
+        item.orderTime = item.orderTime;
         // 委托价格
         item.price = NumberUtil.formatNumber(item.price, pointPrice);
         item.tradeAmount = NumberUtil.formatNumber(item.tradeAmount, pointPrice);
