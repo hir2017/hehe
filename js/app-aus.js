@@ -28,7 +28,7 @@ window.LangPack = LangPack;
 import './config-aus';
 import './global';
 import routes from './routes-aus';
-import RootStore from './stores/index';
+import RootStore from './stores/index-aus';
 
 const rootStore = new RootStore();
 

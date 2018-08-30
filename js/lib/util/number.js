@@ -240,7 +240,8 @@ const NumberUtil = {
     },
     // 两位小数
     isFloatWithTwoDecimal(str) {
-        return (/^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$/.test(str))
+        return (/^[0-9]+\.{0,1}[0-9]{0,2}$/.test(str));
+        // return (/^(([1-9][0-9]*)|(([0]\.\d{1,2}|[1-9][0-9]*\.\d{1,2})))$/.test(str))
     }
 
 };
@@ -248,3 +249,5 @@ const NumberUtil = {
 window.NumberUtil = NumberUtil;
 
 export default NumberUtil;
+
+// 01.1 01. 00.1

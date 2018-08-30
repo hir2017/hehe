@@ -43,10 +43,7 @@ class PageView extends Component {
                 <Step title={UPEX.lang.template('完成认证')} />
             </Steps>
         );
-        let $refuse = null;
-        if (userInfo.isAuthPrimary === -1) {
-            $refuse = userInfo.readFailReason === 1 ? <WaitView /> : <InfoFormView />;
-        }
+
         // TODO: 手机未认证
         if (!userInfo.isValidatePhone) {
             return (
@@ -67,16 +64,28 @@ class PageView extends Component {
                 </PageWrapper>
             );
         } else {
-            // readFailReason: 1没读 0已读  isAuthPrimary: -1驳回 0未申请 1审核中 2成功
-            //  /user/updateAuthFailReasonStatus 更新驳回原因读取状态
+            let $content = null;
+            // 未认证
+            if(userInfo.isAuthPrimary === 0) {
+                $content = <InfoFormView />
+            }
+            // 审核中
+            if(userInfo.isAuthPrimary === 1) {
+                $content = <WaitView />
+            }
+            // 成功
+            if(userInfo.isAuthPrimary === 2) {
+                $content = <SuccessView />
+            }
+            // 驳回
+            if (userInfo.isAuthPrimary === -1) {
+                $content = userInfo.readFailReason === 1 ? <WaitView /> : <InfoFormView />;
+            }
             return (
                 <PageWrapper innerClass="authentication" title={UPEX.lang.template('身份认证')} rightContent={$rightContent}>
                     {this.state.loading ? null : (
                         <div className="authentication-content">
-                            {$refuse}
-                            {userInfo.isAuthPrimary === 0 ? <InfoFormView /> : null}
-                            {userInfo.isAuthPrimary === 1 ? <WaitView /> : null}
-                            {userInfo.isAuthPrimary === 2 ? <SuccessView /> : null}
+                            {$content}
                         </div>
                     )}
                 </PageWrapper>

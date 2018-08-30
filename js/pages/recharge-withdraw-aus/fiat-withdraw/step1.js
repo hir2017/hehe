@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, message } from 'antd';
-import { ausGetUserAvailableAmount } from '@/api/http';
+import { ausGetUserAvailableAmount, ausGetWithdrawCashFee } from '@/api/http';
 import NumberUtils from '@/lib/util/number';
 import AmountInfo from '@/mods/common/form/amount-info-row';
 import FormView from '@/mods/common/form';
@@ -15,9 +15,10 @@ export default class View extends React.Component {
             BSB: init.BSB || '',
             account: init.account || '',
             amount: init.amount || 0,
-            name: init.name || ''
+            name: init.name || '',
+            withdrawVal: 0
         };
-
+        this.timmer = null;
         this.inputData = {
             name: {
                 label: UPEX.lang.template('开户人'),
@@ -45,8 +46,7 @@ export default class View extends React.Component {
                         let { value = '' } = e.target;
                         // 保留两位小数
                         if (value !== '') {
-                            let _value = parseFloat(value);
-                            if (!NumberUtils.isFloatWithTwoDecimal(_value)) {
+                            if (!NumberUtils.isFloatWithTwoDecimal(value)) {
                                 return;
                             }
                         }
@@ -64,6 +64,10 @@ export default class View extends React.Component {
                             _data.show = false;
                         }
                         this.setState(_data);
+                        clearTimeout(this.timmer);
+                        this.timmer = setTimeout(() => {
+                            this.getFee();
+                        }, 100);
                     }
                 }
             }
@@ -82,6 +86,23 @@ export default class View extends React.Component {
         });
     }
 
+    getFee() {
+        const {amount} = this.state;
+        ausGetWithdrawCashFee({
+            amount
+        })
+            .then(res => {
+                if (res.status === 200) {
+                    let number = amount * 100 - res.attachment * 100;
+                    this.setState({
+                        withdrawVal: parseFloat(number / 100, 10)
+                    });
+                }
+            })
+            .catch(err => {
+                console.error(err, 'ausGetWithdrawCashFee');
+            });
+    }
     setVal(name, e) {
         this.setState({
             [name]: typeof e === 'object' ? e.target.value.trim() : e
@@ -141,7 +162,7 @@ export default class View extends React.Component {
                 }
                 right={
                     <p className="balance">
-                        {UPEX.lang.template('入账金额')} <br /> <em>{state.amount}</em> {UPEX.config.baseCurrencyEn}
+                        {UPEX.lang.template('入账金额')} <br /> <em>{state.withdrawVal}</em> {UPEX.config.baseCurrencyEn}
                     </p>
                 }
             />

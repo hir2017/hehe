@@ -9,7 +9,7 @@ import { Select, Breadcrumb } from 'antd';
 const Option = Select.Option;
 
 import RechargeRecordList from '@/mods/record-list/coin-recharge-record';
-import WidthdrawRecordList from '@/mods/record-list/coin-recharge-record';
+import WidthdrawRecordList from '@/mods/record-list/coin-withdraw-record';
 
 @inject('currencyStore')
 @observer
@@ -27,7 +27,7 @@ class RecordPage extends Component {
         store.getCurrencyPoints();
     }
 
-    handleChange=(value)=>{
+    handleChange= (value) => {
         this.setState({
             type: value
         });
@@ -44,7 +44,6 @@ class RecordPage extends Component {
                 $list = <WidthdrawRecordList/>;
                 break;
         }
-
         return (
         	<div className="order-wrapper">
                 <Breadcrumb separator=">">

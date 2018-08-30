@@ -128,6 +128,7 @@ export default class FirstStep extends Component {
             const { state } = this;
             return state[name] === '' || state[name] === null ? state.errMsg[name] : '';
         };
+        this.startDate = moment();
     }
 
     transStr(str) {
@@ -278,6 +279,9 @@ export default class FirstStep extends Component {
                 <FormItem {...inputData.idCardValidity} error={getErrMsg('idCardValidity')} className={defaultDate.idCardValidityInit ? '' : 'default'}>
                     <DatePicker
                         size="default"
+                        disabledDate={(currDate) => {
+                            return currDate.valueOf() <= this.startDate.valueOf();
+                        }}
                         defaultValue={defaultDate.idCardValidity}
                         {...idCardValidityVals}
                         onChange={this.dateChange.bind(this, 'idCardValidity')}

@@ -135,9 +135,10 @@ class CoinWithdrawStore {
                 amount = this.amount - this.amount * fee;
             }
         }
-
+        let _temp = amount.toFixed(14);
+        // console.log(amount, NumberUtil.initNumber(amount, point), _temp, NumberUtil.initNumber(_temp, point))
         if (amount > 0) {
-            amount = NumberUtil.initNumber(amount, point);
+            amount = NumberUtil.initNumber(_temp, point);
         }
 
         return amount;

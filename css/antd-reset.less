@@ -52,9 +52,13 @@ body {
     .ant-calendar-picker:hover .ant-calendar-picker-input:not(.ant-input-disabled) {
         border-color: @theme-yellow;
     }
+
     .ant-calendar-today .ant-calendar-date {
         border-color: @theme-yellow;
         color: @theme-yellow;
+    }
+    .ant-calendar-selected-day.ant-calendar-today .ant-calendar-date {
+        color: #fff;
     }
     .ant-calendar-selected-day .ant-calendar-date {
         border-color: @theme-yellow;
@@ -83,6 +87,9 @@ body {
     }
     .ant-calendar-picker .ant-calendar-picker-icon::after {
         color: @text-color02-light;
+    }
+    .ant-calendar-today-btn {
+        color: @text-yellow-color;
     }
     // 输入
     .ant-input {
@@ -142,5 +149,11 @@ body {
     }
     .ant-pagination-item:focus, .ant-pagination-item:hover {
         border-color: @theme-yellow;
+    }
+    .ant-pagination-item:focus a, .ant-pagination-item:hover a {
+        color: @theme-yellow;
+    }
+    .ant-pagination-item-active:hover a {
+        color: #fff;
     }
 }

@@ -346,6 +346,7 @@
 .input-coin-account .amount-input {
     position: relative;
     z-index: 12;
+    background-color: transparent;
 }
 .ie11-placeholder-hack {
     position: absolute;

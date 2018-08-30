@@ -78,11 +78,11 @@ class OrderStore {
             if (item.orderNo == data.orderNo) {
 
                 if (statusList.indexOf(data.status) > -1) {
-                    this.orderList[i] = this.parseItem(data);    
+                    this.orderList[i] = this.parseItem(data);
                 } else {
                     this.orderList.splice(i, 1);
                 }
-                
+
                 flag = true;
                 return false;
             }
@@ -90,7 +90,7 @@ class OrderStore {
 
         // 列表中没有，则新增
         if (!flag) {
-            
+
             if (statusList.indexOf(data.status) > -1) {
                 this.orderList.splice(0,0,this.parseItem(data));
             }
@@ -109,9 +109,9 @@ class OrderStore {
         let currencyObj = this.currencyStore.getCurrencyById(`${item.baseCurrencyId}-${item.currencyId}`);
         let pointNum = currencyObj.pointNum;
         let pointPrice = currencyObj.pointPrice;
-        
+
         // 时间
-        item.orderTime = item.orderTime.split('.')[0];
+        item.orderTime = item.orderTime;
         // 委托价格
         item.price = NumberUtil.formatNumber(item.price, pointPrice);
         // 成交金额
