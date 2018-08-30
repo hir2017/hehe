@@ -23,7 +23,9 @@ class List extends Component {
 		this.state = {
 			displayIndex: -1
 		}
-
+        this.typeMap = {
+            '1': UPEX.lang.template('提币'),
+        }
 	}
 
 	componentDidMount() {
@@ -55,6 +57,7 @@ class List extends Component {
 	render() {
 		let store = this.props.coinWithdrawRecordStore;
 		let $content;
+        const {typeMap} = this;
 
 		if (!store.isFetching && store.orderList.length == 0) {
 			$content = <div className="mini-tip">{ UPEX.lang.template('您暂时没有提币记录') }</div>;
@@ -93,10 +96,11 @@ class List extends Component {
 										<dd className="status">{status}</dd>
 										<dd className="name">{item.currencyNameEn}</dd>
 										<dd className="num">{item.amount}</dd>
+										<dd className="type">{typeMap[item.withdrawType]}</dd>
 										<dd className="time">{TimeUtil.formatDate(item.createTimeStamp)}</dd>
 										<dd className="fee">{item.fee}</dd>
 										<dd className="address">{UPEX.lang.template('地址')} : {item.address}</dd>
-										<dd className="action pr10">
+										<dd className="action">
 											{
 												visible ? <button type="button" onClick={this.triggerShowDetail.bind(this, item.id)}>{ this.state.displayIndex == item.id ? UPEX.lang.template('收起') : UPEX.lang.template('展开')}</button> : '--'
 											}
@@ -122,10 +126,11 @@ class List extends Component {
 								<th className="status">{UPEX.lang.template('状态')}</th>
 								<th className="name">{UPEX.lang.template('币种')}</th>
 								<th className="num">{UPEX.lang.template('数量')}</th>
+								<th className="type">{UPEX.lang.template('类型')}</th>
 								<th className="time">{UPEX.lang.template('时间')}</th>
 								<th className="fee">{UPEX.lang.template('手续费')}</th>
 								<th className="address">{UPEX.lang.template('信息')}</th>
-								<th className="action pr10">{UPEX.lang.template('操作')}</th>
+								<th className="action">{UPEX.lang.template('操作')}</th>
 							</tr>
 						</tbody>
 					</table>

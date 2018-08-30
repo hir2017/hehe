@@ -14,7 +14,11 @@ class List extends Component {
 
 		this.state = {
 			displayIndex: -1
-		}
+        }
+        this.typeMap = {
+            '1': UPEX.lang.template('自动充币'),
+            '3': UPEX.lang.template('虚拟充币')
+        }
 
 	}
 	componentDidMount() {
@@ -46,7 +50,7 @@ class List extends Component {
 	render() {
 		let store = this.props.coinRechargeRecordStore;
 		let $content;
-
+        const {typeMap} = this;
 
 		if (!store.isFetching && store.orderList.length == 0) {
 			$content = <div className="mini-tip">{ UPEX.lang.template('您暂时没有充币记录') }</div>;
@@ -75,7 +79,7 @@ class List extends Component {
 										<dd className="status">{status}</dd>
 										<dd className="name">{item.currencyNameEn}</dd>
 										<dd className="num">{item.coinNum}</dd>
-										<dd className="type">{item.type}</dd>
+										<dd className="type">{typeMap[item.rechargeType]}</dd>
 										<dd className="time">{TimeUtil.formatDate(item.createTimeStamp)}</dd>
 										<dd className="address">{UPEX.lang.template('地址')} : {item.walletSn}</dd>
 										<dd className="action">
