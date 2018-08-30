@@ -71,6 +71,7 @@
         right: 0;
         text-align: center;
         cursor: pointer;
+        background-color: transparent;
     }
     .input-right-tag::before {
         content: '';
@@ -80,15 +81,25 @@
         float: left;
         margin-top: 15px;
     }
-    .all-success .anticon-check-circle-o {
-        color: #1dc199;
-        margin-right: 6px;
-    }
-    .order-table .table-hd {
-        border: none;
+
+    .order-table {
+        .table-hd {
+            border: none;
+        }
     }
 }
-
+.ant-popover.coin-recharge-qrcode {
+    .ant-popover-inner-content {
+        padding: 5px;
+    }
+    .ant-popover-inner {
+        border-radius: 6px;
+    }
+    .qrcode-img img {
+        width: 100px;
+        height: 100px;
+    }
+}
 .ant-modal-wrap.recharge-eos-dialog-warn {
     .ant-modal-body {
         padding-bottom: 40px;

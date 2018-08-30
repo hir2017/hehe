@@ -64,10 +64,17 @@ export default class View extends React.Component {
                             _data.show = false;
                         }
                         this.setState(_data);
-                        clearTimeout(this.timmer);
-                        this.timmer = setTimeout(() => {
-                            this.getFee();
-                        }, 100);
+                        if(value === '') {
+                            this.setState({
+                                withdrawVal: 0
+                            });
+                        } else {
+                            clearTimeout(this.timmer);
+                            this.timmer = setTimeout(() => {
+                                this.getFee();
+                            }, 100);
+                        }
+
                     }
                 }
             }
@@ -78,9 +85,8 @@ export default class View extends React.Component {
         // 获取账号信息
         ausGetUserAvailableAmount().then(data => {
             if (data.status == 200) {
-                // 提现只能提现整数金额。
                 this.setState({
-                    balance: parseInt(data.attachment, 10)
+                    balance: parseFloat(NumberUtils.toFixed(data.attachment, 2))
                 });
             }
         });
@@ -94,8 +100,9 @@ export default class View extends React.Component {
             .then(res => {
                 if (res.status === 200) {
                     let number = amount * 100 - res.attachment * 100;
+                    // 有延迟，用户都删了还在获取
                     this.setState({
-                        withdrawVal: parseFloat(number / 100, 10)
+                        withdrawVal: this.state.amount !== '' ? NumberUtils.toFixed(number / 100, 2) : '0.00'
                     });
                 }
             })

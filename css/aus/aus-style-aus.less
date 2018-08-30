@@ -14,92 +14,95 @@
 /* fiat-recharge */
 
 .fiat-recharge-aus {
-    .ant-radio-group {
-        width: 100%;
+    .exc-form {
+        padding: 0 0 30px;
     }
-    .ant-radio-button-wrapper{
-        width: 50%;
-        height: 40px;
-        line-height: 40px;
-        text-align: center;
-        color: #999999;
-        .anticon {
-            margin-right: 6px;
+    .exc-fiat-recharge-switch {
+        width: 100%;
+        border-radius: 3px;
+        background-color: @bg-color-light;
+        height: 100%;
+        padding: 2px;
+        box-sizing: border-box;
+        .switch-item {
+            display: inline-block;
+            width: 50%;
+            height: 36px;
+            line-height: 36px;
+            text-align: center;
+            border-radius: 3px;
+            color: @text-color02-light;
+            box-sizing: border-box;
+            font-size: 12px;
+            background-color: transparent;
+            border: solid 1px  transparent;
+            cursor: pointer;
+            &:hover {
+                color: @text-color01-light;
+            }
+            &.selected {
+                color: @text-color01-light;
+                background-color: #fff;
+                background: ~'linear-gradient(to bottom, #fff 0%, #f1f5f7 100%)';
+                border-color: @input-border-color2;
+            }
         }
     }
-    & .ant-radio-button-wrapper:hover, & .ant-radio-button-wrapper-focused {
-        color: @theme-yellow;
+    .table-wrapper {
+        margin: 0 0 3px;
+        width: 100%;
+        border: #ccc solid 1px;
+        border-radius: 3px;
     }
-}
-.fiat-recharge-aus .ant-radio-button-wrapper-checked {
-    &:first-child, &, &:hover {
-        border-color: @theme-yellow;
-        background-color: @theme-yellow;
-        color: #fff;
-        box-shadow: -1px 0 0 0 @theme-yellow;
+    table {
+        width: 100%;
+        td{
+            width: 50%;
+            border: 1px solid #cbd2d6;
+            text-align: center;
+            text-align: left;
+            height: 40px;
+            line-height: 40px;
+            padding: 0 8px 0 20px;
+            font-size: 11px;
+            position: relative;
+            .copy {
+                height: 24px;
+                line-height: 24px;
+                padding: 0 9px;
+                position: absolute;
+                right: 8px;
+                top: 8px;
+                background-color: @theme-yellow;
+                text-align: center;
+                border-radius: 2px;
+                color: #333;
+                cursor: pointer;
+                &:hover {
+                    background: @btn-bg-hover-scolor;
+                }
+            }
+        }
+        tr {
+            td {
+                &:first-child {
+                    border-left-width: 0;
+                }
+                &:last-child {
+                    border-right-width: 0;
+                }
+            }
+            &:first-child td{
+                border-top-width: 0;
+            }
+            &:last-child td{
+                border-bottom-width: 0;
+            }
+        }
     }
-}
-
-.fiat-recharge-aus  .ant-radio-button-wrapper-checked::before {
-    background-color: @theme-yellow !important;
-}
-.fiat-recharge-aus .ant-radio-button-wrapper:first-child{
-    border-radius: 20px 0 0 20px;
-}
-.fiat-recharge-aus .ant-radio-button-wrapper:last-child{
-    border-radius:  0 20px 20px 0;
-}
-.fiat-recharge-aus .table-wrapper {
-    margin: 10px 0 3px;
-    width: 100%;
-    border: #ccc solid 1px;
-    border-radius: 3px;
-}
-.fiat-recharge-aus table {
-    width: 100%;
-}
-.fiat-recharge-aus table td{
-    width: 50%;
-    border: 1px solid #cbd2d6;
-    text-align: center;
-    text-align: left;
-    height: 40px;
-    line-height: 40px;
-    padding: 0 8px 0 20px;
-    font-size: 11px;
-    position: relative;
-}
-.fiat-recharge-aus table td .copy {
-    height: 24px;
-    line-height: 24px;
-    padding: 0 9px;
-    position: absolute;
-    right: 8px;
-    top: 8px;
-    background-color: #e8b802;
-    text-align: center;
-    border-radius: 2px;
-    color: #333;
-    cursor: pointer;
-}
-.fiat-recharge-aus table td .copy:hover {
-    text-decoration: underline;
-}
-
-.fiat-recharge-aus table tr td:first-child {
-    border-left-width: 0;
-}
-.fiat-recharge-aus table tr td:last-child {
-    border-right-width: 0;
-}
-.fiat-recharge-aus table tr:first-child td{
-    border-top-width: 0;
-}
-.fiat-recharge-aus table tr:last-child td{
-    border-bottom-width: 0;
-}
-.fiat-recharge-aus .max-tip em{
-    color: #ea6060;
+    .max-tip em{
+        color: #ea6060;
+    }
 }
 .fiat-recharge-aus .poli-img {
     width: 100%;
@@ -172,7 +175,7 @@
     font-size: 12px;
     border-radius: 3px;
     background-color: #fefbf2;
-    border: solid 1px #e8b802;
+    border: solid 1px @theme-yellow;
 }
 .fiat-withdraw-aus .ant-card-body label, .fiat-withdraw-aus .ant-card-body .val {
     display: inline-block;

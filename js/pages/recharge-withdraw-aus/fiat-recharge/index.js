@@ -3,7 +3,7 @@
  */
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
-import { Alert, Radio, Icon, message } from 'antd';
+import { Alert } from 'antd';
 import PageWrapper from '@/mods/common/wrapper/full-page';
 import FormView from '@/mods/common/form';
 import FormItem from '@/mods/common/form/item';
@@ -11,8 +11,7 @@ import { ausGetQuotaManagementInfo, getBPAYreferenceNo } from '@/api/http';
 import NumberUtils from '@/lib/util/number';
 import Bpay from './bpay';
 import Poli from './poli';
-const RadioButton = Radio.Button;
-const RadioGroup = Radio.Group;
+
 
 @inject('commonStore', 'userInfoStore')
 @observer
@@ -38,7 +37,7 @@ class View extends Component {
             // }
         });
         getBPAYreferenceNo().then(res => {
-            if(res.status === 200) {
+            if (res.status === 200) {
                 this.setState({
                     referenceNo: res.attachment
                 });
@@ -77,29 +76,26 @@ class View extends Component {
                 />
                 <FormView>
                     <FormItem>
-                        <RadioGroup
-                            onChange={e => {
-                                this.setState({
-                                    type: e.target.value
-                                });
-                            }}
-                            defaultValue="a"
-                        >
-                            <RadioButton value="a">
-                                <Icon type="credit-card" />
+                        <div className="exc-fiat-recharge-switch">
+                            <span
+                                className={`switch-item ${state.type === 'a' ? 'selected' : ''}`}
+                                onClick={e => {
+                                    this.setState({ type: 'a' });
+                                }}
+                            >
                                 {UPEX.lang.template('使用BPAY支付')}
-                            </RadioButton>
-                            <RadioButton value="b">
-                                <Icon type="credit-card" />
+                            </span>
+                            <span
+                                className={`switch-item ${state.type === 'b' ? 'selected' : ''}`}
+                                onClick={e => {
+                                    this.setState({ type: 'b' });
+                                }}
+                            >
                                 {UPEX.lang.template('使用Poli支付')}
-                            </RadioButton>
-                        </RadioGroup>
+                            </span>
+                        </div>
                     </FormItem>
-                    {state.type === 'a' ? (
-                        <Bpay {...bpayProps}/>
-                    ) : (
-                        <Poli {...bpayProps}/>
-                    )}
+                    {state.type === 'a' ? <Bpay {...bpayProps} /> : <Poli {...bpayProps} />}
                 </FormView>
             </PageWrapper>
         );
