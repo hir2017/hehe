@@ -110,7 +110,7 @@ export default class extends Component {
                         color: '#c1c5c8',
                         fontSize: '12px'
                     },
-                    show: false
+                    show: true
                 },
             },
             yAxis: {

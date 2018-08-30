@@ -7,6 +7,7 @@ config.sitename = 'INFINITEX';
 config.languages = ['zh-CN', 'en-US']; // 网站支持的语言列表
 config.initLanguage = 'en-US'; // 默认语言
 config.logourl = require('../images/aus/infinitex-logo.png');
+config.logoprourl = require('../images/aus/infinitex-logo.png');
 config.baseCurrencyEn = 'AUD';
 config.baseCurrencySymbol = 'AUD';
 

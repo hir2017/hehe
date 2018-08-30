@@ -638,11 +638,11 @@ class TVChartContainer extends Component {
                             {UPEX.lang.template('深度图')}
                         </li>
                     </ul>
-                    <div className="full-btn" onClick={this.handleFullScreen}>
+                    <div className="full-btn" onClick={this.handleFullScreen} ref="fullbtn">
                         { 
                             fullscreen ? 
-                            <Tooltip placement="right" title={UPEX.lang.template('退出全屏')}><i className="icon-full"/></Tooltip>: 
-                            <Tooltip placement="right" title={UPEX.lang.template('全屏')}><i className="icon-exit-full"/></Tooltip>
+                            <Tooltip placement="right" title={UPEX.lang.template('退出全屏')} getPopupContainer={()=>this.refs.fullbtn} overlayClassName={ store.theme === 'dark' ? 'ant-tooltip-dark' : 'ant-tooltip-light'}><i className="icon-full"/></Tooltip>: 
+                            <Tooltip placement="right" title={UPEX.lang.template('全屏')} getPopupContainer={()=>this.refs.fullbtn} overlayClassName={ store.theme === 'dark' ? 'ant-tooltip-dark' : 'ant-tooltip-light'}><i className="icon-exit-full"/></Tooltip>
                         }
                     </div>
 	            </div>

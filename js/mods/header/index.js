@@ -72,7 +72,7 @@ class HeaderView extends Component {
 				<div className="header-box clearfix">
 					<h1 className="logo">
 						<Link to="/">
-							<img src={UPEX.config.logourl}/>
+							<img src={ commonStore.isTradeCenter ? UPEX.config.logoprourl : UPEX.config.logourl}/>
 						</Link>
 					</h1>
 					<div className="header-box-l">

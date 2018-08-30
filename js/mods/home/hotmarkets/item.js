@@ -63,7 +63,7 @@ class HotCoin extends Component {
 	}
 
 	handleTrade=(data)=>{
-		browserHistory.push(`/webtrade/TWD_${data.currencyNameEn}`);
+		browserHistory.push(`/webtrade/${data.baseCurrencyNameEn}_${data.currencyNameEn}`);
 	}
 
 	render() {
@@ -79,9 +79,9 @@ class HotCoin extends Component {
                                                     
 		return (
 			<div className={`recommend-item ${type}`} onClick={this.handleTrade.bind(this, data)}>
-				<div className="recommend-item-name">{ data.currencyNameEn }<i>/{data.baseCurrencyNameEn}</i></div>
+				<div className="recommend-item-name">{ data.currencyNameEn }<i> / {data.baseCurrencyNameEn}</i></div>
 				<div className="recommend-item-price">{ data.currentAmountText }<i>{UPEX.config.baseCurrencyEn}</i></div>
-				<div className="recommend-item-volume">{ UPEX.lang.template('成交额 {num}{unit}', { num : data.amountText, unit: data.baseCurrencyNameEn })}</div>
+				<div className="recommend-item-volume" dangerouslySetInnerHTML={{__html:  UPEX.lang.template('成交额 {num}{unit}', { num : data.amountText, unit: data.baseCurrencyNameEn }, 1)}}></div>
 				<div className="recommend-item-rate">{ data.changeRateText }</div>
 				{
 					type == 'positive' ? (

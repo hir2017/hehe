@@ -28,7 +28,7 @@ window.LangPack = LangPack;
 import './config-aus';
 import './global';
 import routes from './routes-aus';
-import RootStore from './stores/index-aus';
+import RootStore from './stores/index';
 
 const rootStore = new RootStore();
 
@@ -74,7 +74,7 @@ class App extends Component {
         return (
         	<div
                 key={rootStore.commonStore.language + rootStore.authStore.uid }
-                className={`app-page ${rootStore.commonStore.language}`}
+                className={`app-page ${rootStore.commonStore.language} ${UPEX.config.version}`}
                 data-path={rootStore.commonStore.currentPathName}
             >
                 <Provider {...rootStore}>

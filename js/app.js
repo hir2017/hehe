@@ -72,7 +72,7 @@ class App extends Component {
         return (
         	<div
                 key={rootStore.commonStore.language + rootStore.authStore.uid }
-                className={`app-page ${rootStore.commonStore.language}`}
+                className={`app-page ${rootStore.commonStore.language} ${UPEX.config.version}`}
                 data-path={rootStore.commonStore.currentPathName}
             >
                 <Provider {...rootStore}>

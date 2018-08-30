@@ -7,7 +7,7 @@
 import React, {Component} from 'react';
 import { observer, inject } from 'mobx-react';
 import { Input, Icon, Checkbox } from 'antd';
-import { Link } from 'react-router'
+import { Link , browserHistory} from 'react-router'
 import CoinList from './coin-list';
 import CoinChart from './chart';
 
@@ -37,7 +37,8 @@ class IndexMarkets extends Component{
 	}
 
 	handleScroll=(e)=>{
-
+		return;
+		// 币种多的时候，实现该效果，币种内容fixed
 		let scrollTop = window.pageYOffset || document.body.scrollTop || document.documentElement.scrollTop;
 
 		this.setState({
@@ -59,6 +60,10 @@ class IndexMarkets extends Component{
         store.updateSearchValue(value);
     }
 
+    handleClick=(pair)=>{
+    	browserHistory.push(`/webtrade/${pair}`);
+    }
+
 	render() {
 		let store = this.props.homeStore.marketListStore;
 		let pair;
@@ -71,16 +76,16 @@ class IndexMarkets extends Component{
 				<div className="wrapper">
             		<div className="market-coin">
 		        		<div className="coin-hd">
-		        			<h4 className="info">
+		        			<h4 className="info" onClick={this.handleClick.bind(this, pair)}>
 		        				<img className="icon" src={store.selectedCurrency.icoUrl || ''} alt="" />
-			                    <span className="name">{store.selectedCurrency.currencyNameEn}<i> / {store.selectedCurrency.baseCurrencyNameEn}</i></span>
+			                    <span className="name">{store.selectedCurrency.currencyNameEn}<i>/{store.selectedCurrency.baseCurrencyNameEn}</i></span>
 			                    <em>{store.selectedCurrency.currentAmountText}</em>
 		                    </h4> 
 		                    <span className={store.selectedCurrency.changeRate >= 0 ? 'rate greenrate' : 'rate redrate'}>
 		                    	{ store.selectedCurrency.changeRateText }
 		                    </span>
 		        		</div>
-		    			<ul className="coin-bd">
+		    			<ul className="coin-bd clearfix">
 		    				<li>
 		    					<label>{ UPEX.lang.template('成交量') }</label>
 		    					<em>{ store.selectedCurrency.volumeText}</em>
@@ -124,8 +129,8 @@ class IndexMarkets extends Component{
      					<li className={`marked${store.selectedMarketCode == 'Marked' ? ' selected' : ''}`} onClick={this.handleTab.bind(this, 'Marked')}>
      						{
      							store.selectedMarketCode == 'Marked' ?  
-     							<Icon style={{color: '#e6bc1d', fontSize: '14'}} type='star' /> :
-     							<Icon style={{color: '#999', fontSize: '14'}} type='star-o' />  
+     							<i  className='exc-star selected' /> :
+     							<i  className='exc-star' />  
      						}
      					</li>
      				</ul>

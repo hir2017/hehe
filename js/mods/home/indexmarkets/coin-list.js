@@ -24,7 +24,7 @@ class MarketCoinList extends Component {
             return;
         }
 
-        if ($(e.target).hasClass('symbol')) {
+        if ($(e.target).hasClass('symbol') || $(e.target).parents('.symbol').length > 0) {
             browserHistory.push(`/webtrade/${item.baseCurrencyNameEn}_${item.currencyNameEn}`);
         } else {
             this.props.homeStore.marketListStore.updateCurrency(item);    
@@ -33,13 +33,13 @@ class MarketCoinList extends Component {
 
 	sortIcon(show) {
         if (!show) {
-            return null;
+            return <i className="exc-arrow-double"/>;
         }
 
         if (this.props.homeStore.marketListStore.sortByType == 'asc') {
-            return <Icon type="arrow-up" style={{fontSize: 12}}/>;
+            return <i className="exc-arrow-up"/>
         } else {
-            return <Icon type="arrow-down" style={{fontSize: 12}}/>;
+            return <i className="exc-arrow-down"/>
         }
     }
 
@@ -63,9 +63,9 @@ class MarketCoinList extends Component {
         }
 
         if(res) {
-            return <Icon onClick={e => this.collecthandle(e, data)} style={{color: '#e6bc1d', fontSize: '14'}} type={'star'} />;
+            return <i onClick={e => this.collecthandle(e, data)} className="exc-star selected" />;
         } else {
-            return <Icon onClick={e => this.collecthandle(e, data)} style={{color: '#999', fontSize: '14'}} type={'star-o'} />;
+            return <i onClick={e => this.collecthandle(e, data)} className="exc-star-o" />;
         }
         
     }
@@ -82,7 +82,7 @@ class MarketCoinList extends Component {
                                 <li key="header">
                                     <div className="cell name">{UPEX.lang.template('币种')}</div>
                                     <div className="cell amount">
-                                        <span onClick={this.sortHandle.bind(this,'currentAmount')}>{UPEX.lang.template('最新价')} {this.sortIcon(marketListStore.sortByKey === 'currentAmount')}</span>
+                                        <span onClick={this.sortHandle.bind(this,'currentAmount')}>{UPEX.lang.template('最新价')}{this.sortIcon(marketListStore.sortByKey === 'currentAmount')}</span>
                                     </div>
                                     <div className="cell rate">
                                         <span onClick={this.sortHandle.bind(this, 'changeRate')}>{UPEX.lang.template('24h涨跌')}{this.sortIcon(marketListStore.sortByKey=== 'changeRate')}</span>
@@ -112,18 +112,17 @@ class MarketCoinList extends Component {
 
                                         if (item.currentAmount >= item.previousPrice) {
                                             trendColor = 'greenrate';
-                                            trendIcon = <Icon type="arrow-up" style={{fontSize: 12}}/>;
+                                            trendIcon = <i className="exc-arrow-up"/>;
                                         } else {
                                             trendColor = 'redrate';
-                                            trendIcon = <Icon type="arrow-down" style={{fontSize: 12}}/>;
+                                            trendIcon = <i className="exc-arrow-down"/>;
                                         }
 
                                         return (
                                             <li className={`clearfix${item.currencyNameEn === marketListStore.selectedCurrency.currencyNameEn ? ' selected': ''}`} key={item.currencyId} onClick={this.selectCoin.bind(this, item)}>
                                                 <span className="cell name">
                                                     <img src={`${item.icoUrl}`} alt="" />
-                                                    <span className="symbol">{item.currencyNameEn || '--'}</span>
-                                                    <i> / {item.baseCurrencyNameEn}</i>
+                                                    <span className="symbol">{item.currencyNameEn || '--'}<i>&nbsp;/&nbsp;{item.baseCurrencyNameEn}</i></span>
                                                 </span>
                                                 <span className={`cell amount`}>
                                                     {item.currentAmountText}

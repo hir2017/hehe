@@ -16,7 +16,7 @@ class MarketCoinList extends Component {
 	}
 
 	handleCurrency=(item, e)=>{ 
-        if ($(e.target).hasClass('anticon')) {
+        if ($(e.target).parents('.action').length > 0) {
             return;
         }
 
@@ -55,11 +55,10 @@ class MarketCoinList extends Component {
         }
 
         if(res) {
-            return <Icon onClick={e => this.collecthandle(e, data)} style={{color: '#e6bc1d', fontSize: '14'}} type={'star'} />;
+            return <i onClick={e => this.collecthandle(e, data)} className="exc-star selected" />;
         } else {
-            return <Icon onClick={e => this.collecthandle(e, data)} style={{color: '#999', fontSize: '14'}} type={'star-o'} />;
+            return <i onClick={e => this.collecthandle(e, data)} className="exc-star-o" />;
         }
-        
     }
 
 	render(){
@@ -114,7 +113,7 @@ class MarketCoinList extends Component {
                                         return (
                                             <li className={`clearfix${item.currencyNameEn === marketListStore.selectedCurrency.currencyNameEn ? ' selected': ''}`} key={item.currencyId} onClick={this.handleCurrency.bind(this, item)}>
                                                 <span className="cell name">
-                                                    <span className="symbol">{item.currencyNameEn || '--'}/{item.baseCurrencyNameEn}</span>
+                                                    <span className="symbol">{item.currencyNameEn || '--'}&nbsp;/&nbsp;{item.baseCurrencyNameEn}</span>
                                                 </span>
                                                 <span className={`cell amount`}>
                                                     {item.currentAmountText}

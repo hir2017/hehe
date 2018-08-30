@@ -66,8 +66,8 @@ class Markets extends Component{
      					<li className={`marked${store.selectedMarketCode == 'Marked' ? ' selected' : ''}`} onClick={this.handleTab.bind(this, 'Marked')}>
      						{
      							store.selectedMarketCode == 'Marked' ?  
-     							<Icon style={{color: '#e6bc1d', fontSize: '14'}} type='star' /> :
-     							<Icon style={{color: '#999', fontSize: '14'}} type='star-o' />  
+     							<i className='exc-star selected' /> :
+                                <i className='exc-star' />
      						}
      					</li>
      				</ul>

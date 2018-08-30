@@ -1,5 +1,5 @@
 /**
- * @fileoverview 页尾
+ * @fileoverview  banner每4秒轮播一次
  * @author 陈立英
  * @date 2018-05-05
  */
@@ -29,6 +29,14 @@ class Banner extends Component {
 		let list = this.props.bannerStore.list;
 		let multi = false;
 
+		list = [{
+			image: require('../../../../images/banner.png')
+		}, {
+			image: require('../../../../images/banner.png')
+		},{
+			image: require('../../../../images/banner.png')
+		}];
+
 		if (list.length > 1 ) {
 			multi = true;
 		}
@@ -36,7 +44,7 @@ class Banner extends Component {
 		return (
 			<div className="banner-wrapper">
 				<div className="slider"  ref='banner'>
-                    <Carousel autoplay={multi} dots={multi}>
+                    <Carousel autoplay={multi} dots={multi} speed={400}>
                     	{
                     		list.map((item, index)=>{
                     			return (

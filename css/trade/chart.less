@@ -24,6 +24,7 @@
     left: 0;
     right: 0;
     z-index: 10;
+    background-color: @bg-module;
 }
 
 
@@ -82,7 +83,8 @@
     display: block
 }
 
-.app-trade-light .trade-kline-mask {
+.app-trade-light .trade-kline-mask,
+.app-trade-light .chart-box-mask {
     background: @bg-module-light;
 }
 
@@ -215,6 +217,9 @@
             &:hover {
                 background-color: @list-hoverbg-color01;
                 color: @text-color01;
+                .anticon-star-o {
+                    color: @theme-yellow !important;
+                }
             }
         }
     }
@@ -240,5 +245,14 @@
             width: 60px;
             text-align: right;
         }
+    }
+}
+
+.popover-tradecoins-light {
+    &.ant-popover-placement-bottomLeft .ant-popover-content .ant-popover-arrow {
+        background-color: @bg-whitepop-color;
+    }
+    .coin-list-wrap {
+        background-color: @bg-whitepop-color;
     }
 }
