@@ -19,7 +19,7 @@ class TradeForm extends Component{
             pointNum: ''
         }
 	}
-	
+
 	constructor(props){
 		super(props);
 
@@ -34,9 +34,10 @@ class TradeForm extends Component{
 		this.action = toAction(this.props.tradeStore, this.props.authStore);
 	}
 
-	goRecharge=(type, e)=>{
-		let userInfoStore = this.props.userInfoStore;
-
+	goRecharge=(type, coinName,e)=>{
+        let userInfoStore = this.props.userInfoStore;
+        // 判断货币是法币还是数字币
+        let rechargeUrl = coinName === UPEX.config.baseCurrencyEn ? '/account/balance/recharge' : `/account/coin/recharge/${coinName}`;
 		if (type == 'fiat') {
 			if (UPEX.config.version == 'infinitex') {
 				// 澳洲版，leve=1即可进行下单
@@ -45,7 +46,7 @@ class TradeForm extends Component{
 						this.showDialogGuideAuth();
 						break;
 					default:
-						browserHistory.push('/account/balance/recharge');
+						browserHistory.push(rechargeUrl);
 				}
 			} else {
 				// 点击充值，弹窗提示绑定银行卡后可以进行充值
@@ -57,11 +58,11 @@ class TradeForm extends Component{
 						this.showDialogGuideBindCard();
 						break;
 					default:
-						browserHistory.push('/account/balance/recharge');
+						browserHistory.push(rechargeUrl);
 				}
 			}
 		} else {
-			browserHistory.push(`/account/coin/recharge/${this.props.tradeStore.currencyNameEn}`);
+			browserHistory.push(rechargeUrl);
 		}
 	}
 
@@ -119,7 +120,7 @@ class TradeForm extends Component{
 	}
 
 	onChange=(key, e)=>{
-		
+
 		let value = e.currentTarget.value.trim();
 
 		this.action.updateInput(key, value);
@@ -210,7 +211,7 @@ class TradeForm extends Component{
 							<em>{store.personalAccount.baseCoinBalanceText}</em>
 							<label>{baseCurrencyNameEn}</label>
 						</li>
-						<li className="icon" onClick={this.goRecharge.bind(this,'fiat')}></li>
+						<li className="icon" onClick={this.goRecharge.bind(this,'fiat', baseCurrencyNameEn)}></li>
 					</ul>
 					<ul className="form-mod-bd">
 						<li className="hidden">
@@ -280,7 +281,7 @@ class TradeForm extends Component{
 							<em>{ store.personalAccount.tradeCoinBalanceText }</em>
 							<label>{currencyNameEn}</label>
 						</li>
-						<li className="icon" onClick={this.goRecharge.bind(this, 'coin')}></li>
+						<li className="icon" onClick={this.goRecharge.bind(this, 'coin', currencyNameEn)}></li>
 					</ul>
 					<ul className="form-mod-bd">
 						<li className="hidden">
@@ -353,7 +354,7 @@ class TradeForm extends Component{
 							<em>{ store.personalAccount.baseCoinBalanceText }</em>
 							<label>{ baseCurrencyNameEn}</label>
 						</li>
-						<li className="icon" onClick={this.goRecharge.bind(this,'fiat')}></li>
+						<li className="icon" onClick={this.goRecharge.bind(this,'fiat', baseCurrencyNameEn)}></li>
 					</ul>
 					<ul className="form-mod-bd">
 						<li className="hidden">
@@ -417,7 +418,7 @@ class TradeForm extends Component{
 							<em>{ store.personalAccount.tradeCoinBalanceText }</em>
 							<label>{ currencyNameEn }</label>
 						</li>
-						<li className="icon" onClick={this.goRecharge.bind(this, 'coin')}></li>
+						<li className="icon" onClick={this.goRecharge.bind(this, 'coin', currencyNameEn)}></li>
 					</ul>
 					<ul className="form-mod-bd">
 						<li className="hidden">

@@ -14,7 +14,7 @@ import SmsBtn from '@/mods/common/sms-btn';
 
 const AutoOption = AutoComplete.Option;
 
-@inject('coinWithdrawStore', 'accountStore', 'userInfoStore', 'commonStore')
+@inject('coinWithdrawStore', 'accountStore', 'userInfoStore', 'commonStore', 'coinWithdrawRecordStore')
 @observer
 class WithdrawCoin extends Component {
     constructor(props) {
@@ -176,7 +176,14 @@ class WithdrawCoin extends Component {
         if(info.resp.needMsgCode === 1) {
             msgCode = this.state.msgCode;
         }
-        this.action.handleSubmit(state, msgCode);
+        let actionResult = this.action.handleSubmit(state, msgCode);
+        if(actionResult !== null) {
+            actionResult.then(() => {
+                this.props.coinWithdrawRecordStore.getData({
+                    start: 1,
+                });
+            })
+        }
     }
 
     render() {

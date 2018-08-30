@@ -131,6 +131,7 @@ class CoinRecharge extends Component {
                         {/* <p className="fee">{UPEX.lang.template('网络手续费: {fee}', { fee: addressInfo.fee || '--' })}</p> */}
                         <Popover
                             placement="right"
+                            overlayClassName="coin-recharge-qrcode"
                             content={
                                 <div className="qrcode-img">
                                     <img src={addressInfo.image ? `data:image/png;base64,${addressInfo.image}` : ''} alt="" />

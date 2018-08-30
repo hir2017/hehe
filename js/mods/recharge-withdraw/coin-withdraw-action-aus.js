@@ -126,7 +126,7 @@ export default (store) => {
             }
 
             let result = verifyBeforeSubmit();
-
+            let reqResult = null;
             if (result.pass) {
                 store.changeSubmitingStatusTo(true);
                 let reqData = {
@@ -143,7 +143,7 @@ export default (store) => {
                 if(smsCode) {
                     reqData.smsCode = smsCode;
                 }
-                takeCoin(reqData).then((data) => {
+                reqResult = takeCoin(reqData).then((data) => {
                     store.changeSubmitingStatusTo(false);
                     switch (data.status) {
                         case 200:
@@ -161,6 +161,7 @@ export default (store) => {
                     message.error(result.message);
                 }
             }
+            return reqResult;
         },
 
         destroy() {
