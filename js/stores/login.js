@@ -26,10 +26,11 @@ class LoginInfoBaseStore {
     @observable validVercode = true; // 邮箱or手机验证码
     @observable hasPhone = false; // 手机是否已经被占用
     @observable submiting = false; // 提交中：登录、注册等请求
-    @observable validPhone = true;
-    @observable validEmail = true;
-    @observable validPwd = true;
-    @observable validTwicePwd = true;
+
+    @observable emailResult = [true, ''];
+    @observable phoneResult = [true, ''];
+    @observable pwdResult = [true, ''];
+    @observable twicePwdResult = [true, ''];
 
     constructor(stores) {
         this.authStore = stores.authStore;
@@ -60,242 +61,108 @@ class LoginInfoBaseStore {
         this.hasPhone = false; // 手机是否已经被占用
         this.submiting = false;
         this.sending = false;
-        this.validPhone = true;
-        this.validEmail = true;
-        this.validPwd = true;
-        this.validTwicePwd = true;
+
+        this.emailResult = [true, ''];
+        this.phoneResult = [true, ''];
+        this.pwdResult = [true, ''];
+        this.twicePwdResult = [true, ''];
     }
 
-    @computed
-    get account() {
+    @computed get account() {
         return this.mode == 'email' ? this.email : `${this.areaCode}${this.phone}`;
     }
 
-    // 检查邮箱是否合法. true合法，false不合法
-    @action
-    checkValidEmail() {
-        let ret = true;
-
-        if (this.email) {
-            if (UPEX.emailReg.test(this.email)) {
-                ret = true;
-            } else {
-                ret = false;
-            }
-        }
-
-        this.validEmail = ret;
-
-        return ret;
-    }
-
-    // 检查密码是否合法
-    @action
-    checkValidPwd() {
-        let ret;
-        if (UPEX.pwdReg.test(this.pwd) || this.pwd.length === 0) {
-            ret = true;
-        } else {
-            ret = false;
-        }
-
-        this.validPwd = ret;
-
-        return ret;
-    }
-
-    @action
-    checkValidPhone() {
-        let ret;
-
-        if (UPEX.phoneReg.test(this.phone) || this.phone.length === 0) {
-            ret = true;
-        } else {
-            ret = true; //不限制手机格式
-        }
-
-        this.validPhone = ret;
-
-        return ret;
-    }
-
-    @action
-    checkValidTwicePwd() {
-        let ret;
-
-        if (this.twicepwd && this.twicepwd !== this.pwd) {
-            ret = false;
-        } else {
-            ret = true;
-        }
-
-        this.validTwicePwd = ret;
-
-        return ret;
-    }
-
     // 发送验证码验证
-    @computed
-    get verifyInfoBeforeSendCode() {
+    @computed get verifyInfoBeforeSendCode() {
         let mode = this.mode;
         let result = {
             pass: true,
             message: ''
         };
-        let email = this.email;
-        let phone = this.phone;
 
         if (mode == 'email') {
-            if (!email) {
-                result.pass = false;
-                result.message = UPEX.lang.template('请填写邮箱');
-                return result;
+            if (this.email == '') {
+                return {
+                    pass: false,
+                    message: UPEX.lang.template('请填写邮箱')
+                }
             }
-            if (!this.validEmail) {
-                result.pass = false;
-                result.message = UPEX.lang.template('请填写正确的邮箱');
 
-                return result;
+            if (!this.emailResult[0]) {
+                return {
+                    pass: false,
+                    message: this.emailResult[1]
+                }
             }
         } else {
-            if (!phone) {
-                result.pass = false;
-                result.message = UPEX.lang.template('请填写手机号');
-
-                return result;
+            if (this.phone == '') {
+                return {
+                    pass: false,
+                    message: UPEX.lang.template('请填写手机号')
+                }
             }
-
-            if (!this.validPhone) {
-                result.pass = false;
-                result.message = UPEX.lang.template('请填写正确的手机号');
-
-                return result;
+            if (!this.phoneResult[0]) {
+                return {
+                    pass: false,
+                    message: this.phoneResult[1]
+                }
             }
         }
 
         return result;
     }
 
-    @computed
-    get verifyInfoBeforeLogin() {
+    // 是否允许登录
+    @computed get enableLogin() {
         let mode = this.mode;
-        let result = {
-            pass: true,
-            message: ''
-        };
-
-        let email = this.email;
-        let phone = this.phone;
-        let pwd = this.pwd;
+        let result = false;
 
         if (mode == 'email') {
-            if (!email) {
-                result.pass = false;
-                result.message = UPEX.lang.template('请填写邮箱');
-                return result;
-            }
-
-            if (!this.validEmail) {
-                result.pass = false;
-                result.message = UPEX.lang.template('请填写正确的邮箱');
-
-                return result;
+            if (this.email && this.pwd && this.emailResult[0] && this.pwdResult[0]) {
+                result = true;
             }
         } else {
-            if (!phone) {
-                result.pass = false;
-                result.message = UPEX.lang.template('请填写手机号');
-
-                return result;
-            }
-
-            if (!this.validPhone) {
-                result.pass = false;
-                result.message = UPEX.lang.template('请填写正确的手机号');
-
-                return result;
+            if (this.phone && this.pwd && this.phoneResult[0] && this.pwdResult[0]) {
+                result = true;
             }
         }
 
-        if (!pwd) {
-            result.pass = false;
-            result.message = UPEX.lang.template('请输入密码');
+        console.log(this.emailResult[0], this.pwdResult[0], this.email, this.phone, this.pwd);
 
-            return result;
+        return result;
+    }
+
+    // 是否允许注册
+    @computed get enableRegister() {
+        let mode = this.mode;
+        let result = false;
+
+        if (mode == 'email') {
+            if (this.email && this.pwd && this.twicepwd && this.pwd == this.twicepwd && this.emailResult[0] && this.pwdResult[0]  && this.agree && this.vercode) {
+                result = true;
+            }
+        } else {
+            if (this.phone && this.pwd && this.twicepwd && this.pwd == this.twicepwd && this.phoneResult[0] && this.pwdResult[0]  && this.agree && this.vercode) {
+                result = true;
+            }
         }
 
         return result;
     }
 
-    // 提交表单验证
-    @computed
-    get verifyInfoBeforeSubmit() {
+    // 是否允许充值密码
+    @computed get enableResetPwd() {
         let mode = this.mode;
-        let result = {
-            pass: true,
-            message: ''
-        };
-
-        let email = this.email;
-        let phone = this.phone;
-        let pwd = this.pwd;
-        let vercode = this.vercode;
-        let validTwicePwd = this.validTwicePwd;
-        // 1. 邮箱 or 电话号码
-        // 2. 密码 or 二次确认密码
+        let result = false;
 
         if (mode == 'email') {
-            if (!email) {
-                result.pass = false;
-                result.message = UPEX.lang.template('请填写邮箱');
-                return result;
-            }
-            if (!this.validEmail) {
-                result.pass = false;
-                result.message = UPEX.lang.template('请填写正确的邮箱');
-
-                return result;
+            if (this.email && this.pwd && this.twicepwd && this.pwd == this.twicepwd && this.emailResult[0] && this.pwdResult[0] &&  this.vercode) {
+                result = true;
             }
         } else {
-            if (!phone) {
-                result.pass = false;
-                result.message = UPEX.lang.template('请填写手机号');
-
-                return result;
+            if (this.phone && this.pwd && this.twicepwd && this.pwd == this.twicepwd && this.phoneResult[0] && this.pwdResult[0] &&  this.vercode) {
+                result = true;
             }
-
-            if (!this.validPhone) {
-                result.pass = false;
-                result.message = UPEX.lang.template('请填写正确的手机号');
-
-                return result;
-            }
-        }
-
-        if (!pwd) {
-            result.pass = false;
-            result.message = UPEX.lang.template('请输入密码');
-
-            return result;
-        }
-
-        if (!validTwicePwd) {
-            result.pass = false;
-            result.message = UPEX.lang.template('两次密码输入不一致');
-
-            return result;
-        }
-
-        if (!vercode) {
-            result.pass = false;
-
-            if (mode == 'email') {
-                result.message = UPEX.lang.template('请填写邮箱验证码');
-            } else {
-                result.message = UPEX.lang.template('请填写手机验证码');
-            }
-
-            return result;
         }
 
         return result;
@@ -307,58 +174,48 @@ class LoginInfoBaseStore {
     }
 
     @action.bound
-    updateSending(status){
+    updateSending(status) {
         this.sending = status;
     }
 
-    @action
-    changeModeTo(mode) {
+    @action changeModeTo(mode) {
         this.reset();
         this.mode = mode;
     }
 
-    @action
-    disabledSMSOrPhoneCode(status) {
+    @action disabledSMSOrPhoneCode(status) {
         this.disabledCodeBtn = status;
     }
 
-    @action
-    changeValidVercodeTo(status) {
+    @action changeValidVercodeTo(status) {
         this.validVercode = status;
     }
 
-    @action
-    changeHasPhoneTo(status) {
+    @action changeHasPhoneTo(status) {
         this.hasPhone = status;
     }
 
-    @action
-    setPasswrod(value) {
+    @action setPasswrod(value) {
         this.pwd = value;
     }
 
-    @action
-    setTwicePasswrod(value) {
+    @action setTwicePasswrod(value) {
         this.twicepwd = value;
     }
 
-    @action
-    setEmail(value) {
+    @action setEmail(value) {
         this.email = value;
     }
 
-    @action
-    setPhone(value) {
+    @action setPhone(value) {
         this.phone = value;
     }
 
-    @computed
-    get areaCode() {
+    @computed get areaCode() {
         return this.selectedCountry.areacode;
     }
 
-    @action
-    setAreaCode(code) {
+    @action setAreaCode(code) {
         this.selectedCountry = this.countries[code];
     }
 
@@ -386,6 +243,43 @@ class LoginInfoBaseStore {
     @action
     setLoginPhoneCode(value) {
         this.phonecode = value;
+    }
+
+    @action clearField(key) {
+        this[key] = '';
+    }
+
+    @action updateEmailResult(result) {
+        this.emailResult = result;
+    }
+
+    @action clearEmailResult(field) {
+        this.emailResult = [true, ''];
+    }
+
+
+    @action updatePhoneResult(result) {
+        this.phoneResult = result;
+    }
+
+    @action clearPhoneResult(field) {
+        this.phoneResult = [true, ''];
+    }
+
+    @action updatePwdResult(result) {
+        this.pwdResult = result;
+    }
+
+    @action clearPwdResult(field) {
+        this.pwdResult = [true, ''];
+    }
+
+    @action updateTwicePwdResult(result) {
+        this.twicePwdResult = result;
+    }
+
+    @action clearTwicePwdResult(field) {
+        this.twicePwdResult = [true, ''];
     }
 }
 

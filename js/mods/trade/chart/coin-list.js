@@ -11,10 +11,6 @@ class MarketCoinList extends Component {
 		super(props);
 	}
 
-    componentWillUnmount() {
-        
-    }
-
 	sortHandle=(field, e)=>{
         this.props.tradeStore.marketListStore.sortByCondition(field);
 	}
@@ -126,7 +122,7 @@ class MarketCoinList extends Component {
                                                 <span className={`cell rate ${ratecolor}`}>{item.changeRateText}</span>
                                                 <span className="cell volume">{item.volumeText}</span>
                                                 <span className="cell action">{this.collectIcon(item)}</span>
-                                            </li>
+                                            </li> 
                                         );
                                     })
                                 }
