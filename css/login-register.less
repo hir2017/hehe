@@ -120,6 +120,27 @@
             font-size: 12px;
             color: @text-red-color;
         }
+        &:hover input,
+        &:hover .ant-select .ant-select-selection{
+            border-bottom: 1px solid @theme-yellow;
+        }
+        &[data-type="focus"] .warn{
+            display: none;
+        }
+    }
+    .icon-delete{
+        position: absolute;
+        right: 0;
+        top: 0;
+        height: 60px;
+        width: 30px;
+        background: url(../images/icon-delete.png) no-repeat center center;
+        background-size: 10px 10px;
+        cursor: pointer;
+        &:hover{
+            background: url(../images/icon-delete-selected.png) no-repeat center center;
+            background-size: 10px 10px;
+        }
     }
     .input-box {
         height: 60px;
@@ -136,6 +157,7 @@
                 border-bottom: 1px solid @form-border-color;
                 background-color: transparent;
                 border-radius: 0;
+                transition: border-bottom .5s;
                 &--single,
                 &__rendered {
                     height: 60px;
@@ -154,6 +176,7 @@
                 -webkit-box-shadow: 0 0 0 0 rgba(24, 144, 255, 0);
                 -moz-box-shadow: 0 0 0 0 rgba(24, 144, 255, 0);
                 box-shadow: 0 0 0 0 rgba(24, 144, 255, 0);
+                border-bottom: 1px solid @theme-yellow;
             }
             .ant-select-focused .ant-select-selection {
                 border-bottom: 1px solid @theme-yellow;
@@ -171,6 +194,7 @@
             font-size: 12px;
             background: none;
             color: @text-color01;
+            transition: border-bottom .5s;
             &.wrong {
                 border-bottom: 1px solid @text-red-color;
             }

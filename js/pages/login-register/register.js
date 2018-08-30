@@ -22,10 +22,6 @@ class Register extends Component {
 
         this.action = toAction(this.props.loginStore);
 
-        this.state = {
-            phone: ''
-        }
-
         this.tabs = [
             {
                 id: 'email',
@@ -69,6 +65,34 @@ class Register extends Component {
         this.action.queryHasPhone();
     }
 
+    clearInput=(field)=> {
+        this.refs[field].focus();
+        this.action.clearInput(field);        
+        this.action.clearVerifyResult(field);
+    }
+
+    onFocusInput=(field, e)=>{
+        if (field == 'phone' || field == 'email') {
+            this.action.onFocusInput(field, e);    
+        }
+        
+        if (field == 'phone') return;
+        
+        $(e.currentTarget).parents('.input-wrapper').attr('data-type', 'focus');
+    }
+
+    onBlurInput(field, e){
+        if (field == 'phone') return;
+
+        let timer;
+        let node = $(e.currentTarget).parents('.input-wrapper');
+
+        timer = setTimeout(()=>{
+            clearTimeout(timer);
+            node.attr('data-type', 'blur');
+        }, 100)
+    }
+
     render() {
         let store = this.props.loginStore;
         let action = this.action;
@@ -85,19 +109,20 @@ class Register extends Component {
                     <div className="input-wrapper" key="phone">
                         <div className="input-box">
                             <input
-                                type="tel"
                                 ref="phone"
+                                type="tel"
                                 value={store.phone}
-                                className={store.validPhone && !store.hasPhone ? '' : 'wrong'}
+                                className={store.phoneResult[0] && !store.hasPhone ? '' : 'wrong'}
                                 placeholder={UPEX.lang.template('手机')}
-                                onChange={action.onChangePhone}
+                                onChange={ (e)=>action.onChangeField('phone', e) }
                                 onBlur={this.queryHasPhone}
-                                onFocus={action.moveCaretAtEnd}
+                                onFocus={ (e)=>this.onFocusInput('phone', e)}
                                 autoFocus
                                 autoComplete="off"
                             />
                         </div>
-                        {!store.validPhone ? <div className="warn">{UPEX.lang.template('请填写正确的手机号')}</div> : null}
+                        { store.phone ? <div className="icon-delete" onClick={this.clearInput.bind(this, 'phone')}></div> : null}
+                        { store.phoneResult[0] ?  null : <div className="warn">{store.phoneResult[1]}</div>}
                     </div>
                 );
 
@@ -108,26 +133,27 @@ class Register extends Component {
                     <div className="input-wrapper" key="email">
                         <div className="input-box">
                             <input
-                                type="text"
                                 ref="email"
+                                type="text"
                                 value={store.email}
-                                className={store.validEmail ? '' : 'wrong'}
+                                className={store.emailResult[0] ? '' : 'wrong'}
                                 placeholder={UPEX.lang.template('邮箱')}
-                                onChange={action.onChangeEmail}
-                                onBlur={action.onBlurEmail}
-                                onFocus={action.moveCaretAtEnd}
+                                onChange={ (e)=>action.onChangeField('email', e) }
+                                onBlur={ (e)=>this.onBlurInput('email', e) }
+                                onFocus={ (e)=>this.onFocusInput('email', e) }
                                 autoFocus
                                 autoComplete="off"
                             />
                         </div>
-                        {!store.validEmail ? <div className="warn">{UPEX.lang.template('请填写正确的邮箱')}</div> : null}
+                        { store.email ? <div className="icon-delete" onClick={this.clearInput.bind(this, 'email')}></div> : null}
+                        { store.emailResult[0] ? null : <div className="warn">{store.emailResult[1]}</div> }
                     </div>
                 )
                 break;
         }
 
         // 提交按钮
-        if (store.agree) {
+        if (store.enableRegister) {
             if (store.submiting) {
                 $submitBtn = (
                     <button type="button" ref="signIn" className="submit-btn">
@@ -164,15 +190,17 @@ class Register extends Component {
                                         type="password"
                                         ref="pwd"
                                         value={store.pwd}
-                                        className={store.validPwd ? '' : 'wrong'}
+                                        className={store.pwdResult[0] ? '' : 'wrong'}
                                         placeholder={UPEX.lang.template('密码')}
                                         maxLength="16"
                                         autoComplete="off"
-                                        onChange={action.onChangePwd}
-                                        onBlur={action.onBlurPwd}
+                                        onChange={ (e)=>action.onChangeField('pwd', e) }
+                                        onBlur={ (e)=>this.onBlurInput('pwd', e) }
+                                        onFocus={ (e)=>this.onFocusInput('pwd', e) }
                                     />
                                 </div>
-                                {!store.validPwd ? <div className="warn">{UPEX.lang.template('密码至少由大写字母+小写字母+数字，8-16位组成')}</div> : null}
+                                { store.pwd ? <div className="icon-delete" onClick={this.clearInput.bind(this, 'pwd')}></div> : null}
+                                { store.pwdResult[0] ? null : <div className="warn">{ store.pwdResult[1] }</div>}
                             </div>
                             <div className="input-wrapper">
                                 <div className="input-box">
@@ -180,15 +208,17 @@ class Register extends Component {
                                         type="password"
                                         ref="twicepwd"
                                         value={store.twicepwd}
-                                        className={store.validTwicePwd ? '' : 'wrong'}
+                                        className={store.twicePwdResult[0] ? '' : 'wrong'}
                                         maxLength="16"
                                         autoComplete="off"
                                         placeholder={UPEX.lang.template('确认密码')}
-                                        onChange={action.onChangeTwicePwd}
-                                        onBlur={action.onBlurTwicePwd}
+                                        onChange={(e)=>action.onChangeField('twicepwd', e)}
+                                        onBlur={ (e)=>this.onBlurInput('twicepwd', e) }
+                                        onFocus={ (e)=>this.onFocusInput('pwd', e) }
                                     />
                                 </div>
-                                {!store.validTwicePwd ? <div className="warn">{UPEX.lang.template('两次密码输入不一致')}</div> : null}
+                                { store.twicepwd ? <div className="icon-delete" onClick={this.clearInput.bind(this, 'twicepwd')}></div> : null}
+                                { store.twicePwdResult[0] ? null : <div className="warn">{ store.twicePwdResult[1]}</div>}
                             </div>
                             <div className="input-wrapper">
                                 <div className="input-box useryz-box">
@@ -197,10 +227,10 @@ class Register extends Component {
                                         ref="vercode"
                                         value={store.vercode}
                                         placeholder={store.mode == 'email' ? UPEX.lang.template('邮箱验证码') : UPEX.lang.template('手机验证码')}
+                                        className={store.validVercode ? '' : 'wrong'}
+                                        onChange={(e)=>action.onChangeField('vercode', e)}
                                         maxLength="6"
                                         autoComplete="off"
-                                        className={store.validVercode ? '' : 'wrong'}
-                                        onChange={action.onChangeVercode}
                                     />
                                     <SMSCodeView onClick={this.sendVercode} disabled={store.disabledCodeBtn} fetching={store.sending}/>
                                 </div>
@@ -220,9 +250,10 @@ class Register extends Component {
                                         value={store.inviteId}
                                         autoComplete="off"
                                         placeholder={UPEX.lang.template('邀请码')}
-                                        onChange={action.onChangeInviteCode}
+                                        onChange={(e)=>action.onChangeField('inviteCode', e)}
                                     />
                                 </div>
+                                { store.inviteId ? <div className="icon-delete" onClick={this.clearInput.bind(this, 'phone')}></div> : null}
                             </div>
                             <div className="input-wrapper">
                                 <div className="input-box user-protocol">

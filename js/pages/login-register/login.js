@@ -21,11 +21,6 @@ class Login extends Component {
 
         this.action = toAction(this.props.loginStore);
 
-        this.state = {
-            loginErrorText: '',
-            step: 'login' // login: 登录，google: 谷歌认证；phone：手机认证
-        }
-
         this.tabs = [
             {
                 id: 'email',
@@ -43,6 +38,11 @@ class Login extends Component {
             type: 'register-login',
             lang: UPEX.lang.language == 'en-US' ? 'en': UPEX.lang.language
         })
+
+        this.state = {
+            step: 'login', // login: 登录，google: 谷歌认证；phone：手机认证
+            loginErrorText: '', // 提交之后的错误提示
+        }
     }
 
     componentDidMount() {
@@ -72,23 +72,16 @@ class Login extends Component {
 
 
     handleLogin=()=>{
-        let result = this.action.checkUser();
+        this.setState({
+            loginErrorText: ''
+        });
 
-        if (result == true ) {
-
-            this.setState({
-                loginErrorText: ''
-            });
-            this.yidunCaptcha.show();
-        } else {
-            this.setState({
-                loginErrorText: result
-            });
-        }
+        this.yidunCaptcha.show();
     }
 
     handleUserLogin(validate, captchaId){
         let store = this.props.loginStore;
+        
         this.action.userLogin(validate, captchaId).then((data)=>{
             switch(data.status){
                 case 200:
@@ -178,6 +171,10 @@ class Login extends Component {
     }
 
     keyLogin=(e)=>{
+        if (!this.props.loginStore.enableLogin) {
+            return;
+        }
+
         if (e.keyCode === 13) {
             this.handleLogin()
         }
@@ -199,9 +196,38 @@ class Login extends Component {
         this.action.onChangeMode(item);
     }
 
+    clearInput=(field)=> {
+        this.refs[field].focus();
+        this.action.clearInput(field);        
+        this.action.clearVerifyResult(field);
+    }
+
+    onFocusInput(field, e){
+        if (field == 'phone' || field == 'email') {
+            this.action.onFocusInput(field, e);    
+        }
+        
+        // 获取焦点后，隐藏接口提交的错误信息
+        this.setState({
+            loginErrorText: ''
+        });
+
+        $(e.currentTarget).parents('.input-wrapper').attr('data-type', 'focus');
+    }
+
+    onBlurInput(field, e) {
+        let timer;
+        let node = $(e.currentTarget).parents('.input-wrapper');
+
+        timer = setTimeout(()=>{
+            clearTimeout(timer);
+            node.attr('data-type', 'blur');
+        }, 100)
+    }
+
     render() {
         let store = this.props.loginStore;
-        let { step } = this.state;
+        let { step, loginErrorText } = this.state;
         let action = this.action;
         let $selectAreaCode;
         let $inputAccount;
@@ -215,15 +241,19 @@ class Login extends Component {
                     <div className="input-wrapper" key='phone'>
                         <div className="input-box">
                             <input
+                                ref="phone"
                                 type="text"
-                                value={store.phone}
                                 name="phone"
+                                value={store.phone}
                                 placeholder={ UPEX.lang.template('手机') }
-                                onChange={action.onChangePhone}
-                                onFocus={action.moveCaretAtEnd}
+                                onChange={ (e)=>action.onChangeField('phone', e)}
+                                onBlur={ (e)=>this.onBlurInput('phone', e) }
+                                onFocus={ (e)=>this.onFocusInput('phone', e)}
                                 autoFocus
+                                autoComplete="off"
                             />
                         </div>
+                        { store.phone ? <div className="icon-delete" onClick={this.clearInput.bind(this, 'phone')}></div> : null}
                     </div>
                 )
                 break;
@@ -232,15 +262,21 @@ class Login extends Component {
                     <div className="input-wrapper" key='email'>
                         <div className="input-box">
                             <input
+                                ref="email"
                                 type="text"
                                 name="email"
+                                value={store.email}
                                 placeholder={ UPEX.lang.template('邮箱') }
-                                onChange={ action.onChangeEmail }
-                                onBlur={ action.onBlurEmail }
-                                onFocus={action.moveCaretAtEnd}
+                                className={ store.emailResult[0] ? '' : 'wrong'}
+                                onChange={ (e)=>action.onChangeField('email', e) }
+                                onBlur={ (e)=>this.onBlurInput('email', e) }
+                                onFocus={ (e)=>this.onFocusInput('email', e) }
                                 autoFocus
+                                autoComplete="off"
                             />
                         </div>
+                        { store.email ? <div className="icon-delete" onClick={this.clearInput.bind(this, 'email')}></div> : null}
+                        { store.emailResult[0] ? null : <div className="warn">{store.emailResult[1]}</div> }
                     </div>
                 )
                 break;
@@ -255,10 +291,13 @@ class Login extends Component {
                     <div className="input-wrapper">
                         <div className="input-box">
                             <input
+                                ref="googlecode"
                                 type="tel"
-                                onChange={ action.onChangeGoogleCode}
+                                name="googlecode"
                                 maxLength="6"
                                 autoComplete="off"
+                                value={store.googlecode}
+                                onChange={ (e)=>action.onChangeField('googlecode', e)}
                                 placeholder={ UPEX.lang.template('Google验证码') }
                                 onKeyDown={ this.keyLoginSecond }
                                 autoFocus
@@ -266,13 +305,32 @@ class Login extends Component {
                         </div>
                     </div>
                 )
+
+                if (store.googlecode) {
+                    if (store.submiting) {
+                        $submitBtn = (
+                            <button type="button" className="submit-btn login-btn">{ UPEX.lang.template('登录中') }</button>
+                        )
+                    } else {
+                        $submitBtn = (
+                            <button type="button" className="submit-btn login-btn" onClick={ this.handleLoginVerifyCode }>{ UPEX.lang.template('登录') }</button>
+                        )
+                    }
+                } else {
+                    // 验证不同过，不允许点击
+                    $submitBtn = (
+                        <button type="button" className="submit-btn disabled">{ UPEX.lang.template('登录') }</button>
+                    )
+                }
             } else if (step == 'phone') {
                 $inputbox = (
                     <div className="input-wrapper">
                         <div className="input-box useryz-box">
                             <input
+                                ref="vercode"
                                 type="text"
-                                onChange={ action.onChangeLoginVerCode}
+                                name="vercode"
+                                onChange={ (e)=>action.onChangeField('vercode', e)}
                                 maxLength="6"
                                 autoComplete="off"
                                 placeholder={ UPEX.lang.template('短信验证码') }
@@ -283,6 +341,23 @@ class Login extends Component {
                         </div>
                     </div>
                 )
+
+                if (store.vercode) {
+                    if (store.submiting) {
+                        $submitBtn = (
+                            <button type="button" className="submit-btn login-btn">{ UPEX.lang.template('登录中') }</button>
+                        )
+                    } else {
+                        $submitBtn = (
+                            <button type="button" className="submit-btn login-btn" onClick={ this.handleLoginVerifyCode }>{ UPEX.lang.template('登录') }</button>
+                        )
+                    }
+                } else {
+                    // 验证不同过，不允许点击
+                    $submitBtn = (
+                        <button type="button" className="submit-btn disabled">{ UPEX.lang.template('登录') }</button>
+                    )
+                }
             }
 
             return (
@@ -292,16 +367,11 @@ class Login extends Component {
                             <h3 className="register-form-title"> { UPEX.lang.template('登录')} </h3>
                             <div className="register-mode-content">
                                 { $inputbox }
-                                { this.state.loginErrorText ? <div className="error-tip">{this.state.loginErrorText}</div> : '' }
+                                { loginErrorText ? <div className="error-tip">{loginErrorText}</div> : '' }
 
                                 <div className="input-wrapper">
                                     <div className="login-input">
-                                        {
-                                            store.submiting ?
-                                            <button type="button" className="submit-btn login-btn">{ UPEX.lang.template('登录中') }</button>
-                                            :
-                                            <button type="button" className="submit-btn login-btn" onClick={ this.handleLoginVerifyCode }>{ UPEX.lang.template('登录') }</button>
-                                        }
+                                        { $submitBtn }
                                     </div>
                                 </div>
                             </div>
@@ -311,15 +381,23 @@ class Login extends Component {
             );
         }
 
-        if (store.submiting) {
-            $submitBtn = (
-                <button type="button" className="submit-btn login-btn">{ UPEX.lang.template('登录中') }</button>
-            )
+        if (store.enableLogin) {
+            if (store.submiting) {
+                $submitBtn = (
+                    <button type="button" className="submit-btn login-btn">{ UPEX.lang.template('登录中') }</button>
+                )
+            } else {
+                $submitBtn = (
+                    <button type="button" className="submit-btn login-btn" onClick={ this.handleLogin }>{ UPEX.lang.template('登录') }</button>
+                )
+            }
         } else {
+            // 验证不同过，不允许点击
             $submitBtn = (
-                <button type="button" className="submit-btn login-btn" onClick={ this.handleLogin }>{ UPEX.lang.template('登录') }</button>
+                <button type="button" className="submit-btn disabled">{ UPEX.lang.template('登录') }</button>
             )
         }
+
 
         return (
             <div className="register-wrapper">
@@ -333,18 +411,22 @@ class Login extends Component {
                             <div className="input-wrapper">
                                 <div className="input-box">
                                     <input
+                                        ref="pwd"
                                         type="password"
-                                        name="password"
+                                        name="pwd"
                                         value={store.pwd}
                                         placeholder={ UPEX.lang.template('密码') }
                                         maxLength="16"
-                                        onChange={ action.onChangePwd }
+                                        autoComplete="off"
+                                        onChange={ (e)=>action.onChangeField('pwd', e) }
+                                        onFocus={ (e)=>this.onFocusInput('pwd', e)}
                                         onKeyDown={ this.keyLogin }
                                     />
                                 </div>
+                                { store.pwd ? <div className="icon-delete" onClick={this.clearInput.bind(this, 'pwd')}></div> : null}
                             </div>
 
-                            { this.state.loginErrorText ? <div className="error-tip">{this.state.loginErrorText}</div> : '' }
+                            { loginErrorText ? <div className="error-tip">{loginErrorText}</div> : '' }
 
                             <div className="input-wrapper">
                                 { $submitBtn }
