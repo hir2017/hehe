@@ -29,14 +29,6 @@ class Banner extends Component {
 		let list = this.props.bannerStore.list;
 		let multi = false;
 
-		list = [{
-			image: require('../../../../images/banner.png')
-		}, {
-			image: require('../../../../images/banner.png')
-		},{
-			image: require('../../../../images/banner.png')
-		}];
-
 		if (list.length > 1 ) {
 			multi = true;
 		}
