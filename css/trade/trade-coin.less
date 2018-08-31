@@ -7,7 +7,7 @@
     right: 0;
     top: 0;
     height: 40px;
-    line-height: 40px;
+    line-height: 39px;
     padding: 0 10px;
     z-index: 3;
     font-size: 12px;
@@ -15,7 +15,8 @@
     color: @text-color01;
     border-bottom: 1px solid @bg-color;
     background-color: @bg-module;
-
+    border-radius: 6px 6px 0 0;
+    box-sizing: border-box;
     dl {
         overflow: hidden;
     }
@@ -26,7 +27,7 @@
     }
 
     dt {
-        font-size: 16px;
+        font-size: 18px;
     }
 
     dd {
@@ -44,7 +45,6 @@
         right: 30px;
         height: 39px;
         font-size: 12px;
-        overflow: hidden;
         padding-left: 20px;
         background-color: @bg-module;
         li {
@@ -66,7 +66,7 @@
                     content: '';
                     position: absolute;
                     left: 50%;
-                    bottom: -1px;
+                    bottom: -3px;
                     margin-left: -10px;
                     border-radius: 2px;
                     width: 20px;

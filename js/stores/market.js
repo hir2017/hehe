@@ -40,7 +40,7 @@ export default class MarketStore {
 
                 selectedCurrencies = this.getSelectedCurrencies(list);
             }
-
+            
             this.selectedCurrencies = selectedCurrencies;
         });
     }
@@ -80,10 +80,10 @@ export default class MarketStore {
     // 过滤自选
     filterMarked() {
         let list = [];
-
+        
         this.collectCoinsList.forEach((item, index) => {
             let key = [item.baseCurrencyId, item.tradeCurrencyId].join('_');
-
+            
             if (this.currencyMap[key]) {
                 list[list.length] = this.currencyMap[key];
             }

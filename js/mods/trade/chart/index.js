@@ -581,10 +581,10 @@ class TVChartContainer extends Component {
            
             if (store.currentTradeCoin.currentAmount > store.currentTradeCoin.previousPrice) {
                 trendColor = 'greenrate';
-                trendIcon = <Icon type="arrow-up" style={{fontSize: 12}}/>;
+                trendIcon = <i className="exc-kline-arrow-up"/>;
             } else if(store.currentTradeCoin.currentAmount < store.currentTradeCoin.previousPrice){
                 trendColor = 'redrate';
-                trendIcon = <Icon type="arrow-down" style={{fontSize: 12}}/>;
+                trendIcon = <i type="exc-kline-arrow-down"/>;
             }
         }
 
@@ -646,13 +646,14 @@ class TVChartContainer extends Component {
                         }
                     </div>
 	            </div>
-                <div className="trade-kline-mask hidden" ref="klinemask">
+                <div className="trade-kline-mask hidden" ref="klinemask" style={{height: store.mainChartHeight - 40}}>
                     <div className="mini-loading"></div>
                 </div>
                 <div
                     id="kline-chart"
                     ref="kline"
                     className='trade-kline-chart'
+                    style={{height: store.mainChartHeight - 50}}
                     data-show={chartType == 'kline' ? 'show': 'hide'}
                 >
                 </div>

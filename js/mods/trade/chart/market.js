@@ -45,7 +45,7 @@ class Markets extends Component{
 		return (
   			<div className="coin-list-wrap">
      			<div className="coin-list-nav">
-                    <h3 className="title">{store.selectedMarketCode == 'Marked' ? UPEX.lang.template('收藏') : store.selectedMarketCode }</h3>
+                    <h3 className="title hidden">{store.selectedMarketCode == 'Marked' ? UPEX.lang.template('收藏') : store.selectedMarketCode }</h3>
                     <div className="search">
                         <Search
                             onChange={this.filterHandler}

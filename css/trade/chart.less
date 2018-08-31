@@ -37,7 +37,7 @@
 .trade-kline-chart {
     position: relative;
     width: 100%;
-    height: 100%;
+    height: 98%;
     left: 0;
     display: block;
 }
@@ -54,6 +54,8 @@
     margin-top: 2px;
     width: 100% !important;
     height: 100% !important;
+    border-radius: 6px;
+    overflow: hidden;
 }
 
 .trade-kline-mask {
@@ -95,6 +97,11 @@
  */
 
 .popover-tradecoins {
+    .ant-popover-inner{
+        background-color: @bg-pop-color;
+        border-radius: 3px;
+        box-shadow: 1px 1px 25px rgba(23,26,29,0.8);
+    }
     &.ant-popover-placement-bottomLeft .ant-popover-content .ant-popover-arrow {
         left: 43px;
         width: 8px;
@@ -111,7 +118,6 @@
         height: 330px;
         display: block;
         font-size: 12px;
-        background-color: @bg-pop-color;
     }
     .coin-list-nav {
         position: relative;
@@ -126,7 +132,7 @@
             color: #fff;
         }
         .tabs {
-            float: left;
+            float: right;
             height: 50px;
             line-height: 50px;
             font-size: 14px;
@@ -142,6 +148,9 @@
                 color: @text-color02;
                 &:hover {
                     color: @text-yellow-color;
+                }
+                &:last-child {
+                    margin-right: 0;
                 }
                 &.selected {
                     color: @text-yellow-color;
@@ -212,14 +221,25 @@
             cursor: pointer;
         }
     }
+    .table-body {
+        overflow: auto;
+        max-height: 245px;
+    }
+    ::-webkit-scrollbar,::-webkit-scrollbar-track {
+        background-color: @bg-pop-color;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background-color: @bg-module;
+    }
     .table-body ul {
-        width: 100%;
+        width: 600px;
         border-bottom: 5px solid transparent;
         li {
-            padding: 0 20px;
             height: 30px;
             line-height: 30px;
             cursor: pointer;
+            padding: 0 20px;
             color: @text-color02;
             &:hover {
                 background-color: @list-hoverbg-color01;
@@ -256,10 +276,11 @@
 }
 
 .popover-tradecoins-light {
-    &.ant-popover-placement-bottomLeft .ant-popover-content .ant-popover-arrow {
+    .ant-popover-inner{
         background-color: @bg-whitepop-color;
+        box-shadow: 1px 1px 25px rgba(23,26,29,0.5);
     }
-    .coin-list-wrap {
+    &.ant-popover-placement-bottomLeft .ant-popover-content .ant-popover-arrow {
         background-color: @bg-whitepop-color;
     }
     .coin-list-nav {
