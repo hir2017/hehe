@@ -321,7 +321,7 @@ module.exports={
     "价格输入必须是{min}~{max}": "Price input must be {min}~{max}",
     "低": "Low",
     "住址": "Address",
-    "使用BPAY充值操作温馨提示,受银行处理时间影响...": "Reminder for BPAY users:\n@@@@. Payment via BPAY will normally show in your bank account within one businbess day. Please check with your financial institution for more detailed information. @@@@You can track the progress of payment at Order Managment <a href=\"/account/record\">\n@@@@· The limit for single BPAY transaction is AUD$7,000.\n@@@@  We will deposit the funds into your account as per your instruction. Please double check the amount for each transfer.",
+    "使用BPAY充值操作温馨提示,受银行处理时间影响...": "Reminder for BPAY users:\n@@@@. Payment via BPAY will normally show in your bank account within one businbess day. Please check with your financial institution for more detailed information. @@@@You can track the progress of payment at Order Managment <a href=\"/account/record\">\n@@@@· The limit for single BPAY transaction is AUD$2,000.\n@@@@  We will deposit the funds into your account as per your instruction. Please double check the amount for each transfer.",
     "使用BPAY支付": "Pay via BPAY",
     "使用Google认证请详细阅读": "Please read carefully when using Google Authenticator",
     "使用Poli支付": "Pay via Poli",
