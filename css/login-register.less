@@ -27,14 +27,14 @@
     &:before {
         background: url('../images/login-arrow-lt.png') no-repeat center center;
         background-size: 100% 100%;
-        left: 10px;
-        top: 10px;
+        left: 8px;
+        top: 9px;
     }
     &:after {
         background: url('../images/login-arrow-rt.png') no-repeat center center;
         background-size: 100% 100%;
-        right: 10px;
-        top: 10px;
+        right: 8px;
+        top: 9px;
     }
     .register-form-wrapper {
         position: relative;
@@ -45,14 +45,14 @@
         &:before {
             background: url('../images/login-arrow-lb.png') no-repeat center center;
             background-size: 100% 100%;
-            left: 0;
-            bottom: 0;
+            left: -1px;
+            bottom: -1px;
         }
         &:after {
             background: url('../images/login-arrow-rb.png') no-repeat center center;
             background-size: 100% 100%;
-            right: 0;
-            bottom: 0;
+            right: -1px;
+            bottom: -1px;
         }
     }
     .register-form {
@@ -104,6 +104,7 @@
         color: @text-color02;
         background: none;
         font-size: 12px;
+        &:hover,
         &.selected {
             color: @text-yellow-color;
         }
@@ -150,7 +151,7 @@
             width: 100%;
             outline: none;
             background-color: transparent;
-            font-size: 12px;
+            font-size: 14px;
             .ant-select-selection {
                 color: #b6bcc6;
                 border: 0 none;
@@ -191,7 +192,7 @@
             border: 0 none;
             border-bottom: 1px solid @form-border-color;
             outline: none;
-            font-size: 12px;
+            font-size: 14px;
             background: none;
             color: @text-color01;
             transition: border-bottom .5s;
@@ -234,7 +235,7 @@
             padding-left: 40px;
         }
         &.user-protocol {
-            margin-top: 40px;
+            margin-top: 50px;
             height: auto;
             font-size: 12px;
             .ant-checkbox-wrapper {
@@ -265,7 +266,7 @@
             border-right: 0 none;
             text-align: center;
             line-height: 40px;
-            font-size: 12px;
+            font-size: 14px;
             border-radius: 2px 0 0 2px;
         }
         .ex-captcha {
@@ -323,6 +324,9 @@
             background-color: @btn-bg-hover-scolor;
             color: @btn-bg-hover-text-scolor;
         }
+        &.register-btn {
+            margin-top: 10px;
+        }
     }
     .error-tip {
         height: 20px;
@@ -372,8 +376,8 @@
         background: @bg-pop-color;
     }
     .ant-select-dropdown-menu-item {
-        height: 30px;
-        line-height: 30px;
+        height: 40px;
+        line-height: 40px;
         font-size: 12px;
         color: @text-color02;
         box-shadow: 0px 0 0 0px transparent;
@@ -381,7 +385,7 @@
         padding: 0 20px;
     }
     .ant-select-dropdown-menu-item:hover {
-        background-color: @list-hoverbg-color02;
+        background-color: @list-hoverbg-color02 ;
         text-decoration: none;
         color: @text-color01;
     }

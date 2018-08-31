@@ -156,20 +156,20 @@ class Register extends Component {
         if (store.enableRegister) {
             if (store.submiting) {
                 $submitBtn = (
-                    <button type="button" ref="signIn" className="submit-btn">
+                    <button type="button" ref="signIn" className="submit-btn register-btn">
                         {UPEX.lang.template('注册中')}
                     </button>
                 )
             } else {
                 $submitBtn = (
-                    <button type="button" ref="signIn" className="submit-btn" onClick={this.submit}>
+                    <button type="button" ref="signIn" className="submit-btn register-btn" onClick={this.submit}>
                         {UPEX.lang.template('注册')}
                     </button>
                 )
             }
         } else {
             $submitBtn = (
-                <button type="button" ref="signIn" className="submit-btn disabled">
+                <button type="button" ref="signIn" className="submit-btn register-btn disabled">
                     {UPEX.lang.template('注册')}
                 </button>
             );

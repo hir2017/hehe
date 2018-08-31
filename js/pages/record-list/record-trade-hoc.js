@@ -35,7 +35,7 @@ class RecordPage extends Component {
 
 	componentDidMount() {
 		this.props.commonStore.getAllCoinPoint();
-		this.props.currencyStore.getCurrencyPoints();
+		this.props.currencyStore.getAllCurrencyRelations();
 		this.props.tradePwdStore.getPersonalTradingPwd();
 	}
 

@@ -63,11 +63,11 @@ class MyOrder extends Component {
 							})
 						}
 					</ul>
-					<div className="action-btn" onClick={this.handleExpand}>
+					<div className="action-btn" onClick={this.handleExpand} ref="actionbtn">
                         {
                             store.expandOrderTable ?
-                            <Tooltip placement="right" title={UPEX.lang.template('收起')}><i className="icon-close"/></Tooltip>:
-                            <Tooltip placement="right" title={UPEX.lang.template('展开')}><i className="icon-open"/></Tooltip>
+                            <Tooltip placement="right" overlayClassName={store.theme == 'dark' ? 'ant-tooltip-dark' : 'ant-tooltip-light'} title={UPEX.lang.template('收起')}><i className="icon-close"/></Tooltip>:
+                            <Tooltip placement="right" overlayClassName={store.theme == 'dark' ? 'ant-tooltip-dark' : 'ant-tooltip-light'} title={UPEX.lang.template('展开')}><i className="icon-open"/></Tooltip>
                         }
                     </div>
 				</div>

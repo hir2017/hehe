@@ -73,9 +73,9 @@ class OrderStore {
     }
 
     parseItem(item) {
-        let currencyObj = this.currencyStore.getCurrencyById(`${item.baseCurrencyId}-${item.currencyId}`);
-        let pointNum = currencyObj.pointNum;
-        let pointPrice = currencyObj.pointPrice;
+        let key = [item.baseCurrencyId, item.currencyId].join('_');
+        let cfg = this.currencyStore.getCurrencyById(key);
+        let { pointNum, pointPrice } = cfg;
 
         item.orderTime = item.orderTime;
         // 委托价格

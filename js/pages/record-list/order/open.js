@@ -27,6 +27,7 @@ class List extends Component {
             baseCurrencyId: '',
             priceType: 0,
         };
+        
         this.state= {
             cancelTotal: 0,
             completeNum: 0,
@@ -37,7 +38,7 @@ class List extends Component {
     componentDidMount() {
         this.action.getData({
             ...this.params,
-            size: !this.props.pagination ? 100 : 10
+            size: !this.props.pagination ? 20 : 10
         });
     }
 
@@ -47,7 +48,7 @@ class List extends Component {
         }
         this.action.getData({
             ...this.params,
-            size: !this.props.pagination ? 100 : 10
+            size: !this.props.pagination ? 20 : 10
         });
     }
 

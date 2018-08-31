@@ -79,6 +79,7 @@ export default (store, authStore) => {
 
                     switch (data.status) {
                         case 200:
+                        
                             if (type == 'buy') {
                                 store.setDealBuyPrice('');
                                 store.setDealBuyNum('');

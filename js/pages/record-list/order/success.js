@@ -30,7 +30,7 @@ class List extends Component {
     componentDidMount() {
         this.action.getData({
             ...this.params,
-            size: !this.props.pagination ? 100 : 10
+            size: !this.props.pagination ? 20 : 10
         });
     }
 
@@ -51,7 +51,7 @@ class List extends Component {
         }
         this.action.getData({
             ...this.params,
-            size: !this.props.pagination ? 100 : 10
+            size: !this.props.pagination ? 20 : 10
         });
     }
 

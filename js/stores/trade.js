@@ -317,6 +317,10 @@ export default class TradeStore {
         this.tradeSellPassword = value;
     }
 
+    @action setTradeBuyPassword(value) {
+        this.tradeBuyPassword = value;
+    }
+
     @computed get buySliderPercent() {
         return this.buySliderValue + '%';
     }
