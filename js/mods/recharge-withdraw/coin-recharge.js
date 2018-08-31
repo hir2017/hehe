@@ -94,7 +94,8 @@ class CoinRecharge extends Component {
                     closable={false}
                     visible={this.state.visible}
                     footer={null}
-                    wrapClassName="recharge-eos-dialog-warn"
+                    width={540}
+                    wrapClassName="exc-modal-alert coin-recharge"
                     >
                     <p className="warn-text">
                         {UPEX.lang.template('充值 {name} 到 ACE 同时需要一个充值地址和 {name} 标签!', {name: currencyNameEn})}
