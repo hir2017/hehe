@@ -302,7 +302,7 @@ export default (store) => {
 
         checkUser2(type) {
             if (type == 'phone') {
-                if (store.phonecode) {
+                if (store.vercode) {
                     return true;
                 } else {
                     return false;
