@@ -168,7 +168,6 @@ export function userLogin(data) {
  * 用户登录 － 需要验证第二步
  */
 export function userLogin2(data) {
-    console.log('http userLogin2', data)
     return axios.post('/user/loginGASecond', qs.stringify({
         ...data,
         source: 1
