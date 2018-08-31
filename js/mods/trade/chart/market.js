@@ -29,10 +29,12 @@ class Markets extends Component{
 		store.initMarket();
 	}
 
-	filterHandle=(e)=>{
+	filterHandler=(e)=>{
 		let store = this.props.tradeStore.marketListStore;
         let value = e.target.value.trim();
 
+        // 仅允许输入字母
+        value = value.toUpperCase();
         store.updateSearchValue(value);
     }
 
@@ -46,7 +48,7 @@ class Markets extends Component{
                     <h3 className="title">{store.selectedMarketCode == 'Marked' ? UPEX.lang.template('收藏') : store.selectedMarketCode }</h3>
                     <div className="search">
                         <Search
-                            onChange={this.filterHandle}
+                            onChange={this.filterHandler}
                             value={store.searchValue}
                             placeholder={UPEX.lang.template('搜索数字币')}
                         />

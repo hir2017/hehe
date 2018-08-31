@@ -127,7 +127,7 @@ class LoginInfoBaseStore {
             }
         }
 
-        console.log(this.emailResult[0], this.pwdResult[0], this.email, this.phone, this.pwd);
+        // console.log(this.emailResult[0], this.pwdResult[0], this.email, this.phone, this.pwd);
 
         return result;
     }

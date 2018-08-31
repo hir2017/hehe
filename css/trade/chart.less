@@ -29,6 +29,7 @@
 
 
 
+
 /**
  * 币种K线图
  */
@@ -87,6 +88,7 @@
 .app-trade-light .chart-box-mask {
     background: @bg-module-light;
 }
+
 
 /**
  * 下拉币种pop列表
@@ -157,43 +159,48 @@
                 }
             }
         }
-        .search {  
-            float: left;          
+        .search {
+            float: left;
             width: 235px;
             margin-right: 30px;
-            .ant-input{
+            .ant-input {
                 height: 30px;
                 border: 1px solid @input-border-color;
                 background-color: @input-bg-color;
                 color: @text-color01;
                 &::placeholder {
                     color: @text-color03 !important;
+                    font-size: 12px;
                 }
 
                 &::-webkit-input-placeholder {
                     /* WebKit browsers */
                     color: @text-color03 !important;
+                    font-size: 12px;
                 }
                 &:-moz-placeholder {
                     /* Mozilla Firefox 4 to 18 */
                     color: @text-color03 !important;
+                    font-size: 12px;
                 }
                 &::-moz-placeholder {
                     /* Mozilla Firefox 19+ */
                     color: @text-color03 !important;
+                    font-size: 12px;
                 }
                 &:-ms-input-placeholder {
                     /* Internet Explorer 10+ */
                     color: @text-color03 !important;
+                    font-size: 12px;
                 }
             }
 
-            .ant-input-search-icon{
+            .ant-input-search-icon {
                 color: @text-color03;
             }
         }
     }
-    .table-header ul{
+    .table-header ul {
         width: 100%;
         font-size: 12px;
         color: @text-color02;
@@ -255,15 +262,65 @@
     .coin-list-wrap {
         background-color: @bg-whitepop-color;
     }
+    .coin-list-nav {
+        border-bottom: 1px solid @bg-color-light;
+    }
+    .coin-list-nav .title {
+        color: @text-color01-light;
+    }
+
+    .coin-list-nav .search .ant-input {
+        border: 1px solid @input-border-color-light;
+        background-color: @input-bg-color-light;
+        color: @text-color01-light;
+        &::placeholder {
+            color: @text-color04-light !important;
+            font-size: 12px;
+        }
+
+        &::-webkit-input-placeholder {
+            /* WebKit browsers */
+            color: @text-color04-light !important;
+            font-size: 12px;
+        }
+        &:-moz-placeholder {
+            /* Mozilla Firefox 4 to 18 */
+            color: @text-color04-light !important;
+            font-size: 12px;
+        }
+        &::-moz-placeholder {
+            /* Mozilla Firefox 19+ */
+            color: @text-color04-light !important;
+            font-size: 12px;
+        }
+        &:-ms-input-placeholder {
+            /* Internet Explorer 10+ */
+            color: @text-color04-light !important;
+            font-size: 12px;
+        }
+    }
+
+    .table-header ul {
+        border-bottom: 1px solid @bg-color-light;
+    }
+    .table-body ul {
+        li {
+            color: @text-color02;
+            &:hover {
+                background-color: @list-hoverbg-color01-light;
+                color: @text-color01-light;
+            }
+        }
+    }
 }
 
 .ant-tooltip-light {
-    &.ant-tooltip-placement-right .ant-tooltip-arrow, 
-    &.ant-tooltip-placement-rightBottom .ant-tooltip-arrow, 
-    &.ant-tooltip-placement-rightTop .ant-tooltip-arrow{
-        border-color: rgba(255,255,255,.75);
+    &.ant-tooltip-placement-right .ant-tooltip-arrow,
+    &.ant-tooltip-placement-rightBottom .ant-tooltip-arrow,
+    &.ant-tooltip-placement-rightTop .ant-tooltip-arrow {
+        border-color: rgba(255, 255, 255, .75);
     }
     .ant-tooltip-inner {
-        background-color: rgba(255,255,255,.75)
+        background-color: rgba(255, 255, 255, .75)
     }
 }

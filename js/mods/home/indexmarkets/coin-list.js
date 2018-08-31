@@ -20,7 +20,7 @@ class MarketCoinList extends Component {
 	}
 
 	selectCoin=(item, e)=>{ 
-        if ($(e.target).hasClass('anticon')) {
+        if ($(e.target).parents('.action').length > 0) {
             return;
         }
 

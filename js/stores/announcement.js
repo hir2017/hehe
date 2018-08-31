@@ -21,7 +21,7 @@ class AnnouncementStore {
                     this.isLoading = false;
                 })
             }).catch((err) => {
-                console.log('Error loading announcement', err.message);
+                // console.log('Error loading announcement', err.message);
             })
     }
 

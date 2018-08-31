@@ -53,10 +53,11 @@ class IndexMarkets extends Component{
 		store.initMarket();
 	}
 
-	filterHandle=(e)=>{
+	filterHandler=(e)=>{
 		let store = this.props.homeStore.marketListStore;
         let value = e.target.value.trim();
 
+        value = value.toUpperCase();
         store.updateSearchValue(value);
     }
 
@@ -136,14 +137,14 @@ class IndexMarkets extends Component{
      				</ul>
      				<div className="search">
 	 				  	<Search
-	                        onChange={this.filterHandle}
+	                        onChange={this.filterHandler}
 	                        value={store.searchValue}
 	                        placeholder={UPEX.lang.template('搜索数字币')}
 	                    />
                     </div>
      			</div>
                 <div className="market-panel">
-                	<div className={`market-panel-hd${this.state.positionFixed ? ' market-panel-fixed' : ''}`} ref="tofixed">
+                	<div className={`market-panel-hd${this.state.positionFixed ? ' market-panel-fixed' : ''}${store.selectedCurrency.key ? '' : ' empty'}` } ref="tofixed">
                 		{ $coinMain }
                 	</div>
                 	<div className="market-panel-bd">

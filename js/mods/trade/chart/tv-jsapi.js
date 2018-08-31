@@ -72,7 +72,7 @@ class UDFCompatibleDatafeed {
                     "has_weekly_and_monthly": !0
                 });
             } catch (e) {
-                console.log(e.message);
+                // console.log(e.message);
             }
         }, 0)
     }
@@ -89,7 +89,7 @@ class UDFCompatibleDatafeed {
     getBars(symbolInfo, resolution, rangeStartDate, rangeEndDate, onHistoryCallback, onErrorCallback, firstDataRequest) {
         // console.log('------getBars-------', symbolInfo, resolution);
 
-        console.log(`Requesting bars between ${new Date(rangeStartDate * 1000).toISOString()} and ${new Date(rangeEndDate * 1000).toISOString()}`)
+        // console.log(`Requesting bars between ${new Date(rangeStartDate * 1000).toISOString()} and ${new Date(rangeEndDate * 1000).toISOString()}`)
 
         if (rangeStartDate > 0 && (rangeStartDate + "").length > 10) {
             throw "Got a JS time instead of Unix one.";

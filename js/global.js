@@ -111,6 +111,8 @@ win.UPEX = Object.assign({
     numberReg: /^\d+$/,
     // 汉字
     replaceHZReg: /^[\u4E00-\u9FA5]+$/ig,
+    // 字母
+    replaceZMReg: /^[A-Za-z]+$/,
     // 非数字
     replaceNaNReg: /[^0-9]/ig,
     languagesMap: {

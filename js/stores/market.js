@@ -2,6 +2,9 @@ import { observable, computed, autorun, action, runInAction } from 'mobx';
 import { addOptional, cancleOptional, listOptional } from '../api/http'
 import { socket } from '../api/socket';
 
+// 市场默认顺序
+const marketSort = ['AUD','TWD','TWDT','BTC', 'ETH', 'GTO'];
+
 export default class MarketStore {
     @observable marketNav = []; // 市场列表
     @observable marketMap = {};
@@ -24,6 +27,10 @@ export default class MarketStore {
 
             if (this.selectedMarketCode == 'Marked') {
                 selectedCurrencies = this.filterMarked();
+
+                if (this.searchValue) {
+                    selectedCurrencies = this.filterByBame(selectedCurrencies, this.searchValue);
+                }
             } else {
                 let list = this.marketMap[this.selectedMarketCode] || [];
 
@@ -163,6 +170,7 @@ export default class MarketStore {
                 let marketMap = {};
                 let marketNav = [];
                 let currencyMap = {};
+                let navTemp = [];
 
                 data.forEach((market, index) => {
                     marketNav[marketNav.length] = market.info.currencyNameEn;
@@ -186,10 +194,24 @@ export default class MarketStore {
                         this.selectedMarketCode = data[0].info.currencyNameEn;
                         this.selectedCurrency = data[0].tradeCoins[0];
                     }
+
+                    
+
+                    for (let i = 0, len = marketSort.length; i < len; i++) {
+                        let idx = marketNav.indexOf(marketSort[i]);
+
+                        if (idx > -1) {
+                            navTemp[navTemp.length] = marketSort[i];
+                            marketNav.splice(idx,1)
+                        }
+                    }
+
+                    this.marketNav = navTemp.concat(marketNav);
                 }
 
+                // 市场导航排序
                 this.isInit = true;
-                this.marketNav = marketNav;
+
                 this.marketMap = marketMap;
                 this.currencyMap = currencyMap;
 
@@ -218,12 +240,16 @@ export default class MarketStore {
         this.sortByKey = field;
     }
 
-    @action getCollectCoinsList() {
+    @action getCollectCoinsList(callback) {
         listOptional().then((res) => {
             if (res.status == 200) {
                 runInAction(() => {
                     this.clearCollectDataFromLocal();
                     this.collectCoinsList = res.attachment;
+                    
+                    if (typeof callback == 'function') {
+                        callback();
+                    }
                 });
             }
         })
@@ -238,7 +264,11 @@ export default class MarketStore {
                     console.error(res.message);
                 }
 
-                this.getCollectCoinsList();
+                this.getCollectCoinsList(()=>{
+                    if (this.collectCoinsList.length == 0 && this.selectedMarketCode == 'Marked') {
+                        this.selectedCurrency = {};
+                    }
+                });
             });
         } else {
             // 若用户不登录，维护一套本地缓存的收藏列表

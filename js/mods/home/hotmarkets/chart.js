@@ -47,7 +47,7 @@ class ChartData {
 
     getPath() {
         let arr = [];
-        console.log('-----');
+        // console.log('-----');
         this.data.forEach((item, i) =>{
 
             let closePrice = Number(item[1]);

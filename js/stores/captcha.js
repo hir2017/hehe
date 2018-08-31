@@ -34,7 +34,7 @@ class CaptchaStore {
             })
         }).catch((err) => {
             this.isFetching = false;
-            console.log('Error loading captcha', err.message);
+            // console.log('Error loading captcha', err.message);
         })
     }
 

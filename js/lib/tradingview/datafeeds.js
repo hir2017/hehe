@@ -91,7 +91,7 @@ class Datafeeds {
      */
     _logMessage(message) {
         if (this._enableLogging) {
-            console.log(new Date().toLocaleTimeString() + ' >> ', message)
+            // console.log(new Date().toLocaleTimeString() + ' >> ', message)
         }
     }
     /**
@@ -221,7 +221,7 @@ class Datafeeds {
      */
     getTimescaleMarks(symbolInfo, startDate, endDate, onDataCallback, resolution) {
         if (this._configuration.supports_timescale_marks) {
-            console.log(' >> 获取时间刻度：', symbolInfo, startDate, endDate, resolution)
+            // console.log(' >> 获取时间刻度：', symbolInfo, startDate, endDate, resolution)
             // step 1：向服务端发起请求
             // your code
             // step 2：返回结果
@@ -244,7 +244,7 @@ class Datafeeds {
      */
     getMarks(symbolInfo, startDate, endDate, onDataCallback, resolution) {
         if (this._configuration.supports_marks) {
-            console.log(' >> 获取K线标记：', symbolInfo, startDate, endDate, resolution)
+            // console.log(' >> 获取K线标记：', symbolInfo, startDate, endDate, resolution)
             // step 1：向服务端发起请求
             // your code
             // step 2：返回结果

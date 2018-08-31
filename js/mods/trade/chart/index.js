@@ -162,7 +162,7 @@ class TVChartContainer extends Component {
                     this.createTradingView();        
                 }, 100);
             }).catch(err => {
-                console.log("Chunk loading failed");
+                // console.log("Chunk loading failed");
             });
         } else {
             if (!this.tvwidget) {
@@ -369,7 +369,7 @@ class TVChartContainer extends Component {
                 // });
 
 		        widget.chart().onIntervalChanged().subscribe(null, function(interval, obj) {
-                    console.log('--------------', interval, obj);
+                    // console.log('--------------', interval, obj);
     				widget.changingInterval = false;
 
                     buttons.forEach(function(item){
