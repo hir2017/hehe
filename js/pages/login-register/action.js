@@ -357,7 +357,6 @@ export default (store) => {
             const { updateSubmiting } = store;
             let authType = 0;
             let vercode = '';
-
             switch (type) {
                 case 'google':
                     authType = 1;
@@ -365,13 +364,12 @@ export default (store) => {
                     break;
                 case 'phone':
                     authType = 2;
-                    vercode = store.phonecode;
+                    vercode = store.vercode;
                     break;
                 case 'email':
                     authType = 3;
                     break;
             }
-
             if (store.submiting) {
                 return;
             }

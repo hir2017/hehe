@@ -169,9 +169,7 @@ export function userLogin(data) {
  */
 export function userLogin2(data) {
     return axios.post('/user/loginGASecond', qs.stringify({
-        authType: data.authType,
-        clientPassword: data.clientPassword,
-        emailOrPhone: data.emailOrPhone,
+        ...data,
         source: 1
     }))
 }
