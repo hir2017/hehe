@@ -160,7 +160,7 @@ class OrderStore {
         let { pointNum, pointPrice } = cfg;
 
         // 时间
-        item.orderTime = item.orderTime;
+        item.orderTime = TimeUtil.formatDate(item.orderTimeStamp);
         // 委托价格
         item.price = NumberUtil.formatNumber(item.price, pointPrice);
         // 平均成交价
