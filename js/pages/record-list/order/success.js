@@ -81,7 +81,7 @@ class List extends Component {
                                     </dd>
                                     <dd className="tradeprice">{item.tradePrice}</dd>
                                     <dd className="num">{item.tradeNum}</dd>
-                                    <dd className="fee">{item.fee}</dd>
+                                    <dd className="fee">{item.fee} {item.buyOrSell == 1 ? item.currencyNameEn : item.baseCurrencyNameEn}</dd>
                                     <dd className="amount">
                                         <span className="pr10">{item.tradeAmount}</span>
                                     </dd>
