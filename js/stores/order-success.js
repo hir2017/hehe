@@ -77,7 +77,7 @@ class OrderStore {
         let cfg = this.currencyStore.getCurrencyById(key);
         let { pointNum, pointPrice } = cfg;
 
-        item.orderTime = item.orderTime;
+        item.orderTime = TimeUtil.formatDate(item.orderTimeStamp);
         // 委托价格
         item.price = NumberUtil.formatNumber(item.price, pointPrice);
         item.tradeAmount = NumberUtil.formatNumber(item.tradeAmount, pointPrice);

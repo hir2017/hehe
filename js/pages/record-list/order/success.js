@@ -70,7 +70,7 @@ class List extends Component {
                         return (
                             <li key={index}>
                                 <dl>
-                                    <dd className="time">{TimeUtil.formatDate(item.orderTimeStamp)}</dd>
+                                    <dd className="time">{item.orderTime}</dd>
                                     <dd className="name">{item.currencyNameEn} / {item.baseCurrencyNameEn}</dd>
                                     <dd className="buyorsell">
                                         {item.buyOrSell == 1 ? (
