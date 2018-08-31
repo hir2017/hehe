@@ -1,5 +1,7 @@
 import { observable, action, computed } from 'mobx';
 import { browserHistory } from 'react-router';
+import TimeUtil from '@/lib/util/date';
+
 import {
     personalInfo,
     loginRecord,
@@ -345,6 +347,12 @@ class UserInfo {
     questions(page) {
         getQuestions(page)
             .then(res => {
+                if(res.status === 200) {
+                    res.attachment.list = res.attachment.list.map(item => {
+                        item.createTime = TimeUtil.formatDate(item.createTimeStamp)
+                        return item;
+                    })
+                }
                 this.questionsLsit = res.attachment || {};
             })
             .catch(e => {
@@ -662,6 +670,10 @@ class UserInfo {
     questionDetails(id) {
         questionDetail(id)
             .then(res => {
+                if(res.status === 200) {
+                    let stamp = res.attachment.question.createTimeStamp;
+                    res.attachment.question.createTime = stamp ? TimeUtil.formatDate(stamp) : '';
+                }
                 this.questionObj = res.attachment;
             })
             .catch(e => {

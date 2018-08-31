@@ -168,6 +168,8 @@ class List extends Component {
                     <div className="table-ft">
                         {store.total > 0 && this.props.pagination ? (
                             <Popconfirm
+                                placement="topRight"
+                                overlayClassName="exc-top-popover"
                                 title={UPEX.lang.template('是否撤销当前列表订单?')}
                                 onConfirm={this.onCancelAll.bind(this)}
                                 okText={UPEX.lang.template('确定')}

@@ -3,9 +3,10 @@
  */
 import React, { Component } from 'react';
 import { message } from 'antd';
-import { getAnnounceDetail } from '../../api/http';
+import { getAnnounceDetail } from '@/api/http';
+import TimeUtil from '@/lib/util/date';
 
-import PageWrapper from '../../components/page-user/page-wrapper';
+import PageWrapper from '@/components/page-user/page-wrapper';
 
 class News extends Component {
     constructor(props) {
@@ -25,21 +26,20 @@ class News extends Component {
         }).then((res)=>{
             if (res.status == 200) {
                 let temp = res.attachment || {};
-                
                 this.setState({
                     content: temp.content,
                     title: temp.title,
-                    date: temp.publishTime
+                    date: isNaN(temp.publishTime * 1) ? '' : TimeUtil.formatDate(temp.publishTime * 1)
                 });
             }
-        })   
+        })
     }
 
     render() {
         const state = this.state;
-        
+
         let $rightContent = (<div className="date">{state.date}</div>)
-        
+
         return (
             <PageWrapper title={state.title} rightContent={$rightContent}>
                 <div className="news-detail" dangerouslySetInnerHTML={{__html: state.content}} />

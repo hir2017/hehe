@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import {message, Pagination} from 'antd';
 import {browserHistory} from 'react-router';
 import { getAnnounceList } from '../../api/http';
+import TimeUtil from '@/lib/util/date';
 
 import PageWrapper from '../../components/page-user/page-wrapper';
 
@@ -67,7 +68,10 @@ class News extends Component {
                 let tempData = res.attachment || {};
                 const {count = 0, list = [], page } = tempData;
                 this.setState({
-                    list,
+                    list: list.map(item => {
+                        item.publishTime = TimeUtil.formatDate(item.publishTime * 1);
+                        return item;
+                    }),
                     total: count,
                     current: page
                 });
