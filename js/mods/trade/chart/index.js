@@ -98,7 +98,7 @@ class TVChartContainer extends Component {
 
         this.defaultThemes = {
             "light": {
-                url: "./bundles/day.css?t=" + (+new Date),
+                url: "./bundles/day.css",
                 up: "#db4e4e",
                 down: "#0c9b78",
                 bg: "#ffffff",
@@ -110,7 +110,7 @@ class TVChartContainer extends Component {
                 areadown: "rgba(122, 152, 247, .02)"
             },
             "dark": {
-                url: "./bundles/night.css?t=" + (+new Date),
+                url: "./bundles/night.css",
                 up: '#db4e4e', // K红
                 down: "#0c9b78", //K绿色
                 bg: "#24272c", // canvas背景色
@@ -623,7 +623,7 @@ class TVChartContainer extends Component {
                         </dd>
                         <dd>
                             <label>{ UPEX.lang.template('24H量')}</label>
-                            <em>{ store.currentTradeCoin.volumeText }{ store.currentTradeCoin.currencyNameEn }</em>
+                            <em>{ store.currentTradeCoin.volumeText }&nbsp;{ store.currentTradeCoin.currencyNameEn }</em>
                         </dd>
                     </dl>
                     <ul className="chart-menu">
@@ -655,11 +655,16 @@ class TVChartContainer extends Component {
                     id="kline-chart"
                     ref="kline"
                     className='trade-kline-chart'
-                    style={{height: store.mainChartHeight - 50}}
                     data-show={chartType == 'kline' ? 'show': 'hide'}
                 >
                 </div>
-                <DepthChart depthAsks={store.asks} depthBids={store.bids}/>
+                <div 
+                    className='trade-depth-chart' 
+                    id="depth-chart"
+                    data-show={chartType == 'depth' ? 'show': 'hide'}
+                >
+                    <DepthChart depthAsks={store.asks} depthBids={store.bids}/>
+                </div>
             </div>
         );
     }

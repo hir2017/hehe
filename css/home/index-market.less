@@ -55,6 +55,7 @@
                 border-radius: 15px;
                 color: @text-color01-light;
                 padding: 3px 12px;
+                line-height: 26px;
                 &::placeholder {
                     color: @text-color04-light !important;
                     font-size: 12px;
@@ -80,6 +81,13 @@
                     color: @text-color04-light !important;
                     font-size: 12px;
                 }
+                &:hover, 
+                &:active {
+                    border-color: #f1f4f6;
+                }
+                &:focus {
+                    box-shadow: 0 0 0 2px transparent;
+                }
             }
             .ant-input-suffix {
                 width : 15px;
@@ -89,6 +97,9 @@
             }
             .ant-input-search-icon{
                 display: none;
+            }
+            .ant-input-affix-wrapper:hover .ant-input:not(.ant-input-disabled) {
+                border-color: #f1f4f6;
             }
         }
     }

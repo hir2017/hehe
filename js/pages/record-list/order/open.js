@@ -91,7 +91,7 @@ class List extends Component {
         let $content;
 
         if (!this.props.authStore.isLogin) {
-            $content = <div className="mini-tip">{UPEX.lang.template('登录后可查看当前委托订单')}</div>;
+            $content = <div className="mini-tip list-is-empty">{UPEX.lang.template('登录后可查看当前委托订单')}</div>;
         } else if (!store.isFetching && store.orderList.length == 0) {
             $content = <div className="mini-tip list-is-empty">{UPEX.lang.template('暂无当前委托订单')}</div>;
         } else {

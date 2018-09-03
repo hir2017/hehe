@@ -88,12 +88,23 @@
     }
 
     .trade-order-bd {
+        position: relative;
         flex: 1;
         .mini-loading {
             background-color: transparent !important;
         }
+        .list-is-empty{
+            padding-top: 40px;
+            background: url('../../images/icon-empty.png') no-repeat center top;
+            background-size: 37px 37px;
+        }
         .mini-tip {
-            color: @text-color01;
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            margin-top: -12px;
+            color: @text-color02;
         }
         .order-main-box {
             padding: 0;
@@ -107,13 +118,14 @@
                     color: @text-color02;
                 }
                 th {
-                    height: 30px;
+                    height: 30px !important;
                 }
                 &::before {
                     border-color: transparent;
                 }
             }
             .table-bd {
+                position: static;
                 dl {
                     border-color: transparent;
                     dd {
@@ -199,6 +211,10 @@
     }
     .trade-order-bd .mini-tip {
         color: @text-color01-light;
+    }
+    .trade-order-bd .list-is-empty{
+        background: url('../../images/list-empty.png') no-repeat center 4px;
+        background-size: 37px 37px;
     }
     .trade-order-bd .order-main-box .table-hd {
         border-color: @border-light-color;

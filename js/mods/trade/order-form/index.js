@@ -254,7 +254,6 @@ class TradeForm extends Component{
 								 	tipFormatter={(value)=>`${value}%`}
 		                            onChange={this.onChangeBuySlider}
 		                            value={store.buySliderValue}
-		                            disabled={authStore.isLogin ? false : true}
 		                        />
 	                        </div>
 						</li>

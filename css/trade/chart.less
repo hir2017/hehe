@@ -83,10 +83,6 @@
     display: none;
 }
 
-.trade-depth-chart[data-show="show"] {
-    display: block
-}
-
 .app-trade-light .trade-kline-mask,
 .app-trade-light .chart-box-mask {
     background: @bg-module-light;
@@ -145,8 +141,8 @@
                 line-height: 49px;
                 margin-right: 10px;
                 cursor: pointer;
-                margin-right: 20px;
-                color: @text-color02;
+                margin-right: 40px;
+                color: @text-color01;
                 &:hover {
                     color: @text-yellow-color;
                 }
@@ -178,6 +174,8 @@
                 border: 1px solid @input-border-color;
                 background-color: @input-bg-color;
                 color: @text-color01;
+                padding: 4px 11px;
+                line-height: 22px;
                 &::placeholder {
                     color: @text-color03 !important;
                     font-size: 12px;
@@ -205,8 +203,13 @@
                 }
             }
 
-            .ant-input-search-icon {
-                color: @text-color03;
+            .ant-input-suffix {
+                width : 15px;
+                height: 15px;
+            }
+
+            .ant-input-search-icon{
+                display: none;
             }
         }
     }
@@ -243,7 +246,7 @@
             padding: 0 20px;
             color: @text-color02;
             &:hover {
-                background-color: @list-hoverbg-color01;
+                background-color: @list-hoverbg-color02;
                 color: @text-color01;
                 .anticon-star-o {
                     color: @theme-yellow !important;

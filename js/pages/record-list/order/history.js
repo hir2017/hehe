@@ -91,7 +91,7 @@ class List extends Component {
         let $content;
         const { parseItemRate } = this;
         if (!this.props.authStore.isLogin) {
-            $content = <div className="mini-tip">{UPEX.lang.template('登录后可查看委托历史订单')}</div>;
+            $content = <div className="mini-tip list-is-empty">{UPEX.lang.template('登录后可查看委托历史订单')}</div>;
         } else if (!store.isFetching && store.orderList.length == 0) {
             $content = <div className="mini-tip list-is-empty">{UPEX.lang.template('暂无委托历史订单')}</div>;
         } else {

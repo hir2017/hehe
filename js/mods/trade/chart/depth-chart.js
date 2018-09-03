@@ -78,6 +78,14 @@ class DepthChart extends Component{
             },
             tooltip: {
             	trigger: "axis",
+                axisPointer:{
+                    show: true,
+                    type : 'cross',
+                    lineStyle: {
+                        type : 'dashed',
+                        width : 1
+                    }
+                },
                 formatter: UPEX.lang.template('委托价') + ": {b0} <br/>" + UPEX.lang.template('累计')+ ": {c0}"
             },
             color: ["#75e08a", "#d66b5a"],
@@ -163,9 +171,7 @@ class DepthChart extends Component{
 	}
 
 	render() {
-		return (
-			<div className='trade-depth-chart' id="depth-chart" ref="depthchart"></div>
-		);
+		return null;
 	}
 }
 

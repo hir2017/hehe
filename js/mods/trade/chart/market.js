@@ -34,7 +34,7 @@ class Markets extends Component{
         let value = e.target.value.trim();
 
         // 仅允许输入字母
-        value = value.toUpperCase();
+        // value = value.toUpperCase();
         store.updateSearchValue(value);
     }
 

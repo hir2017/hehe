@@ -27,6 +27,12 @@ class TradeCenter extends Component {
 
         commonStore.getAllCoinPoint();
         currencyStore.getAllCurrencyRelations();
+
+        $('html').addClass('exc-html-trade');
+    }
+
+    componentWillUnmount() {
+        $('html').removeClass('exc-html-trade');
     }
 
     render() {

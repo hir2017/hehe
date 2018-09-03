@@ -1,6 +1,7 @@
 /**
  * 买卖操作模块
  */
+
 .app-trade {
     .trade-form {
         height: 300px;
@@ -136,13 +137,12 @@
                             outline: 0 none;
                             width: 100%;
                             color: @text-color01;
-                            
                         }
                     }
                     &.disabled {
                         background-color: @input-disabled-bg-color;
                         .input-box {
-                            input{
+                            input {
                                 color: @text-color02;
                             }
                         }
@@ -153,6 +153,7 @@
                         top: 0;
                         padding: 0 10px;
                         font-style: normal;
+                        font-size: 12px;
                     }
                     .total {
                         font-size: 12px;
@@ -175,16 +176,16 @@
                             background-color: @btn-sell-bg-color;
                             border: 1px solid @btn-sell-border-color;
                             color: @text-red-color;
-                            &:hover{
-                               background-color: @btn-sell-hoverbg-color; 
+                            &:hover {
+                                background-color: @btn-sell-hoverbg-color;
                             }
                         }
                         &.buy {
                             background-color: @btn-buy-bg-color;
                             border: 1px solid @btn-buy-border-color;
                             color: @text-green-color;
-                            &:hover{
-                               background-color: @btn-buy-hoverbg-color; 
+                            &:hover {
+                                background-color: @btn-buy-hoverbg-color;
                             }
                         }
                         a,
@@ -201,56 +202,70 @@
                     .ant-slider-mark {
                         font-size: 12px;
                     }
-                    .ant-slider-dot{
+                    .ant-slider-rail {
+                        background-color: @slider-rail-color;
+                        transition: none;
+                    }
+                    .ant-slider-track {
+                        transition: none;
+                        background-color: @slider-border-color;
+                    }
+                    .ant-slider-handle {
+                        width: 12px;
+                        height: 12px;
+                        margin-top: -4px;
+                        border-color: @slider-border-color;
+                        background-color: @slider-dot-bg-color;
+                        box-shadow: 0 none;
+                    }
+                    .ant-slider-handle:focus {
+                        border-color: @slider-border-scolor;
+                        box-shadow: none;
+                    }
+                    .ant-slider-handle.ant-tooltip-open {
+                        border-color: @slider-border-scolor;
+                    }
+                    &:hover .ant-slider-rail {
+                        background-color: @slider-rail-hover-color;
+                    }
+                    &:hover .ant-slider-track {
+                        background-color: @slider-border-scolor;
+                    }
+                    &:hover .ant-slider-handle:not(.ant-tooltip-open) {
+                        border-color: @slider-border-scolor;
+                    }
+                    .ant-slider-mark-text {
+                        color: @text-color03;
+                        &:last-child{
+                            padding-right: 4px;
+                        }
+                        &:first-child{
+                            padding-left: 20px;
+                        }
+                    }
+                    .ant-slider-mark-text-active {
+                        color: @text-yellow-color;
+                    }
+                    .ant-slider-dot {
                         width: 8px;
                         height: 8px;
-                        margin-left: -5px;
-                        margin-top: -1px;
                         border-color: @slider-dot-border-color;
                         background-color: @slider-dot-bg-color;
                     }
-                    .ant-slider-dot-active{
-                        border-color: @slider-dot-border-scolor;
+                    .ant-slider-dot-active {
+                        border-color: @slider-border-scolor;
                     }
-                    .ant-slider-track {
-                        height: 2px;
-                        border-radius: 2px;
-                        background-color: @slider-track-color;
-                        -webkit-transition: none;
-                        transition: none;
-                    }
-                    .ant-slider-rail {
-                        height: 2px;
-                        border-radius: 1px;
-                        background-color: @text-color03;
-                        -webkit-transition: none;
-                        transition: none;
-                    }
-                    .ant-slider-mark-text{
-                        color: @text-color03;
-                    }
-                    .ant-slider-mark-text-active{
-                        color: @text-yellow-color;
-                    }
-                    .ant-slider-handle{
-                        width: 12px;
-                        height: 12px;
-                        border-color: @slider-dot-border-scolor;
-                        background-color: @slider-dot-bg-color;
-                    }
-                    .ant-slider-disabled {
-                        .ant-slider-handle{
-                            border-color: @slider-dot-border-sdcolor !important;
-                            background-color: @slider-dot-bg-color;
-                        }
-                        .ant-slider-track {
-                            background-color: @slider-track-color;
-                        }
-                        .ant-slider-dot{
-                            border-color: @slider-dot-border-color !important;
-                            background-color: @slider-dot-bg-color;
-                        }
-                    }
+                }
+                .ant-slider-disabled .ant-slider-track {
+                    background-color: @slider-track-color !important;
+                }
+                .ant-slider-disabled .ant-slider-dot{
+                    border-color: @slider-dot-border-color !important;
+                    background-color: @slider-dot-bg-color;
+                } 
+                .ant-slider-disabled .ant-slider-handle{
+                    border-color: @slider-border-color !important;
+                    background-color: @slider-dot-bg-color;
                 }
             }
         }
@@ -290,7 +305,7 @@
                     .input-box {
                         input {
                             color: @text-color01-light;
-                            &.disabled{
+                            &.disabled {
                                 color: @text-color02-light;
                             }
                         }
@@ -298,7 +313,7 @@
                     &.disabled {
                         background-color: @input-disabled-bg-color-light;
                         .input-box {
-                            input{
+                            input {
                                 color: @text-color02-light;
                             }
                         }
@@ -322,33 +337,49 @@
                     }
                 }
                 .item-slider {
-                    .ant-slider-dot{
+                    .ant-slider-rail {
+                        background-color: @slider-rail-color-light;
+                    }
+                    .ant-slider-track {
+                        background-color: @slider-border-color-light;
+                    }
+                    .ant-slider-handle {
+                        border-color: @slider-border-color-light;
+                        background-color: @slider-dot-bg-color-light;
+                    }
+                    .ant-slider-handle:focus {
+                        border-color: @slider-border-scolor-light;
+                    }
+                    .ant-slider-handle.ant-tooltip-open {
+                        border-color: @slider-border-scolor-light;
+                    }
+                    &:hover .ant-slider-rail {
+                        background-color: @slider-rail-hover-color-light;
+                    }
+                    &:hover .ant-slider-track {
+                        background-color: @slider-border-scolor-light;
+                    }
+                    &:hover .ant-slider-handle:not(.ant-tooltip-open) {
+                        border-color: @slider-border-scolor-light;
+                    }
+                    .ant-slider-dot {
                         border-color: @slider-dot-border-color-light;
                         background-color: @slider-dot-bg-color-light;
                     }
-                    .ant-slider-rail {
-                        background-color: @text-color03-light;
+                    .ant-slider-dot-active {
+                        border-color: @slider-border-scolor-light;
                     }
-                    .ant-slider-dot-active{
-                        border-color: @slider-dot-border-scolor;
-                    }
-                    .ant-slider-handle{
-                        border-color: @slider-dot-border-scolor;
-                        background-color: @slider-dot-bg-color-light;
-                    }
-                    .ant-slider-disabled {
-                        .ant-slider-handle{
-                            border-color: @slider-dot-border-sdcolor !important;
-                            background-color: @slider-dot-bg-color-light;
-                        }
-                        .ant-slider-track {
-                            background-color: @slider-track-color-light;
-                        }
-                        .ant-slider-dot{
-                            border-color: @slider-dot-border-color-light !important;
-                            background-color: @slider-dot-bg-color-light;
-                        }
-                    }
+                }
+                .ant-slider-disabled .ant-slider-track {
+                    background-color: @slider-track-color-light !important;
+                }
+                .ant-slider-disabled .ant-slider-dot{
+                    border-color: @slider-dot-border-color-light !important;
+                    background-color: @slider-dot-bg-color-light;
+                } 
+                .ant-slider-disabled .ant-slider-handle{
+                    border-color: @slider-border-color-light !important;
+                    background-color: @slider-dot-bg-color-light;
                 }
             }
         }

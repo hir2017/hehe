@@ -57,7 +57,7 @@ class IndexMarkets extends Component{
 		let store = this.props.homeStore.marketListStore;
         let value = e.target.value.trim();
 
-        value = value.toUpperCase();
+        // value = value.toUpperCase();
         store.updateSearchValue(value);
     }
 
