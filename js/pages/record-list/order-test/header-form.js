@@ -1,6 +1,6 @@
 import React from 'react';
 import { Select, DatePicker, Button } from 'antd';
-import { getAllCurrencyRelations } from '@/api/http';
+import { getCurrencyPoints } from '@/api/http';
 const Option = Select.Option;
 const { RangePicker } = DatePicker;
 
@@ -30,7 +30,7 @@ class View extends React.Component {
     }
 
     componentDidMount() {
-        getAllCurrencyRelations().then(res => {
+        getCurrencyPoints().then(res => {
             let temp = {
                 currency: {},
                 base: {}

@@ -16,7 +16,7 @@ class AnnouncementStore {
         getAnnounceList(count)
             .then((data) => {
                 runInAction('get announcement success', () => {
-
+                    
                     this.list = data.attachment ? data.attachment.list.map(item => {
                         item.publishTime = TimeUtil.formatDate(item.publishTime);
                         return item;

@@ -24,10 +24,10 @@ class TradeForm extends Component{
 		super(props);
 
 		this.tabs = [{
-			id: 'xj',
+			id: 'limit',
 			title: UPEX.lang.template('限价委托')
 		}, {
-			id: 'sj',
+			id: 'market',
 			title: UPEX.lang.template('市价交易')
 		}]
 
@@ -201,8 +201,8 @@ class TradeForm extends Component{
 			</div>
 		)
 
-		let xjcontent = (
-			<div className={ store.tradeType == 'xj' ? 'trade-form-mod' : 'trade-form-mod hidden'}>
+		let limitcontent = (
+			<div className={ store.tradeType == 'limit' ? 'trade-form-mod' : 'trade-form-mod hidden'}>
 				<div className="trade-form-l">
 					<ul className="form-mod-hd">
 						<li className="name">{UPEX.lang.template('买入')} {currencyNameEn}</li>
@@ -344,8 +344,8 @@ class TradeForm extends Component{
 			</div>
 		);
 
-		let sjcontent = (
-			<div className={ store.tradeType == 'sj' ? 'trade-form-mod' : 'trade-form-mod hidden'}>
+		let marketcontent = (
+			<div className={ store.tradeType == 'market' ? 'trade-form-mod' : 'trade-form-mod hidden'}>
 				<div className="trade-form-l">
 					<ul className="form-mod-hd">
 						<li className="name">{UPEX.lang.template('买入')} {currencyNameEn}</li>
@@ -494,8 +494,8 @@ class TradeForm extends Component{
 					</ul>
 				</div>
 				<div className="trade-form-bd clearfix">
-					{xjcontent}
-					{sjcontent}
+					{limitcontent}
+					{marketcontent}
 				</div>
 				<PopupTradePwd ref="pwdpop" prefix={`antd-modal-${store.theme}`}/>
 			</div>

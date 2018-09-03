@@ -233,13 +233,6 @@ export function getBaseCoin() {
 }
 
 /**
- *  获取所有币对信息
- */
-export function getAllCurrencyRelations() {
-    return axios.post('/coin/allCurrencyRelations')
-}
-
-/**
  *  获取基础币对应交易币列表
  */
 export function getTradeCoinsOfBaseCoin() {

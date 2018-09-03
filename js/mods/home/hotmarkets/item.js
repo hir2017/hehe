@@ -69,13 +69,6 @@ class HotCoin extends Component {
 	render() {
 		let data = this.props.data;
 		let type = data.changeRate >= 0 ? 'positive' : 'negative';
-		let trendIcon;
-
-		if (data.currentAmount >= data.previousPrice) {
-            trendIcon = <Icon type="arrow-up" style={{fontSize: 12}}/>;
-        } else {
-            trendIcon = <Icon type="arrow-down" style={{fontSize: 12}}/>;
-        }
                                                     
 		return (
 			<div className={`recommend-item ${type}`} onClick={this.handleTrade.bind(this, data)}>

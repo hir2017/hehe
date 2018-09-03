@@ -59,31 +59,6 @@ class CurrencyStore {
     }
 
 
-    @action getCurrencyPoints() {
-        if (!isFirst) {
-            return;
-        }
-
-        this.currencyDataReady = false;
-
-        getCurrencyPoints().then((data) => {
-            runInAction('get all coin point', () => {
-                if (data.status == 200) {
-                    let result = data.attachment;
-
-                    this.currencyList = result;
-                    this.currencyMap = this.parseCurrencyPoints(result);
-                }
-
-                this.currencyDataReady = true;
-                isFirst = false;
-            })
-
-        }).catch(() => {
-            this.currencyDataReady = true;
-        })
-    }
-
     parseCurrencyPoints(list) {
         let map = {};
 

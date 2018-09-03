@@ -24,7 +24,7 @@ class RecordPage extends Component {
     componentDidMount(){
         let store = this.props.currencyStore;
 
-        store.getCurrencyPoints();
+        store.getAllCurrencyRelations();
     }
 
     handleChange= (value) => {

@@ -1,4 +1,4 @@
-import { getAllCurrencyRelations, submitOrder } from '../../../api/http';
+import { submitOrder } from '../../../api/http';
 import { socket } from '../../../api/socket';
 import md5 from '../../../lib/md5';
 import { message } from 'antd';
@@ -68,7 +68,7 @@ export default (store, authStore) => {
                 }
             }
 
-            if (this.tradeType == 'sj') {
+            if (store.tradeType == 'market') {
                 data.type = 2;
                 data.price = 0;
             }

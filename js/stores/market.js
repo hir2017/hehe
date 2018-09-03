@@ -3,7 +3,7 @@ import { addOptional, cancleOptional, listOptional } from '../api/http'
 import { socket } from '../api/socket';
 
 // 市场默认顺序
-const marketSort = ['AUD','TWD','TWDT','BTC', 'ETH', 'GTO'];
+const marketSort = ['AUD', 'TWD', 'TWDT', 'BTC', 'ETH', 'GTO'];
 
 export default class MarketStore {
     @observable marketNav = []; // 市场列表
@@ -40,7 +40,7 @@ export default class MarketStore {
 
                 selectedCurrencies = this.getSelectedCurrencies(list);
             }
-            
+
             this.selectedCurrencies = selectedCurrencies;
         });
     }
@@ -80,10 +80,10 @@ export default class MarketStore {
     // 过滤自选
     filterMarked() {
         let list = [];
-        
+
         this.collectCoinsList.forEach((item, index) => {
             let key = [item.baseCurrencyId, item.tradeCurrencyId].join('_');
-            
+
             if (this.currencyMap[key]) {
                 list[list.length] = this.currencyMap[key];
             }
@@ -121,15 +121,29 @@ export default class MarketStore {
     }
 
     // 获取热门的推荐列表
-    @action updateHotCurrencies() {
+    @action updateHotCurrencies(arr) {
         let market = this.marketMap[UPEX.config.baseCurrencyEn];
-        let currencies;
+        let currencies = [];
 
+        // 推荐法币
         currencies = market.filter((item) => {
             return item.recommend === 1;
-        });
+        })
+        
+        // 若法币不满足5个，再过滤其他币种补充
+        if (currencies.length < 5) {
+            $.each(arr, (index, market) => {
+                if (market.info.currencyNameEn !== UPEX.config.baseCurrencyEn) {
+                    $.each(market.tradeCoins, (idx, item) => {
+                        if (item.recommend === 1) {
+                            currencies[currencies.length] = item;
+                        }
+                    })
+                }
+            });
+        }
 
-        this.hotCurrencies = currencies;
+        this.hotCurrencies = currencies.slice(0, 5);
     }
 
     @action updateSearchValue(value) {
@@ -178,7 +192,7 @@ export default class MarketStore {
 
                     market.tradeCoins.map((item, index) => {
                         item.key = [item.baseCurrencyId, item.currencyId].join('_');
-                        
+
                         this.parseCoinItem(item);
                         currencyMap[item.key] = item;
 
@@ -195,14 +209,14 @@ export default class MarketStore {
                         this.selectedCurrency = data[0].tradeCoins[0];
                     }
 
-                    
+
 
                     for (let i = 0, len = marketSort.length; i < len; i++) {
                         let idx = marketNav.indexOf(marketSort[i]);
 
                         if (idx > -1) {
                             navTemp[navTemp.length] = marketSort[i];
-                            marketNav.splice(idx,1)
+                            marketNav.splice(idx, 1)
                         }
                     }
 
@@ -216,7 +230,7 @@ export default class MarketStore {
                 this.currencyMap = currencyMap;
 
                 // 更新热门推荐列表中的货币信息
-                this.updateHotCurrencies();
+                this.updateHotCurrencies(data);
             })
         })
     }
@@ -246,7 +260,7 @@ export default class MarketStore {
                 runInAction(() => {
                     this.clearCollectDataFromLocal();
                     this.collectCoinsList = res.attachment;
-                    
+
                     if (typeof callback == 'function') {
                         callback();
                     }
@@ -264,7 +278,7 @@ export default class MarketStore {
                     console.error(res.message);
                 }
 
-                this.getCollectCoinsList(()=>{
+                this.getCollectCoinsList(() => {
                     if (this.collectCoinsList.length == 0 && this.selectedMarketCode == 'Marked') {
                         this.selectedCurrency = {};
                     }

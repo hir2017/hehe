@@ -45,7 +45,7 @@ export default class TradeStore {
         tradeCoinBalanceText: 0
     }
     @observable tradePasswordStatus = 2; // 交易.  1：需要资金密码；2：不需要资金密码
-    @observable tradeType = 'xj';
+    @observable tradeType = 'limit';
 
     @observable dealBuyPrice = ''; // 交易买入价格
     @observable dealSellPrice = ''; // 交易卖出价格
@@ -462,7 +462,7 @@ export default class TradeStore {
             password = this.tradeSellPassword;
         }
 
-        if (this.tradeType == 'sj') {
+        if (this.tradeType == 'market') {
             if (!num) {
                 result = {
                     pass: false,

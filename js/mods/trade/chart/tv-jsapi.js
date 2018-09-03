@@ -134,7 +134,7 @@ class UDFCompatibleDatafeed {
                     let item = data[i];
                     
                     var barValue = {
-                        time: +new Date(item.createTime.replace(/-/g, '/')),
+                        time: item.currentTime,
                         close: Number(item.closePrice),
                         open: Number(item.openPrice),
                         high: Number(item.highPrice),
@@ -228,7 +228,7 @@ class UDFCompatibleDatafeed {
                     let item = data[0];
 
                     var barValue = {
-                        time: item.currentTime || +new Date(item.createTime.replace(/-/g, '/')),
+                        time: item.currentTime,
                         close: Number(item.closePrice),
                         open: Number(item.openPrice),
                         high: Number(item.highPrice),
@@ -236,7 +236,7 @@ class UDFCompatibleDatafeed {
                         volume: Number(item.volume)
                     };
 
-                    barValue.timeTxt = TimeUtil.formatDate(item.createTime, 'yyyy-MM-dd HH:mm:ss');
+                    barValue.timeTxt = TimeUtil.formatDate(item.currentTime, 'yyyy-MM-dd HH:mm:ss');
                     // console.log(barValue.timeTxt);
                     onRealtimeCallback(barValue);
                 }

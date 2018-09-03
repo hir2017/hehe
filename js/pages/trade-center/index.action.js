@@ -1,4 +1,4 @@
-import { getAllCurrencyRelations, getPersonalTradingPwd } from '../../api/http';
+import { getPersonalTradingPwd } from '../../api/http';
 import { socket } from '../../api/socket';
 import NumberUtil from '../../lib/util/number';
 
