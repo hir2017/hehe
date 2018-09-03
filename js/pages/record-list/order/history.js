@@ -3,7 +3,7 @@ import { observer, inject } from 'mobx-react';
 import { Pagination } from 'antd';
 import TimeUtil from '@/lib/util/date';
 import toAction from './page-action';
-import Form from './query-form';
+import Filter from './head-filter';
 
 @inject('commonStore', 'historyStore', 'authStore')
 @observer
@@ -208,7 +208,7 @@ class List extends Component {
 
         return (
             <div className="order-main-box">
-                <Form onClick={this.onQuery.bind(this)} action="history" />
+                <Filter onClick={this.onQuery.bind(this)} action="history" />
                 <div className="order-table history-list-table">
                     <div className="table-hd">
                         <table>

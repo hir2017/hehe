@@ -12,7 +12,8 @@ config.csurls = {
     telegram: '',
     facebook: '',
     twitter: '',
-    line: ''
+    line: '',
+    whatapp: 'https://medium.com/ace-exchange',
 };
 config.baseCurrencyEn = 'TWD';
 config.baseCurrencySymbol = 'NT$';
