@@ -781,7 +781,7 @@ module.exports={
     "超时取消": "Cancelled due to timeout",
     "身份认证": "ID authentication",
     "身份证上传图片大小限制": "Only JPG, PNP or JPEG file with size less than 10MB is accepted.",
-    "输入google验证器上的六位数字获取并输入短信验证码": "Enter the 6-digit number on the Google Authenticator to obtain and enter the SMS verification code",
+    "输入Google验证器上的六位数字获取并输入短信验证码": "Enter the 6-digit number on the Google Authenticator to obtain and enter the SMS verification code",
     "输入必须是{min}~{max}": "The input must be {min}~{max}",
     "输入资金密码": "Enter withdraw password",
     "输入错误，您还有{num}次机会尝试": "Incorrect input. You still have {num} chance to try",
