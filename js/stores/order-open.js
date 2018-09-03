@@ -106,7 +106,7 @@ class OrderStore {
     }
 
     parseItem(item) {
-
+        console.log('parseItem start', item)
         let key = [item.baseCurrencyId, item.currencyId].join('_');
         let cfg = this.currencyStore.getCurrencyById(key);
         let { pointNum, pointPrice } = cfg;
@@ -114,7 +114,7 @@ class OrderStore {
         // 时间
         item.orderTime = TimeUtil.formatDate(item.orderTimeStamp);
         // 委托价格
-        item.price = NumberUtil.formatNumber(item.price, pointPrice);
+        item.price = item.type === 2 ? UPEX.lang.template('市价委托') : NumberUtil.formatNumber(item.price, pointPrice);
         // 成交金额
         item.tradeAmount = NumberUtil.formatNumber(item.tradeAmount || 0, pointPrice);
         // 成交价格
@@ -124,9 +124,9 @@ class OrderStore {
         // 成交数量
         item.tradeNum = NumberUtil.formatNumber(item.tradeNum, pointNum);
         // 成交率
-        item.tradeRate = item.tradeRate || 0;
-        item.tradeRate = NumberUtil.formatNumber(item.tradeRate * 100, 2) + '%';
-
+        let temp_rate = parseFloat(item.tradeRate) || 0;
+        item.tradeRate = NumberUtil.formatNumber(temp_rate * 100, 2) + '%';
+        console.log('parseItem end', item)
         return item;
     }
 }

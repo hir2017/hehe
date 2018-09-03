@@ -3,7 +3,7 @@ import { observer, inject } from 'mobx-react';
 import { Pagination } from 'antd';
 import TimeUtil from '@/lib/util/date';
 import toAction from './page-action';
-import Form from './query-form';
+import Filter from './head-filter';
 
 @inject('commonStore', 'successStore', 'authStore')
 @observer
@@ -95,7 +95,7 @@ class List extends Component {
 
         return (
             <div className="order-main-box">
-                <Form onClick={this.onQuery.bind(this)} action="success"/>
+                <Filter onClick={this.onQuery.bind(this)} action="success"/>
                 <div className="order-table success-list-table">
                     <div className="table-hd">
                         <table>

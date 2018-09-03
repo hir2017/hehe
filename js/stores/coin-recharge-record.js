@@ -63,7 +63,7 @@ class CoinRechargeRecordStore {
     parseData(arr) {
         arr.forEach((item, index) => {
             item.id = this.current + '' + index;
-            item.createTime = item.createTime.split('.')[0];
+            item.createTime = TimeUtil.formatDate(item.createTimeStamp);
         })
 
         return arr;

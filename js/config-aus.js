@@ -12,7 +12,8 @@ config.csurls = {
     telegram: 'https://t.me/ACEexchange',
     facebook: 'https://www.facebook.com/ace.exchange.tw/',
     twitter: 'https://twitter.com/ACE_exchange',
-    line: 'https://medium.com/ace-exchange'
+    line: 'https://medium.com/ace-exchange',
+    whatapp: 'https://medium.com/ace-exchange',
 };
 
 config.baseCurrencyEn = 'AUD';

@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import { observer, inject } from 'mobx-react';
 import { Button, Icon, Pagination} from 'antd';
-import TimeUtil from '@/lib/util/date';
 
 @inject('coinRechargeRecordStore')
 @observer
@@ -80,7 +79,7 @@ class List extends Component {
 										<dd className="name">{item.currencyNameEn}</dd>
 										<dd className="num">{item.coinNum}</dd>
 										<dd className="type">{typeMap[item.rechargeType]}</dd>
-										<dd className="time">{TimeUtil.formatDate(item.createTimeStamp)}</dd>
+										<dd className="time">{item.createTime}</dd>
 										<dd className="address">{UPEX.lang.template('地址')} : {item.walletSn}</dd>
 										<dd className="action">
 											{ visible ? <button type="button" onClick={this.triggerShowDetail.bind(this, item.id)}>{ this.state.displayIndex == item.id ? UPEX.lang.template('收起') : UPEX.lang.template('展开')}</button> : <span className="exc-disabled text">{UPEX.lang.template('详情')}</span>}

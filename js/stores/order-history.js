@@ -72,6 +72,11 @@ class OrderStore {
                         let { details = [] } = data.attachment;
                         // null不严格等于undefined
                         details = details === null ? [] : details;
+                        if(item.type === 2) {
+                            details.forEach(item => {
+                                item.price = UPEX.lang.template('市价委托')
+                            })
+                        }
                         this.orderList[index].details = details;
                         this.orderList[index]._detailInfo = data.attachment;
                         this.orderList[index].detailReady = true;
@@ -162,7 +167,8 @@ class OrderStore {
         // 时间
         item.orderTime = TimeUtil.formatDate(item.orderTimeStamp);
         // 委托价格
-        item.price = NumberUtil.formatNumber(item.price, pointPrice);
+        console.log(item.type)
+        item.price = item.type === 2 ? UPEX.lang.template('市价委托') : NumberUtil.formatNumber(item.price, pointPrice);
         // 平均成交价
         item.averagePrice = NumberUtil.formatNumber(item.averagePrice || 0, pointPrice);
         // 成交价格

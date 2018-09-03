@@ -58,7 +58,6 @@ export default class BindingBank extends Component {
             },
             onChange(info) {
                 if (info.file.status !== 'uploading') {
-                    console.log(info.file, info.fileList);
                 }
                 if (info.file.status === 'done') {
                     if (info.file.response.status === 200) {

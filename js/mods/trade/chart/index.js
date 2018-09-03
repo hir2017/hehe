@@ -65,19 +65,19 @@ class TVChartContainer extends Component {
             resolution: "60", // 1小时
             chartType: 1,
             text: UPEX.lang.template('1hour')
-        }, 
+        },
         // {
         //     slug: "4hour",
         //     resolution: "240", // 4小时
         //     chartType: 1,
         //     text: UPEX.lang.template('4hour')
-        // }, 
+        // },
         {
             slug: "1day",
             resolution: "1D", // 1天
             chartType: 1,
             text: UPEX.lang.template('1day')
-        }, 
+        },
         // {
         //     slug: "5day",
         //     resolution: "5D", // 5天
@@ -139,7 +139,7 @@ class TVChartContainer extends Component {
 
     componentWillUnmount(){
         $.channel.off('switchTheme');
-        
+
         this.datafeed && this.datafeed.destroy();
         this.tvwidget = null;
         window.tvwidget = null;
@@ -159,10 +159,10 @@ class TVChartContainer extends Component {
             import(/*webpackChunkName: "charting_library"*/'./../../../lib/tradingview/charting_library.min').then(module => {
                 setTimeout(()=>{
                     this.visibleKlineMask(true);
-                    this.createTradingView();        
+                    this.createTradingView();
                 }, 100);
             }).catch(err => {
-                // console.log("Chunk loading failed");
+                console.error("Chunk loading failed", err);
             });
         } else {
             if (!this.tvwidget) {
@@ -174,15 +174,15 @@ class TVChartContainer extends Component {
 
     visibleKlineMask(visible){
         let node = $(this.refs.klinemask);
-        
-        if (node.length == 0) { 
+
+        if (node.length == 0) {
             return;
         }
-        
+
         if (visible) {
-            node.removeClass('hidden');        
+            node.removeClass('hidden');
         } else {
-            node.addClass('hidden');        
+            node.addClass('hidden');
         }
     }
 
@@ -190,8 +190,8 @@ class TVChartContainer extends Component {
         let self = this;
 		let theme = this.props.tradeStore.theme;
         let { baseCurrencyId, tradeCurrencyId , baseCurrencyNameEn, tradeCurrencyNameEn , pointNum, pointPrice } = this.props.data;
-		let locale; 
-		let interval; 
+		let locale;
+		let interval;
 
         locale = this.getLocale();
         interval = this.getIntervalByPeriod();
@@ -247,22 +247,22 @@ class TVChartContainer extends Component {
             disabled_features: [
                 "header_fullscreen_button",
                 "left_toolbar",
-                "header_symbol_search", 
+                "header_symbol_search",
                 "header_resolutions",
-                "symbol_info", 
+                "symbol_info",
                 "go_to_date",
                 "header_screenshot",
                 "header_undo_redo",
-                "header_compare", 
-                "header_chart_type", 
+                "header_compare",
+                "header_chart_type",
                 "header_settings",
-                "display_market_status", 
-                "symbol_search_hot_key", 
-                "compare_symbol", 
-                "border_around_the_chart", 
-                "remove_library_container_border", 
-                "header_interval_dialog_button", 
-                "show_interval_dialog_on_key_press", 
+                "display_market_status",
+                "symbol_search_hot_key",
+                "compare_symbol",
+                "border_around_the_chart",
+                "remove_library_container_border",
+                "header_interval_dialog_button",
+                "show_interval_dialog_on_key_press",
                 "show_hide_button_in_legend",
                 "snapshot_trading_drawings",
                 "volume_force_overlay",
@@ -274,11 +274,11 @@ class TVChartContainer extends Component {
         var callback = ()=>{
         	let widget = window.tvwidget = this.tvwidget = new TradingView.widget(cfg);
 
-            
+
 
         	widget.onChartReady(function() {
                 widget.applyOverrides(overrides);
-                
+
                 self.visibleKlineMask(false);
 
                 // 要从菜单中删除现有项目，请在项目文本前面使用减号
@@ -422,7 +422,7 @@ class TVChartContainer extends Component {
 	switchTheme = (theme)=>{
         if (this.tvwidget) {
             this.visibleKlineMask(true);
-        	
+
             let overrides = this.getOverridesByTheme(theme);
         	let cssurl = this.getCustomCSSUrlByTheme(theme);
 
@@ -459,7 +459,7 @@ class TVChartContainer extends Component {
 	getIntervalByPeriod() {
         let cachePeriod = UPEX.cache.getCache('kline/resolution');
         let currentPeroid = cachePeriod ? cachePeriod : this.timeline[0];
-        
+
         let resolution = currentPeroid.resolution;
 
         this.currentPeroid = currentPeroid;
@@ -580,7 +580,7 @@ class TVChartContainer extends Component {
         let trendIcon, trendColor = '';
 
         if (store.currentTradeCoin && store.currentTradeCoin.currentAmount) {
-           
+
             if (store.currentTradeCoin.currentAmount > store.currentTradeCoin.previousPrice) {
                 trendColor = 'greenrate';
                 trendIcon = <i className="exc-kline-arrow-up"/>;
@@ -595,10 +595,10 @@ class TVChartContainer extends Component {
                 <div className="trade-current-coin">
                     <dl className="info-list">
                         <dt className="coin" ref="coin">
-                           <Popover 
-                            content={<TradeCoinList/>} 
-                            placement="bottomLeft" 
-                            trigger="click" 
+                           <Popover
+                            content={<TradeCoinList/>}
+                            placement="bottomLeft"
+                            trigger="click"
                             overlayClassName={ store.theme === 'dark' ? 'popover-tradecoins popover-tradecoins-dark' : 'popover-tradecoins popover-tradecoins-light'}
                             >
                                <label>{store.currentTradeCoin.currencyNameEn}/{store.currentTradeCoin.baseCurrencyNameEn}</label>
@@ -641,9 +641,9 @@ class TVChartContainer extends Component {
                         </li>
                     </ul>
                     <div className="full-btn" onClick={this.handleFullScreen} ref="fullbtn">
-                        { 
-                            fullscreen ? 
-                            <Tooltip placement="right" title={UPEX.lang.template('退出全屏')} overlayClassName={store.theme == 'dark' ? 'ant-tooltip-dark' : 'ant-tooltip-light'}><i className="icon-exit-full"/></Tooltip>: 
+                        {
+                            fullscreen ?
+                            <Tooltip placement="right" title={UPEX.lang.template('退出全屏')} overlayClassName={store.theme == 'dark' ? 'ant-tooltip-dark' : 'ant-tooltip-light'}><i className="icon-exit-full"/></Tooltip>:
                             <Tooltip placement="right" title={UPEX.lang.template('全屏')} overlayClassName={store.theme == 'dark' ? 'ant-tooltip-dark' : 'ant-tooltip-light'}><i className="icon-full"/></Tooltip>
                         }
                     </div>

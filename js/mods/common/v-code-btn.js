@@ -33,7 +33,6 @@ export default class View extends React.Component {
         if(validateFn && !validateFn()) {
             return false;
         };
-        // console.log('noSlide', this.props.noSlide)
         if(this.props.noSlide) {
             this.handleSend();
         } else {

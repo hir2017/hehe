@@ -79,7 +79,7 @@ class OrderStore {
 
         item.orderTime = TimeUtil.formatDate(item.orderTimeStamp);
         // 委托价格
-        item.price = NumberUtil.formatNumber(item.price, pointPrice);
+        item.price = item.type === 2 ? UPEX.lang.template('市价委托') : NumberUtil.formatNumber(item.price, pointPrice);
         item.tradeAmount = NumberUtil.formatNumber(item.tradeAmount, pointPrice);
         item.tradePrice = NumberUtil.formatNumber(item.tradePrice, pointPrice);
         item.fee = NumberUtil.scientificToNumber(item.fee);

@@ -94,7 +94,7 @@ export default class BankList extends Component {
                     this.props.userInfoStore.deleteBindBankCard(id);
                 },
                 onCancel() {
-                    console.log('Cancel');
+
                 }
             });
         } else if (num === 1) {

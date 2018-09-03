@@ -4,7 +4,7 @@ import { Pagination, Popconfirm, message } from 'antd';
 import { cancelOrder } from '@/api/http';
 import TimeUtil from '@/lib/util/date';
 import toAction from './page-action';
-import Form from './query-form';
+import Filter from './head-filter';
 
 @inject('commonStore', 'openStore', 'authStore')
 @observer
@@ -143,7 +143,7 @@ class List extends Component {
 
         return (
             <div className="order-main-box">
-                <Form onClick={this.onQuery.bind(this)} action="open" />
+                <Filter onClick={this.onQuery.bind(this)} action="open" />
                 <div className="order-table open-list-table">
                     <div className="table-hd">
                         <table>
