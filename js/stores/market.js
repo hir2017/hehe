@@ -81,13 +81,15 @@ export default class MarketStore {
     filterMarked() {
         let list = [];
 
-        this.collectCoinsList.forEach((item, index) => {
+        $.each(this.collectCoinsList, (index, item)=>{
             let key = [item.baseCurrencyId, item.tradeCurrencyId].join('_');
 
             if (this.currencyMap[key]) {
                 list[list.length] = this.currencyMap[key];
             }
         })
+
+        list = this.getSelectedCurrencies(list);
 
         return list;
     }

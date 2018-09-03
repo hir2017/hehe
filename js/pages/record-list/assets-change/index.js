@@ -8,6 +8,7 @@ class View extends React.Component {
     constructor(props) {
         super(props);
         const {type = ''} = props.params;
+        
         this.lists = [
             {title: 'columns1', dataIndex: 'a'},
             {title: 'columns2', dataIndex: 'b'}

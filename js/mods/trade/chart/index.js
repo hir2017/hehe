@@ -98,7 +98,7 @@ class TVChartContainer extends Component {
 
         this.defaultThemes = {
             "light": {
-                url: "./bundles/day.css",
+                url: "./bundles/day.css?t=" + (+new Date),
                 up: "#db4e4e",
                 down: "#0c9b78",
                 bg: "#ffffff",
@@ -110,7 +110,7 @@ class TVChartContainer extends Component {
                 areadown: "rgba(122, 152, 247, .02)"
             },
             "dark": {
-                url: "./bundles/night.css",
+                url: "./bundles/night.css?t=" + (+new Date),
                 up: '#db4e4e', // K红
                 down: "#0c9b78", //K绿色
                 bg: "#24272c", // canvas背景色
@@ -235,13 +235,14 @@ class TVChartContainer extends Component {
             // overrides: overrides,
             custom_css_url: cssurl,
             enabled_features: [
-               "dont_show_boolean_study_arguments", // 是否隐藏指标参数
+                "dont_show_boolean_study_arguments", // 是否隐藏指标参数
                 "hide_last_na_study_output", // 隐藏最后一次指标输出
                 "move_logo_to_main_pane", // 将标志放在主数据列窗格上，而不是底部窗格
                 "same_data_requery", // 允许您使用相同的商品调用setSymbol来刷新数据
                 "side_toolbar_in_fullscreen_mode", // 使用此功能，您可以在全屏模式下启用绘图工具栏
                 //显示的时间与DataFeed提供的时间完全一致，而不进行对齐。如果您希望图表构建一些分辨率，则不建议使用此方法。
                 "disable_resolution_rebuild",
+                "timeframes_toolbar",
             ],
             disabled_features: [
                 "header_fullscreen_button",
@@ -265,7 +266,8 @@ class TVChartContainer extends Component {
                 "show_hide_button_in_legend",
                 "snapshot_trading_drawings",
                 "volume_force_overlay",
-                "timeframes_toolbar"
+                // "timezone_menu",
+                // "timeframes_toolbar"
             ],
         };
 

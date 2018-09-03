@@ -66,7 +66,7 @@ export default (store, currencyStore) => {
             }
 
             socket.on('userOrder', (data) => {
-                console.log('---userOrder--------', data);
+                //console.log('---userOrder--------', data);
 
                 if ($.isArray(data)) {
                     for (var i = 0, length = data.length; i < length; i++) {
@@ -94,7 +94,7 @@ export default (store, currencyStore) => {
             }
 
             socket.on('userTrade', (data) => {
-                console.log('------userTrade--------', data);
+                //console.log('------userTrade--------', data);
                 if ($.isArray(data)) {
                     for (var i = 0, length = data.length; i < length; i++) {
                         update(data[i]);
@@ -151,7 +151,7 @@ export default (store, currencyStore) => {
 
                 if (data.length > 0 && data[0].tradeCoins.length > 0) {
                     ret = this.parseCoinItem(data[0].tradeCoins[0]);
-                    console.log(ret);
+                    //console.log(ret);
                     store.updateCurrentTradeCoin(ret);
                 }
             })

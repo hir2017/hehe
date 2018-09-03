@@ -52,6 +52,11 @@ class UDFCompatibleDatafeed {
     resolveSymbol(symbolName, onSymbolResolvedCallback, onResolveErrorCallback) {
         var self = this;
 
+        let timezone = 'Asia/Singapore';
+
+        if (UPEX.config.version == 'infinitex') {
+            timezone = "Australia/Brisbane";
+        }
 
         setTimeout(() => {
             try {
@@ -59,7 +64,7 @@ class UDFCompatibleDatafeed {
                 onSymbolResolvedCallback({
                     "name": symbolName,
                     "ticker": [this.baseCurrencyNameEn, this.currencyNameEn].join('_').toLocaleLowerCase(),
-                    "timezone": "Asia/Shanghai",
+                    "timezone": timezone,
                     "minmov": 1,
                     "minmove2": 0,
                     "volume_precision": this.pointNum,
@@ -110,7 +115,7 @@ class UDFCompatibleDatafeed {
         //     startDate = null;
         //     endDate = null;
         // }
-        console.log(startDate, TimeUtil.formatDate(startDate, 'yyyy-MM-dd HH:mm:ss'), endDate, TimeUtil.formatDate(endDate, 'yyyy-MM-dd HH:mm:ss'));
+        // console.log(startDate, TimeUtil.formatDate(startDate, 'yyyy-MM-dd HH:mm:ss'), endDate, TimeUtil.formatDate(endDate, 'yyyy-MM-dd HH:mm:ss'));
         getTradeKline({
             symbol: symbolInfo.ticker || '',
             interval: _resolution,
@@ -202,7 +207,7 @@ class UDFCompatibleDatafeed {
      * @param {*Function()将在bars数据发生变化时执行} onResetCacheNeededCallback 
      */
     subscribeBars(symbolInfo, resolution, onRealtimeCallback, subscriberUID, onResetCacheNeededCallback) {
-        console.log('------subscribeBars-------', symbolInfo, resolution);
+        //console.log('------subscribeBars-------', symbolInfo, resolution);
 
         var symbol = symbolInfo.ticker || '';
 
