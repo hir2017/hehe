@@ -37,7 +37,7 @@ class TradeCenter extends Component {
 
     render() {
         let { tradeStore, currencyStore, commonStore } = this.props;
-        
+
         // 用于切换交易币时内容切换
         if (currencyStore.currencyDataReady && commonStore.productDataReady) {
             return <TradeContent {...this.props}/>;
@@ -81,13 +81,13 @@ class TradeContent extends Component {
             UPEX.cache.removeCache('currentCoin');
             return;
         }
-        
+
         // 当前币信息获取以及监听币种变更的消息通知
         tradeStore.updateTradePair({
             baseCurrencyId,
             tradeCurrencyId
         });
-        this.action.getCurrentCoin();    
+        this.action.getCurrentCoin();
         this.action.listenQuoteNotify();
         this.action.sendSubscribe();
 
@@ -117,7 +117,10 @@ class TradeContent extends Component {
         })
 
         //     tradeStore.getPersonalInfo();
-        
+        // 隐藏zendesk
+        zE(function() {
+            zE.hide();
+        });
     }
 
     componentDidMount(){
@@ -132,6 +135,10 @@ class TradeContent extends Component {
 
     componentWillUnmount() {
         this.action.destroy();
+        // 显示zendesk
+        zE(function() {
+            zE.show();
+        });
     }
 
     render() {
@@ -159,8 +166,8 @@ class TradeContent extends Component {
                     </div>
 
                     <div className="trade-extra-handle grid-box">
-                        { 
-                            data ? <OrderForm data={data}/> : null 
+                        {
+                            data ? <OrderForm data={data}/> : null
                         }
                     </div>
                 </div>

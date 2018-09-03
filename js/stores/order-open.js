@@ -106,7 +106,6 @@ class OrderStore {
     }
 
     parseItem(item) {
-        console.log('parseItem start', item)
         let key = [item.baseCurrencyId, item.currencyId].join('_');
         let cfg = this.currencyStore.getCurrencyById(key);
         let { pointNum, pointPrice } = cfg;
@@ -126,7 +125,6 @@ class OrderStore {
         // 成交率
         let temp_rate = parseFloat(item.tradeRate) || 0;
         item.tradeRate = NumberUtil.formatNumber(temp_rate * 100, 2) + '%';
-        console.log('parseItem end', item)
         return item;
     }
 }
