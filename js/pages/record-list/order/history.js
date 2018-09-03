@@ -107,6 +107,10 @@ class List extends Component {
                                     return (
                                         <tr className="data" key={subIndex}>
                                             <td>
+                                                <span className="label"> {UPEX.lang.template('成交时间')}：</span>
+                                                {subItem.tradeTime}
+                                            </td>
+                                            <td>
                                                 <span className="label"> {UPEX.lang.template('成交数量')}：</span>
                                                 {subItem.num}
                                             </td>
@@ -126,15 +130,15 @@ class List extends Component {
                                         <tr className="data" key={$detail.length}>
                                             <td>
                                                 <span className="label"> {UPEX.lang.template('撤单时间')}：</span>
-                                                {item._detailInfo ? TimeUtil.formatDate(item._detailInfo.cancelTimeStamp) : '--'}
+                                                {item._detailInfo.cancelTime}
                                             </td>
                                             <td>
                                                 <span className="label"> {UPEX.lang.template('撤单数量')}：</span>
-                                                {item._cancel.num}
+                                                {item._detailInfo.cancelNum}
                                             </td>
                                             <td>
                                                 <span className="label"> {UPEX.lang.template('撤单比例')}：</span>
-                                                {parseItemRate(item._cancel.rate)}%
+                                                {parseItemRate(item._detailInfo.cancelRate)}%
                                             </td>
                                         </tr>
                                     );
@@ -145,7 +149,7 @@ class List extends Component {
                                         <tr>
                                             <td colSpan={3} className="none">
                                                 {UPEX.lang.template('撤单时间')}：
-                                                {item._detailInfo ? TimeUtil.formatDate(item._detailInfo.cancelTimeStamp) : '--'}
+                                                {item._detailInfo ? item._detailInfo.cancelTime : '--'}
                                             </td>
                                         </tr>
                                     );
