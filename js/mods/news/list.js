@@ -69,7 +69,7 @@ class News extends Component {
                 const {count = 0, list = [], page } = tempData;
                 this.setState({
                     list: list.map(item => {
-                        item.publishTime = TimeUtil.formatDate(item.publishTime * 1);
+                        item.publishTime = TimeUtil.formatDate(item.publishTimeStamp);
                         return item;
                     }),
                     total: count,

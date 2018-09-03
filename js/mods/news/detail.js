@@ -29,7 +29,7 @@ class News extends Component {
                 this.setState({
                     content: temp.content,
                     title: temp.title,
-                    date: isNaN(temp.publishTime * 1) ? '' : TimeUtil.formatDate(temp.publishTime * 1)
+                    date: TimeUtil.formatDate(temp.publishTimeStamp)
                 });
             }
         })
