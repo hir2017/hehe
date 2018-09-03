@@ -444,57 +444,60 @@ body .ant-back-top-inner:hover{
 
 .app-footer .footer-box .info {
     text-align: right;
+    .phone {
+        font-size: 20px;
+        color: #fff;
+        letter-spacing: 1px;
+    }
+    .mail {
+        font-size: 14px;
+        line-height: 17px;
+        color: rgb(135, 135, 135);
+    }
+    .icons a {
+        margin: 30px 0 0 15px;
+    }
+    & .icons a,
+    & .icons i.icon {
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+    }
+    .icons i.icon {
+        background: url('../images/home-icon.png') no-repeat 0 0;
+        background-size: auto 60px;
+    }
+    .icons i.icon {
+        &:hover {
+            cursor: pointer;
+            background-position-y: -30px;
+        }
+        &.line {
+            background-position-x: -30px;
+        }
+        &.youtube {
+            background-position-x: 0;
+        }
+        &.telegram {
+            background-position-x: -30px;
+        }
+        &.linkedin {
+            background-position-x: -60px;
+        }
+        &.facebook {
+            background-position-x: -90px;
+        }
+        &.twitter {
+            background-position-x: -120px;
+        }
+        &.whatapps {
+            background-position-x: -60px;
+        }
+    }
 }
 
-.app-footer .footer-box .info .phone {
-    font-size: 20px;
-    color: #fff;
-    letter-spacing: 1px;
-}
 
-.app-footer .footer-box .info .mail {
-    font-size: 14px;
-    line-height: 17px;
-    color: rgb(135, 135, 135);
-}
 
-.app-footer .footer-box .info .icons a {
-    margin: 30px 0 0 15px;
-}
-
-.app-footer .footer-box .info .icons a,
-.app-footer .footer-box .info .icons i.icon {
-    display: inline-block;
-    width: 30px;
-    height: 30px;
-}
-
-.app-footer .footer-box .info .icons i.icon {
-    background: url('../images/home-icon.png') no-repeat 0 0;
-    background-size: auto 60px;
-}
-
-.app-footer .footer-box .info .icons i.icon:hover {
-    cursor: pointer;
-    background-position-y: -30px;
-}
-
-.app-footer .footer-box .info .icons i.icon.line {
-    background-position-x: -30px;
-}
-.app-footer .footer-box .info .icons i.icon.telegram {
-    background-position-x: -30px;
-}
-.app-footer .footer-box .info .icons i.icon.whatapps {
-    background-position-x: -60px;
-}
-.app-footer .footer-box .info .icons i.icon.facebook {
-    background-position-x: -90px;
-}
-
-.app-footer .footer-box .info .icons i.icon.twitter {
-    background-position-x: -120px;
-}
 
 .app-footer .footer-box .copyright {
     text-align: center;

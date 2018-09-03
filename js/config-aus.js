@@ -8,12 +8,21 @@ config.languages = ['zh-CN', 'en-US']; // 网站支持的语言列表
 config.initLanguage = 'en-US'; // 默认语言
 config.logourl = require('../images/aus/infinitex-logo.png');
 config.logoprourl = require('../images/aus/infinitex-logo.png');
+/*
+facebook：https://www.facebook.com/InfiniteX-Exchange-250034108956916/?modal=admin_todo_tour
+youtube： https://www.youtube.com/channel/UCC304QtP-XWL3BY8Bf-CnuA
+linkedin  https://www.linkedin.com/company/infinitex/
+twitter:       https://www.twitter.com/infinitex20
+telegram:   https://t.me/infinite_exchange
+*/
 config.csurls = {
-    telegram: 'https://t.me/ACEexchange',
-    facebook: 'https://www.facebook.com/ace.exchange.tw/',
-    twitter: 'https://twitter.com/ACE_exchange',
-    line: 'https://medium.com/ace-exchange',
-    whatapp: 'https://medium.com/ace-exchange',
+    telegram: 'https://t.me/infinite_exchange',
+    facebook: 'https://www.facebook.com/InfiniteX-Exchange-250034108956916/?modal=admin_todo_tour',
+    twitter: 'https://www.twitter.com/infinitex20',
+    linkedin: 'https://www.linkedin.com/company/infinitex/',
+    youtube: 'https://www.youtube.com/channel/UCC304QtP-XWL3BY8Bf-CnuA',
+    whatapp: 'https://t.me/infinite_exchange',
+    line: '',
 };
 
 config.baseCurrencyEn = 'AUD';

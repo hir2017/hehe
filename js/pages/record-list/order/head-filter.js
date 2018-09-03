@@ -1,9 +1,12 @@
 import React from 'react';
+import { observer, inject } from 'mobx-react';
 import { Select, DatePicker, Button } from 'antd';
 import { getCurrencyPoints } from '@/api/http';
 const Option = Select.Option;
 const { RangePicker } = DatePicker;
 
+@inject('tradeStore')
+@observer
 class View extends React.Component {
     /*
     beginTime: 2018-08-10
@@ -21,42 +24,59 @@ class View extends React.Component {
             endTime: '',
             status: '',
             buyOrSell: '',
-            currencyId: '',
-            baseCurrencyId: '',
+            currencyId: '0',
+            baseCurrencyId: '0',
             priceType: 0,
             currencyIdData: [],
             baseCurrencyIdData: []
         };
+        // 币对映射关系
+        this.tradeMap = {};
+        this.baseCoins = [];
     }
 
     componentDidMount() {
         getCurrencyPoints().then(res => {
-            let temp = {
-                currency: {},
-                base: {}
-            };
+            // 交易货币
+            let tradeCoins = {};
+            // 基础货币
+            const temp_base = {};
+            let baseCoins = [];
+            // 币种关系
+            let coinMap = {};
             let _state = {
                 currencyIdData: [],
-                baseCurrencyIdData: []
             };
             if (res.status === 200) {
                 // 去重 ie11 set
                 res.attachment.forEach(item => {
-                    temp.currency[item.tradeCurrencyNameEn] = item.tradeCurrencyId;
-                    temp.base[item.baseCurrencyNameEn] = item.baseCurrencyId;
+                    const id = item.tradeCurrencyId;
+                    // 收集交易货币
+                    tradeCoins[id] = item;
+                    // 收集基础货币
+                    temp_base[item.baseCurrencyNameEn] = item;
+                    // 收集币种关系
+                    if(coinMap[id]) {
+                        coinMap[id].bases.push(item);
+                    } else {
+                        coinMap[id] = {
+                            info: item,
+                            bases : [item]
+                        };
+                    }
                 });
-                for (const key in temp.currency) {
+                for (const key in tradeCoins) {
                     _state.currencyIdData.push({
-                        name: key,
-                        id: temp.currency[key]
+                        name: tradeCoins[key].tradeCurrencyNameEn,
+                        id: key
                     });
                 }
-                for (const key in temp.base) {
-                    _state.baseCurrencyIdData.push({
-                        name: key,
-                        id: temp.base[key]
-                    });
+                for (const key in temp_base) {
+                    baseCoins.push(temp_base[key]);
                 }
+                this.baseCoins = baseCoins;
+                this.tradeMap = coinMap;
+                _state.baseCurrencyIdData = baseCoins;
                 this.setState(_state);
             }
         });
@@ -68,11 +88,19 @@ class View extends React.Component {
                 beginTime: param2[0],
                 endTime: param2[1]
             });
-        } else {
-            this.setState({
-                [name]: param1
-            });
+            return ;
         }
+        if (name === 'currencyId') {
+            this.setState({
+                [name]: param1,
+                baseCurrencyId: '0',
+                baseCurrencyIdData: param1=== '0' ? this.baseCoins : this.tradeMap[param1].bases
+            });
+            return ;
+        }
+        this.setState({
+            [name]: param1
+        });
     }
 
     handleClick() {
@@ -97,20 +125,20 @@ class View extends React.Component {
                         </li>
                         <li>
                             <label>{UPEX.lang.template('币种')}/{UPEX.lang.template('市场')}</label>
-                            <Select size="large" defaultValue="0" onChange={this.onChange.bind(this, 'currencyId')}>
+                            <Select size="large"  defaultValue={state.currencyId} onChange={this.onChange.bind(this, 'currencyId')}>
                                 <Option value="0">{UPEX.lang.template('全部')}</Option>
-                                {state.currencyIdData.map(item => (
-                                    <Option value={item.id} key={item.id}>
+                                {state.currencyIdData.map((item, i) => (
+                                    <Option value={item.id} key={i + 1}>
                                         {item.name}
                                     </Option>
                                 ))}
                             </Select>
                             <label></label><label>/</label>
-                            <Select size="large" defaultValue="0" onChange={this.onChange.bind(this, 'baseCurrencyId')}>
+                            <Select size="large" defaultValue={state.baseCurrencyId} value={state.baseCurrencyId} onChange={this.onChange.bind(this, 'baseCurrencyId')}>
                                 <Option value="0">{UPEX.lang.template('全部')}</Option>
-                                {state.baseCurrencyIdData.map(item => (
-                                    <Option value={item.id} key={item.id}>
-                                        {item.name}
+                                {state.baseCurrencyIdData.map((item, i) => (
+                                    <Option value={item.baseCurrencyId} key={i + 10}>
+                                        {item.baseCurrencyNameEn}
                                     </Option>
                                 ))}
                             </Select>

@@ -72,10 +72,18 @@ class OrderStore {
                         let { details = [] } = data.attachment;
                         // null不严格等于undefined
                         details = details === null ? [] : details;
-                        if(item.type === 2) {
-                            details.forEach(item => {
-                                item.price = UPEX.lang.template('市价委托')
-                            })
+                        // if(item.type === 2) {
+                        //     details.forEach(item => {
+                        //         item.price = UPEX.lang.template('市价委托')
+                        //     })
+                        // }
+                        // 时间戳转换
+                        details.forEach(item => {
+                            item.tradeTime = TimeUtil.formatDate(item.tradeTimeStamp);
+                        })
+                        // 时间戳转换
+                        if (item.status === 4 || item.status === 5) {
+                            data.attachment.cancelTime = TimeUtil.formatDate(data.attachment.cancelTimeStamp)
                         }
                         this.orderList[index].details = details;
                         this.orderList[index]._detailInfo = data.attachment;

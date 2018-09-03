@@ -107,6 +107,10 @@ class List extends Component {
                                     return (
                                         <tr className="data" key={subIndex}>
                                             <td>
+                                                <span className="label"> {UPEX.lang.template('成交时间')}：</span>
+                                                {subItem.tradeTime}
+                                            </td>
+                                            <td>
                                                 <span className="label"> {UPEX.lang.template('成交数量')}：</span>
                                                 {subItem.num}
                                             </td>
@@ -122,22 +126,36 @@ class List extends Component {
                                     );
                                 });
                                 if (item.status === 5) {
-                                    $detail[$detail.length] = (
-                                        <tr className="data" key={$detail.length}>
-                                            <td>
-                                                <span className="label"> {UPEX.lang.template('撤单时间')}：</span>
-                                                {item._detailInfo ? TimeUtil.formatDate(item._detailInfo.cancelTimeStamp) : '--'}
-                                            </td>
-                                            <td>
-                                                <span className="label"> {UPEX.lang.template('撤单数量')}：</span>
-                                                {item._cancel.num}
-                                            </td>
-                                            <td>
-                                                <span className="label"> {UPEX.lang.template('撤单比例')}：</span>
-                                                {parseItemRate(item._cancel.rate)}%
-                                            </td>
-                                        </tr>
-                                    );
+                                    // 市价委托
+                                    let $cancelInfo = null;
+                                    if (item.type === 2) {
+                                        $cancelInfo = (
+                                            <tr className="data" key={$detail.length}>
+                                                <td colSpan="4" style={{textAlign: 'center'}}>
+                                                    <span className="label"> {UPEX.lang.template('未成交数量')}：</span>
+                                                    {item._detailInfo.cancelNum}
+                                                </td>
+                                            </tr>
+                                        );
+                                    } else {
+                                        $cancelInfo = (
+                                            <tr className="data" key={$detail.length}>
+                                                <td>
+                                                    <span className="label"> {UPEX.lang.template('撤单时间')}：</span>
+                                                    {item._detailInfo.cancelTime}
+                                                </td>
+                                                <td>
+                                                    <span className="label"> {UPEX.lang.template('撤单数量')}：</span>
+                                                    {item._detailInfo.cancelNum}
+                                                </td>
+                                                <td colSpan="2">
+                                                    <span className="label"> {UPEX.lang.template('撤单比例')}：</span>
+                                                    {parseItemRate(item._detailInfo.cancelRate)}%
+                                                </td>
+                                            </tr>
+                                        );
+                                    }
+                                    $detail[$detail.length] = $cancelInfo;
                                 }
                             } else {
                                 if (item.status === 4) {
@@ -145,7 +163,7 @@ class List extends Component {
                                         <tr>
                                             <td colSpan={3} className="none">
                                                 {UPEX.lang.template('撤单时间')}：
-                                                {item._detailInfo ? TimeUtil.formatDate(item._detailInfo.cancelTimeStamp) : '--'}
+                                                {item._detailInfo ? item._detailInfo.cancelTime : '--'}
                                             </td>
                                         </tr>
                                     );
