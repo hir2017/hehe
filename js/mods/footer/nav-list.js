@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { inject } from 'mobx-react';
 import { Link, browserHistory } from 'react-router';
-import {message} from 'antd';
+import { message } from 'antd';
 
 const getNavList = () => {
     return [
@@ -34,7 +34,8 @@ const getNavList = () => {
             },
             {
                 name: UPEX.lang.template('问题反馈'),
-                route: 'feedback'
+                path: UPEX.lang.template('问题反馈网页链接')
+                // route: 'feedback'
             },
             {
                 name: UPEX.lang.template('帮助中心'),
@@ -81,6 +82,19 @@ const getNavList = () => {
 
 @inject('userInfoStore', 'authStore')
 class NavsView extends Component {
+    constructor() {
+        super();
+        let navs = getNavList();
+        if (UPEX.config.version === 'infinitex') {
+            // 去掉关于网站、团队介绍
+            navs[0].splice(2, 2);
+            // 去掉帮助中心
+            // navs[1].splice(1, 1);
+            // 去掉上币申请和客户端下载
+            navs.splice(3, 2);
+        }
+        this.navs = navs;
+    }
 
     handleFeedback() {
         if (this.props.authStore.checkLoginState()) {
@@ -91,10 +105,9 @@ class NavsView extends Component {
     }
 
     render() {
-        const navs = getNavList();
         return (
             <ul className="nav-list">
-                {navs.map((items, i) => {
+                {this.navs.map((items, i) => {
                     return (
                         <li key={i}>
                             {items.map((item, j) => {
@@ -105,11 +118,20 @@ class NavsView extends Component {
                                         </a>
                                     );
                                 }
-                                return item.path ? (
-                                    <a className="nav-item" key={j} target="_blank" href={item.path}>
-                                        {item.name}
-                                    </a>
-                                ) : (
+                                // 外链，如果是第一个则不支持跳转
+                                if (item.path) {
+                                    return j === 0 ? (
+                                        <a className="nav-item" key={j}>
+                                            {item.name}
+                                        </a>
+                                    ) : (
+                                        <a className="nav-item" key={j} target="_blank" href={item.path}>
+                                            {item.name}
+                                        </a>
+                                    );
+                                }
+                                // 本地跳转
+                                return (
                                     <Link className="nav-item" key={j} to={`/${item.route}`}>
                                         {item.name}
                                     </Link>
