@@ -62,7 +62,6 @@ export default (store) => {
                     break;
             }
 
-            console.log(store);
         },
 
         verifyEmail() {

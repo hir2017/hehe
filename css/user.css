@@ -1839,7 +1839,8 @@ body .user-main .ant-select-dropdown-menu-item {
 .google-guide-img-box .download>a.download-btn {
     height: 40px;
     line-height: 40px;
-    width: 150px;
+    /* width: 150px; */
+    padding: 0 8px;
     color: #999999;
     display: inline-block;
     background-color: #fafafa;
