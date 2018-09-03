@@ -658,13 +658,7 @@ class TVChartContainer extends Component {
                     data-show={chartType == 'kline' ? 'show': 'hide'}
                 >
                 </div>
-                <div 
-                    className='trade-depth-chart' 
-                    id="depth-chart"
-                    data-show={chartType == 'depth' ? 'show': 'hide'}
-                >
-                    <DepthChart depthAsks={store.asks} depthBids={store.bids}/>
-                </div>
+                <DepthChart depthAsks={store.asks} depthBids={store.bids}/>
             </div>
         );
     }

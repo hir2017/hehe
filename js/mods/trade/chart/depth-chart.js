@@ -171,7 +171,9 @@ class DepthChart extends Component{
 	}
 
 	render() {
-		return null;
+		return (
+			<div className='trade-depth-chart' id="depth-chart" ref="depthchart"></div>
+		);
 	}
 }
 
