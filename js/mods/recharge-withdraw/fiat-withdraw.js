@@ -31,7 +31,7 @@ class FiatRechargeView extends Component {
 
     handleNextStep = e => {
         const {accountAmount, balance} = this.props.fiatWithdrawStore;
-        console.log(parseInt(balance), parseFloat(accountAmount), parseInt(balance) > parseFloat(accountAmount))
+        //console.log(parseInt(balance), parseFloat(accountAmount), parseInt(balance) > parseFloat(accountAmount))
         try {
             if(parseInt(balance) > parseFloat(accountAmount)) {
                 message.error(UPEX.lang.template('请填写正确的提现金额'));
