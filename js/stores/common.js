@@ -27,7 +27,10 @@ class CommonStore {
         $(window).resize(() => {
             this.windowDimensions = getWindowDimensions();
         });
-
+        // 切换zendesk语言
+        zE(function() {
+            zE.setLocale(UPEX.cache.getCache('lang'));
+        });
         var handler = autorun(() => {
             let lang = this.language;
 
@@ -38,6 +41,10 @@ class CommonStore {
             UPEX.lang.language = lang;
             // 设置页面标题
             document.title = UPEX.lang.template('PageTitle');
+            // 切换zendesk语言
+            zE(function() {
+                zE.setLocale(lang);
+            });
         });
     }
 
