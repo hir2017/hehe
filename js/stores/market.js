@@ -63,10 +63,10 @@ export default class MarketStore {
         let result = [];
 
         if (name) {
-            name = name.toLowerCase();
+            name = name.toUpperCase();
 
             arr.forEach((item, index) => {
-                if (item.currencyNameEn.toLowerCase().indexOf(name) > -1) {
+                if (item.currencyNameEn.toUpperCase().indexOf(name) > -1 || item.baseCurrencyNameEn.toUpperCase().indexOf(name) > -1) {
                     result[result.length] = item;
                 }
             });

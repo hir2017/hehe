@@ -177,6 +177,10 @@ class TradeForm extends Component{
 		this.props.tradeStore.updateTradeType(index);
 	}
 
+	getBarTransform() {
+
+	}
+
 	render() {
 		let store = this.props.tradeStore;
 		let authStore = this.props.authStore;
@@ -254,6 +258,7 @@ class TradeForm extends Component{
 								 	tipFormatter={(value)=>`${value}%`}
 		                            onChange={this.onChangeBuySlider}
 		                            value={store.buySliderValue}
+		                            disabled={authStore.isLogin ? false : true}
 		                        />
 	                        </div>
 						</li>
@@ -479,17 +484,18 @@ class TradeForm extends Component{
 
 		return (
 			<div className="trade-form">
-				<div className="trade-form-hd">
+				<div className="trade-form-hd" data-type={store.tradeType}>
 					<ul>
 						{
 							this.tabs.map((item, index)=>{
 								let cls = store.tradeType == item.id ? 'selected' : '';
 
 								return (
-									<li key={item.id} className={cls} onClick={this.handleClickTab.bind(this, item.id)}>{item.title}</li>
+									<li key={item.id} data-role="tab" data-key={item.id} className={cls} onClick={this.handleClickTab.bind(this, item.id)}>{item.title}</li>
 								)
 							})
 						}
+						<li key="bar" data-role="bar" className="tab-bar" ref="bar" style={{ transform: this.getBarTransform}}></li>
 					</ul>
 				</div>
 				<div className="trade-form-bd clearfix">

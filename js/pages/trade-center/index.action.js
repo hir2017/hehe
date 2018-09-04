@@ -57,6 +57,10 @@ export default (store, currencyStore) => {
         bindUserOpenList() {
             let update = (item) => {
                 item = item || {};
+                // 屏蔽市价，市价不在委托中订单出现
+                if (item.type === 2) {
+                    return;
+                }
                 store.openStore.updateItem(item);
 
                 store.updatePersonalAccount({

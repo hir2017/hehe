@@ -13,6 +13,7 @@
             padding: 0 10px;
             border-bottom: 1px solid @bg-color;
             ul {
+                position: relative;
                 height: 40px;
                 font-size: 14px;
                 overflow: hidden;
@@ -31,6 +32,7 @@
                     &.selected {
                         color: @text-yellow-color;
                         &:after {
+                            display: block;
                             content: '';
                             position: absolute;
                             left: 50%;
@@ -41,6 +43,17 @@
                             height: 2px;
                             background-color: @theme-yellow;
                         }
+                    }
+                    &.tab-bar{ 
+                        display: none;
+                        position: absolute;
+                        left: 0;
+                        float: none;
+                        bottom: -1px;
+                        border-radius: 2px;
+                        width: 20px;
+                        height: 2px;
+                        background-color: @theme-yellow;
                     }
                 }
             }

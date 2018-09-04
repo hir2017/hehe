@@ -28,7 +28,7 @@ class CommonStore {
             this.windowDimensions = getWindowDimensions();
         });
         // 切换zendesk语言
-        zE(function() {
+        zE && zE(function() {
             zE.setLocale(UPEX.cache.getCache('lang'));
         });
         var handler = autorun(() => {
