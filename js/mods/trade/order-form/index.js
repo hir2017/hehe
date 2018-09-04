@@ -70,7 +70,7 @@ class TradeForm extends Component{
 		Modal.confirm({
             prefixCls: "exc-dialog",
             content: UPEX.lang.template('请先进行身份认证'),
-            okText: UPEX.lang.template('身份认证'),
+            okText: UPEX.lang.template('去身份认证'),
             cancelText: UPEX.lang.template('我再想想'),
             iconType: 'exclamation-circle',
             onOk() {

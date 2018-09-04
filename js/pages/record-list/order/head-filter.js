@@ -27,56 +27,55 @@ class View extends React.Component {
             currencyId: '0',
             baseCurrencyId: '0',
             priceType: 0,
-            currencyIdData: [],
-            baseCurrencyIdData: []
+            tradeCoins: [],
+            baseCoins: []
         };
         // 币对映射关系
-        this.tradeMap = {};
-        this.baseCoins = [];
+        this.tradeCoinMap = {};
+        this.baseCoinMap = {};
+        // 货币store
+        this.allBaseCoins = [];
+        this.allTradeCoins = [];
     }
 
     componentDidMount() {
         getCurrencyPoints().then(res => {
-            // 交易货币
-            let tradeCoins = {};
-            // 基础货币
-            const temp_base = {};
-            let baseCoins = [];
-            // 币种关系
-            let coinMap = {};
-            let _state = {
-                currencyIdData: [],
-            };
             if (res.status === 200) {
-                // 去重 ie11 set
+                // 收集交易货币、基础货币信息、关系
+                let temp = {
+                    base: {},
+                    trade: {}
+                };
+                let tempAll = {
+                    base: [],
+                    trade: []
+                }
+                let _state = {
+                    tradeCoins: [],
+                    baseCoins: []
+                };
                 res.attachment.forEach(item => {
-                    const id = item.tradeCurrencyId;
-                    // 收集交易货币
-                    tradeCoins[id] = item;
-                    // 收集基础货币
-                    temp_base[item.baseCurrencyNameEn] = item;
-                    // 收集币种关系
-                    if(coinMap[id]) {
-                        coinMap[id].bases.push(item);
+                    const {baseCurrencyId, tradeCurrencyId} = item;
+                    // 去重收集信息
+                    if(temp.base[baseCurrencyId]) {
+                        temp.base[baseCurrencyId].push(item);
                     } else {
-                        coinMap[id] = {
-                            info: item,
-                            bases : [item]
-                        };
+                        tempAll.base.push(item);
+                        temp.base[baseCurrencyId] = [item];
+                    }
+                    if(temp.trade[tradeCurrencyId]) {
+                        temp.trade[tradeCurrencyId].push(item);
+                    } else {
+                        tempAll.trade.push(item);
+                        temp.trade[tradeCurrencyId] = [item];
                     }
                 });
-                for (const key in tradeCoins) {
-                    _state.currencyIdData.push({
-                        name: tradeCoins[key].tradeCurrencyNameEn,
-                        id: key
-                    });
-                }
-                for (const key in temp_base) {
-                    baseCoins.push(temp_base[key]);
-                }
-                this.baseCoins = baseCoins;
-                this.tradeMap = coinMap;
-                _state.baseCurrencyIdData = baseCoins;
+                _state.baseCoins = tempAll.base;
+                _state.tradeCoins = tempAll.trade;
+                this.tradeCoinMap = temp.trade;
+                this.baseCoinMap = temp.base;
+                this.allBaseCoins = tempAll.base;
+                this.allTradeCoins = tempAll.trade;
                 this.setState(_state);
             }
         });
@@ -90,11 +89,21 @@ class View extends React.Component {
             });
             return ;
         }
+        // 货币变更，切换市场
         if (name === 'currencyId') {
             this.setState({
                 [name]: param1,
                 baseCurrencyId: '0',
-                baseCurrencyIdData: param1=== '0' ? this.baseCoins : this.tradeMap[param1].bases
+                baseCoins: param1 === '0' ? this.allBaseCoins : this.tradeCoinMap[param1]
+            });
+            return ;
+        }
+        // 市场变更，切换货币
+        if (name === 'baseCurrencyId') {
+            this.setState({
+                [name]: param1,
+                currencyId: '0',
+                tradeCoins: param1 === '0' ? this.allTradeCoins : this.baseCoinMap[param1]
             });
             return ;
         }
@@ -125,19 +134,19 @@ class View extends React.Component {
                         </li>
                         <li>
                             <label>{UPEX.lang.template('币种')}/{UPEX.lang.template('市场')}</label>
-                            <Select size="large"  defaultValue={state.currencyId} onChange={this.onChange.bind(this, 'currencyId')}>
+                            <Select size="large"  defaultValue={state.currencyId} value={state.currencyId} onChange={this.onChange.bind(this, 'currencyId')}>
                                 <Option value="0">{UPEX.lang.template('全部')}</Option>
-                                {state.currencyIdData.map((item, i) => (
-                                    <Option value={item.id} key={i + 1}>
-                                        {item.name}
+                                {state.tradeCoins.map((item, i) => (
+                                    <Option value={item.tradeCurrencyId} key={i + 1}>
+                                        {item.tradeCurrencyNameEn}
                                     </Option>
                                 ))}
                             </Select>
                             <label></label><label>/</label>
                             <Select size="large" defaultValue={state.baseCurrencyId} value={state.baseCurrencyId} onChange={this.onChange.bind(this, 'baseCurrencyId')}>
                                 <Option value="0">{UPEX.lang.template('全部')}</Option>
-                                {state.baseCurrencyIdData.map((item, i) => (
-                                    <Option value={item.baseCurrencyId} key={i + 10}>
+                                {state.baseCoins.map((item, i) => (
+                                    <Option value={item.baseCurrencyId} key={i + 1}>
                                         {item.baseCurrencyNameEn}
                                     </Option>
                                 ))}
