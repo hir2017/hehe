@@ -586,7 +586,7 @@ class TVChartContainer extends Component {
                 trendIcon = <i className="exc-kline-arrow-up"/>;
             } else if(store.currentTradeCoin.currentAmount < store.currentTradeCoin.previousPrice){
                 trendColor = 'redrate';
-                trendIcon = <i type="exc-kline-arrow-down"/>;
+                trendIcon = <i className="exc-kline-arrow-down"/>;
             }
         }
 

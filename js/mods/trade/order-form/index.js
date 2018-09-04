@@ -34,6 +34,10 @@ class TradeForm extends Component{
 		this.action = toAction(this.props.tradeStore, this.props.authStore);
 	}
 
+	componentDidMount() {
+		this.getBarTransform();
+	}
+
 	goRecharge=(type, coinName,e)=>{
         let userInfoStore = this.props.userInfoStore;
         // 判断货币是法币还是数字币
@@ -172,10 +176,39 @@ class TradeForm extends Component{
 
 	handleClickTab(index){
 		this.props.tradeStore.updateTradeType(index);
+		this.getBarTransform();
 	}
 
 	getBarTransform() {
+		let x = 18;
+		let tabs = $(this.refs.tabs);
+		let bar = $(this.refs.bar);
+		
+		if (tabs.length == 0 || bar.length == 0) {
+			return;
+		}
 
+		let ulOffset = tabs.offset();
+		let limitOffset = $('[data-key="limit"]', tabs).offset();
+		let marketOffset = $('[data-key="market"]', tabs).offset();
+		let barOffset = $(bar).offset();
+		
+		switch (this.props.tradeStore.tradeType) {
+			case 'limit':
+				x = limitOffset.left - ulOffset.left + (limitOffset.width / 2  - barOffset.width/2);
+				break;
+			case 'market':
+				x = marketOffset.left - ulOffset.left + (marketOffset.width /2  - barOffset.width/2);
+				break;
+		}
+		//  为了改动小，先简单的处理
+
+		bar.css({
+			display: 'block',
+			msTransform: 'translate3d(' + x + 'px,0,0)',
+            WebkitTransform: 'translate3d(' + x + 'px,0,0)',
+            transform: 'translate3d(' + x + 'px,0,0)',
+		})
 	}
 
 	render() {
@@ -482,7 +515,7 @@ class TradeForm extends Component{
 		return (
 			<div className="trade-form">
 				<div className="trade-form-hd" data-type={store.tradeType}>
-					<ul>
+					<ul ref="tabs">
 						{
 							this.tabs.map((item, index)=>{
 								let cls = store.tradeType == item.id ? 'selected' : '';
@@ -492,7 +525,7 @@ class TradeForm extends Component{
 								)
 							})
 						}
-						<li key="bar" data-role="bar" className="tab-bar" ref="bar" style={{ transform: this.getBarTransform}}></li>
+						<li key="bar" data-role="bar" ref="bar" className="tab-bar exc-tab-animated"></li>
 					</ul>
 				</div>
 				<div className="trade-form-bd clearfix">
