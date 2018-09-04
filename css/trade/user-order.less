@@ -3,11 +3,11 @@
  */
 
 .app-trade {
-    .trade-main-order{
+    .trade-main-order {
         display: flex;
         flex-direction: column;
     }
-    .trade-order-wrapper{
+    .trade-order-wrapper {
         flex: 1;
         display: flex;
         flex-direction: column;
@@ -93,7 +93,7 @@
         .mini-loading {
             background-color: transparent !important;
         }
-        .list-is-empty{
+        .list-is-empty {
             padding-top: 40px;
             background: url('../../images/icon-empty.png') no-repeat center top;
             background-size: 37px 37px;
@@ -113,12 +113,14 @@
                 display: none;
             }
             .table-hd {
+                position: relative;
                 border-color: @border-dark-color;
                 table {
                     color: @text-color02;
                 }
                 th {
                     height: 30px !important;
+                    white-space:nowrap;
                 }
                 &::before {
                     border-color: transparent;
@@ -141,26 +143,30 @@
             }
             .open-list-table {
                 .time {
-                    width: 20%;
+                    width: 15%;
                 }
                 .name {
                     width: 10%;
                 }
                 .buyorsell {
-                    width: 10%;
+                    width: 5%;
                 }
                 .num {
                     width: 20%;
                 }
-                .price,
-                .rate,
-                .amount {
+                .price {
+                    width: 15%;
+                }
+                .rate {
                     width: 10%;
+                }
+                .amount {
+                    width: 15%;
                     text-align: right;
                 }
                 .action {
                     width: 10%;
-                    button{
+                    button {
                         min-width: 36px;
                         height: 20px;
                         line-height: 20px;
@@ -169,7 +175,7 @@
                         color: @btn-cancel-text;
                         padding: 0;
                         border-radius: 3px;
-                        &:hover{
+                        &:hover {
                             text-decoration: none;
                             color: @btn-cancel-text-hover;
                         }
@@ -178,19 +184,23 @@
             }
             .success-list-table {
                 .time {
-                    width: 20%;
+                    width: 15%;
                 }
                 .name {
                     width: 10%;
                 }
                 .buyorsell {
-                    width: 10%;
+                    width: 5%;
                 }
                 .num {
+                    width: 20%;
+                }
+                .tradeprice {
                     width: 15%;
                 }
-                .tradeprice,
-                .fee,
+                .fee {
+                    width: 20%;
+                }
                 .amount {
                     width: 15%;
                     text-align: right;
@@ -212,11 +222,26 @@
     .trade-order-bd .mini-tip {
         color: @text-color01-light;
     }
-    .trade-order-bd .list-is-empty{
+    .trade-order-bd .list-is-empty {
         background: url('../../images/list-empty.png') no-repeat center 4px;
         background-size: 37px 37px;
     }
     .trade-order-bd .order-main-box .table-hd {
         border-color: @border-light-color;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .app-trade {
+        .trade-order-bd {
+            .order-main-box {
+                .open-list-table {
+                                       
+                }
+                .success-list-table {
+                    
+                }
+            }
+        }
     }
 }
