@@ -155,8 +155,11 @@ export default (store, currencyStore) => {
 
                 if (data.length > 0 && data[0].tradeCoins.length > 0) {
                     ret = this.parseCoinItem(data[0].tradeCoins[0]);
-                    //console.log(ret);
+                    
                     store.updateCurrentTradeCoin(ret);
+
+                    store.setDealBuyPrice(ret.currentAmountInt);
+                    store.setDealSellPrice(ret.currentAmountInt);
                 }
             })
         },
@@ -191,6 +194,11 @@ export default (store, currencyStore) => {
             socket.on('quoteNotify', (data) => {
                 let ret = this.parseCoinItem(data);
                 store.updateCurrentTradeCoin(ret);
+
+                if (store.tradeType == 'market') {
+                    store.setDealBuyPrice(ret.currentAmountInt);
+                    store.setDealSellPrice(ret.currentAmountInt);
+                }
             })
         },
         /**
@@ -230,12 +238,6 @@ export default (store, currencyStore) => {
 
                 store.updateAsks(asks);
                 store.updateBids(bids);
-
-                let defaultAmount = NumberUtil.initNumber(store.currentTradeCoin.currentAmount || 0, pointPrice); 
-
-                store.setDealBuyPrice(defaultAmount);
-                store.setDealSellPrice(defaultAmount);
-
                 // let bestBuyPrice =  this.parseBestBuyPrice(data.sell, pointPrice);
                 // let bestSellPrice =  this.parseBestSellPrice(data.buy, pointPrice);
                 

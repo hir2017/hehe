@@ -17,7 +17,10 @@ class SellOrderView extends Component {
 
 	haneleClickOrder(item){
 		let store = this.props.tradeStore;
-		
+
+		if (store.tradeType == 'market') {
+            return;
+        }
 		store.setDealBuyPrice(item.current); // 买入价格
 		store.setDealSellPrice(item.current); // 卖出价格
 	}

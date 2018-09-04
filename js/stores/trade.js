@@ -273,9 +273,6 @@ export default class TradeStore {
      * 修改买入价格
      */
     @action setDealBuyPrice(price) {
-        if (this.tradeType == 'market') {
-            return;
-        }
         if (this.dealBuyNum) {
             let balance = this.personalAccount.baseCoinBalance;
 
@@ -301,9 +298,6 @@ export default class TradeStore {
      * 修改卖出价格
      */
     @action setDealSellPrice(price) {
-        if (this.tradeType == 'market') {
-            return;
-        }
         this.dealSellPrice = price;
     }
 
