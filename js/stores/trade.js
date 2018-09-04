@@ -315,6 +315,9 @@ export default class TradeStore {
         let balance = this.personalAccount.baseCoinBalance;
         let num;
 
+        if (balance == 0) {
+            return;
+        }
         if (this.dealBuyPrice) {
             num = balance * value * 0.01 / this.dealBuyPrice;
             this.dealBuyNum = NumberUtil.initNumber(num, this.pointNum);
@@ -325,6 +328,11 @@ export default class TradeStore {
 
     @action setSellSliderValue(value) {
         let balance = this.personalAccount.tradeCoinBalance;
+        
+        if (balance == 0) {
+            return;
+        }
+
         let num = balance * value * 0.01;
         let dealNum = num.toString();
 
