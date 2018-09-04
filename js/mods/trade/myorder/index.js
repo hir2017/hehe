@@ -46,7 +46,7 @@ class MyOrder extends Component {
 		let x = 0;
 		let tabs = $(this.refs.tabs);
 		let bar = $(this.refs.bar);
-		debugger;
+		
 		if (tabs.length == 0 || bar.length == 0) {
 			return;
 		}
@@ -82,7 +82,7 @@ class MyOrder extends Component {
 								let cls = tabIndex == index ? 'selected' : '';
 								
 								return (
-									<li key={index} data-role="tab" className={cls} onClick={this.handleClickTab.bind(this, index)}>{item.title}</li>
+									<li key={index} data-key={ item.id} data-role="tab" className={cls} onClick={this.handleClickTab.bind(this, index)}>{item.title}</li>
 								)
 							})
 						}

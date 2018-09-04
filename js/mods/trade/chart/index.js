@@ -123,6 +123,16 @@ class TVChartContainer extends Component {
             }
         }
 
+        this.chartTabs = [{
+                index: 0,
+                id: 'kline',
+                title: UPEX.lang.template('K线图')
+            },{
+                index: 1,
+                id: 'depth',
+                title: UPEX.lang.template('深度图')
+        }];
+
         this.state = {
             chartType: 'kline',
             fullscreen: false
@@ -135,6 +145,8 @@ class TVChartContainer extends Component {
         $.channel.on('switchTheme', (theme)=>{
             this.switchTheme(theme);
         })
+
+        this.getBarTransform();
     }
 
     componentWillUnmount(){
@@ -542,10 +554,11 @@ class TVChartContainer extends Component {
         return t.url;
     }
 
-    showChart=(type)=>{
+    showChart=(item)=>{
         this.setState({
-            chartType: type
+            chartType: item.id
         }, function() {
+            this.getBarTransform(item.index);
             this.drawChart();
         });
     }
@@ -553,6 +566,33 @@ class TVChartContainer extends Component {
     handleFullScreen=(e)=>{
         this.setState({
             fullscreen: !this.state.fullscreen
+        })
+    }
+
+    getBarTransform(index) {
+        let x = 0;
+        let tabs = $(this.refs.tabs);
+        let bar = $(this.refs.bar);
+        
+        if (tabs.length == 0 || bar.length == 0) {
+            return;
+        }
+
+        let ulOffset = tabs.offset();
+        let lis = $('[data-role="tab"]', tabs);
+        let barOffset = $(bar).offset();
+        let selectedLi = lis.eq(index || 0);
+        let liOffset = selectedLi.offset();
+
+        x = liOffset.left -  ulOffset.left + (liOffset.width / 2  - barOffset.width / 2);
+
+        //  为了改动小，先简单的处理
+
+        bar.css({
+            visibility: 'visible',
+            msTransform: 'translate3d(' + x + 'px,0,0)',
+            WebkitTransform: 'translate3d(' + x + 'px,0,0)',
+            transform: 'translate3d(' + x + 'px,0,0)',
         })
     }
 
@@ -626,19 +666,17 @@ class TVChartContainer extends Component {
                             <em>{ store.currentTradeCoin.volumeText }&nbsp;{ store.currentTradeCoin.currencyNameEn }</em>
                         </dd>
                     </dl>
-                    <ul className="chart-menu">
-                        <li
-                            onClick={this.showChart.bind(this, 'kline')}
-                            className={ chartType == 'kline' ? 'selected' : ''}
-                        >
-                            {UPEX.lang.template('K线图')}
-                        </li>
-                        <li
-                            onClick={this.showChart.bind(this, 'depth')}
-                            className={ chartType == 'depth' ? 'selected' : ''}
-                        >
-                            {UPEX.lang.template('深度图')}
-                        </li>
+                    <ul className="chart-menu" ref="tabs">
+                        {
+                            this.chartTabs.map((item, index)=>{
+                                let cls = chartType == item.id ? 'selected' : '';
+
+                                return (
+                                    <li key={item.id} data-role="tab" data-key={item.id} className={cls} onClick={this.showChart.bind(this, item)}>{item.title}</li>
+                                )
+                            })
+                        }
+                        <li key="bar" data-role="bar" ref="bar" className="tab-bar exc-tab-animated"></li>
                     </ul>
                     <div className="full-btn" onClick={this.handleFullScreen} ref="fullbtn">
                         {
