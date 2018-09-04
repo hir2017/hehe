@@ -24,6 +24,13 @@ config.csurls = {
     whatapp: 'https://t.me/infinite_exchange',
     line: '',
 };
+// pdf文档链接
+config.docUrls = {
+    InfinitexDigitalCurrencyTransferAgreements: '/static/docs/aus/Infinitex digital currency transfer agreements.pdf',
+    riskDisclosure: '/static/docs/aus/Risk Disclosure & Disclaimer.pdf',
+    privacyPolicy: '/static/docs/aus/PRIMEX Privacy Policy.pdf',
+    kycPolicy: '/static/docs/aus/AML & KYC POLICY.pdf',
+}
 
 config.baseCurrencyEn = 'AUD';
 config.baseCurrencySymbol = 'AUD';

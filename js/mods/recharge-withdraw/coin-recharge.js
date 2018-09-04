@@ -171,7 +171,7 @@ class CoinRecharge extends Component {
                             <div
                                 className="warmprompt-content"
                                 dangerouslySetInnerHTML={{
-                                    __html: UPEX.lang.template('充币温馨提示内容', { name: currencyNameEn || '--', num: addressInfo.confirmNum || '--' }, 1)
+                                    __html: UPEX.lang.template('充币温馨提示内容', { name: currencyNameEn || '--', num: addressInfo.confirmNum || '--', link: UPEX.config.docUrls.InfinitexDigitalCurrencyTransferAgreements })
                                 }}
                             />
                         </div>
