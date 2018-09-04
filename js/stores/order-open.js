@@ -125,6 +125,7 @@ class OrderStore {
         // 成交率
         let temp_rate = parseFloat(item.tradeRate) || 0;
         item.tradeRate = NumberUtil.formatNumber(temp_rate * 100, 2) + '%';
+        
         return item;
     }
 }

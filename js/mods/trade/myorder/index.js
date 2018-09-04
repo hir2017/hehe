@@ -30,16 +30,6 @@ class MyOrder extends Component {
 		});
 	}
 
-	componentDidMount() {
-		$.channel.on('updateTradeUserAccount', ()=>{
-			this.props.tradeStore.getUserAccount();
-		})
-	}
-
-	componentWillUnmount(){
-		$.channel.off('updateTradeUserAccount');
-	}
-
 	handleExpand=(e)=>{
 		let status = !this.props.tradeStore.expandOrderTable;
 

@@ -137,7 +137,7 @@ export default (store, authStore, tradeStore) => {
                 if (data.status == 200) {
                     message.success(UPEX.lang.template('撤销成功'));
                     store.deleteItem(orderNo);
-                    $.channel.emit('updateTradeUserAccount');
+                    $.channel.emit('updateUserAccount');
                 } else {
                     message.error(data.message);
                 }
