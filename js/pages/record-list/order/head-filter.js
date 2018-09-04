@@ -107,7 +107,6 @@ class View extends React.Component {
             });
             return ;
         }
-        baseCurrencyId
         this.setState({
             [name]: param1
         });
