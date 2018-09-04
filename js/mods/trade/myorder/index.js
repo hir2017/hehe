@@ -24,9 +24,15 @@ class MyOrder extends Component {
 		}
 	}
 
+	componentDidMount() {
+		this.getBarTransform();
+	}
+
 	handleClickTab(index){
 		this.setState({
 			tabIndex: index
+		}, ()=>{
+			this.getBarTransform();
 		});
 	}
 
@@ -36,6 +42,33 @@ class MyOrder extends Component {
 		this.props.tradeStore.isExpandOrderTable(status);
 	}
 
+	getBarTransform() {
+		let x = 0;
+		let tabs = $(this.refs.tabs);
+		let bar = $(this.refs.bar);
+		debugger;
+		if (tabs.length == 0 || bar.length == 0) {
+			return;
+		}
+
+		let ulOffset = tabs.offset();
+		let lis = $('[data-role="tab"]', tabs);
+		let barOffset = $(bar).offset();
+		let selectedLi = lis.eq(this.state.tabIndex);
+		let liOffset = selectedLi.offset();
+
+		x = liOffset.left -  ulOffset.left + (liOffset.width / 2  - barOffset.width / 2);
+
+		//  为了改动小，先简单的处理
+
+		bar.css({
+			visibility: 'visible',
+			msTransform: 'translate3d(' + x + 'px,0,0)',
+            WebkitTransform: 'translate3d(' + x + 'px,0,0)',
+            transform: 'translate3d(' + x + 'px,0,0)',
+		})
+	}
+
 	render() {
 		let store = this.props.tradeStore;
 		let { tabIndex } = this.state;
@@ -43,15 +76,17 @@ class MyOrder extends Component {
 		return (
 			<div className="trade-order-wrapper">
 				<div className="trade-order-hd clearfix">
-					<ul>
+					<ul ref="tabs">
 						{
 							this.tabs.map((item, index)=>{
 								let cls = tabIndex == index ? 'selected' : '';
+								
 								return (
-									<li key={index} className={cls} onClick={this.handleClickTab.bind(this, index)}>{item.title}</li>
+									<li key={index} data-role="tab" className={cls} onClick={this.handleClickTab.bind(this, index)}>{item.title}</li>
 								)
 							})
 						}
+						<li key="bar" data-role="bar" ref="bar" className="tab-bar exc-tab-animated"></li>
 					</ul>
 					<div className="action-btn" onClick={this.handleExpand} ref="actionbtn">
                         {

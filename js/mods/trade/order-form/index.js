@@ -180,7 +180,7 @@ class TradeForm extends Component{
 	}
 
 	getBarTransform() {
-		let x = 18;
+		let x = 0;
 		let tabs = $(this.refs.tabs);
 		let bar = $(this.refs.bar);
 		
@@ -204,7 +204,7 @@ class TradeForm extends Component{
 		//  为了改动小，先简单的处理
 
 		bar.css({
-			display: 'block',
+			visibility: 'visible',
 			msTransform: 'translate3d(' + x + 'px,0,0)',
             WebkitTransform: 'translate3d(' + x + 'px,0,0)',
             transform: 'translate3d(' + x + 'px,0,0)',

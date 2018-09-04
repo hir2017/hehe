@@ -39,6 +39,7 @@
                 &.selected {
                     color: @text-yellow-color;
                     &:after {
+                        display: none;
                         content: '';
                         position: absolute;
                         left: 50%;
@@ -49,6 +50,17 @@
                         height: 2px;
                         background-color: @theme-yellow;
                     }
+                }
+                &.tab-bar {
+                    visibility: hidden;
+                    position: absolute;
+                    left: 0;
+                    float: none;
+                    bottom: 0;
+                    border-radius: 2px;
+                    width: 20px;
+                    height: 2px;
+                    background-color: @theme-yellow;
                 }
             }
         }
@@ -120,7 +132,7 @@
                 }
                 th {
                     height: 30px !important;
-                    white-space:nowrap;
+                    white-space: nowrap;
                 }
                 &::before {
                     border-color: transparent;
@@ -237,12 +249,8 @@
     .app-trade {
         .trade-order-bd {
             .order-main-box {
-                .open-list-table {
-
-                }
-                .success-list-table {
-
-                }
+                .open-list-table {}
+                .success-list-table {}
             }
         }
     }
