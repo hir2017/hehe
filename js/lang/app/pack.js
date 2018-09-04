@@ -446,7 +446,7 @@ module.exports={
         "实际到账金额:{num}": "Actual amount received:{num}",
         "审核中": "Under review",
         "审核拒绝": "Declined",
-        "审核拒绝，原因是:{reason}": "Declined",
+        "审核拒绝，原因是:{reason}": "Review denied for the reason of:{reason}",
         "客户端下载": "APP download",
         "客服反馈": "Customer service feedback",
         "密码": "Login password",
