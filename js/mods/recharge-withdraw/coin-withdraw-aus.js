@@ -299,6 +299,17 @@ class WithdrawCoin extends Component {
                             {UPEX.lang.template('确认提币')}
                         </Button>
                     </FormItem>
+                    <FormItem>
+                        <div className="bottom-tips">
+                            <div className="warmprompt-title">{UPEX.lang.template('温馨提示')}</div>
+                            <div
+                                className="warmprompt-content"
+                                dangerouslySetInnerHTML={{
+                                    __html: UPEX.lang.template('提币温馨提示内容', {link: UPEX.config.docUrls.InfinitexDigitalCurrencyTransferAgreements})
+                                }}
+                            />
+                        </div>
+                    </FormItem>
                 </FormView>
             </div>
         );
