@@ -72,7 +72,6 @@ class TradeForm extends Component{
             content: UPEX.lang.template('请先进行身份认证'),
             okText: UPEX.lang.template('去身份认证'),
             cancelText: UPEX.lang.template('我再想想'),
-            iconType: 'exclamation-circle',
             onOk() {
                 browserHistory.push('/user/authentication');
             }
@@ -85,7 +84,6 @@ class TradeForm extends Component{
             content: UPEX.lang.template('绑定银行卡后可以进行充值'),
             okText: UPEX.lang.template('绑定银行卡'),
             cancelText: UPEX.lang.template('我再想想'),
-            iconType: 'exclamation-circle',
             onOk() {
                 browserHistory.push('/user/bankInfo');
             }
@@ -97,7 +95,6 @@ class TradeForm extends Component{
             prefixCls: "exc-dialog",
             content: UPEX.lang.template('交易前请先设置资金密码'),
             okText: UPEX.lang.template('资金密码设置'),
-            iconType: 'exclamation-circle',
             okCancel: false,
             onOk() {
                 browserHistory.push('/user/set-trade-pwd');
@@ -371,7 +368,7 @@ class TradeForm extends Component{
 								<InputNumber
 									type="text"
 									disabled
-									value={store.currentTradeCoin.currentAmountText}
+									value={store.dealBuyPrice}
 									precision={store.pointPrice}
 									onChange={this.onChange.bind(this, 'buyprice')}
 									onBlur={this.checkTradePrice.bind(this, 'buy')}
@@ -435,7 +432,7 @@ class TradeForm extends Component{
 								<InputNumber
 									type="text"
 									disabled
-									value={store.currentTradeCoin.currentAmountText}
+									value={store.dealSellPrice}
 									precision={store.pointPrice}
 									onChange={this.onChange.bind(this, 'sellprice')}
 									onBlur={this.checkTradePrice.bind(this, 'sell')}

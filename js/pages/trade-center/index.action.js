@@ -165,6 +165,7 @@ export default (store, currencyStore) => {
             item.changeRateText = NumberUtil.asPercent(item.changeRate);
             // 最新成交价
             item.currentAmountText = NumberUtil.formatNumber(item.currentAmount, item.pointPrice);
+            item.currentAmountInt = NumberUtil.initNumber(item.currentAmount, item.pointPrice);
             // 最高价
             item.highPriceText = NumberUtil.formatNumber(item.highPrice, item.pointPrice);
             // 最低价
@@ -198,7 +199,7 @@ export default (store, currencyStore) => {
         /**
          * ------------------- 盘口处理 {{ -------------------
          */
-        fetchEntrustFirst: true,
+        // fetchEntrustFirst: true,
         /**
          * 获取盘口【买入，卖出】
          */
@@ -230,21 +231,41 @@ export default (store, currencyStore) => {
                 store.updateAsks(asks);
                 store.updateBids(bids);
 
-                if (this.fetchEntrustFirst) {
-                    let bestBuyPrice =  this.parseBestPrice(data.buy, pointPrice);
-                    let bestSellPrice =  this.parseBestPrice(data.sell, pointPrice);
+                let defaultAmount = NumberUtil.initNumber(store.currentTradeCoin.currentAmount || 0, pointPrice); 
 
-                    store.setDealBuyPrice(bestBuyPrice);
-                    store.setDealSellPrice(bestSellPrice);
-                }
+                store.setDealBuyPrice(defaultAmount);
+                store.setDealSellPrice(defaultAmount);
 
-                this.fetchEntrustFirst = false;                
+                // let bestBuyPrice =  this.parseBestBuyPrice(data.sell, pointPrice);
+                // let bestSellPrice =  this.parseBestSellPrice(data.buy, pointPrice);
+                
+                // store.setBestBuyPrice(bestBuyPrice);
+                // store.setBestSellPrice(bestSellPrice);
+
+                // if (this.fetchEntrustFirst) {
+                //     // 若限价
+                //     if (store.tradeType == 'limit') {
+                //         store.setDealBuyPrice(bestBuyPrice);
+                //         store.setDealSellPrice(bestSellPrice);
+                //     }
+                // }
+
+                // this.fetchEntrustFirst = false;                
 
             });
         },
+        // 最佳买入价格, 取得是卖出盘第一个订单，越低越好
+        parseBestBuyPrice(data, pointPrice) {
+            let price = data && data[0] ? data[0].price : 0;
 
-        parseBestPrice(data, pointPrice) {
-            let price = data && data[0] ? data[0].current : 0; //行情中最新买入价格
+            price = price ? price : store.currentTradeCoin.currentAmount;
+
+            return NumberUtil.initNumber(price || 0, pointPrice);
+        }, 
+        
+        // 最佳卖出价格，取得是买入盘第一个订单，越高越好
+        parseBestSellPrice(data, pointPrice) {
+            let price = data && data[0] ? data[0].price : 0;
 
             price = price ? price : store.currentTradeCoin.currentAmount;
 

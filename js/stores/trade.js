@@ -46,6 +46,8 @@ export default class TradeStore {
     }
     @observable tradePasswordStatus = 2; // 交易.  1：需要资金密码；2：不需要资金密码
     @observable tradeType = 'limit';
+    // @observable bestSellPrice = ''; // 最佳卖出价格
+    // @observable bestBuyPrice = ''; // 最佳买入价格
 
     @observable dealBuyPrice = ''; // 交易买入价格
     @observable dealSellPrice = ''; // 交易卖出价格
@@ -63,6 +65,7 @@ export default class TradeStore {
 
     constructor(stores) {
         this.commonStore = stores.commonStore;
+        this.currencyStore = stores.currencyStore;
         this.authStore = stores.authStore;
         this.openStore = stores.openStore;
         this.successStore = stores.successStore;
@@ -72,6 +75,22 @@ export default class TradeStore {
         this.minChartHeight = 320; // K线图最小高度270
         this.headerHeight = 60;
         this.space = 10;
+    }
+
+    @action reset() {
+        this.dealBuyPrice = this.currentTradeCoin.currentAmountInt || ''; // 交易买入价格
+        this.dealSellPrice = this.currentTradeCoin.currentAmountInt || ''; // 交易卖出价格
+        this.dealBuyNum = ''; // 买入数量
+        this.dealSellNum = ''; // 卖出数量
+        this.buySliderValue = 0;
+        this.sellSliderValue = 0;
+        this.validBuyPrice = true;
+        this.validSellPrice = true;
+        this.tradePriceErr = '';
+        this.tradeNumberErr = '';
+        this.tradeBuyPassword = '';
+        this.tradeSellPassword = '';
+        this.submiting = 0; 
     }
 
     @computed get contentHeight() {
@@ -123,13 +142,14 @@ export default class TradeStore {
         this.bids = data;
     }
 
-    @action updatePersonalAccount(data) {
-        let pointPrice = this.commonStore.getPointPrice(this.currentTradeCoin.currencyNameEn);
+    @action updatePersonalAccount(data) {        
+        let obj = Object.assign(this.personalAccount, data);
+        let key = [obj.baseCurrencyId, data.tradeCurrencyId].join('_');
+        let cfg = this.currencyStore.getCurrencyById(key);
+        let { pointNum, pointPrice } = cfg;
 
-        this.personalAccount = Object.assign(this.personalAccount, data, {
-            baseCoinBalanceText: NumberUtil.initNumber(data.baseCoinBalance, pointPrice),
-            tradeCoinBalanceText: NumberUtil.initNumber(data.tradeCoinBalance, this.pointNum),
-        });
+        this.personalAccount.baseCoinBalanceText = NumberUtil.initNumber(data.baseCoinBalance, pointPrice);
+        this.personalAccount.tradeCoinBalanceText = NumberUtil.initNumber(data.tradeCoinBalance, pointNum);
     }
 
     @action updateTradePasswordStatus(value) {
@@ -137,6 +157,7 @@ export default class TradeStore {
     }
 
     @action updateTradeType(index) {
+        this.reset();
         this.tradeType = index;
     }
 
@@ -252,6 +273,9 @@ export default class TradeStore {
      * 修改买入价格
      */
     @action setDealBuyPrice(price) {
+        if (this.tradeType == 'market') {
+            return;
+        }
         if (this.dealBuyNum) {
             let balance = this.personalAccount.baseCoinBalance;
 
@@ -277,8 +301,19 @@ export default class TradeStore {
      * 修改卖出价格
      */
     @action setDealSellPrice(price) {
+        if (this.tradeType == 'market') {
+            return;
+        }
         this.dealSellPrice = price;
     }
+
+    // @action setBestBuyPrice(value){
+    //     this.bestBuyPrice = value;
+    // }
+
+    // @action setBestSellPrice(value){
+    //     this.bestSellPrice = value;
+    // }
     /**
      * 操作滑动进度，TWD* 百分比
      */
