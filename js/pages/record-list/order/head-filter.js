@@ -82,6 +82,7 @@ class View extends React.Component {
     }
 
     onChange(name, param1, param2) {
+        const {state} = this;
         if (name === 'date') {
             this.setState({
                 beginTime: param2[0],
@@ -91,19 +92,23 @@ class View extends React.Component {
         }
         // 货币变更，切换市场
         if (name === 'currencyId') {
+            let tempBase = param1 === '0' ? this.allBaseCoins : this.tradeCoinMap[param1];
+            let result = tempBase.filter(item => item.baseCurrencyId === parseInt(state.baseCurrencyId));
             this.setState({
                 [name]: param1,
-                baseCurrencyId: '0',
-                baseCoins: param1 === '0' ? this.allBaseCoins : this.tradeCoinMap[param1]
+                baseCurrencyId: result.length !== 0 ? state.baseCurrencyId : '0',
+                baseCoins: tempBase
             });
             return ;
         }
         // 市场变更，切换货币
         if (name === 'baseCurrencyId') {
+            let tempTrade = param1 === '0' ? this.allTradeCoins : this.baseCoinMap[param1];
+            let result = tempTrade.filter(item => item.tradeCurrencyId === parseInt(state.currencyId));
             this.setState({
                 [name]: param1,
-                currencyId: '0',
-                tradeCoins: param1 === '0' ? this.allTradeCoins : this.baseCoinMap[param1]
+                currencyId: result.length !== 0 ? state.currencyId : '0',
+                tradeCoins: tempTrade
             });
             return ;
         }

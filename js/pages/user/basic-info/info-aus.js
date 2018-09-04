@@ -117,18 +117,18 @@ class Info extends Component {
                                 {gradeCfg.grade === 'Z' ? (
                                     <p className="no-auth">{UPEX.lang.template('您还未进行身份认证')}</p>
                                 ) : (
-                                    <div className="state-inner">
+                                    <div className="state-inner aus">
                                         <img className="aus" src={authOk} />
                                         <p className="text">{UPEX.lang.template('身份已认证')}</p>
                                         <p className="money">
                                             {UPEX.lang.template('当前日提现限额')}：
-                                            <span>
+                                            <span className="amount-space">
                                                 {NumberUtils.separate(state.cashLimit)} {UPEX.config.baseCurrencySymbol}
                                             </span>
                                         </p>
                                         <p className="money">
                                             {UPEX.lang.template('当前日提币限额')}：
-                                            <span>
+                                            <span className="amount-space">
                                                 {NumberUtils.separate(state.coinLimit)} {UPEX.config.baseCurrencySymbol}
                                             </span>
                                         </p>

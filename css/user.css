@@ -945,6 +945,7 @@ body .user-main .ant-select-dropdown-menu-item {
 
 .user-main .exc-form.auth-step-4 .info tr td:nth-child(1) {
     text-align: right;
+    white-space: nowrap;
 }
 
 .user-main .exc-form.auth-step-4 .info tr td:nth-child(2) {
