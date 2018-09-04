@@ -44,14 +44,14 @@
 }
 
 
-.coin-recharge .userauth-guide h4 {
+.rw-wrapper .userauth-guide h4 {
     padding-top: 60px;
     text-align: center;
     margin-bottom: 20px;
     font-size: 16px;
 }
 
-.coin-recharge .userauth-guide button {
+.rw-wrapper .userauth-guide button {
     display: block;
     width: 160px;
     height: 36px;

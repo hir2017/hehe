@@ -45,7 +45,14 @@ class Recharge extends Component {
         } else {
             $content = <div className="mini-loading" />;
         }
-
+        $content = (
+            <div className="userauth-guide">
+                <h4>{UPEX.lang.template('请您进行身份认证，否则无法进行充值、提现、充币、提币操作')}</h4>
+                <button type="button" onClick={this.clickAuthUserIDCard}>
+                    {UPEX.lang.template('身份认证')}
+                </button>
+            </div>
+        );
         return (
             <div className="coin-recharge">
                 <PageWrapper title={UPEX.lang.template('充币')} className=" header-shadow">
