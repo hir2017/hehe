@@ -55,8 +55,8 @@ class RecordPage extends Component {
                     	<h2>{ UPEX.lang.template('充提币记录')}</h2>
                         <div className="type-select">
     						<Select value={this.state.type} onChange={this.handleChange}>
-    					    	<Option value="recharge">{ UPEX.lang.template('充币记录')}</Option>
-    					    	<Option value="withdraw">{ UPEX.lang.template('提币记录')}</Option>
+    					    	<Option value="recharge">{ UPEX.lang.template('充币')}</Option>
+    					    	<Option value="withdraw">{ UPEX.lang.template('提币')}</Option>
     					    </Select>
                         </div>
                     </div>

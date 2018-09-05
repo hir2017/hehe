@@ -67,17 +67,17 @@ class Register extends Component {
 
     clearInput=(field)=> {
         this.refs[field].focus();
-        this.action.clearInput(field);        
+        this.action.clearInput(field);
         this.action.clearVerifyResult(field);
     }
 
     onFocusInput=(field, e)=>{
         if (field == 'phone' || field == 'email') {
-            this.action.onFocusInput(field, e);    
+            this.action.onFocusInput(field, e);
         }
-        
+
         if (field == 'phone') return;
-        
+
         $(e.currentTarget).parents('.input-wrapper').attr('data-type', 'focus');
     }
 
@@ -258,8 +258,11 @@ class Register extends Component {
                             <div className="input-wrapper">
                                 <div className="input-box user-protocol">
                                     <Checkbox onChange={action.onChangeAgreeCheckBox}>{UPEX.lang.template('我已阅读并同意')}</Checkbox>
-                                    <a target="_blank" href={UPEX.lang.template('服务条款网页链接')}>
-                                        《{UPEX.lang.template('服务条款')}》
+                                    <a target="_blank" href={UPEX.config.docUrls.privacyPolicy}>
+                                        《{UPEX.lang.template('隐私条款')}》
+                                    </a>
+                                    <a target="_blank" href={UPEX.config.docUrls.riskDisclosure}>
+                                        《{UPEX.lang.template('风险披露与免责声明')}》
                                     </a>
                                 </div>
                             </div>

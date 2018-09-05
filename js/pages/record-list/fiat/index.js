@@ -24,7 +24,7 @@ class RecordPage extends Component {
 
     render() {
         let store = this.props.fundChangeRecordStore;
-        
+
         return (
             <div className="order-wrapper">
                 <Breadcrumb separator=">">
@@ -37,13 +37,13 @@ class RecordPage extends Component {
                         <div className="type-select">
                             <Select defaultValue="all" onChange={val => {store.setDataType(val)}}>
                                <Option value="all">
-                                    {UPEX.lang.template('全部记录')}
+                                    {UPEX.lang.template('全部')}
                                 </Option>
                                 <Option value="recharge">
-                                    {UPEX.lang.template('充值记录')}
+                                    {UPEX.lang.template('充值')}
                                 </Option>
                                 <Option value="withdraw">
-                                    {UPEX.lang.template('提现记录')}
+                                    {UPEX.lang.template('提现')}
                                 </Option>
                             </Select>
                         </div>
