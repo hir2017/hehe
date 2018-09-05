@@ -143,6 +143,11 @@ body {
             border: 0 solid @theme-yellow;
         }
     }
+    .ant-btn:focus, .ant-btn:hover {
+        color: @text-color01-light;
+        background-color: @btn-submit-hover-color;
+        border-color: @theme-yellow-opacity01;
+    }
     .ant-select-auto-complete.ant-select .ant-input:focus, .ant-select-auto-complete.ant-select .ant-input:hover {
         border-color: @theme-yellow;
     }
@@ -172,6 +177,10 @@ body {
     }
     .ant-pagination-item.ant-pagination-item-active:focus a, .ant-pagination-item.ant-pagination-item-active:hover a {
         color: #fff;
+    }
+    // switch
+    .ant-switch-checked {
+        background-color: @theme-yellow;
     }
     // 面包屑
     .ant-breadcrumb-link {

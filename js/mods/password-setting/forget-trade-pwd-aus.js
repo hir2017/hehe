@@ -20,7 +20,7 @@ export default class SettingTradingPassword extends Component {
         super();
         this.submit = this.submit.bind(this);
         const getProp = createGetProp(this);
-        this.$sendBtn = <SmsBtn sendCode={setTradePwdSendCode.bind(this, {type: 2})} />;
+        this.$sendBtn = <SmsBtn sendCode={setTradePwdSendCode.bind(this, { type: 2 })} />;
         this.inputsData = {
             password: {
                 label: UPEX.lang.template('新资金密码'),
@@ -59,13 +59,11 @@ export default class SettingTradingPassword extends Component {
         };
     }
 
-
     setVal(e, name) {
         const data = {};
         data[name] = e.target.value;
         this.setState(data);
     }
-
 
     submit() {
         if (!this.state.password) {
@@ -92,30 +90,30 @@ export default class SettingTradingPassword extends Component {
 
         let reqResult = this.props.userInfoStore.forgetTradingPwd(this.state.password, this.state.vCode, 1, 1, 2);
         reqResult.then(data => {
-            if(data) {
+            if (data) {
                 setTimeout(() => {
                     browserHistory.push('/user/setpwd');
-                }, 300)
+                }, 300);
             }
-        })
+        });
     }
 
     render() {
         const loading = this.props.userInfoStore.submit_loading;
-        const {inputsData,  PageProps, $sendBtn} = this;
+        const { inputsData, PageProps, $sendBtn } = this;
         return (
             <PageForm {...PageProps}>
-                <AutoCompleteHack />
-                <InputItem {...inputsData.password} />
-                <InputItem {...inputsData.comfirmPwd} />
                 <FormView>
+                    <AutoCompleteHack />
+                    <FormItem {...inputsData.password} />
+                    <FormItem {...inputsData.comfirmPwd} />
                     <FormItem {...inputsData.vCode} after={$sendBtn} />
+                    <FormItem>
+                        <Button loading={loading} className="exc-submit-item" onClick={this.submit}>
+                            {UPEX.lang.template('提交')}
+                        </Button>
+                    </FormItem>
                 </FormView>
-                <div className="submit">
-                    <Button loading={loading} className="exc-submit-item" onClick={this.submit}>
-                        {UPEX.lang.template('提交')}
-                    </Button>
-                </div>
             </PageForm>
         );
     }

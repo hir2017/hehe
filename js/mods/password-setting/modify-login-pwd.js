@@ -74,7 +74,7 @@ export default class ModifyPassword extends Component {
         const userInfo = this.props.userInfoStore.userInfo || {};
         const gaBindSuccess = this.props.userInfoStore.gaBindSuccess;
         const codeid = this.props.captchaStore.codeid;
-        
+
         if (!this.state.password) {
             message.error(UPEX.lang.template('请输入登录密码'));
             return;
@@ -97,19 +97,19 @@ export default class ModifyPassword extends Component {
         if (this.state.newPwd && !checkPwd) {
             message.error(UPEX.lang.template('密码至少由大写字母+小写字母+数字，8-16位组成'));
             return;
-        }  
+        }
 
         // 没有滑动易盾验证码
         if (!this.validate) {
             message.error(UPEX.lang.template('请完成滑动图片验证'));
             return;
-        } 
-        
+        }
+
         const pwd = md5(this.state.password + UPEX.config.salt);
         const type = gaBindSuccess ? 1 : userInfo.phone ? 2 : 3;
 
         let reqResult = this.props.userInfoStore.resetPwd(this.state.newPwd, this.state.vCode, this.state.ivCode, codeid, pwd, type, this.validate, this.captchaId);
-        
+
         reqResult.then(data => {
             if (data) {
                 this.props.userInfoStore.pwdTriggerClear();
@@ -119,7 +119,9 @@ export default class ModifyPassword extends Component {
                 }, 300);
 
             } else {
-                this.props.captchaStore.fetch();
+                this.validate = '';
+                this.captchaId = '';
+                this.yidunCaptcha.captchaIns.refresh();
             }
         });
     }
@@ -172,7 +174,7 @@ export default class ModifyPassword extends Component {
                 <div id="floatCaptcha"></div>
                 {
 
-                /* 
+                /*
                 <div>
                     <InputItem {...vCodeData} />
                     <div className="item v-code-button">
