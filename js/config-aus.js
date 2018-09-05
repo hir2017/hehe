@@ -28,7 +28,7 @@ config.csurls = {
 config.docUrls = {
     InfinitexDigitalCurrencyTransferAgreements: '/static/docs/aus/Infinitex digital currency transfer agreements.pdf',
     riskDisclosure: '/static/docs/aus/Risk Disclosure & Disclaimer.pdf',
-    privacyPolicy: '/static/docs/aus/PRIMEX Privacy Policy.pdf',
+    privacyPolicy: '/static/docs/aus/Infinitex Privacy Policy.pdf',
     kycPolicy: '/static/docs/aus/AML & KYC POLICY.pdf',
 }
 
