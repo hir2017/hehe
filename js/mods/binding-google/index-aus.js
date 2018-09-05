@@ -6,8 +6,7 @@ import { setTradePwdSendCode } from '@/api/http';
 import FormView from '@/mods/common/form';
 import FormItem from '@/mods/common/form/item';
 import SmsBtn from '@/mods/common/sms-btn';
-
-import InputItem from '../../components/form/input-item';
+import Numberutils from  '@/lib/util/number';
 import AceForm from '../../components/form/form';
 import { createGetProp } from '../../components/utils';
 
@@ -23,11 +22,6 @@ class Google extends Component {
             google: {
                 label: UPEX.lang.template('Google验证码'),
                 inputProps: getProp('google', 'none')
-            },
-            ivCode: {
-                label: UPEX.lang.template('图片验证码'),
-                className: 'v-code',
-                inputProps: getProp('ivCode', 'none')
             },
             vCode: {
                 label: UPEX.lang.template('短信验证码'),
@@ -48,13 +42,16 @@ class Google extends Component {
     state = {
         google: '',
         vCode: '',
-        ivCode: ''
     };
 
     setVal(e, name) {
-        const data = {};
-        data[name] = e.target.value;
-        this.setState(data);
+        let val = e.target.value.trim();
+        if(!Numberutils.isInteger(val)) {
+            return;
+        };
+        this.setState({
+            [name]: val
+        });
     }
 
     submit() {
@@ -75,7 +72,7 @@ class Google extends Component {
     render() {
         const loading = this.props.userInfoStore.submit_loading;
         const gaSecretKey = this.props.userInfoStore.gaSecretKey || {};
-        const { inputsData, $sendBtn } = this;
+        const { inputsData, $sendBtn, state } = this;
 
         return (
             <AceForm className="modify-password-box google-auth-box">
@@ -84,9 +81,10 @@ class Google extends Component {
                     <div className="code-sms">{gaSecretKey.secretKey}</div>
                 </div>
                 <FormView>
-                    <FormItem {...inputsData.vCode} after={$sendBtn} />
+                    <FormItem {...inputsData.vCode} value={state.vCode} after={$sendBtn} />
+                    <FormItem {...inputsData.google} value={state.google} />
                 </FormView>
-                <InputItem {...inputsData.google} />
+                {/* <InputItem {...inputsData.google} /> */}
                 <Button loading={loading} className="exc-submit-item" onClick={this.submit}>
                     {UPEX.lang.template('绑定')}
                 </Button>

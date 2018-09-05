@@ -25,27 +25,29 @@ class GoogleAuthenticator extends Component {
     render() {
         const userInfo = this.props.userInfoStore.userInfo || {};
         const gaBindSuccess = this.props.userInfoStore.gaBindSuccess;
-
+        let $content = null;
+        if (userInfo.phone) {
+            // 绑定或未绑定
+            $content = !gaBindSuccess ? <BindingGoogle /> : <Success />;
+        } else {
+            // 绑定手机
+            $content = (
+                <div className="no-auth-message  google-no-binding-phone">
+                    {UPEX.lang.template('添加Google绑定前，请先绑定手机号')}
+                    <div>
+                        <Button className="ace-main">
+                            <Link to="/user/setting-phone">{UPEX.lang.template('去绑定手机')}</Link>
+                        </Button>
+                    </div>
+                </div>
+            );
+        }
         return (
             <PageWrapper title={UPEX.lang.template('Google验证器')}>
-                {userInfo.phone && !gaBindSuccess ? <div className="ace-top-tips">{UPEX.lang.template('为了您的资金安全，修改Google验证码后，24小时不可以提币')}</div> : null}
-
-                {userInfo.phone ? (
-                    !gaBindSuccess ? (
-                        <BindingGoogle />
-                    ) : (
-                        <Success />
-                    )
-                ) : (
-                    <div className="no-auth-message  google-no-binding-phone">
-                        {UPEX.lang.template('添加Google绑定前，请先绑定手机号')}
-                        <div>
-                            <Button className="ace-main">
-                                <Link to="/user/setting-phone">{UPEX.lang.template('去绑定手机')}</Link>
-                            </Button>
-                        </div>
-                    </div>
-                )}
+                {userInfo.phone && !gaBindSuccess ? (
+                    <div className="ace-top-tips">{UPEX.lang.template('为了您的资金安全，修改Google验证码后，24小时不可以提币')}</div>
+                ) : null}
+                {$content}
             </PageWrapper>
         );
     }

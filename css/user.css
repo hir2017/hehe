@@ -1447,7 +1447,7 @@ body .user-main .ant-select-dropdown-menu-item {
     border-bottom-color: transparent;
 }
 
-.user-main .common-setting-box .ant-row.pwd .ant-col-8 {
+.user-main .common-setting-box .ant-row.pwd .col-exc {
     top: 50%;
     transform: translateY(-50%);
 }
@@ -1465,7 +1465,7 @@ body .user-main .ant-select-dropdown-menu-item {
     text-decoration-line: underline;
 }
 
-.user-main .common-setting-box .ant-row.pwd .ant-col-8.operator {
+.user-main .common-setting-box .ant-row.pwd .col-exc.operator {
     text-align: right;
 }
 
@@ -1478,8 +1478,8 @@ body .user-main .ant-select-dropdown-menu-item {
     color: #999;
 }
 
-.user-main .common-setting-box .ant-col-8.operator .ant-btn.exc-secondary,
-.user-main .common-setting-box .ant-col-8.operator .ant-btn.exc-btn-white {
+.user-main .common-setting-box .col-exc.operator .ant-btn.exc-secondary,
+.user-main .common-setting-box .col-exc.operator .ant-btn.exc-btn-white {
     margin-left: 30px;
 }
 
