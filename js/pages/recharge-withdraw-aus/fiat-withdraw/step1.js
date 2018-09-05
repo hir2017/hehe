@@ -18,6 +18,7 @@ export default class View extends React.Component {
             name: init.name || '',
             withdrawVal: 0,
             amountLowLimit: 0,
+            amountHighLimit: 0,
         };
         this.timmer = null;
         this.fee = 0;
@@ -105,7 +106,8 @@ export default class View extends React.Component {
         getUserActionLimit(2, 1).then(res => {
             if(res.status === 200) {
                 this.setState({
-                    amountLowLimit: res.attachment.limits[0].lowLimit
+                    amountLowLimit: res.attachment.limits[0].lowLimit,
+                    amountHighLimit: res.attachment.limits[0].highLimit
                 })
 
             } else {
@@ -142,6 +144,10 @@ export default class View extends React.Component {
         }
         if(state.amount < state.amountLowLimit) {
             message.error(UPEX.lang.template('提现金额小于单笔最小提现限额'));
+            return false;
+        }
+        if(state.amount > state.amountHighLimit) {
+            message.error(UPEX.lang.template('提现金额大于单笔最大提现限额'));
             return false;
         }
         return true;

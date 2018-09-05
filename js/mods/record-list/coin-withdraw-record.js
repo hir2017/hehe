@@ -7,7 +7,7 @@
 
 import React, {Component} from 'react';
 import { observer, inject } from 'mobx-react';
-import { Pagination} from 'antd';
+import { Pagination, Icon} from 'antd';
 
 @inject('coinWithdrawRecordStore')
 @observer
@@ -72,7 +72,8 @@ class List extends Component {
 
 							switch (item.confirms){
 								case 'Success':
-									status =  UPEX.lang.template('已完成');
+                                    // status =  UPEX.lang.template('已完成');
+                                    status = <span className="all-success has-ico"><Icon type="check-circle-o" />{UPEX.lang.template('已完成')}</span>
 									visible = true;
 									info = UPEX.lang.template('Txid:{value}', { value: item.walletWaterSn || '--'});
 									break;
