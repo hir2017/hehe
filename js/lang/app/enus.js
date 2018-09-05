@@ -465,7 +465,7 @@ module.exports={
     "已成交": "Settled",
     "已拒绝": "Declined",
     "已接受到您的信息，我们正在全力审核中": "Your information has been received and will be reviewed shortly.",
-    "已放款": "The fund has been released. ",
+    "已放款": "Already released",
     "已放款，到账速度取决于银行进度": "Already released",
     "已经注册?": "Already registered? Log in",
     "已绑定": "bound",
