@@ -19,43 +19,45 @@ class FundChangeRecordStore {
         recharge: 1,
         withdraw: 2
     };
-    statusMap = {
-        withdraw: {
-            '0': UPEX.lang.template('审核中'),
-            '1': UPEX.lang.template('已放款'),
-            '2': UPEX.lang.template('审核中'),
-            '3': UPEX.lang.template('审核中'),
-            '4': UPEX.lang.template('审核中'),
-            '5': UPEX.lang.template('审核中'),
-            '6': UPEX.lang.template('审核拒绝'),
-            '7': UPEX.lang.template('审核中'),
-            '8': UPEX.lang.template('放款失败'),
-        },
-        recharge: {
-            '0': UPEX.lang.template('用户已付款'),
-            '1': UPEX.lang.template('已完成'),
-            '2': UPEX.lang.template('用户已付款'),
-            '3': UPEX.lang.template('待付款'),
-            '5': UPEX.lang.template('用户已付款'),
-            '6': UPEX.lang.template('用户已付款'),
-            '9': UPEX.lang.template('超时取消'),
-        }
-    }
-    ausStatusMap = {
-        withdraw: {
-            '0': UPEX.lang.template('审核中'),
-            '1': UPEX.lang.template('已放款'),
-            '2': UPEX.lang.template('审核中'),
-            '3': UPEX.lang.template('审核中'),
-            '4': UPEX.lang.template('审核中'),
-            '5': UPEX.lang.template('审核中'),
-            '6': UPEX.lang.template('审核拒绝'),
-            '7': UPEX.lang.template('审核中'),
-            '8': UPEX.lang.template('放款失败'),
-        },
-        recharge: {
-            '1': UPEX.lang.template('充值成功'),
-            '3': UPEX.lang.template('充值失败'),
+
+    getStatusMap(type) {
+        return type === 'aus' ? {
+            withdraw: {
+                '0': UPEX.lang.template('审核中'),
+                '1': UPEX.lang.template('已放款'),
+                '2': UPEX.lang.template('审核中'),
+                '3': UPEX.lang.template('审核中'),
+                '4': UPEX.lang.template('审核中'),
+                '5': UPEX.lang.template('审核中'),
+                '6': UPEX.lang.template('审核拒绝'),
+                '7': UPEX.lang.template('审核中'),
+                '8': UPEX.lang.template('放款失败'),
+            },
+            recharge: {
+                '0': UPEX.lang.template('用户已付款'),
+                '1': UPEX.lang.template('已完成'),
+                '2': UPEX.lang.template('用户已付款'),
+                '3': UPEX.lang.template('待付款'),
+                '5': UPEX.lang.template('用户已付款'),
+                '6': UPEX.lang.template('用户已付款'),
+                '9': UPEX.lang.template('超时取消'),
+            }
+        } : {
+            withdraw: {
+                '0': UPEX.lang.template('审核中'),
+                '1': UPEX.lang.template('已放款'),
+                '2': UPEX.lang.template('审核中'),
+                '3': UPEX.lang.template('审核中'),
+                '4': UPEX.lang.template('审核中'),
+                '5': UPEX.lang.template('审核中'),
+                '6': UPEX.lang.template('审核拒绝'),
+                '7': UPEX.lang.template('审核中'),
+                '8': UPEX.lang.template('放款失败'),
+            },
+            recharge: {
+                '1': UPEX.lang.template('充值成功'),
+                '3': UPEX.lang.template('充值失败'),
+            }
         }
     }
 
@@ -122,7 +124,7 @@ class FundChangeRecordStore {
     }
 
     parseData(arr) {
-        const statusMap = this.statusMap
+        const statusMap = this.getStatusMap();
         arr.forEach((item, index) => {
             item._type = item.type === 1 ? 'recharge' : 'withdraw';
             const tempMap = statusMap[item._type];
@@ -143,7 +145,8 @@ class FundChangeRecordStore {
      *
     */
    ausParseData(arr) {
-    const {dataType, ausPayMap: payMap, ausStatusMap: statusMap} = this;
+    const {dataType, ausPayMap: payMap} = this;
+    let statusMap = this.getStatusMap('aus');
     arr.forEach((item, index) => {
         item._type = dataType;
         const tempMap = statusMap[item._type];
