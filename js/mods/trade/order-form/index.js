@@ -99,7 +99,7 @@ class TradeForm extends Component{
             prefixCls: "exc-dialog",
             content: UPEX.lang.template('交易前请先设置资金密码'),
             okText: UPEX.lang.template('资金密码设置'),
-            okCancel: false,
+            cancelText: UPEX.lang.template('我再想想'),
             onOk() {
                 browserHistory.push('/user/set-trade-pwd');
             }
@@ -245,7 +245,9 @@ class TradeForm extends Component{
 							<em>{store.personalAccount.baseCoinBalanceText}</em>
 							<label>{baseCurrencyNameEn}</label>
 						</li>
-						<li className="icon" onClick={this.goRecharge.bind(this,'fiat', baseCurrencyNameEn)}></li>
+						<Tooltip placement="top" overlayClassName={store.theme == 'dark' ? 'ant-tooltip-dark' : 'ant-tooltip-light'} title={UPEX.lang.template('充币')}>
+							<li className="icon" onClick={this.goRecharge.bind(this,'fiat', baseCurrencyNameEn)}></li>
+						</Tooltip>
 					</ul>
 					<ul className="form-mod-bd">
 						<li className="hidden">
@@ -315,7 +317,9 @@ class TradeForm extends Component{
 							<em>{ store.personalAccount.tradeCoinBalanceText }</em>
 							<label>{currencyNameEn}</label>
 						</li>
-						<li className="icon" onClick={this.goRecharge.bind(this, 'coin', currencyNameEn)}></li>
+						<Tooltip placement="top" overlayClassName={store.theme == 'dark' ? 'ant-tooltip-dark' : 'ant-tooltip-light'} title={UPEX.lang.template('充币')}>
+							<li className="icon" onClick={this.goRecharge.bind(this, 'coin', currencyNameEn)}></li>
+						</Tooltip>
 					</ul>
 					<ul className="form-mod-bd">
 						<li className="hidden">
@@ -388,7 +392,9 @@ class TradeForm extends Component{
 							<em>{ store.personalAccount.baseCoinBalanceText }</em>
 							<label>{ baseCurrencyNameEn}</label>
 						</li>
-						<li className="icon" onClick={this.goRecharge.bind(this,'fiat', baseCurrencyNameEn)}></li>
+						<Tooltip placement="top" overlayClassName={store.theme == 'dark' ? 'ant-tooltip-dark' : 'ant-tooltip-light'} title={UPEX.lang.template('充币')}>
+							<li className="icon" onClick={this.goRecharge.bind(this,'fiat', baseCurrencyNameEn)}></li>
+						</Tooltip>
 					</ul>
 					<ul className="form-mod-bd">
 						<li className="hidden">
@@ -452,7 +458,9 @@ class TradeForm extends Component{
 							<em>{ store.personalAccount.tradeCoinBalanceText }</em>
 							<label>{ currencyNameEn }</label>
 						</li>
-						<li className="icon" onClick={this.goRecharge.bind(this, 'coin', currencyNameEn)}></li>
+						<Tooltip placement="top" overlayClassName={store.theme == 'dark' ? 'ant-tooltip-dark' : 'ant-tooltip-light'} title={UPEX.lang.template('充币')}>
+							<li className="icon" onClick={this.goRecharge.bind(this, 'coin', currencyNameEn)}></li>
+						</Tooltip>
 					</ul>
 					<ul className="form-mod-bd">
 						<li className="hidden">

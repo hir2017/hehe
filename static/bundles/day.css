@@ -14,6 +14,8 @@
     background: #fff
 }
 
+
+
 .intervals-list .add,
 .intervals-list .mins {
     background-color: #fff;
@@ -145,6 +147,7 @@
     background: #f7f8f9;
 }
 
+
 .context-menu-wrapper {
     border-color: #edf0f1;
     background-color: #fff;
@@ -170,7 +173,7 @@ tr.context-menu-hover {
 
 .feature-no-touch .charts-popup-list .item.special.disabled:hover,
 .charts-popup-list .item.special {
-    background: #2a2e35;
+    background: #f7f8f9;
     color: #323e48;
 }
 

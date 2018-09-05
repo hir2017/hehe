@@ -104,8 +104,8 @@ class TVChartContainer extends Component {
                 bg: "#ffffff",
                 grid: "#f7f8fa",
                 cross: "#23283D",
-                border: "#9194a4",
-                text: "#9194a4",
+                border: "#cad1d5",
+                text: "#cad1d5",
                 areatop: "rgba(122, 152, 247, .1)",
                 areadown: "rgba(122, 152, 247, .02)"
             },

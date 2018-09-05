@@ -1,4 +1,3 @@
-
 .popup-trade-password .input-box {
     border: 1px solid rgb(216, 217, 221);
     outline: 0 none;
@@ -41,59 +40,96 @@
     border-radius: 3px;
 }
 
-.popup-trade-password .submit:hover{
+.popup-trade-password .submit:hover {
     background-color: #ffdc57;
 }
+
 
 
 
 /**
  * 提示弹出框
  */
+
+
 /* use css to set position of modal */
+
 .exc-dialog {
-  text-align: center;
-  white-space: nowrap;
+    text-align: center;
+    white-space: nowrap;
 }
 
 .exc-dialog:before {
-  content: '';
-  display: inline-block;
-  height: 100%;
-  vertical-align: middle;
-  width: 0;
+    content: '';
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+    width: 0;
+}
+
+.exc-dialog .ant-modal-body{
+    padding: 24px 0 0;
 }
 
 .exc-dialog-content {
     white-space: normal;
     text-align: center;
+    color: #323e48;
+    font-size: 16px;
+    padding-top: 20px;
 }
 
 
-.exc-dialog-body-wrapper{
+.exc-dialog-body-wrapper {
     margin-top: 10px;
     text-align: left;
 }
 
-.exc-dialog-body-content{
+.exc-dialog-body-content {
     padding-bottom: 30px;
 }
-.exc-dialog-body-wrapper .anticon{
-    font-size: 22px;
-    margin-right: 16px;
-    float: left;
-    color: #faad14;
+
+.exc-dialog-body-wrapper .anticon {
+    display: none;
 }
 
-.exc-dialog-btns{
-    padding-top: 20px;
+.exc-dialog-btns {
+    margin-top: 40px;
+    height: 50px;
+    line-height: 50px;
     text-align: center;
+    border-top: 1px solid #edf0f1;
 }
-.exc-dialog-btns button{
-    width: 120px;
-    height: 30px;
-    line-height: 30px;
+
+
+.exc-dialog .exc-dialog-btns button+button,
+.exc-dialog .exc-dialog-btns button+button:hover,
+.exc-dialog .exc-dialog-btns button,
+.exc-dialog .exc-dialog-btns button:hover{
+    margin: 0;
+    padding: 0;
+    background: none;
+    border-radius: 0;
+    border: none;
+    height: 50px;
+    line-height: 50px;
+    color: #969da9;
+    border: 0 none;
+    outline: 0 none;
+    box-shodow: none;
 }
+
+.exc-dialog-confirm .exc-dialog-btns button+button,
+.exc-dialog-confirm .exc-dialog-btns button+button:hover{
+    border-left: 1px solid #edf0f1;
+    color: #cc9900;
+}
+.exc-dialog-confirm .exc-dialog-btns button+button,
+.exc-dialog-confirm .exc-dialog-btns button{ 
+    width: 50%;
+}
+
+
 .exc-dialog-btns button+button {
     margin-left: 10px;
 }

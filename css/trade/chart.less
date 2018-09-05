@@ -219,6 +219,8 @@
             .ant-input-suffix {
                 width : 15px;
                 height: 15px;
+                background: url('../../images/theme-dark/icon-search.png') no-repeat center center;
+                background-size: 15px 15px;
             }
 
             .ant-input-search-icon{
@@ -295,7 +297,7 @@
 .popover-tradecoins-light {
     .ant-popover-inner{
         background-color: @bg-whitepop-color;
-        box-shadow: 1px 1px 25px rgba(23,26,29,0.5);
+        box-shadow: 0px 4px 12px rgba(48,55,62,.2);
     }
     &.ant-popover-placement-bottomLeft .ant-popover-content .ant-popover-arrow {
         background-color: @bg-whitepop-color;
@@ -305,6 +307,10 @@
     }
     .coin-list-nav .title {
         color: @text-color01-light;
+    }
+
+    .coin-list-nav .tabs li{
+        color: @text-color02-light;
     }
 
     .coin-list-nav .search .ant-input {
@@ -338,6 +344,13 @@
         }
     }
 
+    .coin-list-nav .search .ant-input-suffix {
+        width : 15px;
+        height: 15px;
+        background: url('../../images/theme-light/icon-search.png') no-repeat center center;
+        background-size: 15px 15px;
+    }
+
     .table-header ul {
         border-bottom: 1px solid @bg-color-light;
     }
@@ -364,6 +377,11 @@
     &.ant-tooltip-placement-rightBottom .ant-tooltip-arrow,
     &.ant-tooltip-placement-rightTop .ant-tooltip-arrow {
         border-color: rgba(255, 255, 255, .75);
+    }
+    &.ant-tooltip-placement-top .ant-tooltip-arrow, 
+    &.ant-tooltip-placement-topLeft .ant-tooltip-arrow, 
+    &.ant-tooltip-placement-topRight .ant-tooltip-arrow {
+        border-top-color: rgba(255, 255, 255, .75);
     }
     .ant-tooltip-inner {
         background-color: rgba(255, 255, 255, .75)

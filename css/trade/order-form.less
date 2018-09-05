@@ -333,11 +333,7 @@
                     }
                     &.disabled {
                         background-color: @input-disabled-bg-color-light;
-                        .input-box {
-                            input {
-                                color: @text-color02-light;
-                            }
-                        }
+                        color: @text-color04-light;
                     }
                 }
                 .item-submit {
@@ -349,11 +345,17 @@
                             background-color: @btn-sell-bg-color-light;
                             border: 1px solid @btn-sell-border-color-light;
                             color: @text-color;
+                            &:hover {
+                                background-color: #ea6060;
+                            }
                         }
                         &.buy {
                             background-color: @btn-buy-bg-color-light;
                             border: 1px solid @btn-buy-border-color-light;
                             color: @text-color;
+                            &:hover {
+                                background-color: #00a184;
+                            }
                         }
                     }
                 }
