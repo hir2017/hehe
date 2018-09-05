@@ -101,5 +101,5 @@
     "start-ace": "pm2 start server.js  -o ./logs/out.log -e ./logs/error.log ",
     "stop-ace": "pm2 stop server.js"
   },
-  "version": "2.0.0"
+  "version": "2.0.1"
 }

@@ -109,6 +109,10 @@ export default class TradeStore {
         }
     }
 
+    @computed getMainOrderWidth() {
+        return this.commonStore.windowDimensions.height - 550;
+    }
+
     @action changeThemeTo = (value) => {
         this.theme = value;
         UPEX.cache.setCache('theme', value);

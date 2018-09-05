@@ -105,6 +105,13 @@
         .mini-loading {
             background-color: transparent !important;
         }
+        ::-webkit-scrollbar,
+        ::-webkit-scrollbar-track {
+            background-color: @bg-module;
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: @bg-pop-color;
+        }
         .list-is-empty {
             padding-top: 40px;
             background: url('../../images/icon-empty.png') no-repeat center top;
@@ -140,7 +147,6 @@
                 }
                 th {
                     height: 30px !important;
-                    white-space: nowrap;
                 }
                 &::before {
                     display: none;
@@ -152,9 +158,8 @@
             .table-bd {
                 flex: 1;
                 position: static;
-                overflow: scroll;
+                overflow: auto;
                 overflow-x: hidden;
-                margin-right: -17px;
                 dl {
                     height: 30px;
                     line-height: 30px;
@@ -177,6 +182,7 @@
                 li.more-tip {
                     text-align: center;
                     margin-top: 50px;
+                    margin-bottom: 20px;
                     button {
                         display: inline-block;
                         height: 36px;
@@ -319,6 +325,17 @@
     .trade-order-bd .order-main-box .table-bd li.more-tip button {
         background-color: #edeff1;
         color: #838891;
+    }
+
+    .trade-order-bd {
+        position: relative;   
+        ::-webkit-scrollbar,
+        ::-webkit-scrollbar-track {
+            background-color: @bg-module-light;
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: #838891;
+        }
     }
 }
 

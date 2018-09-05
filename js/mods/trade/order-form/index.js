@@ -40,8 +40,14 @@ class TradeForm extends Component{
 
 	goRecharge=(type, coinName,e)=>{
         let userInfoStore = this.props.userInfoStore;
+
+        if (!userInfoStore.userInfo.uid) {
+        	browserHistory.push('/login');
+        	return;
+        }
         // 判断货币是法币还是数字币
         let rechargeUrl = coinName === UPEX.config.baseCurrencyEn ? '/account/balance/recharge' : `/account/coin/recharge/${coinName}`;
+		
 		if (type == 'fiat') {
 			if (UPEX.config.version == 'infinitex') {
 				// 澳洲版，leve=1即可进行下单
