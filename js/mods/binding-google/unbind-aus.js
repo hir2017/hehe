@@ -6,8 +6,7 @@ import { setTradePwdSendCode } from '@/api/http';
 import FormView from '@/mods/common/form';
 import FormItem from '@/mods/common/form/item';
 import SmsBtn from '@/mods/common/sms-btn';
-
-import InputItem from '../../components/form/input-item';
+import Numberutils from  '@/lib/util/number';
 import PageForm from '../../components/page-user/page-form';
 import { createGetProp } from '../../components/utils';
 
@@ -23,11 +22,6 @@ export default class ReBinding extends Component {
             google: {
                 label: UPEX.lang.template('Google验证码'),
                 inputProps: getProp('google', 'none')
-            },
-            ivCode: {
-                label: UPEX.lang.template('图片验证码'),
-                className: 'v-code',
-                inputProps: getProp('ivCode', 'none')
             },
             vCode: {
                 label: UPEX.lang.template('短信验证码'),
@@ -50,13 +44,16 @@ export default class ReBinding extends Component {
     state = {
         google: '',
         vCode: '',
-        ivCode: ''
     };
 
     setVal(e, name) {
-        const data = {};
-        data[name] = e.target.value;
-        this.setState(data);
+        let val = e.target.value.trim();
+        if(!Numberutils.isInteger(val)) {
+            return;
+        };
+        this.setState({
+            [name]: val
+        });
     }
 
 
@@ -79,14 +76,14 @@ export default class ReBinding extends Component {
 
     render() {
         const loading = this.props.userInfoStore.submit_loading;
-        const {inputsData, PageProps, $sendBtn} = this;
+        const {inputsData, PageProps, $sendBtn, state} = this;
 
         return (
             <PageForm {...PageProps}>
                 <FormView>
-                    <FormItem {...inputsData.vCode} after={$sendBtn} />
+                    <FormItem {...inputsData.vCode} value={state.vCode} after={$sendBtn} />
+                    <FormItem {...inputsData.google} value={state.google} />
                 </FormView>
-                <InputItem {...inputsData.google} />
                 <div className="info">
                     <Link to="/user/google-guide" className="exc-link underline">{UPEX.lang.template('Google验证器使用教程')}</Link>
                 </div>
