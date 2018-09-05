@@ -49,21 +49,21 @@ class View extends React.Component {
                 let tempAll = {
                     base: [],
                     trade: []
-                }
+                };
                 let _state = {
                     tradeCoins: [],
                     baseCoins: []
                 };
                 res.attachment.forEach(item => {
-                    const {baseCurrencyId, tradeCurrencyId} = item;
+                    const { baseCurrencyId, tradeCurrencyId } = item;
                     // 去重收集信息
-                    if(temp.base[baseCurrencyId]) {
+                    if (temp.base[baseCurrencyId]) {
                         temp.base[baseCurrencyId].push(item);
                     } else {
                         tempAll.base.push(item);
                         temp.base[baseCurrencyId] = [item];
                     }
-                    if(temp.trade[tradeCurrencyId]) {
+                    if (temp.trade[tradeCurrencyId]) {
                         temp.trade[tradeCurrencyId].push(item);
                     } else {
                         tempAll.trade.push(item);
@@ -82,13 +82,13 @@ class View extends React.Component {
     }
 
     onChange(name, param1, param2) {
-        const {state} = this;
+        const { state } = this;
         if (name === 'date') {
             this.setState({
                 beginTime: param2[0],
                 endTime: param2[1]
             });
-            return ;
+            return;
         }
         // 货币变更，切换市场
         if (name === 'currencyId') {
@@ -99,7 +99,7 @@ class View extends React.Component {
                 baseCurrencyId: result.length !== 0 ? state.baseCurrencyId : '0',
                 baseCoins: tempBase
             });
-            return ;
+            return;
         }
         // 市场变更，切换货币
         if (name === 'baseCurrencyId') {
@@ -110,7 +110,7 @@ class View extends React.Component {
                 currencyId: result.length !== 0 ? state.currencyId : '0',
                 tradeCoins: tempTrade
             });
-            return ;
+            return;
         }
         this.setState({
             [name]: param1
@@ -128,18 +128,22 @@ class View extends React.Component {
             <div className="order-header">
                 <div className="filter-box">
                     <ul className="form-content">
+                        {action === 'open' ? null : (
+                            <li>
+                                {state.beginTime ? null : (
+                                    <div className="ie11-hack">
+                                        <span className="placeholder">{UPEX.lang.template('选择日期')}</span>
+                                        <span className="placeholder">{UPEX.lang.template('选择日期')}</span>
+                                    </div>
+                                )}
+                                <RangePicker size="small" onChange={this.onChange.bind(this, 'date')} placeholder={['', '']} allowClear={false} />
+                            </li>
+                        )}
                         <li>
-                            {state.beginTime ? null : (
-                                <div className="ie11-hack">
-                                    <span className="placeholder">{UPEX.lang.template('选择日期')}</span>
-                                    <span className="placeholder">{UPEX.lang.template('选择日期')}</span>
-                                </div>
-                            )}
-                            <RangePicker size="small" onChange={this.onChange.bind(this, 'date')} placeholder={['', '']} allowClear={false} />
-                        </li>
-                        <li>
-                            <label>{UPEX.lang.template('币种')}/{UPEX.lang.template('市场')}</label>
-                            <Select size="large"  defaultValue={state.currencyId} value={state.currencyId} onChange={this.onChange.bind(this, 'currencyId')}>
+                            <label>
+                                {UPEX.lang.template('币种')}/{UPEX.lang.template('市场')}
+                            </label>
+                            <Select size="large" defaultValue={state.currencyId} value={state.currencyId} onChange={this.onChange.bind(this, 'currencyId')}>
                                 <Option value="0">{UPEX.lang.template('全部')}</Option>
                                 {state.tradeCoins.map((item, i) => (
                                     <Option value={item.tradeCurrencyId} key={i + 1}>
@@ -147,8 +151,14 @@ class View extends React.Component {
                                     </Option>
                                 ))}
                             </Select>
-                            <label></label><label>/</label>
-                            <Select size="large" defaultValue={state.baseCurrencyId} value={state.baseCurrencyId} onChange={this.onChange.bind(this, 'baseCurrencyId')}>
+                            <label />
+                            <label>/</label>
+                            <Select
+                                size="large"
+                                defaultValue={state.baseCurrencyId}
+                                value={state.baseCurrencyId}
+                                onChange={this.onChange.bind(this, 'baseCurrencyId')}
+                            >
                                 <Option value="0">{UPEX.lang.template('全部')}</Option>
                                 {state.baseCoins.map((item, i) => (
                                     <Option value={item.baseCurrencyId} key={i + 1}>
@@ -178,7 +188,9 @@ class View extends React.Component {
                             </li>
                         ) : null}
                     </ul>
-                    <Button className="exc-btn-submit" icon="search" onClick={this.handleClick.bind(this)}>{UPEX.lang.template('搜索')}</Button>
+                    <Button className="exc-btn-submit" icon="search" onClick={this.handleClick.bind(this)}>
+                        {UPEX.lang.template('搜索')}
+                    </Button>
                 </div>
             </div>
         );
