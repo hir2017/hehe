@@ -1,49 +1,84 @@
-.popup-trade-password .input-box {
-    border: 1px solid rgb(216, 217, 221);
-    outline: 0 none;
-    height: 40px;
-    margin: 0 auto;
-    width: 460px;
+.exc-pwdpop {
+    .ant-modal-body {
+        padding: 24px 0 0;
+    }
+
+    .ant-modal-title{
+        color: #323e48;
+        text-align: center;
+        font-weight: normal;
+    }
+    .popup-trade-password .input-area {
+        padding: 0 70px;
+    }
+    .popup-trade-password .input-box {
+        border: 1px solid rgb(216, 217, 221);
+        outline: 0 none;
+        height: 40px;
+        margin: 0 auto;
+        width: 400px;
+        border-radius: 3px;
+    }
+
+    .popup-trade-password .input-box input {
+        border: 0 none;
+        background: none;
+        outline: 0 none;
+        line-height: 21px;
+        padding: 10px 10px;
+        width: 100%;
+    }
+
+    .popup-trade-password .input-box.wrong {
+        border-right: 1px solid #ff6666;
+    }
+
+    .popup-trade-password .submit {
+        width: 100%;
+        height: 50px;
+        line-height: 50px;
+        margin: 0 auto;
+        margin-top: 30px;
+        background-color: transparent;
+        color: #cc9900;
+        text-align: center;
+        display: block;
+        border-top: 1px solid #edf0f1;
+    }
 }
 
-.popup-trade-password .input-box input {
-    border: 0 none;
-    background: none;
-    outline: 0 none;
-    line-height: 21px;
-    padding: 10px 10px;
-    width: 100%;
-}
 
-.popup-trade-password .input-box.wrong {
-    border-right: 1px solid #ff6666;
-}
 
-.popup-trade-password .warn-tip {
-    color: #ff6666;
-    min-height: 20px;
-    line-height: 20px;
-    font-size: 14px;
-    width: 362px;
-    margin: 0 auto;
-}
+.exc-pwdpop-dark {
+    .ant-modal-close,
+    .ant-modal-close:hover {
+        color: rgba(255, 255, 255, .45);
+    }
 
-.popup-trade-password .submit {
-    width: 120px;
-    height: 30px;
-    line-height: 30px;
-    margin: 0 auto;
-    background-color: #e8b802;
-    color: #333333;
-    text-align: center;
-    display: block;
-    border-radius: 3px;
-}
+    .ant-modal-content {
+        background-color: #2f343b;
+        box-shadow: 0 4px 12px rgba(255, 255, 255, .15);
+    }
 
-.popup-trade-password .submit:hover {
-    background-color: #ffdc57;
-}
+    .ant-modal-header {
+        background-color: #2f343b;
+        border-bottom: 1px solid #282b2e;
+    }
 
+    .ant-modal-title {
+        color: #c5cedd;
+    }
+
+    .popup-trade-password .input-box {
+        border: 1px solid #282b2e;
+        background-color: #191b1d;
+        color: #c5cedd;
+    }
+
+    .popup-trade-password .submit {
+        border-color: #282b2e;
+    }
+}
 
 
 
@@ -67,7 +102,7 @@
     width: 0;
 }
 
-.exc-dialog .ant-modal-body{
+.exc-dialog .ant-modal-body {
     padding: 24px 0 0;
 }
 
@@ -105,7 +140,7 @@
 .exc-dialog .exc-dialog-btns button+button,
 .exc-dialog .exc-dialog-btns button+button:hover,
 .exc-dialog .exc-dialog-btns button,
-.exc-dialog .exc-dialog-btns button:hover{
+.exc-dialog .exc-dialog-btns button:hover {
     margin: 0;
     padding: 0;
     background: none;
@@ -120,12 +155,13 @@
 }
 
 .exc-dialog-confirm .exc-dialog-btns button+button,
-.exc-dialog-confirm .exc-dialog-btns button+button:hover{
+.exc-dialog-confirm .exc-dialog-btns button+button:hover {
     border-left: 1px solid #edf0f1;
     color: #cc9900;
 }
+
 .exc-dialog-confirm .exc-dialog-btns button+button,
-.exc-dialog-confirm .exc-dialog-btns button{ 
+.exc-dialog-confirm .exc-dialog-btns button {
     width: 50%;
 }
 
@@ -135,23 +171,24 @@
 }
 
 .exc-dialog-dark {
-    .ant-modal-close {
-        color: rgba(255,255,255,.45);
+    .ant-modal-close,
+    .ant-modal-close:hover {
+        color: rgba(255, 255, 255, .45);
     }
 
-    .ant-modal-content{
+    .ant-modal-content {
         background-color: #2f343b;
-        box-shadow: 0 4px 12px rgba(255,255,255,.15);
+        box-shadow: 0 4px 12px rgba(255, 255, 255, .15);
     }
 
-    .exc-dialog-content{
+    .exc-dialog-content {
         color: #c5cedd;
     }
 
-    .exc-dialog-btns{
+    .exc-dialog-btns {
         border-color: #282b2e;
         button+button,
-        button+button:hover{ 
+        button+button:hover {
             border-color: #282b2e;
         }
     }

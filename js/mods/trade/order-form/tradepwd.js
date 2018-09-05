@@ -66,6 +66,7 @@ class PopupTradePwd extends Component{
         return (
             <Modal
                 ref="modal"
+                width="540"
                 wrapClassName={`vertical-center-modal ${this.props.prefix}`}
                 title={UPEX.lang.template('输入资金密码')}
                 visible={this.state.visible}
@@ -81,7 +82,6 @@ class PopupTradePwd extends Component{
                                 onBlur={this.onBlur.bind(this)}
                             />
                         </div>
-                        <p className="warn-tip"></p>
                     </div>
                     <button type="button" className="submit" onClick={this.handleSubmit.bind(this)}>{UPEX.lang.template('提交')}</button>
                 </div>

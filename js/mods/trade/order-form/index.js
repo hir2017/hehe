@@ -546,7 +546,7 @@ class TradeForm extends Component{
 					{limitcontent}
 					{marketcontent}
 				</div>
-				<PopupTradePwd ref="pwdpop" prefix={`antd-modal-${store.theme}`}/>
+				<PopupTradePwd ref="pwdpop" prefix={`exc-pwdpop exc-pwdpop-${store.theme}`}/>
 			</div>
 		);
 	}
