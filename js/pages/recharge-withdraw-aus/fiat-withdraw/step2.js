@@ -122,7 +122,7 @@ export default class View extends React.Component {
                             <span className="val">{info.BSB}</span>
                         </p>
                         <p>
-                            <label>{UPEX.lang.template('收款账号(Receive number)')}:</label>
+                            <label>{UPEX.lang.template('收款账号(Account Number)')}:</label>
                             <span className="val">{info.account}</span>
                         </p>
                         <p className="text">{UPEX.lang.template('为了您的资金安全，请确认您的银行卡信息是否正确')}</p>

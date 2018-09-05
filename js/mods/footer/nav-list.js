@@ -52,16 +52,16 @@ const getNavList = () => {
                 path: UPEX.lang.template('用户协议网页链接')
             },
             {
-                name: UPEX.lang.template('隐私保护'),
+                name: UPEX.lang.template('隐私条款'),
                 path: UPEX.config.docUrls.privacyPolicy
             },
-            // {
-            //     name: UPEX.lang.template('服务条款'),
-            //     path: UPEX.lang.template('服务条款网页链接')
-            // },
             {
-                name: UPEX.lang.template('免费声明'),
+                name: UPEX.lang.template('免责声明'),
                 path: UPEX.config.docUrls.riskDisclosure
+            },
+            {
+                name: UPEX.lang.template('反洗钱及认证条款'),
+                path: UPEX.config.docUrls.kycPolicy
             }
         ],
 
