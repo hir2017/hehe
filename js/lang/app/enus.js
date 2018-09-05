@@ -405,7 +405,7 @@ module.exports={
     "台湾身份证": "ID",
     "合庫WEBATM": "Taiwan Cooperative Bank WEB-ATM",
     "名称": "Name",
-    "启用委托认证": "Password required for trading?",
+    "启用委托认证": "Password required for trading",
     "商务合作": "Business partners",
     "团队介绍": "Our team",
     "团队介绍网页链接": "https://helpcenter.ace.io/zh-jt/?p=1",
