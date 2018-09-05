@@ -75,7 +75,7 @@
     white-space: normal;
     text-align: center;
     color: #323e48;
-    font-size: 16px;
+    font-size: 18px;
     padding-top: 20px;
 }
 
@@ -132,4 +132,27 @@
 
 .exc-dialog-btns button+button {
     margin-left: 10px;
+}
+
+.exc-dialog-dark {
+    .ant-modal-close {
+        color: rgba(255,255,255,.45);
+    }
+
+    .ant-modal-content{
+        background-color: #2f343b;
+        box-shadow: 0 4px 12px rgba(255,255,255,.15);
+    }
+
+    .exc-dialog-content{
+        color: #c5cedd;
+    }
+
+    .exc-dialog-btns{
+        border-color: #282b2e;
+        button+button,
+        button+button:hover{ 
+            border-color: #282b2e;
+        }
+    }
 }

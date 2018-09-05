@@ -13,7 +13,7 @@ import toAction from './action';
 import { TabView , AreaCodeSelectView, SMSCodeView } from './views';
 import YidunCaptcha  from '../../mods/yidun-captcha';
 
-@inject('loginStore')
+@inject('loginStore', 'tradeStore')
 @observer
 class Login extends Component {
     constructor(props){
@@ -124,7 +124,9 @@ class Login extends Component {
              * 文案：您尚未进行安全级别认证，请完成身份认证及银行卡绑定获取充提和交易权限
             */
             Modal.confirm({
-                prefixCls: "exc-dialog",
+                prefixCls:  "exc-dialog",
+                className: this.props.tradeStore.theme == 'dark' ? 'exc-dialog-dark' : 'exc-dialog-light',
+                width: 540,
                 content: UPEX.lang.template('请先进行身份认证'),
                 okText: UPEX.lang.template('身份认证'),
                 cancelText: UPEX.lang.template('我再想想'),

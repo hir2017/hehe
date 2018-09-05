@@ -73,6 +73,8 @@ class TradeForm extends Component{
 	showDialogGuideAuth() {
 		Modal.confirm({
             prefixCls: "exc-dialog",
+            width: 540,
+            className: this.props.tradeStore.theme == 'dark' ? 'exc-dialog-dark' : 'exc-dialog-light',
             content: UPEX.lang.template('请先进行身份认证'),
             okText: UPEX.lang.template('去身份认证'),
             cancelText: UPEX.lang.template('我再想想'),
@@ -85,6 +87,8 @@ class TradeForm extends Component{
 	showDialogGuideBindCard() {
 		Modal.confirm({
             prefixCls: "exc-dialog",
+            width: 540,
+            className: this.props.tradeStore.theme == 'dark' ? 'exc-dialog-dark' : 'exc-dialog-light',
             content: UPEX.lang.template('绑定银行卡后可以进行充值'),
             okText: UPEX.lang.template('绑定银行卡'),
             cancelText: UPEX.lang.template('我再想想'),
@@ -97,6 +101,8 @@ class TradeForm extends Component{
 	showDialogGuideTradePWD(){
 		Modal.confirm({
             prefixCls: "exc-dialog",
+            width: 540,
+            className: this.props.tradeStore.theme == 'dark' ? 'exc-dialog-dark' : 'exc-dialog-light',
             content: UPEX.lang.template('交易前请先设置资金密码'),
             okText: UPEX.lang.template('资金密码设置'),
             cancelText: UPEX.lang.template('我再想想'),
