@@ -41,10 +41,10 @@ class OrderBook extends Component {
 
             if (store.currentTradeCoin.currentAmount > store.currentTradeCoin.previousPrice) {
                 trendColor = 'greenrate';
-                trendIcon = <Icon type="arrow-up" style={{fontSize: 12}}/>;
+                trendIcon = <i className="exc-kline-arrow-up"/>;
             } else if(store.currentTradeCoin.currentAmount < store.currentTradeCoin.previousPrice){
                 trendColor = 'redrate';
-                trendIcon = <Icon type="arrow-down" style={{fontSize: 12}}/>;
+                trendIcon = <i className="exc-kline-arrow-down"/>;
             }
         }
 

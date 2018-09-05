@@ -1,6 +1,7 @@
 /**
  * 币种信息模块
  */
+
 .trade-current-coin {
     position: absolute;
     left: 0;
@@ -102,10 +103,10 @@
             height: 20px;
             display: inline-block;
             vertical-align: middle;
-            background: url('../../images/fullscreen-e.png') no-repeat center center;
+            background: url('../../images/theme-dark/fullscreen-e.png') no-repeat center center;
             background-size: 12px 12px;
             &:hover {
-                background: url('../../images/fullscreen-hover-e.png') no-repeat center center;
+                background: url('../../images/theme-dark/fullscreen-hover-e.png') no-repeat center center;
                 background-size: 12px 12px;
             }
         }
@@ -115,10 +116,10 @@
             height: 20px;
             display: inline-block;
             vertical-align: middle;
-            background: url('../../images/fullscreen-o.png') no-repeat center center;
+            background: url('../../images/theme-dark/fullscreen-o.png') no-repeat center center;
             background-size: 12px 12px;
             &:hover {
-                background: url('../../images/fullscreen-hover-o.png') no-repeat center center;
+                background: url('../../images/theme-dark/fullscreen-hover-o.png') no-repeat center center;
                 background-size: 12px 12px;
             }
         }
@@ -135,6 +136,23 @@
         }
         .full-btn {
             background-color: @bg-module-light;
+            .icon-exit-full {
+                background: url('../../images/theme-light/fullscreen-e.png') no-repeat center center;
+                background-size: 12px 12px;
+                &:hover {
+                    background: url('../../images/theme-light/fullscreen-hover-e.png') no-repeat center center;
+                    background-size: 12px 12px;
+                }
+            }
+
+            .icon-full {
+                background: url('../../images/theme-light/fullscreen-o.png') no-repeat center center;
+                background-size: 12px 12px;
+                &:hover {
+                    background: url('../../images/theme-light/fullscreen-hover-o.png') no-repeat center center;
+                    background-size: 12px 12px;
+                }
+            }
         }
     }
 }

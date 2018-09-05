@@ -96,6 +96,7 @@ class Markets extends Component{
                         />
                     </div>
      				<ul className="tabs" ref="tabs">
+                        <li key="bar" data-role="bar" ref="bar" className="tab-bar exc-tab-animated"></li>
      					{
      						store.marketNav.map((item, index)=>{
      							let clsName = item == store.selectedMarketCode ? 'selected' : '';
@@ -114,7 +115,6 @@ class Markets extends Component{
                                 <i className='exc-star' />
      						}
      					</li>
-                        <li key="bar" data-role="bar" ref="bar" className="tab-bar exc-tab-animated"></li>
      				</ul>
      			</div>
                 <div className="coin-list-panel">
