@@ -105,12 +105,12 @@ export default class BindingBank extends Component {
         return (
             <div className="common-setting-box">
                 <Row className="pwd no-bottom top-radius-6">
-                    <Col className="title" span={8}>
+                    <Col className="title col-exc" span={8}>
                         <p>{UPEX.lang.template('登录密码')}</p>
                         <p>{UPEX.lang.template('用于用户的登录验证')}</p>
                     </Col>
-                    <Col className="level" span={8} />
-                    <Col className="operator" span={8}>
+                    <Col className="level col-exc" span={8} />
+                    <Col className="operator col-exc" span={8}>
                         <Button
                             onClick={e => {
                                 browserHistory.push('/user/resetpwd');
@@ -122,12 +122,11 @@ export default class BindingBank extends Component {
                     </Col>
                 </Row>
                 <Row className="pwd bottom-radius-6">
-                    <Col className="title" span={8}>
+                    <Col className="title col-exc" span={12}>
                         <p>{UPEX.lang.template('资金密码')}</p>
                         <p>{UPEX.lang.template('用于交易、绑定解绑银行卡充币提现等资金操作，需要严格保密')}</p>
                     </Col>
-                    <Col className="level" span={8} />
-                    <Col className="operator" span={8}>
+                    <Col className="operator col-exc" span={12}>
                         {userInfo.isValidatePhone ? (
                             <span className="switch">
                                 {UPEX.lang.template('启用委托认证')}
