@@ -115,7 +115,7 @@ class List extends Component {
                                     <th className="time">{UPEX.lang.template('时间')}</th>
                                     <th className="name">{UPEX.lang.template('币种')} / {UPEX.lang.template('市场')}</th>
                                     <th className="buyorsell">{UPEX.lang.template('买卖')}</th>
-                                    <th className="tradeprice">{UPEX.lang.template('成交价')}</th>
+                                    <th className="tradeprice">{UPEX.lang.template('成交价格')}</th>
                                     <th className="num">{UPEX.lang.template('成交数量')}</th>
                                     <th className="fee">{UPEX.lang.template('手续费')}</th>
                                     <th className="amount pr10">{UPEX.lang.template('成交金额')}</th>
