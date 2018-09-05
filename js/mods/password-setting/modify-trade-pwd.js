@@ -66,7 +66,7 @@ export default class ModifyTradingPassword extends Component {
 
     submit() {
         const codeid = this.props.captchaStore.codeid;
-        
+
         if (!this.state.password) {
             message.error(UPEX.lang.template('请输入资金密码'));
             return;
@@ -95,11 +95,11 @@ export default class ModifyTradingPassword extends Component {
         if (!this.validate) {
             message.error(UPEX.lang.template('请完成滑动图片验证'));
             return;
-        } 
+        }
 
         const pwd = md5(this.state.password + UPEX.config.dealSalt + this.props.authStore.uid);
         let reqResult = this.props.userInfoStore.modifytradingPwd(this.state.newPwd, pwd, this.validate, this.captchaId);
-        
+
         reqResult
             .then(data => {
                 if (data.state) {
@@ -110,6 +110,9 @@ export default class ModifyTradingPassword extends Component {
                             loginErrorText: UPEX.lang.template('输入错误，您还有{num}次机会尝试',{ num: data.num})
                         });
                     }
+                    this.validate = '';
+                    this.captchaId = '';
+                    this.yidunCaptcha.captchaIns.refresh();
                 }
             })
             .catch(err => {
