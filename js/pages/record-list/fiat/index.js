@@ -28,7 +28,7 @@ class RecordPage extends Component {
         return (
             <div className="order-wrapper">
                 <Breadcrumb separator=">">
-                    <Breadcrumb.Item>{UPEX.config.sitename}</Breadcrumb.Item>
+                    <Breadcrumb.Item><a href="/home">{UPEX.config.sitename}</a></Breadcrumb.Item>
                     <Breadcrumb.Item>{UPEX.lang.template('资产管理')}</Breadcrumb.Item>
                 </Breadcrumb>
                 <div className="order-body-inner coin-list">

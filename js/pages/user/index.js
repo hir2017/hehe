@@ -117,7 +117,7 @@ class UserPage extends Component {
         return (
             <div className="user-wrapper">
                 <Breadcrumb className="user-breadcrumb" separator=">">
-                    <Breadcrumb.Item>{UPEX.config.sitename}</Breadcrumb.Item>
+                    <Breadcrumb.Item><a href="/home">{UPEX.config.sitename}</a></Breadcrumb.Item>
                     <Breadcrumb.Item>{UPEX.lang.template('个人中心')}</Breadcrumb.Item>
                 </Breadcrumb>
                 <div className="user-body-inner clearfix">
