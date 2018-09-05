@@ -5,7 +5,7 @@ import { Input, Upload, Icon, Button, message, Row, Col } from 'antd';
 const { TextArea } = Input;
 // import bitLength from '../../lib/util/bit-length';
 
-import PageWrapper from '../../common-mods/page-user/page-wrapper';
+import PageWrapper from '../../components/page-user/page-wrapper';
 
 @inject('userInfoStore')
 @observer
@@ -38,11 +38,10 @@ export default class extends Component {
             fileList: info.fileList
         });
         if (info.file.status !== 'uploading') {
-            console.log(info.file, info.fileList);
         }
         if (info.file.status === 'done') {
             if (info.file.response.status === 200) {
-                const url = info.file.response.attachment;
+                const url = info.file.response.attachment ? info.file.response.attachment.url : '';
                 this.uploudUrlS.push(url);
                 message.success(`${info.file.name} ${UPEX.lang.template('上传成功')}`);
             } else {
@@ -80,7 +79,7 @@ export default class extends Component {
             })
             .map(item => {
                 if (item.response) {
-                    return item.response.attachment;
+                    return item.response.attachment.url;
                 }
             })
             .join(',');
@@ -89,7 +88,7 @@ export default class extends Component {
                 this.setState({
                     text: '',
                     fileList: [],
-                    textLen: 200
+                    textLen: 450
                 });
             }
         });
@@ -106,7 +105,7 @@ export default class extends Component {
                     <Col span={20}>
                         {UPEX.lang.template('请详细描述您的问题，客服专员会在四个工作日内回复。请在提问之前浏览一下问题列表 ，也许您的问题在列表裡已解决')}
                     </Col>
-                    <Col className="align-right" span={4}>
+                    <Col className="tr" span={4}>
                         <Link to="/user/questionList">{UPEX.lang.template('前往反馈列表')}</Link>
                     </Col>
                 </Row>
@@ -134,8 +133,8 @@ export default class extends Component {
                         {UPEX.lang.template('可上傳1個附件')}，
                         {UPEX.lang.template('每个文件大小不得超过5M。附件支持的格式有:jpg、jpeg、bmp、png、gif')}
                     </Col>
-                    <Col className="align-right" span={8}>
-                        <Button loading={loading} className="ace-secondary" onClick={this.submit}>
+                    <Col className="tr" span={8}>
+                        <Button loading={loading} className="exc-secondary" onClick={this.submit}>
                             {UPEX.lang.template('提交')}
                         </Button>
                     </Col>

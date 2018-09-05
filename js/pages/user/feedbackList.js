@@ -40,14 +40,13 @@ class ListView extends Component {
     }
 }
 
-import PageWrapper from '../../common-mods/page-user/page-wrapper';
+import PageWrapper from '../../components/page-user/page-wrapper';
 
 @inject('userInfoStore')
 @observer
 export default class extends Component {
     componentDidMount() {
         this.props.userInfoStore.questions(1);
-        // this.props.userInfoStore.questionDetails(3);
     }
 
     pageChange = page => {

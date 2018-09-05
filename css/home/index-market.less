@@ -1,0 +1,320 @@
+/**
+ * 货币行情
+ */
+
+.index-markets {
+    position: relative;
+    min-height: 360px;
+    width: 1200px;
+    margin: 30px auto 0;
+    background-color: #fff;
+    border-radius: 6px;
+    overflow: hidden;
+    .market-nav {
+        position: relative;
+        height: 60px;
+        line-height: 60px;
+        border-bottom: 1px solid @space-color-light;
+        box-shadow: 0px 4px 4px 0px rgba(23, 31, 39, 0.04);
+        padding: 0 20px;
+        li {
+            position: relative;
+            float: left;
+            font-size: 14px;
+            font-weight: bold;
+            color: @text-color02-light;
+            cursor: pointer;
+            text-align: center;
+            &:after {
+                content: '';
+                display: inline-block;
+                vertical-align: middle;
+                background-color: #c1c5c8;
+                height: 10px;
+                width: 1px;
+                margin: 0 20px;
+            }
+            &:last-child:after {
+                display: none;
+            }
+            &.selected {
+                color: @text-yellow-color;
+            }
+            &:hover {
+                color: @text-yellow-color !important;
+            }
+        }
+        .search {
+            position: absolute;
+            right: 20px;
+            top: 0;
+            width: 230px;
+            font-size: 12px;
+            .ant-input{
+                border: 2px solid #f1f4f6;
+                border-radius: 15px;
+                color: @text-color01-light;
+                padding: 3px 12px;
+                line-height: 26px;
+                &::placeholder {
+                    color: @text-color04-light !important;
+                    font-size: 12px;
+                }
+
+                &::-webkit-input-placeholder {
+                    /* WebKit browsers */
+                    color: @text-color04-light !important;
+                    font-size: 12px;
+                }
+                &:-moz-placeholder {
+                    /* Mozilla Firefox 4 to 18 */
+                    color: @text-color04-light !important;
+                    font-size: 12px;
+                }
+                &::-moz-placeholder {
+                    /* Mozilla Firefox 19+ */
+                    color: @text-color04-light !important;
+                    font-size: 12px;
+                }
+                &:-ms-input-placeholder {
+                    /* Internet Explorer 10+ */
+                    color: @text-color04-light !important;
+                    font-size: 12px;
+                }
+                &:hover, 
+                &:active {
+                    border-color: #f1f4f6;
+                }
+                &:focus {
+                    box-shadow: 0 0 0 2px transparent;
+                }
+            }
+            .ant-input-suffix {
+                width : 15px;
+                height: 15px;
+                background: url('../../images/icon-search.png') no-repeat center center;
+                background-size: 15px 15px;
+            }
+            .ant-input-search-icon{
+                display: none;
+            }
+            .ant-input-affix-wrapper:hover .ant-input:not(.ant-input-disabled) {
+                border-color: #f1f4f6;
+            }
+        }
+    }
+    .market-panel-fixed {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        z-index: 999;
+        background-color: #fff;
+        box-shadow: 0px 4px 4px 0px rgba(23, 31, 39, 0.04);
+    }
+    .market-panel {
+        .market-panel-hd {
+            border-bottom: 1px solid @space-color-light;
+            &.empty  {
+                border-bottom: 0 none;
+            }
+            .wrapper {
+                width: 1200px;
+                margin: 0 auto;
+                height: 150px;
+            }
+            .market-coin {
+                float: left;
+                height: 150px;
+                width: 50%;
+                border-right: 1px solid @space-color-light;
+                .coin-hd {
+                    position: relative;
+                    width: 560px;
+                    margin: 20px auto 0;
+                    height: 40px;
+                    line-height: 36px;
+                    border-radius: 20px;
+                    font-size: 14px;
+                    border: 2px solid #f1f4f6;
+                    overflow: hidden;
+                    * {
+                        float: left;
+                    }
+                    .info {
+                        cursor: pointer;
+                    }
+                    .icon {
+                        width: 24px;
+                        margin: 6px 10px 6px 6px;
+                        height: 24px;
+                        border-radius: 24px;
+                        background: url('../../images/coin-default.png') no-repeat center center;
+                        background-size: 100% 100%;
+                    }
+                    .name {
+                        font-size: 18px;
+                        color: @text-color01-light;
+                    }
+                    .name i {
+                        color: @text-color02-light;
+                        font-style: normal;
+                        font-size: 18px;
+                    }
+                    em {
+                        padding-left: 20px;
+                    }
+                    .rate {
+                        position: absolute;
+                        right: 6px;
+                        top: 6px;
+                        width: 100px;
+                        height: 24px;
+                        border-radius: 12px;
+                        line-height: 24px;
+                        text-align: center;
+                        &.greenrate {
+                            background-color: #ddf6f0;
+                            color: @text-green-color01;
+                        }
+                        &.redrate {
+                            background-color: #fdeded;
+                            color: @text-red-color01;
+                        }
+                    }
+                }
+                .coin-bd {
+                    padding: 12px 20px 0;
+                    li {
+                        float: left;
+                        width: 50%;
+                        height: 35px;
+                        line-height: 35px;
+                        label {
+                            color: #969da9;
+                            width: 100px;
+                            display: inline-block;
+                            vertical-align: middle;
+                            margin-left: 10px;
+                        }
+                        em {
+                            display: inline-block;
+                            vertical-align: middle;
+                            color: #323e48;
+                        }
+                    }
+                }
+            }
+            .realtime-kline {
+                position: relative;
+                float: left;
+                width: 50%;
+                height: 150px;
+                .coin-line-box {
+                    position: absolute;
+                    width: 600px;
+                    height: 110px;
+                    left: 0;
+                    bottom: 20px;
+                }
+            }
+        }
+        .coin-list {
+            .coin-list-title {
+                position: absolute;
+                right: 10px;
+                top: 0;
+                height: 60px;
+                line-height: 60px;
+                box-sizing: border-box;
+                text-align: right;
+                -webkit-user-select: none;
+                -webkit-touch-callout: none;
+            }
+
+            .coin-list-content {
+                li {
+                    height: 50px;
+                    line-height: 50px;
+                    padding: 0 20px;
+                    border-bottom: 1px solid #f4f4f4;
+                    cursor: pointer;
+                    color: @text-color02-light;
+                    overflow: hidden;
+                }
+                li.selected {
+                    background-color: @list-hoverbg-color01-light;
+                    .amount,
+                    .volume {
+                        color: @text-color01-light;
+                    }
+                }
+                .table-header li {
+                    color: @text-color01-light;
+                    .cell *  {
+                        display: inline-block;
+                        vertical-align: middle;
+                    }
+                }
+                .table-body li:hover {
+                    background-color: @list-hoverbg-color01-light;
+                    .amount,
+                    .volume {
+                        color: @text-color01-light;
+                    }
+                }
+                .cell {
+                    float: left;
+                    font-size: 14px;
+                    -webkit-user-select: none;
+                    -webkit-touch-callout: none;
+                }
+                .name {
+                    width: 150px;
+                    text-align: left;
+                    color: @text-color01-light;
+                    .symbol,
+                    i,
+                    img {
+                        display: inline-block;
+                        vertical-align: middle;
+                    }
+                    i {
+                        color: @text-color02-light;
+                        font-style: normal;
+                    }
+                    img {
+                        width: 16px;
+                        height: 16px;
+                        margin-right: 6px;
+                        background: url('../../images/coin-default.png') no-repeat center center;
+                        background-size: 100% 100%;
+                    }
+                }
+                .amount {
+                    width: 270px;
+                    text-align: right;
+                }
+                .rate {
+                    width: 270px;
+                    text-align: right;
+                }
+                .volume {
+                    width: 320px;
+                    text-align: right;
+                }
+                .action {
+                    width: 150px;
+                    text-align: right;
+                }
+            }
+        }
+    }
+}
+
+.app-page.infinitex .index-markets .market-panel .coin-list .coin-list-content .name img,
+.app-page.infinitex .index-markets .market-panel .market-panel-hd .market-coin .coin-hd .icon {
+    background: url('../../images/coin-default-aus.png') no-repeat center center;
+    background-size: 100% 100%;
+}

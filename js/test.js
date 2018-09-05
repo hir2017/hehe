@@ -1,324 +1,404 @@
 import React, { Component } from 'react';
 import ReactDOM, { render } from 'react-dom';
-import Chart from './mods/trade/depth-chart/chart';
+// 引入 ECharts 主模块
+var echarts = require('echarts/lib/echarts');
+// 引入图
+require('echarts/lib/chart/line');
+// 引入提示框和标题组件
+require('echarts/lib/component/tooltip');
+require('echarts/lib/component/title');
 
-const mockData = {
-    "tradeCurrencyId": "54",
-    "buy": [{
-            "current": 4.5821613,
-            "number": 681.1
-        },
-        {
-            "current": 4.5817485,
-            "number": 701.1
-        },
-        {
-            "current": 4.5804697,
-            "number": 696.4
-        },
-        {
-            "current": 4.5801698,
-            "number": 1135.4
-        },
-        {
-            "current": 4.5784791,
-            "number": 1155
-        },
-        {
-            "current": 4.5781786,
-            "number": 68.6
-        },
-        {
-            "current": 4.5764885,
-            "number": 58.2
-        },
-        {
-            "current": 4.5761871,
-            "number": 127.2
-        },
-        {
-            "current": 4.5744976,
-            "number": 229.6
-        },
-        {
-            "current": 4.5741956,
-            "number": 1210.6
-        },
-        {
-            "current": 4.5737804,
-            "number": 13.1
-        },
-        {
-            "current": 4.572507,
-            "number": 1106.2
-        },
-        {
-            "current": 4.5722044,
-            "number": 515
-        },
-        {
-            "current": 4.5717882,
-            "number": 76.4
-        },
-        {
-            "current": 4.5705165,
-            "number": 198.4
-        },
-        {
-            "current": 4.5702129,
-            "number": 1841.5
-        },
-        {
-            "current": 4.5697961,
-            "number": 10.4
-        },
-        {
-            "current": 4.5685259,
-            "number": 1893.6
-        },
-        {
-            "current": 4.5682218,
-            "number": 198.3
-        },
-        {
-            "current": 4.567804,
-            "number": 610.5
-        },
-        {
-            "current": 4.5665353,
-            "number": 534.2
-        },
-        {
-            "current": 4.5662303,
-            "number": 44.4
-        },
-        {
-            "current": 4.5658119,
-            "number": 13.1
-        },
-        {
-            "current": 4.5645444,
-            "number": 52.2
-        },
-        {
-            "current": 4.5642388,
-            "number": 40.8
-        },
-        {
-            "current": 4.5638198,
-            "number": 109.2
-        },
-        {
-            "current": 4.5622476,
-            "number": 67.8
-        },
-        {
-            "current": 4.5618277,
-            "number": 1096.1
-        },
-        {
-            "current": 4.5602561,
-            "number": 1603.6
-        },
-        {
-            "current": 4.56,
-            "number": 1
-        }
-    ],
-    "sell": [{
-            "current": 4.5839925,
-            "number": 829
-        },
-        {
-            "current": 4.5859686,
-            "number": 3472.8
-        },
-        {
-            "current": 4.6017753,
-            "number": 26.4
-        },
-        {
-            "current": 4.607703,
-            "number": 560.9
-        },
-        {
-            "current": 4.6254855,
-            "number": 90
-        },
-        {
-            "current": 4.6274616,
-            "number": 65
-        },
-        {
-            "current": 4.633389,
-            "number": 1048.2
-        },
-        {
-            "current": 4.637341,
-            "number": 22.4
-        },
-        {
-            "current": 4.6610512,
-            "number": 39
-        },
-        {
-            "current": 4.6709305,
-            "number": 32086
-        },
-        {
-            "current": 4.7025442,
-            "number": 2987.5
-        },
-        {
-            "current": 4.70452,
-            "number": 5.1
-        },
-        {
-            "current": 4.7124235,
-            "number": 10
-        },
-        {
-            "current": 4.7203268,
-            "number": 10
-        },
-        {
-            "current": 4.7321822,
-            "number": 5.3
-        },
-        {
-            "current": 4.7361338,
-            "number": 20.8
-        },
-        {
-            "current": 4.7400854,
-            "number": 20
-        },
-        {
-            "current": 4.7499647,
-            "number": 22.1
-        },
-        {
-            "current": 4.7677475,
-            "number": 12.5
-        },
-        {
-            "current": 4.7776268,
-            "number": 269.1
-        },
-        {
-            "current": 4.7875061,
-            "number": 41
-        },
-        {
-            "current": 4.7894819,
-            "number": 12.4
-        },
-        {
-            "current": 4.7954097,
-            "number": 12.5
-        },
-        {
-            "current": 4.8072648,
-            "number": 66.3
-        },
-        {
-            "current": 4.8112164,
-            "number": 37.6
-        }
-    ],
-    "baseCurrencyId": "1",
-    "type": 1,
-    "entrustScale": 200
-}
+// const DepthChart {
+// 	init(e){
+// 		this.isInin = !0;
+//         var t = this.el;
+//         this.chart = window.echarts.init(t),
+//         this.chart.setOption(e),
+//         this.theme && this.setTheme(this.theme),
+//         this.depthData && this.setDepthData(this.depthData),
+//         this.resize()
+// 	},
+// 	setTheme(e){
+// 		var t = this._theme[e] || this._theme[l.u.dark];
+//         this.chart.setOption(t);
+// 	},
 
+// 	resize(){
+// 		this.isInin && this.chart.resize()
+// 	},
+
+// 	setDepthData(e){
+// 		var t = e || this.data,
+//         n = this.chart,
+//         i = [],
+//         o = [],
+//         a = [];
+//         t.bids.length > 0 && t.bids.slice(0, 50).reduce(function(e, t) {
+//             return i.unshift(Object(d.r)(Number(e.price), 8)),
+//             o.unshift(Object(d.r)(Number(e.volume), 8)),
+//             a.push(null),
+//             {
+//                 price: t.price,
+//                 volume: +e.volume + +t.volume
+//             }
+//         });
+//         t.asks.length > 0 && t.asks.slice(0, 50).reduce(function(e, t) {
+//             return i.push(Object(d.r)(Number(e.price), 8)),
+//             a.push(Object(d.r)(Number(e.volume), 8)),
+//             {
+//                 price: t.price,
+//                 volume: +e.volume + +t.volume
+//             }
+//         });
+//         n.setOption({
+//             tooltip: {
+//                 formatter: h.a.t("exchange['价格']") + ": {b0} <br/>" + h.a.t("exchange['数量']") + ": {c0}"
+//             },
+//             xAxis: {
+//                 data: i
+//             },
+//             series: [{
+//                 data: o
+//             },
+//             {
+//                 data: a
+//             }]
+//         }),
+//         this.chart.resize()
+// 	},
+
+// 	dispose() {
+// 		this.chart.dispose()
+// 	}
+// }
 
 class App extends Component {
-    componentDidMount() {
-        const ctx = document.getElementById('market-chart-depth');
+	componentDidMount(){
+		let node = document.getElementById('depth-chart');
 
-        this.depth = new Chart(ctx, {
-            type: 'line',
-            data: {},
-            options: {
-                layout: {
-                    padding: 5,
-                },
-                tooltips: {
-                    enabled: false,
-                    mode: 'index',
-                    position: 'nearest',
-                    custom: (tooltip) => {
+		this.chart = echarts.init(node);
 
-                    },
-                },
-                legend: {
-                    display: false,
-                },
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true,
-                        },
-                    }],
-                    xAxes: [{
-                        display: false,
-                    }],
-                },
+		var data = {
+			bids: [{
+            "price": 4.5821613,
+            "volume": 681.1
+        },
+        {
+            "price": 4.5817485,
+            "volume": 701.1
+        },
+        {
+            "price": 4.5804697,
+            "volume": 696.4
+        },
+        {
+            "price": 4.5801698,
+            "volume": 1135.4
+        },
+        {
+            "price": 4.5784791,
+            "volume": 1155
+        },
+        {
+            "price": 4.5781786,
+            "volume": 68.6
+        },
+        {
+            "price": 4.5764885,
+            "volume": 58.2
+        },
+        {
+            "price": 4.5761871,
+            "volume": 127.2
+        },
+        {
+            "price": 4.5744976,
+            "volume": 229.6
+        },
+        {
+            "price": 4.5741956,
+            "volume": 1210.6
+        },
+        {
+            "price": 4.5737804,
+            "volume": 13.1
+        },
+        {
+            "price": 4.572507,
+            "volume": 1106.2
+        },
+        {
+            "price": 4.5722044,
+            "volume": 515
+        },
+        {
+            "price": 4.5717882,
+            "volume": 76.4
+        },
+        {
+            "price": 4.5705165,
+            "volume": 198.4
+        },
+        {
+            "price": 4.5702129,
+            "volume": 1841.5
+        },
+        {
+            "price": 4.5697961,
+            "volume": 10.4
+        },
+        {
+            "price": 4.5685259,
+            "volume": 1893.6
+        },
+        {
+            "price": 4.5682218,
+            "volume": 198.3
+        },
+        {
+            "price": 4.567804,
+            "volume": 610.5
+        },
+        {
+            "price": 4.5665353,
+            "volume": 534.2
+        },
+        {
+            "price": 4.5662303,
+            "volume": 44.4
+        },
+        {
+            "price": 4.5658119,
+            "volume": 13.1
+        },
+        {
+            "price": 4.5645444,
+            "volume": 52.2
+        },
+        {
+            "price": 4.5642388,
+            "volume": 40.8
+        },
+        {
+            "price": 4.5638198,
+            "volume": 109.2
+        },
+        {
+            "price": 4.5622476,
+            "volume": 67.8
+        },
+        {
+            "price": 4.5618277,
+            "volume": 1096.1
+        },
+        {
+            "price": 4.5602561,
+            "volume": 1603.6
+        },
+        {
+            "price": 4.56,
+            "volume": 1
+        }
+    ],
+	        asks: [{
+            "price": 4.5839925,
+            "volume": 829
+        },
+        {
+            "price": 4.5859686,
+            "volume": 3472.8
+        },
+        {
+            "price": 4.6017753,
+            "volume": 26.4
+        },
+        {
+            "price": 4.607703,
+            "volume": 560.9
+        },
+        {
+            "price": 4.6254855,
+            "volume": 90
+        },
+        {
+            "price": 4.6274616,
+            "volume": 65
+        },
+        {
+            "price": 4.633389,
+            "volume": 1048.2
+        },
+        {
+            "price": 4.637341,
+            "volume": 22.4
+        },
+        {
+            "price": 4.6610512,
+            "volume": 39
+        },
+        {
+            "price": 4.6709305,
+            "volume": 32086
+        },
+        {
+            "price": 4.7025442,
+            "volume": 2987.5
+        },
+        {
+            "price": 4.70452,
+            "volume": 5.1
+        },
+        {
+            "price": 4.7124235,
+            "volume": 10
+        },
+        {
+            "price": 4.7203268,
+            "volume": 10
+        },
+        {
+            "price": 4.7321822,
+            "volume": 5.3
+        },
+        {
+            "price": 4.7361338,
+            "volume": 20.8
+        },
+        {
+            "price": 4.7400854,
+            "volume": 20
+        },
+        {
+            "price": 4.7499647,
+            "volume": 22.1
+        },
+        {
+            "price": 4.7677475,
+            "volume": 12.5
+        },
+        {
+            "price": 4.7776268,
+            "volume": 269.1
+        },
+        {
+            "price": 4.7875061,
+            "volume": 41
+        },
+        {
+            "price": 4.7894819,
+            "volume": 12.4
+        },
+        {
+            "price": 4.7954097,
+            "volume": 12.5
+        },
+        {
+            "price": 4.8072648,
+            "volume": 66.3
+        },
+        {
+            "price": 4.8112164,
+            "volume": 37.6
+        }
+    ],
+		};
+
+		this.setDepthData(data);
+	}
+
+	setDepthData(e){
+		var t = e || this.data,
+        n = this.chart,
+        i = [],
+        o = [],
+        a = [];
+
+        t.bids.length > 0 && t.bids.slice(0, 50).reduce(function(e, t) {
+            return i.unshift(Number(e.price)),
+            o.unshift(Number(e.volume)),
+            a.push(null),
+            {
+                price: t.price,
+                volume: +e.volume + +t.volume
             }
         });
 
-        askPrices = [];
-	    bidPrices = [];
-	    askAmounts = { base: [], quote: [] };
-	    bidAmounts = { base: [], quote: [] };
+        t.asks.length > 0 && t.asks.slice(0, 50).reduce(function(e, t) {
+            return i.push(Number(e.price)),
+            a.push(Number(e.volume)),
+            {
+                price: t.price,
+                volume: +e.volume + +t.volume
+            }
+        });
 
-        this.depth.data.datasets = [
-        {
-          label: 'Buy',
-          data: bidAmountsGraph,
-          backgroundColor: 'rgba(38, 166, 154, 0.2)',
-          borderColor: 'rgba(38, 166, 154, 1)',
-          borderWidth: 3,
-          // fill: false,
-          pointStyle: 'circle',
-          pointRadius: 3,
-          pointBorderWidth: 1,
-          pointBorderColor: '#1ABC9C',
-          pointBackgroundColor: '#1ABC9C',
-          hoverBackgroundColor: '#1ABC9C',
-          hoverBorderColor: '#1ABC9C',
-          hoverBorderWidth: 5,
-          steppedLine: true,
-          invertedStep: true,
-        },
-        {
-          label: 'Sell',
-          data: askAmountsGraph,
-          backgroundColor: 'rgba(239, 83, 80, 0.2)',
-          borderColor: '#EF5350',
-          borderWidth: 3,
-          // fill: false,
-          pointStyle: 'circle',
-          pointRadius: 3,
-          pointBorderWidth: 1,
-          pointBorderColor: '#EF5350',
-          pointBackgroundColor: '#EF5350',
-          hoverBackgroundColor: '#EF5350',
-          hoverBorderColor: '#EF5350',
-          hoverBorderWidth: 5,
-          steppedLine: true,
-        }];
+        n.setOption({
+        	grid: {
+                top: 10,
+                bottom: 30,
+                left: 50,
+                right: 10
+            },
+            tooltip: {
+            	trigger: "axis",
+                formatter: "exchange['价格']" + ": {b0} <br/>" + "exchange['数量']" + ": {c0}"
+            },
+            color: ["#75e08a", "#d66b5a"],
+            xAxis: {
+            	type: "category",
+                axisPointer: {
+                    type: "line"
+                },
+                data: i
+            },
+            yAxis: {
+                type: "value",
+                splitLine: {
+                    show: !1
+                }
+            },
+            series: [{
+                type: "line",
+                step: "start",
+                data: o,
+                lineStyle: {
+                    normal: {
+                        color: "#75e08a",
+                        width: 2
+                    }
+                },
+                areaStyle: {
+                    normal: {
+                        color: "rgba(117, 224, 138, 0.2)"
+                    }
+                }
+            },
+            {
+                type: "line",
+                step: "start",
+                data: a,
+                lineStyle: {
+                    normal: {
+                        color: "#d66b5a",
+                        width: 2
+                    }
+                },
+                areaStyle: {
+                    normal: {
+                        color: "rgba(214, 107, 90, 0.2)"
+                    }
+                }
+            }]
+        });
 
-      	this.depth.update();
-    }
+        this.chart.resize()
+	}
 
-     render() {
-        return (
-        	<div>
-        		<canvas id="market-chart-depth" className="market-chart" width="375" height="195"></canvas>
-        	</div>
-        );
-    }
+	render(){
+		return (
+			<div id="depth-chart" style={{width: 1000, height: 800}}></div>
+		)
+	}
 }
 
 render(<App/>, document.getElementById('wrap'));

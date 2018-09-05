@@ -1,6 +1,7 @@
 import { observable, autorun, computed, action, runInAction } from 'mobx';
 import { getAnnounceList, getAnnounceDetail } from '../api/http';
 import NumberUtil from '../lib/util/number';
+import TimeUtil from '@/lib/util/date';
 
 class AnnouncementStore {
     @observable list = [];
@@ -15,12 +16,16 @@ class AnnouncementStore {
         getAnnounceList(count)
             .then((data) => {
                 runInAction('get announcement success', () => {
-                    this.list = data.list;
+                    
+                    this.list = data.attachment ? data.attachment.list.map(item => {
+                        item.publishTime = TimeUtil.formatDate(item.publishTime);
+                        return item;
+                    }) : [];
 
                     this.isLoading = false;
                 })
             }).catch((err) => {
-                console.log('Error loading announcement', err.message);
+                // console.log('Error loading announcement', err.message);
             })
     }
 

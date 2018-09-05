@@ -1,0 +1,164 @@
+.banner-wrapper {
+    position: relative;
+    background-color: @bg-color;
+    .slider {
+        overflow: hidden;
+        position: relative;
+        height: 440px;
+        min-width: 1200px;
+        background-size: cover;
+        background-position: 50%;
+        margin: 0 auto;
+    }
+    .ant-carousel {
+        .slick-slide {
+            height: 440px;
+            img {
+                margin: 0 auto;
+                width: 1200px;
+                height: auto;
+                display: block;
+            }
+        }
+        .slick-dots {
+            bottom: 60px;
+            li {
+                margin: 0 5px;
+                button {
+                    height: 4px;
+                    width: 30px !important;
+                    border-radius: 4px;
+                }
+            }
+        }
+    }
+    .noticelist {
+        position: absolute;
+        width: 1200px;
+        left: 50%;
+        margin-left: -600px;
+        bottom: 10px;
+        background-color: rgba(150,157,169, 0.15);
+        height: 40px;
+        .content {
+            width: 1200px;
+            margin: 0 auto;
+        }
+        ul {
+            padding: 5px 0;
+        }
+
+        li {
+            position: relative;
+            float: left;
+            width: 33%;
+            font-size: 12px;
+            overflow: hidden;
+            height: 30px;
+            line-height: 30px;
+        }
+
+        li:after {
+            content: '';
+            display: inline-block;
+            vertical-align: middle;
+            height: 10px;
+            width: 1px;
+            background-color: @text-color02;
+        }
+
+        li:nth-child(3n):after {
+            display: none;
+        }
+
+        li .info {
+            display: inline-block;
+            vertical-align: middle;
+            width: 260px;
+            margin-right: 10px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            padding-left: 20px;
+        }
+
+        li a,
+        li a:hover {
+            color: @text-color02-light;
+        }
+
+        li a:hover {
+            text-decoration: underline;
+        }
+
+        li .time {
+            display: inline-block;
+            vertical-align: middle;
+            text-align: right;
+            width: 100px;
+            color: @text-color02-light;
+            padding-right: 20px;
+        }
+    }
+}
+
+
+
+/**
+ * 新手引导
+ */
+
+.loginguide-wrapper {
+    position: absolute;
+    top: 80px;
+    left: 0;
+    z-index: 2;
+    height: 30px;
+    width: 100%;
+    line-height: 30px;
+    text-align: center;
+    color: #fff;
+    font-size: 14px;
+    li {
+        display: inline-block;
+        margin-right: 10px;
+        color: @text-color02-light;
+        label {
+            font-size: 14px;
+        }
+        span {
+            display: inline-block;
+            vertical-align: middle;
+        }
+        a,
+        a:hover {
+            color: #e6bc1d;
+            padding: 0 5px;
+        }
+        button {
+            background: transparent;
+            border: 0 none;
+            color: #cc9900;
+            padding: 0 5px;
+            &.register-btn:hover {
+                text-decoration: underline;
+            }
+            &.login-btn {
+                background-color: #e8b802;
+                color: #333333;
+                text-align: center;
+                line-height: 24px;
+                height: 24px;
+                display: inline-block;
+                vertical-align: middle;
+                margin-left: 20px;
+                border-radius: 2px;
+                padding: 0 15px;
+                &:hover {
+                    background-color: #ffdc57;
+                }
+            }
+        }
+    }
+}

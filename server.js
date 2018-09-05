@@ -5,9 +5,9 @@ var webpack = require('webpack'),
     webpackDevMiddleware = require('webpack-dev-middleware'),
     webpackHotMiddleware = require('webpack-hot-middleware'),
     history = require('connect-history-api-fallback'),
-    webpackDevConfig = require('./webpack.prod.config.js');
+    webpackDevConfig = require('./webpack.config.prod.js');
 
-var port = 3000;
+var port =  process.env.PORT || 3001;
 
 var compiler = webpack(webpackDevConfig);
 var app = express();
@@ -19,6 +19,10 @@ app.use(webpackDevMiddleware(compiler, {
     publicPath: webpackDevConfig.output.publicPath,
     quiet: true
 }));
+
+// static
+app.use('/static', express.static('static'));
+app.use('/images', express.static('images'));
 
 app.use(webpackHotMiddleware(compiler));
 

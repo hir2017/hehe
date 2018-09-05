@@ -102,9 +102,12 @@ class FiatRechargeStore {
             isFetching: false,
             authType: 'phone'
         };
-        Object.entries(defaultVals).map(([key, val]) => {
-            this[key] = val;
-        });
+        for(let _name in defaultVals) {
+            this[_name] = defaultVals[_name];
+        }
+        // Object.entries(defaultVals).map(([key, val]) => {
+        //     this[key] = val;
+        // });
     }
     /**
      * 属性变更

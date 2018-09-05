@@ -4,9 +4,9 @@ import { Button, message } from 'antd';
 import { Link, browserHistory } from 'react-router';
 import Vcodebutton from '../common/authcode-btn';
 
-import InputItem from '../../common-mods/form/input-item';
-import PageForm from '../../common-mods/page-user/page-form';
-import { createGetProp } from '../../common-mods/utils';
+import InputItem from '../../components/form/input-item';
+import PageForm from '../../components/page-user/page-form';
+import { createGetProp } from '../../components/utils';
 
 @inject('userInfoStore', 'captchaStore')
 @observer
@@ -48,9 +48,11 @@ export default class ReBinding extends Component {
             return;
         }
 
-        this.props.userInfoStore.rmBindGA(this.state.google, this.state.vCode).then(res => {
-            if(res) {
+        this.props.userInfoStore.rmBindGA(this.state.google, this.state.vCode).then(data => {
+            if(data) {
                 browserHistory.push('/user/google');
+            } else {
+                this.props.captchaStore.fetch();
             }
         });
     }
@@ -87,7 +89,6 @@ export default class ReBinding extends Component {
 
         return (
             <PageForm {...PageProps}>
-                <InputItem {...inputsData.google} />
                 <div>
                     <InputItem {...inputsData.ivCode} />
                     <div className="item v-code-button">
@@ -97,13 +98,14 @@ export default class ReBinding extends Component {
                 <div className="input-vcode-wrapper">
                     <InputItem {...inputsData.vCode} />
                     <div className="item v-code-button">
-                        <Vcodebutton imgCode={this.state.ivCode} codeid={codeid} type="phone" />
+                        <Vcodebutton imgCode={this.state.ivCode} GaOrTradePwd={true} codeid={codeid} type="phone" />
                     </div>
                 </div>
+                <InputItem {...inputsData.google} />
                 <div className="info">
-                    <Link to="/user/google-guide" className="ace-link underline">{UPEX.lang.template('Google验证器使用教程')}</Link>
+                    <Link to="/user/google-guide" className="exc-link underline">{UPEX.lang.template('Google验证器使用教程')}</Link>
                 </div>
-                <Button className="ace-submit-item" loading={loading} onClick={this.submit}>
+                <Button className="exc-submit-item" loading={loading} onClick={this.submit}>
                     {UPEX.lang.template('解绑')}
                 </Button>
             </PageForm>

@@ -67,7 +67,7 @@ export default {
         },
         {
             id: 'USER_AUTH_CODE_FAIL',
-            status: 5559
+            status: 5559,
             message: '验证码错误,请重新登录'
         },
         {
@@ -322,6 +322,10 @@ export default {
             id: 'SMS_SEND_ERROR',
             status: 501,
             message: '短信发送失败'
+        }, {
+            id: 'SYSTEM_ERROR',
+            status: -1,
+            message: 'response is empty'
         }
     ]
 }

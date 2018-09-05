@@ -30,8 +30,9 @@ Zepto不支持旧版本的Internet Explorer浏览器(<10)。
 * Chrome 30+ (Windows, Mac, Android, iOS, Linux, Chrome OS)
 * Firefox 24+ (Windows, Mac, Android, Linux, Firefox OS)
 * iOS 5+ Safari
+* Internet Explorer 10+ (Windows)
+
 * Android 2.3+ Browser
-*  Internet Explorer 10+ (Windows, Windows Phone)
 
 次要目标（完全或大部分支持）
 

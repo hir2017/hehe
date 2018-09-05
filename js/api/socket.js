@@ -20,7 +20,7 @@ socket.on('connect', () => {
 });
 
 socket.on('disconnect', function(res) {
-	console.log('与服务器断开链接, 重新连接', res);
+	// console.log('与服务器断开链接, 重新连接', res);
 });
 
 const webchat = {

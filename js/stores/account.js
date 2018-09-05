@@ -63,7 +63,7 @@ class Account {
         if (filterZero) {
             if (accountData && accountData.coinList.length > 0) {
                 accountData.coinList.forEach((item, index) => {
-                    if (item.amount > 0) {
+                    if (parseFloat(item.amount) > 0) {
                         coinList[coinList.length] = item;
                     }
                 });
@@ -87,7 +87,7 @@ class Account {
         this.originAccountData = {};
         this.accountData = {};
 
-        getCoinAccount().then((data) => {
+        return getCoinAccount().then((data) => {
             // data = require('../mock/assets.json');
             runInAction(() => {
                 if (data.status == 200) {
@@ -105,7 +105,7 @@ class Account {
                             item.amount = NumberUtil.formatNumber(item.amount, pointPrice);
                             item.freezeAmount = NumberUtil.formatNumber(item.freezeAmount, pointPrice);
                             item.twd_value = NumberUtil.formatNumber(item.twd_value, pointPrice);
-                            
+
                             info = item;
                         } else {
                             item.cashAmount = NumberUtil.separate(item.cashAmount);

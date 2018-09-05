@@ -28,14 +28,14 @@ class RecordPage extends Component {
 			{
 				index: 2,
 				path: 'success',
-				title: UPEX.lang.template('已成交')
+				title: UPEX.lang.template('成交明细')
 			},
 		];
 	}
 
 	componentDidMount() {
 		this.props.commonStore.getAllCoinPoint();
-		this.props.currencyStore.getCurrencyPoints();
+		this.props.currencyStore.getAllCurrencyRelations();
 		this.props.tradePwdStore.getPersonalTradingPwd();
 	}
 
@@ -55,9 +55,9 @@ class RecordPage extends Component {
 		}
 
         return (
-        	<div className="order-wrapper">
+        	<div className="order-wrapper page-order">
         		<Breadcrumb separator=">">
-                    <Breadcrumb.Item>ACE</Breadcrumb.Item>
+                    <Breadcrumb.Item><a href="/home">{UPEX.config.sitename}</a></Breadcrumb.Item>
                     <Breadcrumb.Item>{UPEX.lang.template('订单中心')}</Breadcrumb.Item>
                 </Breadcrumb>
         		<div className="order-body-inner clearfix">

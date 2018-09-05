@@ -1,0 +1,367 @@
+/**
+ * 买卖盘口，css虽然和实时交易很多公用，为了后期定制开发，分别书写
+ */
+
+.app-trade {
+    .order-book {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        .list-box-hd {
+            position: relative;
+            height: 30px;
+            line-height: 30px;
+            padding: 0 6px;
+            font-size: 12px;
+            color: @text-color01;
+            border-bottom: 1px solid @bg-color;
+            .tab {
+                position: absolute;
+                right: 0;
+                top: 0;
+                height: 30px;
+                li {
+                    float: left;
+                    margin-right: 20px;
+                    height: 30px;
+                    width: 12px;
+                    cursor: pointer;
+                    &:last-child {
+                        margin-right: 6px;
+                    }
+
+                    &.all {
+                        background: url('../../images/theme-dark/all.png') no-repeat center center;
+                        background-size: 12px 12px;
+                    }
+
+
+                    &.all:hover {
+                        background: url('../../images/theme-dark/all-hover.png') no-repeat center center;
+                        background-size: 12px 12px;
+                    }
+
+                    &.all.selected {
+                        background: url('../../images/theme-dark/all-hover.png') no-repeat center center;
+                        background-size: 12px 12px;
+                    }
+
+                    &.sell {
+                        background: url('../../images/theme-dark/sell.png') no-repeat center center;
+                        background-size: 12px 12px;
+                    }
+
+                    &.sell:hover {
+                        background: url('../../images/theme-dark/sell-hover.png') no-repeat center center;
+                        background-size: 12px 12px;
+                    }
+
+                    &.sell.selected {
+                        background: url('../../images/theme-dark/sell-hover.png') no-repeat center center;
+                        background-size: 12px 12px;
+                    }
+
+                    &.buy {
+                        background: url('../../images/theme-dark/buy.png') no-repeat center center;
+                        background-size: 12px 12px;
+                    }
+
+                    &.buy:hover {
+                        background: url('../../images/theme-dark/buy-hover.png') no-repeat center center;
+                        background-size: 12px 12px;
+                    }
+
+                    &.buy.selected {
+                        background: url('../../images/theme-dark/buy-hover.png') no-repeat center center;
+                        background-size: 12px 12px;
+                    }
+                }
+            }
+        }
+        .list-box-bd {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            overflow: hidden;
+            .table-hd {
+                width: 100%;
+                height: 30px;
+                line-height: 30px;
+                font-size: 12px;
+                padding: 0 6px;
+                color: @text-color02;
+                border-bottom: 1px solid @bg-color;
+                .price {
+                    width: 30%;
+                    float: left;
+                }
+
+                .number {
+                    width: 30%;
+                    float: left;
+                    text-align: right;
+                }
+
+                .total {
+                    width: 40%;
+                    float: left;
+                    text-align: right;
+                }
+            }
+
+            .table-bd {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                overflow: hidden;
+                font-size: 12px;
+                .trade-current-amount {
+                    height: 30px;
+                    line-height: 30px;
+                    padding: 0 6px;
+                    color: @text-color01;
+                    em {
+                        margin-right: 6px;
+                        font-size: 16px;
+                        display: inline-block;
+                        vertical-align: middle;
+                    }
+                }
+                .trade-buy-box,
+                .trade-sell-box {
+                    position: relative;
+                    flex: 1;
+                    flex-direction: column;
+                    &:after {
+                        width: 100%;
+                        height: 1px;
+                        content: '';
+                        display: block;
+                        position: absolute;
+                        background-color: @space-color;
+                    }
+                }
+
+                .trade-buy-box:after {
+                    bottom: 0;
+                }
+                .trade-sell-box:after {
+                    top: 0;
+                }
+
+                .trade-sell,
+                .trade-buy {
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    width: 100%;
+                    height: 100%;
+                    overflow: hidden;
+                    border-bottom: 5px solid transparent;
+                    border-top: 5px solid transparent;
+                }
+
+                .trade-sell ul {
+                    position: absolute;
+                    left: 0;
+                    bottom: 0;
+                    width: 100%;
+                }
+
+                .trade-buy-box:after {
+                    width: 100%;
+                    height: 1px;
+                    content: '';
+                    display: block;
+                    position: absolute;
+                    bottom: 0;
+                }
+
+                .trade-sell-box:after {
+                    width: 100%;
+                    height: 1px;
+                    content: '';
+                    display: block;
+                    position: absolute;
+                    top: 0;
+                }
+
+                li {
+                    position: relative;
+                    width: 100%;
+                    height: 24px;
+                    line-height: 24px;
+                    padding: 0 6px;
+                    cursor: pointer;
+                    &:hover {
+                        background-color: @list-hoverbg-color01;
+                        .number,
+                        .total {
+                            color: @text-color01;
+                        }
+                    }
+
+                    .cell {
+                        cursor: pointer;
+                        position: relative;
+                        z-index: 2;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                    }
+
+                    .price {
+                        width: 30%;
+                        float: left;
+                    }
+
+                    .number {
+                        width: 30%;
+                        float: left;
+                        text-align: right;
+                        color: @text-color02;
+                    }
+
+                    .total {
+                        width: 40%;
+                        float: left;
+                        text-align: right;
+                        color: @text-color02;
+                    }
+
+                    .bar {
+                        height: 24px;
+                        position: absolute;
+                        right: 0;
+                        top: 0
+                    }
+                }
+            }
+        }
+
+        .trade-buy-box .bar {
+            background: rgba(219, 78, 78, 0.15);
+        }
+
+
+        .trade-sell-box .bar {
+            background: rgba(12, 155, 120, 0.15);
+        }
+
+        &[data-type="buy"] {
+            .trade-buy {
+                ul {
+                    max-height: 100%;
+                    overflow: scroll;
+                    margin-right: -15px;
+                    width: 275px !important;
+                }
+            }
+        }
+
+        &[data-type="sell"] {
+            .trade-sell {
+                ul {
+                    max-height: 100%;
+                    overflow: scroll;
+                    margin-right: -15px;
+                    width: 275px !important;
+                }
+            }
+        }
+    }
+}
+
+.app-trade-light {
+    .order-book {
+        .list-box-hd {
+            color: @text-color01-light;
+            border-bottom: 1px solid @bg-color-light;
+            li {
+                &.all {
+                    background: url('../../images/theme-light/all.png') no-repeat center center;
+                    background-size: 12px 12px;
+                }
+
+
+                &.all:hover {
+                    background: url('../../images/theme-light/all-hover.png') no-repeat center center;
+                    background-size: 12px 12px;
+                }
+
+                &.all.selected {
+                    background: url('../../images/theme-light/all-hover.png') no-repeat center center;
+                    background-size: 12px 12px;
+                }
+
+                &.sell {
+                    background: url('../../images/theme-light/sell.png') no-repeat center center;
+                    background-size: 12px 12px;
+                }
+
+                &.sell:hover {
+                    background: url('../../images/theme-light/sell-hover.png') no-repeat center center;
+                    background-size: 12px 12px;
+                }
+
+                &.sell.selected {
+                    background: url('../../images/theme-light/sell-hover.png') no-repeat center center;
+                    background-size: 12px 12px;
+                }
+
+                &.buy {
+                    background: url('../../images/theme-light/buy.png') no-repeat center center;
+                    background-size: 12px 12px;
+                }
+
+                &.buy:hover {
+                    background: url('../../images/theme-light/buy-hover.png') no-repeat center center;
+                    background-size: 12px 12px;
+                }
+
+                &.buy.selected {
+                    background: url('../../images/theme-light/buy-hover.png') no-repeat center center;
+                    background-size: 12px 12px;
+                }
+            }
+        }
+        .list-box-bd {
+            .table-hd {
+                color: @text-color02;
+                border-bottom: 1px solid @bg-color-light;
+            }
+            .table-bd {
+                .trade-current-amount {
+                    color: @text-color01-light;
+                }
+                .trade-buy-box,
+                .trade-sell-box {
+                    &:after {
+                        background-color: @space-color-light;
+                    }
+                }
+                li {
+                    &:hover {
+                        background-color: @list-hoverbg-color01-light;
+                        .number,
+                        .total {
+                            color: @text-color01-light;
+                        }
+                    }
+                    .number,
+                    .total {
+                        color: @text-color02;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -2,6 +2,7 @@ var path = require('path');
 var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');  // 导出额外的文件插件
 var StringReplacePlugin = require('string-replace-webpack-plugin'); // 字符串替换插件
+// var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 // 获取环境变量, 方便做不同处理
 // stage, product打包处理方式略有不同, 如assets资源的引用路径
@@ -15,6 +16,10 @@ var projectName = package.name;
 var cssmode = package.cssmode;
 var gitlabGroup = package.gitlabGroup;
 var cdnDomain = package.cdnDomain;
+
+function resolve (dir) {
+    return path.join(__dirname, './', dir)
+}
 
 const extractCSS = new ExtractTextPlugin({
     allChunks: true,
@@ -33,11 +38,11 @@ var cssLoader = {
     test: /\.(css|less)$/,
     use: [
         'style-loader',
-        'css-loader',
+        'css-loader?minimize=true',
         'postcss-loader',
         'less-loader'
-    ],
-};
+    ]
+}
 
 // 为product环境打包时
 if (env == 'product') {
@@ -57,7 +62,7 @@ if (env == 'stage') {
 var config = {
     entry: {
         // 可对应多个入口文件
-        app: ['./js/app.js'],
+        webapp: ['./js/app-aus.js'],
         test: ['./js/test.js'],
         vendor: ['react', 'react-dom', 'react-router', 'mobx-react']
     },
@@ -72,9 +77,9 @@ var config = {
                 query: {
                     presets: ['es2015', 'react', 'stage-0'],
                     plugins: [
-                        'transform-remove-strict-mode', 
-                        'transform-decorators-legacy', 
-                        ["transform-runtime", {"helpers": false, "polyfill": false, "regenerator": true, "moduleName": "babel-runtime"}], 
+                        'transform-remove-strict-mode',
+                        'transform-decorators-legacy',
+                        ["transform-runtime", {"helpers": false, "polyfill": false, "regenerator": true, "moduleName": "babel-runtime"}],
                         ["import", [{ "libraryName": "antd", "style": "css" }]]
                     ]
                 }
@@ -84,7 +89,7 @@ var config = {
                 loader: 'vue'
             },
             cssLoader,
-            { 
+            {
                 test: /\.css|less|jsx?$/,
                 loader: StringReplacePlugin.replace({
                     replacements: [
@@ -104,20 +109,20 @@ var config = {
                     ]
                 })
             },
-            { 
-                test: /\.png$/, 
+            {
+                test: /\.png$/,
                 loader: "url-loader?limit=6000" // 小于3k, 转成base64
             },
-            { 
-                test: /\.jpg|mp3|mp4|gif$/, 
-                loader: "file-loader" 
+            {
+                test: /\.jpg|mp3|mp4|gif$/,
+                loader: "file-loader"
             }
         ]
     },
     resolve: {
         extensions: ['.js', '.vue'], // 确保引用时省略模块扩展名
         alias:{
-            'vue$': 'vue/dist/vue.common.js'  // 可同时使用独立构建和运行构建
+            '@': resolve('js')
         }
     },
     // server配置

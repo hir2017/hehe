@@ -1,0 +1,161 @@
+/**
+ * 网站特性介绍
+ */
+.features-wrapper {
+    margin-top: 30px;
+    height: 190px;
+    background-color: #fff;
+}
+
+.features-wrapper .features-box {
+    position: relative;
+    width: 1200px;
+    height: 190px;
+    margin: 0 auto;
+}
+
+.features-wrapper ul {
+    /* width: 1076px; */
+    padding-top: 30px;
+}
+
+.features-wrapper li {
+    float: left;
+    width: 25%;
+    text-align: center;
+    color: #fff;
+    cursor: pointer;
+}
+
+.features-wrapper li i {
+    width: 60px;
+    height: 60px;
+    display: inline-block;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+.features-wrapper li:hover i {
+    -webkit-animation-name: hvr-bob-float, hvr-bob;
+    animation-name: hvr-bob-float, hvr-bob;
+    -webkit-animation-duration: .3s, 1.5s;
+    animation-duration: .3s, 1.5s;
+    -webkit-animation-delay: 0s, .3s;
+    animation-delay: 0s, .3s;
+    -webkit-animation-timing-function: ease-out, ease-in-out;
+    animation-timing-function: ease-out, ease-in-out;
+    -webkit-animation-iteration-count: 1, infinite;
+    animation-iteration-count: 1, infinite;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+    -webkit-animation-direction: normal, alternate;
+    animation-direction: normal, alternate
+}
+
+
+@-webkit-keyframes hvr-bob {
+    0% {
+        -webkit-transform: translateY(-8px);
+        transform: translateY(-8px)
+    }
+
+    50% {
+        -webkit-transform: translateY(-4px);
+        transform: translateY(-4px)
+    }
+
+    100% {
+        -webkit-transform: translateY(-8px);
+        transform: translateY(-8px)
+    }
+}
+
+@keyframes hvr-bob {
+    0% {
+        -webkit-transform: translateY(-8px);
+        transform: translateY(-8px)
+    }
+
+    50% {
+        -webkit-transform: translateY(-4px);
+        transform: translateY(-4px)
+    }
+
+    100% {
+        -webkit-transform: translateY(-8px);
+        transform: translateY(-8px)
+    }
+}
+
+@-webkit-keyframes hvr-bob-float {
+    100% {
+        -webkit-transform: translateY(-8px);
+        transform: translateY(-8px)
+    }
+}
+
+@keyframes hvr-bob-float {
+    100% {
+        -webkit-transform: translateY(-8px);
+        transform: translateY(-8px)
+    }
+}
+
+.features-wrapper li i.icon-bank {
+    background: url('../../images/features-icon1.png') no-repeat center center;
+    background-size: 100% 100%;
+}
+
+.features-wrapper li i.icon-clock {
+    background: url('../../images/features-icon2.png') no-repeat center center;
+    background-size: 100% 100%;
+}
+
+.features-wrapper li i.icon-team {
+    background: url('../../images/features-icon3.png') no-repeat center center;
+    background-size: 100% 100%;
+}
+
+.features-wrapper li i.icon-coin {
+    background: url('../../images/features-icon4.png') no-repeat center center;
+    background-size: 100% 100%;
+}
+
+.features-wrapper li .title {
+    font-size: 16px;
+    line-height: 21px;
+    color: #333333;
+}
+
+.features-wrapper li .desc {
+    font-size: 12px;
+    margin-top: 5px;
+    color: #cccccc;
+}
+
+.features-wrapper .download-btn {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    margin-top: -15px;
+    width: 121px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 14px;
+    color: #333333;
+    background-color: #e8b802;
+    border-radius: 3px;
+    text-align: center;
+    cursor: pointer;
+    -webkit-transition: all .3s;
+    -o-transition: all .3s;
+    -moz-transition: all .3s;
+    transition: all .3s;
+}
+
+
+.features-wrapper .download-btn:hover {
+    background-color: #ffdc57;
+}

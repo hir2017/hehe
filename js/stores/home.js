@@ -3,7 +3,7 @@ import Select from 'antd';
 import { addOptional, cancleOptional, listOptional } from '../api/http'
 import { socket, baseCurrencyId } from '../api/socket';
 import NumberUtil from '../lib/util/number';
-import MarketListStore from './market-list';
+import MarketListStore from './market';
 
 class HomeStore {
     constructor(stores) {
@@ -11,8 +11,7 @@ class HomeStore {
         this.marketListStore = new MarketListStore(stores);
     }
 
-    @action
-    getData() {
+    @action getData() {
         this.marketListStore.getData();
     }
 }

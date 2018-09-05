@@ -5,8 +5,9 @@ import React, { Component } from 'react';
 import {message, Pagination} from 'antd';
 import {browserHistory} from 'react-router';
 import { getAnnounceList } from '../../api/http';
+import TimeUtil from '@/lib/util/date';
 
-import PageWrapper from '../../common-mods/page-user/page-wrapper';
+import PageWrapper from '../../components/page-user/page-wrapper';
 
 class ListView extends Component {
     render() {
@@ -53,34 +54,36 @@ class News extends Component {
         this.questions(1);
     }
 
-    async questions(pageNum) {
-        let result = false;
+    questions(pageNum) {
         this.setState({
             isFetching: true
         })
-        try {
-            const res = await getAnnounceList({
-                page: pageNum
-            });
+        getAnnounceList({
+            page: pageNum
+        }).then(res => {
             if(res.empty) {
                 message.error(res.message);
             } else {
                 result = true;
-                const {count = 0, list = [], page } = res;
+                let tempData = res.attachment || {};
+                const {count = 0, list = [], page } = tempData;
                 this.setState({
-                    list,
+                    list: list.map(item => {
+                        item.publishTime = TimeUtil.formatDate(item.publishTimeStamp);
+                        return item;
+                    }),
                     total: count,
                     current: page
                 });
             }
-
-        } catch (e) {
+        }).catch((e) => {
             console.error(e);
             message.error('Network Error');
-        }
-        this.setState({
-            isFetching: false
-        })
+        }).then( _ => {
+            this.setState({
+                isFetching: false
+            })
+        });
     }
 
     pageChange(page) {

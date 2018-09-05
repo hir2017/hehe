@@ -4,6 +4,7 @@
 import { observable, autorun, computed, action, runInAction } from 'mobx';
 import { socket } from '../api/socket';
 import { getBaseCoin , getCurrencyPoints } from '../api/http';
+let isFirst = true;
 
 const getWindowDimensions = () => {
     return {
@@ -16,22 +17,20 @@ class CommonStore {
     @observable currentPathName = '';
     // 当前语言
     @observable language = UPEX.cache.getCache('lang') || UPEX.config.defaultLanguage;
-    // 页面主题。浅色：light；深色：dark
-    @observable theme = 'dark';
     // 窗口尺寸
     @observable.struct windowDimensions = getWindowDimensions();
     // 业务公用的数据
     @observable productList = [];
     @observable productDataReady = false;
-    @observable coinDataReady = false;
-    @observable coinsMap = {}; // { key:{}, key: {} } // 方便获取基础币信息 
-    @observable coinsMapId = {};
 
     constructor() {
         $(window).resize(() => {
             this.windowDimensions = getWindowDimensions();
         });
-
+        // 切换zendesk语言
+        zE && zE(function() {
+            zE.setLocale(UPEX.cache.getCache('lang'));
+        });
         var handler = autorun(() => {
             let lang = this.language;
 
@@ -41,12 +40,26 @@ class CommonStore {
             UPEX.cache.setCache('lang', lang);
             UPEX.lang.language = lang;
             // 设置页面标题
-            document.title = UPEX.lang.template('ACE王牌数字币交易');
+            document.title = UPEX.lang.template('PageTitle');
+            // 切换zendesk语言
+            zE(function() {
+                zE.setLocale(lang);
+            });
         });
     }
 
     @computed get isTradeCenter() {
         return this.currentPathName.indexOf('/webtrade') > -1;
+    }
+
+    @computed get pageClassName() {
+        if (this.currentPathName.indexOf('/webtrade') > -1) {
+            return 'app-trade';
+        } else if (this.currentPathName.indexOf('/news') > -1){
+            return 'app-news';
+        } else {
+            return '';
+        }
     }
 
     @action
@@ -55,36 +68,15 @@ class CommonStore {
     }
 
     @action
-    changeThemeTo = (value) => {
-        this.theme = value
-    }
-
-    @action
     updatePathName = (url) => {
         this.currentPathName = url;
-    }
-    /**
-     */
-    @action
-    getAllTradeCoinPoint() {
-        this.coinDataReady = false;
-
-        getCurrencyPoints().then((data) => {
-            runInAction('get all coin point', () => {
-                if (data.status == 200) {
-                    
-                }
-
-                this.coinDataReady = true;
-            })
-        }).catch(()=>{
-            this.coinDataReady = true;
-        })
     }
 
     @action
     getAllCoinPoint() {
-
+        if (!isFirst) {
+            return;
+        }
         this.productDataReady = false;
 
         // if (list) {
@@ -94,19 +86,22 @@ class CommonStore {
         //     return;
         // }
 
-        getBaseCoin().then((data) => {
+        return getBaseCoin().then((data) => {
             runInAction('get all coin point', () => {
                 if (data.status == 200) {
                     let list = data.attachment;
-                    
+
                     this.productList = list;
                     this.coinsMapId = this.getCoinsMapById(list);
                     this.coinsMap = this.getCoinsMapByName(list);
                     // UPEX.cache.setCache('productlist', list, 1 * 60 * 60 * 1000);  // 1小时
+
+                    isFirst = true; // 第一次成功
                 }
 
                 this.productDataReady = true;
             })
+
         }).catch(()=>{
             this.productDataReady = true;
         })
@@ -134,8 +129,7 @@ class CommonStore {
     /**
      * 根据ID获取币信息
      */
-    @action.bound
-    getTradeCoinById(currencyId) {
+    @action.bound getTradeCoinById(currencyId) {
         let ret = this.coinsMapId[currencyId] || {};
 
         return ret;
@@ -143,15 +137,13 @@ class CommonStore {
     /**
      * 根据币名称获取币信息
      */
-    @action.bound
-    getTradeCoinByName(name) {
+    @action.bound getTradeCoinByName(name) {
         return this.coinsMap[name] || {};
     }
     /**
      * 价格小数点后几位
      */
-    @action.bound
-    getPointPrice(name) {
+    @action.bound getPointPrice(name) {
         if (!name) {
             return ;
         }
@@ -160,8 +152,7 @@ class CommonStore {
     /**
      * 数量小数点后几位
      */
-    @action.bound
-    getPointNum(name) {
+    @action.bound getPointNum(name) {
         if (!name) {
             return ;
         }
@@ -169,8 +160,7 @@ class CommonStore {
     }
 
     // 基础币TWD的价格
-    @computed
-    get pointPrice() {
+    @computed get pointPrice() {
         let point;
 
         let product = this.productList.filter(function(item) {
@@ -178,13 +168,12 @@ class CommonStore {
         })[0]
 
         point = product.pointPrice;
-        
+
         return point;
     }
 
     // 基础币TWD的数量
-    @computed
-    get pointNum() {
+    @computed get pointNum() {
         let point;
 
         let product = this.productList.filter(function(item) {
@@ -192,7 +181,7 @@ class CommonStore {
         })[0]
 
         point = product.pointNum;
-        
+
         return point;
     }
 }

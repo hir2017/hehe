@@ -1,0 +1,415 @@
+@import './variable.less';
+
+@form-border-color: #303338;
+
+.register-wrapper {
+    position: relative;
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 60px;
+    margin-bottom: 60px;
+    background-color: @bg-color;
+    border: 1px solid #282c31;
+    border-radius: 4px;
+
+    &:before,
+    &:after,
+    & .register-form-wrapper:before,
+    & .register-form-wrapper:after {
+        content: '';
+        width: 16px;
+        height: 16px;
+        display: inline-block;
+        position: absolute;
+        z-index: 2;
+    }
+    &:before {
+        background: url('../images/login-arrow-lt.png') no-repeat center center;
+        background-size: 100% 100%;
+        left: 8px;
+        top: 9px;
+    }
+    &:after {
+        background: url('../images/login-arrow-rt.png') no-repeat center center;
+        background-size: 100% 100%;
+        right: 8px;
+        top: 9px;
+    }
+    .register-form-wrapper {
+        position: relative;
+        margin: 10px auto;
+        width: 480px;
+        color: #fff;
+        background-color: @bg-module;
+        &:before {
+            background: url('../images/login-arrow-lb.png') no-repeat center center;
+            background-size: 100% 100%;
+            left: -1px;
+            bottom: -1px;
+        }
+        &:after {
+            background: url('../images/login-arrow-rb.png') no-repeat center center;
+            background-size: 100% 100%;
+            right: -1px;
+            bottom: -1px;
+        }
+    }
+    .register-form {
+        width: 400px;
+        margin: 0 auto;
+        padding: 20px 0;
+        li {
+            display: inline-block;
+            &:after {
+                content: '';
+                display: inline-block;
+                vertical-align: middle;
+                height: 10px;
+                width: 1px;
+                margin: 0 20px;
+                background: @title-split-border-color;
+            }
+            &:last-child:after {
+                display: none;
+            }
+        }
+    }
+    .register-form-title {
+        width: 100%;
+        margin: 0 auto;
+        height: 60px;
+        line-height: 60px;
+        font-size: 18px;
+        text-align: left;
+        color: #fff;
+        border-bottom: 1px solid @form-border-color;
+    }
+
+    .register-mode-tabs {
+        position: absolute;
+        right: 40px;
+        top: 20px;
+        height: 60px;
+        width: 400px;
+        margin: 0 auto;
+        text-align: right;
+    }
+    .register-mode-tab {
+        display: inline-block;
+        vertical-align: middle;
+        margin: 0 auto;
+        text-align: center;
+        line-height: 60px;
+        color: @text-color02;
+        background: none;
+        font-size: 12px;
+        &:hover,
+        &.selected {
+            color: @text-yellow-color;
+        }
+    }
+}
+
+.register-mode-content {
+    margin: 10px auto;
+    .input-wrapper {
+        position: relative;
+        .warn {
+            height: 30px;
+            line-height: 30px;
+            font-size: 12px;
+            color: @text-red-color;
+        }
+        &:hover input,
+        &:hover .ant-select .ant-select-selection{
+            border-bottom: 1px solid @theme-yellow;
+        }
+        &[data-type="focus"] .warn{
+            display: none;
+        }
+    }
+    .icon-delete{
+        position: absolute;
+        right: 0;
+        top: 0;
+        height: 60px;
+        width: 30px;
+        background: url(../images/icon-delete.png) no-repeat center center;
+        background-size: 10px 10px;
+        cursor: pointer;
+        &:hover{
+            background: url(../images/icon-delete-selected.png) no-repeat center center;
+            background-size: 10px 10px;
+        }
+    }
+    .input-box {
+        height: 60px;
+        position: relative;
+        .ant-select {
+            height: 40px;
+            width: 100%;
+            outline: none;
+            background-color: transparent;
+            font-size: 14px;
+            .ant-select-selection {
+                color: #b6bcc6;
+                border: 0 none;
+                border-bottom: 1px solid @form-border-color;
+                background-color: transparent;
+                border-radius: 0;
+                transition: border-bottom .5s;
+                &--single,
+                &__rendered {
+                    height: 60px;
+                    line-height: 60px;
+                    margin: 0;
+                }
+            }
+            .ant-select-selection-selected-value {
+                color: @text-color01;
+            }
+            .ant-select-focused .ant-select-selection,
+            .ant-select-selection:focus,
+            .ant-select-selection:active {
+                border: 0 none;
+                outline: 0;
+                -webkit-box-shadow: 0 0 0 0 rgba(24, 144, 255, 0);
+                -moz-box-shadow: 0 0 0 0 rgba(24, 144, 255, 0);
+                box-shadow: 0 0 0 0 rgba(24, 144, 255, 0);
+                border-bottom: 1px solid @theme-yellow;
+            }
+            .ant-select-focused .ant-select-selection {
+                border-bottom: 1px solid @theme-yellow;
+            }
+            .ant-select-arrow {
+                color: #999;
+            }
+        }
+        input {
+            width: 100%;
+            height: 60px;
+            border: 0 none;
+            border-bottom: 1px solid @form-border-color;
+            outline: none;
+            font-size: 14px;
+            background: none;
+            color: @text-color01;
+            transition: border-bottom .5s;
+            &.wrong {
+                border-bottom: 1px solid @text-red-color;
+            }
+            &:focus {
+                border-bottom: 1px solid @theme-yellow;
+            }
+            &::placeholder {
+                color: @text-color03 !important;
+            }
+
+            &::-webkit-input-placeholder {
+                /* WebKit browsers */
+                color: @text-color03 !important;
+            }
+            &:-moz-placeholder {
+                /* Mozilla Firefox 4 to 18 */
+                color: @text-color03 !important;
+            }
+            &::-moz-placeholder {
+                /* Mozilla Firefox 19+ */
+                color: @text-color03 !important;
+            }
+            &:-ms-input-placeholder {
+                /* Internet Explorer 10+ */
+                color: @text-color03 !important;
+            }
+            &:-webkit-autofill,
+            &:-webkit-autofill:hover,
+            &:-webkit-autofill:focus {
+                -webkit-text-fill-color: @text-color01;
+                -webkit-box-shadow: 0 0 0px 1000px @bg-module inset;
+                transition: background-color 5000s ease-in-out 0s;
+                font-weight: 500;
+            }
+        }
+        &.input-phone {
+            padding-left: 40px;
+        }
+        &.user-protocol {
+            margin-top: 50px;
+            height: auto;
+            font-size: 12px;
+            .ant-checkbox-wrapper {
+                color: @text-color02;
+                font-size: 12px;
+            }
+            input {
+                width: 20px;
+                height: 18px;
+                text-indent: 0;
+                vertical-align: middle;
+            }
+            & a,
+            & a:hover {
+                color: @text-yellow-color;
+                text-decoration: none;
+            }
+        }
+        .area-code {
+            position: absolute;
+            top: 0px;
+            left: 0;
+            width: 40px;
+            height: 40px;
+            display: inline-block;
+            text-align: center;
+            border-bottom: 1px solid @form-border-color;
+            border-right: 0 none;
+            text-align: center;
+            line-height: 40px;
+            font-size: 14px;
+            border-radius: 2px 0 0 2px;
+        }
+        .ex-captcha {
+            position: absolute;
+            right: 0;
+            bottom: 15px;
+        }
+        .yzcode {
+            position: absolute;
+            right: 0;
+            top: 0;
+            margin-top: 15px;
+            height: 30px;
+            padding: 0 20px;
+            line-height: 30px;
+            border-radius: 20px;
+            color: @text-yellow-color;
+            background-color: @btn-bg-color;
+            button {
+                height: 30px;
+                line-height: 30px;
+                font-size: 12px;
+                text-align: center;
+                border: 0 none;
+                outline: none;
+                background: 0 none;
+                cursor: pointer;
+                &.disabled {
+                    cursor: default;
+                }
+            }
+            .code-sending {
+                color: @text-color03;
+            }
+        }
+    }
+    .submit-btn {
+        width: 100%;
+        height: 40px;
+        line-height: 40px;
+        font-size: 14px;
+        text-align: center;
+        outline: none;
+        background-color: @btn-bg-scolor;
+        color: @btn-bg-text-scolor;
+        cursor: pointer;
+        border-radius: 3px;
+        margin-top: 20px;
+        &.disabled,
+        &.disabled:hover {
+            color: @btn-bg-text-color;
+            background-color: @btn-bg-color;
+        }
+        &:hover {
+            background-color: @btn-bg-hover-scolor;
+            color: @btn-bg-hover-text-scolor;
+        }
+        &.register-btn {
+            margin-top: 10px;
+        }
+    }
+    .error-tip {
+        height: 20px;
+        line-height: 20px;
+        font-size: 12px;
+        color: @text-red-color;
+        margin-top: 10px;
+    }
+    .warn-tip {
+        height: 30px;
+        line-height: 30px;
+        font-size: 12px;
+        color: @text-red-color;
+    }
+
+    .register-icon {
+        position: absolute;
+        right: 0;
+        bottom: -40px;
+    }
+
+    .register-extra {
+        height: 60px;
+        line-height: 60px;
+        text-align: center;
+        a,
+        a:hover {
+            color: @text-yellow-color;
+        }
+        .forget-pwd a,
+        .forget-pwd a:hover {
+            color: @text-color02;
+        }
+    }
+}
+
+.country-select-menu {
+    &.ant-select-dropdown{
+        background: @bg-pop-color;
+    }
+    .ant-select-dropdown-menu {
+        padding: 10px 0;
+        background: @bg-pop-color;
+    }
+    .ant-select-dropdown-menu-item {
+        height: 40px;
+        line-height: 40px;
+        font-size: 12px;
+        color: @text-color02;
+        box-shadow: 0px 0 0 0px transparent;
+        background-color: @bg-pop-color;
+        padding: 0 20px;
+    }
+    .ant-select-dropdown-menu-item:hover {
+        background-color: @list-hoverbg-color02 ;
+        text-decoration: none;
+        color: @text-color01;
+    }
+    .ant-select-dropdown-menu-item-selected, 
+    .ant-select-dropdown-menu-item-selected:hover{
+        color: @text-yellow-color !important;
+        background-color: @bg-pop-color;
+    }
+
+    ::-webkit-scrollbar,::-webkit-scrollbar-track {
+        background-color: @bg-pop-color;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background-color: @bg-module;
+    }
+}
+
+.app-page[data-path="/login"] .app-content,
+.app-page[data-path="/register"] .app-content,
+.app-page[data-path="/resetpwd"] .app-content {
+    background: @bg-color url('../images/loginbg.png') no-repeat center top;
+    min-height: 515px;
+    background-size: 1200px 515px;
+}
+
+.app-page[data-path="/login"] .tobottom-footer,
+.app-page[data-path="/register"] .tobottom-footer,
+.app-page[data-path="/resetpwd"] .tobottom-footer {
+    background-color: @bg-color;
+}

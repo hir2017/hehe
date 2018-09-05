@@ -1,0 +1,369 @@
+@import '../variable.less';
+.page-content-inner.base-info .grade-label {
+    height: 12px;
+    opacity: 0;
+}
+
+/* idcard-auth */
+.page-content-inner.base-info {
+    .grade-info .state-inner {
+        img.aus {
+            margin: 0 10px 80px 0;
+        }
+        .money {
+            font-size: 12px;
+            padding: 8px 0 1px;
+            line-height: 16px;
+        }
+        .amount-space {
+            display: block;
+            line-height: 17px;
+            color: @text-color01-light;
+        }
+    }
+}
+.auth-base-info .exc-form-item.default input.ant-calendar-picker-input{
+    color: transparent;
+}
+/* fiat-recharge */
+.modal-poli-content-wrapper {
+    .ant-modal-body {
+        padding: 0;
+    }
+    .poli-content {
+        height: 700px;
+        position: relative;
+    }
+    #poli-page {
+        width: 100%;
+        height: 100%;
+    }
+    .mini-loading {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: url('../../images/loading2.gif') no-repeat center center;
+        background-size: 60px 60px;
+        z-index: 999;
+    }
+}
+.fiat-recharge-aus {
+    .exc-form {
+        padding: 0 0 30px;
+    }
+    .exc-fiat-recharge-switch {
+        width: 100%;
+        border-radius: 3px;
+        background-color: @bg-color-light;
+        height: 100%;
+        padding: 2px;
+        box-sizing: border-box;
+        .switch-item {
+            display: inline-block;
+            width: 50%;
+            height: 36px;
+            line-height: 36px;
+            text-align: center;
+            border-radius: 3px;
+            color: @text-color02-light;
+            box-sizing: border-box;
+            font-size: 12px;
+            background-color: transparent;
+            border: solid 1px  transparent;
+            cursor: pointer;
+            &:hover {
+                color: @text-color01-light;
+            }
+            &.selected {
+                color: @text-color01-light;
+                background-color: #fff;
+                background: ~'linear-gradient(to bottom, #fff 0%, #f1f5f7 100%)';
+                border-color: @input-border-color2;
+            }
+        }
+    }
+    .table-wrapper {
+        margin: 0 0 3px;
+        width: 100%;
+        border: #ccc solid 1px;
+        border-radius: 3px;
+    }
+    table {
+        width: 100%;
+        td{
+            width: 50%;
+            border: 1px solid #cbd2d6;
+            text-align: center;
+            text-align: left;
+            height: 40px;
+            line-height: 40px;
+            padding: 0 8px 0 20px;
+            font-size: 11px;
+            position: relative;
+            .copy {
+                height: 24px;
+                line-height: 24px;
+                padding: 0 9px;
+                position: absolute;
+                right: 8px;
+                top: 8px;
+                background-color: @theme-yellow;
+                text-align: center;
+                border-radius: 2px;
+                color: #333;
+                cursor: pointer;
+                &:hover {
+                    background: @btn-bg-hover-scolor;
+                }
+            }
+        }
+        tr {
+            td {
+                &:first-child {
+                    border-left-width: 0;
+                }
+                &:last-child {
+                    border-right-width: 0;
+                }
+            }
+            &:first-child td{
+                border-top-width: 0;
+            }
+            &:last-child td{
+                border-bottom-width: 0;
+            }
+        }
+    }
+    .max-tip em{
+        color: #ea6060;
+    }
+}
+.fiat-recharge-aus .poli-img {
+    width: 100%;
+    position: relative;
+    border: dashed 1px #cbd2d6;
+    box-sizing: border-box;
+    border-radius: 6px;
+}
+.fiat-recharge-aus .poli-img::before{
+    content: '';
+    display: inline-block;
+    width: 21px;
+    height: 13px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: url('../../images/aus/poli-arrow.png') no-repeat center center;
+    background-size: 100% 100%;
+}
+.fiat-recharge-aus .poli-img .ant-col-12 {
+    height: 100px;
+    line-height: 100px;
+    text-align: center;
+    position: relative;
+}
+
+.fiat-recharge-aus .poli-img .ant-col-12:nth-child(1) {
+    color: #323e48;
+    font-size: 18px;
+}
+.fiat-recharge-aus .poli-img img {
+    height: 60px;
+}
+.fiat-recharge-aus .poli-img .ant-col-12:nth-child(2) .empty{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: ~'rgba(255,255,255, 0.6)';
+}
+.fiat-recharge-aus .poli-img .ant-col-12:nth-child(2) .empty.not{
+    height: 0;
+}
+/* fiat-withdraw */
+.fiat-withdraw-aus .amount-unit {
+    position: absolute;
+    font-size: 14px;
+    color: #999999;
+    z-index: 10;
+    right: 15px;
+    top: 33px;
+}
+.exc-form-item .amount-tips {
+    font-size: 12px;
+    color: #969da9;
+    padding-top: 12px;
+}
+.exc-form-item .amount-tips .balance{
+    height: 60px;
+    text-align: center;
+    background-color: #f7f9fa;
+    border-radius: 3px;
+    box-sizing: border-box;
+    padding: 13px 0 0;
+}
+.exc-form-item .amount-tips .balance em {
+    color: #323e48;
+}
+.fiat-withdraw-aus .ant-card-body {
+    font-size: 12px;
+    border-radius: 3px;
+    background-color: #fefbf2;
+    border: solid 1px @theme-yellow;
+}
+.fiat-withdraw-aus .ant-card-body label, .fiat-withdraw-aus .ant-card-body .val {
+    display: inline-block;
+    width: 50%;
+    padding: 4px 5px;
+}
+.fiat-withdraw-aus .exc-form-item.amount .inner-item .ant-input{
+    position: relative;
+    z-index: 14;
+    background-color: transparent;
+}
+.fiat-withdraw-aus .ie11-placeholder-hack {
+    top: 27px;
+    left: 11px;
+    font-size: 14px;
+}
+.fiat-withdraw-aus .ant-card-body label {
+    text-align: right;
+    color: #999;
+}
+.fiat-withdraw-aus .ant-card-body .val {
+    text-align: left;
+    color: #cc0000;
+
+}
+.fiat-withdraw-aus .ant-card-body .text {
+    padding: 5px 0;
+    text-align: center;
+    color: #333;
+}
+
+.fiat-withdraw-aus .exc-form-item.amount-info .inner-item {
+    overflow: hidden;
+}
+.fiat-withdraw-aus .exc-form-item.amount-info .source{
+    font-size: 14px;
+    color: #999999;
+    float: left;
+    width: 50%;
+}
+.fiat-withdraw-aus .exc-form-item.amount-info .source .val{
+    font-size: 20px;
+    color: #333;
+}
+.fiat-withdraw-aus .exc-form-item.amount-info .real{
+    width: 50%;
+    float: right;
+    text-align: right;
+    font-size: 14px;
+    color: #AEAEAE;
+}
+.fiat-withdraw-aus .ant-btn.link-btn {
+    margin-top: 10px;
+    width: 100%;
+}
+
+.fiat-withdraw-aus .success-opt, .fiat-withdraw-aus .success-info {
+    text-align: center;
+}
+.fiat-withdraw-aus .success-info p:nth-child(1) {
+    font-size: 32px;
+    padding: 40px 0 15px;
+}
+.fiat-withdraw-aus .success-info p:nth-child(2) {
+    font-size: 20px;
+    padding: 0  0 20px;
+}
+.fiat-withdraw-aus .success-opt .link-btn {
+    width: auto;
+}
+.fiat-withdraw-aus .success-opt .link-btn:nth-child(1) {
+    opacity: 0;
+    cursor: default;
+}
+
+/* account */
+.ant-modal.account-no-auth .ant-modal-body {
+    text-align: center;
+}
+.ant-modal.account-no-auth .ant-modal-body p:nth-child(1){
+    font-size: 24px;
+    color: #333;
+    padding: 20px 0 10px;
+}
+.ant-modal.account-no-auth .ant-modal-body p:nth-child(2){
+    font-size: 16px;
+    color: #333;
+    padding: 10px 0 20px;
+}
+.ant-modal.account-no-auth .ant-modal-body p:nth-child(2){
+    font-size: 16px;
+    color: #333;
+    padding: 10px 0 20px;
+}
+.ant-modal.account-no-auth .ant-modal-body .exc-form-item .submit-btn{
+    padding: 0 32px;
+}
+
+/* coin-recharge + coin-withdraw */
+.coin-recharge-aus .anticon-qrcode {
+    position: absolute;
+    right: -30px;
+    top: 35px;
+    font-size: 18px;
+}
+.coin-recharge-aus .fee {
+    padding: 10px 0;
+}
+.coin-recharge-aus .exchange-input.address {
+    padding-right: 60px;
+    background-color: #f7f9fa;
+}
+
+.coin-recharge-aus .input-right-tag {
+    color: #e6bc1d;
+    width: 60px;
+    height: 40px;
+    line-height: 40px;
+    top: 23px;
+    right: 0;
+    text-align: center;
+    cursor: pointer;
+}
+.coin-recharge-aus .input-right-tag::before {
+    content: '';
+    width: 1px;
+    height: 10px;
+    background-color: #cad1d5;
+    float: left;
+    margin-top: 15px;
+}
+.coin-recharge-aus .all-success .anticon-check-circle-o {
+    color: #1dc199;
+    margin-right: 6px;
+}
+.order-table .table-bd dl {
+    height: 50px;
+    line-height: 50px;
+}
+.order-table .table-bd dl dd {
+    font-size: 12px;
+}
+.coin-withdraw-aus .ant-select-auto-complete.ant-select .ant-input{
+    line-height: 40px;
+    height: 40px;
+}
+.coin-withdraw-aus .certain-address-search .ant-select-selection__placeholder {
+    line-height: 30px;
+    height: 30px;
+}
+.coin-withdraw-aus .ie11-placeholder-hack {
+    top: 7px;
+    left: 11px;
+    font-size: 14px;
+}

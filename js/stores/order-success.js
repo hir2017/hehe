@@ -42,8 +42,8 @@ class OrderStore {
 
 		this.isFetching = true;
 
-		this.params = Object.assign(this.params, params);		
-        
+		this.params = Object.assign(this.params, params);
+
         // 更新当前页数
         if (params.start && params.start !== this.current) {
             this.current = params.start;
@@ -73,13 +73,13 @@ class OrderStore {
     }
 
     parseItem(item) {
-        let currencyObj = this.currencyStore.getCurrencyById(`${item.baseCurrencyId}-${item.currencyId}`);
-        let pointNum = currencyObj.pointNum;
-        let pointPrice = currencyObj.pointPrice;
-        
-        item.orderTime = TimeUtil.formatDate(item.orderTime, 'yyyy-MM-dd HH:mm:ss');
+        let key = [item.baseCurrencyId, item.currencyId].join('_');
+        let cfg = this.currencyStore.getCurrencyById(key);
+        let { pointNum, pointPrice } = cfg;
+
+        item.orderTime = TimeUtil.formatDate(item.orderTimeStamp);
         // 委托价格
-        item.price = NumberUtil.formatNumber(item.price, pointPrice);
+        item.price = item.type === 2 ? UPEX.lang.template('市价委托') : NumberUtil.formatNumber(item.price, pointPrice);
         item.tradeAmount = NumberUtil.formatNumber(item.tradeAmount, pointPrice);
         item.tradePrice = NumberUtil.formatNumber(item.tradePrice, pointPrice);
         item.fee = NumberUtil.scientificToNumber(item.fee);
@@ -92,29 +92,8 @@ class OrderStore {
 
     @action
     updateItem(data) {
-        let flag = false; // 是否存在
-
-        // 过滤其他状态的数据
-        $.each(this.orderList, (i, item) => {
-            if (item.orderNo == data.orderNo) {
-
-                if (statusList.indexOf(data.status) > -1) {
-                    this.orderList[i] = this.parseItem(data);    
-                } else {
-                    this.orderList.splice(i, 1);
-                }
-                
-                flag = true;
-                return false;
-            }
-        })
-
-        // 列表中没有，则新增
-        if (!flag) {
-            
-            if (statusList.indexOf(data.status) > -1) {
-                this.orderList.splice(0,0,this.parseItem(data));
-            }
+        if (statusList.indexOf(data.status) > -1) {
+            this.orderList.splice(0,0,this.parseItem(data));
         }
     }
 }

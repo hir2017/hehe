@@ -21,14 +21,15 @@ class NumberInput extends Component {
         }
 
         this.state = {
-            value: defaultValue
+            inputValue: defaultValue
         };
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.value !== this.state.value) {
+
+        if (nextProps.value !== this.state.inputValue) {
             this.setState({
-                value: nextProps.value
+                inputValue: nextProps.value
             });
         }
     }
@@ -57,16 +58,14 @@ class NumberInput extends Component {
         }
     }
 
-    keyup = (e) => {
-
-    }
-
     change = (e) => {
         // negative->判断能否输负数 true->可为负数 false->不可为负数 默认为不可为负数
         const { negative } = this.props;
+        const node = e.target;
         const targetValue = e.target.value;
-        const oldValue = this.state.value || '';
+        const oldValue = this.state.inputValue || '';
         const precision = this.props.precision;
+        const cursorStart = e.target.selectionStart;
         let formatValue;
 
         // 可以为负数
@@ -82,8 +81,9 @@ class NumberInput extends Component {
             formatValue = targetValue === '.' ? '0.' : targetValue.trim();
 
             this.setState({
-                value: formatValue
+                inputValue: formatValue
             });
+            
 
             if (formatValue.indexOf('.') > -1 && typeof precision !== 'undefined') {
                 let str = "" + formatValue, idx = str.indexOf(".") + Number(precision) + 1;
@@ -93,7 +93,7 @@ class NumberInput extends Component {
                     formatValue = str.substring(0, idx);  // 截取N位小数
 
                     this.setState({
-                        value: formatValue
+                        inputValue: formatValue
                     });
                 }
             }
@@ -107,6 +107,8 @@ class NumberInput extends Component {
                 this.props.onChange(e, formatValue);
             }
         }
+
+        node.selectionStart = node.selectionEnd = cursorStart;
     }
 
     blur = (e) => {
@@ -121,17 +123,19 @@ class NumberInput extends Component {
     }
 
     render() {
-        const { value } = this.state;
+        const { inputValue } = this.state;
         const { onChange, onBlur, ...props } = this.props;
 
         return (
-            <input {...props} 
-                value={value} 
+            <input 
+                { ...props }
+                value={inputValue} 
                 onChange={this.change} 
                 onBlur={this.blur} 
                 onKeyDown={this.keydown}
                 onKeyUp={this.keyup}
                 autoComplete="off"
+                ref="input"
             />
         );
     }

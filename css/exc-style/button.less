@@ -1,0 +1,22 @@
+@import '../variable.less';
+.ant-btn {
+    &.exc-btn-submit {
+        background-color: @btn-submit-color;
+        border-radius: 3px;
+        border: none;
+        color: @text-color01-light;
+        height: 30px;
+        &:hover, &:focus {
+            background-color: @btn-submit-hover-color;
+            color: @text-color01-light;
+        }
+        &:active, &.active {
+            border-color: @theme-yellow-opacity01;
+            background-color: @btn-submit-hover-color;
+            color: @text-color01-light;
+        }
+        &.ant-btn-clicked:after {
+            border: 0 solid @theme-yellow;
+        }
+    }
+}

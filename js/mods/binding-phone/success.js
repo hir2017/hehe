@@ -8,7 +8,7 @@ import { observer, inject } from 'mobx-react';
 import { Button, Icon } from 'antd';
 import { browserHistory } from 'react-router';
 
-import PageWrapper from '../../common-mods/page-user/page-wrapper';
+import PageWrapper from '../../components/page-user/page-wrapper';
 
 @inject('userInfoStore')
 @observer
@@ -34,7 +34,7 @@ export default class extends Component {
                     <div>
                         <p>{UPEX.lang.template('还差一步，您就可以开始交易了')}</p>
                         <div className="item">
-                            <Button className="ace-main" onClick={e => {browserHistory.push('/user/authentication')}}>
+                            <Button className="exc-main" onClick={e => {browserHistory.push('/user/authentication')}}>
                                 {UPEX.lang.template('去身份验证')}
                             </Button>
                         </div>

@@ -70,13 +70,8 @@ class CoinWithdrawRecordStore {
         arr.forEach((item, index) => {
             item.id = this.current + '' + index;
             item.fee = NumberUtil.scientificToNumber(item.fee);
-            let _time = item.createTime;
-            // TODO: 需要后端去掉.0
-            if (_time && _time.indexOf('.0') !== -1) {
-                _time = _time.replace('.0', '')
-            }
-            item.createTime = _time;
-            // item.createTime = TimeUtil.formatDate(item.createTime, 'yyyy-MM-dd HH:mm:ss');
+            item.createTime = TimeUtil.formatDate(item.createTimeStamp);
+
         })
 
         return arr;

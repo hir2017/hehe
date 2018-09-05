@@ -3,205 +3,246 @@
  * @author 陈立英
  * @date 2018-04-26
  */
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
-import { Tabs , Icon , Popover , Select} from 'antd';
-import {  Link } from 'react-router';
+import { Select, Icon } from 'antd';
+import { Link } from 'react-router';
 import toAction from './action';
 const Option = Select.Option;
+import { TabView , AreaCodeSelectView , SMSCodeView } from './views';
+import YidunCaptcha  from '../../mods/yidun-captcha';
 
 @inject('loginStore')
 @observer
 class ResetPassword extends Component {
-    constructor(props){
-    	super(props);
+    constructor(props) {
+        super(props);
 
         this.action = toAction(this.props.loginStore);
+
+        this.tabs = [
+            {
+                id: 'email',
+                title: UPEX.lang.template('邮箱方式找回')
+            },
+            {
+                id: 'phone',
+                title: UPEX.lang.template('手机方式找回')
+            }
+        ];
+
+        this.yidunCaptcha = new YidunCaptcha({
+            type: 'modify-pwd',
+            lang: UPEX.lang.language == 'en-US' ? 'en': UPEX.lang.language
+        })
     }
 
     componentDidMount() {
-        this.action.getImgCaptcha();
+        this.yidunCaptcha.init((validate, captchaId)=>{
+            this.action.sendVercode('resetpwd', validate, captchaId);
+        })
     }
 
-    componentWillUnmount(){
-        this.action.destroy(); 
+    componentWillUnmount() {
+        this.action.destroy();
     }
 
-    sendVercode=(e)=>{
-        this.action.sendVercode('resetpwd');
+    sendVercode = (e) => {
+        let verifyResult = this.action.verifyInfoBeforeSendCode();
+
+        if (verifyResult) {
+            this.yidunCaptcha.show();    
+        }
     }
 
-    submit=(e) =>{
+    submit = (e) => {
         this.action.submitResetPwd();
+    }
+
+    clearInput=(field)=> {
+        this.refs[field].focus();
+        this.action.clearInput(field);        
+        this.action.clearVerifyResult(field);
+    }
+
+    onFocusInput=(field, e)=>{
+        if (field == 'phone' || field == 'email') {
+            this.action.onFocusInput(field, e);    
+        }
+
+        $(e.currentTarget).parents('.input-wrapper').attr('data-type', 'focus');
+    }
+
+    onBlurInput(field, e){
+        let timer;
+        let node = $(e.currentTarget).parents('.input-wrapper');
+
+        timer = setTimeout(()=>{
+            clearTimeout(timer);
+            node.attr('data-type', 'blur');
+        }, 100)
     }
 
     render() {
         let store = this.props.loginStore;
         let action = this.action;
+        let $selectAreaCode;
+        let $inputAccount;
+        let $submitBtn;
 
-        let options = [];
+        switch (store.mode) {
+            case 'phone':
 
-        $.map(store.countries, (item, key)=>{
-            options[options.length] = <Option value={key} key={key}>{UPEX.lang.template(key)}(+{item.areacode})</Option>
-        })
+                $selectAreaCode = <AreaCodeSelectView defaultValue={store.selectedCountry.code} onChange={action.onAreaCodeChange}/>;
+
+                $inputAccount = (
+                    <div className="input-wrapper" key="phone">
+                        <div className="input-box">
+                            <input
+                                ref="phone"
+                                type="text"
+                                value={store.phone}
+                                placeholder={UPEX.lang.template('手机')}
+                                onChange={ (e)=>action.onChangeField('phone', e) }
+                                onFocus={ (e)=>this.onFocusInput('phone', e)}
+                                onBlur={ (e)=>this.onBlurInput('phone', e)}
+                                autoFocus
+                                autoComplete="off"
+                            />
+                        </div>
+                        { store.phone ? <div className="icon-delete" onClick={this.clearInput.bind(this, 'phone')}></div> : null}
+                        { store.phoneResult[0] ? null : <div className="warn">{ store.phoneResult[1]}</div>}
+                    </div>
+                )
+
+                break;
+            case 'email':
+                $inputAccount = (
+                    <div className="input-wrapper" key="email">
+                        <div className="input-box">
+                            <input
+                                type="text"
+                                placeholder={UPEX.lang.template('邮箱')}
+                                onChange={ (e)=>action.onChangeField('email', e) }
+                                onFocus={ (e)=>this.onFocusInput('email', e)}
+                                onBlur={ (e)=>this.onBlurInput('email', e) }
+                                autoFocus
+                                autoComplete="off"
+                            />
+                        </div>
+                        { store.phone ? <div className="icon-delete" onClick={this.clearInput.bind(this, 'phone')}></div> : null}
+                        { store.emailResult[0] ? null :  <div className="warn">{ store.emailResult[1]}</div>}
+                    </div>
+                )
+                break;
+        }
+
+        if (store.enableResetPwd) {
+            // 提交按钮
+            if (store.submiting) {
+                $submitBtn = (
+                    <button type="button" className="submit-btn">
+                        {UPEX.lang.template('提交中')}
+                    </button>
+                )
+            } else {
+                $submitBtn = (
+                    <button type="button" className="submit-btn" onClick={this.submit}>
+                        {UPEX.lang.template('提交')}
+                    </button>
+                )
+            }
+        } else {
+            $submitBtn = (
+                <button type="button" className="submit-btn disabled">
+                    {UPEX.lang.template('提交')}
+                </button>
+            )
+        }
+        
 
         return (
             <div className="register-wrapper resetpwd-box">
-                <div className="register-form">                    
-                    <h3 className="title"> { UPEX.lang.template('忘记密码')} </h3>
-                    <ul className="register-mode-tabs clearfix">
-                        {
-                            ['email', 'phone'].map((item, index)=>{
-                                let cls = 'register-mode-tab';
-                                let txt;
-                                
-                                if (store.mode === item) {
-                                    cls += ' selected';
+                <div className="register-form-wrapper">
+                    <div className="register-form">
+                        <h3 className="register-form-title">{UPEX.lang.template('忘记密码')}</h3>
+                        <TabView data={this.tabs} current={store.mode} onClick={action.onChangeMode}/>
+                        <div className="register-mode-content">
+                            { $selectAreaCode }
+                            { $inputAccount }
+                            <div className="input-wrapper">
+                                <div className="input-box useryz-box">
+                                    <input
+                                        type="text"
+                                        ref="vercode"
+                                        maxLength="6"
+                                        autoComplete="off"
+                                        placeholder={store.mode == 'email' ? UPEX.lang.template('邮箱验证码') : UPEX.lang.template('手机验证码')}
+                                        className={store.validVercode ? '' : 'wrong'}
+                                        onChange={(e)=>action.onChangeField('vercode', e)}
+                                    />
+                                    <SMSCodeView onClick={this.sendVercode} disabled={store.disabledCodeBtn} fetching={store.sending}/>
+                                </div>
+                                {
+                                    !store.validVercode ? (
+                                        <div className="warn">
+                                            {store.mode == 'email' ? UPEX.lang.template('请填写正确的邮箱验证码') : UPEX.lang.template('请填写正确的手机验证码')}
+                                        </div>
+                                    ) : null
                                 }
+                            </div>
+                            <div className="input-wrapper">
+                                <div className="input-box">
+                                    <input
+                                        ref="pwd"
+                                        type="password"
+                                        maxLength="16"
+                                        autoComplete="off"
+                                        value={store.pwd}
+                                        className={store.pwdResult[0] ? '' : 'wrong'}
+                                        placeholder={UPEX.lang.template('密码')}
+                                        onChange={ (e)=>action.onChangeField('pwd', e) }
+                                        onBlur={ (e)=>this.onBlurInput('pwd', e) }
+                                        onFocus={ (e)=>this.onFocusInput('pwd', e)}
+                                    />
+                                </div>
+                                { store.pwd ? <div className="icon-delete" onClick={this.clearInput.bind(this, 'pwd')}></div> : null}
+                                { store.pwdResult[0] ? null : <div className="warn">{ store.pwdResult[1] }</div>}
+                            </div>
+                            <div className="input-wrapper">
+                                <div className="input-box">
+                                    <input
+                                        ref="twicepwd"
+                                        type="password"
+                                        maxLength="16"
+                                        autoComplete="off"
+                                        value={store.twicepwd}
+                                        className={store.twicePwdResult[0] ? '' : 'wrong'}
+                                        placeholder={UPEX.lang.template('确认密码')}
+                                        onChange={ (e)=>action.onChangeField('twicepwd', e) }
+                                        onBlur={ (e)=>this.onBlurInput('twicepwd', e) }
+                                        onFocus={ (e)=>this.onFocusInput('twicepwd', e)}
+                                    />
+                                </div>
+                                { store.twicepwd ? <div className="icon-delete" onClick={this.clearInput.bind(this, 'twicepwd')}></div> : null}
+                                { store.twicePwdResult[0] ? null : <div className="warn">{ store.twicePwdResult[1]}</div>}
+                            </div>
 
-                                if (item == 'email') {
-                                    txt = UPEX.lang.template('邮箱方式找回');
-                                } else {
-                                    txt = UPEX.lang.template('手机方式找回')
-                                }
-
-                                return (
-                                    <li key={item}>
-                                        <button className={cls} onClick={ action.onChangeMode.bind(this, item)}>{ txt }</button>
-                                    </li>
-                                )
-                            })
-                        }
-                    </ul>
-                    <div className="register-mode-content">
-                        {
-                            store.mode == 'email' ? null : (
-                                <div className="input-wrapper">
-                                    <div className="input-box">
-                                        <Select onChange={ action.onAreaCodeChange } defaultValue={store.selectedCountry.code}>
-                                            { options }
-                                        </Select>
-                                    </div>
-                                </div>
-                            )
-                        }
-                        {
-                            store.mode == 'email' ? (
-                                <div className="input-wrapper" key='email'>
-                                    <div className="input-box">
-                                        <input
-                                            type="text" 
-                                            placeholder={ UPEX.lang.template('邮箱') }
-                                            onInput={ action.onChangeEmail }
-                                            onBlur={action.onBlurEmail}
-                                            autoFocus
-                                            autoComplete="off"
-                                        />
-                                    </div>
-                                    { !store.validEmail ? <div className="warn">{ UPEX.lang.template('请填写正确的邮箱')}</div> : null }
-                                </div>
-                            ) : (
-                                <div className="input-wrapper" key='phone'>
-                                    <div className="input-box">
-                                        <input
-                                            type="text" 
-                                            placeholder={ UPEX.lang.template('手机') }
-                                            onInput={  action.onChangePhone }
-                                            onBlur={ action.onBlurPhone }
-                                            autoFocus
-                                            autoComplete="off"
-                                        />
-                                    </div>
-                                    { !store.validPhone ? <div className="warn">{ UPEX.lang.template('请填写正确的手机号')}</div> : null }
-                                </div>
-                            )
-                        }
-                        <div className="input-wrapper">
-                            <div className="input-box yz-box">
-                                <input
-                                    type="text" 
-                                    placeholder={ UPEX.lang.template('请参照右侧输入') }
-                                    maxLength="5"
-                                    autoComplete="off"
-                                    onInput={ action.onChangeImgCode }
-                                    className={ store.validImgCode ? '' : 'wrong' }
-                                />
-                                <div className="codeimg">
-                                    <img src={ store.captcha } onClick={ action.getImgCaptcha } alt=""/>
-                                </div>
+                            <div className="input-wrapper">
+                                { $submitBtn }
                             </div>
-                            { !store.validImgCode ? <div className="warn">{ UPEX.lang.template('请填写正确的图片验证码')}</div> : null }
-                        </div>
-                        <div className="input-wrapper">
-                            <div className="input-box useryz-box">
-                                <input 
-                                    type="text" 
-                                    ref="vercode" 
-                                    maxLength="6"
-                                    autoComplete="off"
-                                    placeholder={ store.mode == 'email' ? UPEX.lang.template('邮箱验证码') : UPEX.lang.template('手机验证码') }
-                                    className={ store.validVercode ? '' : 'wrong' }
-                                    onInput={ action.onChangeVercode }
-                                />
-                                <div className="yzcode">
-                                    <button onClick={ this.sendVercode } className={ store.sendingcode ? 'disabled' : ''} >
-                                        <div className={ store.sendingcode ? 'code-sending': 'code-sending hidden'}>{ UPEX.lang.template('重发')}（<span data-second="second" ref="second"></span>s）</div>
-                                        <div className={ store.sendingcode ? 'code-txt hidden' : 'code-txt'}>{  UPEX.lang.template('发送验证码') }</div>
-                                    </button>
+                            <div className="register-extra clearfix">
+                                <div className="fl login">
+                                    <Link to="/login">{UPEX.lang.template('登录')}</Link>
                                 </div>
-                            </div>
-                            { !store.validVercode ? <div className="warn">{ store.mode == 'email' ? UPEX.lang.template('请填写正确的邮箱验证码') : UPEX.lang.template('请填写正确的手机验证码') }</div> : null }
-                        </div>
-                        <div className="input-wrapper">
-                            <div className="input-box">
-                                <input
-                                    type="password" 
-                                    ref="pwd"
-                                    maxLength="16"
-                                    autoComplete="off"
-                                    className={ store.validPwd ? '' : 'wrong'}
-                                    placeholder={ UPEX.lang.template('密码') }
-                                    onInput={ action.onChangePwd }
-                                    onBlur={action.onBlurPwd}
-                                />
-                            </div>
-                            { !store.validPwd ? <div className="warn">{ UPEX.lang.template('密码至少由大写字母+小写字母+数字，8-16位组成')}</div> : null }
-                        </div>
-                        <div className="input-wrapper">
-                            <div className="input-box">
-                                <input
-                                    type="password" 
-                                    ref="twicepwd"
-                                    maxLength="16"
-                                    autoComplete="off"
-                                    className={ store.validTwicePwd ? '' : 'wrong'}
-                                    placeholder={ UPEX.lang.template('确认密码') }
-                                    onInput={ action.onChangeTwicePwd }
-                                    onBlur={action.onBlurTwicePwd}
-                                />
-                            </div>
-                            { !store.validTwicePwd ? <div className="warn">{ UPEX.lang.template('两次密码输入不一致')}</div> : null }
-                        </div>
-                        
-                        <div className="input-wrapper">
-                            {
-                                store.submiting ? 
-                                <button className="submit-btn">{ UPEX.lang.template('提交中') }</button>
-                                :
-                                <button className="submit-btn" onClick={ this.submit }>{ UPEX.lang.template('提交') }</button>
-                            }
-                        </div>
-                        <div className="register-extra clearfix">
-                            <div className="fl login">
-                                <Link to="/login">{ UPEX.lang.template('登录') }</Link>
-                            </div>
-                            <div className="fr register">
-                                <Link to="/register"> { UPEX.lang.template('注册')}</Link>
+                                <div className="fr register">
+                                    <Link to="/register"> {UPEX.lang.template('注册')}</Link>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div> 
+            </div>
         );
     }
 }

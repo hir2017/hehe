@@ -10,6 +10,8 @@ import toAction from './fiat-recharge-action';
 
 import CardSelect from './bind-card-select';
 import OrderInfo from './fiat-order-info';
+import AutoCompleteHack from '../common/auto-complete-hack';
+
 
 // 金流類型
 const cashTypes = () => {
@@ -74,7 +76,7 @@ class FiatRechargeView extends Component {
                     <div className="rw-form-item">
                         <label className="rw-form-label" />
                         <div className="rw-form-info">
-                            <button className="submit-btn" onClick={this.onConfirm}>
+                            <button type="button" className="submit-btn" onClick={this.onConfirm}>
                                 {UPEX.lang.template('已完成支付')}
                             </button>
                         </div>
@@ -88,7 +90,7 @@ class FiatRechargeView extends Component {
             const SelectData = {
                 type: 'recharge',
                 setVal,
-                cards: store.bankCardsList,
+                cards: store.bankCardsList.filter(item => item.status === 1),
                 count: store.accountAmount,
                 labels: { card: UPEX.lang.template('选择充值的银行卡'), balance: UPEX.lang.template('充值金额') }
             };
@@ -116,7 +118,7 @@ class FiatRechargeView extends Component {
                     </div>
                     <div className="rw-form-item">
                         <div className="rw-form-info">
-                            <button className="submit-btn" onClick={this.handleOrder}>
+                            <button type="button" className="submit-btn" onClick={this.handleOrder}>
                                 {UPEX.lang.template('去网上银行充值')}
                             </button>
                         </div>
@@ -127,6 +129,7 @@ class FiatRechargeView extends Component {
 
         return (
             <div>
+                <AutoCompleteHack/>
                 {$formContent}
                 <div className="rw-form">
                     <div className="rw-form-info">

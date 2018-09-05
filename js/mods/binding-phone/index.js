@@ -69,31 +69,31 @@ export default class Phone extends Component {
             set: {
                 path: '/user/setting-phone',
                 label: UPEX.lang.template('添加'),
-                class: 'ace-secondary',
+                class: 'exc-secondary',
             },
             modify: {
                 path: '/user/modify-phone',
                 label: UPEX.lang.template('修改'),
-                class: 'ace-btn-white',
+                class: 'exc-btn-white',
             },
         }
         let currBtn = optData[userInfo.phone ? 'modify' : 'set'];
         return (
             <div className="common-setting-box">
                 <Row className="pwd top-radius-6 bottom-radius-6">
-                    <Col className="title" span={8}>
+                    <Col className="title col-exc" span={8}>
                         <p>{userInfo.phone || UPEX.lang.template('请添加手机')}</p>
                         <p>{UPEX.lang.template('提现、修改密码，及安全设置时接收短信使用')}</p>
                     </Col>
-                    <Col  span={8} />
-                    <Col className="operator" span={8}>
+                    <Col  className="col-exc" span={8} />
+                    <Col className="operator col-exc" span={8}>
                         <Button className={currBtn.class} onClick={e => {browserHistory.push(currBtn.path)}}>
                             {currBtn.label}
                         </Button>
                     </Col>
                 </Row>
                 <div className="message">
-                    <p>{UPEX.lang.template('为了您的安全或者降低手机遗失的风险，请在绑定手机号后立即绑定Google验证器')}。</p>
+                    <p>{UPEX.lang.template('为了您的安全或者降低手机遗失的风险，请在绑定手机号后立即绑定Google验证器')}</p>
                     <p>{UPEX.lang.template('为了您的资金安全，修改手机绑定后，24小时内不可以提现提币')}</p>
                 </div>
 

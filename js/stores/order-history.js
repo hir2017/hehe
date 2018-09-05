@@ -72,6 +72,19 @@ class OrderStore {
                         let { details = [] } = data.attachment;
                         // null不严格等于undefined
                         details = details === null ? [] : details;
+                        // if(item.type === 2) {
+                        //     details.forEach(item => {
+                        //         item.price = UPEX.lang.template('市价委托')
+                        //     })
+                        // }
+                        // 时间戳转换
+                        details.forEach(item => {
+                            item.tradeTime = TimeUtil.formatDate(item.tradeTimeStamp);
+                        })
+                        // 时间戳转换
+                        if (item.status === 4 || item.status === 5) {
+                            data.attachment.cancelTime = TimeUtil.formatDate(data.attachment.cancelTimeStamp)
+                        }
                         this.orderList[index].details = details;
                         this.orderList[index]._detailInfo = data.attachment;
                         this.orderList[index].detailReady = true;
@@ -124,7 +137,7 @@ class OrderStore {
             this.current = params.start;
         }
 
-        getUserHistoryOrderList(this.params)
+        return getUserHistoryOrderList(this.params)
             .then(data => {
                 runInAction(() => {
                     if (data.status == 200) {
@@ -149,16 +162,21 @@ class OrderStore {
         return arr;
     }
 
+    @action
+    getParseRowFn() {
+        return this.parseItem.bind(this);
+    }
+
     parseItem(item) {
-        
-        let currencyObj = this.currencyStore.getCurrencyById(`${item.baseCurrencyId}-${item.currencyId}`);
-        let pointNum = currencyObj.pointNum;
-        let pointPrice = currencyObj.pointPrice;
+        let key = [item.baseCurrencyId, item.currencyId].join('_');
+        let cfg = this.currencyStore.getCurrencyById(key);
+        let { pointNum, pointPrice } = cfg;
 
         // 时间
-        item.orderTime = TimeUtil.formatDate(item.orderTime, 'yyyy-MM-dd HH:mm:ss');
+        item.orderTime = TimeUtil.formatDate(item.orderTimeStamp);
         // 委托价格
-        item.price = NumberUtil.formatNumber(item.price, pointPrice);
+        console.log(item.type)
+        item.price = item.type === 2 ? UPEX.lang.template('市价委托') : NumberUtil.formatNumber(item.price, pointPrice);
         // 平均成交价
         item.averagePrice = NumberUtil.formatNumber(item.averagePrice || 0, pointPrice);
         // 成交价格
@@ -170,6 +188,7 @@ class OrderStore {
         // 成交数量
         item.tradeNum = NumberUtil.formatNumber(item.tradeNum, pointNum);
         // 成交率
+        item.tradeRate = item.tradeRate || 0;
         item.tradeRate = NumberUtil.formatNumber(item.tradeRate * 100, 2) + '%';
 
         item.details = [];

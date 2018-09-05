@@ -6,71 +6,151 @@
 
 import React, {Component} from 'react';
 import { observer, inject } from 'mobx-react';
-import { Link } from 'react-router'
+import { Input, Icon, Checkbox } from 'antd';
+import { Link , browserHistory} from 'react-router'
 import CoinList from './coin-list';
 import CoinChart from './chart';
+
+const Search = Input.Search;
 
 @inject('homeStore')
 @observer
 class IndexMarkets extends Component{
+	constructor(props){
+		super(props);
+
+		this.state = {
+			positionFixed: false
+		}
+	}
+
+	componentDidMount() {
+		let target = $(this.refs.tofixed);
+
+		this.visibilityHeight = target.offset().top;
+
+		$(window).on('scroll', this.handleScroll);
+	}
+
+	componentWillUnmount(){
+		$(window).off('scroll', this.handleScroll);
+	}
+
+	handleScroll=(e)=>{
+		return;
+		// 币种多的时候，实现该效果，币种内容fixed
+		let scrollTop = window.pageYOffset || document.body.scrollTop || document.documentElement.scrollTop;
+
+		this.setState({
+	      	positionFixed: scrollTop > this.visibilityHeight
+	    });
+	}
+
+	handleTab=(code)=>{
+		let store = this.props.homeStore.marketListStore;
+		
+		store.updateMarketCode(code);
+		store.initMarket();
+	}
+
+	filterHandler=(e)=>{
+		let store = this.props.homeStore.marketListStore;
+        let value = e.target.value.trim();
+
+        // value = value.toUpperCase();
+        store.updateSearchValue(value);
+    }
+
+    handleClick=(pair)=>{
+    	browserHistory.push(`/webtrade/${pair}`);
+    }
+
 	render() {
 		let store = this.props.homeStore.marketListStore;
-	    let pair = store.selectedCoin.baseCurrencyNameEn + '_' + store.selectedCoin.currencyNameEn;
+		let pair;
+		let $coinMain;
+
+		if (store.selectedCurrency.baseCurrencyNameEn) {
+			pair = store.selectedCurrency.baseCurrencyNameEn + '_' + store.selectedCurrency.currencyNameEn;
+
+			$coinMain = (
+				<div className="wrapper">
+            		<div className="market-coin">
+		        		<div className="coin-hd">
+		        			<h4 className="info" onClick={this.handleClick.bind(this, pair)}>
+		        				<img className="icon" src={store.selectedCurrency.icoUrl || ''} alt="" />
+			                    <span className="name">{store.selectedCurrency.currencyNameEn}<i>/{store.selectedCurrency.baseCurrencyNameEn}</i></span>
+			                    <em>{store.selectedCurrency.currentAmountText}</em>
+		                    </h4> 
+		                    <span className={store.selectedCurrency.changeRate >= 0 ? 'rate greenrate' : 'rate redrate'}>
+		                    	{ store.selectedCurrency.changeRateText }
+		                    </span>
+		        		</div>
+		    			<ul className="coin-bd clearfix">
+		    				<li>
+		    					<label>{ UPEX.lang.template('成交量') }</label>
+		    					<em>{ store.selectedCurrency.volumeText}</em>
+		    				</li>
+		    				<li>
+		    					<label>{ UPEX.lang.template('24h最低价') }</label>
+		    					<em>{ store.selectedCurrency.lowPriceText}</em>
+		    				</li>
+		    				<li>
+		    					<label>{ UPEX.lang.template('成交额') }</label>
+		    					<em>{ store.selectedCurrency.amountText}</em>
+		    				</li>
+		    				<li>
+		    					<label>{ UPEX.lang.template('24h最高价') }</label>
+		    					<em>{ store.selectedCurrency.highPriceText}</em>
+		    				</li>
+		    			</ul>
+            		</div>
+            		<div className="realtime-kline">
+            			<CoinChart key={pair} pair={pair} pointPrice={store.selectedCurrency.pointPrice}/>
+	  				</div>
+            	</div>
+			);
+		}
 
 		return (
   			<div className="index-markets">
-     			<div className="index-markets-hd">
-     				<h3 className="title">{UPEX.lang.template('货币行情')}</h3>
+     			<div className="market-nav">
+     				<ul>
+     					{
+     						store.marketNav.map((item, index)=>{
+     							let clsName = item == store.selectedMarketCode ? 'selected' : '';
+ 								
+     							return ( 
+     								<li className={clsName} key={item} onClick={this.handleTab.bind(this, item)}>
+     									{UPEX.lang.template('{name}市场',{ name: item})}
+     								</li>
+     							);
+     						})
+     					}
+     					<li className={`marked${store.selectedMarketCode == 'Marked' ? ' selected' : ''}`} onClick={this.handleTab.bind(this, 'Marked')}>
+     						{
+     							store.selectedMarketCode == 'Marked' ?  
+     							<i  className='exc-star selected' /> :
+     							<i  className='exc-star' />  
+     						}
+     					</li>
+     				</ul>
+     				<div className="search">
+	 				  	<Search
+	                        onChange={this.filterHandler}
+	                        value={store.searchValue}
+	                        placeholder={UPEX.lang.template('搜索数字币')}
+	                    />
+                    </div>
      			</div>
-        	<div>
-        		<div className="index-markets-left">
-        			<div className="coin-hd">
-        				<h4 className="name">
-                    <span>{store.selectedCoin.currencyNameEn}</span>
-                    <em>{store.selectedCoin.currentAmountText}</em>
-                </h4>
-                <span className={store.selectedCoin.changeRate >= 0 ? 'rate greenrate' : 'rate redrate'}>
-                	{ store.selectedCoin.changeRateText }
-                </span>
-        			</div>
-        			<ul className="coin-bd">
-        				<li>
-        					<label>{ UPEX.lang.template('成交量') }</label>
-        					<em>{ store.selectedCoin.volumeText}</em>
-        				</li>
-        				<li>
-        					<label>{ UPEX.lang.template('成交额') }</label>
-        					<em>{ store.selectedCoin.amountText}</em>
-        				</li>
-        				<li>
-        					<label>{ UPEX.lang.template('24h最低价') }</label>
-        					<em>{ store.selectedCoin.lowPriceText}</em>
-        				</li>
-        				<li>
-        					<label>{ UPEX.lang.template('24h最高价') }</label>
-        					<em>{ store.selectedCoin.highPriceText}</em>
-        				</li>
-        			</ul>
-        			<div className="coin-ft">
-        				<div className="realtime">
-           				<div className="realtime-hd">
-            				<h4>{UPEX.lang.template('实时行情')}</h4>
-            				<label>
-		                    <Link to={`/webtrade/${pair}`}>
-		                    { UPEX.lang.template('K线') }
-		                    </Link>
-	                  	</label>
-                  	</div>
-          				<div className="realtime-kline">
-          					<CoinChart key={pair} pair={pair} pointPrice={store.selectedCoin.pointPrice}/>
-          				</div>
-        				</div>
-        			</div>
-        		</div>
-        		<div className="index-markets-right">
-        			<CoinList/>
-        		</div>
-        	</div>
+                <div className="market-panel">
+                	<div className={`market-panel-hd${this.state.positionFixed ? ' market-panel-fixed' : ''}${store.selectedCurrency.key ? '' : ' empty'}` } ref="tofixed">
+                		{ $coinMain }
+                	</div>
+                	<div className="market-panel-bd">
+                		<CoinList/>
+                	</div>
+                </div>
   			</div>
 		)
 	}

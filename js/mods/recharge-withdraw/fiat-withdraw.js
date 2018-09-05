@@ -3,10 +3,11 @@
  */
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
-import { Select } from 'antd';
+import { Select, message, AutoComplete } from 'antd';
 const Option = Select.Option;
 import toAction from './fiat-withdraw-action';
 
+import AutoCompleteHack from '../common/auto-complete-hack';
 import CardSelect from './bind-card-select';
 import OrderInfo from './fiat-order-info';
 
@@ -15,8 +16,8 @@ import OrderInfo from './fiat-order-info';
 class FiatRechargeView extends Component {
     constructor(props) {
         super(props);
-
         this.action = toAction(this.props.fiatWithdrawStore, this.props.userInfoStore);
+
     }
 
     componentDidMount() {
@@ -29,6 +30,16 @@ class FiatRechargeView extends Component {
     }
 
     handleNextStep = e => {
+        const {accountAmount, balance} = this.props.fiatWithdrawStore;
+        //console.log(parseInt(balance), parseFloat(accountAmount), parseInt(balance) > parseFloat(accountAmount))
+        try {
+            if(parseInt(balance) > parseFloat(accountAmount)) {
+                message.error(UPEX.lang.template('请填写正确的提现金额'));
+                return;
+            }
+        } catch (error) {
+            console.error(error);
+        }
         this.action.nextStep();
     };
 
@@ -66,7 +77,7 @@ class FiatRechargeView extends Component {
                         <div className="rw-form-info">
                             <div className="yz-box">
                                 <div className={`input-box ${store.validImgCode ? '' : 'wrong'}`}>
-                                    <input type="text" autoComplete="off" placeholder={UPEX.lang.template('图片验证')} data-key="vercode" value={store.vercode} onChange={action.onChangeInput} />
+                                    <input type="text" name="fia_no_auto1" autoComplete="off" placeholder={UPEX.lang.template('图片验证')} data-key="vercode" value={store.vercode} onChange={action.onChangeInput} />
                                     <div className="codeimg">
                                         <img src={store.captchaStore.captcha} onClick={(e) => {store.getImgCaptcha()}} alt="" />
                                     </div>
@@ -99,11 +110,13 @@ class FiatRechargeView extends Component {
                     <div className="rw-form-item">
                         <label className="rw-form-label" />
                         <div className="rw-form-info">
+                            <AutoCompleteHack />
                             {store.authType == 'phone' ? (
                                 <div className="input-button-box">
                                     <div className="input-box">
                                         <input
                                             type="text"
+                                            name="fia_no_auto2"
                                             autoComplete="off"
                                             data-key="phonecode"
                                             value={store.phoneCode}
@@ -111,7 +124,7 @@ class FiatRechargeView extends Component {
                                             onChange={action.onChangeInput}
                                         />
                                     </div>
-                                    <button onClick={action.sendEmailPhoneCode} className={`rw-sp-vcode-btn  ${store.sendingcode ? 'disabled' : ''}`}>
+                                    <button type="button" onClick={action.sendEmailPhoneCode} className={`rw-sp-vcode-btn  ${store.sendingcode ? 'disabled' : ''}`}>
                                         <div className={store.sendingcode ? 'code-sending' : 'code-sending hidden'}>
                                             {UPEX.lang.template('重发')}（<span data-second="second" ref="second" />s）
                                         </div>
@@ -122,6 +135,7 @@ class FiatRechargeView extends Component {
                                 <div className="input-box">
                                     <input
                                         type="number"
+                                        name="fia_no_auto2"
                                         data-key="googlecode"
                                         autoComplete="off"
                                         value={store.googleCode}
@@ -138,6 +152,7 @@ class FiatRechargeView extends Component {
                             <div className={`input-box ${store.validTradePwd ? '' : 'wrong'}`}>
                                 <input
                                     type="password"
+                                    name="fia_no_auto3"
                                     data-key="tradepwd"
                                     value={store.tradepwd}
                                     autoComplete="off"
@@ -155,7 +170,7 @@ class FiatRechargeView extends Component {
                     <div className="rw-form-item">
                         <label className="rw-form-label" />
                         <div className="rw-form-info">
-                            <button className="submit-btn" onClick={this.handleOrder}>
+                            <button type="button" className="submit-btn" onClick={this.handleOrder}>
                                 {UPEX.lang.template('确认提现')}
                             </button>
 
@@ -164,7 +179,7 @@ class FiatRechargeView extends Component {
                     <div className="rw-form-item">
                         <label className="rw-form-label" />
                         <div className="rw-form-info">
-                            <button className="problem-btn rw-sp-vcode-btn" onClick={this.handleBack}>
+                            <button type="button" className="problem-btn rw-sp-vcode-btn" onClick={this.handleBack}>
                                 {UPEX.lang.template('返回修改')}
                             </button>
                         </div>
@@ -177,7 +192,7 @@ class FiatRechargeView extends Component {
                 setVal: (val, field) => {
                     store.setVal(val, field);
                 },
-                cards: store.bankCardsList,
+                cards: store.bankCardsList.filter(item => item.status === 1),
                 count: store.accountAmount,
                 labels: { card: UPEX.lang.template('选择提现的银行卡'), balance: UPEX.lang.template('提现金额') }
             };
@@ -187,7 +202,7 @@ class FiatRechargeView extends Component {
                     <div className="rw-form-item">
                         <label className="rw-form-label" />
                         <div className="rw-form-info">
-                            <button className="submit-btn" onClick={this.handleNextStep}>
+                            <button type="button" className="submit-btn" onClick={this.handleNextStep}>
                                 {UPEX.lang.template('下一步')}
                             </button>
                         </div>

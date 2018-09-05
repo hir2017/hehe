@@ -339,3 +339,19 @@
     margin: 0 3px;
     text-indent: 9999px;
 }
+
+.input-coin-account {
+    position: relative;
+}
+.input-coin-account .amount-input {
+    position: relative;
+    z-index: 12;
+    background-color: transparent;
+}
+.ie11-placeholder-hack {
+    position: absolute;
+    z-index: 10;
+    line-height: 30px;
+    font-size: 18px;
+    color: #ccc;
+}

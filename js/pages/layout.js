@@ -18,10 +18,8 @@ class Layout extends Component {
         let { action, query } = this.props.location;
         let { action: actionNext, query: queryNext, pathname } = nextProps.location;
         
-        if ((action == 'POP' || action == 'REPLACE') && (actionNext == 'PUSH' || actionNext == 'REPLACE')) {
-            if (query.env && !queryNext.env) {
-                browserHistory.replace(`${pathname}?env=${query.env}`);
-            }
+        if (query.env && !queryNext.env) {
+            browserHistory.replace(`${pathname}?env=${query.env}`);
         }
     }
 
@@ -40,7 +38,7 @@ class Layout extends Component {
             );
         } else {
             return (
-                <div className="tobottom-footer" style={{ minHeight: commonStore.windowDimensions.height }}>
+                <div className={`${commonStore.pageClassName} tobottom-footer`} style={{ minHeight: commonStore.windowDimensions.height }}>
                     <Header/>
                     <div className="app-content">
                         { this.props.children }

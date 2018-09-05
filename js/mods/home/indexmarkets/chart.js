@@ -42,16 +42,7 @@ export default class extends Component {
             let hours24TrendList = [];
 
             if (res.status == 200) {
-                res.attachment.forEach((item, index)=>{
-                    let arr = [];
-
-                    arr[arr.length] = +new Date(item.createTime.replace(/-/g, '/')); // 时间
-                    arr[arr.length] = item.current; // 价格
-
-                    hours24TrendList[hours24TrendList.length] = arr;
-                })
-
-                this.drawKline(hours24TrendList);
+                this.drawKline(res.attachment);
             }
         });
 
@@ -61,16 +52,16 @@ export default class extends Component {
         }, 60 * 1000) // 60秒请求一次
     }
 
-    drawKline(hours24TrendList) {
+    drawKline(data) {
         // 绘制图表
         let charts = document.getElementById('home-coin-line')
 
         if (!echarts.getInstanceByDom(charts)) {
             const _myCharts = echarts.init(charts)
             // 初始化价格趋势图
-            _myCharts.setOption(this.option(hours24TrendList))
+            _myCharts.setOption(this.option(data))
         } else {
-            echarts.getInstanceByDom(charts).setOption(this.option(hours24TrendList))
+            echarts.getInstanceByDom(charts).setOption(this.option(data))
         }
     }
 
@@ -97,42 +88,49 @@ export default class extends Component {
                         `时间：${data.name}`,
                         `价格：${UPEX.config.baseCurrencySymbol}${price}`
                     ].join('<br/>')
-                }
+                },
+                extraCssText: "font-size: 12px;"
             },
             grid: [{
-                left: '0%',
-                top: '0%',
+                left: '3%',
+                top: '5%',
                 right: '0%',
-                height: '90%'
+                width: '94%',
+                height: '75%'
             }],
             xAxis: {
                 nameLocation: 'center',
                 type: 'category',
                 boundaryGap: false,
                 data: hours24TrendList.map((item) => {
-                    return DateUtil.formatDate(item[0], 'HH:mm');
-                }), // ['7:00', '9:00', '11:00', '12:00', '14:00'],
+                    return DateUtil.formatDate(item.currentTime, 'HH:mm');
+                }), 
                 axisLine: {
                     lineStyle: {
-                        color: '#c5c5c5',
-                        fontSize: '14px',
-                    }
+                        color: '#c1c5c8',
+                        fontSize: '12px'
+                    },
+                    show: true
                 },
             },
             yAxis: {
                 type: 'value',
-                show: false
+                scale: true,
+                show: false,
+                min: function(value) {
+                    return value.min  - (value.max - value.min) / hours24TrendList.length;
+                }
             },
             series: [{
                 data: hours24TrendList.map((item) => {
-                    return item[1];
-                }), // [820, 932, 901, 934, 1290, 1330, 1320],
+                    return item.current;
+                }), 
                 type: 'line',
                 itemStyle: {
-                    color: '#9bbff7'
+                    color: '#e8b802'
                 },
                 lineStyle: {
-                    color: '#9bbff7'
+                    color: 'rgba(232,184,2,0.3)'
                 },
                 areaStyle: {
                     color: {
@@ -143,7 +141,7 @@ export default class extends Component {
                         y2: 1,
                         colorStops: [{
                             offset: 0,
-                            color: '#9bbff7' // 0% 处的颜色
+                            color: 'rgba(255,231,140,0.3)' // 0% 处的颜色
                         }, {
                             offset: 1,
                             color: '#fff' // 100% 处的颜色

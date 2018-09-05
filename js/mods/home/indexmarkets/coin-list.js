@@ -11,8 +11,8 @@ class MarketCoinList extends Component {
 		super(props);
 	}
 
-    componentWillUnmount(){
-        this.props.homeStore.marketListStore.reset();
+    componentWillUnmount() {
+        
     }
 
 	sortHandle=(field, e)=>{
@@ -20,38 +20,28 @@ class MarketCoinList extends Component {
 	}
 
 	selectCoin=(item, e)=>{ 
-        if ($(e.target).hasClass('anticon')) {
+        if ($(e.target).parents('.action').length > 0) {
             return;
         }
 
-        if ($(e.target).hasClass('symbol')) {
+        if ($(e.target).hasClass('symbol') || $(e.target).parents('.symbol').length > 0) {
             browserHistory.push(`/webtrade/${item.baseCurrencyNameEn}_${item.currencyNameEn}`);
         } else {
-            this.props.homeStore.marketListStore.setSelectedCoin(item);    
+            this.props.homeStore.marketListStore.updateCurrency(item);    
         }
 	}
 
 	sortIcon(show) {
         if (!show) {
-            return null;
+            return <i className="exc-arrow-double"/>;
         }
 
         if (this.props.homeStore.marketListStore.sortByType == 'asc') {
-            return <Icon type="arrow-up" style={{fontSize: 12}}/>;
+            return <i className="exc-arrow-up"/>
         } else {
-            return <Icon type="arrow-down" style={{fontSize: 12}}/>;
+            return <i className="exc-arrow-down"/>
         }
     }
-
-    filterHandle=(e)=>{
-        let value = e.target.value.trim();
-
-        this.props.homeStore.marketListStore.filterByName(value);
-    }
-
-    toggleCollect=(e)=>{
-        this.props.homeStore.marketListStore.filterCollectCoins(e.target.checked);
-    }   
 
     collecthandle=(e, data)=>{
         this.props.homeStore.marketListStore.toggleCollectCoin(data);
@@ -73,95 +63,78 @@ class MarketCoinList extends Component {
         }
 
         if(res) {
-            return <Icon onClick={e => this.collecthandle(e, data)} style={{color: '#e6bc1d', fontSize: '14'}} type={'star'} />;
+            return <i onClick={e => this.collecthandle(e, data)} className="exc-star selected" />;
         } else {
-            return <Icon onClick={e => this.collecthandle(e, data)} style={{color: '#999', fontSize: '14'}} type={'star-o'} />;
+            return <i onClick={e => this.collecthandle(e, data)} className="exc-star-o" />;
         }
         
     }
 
 	render(){
-		let homeStore = this.props.homeStore;
         let marketListStore = this.props.homeStore.marketListStore;
 		
 		return (
 			<div className="coin-list">
-				<div className="coin-list-title">
-					<Checkbox onChange={this.toggleCollect} checked={marketListStore.onlyCollectedCoins}>
-                    	{UPEX.lang.template('只看收藏')}
-                  	</Checkbox>
-                    <Search
-                            onChange={this.filterHandle}
-                            value={marketListStore.searchValue}
-                            placeholder={UPEX.lang.template('搜索数字币')}
-                        />
-				</div>
 				<div className="coin-list-content">
 					<div className="">
 						<div className="table-header">
 							<ul>
                                 <li key="header">
-                                    <span className="cell name">{UPEX.lang.template('币种')}</span>
-                                    <span className="cell amount" onClick={this.sortHandle.bind(this,'currentAmount')}>
-                                        {UPEX.lang.template('最新价')}
-                                        {this.sortIcon(marketListStore.sortByKey === 'currentAmount')}
-                                    </span>
-                                    <span className="cell rate" onClick={this.sortHandle.bind(this, 'changeRate')}>
-                                        {UPEX.lang.template('24h涨跌')}
-                                        {this.sortIcon(marketListStore.sortByKey=== 'changeRate')}
-                                    </span>
-                                    <span className="cell volume" onClick={this.sortHandle.bind(this, 'volume')}>
-                                        {UPEX.lang.template('24h成交量')}
-                                        {this.sortIcon(marketListStore.sortByKey === 'volume')}
-                                    </span>
-                                    <span className="cell action">{UPEX.lang.template('收藏')}</span>
+                                    <div className="cell name">{UPEX.lang.template('币种')}</div>
+                                    <div className="cell amount">
+                                        <span onClick={this.sortHandle.bind(this,'currentAmount')}>{UPEX.lang.template('最新价')}{this.sortIcon(marketListStore.sortByKey === 'currentAmount')}</span>
+                                    </div>
+                                    <div className="cell rate">
+                                        <span onClick={this.sortHandle.bind(this, 'changeRate')}>{UPEX.lang.template('24h涨跌')}{this.sortIcon(marketListStore.sortByKey=== 'changeRate')}</span>
+                                    </div>
+                                    <div className="cell volume">
+                                        <span onClick={this.sortHandle.bind(this, 'volume')}>{UPEX.lang.template('24h成交量')}{this.sortIcon(marketListStore.sortByKey === 'volume')}</span>
+                                    </div>
+                                    <div className="cell action">{UPEX.lang.template('收藏')}</div>
                                 </li>
 	                        </ul>
                         </div>
                         <div className="table-body">
-                            { 
-                                marketListStore.noCoin ? (
-                                    <div className="mini-tip">{ UPEX.lang.template('暂无数据')}</div>
-                                ) : (
-                                    <ul>
-                                            {
-                                                marketListStore.tradeCoins.map((item, index) => {
-                                                	let path, ratecolor, trendIcon, trendColor;
-                                                	
-                                                	if (item.baseCurrencyNameEn && item.currencyNameEn) {
-                                                		path = `/webtrade/${item.baseCurrencyNameEn}_${item.currencyNameEn}`;	
-                                                	} 
+                            <ul>
+                                {
+                                    marketListStore.selectedCurrencies.map((item, index) => {
+                                    	let path, ratecolor, trendIcon, trendColor;
+                                    	
+                                    	if (item.baseCurrencyNameEn && item.currencyNameEn) {
+                                    		path = `/webtrade/${item.baseCurrencyNameEn}_${item.currencyNameEn}`;	
+                                    	} 
 
-                                                    if (item.changeRate >= 0 ) {
-                                                        ratecolor = 'greenrate';
-                                                    } else {
-                                                        ratecolor = 'redrate';
-                                                    }
+                                        if (item.changeRate >= 0 ) {
+                                            ratecolor = 'greenrate';
+                                        } else {
+                                            ratecolor = 'redrate';
+                                        }
 
-                                                    if (item.currentAmount >= item.previousPrice) {
-                                                        trendColor = 'greenrate';
-                                                        trendIcon = <Icon type="arrow-up" style={{fontSize: 12}}/>;
-                                                    } else {
-                                                        trendColor = 'redrate';
-                                                        trendIcon = <Icon type="arrow-down" style={{fontSize: 12}}/>;
-                                                    }
-                                                    
-                                                    return (
-                                                        <li className={`clearfix ${item.currencyId == marketListStore.selectedCoin.currencyId ? 'selected': ''}`} key={item.currencyId} onClick={this.selectCoin.bind(this, item)}>
-                                                            <span className="cell name"><span className="symbol">{item.currencyNameEn || '--'}</span></span>
-                                                            <span className={`cell amount`}>
-                                                                {item.currentAmountText}
-                                                            </span>
-                                                            <span className={`cell rate ${ratecolor}`}>{item.changeRateText}</span>
-                                                            <span className="cell volume">{item.volumeText}</span>
-                                                            <span className="cell action">{this.collectIcon(item)}</span>
-                                                        </li>
-                                                    );
-                                                })
-                                            }
-                                    </ul>
-                                )
-                            }
+                                        if (item.currentAmount >= item.previousPrice) {
+                                            trendColor = 'greenrate';
+                                            trendIcon = <i className="exc-arrow-up"/>;
+                                        } else {
+                                            trendColor = 'redrate';
+                                            trendIcon = <i className="exc-arrow-down"/>;
+                                        }
+
+                                        return (
+                                            <li className={`clearfix${item.currencyNameEn === marketListStore.selectedCurrency.currencyNameEn ? ' selected': ''}`} key={item.key} onClick={this.selectCoin.bind(this, item)}>
+                                                <span className="cell name">
+                                                    <img src={`${item.icoUrl}`} alt="" />
+                                                    <span className="symbol">{item.currencyNameEn || '--'}<i>&nbsp;/&nbsp;{item.baseCurrencyNameEn}</i></span>
+                                                </span>
+                                                <span className={`cell amount`}>
+                                                    {item.currentAmountText}
+                                                </span>
+                                                <span className={`cell rate ${ratecolor}`}>{item.changeRateText}</span>
+                                                <span className="cell volume">{item.volumeText}</span>
+                                                <span className="cell action">{this.collectIcon(item)}</span>
+                                            </li>
+                                        );
+                                    })
+                                }
+                            </ul>
                         </div>
 					</div>
 				</div>

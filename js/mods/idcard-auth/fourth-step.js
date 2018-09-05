@@ -1,17 +1,23 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import { browserHistory } from 'react-router';
-import { Button } from 'antd';
+import { Modal, Button, Icon } from 'antd';
 
-import AceForm from '../../common-mods/form/form';
+import AceForm from '../../components/form/form';
 
 @inject('userInfoStore')
 @observer
 export default class FourthStep extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            visible: false
+        };
+    }
+
     componentWillMount() {
         this.props.userInfoStore.bankCardInfo();
     }
-
 
     submitKycC = () => {
         this.props.userInfoStore.kycC().then(data => {
@@ -30,7 +36,7 @@ export default class FourthStep extends Component {
             // 未绑定银行卡
             $bottom = (
                 <Button
-                    className="ace-btn-large"
+                    className="exc-btn-large"
                     onClick={e => {
                         browserHistory.push('/user/bankInfo');
                     }}
@@ -46,7 +52,7 @@ export default class FourthStep extends Component {
                 case 2:
                     $bottom = (
                         <Button
-                            className="ace-btn-large"
+                            className="exc-btn-large"
                             onClick={e => {
                                 browserHistory.push('/webtrade');
                             }}
@@ -58,18 +64,55 @@ export default class FourthStep extends Component {
                 default:
                     $bottom = (
                         <div className="up-limit">
-                            <Button loading={loading} className="ace-btn-large" onClick={this.submitKycC}>
+                            {userInfo.isAuthVideo === -1 ? <Icon className="auth-fail none" type="exclamation-circle-o" /> : null}
+                            <Button loading={loading} className="exc-btn-large" onClick={this.submitKycC}>
                                 {UPEX.lang.template('申請更高限額')}
                             </Button>
-                            {userInfo.isAuthVideo === -1 ? <p className="error">{userInfo.authFailReason}</p> : null}
+                            <div
+                                className={`fail-reason-dialog-wrapper ${this.state.visible ? 'show' : ''}`}
+                                onClick={e => {
+                                    this.setState({
+                                        visible: false
+                                    });
+                                }}
+                            >
+                                <div className="fail-reason-dialog">
+                                    <Icon
+                                        type="close"
+                                        onClick={e => {
+                                            this.setState({
+                                                visible: false
+                                            });
+                                        }}
+                                    />
+                                    <article className="">
+                                        <header>{UPEX.lang.template('您之前一次的申请被驳回')}</header>
+                                        <p>
+                                            <label className="label"> {UPEX.lang.template('驳回原因:')}</label>
+                                            {userInfo.authFailReason}
+                                        </p>
+                                    </article>
+                                </div>
+                            </div>
+                            {userInfo.isAuthVideo === -1 ? (
+                                <Icon
+                                    className="auth-fail show"
+                                    onClick={e => {
+                                        this.setState({
+                                            visible: true
+                                        });
+                                    }}
+                                    type="exclamation-circle-o"
+                                />
+                            ) : null}
                         </div>
                     );
                     break;
             }
-        }  else if(userInfo.authLevel === 3) {
+        } else if (userInfo.authLevel === 3) {
             $bottom = (
                 <Button
-                    className="ace-btn-large"
+                    className="exc-btn-large"
                     onClick={e => {
                         browserHistory.push('/webtrade');
                     }}
@@ -100,13 +143,15 @@ export default class FourthStep extends Component {
                         <tr>
                             <td>{UPEX.lang.template('当前日限额')}：</td>
                             <td>
-                                <span className="money">{UPEX.config.baseCurrencySymbol} {userInfo.dayLimit}</span>
+                                <span className="money">
+                                    {UPEX.config.baseCurrencySymbol} {userInfo.dayLimit}
+                                </span>
                             </td>
                         </tr>
                     </tbody>
                 </table>
                 <div className="submit">{$bottom}</div>
-                <div className="custom-tips tip" dangerouslySetInnerHTML={{__html: UPEX.lang.template('完成身份认证注意内容')}}></div>
+                <div className="custom-tips tip" dangerouslySetInnerHTML={{ __html: UPEX.lang.template('完成身份认证注意内容') }} />
             </AceForm>
         );
     }

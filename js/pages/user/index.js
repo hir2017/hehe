@@ -17,8 +17,7 @@ class UserPage extends Component {
         this.state = {
             isLogin: true
         };
-
-        this.navData = [
+        let navData = [
             {
                 title: UPEX.lang.template('个人信息'),
                 subItems: [
@@ -64,22 +63,26 @@ class UserPage extends Component {
                     }
                 ]
             },
-            {
-                title: UPEX.lang.template('其它'),
-                subItems: [
-                    {
-                        active: 'question',
-                        route: '/user/question',
-                        text: UPEX.lang.template('问题反馈')
-                    },
-                    {
-                        active: 'questionList',
-                        route: '/user/questionList',
-                        text: UPEX.lang.template('反馈列表')
-                    }
-                ]
-            }
+            // {
+            //     title: UPEX.lang.template('其它'),
+            //     subItems: [
+            //         {
+            //             active: 'question',
+            //             route: '/user/question',
+            //             text: UPEX.lang.template('问题反馈')
+            //         },
+            //         {
+            //             active: 'questionList',
+            //             route: '/user/questionList',
+            //             text: UPEX.lang.template('反馈列表')
+            //         }
+            //     ]
+            // }
         ];
+        if(UPEX.config.version === 'infinitex') {
+            navData[0].subItems.pop();
+        }
+        this.navData = navData;
     }
 
     componentWillReceiveProps() {
@@ -114,7 +117,7 @@ class UserPage extends Component {
         return (
             <div className="user-wrapper">
                 <Breadcrumb className="user-breadcrumb" separator=">">
-                    <Breadcrumb.Item>ACE</Breadcrumb.Item>
+                    <Breadcrumb.Item><a href="/home">{UPEX.config.sitename}</a></Breadcrumb.Item>
                     <Breadcrumb.Item>{UPEX.lang.template('个人中心')}</Breadcrumb.Item>
                 </Breadcrumb>
                 <div className="user-body-inner clearfix">
@@ -139,7 +142,7 @@ class UserPage extends Component {
                             })}
                         </div>
                     </div>
-                    <div className="user-main ace-page-content">{this.props.children}</div>
+                    <div className="user-main exc-page-content">{this.props.children}</div>
                 </div>
             </div>
         );

@@ -3,6 +3,9 @@ import qs from "qs";
 import { hashHistory, browserHistory } from 'react-router';
 import { message } from 'antd';
 
+// 不需要携带用户uid和token信息
+const urlWhiteList = ['/quote/klineHistory'];
+
 // 设置baseURL
 axios.defaults.baseURL = UPEX.config.host;
 
@@ -28,23 +31,42 @@ axios.interceptors.request.use(function(config) {
         return config
     }
 
+    let _path =  config.url.replace(config.baseURL, '');
+
     if (config.method === 'post') {
         let data = qs.parse(config.data)
 
-        config.data = qs.stringify({
-            ...data,
-            token,
-            uid,
-            local,
-            tm: +new Date()
-        })
+        if (urlWhiteList.indexOf(_path) > -1) {
+            config.data = qs.stringify({
+                ...data,
+                local,
+                tm: +new Date()
+            })
+        } else {
+            config.data = qs.stringify({
+                ...data,
+                token,
+                uid,
+                local,
+                tm: +new Date()
+            })
+        }
     } else if (config.method === 'get' || config.method === 'delete') {
-        config.params = {
-            ...config.params,
-            token,
-            uid,
-            local,
-            tm: +new Date()
+
+        if (urlWhiteList.indexOf(_path) > -1) {
+            config.params = {
+                ...config.params,
+                local,
+                tm: +new Date()
+            }
+        } else {
+            config.params = {
+                ...config.params,
+                token,
+                uid,
+                local,
+                tm: +new Date()
+            }
         }
     }
     return config;
@@ -57,8 +79,13 @@ let preTime = +new Date(), nowTime;
 
 // 添加响应拦截器
 axios.interceptors.response.use(function(res) {
+    let tempData = res.data || {
+        id: 'SYSTEM_ERROR',
+        status: -1,
+        message: 'response is empty'
+    }
     // 对响应数据做点什么
-    let status = res.data.status
+    let status = tempData.status
 
     if (status == 9999) {
         nowTime = +new Date();
@@ -72,7 +99,7 @@ axios.interceptors.response.use(function(res) {
         }
     }
 
-    return res.data;
+    return tempData;
 
 }, function(error) {
     // 对响应错误做点什么
@@ -81,7 +108,7 @@ axios.interceptors.response.use(function(res) {
 
 
 // 获取图片验证码
-export function fetchPicCaptcha() {
+export function fetchIMGCaptcha() {
     return axios.post('/security/getCode');
 }
 
@@ -96,8 +123,10 @@ export function queryPhone(phone) {
 export function sendEmailForRegister(data) {
     return axios.post('/user/sendEmailForRegister', qs.stringify({
         email: data.account,
-        imgcode: data.imgcode,
-        codeid: data.codeid
+        NECaptchaValidate: data.validate,
+        captchaId: data.captchaId,
+        imgcode: 0,
+        codeid: 0
     }))
 }
 
@@ -105,8 +134,10 @@ export function sendEmailForRegister(data) {
 export function sendMail(data) {
     return axios.post('/user/sendMail', qs.stringify({
         email: data.account,
-        imgcode: data.imgcode,
-        codeid: data.codeid
+        NECaptchaValidate: data.validate,
+        captchaId: data.captchaId,
+        imgcode: 0,
+        codeid: 0
     }))
 }
 
@@ -117,20 +148,19 @@ export function userRegister(data) {
         pwd: data.pwd,
         vercode: data.vercode,
         inviteId: data.inviteId,
-        imgcode: data.imgcode,
-        codeid: data.codeid
+        imgcode: 0,
+        codeid: 0
     }))
 }
 
 // 用户登录 - 不需要验证第一步
 export function userLogin(data) {
     return axios.post('/user/loginGAFirst', qs.stringify({
-        // email: data.email, // 兼容旧的代码环境，上线后去掉
         emailOrPhone: data.email,
         pwd: data.pwd,
-        vercode: data.imgcode,
-        source: 1,
-        codeid: data.codeid
+        NECaptchaValidate: data.validate,
+        captchaId: data.captchaId,
+        source: 1
     }))
 }
 
@@ -139,9 +169,7 @@ export function userLogin(data) {
  */
 export function userLogin2(data) {
     return axios.post('/user/loginGASecond', qs.stringify({
-        authType: data.authType,
-        clientPassword: data.clientPassword,
-        emailOrPhone: data.emailOrPhone,
+        ...data,
         source: 1
     }))
 }
@@ -168,8 +196,8 @@ export function resetPwd(data) {
         email: data.account,
         newPwd: data.pwd,
         vercode: data.vercode,
-        imgcode: data.imgcode,
-        codeid: data.codeid
+        imgcode: 0,
+        codeid: 0
     }))
 }
 /*
@@ -203,6 +231,14 @@ export function getBannerList() {
 export function getBaseCoin() {
     return axios.post('/coin/coins')
 }
+
+/**
+ *  获取基础币对应交易币列表
+ */
+export function getTradeCoinsOfBaseCoin() {
+    return axios.get('/coin/tradeCoinsOfBaseCoin')
+}
+
 /**
  * 交易中心委托
  */
@@ -300,7 +336,7 @@ export function getWithdrawCashFee(data) {
 
 /**
  * 创建提现订单
- * @param {amount, currencyId, cardId（此用户当前绑定银行卡id）, tradePwd, gAuth/phoneCode,
+ * @param {amount, currencyId, cardId（此用户当前绑定银行卡id）, tradePwd, gAuth/phoneCode}
  */
 export function orderFiatWithdraw(data) {
     data.currencyId = 1;
@@ -362,7 +398,7 @@ export function takeCoinSendPhoneCode(data) {
 export function takeCoin(data) {
     return axios.post(`/coin/takeCoin?address=${data.address}`, qs.stringify({
         actionId: 4,
-        msgCode: '',
+        msgCode: data.msgCode,
         currencyId: data.currencyId,
         fdPwd: data.fdPwd,
         note: data.note,
@@ -605,6 +641,35 @@ export function sendCodeInUserCenter(type, imgCode, imgCodeId) {
         codeid: imgCodeId
     })
 }
+/**
+ * 发送验证码 设置、忘记交易密码
+ */
+
+export function setTradePwdSendCode(data, imgCode, imgCodeId) {
+    let params = imgCode ? {
+        type: data,
+        imgcode: imgCode,
+        codeid: imgCodeId
+    } : {
+        vercode: 1,
+        codeid: 1,
+        imgcode: 1,
+        ...data
+    }
+    return axios.post('/user/setTradePwdSendCode', params)
+}
+
+/**
+ * 发送验证码 绑定、解绑谷歌验证码 设置、忘记交易密码
+ */
+
+export function sendCodeInGAOrTadePwd(type, imgCode, imgCodeId) {
+    return axios.post('/user/phoneAuthSendCode', {
+        type: 1,
+        imgcode: imgCode,
+        codeid: imgCodeId
+    })
+}
 
 /**
  * 设置修改资金密码
@@ -624,10 +689,12 @@ export function bindFdPwd(newFdPassWord, vercode, imgCode, imgCodeId, oldFdPassW
  * 修改资金密码
  */
 
-export function modifyFdPwd(newFdPassWord, oldFdPassWord) {
+export function modifyFdPwd(newFdPassWord, oldFdPassWord, validate, captchaId) {
     return axios.post('/user/modifyFdPwd', {
         newFdPassWord: newFdPassWord,
         oldFdPassWord: oldFdPassWord,
+        NECaptchaValidate: validate,
+        captchaId: captchaId,
     })
 }
 
@@ -635,14 +702,16 @@ export function modifyFdPwd(newFdPassWord, oldFdPassWord) {
  * 修改登录密码
  */
 
-export function resetPwdInUserCenter(newPwd, vercode, imgCode, imgCodeId, oldPwd, type) {
+export function resetPwdInUserCenter(newPwd, vercode, imgCode, imgCodeId, oldPwd, type, validate, captchaId) {
     return axios.post('/user/resetPwdInUserCenter', {
         newPwd: newPwd,
         oldPwd: oldPwd, // 如果首次设置可以不传.传个空串
         vercode: vercode,
-        imgcode: imgCode,
-        codeid: imgCodeId,
-        type: type
+        // imgcode: imgCode,
+        // codeid: imgCodeId,
+        type: type,
+        NECaptchaValidate: validate,
+        captchaId: captchaId
     })
 }
 
@@ -655,7 +724,7 @@ export function bindPhoneSendMsg(imgCode, imgCodeId, type, phone = '') {
         type: type,
         phone: phone,
         imgcode: imgCode,
-        codeid: imgCodeId
+        codeid: imgCodeId,
     })
 }
 
@@ -742,7 +811,7 @@ export function selectAuthLevel() {
 }
 
 /**
- *  修改绑定修改邮箱
+ *  修改绑定手机
  */
 
 export function bindPhone(newDevice, oldDevice, oldVercode, vercode, codeid, imgcode) {
@@ -758,14 +827,10 @@ export function bindPhone(newDevice, oldDevice, oldVercode, vercode, codeid, img
  *  type=1、手机注册用户;type=2、邮箱注册用户;
  */
 
-export function bindPhoneOrEmailSendCode(codeid, imgcode, phoneOrEmail, type) {
-    return axios.post('/user/bindPhoneOrEmailSendCode', {
-        codeid,
-        imgcode,
-        phoneOrEmail,
-        type
-    })
+export function bindPhoneOrEmailSendCode(params) {
+    return axios.post('/user/bindPhoneOrEmailSendCode', params)
 }
+
 
 /**
  *  查询当前账户谷歌认证
@@ -781,43 +846,29 @@ export function isUsedGoogleAuth() {
  *  type=1、手机注册用户;type=2、邮箱注册用户;
  */
 
-export function bindPhoneOrEmailAction(EmailCode, phoneCode, phoneOrEmail, type) {
-    return axios.post('/user/bindPhoneOrEmailAction', {
-        EmailCode,
-        phoneCode,
-        phoneOrEmail,
-        type
-    })
+export function bindPhoneOrEmailAction(params) {
+    return axios.post('/user/bindPhoneOrEmailAction', params)
 }
+
 
 /**
  *  修改手机绑定发送验证码
- *  type=1:google+新手机，发新手机短信；type=2:旧手机+新手机，发2条手机短信
+ *  type=1:发新手机短信；type=2:发旧手机短信
+ *  type=1:新手机发送验证码, 需要验证图片滑块
  */
 
-export function modifyPhoneSendMsg(phone, codeid, imgcode, type) {
-    return axios.post('/user/modifyPhoneSendCode', {
-        phone,
-        codeid,
-        imgcode,
-        type
-    })
+export function modifyPhoneSendMsg(params) {
+    return axios.post('/user/modifyPhoneSendCode', params);
 }
+
 
 /**
  *  修改绑定手机
  *  type=1:验证google和新手机验证码，type=2:验证旧手机，新手机验证码
  */
-
-export function modifyPhoneAction(newCode, newPhone, oldCode, type) {
-    return axios.post('/user/modifyPhoneAction', {
-        newCode,
-        newPhone,
-        oldCode,
-        type
-    })
+export function modifyPhoneAction(params) {
+    return axios.post('/user/modifyPhoneAction', params)
 }
-
 /**
  *  手机二级认证开关
  *
@@ -970,4 +1021,83 @@ export function getCurrencyPoints(baseCurrencyId, tradeCurrencyId) {
         baseCurrencyId,
         tradeCurrencyId
     })
+}
+
+
+/**
+ *  =================澳洲版API=================
+ */
+
+/**
+ *  澳洲版获取用户KYC等级限额信息
+ */
+export function ausGetQuotaManagementInfo(data) {
+    return axios.post('/ausCommon/getQuotaManagementInfo', data)
+}
+/**
+ * 澳洲版bpay充值获取referenceID
+ */
+export function getBPAYreferenceNo() {
+    return axios.post('/ausCommon/getBpayRefId')
+}
+/**
+ * 澳洲版充值/提现查询记录
+ * @param {type， pageNumber， pageSize}
+ * type: recharge: 1, withdraw: 2
+ */
+export function ausGetFundChangeList(data) {
+    let url = data.type === 1 ? '/ausRecharge/getRechargeBillInfo' : 'ausWithdraw/getWithdrawBillInfo';
+    return axios.post(url, qs.stringify({
+        ...data
+    }))
+}
+/**
+ * 澳洲版获取用户资金可用余额
+ * @param {currencyId} data
+ */
+export function ausGetUserAvailableAmount(data) {
+    return axios.post('/ausRechargeWithdraw/getUserAvailableAmount', qs.stringify({
+        currencyId: 1
+    }))
+}
+/**
+ * 澳洲版获取用户提现手续费
+ * @param {currencyId, amount（提现金额）, actionId（行为id，2代表提现）: 2} data
+ */
+export function ausGetWithdrawCashFee(data) {
+    data.currencyId = 1;
+    data.actionId = 2;
+    return axios.post('/ausWithdraw/getWithdrawCashFee', qs.stringify(data))
+}
+
+/**
+ * 澳洲版创建提现订单
+ * @param { amount, currencyId, accountNumber, accountName, bsb, swiftCode, address, tradePwd, gAuth/phoneCode }
+ */
+export function ausOrderFiatWithdraw(data) {
+    return axios.post('/ausWithdraw/createWithdrawCashBill', data)
+}
+
+/**
+ * 澳洲版获取poli地址
+ * @param {amount}
+ */
+export function ausGetPoliUrl(data) {
+    return axios.post('/ausRecharge/getFrontPageJsonData', data)
+}
+
+
+/**
+ *  更新驳回原因读取状态
+ *  @status: 默认0 已读，1：未读
+ */
+export function updateAuthFailReasonStatus(data) {
+    return axios.post('/user/updateAuthFailReasonStatus', data)
+}
+
+/**
+ *  用户身份认证信息查询
+ */
+export function getUserAuthInfo(info) {
+    return axios.post('/user/userAuthInfo', {})
 }

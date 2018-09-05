@@ -29,18 +29,21 @@ class ThemeSwitchView extends Component {
 
 		if (this.props.commonStore.isTradeCenter) {
 			return (
-				<li className="theme-menu" data-theme={store.theme}>
-					<label className="on">{UPEX.lang.template('开灯')}</label>
-                    <Switch
-                        onChange={this.switchTheme}
-                        defaultChecked={store.theme === 'dark'}
-                    />
-                    <label className="off">{ UPEX.lang.template('关灯')}</label>
-				</li>
+				<ul>
+					<li className="theme-menu" data-theme={store.theme}>
+						<label className="on">{UPEX.lang.template('开灯')}</label>
+	                    <Switch
+	                        onChange={this.switchTheme}
+	                        defaultChecked={store.theme === 'dark'}
+	                    />
+	                    <label className="off">{ UPEX.lang.template('关灯')}</label>
+					</li>
+					<li className="split">|</li>
+				</ul>
 			)
 		} else {
 			return (
-				<li className="theme-menu" style={{ display: 'none'}}></li>
+				<ul><li className="theme-menu" style={{ display: 'none'}}></li></ul>
 			);
 		}
 		

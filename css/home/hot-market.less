@@ -1,0 +1,113 @@
+/**
+ * 推荐的热门币种列表
+ */
+
+.hot-markets {
+    width: 1200px;
+    margin: 30px auto 0;
+    border-radius: 6px;
+    ul {
+        width: 100%;
+        height: 100px;
+    }
+    li {
+        float: left;
+        width: 240px;
+        height: 100px;
+        border-right: 1px solid #f0f2f3;
+        background-color: #fff;
+        &:hover {
+            text-decoration: none;
+        }
+        &:first-child{
+            border-radius: 6px 0 0 6px;
+        }
+        &:last-child{
+            border-radius: 0  6px 6px 0;
+        }
+    }
+    .recommend-item {
+        display: block;
+        position: relative;
+        padding: 10px;
+        cursor: pointer;
+        overflow: hidden;
+        height: 100px;
+        box-sizing: border-box;
+        &:hover {
+            box-shadow: 1px 1px 8px rgba(25, 27, 29, 0.08);
+        }
+    }
+    .recommend-item-name {
+        position: relative;
+        font-size: 12px;
+        height: 20px;
+        line-height: 20px;
+        color: #333333;
+        z-index: 2;
+        i {
+            font-style: normal;
+            color: @text-color02-light;
+        }
+    }
+    .recommend-item-price {
+        position: relative;
+        font-size: 20px;
+        margin-top: 10px;
+        height: 18px;
+        line-height: 18px;
+        font-style: italic;
+        z-index: 2;
+        i {
+            font-size: 12px;
+            padding: 0 5px;
+        }
+    }
+    .recommend-item-volume {
+        position: relative;
+        margin-top: 10px;
+        color: @text-color02-light;
+        font-size: 12px;
+        z-index: 2;
+        .unit{
+            padding-left: 4px;
+        }
+    }
+    .recommend-item-rate {
+        position: absolute;
+        right: 0;
+        top: 10px;
+        height: 18px;
+        line-height: 18px;
+        text-align: center;
+        color: #fff;
+        min-width: 65px;
+        padding: 0 5px;
+        font-size: 12px;
+        border-radius: 16px 0 0 16px;
+        box-sizing: border-box;
+    }
+    .recommend-item.positive .recommend-item-price,
+    .recommend-item.positive .recommend-item-rate {
+        color: @text-green-color;
+    }
+    .recommend-item.negative .recommend-item-price,
+    .recommend-item.negative .recommend-item-rate {
+        color: @text-red-color;
+    }
+
+    .recommend-item-kline {
+        line-height: normal;
+        width: 220px;
+        height: 50px;
+        position: absolute;
+        left: 10px;
+        bottom: 10px;
+    }
+
+    .recommend-item-kline svg {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+    }
+}

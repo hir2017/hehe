@@ -8,13 +8,14 @@ class LanguageSwitchView extends Component {
 	static defaultProps = {
 		root: null
 	}
-	
+
 	onSwitch(item) {
-		this.props.commonStore.changeLanguageTo(item);
+        this.props.commonStore.changeLanguageTo(item);
 	}
 	render() {
 		let commonStore = this.props.commonStore;
-		let { list, cfg } = UPEX.languages;
+		let list = UPEX.config.languages;
+		let cfg = UPEX.languagesMap;
 		let curLang = cfg[commonStore.language];
 		let $content;
 
@@ -28,7 +29,7 @@ class LanguageSwitchView extends Component {
 							<dd key={index} className={`${item}${selectedCls}`} onClick={this.onSwitch.bind(this, item)}>
 								<span className="txt" dangerouslySetInnerHTML={{__html: cfg[item].option}}></span>
 							</dd>
-						)	
+						)
 					})
 				}
 			</dl>

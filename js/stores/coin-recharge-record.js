@@ -43,10 +43,11 @@ class CoinRechargeRecordStore {
         }
 
         getCoinRechargeList(this.params).then((data) => {
+            const  {points = [], total} = data.attachment || {};
             runInAction(() => {
                 if (data.status == 200) {
-                    this.orderList = this.parseData(data.attachment.points);
-                    this.total = data.attachment.total;
+                    this.orderList = this.parseData(points);
+                    this.total = total;
                     this.isFetching = false;
                 }
             })
@@ -62,13 +63,7 @@ class CoinRechargeRecordStore {
     parseData(arr) {
         arr.forEach((item, index) => {
             item.id = this.current + '' + index;
-            let _time = item.createTime;
-            // TODO: 需要后端去掉.0
-            if(_time && _time.indexOf('.0') !== -1) {
-                _time = _time.replace('.0', '')
-            }
-            item.createTime = _time;
-            // item.createTime = TimeUtil.formatDate(item.createTime, 'yyyy-MM-dd HH:mm:ss');
+            item.createTime = TimeUtil.formatDate(item.createTimeStamp);
         })
 
         return arr;

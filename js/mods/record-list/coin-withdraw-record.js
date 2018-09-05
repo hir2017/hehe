@@ -7,8 +7,7 @@
 
 import React, {Component} from 'react';
 import { observer, inject } from 'mobx-react';
-import { Pagination} from 'antd';
-
+import { Pagination, Icon} from 'antd';
 
 @inject('coinWithdrawRecordStore')
 @observer
@@ -23,7 +22,9 @@ class List extends Component {
 		this.state = {
 			displayIndex: -1
 		}
-
+        this.typeMap = {
+            '1': UPEX.lang.template('提币'),
+        }
 	}
 
 	componentDidMount() {
@@ -55,7 +56,8 @@ class List extends Component {
 	render() {
 		let store = this.props.coinWithdrawRecordStore;
 		let $content;
-		
+        const {typeMap} = this;
+
 		if (!store.isFetching && store.orderList.length == 0) {
 			$content = <div className="mini-tip">{ UPEX.lang.template('您暂时没有提币记录') }</div>;
 		} else {
@@ -70,7 +72,8 @@ class List extends Component {
 
 							switch (item.confirms){
 								case 'Success':
-									status =  UPEX.lang.template('已完成');
+                                    // status =  UPEX.lang.template('已完成');
+                                    status = <span className="all-success has-ico"><Icon type="check-circle-o" />{UPEX.lang.template('已完成')}</span>
 									visible = true;
 									info = UPEX.lang.template('Txid:{value}', { value: item.walletWaterSn || '--'});
 									break;
@@ -93,12 +96,13 @@ class List extends Component {
 										<dd className="status">{status}</dd>
 										<dd className="name">{item.currencyNameEn}</dd>
 										<dd className="num">{item.amount}</dd>
+										<dd className="type">{typeMap[item.withdrawType]}</dd>
 										<dd className="time">{item.createTime}</dd>
 										<dd className="fee">{item.fee}</dd>
 										<dd className="address">{UPEX.lang.template('地址')} : {item.address}</dd>
-										<dd className="action pr10">
+										<dd className="action">
 											{
-												visible ? <button onClick={this.triggerShowDetail.bind(this, item.id)}>{ this.state.displayIndex == item.id ? UPEX.lang.template('收起') : UPEX.lang.template('展开')}</button> : '--'
+												visible ? <button type="button" onClick={this.triggerShowDetail.bind(this, item.id)}>{ this.state.displayIndex == item.id ? UPEX.lang.template('收起') : UPEX.lang.template('展开')}</button> : '--'
 											}
 										</dd>
 									</dl>
@@ -122,10 +126,11 @@ class List extends Component {
 								<th className="status">{UPEX.lang.template('状态')}</th>
 								<th className="name">{UPEX.lang.template('币种')}</th>
 								<th className="num">{UPEX.lang.template('数量')}</th>
+								<th className="type">{UPEX.lang.template('类型')}</th>
 								<th className="time">{UPEX.lang.template('时间')}</th>
 								<th className="fee">{UPEX.lang.template('手续费')}</th>
 								<th className="address">{UPEX.lang.template('信息')}</th>
-								<th className="action pr10">{UPEX.lang.template('操作')}</th>
+								<th className="action">{UPEX.lang.template('操作')}</th>
 							</tr>
 						</tbody>
 					</table>

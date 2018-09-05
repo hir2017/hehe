@@ -2,6 +2,7 @@ import { message } from 'antd';
 import { sendEmailForRegister, sendMail, resetPwd, userRegister, queryPhone, userLogin, userLogin2, sendLoginCodeSend } from '../../api/http';
 import { browserHistory } from 'react-router';
 import Timer from '../../lib/timer';
+import VerifyRules from '../../lib/util/verify';
 import md5 from '../../lib/md5';
 
 export default (store) => {
@@ -15,111 +16,157 @@ export default (store) => {
         },
 
         onChangeEmail(e) {
+
             let value = e.currentTarget.value.trim();
+            // 不允许输入汉字
+            value = value.replace(UPEX.replaceHZReg, '');
 
             store.setEmail(value);
         },
 
-        onBlurEmail(e){
-            store.checkValidEmail();
-        },
-
-        onChangePhone(e) {
+        onChangeField(field, e) {
             let value = e.currentTarget.value.trim();
 
-            store.setPhone(value);
+            switch (field) {
+                case 'email':
+                    // 不允许输入汉字
+                    value = value.replace(UPEX.replaceHZReg, '');
+
+                    store.setEmail(value);
+                    this.verifyEmail();
+                    break;
+                case 'phone':
+                    // 替换所有的非数字
+                    value = value.replace(UPEX.replaceNaNReg, '');
+
+                    store.setPhone(value);
+                    this.verifyPhone();
+                    break;
+                case 'pwd':
+                    store.setPasswrod(value);
+                    this.verifyLoginPassword();
+                    break;
+                case 'googlecode':
+                    store.setGoogleCode(value);
+                    break;
+                case 'vercode':
+                    store.changeValidVercodeTo(true);
+                    store.setVercode(value);
+                    break;
+                case 'twicepwd':
+                    store.setTwicePasswrod(value);
+                    this.verifyTwicePassword();
+                    break
+                case 'inviteCode':
+                    store.setInviteCode(value);
+                    break;
+            }
+
         },
 
-        onBlurPhone(e){
-            store.checkValidPhone();
-        }, 
+        verifyEmail() {
+            var result = VerifyRules.email(store.email);
 
-        onChangeImgCode(e) {
-            let value = e.currentTarget.value.trim();
-
-            store.changeImgCodeTo(true);
-            store.setImgCode(value);
+            store.updateEmailResult(result);
         },
 
-        onChangeGoogleCode(e) {
-            let value = e.currentTarget.value.trim();
+        verifyPhone() {
+            var result = VerifyRules.mobile(store.phone);
 
-            store.setGoogleCode(value);
+            store.updatePhoneResult(result);
         },
 
-        onChangePwd(e) {
-            let value = e.currentTarget.value.trim();
+        verifyLoginPassword() {
+            var result = VerifyRules.loginpassword(store.pwd);
 
-            store.setPasswrod(value);
+            store.updatePwdResult(result);
         },
 
-        onBlurPwd(e){
-            store.checkValidPwd();
+        verifyTwicePassword() {
+            var result = VerifyRules.equalPassword(store.pwd, store.twicepwd);
+
+            store.updateTwicePwdResult(result);
         },
 
-        onChangeTwicePwd(e) {
-            let value = e.currentTarget.value.trim();
-
-            store.setTwicePasswrod(value);
+        onFocusInput(field, e) {
+            this.moveCaretAtEnd(e);
         },
 
-        onBlurTwicePwd(e){
-            store.checkValidTwicePwd();
+        // bugfixed 自动获取焦点之后，鼠标光标没有在最后
+        moveCaretAtEnd(e) {
+            var temp_value = e.target.value
+            e.target.value = ''
+            e.target.value = temp_value;
         },
 
-        onChangeVercode(e) {
-            let value = e.currentTarget.value.trim();
-
-            store.changeValidVercodeTo(true);
-            store.setVercode(value);
+        clearVerifyResult(field) {
+            switch (field) {
+                case 'email':
+                    store.clearEmailResult();
+                    break;
+                case 'phone':
+                    store.clearPhoneResult();
+                    break;
+                case 'pwd':
+                    store.clearPwdResult();
+                    break;
+                case 'twicepwd':
+                    store.clearTwicePwdResult();
+                    break;
+            }
         },
 
-        onChangeLoginVerCode(e) {
-            let value = e.currentTarget.value.trim();
-
-            store.setLoginPhoneCode(value);
-        },
-
-        onChangeInviteCode(e) {
-            let value = e.currentTarget.value.trim();
-
-            store.setInviteCode(value);
+        clearInput(key) {
+            store.clearField(key);
         },
 
         onChangeAgreeCheckBox(e) {
             store.setAgress(e.target.checked);
         },
 
-        getImgCaptcha() {
-            return store.captchaStore.fetch();
-        },
 
-        // 验证用户信息
-        sendVercode(type) {
+        verifyInfoBeforeSendCode() {
             let { verifyInfoBeforeSendCode } = store;
 
             //  验证表单信息
             if (!verifyInfoBeforeSendCode.pass) {
                 message.destroy();
                 verifyInfoBeforeSendCode.message && message.error(verifyInfoBeforeSendCode.message);
-                return;
+                return false;
             }
 
-            if (store.sendingcode) {
-                return;
+            if (store.disabledCodeBtn) {
+                return false;
             }
+
+            return true;
+        },
+
+        /**
+         * 注册的时候，发送短信验证码和邮箱验证码
+         */
+        sendVercode(type, validate, captchaId) {
+            let { updateSending } = store;
+
+            updateSending(true);
 
             let fetchFn = type == 'resetpwd' ? sendMail : sendEmailForRegister;
 
             // 发送手机／邮件验证码
             fetchFn({
                 account: store.account,
-                imgcode: store.imgcode,
-                codeid: store.codeid
+                validate: validate,
+                captchaId: captchaId
             }).then((data) => {
+                updateSending(false);
+
                 switch (data.status) {
                     case 200:
                         // 发送成功
+                        store.disabledSMSOrPhoneCode(true);
+                        // store.changeValidImgCodeTo(true);
+                        store.changeValidVercodeTo(true);
+
                         let timer = this.timer = new Timer({
                             remainTime: 60,
                             isDoubleBit: true,
@@ -129,38 +176,23 @@ export default (store) => {
                         });
 
                         this.timer.on('end', () => {
-                            store.changeSendingCodeTo(false);
+                            store.disabledSMSOrPhoneCode(false);
                         });
-
-                        store.changeSendingCodeTo(true);
-                        store.changeImgCodeTo(true);
-                        store.changeValidVercodeTo(true);
-
                         break;
-                    case 412:
-                        // 图片验证码错误
-                        message.error(data.message);
-                        store.changeImgCodeTo(false);
-                        this.getImgCaptcha();
-                        break;
+                    case 412: // 图片验证码错误
                     case 414: // 邮箱已经绑定
                     default:
                         // 其他错误
                         message.error(data.message);
-                        this.getImgCaptcha();
                 }
-            });
+            }).catch(() => {
+                updateSending(false);
+                return false;
+            })
         },
 
         submitResetPwd() {
-            let { verifyInfoBeforeSubmit, updateSubmiting } = store;
-
-            //  验证表单信息
-            if (!verifyInfoBeforeSubmit.pass) {
-                message.destroy();
-                message.error(verifyInfoBeforeSubmit.message);
-                return;
-            }
+            let { updateSubmiting } = store;
 
             if (store.submiting) {
                 return;
@@ -168,53 +200,44 @@ export default (store) => {
 
             updateSubmiting(true);
 
-            resetPwd({
+            return resetPwd({
                 account: store.account,
                 pwd: store.pwd,
-                vercode: store.vercode,
-                imgcode: store.imgcode,
-                codeid: store.codeid
+                vercode: store.vercode
             }).then((data) => {
+                let result = false;
                 updateSubmiting(false);
 
                 switch (data.status) {
                     case 200:
-                        // message.success(UPEX.lang.template('成功，将跳转登录页面'));
+                        result = true;
+
+                        message.success(UPEX.lang.template('成功，将跳转登录页面'));
 
                         setTimeout(() => {
+                            message.destroy();
                             browserHistory.push('/login');
-                        }, 100)
+                        }, 300)
 
                         break;
                     case 403:
                         // 邮箱或者手机验证码错误
                         message.error(data.message);
                         store.changeValidVercodeTo(false);
-                        this.getImgCaptcha();
                         break;
                     case 402: // 验证码过期
                     default:
                         // 其他错误
                         message.error(data.message);
-                        this.getImgCaptcha();
                 }
-            }).catch(()=>{
+            }).catch(() => {
                 updateSubmiting(false);
+                return false;
             })
         },
 
         submitRegister() {
-            let { verifyInfoBeforeSubmit, updateSubmiting } = store;
-            //  验证表单信息
-            if (!verifyInfoBeforeSubmit.pass) {
-                message.destroy();
-                message.error(verifyInfoBeforeSubmit.message);
-                return;
-            }
-
-            if (!store.agree) {
-                return;
-            }
+            let { updateSubmiting } = store;
 
             if (store.submiting) {
                 return;
@@ -226,15 +249,13 @@ export default (store) => {
                 account: store.account,
                 pwd: store.pwd,
                 vercode: store.vercode,
-                inviteId: store.inviteId,
-                imgcode: store.imgcode,
-                codeid: store.codeid
+                inviteId: store.inviteId
             }).then((data) => {
                 updateSubmiting(false);
 
                 switch (data.status) {
                     case 200:
-                        store.changeSendingCodeTo(false);
+                        store.disabledSMSOrPhoneCode(false);
                         message.success(UPEX.lang.template('成功，将跳转登录页面'));
 
                         setTimeout(() => {
@@ -244,11 +265,9 @@ export default (store) => {
                         break;
                     case 403:
                         store.changeValidVercodeTo(false);
-                        this.getImgCaptcha();
                         break;
                     default:
                         message.error(data.message);
-                        this.getImgCaptcha();
                         break;
                 }
             }).catch(() => {
@@ -259,7 +278,7 @@ export default (store) => {
         queryHasPhone() {
             let phone = store.phone;
 
-            if (!store.checkValidPhone()){
+            if (!store.phoneResult[0]) {
                 return;
             }
 
@@ -274,26 +293,15 @@ export default (store) => {
                         // 可用，未被占用
                         store.changeHasPhoneTo(false);
                     } else {
-                        message.error(data.message);
+                        store.updatePhoneResult([false, data.message]);
                         store.changeHasPhoneTo(true);
                     }
                 })
         },
 
-        checkUser() {
-            let { verifyInfoBeforeLogin } = store;
-            
-            //  验证表单信息
-            if (verifyInfoBeforeLogin.pass) {
-                return true;
-            } else {
-                return verifyInfoBeforeLogin.message;
-            }
-        },
-
         checkUser2(type) {
             if (type == 'phone') {
-                if (store.phonecode) {
+                if (store.vercode) {
                     return true;
                 } else {
                     return false;
@@ -308,7 +316,7 @@ export default (store) => {
 
         },
 
-        userLogin() {
+        userLogin(validate, captchaId) {
             const { updateSubmiting } = store;
 
             if (store.submiting) {
@@ -320,8 +328,8 @@ export default (store) => {
             return userLogin({
                 email: store.account,
                 pwd: md5(store.pwd + UPEX.config.salt),
-                imgcode: store.imgcode,
-                codeid: store.codeid
+                validate: validate,
+                captchaId: captchaId,
             }).then((data) => {
                 updateSubmiting(false);
 
@@ -335,7 +343,7 @@ export default (store) => {
                     case 5555:
                         break;
                     default:
-                        // this.getImgCaptcha();
+                        // do something
                 }
 
                 return data;
@@ -348,7 +356,6 @@ export default (store) => {
             const { updateSubmiting } = store;
             let authType = 0;
             let vercode = '';
-
             switch (type) {
                 case 'google':
                     authType = 1;
@@ -356,13 +363,12 @@ export default (store) => {
                     break;
                 case 'phone':
                     authType = 2;
-                    vercode = store.phonecode;
+                    vercode = store.vercode;
                     break;
                 case 'email':
                     authType = 3;
                     break;
             }
-
             if (store.submiting) {
                 return;
             }
@@ -383,14 +389,14 @@ export default (store) => {
                             token: data.attachment.token
                         });
                         break;
-                    case 5558:  // 谷歌密碼輸入有誤
+                    case 5558: // 谷歌密碼輸入有誤
                     case 20104: // 谷歌密碼輸入有誤
                     default:
                         // message.error(data.message);
                 }
 
                 return data;
-            }).catch(()=>{
+            }).catch(() => {
                 updateSubmiting(false);
             })
         },
@@ -398,17 +404,26 @@ export default (store) => {
          * 发送手机验证码
          */
         sendLoginCodeSend() {
-            if (store.sendingphonecode) {
+            let { disabledCodeBtn, updateSending } = store;
+
+            if (disabledCodeBtn) {
                 return;
             }
+
+            updateSending(true);
+
             // 发送手机／邮件验证码
             sendLoginCodeSend({
                 authType: 1,
                 emailOrPhone: store.account,
             }).then((data) => {
+                updateSending(false);
+
                 switch (data.status) {
                     case 200:
                         // 发送成功
+                        store.disabledSMSOrPhoneCode(true);
+
                         let timer = this.timer2 = new Timer({
                             remainTime: 60,
                             isDoubleBit: true,
@@ -418,11 +433,8 @@ export default (store) => {
                         });
 
                         this.timer2.on('end', () => {
-                            store.changeSendingPhoneCodeTo(false);
+                            store.disabledSMSOrPhoneCode(false);
                         });
-
-                        store.changeSendingPhoneCodeTo(true);
-                        
                         break;
                     case 412:
                         // 图片验证码错误
@@ -432,7 +444,10 @@ export default (store) => {
                         // 其他错误
                         message.error(data.message);
                 }
-            });
+            }).catch(() => {
+                updateSending(false);
+                return false;
+            })
         },
 
         destroy() {

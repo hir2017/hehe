@@ -8,7 +8,7 @@ import SecondStep from '../../mods/idcard-auth/second-step';
 import ThirdStep from '../../mods/idcard-auth/third-step';
 import FourthStep from '../../mods/idcard-auth/fourth-step';
 
-import PageWrapper from '../../common-mods/page-user/page-wrapper';
+import PageWrapper from '../../components/page-user/page-wrapper';
 
 @inject('userInfoStore')
 @observer
@@ -33,9 +33,7 @@ class IdentityAuthentication extends Component {
         });
     }
 
-    nowStep(_step) {
-        const step = _step;
-        
+    nowStep(step) {
         if (step === 1) {
             return <FirstStep changeStep={this.changeStep} />;
         }
@@ -78,15 +76,20 @@ class IdentityAuthentication extends Component {
                 <Step title={UPEX.lang.template('完成认证')} />
             </Steps>
         );
+        let _step = this.state.step || step;
+        let bodyClass = 'height-full-1';
+        if(userInfo.isValidatePhone && [1, 2].indexOf(_step) !== -1) {
+            bodyClass = '';
+        }
         return (
-            <PageWrapper innerClass="authentication" title={UPEX.lang.template('身份认证')} rightContent={$rightContent}>
+            <PageWrapper innerClass="authentication" bodyClass={bodyClass} title={UPEX.lang.template('身份认证')} rightContent={$rightContent}>
                 <div className="authentication-content">
                     {userInfo.isValidatePhone ? (
-                        this.nowStep(this.state.step || step)
+                        this.nowStep(_step)
                     ) : (
                         <div className="no-auth-message  authentication-message">
                             <p>{UPEX.lang.template('请绑定手机')}</p>
-                            <Link className="ace-btn" to="/user/setting-phone">{UPEX.lang.template('手机绑定')}</Link>
+                            <Link className="exc-btn" to="/user/setting-phone">{UPEX.lang.template('手机绑定')}</Link>
                         </div>
                     )}
                 </div>

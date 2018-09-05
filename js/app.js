@@ -1,16 +1,15 @@
 import '../css/reset.css';
-import '../css/common.css';
-import '../css/index.css';
-import '../css/login-register.css';
-import '../css/agreements.css';
-import '../css/trade.css';
-import '../css/trade-night.css';
-import '../css/trade-day.css';
+import '../css/common.less';
+import '../css/exc-style/index.less';
+import '../css/home.less';
+import '../css/login-register.less';
+import '../css/trade.less';
 import '../css/user.css';
 import '../css/news.css';
 import '../css/account.css';
-import '../css/order.css';
-import '../css/recharge-withdraw.css';
+import '../css/order.less';
+import '../css/recharge-withdraw.less';
+import '../css/antd-reset.less';
 
 import './lib/object.assign';
 import './lib/promise';
@@ -21,13 +20,12 @@ import { observer, Provider } from 'mobx-react';
 import { message } from 'antd';
 import Url from './lib/url';
 
-message.config({
-    top: 100
-});
+import LangPack from './lang/app/pack.js';
+window.LangPack = LangPack;
 
+import './config';  
 import './global';
 import routes from './routes';
-
 import RootStore from './stores/index';
 
 const rootStore = new RootStore();
@@ -45,7 +43,7 @@ class App extends Component {
                 if (coin) {
                     pair = [coin.baseCurrencyNameEn, coin.currencyNameEn].join('_');
                 } else {
-                   pair = 'TWD_BTC';
+                   pair = [UPEX.config.baseCurrencyEn, 'BTC'].join('_');
                 }
 
                 props.params.pair = pair;
@@ -74,7 +72,7 @@ class App extends Component {
         return (
         	<div
                 key={rootStore.commonStore.language + rootStore.authStore.uid }
-                className={`app-page ${rootStore.commonStore.language}`}
+                className={`app-page ${rootStore.commonStore.language} ${UPEX.config.version}`}
                 data-path={rootStore.commonStore.currentPathName}
             >
                 <Provider {...rootStore}>
@@ -85,4 +83,7 @@ class App extends Component {
     }
 }
 
+message.config({
+    top: 100
+});
 render(<App/>, document.getElementById('wrap'));

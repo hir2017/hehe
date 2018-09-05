@@ -19,7 +19,7 @@ function(e) {
     function n(e) {
         if (r) {
             var t = new Date;
-            console.log(t.toLocaleTimeString() + "." + t.getMilliseconds() + "> " + e)
+            // console.log(t.toLocaleTimeString() + "." + t.getMilliseconds() + "> " + e)
         }
     }
 

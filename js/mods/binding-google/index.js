@@ -9,9 +9,9 @@ import { Button, message } from 'antd';
 import { Link } from 'react-router';
 import Vcodebutton from '../common/authcode-btn';
 
-import InputItem from '../../common-mods/form/input-item';
-import AceForm from '../../common-mods/form/form';
-import { createGetProp } from '../../common-mods/utils';
+import InputItem from '../../components/form/input-item';
+import AceForm from '../../components/form/form';
+import { createGetProp } from '../../components/utils';
 
 @inject('userInfoStore', 'captchaStore')
 @observer
@@ -54,7 +54,11 @@ class Google extends Component {
             return;
         }
 
-        this.props.userInfoStore.bindGA(this.state.google, this.state.vCode);
+        this.props.userInfoStore.bindGA(this.state.google, this.state.vCode).then(data => {
+            if(!data) {
+                this.props.captchaStore.fetch();
+            }
+        });
     }
 
     render() {
@@ -86,7 +90,6 @@ class Google extends Component {
                     {gaSecretKey.qrcode ? <img src={`data:image/png;base64,${gaSecretKey.qrcode}`} /> : <img />}
                     <div className="code-sms">{gaSecretKey.secretKey}</div>
                 </div>
-                <InputItem {...inputsData.google} />
                 <div>
                      <InputItem {...inputsData.ivCode} />
                      <div className="item v-code-button">
@@ -96,14 +99,16 @@ class Google extends Component {
                 <div className="input-vcode-wrapper">
                     <InputItem {...inputsData.vCode} />
                     <div className="item v-code-button">
-                        <Vcodebutton imgCode={this.state.ivCode} codeid={codeid} type="phone" />
+                        <Vcodebutton GaOrTradePwd={true} imgCode={this.state.ivCode} codeid={codeid} type="phone" />
                     </div>
                 </div>
-                <Button loading={loading} className="ace-submit-item" onClick={this.submit}>
+                <InputItem {...inputsData.google} />
+
+                <Button loading={loading} className="exc-submit-item" onClick={this.submit}>
                     {UPEX.lang.template('绑定')}
                 </Button>
                 <div className="info">
-                    <Link to="/user/google-guide">Google{UPEX.lang.template('Google验证器使用教程')}</Link>
+                    <Link to="/user/google-guide">{UPEX.lang.template('Google验证器使用教程')}</Link>
                 </div>
             </AceForm>
         );

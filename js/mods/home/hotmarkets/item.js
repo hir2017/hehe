@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { observer, inject } from 'mobx-react';
 import { Icon } from 'antd';
-import klineChart from './chart';
+import Chart from './chart';
 import { browserHistory } from 'react-router';
 import { getTradeKline }  from '../../../api/http';
 
@@ -13,6 +13,7 @@ class HotCoin extends Component {
     
 	constructor(props){
 		super(props);
+		this.klineChart = new Chart();
 	}
 	
 	componentDidMount() {
@@ -32,7 +33,7 @@ class HotCoin extends Component {
 				res.attachment.forEach((item, index)=>{
 					let arr = [];
 
-					arr[arr.length] = +new Date(item.createTime.replace(/-/g, '/')); // 时间
+					arr[arr.length] = item.currentTime; // 时间
 					arr[arr.length] = item.current; // 价格
 
 					hours24TrendList[hours24TrendList.length] = arr;
@@ -48,40 +49,32 @@ class HotCoin extends Component {
 		let width = node.width();
 		let height = node.height();
 
-		klineChart.setData({
+		this.klineChart.setData({
 			data: data,
 			width: width,
 			height: height
 		});
 
-		let linePath = klineChart.getPath();
-		let fillPath = klineChart.getFill();
+		let linePath = this.klineChart.getPath();
+		let fillPath = this.klineChart.getFill();
 
 		$(this.refs.testchart).attr('d', linePath);
 		$(this.refs.testfill).attr('d', fillPath);
 	}
 
 	handleTrade=(data)=>{
-		browserHistory.push(`/webtrade/TWD_${data.currencyNameEn}`);
+		browserHistory.push(`/webtrade/${data.baseCurrencyNameEn}_${data.currencyNameEn}`);
 	}
 
 	render() {
 		let data = this.props.data;
 		let type = data.changeRate >= 0 ? 'positive' : 'negative';
-		let trendIcon;
-
-		if (data.currentAmount >= data.previousPrice) {
-            trendIcon = <Icon type="arrow-up" style={{fontSize: 12}}/>;
-        } else {
-            trendIcon = <Icon type="arrow-down" style={{fontSize: 12}}/>;
-        }
                                                     
-
 		return (
 			<div className={`recommend-item ${type}`} onClick={this.handleTrade.bind(this, data)}>
-				<div className="recommend-item-name">{ data.currencyNameEn }</div>
-				<div className="recommend-item-price">{UPEX.config.baseCurrencySymbol} { data.currentAmountText }</div>
-				<div className="recommend-item-volume">{ UPEX.lang.template('成交额 {num}{unit}', { num : data.amountText, unit: data.baseCurrencyNameEn })}</div>
+				<div className="recommend-item-name">{ data.currencyNameEn }<i> / {data.baseCurrencyNameEn}</i></div>
+				<div className="recommend-item-price">{ data.currentAmountText }<i>{data.baseCurrencyNameEn}</i></div>
+				<div className="recommend-item-volume" dangerouslySetInnerHTML={{__html:  UPEX.lang.template('成交额 {num}{unit}', { num : data.amountText, unit: data.baseCurrencyNameEn }, 1)}}></div>
 				<div className="recommend-item-rate">{ data.changeRateText }</div>
 				{
 					type == 'positive' ? (

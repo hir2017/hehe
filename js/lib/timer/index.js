@@ -51,7 +51,6 @@ Timer.prototype = Object.assign({
         self.hourWrap = $(selector.hour);
         self.minuteWrap = $(selector.minute);
         self.secondWrap = $(selector.second);
-
     },
     /**
      * 分割剩余时间，天、时、分、秒

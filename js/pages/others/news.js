@@ -22,7 +22,7 @@ class News extends Component {
         return (
             <div className="news-wrapper">
                 <Breadcrumb className="user-breadcrumb" separator=">">
-                    <Breadcrumb.Item>ACE</Breadcrumb.Item>
+                    <Breadcrumb.Item> <a href="/home">{UPEX.config.sitename}</a> </Breadcrumb.Item>
                     <Breadcrumb.Item>{UPEX.lang.template('公告中心')}</Breadcrumb.Item>
                 </Breadcrumb>
                 <div className="news-body-inner clearfix">

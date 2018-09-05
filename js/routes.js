@@ -6,42 +6,35 @@ import Layout from './pages/layout';
 import News from './pages/others/news';
 import NewsList from './mods/news/list';
 import NewsDetail from './mods/news/detail';
-import Agreements from './pages/others/agreements';
-import Help from './pages/others/help';
-import AboutUs from './pages/others/about';
-import Careers from './pages/others/careers';
+
 import NotFound from './pages/others/404';
-import Feedback from './pages/others/feedback';
-import Download from './pages/others/download';
-import ContactUs from './pages/others/contact';
-import Cooperation from './pages/others/cooperation';
 
 import Login from './pages/login-register/login';
 import Register from './pages/login-register/register';
 import ResetPwd from './pages/login-register/resetpwd';
 
-// import Home from './pages/home';
 // 授权登陆容器HOC
 import Auth from './mods/authhoc/index';
 
 // 我的资产
-// import Assets from './pages/account/index';
 // 充值＋充币＋提现＋提币
 import FiatRecharge from './pages/recharge-withdraw/fiat-recharge';
 import CoinRecharge from './pages/recharge-withdraw/coin-recharge';
 import FiatWithdraw from './pages/recharge-withdraw/fiat-withdraw';
 import CoinWithdraw from './pages/recharge-withdraw/coin-withdraw';
 import CoinAddress from './pages/recharge-withdraw/address';
+import RecordAssetsChange from './pages/record-list/assets-change';
+import RecordOrder from './pages/record-list/order-test';
 
 // 订单相关
 // 交易订单
 import OrderHoc from './pages/record-list/record-trade-hoc';
-import OpenRecordList from './mods/record-list/record-open';
-import HistoryRecordList from './mods/record-list/record-history';
-import SuccessRecordList from './mods/record-list/record-success';
+import OpenRecordList from './pages/record-list/order/open';
+import HistoryRecordList from './pages/record-list/order/history';
+import SuccessRecordList from './pages/record-list/order/success';
 // 充值＋充币＋提现＋提币
-import CoinRecord from './pages/record-list/record-coin';
-import FiatRecord from './pages/record-list/record-fiat';
+import CoinRecord from './pages/record-list/coin';
+import FiatRecord from './pages/record-list/fiat';
 
 // 个人中心
 import UserInfo from './pages/user';
@@ -49,23 +42,23 @@ import BasicInfo from './pages/user/basic-info';
 import IdCardAuth from './pages/user/idcard-auth';
 import BankInfo from './pages/user/bank-info';
 import PasswordSetting from './pages/user/password-setting'
-import ModifyPassword from './mods/password-setting/modify-login-password'
-import ModifyTraddingPassword from './mods/password-setting/modifyTradingPassword.v1.1'
-import SettingTraddingPassword from './mods/password-setting/settingTradingPassword'
+import ModifyPwd from './mods/password-setting/modify-login-pwd'
+import ModifyTradePwd from './mods/password-setting/modify-trade-pwd'
+import SetTradePwd from './mods/password-setting/setting-trade-pwd'
 import BindingPhone from './pages/user/binding-phone'
 import ModifyPhone from './mods/binding-phone/modify-phone'
 import SettingPhone from './mods/binding-phone/binding-phone'
 import BindingEmail from './pages/user/binding-email'
 import SettingEmail from './mods/binding-email/binding-email'
 import GoogleAuth from './pages/user/google-auth'
-import RmbindingGoogle from './mods/binding-google/unbind'
+import UnbindingGoogle from './mods/binding-google/unbind'
 import GoogleGuide from './pages/user/google-guide'
 import Question from './pages/user/problem-feedback'
 import QuestionList from './pages/user/feedbackList'
 import QuestionDetails from './pages/user/feedbackDetails'
 import EmailSuccess from './mods/binding-email/success'
 import PhoneSuccess from './mods/binding-phone/success'
-import ForgetTradingPassword from './mods/password-setting/forgetTradingPassword'
+import forgetTradePwd from './mods/password-setting/forget-trade-pwd'
 
 
 const Home = (location, cb)=>{
@@ -97,7 +90,7 @@ const routes = (
 
 	        <Route path="account" component={Auth}>
 	        	<IndexRoute getComponent={Assets}/>
-	        	<Route path="assets" getComponent={Assets}/>
+                <Route path="assets" getComponent={Assets}/>
 	        	<Route path="coinrecord" component={CoinRecord}/>
 	        	<Route path="fiatrecord" component={FiatRecord}/>
 	        	<Route path="balance">
@@ -115,6 +108,14 @@ const routes = (
 		        	<Route path="history" component={HistoryRecordList} />
 		        	<Route path="success" component={SuccessRecordList} />
 		        </Route>
+                <Route path="record-order">
+                    <IndexRoute component={RecordOrder}/>
+                    <Route path=":type" component={RecordOrder}/>
+		        </Route>
+                <Route path="record-assets-change">
+                    <IndexRoute component={RecordAssetsChange}/>
+                    <Route path=":type" component={RecordAssetsChange}/>
+		        </Route>
 	        </Route>
 
 	        <Route path="user" component={UserInfo}>
@@ -122,17 +123,17 @@ const routes = (
 				<Route path="authentication" component={IdCardAuth} />
 				<Route path="bankInfo" component={BankInfo} />
 				<Route path="setpwd" component={PasswordSetting} />
-				<Route path="resetpwd" component={ModifyPassword} />
-				<Route path="modifyTraddingPassword" component={ModifyTraddingPassword} />
-				<Route path="settingTraddingPassword" component={SettingTraddingPassword} />
-				<Route path="forgetTradingPassword" component={ForgetTradingPassword} />
+				<Route path="resetpwd" component={ModifyPwd} />
+				<Route path="modify-trade-pwd" component={ModifyTradePwd} />
+				<Route path="set-trade-pwd" component={SetTradePwd} />
+				<Route path="forget-trade-pwd" component={forgetTradePwd} />
 				<Route path="binding-phone" component={BindingPhone} />
 				<Route path="modify-phone" component={ModifyPhone} />
 				<Route path="setting-phone" component={SettingPhone} />
 				<Route path="binding-email" component={BindingEmail} />
-				<Route path="settingEmail" component={SettingEmail} />
+				<Route path="setting-email" component={SettingEmail} />
 				<Route path="google" component={GoogleAuth} />
-				<Route path="rmbindingGoogle" component={RmbindingGoogle} />
+				<Route path="unbinding-google" component={UnbindingGoogle} />
 				<Route path="google-guide" component={GoogleGuide} />
 				<Route path="question" component={Question} />
 				<Route path="questionList" component={QuestionList} />
@@ -140,22 +141,13 @@ const routes = (
 				<Route path="emailSuccess" component={EmailSuccess} />
 				<Route path="phoneSuccess" component={PhoneSuccess} />
 			</Route>
-			<Route path="login" component={Login} />
-			<Route path="register" component={Register} />
-			<Route path="resetpwd" component={ResetPwd} />
-			<Route path="help" component={Help} />
-			<Route path="about" component={AboutUs} />
 			<Route path="news" component={News}>
                 <IndexRoute component={NewsList}/>
                 <Route path="detail/:id" component={NewsDetail} />
             </Route>
-            <Route path="agreements/:name" component={Agreements} />
-			<Route path="contact" component={ContactUs} />
-			<Route path="feedback" component={Feedback} />
-			<Route path="cooperation" component={Cooperation} />
-			<Route path="careers" component={Careers} />
-			<Route path="download" component={Download} />
-
+            <Route path="login" component={Login} />
+			<Route path="register" component={Register} />
+			<Route path="resetpwd" component={ResetPwd} />
 		</Route>
 		<Route path="*" component={NotFound} />
 	</Route>

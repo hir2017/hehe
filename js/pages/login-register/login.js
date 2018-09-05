@@ -2,26 +2,18 @@
  * @fileoverview 登录页面
  * @author 陈立英
  * @date 2018-04-26
- * 开启谷歌登录验证：
- * 开启手机登录验证：
+ *  开启谷歌登录验证：
+ *  开启手机登录验证：
  */
 import React, {Component} from 'react';
 import { observer, inject } from 'mobx-react';
-import { Tabs , Icon , Popover, Select , Modal } from 'antd';
+import { Icon , Modal } from 'antd';
 import {  Link , browserHistory } from 'react-router';
 import toAction from './action';
-const Option = Select.Option;
+import { TabView , AreaCodeSelectView, SMSCodeView } from './views';
+import YidunCaptcha  from '../../mods/yidun-captcha';
 
-const wechatContent = (
-    <div className="wechat"></div>
-);
-
-const tgContent = (
-    <div className="telegram"></div>
-);
-
-
-@inject('loginStore', 'authStore')
+@inject('loginStore', 'tradeStore')
 @observer
 class Login extends Component {
     constructor(props){
@@ -29,19 +21,34 @@ class Login extends Component {
 
         this.action = toAction(this.props.loginStore);
 
+        this.tabs = [
+            {
+                id: 'email',
+                title: UPEX.lang.template('邮箱')
+            },
+            {
+                id: 'phone',
+                title: UPEX.lang.template('手机号')
+            }
+        ];
+
+        this.sendLoginVercodeFirst = true;
+
+        this.yidunCaptcha = new YidunCaptcha({
+            type: 'register-login',
+            lang: UPEX.lang.language == 'en-US' ? 'en': UPEX.lang.language
+        })
+
         this.state = {
-            loginErrorText: '',
-            step: 'login' // login: 登录，google: 谷歌认证；phone：手机认证
+            step: 'login', // login: 登录，google: 谷歌认证；phone：手机认证
+            loginErrorText: '', // 提交之后的错误提示
         }
     }
 
     componentDidMount() {
-        // 组件加载完调用图片验证码
-        // this.action.getImgCaptcha();
-        if (this.props.authStore.isLogin) {
-            browserHistory.push('/home');
-            return;
-        }
+        this.yidunCaptcha.init((validate, captchaId)=>{
+            this.handleUserLogin(validate, captchaId);
+        })
     }
 
     componentWillReceiveProps(nextProps){
@@ -60,54 +67,54 @@ class Login extends Component {
     }
 
     componentWillUnmount(){
-        this.action.destroy(); 
+        this.action.destroy();
     }
+
 
     handleLogin=()=>{
-        let result = this.action.checkUser();
-        
-        if (result == true ) {
-            
-            this.setState({
-                loginErrorText: ''
-            });
+        this.setState({
+            loginErrorText: ''
+        });
 
-            this.action.userLogin().
-                then((data)=>{
-                    switch(data.status){
-                        case 200:
-                            this.handleLoginSuccess(data.attachment);
-                            break;
-                        case 5555: // 需要进行谷歌认证
-                            this.setState({
-                                step: 'google'
-                            });
-                            break;
-                        case 5557:
-                            this.setState({
-                                step: 'phone'
-                            });
-                            break;
-                        case 405:
-                            this.setState({
-                                loginErrorText: UPEX.lang.template('输入错误，您还有{num}次机会尝试',{ num: data.attachment.times})
-                            }); 
-                            break;
-                        default:
-                            this.setState({
-                                loginErrorText: data.message
-                            }); 
-                    }
-                })
-        } else {
-            this.setState({
-                loginErrorText: result
-            });
-        }
+        this.yidunCaptcha.show();
     }
 
-    handleLoginSuccess(result) { 
+    handleUserLogin(validate, captchaId){
+        let store = this.props.loginStore;
+        
+        this.action.userLogin(validate, captchaId).then((data)=>{
+            switch(data.status){
+                case 200:
+                    this.handleLoginSuccess(data.attachment);
+                    break;
+                case 5555: // 需要进行谷歌认证
+                    this.setState({
+                        step: 'google'
+                    });
+                    break;
+                case 5557:
+                    store.disabledSMSOrPhoneCode(false);
+                    store.updateSending(false);
+                    this.setState({
+                        step: 'phone'
+                    });
+                    break;
+                case 405:
+                    this.setState({
+                        loginErrorText: UPEX.lang.template('输入错误，您还有{num}次机会尝试',{ num: data.attachment.times})
+                    });
+                    break;
+                default:
+                    this.setState({
+                        loginErrorText: data.message
+                    });
+            }
+        })
+    }
 
+    handleLoginSuccess(result) {
+        browserHistory.push('/webtrade');
+        
         if (result.authLevel == 0) {
             /*
              * 如果用户等级为KYC0
@@ -117,23 +124,22 @@ class Login extends Component {
              * 文案：您尚未进行安全级别认证，请完成身份认证及银行卡绑定获取充提和交易权限
             */
             Modal.confirm({
-                prefixCls: "ace-dialog",
+                prefixCls:  "exc-dialog",
+                className: this.props.tradeStore.theme == 'dark' ? 'exc-dialog-dark' : 'exc-dialog-light',
+                width: 540,
                 content: UPEX.lang.template('请先进行身份认证'),
                 okText: UPEX.lang.template('身份认证'),
                 cancelText: UPEX.lang.template('我再想想'),
-                iconType: 'exclamation-circle',
-                onOk() {    
+                onOk() {
                     browserHistory.push('/user/authentication');
                 }
             });
         }
-
-        browserHistory.push('/webtrade');
     }
 
     handleLoginVerifyCode=(e)=>{
         let { step } =  this.state;
-        
+
         if (this.action.checkUser2(step)) {
             this.action.userLogin2(step).
                 then((data)=>{
@@ -142,9 +148,15 @@ class Login extends Component {
                             this.handleLoginSuccess(data.attachment);
                             break;
                         default:
+                            if (data.status == 5556 && this.sendLoginVercodeFirst) {
+                                this.setState({
+                                    loginErrorText: UPEX.lang.template('请填写正确的短信验证码')
+                                });
+                                return;
+                            }
                             this.setState({
                                 loginErrorText: data.message
-                            }); 
+                            });
                     }
                 })
         } else {
@@ -155,10 +167,15 @@ class Login extends Component {
     }
 
     sendLoginVercode=(e)=>{
+        this.sendLoginVercodeFirst = false;
         this.action.sendLoginCodeSend();
     }
 
     keyLogin=(e)=>{
+        if (!this.props.loginStore.enableLogin) {
+            return;
+        }
+
         if (e.keyCode === 13) {
             this.handleLogin()
         }
@@ -177,32 +194,111 @@ class Login extends Component {
             });
         }
 
-        this.action.onChangeMode(item);       
+        this.action.onChangeMode(item);
+    }
+
+    clearInput=(field)=> {
+        this.refs[field].focus();
+        this.action.clearInput(field);        
+        this.action.clearVerifyResult(field);
+    }
+
+    onFocusInput(field, e){
+        if (field == 'phone' || field == 'email') {
+            this.action.onFocusInput(field, e);    
+        }
+        
+        // 获取焦点后，隐藏接口提交的错误信息
+        this.setState({
+            loginErrorText: ''
+        });
+
+        $(e.currentTarget).parents('.input-wrapper').attr('data-type', 'focus');
+    }
+
+    onBlurInput(field, e) {
+        let timer;
+        let node = $(e.currentTarget).parents('.input-wrapper');
+
+        timer = setTimeout(()=>{
+            clearTimeout(timer);
+            node.attr('data-type', 'blur');
+        }, 100)
     }
 
     render() {
         let store = this.props.loginStore;
-        let { step } = this.state;
+        let { step, loginErrorText } = this.state;
         let action = this.action;
+        let $selectAreaCode;
+        let $inputAccount;
+        let $submitBtn;
 
-        let options = [];
 
-        $.map(store.countries, (item, key)=>{
-            options[options.length] = <Option value={key} key={key}>{UPEX.lang.template(key)}(+{item.areacode})</Option>
-        })
+        switch(store.mode) {
+            case 'phone':
+                $selectAreaCode = <AreaCodeSelectView defaultValue={store.selectedCountry.code} onChange={action.onAreaCodeChange}/>;
+                $inputAccount = (
+                    <div className="input-wrapper" key='phone'>
+                        <div className="input-box">
+                            <input
+                                ref="phone"
+                                type="text"
+                                name="phone"
+                                value={store.phone}
+                                placeholder={ UPEX.lang.template('手机') }
+                                onChange={ (e)=>action.onChangeField('phone', e)}
+                                onBlur={ (e)=>this.onBlurInput('phone', e) }
+                                onFocus={ (e)=>this.onFocusInput('phone', e)}
+                                autoFocus
+                                autoComplete="off"
+                            />
+                        </div>
+                        { store.phone ? <div className="icon-delete" onClick={this.clearInput.bind(this, 'phone')}></div> : null}
+                    </div>
+                )
+                break;
+            case 'email':
+                $inputAccount = (
+                    <div className="input-wrapper" key='email'>
+                        <div className="input-box">
+                            <input
+                                ref="email"
+                                type="text"
+                                name="email"
+                                value={store.email}
+                                placeholder={ UPEX.lang.template('邮箱') }
+                                className={ store.emailResult[0] ? '' : 'wrong'}
+                                onChange={ (e)=>action.onChangeField('email', e) }
+                                onBlur={ (e)=>this.onBlurInput('email', e) }
+                                onFocus={ (e)=>this.onFocusInput('email', e) }
+                                autoFocus
+                                autoComplete="off"
+                            />
+                        </div>
+                        { store.email ? <div className="icon-delete" onClick={this.clearInput.bind(this, 'email')}></div> : null}
+                        { store.emailResult[0] ? null : <div className="warn">{store.emailResult[1]}</div> }
+                    </div>
+                )
+                break;
+        }
+
 
         if (step == 'google' || step == 'phone') {
             let $inputbox;
-                
+
             if (step == 'google') {
                 $inputbox  =  (
                     <div className="input-wrapper">
                         <div className="input-box">
                             <input
-                                type="tel" 
-                                onInput={ action.onChangeGoogleCode}
+                                ref="googlecode"
+                                type="tel"
+                                name="googlecode"
                                 maxLength="6"
                                 autoComplete="off"
+                                value={store.googlecode}
+                                onChange={ (e)=>action.onChangeField('googlecode', e)}
                                 placeholder={ UPEX.lang.template('Google验证码') }
                                 onKeyDown={ this.keyLoginSecond }
                                 autoFocus
@@ -210,46 +306,74 @@ class Login extends Component {
                         </div>
                     </div>
                 )
+
+                if (store.googlecode) {
+                    if (store.submiting) {
+                        $submitBtn = (
+                            <button type="button" className="submit-btn login-btn">{ UPEX.lang.template('登录中') }</button>
+                        )
+                    } else {
+                        $submitBtn = (
+                            <button type="button" className="submit-btn login-btn" onClick={ this.handleLoginVerifyCode }>{ UPEX.lang.template('登录') }</button>
+                        )
+                    }
+                } else {
+                    // 验证不同过，不允许点击
+                    $submitBtn = (
+                        <button type="button" className="submit-btn disabled">{ UPEX.lang.template('登录') }</button>
+                    )
+                }
             } else if (step == 'phone') {
                 $inputbox = (
                     <div className="input-wrapper">
                         <div className="input-box useryz-box">
                             <input
-                                type="text" 
-                                onInput={ action.onChangeLoginVerCode}
+                                ref="vercode"
+                                type="text"
+                                name="vercode"
+                                onChange={ (e)=>action.onChangeField('vercode', e)}
                                 maxLength="6"
                                 autoComplete="off"
                                 placeholder={ UPEX.lang.template('短信验证码') }
                                 onKeyDown={ this.keyLoginSecond }
                                 autoFocus
                             />
-                            <div className="yzcode">
-                                <button onClick={ this.sendLoginVercode } className={ store.sendingphonecode ? 'disabled' : ''} >
-                                    <div className={ store.sendingphonecode ? 'code-sending': 'code-sending hidden'}>{ UPEX.lang.template('重发')}（<span data-second="second" ref="second2"></span>s）</div>
-                                    <div className={ store.sendingphonecode ? 'code-txt hidden' : 'code-txt'}>{  UPEX.lang.template('发送验证码') }</div>
-                                </button>
-                            </div>
+                            <SMSCodeView onClick={this.sendLoginVercode} disabled={store.disabledCodeBtn} fetching={store.sending}/>
                         </div>
                     </div>
                 )
+
+                if (store.vercode) {
+                    if (store.submiting) {
+                        $submitBtn = (
+                            <button type="button" className="submit-btn login-btn">{ UPEX.lang.template('登录中') }</button>
+                        )
+                    } else {
+                        $submitBtn = (
+                            <button type="button" className="submit-btn login-btn" onClick={ this.handleLoginVerifyCode }>{ UPEX.lang.template('登录') }</button>
+                        )
+                    }
+                } else {
+                    // 验证不同过，不允许点击
+                    $submitBtn = (
+                        <button type="button" className="submit-btn disabled">{ UPEX.lang.template('登录') }</button>
+                    )
+                }
             }
 
             return (
                 <div className="register-wrapper login-box">
-                    <div className="register-form">
-                        <h3 className="title"> { UPEX.lang.template('登录')} </h3>
-                        <div className="register-mode-content">
-                            { $inputbox }
-                            { this.state.loginErrorText ? <div className="error-tip">{this.state.loginErrorText}</div> : '' }
-                            
-                            <div className="input-wrapper">
-                                <div className="login-input">
-                                    {
-                                        store.submiting ?  
-                                        <button className="submit-btn login-btn">{ UPEX.lang.template('登录中') }</button>
-                                        :
-                                        <button className="submit-btn login-btn" onClick={ this.handleLoginVerifyCode }>{ UPEX.lang.template('登录') }</button>
-                                    }
+                    <div className="register-form-wrapper">
+                        <div className="register-form">
+                            <h3 className="register-form-title"> { UPEX.lang.template('登录')} </h3>
+                            <div className="register-mode-content">
+                                { $inputbox }
+                                { loginErrorText ? <div className="error-tip">{loginErrorText}</div> : '' }
+
+                                <div className="input-wrapper">
+                                    <div className="login-input">
+                                        { $submitBtn }
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -258,128 +382,68 @@ class Login extends Component {
             );
         }
 
+        if (store.enableLogin) {
+            if (store.submiting) {
+                $submitBtn = (
+                    <button type="button" className="submit-btn login-btn">{ UPEX.lang.template('登录中') }</button>
+                )
+            } else {
+                $submitBtn = (
+                    <button type="button" className="submit-btn login-btn" onClick={ this.handleLogin }>{ UPEX.lang.template('登录') }</button>
+                )
+            }
+        } else {
+            // 验证不同过，不允许点击
+            $submitBtn = (
+                <button type="button" className="submit-btn disabled">{ UPEX.lang.template('登录') }</button>
+            )
+        }
+
+
         return (
             <div className="register-wrapper">
-                <div className="register-form">
-                    <h3 className="title"> { UPEX.lang.template('登录')} </h3>
-                    <ul className="register-mode-tabs clearfix">
-                        {
-                            ['email', 'phone'].map((item, index)=>{
-                                let cls = 'register-mode-tab';
-                                let txt;
-                                
-                                if (store.mode === item) {
-                                    cls += ' selected';
-                                }
-
-                                if (item == 'email') {
-                                    txt = UPEX.lang.template('邮箱');
-                                } else {
-                                    txt = UPEX.lang.template('手机号')
-                                }
-
-                                return (
-                                    <li key={item}>
-                                        <button className={cls} onClick={this.onChangeMode.bind(this, item)}>{ txt }</button>
-                                    </li>
-                                )
-                            })
-                        }
-                    </ul>
-                    <div className="register-mode-content">
-                        {
-                            store.mode == 'email' ? null : (
-                                <div className="input-wrapper">
-                                    <div className="input-box">
-                                        <Select onChange={ action.onAreaCodeChange } defaultValue={store.selectedCountry.code}>
-                                            { options }
-                                        </Select>
-                                    </div>
+                <div className="register-form-wrapper">
+                    <div className="register-form">
+                        <h3 className="register-form-title">{ UPEX.lang.template('登录')}</h3>
+                        <TabView data={this.tabs} current={store.mode} onClick={this.onChangeMode}/>
+                        <div className="register-mode-content">
+                            { $selectAreaCode }
+                            { $inputAccount }
+                            <div className="input-wrapper">
+                                <div className="input-box">
+                                    <input
+                                        ref="pwd"
+                                        type="password"
+                                        name="pwd"
+                                        value={store.pwd}
+                                        placeholder={ UPEX.lang.template('密码') }
+                                        maxLength="16"
+                                        autoComplete="off"
+                                        onChange={ (e)=>action.onChangeField('pwd', e) }
+                                        onFocus={ (e)=>this.onFocusInput('pwd', e)}
+                                        onKeyDown={ this.keyLogin }
+                                    />
                                 </div>
-                            )
-                        }
-                        {
-                            store.mode == 'email' ? (
-                                <div className="input-wrapper" key='email'>
-                                    <div className="input-box">
-                                        <input
-                                            type="text" 
-                                            placeholder={ UPEX.lang.template('邮箱') }
-                                            onInput={ action.onChangeEmail }
-                                            onBlur={ action.onBlurEmail }
-                                            autoFocus
-                                            autoComplete="off"
-                                        />
-                                    </div>
-                                </div>
-                            ) : (
-                                <div className="input-wrapper" key='phone'>
-                                    <div className="input-box">
-                                        <input
-                                            type="text" 
-                                            placeholder={ UPEX.lang.template('手机') }
-                                            onInput={  action.onChangePhone }
-                                            autoFocus
-                                            autoComplete="off"
-                                        />
-                                    </div>
-                                </div>
-                            )
-                        }
-                        <div className="input-wrapper">
-                            <div className="input-box">
-                                <input
-                                    type="password" 
-                                    placeholder={ UPEX.lang.template('密码') }
-                                    maxLength="16"
-                                    onInput={ action.onChangePwd }
-                                    onKeyDown={ this.keyLogin }
-                                    autoComplete="off"
-                                />
+                                { store.pwd ? <div className="icon-delete" onClick={this.clearInput.bind(this, 'pwd')}></div> : null}
                             </div>
-                        </div>
-                        <div className="input-wrapper hidden">
-                            <div className="input-box yz-box">
-                                <input
-                                    type="text" 
-                                    placeholder={ UPEX.lang.template('验证码') }
-                                    onInput={ action.onChangeImgCode }
-                                    maxLength="6"
-                                    onKeyDown={ this.keyLogin }
-                                    autoComplete="off"
-                                />
-                                <div className="codeimg">
-                                    <img src={ store.captcha } onClick={ action.getImgCaptcha } alt=""/>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        { this.state.loginErrorText ? <div className="error-tip">{this.state.loginErrorText}</div> : '' }
 
-                        <div className="input-wrapper">
-                            {
-                                store.submiting ?  
-                                <button className="submit-btn login-btn">{ UPEX.lang.template('登录中') }</button>
-                                : 
-                                <button className="submit-btn login-btn" onClick={ this.handleLogin }>{ UPEX.lang.template('登录') }</button>
-                            }
-                        </div>
-                        <div className="register-extra clearfix">
-                            <div className="fl forget-pwd">
-                                <Link to="/resetpwd">{ UPEX.lang.template('忘记密码?') }</Link>
+                            { loginErrorText ? <div className="error-tip">{loginErrorText}</div> : '' }
+
+                            <div className="input-wrapper">
+                                { $submitBtn }
                             </div>
-                            <div className="fr newser-register">
-                                <Link to="/register"> { UPEX.lang.template('立即注册')}</Link>
+                            <div className="register-extra clearfix">
+                                <div className="fl forget-pwd">
+                                    <Link to="/resetpwd">{ UPEX.lang.template('忘记密码?') }</Link>
+                                </div>
+                                <div className="fr newser-register">
+                                    <Link to="/register"> { UPEX.lang.template('立即注册')}</Link>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div className="register-icon hidden">
-                    <Popover placement="bottom" content={wechatContent} trigger="click"></Popover>
-                    <Popover placement="bottom" content={tgContent} trigger="click"></Popover>
-                    <span>{ UPEX.lang.template('官方服务、交流') }</span>
-                </div>
-            </div> 
+            </div>
         );
     }
 }

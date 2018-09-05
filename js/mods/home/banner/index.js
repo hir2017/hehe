@@ -1,5 +1,5 @@
 /**
- * @fileoverview 页尾
+ * @fileoverview  banner每4秒轮播一次
  * @author 陈立英
  * @date 2018-05-05
  */
@@ -8,13 +8,11 @@ import React, {Component} from 'react';
 import { observer, inject } from 'mobx-react'; 
 import { Carousel } from 'antd';
 
-const bannerImage = require('../../../../images/banner1.jpg');
-
 @inject('bannerStore')
 @observer
 class Banner extends Component {
 	static defaultProps = {
-		list: [bannerImage, bannerImage, bannerImage]
+		list: []
 	}
 
 	componentDidMount(){
@@ -34,11 +32,11 @@ class Banner extends Component {
 		if (list.length > 1 ) {
 			multi = true;
 		}
-
+		
 		return (
 			<div className="banner-wrapper">
 				<div className="slider"  ref='banner'>
-                    <Carousel autoplay={multi} dots={multi}>
+                    <Carousel autoplay={true} dots={multi} effect="fade">
                     	{
                     		list.map((item, index)=>{
                     			return (
@@ -50,6 +48,7 @@ class Banner extends Component {
                     	}
                     </Carousel>
                 </div>
+                { this.props.children }
 			</div>
 		);
 	}
