@@ -22,9 +22,17 @@
             border-bottom: 1px solid @bg-color;
         }
         .list-box-bd {
-            flex: 1;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            left: 0;
+            right: 0;
+            top: 0;
+            padding-top: 30px;
+            overflow: hidden;
             display: flex;
             flex-direction: column;
+            box-sizing: border-box;
             .table-hd {
                 width: 100%;
                 height: 30px;
@@ -51,15 +59,19 @@
             }
             .table-bd {
                 flex: 1;
-                overflow-y: auto;
+                overflow-y: scroll;
+                overflow-x: hidden;
                 border-top: 5px solid transparent;
                 border-bottom: 5px solid transparent;
-                margin-right: -15px;
+                margin-right: -17px;
+                ul {
+                    width: 265px;
+                }
                 /* fixed处理滚动条 */
                 li {
                     line-height: 24px;
                     height: 24px;
-                    padding: 0 12px 0 6px;
+                    padding: 0 6px;
                     cursor: pointer;
                     &:hover {
                         background-color: @list-hoverbg-color01;

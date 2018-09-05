@@ -30,20 +30,22 @@ class SellOrderView extends Component {
 
 		return (
 			<div className="trade-sell">
-				<ul className="list" ref="scroller">
-					{ 
-						store.entrust.sell.map((item, index)=>{
-							return (
-								<li key={index} data-type="sell" data-index={item.index} onClick={this.haneleClickOrder.bind(this, item)}>
-									<div className="cell price redrate">{item.newcurrent}</div>
-									<div className="cell number">{item.newnumber}</div>
-									<div className="cell total">{item.newtotal}</div>
-									<div className="bar" style={{ width: `${item.depth}%` }}></div>
-								</li>
-							)
-						})
-					}
-				</ul>	
+				<div className="list-wrap" ref="scroller">
+					<ul className="list">
+						{ 
+							store.entrust.sell.map((item, index)=>{
+								return (
+									<li key={index} data-type="sell" data-index={item.index} onClick={this.haneleClickOrder.bind(this, item)}>
+										<div className="cell price redrate">{item.newcurrent}</div>
+										<div className="cell number">{item.newnumber}</div>
+										<div className="cell total">{item.newtotal}</div>
+										<div className="bar" style={{ width: `${item.depth}%` }}></div>
+									</li>
+								)
+							})
+						}
+					</ul>	
+				</div>
 			</div>
 		);
 	}

@@ -12,9 +12,18 @@ config.csurls = {
     telegram: '',
     facebook: '',
     twitter: '',
+    linkedin: '',
+    youtube: '',
+    whatapp: '',
     line: '',
-    whatapp: 'https://medium.com/ace-exchange',
 };
+// pdf文档链接
+config.docUrls = {
+    InfinitexDigitalCurrencyTransferAgreements: '',
+    riskDisclosure: '',
+    privacyPolicy: '',
+    kycPolicy: '',
+}
 config.baseCurrencyEn = 'TWD';
 config.baseCurrencySymbol = 'NT$';
 
