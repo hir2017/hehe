@@ -632,7 +632,7 @@ module.exports={
     "操作": "操作",
     "支付方式": "支付方式",
     "收/支": "收/支",
-    "收款账号(Account number)": "收款账号(Receive number)",
+    "收款账号(Account Number)": "收款账号(Receive number)",
     "收款账号(Receiving Account)": "收款账号(Account Number)",
     "收藏": "收藏",
     "收起": "收起",

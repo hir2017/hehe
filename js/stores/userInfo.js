@@ -97,7 +97,7 @@ class UserInfo {
         if (res.status === 200) {
             return;
         }
-        const statusMap = [0, 9999];
+        const statusMap = [0, 9999, 9997];
         if (statusMap.indexOf(res.status) !== -1) {
             console.error(`${name} error: ${res.message}`);
             browserHistory.push('/login');

@@ -124,8 +124,9 @@ class OrderStore {
         item.tradeNum = NumberUtil.formatNumber(item.tradeNum, pointNum);
         // 成交率
         let temp_rate = parseFloat(item.tradeRate) || 0;
-        item.tradeRate = NumberUtil.formatNumber(temp_rate * 100, 2) + '%';
-        
+        // TODO: 排查为什么会大于1
+        item.tradeRate = NumberUtil.formatNumber(temp_rate > 1 ? temp_rate : temp_rate * 100, 2) + '%';
+
         return item;
     }
 }
