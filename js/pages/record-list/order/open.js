@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
+import { browserHistory } from 'react-router';
 import { Pagination, Popconfirm, message } from 'antd';
 import { cancelOrder } from '@/api/http';
 import TimeUtil from '@/lib/util/date';
@@ -10,7 +11,8 @@ import Filter from './head-filter';
 @observer
 class List extends Component {
     static defaultProps = {
-        pagination: true // 是否分页， true分页，false不分页
+        from: '', // 来自tradecenter行情中心
+        pageSize: 20
     };
 
     constructor(props) {
@@ -38,7 +40,7 @@ class List extends Component {
     componentDidMount() {
         this.action.getData({
             ...this.params,
-            size: !this.props.pagination ? 20 : 10
+            size: this.props.from == 'tradecenter' ? this.props.pageSize : 10
         });
     }
 
@@ -48,7 +50,7 @@ class List extends Component {
         }
         this.action.getData({
             ...this.params,
-            size: !this.props.pagination ? 20 : 10
+            size: this.props.from == 'tradecenter' ? this.props.pageSize : 10
         });
     }
 
@@ -63,7 +65,7 @@ class List extends Component {
      */
     handleCancel = item => {
         this.action.cancelOrder(item.currencyId, item.orderNo);
-    };
+    }
 
     onCancelAll() {
         // TODO 遍历当前页, 是否显示结果，错了怎么办
@@ -86,9 +88,14 @@ class List extends Component {
             this.onQuery({});
         });
     }
+
+    handleMore=(e)=>{ 
+        browserHistory.push('/account/record/open');
+    }
+
     render() {
         let store = this.props.openStore;
-        let $content;
+        let $content, $footer;
 
         if (!this.props.authStore.isLogin) {
             $content = <div className="mini-tip list-is-empty">{UPEX.lang.template('登录后可查看当前委托订单')}</div>;
@@ -137,8 +144,13 @@ class List extends Component {
                             </li>
                         );
                     })}
+                    {this.props.from == 'tradecenter' && store.total >= this.props.pageSize ? <li className="more-tip"><button onClick={this.handleMore} dangerouslySetInnerHTML={{__html: UPEX.lang.template('更多订单前往{page}查看', { page: UPEX.lang.template('订单中心')}, 1)}}/></li> : null }
                 </ul>
             );
+        }
+
+        if (this.props.from !== 'tradecenter' && store.total > 0) {
+            $footer = <Pagination current={store.current} total={store.total} pageSize={store.pageSize} onChange={this.onChangePagination.bind(this)} />;
         }
 
         return (
@@ -166,7 +178,7 @@ class List extends Component {
                         {store.isFetching ? <div className="mini-loading" /> : null}
                     </div>
                     <div className="table-ft">
-                        {store.total > 0 && this.props.pagination ? (
+                        {store.total > 0 && this.props.from !== 'tradecenter' ? (
                             <Popconfirm
                                 placement="topRight"
                                 overlayClassName="exc-top-popover"
@@ -178,9 +190,8 @@ class List extends Component {
                                 <div className="cancel-all">{UPEX.lang.template('撤销当前列表订单')}</div>
                             </Popconfirm>
                         ) : null}
-                        {store.total > 0 && this.props.pagination ? (
-                            <Pagination current={store.current} total={store.total} pageSize={store.pageSize} onChange={this.onChangePagination.bind(this)} />
-                        ) : null}
+
+                        { $footer }
                     </div>
                 </div>
             </div>

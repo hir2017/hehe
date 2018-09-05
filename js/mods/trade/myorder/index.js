@@ -5,7 +5,7 @@ import React, {Component} from 'react';
 import { observer, inject } from 'mobx-react';
 import { Tooltip } from 'antd';
 import OpenOrder from '@/pages/record-list/order/open';
-import HistoryOrder from '@/pages/record-list/order/success';
+import SuccessOrder from '@/pages/record-list/order/success';
 
 @inject('tradeStore')
 @observer
@@ -98,7 +98,7 @@ class MyOrder extends Component {
 				</div>
 				<div className="trade-order-bd">
 					{
-						tabIndex == 0 ? <OpenOrder pagination={false}/> : <HistoryOrder pagination={false}/>
+						tabIndex == 0 ? <OpenOrder from="tradecenter"/> : <SuccessOrder from="tradecenter"/>
 					}
 				</div>
 			</div>

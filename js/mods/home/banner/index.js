@@ -32,11 +32,11 @@ class Banner extends Component {
 		if (list.length > 1 ) {
 			multi = true;
 		}
-
+		
 		return (
 			<div className="banner-wrapper">
 				<div className="slider"  ref='banner'>
-                    <Carousel autoplay={multi} dots={multi} speed={400}>
+                    <Carousel autoplay={true} dots={multi} effect="fade">
                     	{
                     		list.map((item, index)=>{
                     			return (

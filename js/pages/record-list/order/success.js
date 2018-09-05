@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
+import { browserHistory } from 'react-router';
 import { Pagination } from 'antd';
 import TimeUtil from '@/lib/util/date';
 import toAction from './page-action';
@@ -9,7 +10,8 @@ import Filter from './head-filter';
 @observer
 class List extends Component {
     static defaultProps = {
-        pagination: true // 是否分页， true分页，false不分页
+        from: '', 
+        pageSize: 20
     };
 
     constructor(props) {
@@ -30,7 +32,7 @@ class List extends Component {
     componentDidMount() {
         this.action.getData({
             ...this.params,
-            size: !this.props.pagination ? 20 : 10
+            size: this.props.from == 'tradecenter' ? this.props.pageSize : 10
         });
     }
 
@@ -51,13 +53,17 @@ class List extends Component {
         }
         this.action.getData({
             ...this.params,
-            size: !this.props.pagination ? 20 : 10
+            size: this.props.from == 'tradecenter' ? this.props.pageSize : 10
         });
+    }
+
+    handleMore=(e)=>{ 
+        browserHistory.push('/account/record/success');
     }
 
     render() {
         let store = this.props.successStore;
-        let $content;
+        let $content, $footer;
 
         if (!this.props.authStore.isLogin) {
             $content = <div className="mini-tip list-is-empty">{UPEX.lang.template('登录后可查看已完成订单')}</div>;
@@ -89,8 +95,13 @@ class List extends Component {
                             </li>
                         );
                     })}
+                    {this.props.from == 'tradecenter' && store.total >= this.props.pageSize ? <li className="more-tip"><button onClick={this.handleMore} dangerouslySetInnerHTML={{__html: UPEX.lang.template('更多订单前往{page}查看', { page: UPEX.lang.template('订单中心')}, 1)}}/></li> : null }
                 </ul>
             );
+        }
+
+        if (this.props.from !== 'tradecenter' && store.total > 0) {
+            $footer = <Pagination current={store.current} total={store.total} pageSize={store.pageSize} onChange={this.onChangePagination.bind(this)} />;
         }
 
         return (
@@ -117,9 +128,7 @@ class List extends Component {
                         {store.isFetching ? <div className="mini-loading" /> : null}
                     </div>
                     <div className="table-ft">
-                        {store.total > 0 && this.props.pagination ? (
-                            <Pagination current={store.current} total={store.total} pageSize={store.pageSize} onChange={this.onChangePagination.bind(this)} />
-                        ) : null}
+                        {$footer}
                     </div>
                 </div>
             </div>

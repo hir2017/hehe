@@ -140,12 +140,19 @@
             }
             .table-bd {
                 position: static;
+                overflow-y: auto;
+                margin-right: -15px;
                 dl {
                     height: 30px;
                     line-height: 30px;
                     border-color: transparent;
                     dd {
                         color: @text-color02;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                        height: 30px;
+                        line-height: 30px;
                     }
                     &:hover {
                         background: @list-hoverbg-color01;
@@ -154,10 +161,27 @@
                         }
                     }
                 }
+                li.more-tip{
+                    text-align: center;
+                    button{
+                        display: inline-block;
+                        height: 36px;
+                        line-height: 36px;
+                        color: #b6bcc6;
+                        background-color: @input-bg-color;
+                        padding: 0 20px;
+                        border-radius: 6px;
+                    }
+                    em {
+                        cursor: pointer;
+                        padding: 0 4px;
+                        color: @text-yellow-color;
+                    }
+                }
             }
             .open-list-table {
                 .time {
-                    width: 15%;
+                    width: 18%;
                 }
                 .name {
                     width: 10%;
@@ -166,7 +190,7 @@
                     width: 5%;
                 }
                 .num {
-                    width: 20%;
+                    width: 17%;
                 }
                 .price {
                     width: 15%;
@@ -198,7 +222,7 @@
             }
             .success-list-table {
                 .time {
-                    width: 15%;
+                    width: 18%;
                 }
                 .name {
                     width: 10%;
@@ -207,7 +231,7 @@
                     width: 5%;
                 }
                 .num {
-                    width: 20%;
+                    width: 17%;
                 }
                 .tradeprice {
                     width: 15%;

@@ -24,9 +24,11 @@ class Markets extends Component{
 
     componentDidMount(){
         $.channel.on('selectedMarketCode', ()=>{
-            this.getBarTransform();    
+            let timer = setTimeout(()=>{
+                clearTimeout(timer);
+                this.getBarTransform();        
+            }, 300);
         })
-        
     }
 
     componentWillUnmount() {
@@ -63,9 +65,7 @@ class Markets extends Component{
         let barOffset = $(bar).offset();
         let selectedLi = $('[data-key="' + key + '"]', tabs);
         
-        if (selectedLi.length == 0) {
-            return;
-        }
+        
         let liOffset = selectedLi.offset();
 
         x = liOffset.left -  ulOffset.left + (liOffset.width / 2  - barOffset.width / 2);
