@@ -134,6 +134,7 @@
             line-height: 50px;
             font-size: 14px;
             overflow: hidden;
+            position: relative;
             li {
                 position: relative;
                 float: left;
@@ -152,6 +153,7 @@
                 &.selected {
                     color: @text-yellow-color;
                     &:after {
+                        display: none;
                         content: '';
                         position: absolute;
                         left: 50%;
@@ -162,6 +164,17 @@
                         height: 2px;
                         background-color: @theme-yellow;
                     }
+                }
+                &.tab-bar {
+                    visibility: hidden;
+                    position: absolute;
+                    left: 0;
+                    float: none;
+                    bottom: 0;
+                    border-radius: 2px;
+                    width: 20px;
+                    height: 2px;
+                    background-color: @theme-yellow;
                 }
             }
         }
