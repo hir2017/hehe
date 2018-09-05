@@ -895,7 +895,7 @@ module.exports={
         "还差一步，您就可以开始交易了": "You are only one step from digital currency trade.",
         "退出全屏": "Exit Fullscreen",
         "退出成功": "Log out successfully",
-        "退出登录": "Logout",
+        "退出登录": "Log out",
         "选择充值的银行卡": "Choose a bank card to deposit",
         "选择币种": "Currency select",
         "选择提现的银行卡": "Select your bank account for withdrawal",

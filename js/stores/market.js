@@ -223,15 +223,14 @@ export default class MarketStore {
                     }
 
                     this.marketNav = navTemp.concat(marketNav);
+
+                    $.channel.emit('selectedMarketCode');
+                    
+                    this.isInit = true;
                 }
 
                 this.marketMap = marketMap;
                 this.currencyMap = currencyMap;
-
-                if (this.isInit == false) {
-                    $.channel.emit('selectedMarketCode');
-                    this.isInit = true;
-                }
 
                 // 更新热门推荐列表中的货币信息
                 this.updateHotCurrencies(data);
