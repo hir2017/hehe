@@ -55,9 +55,6 @@ import SettingEmail from './mods/binding-email/binding-email'
 import GoogleAuth from './pages/user/google-auth-aus'
 import UnbindingGoogle from './mods/binding-google/unbind-aus'
 import GoogleGuide from './pages/user/google-guide'
-// import Question from './pages/user/problem-feedback'
-// import QuestionList from './pages/user/feedbackList'
-// import QuestionDetails from './pages/user/feedbackDetails'
 import EmailSuccess from './mods/binding-email/success'
 import PhoneSuccess from './mods/binding-phone/success'
 import forgetTradePwd from './mods/password-setting/forget-trade-pwd-aus'
@@ -129,9 +126,6 @@ const routes = (
 				<Route path="google" component={GoogleAuth} />
 				<Route path="unbinding-google" component={UnbindingGoogle} />
 				<Route path="google-guide" component={GoogleGuide} />
-				{/* <Route path="question" component={Question} /> */}
-				{/* <Route path="questionList" component={QuestionList} /> */}
-				{/* <Route path="feedbackDetails/:id" component={QuestionDetails} /> */}
 				<Route path="emailSuccess" component={EmailSuccess} />
 				<Route path="phoneSuccess" component={PhoneSuccess} />
 			</Route>

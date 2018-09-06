@@ -41,7 +41,6 @@ export default class extends Component {
                             <Button className="exc-main">
                                 <Link to="/user/authentication">
                                     {UPEX.lang.template('去身份验证')}
-                                    {/* <span className="icon">1</span> */}
                                 </Link>
                             </Button>
                         </div>
