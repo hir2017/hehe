@@ -13,6 +13,10 @@ import PageWrapper from '../../components/page-user/page-wrapper';
 @inject('userInfoStore')
 @observer
 export default class extends Component {
+    constructor() {
+        super();
+        this.authLvl = UPEX.config.version === 'infinitex' ? 1 : 2;
+    }
     componentWillMount() {
         this.props.userInfoStore.getUserInfo();
     }
@@ -30,7 +34,7 @@ export default class extends Component {
                 <div className="item">
                     {UPEX.lang.template('您已经成功绑定邮箱')} <span className="email">{userInfo.email}</span>
                 </div>
-                {userInfo.isAuth < 2 ? (
+                {userInfo.isAuth < this.authLvl ? (
                     <div>
                         <p>{UPEX.lang.template('还差一步，您就可以开始交易了')}</p>
                         <div className="item">
