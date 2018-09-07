@@ -75,7 +75,7 @@ class View extends Component {
                     type="warning"
                 />
                 <FormView>
-                    {/* <FormItem>
+                    <FormItem>
                         <div className="exc-fiat-recharge-switch">
                             <span
                                 className={`switch-item ${state.type === 'a' ? 'selected' : ''}`}
@@ -94,7 +94,7 @@ class View extends Component {
                                 {UPEX.lang.template('使用Poli支付')}
                             </span>
                         </div>
-                    </FormItem> */}
+                    </FormItem>
                     {state.type === 'a' ? <Bpay {...bpayProps} /> : <Poli {...bpayProps} />}
                 </FormView>
             </PageWrapper>
