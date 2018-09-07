@@ -1,6 +1,6 @@
 import { observable, action, computed } from 'mobx';
 import { browserHistory } from 'react-router';
-import TimeUtil from '@/lib/util/date';
+import TimeUtil from '../lib/util/date';
 
 import {
     personalInfo,

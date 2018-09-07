@@ -122,7 +122,7 @@ var config = {
     resolve: {
         extensions: ['.js', '.vue'], // 确保引用时省略模块扩展名
         alias:{
-            '@': resolve('js')
+            '@': path.resolve(__dirname, './js')
         }
     },
     // server配置

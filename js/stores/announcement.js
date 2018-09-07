@@ -1,7 +1,7 @@
 import { observable, autorun, computed, action, runInAction } from 'mobx';
 import { getAnnounceList, getAnnounceDetail } from '../api/http';
 import NumberUtil from '../lib/util/number';
-import TimeUtil from '@/lib/util/date';
+import TimeUtil from '../lib/util/date';
 
 class AnnouncementStore {
     @observable list = [];
