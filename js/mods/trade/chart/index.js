@@ -98,7 +98,7 @@ class TVChartContainer extends Component {
 
         this.defaultThemes = {
             "light": {
-                // url: "./bundles/day.css",
+                url: "./bundles/day.css",
                 up: "#db4e4e",
                 down: "#0c9b78",
                 bg: "#ffffff",
@@ -110,7 +110,7 @@ class TVChartContainer extends Component {
                 areadown: "rgba(122, 152, 247, .02)"
             },
             "dark": {
-                // url: "./bundles/night.css",
+                url: "./bundles/night.css",
                 up: '#db4e4e', // K红
                 down: "#0c9b78", //K绿色
                 bg: "#24272c", // canvas背景色
