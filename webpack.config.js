@@ -114,7 +114,7 @@ var config = {
                 loader: "url-loader?limit=6000" // 小于3k, 转成base64
             },
             {
-                test: /\.jpg|mp3|mp4|gif$/,
+                test: /\.jpg|eot|ttf|woff|mp3|mp4|gif$/,
                 loader: "file-loader"
             }
         ]
@@ -145,7 +145,6 @@ var config = {
             names: ['vendor']
         })
     ]
-
 };
 
 
