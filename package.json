@@ -93,13 +93,13 @@
     "dev": "sudo webpack-dev-server",
     "product": "NODE_ENV=product webpack -p",
     
-    "restart": "pm2 restart server-aus.js --name='upexchange-front'  -o ./logs/out.log -e ./logs/error.log",
-    "start": "pm2 start server-aus.js  -o ./logs/out.log -e ./logs/error.log ",
-    "stop": "pm2 stop server-aus.js",
+    "restart": "pm2 restart pm2-aus.json",
+    "start": "pm2 start pm2-aus.json",
+    "stop": "pm2 stop pm2-aus.json",
     
-    "restart-ace": "pm2 restart server.js --name='upexchange-acefront'  -o ./logs/out.log -e ./logs/error.log",
-    "start-ace": "pm2 start server.js  -o ./logs/out.log -e ./logs/error.log ",
-    "stop-ace": "pm2 stop server.js"
+    "restart-ace": "pm2 restart pm2-ace.json",
+    "start-ace": "pm2 start pm2-ace.json",
+    "stop-ace": "pm2 stop pm2-ace.json"
   },
   "version": "2.0.1"
 }
