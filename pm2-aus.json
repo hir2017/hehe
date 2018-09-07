@@ -3,8 +3,8 @@
     {
         "name": "upexchange-acefront",
         "script": "./server-aus.js",
-        "instances": 4,
-        "exec_mode": "cluster",
+        "instances": 1,
+        "exec_mode": "fork",
         "log_date_format": "YYYY-MM-DD HH:mm:ss",
         "error_file": "./logs/error.log",
         "out_file": "./logs/out.log",
