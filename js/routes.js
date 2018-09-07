@@ -24,7 +24,6 @@ import FiatWithdraw from './pages/recharge-withdraw/fiat-withdraw';
 import CoinWithdraw from './pages/recharge-withdraw/coin-withdraw';
 import CoinAddress from './pages/recharge-withdraw/address';
 import RecordAssetsChange from './pages/record-list/assets-change';
-import RecordOrder from './pages/record-list/order-test';
 
 // 订单相关
 // 交易订单
@@ -38,7 +37,7 @@ import FiatRecord from './pages/record-list/fiat';
 
 // 个人中心
 import UserInfo from './pages/user';
-import BasicInfo from './pages/user/basic-info';
+import BasicInfo from './pages/user/basic-info/index';
 import IdCardAuth from './pages/user/idcard-auth';
 import BankInfo from './pages/user/bank-info';
 import PasswordSetting from './pages/user/password-setting'
@@ -107,10 +106,6 @@ const routes = (
 		        	<Route path="open" component={OpenRecordList} />
 		        	<Route path="history" component={HistoryRecordList} />
 		        	<Route path="success" component={SuccessRecordList} />
-		        </Route>
-                <Route path="record-order">
-                    <IndexRoute component={RecordOrder}/>
-                    <Route path=":type" component={RecordOrder}/>
 		        </Route>
                 <Route path="record-assets-change">
                     <IndexRoute component={RecordAssetsChange}/>
