@@ -4,7 +4,7 @@
         "name": "upexchange-acefront",
         "script": "./server-aus.js",
         "instances": 1,
-        "exec_mode": "fork",
+        "exec_mode": "cluster",
         "log_date_format": "YYYY-MM-DD HH:mm:ss",
         "error_file": "./logs/error.log",
         "out_file": "./logs/out.log",
