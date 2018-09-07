@@ -3,6 +3,9 @@ import { observer, inject } from 'mobx-react';
 import { Button, message } from 'antd';
 import SendVCodeBtn from '../common/v-code-btn';
 import { browserHistory } from 'react-router';
+import FormView from '@/mods/common/form';
+import FormItem from '@/mods/common/form/item';
+import SmsBtn from '@/mods/common/sms-btn';
 import InputItem from '../../components/form/input-item';
 import PageForm from '../../components/page-user/page-form';
 import { createGetProp } from '../../components/utils';
@@ -19,10 +22,25 @@ export default class BindingEmail extends Component {
             vCode: '',
             loading: false
         };
-        this.submit = this.submit.bind(this);
-    }
+        const getProp = createGetProp(this);
+        this.inputsData = {
+            email: {
+                label: UPEX.lang.template('邮箱'),
+                inputProps: getProp('email', 'none')
+            },
+            vCode: {
+                label: UPEX.lang.template('邮箱验证码'),
+                className: 'sms-code',
+                inputProps: getProp('vCode', 'none')
+            }
+        };
 
-    componentWillMount() {}
+        this.PageProps = {
+            title: UPEX.lang.template('绑定邮箱'),
+            formClass: 'modify-password-box'
+        };
+        this.afterNode = <SendVCodeBtn sendCode={this.sendCode.bind(this)} validateFn={this.validateFrom.bind(this, 'partical')} />;
+    }
 
     setVal(e, name) {
         this.setState({
@@ -51,7 +69,7 @@ export default class BindingEmail extends Component {
     }
 
     validateFrom(type = 'all') {
-        const {state} = this;
+        const { state } = this;
         if (!state.email) {
             message.error(UPEX.lang.template('请填写邮箱'));
             return false;
@@ -76,7 +94,7 @@ export default class BindingEmail extends Component {
         bindPhoneOrEmailAction({
             code: state.vCode,
             phoneOrEmail: state.email,
-            type: 1,
+            type: 1
         }).then(res => {
             this.setState({
                 loading: false
@@ -92,32 +110,18 @@ export default class BindingEmail extends Component {
     }
 
     render() {
-        const { disabled, timer, loading } = this.state;
-        const getProp = createGetProp(this);
-        const inputsData = {
-            email: {
-                label: UPEX.lang.template('邮箱'),
-                inputProps: getProp('email', 'none')
-            },
-            vCode: {
-                label: UPEX.lang.template('邮箱验证码'),
-                className: 'sms-code',
-                inputProps: getProp('vCode', 'none')
-            }
-        };
-
-        const PageProps = {
-            title: UPEX.lang.template('绑定邮箱'),
-            formClass: 'modify-password-box'
-        };
-        let afterNode = <SendVCodeBtn sendCode={this.sendCode.bind(this)} validateFn={this.validateFrom.bind(this, 'partical')} />;
+        const { state, inputsData, PageProps, afterNode } = this;
         return (
             <PageForm {...PageProps}>
-                <InputItem {...inputsData.email} />
-                <InputItem {...inputsData.vCode} afterNode={afterNode} />
-                <Button loading={this.state.loading} className="exc-submit-item" onClick={this.submit.bind(this)}>
-                    {UPEX.lang.template('提交')}
-                </Button>
+                <FormView>
+                    <FormItem {...inputsData.email} />
+                    <FormItem {...inputsData.vCode} after={afterNode} />
+                    <FormItem>
+                        <Button loading={state.loading} className="exc-submit-item" onClick={this.submit.bind(this)}>
+                            {UPEX.lang.template('提交')}
+                        </Button>
+                    </FormItem>
+                </FormView>
             </PageForm>
         );
     }

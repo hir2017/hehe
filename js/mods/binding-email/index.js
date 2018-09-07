@@ -7,13 +7,11 @@ import { browserHistory } from 'react-router';
 @observer
 export default class Email extends Component {
     componentWillMount() {
-        const userInfo = this.props.userInfoStore.userInfo || {};
         this.props.userInfoStore.getUserInfo();
     }
 
     render() {
         const userInfo = this.props.userInfoStore.userInfo || {};
-        const checked = userInfo.email ? true : false;
         return (
             <div className="common-setting-box">
                 <Row className="pwd top-radius-6 bottom-radius-6">

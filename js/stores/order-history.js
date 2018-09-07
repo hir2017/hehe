@@ -175,7 +175,6 @@ class OrderStore {
         // 时间
         item.orderTime = TimeUtil.formatDate(item.orderTimeStamp);
         // 委托价格
-        console.log(item.type)
         item.price = item.type === 2 ? UPEX.lang.template('市价委托') : NumberUtil.formatNumber(item.price, pointPrice);
         // 平均成交价
         item.averagePrice = NumberUtil.formatNumber(item.averagePrice || 0, pointPrice);

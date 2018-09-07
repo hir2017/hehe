@@ -48,9 +48,11 @@ export default class ReBinding extends Component {
 
     setVal(e, name) {
         let val = e.target.value.trim();
-        if(!Numberutils.isInteger(val)) {
-            return;
-        };
+        if(val !== '') {
+            if(!Numberutils.isInteger(val)) {
+                return;
+            };
+        }
         this.setState({
             [name]: val
         });
