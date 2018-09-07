@@ -24,7 +24,6 @@ import FiatWithdraw from './pages/recharge-withdraw/fiat-withdraw';
 import CoinWithdraw from './pages/recharge-withdraw/coin-withdraw';
 import CoinAddress from './pages/recharge-withdraw/address';
 import RecordAssetsChange from './pages/record-list/assets-change';
-import RecordOrder from './pages/record-list/order-test';
 
 // 订单相关
 // 交易订单
