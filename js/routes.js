@@ -37,7 +37,7 @@ import FiatRecord from './pages/record-list/fiat';
 
 // 个人中心
 import UserInfo from './pages/user';
-import BasicInfo from './pages/user/basic-info';
+import BasicInfo from './pages/user/basic-info/index';
 import IdCardAuth from './pages/user/idcard-auth';
 import BankInfo from './pages/user/bank-info';
 import PasswordSetting from './pages/user/password-setting'

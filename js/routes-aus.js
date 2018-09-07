@@ -39,7 +39,7 @@ import FiatRecord from './pages/record-list/fiat-aus/index';
 
 // 个人中心
 import UserInfo from './pages/user';
-import BasicInfo from './pages/user/basic-info';
+import BasicInfo from './pages/user/basic-info/index';
 // import IdCardAuth from './pages/user/idcard-auth';
 import IdCardAuthAus from './pages/user/idcard-auth-aus';
 // import BankInfo from './pages/user/bank-info';
