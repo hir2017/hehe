@@ -35,11 +35,17 @@ class LoginInfoBaseStore {
     constructor(stores) {
         this.authStore = stores.authStore;
 
-        if (UPEX.systemLanguage == 'zh-CN') {
+        if (UPEX.config.version == 'infinitex') {
+            this.selectedCountry = {
+                areacode: '0061',
+                code: 'AU',
+                name: 'Australia'
+            };
+        } else {
             this.selectedCountry = {
                 areacode: '0086',
-                code: 'CN',
-                name: 'China'
+                code: 'TW',
+                name: 'Taiwan'
             };
         }
     }
