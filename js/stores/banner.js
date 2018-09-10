@@ -3,12 +3,12 @@ import { getBannerList } from '../api/http';
 
 class BannerStore {
     @observable list = [];
-    @observable isLoading = false;
+    @observable $loading = true;
 
     @action
     fetch() {
 
-        this.isLoading = true;
+        this.$loading = true;
 
         getBannerList()
             .then((data) => {
@@ -17,7 +17,7 @@ class BannerStore {
                         this.list = data.attachment.banners;
                     }
 
-                    this.isLoading = false;
+                    this.$loading = false;
                 })
             }).catch((err) => {
                 console.log('Error loading banner', err.message);

@@ -1,23 +1,24 @@
 .banner-wrapper {
     position: relative;
+    height: 440px;
     background-color: @bg-color;
     .slider {
         overflow: hidden;
         position: relative;
         height: 440px;
         min-width: 1200px;
-        background-size: cover;
-        background-position: 50%;
         margin: 0 auto;
     }
     .ant-carousel {
-        .slick-slide {
+        height: 440px;
+        .slider-item{
             height: 440px;
+            overflow: hidden;
+            text-align: center;
             img {
-                margin: 0 auto;
-                width: 1200px;
-                height: auto;
                 display: block;
+                height: 440px;
+                margin: 0 auto;
             }
         }
         .slick-dots {

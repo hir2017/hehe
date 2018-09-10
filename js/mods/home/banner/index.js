@@ -26,27 +26,34 @@ class Banner extends Component {
 	}
 
 	render() {
-		let list = this.props.bannerStore.list;
-		let multi = false;
+		let store = this.props.bannerStore;
+		let list = store.list;
+		let multi = false, $content;
 
 		if (list.length > 1 ) {
 			multi = true;
+		}
+
+		if (!store.$loading) {
+			$content = (
+				<Carousel autoplay={true} dots={multi} effect="fade">
+                	{
+                		list.map((item, index)=>{
+                			return (
+                				<div className="slider-item" key={index} onClick={this.handleClickBanner.bind(this, item)}>
+		                            <img src={item.image} />                              
+		                        </div>
+                			)
+                		})
+                	}
+                </Carousel>
+			)
 		}
 		
 		return (
 			<div className="banner-wrapper">
 				<div className="slider"  ref='banner'>
-                    <Carousel autoplay={true} dots={multi} effect="fade">
-                    	{
-                    		list.map((item, index)=>{
-                    			return (
-                    				<div className="slider-item" key={index} onClick={this.handleClickBanner.bind(this, item)}>
-			                            <img src={item.image} />                              
-			                        </div>
-                    			)
-                    		})
-                    	}
-                    </Carousel>
+                    {$content}
                 </div>
                 { this.props.children }
 			</div>
