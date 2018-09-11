@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
-import { Button, message, Select } from 'antd';
+import { Button, message, Select, Alert } from 'antd';
 import NumberUtil from '../../lib/util/number';
 import { browserHistory } from 'react-router';
 import { isPhone } from '../../lib/util/validate';
@@ -61,7 +61,8 @@ export default class BindingPhone extends Component {
 
         this.PageProps = {
             title: UPEX.lang.template('修改绑定手机'),
-            formClass: 'modify-password-box'
+            formClass: 'modify-password-box modify-phone-box',
+            tipComponent: <Alert className="ace-form-tips" type="warning" showIcon message={UPEX.lang.template('为了您的资金安全，修改手机绑定后，24小时内不可以提现提币')} />
         };
     }
 
@@ -167,6 +168,7 @@ export default class BindingPhone extends Component {
         const loginStore = this.props.loginStore;
         const { userInfo = {} } = this.props.userInfoStore;
         let options = [];
+        
         $.map(loginStore.countries, (item, key) => {
             options[options.length] = (
                 <Option value={key} key={key}>
@@ -178,6 +180,7 @@ export default class BindingPhone extends Component {
         const { inputsData, PageProps } = this;
         let nvCodeBtn = <SendVCodeBtn sendCode={this.sendCode.bind(this, 'new')} validateFn={this.validateFrom.bind(this, 'partical')} />;
         let vCodeBtn = <SendVCodeBtn sendCode={this.sendCode.bind(this, 'old')} noSlide={true} />;
+        
         return (
             <PageForm {...PageProps}>
                 <div className="item-area">

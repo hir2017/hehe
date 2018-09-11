@@ -34,7 +34,7 @@ class List extends Component {
         let $content;
 
         if (!store.isFetching && store.coinList.length == 0) {
-            $content = <div className="mini-tip">{UPEX.lang.template('暂无数据')}</div>;
+            $content = <div className="mini-tip exc-list-empty">{UPEX.lang.template('暂无数据')}</div>;
         } else {
             $content = <AssetsListView />;
         }

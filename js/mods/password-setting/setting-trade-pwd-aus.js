@@ -21,17 +21,19 @@ export default class SettingTradingPassword extends Component {
         this.submit = this.submit.bind(this);
         this.captchaChange = this.captchaChange.bind(this);
         this.$sendBtn = <SmsBtn sendCode={setTradePwdSendCode.bind(this, {type: 2})} />;
+        
         this.PageProps = {
             title: UPEX.lang.template('设置资金密码'),
             formClass: 'modify-password-box'
         };
+
         const getProp = createGetProp(this);
         this.inputsData = [
             {
                 label: UPEX.lang.template('资金密码'),
                 className: 'new-pwd',
                 inputProps: getProp('password'),
-                tip: UPEX.lang.template('密码由6-18数字、字母和特殊字符组成')
+                tip: UPEX.lang.template('密码由8-16数字、字母和特殊字符组成')
             },
             {
                 label: UPEX.lang.template('确认密码'),
@@ -75,9 +77,9 @@ export default class SettingTradingPassword extends Component {
             message.error(UPEX.lang.template('请输入资金密码'));
             return;
         }
-        const reg = /(?=.*[a-zA-Z])(?=.*[0-9])[0-9A-Za-z+-@_=*]{6,16}/;
+        const reg = /(?=.*[a-zA-Z])(?=.*[0-9])[0-9A-Za-z+-@_=*]{8,16}/;
         if (this.state.password && !reg.test(this.state.password)) {
-            message.error(UPEX.lang.template('密码由6-16数字、字母和特殊字符组成'));
+            message.error(UPEX.lang.template('密码由8-16数字、字母和特殊字符组成'));
             return;
         }
         if (!this.state.comfirmPwd) {

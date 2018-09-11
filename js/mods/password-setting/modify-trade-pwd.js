@@ -5,7 +5,7 @@
  */
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
-import { Button, message } from 'antd';
+import { Button, message, Alert } from 'antd';
 import { Link, browserHistory } from 'react-router';
 import Vcodebutton from '../common/authcode-btn';
 import md5 from '../../lib/md5';
@@ -84,10 +84,10 @@ export default class ModifyTradingPassword extends Component {
             return;
         }
 
-        const checkPwd = /(?=.*[a-zA-Z])(?=.*[0-9])[0-9A-Za-z+-@_=*]{6,16}/.test(this.state.newPwd);
+        const checkPwd = /(?=.*[a-zA-Z])(?=.*[0-9])[0-9A-Za-z+-@_=*]{8,16}/.test(this.state.newPwd);
 
         if (this.state.newPwd && !checkPwd) {
-            message.error(UPEX.lang.template('密码由6-16数字、字母和特殊字符组成'));
+            message.error(UPEX.lang.template('密码由8-16数字、字母和特殊字符组成'));
             return;
         }
 
@@ -133,7 +133,7 @@ export default class ModifyTradingPassword extends Component {
                 error: this.state.loginErrorText,
                 className: 'new-pwd',
                 inputProps: getProp('password'),
-                tip: UPEX.lang.template('密码由6-18数字、字母和特殊字符组成')
+                tip: UPEX.lang.template('密码由8-16数字、字母和特殊字符组成')
             },
             {
                 label: UPEX.lang.template('新资金密码'),
@@ -145,9 +145,11 @@ export default class ModifyTradingPassword extends Component {
                 inputProps: getProp('comfirmPwd')
             }
         ];
+
         const PageProps = {
             title: UPEX.lang.template('修改资金密码'),
-            formClass: 'modify-password-box'
+            formClass: 'modify-password-box modify-tradepwd-box',
+            tipComponent: <Alert className="ace-form-tips" type="warning" showIcon message={UPEX.lang.template('为了您的资金安全，忘记资金密码并修改成功后，24小时内不可以提现提币')} />
         };
 
         return (

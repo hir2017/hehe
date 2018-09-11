@@ -36,8 +36,9 @@ export default class List extends Component {
     render() {
         const loginRecord = this.props.userInfoStore.loginRecord || [];
         let $content;
+
         if (loginRecord.length == 0) {
-            $content = <div className="mini-tip">{UPEX.lang.template('暂无数据')}</div>;
+            $content = <div className="mini-tip exc-list-empty">{UPEX.lang.template('暂无数据')}</div>;
         } else {
             $content = <LoginListView dataSource={loginRecord}/>;
         }

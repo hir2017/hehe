@@ -39,14 +39,18 @@ class ListView extends Component {
 }
 
 class News extends Component {
+    static defaultProps = {
+        pageSize: 10
+    }
+
     constructor(props) {
         super(props);
+        
         this.state = {
             list: [],
             isFetching: false,
             current: 1,
-            total: 0,
-            pageSize: 10
+            total: 0
         };
     }
 
@@ -78,7 +82,6 @@ class News extends Component {
             }
         }).catch((e) => {
             console.error(e);
-            message.error('Network Error');
         }).then( _ => {
             this.setState({
                 isFetching: false
@@ -94,18 +97,20 @@ class News extends Component {
         const { list, isFetching, count } = this.state;
         const state = this.state;
         let $content;
+        
         if (list.length == 0) {
-            $content = <div className="mini-tip">{UPEX.lang.template('暂无数据')}</div>;
+            $content = <div className="mini-tip exc-list-empty">{UPEX.lang.template('暂无数据')}</div>;
         } else {
             $content = <ListView dataSource={list} />;
         }
+
         return (
             <PageWrapper title={UPEX.lang.template('公告中心')}>
                 <div className="news-result-list">
                     <div className="table-bd">{$content}</div>
                     <div className="table-ft">
                         {state.total > 0 ? (
-                            <Pagination current={state.current} total={state.total} pageSize={10} onChange={this.pageChange.bind(this)} />
+                            <Pagination current={state.current} total={state.total} pageSize={this.props.pageSize} onChange={this.pageChange.bind(this)} />
                         ) : null}
                     </div>
                 </div>

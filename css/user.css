@@ -31,7 +31,14 @@ body .user-main .ant-select-dropdown-menu-item {
     margin-top: 10px;
 }
 
+.user-main .modify-phone-box,
+.user-main .modify-tradepwd-box,
+.user-main .modify-google-box {
+    padding-top: 0;
+}
+
 /* 验证码 */
+
 
 .user-main .modify-password-box .v-code {
     width: 338px;
@@ -1496,8 +1503,6 @@ body .user-main .ant-select-dropdown-menu-item {
 /**
  * 密码修改
  */
-
-.user-main .modify-password-box {}
 
 .user-main .modify-password-box .item-area {
     margin-bottom: 20px;

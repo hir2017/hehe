@@ -57,11 +57,13 @@ export default class extends Component {
         const count = this.props.userInfoStore.questionsLsit.count;
         const questionsLsit = this.props.userInfoStore.questionsLsit.list || [];
         let $content;
+        
         if (questionsLsit.length == 0) {
-            $content = <div className="mini-tip">{UPEX.lang.template('暂无数据')}</div>;
+            $content = <div className="mini-tip exc-list-empty">{UPEX.lang.template('暂无数据')}</div>;
         } else {
             $content = <ListView dataSource={questionsLsit}/>;
         }
+        
         return (
             <PageWrapper title={UPEX.lang.template('问题列表')}>
                 <div className="account-result-list questions">

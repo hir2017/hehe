@@ -43,7 +43,7 @@ class List extends Component {
         let store = this.props.fundChangeRecordStore;
         let $content;
         if (!store.isFetching && store.orderList.length == 0) {
-            $content = <div className="mini-tip">{UPEX.lang.template('暂无资金变动记录')}</div>;
+            $content = <div className="mini-tip exc-list-empty">{UPEX.lang.template('暂无资金变动记录')}</div>;
         } else {
             $content = (
                 <ul>

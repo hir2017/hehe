@@ -1,6 +1,5 @@
 import { observable, computed, autorun, action } from 'mobx';
 import Countries from '../mods/select-country/country-list';
-import { personalInfo } from '../api/http';
 import NumberUtil from '../lib/util/number';
 
 

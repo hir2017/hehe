@@ -194,7 +194,7 @@ export default class FirstStep extends Component {
         let status = true;
         let params = {};
         // 非必填字段
-        let nonessentials = ['middleName'];
+        let nonessentials = ['middleName', 'idCardValidity'];
         for (let item of forms.fields) {
             if (nonessentials.indexOf(item.name) === -1) {
                 if (state[item.name] === '' || state[item.name] === null) {
@@ -252,7 +252,7 @@ export default class FirstStep extends Component {
     render() {
         const { state, inputData, getErrMsg, idTypes, defaultDate } = this;
         let birthdayVals = state.birthday ? { value: moment(state.birthday, 'YYYY-MM-DD') } : {};
-        let idCardValidityVals = state.idCardValidity ? { value: moment(state.idCardValidity, 'YYYY-MM-DD') } : {};
+        // let idCardValidityVals = state.idCardValidity ? { value: moment(state.idCardValidity, 'YYYY-MM-DD') } : {};
         return (
             <AceForm className="auth-base-info">
                 <FormItem {...inputData.secondName} value={state.secondName} error={getErrMsg('secondName')} />
@@ -276,17 +276,19 @@ export default class FirstStep extends Component {
                     </Select>
                 </FormItem>
                 <FormItem {...inputData.idCard} value={state.idCard} error={getErrMsg('idCard')} />
-                <FormItem {...inputData.idCardValidity} error={getErrMsg('idCardValidity')} className={defaultDate.idCardValidityInit ? '' : 'default'}>
-                    <DatePicker
-                        size="default"
-                        disabledDate={(currDate) => {
-                            return currDate.valueOf() <= this.startDate.valueOf();
-                        }}
-                        defaultValue={defaultDate.idCardValidity}
-                        {...idCardValidityVals}
-                        onChange={this.dateChange.bind(this, 'idCardValidity')}
-                    />
-                </FormItem>
+                {
+                    // <FormItem {...inputData.idCardValidity} error={getErrMsg('idCardValidity')} className={defaultDate.idCardValidityInit ? '' : 'default'}>
+                    //     <DatePicker
+                    //         size="default"
+                    //         disabledDate={(currDate) => {
+                    //             return currDate.valueOf() <= this.startDate.valueOf();
+                    //         }}
+                    //         defaultValue={defaultDate.idCardValidity}
+                    //         {...idCardValidityVals}
+                    //         onChange={this.dateChange.bind(this, 'idCardValidity')}
+                    //     />
+                    // </FormItem>
+                }
                 <FormItem {...inputData.address} value={state.address} error={getErrMsg('address')} />
                 <FormItem>
                     <Captcha

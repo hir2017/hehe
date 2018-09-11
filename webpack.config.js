@@ -63,6 +63,7 @@ var config = {
     entry: {
         // 可对应多个入口文件
         webapp: ['./js/app-aus.js'],
+        app: ['./js/app.js'],
         test: ['./js/test.js'],
         vendor: ['react', 'react-dom', 'react-router', 'mobx-react']
     },

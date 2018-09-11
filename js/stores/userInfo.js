@@ -98,8 +98,9 @@ class UserInfo {
             return;
         }
         const statusMap = [0, 9999, 9997];
+        
         if (statusMap.indexOf(res.status) !== -1) {
-            console.error(`${name} error: ${res.message}`);
+            // console.error(`${name} error: ${res.message}`);
             browserHistory.push('/login');
         } else {
             message.error(res.message);

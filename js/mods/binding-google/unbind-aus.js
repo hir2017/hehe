@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
-import { Button, message } from 'antd';
+import { Button, message , Alert} from 'antd';
 import { Link, browserHistory } from 'react-router';
 import { setTradePwdSendCode } from '@/api/http';
 import FormView from '@/mods/common/form';
@@ -36,7 +36,8 @@ export default class ReBinding extends Component {
 
         this.PageProps = {
             title: UPEX.lang.template('解绑Google验证器'),
-            formClass: 'modify-password-box'
+            formClass: 'modify-password-box modify-google-box',
+            tipComponent: <Alert className="ace-form-tips" type="warning" showIcon message={UPEX.lang.template('为了您的资金安全，修改Google验证码后，24小时内不可以提币')} />
         };
     }
 
