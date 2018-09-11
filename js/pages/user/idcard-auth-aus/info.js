@@ -134,9 +134,11 @@ export default class FirstStep extends Component {
     transStr(str) {
         return str.replace(/[\u4e00-\u9fa5]/g, 'aa').length;
     }
+
     validateStrLen(name, str) {
         // TODO: 校验字长 22:[secondName, middleName, firstName] 45:[idCard] 255:[address]
         let arrs = [['secondName', 'middleName', 'firstName'], ['idCard'], ['address']];
+        
         if (arrs[0].indexOf(name) !== -1) {
             return this.transStr(str) <= 21;
         }
@@ -151,7 +153,13 @@ export default class FirstStep extends Component {
     }
 
     setVal(name, e) {
-        let str = typeof e === 'object' ? e.target.value.trim() : e;
+        let str = typeof e === 'object' ? e.target.value : e;
+
+        // 证件号地址允许输入空格
+        if (name !=='address') {
+            str = str.trim();
+        }
+       
         if (!this.validateStrLen(name, str)) {
             return;
         }
