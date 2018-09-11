@@ -27,6 +27,8 @@ class Info extends Component {
             cashLimit: 0,
             coinLimit: 0
         };
+
+        this.unmount = 0;
     }
 
     componentWillMount() {
@@ -42,7 +44,10 @@ class Info extends Component {
             })
         ])
             .then(([res1, res2]) => {
-                const { authLevel = 1 } = this.props.userInfoStore.userInfo;
+                if (this.unmount == 1) {
+                    return;
+                }
+                const { authLevel = 1 } = this.props.userInfoStore.userInfo || {};
                 let result = {};
                 if (res1.status === 200) {
                     result.cashLimit = res1.attachment[0][`kyc${authLevel}DayLimit`];
@@ -55,6 +60,10 @@ class Info extends Component {
             .catch(err => {
                 console.error('AusGetQuotaManagementInfo', err);
             });
+    }
+
+    componentWillUnmount(){
+        this.unmount = 1;
     }
 
     gradeImg() {

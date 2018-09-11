@@ -1,4 +1,4 @@
-import { observable, action, computed } from 'mobx';
+import { observable, action, computed, runInAction } from 'mobx';
 import { browserHistory } from 'react-router';
 import TimeUtil from '../lib/util/date';
 
@@ -41,7 +41,8 @@ const pickErrMsg = (res, name) => {
     if (res.status === 200) {
         return;
     }
-    const statusMap = [0, 9999];
+    const statusMap = [0, 9999, 9997];
+    
     if (statusMap.indexOf(res.status) !== -1) {
         console.error(`${name} error: ${res.message}`);
         browserHistory.push('/login');
@@ -103,6 +104,7 @@ class UserInfo {
             // console.error(`${name} error: ${res.message}`);
             browserHistory.push('/login');
         } else {
+            console.log(res.message);
             message.error(res.message);
         }
     };
@@ -112,10 +114,12 @@ class UserInfo {
         this.isFetchingInfo = true;
         return personalInfo()
             .then(res => {
-                this.userInfo = res.attachment;
-                this.isFetchingInfo = false;
-                pickErrMsg(res, 'getUserInfo');
-                return res;
+                runInAction(() => {
+                    this.userInfo = res.attachment;
+                    this.isFetchingInfo = false;
+                    pickErrMsg(res, 'getUserInfo');
+                    return res;
+                });
             })
             .catch(err => {
                 console.error(err, 'getUserInfo');
@@ -152,7 +156,11 @@ class UserInfo {
     getLoginRecord() {
         loginRecord()
             .then(res => {
-                this.loginRecord = res.attachment;
+                runInAction(() => {
+                    if (res.status == 200) {
+                        this.loginRecord = res.attachment;
+                    }
+                })
             })
             .catch(err => {
                 console.error(err, 'getLoginRecord');
@@ -185,11 +193,11 @@ class UserInfo {
         this.identityInfo.idType = data.idType;
         this.identityInfo.idNumber = data.idNumber;
         (this.identityInfo.resortType = data.resortType),
-            (this.identityInfo.resortTypeOther = data.resortTypeOther),
-            (this.identityInfo.address = data.address),
-            (this.identityInfo.postCode = data.postCode),
-            (this.identityInfo.profession = data.profession),
-            (this.identityInfo.annualsalary = data.annualsalary);
+        (this.identityInfo.resortTypeOther = data.resortTypeOther),
+        (this.identityInfo.address = data.address),
+        (this.identityInfo.postCode = data.postCode),
+        (this.identityInfo.profession = data.profession),
+        (this.identityInfo.annualsalary = data.annualsalary);
     }
 
     @action
@@ -213,13 +221,15 @@ class UserInfo {
     setTradePwdSendCode(type, imgCode, imgCodeId) {
         return setTradePwdSendCode(type, imgCode, imgCodeId)
             .then(res => {
-                if (res.status !== 200) {
-                    console.error('sendCode error');
-                } else {
-                    this.showCountDown = true;
-                }
+                runInAction(() => {
+                    if (res.status !== 200) {
+                        console.error('sendCode error');
+                    } else {
+                        this.showCountDown = true;
+                    }
 
-                return res;
+                    return res;
+                })
             })
             .catch(err => {
                 console.error(err, 'sendCode');
@@ -230,13 +240,14 @@ class UserInfo {
     sendCodeGaOrTradePwd(type, imgCode, imgCodeId) {
         return sendCodeInGAOrTadePwd(type, imgCode, imgCodeId)
             .then(res => {
-                if (res.status !== 200) {
-                    console.error('sendCode error');
-                } else {
-                    this.showCountDown = true;
-                }
-
-                return res;
+                runInAction(() => {
+                    if (res.status !== 200) {
+                        console.error('sendCode error');
+                    } else {
+                        this.showCountDown = true;
+                    }
+                    return res;
+                })
             })
             .catch(err => {
                 console.error(err, 'sendCode');
@@ -247,10 +258,12 @@ class UserInfo {
     bindSendCode(imgCode, imgCodeId, type, phone) {
         return bindPhoneSendMsg(imgCode, imgCodeId, type, phone)
             .then(res => {
+
                 if (res.status !== 200) {
                     console.error('bindSendCode error');
                 }
                 return res;
+
             })
             .catch(err => {
                 console.error(err, 'bindSendCode');
@@ -263,24 +276,28 @@ class UserInfo {
         this.submit_loading_tpwd = true;
         return bindFdPwd(newFdPassWord, vercode, imgCode, imgCodeId, passWord)
             .then(res => {
-                this.submit_loading_tpwd = false;
-                if (res.status !== 200) {
-                    if (res.status === 412) {
-                        this.captchaStore.fetch();
+                runInAction(() => {
+                    this.submit_loading_tpwd = false;
+                    if (res.status !== 200) {
+                        if (res.status === 412) {
+                            this.captchaStore.fetch();
+                        }
+                        pickErrMsg(res, 'bindTradingPwd');
+                    } else {
+                        reqResult = true;
+                        this.getUserInfo();
+                        message.success(UPEX.lang.template('设置成功'));
                     }
-                    pickErrMsg(res, 'bindTradingPwd');
-                } else {
-                    reqResult = true;
-                    this.getUserInfo();
-                    message.success(UPEX.lang.template('设置成功'));
-                }
-                return reqResult;
+                    return reqResult;
+                })
             })
             .catch(e => {
-                console.error(e);
-                this.submit_loading_tpwd = false;
-                message.error('Network Error');
-                return reqResult;
+                runInAction(() => {
+                    console.error(e);
+                    this.submit_loading_tpwd = false;
+                    message.error('Network Error');
+                    return reqResult;
+                })
             });
     }
 
@@ -290,23 +307,27 @@ class UserInfo {
         this.submit_loading_pwd = true;
         return resetPwdInUserCenter(newPassWord, vercode, imgCode, imgCodeId, passWord, type, validate, captchaId)
             .then(res => {
-                this.submit_loading_pwd = false;
-                if (res.status !== 200) {
-                    if (res.status === 412) {
-                        this.captchaStore.fetch();
+                runInAction(() => {
+                    this.submit_loading_pwd = false;
+                    if (res.status !== 200) {
+                        if (res.status === 412) {
+                            this.captchaStore.fetch();
+                        }
+                        pickErrMsg(res, 'resetPwd');
+                    } else {
+                        reqResult = true;
+                        message.success(UPEX.lang.template('登录密码修改成功，请重新登录'));
                     }
-                    pickErrMsg(res, 'resetPwd');
-                } else {
-                    reqResult = true;
-                    message.success(UPEX.lang.template('登录密码修改成功，请重新登录'));
-                }
-                return reqResult;
+                    return reqResult;
+                })
             })
             .catch(e => {
-                console.error(e);
-                this.submit_loading_pwd = false;
-                message.error('Network Error');
-                return reqResult;
+                runInAction(() => {
+                    console.error(e);
+                    this.submit_loading_pwd = false;
+                    message.error('Network Error');
+                    return reqResult;
+                })
             });
     }
 
@@ -314,7 +335,9 @@ class UserInfo {
     getGaSecretKey() {
         return getSecretKey()
             .then(res => {
-                this.gaSecretKey = res.attachment;
+                runInAction(() => {
+                    this.gaSecretKey = res.attachment;
+                })
             })
             .catch(err => {
                 console.error(err, 'getGaSecretKey');
@@ -327,20 +350,24 @@ class UserInfo {
         this.submit_loading = true;
         return addAsk(detail, urlkey)
             .then(res => {
-                this.submit_loading = false;
-                if (res.status !== 200) {
-                    pickErrMsg(res, 'ask');
-                } else {
-                    result = true;
-                    message.success(UPEX.lang.template('问题反馈成功'));
-                }
-                return result;
+                runInAction(() => {
+                    this.submit_loading = false;
+                    if (res.status !== 200) {
+                        pickErrMsg(res, 'ask');
+                    } else {
+                        result = true;
+                        message.success(UPEX.lang.template('问题反馈成功'));
+                    }
+                    return result;
+                })
             })
             .catch(e => {
                 console.error(e);
-                this.submit_loading = false;
-                message.error('Network Error');
-                return result;
+                runInAction(() => {
+                    this.submit_loading = false;
+                    message.error('Network Error');
+                    return result;
+                })
             });
     }
 
@@ -348,13 +375,15 @@ class UserInfo {
     questions(page) {
         getQuestions(page)
             .then(res => {
-                if(res.status === 200) {
-                    res.attachment.list = res.attachment.list.map(item => {
-                        item.createTime = TimeUtil.formatDate(item.createTimeStamp)
-                        return item;
-                    })
-                }
-                this.questionsLsit = res.attachment || {};
+                runInAction(() => {
+                    if (res.status === 200) {
+                        res.attachment.list = res.attachment.list.map(item => {
+                            item.createTime = TimeUtil.formatDate(item.createTimeStamp)
+                            return item;
+                        })
+                    }
+                    this.questionsLsit = res.attachment || {};
+                })
             })
             .catch(e => {
                 console.error(e, 'questions');
@@ -366,17 +395,19 @@ class UserInfo {
     identityAuthentication(info) {
         return submitUserInfo(info)
             .then(res => {
-                if (res.status === 200) {
-                    this.getUserInfo();
-                    return res;
-                } else {
-                    if (res.status === 2006) {
-                        message.error(UPEX.lang.template('提交身份证已存在'));
+                runInAction(() => {
+                    if (res.status === 200) {
+                        this.getUserInfo();
+                        return res;
                     } else {
-                        pickErrMsg(res, 'identityAuthentication');
+                        if (res.status === 2006) {
+                            message.error(UPEX.lang.template('提交身份证已存在'));
+                        } else {
+                            pickErrMsg(res, 'identityAuthentication');
+                        }
+                        return res;
                     }
-                    return res;
-                }
+                })
             })
             .catch(e => {
                 console.error(e);
@@ -390,22 +421,26 @@ class UserInfo {
         this.submit_loading = true;
         return bindGoogleAuth(clientPassword, verCode)
             .then(res => {
-                this.submit_loading = false;
-                if (res.status === 200) {
-                    result = true;
-                    this.gaBindSuccess = true;
-                    this.getUserInfo();
-                    message.success(UPEX.lang.template('绑定成功'));
-                } else {
-                    pickErrMsg(res, 'bindGA');
-                }
-                return result;
+                runInAction(() => {
+                    this.submit_loading = false;
+                    if (res.status === 200) {
+                        result = true;
+                        this.gaBindSuccess = true;
+                        this.getUserInfo();
+                        message.success(UPEX.lang.template('绑定成功'));
+                    } else {
+                        pickErrMsg(res, 'bindGA');
+                    }
+                    return result;
+                })
             })
             .catch(e => {
-                this.submit_loading = false;
-                console.error(e);
-                message.error('Network Error');
-                return result;
+                runInAction(() => {
+                    this.submit_loading = false;
+                    console.error(e);
+                    message.error('Network Error');
+                    return result;
+                })
             });
     }
 
@@ -415,21 +450,25 @@ class UserInfo {
         this.submit_loading = true;
         return closeGoogleAuth(clientPassword, verCode)
             .then(res => {
-                this.submit_loading = false;
-                if (res.status === 200) {
-                    result = true;
-                    this.gaBindSuccess = false;
-                    message.success(UPEX.lang.template('解除绑定成功'));
-                } else {
-                    pickErrMsg(res, 'rmBindGA');
-                }
-                return result;
+                runInAction(() => {
+                    this.submit_loading = false;
+                    if (res.status === 200) {
+                        result = true;
+                        this.gaBindSuccess = false;
+                        message.success(UPEX.lang.template('解除绑定成功'));
+                    } else {
+                        pickErrMsg(res, 'rmBindGA');
+                    }
+                    return result;
+                })
             })
             .catch(e => {
-                this.submit_loading = false;
-                console.error(e);
-                message.error('Network Error');
-                return result;
+                runInAction(() => {
+                    this.submit_loading = false;
+                    console.error(e);
+                    message.error('Network Error');
+                    return result;
+                })
             });
     }
 
@@ -437,11 +476,13 @@ class UserInfo {
     authInfo() {
         selectAuthLevel()
             .then(res => {
-                if (res.data.status === 200) {
-                    console.log(res.data, 'data');
-                } else {
-                    pickErrMsg(res.data, 'authInfo');
-                }
+                runInAction(() => {
+                    if (res.data.status === 200) {
+                        console.log(res.data, 'data');
+                    } else {
+                        pickErrMsg(res.data, 'authInfo');
+                    }
+                })
             })
             .catch(e => {
                 console.error(e);
@@ -453,11 +494,13 @@ class UserInfo {
     modifyPhone(newPhone, oldPhone, oldVercode, vercode) {
         bindPhone(newPhone, oldPhone, oldVercode, vercode)
             .then(res => {
-                if (res.status === 200) {
-                    console.log(res.data, 'data');
-                } else {
-                    pickErrMsg(res, 'modifyPhone');
-                }
+                runInAction(() => {
+                    if (res.status === 200) {
+                        console.log(res.data, 'data');
+                    } else {
+                        pickErrMsg(res, 'modifyPhone');
+                    }
+                })
             })
             .catch(e => {
                 console.error(e);
@@ -470,11 +513,13 @@ class UserInfo {
     isGoogleAuth() {
         isUsedGoogleAuth()
             .then(res => {
-                if (res.status === 200) {
-                    this.gaBindSuccess = res.attachment.isUsed === 1;
-                } else {
-                    pickErrMsg(res, 'isGoogleAuth');
-                }
+                runInAction(() => {
+                    if (res.status === 200) {
+                        this.gaBindSuccess = res.attachment.isUsed === 1;
+                    } else {
+                        pickErrMsg(res, 'isGoogleAuth');
+                    }
+                })
             })
             .catch(e => {
                 console.error(e);
@@ -488,19 +533,21 @@ class UserInfo {
         this.submit_loading = true;
         return bindPhoneOrEmailAction(EmailCode, phoneCode, phoneOrEmail, type)
             .then(res => {
-                this.submit_loading = false;
-                if (res.status === 200) {
-                    message.success(UPEX.lang.template('绑定成功'));
-                    if (type === 1) {
-                        browserHistory.push('/user/emailSuccess');
-                    } else if (type === 2) {
-                        browserHistory.push('/user/phoneSuccess');
+                runInAction(() => {
+                    this.submit_loading = false;
+                    if (res.status === 200) {
+                        message.success(UPEX.lang.template('绑定成功'));
+                        if (type === 1) {
+                            browserHistory.push('/user/emailSuccess');
+                        } else if (type === 2) {
+                            browserHistory.push('/user/phoneSuccess');
+                        }
+                    } else {
+                        result = false;
+                        pickErrMsg(res, 'bindPEAction');
                     }
-                } else {
-                    result = false;
-                    pickErrMsg(res, 'bindPEAction');
-                }
-                return result;
+                    return result;
+                })
             })
             .catch(e => {
                 this.submit_loading = false;
@@ -529,31 +576,35 @@ class UserInfo {
         this.submit_loading = true;
         return modifyPhoneAction(newCode, newPhone, oldCode, type)
             .then(res => {
-                this.submit_loading = false;
-                if (res.status === 200) {
-                    result = true;
-                    message.success(UPEX.lang.template('修改成功'));
-                } else {
-                    const msgMap = {
-                        '5558': UPEX.lang.template('请填写正确的Google验证码'),
-                        '405': UPEX.lang.template('请填写正确的原手机短信验证码'),
-                        '403': UPEX.lang.template('请填写正确的新手机短信验证码')
-                    };
-                    let tempMsg;
-                    tempMsg = msgMap[res.status] || res.message;
-                    if (res.status === 0 || res.status === 9999) {
-                        pickErrMsg(res, 'newModifyPhone');
+                runInAction(() => {
+                    this.submit_loading = false;
+                    if (res.status === 200) {
+                        result = true;
+                        message.success(UPEX.lang.template('修改成功'));
                     } else {
-                        message.error(tempMsg);
+                        const msgMap = {
+                            '5558': UPEX.lang.template('请填写正确的Google验证码'),
+                            '405': UPEX.lang.template('请填写正确的原手机短信验证码'),
+                            '403': UPEX.lang.template('请填写正确的新手机短信验证码')
+                        };
+                        let tempMsg;
+                        tempMsg = msgMap[res.status] || res.message;
+                        if (res.status === 0 || res.status === 9999) {
+                            pickErrMsg(res, 'newModifyPhone');
+                        } else {
+                            message.error(tempMsg);
+                        }
                     }
-                }
-                return result;
+                    return result;
+                });
             })
             .catch(e => {
-                this.submit_loading = false;
-                console.error(e);
-                message.error('Network Error');
-                return result;
+                runInAction(() => {
+                    this.submit_loading = false;
+                    console.error(e);
+                    message.error('Network Error');
+                    return result;
+                });
             });
     }
 
@@ -563,20 +614,24 @@ class UserInfo {
         this.submit_loading = true;
         return phoneAuthSwitch(smsCode, status)
             .then(res => {
-                this.submit_loading = false;
-                if (res.status === 200) {
-                    result = true;
-                    message.success(UPEX.lang.template('修改成功'));
-                } else {
-                    pickErrMsg(res, 'phoneSwitch');
-                }
-                return result;
+                runInAction(() => {
+                    this.submit_loading = false;
+                    if (res.status === 200) {
+                        result = true;
+                        message.success(UPEX.lang.template('修改成功'));
+                    } else {
+                        pickErrMsg(res, 'phoneSwitch');
+                    }
+                    return result;
+                });
             })
             .catch(e => {
-                this.submit_loading = false;
-                console.error(e);
-                message.error('Network Error');
-                return result;
+                runInAction(() => {
+                    this.submit_loading = false;
+                    console.error(e);
+                    message.error('Network Error');
+                    return result;
+                });
             });
     }
 
@@ -586,21 +641,25 @@ class UserInfo {
         this.submit_loading = true;
         return updateFdPwdEnabled(fdPwd, enabled)
             .then(res => {
-                this.submit_loading = false;
-                if (res.status === 200) {
-                    result = true;
-                    this.getUserInfo();
-                    message.success(UPEX.lang.template('修改成功'));
-                } else {
-                    pickErrMsg(res, 'fdPwdSwitch');
-                }
-                return result;
+                runInAction(() => {
+                    this.submit_loading = false;
+                    if (res.status === 200) {
+                        result = true;
+                        this.getUserInfo();
+                        message.success(UPEX.lang.template('修改成功'));
+                    } else {
+                        pickErrMsg(res, 'fdPwdSwitch');
+                    }
+                    return result;
+                });
             })
             .catch(e => {
-                this.submit_loading = false;
-                console.error(e);
-                message.error('Network Error');
-                return result;
+                runInAction(() => {
+                    this.submit_loading = false;
+                    console.error(e);
+                    message.error('Network Error');
+                    return result;
+                });
             });
     }
 
@@ -610,25 +669,29 @@ class UserInfo {
         this.submit_loading = true;
         return bindVerifyCardInfo(cardNo, userName, openBank, branchNo, branchName, tradePwd, imgUrl)
             .then(res => {
-                this.submit_loading = false;
-                if (res.status === 200) {
-                    result = true;
-                    this.bankCardInfo();
-                    message.success(UPEX.lang.template('提交银行卡提示'));
-                } else {
-                    if (res.status === 13506 || res.status === 13501) {
-                        message.error('已有账号绑定该银行卡');
+                runInAction(() => {
+                    this.submit_loading = false;
+                    if (res.status === 200) {
+                        result = true;
+                        this.bankCardInfo();
+                        message.success(UPEX.lang.template('提交银行卡提示'));
                     } else {
-                        pickErrMsg(res, 'bindVerifyCard');
+                        if (res.status === 13506 || res.status === 13501) {
+                            message.error('已有账号绑定该银行卡');
+                        } else {
+                            pickErrMsg(res, 'bindVerifyCard');
+                        }
                     }
-                }
-                return result;
+                    return result;
+                });
             })
             .catch(e => {
-                this.submit_loading = false;
-                console.error(e);
-                message.error('Network Error');
-                return result;
+                runInAction(() => {
+                    this.submit_loading = false;
+                    console.error(e);
+                    message.error('Network Error');
+                    return result;
+                });
             });
     }
 
@@ -636,7 +699,9 @@ class UserInfo {
     bankCardInfo() {
         getBindBankCardInfo()
             .then(res => {
-                this.bankCardList = res.attachment || [];
+                runInAction(() => {
+                    this.bankCardList = res.attachment || [];
+                });
             })
             .catch(e => {
                 console.error(e);
@@ -650,20 +715,24 @@ class UserInfo {
         this.submit_loading = true;
         return forgetFdPwd(newPwd, vercode, imgCode, imgCodeId, type)
             .then(res => {
-                this.submit_loading = false;
-                if (res.status === 200) {
-                    reqResult = true;
-                    message.success(UPEX.lang.template('修改成功'));
-                } else {
-                    pickErrMsg(res, 'forgetTradingPwd');
-                }
-                return reqResult;
+                runInAction(() => {
+                    this.submit_loading = false;
+                    if (res.status === 200) {
+                        reqResult = true;
+                        message.success(UPEX.lang.template('修改成功'));
+                    } else {
+                        pickErrMsg(res, 'forgetTradingPwd');
+                    }
+                    return reqResult;
+                });
             })
             .catch(e => {
-                this.submit_loading = false;
-                console.error(e);
-                message.error('Network Error');
-                return reqResult;
+                runInAction(() => {
+                    this.submit_loading = false;
+                    console.error(e);
+                    message.error('Network Error');
+                    return reqResult;
+                });
             });
     }
 
@@ -671,11 +740,13 @@ class UserInfo {
     questionDetails(id) {
         questionDetail(id)
             .then(res => {
-                if(res.status === 200) {
-                    let stamp = res.attachment.question.createTimeStamp;
-                    res.attachment.question.createTime = stamp ? TimeUtil.formatDate(stamp) : '';
-                }
-                this.questionObj = res.attachment;
+                runInAction(() => {
+                    if (res.status === 200) {
+                        let stamp = res.attachment.question.createTimeStamp;
+                        res.attachment.question.createTime = stamp ? TimeUtil.formatDate(stamp) : '';
+                    }
+                    this.questionObj = res.attachment;
+                });
             })
             .catch(e => {
                 console.error(e);
@@ -701,24 +772,28 @@ class UserInfo {
         this.submit_loading = true;
         return submitKycC()
             .then(res => {
-                this.submit_loading = false;
-                if (res.status === 200) {
-                    result = true;
-                    message.success(UPEX.lang.template('申请成功'));
-                } else {
-                    if (res.status === 41731) {
-                        message.error(UPEX.lang.template('您的条件尚不符合提额条件'));
+                runInAction(() => {
+                    this.submit_loading = false;
+                    if (res.status === 200) {
+                        result = true;
+                        message.success(UPEX.lang.template('申请成功'));
                     } else {
-                        pickErrMsg(res, 'kycC');
+                        if (res.status === 41731) {
+                            message.error(UPEX.lang.template('您的条件尚不符合提额条件'));
+                        } else {
+                            pickErrMsg(res, 'kycC');
+                        }
                     }
-                }
-                return result;
+                    return result;
+                });
             })
             .catch(e => {
-                this.submit_loading = false;
-                console.error(e);
-                message.error('Network Error');
-                return result;
+                runInAction(() => {
+                    this.submit_loading = false;
+                    console.error(e);
+                    message.error('Network Error');
+                    return result;
+                });
             });
     }
 
@@ -731,21 +806,25 @@ class UserInfo {
         this.submit_loading_tpwd = true;
         return modifyFdPwd(newFdPassWord, passWord, validate, captchaId)
             .then(res => {
-                this.submit_loading_tpwd = false;
-                if (res.status !== 200) {
-                    pickErrMsg(res, 'modifytradingPwd');
-                    reqResult.num = res.attachment;
-                } else {
-                    reqResult.state = true;
-                    message.success(UPEX.lang.template('修改成功'));
-                }
-                return reqResult;
+                runInAction(() => {
+                    this.submit_loading_tpwd = false;
+                    if (res.status !== 200) {
+                        pickErrMsg(res, 'modifytradingPwd');
+                        reqResult.num = res.attachment;
+                    } else {
+                        reqResult.state = true;
+                        message.success(UPEX.lang.template('修改成功'));
+                    }
+                    return reqResult;
+                });
             })
             .catch(e => {
-                console.error(e);
-                this.submit_loading_tpwd = false;
-                message.error('Network Error');
-                return reqResult;
+                runInAction(() => {
+                    console.error(e);
+                    this.submit_loading_tpwd = false;
+                    message.error('Network Error');
+                    return reqResult;
+                });
             });
     }
 

@@ -263,12 +263,6 @@ export function submitOrder(data) {
 export function getPersonalTradingPwd() {
     return axios.post('/user/selectFdPwdEnabled')
 }
-/**
- * 账号信息
- */
-export function hasSettingDealPwd() {
-    return axios.post('/user/personalInfo')
-}
 
 /**
  * 资产列表

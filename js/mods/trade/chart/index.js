@@ -284,11 +284,10 @@ class TVChartContainer extends Component {
         };
 
         var callback = ()=>{
-        	let widget = window.tvwidget = this.tvwidget = new TradingView.widget(cfg);
-
-
+        	let widget = new TradingView.widget(cfg);
 
         	widget.onChartReady(function() {
+                window.tvwidget = self.tvwidget = widget;
                 widget.applyOverrides(overrides);
 
                 self.visibleKlineMask(false);
