@@ -80,6 +80,14 @@ class Info extends Component {
         return result;
     }
 
+    handleBindPhone=(e)=>{
+        browserHistory.push('/user/binding-phone');
+    }
+
+    handleBindEmail=(e)=>{
+        browserHistory.push('/user/binding-email');
+    }
+
     render() {
         const { state } = this;
         const userInfo = this.props.userInfoStore.userInfo || {};
@@ -100,13 +108,35 @@ class Info extends Component {
                             {UPEX.lang.template('最后登录时间')}：{userInfo.userLoginRecord && TimeUtil.formatDate(userInfo.userLoginRecord.timeStamp)}
                         </div>
                         <Row className="bind-status">
-                            <Col span={12} className={userInfo.isValidatePhone ? 'auth' : ''}>
-                                <img src={userInfo.isValidatePhone ? bindPhone : unbindPhone} />
-                                <p>{userInfo.isValidatePhone ? UPEX.lang.template('手机已绑定') : UPEX.lang.template('手机未绑定')}</p>
+                            <Col span={12} className={userInfo.isValidatePhone ? 'auth' : ''}>                                
+                                {
+                                    userInfo.isValidatePhone ? (
+                                        <div>
+                                            <img src={bindPhone}/>
+                                            <p>{UPEX.lang.template('手机已绑定')}</p>
+                                        </div>
+                                    ) : (
+                                        <div onClick={this.handleBindPhone}>
+                                            <img src={unbindPhone}/>
+                                            <p>{UPEX.lang.template('手机未绑定')}</p>
+                                        </div>
+                                    )
+                                }
                             </Col>
                             <Col span={12} className={userInfo.isValidateEmail ? 'auth' : ''}>
-                                <img src={userInfo.isValidateEmail ? bindEmail : unbindEmail} />
-                                <p>{userInfo.isValidateEmail ? UPEX.lang.template('邮箱已绑定') : UPEX.lang.template('邮箱未绑定')}</p>
+                                {
+                                    userInfo.isValidateEmail ? (
+                                        <div>
+                                            <img src={bindEmail}/>
+                                            <p>{UPEX.lang.template('邮箱已绑定')}</p>
+                                        </div>
+                                    ) : (
+                                        <div onClick={this.handleBindEmail}>
+                                            <img src={unbindEmail}/>
+                                            <p>{UPEX.lang.template('邮箱未绑定')}</p>
+                                        </div>
+                                    )
+                                }
                             </Col>
                         </Row>
                     </Col>
