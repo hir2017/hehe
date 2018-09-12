@@ -416,15 +416,18 @@ class Login extends Component {
                                         type="password"
                                         name="pwd"
                                         value={store.pwd}
+                                        className={store.pwdResult[0] ? '' : 'wrong'}
                                         placeholder={ UPEX.lang.template('密码') }
                                         maxLength="16"
                                         autoComplete="off"
                                         onChange={ (e)=>action.onChangeField('pwd', e) }
                                         onFocus={ (e)=>this.onFocusInput('pwd', e)}
+                                        onBlur={ (e)=>this.onBlurInput('pwd', e) }
                                         onKeyDown={ this.keyLogin }
                                     />
                                 </div>
                                 { store.pwd ? <div className="icon-delete" onClick={this.clearInput.bind(this, 'pwd')}></div> : null}
+                                { store.pwdResult[0] ? null : <div className="warn">{ store.pwdResult[1] }</div>}
                             </div>
 
                             { loginErrorText ? <div className="error-tip">{loginErrorText}</div> : '' }

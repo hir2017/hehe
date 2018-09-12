@@ -38,7 +38,6 @@ export default (store) => {
                 case 'phone':
                     // 替换所有的非数字
                     value = value.replace(UPEX.replaceNaNReg, '');
-
                     store.setPhone(value);
                     this.verifyPhone();
                     break;
@@ -78,7 +77,7 @@ export default (store) => {
 
         verifyLoginPassword() {
             var result = VerifyRules.loginpassword(store.pwd);
-
+            
             store.updatePwdResult(result);
         },
 
