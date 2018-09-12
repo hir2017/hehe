@@ -81,6 +81,7 @@ class PageView extends Component {
             if (userInfo.isAuthPrimary === -1) {
                 $content = userInfo.readFailReason === 1 ? <WaitView /> : <InfoFormView />;
             }
+            // $content = <InfoFormView />
 
             return (
                 <PageWrapper innerClass="authentication" title={UPEX.lang.template('身份认证')} rightContent={$rightContent}>

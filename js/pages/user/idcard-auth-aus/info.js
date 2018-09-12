@@ -274,7 +274,11 @@ export default class FirstStep extends Component {
                     />
                 </FormItem>
                 <FormItem {...inputData.idCardType}>
-                    <Select defaultValue="3">
+                    <Select defaultValue="3" value={state.idCardType} onChange={(val) => {
+                        this.setState({
+                            idCardType: val
+                        })
+                    }}>
                         {idTypes.map((item, i) => (
                             <Option key={i} value={item.value}>
                                 {item.label}
