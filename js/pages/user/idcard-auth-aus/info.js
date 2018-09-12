@@ -28,7 +28,7 @@ export default class FirstStep extends Component {
             birthday: '',
             idCardType: '3',
             idCard: '',
-            idCardValidity: '',
+            idCardValidity: moment().add(1, 'days').format('YYYY-MM-DD'),
             address: '',
             validate: '',
             captchaId: '',
@@ -138,7 +138,7 @@ export default class FirstStep extends Component {
     validateStrLen(name, str) {
         // TODO: 校验字长 22:[secondName, middleName, firstName] 45:[idCard] 255:[address]
         let arrs = [['secondName', 'middleName', 'firstName'], ['idCard'], ['address']];
-        
+
         if (arrs[0].indexOf(name) !== -1) {
             return this.transStr(str) <= 21;
         }
@@ -154,12 +154,11 @@ export default class FirstStep extends Component {
 
     setVal(name, e) {
         let str = typeof e === 'object' ? e.target.value : e;
-
         // 证件号地址允许输入空格
-        if (name !=='address') {
+        if (['address', 'checked'].indexOf(name) === -1) {
             str = str.trim();
         }
-       
+
         if (!this.validateStrLen(name, str)) {
             return;
         }
