@@ -149,7 +149,7 @@ export default class ModifyTradingPassword extends Component {
         const PageProps = {
             title: UPEX.lang.template('修改资金密码'),
             formClass: 'modify-password-box modify-tradepwd-box',
-            tipComponent: <Alert className="ace-form-tips" type="warning" showIcon message={UPEX.lang.template('为了您的资金安全，忘记资金密码并修改成功后，24小时内不可以提现提币')} />
+            tipComponent: <Alert className="ace-form-tips" type="warning" showIcon message={UPEX.lang.template('为了您的资金安全，忘记资金密码并修改成功后，24小时内不可以提现充币')} />
         };
 
         return (

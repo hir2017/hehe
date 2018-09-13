@@ -28,7 +28,7 @@ export default class FirstStep extends Component {
             birthday: '',
             idCardType: '3',
             idCard: '',
-            idCardValidity: moment().add(1, 'days').format('YYYY-MM-DD'),
+            idCardValidity: '',
             address: '',
             validate: '',
             captchaId: '',
