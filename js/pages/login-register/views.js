@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { Icon , Popover, Select , Modal } from 'antd';
 const Option = Select.Option;
-import Countries from '../../mods/select-country/country-list';
+import CountryMap, { Countries } from '../../mods/select-country/country-list';
 
 /**
  * tab切换
@@ -45,10 +45,10 @@ export class AreaCodeSelectView extends Component  {
         let { defaultValue, onChange } = props;
         let options = [];
 
-        $.map(Countries, (item, key) => {
+        $.each(Countries, (index, item) => {
             options[options.length] = (
-                <Option value={key} key={key}>
-                    {UPEX.lang.template(key)}(+{item.areacode})
+                <Option value={item.code} key={item.code}>
+                    {UPEX.lang.template(item.code)}(+{item.areacode})
                 </Option>
             );
         });

@@ -5,10 +5,6 @@ import CountryCodes from "./country-code";
 import NumberUtil from '../../lib/util/number';
 
 var CountryList = [
-    { name: "China", code: "CN" },
-    { name: "Taiwan", code: "TW" },
-    { name: "Australia", code: "AU" },
-    { name: "United States", code: "US" },
     { name: "Afghanistan", code: "AF" },
     // { name: "Aland Islands", code: "AX" },
     { name: "Albania", code: "AL" },
@@ -23,6 +19,7 @@ var CountryList = [
     { name: "Armenia", code: "AM" },
     { name: "Aruba", code: "AW" },
     { name: "Austria", code: "AT" },
+    { name: "Australia", code: "AU" },
     { name: "Azerbaijan", code: "AZ" },
     { name: "Bahamas", code: "BS" },
     { name: "Bahrain", code: "BH" },
@@ -52,6 +49,7 @@ var CountryList = [
     { name: "Central African Republic", code: "CF" },
     { name: "Chad", code: "TD" },
     { name: "Chile", code: "CL" },
+    { name: "China", code: "CN" },
     { name: "Christmas Island", code: "CX" },
     { name: "Cocos (Keeling) Islands", code: "CC" },
     { name: "Colombia", code: "CO" },
@@ -218,6 +216,7 @@ var CountryList = [
     { name: "Sweden", code: "SE" },
     { name: "Switzerland", code: "CH" },
     { name: "Syrian Arab Republic", code: "SY" },
+    { name: "Taiwan", code: "TW" },
     { name: "Tajikistan", code: "TJ" },
     { name: "Tanzania, United Republic of", code: "TZ" },
     { name: "Thailand", code: "TH" },
@@ -235,6 +234,7 @@ var CountryList = [
     { name: "Ukraine", code: "UA" },
     { name: "United Arab Emirates", code: "AE" },
     { name: "United Kingdom", code: "GB" },
+    { name: "United States", code: "US" },
     { name: "United States Minor Outlying Islands", code: "UM" },
     { name: "Uruguay", code: "UY" },
     { name: "Uzbekistan", code: "UZ" },
@@ -250,16 +250,28 @@ var CountryList = [
     { name: "Zimbabwe", code: "ZW" }
 ];
 
-var Ob = {};
+let Ob = {};
+let Countries = [];
+let defaultCode = UPEX.config.version == 'ace' ? 'TW' : 'AU';
 
-for (var i = 0, len = CountryList.length ;  i <  len; i++){
+for (let i = 0, len = CountryList.length ;  i <  len; i++){
     let item = CountryList[i];
     
-    Ob[item.code] = {
+    let obj = {
         name: item.name,
         areacode: NumberUtil.prefixed(CountryCodes[item.code], 4),
         code: item.code
     }
+    
+    if (item.code == defaultCode) {
+        Countries.splice(0,0,obj);
+    } else {
+        Countries[i] = obj;
+    }
+
+    Ob[item.code] = obj;    
 }
 
+
+export { Countries }
 export default Ob;

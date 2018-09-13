@@ -3,13 +3,14 @@ import { observer, inject } from 'mobx-react';
 import { Button, message, Select } from 'antd';
 import NumberUtil from '../../lib/util/number';
 import { isPhone } from '../../lib/util/validate';
-const Option = Select.Option;
 import { browserHistory } from 'react-router';
 import SendVCodeBtn from '../common/v-code-btn';
 import InputItem from '../../components/form/input-item';
 import PageForm from '../../components/page-user/page-form';
 import { createGetProp } from '../../components/utils';
 import { bindPhoneOrEmailSendCode, bindPhoneOrEmailAction } from '../../api/http';
+import CountryMap, {Countries} from '../../mods/select-country/country-list';
+const Option = Select.Option;
 
 @inject('userInfoStore', 'captchaStore', 'loginStore')
 @observer
@@ -56,7 +57,7 @@ export default class BindingPhone extends Component {
 
     componentWillMount() {
         this.setState({
-            areacode: NumberUtil.prefixed(this.props.loginStore.selectedCountry.areacode, 4)
+            areacode: this.props.loginStore.selectedCountry.areacode
         });
     }
 
@@ -68,7 +69,7 @@ export default class BindingPhone extends Component {
 
     onAreaCodeChange(val) {
         this.setState({
-            areacode: NumberUtil.prefixed(this.props.loginStore.countries[val].areacode, 4)
+            areacode: CountryMap[val].areacode
         });
     }
 
@@ -136,10 +137,10 @@ export default class BindingPhone extends Component {
         const loginStore = this.props.loginStore;
         let options = [];
 
-        $.map(loginStore.countries, (item, key) => {
+        $.each(Countries, (index, item) => {
             options[options.length] = (
-                <Option value={key} key={key}>
-                    {UPEX.lang.template(key)}(+{NumberUtil.prefixed(item.areacode, 4)})
+                <Option value={item.code} key={item.code}>
+                    {UPEX.lang.template(item.code)}(+{item.areacode})
                 </Option>
             );
         });

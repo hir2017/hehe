@@ -1,10 +1,8 @@
 import { observable, computed, autorun, action } from 'mobx';
-import Countries from '../mods/select-country/country-list';
+import CountryMap, {Countries} from '../mods/select-country/country-list';
 import NumberUtil from '../lib/util/number';
 
-
 class LoginInfoBaseStore {
-    @observable countries = Countries;
     @observable mode = 'email'; // 注册方式，邮箱：email；手机：phone
     @observable email = ''; // 邮箱
     @observable phone = ''; // 手机
@@ -221,7 +219,7 @@ class LoginInfoBaseStore {
     }
 
     @action setAreaCode(code) {
-        this.selectedCountry = this.countries[code];
+        this.selectedCountry = CountryMap[code];
     }
 
 
