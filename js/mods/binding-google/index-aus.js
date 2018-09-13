@@ -68,8 +68,7 @@ class Google extends Component {
             return;
         }
 
-        this.props.userInfoStore.bindGA(this.state.google, this.state.vCode).then(data => {
-
+        this.props.userInfoStore.bindGA(this.state.google, this.state.vCode).then(res => {
         });
     }
 

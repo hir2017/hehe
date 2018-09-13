@@ -48,8 +48,8 @@ export default class ReBinding extends Component {
             return;
         }
 
-        this.props.userInfoStore.rmBindGA(this.state.google, this.state.vCode).then(data => {
-            if(data) {
+        this.props.userInfoStore.rmBindGA(this.state.google, this.state.vCode).then(res => {
+            if (res.status == 200) {
                 browserHistory.push('/user/google');
             } else {
                 this.props.captchaStore.fetch();

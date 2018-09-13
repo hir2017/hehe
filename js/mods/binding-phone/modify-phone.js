@@ -74,8 +74,14 @@ export default class BindingPhone extends Component {
     }
 
     setVal(e, name) {
+        let val = e.target.value.trim();
+        
+        if (name == 'vCode' || name == 'gaCode' || name == 'nvCode') {
+            val = (val + '').slice(0,6);
+        }
+
         this.setState({
-            [name]: e.target.value.trim()
+            [name]: val
         });
     }
 
@@ -190,8 +196,8 @@ export default class BindingPhone extends Component {
                     </Select>
                 </div>
                 <InputItem {...inputsData.phone} value={this.state.phone} />
-                <InputItem {...inputsData.nvCode} afterNode={nvCodeBtn} />
-                {userInfo.isGoogleAuth ? <InputItem {...inputsData.gaCode} /> : <InputItem {...inputsData.vCode} afterNode={vCodeBtn} />}
+                <InputItem {...inputsData.nvCode} value={this.state.nvCode} afterNode={nvCodeBtn} />
+                {userInfo.isGoogleAuth ? <InputItem {...inputsData.gaCode} value={this.state.gaCode} /> : <InputItem {...inputsData.vCode} value={this.state.gaCode} afterNode={vCodeBtn} />}
                 {/* <InputItem {...inputsData.vCode} afterNode={vCodeBtn} /> */}
                 <Button loading={this.state.loading} className="exc-submit-item" onClick={this.submit}>
                     {UPEX.lang.template('提交')}

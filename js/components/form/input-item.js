@@ -5,9 +5,11 @@ class InputItem extends Component {
         const {label, inputProps, tip, error, className, afterNode} = this.props;
         // 奇葩的实现方式，先这样吧
         let _props = {};
+        
         if(this.props.hasOwnProperty('value')) {
             _props.value = this.props.value;
         }
+
         return (
             <div className={`exc-input-item ${className || ''}`}>
                 <span className="label">{label}</span>

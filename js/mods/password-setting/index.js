@@ -52,7 +52,7 @@ export default class BindingBank extends Component {
             return;
         }
         const pwd = md5(this.state.pwd + UPEX.config.dealSalt + this.props.authStore.uid);
-        this.props.userInfoStore.fdPwdSwitch(pwd, this.state.checked ? 1 : 2).then(data => {
+        this.props.userInfoStore.fdPwdSwitch(pwd, this.state.checked ? 1 : 2).then(res => {
             let nextState = {
                 visible: false,
                 pwd: ''

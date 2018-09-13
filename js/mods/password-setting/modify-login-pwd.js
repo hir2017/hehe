@@ -110,8 +110,8 @@ export default class ModifyPassword extends Component {
 
         let reqResult = this.props.userInfoStore.resetPwd(this.state.newPwd, this.state.vCode, this.state.ivCode, codeid, pwd, type, this.validate, this.captchaId);
 
-        reqResult.then(data => {
-            if (data) {
+        reqResult.then(res => {
+            if (res.status == 200) {
                 this.props.userInfoStore.pwdTriggerClear();
                 this.props.authStore.clear();
                 setTimeout(() => {

@@ -89,8 +89,8 @@ export default class SettingTradingPassword extends Component {
         }
 
         let reqResult = this.props.userInfoStore.forgetTradingPwd(this.state.password, this.state.vCode, 1, 1, 2);
-        reqResult.then(data => {
-            if (data) {
+        reqResult.then(res => {
+            if (res.status == 200) {
                 setTimeout(() => {
                     browserHistory.push('/user/setpwd');
                 }, 300);

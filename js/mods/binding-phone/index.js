@@ -43,12 +43,15 @@ export default class Phone extends Component {
             message.error(UPEX.lang.template('请填写短信验证码'));
             return;
         }
-        this.props.userInfoStore.phoneSwitch(vCode, checked ? 1 : 0).then(data => {
+        this.props.userInfoStore.phoneSwitch(vCode, checked ? 1 : 0).then(res => {
+            
             let nextState = {
                 visible: false
             };
+
             this.setState(nextState);
-            if (data) {
+
+            if (res.status == 200) {
                 this.props.userInfoStore.getUserInfo();
             }
         });

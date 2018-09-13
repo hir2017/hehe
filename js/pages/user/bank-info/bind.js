@@ -137,8 +137,8 @@ export default class BindingBank extends Component {
 
         this.props.userInfoStore
             .bindVerifyCard(this.state.cardNo, userName, this.state.banck, this.state.branchesCode, this.state.branche, pwd, this.state.imgUrl)
-            .then(data => {
-                if (data) {
+            .then(res => {
+                if (res.status == 200) {
                     this.setState({
                         cardNo: '',
                         password: '',

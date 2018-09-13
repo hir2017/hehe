@@ -17,6 +17,7 @@ export default class ReBinding extends Component {
         super();
         this.submit = this.submit.bind(this);
         const getProp = createGetProp(this);
+        
         this.$sendBtn = <SmsBtn sendCode={setTradePwdSendCode.bind(this, {type: 2})} />;
         this.inputsData = {
             google: {
@@ -49,11 +50,18 @@ export default class ReBinding extends Component {
 
     setVal(e, name) {
         let val = e.target.value.trim();
+        
+        
         if(val !== '') {
             if(!Numberutils.isInteger(val)) {
                 return;
             };
         }
+
+        if (name == 'vCode' || name == 'google') {
+            val = val.slice(0,6);
+        }
+
         this.setState({
             [name]: val
         });
@@ -70,8 +78,8 @@ export default class ReBinding extends Component {
             return;
         }
 
-        this.props.userInfoStore.rmBindGA(this.state.google, this.state.vCode).then(data => {
-            if(data) {
+        this.props.userInfoStore.rmBindGA(this.state.google, this.state.vCode).then(res => {
+            if (res.status == 200) {
                 browserHistory.push('/user/google');
             }
         });

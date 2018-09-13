@@ -236,7 +236,7 @@ const NumberUtil = {
     },
     // 正整数校验
     isInteger(str) {
-        return (/^[0-9]*[1-9][0-9]*$/.test(str))
+        return (/^[0-9]*[0-9][0-9]*$/.test(str))
     },
     // 两位小数
     isFloatWithTwoDecimal(str) {

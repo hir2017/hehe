@@ -69,8 +69,8 @@ export default class SettingTradingPassword extends Component {
             return;
         }
 
-        this.props.userInfoStore.bindTradingPwd(this.state.password, this.state.vCode, this.state.ivCode, codeid).then(data => {
-            if (data) {
+        this.props.userInfoStore.bindTradingPwd(this.state.password, this.state.vCode, this.state.ivCode, codeid).then(res => {
+            if (res.status == 200) {
                 browserHistory.push('/user/setpwd');
             }
         });

@@ -101,13 +101,13 @@ export default class ModifyTradingPassword extends Component {
         let reqResult = this.props.userInfoStore.modifytradingPwd(this.state.newPwd, pwd, this.validate, this.captchaId);
 
         reqResult
-            .then(data => {
-                if (data.state) {
+            .then(res => {
+                if (res.status == 200) {
                     browserHistory.push('/user/setpwd');
                 } else {
-                    if(data.num !== 'none' && data.num !== null) {
+                    if(res.attachment !== 'none' && res.attachment !== null) {
                         this.setState({
-                            loginErrorText: UPEX.lang.template('输入错误，您还有{num}次机会尝试',{ num: data.num})
+                            loginErrorText: UPEX.lang.template('输入错误，您还有{num}次机会尝试',{ num: res.attachment})
                         });
                     }
                     this.validate = '';

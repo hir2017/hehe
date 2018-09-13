@@ -83,8 +83,8 @@ export default class extends Component {
                 }
             })
             .join(',');
-        this.props.userInfoStore.ask(this.state.text, imgS).then(data => {
-            if (data) {
+        this.props.userInfoStore.ask(this.state.text, imgS).then(res => {
+            if (res.status == 200) {
                 this.setState({
                     text: '',
                     fileList: [],

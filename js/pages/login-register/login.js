@@ -301,7 +301,7 @@ class Login extends Component {
                                 onChange={ (e)=>action.onChangeField('googlecode', e)}
                                 placeholder={ UPEX.lang.template('Google验证码') }
                                 onKeyDown={ this.keyLoginSecond }
-                                autoFocus
+                                autoFocus = { UPEX.isIE ? false: true }
                             />
                         </div>
                     </div>
@@ -336,7 +336,7 @@ class Login extends Component {
                                 autoComplete="off"
                                 placeholder={ UPEX.lang.template('短信验证码') }
                                 onKeyDown={ this.keyLoginSecond }
-                                autoFocus
+                                autoFocus = { UPEX.isIE ? false: true }
                             />
                             <SMSCodeView onClick={this.sendLoginVercode} disabled={store.disabledCodeBtn} fetching={store.sending}/>
                         </div>
