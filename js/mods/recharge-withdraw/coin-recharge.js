@@ -159,7 +159,7 @@ class CoinRecharge extends Component {
                             <Alert message={(
                                 <span className="warn-text">
                                     <Icon type="exclamation-circle" />
-                                    {UPEX.lang.template('警告！充值 {name} 到 {ACE} 同时需要一个充值地址和 {name} 标签。如果未遵守正确的 {name} 充值步骤，币会丢失', {name: currencyNameEn})}
+                                    {UPEX.lang.template('警告！充值 {name} 到 {ACE} 同时需要一个充值地址和 {name} 标签。如果未遵守正确的 {name} 充值步骤，币会丢失', {name: currencyNameEn, ACE: UPEX.config.sitename})}
                                 </span>
                             )} type="error"/>
                         </FormItem>
