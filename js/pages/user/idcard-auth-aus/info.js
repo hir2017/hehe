@@ -202,7 +202,18 @@ export default class FirstStep extends Component {
         let params = {};
         // 非必填字段
         let nonessentials = ['middleName', 'idCardValidity'];
-        for (let item of forms.fields) {
+        // for (let item of forms.fields) {
+        //     if (nonessentials.indexOf(item.name) === -1) {
+        //         if (state[item.name] === '' || state[item.name] === null) {
+        //             errors[item.name] = item.msg;
+        //             status = false;
+        //         } else {
+        //             errors[item.name] = '';
+        //         }
+        //     }
+        //     params[item.target || item.name] = state[item.name];
+        // }
+        forms.fields.forEach(item => {
             if (nonessentials.indexOf(item.name) === -1) {
                 if (state[item.name] === '' || state[item.name] === null) {
                     errors[item.name] = item.msg;
@@ -212,7 +223,7 @@ export default class FirstStep extends Component {
                 }
             }
             params[item.target || item.name] = state[item.name];
-        }
+        })
         this.setState({
             errMsg: errors
         });
