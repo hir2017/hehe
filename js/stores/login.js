@@ -40,7 +40,7 @@ class LoginInfoBaseStore {
             };
         } else {
             this.selectedCountry = {
-                areacode: '0086',
+                areacode: '0886',
                 code: 'TW',
                 name: 'Taiwan'
             };
