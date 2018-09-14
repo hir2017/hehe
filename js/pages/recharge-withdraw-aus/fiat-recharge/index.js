@@ -20,7 +20,7 @@ class View extends Component {
         super(props);
         this.state = {
             type: 'a',
-            Biller: 'Infinitex Co., Ltd',
+            Biller: 'Infinite Exchange Pty Ltd',
             BillerCode: '288795',
             referenceNo: '',
             singleLimit: '2,000',
