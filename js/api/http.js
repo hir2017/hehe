@@ -390,7 +390,9 @@ export function takeCoinSendPhoneCode(data) {
  * 提币接口
  */
 export function takeCoin(data) {
-    return axios.post(`/coin/takeCoin?address=${data.address}`, qs.stringify({
+    const {address} = data;
+    delete data.address;
+    return axios.post(`/coin/takeCoin?address=${address}`, qs.stringify({
         actionId: 4,
         ...data
     }))
