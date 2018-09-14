@@ -392,17 +392,7 @@ export function takeCoinSendPhoneCode(data) {
 export function takeCoin(data) {
     return axios.post(`/coin/takeCoin?address=${data.address}`, qs.stringify({
         actionId: 4,
-        msgCode: data.msgCode,
-        currencyId: data.currencyId,
-        fdPwd: data.fdPwd,
-        note: data.note,
-        // address: data.address,
-        // emailCode: data.emailCode,
-        phoneCode: data.phoneCode,
-        vercode: data.vercode,
-        codeid: data.codeid,
-        amount: data.amount,
-        gAuth: data.gAuth,
+        ...data
     }))
 }
 /*-----------------------------}} 提币相关接口：------------------------------------*/

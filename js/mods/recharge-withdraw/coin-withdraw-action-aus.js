@@ -119,7 +119,7 @@ export default (store) => {
             });
         },
 
-        handleSubmit(params, smsCode) {
+        handleSubmit(params, msgCode) {
         	const { verifyBeforeSubmit } = store;
             if (store.$submiting) {
                 return;
@@ -136,12 +136,12 @@ export default (store) => {
 		            address: store.address,
 		            phoneCode: params.smsCode,
 		            vercode: '1',
-		            codeid: '1',
+                    codeid: '1',
 		            amount: store.amount,
 		            gAuth: params.gaCode,
                 };
-                if(smsCode) {
-                    reqData.smsCode = smsCode;
+                if(msgCode) {
+                    reqData.msgCode = msgCode;
                 }
                 reqResult = takeCoin(reqData).then((data) => {
                     store.changeSubmitingStatusTo(false);
