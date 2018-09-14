@@ -155,7 +155,7 @@ export default class FirstStep extends Component {
     setVal(name, e) {
         let str = typeof e === 'object' ? e.target.value : e;
         // 证件号地址允许输入空格
-        if (['address', 'checked'].indexOf(name) === -1) {
+        if (['address', 'secondName', 'firstName', 'middleName', 'checked'].indexOf(name) === -1) {
             str = str.trim();
         }
 
