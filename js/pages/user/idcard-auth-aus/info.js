@@ -152,14 +152,34 @@ export default class FirstStep extends Component {
         return true;
     }
 
+    // 格式验证
+    formatValidation(name, str) {
+        let format = {
+            idCard: /^[0-9A-Z]+$/,
+        }
+        if(format[name]) {
+            // 为空
+            if(str === '') {
+                return true;
+            }
+            // 正则校验
+            return format[name].test(str);
+        }
+        return true;
+    }
+
     setVal(name, e) {
         let str = typeof e === 'object' ? e.target.value : e;
         // 证件号地址允许输入空格
-        if (['address', 'checked'].indexOf(name) === -1) {
+        if (['address', 'secondName', 'firstName', 'middleName', 'checked'].indexOf(name) === -1) {
             str = str.trim();
         }
-
+        // 长度验证
         if (!this.validateStrLen(name, str)) {
+            return;
+        }
+        // 格式验证
+        if (!this.formatValidation(name, str)) {
             return;
         }
         this.setState({
@@ -202,7 +222,18 @@ export default class FirstStep extends Component {
         let params = {};
         // 非必填字段
         let nonessentials = ['middleName', 'idCardValidity'];
-        for (let item of forms.fields) {
+        // for (let item of forms.fields) {
+        //     if (nonessentials.indexOf(item.name) === -1) {
+        //         if (state[item.name] === '' || state[item.name] === null) {
+        //             errors[item.name] = item.msg;
+        //             status = false;
+        //         } else {
+        //             errors[item.name] = '';
+        //         }
+        //     }
+        //     params[item.target || item.name] = state[item.name];
+        // }
+        forms.fields.forEach(item => {
             if (nonessentials.indexOf(item.name) === -1) {
                 if (state[item.name] === '' || state[item.name] === null) {
                     errors[item.name] = item.msg;
@@ -212,7 +243,7 @@ export default class FirstStep extends Component {
                 }
             }
             params[item.target || item.name] = state[item.name];
-        }
+        })
         this.setState({
             errMsg: errors
         });
