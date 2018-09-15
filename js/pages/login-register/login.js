@@ -161,7 +161,7 @@ class Login extends Component {
                 })
         } else {
             this.setState({
-                loginErrorText: step == 'phone' ? UPEX.lang.template('请填写短信验证码') : UPEX.lang.template('请填写谷歌验证码')
+                loginErrorText: step == 'phone' ? UPEX.lang.template('请填写短信验证码') : UPEX.lang.template('请填写Google验证码')
             });
         }
     }

@@ -112,7 +112,7 @@ export default class BankList extends Component {
             return;
         }
         if (!this.state.vCode && gaBindSuccess) {
-            message.error(UPEX.lang.template('请填写谷歌验证码'));
+            message.error(UPEX.lang.template('请填写Google验证码'));
             return;
         }
         if (!this.state.ivCode && !gaBindSuccess) {

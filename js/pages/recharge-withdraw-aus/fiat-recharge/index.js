@@ -91,7 +91,7 @@ class View extends Component {
                                     this.setState({ type: 'b' });
                                 }}
                             >
-                                {UPEX.lang.template('使用Poli支付')}
+                                {UPEX.lang.template('使用POLi支付')}
                             </span>
                         </div>
                     </FormItem>

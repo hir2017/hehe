@@ -21,7 +21,7 @@ class View extends React.Component {
         };
         this.pageInfo = {
             breadcrumbs: [
-                UPEX.lang.template('ACE'),
+                UPEX.lang.sitename,
                 UPEX.lang.template('资产管理')
             ]
         }

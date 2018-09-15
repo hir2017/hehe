@@ -45,7 +45,7 @@ export default class BindingPhone extends Component {
                 }
             },
             gaCode: {
-                label: UPEX.lang.template('谷歌验证码'),
+                label: UPEX.lang.template('Google验证码'),
                 inputProps: getProp('gaCode', 'none')
             },
             vCode: {

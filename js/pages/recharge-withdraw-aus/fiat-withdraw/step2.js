@@ -76,7 +76,7 @@ export default class View extends React.Component {
         }
         if (props.isGa) {
             if (state.gaCode === '') {
-                message.error(UPEX.lang.template('请填写谷歌验证码'));
+                message.error(UPEX.lang.template('请填写Google验证码'));
                 return false;
             }
         } else {

@@ -162,7 +162,7 @@ class WithdrawCoin extends Component {
         }
         if (props.userInfoStore.userInfo.isGoogleAuth) {
             if (state.gaCode === '') {
-                message.error(UPEX.lang.template('请填写谷歌验证码'));
+                message.error(UPEX.lang.template('请填写Google验证码'));
                 return;
             }
         } else {

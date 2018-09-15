@@ -25,10 +25,10 @@ class TradeForm extends Component{
 
 		this.tabs = [{
 			id: 'limit',
-			title: UPEX.lang.template('限价委托')
+			title: UPEX.lang.template('限价委托title')
 		}, {
 			id: 'market',
-			title: UPEX.lang.template('市价交易')
+			title: UPEX.lang.template('市价委托title')
 		}]
 
 		this.action = toAction(this.props.tradeStore, this.props.authStore);

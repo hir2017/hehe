@@ -114,7 +114,7 @@ export default class extends React.Component {
                     style={{ top: 20 }}
                     width={900}
                     wrapClassName="modal-poli-content-wrapper"
-                    title={UPEX.lang.template('Poli支付')}
+                    title={UPEX.lang.template('POLi支付')}
                     visible={state.visible}
                     footer={null}
                 >
@@ -142,7 +142,7 @@ export default class extends React.Component {
                     </Row>
                 </FormItem>
                 <FormItem>
-                    <div className="bottom-tips" dangerouslySetInnerHTML={{ __html: UPEX.lang.template('使用Poli充值操作温馨提示,受银行处理时间影响...') }} />
+                    <div className="bottom-tips" dangerouslySetInnerHTML={{ __html: UPEX.lang.template('使用POLi充值操作温馨提示,受银行处理时间影响...') }} />
                 </FormItem>
             </div>
         );
