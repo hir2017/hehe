@@ -81,7 +81,7 @@ class Login extends Component {
 
     handleUserLogin(validate, captchaId){
         let store = this.props.loginStore;
-        
+
         this.action.userLogin(validate, captchaId).then((data)=>{
             switch(data.status){
                 case 200:
@@ -114,7 +114,7 @@ class Login extends Component {
 
     handleLoginSuccess(result) {
         browserHistory.push('/webtrade');
-        
+
         if (result.authLevel == 0) {
             /*
              * 如果用户等级为KYC0
@@ -199,15 +199,15 @@ class Login extends Component {
 
     clearInput=(field)=> {
         this.refs[field].focus();
-        this.action.clearInput(field);        
+        this.action.clearInput(field);
         this.action.clearVerifyResult(field);
     }
 
     onFocusInput(field, e){
         if (field == 'phone' || field == 'email') {
-            this.action.onFocusInput(field, e);    
+            this.action.onFocusInput(field, e);
         }
-        
+
         // 获取焦点后，隐藏接口提交的错误信息
         this.setState({
             loginErrorText: ''
@@ -223,7 +223,7 @@ class Login extends Component {
         timer = setTimeout(()=>{
             clearTimeout(timer);
             node.attr('data-type', 'blur');
-        }, 100)
+        }, 300)
     }
 
     render() {
