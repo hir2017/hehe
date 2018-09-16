@@ -43,22 +43,22 @@ var exportLangFile = {
                     var _entername = entername;
                     var sheetTitle = googleWorksheet[entername];
                     self.spreadsheetToJson({
-                        spreadsheetId: spreadsheetId,
-                        vertical: true,
-                        hash: 'key',
-                        worksheet: sheetTitle
-                    })
-                    .then(function(res) {
-                        // 获取JSON数据
-                        // TODO 导出到指定的文件目录中
-                        self.save(res, fileContent, cfg, _entername);
-                    })
-                    .catch(function(err) {
-                        console.log(err);
-                    })
+                            spreadsheetId: spreadsheetId,
+                            vertical: true,
+                            hash: 'key',
+                            worksheet: sheetTitle
+                        })
+                        .then(function(res) {
+                            // 获取JSON数据
+                            // TODO 导出到指定的文件目录中
+                            self.save(res, fileContent, cfg, _entername);
+                        })
+                        .catch(function(err) {
+                            console.log(err);
+                        })
                 })();
 
-                
+
             }
             return;
         }
@@ -79,7 +79,7 @@ var exportLangFile = {
                     console.log(err);
                 })
         } else {
-            console.log('googleSpreadsheetId未配置，请在package.json中进行配置'.red);
+            console.log('googleSpreadsheetId未配置，请在package.json中进行配置');
         }
     },
 
@@ -97,8 +97,59 @@ var exportLangFile = {
         if (split) {
             this.splitFile(content, gsfile);
         }
-        console.log('多语言文件已生成:'.green + ' ==========> ' + (gsfile).yellow);
+        console.log('多语言文件已生成:' + ' ==========> ' + (gsfile));
+
+        this.check(content);
     },
+
+    /**
+     * 验证google是否有不匹配的key
+     * 1、google中哪种语言，哪个key没有被翻译
+     * 2、google中缺少哪个key
+     * 3、google中哪个key在代码中没有被使用
+     */
+    check: function(content) {
+        const keyfile = process.cwd() + '/js/lang/keys';
+        let exsitKeys = [];
+
+        if (filetool.isFile(keyfile)) {
+            // array keys文件中的字段
+            exsitKeys = fs.readFileSync(keyfile, 'utf-8').split('\n');
+        } else {
+            console.log('请先执行：zenbone lang key 提取多语言包keys');
+            return;
+        }
+
+        if (exsitKeys.length <= 1) {
+            console.log('请先执行：zenbone lang key提取多语言包keys');
+            return;
+        }
+
+        content = JSON.parse(content.replace('module.exports=', ''));
+
+        let remains = [];
+
+        for (let i in content) {
+            let data = content[i];
+            let list = [...exsitKeys];
+
+
+            for (let j in data) {
+                let idx = list.indexOf(j + '');
+
+                if (idx > -1) {
+                    list.splice(idx, 1)
+                } else {
+                    remains[remains.length] = j;
+                }
+            }
+            console.log('========================== ' + i + ' ========================')
+            console.log('--- Google中多余的keys有：' + remains.length + '个，极客精神，可适当优化');
+            console.log('--- Google中缺少或者没有被翻译的keys ===> ');
+            console.log(list.length > 0 ? list.join('\n') : 'very good，多语言全部完成啦');
+        }
+    },
+
 
     splitFile(content, _path) {
         content = JSON.parse(content.replace('module.exports=', ''));
@@ -109,6 +160,7 @@ var exportLangFile = {
             filetool.writefile(itemPath, 'module.exports=' + stringify(content[i], {
                 space: '    '
             }) + ';');
+            console.log('多语言文件已生成:' + ' ==========> ' + (itemPath));
         }
     },
 
@@ -154,7 +206,7 @@ var exportLangFile = {
                 return properties;
 
             properties[cell[colProp]] = (cell.value || '').trim();
-            
+
             return properties;
         }, {});
 
@@ -266,7 +318,7 @@ var exportLangFile = {
                         }
                     }
                     return result;
-                }else{
+                } else {
                     return finalList[0];
                 }
             });
@@ -304,24 +356,24 @@ var exportLangFile = {
 
 function MergeRecursive(obj1, obj2) {
 
-  for (var p in obj2) {
-    try {
-      // Property in destination object set; update its value.
-      if ( obj2[p].constructor == Object ) {
-        obj1[p] = MergeRecursive(obj1[p], obj2[p]);
+    for (var p in obj2) {
+        try {
+            // Property in destination object set; update its value.
+            if (obj2[p].constructor == Object) {
+                obj1[p] = MergeRecursive(obj1[p], obj2[p]);
 
-      } else {
-        obj1[p] = obj2[p];
+            } else {
+                obj1[p] = obj2[p];
 
-      }
-    } catch(e) {
-      // Property in destination object not set; create it and set its value.
-      obj1[p] = obj2[p];
+            }
+        } catch (e) {
+            // Property in destination object not set; create it and set its value.
+            obj1[p] = obj2[p];
 
+        }
     }
-  }
 
-  return obj1;
+    return obj1;
 }
 
 function normalizeWorksheetIdentifiers(option) {
