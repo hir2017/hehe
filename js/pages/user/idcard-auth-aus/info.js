@@ -137,7 +137,7 @@ export default class FirstStep extends Component {
 
     validateStrLen(name, str) {
         // TODO: 校验字长 22:[secondName, middleName, firstName] 45:[idCard] 255:[address]
-        let arrs = [['secondName', 'middleName', 'firstName'], ['idCard'], ['address']];
+        let arrs = [['secondName', 'firstName'], ['idCard'], ['middleName', 'address']];
 
         if (arrs[0].indexOf(name) !== -1) {
             return this.transStr(str) <= 21;
