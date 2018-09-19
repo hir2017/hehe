@@ -112,7 +112,7 @@ export default class extends React.Component {
                 <Modal
                     onCancel={() => this.setState({ visible: false, url: '' })}
                     style={{ top: 20 }}
-                    width={500}
+                    width={600}
                     wrapClassName="modal-poli-content-wrapper"
                     title={UPEX.lang.template('POLi支付')}
                     visible={state.visible}
