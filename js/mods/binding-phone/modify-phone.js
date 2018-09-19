@@ -65,6 +65,8 @@ export default class BindingPhone extends Component {
             formClass: 'modify-password-box modify-phone-box',
             tipComponent: <Alert className="ace-form-tips" type="warning" showIcon message={UPEX.lang.template('为了您的资金安全，修改手机绑定后，24小时内不可以提现提币')} />
         };
+        this.nvCodeBtn = <SendVCodeBtn sendCode={this.sendCode.bind(this, 'new')} validateFn={this.validateFrom.bind(this, 'partical')} />;
+        this.vCodeBtn = <SendVCodeBtn sendCode={this.sendCode.bind(this, 'old')} noSlide={true} />;
     }
 
     componentWillMount() {
@@ -75,7 +77,6 @@ export default class BindingPhone extends Component {
 
     setVal(e, name) {
         let val = e.target.value.trim();
-        
         if (name == 'vCode' || name == 'gaCode' || name == 'nvCode') {
             val = (val + '').slice(0,6);
         }
@@ -175,7 +176,7 @@ export default class BindingPhone extends Component {
         const loginStore = this.props.loginStore;
         const { userInfo = {} } = this.props.userInfoStore;
         let options = [];
-        
+
         $.each(Countries, (index, item) => {
             options[options.length] = (
                 <Option value={item.code} key={item.code}>
@@ -184,10 +185,14 @@ export default class BindingPhone extends Component {
             );
         });
 
-        const { inputsData, PageProps } = this;
-        let nvCodeBtn = <SendVCodeBtn sendCode={this.sendCode.bind(this, 'new')} validateFn={this.validateFrom.bind(this, 'partical')} />;
-        let vCodeBtn = <SendVCodeBtn sendCode={this.sendCode.bind(this, 'old')} noSlide={true} />;
-        
+        const { inputsData, PageProps, nvCodeBtn, vCodeBtn } = this;
+
+        let $vCode = null;
+        if(userInfo.isGoogleAuth) {
+            $vCode = <InputItem {...inputsData.gaCode} value={this.state.gaCode} />;
+        } else {
+            $vCode = <InputItem {...inputsData.vCode} value={this.state.vCode} afterNode={vCodeBtn} />;
+        }
         return (
             <PageForm {...PageProps}>
                 <div className="item-area">
@@ -197,8 +202,7 @@ export default class BindingPhone extends Component {
                 </div>
                 <InputItem {...inputsData.phone} value={this.state.phone} />
                 <InputItem {...inputsData.nvCode} value={this.state.nvCode} afterNode={nvCodeBtn} />
-                {userInfo.isGoogleAuth ? <InputItem {...inputsData.gaCode} value={this.state.gaCode} /> : <InputItem {...inputsData.vCode} value={this.state.gaCode} afterNode={vCodeBtn} />}
-                {/* <InputItem {...inputsData.vCode} afterNode={vCodeBtn} /> */}
+                {$vCode}
                 <Button loading={this.state.loading} className="exc-submit-item" onClick={this.submit}>
                     {UPEX.lang.template('提交')}
                 </Button>
