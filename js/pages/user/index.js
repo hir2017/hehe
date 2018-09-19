@@ -63,21 +63,7 @@ class UserPage extends Component {
                     }
                 ]
             },
-            // {
-            //     title: UPEX.lang.template('其它'),
-            //     subItems: [
-            //         {
-            //             active: 'question',
-            //             route: '/user/question',
-            //             text: UPEX.lang.template('问题反馈')
-            //         },
-            //         {
-            //             active: 'questionList',
-            //             route: '/user/questionList',
-            //             text: UPEX.lang.template('反馈列表')
-            //         }
-            //     ]
-            // }
+
         ];
         if(UPEX.config.version === 'infinitex') {
             navData[0].subItems.pop();
