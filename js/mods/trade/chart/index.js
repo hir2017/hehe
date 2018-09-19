@@ -98,7 +98,7 @@ class TVChartContainer extends Component {
 
         this.defaultThemes = {
             "light": {
-                url: "./bundles/day.css",
+                url: "day.css",
                 up: "#db4e4e",
                 down: "#0c9b78",
                 bg: "#ffffff",
@@ -110,7 +110,7 @@ class TVChartContainer extends Component {
                 areadown: "rgba(122, 152, 247, .02)"
             },
             "dark": {
-                url: "./bundles/night.css",
+                url: "night.css",
                 up: '#db4e4e', // K红
                 down: "#0c9b78", //K绿色
                 bg: "#24272c", // canvas背景色
@@ -169,10 +169,8 @@ class TVChartContainer extends Component {
         if (typeof TradingView == 'undefined') {
             // 注释不可省略，否则不能显示文件名称
             import(/*webpackChunkName: "charting_library"*/'./../../../lib/tradingview/charting_library.min').then(module => {
-                setTimeout(()=>{
-                    this.visibleKlineMask(true);
-                    this.createTradingView();
-                }, 100);
+                this.visibleKlineMask(true);
+                this.createTradingView();
             }).catch(err => {
                 console.error("Chunk loading failed", err);
             });
