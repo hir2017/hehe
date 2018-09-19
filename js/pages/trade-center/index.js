@@ -12,7 +12,6 @@ import TradeHistory from '../../mods/trade/trade-history';
 import OrderBook from '../../mods/trade/order-book';
 import OrderForm from '../../mods/trade/order-form';
 import MyOrder from '../../mods/trade/myorder/index';
-
 import toAction from './index.action';
 
 @inject('commonStore', 'currencyStore','tradeStore')

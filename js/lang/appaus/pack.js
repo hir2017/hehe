@@ -388,7 +388,7 @@ module.exports={
         "卖出": "Sell",
         "历史委托": "Order history",
         "原因：{reason}": "Reason",
-        "原手机短信确认码": "SMS verification code of old mobile",
+        "原手机短信确认码": "SMS verification code of original mobile",
         "去完成身份认证": "Please complete your ID verification.",
         "去绑定手机": "Proceed to bind your mobile.",
         "去网上银行充值": "Online Deposit",
