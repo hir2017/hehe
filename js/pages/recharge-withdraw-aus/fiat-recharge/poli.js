@@ -88,6 +88,10 @@ export default class extends React.Component {
                 });
             } else {
                 message.error(res.message);
+                this.setState({
+                    loading: false,
+                    disable: false
+                });
             }
         });
     }
@@ -97,22 +101,11 @@ export default class extends React.Component {
                 loading: false,
                 disable: false
             });
-            // 链接poli窗体
-            this.toConnect();
-            this.poliWin = document.getElementById('poli-win').contentWindow;
         }
     }
 
     handleClose() {
         this.setState({ visible: false, url: '' });
-        clearInterval(this.timer);
-    }
-
-    toConnect() {
-        this.timer = setInterval(() => {
-            this.poliWin.postMessage('connect', '*');
-        }, 2000);
-        this.poliWin.postMessage(`lang===${UPEX.cache.getCache('lang')}`, '*');
     }
 
     componentDidMount() {
@@ -130,7 +123,8 @@ export default class extends React.Component {
                         amount: '',
                         url: ''
                     });
-                } else {
+                }
+                if(event.data === 'success') {
                     this.setState({
                         loading: false,
                         visible: false,
@@ -146,7 +140,6 @@ export default class extends React.Component {
     }
 
     componentWillUnmount() {
-        clearInterval(this.timer);
     }
 
     render() {
@@ -173,7 +166,7 @@ export default class extends React.Component {
                     <div className="poli-content">
                         {state.loading ? <div className="mini-loading" /> : null}
                         <iframe id="poli-win" width="100%" height="100%" onLoad={this.handleOpen.bind(this, 'load')} src={state.url} frameBorder="0" />
-                        {/* <iframe id="poli-win" width="100%" height="100%" onLoad={this.handleOpen.bind(this, 'load')} src="http://127.0.0.1/exc-aus-poli.html#/success" frameBorder="0" /> */}
+                        {/* <iframe id="poli-win" width="100%" height="100%" onLoad={this.handleOpen.bind(this, 'load')} src="http://127.0.0.1/exc-aus-poli.html#/cancel" frameBorder="0" /> */}
                     </div>
                 </Modal>
                 <FormItem label={$max} value={state.amount} {...inputData} after={$tip} />
