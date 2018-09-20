@@ -12,7 +12,8 @@ export default class extends React.Component {
             url: '',
             success: '',
             loading: false,
-            visible: false
+            visible: false,
+            disable: false
         };
         this.MaxLimit = 2000;
         this.timer = null;
@@ -51,15 +52,6 @@ export default class extends React.Component {
         );
     }
 
-    // delayToDo() {
-    //     if(this.timer !== null) {
-    //         clearTimeout(this.timer);
-    //     }
-    //     this.timer = setTimeout(() => {
-    //         this.timer = null;
-    //         this.getUrl();
-    //     }, 500);
-    // }
 
     getUrl() {
         const { state, props } = this;
@@ -84,7 +76,8 @@ export default class extends React.Component {
     showTip(e) {}
     handleSubmit() {
         this.setState({
-            loading: true
+            loading: true,
+            disable: true
         })
         this.getUrl().then(res => {
             if (res.status === 200) {
@@ -100,13 +93,21 @@ export default class extends React.Component {
     handleOpen(action) {
         if(action === 'load') {
             this.setState({
-                loading: false
+                loading: false,
+                disable: false
             })
         }
     }
 
     render() {
         const { $max, state, inputData, $tip } = this;
+        let poliDisable = 'not';
+        if(state.amount === '') {
+            poliDisable = 'is';
+        }
+        if(state.disable) {
+            poliDisable = 'is';
+        }
         return (
             <div>
                 <Modal
@@ -134,11 +135,8 @@ export default class extends React.Component {
                     <Row className="poli-img">
                         <Col span={12}>{UPEX.lang.template('唯一正确入口')}</Col>
                         <Col span={12}>
-                            <div className={`empty ${state.amount === '' ? 'is' : 'not'}`} onClick={this.showTip.bind(this)} />
+                            <div className={`empty ${poliDisable}`} onClick={this.showTip.bind(this)} />
                             <img onClick={this.handleSubmit.bind(this)} src="https://resources.apac.paywithpoli.com/poli-logo-37.png" alt="POLi Logo" />
-                            {/* <a target="_blank" href={state.url}>
-
-                            </a> */}
                         </Col>
                     </Row>
                 </FormItem>
