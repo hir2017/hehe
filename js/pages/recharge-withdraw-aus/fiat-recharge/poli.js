@@ -1,4 +1,5 @@
 import React from 'react';
+import { browserHistory } from 'react-router';
 import FormItem from '@/mods/common/form/item';
 import { ausGetPoliUrl } from '@/api/http';
 import NumberUtils from '@/lib/util/number';
@@ -16,8 +17,9 @@ export default class extends React.Component {
             disable: false
         };
         this.MaxLimit = 2000;
+        // poli窗体
+        this.poliWin = null;
         this.timer = null;
-        this.delay = false;
         this.inputData = {
             className: 'tip-code',
             inputProps: {
@@ -52,7 +54,6 @@ export default class extends React.Component {
         );
     }
 
-
     getUrl() {
         const { state, props } = this;
         // tradeType: 2=poli amount:state.amount refId:uid
@@ -78,7 +79,7 @@ export default class extends React.Component {
         this.setState({
             loading: true,
             disable: true
-        })
+        });
         this.getUrl().then(res => {
             if (res.status === 200) {
                 this.setState({
@@ -91,27 +92,76 @@ export default class extends React.Component {
         });
     }
     handleOpen(action) {
-        if(action === 'load') {
+        if (action === 'load') {
             this.setState({
                 loading: false,
                 disable: false
-            })
+            });
+            // 链接poli窗体
+            this.toConnect();
+            this.poliWin = document.getElementById('poli-win').contentWindow;
         }
+    }
+
+    handleClose() {
+        this.setState({ visible: false, url: '' });
+        clearInterval(this.timer);
+    }
+
+    toConnect() {
+        this.timer = setInterval(() => {
+            this.poliWin.postMessage('connect', '*');
+        }, 2000);
+        this.poliWin.postMessage(`lang===${UPEX.cache.getCache('lang')}`, '*');
+    }
+
+    componentDidMount() {
+        window.addEventListener(
+            'message',
+            event => {
+                // 没做来源校验
+                // var origin = event.origin || event.originalEvent.origin;
+                // console.log(event);
+                if (event.data === 'close' || event.data === 'cancel') {
+                    this.setState({
+                        loading: false,
+                        visible: false,
+                        disable: false,
+                        amount: '',
+                        url: ''
+                    });
+                } else {
+                    this.setState({
+                        loading: false,
+                        visible: false,
+                        disable: false
+                    });
+                    setTimeout(() => {
+                        browserHistory.push('/account/fiatrecord');
+                    }, 100);
+                }
+            },
+            false
+        );
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.timer);
     }
 
     render() {
         const { $max, state, inputData, $tip } = this;
         let poliDisable = 'not';
-        if(state.amount === '') {
+        if (state.amount === '') {
             poliDisable = 'is';
         }
-        if(state.disable) {
+        if (state.disable) {
             poliDisable = 'is';
         }
         return (
             <div>
                 <Modal
-                    onCancel={() => this.setState({ visible: false, url: '' })}
+                    onCancel={this.handleClose.bind(this)}
                     style={{ top: 20 }}
                     width={600}
                     wrapClassName="modal-poli-content-wrapper"
@@ -122,12 +172,8 @@ export default class extends React.Component {
                 >
                     <div className="poli-content">
                         {state.loading ? <div className="mini-loading" /> : null}
-                        <iframe
-                            onLoad={this.handleOpen.bind(this, 'load')}
-                            src={state.url}
-                            frameBorder="0"
-                            id="poli-page"
-                        />
+                        <iframe id="poli-win" width="100%" height="100%" onLoad={this.handleOpen.bind(this, 'load')} src={state.url} frameBorder="0" />
+                        {/* <iframe id="poli-win" width="100%" height="100%" onLoad={this.handleOpen.bind(this, 'load')} src="http://127.0.0.1/exc-aus-poli.html#/success" frameBorder="0" /> */}
                     </div>
                 </Modal>
                 <FormItem label={$max} value={state.amount} {...inputData} after={$tip} />
