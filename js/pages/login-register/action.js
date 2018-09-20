@@ -46,6 +46,8 @@ export default (store) => {
                     this.verifyLoginPassword();
                     break;
                 case 'googlecode':
+                    value = value.replace(UPEX.replaceNaNReg, '');
+                    value = value.slice(0,6);
                     store.setGoogleCode(value);
                     break;
                 case 'vercode':
@@ -77,7 +79,7 @@ export default (store) => {
 
         verifyLoginPassword() {
             var result = VerifyRules.loginpassword(store.pwd);
-            
+
             store.updatePwdResult(result);
         },
 

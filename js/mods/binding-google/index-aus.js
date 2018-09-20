@@ -17,9 +17,9 @@ class Google extends Component {
         super();
         this.submit = this.submit.bind(this);
         const getProp = createGetProp(this);
-        
+
         this.$sendBtn = <SmsBtn sendCode={setTradePwdSendCode.bind(this, {type: 2})} />;
-        
+
         this.inputsData = {
             google: {
                 label: UPEX.lang.template('Google验证码'),
@@ -52,6 +52,9 @@ class Google extends Component {
             if(!Numberutils.isInteger(val)) {
                 return;
             };
+        }
+        if (name == 'vCode' || name == 'google') {
+            val = val.slice(0,6);
         }
         this.setState({
             [name]: val

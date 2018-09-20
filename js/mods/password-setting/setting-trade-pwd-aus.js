@@ -21,7 +21,7 @@ export default class SettingTradingPassword extends Component {
         this.submit = this.submit.bind(this);
         this.captchaChange = this.captchaChange.bind(this);
         this.$sendBtn = <SmsBtn sendCode={setTradePwdSendCode.bind(this, {type: 2})} />;
-        
+
         this.PageProps = {
             title: UPEX.lang.template('设置资金密码'),
             formClass: 'modify-password-box'
@@ -115,9 +115,7 @@ export default class SettingTradingPassword extends Component {
                 <FormView>
                     <FormItem {...vCodeData} after={$sendBtn} />
                 </FormView>
-                <div style={{ display: 'none' }} className="massage">
-                    {UPEX.lang.template('不方便接短信？可使用')}&nbsp;&nbsp;&nbsp;&nbsp;<Link>{UPEX.lang.template('Google验证码')}</Link>
-                </div>
+
                 <Button loading={loading} className="exc-submit-item" onClick={this.submit}>
                     {UPEX.lang.template('提交')}
                 </Button>
