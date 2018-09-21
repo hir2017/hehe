@@ -1,4 +1,5 @@
 import React from 'react';
+import { browserHistory } from 'react-router';
 import FormItem from '@/mods/common/form/item';
 import { ausGetPoliUrl } from '@/api/http';
 import NumberUtils from '@/lib/util/number';
@@ -12,11 +13,13 @@ export default class extends React.Component {
             url: '',
             success: '',
             loading: false,
-            visible: false
+            visible: false,
+            disable: false
         };
         this.MaxLimit = 2000;
+        // poli窗体
+        this.poliWin = null;
         this.timer = null;
-        this.delay = false;
         this.inputData = {
             className: 'tip-code',
             inputProps: {
@@ -51,16 +54,6 @@ export default class extends React.Component {
         );
     }
 
-    // delayToDo() {
-    //     if(this.timer !== null) {
-    //         clearTimeout(this.timer);
-    //     }
-    //     this.timer = setTimeout(() => {
-    //         this.timer = null;
-    //         this.getUrl();
-    //     }, 500);
-    // }
-
     getUrl() {
         const { state, props } = this;
         // tradeType: 2=poli amount:state.amount refId:uid
@@ -84,8 +77,9 @@ export default class extends React.Component {
     showTip(e) {}
     handleSubmit() {
         this.setState({
-            loading: true
-        })
+            loading: true,
+            disable: true
+        });
         this.getUrl().then(res => {
             if (res.status === 200) {
                 this.setState({
@@ -94,38 +88,85 @@ export default class extends React.Component {
                 });
             } else {
                 message.error(res.message);
+                this.setState({
+                    loading: false,
+                    disable: false
+                });
             }
         });
     }
     handleOpen(action) {
-        if(action === 'load') {
+        if (action === 'load') {
             this.setState({
-                loading: false
-            })
+                loading: false,
+                disable: false
+            });
         }
+    }
+
+    handleClose() {
+        this.setState({ visible: false, url: '' });
+    }
+
+    componentDidMount() {
+        window.addEventListener(
+            'message',
+            event => {
+                // 没做来源校验
+                // var origin = event.origin || event.originalEvent.origin;
+                // console.log(event);
+                if (event.data === 'close' || event.data === 'cancel') {
+                    this.setState({
+                        loading: false,
+                        visible: false,
+                        disable: false,
+                        amount: '',
+                        url: ''
+                    });
+                }
+                if(event.data === 'success') {
+                    this.setState({
+                        loading: false,
+                        visible: false,
+                        disable: false
+                    });
+                    setTimeout(() => {
+                        browserHistory.push('/account/fiatrecord');
+                    }, 100);
+                }
+            },
+            false
+        );
+    }
+
+    componentWillUnmount() {
     }
 
     render() {
         const { $max, state, inputData, $tip } = this;
+        let poliDisable = 'not';
+        if (state.amount === '') {
+            poliDisable = 'is';
+        }
+        if (state.disable) {
+            poliDisable = 'is';
+        }
         return (
             <div>
                 <Modal
-                    onCancel={() => this.setState({ visible: false, url: '' })}
+                    onCancel={this.handleClose.bind(this)}
                     style={{ top: 20 }}
-                    width={900}
+                    width={600}
                     wrapClassName="modal-poli-content-wrapper"
                     title={UPEX.lang.template('POLi支付')}
                     visible={state.visible}
                     footer={null}
+                    maskClosable={false}
                 >
                     <div className="poli-content">
                         {state.loading ? <div className="mini-loading" /> : null}
-                        <iframe
-                            onLoad={this.handleOpen.bind(this, 'load')}
-                            src={state.url}
-                            frameBorder="0"
-                            id="poli-page"
-                        />
+                        <iframe id="poli-win" width="100%" height="100%" onLoad={this.handleOpen.bind(this, 'load')} src={state.url} frameBorder="0" />
+                        {/* <iframe id="poli-win" width="100%" height="100%" onLoad={this.handleOpen.bind(this, 'load')} src="http://127.0.0.1/exc-aus-poli.html#/cancel" frameBorder="0" /> */}
                     </div>
                 </Modal>
                 <FormItem label={$max} value={state.amount} {...inputData} after={$tip} />
@@ -133,11 +174,8 @@ export default class extends React.Component {
                     <Row className="poli-img">
                         <Col span={12}>{UPEX.lang.template('唯一正确入口')}</Col>
                         <Col span={12}>
-                            <div className={`empty ${state.amount === '' ? 'is' : 'not'}`} onClick={this.showTip.bind(this)} />
+                            <div className={`empty ${poliDisable}`} onClick={this.showTip.bind(this)} />
                             <img onClick={this.handleSubmit.bind(this)} src="https://resources.apac.paywithpoli.com/poli-logo-37.png" alt="POLi Logo" />
-                            {/* <a target="_blank" href={state.url}>
-
-                            </a> */}
                         </Col>
                     </Row>
                 </FormItem>

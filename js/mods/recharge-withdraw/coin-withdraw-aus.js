@@ -171,6 +171,14 @@ class WithdrawCoin extends Component {
                 return;
             }
         }
+
+        if (parseFloat(props.coinWithdrawStore.withdrawValue) === 0) {
+            message.error(UPEX.lang.template('提币到账数量为0'));
+            return;
+        }
+
+
+
         let msgCode = '';
         const info = this.props.coinWithdrawStore.takeCoinInfo;
         if(info.resp.needMsgCode === 1) {

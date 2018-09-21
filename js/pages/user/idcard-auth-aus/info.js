@@ -194,7 +194,12 @@ export default class FirstStep extends Component {
 
     componentDidMount() {
         const { userInfo } = this.props.userInfoStore;
-        if (userInfo.readFailReason === 0 && userInfo.isAuthPrimary === -1) {
+        let _needInit = userInfo.readFailReason === 0 && userInfo.isAuthPrimary === -1;
+
+        // mock
+        // _needInit = true;s
+
+        if (_needInit) {
             getUserAuthInfo().then(res => {
                 if (res.status === 200) {
                     const { forms } = this;
@@ -204,6 +209,9 @@ export default class FirstStep extends Component {
                         let val = sourceData[item.initField || item.target || item.name];
                         if (['birthday', 'idCardValidity'].indexOf(item.name) !== -1) {
                             val = val.split(' ')[0];
+                        }
+                        if(['idCardType'].indexOf(item.name) !== -1) {
+                            val = val + '';
                         }
                         params[item.name] = val;
                     });
@@ -222,17 +230,7 @@ export default class FirstStep extends Component {
         let params = {};
         // 非必填字段
         let nonessentials = ['middleName', 'idCardValidity'];
-        // for (let item of forms.fields) {
-        //     if (nonessentials.indexOf(item.name) === -1) {
-        //         if (state[item.name] === '' || state[item.name] === null) {
-        //             errors[item.name] = item.msg;
-        //             status = false;
-        //         } else {
-        //             errors[item.name] = '';
-        //         }
-        //     }
-        //     params[item.target || item.name] = state[item.name];
-        // }
+
         forms.fields.forEach(item => {
             if (nonessentials.indexOf(item.name) === -1) {
                 if (state[item.name] === '' || state[item.name] === null) {
@@ -290,7 +288,6 @@ export default class FirstStep extends Component {
     render() {
         const { state, inputData, getErrMsg, idTypes, defaultDate } = this;
         let birthdayVals = state.birthday ? { value: moment(state.birthday, 'YYYY-MM-DD') } : {};
-        // let idCardValidityVals = state.idCardValidity ? { value: moment(state.idCardValidity, 'YYYY-MM-DD') } : {};
         return (
             <AceForm className="auth-base-info">
                 <FormItem {...inputData.secondName} value={state.secondName} error={getErrMsg('secondName')} />

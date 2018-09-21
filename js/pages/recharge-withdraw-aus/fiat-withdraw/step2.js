@@ -63,8 +63,13 @@ export default class View extends React.Component {
     }
 
     setVal(name, e) {
+        let val = typeof e === 'object' ? e.target.value.trim() : e;
+        if (name == 'gaCode') {
+            val = val.replace(UPEX.replaceNaNReg, '');
+            val = val.slice(0,6);
+        }
         this.setState({
-            [name]: typeof e === 'object' ? e.target.value.trim() : e
+            [name]: val
         });
     }
 
@@ -145,7 +150,7 @@ export default class View extends React.Component {
                     </div>
                 </FormItem>
                 <FormItem {...inputData.tradePwd} />
-                {props.isGa ? <FormItem {...inputData.gaCode} /> : <FormItem {...inputData.smsCode} after={$sendBtn} />}
+                {props.isGa ? <FormItem {...inputData.gaCode}  value={state.gaCode}/> : <FormItem {...inputData.smsCode} value={state.smsCode} after={$sendBtn} />}
                 <FormItem>
                     <Button className="submit-btn" onClick={this.submit.bind(this)}>
                         {UPEX.lang.template('确认提现')}
