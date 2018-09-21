@@ -114,7 +114,6 @@ export default class extends React.Component {
             event => {
                 // 没做来源校验
                 // var origin = event.origin || event.originalEvent.origin;
-                // console.log(event);
                 if (event.data === 'close' || event.data === 'cancel') {
                     this.setState({
                         loading: false,
@@ -124,7 +123,8 @@ export default class extends React.Component {
                         url: ''
                     });
                 }
-                if(event.data === 'success') {
+
+                if (event.data === 'success') { 
                     this.setState({
                         loading: false,
                         visible: false,
@@ -139,18 +139,18 @@ export default class extends React.Component {
         );
     }
 
-    componentWillUnmount() {
-    }
-
     render() {
         const { $max, state, inputData, $tip } = this;
         let poliDisable = 'not';
+        
         if (state.amount === '') {
             poliDisable = 'is';
         }
+        
         if (state.disable) {
             poliDisable = 'is';
         }
+
         return (
             <div>
                 <Modal

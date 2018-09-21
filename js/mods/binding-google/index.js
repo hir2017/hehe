@@ -83,7 +83,8 @@ class Google extends Component {
                 className: 'v-code',
                 inputProps: getProp('vCode', 'none')
             }
-        };
+        }
+
         return (
             <AceForm className="modify-password-box google-auth-box">
                 <div className="google-auth-message">
