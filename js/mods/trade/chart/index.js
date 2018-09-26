@@ -99,8 +99,8 @@ class TVChartContainer extends Component {
         this.defaultThemes = {
             "light": {
                 url: "day.css",
-                up: "#db4e4e",
-                down: "#0c9b78",
+                down: "#db4e4e",
+                up: "#0c9b78",
                 bg: "#ffffff",
                 grid: "#f7f8fa",
                 cross: "#23283D",
@@ -111,8 +111,8 @@ class TVChartContainer extends Component {
             },
             "dark": {
                 url: "night.css",
-                up: '#db4e4e', // K红
-                down: "#0c9b78", //K绿色
+                down: '#db4e4e', // K红
+                up: "#0c9b78", //K绿色
                 bg: "#24272c", // canvas背景色
                 grid: '#2a2e33', // 分隔线
                 cross: "#c5cedd", // 十字线
