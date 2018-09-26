@@ -307,7 +307,7 @@ module.exports={
     "为了您的安全或者降低手机遗失的风险，请在绑定手机号后立即绑定Google验证器": "For your own security and to minimize the risk of loss of mobile phones, please bind Google Authenticator immediately after the mobile is bound.",
     "为了您的资金安全，修改Google验证码后，24小时内不可以提币": "For fund security, crypto currency withdrawal will be disabled for 24 hours after the Google authentication code is reset.",
     "为了您的资金安全，修改手机绑定后，24小时内不可以提现提币": "For fund security, fiat and crypto currency withdrawal will be disabled for 24 hours after resetting bound mobile phone.",
-    "为了您的资金安全，忘记资金密码并修改成功后，24小时内不可以提现充币": "For fund security, fiat or crypto currency withdrawall will be disabled for 24 hours after password is reset.",
+    "为了您的资金安全，忘记资金密码并修改成功后，24小时内不可以提现充币": "For fund security, fiat or crypto currency withdrawal will be disabled for 24 hours after password is reset.",
     "为了您的资金安全，请确认您的银行卡信息是否正确": "For security of fund, please ensure that the bank account details you have entered are correct.",
     "为保证款项可能有退还的情形，因此填写真实身份证号": "Please enter your real ID number in case of refund.",
     "买入": "Buy",
