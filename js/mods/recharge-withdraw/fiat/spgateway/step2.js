@@ -30,6 +30,12 @@ class View extends Component {
         * ATM: 获取汇款账号、截止日期
         */
         const { data, formData } = this.props;
+        if(data.type === '2') {
+            this.setState({
+                cardNumber: formData.VACCNo,
+                date: formData.ExpireDate
+            })
+        }
     }
 
     onSubmit(action) {
@@ -141,7 +147,7 @@ class View extends Component {
         }
 
         return (
-            <FormView>
+            <FormView className={`step2 type-${data.type}`}>
                 <Alert className="ace-form-tips" type="info" showIcon message={AlertMsg} type="warning" />
                 <FormItem label={UPEX.lang.template('充值信息')}>
                     <TableView data={tableData} />

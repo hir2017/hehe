@@ -50,6 +50,7 @@ export default (store) => {
          * @param {amount, prodId（金流id, 目前需要用户自选, PD-WEBATM-CTCB, accountCode（当前用户绑定银行id值) }
          */
         getOrderInfo(data) {
+            // TODO: 需要一个ReturnUrl
             const url = 'https://www.baidu.com/'
             return orderFiatRecharge({
                 prodId: '111',
@@ -71,9 +72,11 @@ export default (store) => {
                 } else {
                     message.error(data.message);
                 }
+                // 错误统一由后端处理
+                let status = data.status;
                 return {
                     attachment: temp,
-                    status: data.status
+                    status
                 }
             })
         },
@@ -84,14 +87,12 @@ export default (store) => {
          */
         submitOrder(data, newWindow = true) {
             if (data) {
-                console.log('submitOrder', data)
                 let nodeForm = this.nodeForm,
                     fields, node, i;
 
                 if (!nodeForm) {
                     nodeForm = this.initForm(); // 初始化表单
                 }
-                // https://gate.pepay.com.tw/pepay/paysel_amt.php
                 // 测试
                 nodeForm.attr('action', 'https://ccore.spgateway.com/API/gateway/webatm');
                 // 生产

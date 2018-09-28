@@ -123,7 +123,7 @@ class View extends Component {
             return <Step2 data={data} formData={this.formData} parentCtx={this} />;
         }
         // 第一步，填写信息
-        let $fee = <div className="fee-tip">{UPEX.lang.template('手续费 {count} {unit}/笔', { count: state.fee, unit: UPEX.config.baseCurrencyEn })}</div>;
+        let $fee = <div className="fee-tip" dangerouslySetInnerHTML={{__html: UPEX.lang.template('手续费 {count} {unit}/笔', { count: state.fee, unit: UPEX.config.baseCurrencyEn })}}></div>;
         // 转账方式红色提示
         let warnContent =
             state.type === '1'
