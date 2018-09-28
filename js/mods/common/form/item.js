@@ -8,16 +8,16 @@ export default class View extends React.Component {
     }
 
     render() {
-        const {props} = this;
-        const temp = {...props.inputProps};
-        if(props.hasOwnProperty('value')) {
+        const { props } = this;
+        const temp = { ...props.inputProps };
+        if (props.hasOwnProperty('value')) {
             temp.value = props.value;
         }
         return (
             <div className={`exc-form-item ${props.className || ''}`}>
                 {props.label ? <label className="inner-label">{props.label}</label> : null}
                 {props.before ? props.before : null}
-                <div className="inner-item">{props.children ? props.children : <Input  className="exc-input" {...temp} />}</div>
+                <div className="inner-item">{props.children ? props.children : <Input className="exc-input" {...temp} />}</div>
                 {props.after ? props.after : null}
                 {props.tip ? <p className="inner-tip">{props.tip}</p> : null}
                 {props.error ? <p className="inner-error">{props.error}</p> : null}

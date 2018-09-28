@@ -1,73 +1,87 @@
 /**
  * 法币充值
  */
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
-import { Select } from 'antd';
-const Option = Select.Option;
-import { Link, browserHistory } from 'react-router';
-import FiatRechargeView from '../../mods/recharge-withdraw/fiat-recharge';
+import { Alert } from 'antd';
+import PageWrapper from '@/mods/common/wrapper/full-page';
+import FormView from '@/mods/common/form';
+import FormItem from '@/mods/common/form/item';
+// import BankCard from '@/mods/recharge-withdraw/fiat/bank-card';
+import Spgateway from '@/mods/recharge-withdraw/fiat/spgateway';
 
-@inject('commonStore', 'userInfoStore')
+@inject('userInfoStore', 'fiatRechargeStore')
 @observer
-class Recharge extends Component{
-	constructor(props){
-		super(props);
-	}
+class View extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            type: 'a',
+            dayLimit: 0
+        };
+    }
 
-	componentDidMount() {
-		// 请求用户信息
-		this.props.userInfoStore.getUserInfo();
-	}
+    componentDidMount() {
+        // TODO: dayLimit
+    }
 
-	clickAuthUserIDCard=(e)=>{
-		browserHistory.push('/user/authentication');
-	}
+    componentWillUnmount() {
+        this.props.fiatRechargeStore.setCurrStep('start');
+    }
 
-	clickSetBankInfo=(e)=>{
-		browserHistory.push('/user/bankInfo');
-	}
-
-	render() {
-		let $content;
-		let { userInfoStore } = this.props;
-
-		if (userInfoStore.isFetchingInfo == false) {
-    		// KYC1未认证通过
-			if (userInfoStore.userInfo.authLevel == 0) {
-				$content = (
-					<div className="userauth-guide">
-						<h4>{UPEX.lang.template('请您进行身份认证，否则无法进行充值、提现、充币、提币操作')}</h4>
-						<button type="button" onClick={this.clickAuthUserIDCard}>{UPEX.lang.template('身份认证')}</button>
-					</div>
-				);
-			} else if (userInfoStore.userInfo.authLevel == 1) {
-				$content = (
-					<div className="userauth-guide">
-						<h4>{UPEX.lang.template('请您先绑定银行卡信息，否则无法进行充值、提现操作')}</h4>
-						<button type="button" onClick={this.clickSetBankInfo}>{UPEX.lang.template('绑定银行卡信息')}</button>
-					</div>
-				);
-			} else {
-				$content = <FiatRechargeView/>;
-			}
-		} else {
-			$content = (
-				<div className="mini-loading"></div>
-			);
-		}
-
-		return (
-			<div className="rw-wrapper r-fait-wrapper">
-				<div className="module-box">
-					<h2 className="title">{UPEX.lang.template('账户充值')}</h2>
-					<div className="content">
-						{ $content }
-					</div>
-				</div>
-			</div>
-		)
-	}
+    render() {
+        const store = this.props.fiatRechargeStore;
+        const { state } = this;
+        const Props = {
+            parentCtx: this
+        };
+        let $alert = null;
+        let $switch = null;
+        if (store.currStep === 'start') {
+            $alert = (
+                <Alert
+                    className="ace-form-tips"
+                    type="info"
+                    showIcon
+                    message={UPEX.lang.template('单日充值限额 {num1}', { num1: state.dayLimit }) + UPEX.config.baseCurrencyEn}
+                    type="warning"
+                />
+            );
+            // $switch = (
+            //     <FormView>
+            //         <FormItem>
+            //             <div className="exc-fiat-recharge-switch">
+            //                 <span
+            //                     className={`switch-item ${state.type === 'a' ? 'selected' : ''}`}
+            //                     onClick={e => {
+            //                         this.setState({ type: 'a' });
+            //                     }}
+            //                 >
+            //                     {UPEX.lang.template('使用智付通支付')}
+            //                 </span>
+            //                 <span
+            //                     className={`switch-item ${state.type === 'b' ? 'selected' : ''}`}
+            //                     onClick={e => {
+            //                         this.setState({ type: 'b' });
+            //                     }}
+            //                 >
+            //                     {UPEX.lang.template('使用银行转账')}
+            //                 </span>
+            //             </div>
+            //         </FormItem>
+            //     </FormView>
+            // );
+        }
+        // $content = state.type === 'a' ? <Spgateway {...Props} /> : <BankCard {...Props} />;
+        $content = <Spgateway {...Props} />;
+        return (
+            <PageWrapper title={UPEX.lang.template('账户充值')} className="fiat-recharge header-shadow">
+                {$alert}
+                {$switch}
+                {$content}
+            </PageWrapper>
+        );
+    }
 }
 
-export default Recharge;
+export default View;

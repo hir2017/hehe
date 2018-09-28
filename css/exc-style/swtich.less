@@ -1,0 +1,32 @@
+.exc-fiat-recharge-switch {
+    width: 100%;
+    border-radius: 3px;
+    background-color: @bg-color-light;
+    height: 100%;
+    padding: 2px;
+    box-sizing: border-box;
+    .switch-item {
+        display: inline-block;
+        width: 50%;
+        height: 36px;
+        line-height: 36px;
+        text-align: center;
+        border-radius: 3px;
+        color: @text-color02-light;
+        box-sizing: border-box;
+        font-size: 12px;
+        background-color: transparent;
+        border: solid 1px  transparent;
+        cursor: pointer;
+        // transition: all 0.36s 0s;
+        &:hover {
+            color: @text-color01-light;
+        }
+        &.selected {
+            color: @text-color01-light;
+            background-color: #fff;
+            background: ~'linear-gradient(to bottom, #fff 0%, #f1f5f7 100%)';
+            border-color: @input-border-color2;
+        }
+    }
+}

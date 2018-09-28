@@ -1,4 +1,5 @@
 @import './variable.less';
+// 充币
 .coin-recharge {
     position: relative;
     min-height: 300px;
@@ -81,16 +82,40 @@
         float: left;
         margin-top: 15px;
     }
-
     .order-table {
         .table-hd {
             border: none;
         }
     }
-
 }
 
-.ant-modal-wrap.exc-modal-alert{
+// 充值
+.fiat-recharge {
+    .exc-form-item.type {
+        .warn-tip {
+            margin-top: 5px;
+            padding: 10px;
+            color: @text-red-color01;
+            border-radius: 3px;
+            background-color: @bg-color-light02;
+        }
+        .anticon-exclamation-circle {
+            margin-right: 6px;
+        }
+    }
+    .fee-tip {
+        line-height: 26px;
+        color: @text-color02-light;
+        em {
+            color: @text-color01-light;
+        }
+    }
+    .cancel-btn {
+        border: none;
+    }
+}
+
+.ant-modal-wrap.exc-modal-alert {
     &.coin-recharge {
         .warn-text {
             font-size: 18px;
@@ -102,8 +127,8 @@
             }
         }
     }
+}
 
- }
 .ant-popover.coin-recharge-qrcode {
     .ant-popover-inner-content {
         padding: 5px;
@@ -116,7 +141,6 @@
         height: 100px;
     }
 }
-
 
 /**
  * 充值提现
@@ -208,9 +232,6 @@
     position: relative;
     min-height: 300px;
 }
-
-
-
 
 .rw-wrapper .rw-form {
     margin-left: 375px;

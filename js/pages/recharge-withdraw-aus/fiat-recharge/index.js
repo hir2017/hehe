@@ -69,7 +69,6 @@ class View extends Component {
             <PageWrapper title={UPEX.lang.template('账户充值')} className="fiat-recharge-aus header-shadow">
                 <Alert
                     className="ace-form-tips"
-                    type="info"
                     showIcon
                     message={UPEX.lang.template('单日充值限额 {num1}', { num1: state.dayLimit }) + UPEX.config.baseCurrencyEn}
                     type="warning"

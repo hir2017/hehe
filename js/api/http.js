@@ -1087,3 +1087,4 @@ export function updateAuthFailReasonStatus(data) {
 export function getUserAuthInfo(info) {
     return axios.post('/user/userAuthInfo', {})
 }
+

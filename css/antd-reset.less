@@ -159,6 +159,19 @@ body {
         border-color: @theme-yellow;
         color: #fff;
     }
+    .ant-radio-checked:after {
+        border: 1px solid @theme-yellow;
+    }
+    .ant-radio-focused .ant-radio-inner, .ant-radio-wrapper:hover .ant-radio .ant-radio-inner, .ant-radio:hover .ant-radio-inner {
+        border-color: @theme-yellow;
+    }
+    .ant-radio-checked .ant-radio-inner, .ant-radio-indeterminate .ant-radio-inner {
+        border-color: @theme-yellow;
+        color: #fff;
+    }
+    .ant-radio-inner:after {
+        background-color: @theme-yellow;
+    }
     .ant-pagination-item-active {
         background-color: @theme-yellow;
         border-color: @theme-yellow;

@@ -12,6 +12,12 @@ class FiatRechargeStore {
     @observable cashType = 'PD-ATM-CTCB';
     @observable step = 'start';
     @observable $submiting = false;
+    @observable currStep = 'start'; // 充值页面状态
+
+    @action
+    setCurrStep(action) {
+        this.currStep = action;
+    }
 
     @action
     getInfo() {
