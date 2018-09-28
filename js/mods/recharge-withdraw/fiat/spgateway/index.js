@@ -66,12 +66,17 @@ class View extends Component {
         this.action = Action(this.props.fiatRechargeStore);
     }
 
+    componentDidMount() {
+
+    }
+
     setVal(name, e) {
         let val = typeof e === 'object' ? e.target.value.trim() : e;
         if(name === 'amount' && val !== '') {
             if(!NumberUtils.isInteger(val)) {
                 return ;
             }
+            val = parseInt(val);
         }
         let data = {
             [name]: val
@@ -81,7 +86,7 @@ class View extends Component {
 
     onSubmit() {
         const { state, typeList, bankList } = this;
-        if (!this.action.validate(state)) {
+        if (!this.action.validate(state, this.props.fiatRechargeStore)) {
             return;
         };
         this.setState({

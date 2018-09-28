@@ -2,21 +2,11 @@
  * 法币充值
  */
 import { message } from 'antd';
-import { orderFiatRecharge, getSpgatewayATMInfo } from '@/api/http';
+import { orderFiatRecharge } from '@/api/http';
 
-/**
- * 表单提交数据
- */
-var ORDER_DATA = {
-    MerchantID_: "", // 商店代號
-    PostData_: "", // 加密資料
-};
 
 export default (store) => {
     return {
-        getInfo() {
-        	store.getInfo();
-        },
         /**
          * 表单字段节点
          */
@@ -34,13 +24,17 @@ export default (store) => {
         /**
          * 下单接口
          */
-        validate(state) {
+        validate(state, store) {
             if (!state.amount) {
                 message.error(UPEX.lang.template('请填写充值金额'));
                 return false;
             }
             if (state.amount < 500) {
                 message.error(UPEX.lang.template('最小充值金额为500'));
+                return false;
+            }
+            if (state.amount >  store.rechargeDayLimit) {
+                message.error(UPEX.lang.template('充值金额大于单日最大提现限额'));
                 return false;
             }
             return true;
