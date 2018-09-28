@@ -29,7 +29,8 @@ export default (store) => {
                 message.error(UPEX.lang.template('请填写充值金额'));
                 return false;
             }
-            if (state.amount < 500) {
+            // 500
+            if (state.amount < 14) {
                 message.error(UPEX.lang.template('最小充值金额为500'));
                 return false;
             }
@@ -45,7 +46,7 @@ export default (store) => {
          */
         getOrderInfo(data) {
             // TODO: 需要一个ReturnUrl
-            const url = 'https://www.baidu.com/'
+            const url = 'https://stage.ace.io/home'
             return orderFiatRecharge({
                 prodId: '111',
                 accountCode: '222',
@@ -88,9 +89,9 @@ export default (store) => {
                     nodeForm = this.initForm(); // 初始化表单
                 }
                 // 测试
-                nodeForm.attr('action', 'https://ccore.spgateway.com/API/gateway/webatm');
+                // nodeForm.attr('action', 'https://ccore.spgateway.com/API/gateway/webatm');
                 // 生产
-                // nodeForm.attr('action', 'https://core.spgateway.com/API/gateway/webatm');
+                nodeForm.attr('action', 'https://core.spgateway.com/API/gateway/webatm');
                 nodeForm.attr('method', 'post'); // POST提交
                 nodeForm.attr('target', newWindow === true ? "_blank" : typeof newWindow == "string" ? newWindow : "_self") // 是否打开新窗口
                 // 填充表单
