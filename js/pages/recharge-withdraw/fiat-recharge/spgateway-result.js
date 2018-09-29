@@ -57,7 +57,7 @@ class View extends Component {
                 },
                 {
                     label: UPEX.lang.template('转出银行卡'),
-                    text: state.cardNum
+                    text: state.PayerAccount5Code ? `*******${state.PayerAccount5Code}` : ''
                 }
             ];
         } else {
