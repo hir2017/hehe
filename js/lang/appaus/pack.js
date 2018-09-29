@@ -403,7 +403,7 @@ module.exports={
         "卖出价": "Selling price",
         "卖出量": "Selling quantity",
         "历史委托": "Order history",
-        "原因：{reason}": "Reason",
+        "原因：{reason}": "Reason：{reason}",
         "原手机短信确认码": "SMS verification code of original mobile",
         "原手机短信验证码": "SMS code on OLD mobile",
         "去完成身份认证": "Please complete your ID verification.",
