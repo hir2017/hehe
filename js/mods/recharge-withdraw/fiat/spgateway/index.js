@@ -167,7 +167,6 @@ class View extends Component {
                 <FormItem>
                     <div className="bottom-tips" dangerouslySetInnerHTML={{ __html: UPEX.lang.template('使用智付通支付操作温馨提示,如果您选择了AT...') }} />
                 </FormItem>
-                <iframe id="form-post" name="target" src="https://ccore.spgateway.com/API/gateway/webatm" style={{display: 'none'}} frameBorder="0"></iframe>
             </FormView>
         );
     }

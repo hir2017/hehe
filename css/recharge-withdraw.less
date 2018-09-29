@@ -118,6 +118,29 @@
             color: @text-red-color01;
         }
     }
+    .recharge-result {
+        .table-wrapper tr td:first-child {
+            width: 33%;
+        }
+        .table-wrapper tr:last-child {
+            color: @text-red-color01;
+        }
+        .exc-form-item.desc-text {
+            text-align: center;
+            font-size: 24px;
+            padding-top: 50px;
+            background: ~'url(../images/icon-close.png)' center 0 no-repeat;
+            background-size: 48px;
+        }
+        &.success {
+            .table-wrapper tr:last-child {
+                color: @text-color01-light;
+            }
+            .exc-form-item.desc-text {
+                background-image: ~'url(../images/icon-checked.png)';
+            }
+        }
+    }
 }
 
 .ant-modal-wrap.exc-modal-alert {

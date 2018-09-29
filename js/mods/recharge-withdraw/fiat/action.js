@@ -35,7 +35,7 @@ export default (store) => {
                 return false;
             }
             if (state.amount >  store.rechargeDayLimit) {
-                message.error(UPEX.lang.template('充值金额大于单日最大提现限额'));
+                message.error(UPEX.lang.template('充值金额大于单日最大充值限额'));
                 return false;
             }
             return true;
@@ -46,7 +46,6 @@ export default (store) => {
          */
         getOrderInfo(data) {
             // TODO: 需要一个ReturnUrl
-            const url = 'https://stage.ace.io/home'
             return orderFiatRecharge({
                 prodId: '111',
                 accountCode: '222',
@@ -54,11 +53,11 @@ export default (store) => {
                 payType: data.typeKey,
                 bankType: data.bankKey,
                 amount: data.amount,
-                returnURL: encodeURI(url)
+                returnURL: ''
             }).then(data => {
                 let temp = {};
                 if (data.status == 200) {
-                    temp = data.attachment || '{}';
+                    temp = data.attachment.formData || '{}';
                     try {
                         temp = JSON.parse(temp)
                     } catch (error) {
@@ -70,7 +69,10 @@ export default (store) => {
                 // 错误统一由后端处理
                 let status = data.status;
                 return {
-                    attachment: temp,
+                    attachment: {
+                        ...temp,
+                        url: data.attachment.url
+                    },
                     status
                 }
             })
@@ -80,8 +82,12 @@ export default (store) => {
          * @param data {Object} 表单数据
          * @param newWindow {Boolean}/{String} 是否打开新窗口（可选，默认：true，同时支持"_blank, _top, _self"）
          */
-        submitOrder(data, newWindow = true) {
-            if (data) {
+        submitOrder(formData, newWindow = true) {
+            if (formData) {
+                let data = {
+                    MerchantID_: formData.MerchantID_,
+                    PostData_: formData.PostData_,
+                };
                 let nodeForm = this.nodeForm,
                     fields, node, i;
 
@@ -89,9 +95,7 @@ export default (store) => {
                     nodeForm = this.initForm(); // 初始化表单
                 }
                 // 测试
-                // nodeForm.attr('action', 'https://ccore.spgateway.com/API/gateway/webatm');
-                // 生产
-                nodeForm.attr('action', 'https://core.spgateway.com/API/gateway/webatm');
+                nodeForm.attr('action', formData.url);
                 nodeForm.attr('method', 'post'); // POST提交
                 nodeForm.attr('target', newWindow === true ? "_blank" : typeof newWindow == "string" ? newWindow : "_self") // 是否打开新窗口
                 // 填充表单

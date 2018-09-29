@@ -48,11 +48,11 @@ class View extends Component {
         }
         // webATM
         if (action === 'web-success') {
-            console.log(formData);
             this.action.submitOrder({
                 MerchantID_: formData.MerchantID_,
-                PostData_: formData.PostData_
-            });
+                PostData_: formData.PostData_,
+                url: formData.url,
+            }, false);
             this.setState({
                 isVisible: true
             });
