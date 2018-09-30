@@ -623,6 +623,7 @@ module.exports={
         "最佳买价": "Market trade",
         "最佳卖价": "Best selling price",
         "最后登录时间": "Last login",
+        "最小充值金额为500": "deposit minimum",
         "最小提币数量为{count}": "Minimum withdrwal amount is {count}",
         "最新价": "Last Price",
         "最近登录信息": "Login History",
