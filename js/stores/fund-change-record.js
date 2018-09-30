@@ -21,7 +21,7 @@ class FundChangeRecordStore {
     };
 
     getStatusMap(type) {
-        return type === 'aus' ? {
+        let ausStatusMap =  {
             withdraw: {
                 '0': UPEX.lang.template('审核中'),
                 '1': UPEX.lang.template('已放款'),
@@ -38,7 +38,8 @@ class FundChangeRecordStore {
                 '3': UPEX.lang.template('充值失败'),
                 '4': UPEX.lang.template('充值取消'),
             }
-        } : {
+        };
+        let statusMap = {
             withdraw: {
                 '0': UPEX.lang.template('审核中'),
                 '1': UPEX.lang.template('已放款'),
@@ -53,8 +54,14 @@ class FundChangeRecordStore {
             recharge: {
                 '1': UPEX.lang.template('充值成功'),
                 '3': UPEX.lang.template('充值失败'),
+                '10': UPEX.lang.template('充值失败'),
+                '11': UPEX.lang.template('已退款'),
+                '12': UPEX.lang.template('退款失败'),
+                '13': UPEX.lang.template('待退款'),
+                '14': UPEX.lang.template('退款资料已补充'),
             }
         }
+        return type === 'aus' ? ausStatusMap : statusMap;
     }
 
     ausPayMap = {
@@ -124,7 +131,8 @@ class FundChangeRecordStore {
         arr.forEach((item, index) => {
             item._type = item.type === 1 ? 'recharge' : 'withdraw';
             const tempMap = statusMap[item._type];
-            item._status = tempMap[item.status] || UPEX.lang.template('未知');
+            // item._status = tempMap[item.status] || UPEX.lang.template('未知');
+            item._status = tempMap[item.status] || '--';
             item._actionName = `${UPEX.lang.template('银行卡')}${item.type === 1 ? UPEX.lang.template('充值') : UPEX.lang.template('提现')}`;
             item._payMethod = item.type === 1 ? item.openBank : UPEX.lang.template('法币账户');
             if(item.status === 6 && item._type === 'withdraw') {
