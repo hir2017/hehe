@@ -30,7 +30,7 @@ export default (store) => {
                 return false;
             }
             // 500
-            if (state.amount < 14) {
+            if (state.amount < 500) {
                 message.error(UPEX.lang.template('最小充值金额为500'));
                 return false;
             }
@@ -57,7 +57,7 @@ export default (store) => {
             }).then(data => {
                 let temp = {};
                 if (data.status == 200) {
-                    temp = data.attachment.formData || '{}';
+                    temp = data.attachment || '{}';
                     try {
                         temp = JSON.parse(temp)
                     } catch (error) {
@@ -69,10 +69,7 @@ export default (store) => {
                 // 错误统一由后端处理
                 let status = data.status;
                 return {
-                    attachment: {
-                        ...temp,
-                        url: data.attachment.url
-                    },
+                    attachment: temp,
                     status
                 }
             })
