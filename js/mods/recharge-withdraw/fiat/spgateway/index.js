@@ -22,6 +22,7 @@ class View extends Component {
             amount: 0,
             bank: '1',
             fee: 13,
+            amountLowLimit: 14,
             disabled: false
         };
         this.bankList = [
@@ -67,7 +68,7 @@ class View extends Component {
     }
 
     componentDidMount() {
-
+        // 调接口获取最小充值金额
     }
 
     setVal(name, e) {

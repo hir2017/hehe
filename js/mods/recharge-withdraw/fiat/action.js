@@ -30,8 +30,8 @@ export default (store) => {
                 return false;
             }
             // 500
-            if (state.amount < 500) {
-                message.error(UPEX.lang.template('最小充值金额为500'));
+            if (state.amount < state.amountLowLimit) {
+                message.error(UPEX.lang.template('最小充值金额为 {num}', {num: state.amountLowLimit}));
                 return false;
             }
             if (state.amount >  store.rechargeDayLimit) {
