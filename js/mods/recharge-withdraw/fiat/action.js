@@ -30,7 +30,7 @@ export default (store) => {
                 return false;
             }
             // 500
-            if (state.amount < 14) {
+            if (state.amount < 500) {
                 message.error(UPEX.lang.template('最小充值金额为500'));
                 return false;
             }
