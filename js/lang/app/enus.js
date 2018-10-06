@@ -366,7 +366,7 @@ module.exports={
     "勾选选项表示您同意我们的用户条款和隐私条款": "By ticking this box, you agree to our <a href=\"{href1}\" target=\"_blank\"> ,AML and security authentication terms</a>",
     "卖出": "Sell",
     "历史委托": "Order history",
-    "原因：{reason}": "Reason",
+    "原因：{reason}": "Reason：{reason}",
     "原手机短信确认码": "SMS verification code of original mobile",
     "去绑定手机": "Proceed to bind your mobile.",
     "去网上银行充值": "Online Deposit",
