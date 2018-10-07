@@ -63,8 +63,17 @@ class UserPage extends Component {
                     }
                 ]
             },
+            {
+                title: UPEX.lang.template('活动'),
+                subItems: [{
+                    active: 'invite-home',
+                    route: '/activity/invite-home',
+                    text: UPEX.lang.template('邀请返佣')
+                }]
+            }
 
         ];
+
         if(UPEX.config.version === 'infinitex') {
             navData[0].subItems.pop();
         }
@@ -88,7 +97,15 @@ class UserPage extends Component {
     }
 
     activeMenu(url) {
-        if (new RegExp(`${url}$`).test(this.props.router.location.pathname)) {
+        let pathname;
+        
+        if (this.props.router && this.props.router.location) {
+            pathname = this.props.router.location.pathname;
+        } else {
+            pathname = this.props.pathname;
+        }
+        
+        if (new RegExp(`${url}$`).test(pathname)) {
             return 'active-item';
         } else {
             return '';

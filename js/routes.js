@@ -56,7 +56,6 @@ import EmailSuccess from './mods/binding-email/success'
 import PhoneSuccess from './mods/binding-phone/success'
 import forgetTradePwd from './mods/password-setting/forget-trade-pwd'
 
-
 const Home = (location, cb)=>{
     require.ensure([], require=>{
         cb(null, require('./pages/home').default);
@@ -75,6 +74,11 @@ const Assets = (location, cb)=>{
     }, 'assets');
 };
 
+const Invite = (location, cb)=>{
+	require.ensure([], require=>{
+        cb(null, require('./pages/activity/invite/index').default);
+    }, 'invite');
+}
 
 const routes = (
     <Route>
@@ -133,6 +137,10 @@ const routes = (
 			<Route path="news" component={News}>
                 <IndexRoute component={NewsList}/>
                 <Route path="detail/:id" component={NewsDetail} />
+            </Route>
+            <Route path="activity">
+            	<IndexRoute getComponent={Invite}/>
+            	<Route path="invite(-:type)" getComponent={Invite}/>
             </Route>
             <Route path="login" component={Login} />
 			<Route path="register" component={Register} />

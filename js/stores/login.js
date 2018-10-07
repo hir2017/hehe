@@ -56,7 +56,7 @@ class LoginInfoBaseStore {
         this.twicepwd = ''; // 确认密码
         this.vercode = ''; // 邮箱验证码或者短信验证码
         this.phonecode = ''; // 手机验证码
-        this.inviteId = ''; // 邀请码
+        // this.inviteId = ''; // 邀请码
         this.agree = false; // 同意协议
         this.googlecode = ''; // 谷歌验证码
         this.disabledCodeBtn = false; // 禁用发送验证码按钮
