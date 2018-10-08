@@ -1088,3 +1088,31 @@ export function getUserAuthInfo(info) {
     return axios.post('/user/userAuthInfo', {})
 }
 
+<<<<<<< HEAD
+=======
+/**
+ * ------------- 邀请活动-----------------
+ */
+/**
+ * 根据邀请码获取邀请者昵称等信息
+ */
+export function getInviterInfoByCode(code){
+    return axios.post('http://www.mocky.io/v2/5bb8aba43000005500f93c0a', qs.stringify({
+        inviteCode: code
+    }))
+}
+
+/**
+ * 获取邀请top3排榜榜信息
+ */
+export function getInviteTopList(){
+    return axios.post('http://www.mocky.io/v2/5bb9c1a631000013003ed9a3');
+}
+
+/**
+ * 获取用户信息
+ */
+export function getInviteUserInfo(){
+    return axios.post('http://www.mocky.io/v2/5bb9c1fb3100006b003ed9a5');
+}
+>>>>>>> origin/daily/2.0.3

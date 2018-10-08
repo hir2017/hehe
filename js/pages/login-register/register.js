@@ -13,6 +13,7 @@ import { Link, browserHistory } from 'react-router';
 import toAction from './action';
 import { TabView, AreaCodeSelectView , SMSCodeView } from './views';
 import YidunCaptcha  from '../../mods/yidun-captcha';
+import UrlUtil from '../../lib/url';
 
 @inject('loginStore')
 @observer
@@ -43,6 +44,14 @@ class Register extends Component {
         this.yidunCaptcha.init((validate, captchaId)=>{
             this.action.sendVercode('register', validate, captchaId);
         })
+
+        this.updateInviteCode();
+    }
+
+    updateInviteCode() {
+        let inviteCode = UrlUtil.query('invite_code') || '';
+
+        this.props.loginStore.setInviteCode(inviteCode);
     }
 
     componentWillUnmount() {
@@ -242,7 +251,7 @@ class Register extends Component {
                                     ) : null
                                 }
                             </div>
-                            <div className="input-wrapper hidden">
+                            <div className="input-wrapper">
                                 <div className="input-box">
                                     <input
                                         type="text"

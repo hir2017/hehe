@@ -12,6 +12,7 @@ import {  Link , browserHistory } from 'react-router';
 import toAction from './action';
 import { TabView , AreaCodeSelectView, SMSCodeView } from './views';
 import YidunCaptcha  from '../../mods/yidun-captcha';
+import UrlUtil from '../../lib/url';
 
 @inject('loginStore', 'tradeStore')
 @observer
@@ -113,7 +114,15 @@ class Login extends Component {
     }
 
     handleLoginSuccess(result) {
-        browserHistory.push('/webtrade');
+        let backUrl = UrlUtil.query('backUrl');
+
+        if (backUrl) {
+            browserHistory.push(backUrl);
+            return;
+        } else {
+            browserHistory.push('/webtrade');    
+        }
+        
 
         if (result.authLevel == 0) {
             /*

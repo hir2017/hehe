@@ -362,9 +362,13 @@ module.exports={
     "充币记录": "Deposit record",
     "充提币记录": "Crypto currency records",
     "免责声明": "Disclaimer",
+<<<<<<< HEAD
     "免费声明": "Disclaimer",
     "入账金额": "Receive Amount",
     "入账金额: {count1} = {count2}": "Receive Amount：{count1} = {count2}",
+=======
+    "入账金额": "Receive Amount",
+>>>>>>> origin/daily/2.0.3
     "全屏": "Full screen",
     "全部": "All",
     "全部成交": "Not Filled",
@@ -881,7 +885,10 @@ module.exports={
     "请选择职业": "Please select your occupation",
     "请选择证件类型": "Please select your ID type",
     "请通过BPAY向如下账号进行汇款来完成充值:": "Please transfer to the following account with Bpay to complete the deposit",
+<<<<<<< HEAD
     "请通过银行转账方式向如下账号进行汇款来完成充值:": "Please pay via bank transfer into the below account:",
+=======
+>>>>>>> origin/daily/2.0.3
     "请重新提交审核申请": "Please resubmit your application for review.",
     "账号": "Account",
     "账号或密码输入有误": "Account number or password entered is incorrect",
