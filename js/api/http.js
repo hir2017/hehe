@@ -1088,8 +1088,6 @@ export function getUserAuthInfo(info) {
     return axios.post('/user/userAuthInfo', {})
 }
 
-<<<<<<< HEAD
-=======
 /**
  * ------------- 邀请活动-----------------
  */
@@ -1115,4 +1113,3 @@ export function getInviteTopList(){
 export function getInviteUserInfo(){
     return axios.post('http://www.mocky.io/v2/5bb9c1fb3100006b003ed9a5');
 }
->>>>>>> origin/daily/2.0.3
