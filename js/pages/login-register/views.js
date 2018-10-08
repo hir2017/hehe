@@ -40,6 +40,11 @@ export class AreaCodeSelectView extends Component  {
         super(props);
     }
 
+    filterOption = (input, option) => {
+        let arr = option.props.children || [];
+        return arr.join('').indexOf(input) !== -1;
+    }
+
     render(){
         const {props} = this;
         let { defaultValue, onChange } = props;
@@ -54,9 +59,9 @@ export class AreaCodeSelectView extends Component  {
         });
 
         return (
-            <div className="input-wrapper" ref="box">
+            <div className="input-wrapper area-code" ref="box">
                 <div className="input-box">
-                    <Select onChange={onChange} defaultValue={defaultValue} dropdownClassName="country-select-menu">
+                    <Select showSearch filterOption={this.filterOption} onChange={onChange} defaultValue={defaultValue} dropdownClassName="country-select-menu">
                         {options}
                     </Select>
                 </div>

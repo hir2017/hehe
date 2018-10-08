@@ -128,6 +128,12 @@
         &[data-type="focus"] .warn{
             display: none;
         }
+        &.area-code {
+            & .ant-select-selection {
+                border-color: transparent;
+                box-shadow: 0 0 0 2px transparent;
+            }
+        }
     }
     .icon-delete{
         position: absolute;
@@ -385,7 +391,7 @@
         text-decoration: none;
         color: @text-color01;
     }
-    .ant-select-dropdown-menu-item-selected, 
+    .ant-select-dropdown-menu-item-selected,
     .ant-select-dropdown-menu-item-selected:hover{
         color: @text-yellow-color !important;
         background-color: @bg-pop-color;

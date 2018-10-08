@@ -4,7 +4,7 @@ import '../css/exc-style/index.less';
 import '../css/home.less';
 import '../css/login-register.less';
 import '../css/trade.less';
-import '../css/user.css';
+import '../css/user.less';
 import '../css/news.css';
 import '../css/account.css';
 import '../css/order.less';
@@ -23,7 +23,7 @@ import Url from './lib/url';
 import LangPack from './lang/app/pack.js';
 window.LangPack = LangPack;
 
-import './config';  
+import './config';
 import './global';
 import routes from './routes';
 import RootStore from './stores/index';

@@ -4,7 +4,7 @@ import '../css/exc-style/index.less';
 import '../css/home.less';
 import '../css/login-register.less';
 import '../css/trade.less';
-import '../css/user.css';
+import '../css/user.less';
 import '../css/news.css';
 import '../css/account.css';
 import '../css/order.less';
