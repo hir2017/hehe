@@ -1113,3 +1113,24 @@ export function getInviteTopList(){
 export function getInviteUserInfo(){
     return axios.post('http://www.mocky.io/v2/5bb9c1fb3100006b003ed9a5');
 }
+
+/**
+ * 我的返佣资产列表
+ */
+export function getInviteAssets(data){
+    return  axios.post('http://www.mocky.io/v2/5bbc3ce5320000630027eaff', qs.stringify({
+        ...data
+    }));
+}
+/**
+ * 返佣记录
+ */
+export function getInviteCommissionList(){
+    return axios.post('');
+}
+/**
+ * 邀请明细
+ */
+export function getInvitationList(){
+    return axios.post('');
+}
