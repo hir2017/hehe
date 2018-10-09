@@ -35,8 +35,8 @@ export default class extends Component {
 
     get24Kline=()=>{
         getTradeKline({
-            symbol: this.props.pair, 
-            interval: 60, 
+            symbol: this.props.pair,
+            interval: 60,
             limit: 24
         }).then((res)=>{
             let hours24TrendList = [];
@@ -83,10 +83,10 @@ export default class extends Component {
                     } else {
                         price = data.value;
                     }
-                    
+
                     return [
-                        `时间：${data.name}`,
-                        `价格：${UPEX.config.baseCurrencySymbol}${price}`
+                        `${UPEX.lang.template('时间')}：${data.name}`,
+                        `${UPEX.lang.template('价格')}：${UPEX.config.baseCurrencySymbol}${price}`
                     ].join('<br/>')
                 },
                 extraCssText: "font-size: 12px;"
@@ -104,7 +104,7 @@ export default class extends Component {
                 boundaryGap: false,
                 data: hours24TrendList.map((item) => {
                     return DateUtil.formatDate(item.currentTime, 'HH:mm');
-                }), 
+                }),
                 axisLine: {
                     lineStyle: {
                         color: '#c1c5c8',
@@ -124,7 +124,7 @@ export default class extends Component {
             series: [{
                 data: hours24TrendList.map((item) => {
                     return item.current;
-                }), 
+                }),
                 type: 'line',
                 itemStyle: {
                     color: '#e8b802'
