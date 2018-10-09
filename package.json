@@ -24,6 +24,7 @@
     "mobx-react": "^5.0.0",
     "moment": "^2.22.1",
     "number-precision": "^1.2.0",
+    "qrcode": "^1.3.0",
     "qs": "^6.4.0",
     "react": "^0.14.9",
     "react-dom": "^0.14.9",
@@ -92,11 +93,9 @@
   "scripts": {
     "dev": "sudo webpack-dev-server",
     "product": "NODE_ENV=product webpack -p",
-
     "restart": "pm2 restart server-aus.js --name='upexchange-front'  -o ./logs/out.log -e ./logs/error.log",
     "start": "pm2 start server-aus.js  -o ./logs/out.log -e ./logs/error.log ",
     "stop": "pm2 stop server-aus.js",
-
     "restart-ace": "pm2 restart server.js --name='upexchange-acefront'  -o ./logs/out.log -e ./logs/error.log",
     "start-ace": "pm2 start server.js  -o ./logs/out.log -e ./logs/error.log ",
     "stop-ace": "pm2 stop server.js"
