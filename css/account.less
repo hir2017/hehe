@@ -1,0 +1,320 @@
+@import './variable.less';
+
+.account-wrapper {
+    width: 1200px;
+    margin: 0 auto 50px;
+    min-height: 640px;
+    color: #999999;
+    font-size: 14px;
+}
+
+.account-hd {
+    margin-top: 30px;
+    border-radius: 10px;
+    background-color: #fff;
+}
+
+.account-title {
+    height: 60px;
+    line-height: 60px;
+    border-bottom: 1px solid #f4f4f4;
+    padding: 0 20px;
+    h2 {
+        font-size: 18px;
+        color: #333333;
+        float: left;
+    }
+}
+
+.account-count {
+    float: right;
+    label {
+        display: inline-block;
+        vertical-align: middle;
+        padding: 0 3px;
+    }
+    em {
+        display: inline-block;
+        vertical-align: middle;
+        padding: 0 3px;
+    }
+}
+
+.account-amount {
+    float: left;
+    width: 600px;
+    border-right: 1px solid #f4f4f4;
+    .amount-hd {
+        padding-left: 20px;
+        padding-top: 12px;
+        .switch {
+            color: #cc9900;
+            font-size: 14px;
+            font-style: normal;
+            display: inline-block;
+            padding: 5px;
+            cursor: pointer;
+            &:hover {
+                text-decoration-line: underline;
+            }
+        }
+    }
+    .amount-bd {
+        color: #333333;
+        height: 58px;
+        padding-left: 20px;
+        .amount {
+            float: left;
+            /* width: 240px; */
+            margin-right: 21px;
+            line-height: 50px;
+        }
+        label {
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 10px;
+            font-size: 16px;
+        }
+        em {
+            display: inline-block;
+            vertical-align: middle;
+            font-size: 26px;
+            .unit {
+                display: inline-block;
+                padding-right: 13px;
+            }
+        }
+        .actions {
+            float: left;
+        }
+        .btn {
+            border: 0 none;
+            min-width: 60px;
+            height: 24px;
+            line-height: 22px;
+            border-radius: 2px;
+            font-size: 12px;
+            text-align: center;
+            margin-right: 10px;
+            margin-top: 13px;
+        }
+        .recharge-btn {
+            background: #e8b802;
+            color: #333333;
+            border: 1px solid #e8b802;
+            &:hover {
+                background: #ffdc57;
+                border-color: #ffdc57;
+            }
+        }
+        .withdraw-btn {
+            background: none;
+            color: #333;
+            border: 1px solid #999999;
+            &:hover {
+                background: #e8b802;
+                border-color: #e8b802;
+            }
+        }
+    }
+    .amount-ft {
+        border-top: 1px solid #f4f4f4;
+        height: 50px;
+        line-height: 50px;
+        li {
+            width: 50%;
+            float: left;
+            label {
+                display: inline-block;
+                vertical-align: middle;
+                margin-right: 10px;
+                padding-left: 20px;
+            }
+            em {
+                display: inline-block;
+                vertical-align: middle;
+            }
+            &:first-child {
+                border-right: 1px solid #f4f4f4;
+            }
+        }
+    }
+    .btn {
+        & a,
+        & a:hover {
+            color: #fff;
+        }
+    }
+}
+
+.account-record {
+    float: right;
+    text-align: center;
+    width: 600px;
+    .btn {
+        display: inline-block;
+        margin-right: 60px;
+        min-width: 160px;
+        height: 40px;
+        text-align: center;
+        line-height: 40px;
+        border-radius: 3px;
+        border: 1px solid #ccc;
+        color: #333;
+        padding: 0 5px;
+        margin-top: 55px;
+        background: none;
+        &:nth-child(2) {
+            margin-right: 0;
+        }
+        i {
+            display: inline-block;
+            vertical-align: middle;
+            width: 18px;
+            height: 18px;
+            margin: 0 3px;
+            background: url('../images/icon-record.png') no-repeat center center;
+            background-size: 100% 100%;
+        }
+    }
+}
+
+/**
+ * 列表
+ */
+
+.account-bd {
+    margin-top: 30px;
+    min-height: 240px;
+    border-radius: 10px;
+    background-color: #fff;
+    padding: 0 0 20px;
+}
+
+.account-filter-box {
+    height: 60px;
+    margin-bottom: 10px;
+    overflow: hidden;
+    border-bottom: 1px solid #f4f4f4;
+    .filter-radio {
+        float: left;
+        height: 60px;
+        line-height: 60px;
+        margin-left: 20px;
+        color: #333333;
+    }
+    .filter-input {
+        float: right;
+        margin-top: 14px;
+        margin-right: 20px;
+    }
+}
+
+.account-bd .account-result-list {
+    margin: 0 20px;
+    .mini-tip {
+        margin-top: 100px;
+        text-align: center;
+        color: #ccc;
+    }
+    li {
+        border-bottom: 1px solid #f4f4f4;
+        height: 60px;
+        line-height: 60px;
+        font-size: 14px;
+        dd {
+            display: inline-block;
+            vertical-align: middle;
+            line-height: 24px;
+            padding: 10px 0;
+            color: #333333;
+            font-size: 14px;
+        }
+    }
+    .table-hd {
+        li dd {
+            color: #999;
+        }
+        .name {
+            padding-left: 14px;
+        }
+        .actions {
+            padding-right: 13px;
+        }
+    }
+    .table-bd {
+        position: relative;
+        min-height: 300px;
+        li:hover {
+            background: #f8f8f8;
+        }
+    }
+    .name {
+        width: 100px;
+        text-align: left;
+        padding-left: 10px;
+        box-sizing: border-box;
+        img {
+            display: inline-block;
+            vertical-align: middle;
+            width: 23px;
+            height: 23px;
+            margin: 0 4px;
+            background: url('../images/coin-default.png') no-repeat center center;
+            background-size: 100% 100%;
+        }
+        span {
+            display: inline-block;
+            vertical-align: middle;
+        }
+    }
+    & .total,
+    & .balance,
+    & .freeze,
+    & .value,
+    & .actions {
+        width: 212px;
+        text-align: right;
+    }
+    .actions {
+        box-sizing: border-box;
+        padding-right: 10px;
+        button {
+            border: 0 none;
+            background: none;
+            color: #cc9900;
+            padding: 0 3px;
+            &:disabled {
+                color: @text-color04-light;
+                cursor: not-allowed;
+            }
+        }
+        .split {
+            height: 10px;
+            width: 1px;
+            background-color: #cccccc;
+            display: inline-block;
+            vertical-align: middle;
+            margin: 0 3px;
+            text-indent: 9999px;
+        }
+    }
+}
+
+
+.input-coin-account {
+    position: relative;
+    .amount-input {
+        position: relative;
+        z-index: 12;
+        background-color: transparent;
+    }
+}
+
+.ie11-placeholder-hack {
+    position: absolute;
+    z-index: 10;
+    line-height: 30px;
+    font-size: 18px;
+    color: #ccc;
+}
