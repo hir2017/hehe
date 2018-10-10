@@ -33,7 +33,8 @@ import {
     modifyFdPwd,
     updateBindBankCardStatus,
     deleteBindBankCardRecord,
-    sendMessageWithdraw
+    sendMessageWithdraw,
+    getUserActionLimit
 } from '../api/http';
 import { message } from 'antd';
 
@@ -89,6 +90,15 @@ class UserInfo {
         }
     };
 
+    // 用户行为限制状态 充提现 充提币交易
+    /**
+     * 'recharge' | 'withdraw' | 'recharge coin' | 'withdraw coin' | 'buy' | 'sell' | 'transfer'
+     *
+     * */
+    @observable
+    actionRoles = {
+    }
+
     constructor(stores) {
         this.captchaStore = stores.captchaStore;
     }
@@ -108,6 +118,25 @@ class UserInfo {
             message.error(res.message);
         }
     };
+
+    // 获取用户行为限制
+    @action
+    getActionLimit() {
+        return getUserActionLimit()
+            .then(res => {
+                runInAction(() => {
+                    if (res.status === 200) {
+                        this.actionRoles = res.attachment.actionRoles;
+                    }
+                    pickErrMsg(res, 'getActionLimit');
+                    return res;
+                });
+            })
+            .catch(err => {
+                console.error(err, 'getActionLimit');
+                return false;
+            });
+    }
 
     @action
     getUserInfo() {
@@ -827,7 +856,7 @@ class UserInfo {
                         message.success(UPEX.lang.template('修改成功'));
                     }
                 });
-                
+
                 return res;
             })
             .catch(e => {

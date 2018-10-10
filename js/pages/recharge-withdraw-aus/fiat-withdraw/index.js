@@ -10,7 +10,7 @@ import PageWrapper from '@/mods/common/wrapper/full-page';
 import NumberUtils from '@/lib/util/number';
 import FormView from '@/mods/common/form';
 import FormItem from '@/mods/common/form/item';
-
+import AuthWrapper from '@/mods/authhoc/recharge-withdraw';
 import Step1 from './step1';
 import Step2 from './step2';
 
@@ -43,6 +43,18 @@ class View extends React.Component {
             // 用户未发送手机验证码
             '13109': UPEX.lang.template('请点击获取手机验证码')
         };
+        this.pageInfo = {
+            title: UPEX.lang.template('账户提现'),
+            className: 'fiat-withdraw-aus header-shadow'
+        };
+
+        this.bottomTip = (
+            <FormView>
+                <FormItem>
+                    <div className="bottom-tips" dangerouslySetInnerHTML={{ __html: UPEX.lang.template('提现遇到了问题,我们只支持本人开户的银行卡提现...') }} />
+                </FormItem>
+            </FormView>
+        );
     }
 
     setVal(name, e) {
@@ -95,7 +107,7 @@ class View extends React.Component {
 
     next(step, data) {
         const { userInfoStore, authStore } = this.props;
-        const {userInfo} = userInfoStore
+        const { userInfo } = userInfoStore;
         if (step === 1) {
             this.setState({
                 step: 1,
@@ -140,98 +152,75 @@ class View extends React.Component {
         }
     }
 
+    step3Action(action) {
+        if (action === 'record') {
+            browserHistory.push('/account/fiatrecord');
+        }
+        if (action === 'reset') {
+            this.setState({
+                step: 1,
+                info: {}
+            });
+        }
+    }
+
     render() {
         const { state } = this;
         const userInfo = this.props.userInfoStore.userInfo || {};
 
-        if (state.loading) {
-            return (
-                <PageWrapper title={UPEX.lang.template('账户提现')} className="fiat-withdraw-aus">
-                    <FormView>
-                        <FormItem className="success-info">
-                            <p />
-                        </FormItem>
-                    </FormView>
-                </PageWrapper>
+        let $alert = null;
+        let $step = null;
+        let $bottomTip = null;
+        if ([1, 2].indexOf(state.step) !== -1) {
+            $alert = (
+                <Alert
+                    className="ace-form-tips"
+                    showIcon
+                    message={UPEX.lang.template('单日提现限额 {num1}', { num1: state.dayLimit }) + ' ' + UPEX.config.baseCurrencyEn}
+                    type="warning"
+                />
             );
         }
-        // 未未身份认证或设置资金密码
-        if (state.step === -1 || userInfo.isValidatePass !== 1) {
-            return (
-                <PageWrapper title={UPEX.lang.template('账户提现')} className="fiat-withdraw-aus">
+        switch (state.step) {
+            case 1:
+                $step = <Step1 init={state.info} perLimit={state.perLimit} next={this.next.bind(this)} />;
+                $bottomTip = this.bottomTip;
+                break;
+            case 2:
+                $step = <Step2 name={state.info.name} isGa={userInfo.isGoogleAuth} info={state.info} next={this.next.bind(this)} />;
+                $bottomTip = this.bottomTip;
+                break;
+            case 3:
+                $step = (
                     <FormView>
                         <FormItem className="success-info">
-                            <p />
+                            <p>{UPEX.lang.template('提现申请已提交')}</p>
+                            <p>{UPEX.lang.template('申请进度请通过资金记录查询')}</p>
                         </FormItem>
                         <FormItem className="success-opt">
-                            <Button
-                                className="submit-btn width-auto"
-                                onClick={e => {
-                                    browserHistory.push(state.step === -1 ? '/user/authentication' : '/user/set-trade-pwd');
-                                }}
-                            >
-                                {state.step === -1 ? UPEX.lang.template('去完成身份认证') : UPEX.lang.template('请先设置资金密码')}
+                            <Button className="link-btn ">{UPEX.lang.template('继续提现')}</Button>
+                            <Button className="submit-btn width-auto" onClick={this.step3Action.bind(this, 'record')}>
+                                {UPEX.lang.template('前往资金记录')}
+                            </Button>
+                            <Button className="link-btn " onClick={this.step3Action.bind(this, 'reset')}>
+                                {UPEX.lang.template('继续提现')}
                             </Button>
                         </FormItem>
                     </FormView>
-                </PageWrapper>
-            );
-        } else {
-            return (
-                <PageWrapper title={UPEX.lang.template('账户提现')} className="fiat-withdraw-aus header-shadow">
-                    {[1, 2].indexOf(state.step) !== -1 ? (
-                        <Alert
-                            className="ace-form-tips"
-                            showIcon
-                            message={UPEX.lang.template('单日提现限额 {num1}', { num1: state.dayLimit }) + ' ' + UPEX.config.baseCurrencyEn}
-                            type="warning"
-                        />
-                    ) : null}
-                    {state.step === 1 ? <Step1 init={state.info} perLimit={state.perLimit} next={this.next.bind(this)} /> : null}
-                    {state.step === 2 ? <Step2 name={state.info.name} isGa={userInfo.isGoogleAuth} info={state.info} next={this.next.bind(this)} /> : null}
-                    {state.step !== 3 && state.step !== -1 ? (
-                        <FormView>
-                            <FormItem>
-                                <div
-                                    className="bottom-tips"
-                                    dangerouslySetInnerHTML={{ __html: UPEX.lang.template('提现遇到了问题,我们只支持本人开户的银行卡提现...') }}
-                                />
-                            </FormItem>
-                        </FormView>
-                    ) : null}
-                    {state.step === 3 ? (
-                        <FormView>
-                            <FormItem className="success-info">
-                                <p>{UPEX.lang.template('提现申请已提交')}</p>
-                                <p>{UPEX.lang.template('申请进度请通过资金记录查询')}</p>
-                            </FormItem>
-                            <FormItem className="success-opt">
-                                <Button className="link-btn ">{UPEX.lang.template('继续提现')}</Button>
-                                <Button
-                                    className="submit-btn width-auto"
-                                    onClick={e => {
-                                        browserHistory.push('/account/fiatrecord');
-                                    }}
-                                >
-                                    {UPEX.lang.template('前往资金记录')}
-                                </Button>
-                                <Button
-                                    className="link-btn "
-                                    onClick={e => {
-                                        this.setState({
-                                            step: 1,
-                                            info: {}
-                                        });
-                                    }}
-                                >
-                                    {UPEX.lang.template('继续提现')}
-                                </Button>
-                            </FormItem>
-                        </FormView>
-                    ) : null}
-                </PageWrapper>
-            );
+                );
+                break;
+            default:
+                break;
         }
+        return (
+            <AuthWrapper pageInfo={this.pageInfo} name="withdraw">
+                <PageWrapper {...this.pageInfo}>
+                    {$alert}
+                    {$step}
+                    {$bottomTip}
+                </PageWrapper>
+            </AuthWrapper>
+        );
     }
 }
 

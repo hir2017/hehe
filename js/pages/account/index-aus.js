@@ -5,8 +5,8 @@
  */
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
-import List from './list';
-import Info from './info';
+import Info from '@/mods/account/account-info';
+import List from '@/mods/account/assets-list';
 import { Modal, Button } from 'antd';
 import { browserHistory } from 'react-router';
 import FormItem from '@/mods/common/form/item';
@@ -18,6 +18,7 @@ class AccountPage extends Component {
         let { commonStore } = this.props;
 
         commonStore.getAllCoinPoint();
+
     }
 
     render() {
@@ -49,6 +50,7 @@ class Account extends Component {
     componentDidMount() {
         let store = this.props.accountStore;
         store.getUserCoinAccount();
+        this.props.userInfoStore.getActionLimit();
     }
 
     render() {
