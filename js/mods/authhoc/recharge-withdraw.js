@@ -77,25 +77,27 @@ class View extends Component {
             );
         }
         // withdraw 检测交易密码
-        if (userInfo.isValidatePass !== 1) {
-            //  未设置交易密码
-            return (
-                <PageWrapper {...props.pageInfo}>
-                    <FormView>
-                        <div className="userauth-guide">
-                            <h4>{UPEX.lang.template('请您先设置资金密码，否则无法进行提币、提现操作')}</h4>
-                            <Button
-                                className="submit-btn"
-                                onClick={e => {
-                                    browserHistory.push('/user/set-trade-pwd');
-                                }}
-                            >
-                                {UPEX.lang.template('设置资金密码')}
-                            </Button>
-                        </div>
-                    </FormView>
-                </PageWrapper>
-            );
+        if(['withdraw', 'withdraw coin'].indexOf(props.name) !== -1) {
+            if (userInfo.isValidatePass !== 1) {
+                //  未设置交易密码
+                return (
+                    <PageWrapper {...props.pageInfo}>
+                        <FormView>
+                            <div className="userauth-guide">
+                                <h4>{UPEX.lang.template('请您先设置资金密码，否则无法进行提币、提现操作')}</h4>
+                                <Button
+                                    className="submit-btn"
+                                    onClick={e => {
+                                        browserHistory.push('/user/set-trade-pwd');
+                                    }}
+                                >
+                                    {UPEX.lang.template('设置资金密码')}
+                                </Button>
+                            </div>
+                        </FormView>
+                    </PageWrapper>
+                );
+            }
         }
 
         // 一切正常

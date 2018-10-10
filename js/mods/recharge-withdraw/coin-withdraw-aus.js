@@ -26,8 +26,10 @@ class WithdrawCoin extends Component {
             dayLimit: 0,
             smsCode: '',
             gaCode: '',
-            msgCode: ''
+            msgCode: '',
+            actionDisabled: false
         };
+        this.tipArr = [UPEX.lang.template('钱包维护中，暂停提币'), UPEX.lang.template('账号被限制提币，如有疑问请联系客服')];
         this.inputData = {
             smsCode: {
                 label: UPEX.lang.template('手机验证'),
@@ -56,9 +58,15 @@ class WithdrawCoin extends Component {
 
     componentDidMount() {
         let store = this.props.coinWithdrawStore;
+
         this.props.commonStore.getAllCoinPoint().then(() => {
-            this.fetchCoinList().then(() => {});
+            this.fetchCoinList();
+
         });
+
+        // 用户提币限制
+        this.actionRole = parseInt(this.props.userInfoStore.actionRoles['withdraw coin']);
+
         this.initCodeVerifyType();
         ausGetQuotaManagementInfo({
             actionId: 4,
@@ -103,7 +111,7 @@ class WithdrawCoin extends Component {
             if (!defaultCoin) {
                 defaultCoin = accountStore.originAccountData.coinList[0];
             }
-
+            this.checkCoinStatus(defaultCoin.currencyNameEn);
             this.action.initWithdrawCoin({
                 currencyId: defaultCoin.currencyId,
                 currencyNameEn: defaultCoin.currencyNameEn
@@ -111,6 +119,7 @@ class WithdrawCoin extends Component {
         });
     }
 
+    // 初始化验证码类型
     initCodeVerifyType() {
         let { userInfoStore } = this.props;
 
@@ -121,30 +130,48 @@ class WithdrawCoin extends Component {
         }
     }
 
+    checkCoinStatus(currencyNameEn) {
+        const coin = this.props.commonStore.getCoinInfo(currencyNameEn);
+        // 禁止提币， 币种限制|用户限制
+        if (coin.withdrawStatus !== 1 || this.actionRole !== 1) {
+            this.actionDisabledTip = this.actionRole !== 1 ? this.tipArr[0] : this.tipArr[1];
+            this.setState({
+                actionDisabled: true,
+            });
+            return false;
+        } else {
+            this.setState({
+                actionDisabled: false
+            });
+            return true;
+        }
+    }
+
     selectWithdrawCoin = value => {
-        this.action.initWithdrawCoin({
-            currencyId: value.key,
-            currencyNameEn: value.label
-        }).then(res => {
-            const {resp} = this.props.coinWithdrawStore.takeCoinInfo;
-            let item = resp.addressList.filter((item) => {
-                return item.currencyId === value.key;
+
+        this.checkCoinStatus(value.label);
+
+        this.action
+            .initWithdrawCoin({
+                currencyId: value.key,
+                currencyNameEn: value.label
             })
-            if(item.length > 0) {
-                this.setState({
-                    msgCode: item[0].msgCode
-                })
-            }
-
-        });
-
+            .then(res => {
+                const { resp } = this.props.coinWithdrawStore.takeCoinInfo;
+                let item = resp.addressList.filter(item => {
+                    return item.currencyId === value.key;
+                });
+                if (item.length > 0) {
+                    this.setState({
+                        msgCode: item[0].msgCode
+                    });
+                }
+            });
     };
 
     addressChange(address) {
         this.props.coinWithdrawStore.setAddress(address);
     }
-
-
 
     submit() {
         const { state, props } = this;
@@ -177,20 +204,18 @@ class WithdrawCoin extends Component {
             return;
         }
 
-
-
         let msgCode = '';
         const info = this.props.coinWithdrawStore.takeCoinInfo;
-        if(info.resp.needMsgCode === 1) {
+        if (info.resp.needMsgCode === 1) {
             msgCode = this.state.msgCode;
         }
         let actionResult = this.action.handleSubmit(state, msgCode);
-        if(actionResult !== null) {
+        if (actionResult !== null) {
             actionResult.then(() => {
                 this.props.coinWithdrawRecordStore.getData({
-                    start: 1,
+                    start: 1
                 });
-            })
+            });
         }
     }
 
@@ -208,49 +233,47 @@ class WithdrawCoin extends Component {
                 </Option>
             );
         });
+        let $content = null;
 
-        $addressOptions2 = store.addressList.map((cur, index) => {
-            return (
-                <AutoOption key={index} value={`${cur.address}`}>
-                    {cur.address}
-                </AutoOption>
-            );
-        });
+        if (state.actionDisabled) {
+            $content = (
+                <FormItem>
+                    <Alert
+                        message={
+                            <span className="warn-text">
+                                <Icon type="exclamation-circle" />
+                                {this.actionDisabledTip}
+                            </span>
+                        }
+                        type="error"
+                    />
+                </FormItem>
+            )
+        } else {
+            $addressOptions2 = store.addressList.map((cur, index) => {
+                return (
+                    <AutoOption key={index} value={`${cur.address}`}>
+                        {cur.address}
+                    </AutoOption>
+                );
+            });
 
-        let $afterNode = (
-            <AmountInfo
-                left={
-                    <p className="balance">
-                        {UPEX.lang.template('可用提币数量')} <br /> {store.cashAmount || 0} {store.currentCoin.currencyNameEn}
-                    </p>
-                }
-                right={
-                    <p className="balance">
-                        {UPEX.lang.template('实际到账金额')} <br /> <em>{store.withdrawValue}</em> {store.currentCoin.currencyNameEn}
-                    </p>
-                }
-            />
-        );
-        return (
-            <div>
-                <Alert
-                    className="ace-form-tips"
-                    type="info"
-                    showIcon
-                    message={
-                        UPEX.lang.template('单日数位资产提币额度为{num}', {
-                            num: state.dayLimit
-                        }) + UPEX.config.baseCurrencyEn
+            let $afterNode = (
+                <AmountInfo
+                    left={
+                        <p className="balance">
+                            {UPEX.lang.template('可用提币数量')} <br /> {store.cashAmount || 0} {store.currentCoin.currencyNameEn}
+                        </p>
                     }
-                    type="warning"
+                    right={
+                        <p className="balance">
+                            {UPEX.lang.template('实际到账金额')} <br /> <em>{store.withdrawValue}</em> {store.currentCoin.currencyNameEn}
+                        </p>
+                    }
                 />
-                <FormView>
-                    {store.isFetching ? <div className="mini-loading" /> : null}
-                    <FormItem label={UPEX.lang.template('选择币种')}>
-                        <Select labelInValue value={{ key: store.currentCoin.currencyNameEn }} onChange={this.selectWithdrawCoin}>
-                            {$options}
-                        </Select>
-                    </FormItem>
+            );
+            $content = (
+                <div>
                     <FormItem label={UPEX.lang.template('提币地址')}>
                         <AutoComplete
                             className="certain-address-search"
@@ -307,13 +330,38 @@ class WithdrawCoin extends Component {
                             {UPEX.lang.template('确认提币')}
                         </Button>
                     </FormItem>
+                </div>
+            );
+        }
+
+        return (
+            <div>
+                <Alert
+                    className="ace-form-tips"
+                    type="info"
+                    showIcon
+                    message={
+                        UPEX.lang.template('单日数位资产提币额度为{num}', {
+                            num: state.dayLimit
+                        }) + UPEX.config.baseCurrencyEn
+                    }
+                    type="warning"
+                />
+                <FormView>
+                    {store.isFetching ? <div className="mini-loading" /> : null}
+                    <FormItem label={UPEX.lang.template('选择币种')}>
+                        <Select labelInValue value={{ key: store.currentCoin.currencyNameEn }} onChange={this.selectWithdrawCoin}>
+                            {$options}
+                        </Select>
+                    </FormItem>
+                    {$content}
                     <FormItem>
                         <div className="bottom-tips">
                             <div className="warmprompt-title">{UPEX.lang.template('温馨提示')}</div>
                             <div
                                 className="warmprompt-content"
                                 dangerouslySetInnerHTML={{
-                                    __html: UPEX.lang.template('提币温馨提示内容', {link: UPEX.config.docUrls.InfinitexDigitalCurrencyTransferAgreements})
+                                    __html: UPEX.lang.template('提币温馨提示内容', { link: UPEX.config.docUrls.InfinitexDigitalCurrencyTransferAgreements })
                                 }}
                             />
                         </div>
