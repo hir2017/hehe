@@ -73,6 +73,12 @@ class CommonStore {
     }
 
     @action
+    getCoinInfo(val, type = 'name') {
+        let field = type === 'name' ? 'coinsMap' : 'coinsMapId'
+        return this[field][val] || {};
+    }
+
+    @action
     getAllCoinPoint() {
         if (!isFirst) {
             return;
@@ -101,7 +107,7 @@ class CommonStore {
 
                 this.productDataReady = true;
             })
-
+            return data;
         }).catch(()=>{
             this.productDataReady = true;
         })
