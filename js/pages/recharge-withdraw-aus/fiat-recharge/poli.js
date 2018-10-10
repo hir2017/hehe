@@ -74,7 +74,12 @@ export default class extends React.Component {
             });
     }
 
-    showTip(e) {}
+    showTip(e) {
+        if(this.props.actionStatus === 2) {
+            message.error(UPEX.lang.template('当前币种暂停此操作'));
+            return;
+        }
+    }
     handleSubmit() {
         this.setState({
             loading: true,
@@ -124,7 +129,7 @@ export default class extends React.Component {
                     });
                 }
 
-                if (event.data === 'success') { 
+                if (event.data === 'success') {
                     this.setState({
                         loading: false,
                         visible: false,
@@ -142,15 +147,13 @@ export default class extends React.Component {
     render() {
         const { $max, state, inputData, $tip } = this;
         let poliDisable = 'not';
-        
-        if (state.amount === '') {
-            poliDisable = 'is';
-        }
-        
-        if (state.disable) {
-            poliDisable = 'is';
-        }
 
+        // 检测充值状态
+        inputData.inputProps.disabled = this.props.actionStatus === 2 ? true : false;
+
+        if (state.amount === '' || state.disable) {
+            poliDisable = 'is';
+        }
         return (
             <div>
                 <Modal
@@ -166,7 +169,6 @@ export default class extends React.Component {
                     <div className="poli-content">
                         {state.loading ? <div className="mini-loading" /> : null}
                         <iframe id="poli-win" width="100%" height="100%" onLoad={this.handleOpen.bind(this, 'load')} src={state.url} frameBorder="0" />
-                        {/* <iframe id="poli-win" width="100%" height="100%" onLoad={this.handleOpen.bind(this, 'load')} src="http://127.0.0.1/exc-aus-poli.html#/cancel" frameBorder="0" /> */}
                     </div>
                 </Modal>
                 <FormItem label={$max} value={state.amount} {...inputData} after={$tip} />

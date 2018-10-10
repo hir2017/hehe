@@ -3,7 +3,7 @@ import CountryMap, {Countries} from '../mods/select-country/country-list';
 import NumberUtil from '../lib/util/number';
 
 class LoginInfoBaseStore {
-    @observable mode = 'email'; // 注册方式，邮箱：email；手机：phone
+    @observable mode = 'phone'; // 注册方式，邮箱：email；手机：phone
     @observable email = ''; // 邮箱
     @observable phone = ''; // 手机
     @observable pwd = ''; // 密码
@@ -49,7 +49,7 @@ class LoginInfoBaseStore {
 
     @action
     reset() {
-        this.mode = 'email'; // 注册方式，邮箱：email；手机：phone
+        this.mode = 'phone'; // 注册方式，邮箱：email；手机：phone
         this.email = ''; // 邮箱
         this.phone = ''; // 手机
         this.pwd = ''; // 密码

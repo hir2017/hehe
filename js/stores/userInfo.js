@@ -129,8 +129,9 @@ class UserInfo {
                         this.actionRoles = res.attachment.actionRoles;
                     }
                     pickErrMsg(res, 'getActionLimit');
-                    return res;
+
                 });
+                return res;
             })
             .catch(err => {
                 console.error(err, 'getActionLimit');

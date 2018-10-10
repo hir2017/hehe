@@ -13,17 +13,18 @@ import Bpay from './bpay';
 import Poli from './poli';
 import AuthWrapper from '@/mods/authhoc/recharge-withdraw';
 
-@inject('commonStore', 'userInfoStore')
+@inject('userInfoStore')
 @observer
 class View extends Component {
     constructor(props) {
         super(props);
         this.state = {
             type: 'a',
-            Biller: 'Infinite Exchange Pty Ltd',
-            BillerCode: '288795',
+            Biller: '',
+            BillerCode: '',
             referenceNo: '',
             singleLimit: '2,000',
+            actionStatus: 0, // 充值行为限制  0:未获取 1:允许  2:禁止
             dayLimit: 0
         };
         this.pageInfo = {
@@ -32,11 +33,13 @@ class View extends Component {
         };
     }
 
-    componentWillMount() {
+    getPageInfo() {
         getBPAYreferenceNo().then(res => {
             if (res.status === 200) {
                 this.setState({
-                    referenceNo: res.attachment
+                    referenceNo: res.attachment,
+                    Biller: 'Infinite Exchange Pty Ltd',
+                    BillerCode: '288795',
                 });
             }
         });
@@ -55,6 +58,31 @@ class View extends Component {
             .catch(err => {
                 console.error('AusGetQuotaManagementInfo', err);
             });
+    }
+
+    componentDidMount() {
+        const store = this.props.userInfoStore;
+        store.getActionLimit().then(res => {
+            if(res.status !== 200) {
+                return ;
+            }
+            const {actionRoles} = store;
+            // 检测充值限制
+            if(parseInt(actionRoles.recharge) !== 1) {
+                this.setState({
+                    actionStatus: 2
+                });
+            } else {
+                this.setState({
+                    actionStatus: 1
+                });
+                this.getPageInfo();
+            }
+
+        }).catch(err => {
+            console.error('componentDidMount recharge aus', err)
+        })
+
     }
 
     render() {
