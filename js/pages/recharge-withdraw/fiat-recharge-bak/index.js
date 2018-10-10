@@ -49,30 +49,30 @@ class View extends Component {
                     type="warning"
                 />
             );
-            $switch = (
-                <FormView>
-                    <FormItem>
-                        <div className="exc-fiat-recharge-switch">
-                            <span
-                                className={`switch-item ${state.type === 'a' ? 'selected' : ''}`}
-                                onClick={e => {
-                                    this.setState({ type: 'a' });
-                                }}
-                            >
-                                {UPEX.lang.template('使用智付通支付')}
-                            </span>
-                            <span
-                                className={`switch-item ${state.type === 'b' ? 'selected' : ''}`}
-                                onClick={e => {
-                                    this.setState({ type: 'b' });
-                                }}
-                            >
-                                {UPEX.lang.template('使用银行转账')}
-                            </span>
-                        </div>
-                    </FormItem>
-                </FormView>
-            );
+            // $switch = (
+            //     <FormView>
+            //         <FormItem>
+            //             <div className="exc-fiat-recharge-switch">
+            //                 <span
+            //                     className={`switch-item ${state.type === 'a' ? 'selected' : ''}`}
+            //                     onClick={e => {
+            //                         this.setState({ type: 'a' });
+            //                     }}
+            //                 >
+            //                     {UPEX.lang.template('使用智付通支付')}
+            //                 </span>
+            //                 <span
+            //                     className={`switch-item ${state.type === 'b' ? 'selected' : ''}`}
+            //                     onClick={e => {
+            //                         this.setState({ type: 'b' });
+            //                     }}
+            //                 >
+            //                     {UPEX.lang.template('使用银行转账')}
+            //                 </span>
+            //             </div>
+            //         </FormItem>
+            //     </FormView>
+            // );
         }
         // $content = state.type === 'a' ? <Spgateway {...Props} /> : <BankCard {...Props} />;
         $content = <Spgateway {...Props} />;

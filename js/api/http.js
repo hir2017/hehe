@@ -302,7 +302,7 @@ export function getUserBankInfo() {
     获取CCNET 充值信息
 */
 export function getCCNET2Info() {
-    return axios.post('/pay/getVirtualAccount')
+    return axios.get('/pay/getVirtualAccount')
 }
 
 export function getUserBindCards() {
