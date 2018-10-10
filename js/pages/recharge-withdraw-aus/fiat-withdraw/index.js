@@ -25,15 +25,10 @@ class View extends React.Component {
             info: {},
             loading: true,
             dayLimit: 0,
-            perLimit: 0
+            perLimit: 0,
+            actionStatus: 0, // 提现行为限制  0:未获取 1:允许  2:禁止
         };
         this.errorMsgMap = {
-            // 查询发生异常
-            '13501': UPEX.lang.template('请求发送失败'),
-            // 参数验证失败
-            '13502': UPEX.lang.template('请填写完整提现信息'),
-            // 用户KYC等级不正确
-            '13503': UPEX.lang.template('用户身份认证未完成'),
             // 用户当日提现总额超过当日限制额度
             '13505': UPEX.lang.template('用户提现金额超过当日提现限制额度余额'),
             // 用户当日提现总额超过当月限制额度
@@ -64,28 +59,26 @@ class View extends React.Component {
     }
 
     componentDidMount() {
-        // 请求用户信息
-        this.props.userInfoStore
-            .getUserInfo()
-            .then(res => {
-                if (res.status === 200) {
-                    this.setState({
-                        step: [-1, 0, 1].indexOf(res.attachment.isAuthPrimary) !== -1 ? -1 : 1
-                    });
-                }
-            })
-            .catch(err => {
-                console.error(err, 'componentDidMount');
-                this.setState({
-                    step: 1
-                });
-            })
-            .then(data => {
-                this.setState({
-                    loading: false
-                });
+
+        const store = this.props.userInfoStore;
+        // 判断用户信息
+        store.getActionLimit().then(res => {
+            if(res.status !== 200) {
+                return ;
+            }
+            // 检测提现限制
+            this.setState({
+                actionStatus: parseInt(store.actionRoles.withdraw) !== 1 ? 2 : 1
             });
-        // 请求BPAY和银行账号信息
+        }).catch(err => {
+            console.error('componentDidMount withdraw aus', err);
+        }).then(res => {
+            this.setState({
+                step: 1,
+                loading: false
+            });
+        })
+        // kyc限额信息
         ausGetQuotaManagementInfo({
             actionId: 2,
             currencyId: 1
@@ -172,18 +165,24 @@ class View extends React.Component {
         let $step = null;
         let $bottomTip = null;
         if ([1, 2].indexOf(state.step) !== -1) {
+            let alertMsg = UPEX.lang.template('单日提现限额 {num1}', { num1: state.dayLimit }) + ' ' + UPEX.config.baseCurrencyEn;
+            if(state.actionStatus === 2) {
+                alertMsg = UPEX.lang.template('当前币种暂停此操作');
+            }
             $alert = (
                 <Alert
                     className="ace-form-tips"
                     showIcon
-                    message={UPEX.lang.template('单日提现限额 {num1}', { num1: state.dayLimit }) + ' ' + UPEX.config.baseCurrencyEn}
+                    message={alertMsg}
                     type="warning"
                 />
             );
         }
+
+        // 一二步骤 有alert和bottom
         switch (state.step) {
             case 1:
-                $step = <Step1 init={state.info} perLimit={state.perLimit} next={this.next.bind(this)} />;
+                $step = <Step1 init={state.info} actionStatus={state.actionStatus} perLimit={state.perLimit} next={this.next.bind(this)} />;
                 $bottomTip = this.bottomTip;
                 break;
             case 2:

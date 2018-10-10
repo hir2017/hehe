@@ -23,23 +23,27 @@ export default class View extends React.Component {
         this.timmer = null;
         this.fee = 0;
         this.rate = 0;
+        let actionDisabled = props.actionStatus === 2;
         this.inputData = {
             name: {
                 label: UPEX.lang.template('开户人'),
                 inputProps: {
-                    onChange: this.setVal.bind(this, 'name')
+                    onChange: this.setVal.bind(this, 'name'),
+                    disabled: actionDisabled
                 }
             },
             BSB: {
                 label: UPEX.lang.template('银行卡清算号(BSB)'),
                 inputProps: {
-                    onChange: this.setVal.bind(this, 'BSB')
+                    onChange: this.setVal.bind(this, 'BSB'),
+                    disabled: actionDisabled
                 }
             },
             account: {
                 label: UPEX.lang.template('收款账号(Receiving Account)'),
                 inputProps: {
-                    onChange: this.setVal.bind(this, 'account')
+                    onChange: this.setVal.bind(this, 'account'),
+                    disabled: actionDisabled
                 }
             },
             amount: {
@@ -75,7 +79,8 @@ export default class View extends React.Component {
                         _data.withdrawVal = isNaN(withdrawVal) ? '0' : withdrawVal;
                         this.setState(_data);
 
-                    }
+                    },
+                    disabled: actionDisabled
                 }
             }
         };
@@ -125,6 +130,7 @@ export default class View extends React.Component {
     }
 
     validate(state) {
+
         if (state.name === '') {
             message.error(UPEX.lang.template('请填写开户人'));
             return false;
@@ -154,8 +160,13 @@ export default class View extends React.Component {
     }
 
     submit() {
-        // TODO: 校验 是否小于月提现余额，输入的金额是否小于日提现余额
-        const { state } = this;
+        const { state, props } = this;
+        // 检测用户行为
+        if (props.actionStatus === 2) {
+            message.error(UPEX.lang.template('此功能暂停，请稍后再试'));
+            return false;
+        }
+
         if (!this.validate(state)) {
             return;
         }
@@ -170,7 +181,7 @@ export default class View extends React.Component {
     // isGoogleAuth
     render() {
         const { props, state, inputData } = this;
-        let $beforNode = <div className="input-right-tag">{UPEX.config.baseCurrencyEn}</div>;
+        let $beforNode = <span className="exc-unit">{UPEX.config.baseCurrencyEn}</span>;
         let $afterNode = (
             <AmountInfo
                 left={
@@ -190,7 +201,7 @@ export default class View extends React.Component {
                 <FormItem {...inputData.name} value={state.name} />
                 <FormItem {...inputData.BSB} value={state.BSB} />
                 <FormItem {...inputData.account} value={state.account} />
-                <FormItem label={inputData.amount.label} className="amount" before={$beforNode} after={$afterNode}>
+                <FormItem label={inputData.amount.label} className="amount" after={$afterNode}>
                     {state.amount ? null : (
                         <span className="ie11-placeholder-hack">
                             {UPEX.lang.template('最小提现金额为{count}', {
@@ -198,7 +209,7 @@ export default class View extends React.Component {
                             })}
                         </span>
                     )}
-                    <Input  className="exc-input" {...inputData.amount.inputProps} value={state.amount}/>
+                    <Input  className="exc-input" {...inputData.amount.inputProps} value={state.amount} suffix={$beforNode}/>
                 </FormItem>
                 <FormItem>
                     <Button className="submit-btn" onClick={this.submit.bind(this)}>

@@ -66,9 +66,8 @@ class View extends Component {
             if(res.status !== 200) {
                 return ;
             }
-            const {actionRoles} = store;
             // 检测充值限制
-            if(parseInt(actionRoles.recharge) !== 1) {
+            if(parseInt(store.actionRoles.recharge) !== 1) {
                 this.setState({
                     actionStatus: 2
                 });

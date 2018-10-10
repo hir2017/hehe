@@ -148,8 +148,8 @@ class UserInfo {
                     this.userInfo = res.attachment;
                     this.isFetchingInfo = false;
                     pickErrMsg(res, 'getUserInfo');
-                    return res;
                 });
+                return res;
             })
             .catch(err => {
                 console.error(err, 'getUserInfo');
