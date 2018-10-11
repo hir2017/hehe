@@ -46,7 +46,7 @@ class CoinRecharge extends Component {
         const coin = this.props.commonStore.getCoinInfo(currencyId, 'id');
         // 禁止充币， 币种限制|用户限制
         if (coin.rechargeStatus !== 1 || this.actionRole !== 1) {
-            this.actionDisabledTip = this.actionRole !== 1 ? this.tipArr[0] : this.tipArr[1];
+            this.actionDisabledTip = this.actionRole !== 1 ? this.tipArr[1] : this.tipArr[0];
             this.setState({
                 actionDisabled: true,
                 addressInfo: {},
