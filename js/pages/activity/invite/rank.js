@@ -36,7 +36,6 @@ class RankView extends Component {
         let dataNum = list.length;
         let emptyNum = (dataNum < MIN_SIZE) ? (MIN_SIZE - dataNum) : 0;
         let $nodes = [];
-        if (isFetching == 0) {
             list.slice(0, MIN_SIZE).forEach((item, index) => {
                 $nodes.push((
                     <li key={index} data-rank={index + 1}>
@@ -54,7 +53,6 @@ class RankView extends Component {
                     ));
                 }
             }
-        }
 
         return (
             <div className="invite-rank">
@@ -82,8 +80,7 @@ class RankItemTop1to3 extends Component {
 
     copyPropsToState(props) {
         return {
-            data: props.data,
-            rank: props.rank
+            data: props.data
         }
     }
 
@@ -99,14 +96,6 @@ class RankItemTop1to3 extends Component {
                     }, 1)
                 }}></p>
             </div>
-        )
-    }
-}
-
-class RankItemEmpty extends Component {
-    render() {
-        return (
-            <p>暂无数据</p>
         )
     }
 }

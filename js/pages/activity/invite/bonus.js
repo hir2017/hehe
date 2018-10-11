@@ -39,8 +39,6 @@ class BonusView extends Component {
                     currentPage: page,
                     isFetching: 0
                 });
-            } else {
-                 this.set
             }
         })
     }

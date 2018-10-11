@@ -106,8 +106,7 @@ class UserView extends Component {
                         <li className="share-item">
                             <label>{UPEX.lang.template('邀请链接')}</label>
                             <p className="link-wrap">
-                                <input type="text" id="invitedLink" value={shareLink}
-                                       className="link"></input>
+                                <span  id="invitedLink" className="link">{shareLink}</span>
                                 <span className="copy-txt"
                                       data-clipboard-target="#invitedLink">{UPEX.lang.template('复制')}</span>
                             </p>

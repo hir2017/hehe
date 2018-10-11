@@ -3,7 +3,8 @@
  */
 import React, {Component} from "react";
 import {getInviteCommissionList, getInvitationList} from '../../../api/http';
-import { Pagination } from 'antd';
+import {Pagination} from 'antd';
+import TimeUtil from '@/lib/util/date';
 
 class OrderView extends Component {
     constructor(props) {
@@ -35,6 +36,7 @@ class OrderView extends Component {
 
     render() {
         let {selectedIndex} = this.state;
+        $content = selectedIndex === 0 ? <BrokerageListView/> : <InviteeListView/>;
 
         return (
             <div className="invite-record">
@@ -54,14 +56,10 @@ class OrderView extends Component {
                     </ul>
                 </div>
                 <div className="record-main">
-                    <div className={`record-panel ${selectedIndex == 0 ? 'selected' : 'hidden'}`}>
-                        <BrokerageListView/>
-                    </div>
-                    <div className={`record-panel ${selectedIndex == 1 ? 'selected' : 'hidden'}`}>
-                        <InviteeListView/>
+                    <div className={`record-panel selected`}>
+                        {$content}
                     </div>
                 </div>
-                <p className="tips">注：列表中只展示最近三个月的数据</p>
             </div>
         );
     }
@@ -70,18 +68,23 @@ class OrderView extends Component {
 class BrokerageListView extends Component {
     constructor(props) {
         super(props)
-
         this.state = {
             isFetching: 1,
             list: [],
             totalCount: 0,
             currentPage: 1,
-            pageSize: 8
+            pageSize: 8,
         }
     }
 
     componentDidMount() {
         this.fetchData(1);
+    }
+
+    loadData = () => {
+        if (this.state.selectedIndex == 0) {
+            this.fetchData(1);
+        }
     }
 
     fetchData(page) {
@@ -109,7 +112,7 @@ class BrokerageListView extends Component {
     }
 
     render() {
-        let { list, isFetching , totalCount, currentPage, pageSize } = this.state;
+        let {list, isFetching, totalCount, currentPage, pageSize} = this.state;
         let $content, $footer;
         if (isFetching == 0 && list.length == 0) {
             $content = <div className="mini-tip exc-list-empty">{UPEX.lang.template('暂无返佣记录，快去邀请好友')}</div>
@@ -119,7 +122,7 @@ class BrokerageListView extends Component {
                     {
                         list.map((item, index) => (
                             <li key={index}>
-                                <div className="time">{item.createTime}</div>
+                                <div className="time">{TimeUtil.formatDate(item.createTime * 1000)}</div>
                                 <div className="name">{item.currencyNameEn}</div>
                                 <div className="number">{item.number}</div>
                                 <div className="user">{item.user}</div>
@@ -132,7 +135,10 @@ class BrokerageListView extends Component {
             )
         }
         if (list.length > 0 && totalCount > 0) {
-            $footer = <Pagination current={currentPage} total={totalCount} pageSize={pageSize} simple defaultCurrent={1} onChange={this.onChangePagination.bind(this)} />;
+            $footer = (
+                <div><Pagination current={currentPage} total={totalCount} pageSize={pageSize} simple defaultCurrent={1}
+                                 onChange={this.onChangePagination.bind(this)}/>
+                    <p className="tips">注：列表中只展示最近三个月的数据</p></div>);
         }
         return (
             <div className="record-rebate">
@@ -148,9 +154,9 @@ class BrokerageListView extends Component {
                         {$content}
                     </div>
                     <div className="table-ft">
-                        { $footer }
+                        {$footer}
                     </div>
-                    { isFetching == 1 ? <div className="mini-loading"></div> : null }
+                    {isFetching == 1 ? <div className="mini-loading"></div> : null}
                 </div>
             </div>
         )
@@ -200,7 +206,7 @@ class InviteeListView extends Component {
 
 
     render() {
-        let { list, isFetching , totalCount, currentPage, pageSize } = this.state;
+        let {list, isFetching, totalCount, currentPage, pageSize} = this.state;
         let $content, $footer;
         if (isFetching == 0 && list.length == 0) {
             $content = <div className="mini-tip exc-list-empty">{UPEX.lang.template('暂无邀请明细，快去邀请好友')}</div>
@@ -210,8 +216,8 @@ class InviteeListView extends Component {
                     {
                         list.map((item, index) => (
                             <li key={index}>
-                                <div className="time">{item.registerTime}</div>
-                                <div className="user">{item.user}</div>
+                                <div className="time">{TimeUtil.formatDate(item.registerTime * 1000)}</div>
+                                <div className="user">{item.userRegAccount}</div>
                                 <div className="level">{item.invitedLevel}</div>
                             </li>
                         ))
@@ -220,7 +226,10 @@ class InviteeListView extends Component {
             )
         }
         if (list.length > 0 && totalCount > 0) {
-            $footer = <Pagination current={currentPage} total={totalCount} pageSize={pageSize} simple defaultCurrent={1} onChange={this.onChangePagination.bind(this)} />;
+            $footer = (
+                <div><Pagination current={currentPage} total={totalCount} pageSize={pageSize} simple defaultCurrent={1}
+                                 onChange={this.onChangePagination.bind(this)}/>
+                    <p className="tips">注：列表中只展示最近三个月的数据</p></div>);
         }
         return (
             <div className="record-detail">
@@ -234,9 +243,9 @@ class InviteeListView extends Component {
                         {$content}
                     </div>
                     <div className="table-ft">
-                        { $footer }
+                        {$footer}
                     </div>
-                    { isFetching == 1 ? <div className="mini-loading"></div> : null }
+                    {isFetching == 1 ? <div className="mini-loading"></div> : null}
                 </div>
             </div>
         )
