@@ -33,7 +33,6 @@ class List extends Component {
         let store = this.props.accountStore;
         let $content;
 
-        
         if (!store.isFetching && store.coinList.length == 0) {
             $content = <div className="mini-tip exc-list-empty">{UPEX.lang.template('暂无数据')}</div>;
         } else {
@@ -58,8 +57,10 @@ class List extends Component {
                                     <dd className="name">{UPEX.lang.template('币种')}</dd>
                                     <dd className="total">{UPEX.lang.template('总额')}</dd>
                                     <dd className="balance">{UPEX.lang.template('可用余额')}</dd>
-                                    <dd className="freeze">{UPEX.lang.template('委托冻结')}</dd>
-                                    <dd className="value">{UPEX.lang.template('价值')}({UPEX.config.baseCurrencyEn})</dd>
+                                    <dd className="freeze">{UPEX.config.version === 'ace' ? UPEX.lang.template('委托冻结') : UPEX.lang.template('冻结')}</dd>
+                                    <dd className="value">
+                                        {UPEX.lang.template('价值')}({UPEX.config.baseCurrencyEn})
+                                    </dd>
                                     <dd className="actions">{UPEX.lang.template('操作')}</dd>
                                 </dl>
                             </li>
@@ -75,7 +76,7 @@ class List extends Component {
     }
 }
 
-@inject('accountStore', 'userInfoStore')
+@inject('accountStore', 'userInfoStore', 'commonStore')
 @observer
 class AssetsListView extends Component {
     handleCoinRecharge = (item, e) => {
@@ -91,9 +92,17 @@ class AssetsListView extends Component {
     };
 
     render() {
+        // TODO: 放到store里取计算
+        const { coinsMap } = this.props.commonStore;
+        const {actionRoles} = this.props.userInfoStore;
         return (
             <ul>
                 {this.props.accountStore.coinList.map((item, index) => {
+                    let coin = coinsMap[item.currencyNameEn] || {};
+                    let btnDisable = {
+                        recharge: actionRoles['recharge coin'] == 2 || coin.rechargeStatus === 2,
+                        withdraw: actionRoles['withdraw coin'] == 2 || coin.withdrawStatus === 2,
+                    }
                     return (
                         <li key={index}>
                             <dl>
@@ -106,11 +115,17 @@ class AssetsListView extends Component {
                                 <dd className="freeze">{item.freezeAmount}</dd>
                                 <dd className="value">{item.twd_value}</dd>
                                 <dd className="actions">
-                                    <button type="button" onClick={this.handleCoinRecharge.bind(this, item)}>{UPEX.lang.template('充币')}</button>
+                                    <button type="button" disabled={btnDisable.recharge} onClick={this.handleCoinRecharge.bind(this, item)}>
+                                        {UPEX.lang.template('充币')}
+                                    </button>
                                     <span className="split">|</span>
-                                    <button type="button" onClick={this.handleCoinWithdraw.bind(this, item)}>{UPEX.lang.template('提币')}</button>
+                                    <button type="button" disabled={btnDisable.withdraw} onClick={this.handleCoinWithdraw.bind(this, item)}>
+                                        {UPEX.lang.template('提币')}
+                                    </button>
                                     <span className="split">|</span>
-                                    <button type="button" onClick={this.handleCoinTrade.bind(this, item)}>{UPEX.lang.template('交易')}</button>
+                                    <button type="button" onClick={this.handleCoinTrade.bind(this, item)}>
+                                        {UPEX.lang.template('交易')}
+                                    </button>
                                 </dd>
                             </dl>
                         </li>

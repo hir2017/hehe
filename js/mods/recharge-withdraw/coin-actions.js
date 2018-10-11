@@ -1,4 +1,4 @@
-import { getCoinAccount, selectUserAddress } from '../../api/http';
+import { getCoinAccount, selectUserAddress } from '@/api/http';
 
 
 function coinChange(val) {

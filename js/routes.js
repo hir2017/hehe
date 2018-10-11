@@ -19,7 +19,8 @@ import Auth from './mods/authhoc/index';
 // 我的资产
 // 充值＋充币＋提现＋提币
 import FiatRecharge from './pages/recharge-withdraw/fiat-recharge';
-import FiatRechargeResult from './pages/recharge-withdraw/fiat-recharge/spgateway-result';
+import FiatRechargeBak from './pages/recharge-withdraw/fiat-recharge-bak';
+import FiatRechargeResult from './pages/recharge-withdraw/fiat-recharge-bak/spgateway-result';
 import CoinRecharge from './pages/recharge-withdraw/coin-recharge';
 import FiatWithdraw from './pages/recharge-withdraw/fiat-withdraw';
 import CoinWithdraw from './pages/recharge-withdraw/coin-withdraw';
@@ -96,6 +97,7 @@ const routes = (
 	        	<Route path="fiatrecord" component={FiatRecord}/>
 	        	<Route path="balance">
 	        		<Route path="recharge" component={FiatRecharge}/>
+	        		<Route path="recharge-bak" component={FiatRechargeBak}/>
 	        		<Route path="recharge-spgateway-result" component={FiatRechargeResult}/>
 	        		<Route path="withdraw" component={FiatWithdraw}/>
 	        	</Route>

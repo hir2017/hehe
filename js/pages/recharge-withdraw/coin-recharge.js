@@ -8,10 +8,26 @@ import { browserHistory } from 'react-router';
 import RechargeCoinView from '@/mods/recharge-withdraw/coin-recharge';
 import RecordList from '@/mods/record-list/coin-recharge-record';
 import PageWrapper from '@/mods/common/wrapper/full-page';
+import AuthWrapper from '@/mods/authhoc/recharge-withdraw';
 
 @inject('userInfoStore', 'accountStore')
 @observer
 class Recharge extends Component {
+
+    constructor() {
+        super();
+        this.pageInfo = {
+            form: {
+                title: UPEX.lang.template('充币'),
+                className: 'header-shadow'
+            },
+            list: {
+                title: UPEX.lang.template('充币记录'),
+                className: 'record'
+            }
+        }
+    }
+
     componentDidMount() {
         let { userInfoStore } = this.props;
 
@@ -47,10 +63,12 @@ class Recharge extends Component {
         }
         return (
             <div className="coin-recharge">
-                <PageWrapper title={UPEX.lang.template('充币')} className=" header-shadow">
-                    {$content}
-                </PageWrapper>
-                <PageWrapper title={UPEX.lang.template('充币记录')} className="record">
+                <AuthWrapper pageInfo={this.pageInfo.form} name="recharge">
+                    <PageWrapper {...this.pageInfo.form}>
+                        {$content}
+                    </PageWrapper>
+                </AuthWrapper>
+                <PageWrapper {...this.pageInfo.list}>
                     <div className="content">
                         <div className="order-main-box">
                             <RecordList currencyId={store.currentCoin.currencyId} key={store.currentCoin.currencyId} />

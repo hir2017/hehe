@@ -5,8 +5,8 @@
  */
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
-import List from '../../mods/account/assets-list';
-import Info from '../../mods/account/account-info';
+import List from '@/mods/account/assets-list';
+import Info from '@/mods/account/account-info';
 
 
 @inject('commonStore')
@@ -17,18 +17,18 @@ class AccountPage extends Component {
 
         commonStore.getAllCoinPoint();
     }
-    
-    render() { 
+
+    render() {
         let { commonStore } = this.props;
-        
+
         // 用于切换交易币时内容切换
         if (commonStore.productDataReady) {
-            return <Account {...this.props}/>    
+            return <Account {...this.props}/>
         } else {
             return (
                 <div className="home-wrapper">
                     <div className="mini-loading"></div>
-                </div>   
+                </div>
             )
         }
     }
@@ -42,7 +42,7 @@ class Account extends Component {
 
         store.getUserCoinAccount();
     }
-    
+
     render() {
         return (
         	<div className="account-wrapper">

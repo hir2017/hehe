@@ -298,6 +298,13 @@ export function getUserBankInfo() {
     return axios.post('/rechargeWithdraw/getUserCardInfoAndAmountAndFee')
 }
 
+/*
+    获取CCNET 充值信息
+*/
+export function getCCNET2Info() {
+    return axios.get('/pay/getVirtualAccount')
+}
+
 export function getUserBindCards() {
     return axios.post('/card/getBindBankCardInfo')
 }
