@@ -3,8 +3,10 @@
  */
 import React, {Component} from "react";
 import {getInviteUserInfo} from '../../../api/http';
-import { message } from 'antd';
-import QRCode from 'qrcode';
+import {message} from 'antd';
+import ClipboardJS from 'clipboard';
+import qrcode from '../../../lib/qrcode';
+
 
 class UserView extends Component {
     constructor(props) {
@@ -13,11 +15,25 @@ class UserView extends Component {
         this.state = {
             user: {}
         }
+        this.clip = null;
     }
 
     componentDidMount() {
         this.fetchData();
-        this.useQRCode();
+
+        this.clip = new ClipboardJS('.copy-txt');
+        this.clip.on('success', (e) => {
+            message.success(UPEX.lang.template('复制成功'));
+            e.clearSelection();
+        });
+
+        this.clip.on('error', () => {
+            message.error(UPEX.lang.template('复制失败'));
+        });
+    }
+
+    componentWillUnmount() {
+        this.clip.destroy();
     }
 
     fetchData() {
@@ -30,30 +46,37 @@ class UserView extends Component {
         })
     }
 
-    copyLink(){
-        document.getElementById('invitedLink').select();
-        document.execCommand("Copy");
-        message.config({
-            duration:.2
-        })
-        message.success(UPEX.lang.template('复制成功'));
+    insertQrcode(shareUrl) {
+        let el = $(this.refs.qrcode);
+        let url = shareUrl;
+        el.qrcode({
+            text: url,
+            width: 100,
+            height: 100,
+            render: "canvas"
+        });
     }
 
-    useQRCode(){
-        url = 'https://www.baidu.com';
-        let qrcode = new QRCode({
-            width: '100',
-            height: '100',
-            tex
-        })
+    shareFB(shareUrl) {
+        let url = window.encodeURI(shareUrl);
+        let link = 'https://www.facebook.com/dialog/share?app_id=&display=popup&href=' + url;
+        window.open(link);
+    }
 
-
+    shareTW(shareUrl) {
+        let url = window.encodeURI(shareUrl);
+        let link = `https://twitter.com/intent/tweet?url=${url}`;
+        window.open(link);
     }
 
 
     render() {
-        let {friendCount = 0, invitedCode = '', amount = 0, currencyNameEn = ''} = this.state.user;
+        let {friendCount = 0, myInvitedCode = '', amount = 0, currencyNameEn = ''} = this.state.user;
         let self = this;
+        let shareLink = `${UPEX.config.origin}/activity/invite-register?invite_code=${myInvitedCode}`;
+
+        shareLink && this.insertQrcode(shareLink);
+
         return (
             <div className="invite-user clearfix">
                 <ul className="user-left">
@@ -77,31 +100,33 @@ class UserView extends Component {
                         <li className="share-item">
                             <label>{UPEX.lang.template('我的邀请码')}</label>
                             <p className="info">
-                                <em className="code">{invitedCode}</em>
+                                <em className="code">{myInvitedCode}</em>
                             </p>
                         </li>
                         <li className="share-item">
                             <label>{UPEX.lang.template('邀请链接')}</label>
                             <p className="link-wrap">
-                                <input type="text" id="invitedLink" value={`http://asss${invitedCode}`} className="link"></input>
-                                <span className="copy-txt" onClick={self.copyLink}>{UPEX.lang.template('复制')}</span>
+                                <input type="text" id="invitedLink" value={shareLink}
+                                       className="link"></input>
+                                <span className="copy-txt"
+                                      data-clipboard-target="#invitedLink">{UPEX.lang.template('复制')}</span>
                             </p>
                         </li>
                         <li className="share-item icons">
                             <label>{UPEX.lang.template('分享至')}</label>
-                            <a href=""  target="_blank">
+                            <div className="icon-bd">
                                 <i className="icon qrcode">
                                     <div className="qrcode-big">
-                                        <div id="canvas"></div>
+                                        <div ref="qrcode"></div>
                                     </div>
                                 </i>
-                            </a>
-                            <a href=""  target="_blank">
-                                <i className="icon twitter"></i>
-                            </a>
-                            <a href=""  target="_blank">
-                                <i className="icon facebook"></i>
-                            </a>
+                            </div>
+                            <div className="icon-bd">
+                                <i className="icon facebook" onClick={() => this.shareFB(shareLink)}></i>
+                            </div>
+                            <div className="icon-bd">
+                                <i className="icon twitter" onClick={() => this.shareTW(shareLink)}></i>
+                            </div>
                         </li>
                     </ul>
                 </div>

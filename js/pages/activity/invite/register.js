@@ -13,7 +13,7 @@ class PageView extends Component {
     constructor(props){
     	super(props);
 
-        this.inviteCode = UrlUtil.query('invite_code');
+        this.invitedCode = UrlUtil.query('invite_code');
 
         this.state = {
             username: ''
@@ -21,11 +21,11 @@ class PageView extends Component {
     }
 
    	componentDidMount() {
-        this.inviteCode && this.getInviterInfo();
+        this.invitedCode && this.getInviterInfo(this.invitedCode);
     }
 
-    getInviterInfo() {
-        getInviterInfoByCode().then((data)=>{
+    getInviterInfo(code) {
+        getInviterInfoByCode(code).then((data)=>{
             if (data.status == 200) {
                 this.setState({
                     username: data.attachment.user
@@ -40,7 +40,7 @@ class PageView extends Component {
                 <p className="friend">{UPEX.lang.template('你的好友{name}', {name: this.state.username})}</p>
                 <p className="title">{UPEX.lang.template('邀请您注册{sitename}', { sitename: UPEX.config.sitename})}</p>
                 <div className="btn">
-                    <a href={`/register?invite_code=${this.inviteCode}`}>{UPEX.lang.template('立即注册')}</a>
+                    <a href={`/register?invite_code=${this.invitedCode}`}>{UPEX.lang.template('立即注册')}</a>
                 </div>
             </div>
         );

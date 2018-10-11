@@ -1095,8 +1095,8 @@ export function getUserAuthInfo(info) {
  * 根据邀请码获取邀请者昵称等信息
  */
 export function getInviterInfoByCode(code){
-    return axios.post('http://www.mocky.io/v2/5bb8aba43000005500f93c0a', qs.stringify({
-        inviteCode: code
+    return axios.post('/user/getUserNameByCode', qs.stringify({
+        invitedCode: code
     }))
 }
 
@@ -1104,12 +1104,39 @@ export function getInviterInfoByCode(code){
  * 获取邀请top3排榜榜信息
  */
 export function getInviteTopList(){
-    return axios.post('http://www.mocky.io/v2/5bb9c1a631000013003ed9a3');
+    return axios.post('/user/getTopThreeCommissionInfo');
+    //return axios.post('http://www.mocky.io/v2/5bbdbfd93100009300711106');
+
 }
 
 /**
  * 获取用户信息
  */
 export function getInviteUserInfo(){
-    return axios.post('http://www.mocky.io/v2/5bb9c1fb3100006b003ed9a5');
+    return axios.post('/user/getMyCmsnAndFrndCountInfo');
+}
+
+/**
+ * 我的返佣资产列表
+ */
+export function getInviteAssets(data){
+    return  axios.post('/user/getUserCommissionSumInfoList', qs.stringify({
+        ...data
+    }));
+}
+/**
+ * 返佣记录
+ */
+export function getInviteCommissionList(data){
+    return axios.post('/user/getUserCommissionWaterListByUuid',qs.stringify({
+        ...data
+    }));
+}
+/**
+ * 邀请明细
+ */
+export function getInvitationList(data){
+    return axios.post('/user/getInvitedList',qs.stringify({
+        ...data
+    }));
 }
