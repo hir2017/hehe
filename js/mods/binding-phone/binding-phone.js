@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import { Button, message, Select } from 'antd';
-import NumberUtil from '../../lib/util/number';
-import { isPhone } from '../../lib/util/validate';
+import NumberUtil from '@/lib/util/number';
+import { isPhone } from '@/lib/util/validate';
 import { browserHistory } from 'react-router';
-import SendVCodeBtn from '../common/v-code-btn';
-import InputItem from '../../components/form/input-item';
-import PageForm from '../../components/page-user/page-form';
-import { createGetProp } from '../../components/utils';
-import { bindPhoneOrEmailSendCode, bindPhoneOrEmailAction } from '../../api/http';
-import CountryMap, {Countries} from '../../mods/select-country/country-list';
+import SendVCodeBtn from '@/mods/common/v-code-btn';
+import InputItem from '@/components/form/input-item';
+import PageForm from '@/components/page-user/page-form';
+import { createGetProp } from '@/components/utils';
+import { bindPhoneOrEmailSendCode, bindPhoneOrEmailAction } from '@/api/http';
+import CountryMap, {Countries} from '@/mods/select-country/country-list';
 
 
 @inject('userInfoStore', 'captchaStore', 'loginStore')
