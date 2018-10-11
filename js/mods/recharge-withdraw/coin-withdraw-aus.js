@@ -134,7 +134,7 @@ class WithdrawCoin extends Component {
         const coin = this.props.commonStore.getCoinInfo(currencyNameEn);
         // 禁止提币， 币种限制|用户限制
         if (coin.withdrawStatus !== 1 || this.actionRole !== 1) {
-            this.actionDisabledTip = this.actionRole !== 1 ? this.tipArr[0] : this.tipArr[1];
+            this.actionDisabledTip = this.actionRole !== 1 ? this.tipArr[1] : this.tipArr[0];
             this.setState({
                 actionDisabled: true,
             });
