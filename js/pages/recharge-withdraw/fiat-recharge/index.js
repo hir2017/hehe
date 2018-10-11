@@ -10,6 +10,7 @@ import FormView from '@/mods/common/form';
 import FormItem from '@/mods/common/form/item';
 // import BankCard from '@/mods/recharge-withdraw/fiat/bank-card';
 import Spgateway from '@/mods/recharge-withdraw/fiat/spgateway';
+import NumberUtils from '@/lib/util/number';
 
 @inject('userInfoStore', 'fiatRechargeStore')
 @observer
@@ -45,7 +46,7 @@ class View extends Component {
                     className="ace-form-tips"
                     type="info"
                     showIcon
-                    message={UPEX.lang.template('单日充值限额 {num1}', { num1: store.rechargeDayLimit }) + UPEX.config.baseCurrencyEn}
+                    message={UPEX.lang.template('单日充值限额 {num1}', { num1: ` ${NumberUtils.separate(store.rechargeDayLimit)} ` }) + UPEX.config.baseCurrencyEn}
                     type="warning"
                 />
             );
