@@ -94,6 +94,10 @@
 
 // 充值
 .fiat-recharge {
+    // 留存高度防止抖动
+    .page-content {
+        min-height: 600px;
+    }
     .exc-form-item.type {
         .warn-tip {
             margin-top: 5px;
@@ -101,14 +105,17 @@
             color: @text-red-color01;
             border-radius: 3px;
             background-color: @bg-color-light02;
+            font-size: 12px;
         }
         .anticon-exclamation-circle {
             margin-right: 6px;
         }
     }
     .fee-tip {
-        line-height: 26px;
+        padding-top: 9px;
+        line-height: 13px;
         color: @text-color02-light;
+        font-size: 12px;
         em {
             color: @text-color01-light;
         }
