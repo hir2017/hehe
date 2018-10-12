@@ -21,7 +21,7 @@ class View extends Component {
             type: '1',
             amount: 0,
             bank: '1',
-            fee: 13,
+            fee: 0,
             amountLowLimit: 14,
             disabled: false
         };
@@ -73,15 +73,17 @@ class View extends Component {
 
     setVal(name, e) {
         let val = typeof e === 'object' ? e.target.value.trim() : e;
+        let data = {};
         if(name === 'amount' && val !== '') {
             if(!NumberUtils.isInteger(val)) {
                 return ;
             }
             val = parseInt(val);
+            // 计算手续费 1% 最大13 向上取整
+            let fee = val * 0.01
+            data.fee = fee >= 13 ? 13 : Math.ceil(fee);
         }
-        let data = {
-            [name]: val
-        };
+        data[name] = val;
         this.setState(data);
     }
 
@@ -161,7 +163,7 @@ class View extends Component {
                 </FormItem>
                 <FormItem value={state.amount} {...inputData.amount} after={$fee} />
                 <FormItem>
-                    <Button className="submit-btn" disabled={state.disabled} onClick={this.onSubmit.bind(this)}>
+                    <Button className="exc-btn-submit" disabled={state.disabled} onClick={this.onSubmit.bind(this)}>
                         {UPEX.lang.template('下一步')}
                     </Button>
                 </FormItem>
