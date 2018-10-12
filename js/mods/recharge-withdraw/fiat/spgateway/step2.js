@@ -75,12 +75,12 @@ class View extends Component {
             <AmountInfo
                 left={
                     <p className="balance">
-                        {UPEX.lang.template('手续费')} <br /> {data.fee} {UPEX.config.baseCurrencyEn}
+                        <span className="text">{UPEX.lang.template('手续费')}</span><em>{data.fee}</em> {UPEX.config.baseCurrencyEn}
                     </p>
                 }
                 right={
                     <p className="balance">
-                        {UPEX.lang.template('到账金额')} <br /> <em>{data.arrival}</em> {UPEX.config.baseCurrencyEn}
+                        <span className="text">{UPEX.lang.template('到账金额')}</span><em>{data.arrival}</em> {UPEX.config.baseCurrencyEn}
                     </p>
                 }
             />
@@ -114,7 +114,7 @@ class View extends Component {
                     <Button className="exc-btn-submit" onClick={this.onSubmit.bind(this, 'web-success')}>
                         {UPEX.lang.template('确认并使用ATM读卡机支付')}
                     </Button>
-                    <Button className="cancel-btn" onClick={this.onSubmit.bind(this, 'cancel')}>
+                    <Button className="exc-btn-cancel" onClick={this.onSubmit.bind(this, 'cancel')}>
                         {UPEX.lang.template('取消支付')}
                     </Button>
                 </FormItem>

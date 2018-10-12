@@ -186,12 +186,12 @@ export default class View extends React.Component {
             <AmountInfo
                 left={
                     <p className="balance">
-                        {UPEX.lang.template('当前余额')} <br /> {state.balance} {UPEX.config.baseCurrencyEn}
+                        <span className="text">{UPEX.lang.template('当前余额')}</span><em>{state.balance}</em> {UPEX.config.baseCurrencyEn}
                     </p>
                 }
                 right={
                     <p className="balance">
-                        {UPEX.lang.template('入账金额')} <br /> <em>{state.withdrawVal}</em> {UPEX.config.baseCurrencyEn}
+                        <span className="text">{UPEX.lang.template('入账金额')}</span><em>{state.withdrawVal}</em> {UPEX.config.baseCurrencyEn}
                     </p>
                 }
             />

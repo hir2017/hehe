@@ -14,7 +14,7 @@ class SubRow extends Component {
                     return TimeUtil.formatDate(row.createTimeStamp);
                 }
             },
-            { label: UPEX.lang.template('付款账号'), field: 'cardNo' },
+            { label: UPEX.lang.template('付款账号'), field: '_cardNo' },
             { label: UPEX.lang.template('实际付款'), field: 'tradeAmount' },
             { label: UPEX.lang.template('手续费'), field: 'fee' }
         ];
@@ -26,7 +26,7 @@ class SubRow extends Component {
                     return TimeUtil.formatDate(row.createTimeStamp);
                 }
             },
-            { label: UPEX.lang.template('提现账号'), field: 'cardNo' },
+            { label: UPEX.lang.template('提现账号'), field: '_cardNo' },
             { label: UPEX.lang.template('到账金额'), field: 'tradeAmount' },
             { label: UPEX.lang.template('手续费'), field: 'fee' }
         ];

@@ -262,12 +262,12 @@ class WithdrawCoin extends Component {
                 <AmountInfo
                     left={
                         <p className="balance">
-                            {UPEX.lang.template('可用提币数量')} <br /> {store.cashAmount || 0} {store.currentCoin.currencyNameEn}
+                            <span className="text">{UPEX.lang.template('可用提币数量')}</span><em>{store.cashAmount || 0}</em> {store.currentCoin.currencyNameEn}
                         </p>
                     }
                     right={
                         <p className="balance">
-                            {UPEX.lang.template('实际到账金额')} <br /> <em>{store.withdrawValue}</em> {store.currentCoin.currencyNameEn}
+                            <span className="text">{UPEX.lang.template('实际到账金额')}</span><em>{store.withdrawValue}</em> {store.currentCoin.currencyNameEn}
                         </p>
                     }
                 />
