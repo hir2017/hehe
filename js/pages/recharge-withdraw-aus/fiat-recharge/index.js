@@ -13,7 +13,7 @@ import Bpay from './bpay';
 import Poli from './poli';
 import AuthWrapper from '@/mods/authhoc/recharge-withdraw';
 
-@inject('userInfoStore')
+@inject('userInfoStore', 'commonStore')
 @observer
 class View extends Component {
     constructor(props) {
@@ -39,7 +39,7 @@ class View extends Component {
                 this.setState({
                     referenceNo: res.attachment,
                     Biller: 'Infinite Exchange Pty Ltd',
-                    BillerCode: '288795',
+                    BillerCode: '288795'
                 });
             }
         });
@@ -61,41 +61,48 @@ class View extends Component {
     }
 
     componentDidMount() {
-        const store = this.props.userInfoStore;
-        store.getActionLimit().then(res => {
-            if(res.status !== 200) {
-                return ;
-            }
-            // 检测充值限制
-            if(parseInt(store.actionRoles.recharge) !== 1) {
-                this.setState({
-                    actionStatus: 2
-                });
-            } else {
-                this.setState({
-                    actionStatus: 1
-                });
-                this.getPageInfo();
-            }
+        const {userInfoStore, commonStore} = this.props;
 
-        }).catch(err => {
-            console.error('componentDidMount recharge aus', err)
-        })
-
+        Promise.all([commonStore.getAllCoinPoint(), userInfoStore.getActionLimit()])
+            .then(([res1, res2]) => {
+                if (res2.status !== 200) {
+                    return;
+                }
+                const {recharge} = userInfoStore.actionRoles;
+                let baseCurrency = commonStore.coinsMap[UPEX.config.baseCurrencyEn];
+                // 检测充值限制
+                let disabled = parseInt(userInfoStore.actionRoles.recharge) !== 1 || parseInt(baseCurrency.rechargeStatus) !== 1;
+                if (disabled) {
+                    this.setState({
+                        actionStatus: 2
+                    });
+                } else {
+                    this.setState({
+                        actionStatus: 1
+                    });
+                    this.getPageInfo();
+                }
+            })
+            .catch(err => {
+                console.error('getUserInfo getActionLimit', err);
+                this.setState({
+                    loading: false
+                });
+            });
     }
 
     render() {
         //
         const { state } = this;
         const bpayProps = state;
-
+        let alertMsg = state.actionStatus === 2 ? UPEX.lang.template('当前币种暂停此操作') : UPEX.lang.template('单日充值限额 {num1}', { num1: state.dayLimit }) + UPEX.config.baseCurrencyEn
         return (
             <AuthWrapper pageInfo={this.pageInfo} name="recharge">
                 <PageWrapper {...this.pageInfo}>
                     <Alert
                         className="ace-form-tips"
                         showIcon
-                        message={UPEX.lang.template('单日充值限额 {num1}', { num1: state.dayLimit }) + UPEX.config.baseCurrencyEn}
+                        message={alertMsg}
                         type="warning"
                     />
                     <FormView>

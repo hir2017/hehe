@@ -14,7 +14,7 @@ import AuthWrapper from '@/mods/authhoc/recharge-withdraw';
 import Step1 from './step1';
 import Step2 from './step2';
 
-@inject('userInfoStore', 'authStore')
+@inject('userInfoStore', 'authStore', 'commonStore')
 @observer
 class View extends React.Component {
     constructor(props) {
@@ -59,25 +59,37 @@ class View extends React.Component {
     }
 
     componentDidMount() {
+        const {userInfoStore, commonStore} = this.props;
 
-        const store = this.props.userInfoStore;
-        // 判断用户信息
-        store.getActionLimit().then(res => {
-            if(res.status !== 200) {
-                return ;
-            }
-            // 检测提现限制
-            this.setState({
-                actionStatus: parseInt(store.actionRoles.withdraw) !== 1 ? 2 : 1
+        Promise.all([commonStore.getAllCoinPoint(), userInfoStore.getActionLimit()])
+            .then(([res1, res2]) => {
+                if (res2.status !== 200) {
+                    return;
+                }
+                const {recharge} = userInfoStore.actionRoles;
+                let baseCurrency = commonStore.coinsMap[UPEX.config.baseCurrencyEn];
+                // 检测充值限制
+                let disabled = parseInt(userInfoStore.actionRoles.recharge) !== 1 || parseInt(baseCurrency.rechargeStatus) !== 1;
+                if (disabled) {
+                    this.setState({
+                        actionStatus: 2
+                    });
+                } else {
+                    this.setState({
+                        actionStatus: 1
+                    });
+                }
+
+            })
+            .catch(err => {
+                console.error('componentDidMount withdraw aus', err);
+            }).then(res => {
+                this.setState({
+                    step: 1,
+                    loading: false
+                });
             });
-        }).catch(err => {
-            console.error('componentDidMount withdraw aus', err);
-        }).then(res => {
-            this.setState({
-                step: 1,
-                loading: false
-            });
-        })
+
         // kyc限额信息
         ausGetQuotaManagementInfo({
             actionId: 2,

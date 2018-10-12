@@ -95,7 +95,7 @@ class List extends Component {
 									<dl>
 										<dd className="status">{status}</dd>
 										<dd className="name">{item.currencyNameEn}</dd>
-										<dd className="num">{item.amount}</dd>
+										<dd className="num">{item.initAmount}</dd>
 										<dd className="type">{typeMap[item.withdrawType]}</dd>
 										<dd className="time">{item.createTime}</dd>
 										<dd className="fee">{item.fee}</dd>

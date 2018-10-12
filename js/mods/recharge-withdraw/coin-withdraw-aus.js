@@ -234,11 +234,10 @@ class WithdrawCoin extends Component {
             );
         });
         let $content = null;
-
+        let $selectAfterNode = null;
         if (state.actionDisabled) {
-            $content = (
-                <FormItem>
-                    <Alert
+            $selectAfterNode = (
+                <Alert
                         message={
                             <span className="warn-text">
                                 <Icon type="exclamation-circle" />
@@ -247,8 +246,8 @@ class WithdrawCoin extends Component {
                         }
                         type="error"
                     />
-                </FormItem>
             )
+            $content = null;
         } else {
             $addressOptions2 = store.addressList.map((cur, index) => {
                 return (
@@ -349,7 +348,7 @@ class WithdrawCoin extends Component {
                 />
                 <FormView>
                     {store.isFetching ? <div className="mini-loading" /> : null}
-                    <FormItem label={UPEX.lang.template('选择币种')}>
+                    <FormItem label={UPEX.lang.template('选择币种')} after={$selectAfterNode}>
                         <Select labelInValue value={{ key: store.currentCoin.currencyNameEn }} onChange={this.selectWithdrawCoin}>
                             {$options}
                         </Select>
