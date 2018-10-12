@@ -122,10 +122,10 @@ class BrokerageListView extends Component {
                     {
                         list.map((item, index) => (
                             <li key={index}>
-                                <div className="time">{TimeUtil.formatDate(item.createTime * 1000)}</div>
+                                <div className="time">{TimeUtil.formatDate(item.createTime * 1000,'yyyy.MM.dd')}</div>
                                 <div className="name">{item.currencyNameEn}</div>
-                                <div className="number">{item.number}</div>
-                                <div className="user">{item.user}</div>
+                                <div className="number">{item.amount}</div>
+                                <div className="user">{item.fromUserRegAccount}</div>
                                 <div
                                     className="status">{item.status == 1 ? UPEX.lang.template('已结算') : UPEX.lang.template('未结算')}</div>
                             </li>

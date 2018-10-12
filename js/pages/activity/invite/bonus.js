@@ -64,7 +64,7 @@ class BonusView extends Component {
                                         <img src={`${item.icoUrl}`} alt=""/>
                                         <span className="symbol">{item.currencyNameEn || '--'}</span>
                                     </div>
-                                    <div className="number">{item.number}</div>
+                                    <div className="number">{item.amount}</div>
                                 </li>
                             );
                         })

@@ -18,24 +18,28 @@
     margin: 0 auto;
     .wrap-left {
       float: left;
-      margin: 80px 0 0 14px;
+      margin: 230px 0 0 14px;
+      opacity: 0;
+      transition: all ease-in-out 2s;
+      &.show-ani{
+        opacity: 1;
+        margin-top: 200px;
+      }
       .friend {
         opacity: 0;
         color: #c5cedd;
         font-size: 20px;
         font-weight: 300;
-        margin-top: 150px;
         transition: all ease-in-out 2s;
         &.show-ani {
           opacity: 1;
-          margin-top: 120px;
         }
       }
       .title {
         opacity: 0;
         font-size: 36px;
         color: #cad1d5;
-        margin-top: 20px;
+        margin-top: 25px;
         transition: all ease-in-out 2s .5s;
         &.show-ani {
           opacity: 1;
@@ -43,7 +47,7 @@
       }
       .btn {
         opacity: 0;
-        margin-top: 20px;
+        margin-top: 30px;
         transition: all ease-in-out 2s 1s;
         &.show-ani {
           opacity: 1;
@@ -197,13 +201,13 @@
         display: inline-block;
       }
       label {
-        width: 100px;
+        width: 108px;
       }
       em {
         color: #31353f;
         font-size: 18px;
         font-weight: bold;
-        padding: 0 3px;
+        padding: 0 8px 0 3px;
       }
     }
 
@@ -239,7 +243,7 @@
             }
             &.copy-txt {
               color: #cc9900;
-              margin: 0 18px;
+              margin: 0 16px;
               position: relative;
               float: right;
               &:before {
@@ -349,6 +353,7 @@
           }
           .table-bd {
             padding: 0 20px;
+            height: 400px;
           }
           .table-bd li {
             width: 100%;
@@ -356,6 +361,7 @@
             line-height: 50px;
             border-bottom: 1px solid #edf0f1;
             overflow: hidden;
+            color: @text-color01-light;
             .symbol,
             img {
               display: inline-block;
@@ -457,6 +463,14 @@
             .time, .name, .number, .user, .status, .level {
               display: inline-block;
             }
+            .list{
+              .time{
+                color: @text-color02-light;
+              }
+              .name, .number, .user, .status{
+                color: @text-color01-light;
+              }
+            }
             .table-hd, .list li {
               height: 50px;
               line-height: 50px;
@@ -465,12 +479,16 @@
             .list li {
               &:hover {
                 background-color: @list-hoverbg-color01-light;
+                .time{
+                  color: @text-color01-light;
+                }
               }
             }
             .table-ft {
               .tips {
                 float: left;
-                margin: 12px 0 0 20px;
+                margin-top: 12px;
+                color: @text-color02-light;
               }
               .ant-pagination {
                 float: right;
@@ -495,6 +513,7 @@
               width: 100px;
               text-align: right;
             }
+
           }
           .record-detail {
             .time {
@@ -531,18 +550,20 @@
       font-weight: bold;
       border-radius: 6px 6px 0 0;
       color: @text-color01-light;
+      box-shadow: 0 2px 3px 1px rgba(23,31,39,0.02);
     }
     .rule-bd {
-      padding: 10px 20px;
+      padding: 14px 20px 0;
       li {
         font-size: 12px;
         color: @text-color01-light;
         line-height: 26px;
+        margin-bottom: 10px;
       }
       em {
         font-size: 18px;
         color: #cc9900;
-        padding: 0 3px;
+        padding: 0 8px;
       }
     }
     .rule-ft {
@@ -553,13 +574,14 @@
       color: @text-color02-light;
       h4 {
         font-weight: normal;
-        padding: 10px 20px;
+        padding: 10px 20px 0;
+        color: @text-color02-light;
       }
       ul {
-        padding: 5px 30px;
+        padding: 4px 30px;
         li {
-          list-style: decimal;
-          margin-bottom: 10px;
+          list-style: disc;
+          margin-bottom: 6px;
         }
       }
     }

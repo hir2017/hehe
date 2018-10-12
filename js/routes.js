@@ -141,7 +141,7 @@ const routes = (
                 <IndexRoute component={NewsList}/>
                 <Route path="detail/:id" component={NewsDetail} />
             </Route>
-            <Route path="activity">
+            <Route path="activity" component={Auth}>
             	<IndexRoute getComponent={Invite}/>
             	<Route path="invite(-:type)" getComponent={Invite}/>
             </Route>

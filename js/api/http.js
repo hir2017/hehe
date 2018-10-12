@@ -1135,9 +1135,13 @@ export function getInviteAssets(data){
  * 返佣记录
  */
 export function getInviteCommissionList(data){
+    /*return axios.post('http://www.mocky.io/v2/5bbd61933100005900710efa',qs.stringify({
+        ...data
+    }));*/
     return axios.post('/user/getUserCommissionWaterListByUuid',qs.stringify({
         ...data
     }));
+
 }
 /**
  * 邀请明细

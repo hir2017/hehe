@@ -11,7 +11,8 @@
 /* 面包屑导航 */
 
 .user-wrapper .user-breadcrumb.ant-breadcrumb {
-    padding: 10px 0 17px;
+    font-size: 12px;
+    padding: 30px 0 20px;
 }
 
 body .user-main .ant-select-dropdown-menu-item {
@@ -270,7 +271,7 @@ body .user-main .ant-select-dropdown-menu-item {
         text-align: center;
         border-radius: 6px;
         margin-bottom: 20px;
-        padding: 20px;
+        padding: 16px;
         background-color: #fff;
         .name {
             width: 160px;
@@ -283,8 +284,8 @@ body .user-main .ant-select-dropdown-menu-item {
             overflow: hidden;
         }
         .id {
-            font-size: 12px;
-            color: #999;
+            font-size: 14px;
+            color: @text-color02-light;
         }
     }
 
@@ -293,11 +294,18 @@ body .user-main .ant-select-dropdown-menu-item {
         background-color: #fff;
         & .menu-submenu,
         & .menu-submenu-title {
-            border-bottom: 1px solid #f3f3f3;
+            border-bottom: 1px solid @page-split-border-color;
         }
         .menu-submenu {
             text-align: center;
             padding-bottom: 10px;
+            &:first-child{
+                .menu-submenu-title{
+                        height: 50px;
+                        line-height: 40px;
+                        padding-top: 10px;
+                }
+            }
         }
 
          .menu-submenu-title {
@@ -309,7 +317,7 @@ body .user-main .ant-select-dropdown-menu-item {
             font-size: 14px;
             color: @text-color01-light;
             font-weight: bold;
-        }
+         }
 
         .menu-submenu-item {
             height: 40px;
