@@ -66,10 +66,10 @@ class View extends React.Component {
                 if (res2.status !== 200) {
                     return;
                 }
-                const {recharge} = userInfoStore.actionRoles;
+                const {withdraw} = userInfoStore.actionRoles;
                 let baseCurrency = commonStore.coinsMap[UPEX.config.baseCurrencyEn];
                 // 检测充值限制
-                let disabled = parseInt(userInfoStore.actionRoles.recharge) !== 1 || parseInt(baseCurrency.rechargeStatus) !== 1;
+                let disabled = parseInt(withdraw) !== 1 || parseInt(baseCurrency.withdrawStatus) !== 1;
                 if (disabled) {
                     this.setState({
                         actionStatus: 2
