@@ -117,7 +117,7 @@ class View extends Component {
                         <Button className="submit-btn" onClick={this.onSubmit.bind(this)}>
                             {UPEX.lang.template('已完成支付, 去查看')}
                         </Button>
-                        <Button className="cancel-btn" onClick={this.onSubmit.bind(this, 'back')}>
+                        <Button className="exc-btn-cancel" onClick={this.onSubmit.bind(this, 'back')}>
                             {UPEX.lang.template('返回')}
                         </Button>
                     </FormItem>

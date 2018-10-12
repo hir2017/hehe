@@ -52,8 +52,13 @@ class FundChangeRecordStore {
                 '8': UPEX.lang.template('放款失败'),
             },
             recharge: {
+                '0': UPEX.lang.template('已付款,系统入账中'),
                 '1': UPEX.lang.template('充值成功'),
+                '2': UPEX.lang.template('已付款,系统入账中'),
                 '3': UPEX.lang.template('充值失败'),
+                '5': UPEX.lang.template('已付款,系统入账中'),
+                '6': UPEX.lang.template('已付款,系统入账中'),
+                '9': UPEX.lang.template('超时取消'),
                 '10': UPEX.lang.template('充值失败'),
                 '11': UPEX.lang.template('已退款'),
                 '12': UPEX.lang.template('退款失败'),
@@ -131,9 +136,9 @@ class FundChangeRecordStore {
         arr.forEach((item, index) => {
             item._type = item.type === 1 ? 'recharge' : 'withdraw';
             const tempMap = statusMap[item._type];
-            // item._status = tempMap[item.status] || UPEX.lang.template('未知');
             item._status = tempMap[item.status] || '--';
             item._actionName = `${UPEX.lang.template('银行卡')}${item.type === 1 ? UPEX.lang.template('充值') : UPEX.lang.template('提现')}`;
+            item._cardNo = item.cardNo || `*******${item.payerAccount5Code || ''}`;
             item._payMethod = item.type === 1 ? item.openBank : UPEX.lang.template('法币账户');
             if(item.status === 6 && item._type === 'withdraw') {
                 item._status += ',' + UPEX.lang.template('原因：{reason}', {reason: item.refuseReason});

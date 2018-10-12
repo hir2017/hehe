@@ -121,11 +121,11 @@ class CoinRecharge extends Component {
         const { state } = this;
         let { coins, currencyId, addressInfo, currencyNameEn } = this.state;
         let $content = null;
+        let $afterNode = null;
         // 判断是否禁用
         if (state.actionDisabled) {
-            $content = (
-                <FormItem>
-                    <Alert
+            $afterNode = (
+                <Alert
                         message={
                             <span className="warn-text">
                                 <Icon type="exclamation-circle" />
@@ -134,8 +134,8 @@ class CoinRecharge extends Component {
                         }
                         type="error"
                     />
-                </FormItem>
-            );
+            )
+            $content = null;
         } else {
             let $mark = null;
             // 标签
@@ -217,7 +217,7 @@ class CoinRecharge extends Component {
                 </Modal>
                 <Alert className="ace-form-tips" type="warning" showIcon message={UPEX.lang.template('充币提醒信息内容')} />
                 <FormView>
-                    <FormItem label={UPEX.lang.template('选择币种')}>
+                    <FormItem label={UPEX.lang.template('选择币种')} after={$afterNode}>
                         <Select value={currencyId ? `${currencyId}_${currencyNameEn}` : ''} onChange={this.coinChange}>
                             {coins.map((item, i) => (
                                 <Option value={`${item.currencyId}_${item.currencyNameEn}`} key={i}>

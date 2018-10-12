@@ -1,5 +1,5 @@
 /**
- * 充提币 充提现 校验
+ * 充提币 充提现 kyc校验 资金密码检测
  */
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
@@ -76,7 +76,7 @@ class View extends Component {
                 </PageWrapper>
             );
         }
-        // withdraw 检测交易密码
+        // withdraw 资金密码检测
         if(['withdraw', 'withdraw coin'].indexOf(props.name) !== -1) {
             if (userInfo.isValidatePass !== 1) {
                 //  未设置交易密码

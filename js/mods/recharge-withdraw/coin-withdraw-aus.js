@@ -234,11 +234,10 @@ class WithdrawCoin extends Component {
             );
         });
         let $content = null;
-
+        let $selectAfterNode = null;
         if (state.actionDisabled) {
-            $content = (
-                <FormItem>
-                    <Alert
+            $selectAfterNode = (
+                <Alert
                         message={
                             <span className="warn-text">
                                 <Icon type="exclamation-circle" />
@@ -247,8 +246,8 @@ class WithdrawCoin extends Component {
                         }
                         type="error"
                     />
-                </FormItem>
             )
+            $content = null;
         } else {
             $addressOptions2 = store.addressList.map((cur, index) => {
                 return (
@@ -262,12 +261,12 @@ class WithdrawCoin extends Component {
                 <AmountInfo
                     left={
                         <p className="balance">
-                            {UPEX.lang.template('可用提币数量')} <br /> {store.cashAmount || 0} {store.currentCoin.currencyNameEn}
+                            <span className="text">{UPEX.lang.template('可用提币数量')}</span><em>{store.cashAmount || 0}</em> {store.currentCoin.currencyNameEn}
                         </p>
                     }
                     right={
                         <p className="balance">
-                            {UPEX.lang.template('实际到账金额')} <br /> <em>{store.withdrawValue}</em> {store.currentCoin.currencyNameEn}
+                            <span className="text">{UPEX.lang.template('实际到账金额')}</span><em>{store.withdrawValue}</em> {store.currentCoin.currencyNameEn}
                         </p>
                     }
                 />
@@ -349,7 +348,7 @@ class WithdrawCoin extends Component {
                 />
                 <FormView>
                     {store.isFetching ? <div className="mini-loading" /> : null}
-                    <FormItem label={UPEX.lang.template('选择币种')}>
+                    <FormItem label={UPEX.lang.template('选择币种')} after={$selectAfterNode}>
                         <Select labelInValue value={{ key: store.currentCoin.currencyNameEn }} onChange={this.selectWithdrawCoin}>
                             {$options}
                         </Select>

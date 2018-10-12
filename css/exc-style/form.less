@@ -24,6 +24,9 @@
     .inner-item {
         display: block;
         width: 100%;
+        .ant-input-suffix {
+            color: @text-color02-light;
+        }
     }
     .inner-label {
         font-size: 12px;
@@ -119,17 +122,17 @@
     .table-wrapper {
         margin: 0 0 3px;
         width: 100%;
-        border: #ccc solid 1px;
+        border:  @table-border-color solid 1px;
         border-radius: 3px;
         table {
             width: 100%;
             td{
                 width: 50%;
-                border: 1px solid #cbd2d6;
+                border: 1px solid  @table-border-color;
                 text-align: center;
                 text-align: left;
                 height: 40px;
-                line-height: 40px;
+                // line-height: 40px;
                 padding: 0 8px 0 20px;
                 font-size: 11px;
                 position: relative;
@@ -143,7 +146,7 @@
                     background-color: @theme-yellow;
                     text-align: center;
                     border-radius: 2px;
-                    color: #333;
+                    color: @text-color01-light;
                     cursor: pointer;
                     &:hover {
                         background: @btn-bg-hover-scolor;
@@ -154,9 +157,11 @@
                 td {
                     &:first-child {
                         border-left-width: 0;
+                        width: 35%;
                     }
                     &:last-child {
                         border-right-width: 0;
+                        width: 65%;
                     }
                 }
                 &:first-child td{
@@ -169,16 +174,21 @@
         }
     }
     .amount-tips {
-        font-size: 12px;
-        color: #969da9;
+        font-size: 14px;
+        color: @text-color02-light;
         padding-top: 12px;
+        text-align: center;
+        .text {
+            font-size: 11px;
+            display: inline-block;
+            width: 100%;
+        }
         .balance{
             height: 60px;
-            text-align: center;
             background-color: #f7f9fa;
             border-radius: 3px;
             box-sizing: border-box;
-            padding: 13px 0 0;
+            padding: 9px 0 0;
             em {
                 color: #323e48;
             }
@@ -189,7 +199,7 @@
 
 .ace-form-tips {
     &.ant-alert {
-        margin: 0 20px 30px; // height: 30px;
+        margin: 0 20px 40px; // height: 30px;
         padding: 0;
         line-height: 30px;
         font-size: 12px;
@@ -205,6 +215,10 @@
         .exc-form & {
             margin-left: 0 ;
             margin-right: 0 ;
+            padding-top: 0;
+        }
+        + .exc-form {
+            padding-top: 0;
         }
     }
 }

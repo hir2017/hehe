@@ -78,7 +78,7 @@ class View extends Component {
                         <TableView data={tableData} />
                     </FormItem>
                     <FormItem>
-                        <Button className="submit-btn" onClick={this.onSubmit.bind(this)}>
+                        <Button className="exc-btn-submit" onClick={this.onSubmit.bind(this)}>
                             {UPEX.lang.template('已完成支付, 去查看')}
                         </Button>
                     </FormItem>

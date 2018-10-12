@@ -30,11 +30,11 @@ class View extends Component {
         * ATM: 获取汇款账号、截止日期
         */
         const { data, formData } = this.props;
-        if(data.type === '2') {
+        if (data.type === '2') {
             this.setState({
                 cardNumber: formData.VACCNo,
                 date: formData.ExpireDate
-            })
+            });
         }
     }
 
@@ -48,12 +48,14 @@ class View extends Component {
         }
         // webATM
         if (action === 'web-success') {
-
-            this.action.submitOrder({
-                MerchantID_: formData.MerchantID_,
-                PostData_: formData.PostData_,
-                url: formData.url,
-            }, false);
+            this.action.submitOrder(
+                {
+                    MerchantID_: formData.MerchantID_,
+                    PostData_: formData.PostData_,
+                    url: formData.url
+                },
+                false
+            );
             this.setState({
                 isVisible: true
             });
@@ -73,12 +75,12 @@ class View extends Component {
             <AmountInfo
                 left={
                     <p className="balance">
-                        {UPEX.lang.template('手续费')} <br /> {data.fee} {UPEX.config.baseCurrencyEn}
+                        <span className="text">{UPEX.lang.template('手续费')}</span><em>{data.fee}</em> {UPEX.config.baseCurrencyEn}
                     </p>
                 }
                 right={
                     <p className="balance">
-                        {UPEX.lang.template('到账金额')} <br /> <em>{data.arrival}</em> {UPEX.config.baseCurrencyEn}
+                        <span className="text">{UPEX.lang.template('到账金额')}</span><em>{data.arrival}</em> {UPEX.config.baseCurrencyEn}
                     </p>
                 }
             />
@@ -103,16 +105,16 @@ class View extends Component {
             ];
             $operateBtn = state.isVisible ? (
                 <FormItem>
-                    <Button className="submit-btn" onClick={this.onSubmit.bind(this, 'go-record')}>
+                    <Button className="exc-btn-submit" onClick={this.onSubmit.bind(this, 'go-record')}>
                         {UPEX.lang.template('已完成支付, 去查看')}
                     </Button>
                 </FormItem>
             ) : (
                 <FormItem>
-                    <Button className="submit-btn" onClick={this.onSubmit.bind(this, 'web-success')}>
+                    <Button className="exc-btn-submit" onClick={this.onSubmit.bind(this, 'web-success')}>
                         {UPEX.lang.template('确认并使用ATM读卡机支付')}
                     </Button>
-                    <Button className="cancel-btn" onClick={this.onSubmit.bind(this, 'cancel')}>
+                    <Button className="exc-btn-cancel" onClick={this.onSubmit.bind(this, 'cancel')}>
                         {UPEX.lang.template('取消支付')}
                     </Button>
                 </FormItem>
@@ -140,7 +142,7 @@ class View extends Component {
             ];
             $operateBtn = (
                 <FormItem>
-                    <Button className="submit-btn" onClick={this.onSubmit.bind(this, 'go-record')}>
+                    <Button className="exc-btn-submit" onClick={this.onSubmit.bind(this, 'go-record')}>
                         {UPEX.lang.template('已完成支付, 去查看')}
                     </Button>
                 </FormItem>
@@ -148,15 +150,17 @@ class View extends Component {
         }
 
         return (
-            <FormView className={`step2 type-${data.type}`}>
-                <Alert className="ace-form-tips" type="info" showIcon message={AlertMsg} type="warning" />
-                <FormItem label={UPEX.lang.template('充值信息')}>
-                    <TableView data={tableData} />
-                    {$afterNode}
-                </FormItem>
+            <div>
+                <Alert className="ace-form-tips" showIcon message={AlertMsg} type="warning" />
+                <FormView className={`step2 type-${data.type}`}>
+                    <FormItem label={UPEX.lang.template('充值信息')}>
+                        <TableView data={tableData} />
+                        {$afterNode}
+                    </FormItem>
 
-                {$operateBtn}
-            </FormView>
+                    {$operateBtn}
+                </FormView>
+            </div>
         );
     }
 }
