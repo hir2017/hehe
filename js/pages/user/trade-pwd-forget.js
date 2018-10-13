@@ -7,11 +7,11 @@ import FormView from '@/mods/common/form';
 import FormItem from '@/mods/common/form/item';
 import SmsBtn from '@/mods/common/sms-btn';
 
-import AutoCompleteHack from '../common/auto-complete-hack';
+import AutoCompleteHack from '@/mods/common/auto-complete-hack';
 
-import InputItem from '../../components/form/input-item';
-import PageForm from '../../components/page-user/page-form';
-import { createGetProp } from '../../components/utils';
+import InputItem from '@/components/form/input-item';
+import PageForm from '@/components/page-user/page-form';
+import { createGetProp } from '@/components/utils';
 
 @inject('userInfoStore')
 @observer

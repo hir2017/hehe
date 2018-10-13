@@ -112,7 +112,7 @@ export default class SettingTradingPassword extends Component {
                 message.error(UPEX.lang.template(res.message));
             }
             this.setState(_state)
-        }).catch(e => {
+        }).catch(error => {
             this.setState({
                 loading: false,
                 show: true

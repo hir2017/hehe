@@ -44,8 +44,9 @@ import IdCardAuthAus from './pages/user/idcard-auth-aus';
 // import BankInfo from './pages/user/bank-info';
 import PasswordSetting from './pages/user/password-setting'
 import ModifyPwd from './mods/password-setting/modify-login-pwd'
-import ModifyTradePwd from './mods/password-setting/modify-trade-pwd'
-import SetTradePwd from './mods/password-setting/setting-trade-pwd-aus'
+import SetTradePwd from './pages/user/trade-pwd-setting'
+import ModifyTradePwd from './pages/user/trade-pwd-modify'
+import forgetTradePwd from './pages/user/trade-pwd-forget'
 import BindingPhone from './pages/user/binding-phone'
 import ModifyPhone from './mods/binding-phone/modify-phone'
 import SettingPhone from './mods/binding-phone/binding-phone'
@@ -56,7 +57,7 @@ import UnbindingGoogle from './mods/binding-google/unbind-aus'
 import GoogleGuide from './pages/user/google-guide'
 import EmailSuccess from './mods/binding-email/success'
 import PhoneSuccess from './mods/binding-phone/success'
-import forgetTradePwd from './mods/password-setting/forget-trade-pwd-aus'
+
 
 
 const Home = (location, cb)=>{
