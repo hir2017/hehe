@@ -440,6 +440,7 @@ class UserInfo {
                         return res;
                     }
                 })
+                return res;
             })
             .catch(e => {
                 console.error(e);
