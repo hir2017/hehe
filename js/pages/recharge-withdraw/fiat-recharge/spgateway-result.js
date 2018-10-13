@@ -13,13 +13,24 @@ class View extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            fee: 13
+            fee: 0
         };
     }
 
     componentDidMount() {
-        const { location } = this.props;
-        this.setState(location.query);
+        const {query = {}} = this.props.location;
+        let fee = 0;
+        try {
+            fee = parseInt(query.Amt) * 0.01;
+            fee = fee >= 13 ? 13 : Math.ceil(fee);
+        } catch (error) {
+            console.error('componentDidMount 111', error)
+        }
+
+        this.setState({
+            ...query,
+            fee
+        });
     }
 
     onSubmit() {
