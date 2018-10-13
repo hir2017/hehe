@@ -22,7 +22,7 @@ class View extends Component {
             amount: 0,
             bank: '1',
             fee: 0,
-            amountLowLimit: 14,
+            amountLowLimit: 2, // 500
             disabled: false
         };
         this.bankList = [
