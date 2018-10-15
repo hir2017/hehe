@@ -228,11 +228,11 @@
       background-color: #fff;
       border-radius: 6px;
       ul {
-        padding: 20px;
+        padding: 10px 20px;
       }
       .share-item {
-        height: 40px;
-        line-height: 40px;
+        height: 50px;
+        line-height: 50px;
         p,
         label {
           display: inline-block;
@@ -275,6 +275,7 @@
         em.code {
           color: #cc9900;
           font-size: 18px;
+          letter-spacing: 1px;
         }
         .icon-bd {
           display: inline-block;
@@ -422,6 +423,10 @@
             text-align: center;
             border-right: 1px solid #f2f2f2;
             transition: all 0.5s ease;
+            border-radius: 6px 0 0 0;
+            &:last-child{
+              border-radius: 0 6px 0 0;
+            }
             &:hover {
               background-color: #fff;
               h3 {
@@ -631,4 +636,14 @@
   }
 }
 
-
+.ant-pagination-simple .ant-pagination-simple-pager input{
+  &:hover{
+    border-color: @text-yellow-color;
+  }
+}
+.ant-pagination-simple .ant-pagination-next .ant-pagination-item-link, .ant-pagination-simple .ant-pagination-prev .ant-pagination-item-link{
+  &:hover{
+    color: @text-yellow-color;
+    text-decoration: none;
+  }
+}

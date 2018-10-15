@@ -100,7 +100,7 @@ class UserView extends Component {
                         <li className="share-item">
                             <label>{UPEX.lang.template('我的邀请码')}</label>
                             <p className="info">
-                                <em className="code">{myInvitedCode}</em>
+                                <em className="code">{myInvitedCode.replace(/(\w{3})(?=\w)/g,"$1 ")}</em>
                             </p>
                         </li>
                         <li className="share-item">
