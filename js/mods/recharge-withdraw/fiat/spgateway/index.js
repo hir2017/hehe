@@ -28,7 +28,7 @@ class View extends Component {
         this.bankList = [
             { val: '1', label: UPEX.lang.template('玉山银行'), key: 'Esun' },
             { val: '2', label: UPEX.lang.template('臺灣銀行'), key: 'BOT' },
-            { val: '3', label: UPEX.lang.template('台新银行'), key: 'Taishin' },
+            // { val: '3', label: UPEX.lang.template('台新银行'), key: 'Taishin' },
             { val: '4', label: UPEX.lang.template('華南銀行'), key: 'HNCB' }
         ];
         this.typeList = [
