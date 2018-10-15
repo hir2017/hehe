@@ -7,21 +7,20 @@ import FormView from '@/mods/common/form';
 import FormItem from '@/mods/common/form/item';
 import SmsBtn from '@/mods/common/sms-btn';
 
-import AutoCompleteHack from '../common/auto-complete-hack';
+import AutoCompleteHack from '@/mods/common/auto-complete-hack';
 
 import InputItem from '@/components/form/input-item';
 import PageForm from '@/components/page-user/page-form';
 import { createGetProp } from '@/components/utils';
 
-@inject('userInfoStore', 'captchaStore')
+@inject('userInfoStore')
 @observer
 export default class SettingTradingPassword extends Component {
     constructor() {
         super();
         this.submit = this.submit.bind(this);
-        this.captchaChange = this.captchaChange.bind(this);
         this.$sendBtn = <SmsBtn sendCode={setTradePwdSendCode.bind(this, {type: 2})} />;
-
+        console.log('wqeqwew')
         this.PageProps = {
             title: UPEX.lang.template('设置资金密码'),
             formClass: 'modify-password-box'
@@ -67,12 +66,8 @@ export default class SettingTradingPassword extends Component {
         this.setState(data);
     }
 
-    captchaChange() {
-        this.props.captchaStore.fetch();
-    }
 
     submit() {
-        const codeid = this.props.captchaStore.codeid;
         if (!this.state.password) {
             message.error(UPEX.lang.template('请输入资金密码'));
             return;
@@ -95,7 +90,7 @@ export default class SettingTradingPassword extends Component {
             return;
         }
 
-        this.props.userInfoStore.bindTradingPwd(this.state.password, this.state.vCode, this.state.ivCode, codeid).then(res => {
+        this.props.userInfoStore.bindTradingPwd(this.state.password, this.state.vCode, this.state.ivCode, 'codeid').then(res => {
             if (res.status == 200) {
                 browserHistory.push('/user/setpwd');
             }

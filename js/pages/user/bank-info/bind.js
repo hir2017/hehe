@@ -110,33 +110,42 @@ export default class BindingBank extends Component {
     }
 
     submit() {
-        if (!this.state.banckCode) {
+        const {state, props} = this;
+        if (!state.banckCode) {
             message.error('请选择银行');
             return;
         }
-        if (!this.state.branchesCode) {
+        if (!state.branchesCode) {
             message.error('请选择银行分行');
             return;
         }
-        if (!this.state.cardNo) {
+        if (!state.cardNo) {
             message.error('请填写银行卡号');
             return;
         }
-        if (!this.state.password) {
+        if (!state.password) {
             message.error('请输入资金密码');
             return;
         }
-        if (!this.state.imgUrl) {
+        if (!state.imgUrl) {
             message.error('请上传图片');
             return;
         }
 
-        const userInfo = this.props.userInfoStore.userInfo || {};
-        const pwd = md5(this.state.password + UPEX.config.dealSalt + this.props.authStore.uid);
-        const userName = userInfo.uname;
-
+        const userInfo = props.userInfoStore.userInfo || {};
+        const pwd = md5(state.password + UPEX.config.dealSalt + props.authStore.uid);
+        const params = {
+            cardNo: state.cardNo,
+            userName: userInfo.uname,
+            openBank: state.banck,
+            bankCode: state.banckCode,
+            branchNo: state.branchesCode,
+            branchName: state.branche,
+            tradePwd: pwd,
+            imgUrl: state.imgUrl,
+        };
         this.props.userInfoStore
-            .bindVerifyCard(this.state.cardNo, userName, this.state.banck, this.state.branchesCode, this.state.branche, pwd, this.state.imgUrl)
+            .bindVerifyCard(params)
             .then(res => {
                 if (res.status == 200) {
                     this.setState({

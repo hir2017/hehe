@@ -7,15 +7,15 @@ import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import { Button, message, Alert } from 'antd';
 import { Link, browserHistory } from 'react-router';
-import Vcodebutton from '../common/authcode-btn';
+import Vcodebutton from '@/mods/common/authcode-btn';
 import md5 from '../../lib/md5';
 
-import AutoCompleteHack from '../common/auto-complete-hack';
+import AutoCompleteHack from '@/mods/common/auto-complete-hack';
 
-import InputItem from '../../components/form/input-item';
-import PageForm from '../../components/page-user/page-form';
-import { createGetProp } from '../../components/utils';
-import YidunCaptcha from '../yidun-captcha';
+import InputItem from '@/components/form/input-item';
+import PageForm from '@/components/page-user/page-form';
+import { createGetProp } from '@/components/utils';
+import YidunCaptcha from '@/mods/yidun-captcha';
 
 @inject('userInfoStore', 'captchaStore', 'authStore')
 @observer
@@ -23,7 +23,6 @@ export default class ModifyTradingPassword extends Component {
     constructor() {
         super();
         this.submit = this.submit.bind(this);
-        this.captchaChange = this.captchaChange.bind(this);
 
         this.state = {
             password: '',
@@ -43,9 +42,7 @@ export default class ModifyTradingPassword extends Component {
         });
     }
 
-    componentWillMount() {
-        // this.props.captchaStore.fetch();
-    }
+
 
     componentDidMount() {
         this.yidunCaptcha.init((validate, captchaId)=>{
@@ -60,12 +57,9 @@ export default class ModifyTradingPassword extends Component {
         this.setState(data);
     }
 
-    captchaChange() {
-        // this.props.captchaStore.fetch();
-    }
+
 
     submit() {
-        const codeid = this.props.captchaStore.codeid;
 
         if (!this.state.password) {
             message.error(UPEX.lang.template('请输入资金密码'));
@@ -122,7 +116,6 @@ export default class ModifyTradingPassword extends Component {
 
     render() {
         const loading = this.props.userInfoStore.submit_loading_tpwd;
-        const codeid = this.props.captchaStore.codeid;
         const captcha = this.props.captchaStore.captcha;
         const userInfo = this.props.userInfoStore.userInfo || {};
 

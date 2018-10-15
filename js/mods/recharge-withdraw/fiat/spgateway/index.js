@@ -22,14 +22,14 @@ class View extends Component {
             amount: 0,
             bank: '1',
             fee: 0,
-            amountLowLimit: 14,
+            amountLowLimit: 2, // 500
             disabled: false
         };
         this.bankList = [
             { val: '1', label: UPEX.lang.template('玉山银行'), key: 'Esun' },
             { val: '2', label: UPEX.lang.template('臺灣銀行'), key: 'BOT' },
-            { val: '3', label: UPEX.lang.template('台新银行'), key: 'HNCB' },
-            { val: '4', label: UPEX.lang.template('華南銀行'), key: 'Taishin' }
+            { val: '3', label: UPEX.lang.template('台新银行'), key: 'Taishin' },
+            { val: '4', label: UPEX.lang.template('華南銀行'), key: 'HNCB' }
         ];
         this.typeList = [
             { val: '1', label: UPEX.lang.template('网络银行转账'), key: 'webatm' },
@@ -80,7 +80,7 @@ class View extends Component {
             }
             val = parseInt(val);
             // 计算手续费 1% 最大13 向上取整
-            let fee = val * 0.01
+            let fee = val * 0.01;
             data.fee = fee >= 13 ? 13 : Math.ceil(fee);
         }
         data[name] = val;

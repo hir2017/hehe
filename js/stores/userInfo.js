@@ -440,6 +440,7 @@ class UserInfo {
                         return res;
                     }
                 })
+                return res;
             })
             .catch(e => {
                 console.error(e);
@@ -706,9 +707,9 @@ class UserInfo {
     }
 
     @action
-    bindVerifyCard(cardNo, userName, openBank, branchNo, branchName, tradePwd, imgUrl) {
+    bindVerifyCard(params) {
         this.submit_loading = true;
-        return bindVerifyCardInfo(cardNo, userName, openBank, branchNo, branchName, tradePwd, imgUrl)
+        return bindVerifyCardInfo(params)
             .then(res => {
                 runInAction(() => {
                     this.submit_loading = false;
