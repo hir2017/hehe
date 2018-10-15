@@ -12,6 +12,7 @@ import NotFound from './pages/others/404';
 import Login from './pages/login-register/login';
 import Register from './pages/login-register/register';
 import ResetPwd from './pages/login-register/resetpwd';
+import InviteRegister from './pages/activity/invite-register';
 
 // 授权登陆容器HOC
 import Auth from './mods/authhoc/index';
@@ -82,6 +83,7 @@ const Invite = (location, cb)=>{
     }, 'invite');
 }
 
+
 const routes = (
     <Route>
         <Route path="/" component={ Layout }>
@@ -145,6 +147,7 @@ const routes = (
             	<IndexRoute getComponent={Invite}/>
             	<Route path="invite(-:type)" getComponent={Invite}/>
             </Route>
+            <Route path="invite-register" component={InviteRegister} />
             <Route path="login" component={Login} />
 			<Route path="register" component={Register} />
 			<Route path="resetpwd" component={ResetPwd} />

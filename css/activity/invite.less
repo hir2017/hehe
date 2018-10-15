@@ -17,13 +17,16 @@
     width: 1200px;
     margin: 0 auto;
     .wrap-left {
-      float: left;
-      margin: 230px 0 0 14px;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      margin-top: -90px;
+      margin-left: -500px;
       opacity: 0;
       transition: all ease-in-out 2s;
-      &.show-ani{
+      &.show-ani {
         opacity: 1;
-        margin-top: 200px;
+        margin-top: -100px;
       }
       .friend {
         opacity: 0;
@@ -64,21 +67,28 @@
           color: #cc9900;
           cursor: pointer;
           text-decoration: none;
+          &:hover {
+            background-color: #cc9900;
+            color: #fff;
+          }
         }
       }
     }
     .wrap-right {
-      float: right;
+      position: absolute;
       width: 720px;
       background: url("../../images/activity/register-computer.png") no-repeat center;
       background-size: 720px 425px;
       padding-top: 440px;
-      margin-top: 100px;
+      right: 50%;
+      top: 50%;
+      margin-top: -200px;
+      margin-right: -600px;
       opacity: 0;
       transition: all ease-in-out 2s;
       &.show-ani {
         opacity: 1;
-        margin-top: 80px;
+        margin-top: -230px;
       }
       .des {
         text-align: center;
@@ -463,11 +473,11 @@
             .time, .name, .number, .user, .status, .level {
               display: inline-block;
             }
-            .list{
-              .time{
+            .list {
+              .time {
                 color: @text-color02-light;
               }
-              .name, .number, .user, .status{
+              .name, .number, .user, .status {
                 color: @text-color01-light;
               }
             }
@@ -479,7 +489,7 @@
             .list li {
               &:hover {
                 background-color: @list-hoverbg-color01-light;
-                .time{
+                .time {
                   color: @text-color01-light;
                 }
               }
@@ -550,7 +560,7 @@
       font-weight: bold;
       border-radius: 6px 6px 0 0;
       color: @text-color01-light;
-      box-shadow: 0 2px 3px 1px rgba(23,31,39,0.02);
+      box-shadow: 0 2px 3px 1px rgba(23, 31, 39, 0.02);
     }
     .rule-bd {
       padding: 14px 20px 0;

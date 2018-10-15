@@ -3,11 +3,13 @@
  * @author 陈立英
  * @date 2018-10-01
  */
+import '../../../css/activity/invite.less';
 import React, {Component} from 'react';
 import {observer, inject} from 'mobx-react';
-import {getInviterInfoByCode} from '../../../api/http';
-import UrlUtil from '../../../lib/url';
+import {getInviterInfoByCode} from '@/api/http';
+import UrlUtil from '@/lib/url';
 
+const contentHeight = document.body.clientHeight - 50;
 @observer
 class PageView extends Component {
     constructor(props) {
@@ -29,6 +31,7 @@ class PageView extends Component {
                 addClass:'show-ani'
             })
         },500);
+
     }
 
     componentWillUnmount(){
@@ -47,8 +50,8 @@ class PageView extends Component {
 
     render() {
         return (
-            <div className="invite-register">
-                <div className="register-wrap">
+            <div className="invite-register" style={{height:`${contentHeight}px`}}>
+                <div className="register-wrap clearfix" >
                     <div className={`wrap-left ${this.state.addClass}`}>
                         <p className={`friend ${this.state.addClass}`}>{UPEX.lang.template('你的好友')}</p>
                         <p className={`friend ${this.state.addClass}`}>{this.state.username}</p>
