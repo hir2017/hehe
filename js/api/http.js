@@ -885,23 +885,8 @@ export function updateFdPwdEnabled(fdPwd, enabled) {
  *
  */
 
-export function bindVerifyCardInfo(
-    cardNo,
-    userName,
-    openBank,
-    branchNo,
-    branchName,
-    tradePwd,
-    imgUrl) {
-    return axios.post('/card/bindVerifyCardInfo', {
-        cardNo,
-        userName,
-        openBank,
-        branchNo,
-        branchName,
-        tradePwd,
-        imgUrl
-    })
+export function bindVerifyCardInfo(data) {
+    return axios.post('/card/bindVerifyCardInfo', data)
 }
 
 /**
