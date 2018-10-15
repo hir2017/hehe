@@ -25,6 +25,8 @@ window.LangPack = LangPack;
 
 import './config';
 import './global';
+// 谷歌埋点
+// import './mods/ga';
 import routes from './routes';
 import RootStore from './stores/index';
 

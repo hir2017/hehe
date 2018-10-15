@@ -96,4 +96,7 @@ config.websocketHost = socket_protocol + '//' + origin_ws + '/';
 config.uploadImgHost = config.host + '/upload/uploadQN';
 config.imgHost = protocol + '//' + origin_java + '/img';
 
+// 谷歌埋点UACode
+config.GACodeData = '';
+
 window.$config = config;
