@@ -5,7 +5,6 @@ import '../../../../css/activity/invite.less';
 import React, { Component } from "react";
 import InviteWelcome from './welcome';
 import InviteHome from './home';
-import InviteRegister from '../invite-register';
 
 class InviteView extends Component {
 	static defaultProps = {
@@ -24,9 +23,6 @@ class InviteView extends Component {
 		switch(type) {
 			case 'home':
 				$content = <InviteHome/>
-				break;
-			case 'register':
-				$content = <InviteRegister/>
 				break;
 			default:
 				$content = <InviteWelcome/>
