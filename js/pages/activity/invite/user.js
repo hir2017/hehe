@@ -73,7 +73,7 @@ class UserView extends Component {
     render() {
         let {friendCount = 0, myInvitedCode = '', amount = 0, currencyNameEn = ''} = this.state.user;
         let self = this;
-        let shareLink = `${UPEX.config.origin}/activity/invite-register?invite_code=${myInvitedCode}`;
+        let shareLink = `${UPEX.config.origin}/invite-register?invite_code=${myInvitedCode}`;
 
         shareLink && this.insertQrcode(shareLink);
 
