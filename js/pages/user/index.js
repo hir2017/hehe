@@ -76,6 +76,8 @@ class UserPage extends Component {
 
         if(UPEX.config.version === 'infinitex') {
             navData[0].subItems.pop();
+            // 临时移除活动
+            navData.pop();
         }
         this.navData = navData;
     }
@@ -98,13 +100,13 @@ class UserPage extends Component {
 
     activeMenu(url) {
         let pathname;
-        
+
         if (this.props.router && this.props.router.location) {
             pathname = this.props.router.location.pathname;
         } else {
             pathname = this.props.pathname;
         }
-        
+
         if (new RegExp(`${url}$`).test(pathname)) {
             return 'active-item';
         } else {
