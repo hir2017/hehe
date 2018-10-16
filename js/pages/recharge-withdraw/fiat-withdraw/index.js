@@ -4,13 +4,19 @@
 import React, {Component} from 'react';
 import { observer, inject } from 'mobx-react';
 import { browserHistory } from 'react-router';
+import PageWrapper from '@/mods/common/wrapper/full-page';
 import FiatWithdrawView from '@/mods/recharge-withdraw/fiat-withdraw';
+import AuthWrapper from '@/mods/authhoc/recharge-withdraw';
 
 @inject('userInfoStore')
 @observer
 class Recharge extends Component{
 	constructor(props){
-		super(props);
+        super(props);
+        this.pageInfo = {
+            title :UPEX.lang.template('账户提现'),
+            className: 'fiat-withdraw header-shadow rw-wrapper w-fait-wrapper'
+        }
 	}
 
 	componentDidMount() {
@@ -70,14 +76,12 @@ class Recharge extends Component{
 		}
 
 		return (
-			<div className="rw-wrapper w-fait-wrapper">
-				<div className="module-box">
-				<h2 className="title">{UPEX.lang.template('账户提现')}</h2>
-					<div className="content">
-						{ $content }
-					</div>
-				</div>
-			</div>
+            <AuthWrapper pageInfo={this.pageInfo} name="withdraw">
+                <PageWrapper {...this.pageInfo}>
+                    {$content}
+                </PageWrapper>
+            </AuthWrapper>
+
 		)
 	}
 }

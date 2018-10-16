@@ -53,9 +53,9 @@ class FundChangeRecordStore {
             },
             recharge: {
                 '0': UPEX.lang.template('已付款,系统入账中'),
-                '1': UPEX.lang.template('充值成功'),
+                '1': UPEX.lang.template('已完成'),
                 '2': UPEX.lang.template('已付款,系统入账中'),
-                '3': UPEX.lang.template('充值失败'),
+                '3': UPEX.lang.template('待付款'),
                 '5': UPEX.lang.template('已付款,系统入账中'),
                 '6': UPEX.lang.template('已付款,系统入账中'),
                 '9': UPEX.lang.template('超时取消'),
