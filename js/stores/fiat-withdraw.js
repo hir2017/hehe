@@ -154,9 +154,9 @@ class FiatRechargeStore {
     }
 
     @action
-    nextStep() {
+    nextStep(step = 'apply') {
         this.getFee();
-        this.step = 'apply';
+        this.step = step;
     }
 
     @action

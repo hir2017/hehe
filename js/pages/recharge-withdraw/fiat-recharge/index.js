@@ -5,12 +5,13 @@ import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import { Alert } from 'antd';
 import PageWrapper from '@/mods/common/wrapper/full-page';
-import {getUserActionLimit} from '@/api/http';
+import { getUserActionLimit } from '@/api/http';
 import FormView from '@/mods/common/form';
 import FormItem from '@/mods/common/form/item';
 // import BankCard from '@/mods/recharge-withdraw/fiat/bank-card';
 import Spgateway from '@/mods/recharge-withdraw/fiat/spgateway';
 import NumberUtils from '@/lib/util/number';
+import AuthWrapper from '@/mods/authhoc/recharge-withdraw';
 
 @inject('userInfoStore', 'fiatRechargeStore')
 @observer
@@ -21,6 +22,10 @@ class View extends Component {
             type: 'a',
             dayLimit: 0
         };
+        this.pageInfo = {
+            title :UPEX.lang.template('账户充值'),
+            className: 'fiat-recharge header-shadow'
+        }
     }
 
     componentDidMount() {
@@ -46,7 +51,9 @@ class View extends Component {
                     className="ace-form-tips"
                     type="info"
                     showIcon
-                    message={UPEX.lang.template('单日充值限额 {num1}', { num1: ` ${NumberUtils.separate(store.rechargeDayLimit)} ` }) + UPEX.config.baseCurrencyEn}
+                    message={
+                        UPEX.lang.template('单日充值限额 {num1}', { num1: ` ${NumberUtils.separate(store.rechargeDayLimit)} ` }) + UPEX.config.baseCurrencyEn
+                    }
                     type="warning"
                 />
             );
@@ -78,11 +85,13 @@ class View extends Component {
         // $content = state.type === 'a' ? <Spgateway {...Props} /> : <BankCard {...Props} />;
         $content = <Spgateway {...Props} />;
         return (
-            <PageWrapper title={UPEX.lang.template('账户充值')} className="fiat-recharge header-shadow">
-                {$alert}
-                {$switch}
-                {$content}
-            </PageWrapper>
+            <AuthWrapper pageInfo={this.pageInfo} name="recharge">
+                <PageWrapper {...this.pageInfo}>
+                    {$alert}
+                    {$switch}
+                    {$content}
+                </PageWrapper>
+            </AuthWrapper>
         );
     }
 }

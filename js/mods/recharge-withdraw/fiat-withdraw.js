@@ -4,20 +4,24 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import { Select, message, AutoComplete } from 'antd';
-const Option = Select.Option;
+import FormView from '@/mods/common/form';
+import FormItem from '@/mods/common/form/item';
 import toAction from './fiat-withdraw-action';
-
-import AutoCompleteHack from '../common/auto-complete-hack';
+import AutoCompleteHack from '@/mods/common/auto-complete-hack';
 import CardSelect from './bind-card-select';
 import OrderInfo from './fiat-order-info';
+
+const Option = Select.Option;
 
 @inject('fiatWithdrawStore', 'userInfoStore')
 @observer
 class FiatRechargeView extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            step: 1,
+        }
         this.action = toAction(this.props.fiatWithdrawStore, this.props.userInfoStore);
-
     }
 
     componentDidMount() {
@@ -30,10 +34,9 @@ class FiatRechargeView extends Component {
     }
 
     handleNextStep = e => {
-        const {accountAmount, balance} = this.props.fiatWithdrawStore;
-        //console.log(parseInt(balance), parseFloat(accountAmount), parseInt(balance) > parseFloat(accountAmount))
+        const { accountAmount, balance } = this.props.fiatWithdrawStore;
         try {
-            if(parseInt(balance) > parseFloat(accountAmount)) {
+            if (parseInt(balance) > parseFloat(accountAmount)) {
                 message.error(UPEX.lang.template('请填写正确的提现金额'));
                 return;
             }
@@ -48,7 +51,7 @@ class FiatRechargeView extends Component {
     };
 
     handleBack = e => {
-        history.back();
+        this.props.fiatWithdrawStore.nextStep('step1');
     };
 
     render() {
@@ -69,22 +72,10 @@ class FiatRechargeView extends Component {
                 user: currCardInfo.cardName,
                 bank: currCardInfo.openBank
             };
+
             $formContent = (
                 <div className="rw-form">
                     <OrderInfo {...orderData} />
-                    <div className="rw-form-item sp-v-code">
-                        <label className="rw-form-label">{UPEX.lang.template('图片验证码')}</label>
-                        <div className="rw-form-info">
-                            <div className="yz-box">
-                                <div className={`input-box ${store.validImgCode ? '' : 'wrong'}`}>
-                                    <input type="text" name="fia_no_auto1" autoComplete="off" placeholder={UPEX.lang.template('图片验证')} data-key="vercode" value={store.vercode} onChange={action.onChangeInput} />
-                                    <div className="codeimg">
-                                        <img src={store.captchaStore.captcha} onClick={(e) => {store.getImgCaptcha()}} alt="" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <div className="rw-form-item">
                         <label className="rw-form-label">{UPEX.lang.template('验证方式')}</label>
                         <div className="rw-form-info">
@@ -99,7 +90,11 @@ class FiatRechargeView extends Component {
                                     }
 
                                     return (
-                                        <li key={item} onClick={() => action.changeAuthTypeTo(item)} className={store.authType == item ? 'tab-item selected' : 'tab-item'}>
+                                        <li
+                                            key={item}
+                                            onClick={() => action.changeAuthTypeTo(item)}
+                                            className={store.authType == item ? 'tab-item selected' : 'tab-item'}
+                                        >
                                             {text}
                                         </li>
                                     );
@@ -124,9 +119,14 @@ class FiatRechargeView extends Component {
                                             onChange={action.onChangeInput}
                                         />
                                     </div>
-                                    <button type="button" onClick={action.sendEmailPhoneCode} className={`rw-sp-vcode-btn  ${store.sendingcode ? 'disabled' : ''}`}>
+                                    <button
+                                        type="button"
+                                        onClick={action.sendEmailPhoneCode}
+                                        className={`rw-sp-vcode-btn  ${store.sendingcode ? 'disabled' : ''}`}
+                                    >
                                         <div className={store.sendingcode ? 'code-sending' : 'code-sending hidden'}>
-                                            {UPEX.lang.template('重发')}（<span data-second="second" ref="second" />s）
+                                            {UPEX.lang.template('重发')}（<span data-second="second" ref="second" />
+                                            s）
                                         </div>
                                         <div className={store.sendingcode ? 'code-txt hidden' : 'code-txt'}>{UPEX.lang.template('获取验证码')}</div>
                                     </button>
@@ -165,7 +165,10 @@ class FiatRechargeView extends Component {
 
                     <div className="rw-form-item">
                         <label className="rw-form-label" />
-                        <div className="rw-form-info">{UPEX.config.baseCurrencySymbol}{UPEX.lang.template('实际到账金额:{num}', { num: store.withdrawValue })}</div>
+                        <div className="rw-form-info">
+                            {UPEX.config.baseCurrencySymbol}
+                            {UPEX.lang.template('实际到账金额:{num}', { num: store.withdrawValue })}
+                        </div>
                     </div>
                     <div className="rw-form-item">
                         <label className="rw-form-label" />
@@ -173,7 +176,6 @@ class FiatRechargeView extends Component {
                             <button type="button" className="submit-btn" onClick={this.handleOrder}>
                                 {UPEX.lang.template('确认提现')}
                             </button>
-
                         </div>
                     </div>
                     <div className="rw-form-item">
@@ -196,6 +198,8 @@ class FiatRechargeView extends Component {
                 count: store.accountAmount,
                 labels: { card: UPEX.lang.template('选择提现的银行卡'), balance: UPEX.lang.template('提现金额') }
             };
+            // FormView
+            // FormItem
             $formContent = (
                 <div className="rw-form">
                     <CardSelect {...SelectData} />
