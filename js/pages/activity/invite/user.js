@@ -24,7 +24,6 @@ class UserView extends Component {
         this.clip = new ClipboardJS('.copy-txt');
         this.clip.on('success', (e) => {
             message.success(UPEX.lang.template('复制成功'));
-            this.refs.link.select();
             e.clearSelection();
         });
         this.clip.on('error', () => {
@@ -78,6 +77,7 @@ class UserView extends Component {
         let shareLink = `${UPEX.config.origin}/invite-register?invite_code=${myInvitedCode}`;
 
         shareLink && this.insertQrcode(shareLink);
+        myInvitedCode = myInvitedCode.length > 0 ? myInvitedCode.replace(/(\w{3})(?=\w)/g, "$1 ") : '';
 
         return (
             <div className="invite-user clearfix">
@@ -102,7 +102,7 @@ class UserView extends Component {
                         <li className="share-item">
                             <label>{UPEX.lang.template('我的邀请码')}</label>
                             <p className="info">
-                                <em className="code">{myInvitedCode.replace(/(\w{3})(?=\w)/g, "$1 ")}</em>
+                                <em className="code">{myInvitedCode}</em>
                             </p>
                         </li>
                         <li className="share-item">
@@ -110,7 +110,7 @@ class UserView extends Component {
                             <p className="link-wrap">
                                 <span id="invitedLink" className="link">{shareLink}</span>
                                 <span className="copy-txt"
-                                      data-clipboard-target="#invitedLink" ref="link">{UPEX.lang.template('复制')}</span>
+                                      data-clipboard-target="#invitedLink">{UPEX.lang.template('复制')}</span>
                             </p>
                         </li>
                         <li className="share-item icons">
@@ -123,10 +123,32 @@ class UserView extends Component {
                                 </i>
                             </div>
                             <div className="icon-bd">
-                                <i className="icon facebook" onClick={() => this.shareFB(shareLink)}></i>
+                                <i className="icon facebook">
+                                    <div className="hover-bd">
+                                        <div className="bd-top" id="shareDes">
+                                            <p className="des">{UPEX.lang.template('邀请好友注册ACE，巨额返现等着你')}</p>
+                                            <p>{shareLink}</p>
+                                        </div>
+                                        <div className="btns">
+                                            <button data-clipboard-target=".bd-top" className="copy-txt">{UPEX.lang.template('一键复制')}</button>
+                                            <a href="https://www.facebook.com/" target="_blank">{UPEX.lang.template('打开facebook分享')}</a>
+                                        </div>
+                                    </div>
+                                </i>
                             </div>
                             <div className="icon-bd">
-                                <i className="icon twitter" onClick={() => this.shareTW(shareLink)}></i>
+                                <i className="icon twitter">
+                                    <div className="hover-bd">
+                                        <div className="bd-top" id="shareDes">
+                                            <p className="des">{UPEX.lang.template('邀请好友注册ACE，巨额返现等着你')}</p>
+                                            <p>{shareLink}</p>
+                                        </div>
+                                        <div className="btns">
+                                            <button data-clipboard-target=".bd-top" className="copy-txt">{UPEX.lang.template('一键复制')}</button>
+                                            <a href="https://www.twitter.com/" target="_blank">{UPEX.lang.template('打开twitter分享')}</a>
+                                        </div>
+                                    </div>
+                                </i>
                             </div>
                         </li>
                     </ul>

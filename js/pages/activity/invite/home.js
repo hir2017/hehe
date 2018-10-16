@@ -12,7 +12,7 @@ import InviteUser from './user';
 import UserInviteBouns from './bonus';
 import UserInviteOrders from './orders';
 
-const banner = require('../../../../images/activity/banner.jpg');
+const banner = require('../../../../images/activity/banner.png');
 
 @observer
 class PageView extends Component {
