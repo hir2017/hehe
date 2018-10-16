@@ -62,10 +62,10 @@ class PageView extends Component {
                     </div>
                     <div className={`wrap-right ${this.state.addClass}`}>
                         <div className="des">
-                            <span>正规且可信</span>
-                            <span>7X24小时委托交易</span>
-                            <span>专业风控团队支撑 </span>
-                            <span>丰富的货币交易 </span>
+                            <span>{UPEX.lang.template('正规且可信')}</span>
+                            <span>{UPEX.lang.template('7X24小时委托交易')}</span>
+                            <span>{UPEX.lang.template('专业风控团队支撑')}</span>
+                            <span>{UPEX.lang.template('丰富的货币交易')}</span>
                         </div>
                     </div>
                 </div>

@@ -138,7 +138,7 @@ class BrokerageListView extends Component {
             $footer = (
                 <div><Pagination current={currentPage} total={totalCount} pageSize={pageSize} simple defaultCurrent={1}
                                  onChange={this.onChangePagination.bind(this)}/>
-                    <p className="tips">注：列表中只展示最近三个月的数据</p></div>);
+                    <p className="tips">{UPEX.lang.template('注：列表中只展示最近三个月的数据')}</p></div>);
         }
         return (
             <div className="record-rebate">
@@ -229,7 +229,7 @@ class InviteeListView extends Component {
             $footer = (
                 <div><Pagination current={currentPage} total={totalCount} pageSize={pageSize} simple defaultCurrent={1}
                                  onChange={this.onChangePagination.bind(this)}/>
-                    <p className="tips">注：列表中只展示最近三个月的数据</p></div>);
+                    <p className="tips">{UPEX.lang.template('注：列表中只展示最近三个月的数据')}</p></div>);
         }
         return (
             <div className="record-detail">

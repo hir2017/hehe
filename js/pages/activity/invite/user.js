@@ -24,12 +24,13 @@ class UserView extends Component {
         this.clip = new ClipboardJS('.copy-txt');
         this.clip.on('success', (e) => {
             message.success(UPEX.lang.template('复制成功'));
+            this.refs.link.select();
             e.clearSelection();
         });
-
         this.clip.on('error', () => {
             message.error(UPEX.lang.template('复制失败'));
         });
+
     }
 
     componentWillUnmount() {
@@ -56,6 +57,7 @@ class UserView extends Component {
             render: "canvas"
         });
     }
+
 
     shareFB(shareUrl) {
         let url = window.encodeURI(shareUrl);
@@ -100,15 +102,15 @@ class UserView extends Component {
                         <li className="share-item">
                             <label>{UPEX.lang.template('我的邀请码')}</label>
                             <p className="info">
-                                <em className="code">{myInvitedCode.replace(/(\w{3})(?=\w)/g,"$1 ")}</em>
+                                <em className="code">{myInvitedCode.replace(/(\w{3})(?=\w)/g, "$1 ")}</em>
                             </p>
                         </li>
                         <li className="share-item">
                             <label>{UPEX.lang.template('邀请链接')}</label>
                             <p className="link-wrap">
-                                <span  id="invitedLink" className="link">{shareLink}</span>
+                                <span id="invitedLink" className="link">{shareLink}</span>
                                 <span className="copy-txt"
-                                      data-clipboard-target="#invitedLink">{UPEX.lang.template('复制')}</span>
+                                      data-clipboard-target="#invitedLink" ref="link">{UPEX.lang.template('复制')}</span>
                             </p>
                         </li>
                         <li className="share-item icons">
