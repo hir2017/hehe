@@ -63,7 +63,7 @@ class Recharge extends Component {
         }
         return (
             <div className="coin-recharge">
-                <AuthWrapper pageInfo={this.pageInfo.form} name="recharge">
+                <AuthWrapper pageInfo={this.pageInfo.form} name="recharge coin">
                     <PageWrapper {...this.pageInfo.form}>
                         {$content}
                     </PageWrapper>
