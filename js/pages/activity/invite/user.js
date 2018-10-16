@@ -57,20 +57,6 @@ class UserView extends Component {
         });
     }
 
-
-    shareFB(shareUrl) {
-        let url = window.encodeURI(shareUrl);
-        let link = 'https://www.facebook.com/dialog/share?app_id=&display=popup&href=' + url;
-        window.open(link);
-    }
-
-    shareTW(shareUrl) {
-        let url = window.encodeURI(shareUrl);
-        let link = `https://twitter.com/intent/tweet?url=${url}`;
-        window.open(link);
-    }
-
-
     render() {
         let {friendCount = 0, myInvitedCode = '', amount = 0, currencyNameEn = ''} = this.state.user;
         let self = this;
