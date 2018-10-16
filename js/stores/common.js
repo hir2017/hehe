@@ -28,24 +28,33 @@ class CommonStore {
             this.windowDimensions = getWindowDimensions();
         });
         // 切换zendesk语言
-        zE && zE(function() {
-            zE.setLocale(UPEX.cache.getCache('lang'));
-        });
-        var handler = autorun(() => {
-            let lang = this.language;
+        // TODO: 临时方案
+        setTimeout(() => {
+            try {
+                zE && zE(function() {
+                    zE.setLocale(UPEX.cache.getCache('lang'));
+                });
+                var handler = autorun(() => {
+                    let lang = this.language;
 
-            $('html').attr('lang', lang);
-            $('html').attr('xml:lang', lang);
+                    $('html').attr('lang', lang);
+                    $('html').attr('xml:lang', lang);
 
-            UPEX.cache.setCache('lang', lang);
-            UPEX.lang.language = lang;
-            // 设置页面标题
-            document.title = UPEX.lang.template('PageTitle');
-            // 切换zendesk语言
-            zE(function() {
-                zE.setLocale(lang);
-            });
-        });
+                    UPEX.cache.setCache('lang', lang);
+                    UPEX.lang.language = lang;
+                    // 设置页面标题
+                    document.title = UPEX.lang.template('PageTitle');
+                    // 切换zendesk语言
+                    zE(function() {
+                        zE.setLocale(lang);
+                    });
+                });
+            } catch (error) {
+                console.error('commonStore', error);
+            }
+
+        }, 500);
+
     }
 
     @computed get isTradeCenter() {

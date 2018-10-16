@@ -79,7 +79,7 @@ module.exports={
     "CZ": "Czech Republic",
     "Copy": "Copy",
     "Copyright": "Copyright ©️ 2017-2018 infinitex.com.au All Rights Reserved",
-    "Customer reference no.": "Customer reference no.",
+    "Customer reference no.": "Customer Reference No.",
     "CustomerServiceEmail": "support@infinitex.com.au",
     "CustomerServicePhone": "1300-910-010",
     "DE": "Germany",
