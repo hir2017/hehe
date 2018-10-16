@@ -20,9 +20,9 @@ import Auth from './mods/authhoc/index';
 // import Assets from './pages/account/index';
 // 充值＋充币＋提现＋提币
 // import FiatRecharge from './pages/recharge-withdraw/fiat-recharge';
-import FiatRecharge from './pages/recharge-withdraw-aus/fiat-recharge';
+import FiatRecharge from './pages/recharge-withdraw/fiat-recharge-aus';
+import FiatWithdraw from './pages/recharge-withdraw/fiat-withdraw-aus';
 import CoinRecharge from './pages/recharge-withdraw/coin-recharge';
-import FiatWithdraw from './pages/recharge-withdraw-aus/fiat-withdraw';
 import CoinWithdraw from './pages/recharge-withdraw-aus/coin-withdraw';
 import CoinAddress from './pages/recharge-withdraw/address';
 
@@ -75,7 +75,7 @@ const TradeCenter = (location, cb)=>{
 
 const Assets = (location, cb)=>{
     require.ensure([], require=>{
-        cb(null, require('./pages/account/index-aus').default);
+        cb(null, require('./pages/account/index').default);
     }, 'assets');
 };
 

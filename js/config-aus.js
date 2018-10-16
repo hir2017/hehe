@@ -98,5 +98,7 @@ config.imgHost = protocol + '//' + origin_java + '/img';
 
 // 谷歌埋点UACode
 config.GACodeData = '';
+// zenDesk token
+config.zenToken = '';
 
 window.$config = config;

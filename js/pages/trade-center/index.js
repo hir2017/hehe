@@ -3,7 +3,7 @@
  * @author 陈立英
  * @date 2018-04-26
  */
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import { Icon, message } from 'antd';
 
@@ -14,15 +14,15 @@ import OrderForm from '../../mods/trade/order-form';
 import MyOrder from '../../mods/trade/myorder/index';
 import toAction from './index.action';
 
-@inject('commonStore', 'currencyStore','tradeStore')
+@inject('commonStore', 'currencyStore', 'tradeStore')
 @observer
 class TradeCenter extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
     }
 
     componentWillMount() {
-        let { currencyStore , commonStore } = this.props;
+        let { currencyStore, commonStore } = this.props;
 
         commonStore.getAllCoinPoint();
         currencyStore.getAllCurrencyRelations();
@@ -39,13 +39,13 @@ class TradeCenter extends Component {
 
         // 用于切换交易币时内容切换
         if (currencyStore.currencyDataReady && commonStore.productDataReady) {
-            return <TradeContent {...this.props}/>;
+            return <TradeContent {...this.props} />;
         } else {
             return (
-                <div className="trade-wrapper" style={{ height: tradeStore.contentHeight}}>
-                    <div className="mini-loading"></div>
+                <div className="trade-wrapper" style={{ height: tradeStore.contentHeight }}>
+                    <div className="mini-loading" />
                 </div>
-            )
+            );
         }
     }
 }
@@ -53,19 +53,18 @@ class TradeCenter extends Component {
 @inject('tradeStore', 'commonStore', 'authStore')
 @observer
 class TradeContent extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
 
         this.action = toAction(this.props.tradeStore, this.props.currencyStore);
 
-
         this.state = {
             data: null
-        }
+        };
     }
 
     componentWillMount() {
-        let { tradeStore, currencyStore , authStore } = this.props;
+        let { tradeStore, currencyStore, authStore } = this.props;
 
         let pair = this.props.params.pair;
 
@@ -76,7 +75,7 @@ class TradeContent extends Component {
         let tradePair = currencyStore.getCurrencyByPair(pair);
         let { baseCurrencyId, tradeCurrencyId } = tradePair;
 
-        if (!baseCurrencyId  || !tradeCurrencyId) {
+        if (!baseCurrencyId || !tradeCurrencyId) {
             UPEX.cache.removeCache('currentCoin');
             return;
         }
@@ -113,62 +112,70 @@ class TradeContent extends Component {
         UPEX.cache.setCache('currentCoin', {
             baseCurrencyNameEn: tradePair.baseCurrencyNameEn,
             currencyNameEn: tradePair.tradeCurrencyNameEn
-        })
-
-        //     tradeStore.getPersonalInfo();
-        // 隐藏zendesk
-        zE(function() {
-            zE.hide();
         });
+
+        // 隐藏zendesk
+        // TODO: 临时处理方案
+        setTimeout(() => {
+            try {
+                zE(function() {
+                    zE.hide();
+                });
+            } catch (error) {
+                console.error('TradeContent componentWillMount', error);
+            }
+        }, 500);
     }
 
-    componentDidMount(){
+    componentDidMount() {
         let { authStore } = this.props;
         let uid = authStore.uid;
         let token = authStore.token;
 
-        $.channel.on('updateUserAccount', ()=>{
+        $.channel.on('updateUserAccount', () => {
             this.action.getUserAccount(uid, token);
-        })
+        });
     }
 
     componentWillUnmount() {
         this.action.destroy();
         // 显示zendesk
-        zE(function() {
-            zE.show();
-        });
+        try {
+            setTimeout(() => {
+                zE(function() {
+                    zE.show();
+                });
+            }, 400);
+        } catch (error) {
+            console.error('trade-center componentWillUnmount', error)
+        }
     }
 
     render() {
-    	let store = this.props.tradeStore;
+        let store = this.props.tradeStore;
         let { data } = this.state;
 
         return (
-            <div className="trade-wrapper" style={{ height: store.contentHeight}}>
+            <div className="trade-wrapper" style={{ height: store.contentHeight }}>
                 <div className="trade-main">
-                    <div className={`trade-main-chart grid-box ${store.expandOrderTable ? 'hidden' : ''}`} style={{ height: store.mainChartHeight}}>
-                        { data ? <ChartContainer key={`${data.baseCurrencyId}${data.currencyId}`} data={data}/> : null }
+                    <div className={`trade-main-chart grid-box ${store.expandOrderTable ? 'hidden' : ''}`} style={{ height: store.mainChartHeight }}>
+                        {data ? <ChartContainer key={`${data.baseCurrencyId}${data.currencyId}`} data={data} /> : null}
                     </div>
-                    <div className="trade-main-order grid-box" style={{ height: store.mainOrderHeight}}>
-                        <MyOrder/>
+                    <div className="trade-main-order grid-box" style={{ height: store.mainOrderHeight }}>
+                        <MyOrder />
                     </div>
                 </div>
                 <div className="trade-extra">
                     <div className="trade-extra-list clearfix">
                         <div className="list-box-l grid-box">
-                            <OrderBook/>
+                            <OrderBook />
                         </div>
-                        <div className="list-box-r grid-box" >
-                            <TradeHistory/>
+                        <div className="list-box-r grid-box">
+                            <TradeHistory />
                         </div>
                     </div>
 
-                    <div className="trade-extra-handle grid-box">
-                        {
-                            data ? <OrderForm data={data}/> : null
-                        }
-                    </div>
+                    <div className="trade-extra-handle grid-box">{data ? <OrderForm data={data} /> : null}</div>
                 </div>
             </div>
         );
