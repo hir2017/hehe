@@ -251,7 +251,7 @@ class Register extends Component {
                                     ) : null
                                 }
                             </div>
-                            <div className="input-wrapper">
+                            <div className="input-wrapper" style={{display: UPEX.config.version !== 'ace' ? 'none' : 'block'}}>
                                 <div className="input-box">
                                     <input
                                         type="text"
