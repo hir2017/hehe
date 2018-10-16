@@ -75,7 +75,7 @@ const TradeCenter = (location, cb)=>{
 
 const Assets = (location, cb)=>{
     require.ensure([], require=>{
-        cb(null, require('./pages/account/index-aus').default);
+        cb(null, require('./pages/account/index').default);
     }, 'assets');
 };
 

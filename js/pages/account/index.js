@@ -5,9 +5,11 @@
  */
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
-import List from '@/mods/account/assets-list';
 import Info from '@/mods/account/account-info';
-
+import List from '@/mods/account/assets-list';
+import { Modal, Button } from 'antd';
+import { browserHistory } from 'react-router';
+import FormItem from '@/mods/common/form/item';
 
 @inject('commonStore')
 @observer
@@ -16,6 +18,7 @@ class AccountPage extends Component {
         let { commonStore } = this.props;
 
         commonStore.getAllCoinPoint();
+
     }
 
     render() {
@@ -23,37 +26,60 @@ class AccountPage extends Component {
 
         // 用于切换交易币时内容切换
         if (commonStore.productDataReady) {
-            return <Account {...this.props}/>
+            return <Account {...this.props} />;
         } else {
             return (
                 <div className="home-wrapper">
-                    <div className="mini-loading"></div>
+                    <div className="mini-loading" />
                 </div>
-            )
+            );
         }
     }
 }
 
-@inject('accountStore')
+@inject('accountStore', 'userInfoStore')
 @observer
 class Account extends Component {
-    componentDidMount(){
-        let store = this.props.accountStore;
+    constructor(props) {
+        super(props);
+        this.state = {
+            loading: false
+        };
+    }
 
+    componentDidMount() {
+        let store = this.props.accountStore;
         store.getUserCoinAccount();
+        this.props.userInfoStore.getActionLimit();
     }
 
     render() {
+        let visible = false;
+        const { userInfo } = this.props.userInfoStore;
+        if ([-1, 0, 1].indexOf(userInfo.isAuthPrimary) !== -1) {
+            visible = true;
+        }
         return (
-        	<div className="account-wrapper">
-        		<div className="account-hd">
-        			<Info/>
-        		</div>
-        		<div className="account-bd">
-                    <List/>
+            <div className="account-wrapper">
+                <Modal className="account-no-auth" visible={visible} closable={false} footer={null}>
+                    <p>{UPEX.lang.template('您尚未完成身份认证')}</p>
+                    <p>{UPEX.lang.template('管理您的资金前请完成身份认证')}</p>
+                    <FormItem>
+                        <Button className="submit-btn width-auto" onClick={e => {
+                            browserHistory.push('/user/authentication');
+                        }}>
+                            {UPEX.lang.template('去认证')}
+                        </Button>
+                    </FormItem>
+                </Modal>
+                <div className="account-hd">
+                    <Info />
                 </div>
-        	</div>
-        )
+                <div className="account-bd">
+                    <List />
+                </div>
+            </div>
+        );
     }
 }
 
