@@ -4,7 +4,7 @@
 import React, {Component} from 'react';
 import { observer, inject } from 'mobx-react';
 import { browserHistory } from 'react-router';
-import FiatWithdrawView from '../../mods/recharge-withdraw/fiat-withdraw';
+import FiatWithdrawView from '@/mods/recharge-withdraw/fiat-withdraw';
 
 @inject('userInfoStore')
 @observer

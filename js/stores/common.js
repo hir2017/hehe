@@ -34,26 +34,32 @@ class CommonStore {
                 zE && zE(function() {
                     zE.setLocale(UPEX.cache.getCache('lang'));
                 });
-                var handler = autorun(() => {
-                    let lang = this.language;
-
-                    $('html').attr('lang', lang);
-                    $('html').attr('xml:lang', lang);
-
-                    UPEX.cache.setCache('lang', lang);
-                    UPEX.lang.language = lang;
-                    // 设置页面标题
-                    document.title = UPEX.lang.template('PageTitle');
-                    // 切换zendesk语言
-                    zE(function() {
-                        zE.setLocale(lang);
-                    });
-                });
             } catch (error) {
                 console.error('commonStore', error);
             }
-
         }, 500);
+        var handler = autorun(() => {
+            let lang = this.language;
+
+            $('html').attr('lang', lang);
+            $('html').attr('xml:lang', lang);
+            UPEX.cache.setCache('lang', lang);
+            UPEX.lang.language = lang;
+            // 设置页面标题
+            document.title = UPEX.lang.template('PageTitle');
+            // 切换zendesk语言
+            setTimeout(() => {
+                try {
+                    zE(function() {
+                        zE.setLocale(lang);
+                    });
+                } catch (error) {
+                    console.error('commonStore', error);
+                }
+            }, 500);
+
+        });
+
 
     }
 
