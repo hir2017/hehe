@@ -7,15 +7,17 @@ import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import { Button, message } from 'antd';
 import { Link, browserHistory } from 'react-router';
-import Vcodebutton from '../common/authcode-btn';
-import md5 from '../../lib/md5';
+import Vcodebutton from '@/mods/common/authcode-btn';
+import md5 from '@/lib/md5';
 
-import AutoCompleteHack from '../common/auto-complete-hack';
+import AutoCompleteHack from '@/mods/common/auto-complete-hack';
 
-import InputItem from '../../components/form/input-item';
-import PageForm from '../../components/page-user/page-form';
-import { createGetProp } from '../../components/utils';
-import YidunCaptcha from '../yidun-captcha';
+import InputItem from '@/components/form/input-item';
+import PageForm from '@/components/page-user/page-form';
+import FormView from '@/mods/common/form';
+import FormItem from '@/mods/common/form/item';
+import { createGetProp } from '@/components/utils';
+import YidunCaptcha from '@/mods/yidun-captcha';
 
 @inject('userInfoStore', 'captchaStore', 'authStore')
 @observer
@@ -23,7 +25,6 @@ export default class ModifyPassword extends Component {
     constructor() {
         super();
         this.submit = this.submit.bind(this);
-        // this.captchaChange = this.captchaChange.bind(this);
 
         this.state = {
             password: '',
@@ -50,7 +51,6 @@ export default class ModifyPassword extends Component {
         if(store.uid) {
             this.props.userInfoStore.isGoogleAuth();
         }
-        // this.captchaChange();
     }
 
     componentDidMount() {
@@ -66,9 +66,6 @@ export default class ModifyPassword extends Component {
         this.setState(data);
     }
 
-    captchaChange() {
-        // this.props.captchaStore.fetch();
-    }
 
     submit() {
         const userInfo = this.props.userInfoStore.userInfo || {};
@@ -146,20 +143,7 @@ export default class ModifyPassword extends Component {
                 inputProps: getProp('comfirmPwd')
             }
         ];
-        // const vCodeData = {
-        //     label: UPEX.lang.template('图片验证码'),
-        //     className: 'v-code',
-        //     inputProps: getProp('ivCode', 'none')
-        // };
-        // const GAData = {
-        //     label: UPEX.lang.template('Google验证码'),
-        //     inputProps: getProp('vCode', 'none')
-        // };
-        // const pcodeData = {
-        //     label: !userInfo.phone ? UPEX.lang.template('邮箱验证码') : UPEX.lang.template('短信验证码'),
-        //     className: 'v-code',
-        //     inputProps: getProp('vCode', 'none')
-        // };
+
         const PageProps = {
             title: UPEX.lang.template('修改登录密码'),
             formClass: 'modify-password-box'
@@ -167,33 +151,20 @@ export default class ModifyPassword extends Component {
 
         return (
             <PageForm {...PageProps}>
-                <AutoCompleteHack />
-                {inputsData.map((item, i) => {
-                    return <InputItem key={i} {...item} />;
-                })}
-                <div id="floatCaptcha"></div>
-                {
-
-                /*
-                <div>
-                    <InputItem {...vCodeData} />
-                    <div className="item v-code-button">
-                        <img onClick={this.captchaChange} src={captcha} />
-                    </div>
-                </div>
-                {gaBindSuccess ? (
-                    <InputItem {...GAData} />
-                ) : (
-                    <div className="input-vcode-wrapper">
-                        <InputItem {...pcodeData} />
-                        <div className="item v-code-button">
-                            <Vcodebutton imgCode={this.state.ivCode} codeid={codeid} type={!userInfo.phone ? 'email' : 'phone'} />
-                        </div>
-                    </div>
-                )} */}
-                <Button loading={loading} className="exc-submit-item" onClick={this.submit}>
-                    {UPEX.lang.template('提交')}
-                </Button>
+                <FormView>
+                    <AutoCompleteHack />
+                    {inputsData.map((item, i) => {
+                        return <FormItem key={i} {...item} />;
+                    })}
+                    <FormItem>
+                    <div id="floatCaptcha"></div>
+                    </FormItem>
+                    <FormItem>
+                        <Button loading={loading} className="submit-btn" onClick={this.submit}>
+                            {UPEX.lang.template('提交')}
+                        </Button>
+                    </FormItem>
+                </FormView>
             </PageForm>
         );
     }

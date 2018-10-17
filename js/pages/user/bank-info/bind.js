@@ -9,8 +9,6 @@ import upload_pic_hover from '@/../images/upload-pic-hover.png';
 import BankList from './banklist.json';
 import banckCardImg from '@/../images/bank-card.jpg';
 import AceSection from '@/components/page-user/section';
-import AceForm from '@/components/form/form';
-import InputItem from '@/components/form/input-item';
 import AutoCompleteHack from '@/mods/common/auto-complete-hack';
 
 import FormView from '@/mods/common/form';
@@ -108,11 +106,6 @@ export default class BindingBank extends Component {
         data[name] = e.target.value;
         this.setState(data);
     }
-    // setVal(e, name) {
-    //     const data = {};
-    //     data[name] = e.target.value;
-    //     this.setState(data);
-    // }
 
     bankChange = (val, e) => {
         const res = BankList.filter(item => {
