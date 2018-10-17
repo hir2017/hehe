@@ -3,7 +3,8 @@ import { observer, inject } from 'mobx-react';
 import { Link, browserHistory } from 'react-router';
 import { Row, Col } from 'antd';
 import TimeUtil from '@/lib/util/date';
-
+import Numberutils from  '@/lib/util/number';
+import { twdGetQuotaManagementInfo } from '@/api/http';
 import bindPhone from '@/../images/bind-phone.png';
 import unbindPhone from '@/../images/unbind-phone.png';
 import bindEmail from '@/../images/bind-email.png';
@@ -21,10 +22,51 @@ class Info extends Component {
     constructor() {
         super();
         this.gradeImg = this.gradeImg.bind(this);
+        this.state = {
+            cashLimit: 0,
+            coinLimit: 0
+        }
     }
 
-    componentWillMount() {
-        this.props.userInfoStore.getUserInfo();
+    getLimit() {
+        Promise.all([
+            twdGetQuotaManagementInfo({
+                actionId: 2,
+                currencyId: 1
+            }),
+            twdGetQuotaManagementInfo({
+                actionId: 4,
+                currencyId: 2
+            })
+        ])
+            .then(([res1, res2]) => {
+                if (this.unmount == 1) {
+                    return;
+                }
+                const { authLevel = 1 } = this.props.userInfoStore.userInfo || {};
+                let result = {};
+                if (res1.status === 200) {
+                    let _val = res1.attachment[0][`kyc${authLevel}DayLimit`];
+                    console.log(_val, authLevel)
+                    result.cashLimit =  Numberutils.separate(_val + '');
+                }
+                if (res2.status === 200) {
+                    result.coinLimit = Numberutils.separate(res2.attachment[0][`kyc${authLevel}DayLimit`] + 0);
+                }
+                this.setState(result);
+            })
+            .catch(err => {
+                console.error('AusGetQuotaManagementInfo', err);
+            });
+    }
+
+    componentDidMount() {
+        this.props.userInfoStore.getUserInfo().then(res => {
+            if(res.status === 200) {
+                this.getLimit();
+            }
+        })
+
     }
 
     doSkip(type, abled) {
@@ -58,6 +100,7 @@ class Info extends Component {
     }
 
     render() {
+        const {state} = this;
         const userInfo = this.props.userInfoStore.userInfo || {};
         let gradeCfg = this.gradeImg();
         let ugradeLinkMap = {
@@ -98,7 +141,7 @@ class Info extends Component {
                                         <img src={gradeCfg.img} />
                                         <p className="text">{UPEX.lang.template('安全级别')}</p>
                                         <p className="money">
-                                            {UPEX.lang.template('提现额度')}：{UPEX.config.baseCurrencySymbol}{userInfo.dayLimit}
+                                            {UPEX.lang.template('提现额度')}：{UPEX.config.baseCurrencySymbol}{state.cashLimit}
                                         </p>
                                     </div>
                                 )}

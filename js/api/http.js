@@ -1001,6 +1001,12 @@ export function getCurrencyPoints(baseCurrencyId, tradeCurrencyId) {
     })
 }
 
+/**
+ *  获取用户KYC等级限额信息
+ */
+export function twdGetQuotaManagementInfo(data) {
+    return axios.post('/twdCommon/getQuotaManagementInfo', data)
+}
 
 /**
  *  =================澳洲版API=================
