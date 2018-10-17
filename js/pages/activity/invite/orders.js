@@ -218,7 +218,7 @@ class InviteeListView extends Component {
                             <li key={index}>
                                 <div className="time">{TimeUtil.formatDate(item.registerTime * 1000)}</div>
                                 <div className="user">{item.userRegAccount}</div>
-                                <div className="level">{item.invitedLevel}</div>
+                                <div className="level">{UPEX.lang.template(item.invitedLevel)}</div>
                             </li>
                         ))
                     }

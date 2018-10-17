@@ -112,12 +112,14 @@ class UserView extends Component {
                                 <i className="icon facebook">
                                     <div className="hover-bd">
                                         <div className="bd-top" id="shareDes">
-                                            <p className="des">{UPEX.lang.template('邀请好友注册ACE，巨额返现等着你')}</p>
+                                            <p className="des">{UPEX.lang.template('邀请好友注册{sitename}，巨额返现等着你', {sitename: UPEX.config.sitename})}</p>
                                             <p>{shareLink}</p>
                                         </div>
                                         <div className="btns">
-                                            <button data-clipboard-target=".bd-top" className="copy-txt">{UPEX.lang.template('一键复制')}</button>
-                                            <a href="https://www.facebook.com/" target="_blank">{UPEX.lang.template('打开facebook分享')}</a>
+                                            <button data-clipboard-target=".bd-top"
+                                                    className="copy-txt">{UPEX.lang.template('一键复制')}</button>
+                                            <a href="https://www.facebook.com/"
+                                               target="_blank">{UPEX.lang.template('打开facebook分享')}</a>
                                         </div>
                                     </div>
                                 </i>
@@ -126,12 +128,14 @@ class UserView extends Component {
                                 <i className="icon twitter">
                                     <div className="hover-bd">
                                         <div className="bd-top" id="shareDes">
-                                            <p className="des">{UPEX.lang.template('邀请好友注册ACE，巨额返现等着你')}</p>
+                                            <p className="des">{UPEX.lang.template('邀请好友注册{sitename}，巨额返现等着你', {sitename: UPEX.config.sitename})}</p>
                                             <p>{shareLink}</p>
                                         </div>
                                         <div className="btns">
-                                            <button data-clipboard-target=".bd-top" className="copy-txt">{UPEX.lang.template('一键复制')}</button>
-                                            <a href="https://www.twitter.com/" target="_blank">{UPEX.lang.template('打开twitter分享')}</a>
+                                            <button data-clipboard-target=".bd-top"
+                                                    className="copy-txt">{UPEX.lang.template('一键复制')}</button>
+                                            <a href="https://www.twitter.com/"
+                                               target="_blank">{UPEX.lang.template('打开twitter分享')}</a>
                                         </div>
                                     </div>
                                 </i>
