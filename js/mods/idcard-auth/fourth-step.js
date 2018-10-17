@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import { browserHistory } from 'react-router';
 import { Modal, Button, Icon } from 'antd';
+import NumberUtils from '@/lib/util/number';
+import { twdGetQuotaManagementInfo } from '@/api/http';
 
-import AceForm from '../../components/form/form';
+import AceForm from '@/components/form/form';
 
 @inject('userInfoStore')
 @observer
@@ -11,12 +13,29 @@ export default class FourthStep extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            visible: false
+            visible: false,
+            cashLimit: 0
         };
     }
 
     componentWillMount() {
         this.props.userInfoStore.bankCardInfo();
+        twdGetQuotaManagementInfo({
+            actionId: 2,
+            currencyId: 1
+        })
+            .then(res1 => {
+                const { authLevel = 1 } = this.props.userInfoStore.userInfo || {};
+                let result = {};
+                if (res1.status === 200) {
+                    let val = res1.attachment[0][`kyc${authLevel}DayLimit`];
+                    result.cashLimit = NumberUtils.separate(val);
+                }
+                this.setState(result);
+            })
+            .catch(err => {
+                console.error('AusGetQuotaManagementInfo', err);
+            });
     }
 
     submitKycC = () => {
@@ -28,6 +47,7 @@ export default class FourthStep extends Component {
     };
 
     render() {
+        const {state} = this;
         const loading = this.props.userInfoStore.submit_loading;
         const userInfo = this.props.userInfoStore.userInfo || {};
         let bankCardList = this.props.userInfoStore.bankCardList || [];
@@ -144,7 +164,7 @@ export default class FourthStep extends Component {
                             <td>{UPEX.lang.template('当前日限额')}：</td>
                             <td>
                                 <span className="money">
-                                    {UPEX.config.baseCurrencySymbol} {userInfo.dayLimit}
+                                    {UPEX.config.baseCurrencySymbol} {state.cashLimit}
                                 </span>
                             </td>
                         </tr>

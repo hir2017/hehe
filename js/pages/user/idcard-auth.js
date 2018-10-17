@@ -3,19 +3,18 @@ import { observer, inject } from 'mobx-react';
 import { Link } from 'react-router';
 import { Steps } from 'antd';
 const Step = Steps.Step;
-import FirstStep from '../../mods/idcard-auth/first-step';
-import SecondStep from '../../mods/idcard-auth/second-step';
-import ThirdStep from '../../mods/idcard-auth/third-step';
-import FourthStep from '../../mods/idcard-auth/fourth-step';
+import FirstStep from '@/mods/idcard-auth/first-step';
+import SecondStep from '@/mods/idcard-auth/second-step';
+import ThirdStep from '@/mods/idcard-auth/third-step';
+import FourthStep from '@/mods/idcard-auth/fourth-step';
 
-import PageWrapper from '../../components/page-user/page-wrapper';
+import PageWrapper from '@/components/page-user/page-wrapper';
 
 @inject('userInfoStore')
 @observer
 class IdentityAuthentication extends Component {
     constructor() {
         super();
-        this.changeStep = this.changeStep.bind(this);
     }
 
     state = {
@@ -27,7 +26,7 @@ class IdentityAuthentication extends Component {
         this.props.userInfoStore.getUserInfo();
     }
 
-    changeStep(num) {
+    changeStep = (num) => {
         this.setState({
             step: num
         });
@@ -67,8 +66,8 @@ class IdentityAuthentication extends Component {
         let _header_step = {
             '-1': 1,
             '1': 1,
-            '2': 4,
-        }
+            '2': 4
+        };
         let $rightContent = (
             <Steps size="small" current={_header_step[userInfo.isAuthPrimary] || userInfo.isAuthPrimary}>
                 <Step title={UPEX.lang.template('基本信息')} />
@@ -78,7 +77,7 @@ class IdentityAuthentication extends Component {
         );
         let _step = this.state.step || step;
         let bodyClass = 'height-full-1';
-        if(userInfo.isValidatePhone && [1, 2].indexOf(_step) !== -1) {
+        if (userInfo.isValidatePhone && [1, 2].indexOf(_step) !== -1) {
             bodyClass = '';
         }
         return (
@@ -89,7 +88,9 @@ class IdentityAuthentication extends Component {
                     ) : (
                         <div className="no-auth-message  authentication-message">
                             <p>{UPEX.lang.template('请绑定手机')}</p>
-                            <Link className="exc-btn" to="/user/setting-phone">{UPEX.lang.template('手机绑定')}</Link>
+                            <Link className="exc-btn" to="/user/setting-phone">
+                                {UPEX.lang.template('手机绑定')}
+                            </Link>
                         </div>
                     )}
                 </div>
