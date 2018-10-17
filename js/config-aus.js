@@ -98,6 +98,8 @@ config.imgHost = protocol + '//' + origin_java + '/img';
 
 // 谷歌埋点UACode
 config.GACodeData = '';
+// 谷歌推广UACode
+config.GAdsCodeData = 'AW-784233641';
 // zenDesk token
 config.zenToken = '';
 

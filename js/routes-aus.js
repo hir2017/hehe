@@ -23,7 +23,7 @@ import Auth from './mods/authhoc/index';
 import FiatRecharge from './pages/recharge-withdraw/fiat-recharge-aus';
 import FiatWithdraw from './pages/recharge-withdraw/fiat-withdraw-aus';
 import CoinRecharge from './pages/recharge-withdraw/coin-recharge';
-import CoinWithdraw from './pages/recharge-withdraw-aus/coin-withdraw';
+import CoinWithdraw from './pages/recharge-withdraw/coin-withdraw';
 import CoinAddress from './pages/recharge-withdraw/address';
 
 // 订单相关

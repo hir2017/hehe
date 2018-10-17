@@ -46,17 +46,15 @@ class Info extends Component {
                 const { authLevel = 1 } = this.props.userInfoStore.userInfo || {};
                 let result = {};
                 if (res1.status === 200) {
-                    let _val = res1.attachment[0][`kyc${authLevel}DayLimit`];
-                    console.log(_val, authLevel)
-                    result.cashLimit =  Numberutils.separate(_val + '');
+                    result.cashLimit =  Numberutils.separate(res1.attachment[0][`kyc${authLevel}DayLimit`]);
                 }
                 if (res2.status === 200) {
-                    result.coinLimit = Numberutils.separate(res2.attachment[0][`kyc${authLevel}DayLimit`] + 0);
+                    result.coinLimit = Numberutils.separate(res2.attachment[0][`kyc${authLevel}DayLimit`]);
                 }
                 this.setState(result);
             })
             .catch(err => {
-                console.error('AusGetQuotaManagementInfo', err);
+                console.error('twdGetQuotaManagementInfo', err);
             });
     }
 
@@ -141,7 +139,7 @@ class Info extends Component {
                                         <img src={gradeCfg.img} />
                                         <p className="text">{UPEX.lang.template('安全级别')}</p>
                                         <p className="money">
-                                            {UPEX.lang.template('提现额度')}：{UPEX.config.baseCurrencySymbol}{state.cashLimit}
+                                            {UPEX.lang.template('提现额度')}：{UPEX.config.baseCurrencySymbol} {state.cashLimit}
                                         </p>
                                     </div>
                                 )}

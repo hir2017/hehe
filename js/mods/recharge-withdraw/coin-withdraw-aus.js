@@ -4,7 +4,7 @@ import { Select, message, Alert, AutoComplete, Input, Icon, Button } from 'antd'
 const Option = Select.Option;
 import toAction from './coin-withdraw-action-aus';
 import AutoCompleteHack from '@/mods/common/auto-complete-hack';
-import { ausGetQuotaManagementInfo, takeCoinSendPhoneCode, setTradePwdSendCode } from '@/api/http';
+import { ausGetQuotaManagementInfo, takeCoinSendPhoneCode, setTradePwdSendCode, twdGetQuotaManagementInfo } from '@/api/http';
 import NumberUtils from '@/lib/util/number';
 import InputNumber from '../input-number';
 import FormView from '@/mods/common/form';
@@ -68,7 +68,8 @@ class WithdrawCoin extends Component {
         this.actionRole = parseInt(this.props.userInfoStore.actionRoles['withdraw coin']);
 
         this.initCodeVerifyType();
-        ausGetQuotaManagementInfo({
+        let request = UPEX.config.version === 'ace' ? twdGetQuotaManagementInfo : ausGetQuotaManagementInfo;
+        request({
             actionId: 4,
             currencyId: 2
         })

@@ -5,6 +5,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="renderer" content="webkit" />
+    <meta name="amp-google-client-id-api" content="gtag" />
     <title></title>
     <link rel="shortcut icon" type="image/x-icon" href="/images/aus/favicon.ico">
     <meta name="description" content="" />
@@ -21,6 +22,17 @@
     <!-- Start of infinitex Zendesk Widget script -->
     <script id="ze-snippet" src="https://static.zdassets.com/ekr/snippet.js?key=5007184b-57d1-48a3-b5f4-9bffa10dc26c"> </script>
     <!-- End of infinitex Zendesk Widget script -->
+    <!-- gads -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-784233641"></script>
+    <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date()); gtag('config', 'AW-784233641');
+    </script>
+    <amp-analytics type="gtag" data-credentials="include">
+        <script type="application/json"> { "vars": { "gtag_id": "AW-784233641", "config": { "AW-784233641": { "groups": "default" } } }, "triggers": { } } </script>
+    </amp-analytics>
 </body>
 
 </html>
