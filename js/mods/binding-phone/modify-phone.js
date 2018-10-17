@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
-import { Button, message, Select, Alert } from 'antd';
-import NumberUtil from '../../lib/util/number';
 import { browserHistory } from 'react-router';
-import { isPhone } from '../../lib/util/validate';
-import SendVCodeBtn from '../common/v-code-btn';
-import InputItem from '../../components/form/input-item';
-import PageForm from '../../components/page-user/page-form';
-import { createGetProp } from '../../components/utils';
-import { modifyPhoneSendMsg, modifyPhoneAction } from '../../api/http';
-import CountryMap, {Countries} from '../../mods/select-country/country-list';
+import { Button, message, Select, Alert } from 'antd';
+import NumberUtil from '@/lib/util/number';
+import { isPhone } from '@/lib/util/validate';
+import SendVCodeBtn from '@/mods/common/v-code-btn';
+import PageForm from '@/components/page-user/page-form';
+import FormView from '@/mods/common/form';
+import FormItem from '@/mods/common/form/item';
+import { createGetProp } from '@/components/utils';
+import { modifyPhoneSendMsg, modifyPhoneAction } from '@/api/http';
+import CountryMap, {Countries} from '@/mods/select-country/country-list';
 const Option = Select.Option;
 
 @inject('userInfoStore', 'captchaStore', 'loginStore')
@@ -173,10 +174,10 @@ export default class BindingPhone extends Component {
     }
 
     render() {
-        const loginStore = this.props.loginStore;
-        const { userInfo = {} } = this.props.userInfoStore;
+        const { inputsData, PageProps, nvCodeBtn, vCodeBtn, state, props } = this;
+        const loginStore = props.loginStore;
+        const { userInfo = {} } = props.userInfoStore;
         let options = [];
-
         $.each(Countries, (index, item) => {
             options[options.length] = (
                 <Option value={item.code} key={item.code}>
@@ -185,27 +186,29 @@ export default class BindingPhone extends Component {
             );
         });
 
-        const { inputsData, PageProps, nvCodeBtn, vCodeBtn } = this;
-
         let $vCode = null;
         if(userInfo.isGoogleAuth) {
-            $vCode = <InputItem {...inputsData.gaCode} value={this.state.gaCode} />;
+            $vCode = <FormItem {...inputsData.gaCode} value={state.gaCode} />;
         } else {
-            $vCode = <InputItem {...inputsData.vCode} value={this.state.vCode} afterNode={vCodeBtn} />;
+            $vCode = <FormItem {...inputsData.vCode} value={state.vCode} afterNode={vCodeBtn} />;
         }
         return (
             <PageForm {...PageProps}>
-                <div className="item-area">
-                    <Select showSearch size="large" style={{ width: '100%' }} onChange={this.onAreaCodeChange} defaultValue={loginStore.selectedCountry.code}>
-                        {options}
-                    </Select>
-                </div>
-                <InputItem {...inputsData.phone} value={this.state.phone} />
-                <InputItem {...inputsData.nvCode} value={this.state.nvCode} afterNode={nvCodeBtn} />
-                {$vCode}
-                <Button loading={this.state.loading} className="exc-submit-item" onClick={this.submit}>
-                    {UPEX.lang.template('提交')}
-                </Button>
+                <FormView>
+                    <FormItem className="item-area">
+                        <Select showSearch size="large" style={{ width: '100%' }} onChange={this.onAreaCodeChange} defaultValue={loginStore.selectedCountry.code}>
+                            {options}
+                        </Select>
+                    </FormItem>
+                    <FormItem {...inputsData.phone} value={state.phone} />
+                    <FormItem {...inputsData.nvCode} value={state.nvCode} after={nvCodeBtn} />
+                    {$vCode}
+                    <FormItem>
+                        <Button loading={state.loading} className="submit-btn" onClick={this.submit}>
+                            {UPEX.lang.template('提交')}
+                        </Button>
+                    </FormItem>
+                </FormView>
             </PageForm>
         );
     }
