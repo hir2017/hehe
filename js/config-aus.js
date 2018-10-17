@@ -26,10 +26,11 @@ config.csurls = {
 };
 // pdf文档链接
 config.docUrls = {
-    InfinitexDigitalCurrencyTransferAgreements: '/static/docs/aus/Infinitex digital currency transfer agreements.pdf',
+    InfinitexDigitalCurrencyTransferAgreements: '/static/docs/aus/Infinitex Crypto Currency Deposit & Withdrawal Agreements.pdf',
+    userAgreement: '/static/docs/aus/User Agreement.pdf',
     riskDisclosure: '/static/docs/aus/Risk Disclosure & Disclaimer.pdf',
-    privacyPolicy: '/static/docs/aus/Infinitex Privacy Policy.pdf',
-    kycPolicy: '/static/docs/aus/AML & KYC POLICY.pdf',
+    privacyPolicy: '/static/docs/aus/Privacy Policy.pdf',
+    kycPolicy: '/static/docs/aus/KYC & AML & CTF POLICY.pdf',
 }
 
 config.baseCurrencyEn = 'AUD';

@@ -270,8 +270,11 @@ class Register extends Component {
                                     <a target="_blank" href={UPEX.config.docUrls.privacyPolicy}>
                                         《{UPEX.lang.template('隐私条款')}》
                                     </a>
+                                    <a target="_blank" href={UPEX.config.docUrls.userAgreement}>
+                                        《{UPEX.lang.template('用户协议')}》
+                                    </a>
                                     <a target="_blank" href={UPEX.config.docUrls.riskDisclosure}>
-                                        《{UPEX.lang.template('风险披露与免责声明')}》
+                                        《{UPEX.lang.template('免责声明')}》
                                     </a>
                                 </div>
                             </div>
