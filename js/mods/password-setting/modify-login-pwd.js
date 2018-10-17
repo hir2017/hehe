@@ -1,8 +1,3 @@
-/**
- * @fileoverview  密码设置
- * @author xia xiang feng
- * @date 2018-05-24
- */
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import { Button, message } from 'antd';
@@ -12,7 +7,6 @@ import md5 from '@/lib/md5';
 
 import AutoCompleteHack from '@/mods/common/auto-complete-hack';
 
-import InputItem from '@/components/form/input-item';
 import PageForm from '@/components/page-user/page-form';
 import FormView from '@/mods/common/form';
 import FormItem from '@/mods/common/form/item';
