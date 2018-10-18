@@ -138,6 +138,9 @@ class View extends Component {
             state.type === '1'
                 ? UPEX.lang.template('智付通网络转账提示:WebATM為需要晶片讀卡機...')
                 : UPEX.lang.template('智付通ATM转账提示:ATM轉賬可以使用...');
+        let bottomTip = state.type === '1'
+        ? UPEX.lang.template('使用智付通支付操作温馨提示,如果您选择了WEBATM...')
+        : UPEX.lang.template('使用智付通支付操作温馨提示,如果您选择了实体ATM....');
         return (
             <FormView>
                 <FormItem className="type" label={inputData.type.label}>
@@ -169,7 +172,7 @@ class View extends Component {
                     </Button>
                 </FormItem>
                 <FormItem>
-                    <div className="bottom-tips" dangerouslySetInnerHTML={{ __html: UPEX.lang.template('使用智付通支付操作温馨提示,如果您选择了AT...') }} />
+                    <div className="bottom-tips" dangerouslySetInnerHTML={{ __html: bottomTip }} />
                 </FormItem>
             </FormView>
         );

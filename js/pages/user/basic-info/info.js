@@ -29,6 +29,7 @@ class Info extends Component {
     }
 
     getLimit() {
+        // TODO: 回来抽出去
         Promise.all([
             twdGetQuotaManagementInfo({
                 actionId: 2,
@@ -46,7 +47,7 @@ class Info extends Component {
                 const { authLevel = 1 } = this.props.userInfoStore.userInfo || {};
                 let result = {};
                 if (res1.status === 200) {
-                    result.cashLimit =  Numberutils.separate(res1.attachment[0][`kyc${authLevel}DayLimit`]);
+                    result.cashLimit = Numberutils.separate(res1.attachment[0][`kyc${authLevel}DayLimit`]);
                 }
                 if (res2.status === 200) {
                     result.coinLimit = Numberutils.separate(res2.attachment[0][`kyc${authLevel}DayLimit`]);
@@ -54,7 +55,7 @@ class Info extends Component {
                 this.setState(result);
             })
             .catch(err => {
-                console.error('twdGetQuotaManagementInfo', err);
+                console.error('AusGetQuotaManagementInfo', err);
             });
     }
 
@@ -140,6 +141,9 @@ class Info extends Component {
                                         <p className="text">{UPEX.lang.template('安全级别')}</p>
                                         <p className="money">
                                             {UPEX.lang.template('提现额度')}：{UPEX.config.baseCurrencySymbol} {state.cashLimit}
+                                        </p>
+                                        <p className="money">
+                                            {UPEX.lang.template('提币额度')}：{UPEX.config.baseCurrencySymbol} {state.coinLimit}
                                         </p>
                                     </div>
                                 )}
