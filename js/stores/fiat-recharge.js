@@ -2,7 +2,7 @@
  * 法币充值
  */
 import { observable, computed, autorun, action, runInAction } from 'mobx';
-import { getUserAvailableAmount, getUserBindCards, getUserActionLimit } from '../api/http';
+import { getUserAvailableAmount, getUserBindCards, getUserActionLimit, twdGetQuotaManagementInfo, ausGetQuotaManagementInfo } from '../api/http';
 
 class FiatRechargeStore {
     @observable bankCardsList = []; // 银行列表
@@ -14,6 +14,9 @@ class FiatRechargeStore {
     @observable $submiting = false;
     @observable currStep = 'start'; // 充值页面状态
     @observable rechargeDayLimit = 0; // 充值单日限额
+    @observable dayLimit = 0; // 充值单日限额
+    @observable lowLimit = 0; // 充值最低限额
+    @observable highLimit = 0; // 充值最高限额
 
     @action
     setCurrStep(action) {
@@ -24,15 +27,18 @@ class FiatRechargeStore {
         getUserActionLimit(1, 1).then(res => {
             runInAction(() => {
                 if(res.status === 200) {
-                    this.rechargeDayLimit = res.attachment.limits[0].highLimit
+                    const data = res.attachment.limits[0];
+                    this.rechargeDayLimit = data.highLimit;
+                    this.highLimit = data.highLimit;
+                    this.lowLimit = data.lowLimit;
                 } else {
                     console.error('getUserActionLimit status not 200', res)
                 }
             })
-
         }).catch(err => {
             console.error('getUserActionLimit', err)
         })
+
     }
     @action
     getInfo() {

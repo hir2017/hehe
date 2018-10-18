@@ -5,10 +5,11 @@ import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import { Alert } from 'antd';
 import PageWrapper from '@/mods/common/wrapper/full-page';
-import { getUserActionLimit } from '@/api/http';
+import { twdGetQuotaManagementInfo, ausGetQuotaManagementInfo } from '@/api/http';
 import FormView from '@/mods/common/form';
 import FormItem from '@/mods/common/form/item';
 // import BankCard from '@/mods/recharge-withdraw/fiat/bank-card';
+import Numberutils from  '@/lib/util/number';
 import Spgateway from '@/mods/recharge-withdraw/fiat/spgateway';
 import NumberUtils from '@/lib/util/number';
 import AuthWrapper from '@/mods/authhoc/recharge-withdraw';
@@ -20,7 +21,8 @@ class View extends Component {
         super(props);
         this.state = {
             type: 'a',
-            dayLimit: 0
+            dayLimit: 0,
+            monthLimit: 0
         };
         this.pageInfo = {
             title :UPEX.lang.template('账户充值'),
@@ -29,8 +31,23 @@ class View extends Component {
     }
 
     componentDidMount() {
-        // TODO: dayLimit
         this.props.fiatRechargeStore.getRechargeDayLimit();
+        let request = UPEX.config.version === 'ace' ?  twdGetQuotaManagementInfo : ausGetQuotaManagementInfo;
+        request({
+            actionId: 1,
+            currencyId: 1
+        }).then(res => {
+            const { authLevel = 1 } = this.props.userInfoStore.userInfo || {};
+            if(res.status === 200) {
+                let data = res.attachment[0] || {};
+                this.setState({
+                    dayLimit: Numberutils.separate(data[`kyc${authLevel}DayLimit`]),
+                    monthLimit: Numberutils.separate(data[`kyc${authLevel}MonthLimit`])
+                })
+            }
+        }).catch(err => {
+            console.error('getUserActionLimit', err)
+        })
     }
 
     componentWillUnmount() {
@@ -52,7 +69,7 @@ class View extends Component {
                     type="info"
                     showIcon
                     message={
-                        UPEX.lang.template('单日充值限额 {num1}', { num1: ` ${NumberUtils.separate(store.rechargeDayLimit)} ` }) + UPEX.config.baseCurrencyEn
+                        UPEX.lang.template('单日充值限额 {num1}, 单月充值限额 {num2}', { num1: ` ${state.dayLimit} ${UPEX.config.baseCurrencyEn}`, num1: ` ${state.monthLimit} ${UPEX.config.baseCurrencyEn}` })
                     }
                     type="warning"
                 />
