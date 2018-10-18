@@ -134,27 +134,29 @@ export default (store, userInfoStore) => {
             });
         },
 
-        handleSubmit() {
+        handleSubmit(state, userInfo) {
         	const { verifyBeforeSubmit } = store;
 
             if (store.$submiting) {
                 return;
             }
-
-            let result = verifyBeforeSubmit();
-
-            if (result.pass) {
+            /**
+             * tradePwd: '',
+            smsCode: '',
+            gaCode: ''
+            */
+            if (true) {
                 store.changeSubmitingStatusTo(true);
                 // amount, currencyId, cardId（此用户当前绑定银行卡id）, validateType, tradePwd, gAuth/phoneCode
                 orderFiatWithdraw({
-		            tradePwd: store.md5TradePassword,
-		            phoneCode: store.phoneCode,
+		            tradePwd: md5(state.tradePwd + UPEX.config.dealSalt + userInfo.uid),
+		            phoneCode: state.smsCode,
 		            cardId: store.selectedCard,
                     amount: store.balance,
-                    codeId: store.captchaStore.codeid,
-                    verCode: store.vercode,
-                    gAuth: store.googleCode,
-                    validateType: store.authType === 'google' ? 1 : 2,
+                    codeId: '11',
+                    verCode: '11',
+                    gAuth: state.gaCode,
+                    validateType: userInfo.isGoogleAuth  ? 1 : 2,
 		        }).then((data) => {
                     store.changeSubmitingStatusTo(false);
                     switch (data.status) {
