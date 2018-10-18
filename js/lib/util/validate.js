@@ -28,3 +28,12 @@ export function isNumberOrCode(str) {
     }
 }
 
+// 检测是否是数字或大写字母
+export function isNumberOrUpCaseCode(str) {
+    try {
+        return /^[A-Z0-9]+$/.test(str);
+    } catch (error) {
+        console.error('validate isNumberOrCode', error);
+        return false;
+    }
+}

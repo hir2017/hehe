@@ -29,13 +29,13 @@ export default (store) => {
                 message.error(UPEX.lang.template('请填写充值金额'));
                 return false;
             }
-            // 500
-            if (state.amount < state.amountLowLimit) {
-                message.error(UPEX.lang.template('最小充值金额为 {num}', {num: state.amountLowLimit}));
+            // TODO: 这全用coinRisk的去判定， 500 有后台设置
+            if (state.amount < store.lowLimit) {
+                message.error(UPEX.lang.template('单笔最小充值金额为 {num}', {num: store.lowLimit}));
                 return false;
             }
-            if (state.amount >  store.rechargeDayLimit) {
-                message.error(UPEX.lang.template('充值金额大于单日最大充值限额'));
+            if (state.amount >  store.highLimit) {
+                message.error(UPEX.lang.template('单笔最大充值金额为 {num}', {num: store.highLimit}));
                 return false;
             }
             return true;
