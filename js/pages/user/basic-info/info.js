@@ -13,7 +13,6 @@ import gradeA from '@/../images/grade-a.png';
 import gradeB from '@/../images/grade-b.png';
 import gradeC from '@/../images/grade-c.png';
 import upgradeBtn from '@/../images/up-grade-btn.png';
-
 import AceSection from '@/components/page-user/section';
 
 @inject('userInfoStore')

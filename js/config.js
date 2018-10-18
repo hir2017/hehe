@@ -30,7 +30,7 @@ config.baseCurrencySymbol = 'NT$';
 const protocol = 'https:';
 const socket_protocol = 'wss:';
 
-const website = ['dev.ace.io', 'stage.ace.io', 'pre.ace.io', 'www.ace.io']; // 网站域名 0:dev, 1: stage; 2:线上
+const website = ['stage.ace.io', 'stage.ace.io', 'pre.ace.io', 'www.ace.io']; // 网站域名 0:dev, 1: stage; 2:线上
 const origin_java = (function() {
     let hostname = location.hostname;
     let env = Url.query('env');

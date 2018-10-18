@@ -35,6 +35,14 @@
         line-height: 12px;
         padding-bottom: 10px;
     }
+    .inner-item{
+        .yidun.yidun--light .yidun_tips{
+            color: @text-color01-light;
+        }
+    }
+    .inner-tip{
+        color: @text-color01-light;
+    }
     .inner-error {
         color: #ff6666;
     }
@@ -54,7 +62,7 @@
     .input-right-tag {
         position: absolute;
         font-size: 14px;
-        color: #999;
+        color: @text-color02-light;
         z-index: 10;
         right: 3px;
         top: 32px;
@@ -79,14 +87,39 @@
         border-top-left-radius: 0;
         /* width: auto; */
         border-bottom-left-radius: 0;
+        padding-left: 45px;
+        padding-right: 38px;
+        border-left: none;
+        &:hover{
+            background: none;
+            color: @theme-yellow;
+        }
+        &[disabled]{
+            background: none;
+            &:hover{
+                color: rgba(0,0,0,.25);
+            }
+        }
+        &:before{
+            display: block;
+            position: absolute;
+            content:'';
+            width: 1px;
+            height: 16px;
+            background-color: @text-color04-light;
+            left: 0;
+            top: 10px;
+            transition: unset;
+        }
     }
     .ant-select-selection__rendered {
         line-height: 40px;
     }
     .ant-btn {
+        color: @text-color01-light;
         &.submit-btn {
             background-color: #e8b802;
-            color: #333333;
+            color: @text-color01-light;
             text-align: center;
         }
         &.width-auto {
@@ -105,7 +138,6 @@
             }
             &:hover {
                 background-color: #ffdc57;
-                color: #333333;
             }
         }
     }

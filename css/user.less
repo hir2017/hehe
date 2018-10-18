@@ -26,10 +26,9 @@ body .user-main .ant-select-dropdown-menu-item {
         min-height: 620px;
         .exc-top-tips {
             background-color: #fefbe8;
-            border: solid 1px #fbe59a;
             font-size: 14px;
             text-align: center;
-            border-radius: 0;
+            border-radius: 3px;
             padding: 10px 0;
             margin-top: 10px;
         }
@@ -127,7 +126,7 @@ body .user-main .ant-select-dropdown-menu-item {
             &.exc-btn-small {
                 background-color: #e8b802;
                 border: none;
-                color: #333;
+                color: @text-color01-light;
             }
             &.exc-btn-large {
                 height: 40px;
@@ -141,7 +140,7 @@ body .user-main .ant-select-dropdown-menu-item {
             &.exc-btn-white {
                 background-color: #fff;
                 border: solid 1px #ccc;
-                color: #333;
+                color: @text-color01-light;
                 border-radius: 2px;
                 height: 24px;
                 font-size: 12px;
@@ -160,7 +159,7 @@ body .user-main .ant-select-dropdown-menu-item {
         border-color: #e7b508;
         &:hover {
             background-color: #ffdc57;
-            color: #333;
+            color: @text-color01-light;
             border-color: #ffdc57;
         }
     }
@@ -170,13 +169,13 @@ body .user-main .ant-select-dropdown-menu-item {
             color: #ccc;
         }
         &:hover {
-            color: #333;
+            color: @text-color01-light;
             border-color: #ffdc57;
         }
     }
     .ant-btn.exc-main {
         background-color: #e8b802;
-        color: #333;
+        color: @text-color01-light;
         height: 40px;
     }
     .content-body {
@@ -185,7 +184,7 @@ body .user-main .ant-select-dropdown-menu-item {
             height: 40px;
             line-height: 40px;
             background-color: #e8b802;
-            color: #333;
+            color: @text-color01-light;
             display: inline-block;
             min-width: 160px;
             font-size: 14px;
@@ -204,7 +203,7 @@ body .user-main .ant-select-dropdown-menu-item {
         padding-top: 20px;
         font-size: 12px;
         line-height: 20px;
-        color: #999;
+        color: @text-color02-light;
     }
     a.exc-link {
         color: #cc9900;
@@ -231,7 +230,7 @@ body .user-main .ant-select-dropdown-menu-item {
         & .section-title {
             border-top-left-radius: 6px;
             border-top-right-radius: 6px;
-            color: #333;
+            color: @text-color01-light;
         }
         & .content-body,
         & .section-body {
@@ -267,7 +266,7 @@ body .user-main .ant-select-dropdown-menu-item {
         .name {
             width: 160px;
             font-size: 15px;
-            color: #999;
+            color: @text-color02-light;
         }
         & .name,
         & .id {
@@ -374,17 +373,17 @@ body .user-main .ant-select-dropdown-menu-item {
             .phone {
                 font-size: 24px;
                 height: 33px;
-                color: #333;
+                color: @text-color01-light;
             }
             .login-time {
                 font-size: 14px;
-                color: #999;
+                color: @text-color02-light;
             }
             &.bind-status {
                 width: 210px;
                 margin: 20px auto;
                 .ant-col-12 {
-                    color: #ccc;
+                    color: @text-color04-light;
                     cursor: pointer;
                     img {
                         width: 30px;
@@ -402,7 +401,7 @@ body .user-main .ant-select-dropdown-menu-item {
         }
     }
     .grade-label {
-        color: #999;
+        color: @text-color02-light;
         font-size: 14px;
     }
     .grade-info {
@@ -418,7 +417,7 @@ body .user-main .ant-select-dropdown-menu-item {
             top: 65%;
             left: 50%;
             transform: translate(-50%, -50%);
-            color: #333;
+            color: @text-color01-light;
         }
         .state-inner {
             padding-left: 120px;
@@ -430,11 +429,11 @@ body .user-main .ant-select-dropdown-menu-item {
                 float: left;
             }
             .text {
-                color: #333;
+                color: @text-color01-light;
                 font-size: 18px;
             }
             .money {
-                color: #999999;
+                color: @text-color02-light;
                 font-size: 14px;
             }
         }
@@ -482,7 +481,7 @@ body .user-main .ant-select-dropdown-menu-item {
         >span:first-child {
             margin-right: 15px;
             font-size: 12px;
-            color: #999999;
+            color: @text-color02-light;
         }
         .ant-switch-checked {
             background-color: #e6bc1d;
@@ -514,7 +513,7 @@ body .user-main .ant-select-dropdown-menu-item {
         margin: 80px 0;
         text-align: center;
         font-size: 18px;
-        color: #333333;
+        color: @text-color01-light;
     }
     .ant-table-body {
         max-height: 250px;
@@ -532,7 +531,7 @@ body .user-main .ant-select-dropdown-menu-item {
     }
     /* 身份认证 */
     .authentication-title {
-        color: #333333;
+        color: @text-color01-light;
         font-size: 18px;
         margin-bottom: 20px;
     }
@@ -542,13 +541,26 @@ body .user-main .ant-select-dropdown-menu-item {
                 width: 20px;
                 height: 20px;
                 line-height: 22px;
+                margin-right: 4px;
             }
+            .ant-steps-item{
+                flex: unset;
+                .ant-steps-item-title{
+                    padding-right: 82px;
+                    &:after{
+                        width: 70px;
+                        right: 0;
+                        left: auto;
+                    }
+                }
+            }
+
             .ant-steps-item.ant-steps-item-finish {
                 .ant-steps-item-title {
-                    color: #999;
+                    color: @text-color02-light;
                 }
                 &:nth-child(3) .ant-steps-item-title {
-                    color: #333;
+                    color: @text-color01-light;
                 }
                 &:nth-child(3) .ant-steps-item-icon {
                     background-color: #e8b802;
@@ -567,7 +579,6 @@ body .user-main .ant-select-dropdown-menu-item {
             .title-right {
                 float: right;
                 margin: 20px 20px 0 0;
-                width: 380px;
                 .ant-steps-item-finish {
                     .ant-steps-item-icon {
                         border-color: #e9bb0d;
@@ -591,7 +602,7 @@ body .user-main .ant-select-dropdown-menu-item {
                 display: block;
                 text-align: center;
                 &:last-child {
-                    color: #999999;
+                    color: @text-color02-light;
                     font-size: 12px;
                     margin-top: 5px;
                 }
@@ -602,7 +613,7 @@ body .user-main .ant-select-dropdown-menu-item {
             vertical-align: 30px;
             width: 200px;
             text-align: center;
-            color: #999999;
+            color: @text-color02-light;
             font-size: 14px;
             font-weight: 500;
         }
@@ -610,7 +621,7 @@ body .user-main .ant-select-dropdown-menu-item {
     .authentication-message {
         text-align: center;
         font-size: 18px;
-        color: #333333;
+        color: @text-color01-light;
     }
 
     .authentication-content {
@@ -629,7 +640,7 @@ body .user-main .ant-select-dropdown-menu-item {
                 width: 190px;
             }
             .message {
-                color: #999999;
+                color: @text-color02-light;
                 font-size: 12px;
                 display: block;
                 margin-top: 5px;
@@ -653,7 +664,7 @@ body .user-main .ant-select-dropdown-menu-item {
         }
         .checkbox-text {
             font-size: 14px;
-            color: #333;
+            color: @text-color01-light;
             margin-right: 5px;
             a {
                 color: #cc9900;
@@ -678,7 +689,7 @@ body .user-main .ant-select-dropdown-menu-item {
             display: block;
             margin-top: 5px;
             font-size: 14px;
-            color: #999999;
+            color: @text-color02-light;
         }
         .pic-item-error-message {
             width: 275px;
@@ -692,7 +703,7 @@ body .user-main .ant-select-dropdown-menu-item {
             margin-left: 100px;
             margin-top: 10px;
             font-size: 14px;
-            color: #333333;
+            color: @text-color01-light;
             &>span {
                 display: block;
             }
@@ -700,7 +711,7 @@ body .user-main .ant-select-dropdown-menu-item {
                 margin-left: 10px;
                 margin-right: 5px;
                 font-size: 18px;
-                color: #999999;
+                color: @text-color02-light;
                 font-weight: bold;
                 vertical-align: bottom;
             }
@@ -709,7 +720,7 @@ body .user-main .ant-select-dropdown-menu-item {
             text-align: left;
             font-size: 12px;
             margin-top: 26px;
-            color: #999999;
+            color: @text-color02-light;
         }
         .await-examine {
             margin-top: 150px;
@@ -718,13 +729,13 @@ body .user-main .ant-select-dropdown-menu-item {
                 &:first-child {
                     font-size: 20px;
                     font-weight: bold;
-                    color: #333333;
+                    color: @text-color01-light;
                     margin-bottom: 10px;
                 }
             }
         }
         .success-title {
-            color: #999999;
+            color: @text-color02-light;
             font-size: 20px;
             margin-top: 50px;
         }
@@ -740,7 +751,7 @@ body .user-main .ant-select-dropdown-menu-item {
             padding-top: 20px;
             padding-bottom: 20px;
             font-size: 16px;
-            color: #333333;
+            color: @text-color01-light;
             > div {
                 margin-bottom: 5px;
             }
@@ -750,27 +761,27 @@ body .user-main .ant-select-dropdown-menu-item {
         .success-prompt {
             margin-top: 20px;
             font-size: 12px;
-            color: #999999;
+            color: @text-color02-light;
         }
 
         .success-money {
             margin-top: 50px;
             font-size: 22px;
-            color: #999999;
+            color: @text-color02-light;
             .money {
                 font-size: 40px;
-                color: #333333;
+                color: @text-color01-light;
             }
         }
 
         .success-money-title {
             font-size: 14px;
-            color: #999999;
+            color: @text-color02-light;
         }
 
         .success-money-message {
             font-size: 12px;
-            color: #999999;
+            color: @text-color02-light;
             margin-top: 70px;
         }
 
@@ -789,7 +800,7 @@ body .user-main .ant-select-dropdown-menu-item {
         }
         .tip {
             font-size: 12px;
-            color: #999;
+            color: @text-color02-light;
         }
         .left .ant-btn {
             margin-left: 40px;
@@ -815,17 +826,17 @@ body .user-main .ant-select-dropdown-menu-item {
             line-height: 30px;
         }
         .title {
-            color: #333;
+            color: @text-color01-light;
             font-size: 20px;
             line-height: 50px;
         }
         .tip {
             font-size: 12px;
-            color: #999999;
+            color: @text-color02-light;
             padding-top: 25px;
         }
         &.loading .info {
-            color: #999999;
+            color: @text-color02-light;
         }
         &.fail .info {
             color: #e8b802;
@@ -850,7 +861,7 @@ body .user-main .ant-select-dropdown-menu-item {
     .title {
         text-align: center;
         font-size: 20px;
-        color: #333;
+        color: @text-color01-light;
         line-height: 70px;
     }
     .info {
@@ -865,7 +876,7 @@ body .user-main .ant-select-dropdown-menu-item {
         td {
             width: 50%;
             font-size: 14px;
-            color: #999999;
+            color: @text-color02-light;
             box-sizing: border-box;
             padding: 5px 15px;
             &:nth-child(1) {
@@ -874,7 +885,7 @@ body .user-main .ant-select-dropdown-menu-item {
             }
             &:nth-child(2) {
                 text-align: left;
-                color: #333333;
+                color:@text-color01-light;
             }
         }
     }
@@ -890,7 +901,7 @@ body .user-main .ant-select-dropdown-menu-item {
             font-size: 24px;
             position: relative;
             top: 4px;
-            color: #999;
+            color: @text-color02-light;
             &.show {
                 cursor: pointer;
             }
@@ -935,7 +946,7 @@ body .user-main .ant-select-dropdown-menu-item {
         header {
             font-size: 16px;
             line-height: 40px;
-            color: #333;
+            color: @text-color01-light;
         }
 
         .anticon-close {
@@ -946,11 +957,11 @@ body .user-main .ant-select-dropdown-menu-item {
         }
 
         .anticon-close:hover {
-            color: #333;
+            color: @text-color01-light;
         }
 
         label {
-            color: #333;
+            color: @text-color01-light;
             display: inline-block;
             padding: 0 10px;
         }
@@ -963,6 +974,7 @@ body .user-main .ant-select-dropdown-menu-item {
     width: 100%;
     .exc-top-tips {
         margin-bottom: 40px;
+        color: @text-color01-light;
         .anticon {
             color: #fff;
             background-color: #f0af41;
@@ -1010,7 +1022,7 @@ body .user-main .ant-select-dropdown-menu-item {
 
         &:nth-child(1) .pic-title {
             padding: 10px 0 20px;
-            color: #333;
+            color: @text-color01-light;
         }
         .upload-icon-text {
             font-size: 14px;
@@ -1036,7 +1048,7 @@ body .user-main .ant-select-dropdown-menu-item {
                 border-radius: 8px;
                 border: solid 1px #e8b802;
                 &:hover {
-                    color: #333;
+                    color: @text-color01-light;
                     background-color: #e8b802;
                 }
             }
@@ -1044,7 +1056,7 @@ body .user-main .ant-select-dropdown-menu-item {
 
         .pic-title {
             font-size: 14px;
-            color: #999;
+            color: @text-color02-light;
             padding: 10px 0 25px;
             .anticon.block-space {
                 opacity: 0;
@@ -1103,7 +1115,7 @@ body .user-main .ant-select-dropdown-menu-item {
     .info .tip {
         padding: 10px 0;
         font-size: 12px;
-        color: #999;
+        color: @text-color02-light;
         line-height: 18px;
     }
     & .ant-upload-list-item-info,
@@ -1192,80 +1204,82 @@ body .user-main .ant-select-dropdown-menu-item {
  * 密码设置
  */
 
-.user-main .common-setting-box .ant-switch {
-    min-width: 28px;
-    height: 16px;
-    line-height: 14px;
-    margin-top: -4px;
-    margin-left: 6px;
-}
-
-.user-main .common-setting-box .ant-switch:before,
-.user-main .common-setting-box .ant-switch:after {
-    width: 12px;
-    height: 12px;
-}
-
-.user-main .common-setting-box .ant-switch.ant-switch-checked:before,
-.user-main .common-setting-box .ant-switch.ant-switch-checked:after {
-    left: 100%;
-    margin-left: -13px;
-}
-
-.user-main .common-setting-box {
-    padding: 40px 20px;
-}
-
-.user-main .common-setting-box .ant-row.pwd {
-    height: 100px;
-    padding: 0 30px;
-    border: solid 1px #f4f4f4;
-    box-sizing: content-box;
-}
-
-.user-main .common-setting-box .ant-row.pwd .title p {
-    padding: 0 0 1px;
-    color: #999;
-}
-
-.user-main .common-setting-box .ant-row.pwd .title p:nth-child(1) {
-    font-size: 18px;
-    color: #333;
-}
-
-.user-main .common-setting-box .ant-row.pwd.no-bottom {
-    border-bottom-color: transparent;
-}
-
-.user-main .common-setting-box .ant-row.pwd .col-exc {
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-.user-main .common-setting-box .forget-pwd {
-    font-size: 12px;
-    display: inline-block;
-    position: absolute;
-    white-space: nowrap;
-    right: 0;
-    bottom: -22px;
-}
-
-.user-main .common-setting-box .forget-pwd:hover {
-    text-decoration-line: underline;
-}
-
-.user-main .common-setting-box .ant-row.pwd .col-exc.operator {
-    text-align: right;
-}
-
-.user-main .common-setting-box .ant-row.pwd .operator .switch {
-    display: inline-block;
-}
-
-.user-main .common-setting-box .message {
-    padding: 10px 0 30px;
-    color: #999;
+.user-main {
+    .common-setting-box {
+        padding: 40px 20px;
+        .ant-switch {
+            min-width: 28px;
+            height: 16px;
+            line-height: 14px;
+            margin-top: -4px;
+            margin-left: 6px;
+            &:before, &:after{
+                width: 12px;
+                height: 12px;
+            }
+            &.ant-switch-checked{
+                &:before, &:after{
+                    left: 100%;
+                    margin-left: -13px;
+                }
+            }
+        }
+        .ant-row{
+            &.pwd{
+                height: 100px;
+                padding: 0 30px;
+                border: solid 1px #f4f4f4;
+                box-sizing: content-box;
+                .title{
+                    p{
+                        padding: 0 0 1px;
+                        color: @text-color02-light;
+                        &:first-child{
+                            font-size: 18px;
+                            color: @text-color01-light;
+                        }
+                    }
+                }
+                &.no-bottom{
+                    border-bottom-color: transparent;
+                }
+                .col-exc{
+                    top: 50%;
+                    transform: translateY(-50%);
+                    &.operator{
+                        text-align: right;
+                        .switch{
+                            display: inline-block;
+                            color: @text-color01-light;
+                        }
+                    }
+                }
+            }
+        }
+        .forget-pwd{
+            font-size: 12px;
+            display: inline-block;
+            position: absolute;
+            white-space: nowrap;
+            right: 0;
+            bottom: -22px;
+            &:hover{
+                text-decoration-line: underline;
+            }
+        }
+        .message{
+            padding: 10px 0 30px;
+            color: @text-color02-light;
+            &.guide{
+                text-align: right;
+                a {
+                    display: inline-block;
+                    padding-left: 4px;
+                    color: #cc9900;
+                }
+            }
+        }
+    }
 }
 
 .user-main .common-setting-box .col-exc.operator .ant-btn.exc-secondary,
@@ -1273,15 +1287,8 @@ body .user-main .ant-select-dropdown-menu-item {
     margin-left: 30px;
 }
 
-.user-main .common-setting-box .message.guide {
-    text-align: right;
-}
 
-.user-main .common-setting-box .message.guide a {
-    display: inline-block;
-    padding-left: 4px;
-    color: #cc9900;
-}
+
 
 /**
  * 密码修改
@@ -1306,11 +1313,11 @@ body .user-main .ant-select-dropdown-menu-item {
 
 .user-main .modify-password-box .massage {
     font-size: 12px;
-    color: #999999;
+    color: @text-color02-light;
 }
 
 .user-main .modify-password-box .massage a {
-    color: #999999;
+    color: @text-color02-light;
     text-decoration-line: underline;
 }
 
@@ -1323,7 +1330,7 @@ body .user-main .ant-select-dropdown-menu-item {
  */
 
 .user-main .binding-phone-title {
-    color: #333333;
+    color: @text-color01-light;
     font-size: 18px;
 }
 
@@ -1335,7 +1342,7 @@ body .user-main .ant-select-dropdown-menu-item {
 
 .user-main .binding-phone-content .phone {
     font-size: 16px;
-    color: #333333;
+    color: @text-color01-light;
 }
 
 .user-main .binding-phone-content button {
@@ -1349,7 +1356,7 @@ body .user-main .ant-select-dropdown-menu-item {
 
 .user-main .binding-phone-content .message {
     font-size: 14px;
-    color: #999999;
+    color: @text-color02-light;
     margin-top: 20px;
 }
 
@@ -1359,7 +1366,7 @@ body .user-main .ant-select-dropdown-menu-item {
 }
 
 .user-main .binding-phone-content .switch span {
-    color: #999999;
+    color: @text-color02-light;
     font-size: 12px;
 }
 
@@ -1378,7 +1385,7 @@ body .user-main .ant-select-dropdown-menu-item {
 .user-main .binding-phone-left::after {
     position: absolute;
     top: 10px;
-    right: 0px;
+    right: 0;
     content: '';
     width: 1px;
     height: 110px;
@@ -1396,7 +1403,7 @@ body .user-main .ant-select-dropdown-menu-item {
     height: 45px;
     margin-bottom: 20px;
     font-size: 14px;
-    color: #999999;
+    color: @text-color02-light;
 }
 
 .user-main .binding-phone-right li:last-child {
@@ -1408,95 +1415,94 @@ body .user-main .ant-select-dropdown-menu-item {
  * google 认证
  */
 
-.user-main .google-auth-title {
-    color: #333333;
-    font-size: 18px;
-}
+.user-main{
+    .google-auth-title{
+        color: @text-color01-light;
+        font-size: 18px;
+    }
+    .google-no-binding-phone{
+        span{
+            font-size: 18px;
+            color: @text-color01-light;
+        }
+        button {
+            width: 120px;
+            height: 30px;
+            font-size: 14px;
+            color: #fff;
+            margin-top: 20px;
+            background-color: #e6bc1d;
+        }
+    }
+    .google-auth-message {
+        font-size: 14px;
+        color: @text-color02-light;
+        text-align: center;
+        margin-bottom: 30px;
+        overflow: hidden;
+        img {
+            height: 200px;
+            width: 200px;
+        }
+        .code-sms {
+            color: @text-color01-light;
+        }
+        .tip {
+            float: right;
+            width: 60%;
+            padding-top: 50px;
+        }
+    }
+    .google-auth-box{
+        .info{
+            text-align: center;
+            padding-top: 18px;
+            a{
+                font-size: 14px;
+                color: #cc9900;
+                &:hover{
+                    text-decoration-line: underline;
+                }
+            }
+        }
+    }
+    .google-auth-left{
+        div{
+            font-size: 14px;
+            color: @text-color01-light;
+            margin-top: 10px;
+        }
+    }
+    .google-auth-right {
+        display: inline-block;
+        vertical-align: top;
+        div{
+            padding-top: 5px;
+        }
+        .info{
+            a{
+                font-size: 14px;
+                color: @text-color02-light;
+                text-decoration: underline;
+                text-underline-position: under;
+            }
+        }
+        button {
+            margin-top: 20px;
+        }
+    }
+    .google-info-link{
+        a {
+            color: #e6bc1d;
+            text-decoration: underline;
+            text-underline-position: under;
+        }
+    }
 
-.user-main .google-no-binding-phone>span {
-    font-size: 18px;
-    color: #333333;
-}
 
-.user-main .google-no-binding-phone button {
-    width: 120px;
-    height: 30px;
-    font-size: 14px;
-    color: #fff;
-    margin-top: 20px;
-    background-color: #e6bc1d;
-}
-
-.user-main .google-auth-message {
-    font-size: 14px;
-    color: #999999;
-    text-align: center;
-    margin-bottom: 30px;
-    overflow: hidden;
-}
-
-.user-main .google-auth-message img {
-    height: 200px;
-    width: 200px;
-}
-
-.user-main .google-auth-message .code-sms {
-    color: #333;
-}
-
-.user-main .google-auth-message .tip {
-    float: right;
-    width: 60%;
-    padding-top: 50px;
-}
-
-.user-main .google-auth-box .info {
-    text-align: center;
-    padding-top: 18px;
-}
-
-.user-main .google-auth-box .info a {
-    font-size: 14px;
-    color: #cc9900;
-}
-
-.user-main .google-auth-box .info a:hover {
-    text-decoration-line: underline;
-}
-
-.user-main .google-auth-left>div {
-    font-size: 14px;
-    color: #333333;
-    margin-top: 10px;
-}
-
-.user-main .google-auth-right {
-    display: inline-block;
-    vertical-align: top;
-}
-
-.user-main .google-auth-right>div {
-    padding-top: 5px;
-}
-
-.user-main .google-auth-right .info a {
-    font-size: 14px;
-    color: #999999;
-    text-decoration: underline;
-    text-underline-position: under;
-}
-
-.user-main .google-auth-right button {
-    margin-top: 20px;
 }
 
 .user-main .google {
-    text-decoration: underline;
-    text-underline-position: under;
-}
-
-.user-main .google-info-link a {
-    color: #e6bc1d;
     text-decoration: underline;
     text-underline-position: under;
 }
@@ -1529,19 +1535,19 @@ body .user-main .ant-select-dropdown-menu-item {
 
 .user-main .reBinding-left .key-title {
     font-size: 14px;
-    color: #333333;
+    color: @text-color01-light;
 }
 
 .user-main .reBinding-left .key {
     font-size: 20px;
-    color: #333333;
+    color: @text-color01-light;
     font-weight: 600;
     margin-top: 10px;
 }
 
 .user-main .reBinding-left .key-message {
     font-size: 14px;
-    color: #999999;
+    color: @text-color02-light;
     margin-top: 40px;
 }
 
@@ -1554,7 +1560,7 @@ body .user-main .ant-select-dropdown-menu-item {
 
 .user-main .reBinding-right .info a {
     font-size: 14px;
-    color: #999999;
+    color: @text-color02-light;
     text-decoration: underline;
     text-underline-position: under;
 }
@@ -1620,7 +1626,7 @@ body .user-main .ant-select-dropdown-menu-item {
 
 .google-guide-img-box .download {
     text-align: center;
-    color: #999999;
+    color: @text-color02-light;
     font-size: 14px;
     margin-top: 20px;
 }
@@ -1630,7 +1636,7 @@ body .user-main .ant-select-dropdown-menu-item {
     line-height: 40px;
     /* width: 150px; */
     padding: 0 8px;
-    color: #999999;
+    color: @text-color02-light;
     display: inline-block;
     background-color: #fafafa;
     border: 1px solid #ccc;
@@ -1642,7 +1648,7 @@ body .user-main .ant-select-dropdown-menu-item {
 .google-guide-img-box .download i {
     margin-right: 10px;
     font-size: 25px;
-    color: #333333;
+    color: @text-color01-light;
     vertical-align: -2px;
 }
 
@@ -1673,7 +1679,7 @@ body .user-main .ant-select-dropdown-menu-item {
 
 .user-main .bind-success .icon-text {
     font-size: 30px;
-    color: #333333;
+    color: @text-color01-light;
     vertical-align: middle;
 }
 
@@ -1692,7 +1698,7 @@ body .user-main .ant-select-dropdown-menu-item {
 .user-main .bind-success .item:nth-child(2) {
     margin-top: 15px;
     font-size: 16px;
-    color: #333333;
+    color: @text-color01-light;
     margin-bottom: 70px;
 }
 
@@ -1704,7 +1710,7 @@ body .user-main .ant-select-dropdown-menu-item {
 
 .user-main .bind-success .item:nth-child(3) {
     font-size: 14px;
-    color: #999999;
+    color: @text-color02-light;
     margin-bottom: 10px;
 }
 
