@@ -28,8 +28,7 @@ class View extends Component {
         this.bankList = [
             { val: '1', label: UPEX.lang.template('玉山银行'), key: 'Esun' },
             { val: '2', label: UPEX.lang.template('臺灣銀行'), key: 'BOT' },
-            // { val: '3', label: UPEX.lang.template('台新银行'), key: 'Taishin' },
-            { val: '4', label: UPEX.lang.template('華南銀行'), key: 'HNCB' }
+            { val: '3', label: UPEX.lang.template('華南銀行'), key: 'HNCB' }
         ];
         this.typeList = [
             { val: '1', label: UPEX.lang.template('网络银行转账'), key: 'webatm' },
@@ -92,13 +91,15 @@ class View extends Component {
         if (!this.action.validate(state, this.props.fiatRechargeStore)) {
             return;
         };
+        let typeKey = typeList.filter(item => item.val === state.type)[0].key;
+        let bankKey = bankList.filter(item => item.val === state.bank)[0].key;
         this.setState({
             disabled: true
         })
         this.action
             .getOrderInfo({
-                typeKey: typeList[state.type - 1].key,
-                bankKey: bankList[state.bank - 1].key,
+                typeKey,
+                bankKey,
                 amount: state.amount
             })
             .then(res => {
