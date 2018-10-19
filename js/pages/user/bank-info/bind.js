@@ -4,7 +4,7 @@ import { Select, Button, Icon, message, Upload, Modal } from 'antd';
 const Option = Select.Option;
 
 import { createGetProp } from '@/components/utils';
-import upload_pic from '@/../images/card-bg.png';
+import upload_pic from '@/../images/upload-pic.png';
 import upload_pic_hover from '@/../images/upload-pic-hover.png';
 import BankList from './banklist.json';
 import banckCardImg from '@/../images/bank-card.jpg';
