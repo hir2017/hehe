@@ -69,7 +69,7 @@ class View extends Component {
                     type="info"
                     showIcon
                     message={
-                        UPEX.lang.template('单日充值限额 {num1}, 单月充值限额 {num2}', { num1: ` ${state.dayLimit} ${UPEX.config.baseCurrencyEn}`, num1: ` ${state.monthLimit} ${UPEX.config.baseCurrencyEn}` })
+                        UPEX.lang.template('单日充值限额 {num1}, 单月充值限额 {num2}', { num1: ` ${state.dayLimit} ${UPEX.config.baseCurrencyEn}`, num2: ` ${state.monthLimit} ${UPEX.config.baseCurrencyEn}` })
                     }
                     type="warning"
                 />

@@ -977,8 +977,8 @@ export function deleteBindBankCardRecord(id) {
 
 export function sendMessageWithdraw(vercode, codeid) {
     return axios.post('/withdraw/sendMessageWithdraw', {
-        vercode,
-        codeid
+        vercode: '11',
+        codeid: '11'
     })
 }
 /**

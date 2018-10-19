@@ -104,7 +104,6 @@ class View extends Component {
         if (UPEX.config.version === 'ace') {
             let actionDisabled = false;
             let warnContent = null;
-            console.log(actionRoles, coinsMap);
             let currency = coinsMap[UPEX.config.baseCurrencyEn] || {};
             // 充值
             if (props.name === 'recharge') {
