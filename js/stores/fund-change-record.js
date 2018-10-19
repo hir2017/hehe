@@ -48,7 +48,7 @@ class FundChangeRecordStore {
                 '4': UPEX.lang.template('审核中'),
                 '5': UPEX.lang.template('审核中'),
                 '6': UPEX.lang.template('审核拒绝'),
-                '7': UPEX.lang.template('审核中'),
+                '7': UPEX.lang.template('放款中'),
                 '8': UPEX.lang.template('放款失败'),
             },
             recharge: {
