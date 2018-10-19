@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import { observer, inject } from 'mobx-react';
-import { getUserActionLimit } from '../../api/http';
+import React, {Component} from 'react';
+import {observer, inject} from 'mobx-react';
+import {getUserActionLimit} from '../../api/http';
 import NumberUtil from '../../lib/util/number';
-import { Button, Icon, Upload, message, Tooltip } from 'antd';
+import {Button, Icon, Upload, message, Tooltip, Alert} from 'antd';
 import upload_pic from '../../../images/upload-pic.png';
 import upload_pic_hover from '../../../images/upload-pic-hover.png';
 import IDcard0 from '../../../images/idcard-1.png';
@@ -165,42 +165,42 @@ export default class SecondStep extends Component {
     };
 
     render() {
-        const { sameTips, picsData } = this;
+        const {sameTips, picsData} = this;
 
         return (
             <AceForm className="auth-step-2">
-                <div className="exc-top-tips">
-                    <Icon type="info" />
-                    {UPEX.lang.template('完成此步骤确认，可获得每日NT$300.000提现额度', { num: this.state.withdrawLimit })}。
-                    {UPEX.lang.template('身份证上传图片大小限制')}
-                </div>
+                <Alert className="ace-form-tips" type="warning" showIcon
+                       message={UPEX.lang.template('完成此步骤确认，可获得每日NT$300.000提现额度', {num: this.state.withdrawLimit}) + '。' + UPEX.lang.template('身份证上传图片大小限制')}/>
                 {picsData.map((item, i) => {
                     let _url = this.state[item.url];
                     return (
                         <div key={i} className="pic-item exc-upload-mod clearfix">
-                            <section className={`${this.state[item.url] ? 'select' : 'no-select'} pic-item-child pic-upload-content`}>
+                            <section
+                                className={`${this.state[item.url] ? 'select' : 'no-select'} pic-item-child pic-upload-content`}>
                                 <p className="pic-title">
-                                    <Icon className="block-space" type="check" />
+                                    <Icon className="block-space" type="check"/>
                                     {item.title}
-                                    <Icon className={_url ? '' : 'block-space'} type="check" />
+                                    <Icon className={_url ? '' : 'block-space'} type="check"/>
                                 </p>
                                 <Upload className="pic-upload" {...this._props(item.url)}>
                                     {/* <img className="pic-item-img target" src={_url ? UPEX.config.imgHost + '/' + _url : upload_pic} /> */}
-                                    <img className="pic-item-img target" src={_url ? _url : upload_pic} />
-                                    <img className="pic-item-img hover" src={upload_pic_hover} />
+                                    <img className="pic-item-img target" src={_url ? _url : upload_pic}/>
+                                    <img className="pic-item-img hover" src={upload_pic_hover}/>
                                 </Upload>
                                 {_url ? null : (<span className="upload-icon-text">{UPEX.lang.template('点击上传')}</span>)}
                             </section>
                             <section className="pic-item-child sample-img">
                                 <p className="pic-title">
-                                    <Icon className="block-space" type="check" />
+                                    <Icon className="block-space" type="check"/>
                                     {item.showTip}
-                                    <Tooltip  overlayClassName="auth-step-2" placement="rightTop" arrowPointAtCenter={true} title={this.getPopvoer(i)}>
-                                        <Icon type="question" />
+                                    <Tooltip overlayClassName="auth-step-2" placement="rightTop"
+                                             arrowPointAtCenter={true}
+                                             title={this.getPopvoer(i)}>
+                                        <Icon type="question"/>
                                     </Tooltip>
 
                                 </p>
-                                <img src={IDcardPics[`IDcard${i}`]} alt="" />
+                                <img src={IDcardPics[`IDcard${i}`]} alt=""/>
                             </section>
                         </div>
                     );
@@ -211,6 +211,7 @@ export default class SecondStep extends Component {
                     </Button>
                 </div>
             </AceForm>
-        );
+        )
+            ;
     }
 }
