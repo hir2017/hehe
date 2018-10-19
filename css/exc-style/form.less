@@ -77,22 +77,26 @@
     &.sms-code .ant-btn {
         position: absolute !important;
         height: 40px;
-        min-width: 110px;
+        width: 120px;
         box-sizing: border-box;
         padding: 5px;
         right: 0;
         top: 22px;
     }
     &.sms-code .ant-btn {
+        height: 36px;
+        right: 1px;
+        top: 24px;
+        border: none;
         border-top-left-radius: 0;
-        /* width: auto; */
         border-bottom-left-radius: 0;
-        padding-left: 45px;
-        padding-right: 38px;
-        border-left: none;
         &:hover{
             background: none;
             color: @theme-yellow;
+            border-color: #cbd2d6;
+        }
+        &:active, &:focus{
+            background: none;
         }
         &[disabled]{
             background: none;
@@ -121,15 +125,8 @@
             background-color: #e8b802;
             color: @text-color01-light;
             text-align: center;
-        }
-        &.width-auto {
-            width: auto;
-        }
-        &.submit-btn {
+            border: none;
             &:active,
-            &:hover {
-                border-color: #e8b802;
-            }
             &:disabled,
             &:disabled:hover {
                 color: rgba(0, 0, 0, 0.25);
@@ -139,6 +136,9 @@
             &:hover {
                 background-color: #ffdc57;
             }
+        }
+        &.width-auto {
+            width: auto;
         }
     }
     a,

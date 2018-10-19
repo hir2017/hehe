@@ -113,6 +113,10 @@ body .user-main .ant-select-dropdown-menu-item {
         & .ant-btn:active {
             color: #e8b802;
         }
+        & .ant-btn.ant-btn-loading:focus {
+            outline: none;
+        }
+
         & .ant-btn:hover:disabled,
         & .ant-btn:active:disabled {
             color: rgba(0, 0, 0, 0.25);
@@ -434,10 +438,14 @@ body .user-main .ant-select-dropdown-menu-item {
             }
             .money {
                 color: @text-color02-light;
-                font-size: 14px;
+                font-size: 12px;
+                line-height: 22px;
             }
         }
         .upgrade {
+            padding-left: 170px;
+            text-align: start;
+            margin-top: 5px;
             a {
                 line-height: 37px;
                 font-size: 14px;
@@ -856,6 +864,9 @@ body .user-main .ant-select-dropdown-menu-item {
         .ant-btn {
             width: 160px;
             height: 40px;
+            &:hover{
+                background-color: @btn-bg-hover-scolor;
+            }
         }
     }
     .title {
@@ -1426,7 +1437,6 @@ body .user-main .ant-select-dropdown-menu-item {
             color: @text-color01-light;
         }
         button {
-            width: 120px;
             height: 30px;
             font-size: 14px;
             color: #fff;
