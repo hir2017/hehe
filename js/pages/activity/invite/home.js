@@ -12,7 +12,6 @@ import InviteUser from './user';
 import UserInviteBouns from './bonus';
 import UserInviteOrders from './orders';
 
-const banner = require('../../../../images/activity/banner.png');
 
 @observer
 class PageView extends Component {
@@ -29,9 +28,7 @@ class PageView extends Component {
         return (
             <UserInfo pathname="invite-home">
               	<div className="invite-wrap">
-                    <div className="invite-banner">
-                        <img src={banner} alt="banner"/>
-                    </div>
+                    <div className="invite-banner"/>
                     <InviteRank/>
                     <InviteUser/>
                     <div className="invite-order clearfix">

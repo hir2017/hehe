@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import { Button, message } from 'antd';
-import { Link, browserHistory} from 'react-router';
+import { Link, browserHistory } from 'react-router';
 import { setTradePwdSendCode } from '@/api/http';
 import FormView from '@/mods/common/form';
 import FormItem from '@/mods/common/form/item';
@@ -9,7 +9,6 @@ import SmsBtn from '@/mods/common/sms-btn';
 
 import AutoCompleteHack from '@/mods/common/auto-complete-hack';
 
-import InputItem from '@/components/form/input-item';
 import PageForm from '@/components/page-user/page-form';
 import { createGetProp } from '@/components/utils';
 
@@ -19,8 +18,8 @@ export default class SettingTradingPassword extends Component {
     constructor() {
         super();
         this.submit = this.submit.bind(this);
-        this.$sendBtn = <SmsBtn sendCode={setTradePwdSendCode.bind(this, {type: 2})} />;
-        console.log('wqeqwew')
+        this.$sendBtn = <SmsBtn sendCode={setTradePwdSendCode.bind(this, { type: 2 })} />;
+        console.log('wqeqwew');
         this.PageProps = {
             title: UPEX.lang.template('设置资金密码'),
             formClass: 'modify-password-box'
@@ -43,15 +42,14 @@ export default class SettingTradingPassword extends Component {
             label: UPEX.lang.template('短信验证码'),
             className: 'sms-code',
             inputProps: {
-                onChange: (e) => {
-                    this.setVal(e, 'vCode')
+                onChange: e => {
+                    this.setVal(e, 'vCode');
                 }
             }
         };
     }
 
-    componentDidMount() {
-    }
+    componentDidMount() {}
 
     state = {
         password: '',
@@ -65,7 +63,6 @@ export default class SettingTradingPassword extends Component {
         data[name] = e.target.value;
         this.setState(data);
     }
-
 
     submit() {
         if (!this.state.password) {
@@ -99,21 +96,22 @@ export default class SettingTradingPassword extends Component {
 
     render() {
         const loading = this.props.userInfoStore.submit_loading_tpwd;
-        const {PageProps, inputsData, vCodeData, $sendBtn} = this;
+        const { PageProps, inputsData, vCodeData, $sendBtn } = this;
 
         return (
             <PageForm {...PageProps}>
-                {inputsData.map((item, i) => {
-                    return <InputItem key={i} {...item} />;
-                })}
-                <AutoCompleteHack />
                 <FormView>
+                    <AutoCompleteHack />
+                    {inputsData.map((item, i) => {
+                        return <FormItem key={i} {...item} />;
+                    })}
                     <FormItem {...vCodeData} after={$sendBtn} />
+                    <FormItem>
+                        <Button loading={loading} className="submit-btn" onClick={this.submit}>
+                            {UPEX.lang.template('提交')}
+                        </Button>
+                    </FormItem>
                 </FormView>
-
-                <Button loading={loading} className="exc-submit-item" onClick={this.submit}>
-                    {UPEX.lang.template('提交')}
-                </Button>
             </PageForm>
         );
     }

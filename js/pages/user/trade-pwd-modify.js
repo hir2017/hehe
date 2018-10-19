@@ -1,19 +1,15 @@
-/**
- * @fileoverview  密码设置
- * @author xia xiang feng
- * @date 2018-05-24
- */
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import { Button, message, Alert } from 'antd';
 import { Link, browserHistory } from 'react-router';
 import Vcodebutton from '@/mods/common/authcode-btn';
-import md5 from '../../lib/md5';
+import md5 from '@/lib/md5';
 
 import AutoCompleteHack from '@/mods/common/auto-complete-hack';
 
-import InputItem from '@/components/form/input-item';
 import PageForm from '@/components/page-user/page-form';
+import FormView from '@/mods/common/form';
+import FormItem from '@/mods/common/form/item';
 import { createGetProp } from '@/components/utils';
 import YidunCaptcha from '@/mods/yidun-captcha';
 
@@ -147,14 +143,21 @@ export default class ModifyTradingPassword extends Component {
 
         return (
             <PageForm {...PageProps}>
-                <AutoCompleteHack />
-                {inputsData.map((item, i) => {
-                    return <InputItem key={i} {...item} />;
-                })}
-                <div id="floatCaptcha"></div>
-                <Button loading={loading} className="exc-submit-item" onClick={this.submit}>
-                    {UPEX.lang.template('提交')}
-                </Button>
+                <FormView>
+                    <AutoCompleteHack />
+                    {inputsData.map((item, i) => {
+                        return <FormItem key={i} {...item} />;
+                    })}
+                    <FormItem>
+                        <div id="floatCaptcha"></div>
+                    </FormItem>
+                    <FormItem>
+                        <Button loading={loading} className="submit-btn" onClick={this.submit}>
+                            {UPEX.lang.template('提交')}
+                        </Button>
+                    </FormItem>
+                </FormView>
+
             </PageForm>
         );
     }

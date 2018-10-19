@@ -5,7 +5,8 @@ import NumberUtil from '@/lib/util/number';
 import { isPhone } from '@/lib/util/validate';
 import { browserHistory } from 'react-router';
 import SendVCodeBtn from '@/mods/common/v-code-btn';
-import InputItem from '@/components/form/input-item';
+import FormView from '@/mods/common/form';
+import FormItem from '@/mods/common/form/item';
 import PageForm from '@/components/page-user/page-form';
 import { createGetProp } from '@/components/utils';
 import { bindPhoneOrEmailSendCode, bindPhoneOrEmailAction } from '@/api/http';
@@ -62,8 +63,13 @@ export default class BindingPhone extends Component {
     }
 
     setVal(e, name) {
+        let val = e.target.value.trim();
+        if (name == 'vCode' || name == 'gaCode' || name == 'nvCode') {
+            val = (val + '').slice(0,6);
+        }
+
         this.setState({
-            [name]: e.target.value.trim()
+            [name]: val
         });
     }
 
@@ -134,6 +140,7 @@ export default class BindingPhone extends Component {
     }
 
     render() {
+        const {state} = this;
         const loginStore = this.props.loginStore;
         let options = [];
 
@@ -149,16 +156,21 @@ export default class BindingPhone extends Component {
         let afterNode = <SendVCodeBtn sendCode={this.sendCode.bind(this)} validateFn={this.validateFrom.bind(this, 'partical')} />;
         return (
             <PageForm {...PageProps}>
-                <div className="item-area">
-                    <Select showSearch size="large" style={{ width: '100%' }} onChange={this.onAreaCodeChange} defaultValue={loginStore.selectedCountry.code}>
-                        {options}
-                    </Select>
-                </div>
-                <InputItem {...inputsData.phone} value={this.state.phone} />
-                <InputItem {...inputsData.vCode} afterNode={afterNode} />
-                <Button loading={this.state.loading} className="exc-submit-item" onClick={this.submit.bind(this)}>
-                    {UPEX.lang.template('提交')}
-                </Button>
+                <FormView>
+                    <FormItem className="item-area">
+                        <Select showSearch size="large" style={{ width: '100%' }} onChange={this.onAreaCodeChange} defaultValue={loginStore.selectedCountry.code}>
+                            {options}
+                        </Select>
+                    </FormItem>
+                    <FormItem {...inputsData.phone} value={state.phone} />
+                    <FormItem {...inputsData.vCode} value={state.vCode} after={afterNode} />
+                    <FormItem>
+                        <Button loading={state.loading} className="submit-btn" onClick={this.submit.bind(this)}>
+                            {UPEX.lang.template('提交')}
+                        </Button>
+                    </FormItem>
+
+                </FormView>
             </PageForm>
         );
     }

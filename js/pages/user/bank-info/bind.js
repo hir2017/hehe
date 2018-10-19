@@ -9,18 +9,43 @@ import upload_pic_hover from '@/../images/upload-pic-hover.png';
 import BankList from './banklist.json';
 import banckCardImg from '@/../images/bank-card.jpg';
 import AceSection from '@/components/page-user/section';
-import AceForm from '@/components/form/form';
-import InputItem from '@/components/form/input-item';
 import AutoCompleteHack from '@/mods/common/auto-complete-hack';
+
+import FormView from '@/mods/common/form';
+import FormItem from '@/mods/common/form/item';
 
 @inject('userInfoStore', 'authStore')
 @observer
 export default class BindingBank extends Component {
     constructor() {
         super();
-        this.bankChange = this.bankChange.bind(this);
-        this.branchesChange = this.branchesChange.bind(this);
-        this.submit = this.submit.bind(this);
+        this.inputData = {
+            uname: {
+                label: UPEX.lang.template('开户人'),
+                inputProps: {
+                    disabled: true
+                }
+            },
+            bank: {
+                label: UPEX.lang.template('开户银行')
+            },
+            subBank: {
+                label: UPEX.lang.template('分行信息')
+            },
+            cardNo: {
+                label: UPEX.lang.template('银行账号'),
+                inputProps: {
+                    onChange: this.setVal.bind(this, 'cardNo')
+                }
+            },
+            password: {
+                label: UPEX.lang.template('资金密码'),
+                inputProps: {
+                    type: 'password',
+                    onChange: this.setVal.bind(this, 'password')
+                }
+            }
+        };
     }
 
     state = {
@@ -76,13 +101,13 @@ export default class BindingBank extends Component {
         };
     };
 
-    setVal(e, name) {
+    setVal(name, e) {
         const data = {};
         data[name] = e.target.value;
         this.setState(data);
     }
 
-    bankChange(val, e) {
+    bankChange = (val, e) => {
         const res = BankList.filter(item => {
             return item.code === val;
         });
@@ -94,9 +119,9 @@ export default class BindingBank extends Component {
             branchesCode: '',
             branche: ''
         });
-    }
+    };
 
-    branchesChange(val) {
+    branchesChange = val => {
         const res = BankList.filter(item => {
             return item.code === this.state.banckCode;
         });
@@ -107,10 +132,10 @@ export default class BindingBank extends Component {
             branchesCode: val,
             branche: branche[0].name
         });
-    }
+    };
 
-    submit() {
-        const {state, props} = this;
+    submit = () => {
+        const { state, props } = this;
         if (!state.banckCode) {
             message.error('请选择银行');
             return;
@@ -142,48 +167,28 @@ export default class BindingBank extends Component {
             branchNo: state.branchesCode,
             branchName: state.branche,
             tradePwd: pwd,
-            imgUrl: state.imgUrl,
+            imgUrl: state.imgUrl
         };
-        this.props.userInfoStore
-            .bindVerifyCard(params)
-            .then(res => {
-                if (res.status == 200) {
-                    this.setState({
-                        cardNo: '',
-                        password: '',
-                        imgUrl: ''
-                    });
-                    this.props.userInfoStore.bankCardInfo();
-                }
-            });
-    }
+        this.props.userInfoStore.bindVerifyCard(params).then(res => {
+            if (res.status == 200) {
+                this.setState({
+                    cardNo: '',
+                    password: '',
+                    imgUrl: ''
+                });
+                this.props.userInfoStore.bankCardInfo();
+            }
+        });
+    };
 
     render() {
+        const { state, inputData } = this;
         const loading = this.props.userInfoStore.submit_loading;
         const userInfo = this.props.userInfoStore.userInfo || {};
 
         const getProp = createGetProp(this);
 
         const inputsData = {
-            uname: {
-                label: UPEX.lang.template('开户人'),
-                inputProps: {
-                    value: userInfo.uname,
-                    disabled: true
-                }
-            },
-            bank: {
-                label: UPEX.lang.template('开户银行')
-            },
-            subBank: {
-                label: UPEX.lang.template('分行信息')
-            },
-            cardNo: {
-                label: UPEX.lang.template('银行账号'),
-                inputProps: Object.assign(getProp('cardNo', 'none'), {
-                    value: this.state.cardNo
-                })
-            },
             password: {
                 label: UPEX.lang.template('资金密码'),
                 inputProps: Object.assign(getProp('password'), {
@@ -194,10 +199,10 @@ export default class BindingBank extends Component {
 
         return (
             <AceSection title={UPEX.lang.template('银行卡信息')} className="info">
-                <AceForm>
+                <FormView>
                     <AutoCompleteHack />
-                    <InputItem {...inputsData.uname} />
-                    <InputItem {...inputsData.bank}>
+                    <FormItem {...inputData.uname} value={userInfo.uname} />
+                    <FormItem {...inputData.bank}>
                         <Select
                             showSearch
                             size="large"
@@ -213,8 +218,8 @@ export default class BindingBank extends Component {
                                 );
                             })}
                         </Select>
-                    </InputItem>
-                    <InputItem {...inputsData.subBank}>
+                    </FormItem>
+                    <FormItem {...inputData.bank}>
                         <Select
                             showSearch
                             size="large"
@@ -231,49 +236,66 @@ export default class BindingBank extends Component {
                                 );
                             })}
                         </Select>
-                    </InputItem>
-                    <InputItem {...inputsData.cardNo} />
-                    <InputItem {...inputsData.password} />
-                    <Modal
-                        title={UPEX.lang.template('示例图片')}
-                        onCancel={e => {
-                            this.setState({
-                                visible: false
-                            });
-                        }}
-                        visible={this.state.visible}
-                        footer={null}
-                        style={
-                            {textAlign: 'center'}
-                        }
-                    >
-                        <img src={banckCardImg} style={{width: '300px', height: '180px'}}/>
-                    </Modal>
-                    <div className="pic-item exc-upload-mod">
-                        <header>
-                            <span className="item-title">{UPEX.lang.template('上传银行账户簿图片')}</span>
-                            <span className="item-tip" onClick={e => {
-                                    this.setState({
-                                        visible: true
-                                    });
-                                }}>{UPEX.lang.template('图片示例')}</span>
-                        </header>
-                        <section className={`${this.state.imgUrl ? 'select' : 'no-select'} pic-upload-content`}>
-                            <Upload className="pic-upload" {...this._props()}>
-                                {/* <img className="pic-item-img target" src={this.state.imgUrl ? UPEX.config.imgHost + '/' + this.state.imgUrl : upload_pic} /> */}
-                                <img className="pic-item-img target" src={this.state.imgUrl ? this.state.imgUrl : upload_pic} />
-                                <img  className="pic-item-img hover" src={upload_pic_hover} />
-                            </Upload>
-                        </section>
-                    </div>
-                    <div className="tip">
-                        <p>{UPEX.lang.template('上传银行账户簿图片大小限制文案')}</p>
-                    </div>
-                    <Button className="exc-submit-item" loading={loading} onClick={this.submit}>
-                        {UPEX.lang.template('提交')}
-                    </Button>
-                    <div className="tip bottom" dangerouslySetInnerHTML={{__html: UPEX.lang.template('注意内容')}}></div>
-                </AceForm>
+                    </FormItem>
+                    <FormItem {...inputData.cardNo} value={state.cardNo} />
+                    <FormItem {...inputData.password} value={state.password} />
+                    <FormItem>
+                        <Modal
+                            title={UPEX.lang.template('示例图片')}
+                            onCancel={e => {
+                                this.setState({
+                                    visible: false
+                                });
+                            }}
+                            visible={this.state.visible}
+                            footer={null}
+                            style={{ textAlign: 'center' }}
+                        >
+                            <img src={banckCardImg} style={{ width: '300px', height: '180px' }} />
+                        </Modal>
+                        <div className="pic-item exc-upload-mod">
+                            <header>
+                                <span className="item-title">{UPEX.lang.template('上传银行账户簿图片')}</span>
+                                <span
+                                    className="item-tip"
+                                    onClick={e => {
+                                        this.setState({
+                                            visible: true
+                                        });
+                                    }}
+                                >
+                                    {UPEX.lang.template('图片示例')}
+                                </span>
+                            </header>
+                            <section className={`${this.state.imgUrl ? 'select' : 'no-select'} pic-upload-content`}>
+                                <Upload className="pic-upload" {...this._props()}>
+                                    {/* <img className="pic-item-img target" src={this.state.imgUrl ? UPEX.config.imgHost + '/' + this.state.imgUrl : upload_pic} /> */}
+                                    <img className="pic-item-img target" src={this.state.imgUrl ? this.state.imgUrl : upload_pic} />
+                                    <img className="pic-item-img hover" src={upload_pic_hover} />
+                                </Upload>
+                            </section>
+                        </div>
+                        <div className="tip">
+                            <p>{UPEX.lang.template('上传银行账户簿图片大小限制文案')}</p>
+                        </div>
+                    </FormItem>
+                    <FormItem>
+                        <Button className="submit-btn" loading={loading} onClick={this.submit}>
+                            {UPEX.lang.template('提交')}
+                        </Button>
+                    </FormItem>
+                    <FormItem>
+                        <div className="bottom-tips">
+                            {/* <div className="warmprompt-title">{UPEX.lang.template('温馨提示')}</div> */}
+                            <div
+                                className="warmprompt-content"
+                                dangerouslySetInnerHTML={{
+                                    __html: UPEX.lang.template('注意内容', { link: UPEX.config.docUrls.InfinitexDigitalCurrencyTransferAgreements })
+                                }}
+                            />
+                        </div>
+                    </FormItem>
+                </FormView>
             </AceSection>
         );
     }

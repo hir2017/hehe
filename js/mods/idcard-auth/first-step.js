@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
-import { Input, Select, Checkbox, Button, Radio } from 'antd';
-import { isNumberOrCode } from '../../lib/util/validate';
-import dayjs from 'dayjs';
+import { Input, Select, Checkbox, Button, Radio, DatePicker } from 'antd';
+import { isNumberOrCode } from '@/lib/util/validate';
+import moment from 'moment';
+import * as validateUtils from '@/lib/util/validate';
+import FormView from '@/mods/common/form';
+import FormItem from '@/mods/common/form/item';
+import InputItem from '@/components/form/input-item';
+import AceForm from '@/components/form/form';
+import { createGetProp } from '@/components/utils';
 
 const Option = Select.Option;
 const RadioGroup = Radio.Group;
-
-import InputItem from '../../components/form/input-item';
-import AceForm from '../../components/form/form';
-import { createGetProp } from '../../components/utils';
 
 @inject('userInfoStore')
 @observer
@@ -17,55 +19,106 @@ export default class FirstStep extends Component {
     constructor() {
         super();
         this.next = this.next.bind(this);
-        this.checkHandel = this.checkHandel.bind(this);
-        this.useOfFundsChange = this.useOfFundsChange.bind(this);
-        this.resortTypeOtherChange = this.resortTypeOtherChange.bind(this);
+        let date18 = moment().subtract(18, 'years');
+        this.defaultDate = {
+            birthdayInit: false,
+            birthday: date18,
+        };
+        this.state = {
+            firstName: '',
+            firstNameMes: '',
+            secondName: '',
+            secondNameMes: '',
+            year: '',
+            month: '',
+            day: '',
+            birthday: date18.format('YYYY-MM-DD'),
+            birthdayMes: '',
+            idCardType: '',
+            idCardTypeMes: '',
+            idCard: '',
+            idCardMes: '',
+            check: false,
+            resortType: 1,
+            resortTypeOther: '',
+            address: '',
+            addressMes: '',
+            postCode: '',
+            postCodeMes: '',
+            profession: '',
+            professionMes: '',
+            annualsalary: '',
+            annualsalaryMes: '',
+            selectDays: []
+        };
+        this.inputsData = {
+            firstName: {
+                label: UPEX.lang.template('真实姓氏'),
+                inputProps: {
+                    onChange: this.setVal.bind(this, 'firstName')
+                },
+                tip: UPEX.lang.template('填写之姓名必须与日后提领的银行账户名相同')
+            },
+            secondName: {
+                label: UPEX.lang.template('真实名字'),
+                className: 'last',
+                inputProps: {
+                    onChange: this.setVal.bind(this, 'secondName')
+                },
+            },
+            birthday: {
+                label: UPEX.lang.template('出生日期'),
+            },
+            address: {
+                label: UPEX.lang.template('住址'),
+                inputProps: {
+                    onChange: this.setVal.bind(this, 'address')
+                },
+                tip: UPEX.lang.template('请如实填写地址，我们可能会给您邮寄活动礼品或其他物品'),
+            },
+            idCardType: {
+                label: UPEX.lang.template('证件类型'),
+                tip: UPEX.lang.template('目前暂时只开放给拥有台湾身份证的用户使用'),
+            },
+            postCode: {
+                label: UPEX.lang.template('邮递区号'),
+                inputProps: {
+                    onChange: this.setVal.bind(this, 'postCode')
+                },
+                tip: UPEX.lang.template('请填写住址地区的邮递区号'),
+            },
+            idCard: {
+                label: UPEX.lang.template('证件号码'),
+                inputProps: {
+                    onChange: this.setVal.bind(this, 'idCard')
+                },
+                tip: UPEX.lang.template('请填写真实身份证号，否则会影响您的资金进出'),
+            },
+            profession: {
+                label: UPEX.lang.template('职业'),
+            },
+            annualsalary: {
+                label: UPEX.lang.template('年薪'),
+            },
+        }
     }
 
-    state = {
-        firstName: '',
-        firstNameMes: '',
-        secondName: '',
-        secondNameMes: '',
-        year: '',
-        month: '',
-        day: '',
-        birthday: '',
-        birthdayMes: '',
-        idCardType: '',
-        idCardTypeMes: '',
-        idCard: '',
-        idCardMes: '',
-        check: false,
-        resortType: 1,
-        resortTypeOther: '',
-        address: '',
-        addressMes: '',
-        postCode: '',
-        postCodeMes: '',
-        profession: '',
-        professionMes: '',
-        annualsalary: '',
-        annualsalaryMes: '',
-        selectDays: []
-    };
 
-    setVal(e, name) {
-        const data = {};
-        data[name] = e.target.value.trim();
-        this.setState(data);
-    }
 
-    isLeapYear(iYear) {
-        if (iYear % 4 == 0 && iYear % 100 != 0) {
-            return true;
-        } else {
-            if (iYear % 400 == 0) {
-                return true;
-            } else {
-                return false;
+
+    setVal(name, e) {
+        let val =  e.target.value.trim();
+        if(val !== '') {
+            if(name === 'postCode' && !validateUtils.isNumber(val)) {
+                return;
+            }
+            if(name === 'idCard' && !validateUtils.isNumberOrUpCaseCode(val)) {
+                return;
             }
         }
+        this.setState({
+            [name]: val
+        });
     }
 
     // params(3): msgField, name, val; params(2): name, val;
@@ -77,77 +130,35 @@ export default class FirstStep extends Component {
         } else {
             data[params[0]] = params[1];
         }
-        if (['year', 'month'].indexOf(params[0]) !== -1) {
-            let tempVal = parseInt(params[1]);
-            let dayNum = 0;
-            // 暂时不处理年的
-            if (params[0] === 'month') {
-                if(tempVal === 2) {
-                    dayNum = this.isLeapYear() ? 29 : 28;
-                } else {
-                    dayNum = [1, 3, 5, 7, 8, 10, 12].indexOf(tempVal) !== -1 ? 31 : 30;
-                }
-                data.selectDays = this.days(dayNum);
-                data.day = '';
-            }
-        }
         this.setState(data);
     }
 
-    years() {
-        let count = 100;
-        const yearA = [];
-        while (count) {
-            const year = dayjs()
-                .subtract(100 - count, 'year')
-                .format('YYYY');
-            yearA.push(year);
-            count--;
-        }
-        return yearA;
+    dateChange(name, date, dateString) {
+        this.setState({
+            birthday: dateString
+        })
     }
 
-    months() {
-        let count = 12;
-        const monthA = [];
-        while (count) {
-            let month = count--;
-            if (month < 10) month = `0${month}`;
-            monthA.push(month);
-        }
-        return monthA;
-    }
-
-    days(num) {
-        let count = num;
-        const monthA = [];
-        while (count) {
-            let month = count--;
-            if (month < 10) month = `0${month}`;
-            monthA.push(month);
-        }
-        return monthA;
-    }
-
-    checkHandel(e) {
+    checkHandel = (e) => {
         this.setState({
             check: e.target.checked
         });
     }
 
-    useOfFundsChange(e) {
+    useOfFundsChange = (e) => {
         this.setState({
             resortType: e.target.value
         });
     }
 
-    resortTypeOtherChange(e) {
+    resortTypeOtherChange = (e) => {
         this.setState({
             resortTypeOther: e.target.value
         });
     }
 
     next() {
+        const { state } = this;
         let allPass = true;
         let mesData = {};
         let mesMap = {
@@ -170,7 +181,7 @@ export default class FirstStep extends Component {
             }
         }
 
-        if (!this.state.year || !this.state.month || !this.state.day) {
+        if (!state.birthday) {
             mesData.birthdayMes = UPEX.lang.template('请完善出生日期');
             allPass = false;
         } else {
@@ -181,17 +192,17 @@ export default class FirstStep extends Component {
 
         if (allPass) {
             this.props.userInfoStore.addIdentityInfo({
-                firstName: this.state.firstName,
-                secondName: this.state.secondName,
-                birthday: this.state.year + '-' + this.state.month + '-' + this.state.day,
-                idType: this.state.idCardType,
-                idNumber: this.state.idCard,
-                resortType: this.state.resortType,
-                resortTypeOther: this.state.resortTypeOther,
-                address: this.state.address,
-                postCode: this.state.postCode,
-                profession: this.state.profession,
-                annualsalary: this.state.annualsalary
+                firstName: state.firstName,
+                secondName: state.secondName,
+                birthday: state.birthday,
+                idType: state.idCardType,
+                idNumber: state.idCard,
+                resortType: state.resortType,
+                resortTypeOther: state.resortTypeOther,
+                address: state.address,
+                postCode: state.postCode,
+                profession: state.profession,
+                annualsalary: state.annualsalary
             });
             this.props.changeStep(2);
         }
@@ -199,165 +210,70 @@ export default class FirstStep extends Component {
 
     render() {
         const getProp = createGetProp(this);
-        const { state } = this;
-        const inputsData = {
-            firstName: {
-                label: UPEX.lang.template('真实姓氏'),
-                inputProps: getProp('firstName', 'none'),
-                error: state.firstNameMes
-            },
-            secondName: {
-                label: UPEX.lang.template('真实名字'),
-                className: 'last',
-                inputProps: getProp('secondName', 'none'),
-                error: state.secondNameMes
-            },
-            address: {
-                label: UPEX.lang.template('住址'),
-                inputProps: getProp('address', 'none'),
-                tip: UPEX.lang.template('请如实填写地址，并保证和身份证反面的信息一致'),
-                error: state.addressMes
-            },
-            areaCode: {
-                label: UPEX.lang.template('邮递区号'),
-                inputProps: getProp('postCode', 'none'),
-                tip: UPEX.lang.template('请如实填写地址，并保证和身份证反面的信息一致'),
-                error: state.postCodeMes
-            },
-            idCard: {
-                label: UPEX.lang.template('证件号码'),
-                inputProps: {
-                    className: 'input',
-                    onChange: e => {
-                        if (e.target.value.trim() !== '') {
-                            if (!isNumberOrCode(e.target.value.trim())) {
-                                return;
-                            }
-                        }
-                        this.setVal(e, 'idCard');
-                    }
-                },
-                tip: UPEX.lang.template('为保证款项可能有退还的情形，因此填写真实身份证号'),
-                error: state.idCardMes
-            }
-        };
-        const submitProp = this.state.check ? { onClick: this.next, className: 'exc-submit-item' } : { className: 'exc-submit-item disabled', disabled: true };
+        const { state, inputsData, defaultDate } = this;
+        let birthdayVals = state.birthday ? { value: moment(state.birthday, 'YYYY-MM-DD') } : {};
         return (
             <AceForm className="auth-step-1">
-                <div className="muti-filed clearfix">
-                    <InputItem {...inputsData.firstName} />
-                    <InputItem {...inputsData.secondName} />
-                    <div className="message">{UPEX.lang.template('填写之姓名必须与日后提领的银行账户名相同')}</div>
-                </div>
-                <div className="exc-input-item select time-label">
-                    <span className="label">{UPEX.lang.template('出生日期')}</span>
-                    <div className="input">
-                        <Select placeholder={UPEX.lang.template('年')} onChange={this.selectChange.bind(this, 'year')}>
-                            {this.years().map((item, index) => {
-                                return (
-                                    <Option key={index} value={item}>
-                                        {item}
-                                        {UPEX.lang.template('年')}
-                                    </Option>
-                                );
-                            })}
-                        </Select>
-                        <Select placeholder={UPEX.lang.template('月')} onChange={this.selectChange.bind(this, 'month')}>
-                            {this.months().map((item, index) => {
-                                return (
-                                    <Option key={index} value={item}>
-                                        {item}
-                                        {UPEX.lang.template('月')}
-                                    </Option>
-                                );
-                            })}
-                        </Select>
-                        <Select className="last" placeholder={UPEX.lang.template('日')}  value={this.state.day} onChange={this.selectChange.bind(this, 'birthdayMes', 'day')}>
-                            {this.state.selectDays.map((item, index) => {
-                                return (
-                                    <Option key={index} value={item}>
-                                        {item}
-                                        {UPEX.lang.template('日')}
-                                    </Option>
-                                );
-                            })}
-                        </Select>
-                    </div>
-                    <span className="error-message">{this.state.birthdayMes}</span>
-                </div>
-                <InputItem {...inputsData.address} />
-                <InputItem {...inputsData.areaCode} />
-                <div className="exc-input-item select">
-                    <span className="label">{UPEX.lang.template('证件类型')}</span>
-                    <div className="input">
+                <FormView>
+                    <FormItem {...inputsData.firstName} error={state.firstNameMes}/>
+                    <FormItem {...inputsData.secondName} error={state.secondNameMes}/>
+                    <FormItem {...inputsData.birthday} error={state.birthdayMes}>
+                        <DatePicker size="default" defaultValue={defaultDate.birthday} {...birthdayVals} onChange={this.dateChange.bind(this, 'birthday')} />
+                    </FormItem>
+                    <FormItem {...inputsData.address} error={state.addressMes}/>
+                    <FormItem {...inputsData.postCode} value={state.postCode} error={state.postCodeMes}/>
+                    <FormItem {...inputsData.idCardType} error={state.idCardTypeMes}>
                         <Select onChange={this.selectChange.bind(this, 'idCardTypeMes', 'idCardType')} placeholder={UPEX.lang.template('请选择')}>
                             <Option value="1">{UPEX.lang.template('台湾身份证')}</Option>
                         </Select>
-                    </div>
-                    <span className="message">{UPEX.lang.template('目前暂时只开放给拥有台湾身份证的用户使用')}</span>
-                    <span className="error-message">{this.state.idCardTypeMes}</span>
-                </div>
-                <InputItem {...inputsData.idCard} value={this.state.idCard} />
-                <div className="muti-select clearfix">
-                    <div className="exc-input-item select">
-                        <span className="label">{UPEX.lang.template('职业')}</span>
-                        <div className="input">
-                            <Select onChange={this.selectChange.bind(this, 'professionMes', 'profession')} placeholder={UPEX.lang.template('请选择职业')}>
-                                <Option value={1}>{UPEX.lang.template('军公教')}</Option>
-                                <Option value={2}>{UPEX.lang.template('专业技术人员')}</Option>
-                                <Option value={3}>{UPEX.lang.template('行政人员')}</Option>
-                                <Option value={4}>{UPEX.lang.template('金融业')}</Option>
-                                <Option value={5}>{UPEX.lang.template('农、林、牧、渔、水利业生产人员')}</Option>
-                                <Option value={6}>{UPEX.lang.template('生产、运输设备操作')}</Option>
-                                <Option value={7}>{UPEX.lang.template('学生')}</Option>
-                                <Option value={8}>{UPEX.lang.template('自由职业者')}</Option>
-                            </Select>
-                        </div>
-                        <span className="error-message">{this.state.professionMes}</span>
-                    </div>
-                    <div className="exc-input-item select last">
-                        <span className="label">{UPEX.lang.template('年薪')}</span>
-                        <div className="input">
-                            <Select onChange={this.selectChange.bind(this, 'annualsalaryMes', 'annualsalary')} placeholder={UPEX.lang.template('请选择年薪')}>
-                                <Option value={1}>{UPEX.lang.template('0-50万')}</Option>
-                                <Option value={2}>{UPEX.lang.template('50-100万')}</Option>
-                                <Option value={3}>{UPEX.lang.template('150-200万')}</Option>
-                                <Option value={4}>{UPEX.lang.template('200-250万')}</Option>
-                                <Option value={5}>{UPEX.lang.template('250万以上')}</Option>
-                            </Select>
-                        </div>
-                        <span className="error-message">{this.state.annualsalaryMes}</span>
-                    </div>
-                    <div className="message">{UPEX.lang.template('目前暂时只开放给拥有台湾身份证的用户使用')}</div>
-                </div>
-
-                <div className="exc-input-item select radio">
-                    <span className="label">{UPEX.lang.template('资金用途')}</span>
-                    <div className="input">
+                    </FormItem>
+                    <FormItem {...inputsData.idCard} value={state.idCard} error={state.idCardMes}/>
+                    <FormItem {...inputsData.profession} error={state.professionMes}>
+                        <Select onChange={this.selectChange.bind(this, 'professionMes', 'profession')} placeholder={UPEX.lang.template('请选择职业')}>
+                            <Option value={1}>{UPEX.lang.template('军公教')}</Option>
+                            <Option value={2}>{UPEX.lang.template('专业技术人员')}</Option>
+                            <Option value={3}>{UPEX.lang.template('行政人员')}</Option>
+                            <Option value={4}>{UPEX.lang.template('金融业')}</Option>
+                            <Option value={5}>{UPEX.lang.template('农、林、牧、渔、水利业生产人员')}</Option>
+                            <Option value={6}>{UPEX.lang.template('生产、运输设备操作')}</Option>
+                            <Option value={7}>{UPEX.lang.template('学生')}</Option>
+                            <Option value={8}>{UPEX.lang.template('自由职业者')}</Option>
+                        </Select>
+                    </FormItem>
+                    <FormItem {...inputsData.annualsalary} error={state.annualsalaryMes}>
+                        <Select onChange={this.selectChange.bind(this, 'annualsalaryMes', 'annualsalary')} placeholder={UPEX.lang.template('请选择年薪')}>
+                            <Option value={1}>{UPEX.lang.template('0-50万')}</Option>
+                            <Option value={2}>{UPEX.lang.template('50-100万')}</Option>
+                            <Option value={3}>{UPEX.lang.template('150-200万')}</Option>
+                            <Option value={4}>{UPEX.lang.template('200-250万')}</Option>
+                            <Option value={5}>{UPEX.lang.template('250万以上')}</Option>
+                        </Select>
+                    </FormItem>
+                    <FormItem label={UPEX.lang.template('资金用途')}>
                         <RadioGroup onChange={this.useOfFundsChange} value={this.state.resortType}>
                             <Radio value={1}>{UPEX.lang.template('投资、买卖数位货币')}</Radio>
                             <Radio value={2}>{UPEX.lang.template('储存数位货币')}</Radio>
                             <Radio value={3}>{UPEX.lang.template('其他')}</Radio>
                         </RadioGroup>
                         {this.state.resortType === 3 ? <Input onChange={this.resortTypeOtherChange} /> : null}
-                    </div>
-                </div>
-                <div className="item align-left">
-                    <Checkbox onChange={this.checkHandel}>
-                        <span
-                            className="checkbox-text"
-                            dangerouslySetInnerHTML={{
-                                __html: UPEX.lang.template('勾选选项表示您同意我们的用户条款和隐私条款', {
-                                    href1: UPEX.lang.template('服务条款网页链接'),
-                                    href2: UPEX.lang.template('隐私保护网页链接')
-                                })
-                            }}
-                        />
-                    </Checkbox>
-                </div>
-                <div className="submit">
-                    <Button {...submitProp}>{UPEX.lang.template('下一步')}</Button>
-                </div>
+                    </FormItem>
+                    <FormItem>
+                        <Checkbox onChange={this.checkHandel}>
+                            <span
+                                className="checkbox-text"
+                                dangerouslySetInnerHTML={{
+                                    __html: UPEX.lang.template('勾选选项表示您同意我们的用户条款和隐私条款', {
+                                        href1: UPEX.lang.template('服务条款网页链接'),
+                                        href2: UPEX.lang.template('隐私保护网页链接')
+                                    })
+                                }}
+                            />
+                        </Checkbox>
+                    </FormItem>
+                    <FormItem>
+                        <Button onClick={this.next} className="submit-btn" disabled={!state.check}>{UPEX.lang.template('下一步')}</Button>
+                    </FormItem>
+                </FormView>
             </AceForm>
         );
     }

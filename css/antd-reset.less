@@ -99,7 +99,7 @@ body {
     // 输入
     .ant-input {
         border: 1px solid @input-border-color2;
-        color: #333;
+        color: @text-color01-light;
         border-radius: 3px;
         &:hover, &:active {
             border-color: @input-border-color2;
@@ -208,5 +208,9 @@ body {
                 color: @theme-yellow;
             }
         }
+    }
+    /*点击按钮外圈发光*/
+    .ant-btn-clicked:after {
+        border: 0 solid @theme-yellow;
     }
 }

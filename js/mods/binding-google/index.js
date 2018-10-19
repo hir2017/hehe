@@ -90,7 +90,6 @@ class Google extends Component {
                     <FormItem {...inputsData.vCode} value={state.vCode} after={$sendBtn} />
                     <FormItem {...inputsData.google} value={state.google} />
                 </FormView>
-                {/* <InputItem {...inputsData.google} /> */}
                 <Button loading={loading} className="exc-submit-item" onClick={this.submit}>
                     {UPEX.lang.template('绑定')}
                 </Button>
