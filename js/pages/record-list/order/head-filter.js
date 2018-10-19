@@ -121,6 +121,12 @@ class View extends React.Component {
         this.props.onClick(this.state);
     }
 
+    filterOption = (input, option) => {
+        let text = option.props.children || '';
+        let _input = input.toUpperCase();
+        return text.indexOf(_input) !== -1;
+    }
+
     render() {
         const { state, props } = this;
         const { action } = props;
@@ -143,7 +149,7 @@ class View extends React.Component {
                             <label>
                                 {UPEX.lang.template('币种')}/{UPEX.lang.template('市场')}
                             </label>
-                            <Select size="large" defaultValue={state.currencyId} value={state.currencyId} onChange={this.onChange.bind(this, 'currencyId')}>
+                            <Select showSearch filterOption={this.filterOption} size="large" defaultValue={state.currencyId} value={state.currencyId} onChange={this.onChange.bind(this, 'currencyId')}>
                                 <Option value="0">{UPEX.lang.template('全部')}</Option>
                                 {state.tradeCoins.map((item, i) => (
                                     <Option value={item.tradeCurrencyId} key={i + 1}>
@@ -154,6 +160,7 @@ class View extends React.Component {
                             <label />
                             <label>/</label>
                             <Select
+                                showSearch filterOption={this.filterOption}
                                 size="large"
                                 defaultValue={state.baseCurrencyId}
                                 value={state.baseCurrencyId}
