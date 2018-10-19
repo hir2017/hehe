@@ -190,7 +190,7 @@ export default class BindingPhone extends Component {
         if(userInfo.isGoogleAuth) {
             $vCode = <FormItem {...inputsData.gaCode} value={state.gaCode} />;
         } else {
-            $vCode = <FormItem {...inputsData.vCode} value={state.vCode} afterNode={vCodeBtn} />;
+            $vCode = <FormItem {...inputsData.vCode} value={state.vCode} after={vCodeBtn} />;
         }
         return (
             <PageForm {...PageProps}>
