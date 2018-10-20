@@ -92,6 +92,15 @@
     }
 }
 
+.coin-withdraw{
+    .exc-full-page-wrapper.record {
+        padding-top: 0;
+        .page-content {
+            padding-top: 0;
+        }
+    }
+}
+
 .coin-withdraw-aus {
     .ant-select-auto-complete.ant-select .ant-input{
         line-height: 40px;
@@ -170,6 +179,7 @@
     // .ccnet-2 .table-wrapper tr td:nth-child(1){
     //     width: 40%;
     // }
+
 }
 
 .ant-modal-wrap.exc-modal-alert {
@@ -220,11 +230,14 @@
             width: 160px;
             height: 36px;
             background-color: #e6bc1d;
-            color: #fff;
+            color: @text-color01-light;
             text-align: center;
             line-height: 36px;
             margin: 0 auto;
             border-radius: 3px;
+            &:hover{
+                background-color: @btn-submit-hover-color;
+            }
         }
     }
     .module-box {

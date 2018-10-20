@@ -225,10 +225,11 @@ body .ant-back-top-inner:hover {
   padding-bottom: 0;
   dd {
     box-sizing: border-box;
-    padding-left: 48px;
-    padding-right: 0;
+    padding: 0;
     width: 140px;
     text-align: left;
+    height: 40px;
+    line-height: 40px;
     &.logined-header {
       background-image: url("../images/header/icon-person.png");
       background-repeat: no-repeat;
@@ -246,6 +247,7 @@ body .ant-back-top-inner:hover {
         border-top: 1px solid #eee;
         border-radius: 0 0 4px 4px;
         background-position: 20px 12px;
+        text-indent: 48px;
       }
       &:hover {
         color: @text-color01-light;
@@ -261,6 +263,11 @@ body .ant-back-top-inner:hover {
         }
       }
       a {
+        display: inline-block;
+        width: 100%;
+        text-indent: 48px;
+        height: 40px;
+        line-height: 40px;
         &:hover {
           color: @text-color01-light;
         }
@@ -268,6 +275,35 @@ body .ant-back-top-inner:hover {
           color: @text-yellow-color;
           text-decoration: none;
         }
+      }
+    }
+  }
+}
+
+/*交易中心、登录页、Home页的气泡框*/
+.app-trade .widget-tooltip.dark,
+.login-register + .help-language .widget-tooltip.dark,
+.app-page[data-path='/home'] .widget-tooltip.dark{
+  .ant-popover-arrow, .ant-popover-inner {
+    background-color: #2f343b;
+  }
+  .ant-popover-inner{
+    box-shadow: 1px 1px 25px rgba(23,26,29,.8);
+  }
+  .menu-list dd {
+    &.logined-header{
+      border-top-color: #191b1d;
+    }
+    &:hover {
+      background-color: #353c45;
+      color: @text-color01;
+    }
+    &.selected:hover {
+      color: #c90;
+    }
+    a {
+      &:hover {
+        color: @text-color01;
       }
     }
   }
@@ -605,14 +641,15 @@ body .ant-back-top-inner:hover {
 
 .exc-page-content .content-title,
 .exc-page-content .exc-section .section-title {
-  height: 60px;
-  line-height: 60px;
+  height: 50px;
+  line-height: 50px;
   /* margin-bottom: 1px; */
-  border-bottom: solid 1px #f2f2f2;
+  border-bottom: solid 1px @page-split-border-color;
   background-color: #fff;
-  font-size: 18px;
+  font-size: 16px;
   padding-left: 20px;
 }
+
 
 .exc-page-content .content-body,
 .exc-page-content .exc-section .section-body {
