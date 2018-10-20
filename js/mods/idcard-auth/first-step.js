@@ -107,17 +107,26 @@ export default class FirstStep extends Component {
 
 
     setVal(name, e) {
-        let val =  e.target.value.trim();
+        let str = e.target.value;
+        let val =  str.trim();
+        let result = '';
         if(val !== '') {
-            if(name === 'postCode' && !validateUtils.isNumber(val)) {
-                return;
+            if(['address', 'firstName', 'secondName'].indexOf(name) !== -1) {
+                if(validateUtils.checkLength(str, 200)) {
+                    return;
+                }
+                result = str;
             }
-            if(name === 'idCard' && !validateUtils.isNumberOrUpCaseCode(val)) {
-                return;
+            // 身份证校验 30位 大写字母和数字
+            if(name === 'idCard') {
+                if(!validateUtils.isNumberOrUpCaseCode(val) || validateUtils.checkLength(val, 30)) {
+                    return;
+                }
+                result = val;
             }
         }
         this.setState({
-            [name]: val
+            [name]: result
         });
     }
 
@@ -165,7 +174,7 @@ export default class FirstStep extends Component {
             firstName: UPEX.lang.template('请填写真实姓氏'),
             secondName: UPEX.lang.template('请填写真实名字'),
             address: UPEX.lang.template('请完善地址信息'),
-            postCode: UPEX.lang.template('请填写区域号码'),
+            // postCode: UPEX.lang.template('请填写区域号码'),
             idCardType: UPEX.lang.template('请选择证件类型'),
             idCard: UPEX.lang.template('请填写证件号码'),
             profession: UPEX.lang.template('请选择职业'),
@@ -215,13 +224,13 @@ export default class FirstStep extends Component {
         return (
             <AceForm className="auth-step-1">
                 <FormView>
-                    <FormItem {...inputsData.firstName} error={state.firstNameMes}/>
-                    <FormItem {...inputsData.secondName} error={state.secondNameMes}/>
+                    <FormItem {...inputsData.firstName} value={state.firstName} error={state.firstNameMes}/>
+                    <FormItem {...inputsData.secondName} value={state.secondName} error={state.secondNameMes}/>
                     <FormItem {...inputsData.birthday} error={state.birthdayMes}>
                         <DatePicker size="default" defaultValue={defaultDate.birthday} {...birthdayVals} onChange={this.dateChange.bind(this, 'birthday')} />
                     </FormItem>
-                    <FormItem {...inputsData.address} error={state.addressMes}/>
-                    <FormItem {...inputsData.postCode} value={state.postCode} error={state.postCodeMes}/>
+                    <FormItem {...inputsData.address} value={state.address} error={state.addressMes}/>
+                    {/* <FormItem {...inputsData.postCode} value={state.postCode} error={state.postCodeMes}/> */}
                     <FormItem {...inputsData.idCardType} error={state.idCardTypeMes}>
                         <Select onChange={this.selectChange.bind(this, 'idCardTypeMes', 'idCardType')} placeholder={UPEX.lang.template('请选择')}>
                             <Option value="1">{UPEX.lang.template('台湾身份证')}</Option>

@@ -1,16 +1,27 @@
 import { observable, computed, autorun, action, runInAction } from 'mobx';
-import { getCoinAccount, selectUserAddress } from '../api/http';
+import { getCoinAccount, selectUserAddress, getUserActionLimit } from '@/api/http';
 
 class Account {
-    @observable accountData = {};
-    @observable baseCoinInfo = {};
-    @observable isFetching = false;
-    @observable visibleMoney = false;
-    @observable currentCoin = {
+    @observable
+    accountData = {};
+    @observable
+    baseCoinInfo = {};
+    @observable
+    isFetching = false;
+    @observable
+    visibleMoney = false;
+    @observable
+    currentCoin = {
         currencyNameEn: '',
         currencyId: '',
         amountLowLimit: 0
     }; // 当前币种
+
+    @observable
+    cashLimit = {
+        recharge: {},
+        withdraw: {}
+    };
 
     constructor(stores) {
         this.authStore = stores.authStore;
@@ -27,8 +38,27 @@ class Account {
         if (this.accountData.allMoney > 0) {
             return NumberUtil.formatNumber(this.accountData.allMoney, this.commonStore.pointPrice);
         } else {
-            return 0.00;
+            return 0.0;
         }
+    }
+
+    /**
+     *
+     * @param {*} type: recharge|withdraw
+     */
+    @action
+    getUserActionLimit(type) {
+        return getUserActionLimit(type === 'recharge' ? 1 : 2, 1).then(res => {
+            runInAction(() => {
+                if(res.status === 200) {
+                    this.cashLimit[type] = res.attachment.limits[0];
+                }
+            })
+            return res;
+        }).catch(err => {
+            console.error('getUserActionLimit', err);
+            return {}
+        });
     }
 
     @action
@@ -87,54 +117,56 @@ class Account {
         this.originAccountData = {};
         this.accountData = {};
 
-        return getCoinAccount().then((data) => {
-            // data = require('../mock/assets.json');
-            runInAction(() => {
-                if (data.status == 200) {
-                    // 从数字币列表从筛选出基础币
-                    let coinList = []; // 数字币
-                    let info = {}; // 基础币
-                    let len = data.attachment.coinList.length;
-                    let pointPrice = this.commonStore.pointPrice;
+        return getCoinAccount()
+            .then(data => {
+                // data = require('../mock/assets.json');
+                runInAction(() => {
+                    if (data.status == 200) {
+                        // 从数字币列表从筛选出基础币
+                        let coinList = []; // 数字币
+                        let info = {}; // 基础币
+                        let len = data.attachment.coinList.length;
+                        let pointPrice = this.commonStore.pointPrice;
 
-                    for (let i = 0; i < len; i++) {
-                        let item = data.attachment.coinList[i];
-                        // 币种配置小数位走
-                        if (item.currencyNameEn == UPEX.config.baseCurrencyEn ) {
-                            item.cashAmount = NumberUtil.formatNumber(item.cashAmount, pointPrice);
-                            item.amount = NumberUtil.formatNumber(item.amount, pointPrice);
-                            item.freezeAmount = NumberUtil.formatNumber(item.freezeAmount, pointPrice);
-                            item.twd_value = NumberUtil.formatNumber(item.twd_value, pointPrice);
+                        for (let i = 0; i < len; i++) {
+                            let item = data.attachment.coinList[i];
+                            // 币种配置小数位走
+                            if (item.currencyNameEn == UPEX.config.baseCurrencyEn) {
+                                item.cashAmount = NumberUtil.formatNumber(item.cashAmount, pointPrice);
+                                item.amount = NumberUtil.formatNumber(item.amount, pointPrice);
+                                item.freezeAmount = NumberUtil.formatNumber(item.freezeAmount, pointPrice);
+                                item.twd_value = NumberUtil.formatNumber(item.twd_value, pointPrice);
 
-                            info = item;
-                        } else {
-                            item.cashAmount = NumberUtil.separate(item.cashAmount);
-                            item.amount = NumberUtil.separate(item.amount);
-                            item.freezeAmount = NumberUtil.separate(item.freezeAmount);
+                                info = item;
+                            } else {
+                                item.cashAmount = NumberUtil.separate(item.cashAmount);
+                                item.amount = NumberUtil.separate(item.amount);
+                                item.freezeAmount = NumberUtil.separate(item.freezeAmount);
 
-                            item.twd_value = NumberUtil.formatNumber(item.twd_value, pointPrice);
-                            coinList[coinList.length] = item;
+                                item.twd_value = NumberUtil.formatNumber(item.twd_value, pointPrice);
+                                coinList[coinList.length] = item;
+                            }
+                        }
+
+                        this.baseCoinInfo = info;
+                        data.attachment.coinList = coinList;
+
+                        // 拷贝存储数据
+                        this.originAccountData = JSON.parse(JSON.stringify(data.attachment));
+                        this.accountData = data.attachment;
+
+                        if (typeof callback == 'function') {
+                            callback();
                         }
                     }
-
-                    this.baseCoinInfo = info;
-                    data.attachment.coinList = coinList;
-
-                    // 拷贝存储数据
-                    this.originAccountData = JSON.parse(JSON.stringify(data.attachment));
-                    this.accountData = data.attachment;
-
-                    if (typeof callback == 'function') {
-                        callback();
-                    }
-                }
-                this.isFetching = false;
+                    this.isFetching = false;
+                });
             })
-        }).catch(() => {
-            runInAction(() => {
-                this.isFetching = false;
-            })
-        })
+            .catch(() => {
+                runInAction(() => {
+                    this.isFetching = false;
+                });
+            });
     }
 
     @action
@@ -147,7 +179,7 @@ class Account {
     @action
     selectUserAddress(currencyId, currencyNameEn) {
         selectUserAddress(currencyId)
-            .then((data) => {
+            .then(data => {
                 // data = require('../mock/address.json');
                 runInAction(() => {
                     if (data.status == 200) {
@@ -158,11 +190,9 @@ class Account {
                         });
                         this.updateCurrentCoin(currentCoin);
                     }
-                })
+                });
             })
-            .catch(() => {
-
-            })
+            .catch(() => {});
     }
 }
 

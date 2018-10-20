@@ -43,13 +43,14 @@ class FundChangeRecordStore {
             withdraw: {
                 '0': UPEX.lang.template('审核中'),
                 '1': UPEX.lang.template('已放款'),
-                '2': UPEX.lang.template('审核中'),
+                '2': UPEX.lang.template('提现失败'),
                 '3': UPEX.lang.template('审核中'),
                 '4': UPEX.lang.template('审核中'),
                 '5': UPEX.lang.template('审核中'),
                 '6': UPEX.lang.template('审核拒绝'),
                 '7': UPEX.lang.template('放款中'),
                 '8': UPEX.lang.template('放款失败'),
+                '9': UPEX.lang.template('审核中'),
             },
             recharge: {
                 '0': UPEX.lang.template('已付款,系统入账中'),

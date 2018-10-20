@@ -330,6 +330,85 @@
     border-top: 1px solid #e7ebf1;
 }
 
+
+.fiat-withdraw-base {
+    .ant-card-body {
+        font-size: 12px;
+        border-radius: 3px;
+        background-color: #fefbf2;
+        border: solid 1px @theme-yellow;
+        & label, & .val {
+            display: inline-block;
+            width: 50%;
+            padding: 4px 5px;
+        }
+        label {
+            text-align: right;
+            color: #999;
+        }
+        .val {
+            text-align: left;
+            color: #cc0000;
+
+        }
+        .text {
+            padding: 5px 0;
+            text-align: center;
+            color: #333;
+        }
+    }
+    .exc-form-item.amount .inner-item .ant-input{
+        position: relative;
+        z-index: 14;
+        background-color: transparent;
+        &.ant-input-disabled {
+            background-color: #f5f5f5;
+        }
+
+    }
+    .exc-form-item.amount-info {
+        .inner-item {
+            overflow: hidden;
+        }
+        .source{
+            font-size: 14px;
+            color: #999999;
+            float: left;
+            width: 50%;
+            .val{
+                font-size: 20px;
+                color: #333;
+            }
+        }
+        .real{
+            width: 50%;
+            float: right;
+            text-align: right;
+            font-size: 14px;
+            color: #AEAEAE;
+        }
+    }
+}
+
+.fiat-withdraw .exc-form-item {
+    .placeholder-hack {
+        position: absolute;
+        z-index: 2;
+        display: inline-block;
+        color: @text-color02-light;
+        top: 32px;
+        left: 10px;
+    }
+    .inner-item {
+        position: relative;
+        z-index: 4;
+        background-color: transparent;
+        .ant-input {
+            background-color: transparent;
+        }
+    }
+}
+
 .rw-form-info .ant-select {
     width: 450px;
     font-size: 18px;

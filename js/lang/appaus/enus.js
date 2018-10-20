@@ -78,7 +78,7 @@ module.exports={
     "CY": "Cyprus",
     "CZ": "Czech Republic",
     "Copy": "Copy",
-    "Copyright": "Copyright ©️ 2017-2018 infinitex.com.au All Rights Reserved",
+    "Copyright": "Copyright ©️ 2017-2018 Infinite Exchange Pty . Ltd . ABN 52 626 539 071",
     "Customer reference no.": "Customer Reference No.",
     "CustomerServiceEmail": "support@infinitex.com.au",
     "CustomerServicePhone": "1300-910-010",

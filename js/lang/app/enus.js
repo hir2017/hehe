@@ -323,7 +323,7 @@ module.exports={
     "交易": "Trade",
     "交易前请先设置资金密码": "Please set the fund password before trading",
     "交易记录": "Transaction records",
-    "人": "User",
+    "人": "Friend",
     "仅供参考": "for reference only",
     "付款账号": "Payment account",
     "代收银行": "Collection bank",
