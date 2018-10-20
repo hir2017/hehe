@@ -3,7 +3,7 @@ import { observer, inject } from 'mobx-react';
 import { Link, browserHistory } from 'react-router';
 import { Row, Col } from 'antd';
 import TimeUtil from '@/lib/util/date';
-import Numberutils from  '@/lib/util/number';
+import Numberutils from '@/lib/util/number';
 import { twdGetQuotaManagementInfo } from '@/api/http';
 import bindPhone from '@/../images/bind-phone.png';
 import unbindPhone from '@/../images/unbind-phone.png';
@@ -24,7 +24,7 @@ class Info extends Component {
         this.state = {
             cashLimit: 0,
             coinLimit: 0
-        }
+        };
     }
 
     getLimit() {
@@ -60,15 +60,14 @@ class Info extends Component {
 
     componentDidMount() {
         this.props.userInfoStore.getUserInfo().then(res => {
-            if(res.status === 200) {
+            if (res.status === 200) {
                 this.getLimit();
             }
-        })
-
+        });
     }
 
     doSkip(type, abled) {
-        if(abled) {
+        if (abled) {
             return;
         }
         browserHistory.push(type === 'phone' ? '/user/setting-phone' : '/user/setting-email');
@@ -98,7 +97,7 @@ class Info extends Component {
     }
 
     render() {
-        const {state} = this;
+        const { state } = this;
         const userInfo = this.props.userInfoStore.userInfo || {};
         let gradeCfg = this.gradeImg();
         let ugradeLinkMap = {
@@ -107,23 +106,59 @@ class Info extends Component {
             B: '/user/authentication'
         };
         let ugradeLink = ugradeLinkMap[gradeCfg.grade];
-
+        let $gradeInfo = null;
+        if (gradeCfg.grade === 'Z') {
+            let noAuthMsg = '';
+            switch (userInfo.isAuthPrimary) {
+                // 审核中
+                case 1:
+                    noAuthMsg = UPEX.lang.template('身份認證資料審核中...');
+                    break;
+                // 驳回
+                case -1:
+                    noAuthMsg = UPEX.lang.template('身份認證審核失敗');
+                    break;
+                default:
+                    noAuthMsg = UPEX.lang.template('您还未进行身份认证');
+                    break;
+            }
+            $gradeInfo = <p className="no-auth">{noAuthMsg}</p>;
+        } else {
+            $gradeInfo = (
+                <div className="state-inner">
+                    <img src={gradeCfg.img} />
+                    <p className="text">{UPEX.lang.template('安全级别')}</p>
+                    <p className="money">
+                        {UPEX.lang.template('提现额度')}：{UPEX.config.baseCurrencySymbol} {state.cashLimit}
+                    </p>
+                    <p className="money">
+                        {UPEX.lang.template('提币额度')}：{UPEX.config.baseCurrencySymbol} {state.coinLimit}
+                    </p>
+                </div>
+            );
+        }
         return (
             <AceSection title={UPEX.lang.template('基本信息')} className="info">
                 <Row>
                     <Col span={12} className="left">
                         <div className="phone">{userInfo.phone || userInfo.email}</div>
                         <div className="login-time">
-                            {UPEX.lang.template('最后登录时间')}：
-                            {userInfo.userLoginRecord && TimeUtil.formatDate(userInfo.userLoginRecord.timeStamp)}
+                            {UPEX.lang.template('最后登录时间')}：{userInfo.userLoginRecord && TimeUtil.formatDate(userInfo.userLoginRecord.timeStamp)}
                         </div>
                         <Row className="bind-status">
-                            <Col span={12} className={userInfo.isValidatePhone ? 'auth' : ''} onClick={this.doSkip.bind(this, 'phone', userInfo.isValidatePhone)}>
+                            <Col
+                                span={12}
+                                className={userInfo.isValidatePhone ? 'auth' : ''}
+                                onClick={this.doSkip.bind(this, 'phone', userInfo.isValidatePhone)}
+                            >
                                 <img src={userInfo.isValidatePhone ? bindPhone : unbindPhone} />
                                 <p>{userInfo.isValidatePhone ? UPEX.lang.template('手机已绑定') : UPEX.lang.template('手机未绑定')}</p>
                             </Col>
                             <Col span={12} className={userInfo.isValidateEmail ? 'auth' : ''}>
-                                <img src={userInfo.isValidateEmail ? bindEmail : unbindEmail} onClick={this.doSkip.bind(this, 'mail', userInfo.isValidateEmail)}/>
+                                <img
+                                    src={userInfo.isValidateEmail ? bindEmail : unbindEmail}
+                                    onClick={this.doSkip.bind(this, 'mail', userInfo.isValidateEmail)}
+                                />
                                 <p>{userInfo.isValidateEmail ? UPEX.lang.template('邮箱已绑定') : UPEX.lang.template('邮箱未绑定')}</p>
                             </Col>
                         </Row>
@@ -131,23 +166,15 @@ class Info extends Component {
                     <Col span={12} className="right">
                         <div className="grade-label">{UPEX.lang.template('当前认证等级')}</div>
                         <div className="grade-info">
-                            <div className="state">
-                                {gradeCfg.grade === 'Z' ? (
-                                    <p className="no-auth">{UPEX.lang.template('您还未进行安全级别认证')}</p>
-                                ) : (
-                                    <div className="state-inner">
-                                        <img src={gradeCfg.img} />
-                                        <p className="text">{UPEX.lang.template('安全级别')}</p>
-                                        <p className="money">
-                                            {UPEX.lang.template('提现额度')}：{UPEX.config.baseCurrencySymbol} {state.cashLimit}
-                                        </p>
-                                        <p className="money">
-                                            {UPEX.lang.template('提币额度')}：{UPEX.config.baseCurrencySymbol} {state.coinLimit}
-                                        </p>
-                                    </div>
-                                )}
+                            <div className="state">{$gradeInfo}</div>
+                            <div className="upgrade">
+                                {ugradeLink ? (
+                                    <Link to={ugradeLink}>
+                                        {UPEX.lang.template('提升安全等级')}
+                                        <img src={upgradeBtn} />
+                                    </Link>
+                                ) : null}
                             </div>
-                            <div className="upgrade">{ugradeLink ? <Link to={ugradeLink}>{UPEX.lang.template('提升安全等级')}<img src={upgradeBtn} /></Link> : null}</div>
                         </div>
                     </Col>
                 </Row>
