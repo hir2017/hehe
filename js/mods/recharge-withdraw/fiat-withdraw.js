@@ -3,7 +3,7 @@
  */
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
-import { Select, message, AutoComplete, Button } from 'antd';
+import { Select, message, AutoComplete, Button, Card } from 'antd';
 import { sendMessageWithdraw } from '@/api/http';
 import FormView from '@/mods/common/form';
 import FormItem from '@/mods/common/form/item';
@@ -146,23 +146,57 @@ class FiatRechargeView extends Component {
                 bank: currCardInfo.openBank
             };
             const $sendBtn = <SmsBtn sendCode={sendMessageWithdraw.bind(this, state.imgCode, this.codeid)} />;
+            let fee = (parseInt(store.balance) - store.withdrawValue);
             $formContent = (
-                <FormView>
-                    <FormItem>
-                        <OrderInfo {...orderData} />
+                <FormView >
+                    <FormItem label={UPEX.lang.template('提现信息确认')}>
+                        <Card>
+                            <p>
+                                <label>{UPEX.lang.template('开户人')}:</label>
+                                <span className="val">{currCardInfo.cardName}</span>
+                            </p>
+                            <p>
+                                <label>{UPEX.lang.template('开户银行')}:</label>
+                                <span className="val">{currCardInfo.openBank}</span>
+                            </p>
+                            <p>
+                                <label>{UPEX.lang.template('银行账号')}:</label>
+                                <span className="val">{currCardInfo.cardNo}</span>
+                            </p>
+                            <p className="text">{UPEX.lang.template('为了您的资金安全，请确认您的银行卡信息是否正确')}</p>
+                        </Card>
                     </FormItem>
+                    <FormItem className="amount-info">
+                        <div className="source">
+                            {UPEX.lang.template('提现金额')}
+                            <div className="val">
+                                {store.balance} {UPEX.config.baseCurrencyEn}
+                            </div>
+                        </div>
+                        <div className="real">
+                            <p>
+                                {UPEX.lang.template('到账金额')}: {UPEX.config.baseCurrencyEn} <em>{store.withdrawValue}</em>
+                            </p>
+                            <p>
+                                {UPEX.lang.template('手续费')}: {UPEX.config.baseCurrencyEn} <em>{fee}</em>
+                            </p>
+                        </div>
+                    </FormItem>
+                    {/* <FormItem>
+                        <OrderInfo {...orderData} />
+                    </FormItem> */}
                     <FormItem {...inputData.tradePwd} />
                     {userInfo.isGoogleAuth ? (
                         <FormItem {...inputData.gaCode} value={state.gaCode} />
                     ) : (
                         <FormItem {...inputData.smsCode} value={state.smsCode} after={$sendBtn} />
                     )}
-                    <FormItem>
+                    {/* <FormItem>
                         <div className="rw-form-info">
                             {UPEX.config.baseCurrencySymbol}
                             {UPEX.lang.template('实际到账金额:{num}', { num: store.withdrawValue })}
                         </div>
-                    </FormItem>
+                    </FormItem> */}
                     <FormItem>
                         <Button className="submit-btn" onClick={this.handleOrder}>
                             {UPEX.lang.template('确认提现')}
