@@ -15,7 +15,7 @@ import SmsBtn from '@/mods/common/sms-btn';
 
 const Option = Select.Option;
 
-@inject('fiatWithdrawStore', 'userInfoStore')
+@inject('fiatWithdrawStore', 'userInfoStore', 'accountStore')
 @observer
 class FiatRechargeView extends Component {
     constructor(props) {
@@ -54,6 +54,18 @@ class FiatRechargeView extends Component {
         this.action = toAction(this.props.fiatWithdrawStore, this.props.userInfoStore);
     }
 
+
+
+    componentDidMount() {
+        this.props.fiatWithdrawStore.resetProps();
+        this.action.getInfo();
+        this.props.accountStore.getUserActionLimit('withdraw');
+    }
+
+    componentWillUnmount() {
+        this.action.destroy();
+    }
+
     setVal(name, e) {
         let val = typeof e === 'object' ? e.target.value.trim() : e;
         if (name == 'gaCode' || name == 'smsCode') {
@@ -65,17 +77,18 @@ class FiatRechargeView extends Component {
         });
     }
 
-    componentDidMount() {
-        this.props.fiatWithdrawStore.resetProps();
-        this.action.getInfo();
-    }
-
-    componentWillUnmount() {
-        this.action.destroy();
-    }
-
     handleNextStep = e => {
         const { accountAmount, balance } = this.props.fiatWithdrawStore;
+        const {withdraw} = this.props.accountStore.cashLimit;
+        if(parseFloat(balance) < withdraw.lowLimit) {
+            message.error(UPEX.lang.template('最大提现金额为 {num}', {num: `${withdraw.lowLimit} ${UPEX.config.baseCurrencyEn}`}));
+            return;
+        }
+        if(parseFloat(balance) > withdraw.highLimit) {
+            message.error(UPEX.lang.template('最大提现金额为 {num}', {num: `${withdraw.highLimit} ${UPEX.config.baseCurrencyEn}`}));
+            return;
+        }
+
         try {
             if (parseInt(balance) > parseFloat(accountAmount)) {
                 message.error(UPEX.lang.template('请填写正确的提现金额'));
@@ -114,6 +127,7 @@ class FiatRechargeView extends Component {
 
     render() {
         let store = this.props.fiatWithdrawStore;
+        const {withdraw} = this.props.accountStore.cashLimit;
         const { userInfo = {} } = this.props.userInfoStore;
         let action = this.action;
         let $formContent;
@@ -157,14 +171,6 @@ class FiatRechargeView extends Component {
                             {UPEX.lang.template('返回修改')}
                         </Button>
                     </FormItem>
-                    {/* <div className="rw-form-item">
-                        <label className="rw-form-label" />
-                        <div className="rw-form-info">
-                            <button type="button" className="" onClick={this.handleBack}>
-                                {UPEX.lang.template('返回修改')}
-                            </button>
-                        </div>
-                    </div> */}
                 </FormView>
             );
         } else {
@@ -175,22 +181,21 @@ class FiatRechargeView extends Component {
                 },
                 cards: store.bankCardsList.filter(item => item.status === 1),
                 count: store.accountAmount,
-                labels: { card: UPEX.lang.template('选择提现的银行卡'), balance: UPEX.lang.template('提现金额') }
+                labels: { card: UPEX.lang.template('选择提现的银行卡'), balance: UPEX.lang.template('提现金额')},
+                lowLimit: `${withdraw.lowLimit} ${UPEX.config.baseCurrencyEn}`
             };
-            // FormView
-            // FormItem
+
             $formContent = (
-                <div className="rw-form">
-                    <CardSelect {...SelectData} />
-                    <div className="rw-form-item">
-                        <label className="rw-form-label" />
-                        <div className="rw-form-info">
-                            <button type="button" className="submit-btn" onClick={this.handleNextStep}>
-                                {UPEX.lang.template('下一步')}
-                            </button>
-                        </div>
-                    </div>
-                </div>
+                <FormView>
+                    <FormItem>
+                        <CardSelect {...SelectData} />
+                    </FormItem>
+                    <FormItem>
+                        <Button className="submit-btn" onClick={this.handleNextStep}>
+                            {UPEX.lang.template('下一步')}
+                        </Button>
+                    </FormItem>
+                </FormView>
             );
         }
 

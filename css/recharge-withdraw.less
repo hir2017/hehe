@@ -317,6 +317,25 @@
     border-top: 1px solid #e7ebf1;
 }
 
+.fiat-withdraw .exc-form-item {
+    .placeholder-hack {
+        position: absolute;
+        z-index: 2;
+        display: inline-block;
+        color: @text-color02-light;
+        top: 32px;
+        left: 10px;
+    }
+    .inner-item {
+        position: relative;
+        z-index: 4;
+        background-color: transparent;
+        .ant-input {
+            background-color: transparent;
+        }
+    }
+}
+
 .rw-form-info .ant-select {
     width: 450px;
     font-size: 18px;
