@@ -24,7 +24,11 @@ export default class View extends React.Component {
             status: 0
         }).then(res => {
             if(res.status !== 200) {
-                message.error(res.message);
+                if([0, 9999, 9997].indexOf(res.status) === -1) {
+                    message.error(res.message);
+                } else {
+                    console.error(res.message);
+                }
             }
         }).catch(err => {
             console.error(err, 'updateAuthFailReasonStatus');

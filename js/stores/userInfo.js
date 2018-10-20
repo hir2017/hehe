@@ -48,7 +48,11 @@ const pickErrMsg = (res, name) => {
         console.error(`${name} error: ${res.message}`);
         browserHistory.push('/login');
     } else {
-        message.error(res.message);
+        if([0, 9999, 9997].indexOf(res.status) === -1) {
+            message.error(res.message);
+        } else {
+            console.error(res.message);
+        }
     }
 };
 
@@ -115,7 +119,11 @@ class UserInfo {
             browserHistory.push('/login');
         } else {
             console.log(res.message);
-            message.error(res.message);
+            if([0, 9999, 9997].indexOf(res.status) === -1) {
+                message.error(res.message);
+            } else {
+                console.error(res.message);
+            }
         }
     };
 
