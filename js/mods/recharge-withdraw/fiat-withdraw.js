@@ -93,9 +93,11 @@ class FiatRechargeView extends Component {
             message.error(UPEX.lang.template('请填写资金密码'));
             return;
         }
-        if(userInfo.isGoogleAuth && this.state.gaCode === '') {
-            message.error(UPEX.lang.template('请填写Google验证码'));
-            return ;
+        if(userInfo.isGoogleAuth) {
+            if(this.state.gaCode === '') {
+                message.error(UPEX.lang.template('请填写Google验证码'));
+                return ;
+            }
         } else {
             if (this.state.smsCode === '') {
                 message.error(UPEX.lang.template('请填写短信验证码'));
