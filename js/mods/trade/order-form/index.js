@@ -47,7 +47,7 @@ class TradeForm extends Component{
         }
         // 判断货币是法币还是数字币
         let rechargeUrl = coinName === UPEX.config.baseCurrencyEn ? '/account/balance/recharge' : `/account/coin/recharge/${coinName}`;
-		
+
 		if (type == 'fiat') {
 			if (UPEX.config.version == 'infinitex') {
 				// 澳洲版，leve=1即可进行下单
@@ -195,7 +195,7 @@ class TradeForm extends Component{
 		let x = 0;
 		let tabs = $(this.refs.tabs);
 		let bar = $(this.refs.bar);
-		
+
 		if (tabs.length == 0 || bar.length == 0) {
 			return;
 		}
@@ -204,7 +204,7 @@ class TradeForm extends Component{
 		let limitOffset = $('[data-key="limit"]', tabs).offset();
 		let marketOffset = $('[data-key="market"]', tabs).offset();
 		let barOffset = $(bar).offset();
-		
+
 		switch (this.props.tradeStore.tradeType) {
 			case 'limit':
 				x = limitOffset.left - ulOffset.left + (limitOffset.width / 2  - barOffset.width/2);
@@ -246,6 +246,7 @@ class TradeForm extends Component{
 				<label>{ UPEX.lang.template('开始交易')}</label>
 			</div>
 		)
+        let rechargeTitle = baseCurrencyNameEn === UPEX.config.baseCurrencyEn ? UPEX.lang.template('充值') : UPEX.lang.template('充币');
 
 		let limitcontent = (
 			<div className={ store.tradeType == 'limit' ? 'trade-form-mod' : 'trade-form-mod hidden'}>
@@ -257,7 +258,7 @@ class TradeForm extends Component{
 							<em>{store.personalAccount.baseCoinBalanceText}</em>
 							<label>{baseCurrencyNameEn}</label>
 						</li>
-						<Tooltip placement="top" overlayClassName={store.theme == 'dark' ? 'ant-tooltip-dark' : 'ant-tooltip-light'} title={UPEX.lang.template('充币')}>
+						<Tooltip placement="top" overlayClassName={store.theme == 'dark' ? 'ant-tooltip-dark' : 'ant-tooltip-light'} title={rechargeTitle}>
 							<li className="icon" onClick={this.goRecharge.bind(this,'fiat', baseCurrencyNameEn)}></li>
 						</Tooltip>
 					</ul>
@@ -329,7 +330,7 @@ class TradeForm extends Component{
 							<em>{ store.personalAccount.tradeCoinBalanceText }</em>
 							<label>{currencyNameEn}</label>
 						</li>
-						<Tooltip placement="top" overlayClassName={store.theme == 'dark' ? 'ant-tooltip-dark' : 'ant-tooltip-light'} title={UPEX.lang.template('充币')}>
+						<Tooltip placement="top" overlayClassName={store.theme == 'dark' ? 'ant-tooltip-dark' : 'ant-tooltip-light'} title={rechargeTitle}>
 							<li className="icon" onClick={this.goRecharge.bind(this, 'coin', currencyNameEn)}></li>
 						</Tooltip>
 					</ul>
@@ -404,7 +405,7 @@ class TradeForm extends Component{
 							<em>{ store.personalAccount.baseCoinBalanceText }</em>
 							<label>{ baseCurrencyNameEn}</label>
 						</li>
-						<Tooltip placement="top" overlayClassName={store.theme == 'dark' ? 'ant-tooltip-dark' : 'ant-tooltip-light'} title={UPEX.lang.template('充币')}>
+						<Tooltip placement="top" overlayClassName={store.theme == 'dark' ? 'ant-tooltip-dark' : 'ant-tooltip-light'} title={rechargeTitle}>
 							<li className="icon" onClick={this.goRecharge.bind(this,'fiat', baseCurrencyNameEn)}></li>
 						</Tooltip>
 					</ul>
@@ -470,7 +471,7 @@ class TradeForm extends Component{
 							<em>{ store.personalAccount.tradeCoinBalanceText }</em>
 							<label>{ currencyNameEn }</label>
 						</li>
-						<Tooltip placement="top" overlayClassName={store.theme == 'dark' ? 'ant-tooltip-dark' : 'ant-tooltip-light'} title={UPEX.lang.template('充币')}>
+						<Tooltip placement="top" overlayClassName={store.theme == 'dark' ? 'ant-tooltip-dark' : 'ant-tooltip-light'} title={rechargeTitle}>
 							<li className="icon" onClick={this.goRecharge.bind(this, 'coin', currencyNameEn)}></li>
 						</Tooltip>
 					</ul>
