@@ -3,14 +3,12 @@
  */
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
-import { Select, message, AutoComplete, Button, Card } from 'antd';
+import { Select, message, Button, Card } from 'antd';
 import { sendMessageWithdraw } from '@/api/http';
 import FormView from '@/mods/common/form';
 import FormItem from '@/mods/common/form/item';
-import toAction from './fiat-withdraw-action';
-import AutoCompleteHack from '@/mods/common/auto-complete-hack';
-import CardSelect from './bind-card-select';
-import OrderInfo from './fiat-order-info';
+import toAction from './action';
+import CardSelect from '../bind-card-select';
 import SmsBtn from '@/mods/common/sms-btn';
 
 const Option = Select.Option;
@@ -129,22 +127,10 @@ class FiatRechargeView extends Component {
         let store = this.props.fiatWithdrawStore;
         const {withdraw} = this.props.accountStore.cashLimit;
         const { userInfo = {} } = this.props.userInfoStore;
-        let action = this.action;
         let $formContent;
         const { inputData, state } = this;
         if (store.step == 'apply') {
             let currCardInfo = store.selectBindCardInfo;
-            const orderData = {
-                labels: {
-                    title: UPEX.lang.template('提现信息确认'),
-                    card: UPEX.lang.template('提现银行卡'),
-                    count: UPEX.lang.template('提现金额')
-                },
-                count: store.balance,
-                card: currCardInfo.cardNo,
-                user: currCardInfo.cardName,
-                bank: currCardInfo.openBank
-            };
             const $sendBtn = <SmsBtn sendCode={sendMessageWithdraw.bind(this, state.imgCode, this.codeid)} />;
             let fee = (parseInt(store.balance) - store.withdrawValue);
             $formContent = (
@@ -182,21 +168,12 @@ class FiatRechargeView extends Component {
                             </p>
                         </div>
                     </FormItem>
-                    {/* <FormItem>
-                        <OrderInfo {...orderData} />
-                    </FormItem> */}
                     <FormItem {...inputData.tradePwd} />
                     {userInfo.isGoogleAuth ? (
                         <FormItem {...inputData.gaCode} value={state.gaCode} />
                     ) : (
                         <FormItem {...inputData.smsCode} value={state.smsCode} after={$sendBtn} />
                     )}
-                    {/* <FormItem>
-                        <div className="rw-form-info">
-                            {UPEX.config.baseCurrencySymbol}
-                            {UPEX.lang.template('实际到账金额:{num}', { num: store.withdrawValue })}
-                        </div>
-                    </FormItem> */}
                     <FormItem>
                         <Button className="submit-btn" onClick={this.handleOrder}>
                             {UPEX.lang.template('确认提现')}
