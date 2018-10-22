@@ -330,7 +330,7 @@ class TradeForm extends Component{
 							<em>{ store.personalAccount.tradeCoinBalanceText }</em>
 							<label>{currencyNameEn}</label>
 						</li>
-						<Tooltip placement="top" overlayClassName={store.theme == 'dark' ? 'ant-tooltip-dark' : 'ant-tooltip-light'} title={rechargeTitle}>
+						<Tooltip placement="top" overlayClassName={store.theme == 'dark' ? 'ant-tooltip-dark' : 'ant-tooltip-light'} title={UPEX.lang.template('充币')}>
 							<li className="icon" onClick={this.goRecharge.bind(this, 'coin', currencyNameEn)}></li>
 						</Tooltip>
 					</ul>
@@ -471,7 +471,7 @@ class TradeForm extends Component{
 							<em>{ store.personalAccount.tradeCoinBalanceText }</em>
 							<label>{ currencyNameEn }</label>
 						</li>
-						<Tooltip placement="top" overlayClassName={store.theme == 'dark' ? 'ant-tooltip-dark' : 'ant-tooltip-light'} title={rechargeTitle}>
+						<Tooltip placement="top" overlayClassName={store.theme == 'dark' ? 'ant-tooltip-dark' : 'ant-tooltip-light'} title={UPEX.lang.template('充币')}>
 							<li className="icon" onClick={this.goRecharge.bind(this, 'coin', currencyNameEn)}></li>
 						</Tooltip>
 					</ul>
