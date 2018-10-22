@@ -137,23 +137,23 @@ export default class BindingBank extends Component {
     submit = () => {
         const { state, props } = this;
         if (!state.banckCode) {
-            message.error('请选择银行');
+            message.error(UPEX.lang.template('请选择银行'));
             return;
         }
         if (!state.branchesCode) {
-            message.error('请选择银行分行');
+            message.error(UPEX.lang.template('请选择银行分行'));
             return;
         }
         if (!state.cardNo) {
-            message.error('请填写银行卡号');
+            message.error(UPEX.lang.template('请填写银行卡号'));
             return;
         }
         if (!state.password) {
-            message.error('请输入资金密码');
+            message.error(UPEX.lang.template('请输入资金密码'));
             return;
         }
         if (!state.imgUrl) {
-            message.error('请上传图片');
+            message.error(UPEX.lang.template('请上传图片'));
             return;
         }
 

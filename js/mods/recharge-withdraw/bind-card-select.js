@@ -49,7 +49,7 @@ export default class CardSelect extends Component {
                 value: this.state.number,
             }
         };
-        let $after = state.number === '' ? <span className="placeholder-hack">{UPEX.lang.template('最小提现金额为{num}', {num: props.lowLimit})}</span> : null;
+        let $after = state.number === '' ? <span className="placeholder-hack">{UPEX.lang.template('最小提现金额为 {num}', {num: props.lowLimit})}</span> : null;
         let $tip = UPEX.lang.template('当前余额: {count}', { count: `NT$${count}` });
         return (
             <div>
