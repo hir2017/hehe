@@ -856,11 +856,7 @@ module.exports={
     "请填写正确的邮箱验证码": "Please enter the correct email verification code",
     "请填写真实名字": "Please enter your first name",
     "请填写真实姓氏": "Please enter your last name",
-<<<<<<< HEAD
-    "请填写真实身份证号，否则会影响您的资金进出": "Please fill in the real id number, otherwise it will affect your funds in and out",
-=======
     "请填写真实身份证号，否则会影响您的资金进出": "Please fill in the real id number, otherwise it will affect your  funds-in/funds-out",
->>>>>>> 730c13f13aab6d73375d4614c6c2f6174eff2be7
     "请填写短信验证码": "Please enter the SMS verification code",
     "请填写确认密码": "Please re-enter your password to confirm.",
     "请填写证件号码": "Please enter your ID number",
