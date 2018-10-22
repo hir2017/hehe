@@ -236,8 +236,6 @@ body .user-main .ant-select-dropdown-menu-item {
       border-top-left-radius: 6px;
       border-top-right-radius: 6px;
       color: @text-color01-light;
-    }
-    & .section-title {
       position: relative;
       &:after {
         content: "";
@@ -366,9 +364,10 @@ body .user-main .ant-select-dropdown-menu-item {
   .exc-section {
     &.info {
       .section-body {
-        position: relative;
-        overflow: hidden;
-        &::after {
+        padding: 0;
+       /* position: relative;
+        overflow: hidden;*/
+      /*  &::after {
           display: block;
           content: '';
           width: 1px;
@@ -377,16 +376,18 @@ body .user-main .ant-select-dropdown-menu-item {
           position: absolute;
           right: 50%;
           top: 0;
-        }
+        }*/
       }
       .ant-col-12 {
         &.left {
+          padding-left: 20px;
           padding-right: 20px;
-          padding-top: 30px;
+          padding-top: 40px;
           text-align: center;
+          border-right: 1px solid @page-split-border-color;
         }
         &.right {
-          padding: 5px 0 0 20px;
+          padding: 15px 20px 0 20px;
         }
       }
     }

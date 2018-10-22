@@ -1103,8 +1103,6 @@ export function getInviterInfoByCode(code){
  */
 export function getInviteTopList(){
     return axios.post('/user/getTopThreeCommissionInfo');
-    //return axios.post('http://www.mocky.io/v2/5bbdbfd93100009300711106');
-
 }
 
 /**
@@ -1126,9 +1124,6 @@ export function getInviteAssets(data){
  * 返佣记录
  */
 export function getInviteCommissionList(data){
-    /*return axios.post('http://www.mocky.io/v2/5bbd61933100005900710efa',qs.stringify({
-        ...data
-    }));*/
     return axios.post('/user/getUserCommissionWaterListByUuid',qs.stringify({
         ...data
     }));
