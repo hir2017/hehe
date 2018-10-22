@@ -1258,12 +1258,16 @@ body .user-main .ant-select-dropdown-menu-item {
         border: solid 1px #f4f4f4;
         box-sizing: content-box;
         .title {
+          width: 50%;
           p {
             padding: 0 0 1px;
             color: @text-color02-light;
             &:first-child {
               font-size: 18px;
               color: @text-color01-light;
+              em{
+                font-size: 12px;
+              }
             }
           }
         }
@@ -1275,6 +1279,7 @@ body .user-main .ant-select-dropdown-menu-item {
           transform: translateY(-50%);
           &.operator {
             text-align: right;
+            width: 50%;
             .switch {
               display: inline-block;
               color: @text-color01-light;
