@@ -76,14 +76,17 @@
         text-align: center;
         cursor: pointer;
         background-color: transparent;
-    }
-    .input-right-tag::before {
-        content: '';
-        width: 1px;
-        height: 10px;
-        background-color: #cad1d5;
-        float: left;
-        margin-top: 15px;
+        &:hover{
+            text-decoration: underline;
+        }
+        &:before{
+            content: '';
+            width: 1px;
+            height: 10px;
+            background-color: #cad1d5;
+            float: left;
+            margin-top: 15px;
+        }
     }
     .order-table {
         .table-hd {
@@ -97,6 +100,15 @@
         padding-top: 0;
         .page-content {
             padding-top: 0;
+        }
+    }
+    .exc-full-page{
+        .page-content{
+            .exc-form-item{
+                &:last-child{
+                    margin-top: 30px;
+                }
+            }
         }
     }
 }

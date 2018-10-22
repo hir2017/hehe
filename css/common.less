@@ -126,6 +126,23 @@ select:-webkit-autofill {
           a {
             /*display: inline-block;*/
             vertical-align: middle;
+            .anticon-down {
+              width: 10px;
+              height: 6px;
+              background: url('../images/header/icon-arrow.png') no-repeat center;
+              background-size: 100%;
+              &:before {
+                display: none;
+              }
+              transition: all ease-in-out .5s;
+            }
+            &.ant-popover-open{
+              .anticon-down{
+                background: url('../images/header/icon-arrow-hover.png') no-repeat center;
+                background-size: 100%;
+                transform: rotate(180deg);
+              }
+            }
             &:hover {
               color: @text-color;
             }
@@ -283,15 +300,15 @@ body .ant-back-top-inner:hover {
 /*交易中心、登录页、Home页的气泡框*/
 .app-trade .widget-tooltip.dark,
 .login-register + .help-language .widget-tooltip.dark,
-.app-page[data-path='/home'] .widget-tooltip.dark{
+.app-page[data-path='/home'] .widget-tooltip.dark {
   .ant-popover-arrow, .ant-popover-inner {
     background-color: #2f343b;
   }
-  .ant-popover-inner{
-    box-shadow: 1px 1px 25px rgba(23,26,29,.8);
+  .ant-popover-inner {
+    box-shadow: 1px 1px 25px rgba(23, 26, 29, .8);
   }
   .menu-list dd {
-    &.logined-header{
+    &.logined-header {
       border-top-color: #191b1d;
     }
     &:hover {
@@ -417,19 +434,33 @@ body .ant-back-top-inner:hover {
   text-align: center;
   box-sizing: border-box;
   cursor: pointer;
+  .langtxt{
+    display: inline-block;
+    vertical-align: middle;
+    color: #cc9900;
+    margin-right: 6px;
+  }
+  .anticon-down{
+    display: inline-block;
+    vertical-align: middle;
+    width: 10px;
+    height: 6px;
+    background: url('../images/header/icon-arrow.png') no-repeat center;
+    background-size: 100%;
+    &:before {
+      display: none;
+    }
+    transition: all ease-in-out .5s;
+  }
+  .ant-popover-open{
+    .anticon-down{
+      background: url('../images/header/icon-arrow-hover.png') no-repeat center;
+      background-size: 100%;
+      transform: rotate(180deg);
+    }
+  }
 }
 
-.header-box .language-menu .langtxt {
-  display: inline-block;
-  vertical-align: middle;
-  color: #cc9900;
-}
-
-.header-box .language-menu .anticon {
-  display: inline-block;
-  vertical-align: middle;
-  padding: 0 3px;
-}
 
 .header-box .usertxt {
   cursor: pointer;
@@ -649,7 +680,6 @@ body .ant-back-top-inner:hover {
   font-size: 16px;
   padding-left: 20px;
 }
-
 
 .exc-page-content .content-body,
 .exc-page-content .exc-section .section-body {

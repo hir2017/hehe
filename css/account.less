@@ -75,7 +75,7 @@
       &:hover {
         text-decoration-line: underline;
       }
-      &.hide{
+      &.hide {
         background: url("../images/icon-eye-hide.png") no-repeat left 8px;
         background-size: 16px 11px;
       }
@@ -189,7 +189,7 @@
   .btn {
     display: inline-block;
     margin-right: 60px;
-    min-width: 160px;
+    min-width: 170px;
     height: 40px;
     text-align: center;
     line-height: 38px;
@@ -202,7 +202,7 @@
     &:nth-child(2) {
       margin-right: 0;
     }
-    &:hover{
+    &:hover {
       border: 1px solid #cad1d5;
       background-color: #fff;
     }
@@ -224,16 +224,15 @@
 .account-filter-box {
   position: relative;
   height: 50px;
-  margin-bottom: 10px;
-  border-bottom: 1px solid #f4f4f4;
+  border-bottom: 1px solid @page-split-border-color;
   .filter-radio {
     float: left;
     height: 50px;
     line-height: 50px;
     margin-left: 20px;
     color: @text-color01-light;
-    label{
-      span:nth-child(2){
+    label {
+      span:nth-child(2) {
         color: @text-color01-light;
       }
     }
@@ -256,18 +255,18 @@
     -moz-box-shadow: 0 2px 2px rgba(23, 31, 39, .08);
     box-shadow: 0 2px 2px rgba(23, 31, 39, .08);
   }
-  .filter-input{
-    .ant-input-affix-wrapper.ant-input-search{
-      .ant-input{
+  .filter-input {
+    .ant-input-affix-wrapper.ant-input-search {
+      .ant-input {
         border-radius: 15px;
       }
       .ant-input-suffix {
-        width : 15px;
+        width: 15px;
         height: 15px;
         background: url('../images/icon-search.png') no-repeat center center;
         background-size: 15px 15px;
       }
-      .ant-input-search-icon{
+      .ant-input-search-icon {
         display: none;
       }
     }
@@ -283,19 +282,26 @@
   }
   li {
     border-bottom: 1px solid @page-split-border-color;
-    height: 60px;
-    line-height: 60px;
-    font-size: 14px;
+    height: 50px;
+    line-height: 50px;
+    font-size: 12px;
+    &:last-child{
+      border-bottom: none;
+    }
     dd {
       display: inline-block;
       vertical-align: middle;
       line-height: 24px;
       padding: 10px 0;
       color: @text-color01-light;
-      font-size: 14px;
+      font-size: 12px;
     }
   }
   .table-hd {
+    position: relative;
+    li {
+      border: none;
+    }
     li dd {
       color: @text-color02-light;
     }
@@ -304,6 +310,17 @@
     }
     .actions {
       padding-right: 13px;
+    }
+    &:after {
+      position: absolute;
+      content: '';
+      width: 100%;
+      height: 1px;
+      background-color: @page-split-border-color;
+      padding: 0 20px;
+      left: -20px;
+      box-sizing: content-box;
+      bottom: 0;
     }
   }
   .table-bd {
@@ -348,6 +365,9 @@
       background: none;
       color: #cc9900;
       padding: 0 3px;
+      &:hover{
+        text-decoration: underline;
+      }
       &:disabled {
         color: @text-color04-light;
         cursor: not-allowed;
