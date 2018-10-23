@@ -55,7 +55,7 @@ class PageView extends Component {
                 	<div className="content-wrap">
                 		<h2 dangerouslySetInnerHTML={{__html: UPEX.lang.template('您有{count}{symbol}等待领取', { count, symbol}, 1) }}></h2>
                 		<h3>{UPEX.lang.template('有效期至 {endTime}', { endTime})}</h3>
-                		<button>{UPEX.lang.template('立即领取')}</button>
+                		<div className="button"><Link to="/register">{UPEX.lang.template('立即领取')}</Link></div>
                 		<div className="content-image"></div>
                 	</div>
                 </div>

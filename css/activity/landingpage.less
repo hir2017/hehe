@@ -45,21 +45,24 @@
             margin-top: 10px;
             font-weight: normal;
         }
-        button {
+        .button,
+        .button a{
+            display: block;
             background: none;
             outline: 0 none;
             border: 0 none;
             height: 50px;
             line-height: 50px;
-            min-width: 180px;
+            width: 180px;
             text-align: center;
-            color: #ffffff;
             border: 1px solid rgba(255,255,255,0.6);
             font-size: 18px;
+            color: #fff;
             border-radius: 50px;
             &:hover{
                 color: #6076ff;
                 background-color: #fff;
+                text-decoration: none;
                 box-shadow: 0px 8px 21px 0px rgba(13, 0, 100, 0.4);
             }
         }
