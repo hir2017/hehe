@@ -106,7 +106,7 @@ export default class BindingBank extends Component {
             <div className="common-setting-box">
                 <Row className="pwd no-bottom top-radius-6">
                     <Col className="title col-exc" span={8}>
-                        <p dangerouslySetInnerHTML={{__html: UPEX.lang.template('登录密码')}}></p>
+                        <p dangerouslySetInnerHTML={{__html: UPEX.lang.template('登录密码（密码至少由大写字母＋小写字母＋数字，8-16位组成）')}}></p>
                         <p>{UPEX.lang.template('用于用户的登录验证')}</p>
                     </Col>
                  {/*   <Col className="level col-exc" span={8} />*/}
