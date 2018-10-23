@@ -420,7 +420,7 @@ class TradeForm extends Component{
 								<InputNumber
 									type="text"
 									disabled
-									value={store.dealBuyPrice}
+									value={store.tradeType == 'market' ? UPEX.lang.template('市场价格') : store.dealBuyPrice}
 									precision={store.pointPrice}
 									onChange={this.onChange.bind(this, 'buyprice')}
 									onBlur={this.checkTradePrice.bind(this, 'buy')}
@@ -486,7 +486,7 @@ class TradeForm extends Component{
 								<InputNumber
 									type="text"
 									disabled
-									value={store.dealSellPrice}
+									value={store.tradeType == 'market' ? UPEX.lang.template('市场价格') : store.dealSellPrice}
 									precision={store.pointPrice}
 									onChange={this.onChange.bind(this, 'sellprice')}
 									onBlur={this.checkTradePrice.bind(this, 'sell')}
