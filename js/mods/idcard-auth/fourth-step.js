@@ -14,28 +14,56 @@ export default class FourthStep extends Component {
         super(props);
         this.state = {
             visible: false,
-            cashLimit: 0
+            cashLimit: 0,
+            coinLimit: 0
         };
     }
 
     componentWillMount() {
         this.props.userInfoStore.bankCardInfo();
-        twdGetQuotaManagementInfo({
-            actionId: 2,
-            currencyId: 1
-        })
-            .then(res1 => {
+        Promise.all([
+            twdGetQuotaManagementInfo({
+                actionId: 2,
+                currencyId: 1
+            }),
+            twdGetQuotaManagementInfo({
+                actionId: 4,
+                currencyId: 2
+            })
+        ])
+            .then(([res1, res2]) => {
+                if (this.unmount == 1) {
+                    return;
+                }
                 const { authLevel = 1 } = this.props.userInfoStore.userInfo || {};
                 let result = {};
                 if (res1.status === 200) {
-                    let val = res1.attachment[0][`kyc${authLevel}DayLimit`];
-                    result.cashLimit = NumberUtils.separate(val);
+                    result.cashLimit = NumberUtils.separate(res1.attachment[0][`kyc${authLevel}DayLimit`]);
+                }
+                if (res2.status === 200) {
+                    result.coinLimit = NumberUtils.separate(res2.attachment[0][`kyc${authLevel}DayLimit`]);
                 }
                 this.setState(result);
             })
             .catch(err => {
                 console.error('AusGetQuotaManagementInfo', err);
             });
+        // twdGetQuotaManagementInfo({
+        //     actionId: 2,
+        //     currencyId: 1
+        // })
+        //     .then(res1 => {
+        //         const { authLevel = 1 } = this.props.userInfoStore.userInfo || {};
+        //         let result = {};
+        //         if (res1.status === 200) {
+        //             let val = res1.attachment[0][`kyc${authLevel}DayLimit`];
+        //             result.cashLimit = NumberUtils.separate(val);
+        //         }
+        //         this.setState(result);
+        //     })
+        //     .catch(err => {
+        //         console.error('AusGetQuotaManagementInfo', err);
+        //     });
     }
 
     submitKycC = () => {
@@ -161,10 +189,18 @@ export default class FourthStep extends Component {
                             <td>{userInfo.phone}</td>
                         </tr>
                         <tr>
-                            <td>{UPEX.lang.template('当前日限额')}：</td>
+                            <td>{UPEX.lang.template('提现额度')}：</td>
                             <td>
                                 <span className="money">
                                     {UPEX.config.baseCurrencySymbol} {state.cashLimit}
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>{UPEX.lang.template('提币额度')}：</td>
+                            <td>
+                                <span className="money">
+                                    {UPEX.config.baseCurrencySymbol} {state.coinLimit}
                                 </span>
                             </td>
                         </tr>
