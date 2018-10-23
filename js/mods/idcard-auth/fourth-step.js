@@ -48,22 +48,7 @@ export default class FourthStep extends Component {
             .catch(err => {
                 console.error('AusGetQuotaManagementInfo', err);
             });
-        // twdGetQuotaManagementInfo({
-        //     actionId: 2,
-        //     currencyId: 1
-        // })
-        //     .then(res1 => {
-        //         const { authLevel = 1 } = this.props.userInfoStore.userInfo || {};
-        //         let result = {};
-        //         if (res1.status === 200) {
-        //             let val = res1.attachment[0][`kyc${authLevel}DayLimit`];
-        //             result.cashLimit = NumberUtils.separate(val);
-        //         }
-        //         this.setState(result);
-        //     })
-        //     .catch(err => {
-        //         console.error('AusGetQuotaManagementInfo', err);
-        //     });
+
     }
 
     submitKycC = () => {
