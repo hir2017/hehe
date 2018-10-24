@@ -5,6 +5,9 @@ import { message } from 'antd';
 import NumberUtils from '@/lib/util/number';
 
 function checkTWPhone(str) {
+    if(!str) {
+        return str;
+    }
     // 14位
     if(str.length !== 14) {
         return str;

@@ -3,8 +3,9 @@
  */
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
-import { Select, message, Button, Card } from 'antd';
-import { sendMessageWithdraw } from '@/api/http';
+import { Select, message, Button, Card, Alert } from 'antd';
+import { sendMessageWithdraw, twdGetQuotaManagementInfo } from '@/api/http';
+import Numberutils from  '@/lib/util/number';
 import FormView from '@/mods/common/form';
 import FormItem from '@/mods/common/form/item';
 import toAction from './action';
@@ -22,7 +23,9 @@ class FiatRechargeView extends Component {
             step: 1,
             tradePwd: '',
             smsCode: '',
-            gaCode: ''
+            gaCode: '',
+            dayLimit: 0,
+            monthLimit: 0,
         };
         this.inputData = {
             tradePwd: {
@@ -52,12 +55,25 @@ class FiatRechargeView extends Component {
         this.action = toAction(this.props.fiatWithdrawStore, this.props.userInfoStore);
     }
 
-
-
     componentDidMount() {
         this.props.fiatWithdrawStore.resetProps();
         this.action.getInfo();
         this.props.accountStore.getUserActionLimit('withdraw');
+        twdGetQuotaManagementInfo({
+            actionId: 2,
+            currencyId: 1
+        }).then(res => {
+            const { authLevel = 1 } = this.props.userInfoStore.userInfo || {};
+            if(res.status === 200) {
+                let data = res.attachment[0] || {};
+                this.setState({
+                    dayLimit: Numberutils.separate(data[`kyc${authLevel}DayLimit`]),
+                    monthLimit: Numberutils.separate(data[`kyc${authLevel}MonthLimit`])
+                })
+            }
+        }).catch(err => {
+            console.error('getUserActionLimit', err)
+        })
     }
 
     componentWillUnmount() {
@@ -77,13 +93,13 @@ class FiatRechargeView extends Component {
 
     handleNextStep = e => {
         const { accountAmount, balance } = this.props.fiatWithdrawStore;
-        const {withdraw} = this.props.accountStore.cashLimit;
-        if(parseFloat(balance) < withdraw.lowLimit) {
-            message.error(UPEX.lang.template('最小提现金额为 {num}', {num: `${withdraw.lowLimit} ${UPEX.config.baseCurrencyEn}`}));
+        const { withdraw } = this.props.accountStore.cashLimit;
+        if (parseFloat(balance) < withdraw.lowLimit) {
+            message.error(UPEX.lang.template('最小提现金额为 {num}', { num: `${withdraw.lowLimit} ${UPEX.config.baseCurrencyEn}` }));
             return;
         }
-        if(parseFloat(balance) > withdraw.highLimit) {
-            message.error(UPEX.lang.template('最大提现金额为 {num}', {num: `${withdraw.highLimit} ${UPEX.config.baseCurrencyEn}`}));
+        if (parseFloat(balance) > withdraw.highLimit) {
+            message.error(UPEX.lang.template('最大提现金额为 {num}', { num: `${withdraw.highLimit} ${UPEX.config.baseCurrencyEn}` }));
             return;
         }
 
@@ -104,10 +120,10 @@ class FiatRechargeView extends Component {
             message.error(UPEX.lang.template('请填写资金密码'));
             return;
         }
-        if(userInfo.isGoogleAuth) {
-            if(this.state.gaCode === '') {
+        if (userInfo.isGoogleAuth) {
+            if (this.state.gaCode === '') {
                 message.error(UPEX.lang.template('请填写Google验证码'));
-                return ;
+                return;
             }
         } else {
             if (this.state.smsCode === '') {
@@ -125,16 +141,29 @@ class FiatRechargeView extends Component {
 
     render() {
         let store = this.props.fiatWithdrawStore;
-        const {withdraw} = this.props.accountStore.cashLimit;
+        const { withdraw } = this.props.accountStore.cashLimit;
         const { userInfo = {} } = this.props.userInfoStore;
         let $formContent;
         const { inputData, state } = this;
+        $alert = (
+            <Alert
+                className="ace-form-tips"
+                type="info"
+                showIcon
+                message={UPEX.lang.template('单日提现限额 {num1}, 单月提现限额 {num2}', {
+                    num1: ` ${state.dayLimit} ${UPEX.config.baseCurrencyEn}`,
+                    num2: ` ${state.monthLimit} ${UPEX.config.baseCurrencyEn}`
+                })}
+                type="warning"
+            />
+        );
+
         if (store.step == 'apply') {
             let currCardInfo = store.selectBindCardInfo;
             const $sendBtn = <SmsBtn sendCode={sendMessageWithdraw.bind(this, state.imgCode, this.codeid)} />;
-            let fee = (parseInt(store.balance) - store.withdrawValue);
+            let fee = parseInt(store.balance) - store.withdrawValue;
             $formContent = (
-                <FormView >
+                <FormView>
                     <FormItem label={UPEX.lang.template('提现信息确认')}>
                         <Card>
                             <p>
@@ -192,7 +221,7 @@ class FiatRechargeView extends Component {
                 },
                 cards: store.bankCardsList.filter(item => item.status === 1),
                 count: store.accountAmount,
-                labels: { card: UPEX.lang.template('选择提现的银行卡'), balance: UPEX.lang.template('提现金额')},
+                labels: { card: UPEX.lang.template('选择提现的银行卡'), balance: UPEX.lang.template('提现金额') },
                 lowLimit: `${withdraw.lowLimit} ${UPEX.config.baseCurrencyEn}`
             };
 
@@ -210,7 +239,12 @@ class FiatRechargeView extends Component {
             );
         }
 
-        return <div>{$formContent}</div>;
+        return (
+            <div>
+                {$alert}
+                {$formContent}
+            </div>
+        );
     }
 }
 
