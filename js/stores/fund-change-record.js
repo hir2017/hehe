@@ -159,7 +159,7 @@ class FundChangeRecordStore {
             item._status = tempMap[item.status] || '--';
             item._actionName = `${UPEX.lang.template('银行卡')}${item.type === 1 ? UPEX.lang.template('充值') : UPEX.lang.template('提现')}`;
             item._cardNo = item.cardNo || `*******${item.payerAccount5Code || ''}`;
-            item._payMethod = item.type === 1 ? `${payMethods[item.openBank]}` : UPEX.lang.template('银行卡提现');
+            item._payMethod = item.type === 1 ? `${payMethods[item.openBank] || '--'}` : UPEX.lang.template('银行卡提现');
             // 付款银行
             item._bankInfo = item.type === 1 ? `${item.payBankCode || ''}(${banks[item.payBankCode] || ''})` : '';
             if(item.status === 6 && item._type === 'withdraw') {
