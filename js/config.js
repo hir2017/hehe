@@ -20,11 +20,16 @@ config.csurls = {
 };
 // pdf文档链接
 config.docUrls = {
-    InfinitexDigitalCurrencyTransferAgreements: '',
-    riskDisclosure: '',
-    privacyPolicy: '',
-    kycPolicy: '',
+    InfinitexDigitalCurrencyTransferAgreements: '/static/docs/ace/',
+    riskDisclosure: '/static/docs/ace/風險揭露及免責聲明.pdf',
+    privacyPolicy: '/static/docs/ace/隱私權政策.pdf',
+    kycPolicy: '/static/docs/ace/使用者條款.pdf',
+    userAgreement: '/static/docs/ace/使用者條款.pdf',
 }
+
+
+
+
 config.baseCurrencyEn = 'TWD';
 config.baseCurrencySymbol = 'NT$';
 
