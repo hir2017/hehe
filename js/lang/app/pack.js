@@ -615,7 +615,7 @@ module.exports={
         "提币失败": "Withdraw failed",
         "提币成功": "Withdrawal successful.",
         "提币数量": "Withdrawal Amount",
-        "提币温馨提示内容": "点击提币按钮，代表您已经同意<a target=\"_blank\" href=\"{link}\">\"ACE数字币转账条款\"</a>",
+        "提币温馨提示内容": "I hereby represent and warrant that I fully accept and compliance <a target=\"_blank\" href=\"{link}\">『ACE crypto currency transfer agreements』</a>",
         "提币记录": "Withdrawal record",
         "提币额度": "Crypto withdrawal limit",
         "提现": "Withdraw",
