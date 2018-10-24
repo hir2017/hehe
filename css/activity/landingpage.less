@@ -266,8 +266,18 @@
     }
     .download-module {
         height: 536px;
-        background: url("@{url}/image4.jpg") no-repeat center center;
-        background-size: 1920px 536px;
+        overflow: hidden;
+        background: url("@{url}/bg-dl.png") no-repeat center center;
+        background-size: 100% 536px;
+        .content-image {
+            position: absolute;
+            right: -20px;
+            top: 90px;
+            width: 442px;
+            height: 446px;
+            background: url("@{url}/iphone-en.png") no-repeat center center;
+            background-size: 100% 100%;
+        }
         button {
             background: none;
             outline: 0 none;
@@ -407,4 +417,9 @@
         -webkit-transform: translateY(-5px);
         transform: translateY(-5px)
     }
+}
+
+.zh-CN .landpage .download-module .content-image {
+    background: url("@{url}/iphone-cn.png") no-repeat center center;
+    background-size: 100% 100%;
 }

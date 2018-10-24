@@ -46,6 +46,23 @@ class PageView extends Component {
        
     }
 
+    onClickGoogle=(e)=>{
+        let link = UPEX.lang.template('landpage_android_google');
+
+        if (link) {
+            window.open(link);
+            window.focus();
+        }
+    }
+
+    onClickAndroid=(e)=>{
+        let link = UPEX.lang.template('landpage_android_apk');
+
+        if (link) {
+            location.href = link;
+        }
+    }
+
     render() {
     	let { count, symbol , bonus, startTime , endTime, count1, count2, count3} = this.state;
         
@@ -114,8 +131,9 @@ class PageView extends Component {
                 </div>
                 <div className="download-module">
                     <div className="content-wrap">
-                        <button className="google"><span>Google Play</span></button>
-                        <button className="android"><span>Android</span></button>
+                        <button className="google" onClick={this.onClickGoogle}><span>Google Play</span></button>
+                        <button className="android" onClick={this.onClickAndroid}><span>Android Apk</span></button>
+                        <div className="content-image"></div>
                     </div>
                 </div>
                 <div className="features-module">
