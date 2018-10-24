@@ -4,9 +4,7 @@ import TimeUtil from '@/lib/util/date';
 class SubRow extends Component {
     constructor(props) {
         super(props);
-    }
-    render() {
-        let rechargeCol = [
+        this.rechargeCol = [
             {
                 label: UPEX.lang.template('创建时间'),
                 field: 'createTimeStamp',
@@ -18,7 +16,7 @@ class SubRow extends Component {
             { label: UPEX.lang.template('实际付款'), field: 'tradeAmount' },
             { label: UPEX.lang.template('手续费'), field: 'fee' }
         ];
-        let withdrawCol = [
+        this.withdrawCol = [
             {
                 label: UPEX.lang.template('创建时间'),
                 field: 'createTimeStamp',
@@ -30,9 +28,22 @@ class SubRow extends Component {
             { label: UPEX.lang.template('到账金额'), field: 'tradeAmount' },
             { label: UPEX.lang.template('手续费'), field: 'fee' }
         ];
+    }
+    render() {
+        let { rechargeCol, withdrawCol } = this;
         const { type, data } = this.props;
         let cols = type === 'recharge' ? rechargeCol : withdrawCol;
-
+        if (type === 'recharge') {
+            if (data.flag === 1) {
+                cols = cols.concat([
+                    { label: UPEX.lang.template('汇款账号'), field: 'virtualAccount' },
+                    { label: UPEX.lang.template('收款银行'), field: '_bankInfo' }
+                ]);
+            }
+            if (!data.expire) {
+                cols = cols.concat([{ label: UPEX.lang.template('支付截止日期'), field: 'expireTime' }]);
+            }
+        }
         return (
             <div className="detail-content">
                 {cols.map((col, colIndex) => {

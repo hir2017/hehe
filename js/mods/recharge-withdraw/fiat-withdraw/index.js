@@ -1,5 +1,5 @@
 /**
- * 法币充值
+ * 法币提现
  */
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
