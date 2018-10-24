@@ -36,7 +36,7 @@ class SubRow extends Component {
         if (type === 'recharge') {
             if (data.flag === 1) {
                 cols = cols.concat([
-                    { label: UPEX.lang.template('汇款账号'), field: 'virtualAccount' },
+                    { label: UPEX.lang.template('汇款账号'), field: 'payVirtualAccount' },
                     { label: UPEX.lang.template('收款银行'), field: '_bankInfo' }
                 ]);
             }

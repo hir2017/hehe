@@ -161,7 +161,7 @@ class FundChangeRecordStore {
             item._cardNo = item.cardNo || `*******${item.payerAccount5Code || ''}`;
             item._payMethod = item.type === 1 ? `${payMethods[item.openBank] || '--'}` : UPEX.lang.template('银行卡提现');
             // 付款银行
-            item._bankInfo = item.type === 1 ? `${item.payBankCode || ''}(${banks[item.payBankCode] || ''})` : '';
+            item._bankInfo = item.type === 1 ? `${banks[item.payBankCode] || ''}(${item.payBankCode || ''})` : '';
             if(item.status === 6 && item._type === 'withdraw') {
                 item._status += ',' + UPEX.lang.template('原因：{reason}', {reason: item.refuseReason});
 
