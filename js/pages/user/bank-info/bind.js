@@ -213,13 +213,13 @@ export default class BindingBank extends Component {
                             {BankList.map(item => {
                                 return (
                                     <Option key={item.id} value={item.code}>
-                                        {item.name}
+                                        {item.code} {item.name}
                                     </Option>
                                 );
                             })}
                         </Select>
                     </FormItem>
-                    <FormItem {...inputData.bank}>
+                    <FormItem {...inputData.subBank}>
                         <Select
                             showSearch
                             size="large"
@@ -231,7 +231,7 @@ export default class BindingBank extends Component {
                             {this.state.branches.map((item, index) => {
                                 return (
                                     <Option key={index} value={item.code}>
-                                        {item.name}
+                                        {item.code} {item.name}
                                     </Option>
                                 );
                             })}
