@@ -20,6 +20,8 @@ class FundChangeRecordStore {
         withdraw: 2
     };
 
+
+
     getStatusMap(type) {
         let ausStatusMap =  {
             withdraw: {
@@ -69,6 +71,21 @@ class FundChangeRecordStore {
         }
         return type === 'aus' ? ausStatusMap : statusMap;
     }
+
+    getItemMap () {
+        return {
+            payMethods: {
+                'atm': UPEX.lang.template('ATM转账'),
+                'webatm': UPEX.lang.template('webATM'),
+            },
+            banks: {
+                '808': UPEX.lang.template('玉山银行'),
+                '004': UPEX.lang.template('臺灣銀行'),
+                '008': UPEX.lang.template('華南銀行',)
+            }
+        }
+    }
+
 
     ausPayMap = {
         recharge: {
@@ -134,13 +151,17 @@ class FundChangeRecordStore {
 
     parseData(arr) {
         const statusMap = this.getStatusMap();
+        const {payMethods, banks} = this.getItemMap();
+
         arr.forEach((item, index) => {
             item._type = item.type === 1 ? 'recharge' : 'withdraw';
             const tempMap = statusMap[item._type];
             item._status = tempMap[item.status] || '--';
             item._actionName = `${UPEX.lang.template('银行卡')}${item.type === 1 ? UPEX.lang.template('充值') : UPEX.lang.template('提现')}`;
             item._cardNo = item.cardNo || `*******${item.payerAccount5Code || ''}`;
-            item._payMethod = item.type === 1 ? item.openBank : UPEX.lang.template('法币账户');
+            item._payMethod = item.type === 1 ? `${payMethods[item.openBank] || '--'}` : UPEX.lang.template('银行卡提现');
+            // 付款银行
+            item._bankInfo = item.type === 1 ? `${item.payBankCode || ''}(${banks[item.payBankCode] || ''})` : '';
             if(item.status === 6 && item._type === 'withdraw') {
                 item._status += ',' + UPEX.lang.template('原因：{reason}', {reason: item.refuseReason});
 

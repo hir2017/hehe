@@ -48,22 +48,7 @@ export default class FourthStep extends Component {
             .catch(err => {
                 console.error('AusGetQuotaManagementInfo', err);
             });
-        // twdGetQuotaManagementInfo({
-        //     actionId: 2,
-        //     currencyId: 1
-        // })
-        //     .then(res1 => {
-        //         const { authLevel = 1 } = this.props.userInfoStore.userInfo || {};
-        //         let result = {};
-        //         if (res1.status === 200) {
-        //             let val = res1.attachment[0][`kyc${authLevel}DayLimit`];
-        //             result.cashLimit = NumberUtils.separate(val);
-        //         }
-        //         this.setState(result);
-        //     })
-        //     .catch(err => {
-        //         console.error('AusGetQuotaManagementInfo', err);
-        //     });
+
     }
 
     submitKycC = () => {
@@ -80,8 +65,7 @@ export default class FourthStep extends Component {
         const userInfo = this.props.userInfoStore.userInfo || {};
         let bankCardList = this.props.userInfoStore.bankCardList || [];
         let $bottom = null;
-        if (bankCardList.length === 0) {
-            // 未绑定银行卡
+        if (userInfo.authLevel === 1) {
             $bottom = (
                 <Button
                     className="exc-btn-large"
@@ -92,7 +76,8 @@ export default class FourthStep extends Component {
                     {UPEX.lang.template('绑定银行卡')}
                 </Button>
             );
-        } else if (userInfo.authLevel === 2) {
+        }
+        if (userInfo.authLevel === 2) {
             switch (userInfo.isAuthVideo) {
                 case 1:
                     $bottom = <p>{UPEX.lang.template('您已成功提交提额申请，审核会在3个工作日内完成，如果有必要我们会与您取得联系，请保持电话畅通。')}</p>;
@@ -157,7 +142,8 @@ export default class FourthStep extends Component {
                     );
                     break;
             }
-        } else if (userInfo.authLevel === 3) {
+        }
+        if (userInfo.authLevel === 3) {
             $bottom = (
                 <Button
                     className="exc-btn-large"
@@ -169,6 +155,7 @@ export default class FourthStep extends Component {
                 </Button>
             );
         }
+
         return (
             <AceForm className="auth-step-4">
                 <h3 className="title">{UPEX.lang.template('您已完成安全认证！')}</h3>

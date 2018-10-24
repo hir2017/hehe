@@ -12,6 +12,7 @@ import { createGetProp } from '@/components/utils';
 import { bindPhoneOrEmailSendCode, bindPhoneOrEmailAction } from '@/api/http';
 import CountryMap, {Countries} from '@/mods/select-country/country-list';
 
+const Option = Select.Option;
 
 @inject('userInfoStore', 'captchaStore', 'loginStore')
 @observer

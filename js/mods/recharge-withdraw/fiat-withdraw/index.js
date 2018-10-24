@@ -1,5 +1,5 @@
 /**
- * 法币充值
+ * 法币提现
  */
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
@@ -79,7 +79,7 @@ class FiatRechargeView extends Component {
         const { accountAmount, balance } = this.props.fiatWithdrawStore;
         const {withdraw} = this.props.accountStore.cashLimit;
         if(parseFloat(balance) < withdraw.lowLimit) {
-            message.error(UPEX.lang.template('最大提现金额为 {num}', {num: `${withdraw.lowLimit} ${UPEX.config.baseCurrencyEn}`}));
+            message.error(UPEX.lang.template('最小提现金额为 {num}', {num: `${withdraw.lowLimit} ${UPEX.config.baseCurrencyEn}`}));
             return;
         }
         if(parseFloat(balance) > withdraw.highLimit) {

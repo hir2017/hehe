@@ -2,6 +2,24 @@ import axios from "axios";
 import qs from "qs";
 import { hashHistory, browserHistory } from 'react-router';
 import { message } from 'antd';
+import NumberUtils from '@/lib/util/number';
+
+function checkTWPhone(str) {
+    // 14位
+    if(str.length !== 14) {
+        return str;
+    }
+    // 全数字
+    if(!NumberUtils.isInteger(str)) {
+        return str;
+    }
+    //  0886开头
+    if(str.indexOf('0886') !== 0) {
+        return str;
+    }
+    let _str = '0886' + str.substr(5);
+    return _str;
+}
 
 // 不需要携带用户uid和token信息
 const urlWhiteList = ['/quote/klineHistory'];
@@ -121,8 +139,9 @@ export function queryPhone(phone) {
 
 // 发送验证码，新用户注册。邮箱验证和手机验证码都用该API。TODO check
 export function sendEmailForRegister(data) {
+    let _account = checkTWPhone(data.account);
     return axios.post('/user/sendEmailForRegister', qs.stringify({
-        email: data.account,
+        email: _account,
         NECaptchaValidate: data.validate,
         captchaId: data.captchaId,
         imgcode: 0,
@@ -143,8 +162,9 @@ export function sendMail(data) {
 
 // 注册账号
 export function userRegister(data) {
+    let _account = checkTWPhone(data.account);
     return axios.post('/user/register', qs.stringify({
-        email: data.account,
+        email: _account,
         pwd: data.pwd,
         vercode: data.vercode,
         inviteId: data.inviteId,
@@ -155,8 +175,9 @@ export function userRegister(data) {
 
 // 用户登录 - 不需要验证第一步
 export function userLogin(data) {
+    let _email = checkTWPhone(data.email);
     return axios.post('/user/loginGAFirst', qs.stringify({
-        emailOrPhone: data.email,
+        emailOrPhone: _email,
         pwd: data.pwd,
         NECaptchaValidate: data.validate,
         captchaId: data.captchaId,
@@ -821,6 +842,7 @@ export function bindPhone(newDevice, oldDevice, oldVercode, vercode, codeid, img
  */
 
 export function bindPhoneOrEmailSendCode(params) {
+    params.phoneOrEmail = checkTWPhone(params.phoneOrEmail);
     return axios.post('/user/bindPhoneOrEmailSendCode', params)
 }
 
@@ -851,6 +873,7 @@ export function bindPhoneOrEmailAction(params) {
  */
 
 export function modifyPhoneSendMsg(params) {
+    params.phone = checkTWPhone(params.phone);
     return axios.post('/user/modifyPhoneSendCode', params);
 }
 
