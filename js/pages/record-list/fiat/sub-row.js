@@ -33,7 +33,7 @@ class SubRow extends Component {
         let { rechargeCol, withdrawCol } = this;
         const { type, data } = this.props;
         let cols = type === 'recharge' ? rechargeCol : withdrawCol;
-        if (type === 'recharge') {
+        if (type === 'recharge' && data.status === 3) {
             if (data.flag === 1) {
                 cols = cols.concat([
                     { label: UPEX.lang.template('汇款账号'), field: 'payVirtualAccount' },
