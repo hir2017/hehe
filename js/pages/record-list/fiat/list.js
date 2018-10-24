@@ -63,7 +63,7 @@ class List extends Component {
                                         {item._payMethod}
                                     </dd>
                                     <dd className="action">
-                                        <button type="button" onClick={()=>this.toggleSubRow(item.id)}>{UPEX.lang.template('详情')}</button>
+                                        <button type="button" disabled={item._disabled} onClick={()=>this.toggleSubRow(item.id)}>{UPEX.lang.template('详情')}</button>
                                     </dd>
                                 </dl>
                                 <SubRow type={item._type} data={item}/>
