@@ -158,7 +158,7 @@ class FundChangeRecordStore {
             const tempMap = statusMap[item._type];
             item._status = tempMap[item.status] || '--';
             item._actionName = item.type === 1 ? UPEX.lang.template('充值') : UPEX.lang.template('提现');
-            item._cardNo = item.cardNo || `*******${item.payerAccount5Code || ''}`;
+            item._cardNo = item.cardNo || (item.payerAccount5Code ? `*******${item.payerAccount5Code || ''}` : '');
             // 充值禁止详情
             if(item.type === 1) {
                 item._disabled = item.status == 9;
@@ -169,8 +169,7 @@ class FundChangeRecordStore {
             item._bankInfo = item.type === 1 ? `${banks[item.payBankCode] || ''}(${item.payBankCode || ''})` : '';
             // 拒绝原因
             if(item.status === 6 && item._type === 'withdraw') {
-                item._status += ',' + UPEX.lang.template('原因：{reason}', {reason: item.refuseReason});
-
+                // item._status += ',' + UPEX.lang.template('原因：{reason}', {reason: item.refuseReason});
             }
         });
         return arr;

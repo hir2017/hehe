@@ -44,6 +44,9 @@ class SubRow extends Component {
                 cols = cols.concat([{ label: UPEX.lang.template('支付截止日期'), field: 'expireTime' }]);
             }
         }
+        if(data.status === 6 && data._type === 'withdraw') {
+            cols = cols.concat([{ label: UPEX.lang.template('原因'), field: 'refuseReason' }]);
+        }
         return (
             <div className="detail-content">
                 {cols.map((col, colIndex) => {

@@ -104,7 +104,7 @@ export default class FirstStep extends Component {
         if(userInfo.isAuthPrimary === -1) {
             getUserAuthInfo().then(res => {
                 if(res.status === 200) {
-                    console.log(res)
+                    // console.log(res)
                     const data = res.attachment;
                     let birthday = data.birthDay.split(' ')[0];
                     this.defaultDate.birthday = moment(birthday, 'YYYY-MM-DD');
@@ -117,7 +117,7 @@ export default class FirstStep extends Component {
                         resortType: data.resortType * 1,
                         resortTypeOther: data.resortTypeOther,
                         address: data.location,
-                        profession: data.propertyFrom * 1,
+                        profession: data.profession * 1,
                         annualsalary: data.annualSalary,
                     })
                 }

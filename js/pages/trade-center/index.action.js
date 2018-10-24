@@ -2,6 +2,8 @@ import { getPersonalTradingPwd } from '../../api/http';
 import { socket } from '../../api/socket';
 import NumberUtil from '../../lib/util/number';
 
+let mod__count = 0;
+
 export default (store, currencyStore) => {
     return {
         /**
@@ -121,14 +123,35 @@ export default (store, currencyStore) => {
          */
         getUserAccount(uid, token) {
             let { baseCurrencyId, tradeCurrencyId } = store.tradePair;
-
+            function start () {
+                socket.emit('userAccount', {
+                    uid,
+                    token,
+                    tradeCurrencyId,
+                    baseCurrencyId
+                });
+            }
             socket.off('userAccount');
-            socket.emit('userAccount', {
-                uid,
-                token,
-                tradeCurrencyId,
-                baseCurrencyId
-            });
+            // 第一次调用，延时，防止链接刚创建没数据
+            if(mod__count === 0) {
+                mod__count = 1;
+                setTimeout(() => {
+                    socket.emit('userAccount', {
+                        uid,
+                        token,
+                        tradeCurrencyId,
+                        baseCurrencyId
+                    });
+                }, 200);
+
+            } else {
+                socket.emit('userAccount', {
+                    uid,
+                    token,
+                    tradeCurrencyId,
+                    baseCurrencyId
+                });
+            }
 
             socket.on('userAccount', data => {
                 data.baseCoinBalance = data.baseCoinBalance || 0;
@@ -155,7 +178,7 @@ export default (store, currencyStore) => {
 
                 if (data.length > 0 && data[0].tradeCoins.length > 0) {
                     ret = this.parseCoinItem(data[0].tradeCoins[0]);
-                    
+
                     store.updateCurrentTradeCoin(ret);
 
                     store.setDealBuyPrice(ret.currentAmountInt);
@@ -240,7 +263,7 @@ export default (store, currencyStore) => {
                 store.updateBids(bids);
                 // let bestBuyPrice =  this.parseBestBuyPrice(data.sell, pointPrice);
                 // let bestSellPrice =  this.parseBestSellPrice(data.buy, pointPrice);
-                
+
                 // store.setBestBuyPrice(bestBuyPrice);
                 // store.setBestSellPrice(bestSellPrice);
 
@@ -252,7 +275,7 @@ export default (store, currencyStore) => {
                 //     }
                 // }
 
-                // this.fetchEntrustFirst = false;                
+                // this.fetchEntrustFirst = false;
 
             });
         },
@@ -263,8 +286,8 @@ export default (store, currencyStore) => {
             price = price ? price : store.currentTradeCoin.currentAmount;
 
             return NumberUtil.initNumber(price || 0, pointPrice);
-        }, 
-        
+        },
+
         // 最佳卖出价格，取得是买入盘第一个订单，越高越好
         parseBestSellPrice(data, pointPrice) {
             let price = data && data[0] ? data[0].price : 0;
