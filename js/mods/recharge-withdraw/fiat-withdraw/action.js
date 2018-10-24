@@ -2,9 +2,9 @@
  * 法币充值
  */
 import { message } from 'antd';
-import { orderFiatWithdraw , takeCoinSendPhoneCode } from '../../api/http';
+import { orderFiatWithdraw , takeCoinSendPhoneCode } from '@/api/http';
 import { browserHistory } from 'react-router';
-import Timer from '../../lib/timer';
+import Timer from '@/lib/timer';
 
 export default (store, userInfoStore) => {
     return {
@@ -44,7 +44,6 @@ export default (store, userInfoStore) => {
 	            this.changeAuthTypeTo('phone');
 	        }
 
-	        store.getImgCaptcha();
         },
 
         changeAuthTypeTo(type){
@@ -123,13 +122,11 @@ export default (store, userInfoStore) => {
                         // 图片验证码错误
                         message.error(data.message);
                         store.changeImgCodeTo(false);
-                        store.getImgCaptcha();
                         break;
                     case 414: // 邮箱已经绑定
                     default:
                         // 其他错误
                         message.error(data.message);
-                        store.getImgCaptcha();
                 }
             });
         },
@@ -167,7 +164,6 @@ export default (store, userInfoStore) => {
                             break;
                         default:
                             message.error(data.message);
-                            store.getImgCaptcha();
                     }
 		        }).catch(()=>{
                     store.changeSubmitingStatusTo(false);

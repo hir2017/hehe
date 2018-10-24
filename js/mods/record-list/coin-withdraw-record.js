@@ -84,6 +84,9 @@ class List extends Component {
 									break;
 								case 'Verify':
 									status =  UPEX.lang.template('审核中');
+                                    break;
+                                case 'Fail':
+									status =  UPEX.lang.template('提币失败');
 									break;
 								default:
 									// 数字：网络确认数

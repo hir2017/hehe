@@ -44,7 +44,7 @@ class View extends Component {
                 }
             },
             bank: {
-                label: UPEX.lang.template('充值金额'),
+                label: UPEX.lang.template('选择代收银行'),
                 inputProps: {
                     onChange: e => {
                         this.setVal('bank', e);

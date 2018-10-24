@@ -23,7 +23,7 @@ class Recharge extends Component {
             },
             list: {
                 title: UPEX.lang.template('充币记录'),
-                className: 'record'
+                className: 'header-shadow record'
             }
         }
     }

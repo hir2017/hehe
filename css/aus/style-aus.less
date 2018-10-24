@@ -102,96 +102,45 @@
     height: 0;
 }
 /* fiat-withdraw */
-.fiat-withdraw-aus .amount-unit {
-    position: absolute;
-    font-size: 14px;
-    color: #999999;
-    z-index: 10;
-    right: 15px;
-    top: 33px;
-}
 
-.fiat-withdraw-aus .ant-card-body {
-    font-size: 12px;
-    border-radius: 3px;
-    background-color: #fefbf2;
-    border: solid 1px @theme-yellow;
-}
-.fiat-withdraw-aus .ant-card-body label, .fiat-withdraw-aus .ant-card-body .val {
-    display: inline-block;
-    width: 50%;
-    padding: 4px 5px;
-}
-.fiat-withdraw-aus .exc-form-item.amount .inner-item .ant-input{
-    position: relative;
-    z-index: 14;
-    background-color: transparent;
-    &.ant-input-disabled {
-        background-color: #f5f5f5;
+.fiat-withdraw-aus {
+    .amount-unit {
+        position: absolute;
+        font-size: 14px;
+        color: #999999;
+        z-index: 10;
+        right: 15px;
+        top: 33px;
     }
 
-}
-.fiat-withdraw-aus .ie11-placeholder-hack {
-    top: 27px;
-    left: 11px;
-    font-size: 14px;
-}
-.fiat-withdraw-aus .ant-card-body label {
-    text-align: right;
-    color: #999;
-}
-.fiat-withdraw-aus .ant-card-body .val {
-    text-align: left;
-    color: #cc0000;
 
-}
-.fiat-withdraw-aus .ant-card-body .text {
-    padding: 5px 0;
-    text-align: center;
-    color: #333;
-}
+    .ie11-placeholder-hack {
+        top: 27px;
+        left: 11px;
+        font-size: 14px;
+    }
 
-.fiat-withdraw-aus .exc-form-item.amount-info .inner-item {
-    overflow: hidden;
+    & .success-opt, & .success-info {
+        text-align: center;
+    }
+    .success-info p {
+        &:nth-child(1) {
+            font-size: 32px;
+            padding: 40px 0 15px;
+        }
+        &:nth-child(2) {
+            font-size: 20px;
+            padding: 0  0 20px;
+        }
+    }
+    .success-opt .link-btn {
+        width: auto;
+        &:nth-child(1) {
+            opacity: 0;
+            cursor: default;
+        }
+    }
 }
-.fiat-withdraw-aus .exc-form-item.amount-info .source{
-    font-size: 14px;
-    color: #999999;
-    float: left;
-    width: 50%;
-}
-.fiat-withdraw-aus .exc-form-item.amount-info .source .val{
-    font-size: 20px;
-    color: #333;
-}
-.fiat-withdraw-aus .exc-form-item.amount-info .real{
-    width: 50%;
-    float: right;
-    text-align: right;
-    font-size: 14px;
-    color: #AEAEAE;
-}
-
-
-.fiat-withdraw-aus .success-opt, .fiat-withdraw-aus .success-info {
-    text-align: center;
-}
-.fiat-withdraw-aus .success-info p:nth-child(1) {
-    font-size: 32px;
-    padding: 40px 0 15px;
-}
-.fiat-withdraw-aus .success-info p:nth-child(2) {
-    font-size: 20px;
-    padding: 0  0 20px;
-}
-.fiat-withdraw-aus .success-opt .link-btn {
-    width: auto;
-}
-.fiat-withdraw-aus .success-opt .link-btn:nth-child(1) {
-    opacity: 0;
-    cursor: default;
-}
-
 
 
 /* coin-recharge + coin-withdraw */

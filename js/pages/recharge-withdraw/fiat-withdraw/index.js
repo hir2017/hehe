@@ -15,7 +15,7 @@ class Recharge extends Component{
         super(props);
         this.pageInfo = {
             title :UPEX.lang.template('账户提现'),
-            className: 'fiat-withdraw header-shadow rw-wrapper w-fait-wrapper'
+            className: 'fiat-withdraw header-shadow rw-wrapper w-fait-wrapper fiat-withdraw-base'
         }
 	}
 

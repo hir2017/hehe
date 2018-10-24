@@ -108,7 +108,11 @@ export default class BindingPhone extends Component {
         return modifyPhoneSendMsg(params)
             .then(res => {
                 if (res.status !== 200) {
-                    message.error(res.message);
+                    if([0, 9999, 9997].indexOf(res.status) === -1) {
+                        message.error(res.message);
+                    } else {
+                        console.error(res.message);
+                    }
                 }
                 return res;
             })
@@ -190,7 +194,7 @@ export default class BindingPhone extends Component {
         if(userInfo.isGoogleAuth) {
             $vCode = <FormItem {...inputsData.gaCode} value={state.gaCode} />;
         } else {
-            $vCode = <FormItem {...inputsData.vCode} value={state.vCode} afterNode={vCodeBtn} />;
+            $vCode = <FormItem {...inputsData.vCode} value={state.vCode} after={vCodeBtn} />;
         }
         return (
             <PageForm {...PageProps}>

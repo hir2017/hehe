@@ -49,7 +49,11 @@ export default class View extends React.Component {
             }
             if(res && res.status !== 200) {
                 _state.disabled = false;
-                message.error(res.message);
+                if([0, 9999, 9997].indexOf(res.status) === -1) {
+                    message.error(res.message);
+                } else {
+                    console.error(res.message);
+                }
             }
             this.setState(_state);
         }).catch(err => {

@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
-import { observer, inject } from 'mobx-react';
-import { Select } from 'antd';
+import React, {Component} from 'react';
+import {observer, inject} from 'mobx-react';
+import {Select} from 'antd';
+
 const Option = Select.Option;
-import { Link, browserHistory } from 'react-router';
+import {Link, browserHistory} from 'react-router';
 
 @inject('accountStore', 'userInfoStore', 'commonStore')
 @observer
@@ -18,12 +19,12 @@ class InfoView extends Component {
     render() {
         let store = this.props.accountStore;
         // TODO: 把计算放到store里面, 计算法币的限制行为状态, 把commonStore嵌到userInfoStore
-        const { actionRoles } = this.props.userInfoStore;
+        const {actionRoles} = this.props.userInfoStore;
         const {coinsMap} = this.props.commonStore;
         let baseCurrency = coinsMap[UPEX.config.baseCurrencyEn];
         let btnDisable = {
-            recharge: baseCurrency['rechargeStatus']  == 2 || actionRoles['recharge'] == 2,
-            withdraw: baseCurrency['withdrawStatus']  == 2 || actionRoles['withdraw'] == 2
+            recharge: baseCurrency['rechargeStatus'] == 2 || actionRoles['recharge'] == 2,
+            withdraw: baseCurrency['withdrawStatus'] == 2 || actionRoles['withdraw'] == 2
         };
         return (
             <div className="account-hd-box">
@@ -42,7 +43,8 @@ class InfoView extends Component {
                     <div className="account-amount">
                         <div className="amount-hd">
                             <label>{UPEX.lang.template('可用余额')} </label>
-                            <span className="switch" onClick={this.handleAllMoney}>
+                            <span className={store.visibleMoney ? "switch hide" : "switch"}
+                                  onClick={this.handleAllMoney}>
                                 {store.visibleMoney ? UPEX.lang.template('隐藏金额') : UPEX.lang.template('显示金额')}
                             </span>
                         </div>
@@ -61,10 +63,14 @@ class InfoView extends Component {
                                 )}
                             </div>
                             <div className="actions">
-                                <button type="button" title={btnDisable.recharge ? UPEX.lang.template('当前币种暂停此操作') : ''} disabled={btnDisable.recharge} className="btn recharge-btn" onClick={this.skipTo.bind(this, '/account/balance/recharge')}>
+                                <button type="button" title={btnDisable.recharge ? UPEX.lang.template('当前币种暂停此操作') : ''}
+                                        disabled={btnDisable.recharge} className="btn recharge-btn"
+                                        onClick={this.skipTo.bind(this, '/account/balance/recharge')}>
                                     {UPEX.lang.template('充值')}
                                 </button>
-                                <button type="button" title={btnDisable.withdraw ? UPEX.lang.template('当前币种暂停此操作') : ''} disabled={btnDisable.withdraw} className="btn withdraw-btn" onClick={this.skipTo.bind(this, '/account/balance/withdraw')}>
+                                <button type="button" title={btnDisable.withdraw ? UPEX.lang.template('当前币种暂停此操作') : ''}
+                                        disabled={btnDisable.withdraw} className="btn withdraw-btn"
+                                        onClick={this.skipTo.bind(this, '/account/balance/withdraw')}>
                                     {UPEX.lang.template('提现')}
                                 </button>
                             </div>
@@ -86,11 +92,9 @@ class InfoView extends Component {
                     </div>
                     <div className="account-record">
                         <button type="button" className="btn" onClick={this.skipTo.bind(this, '/account/coinrecord')}>
-                            <i />
                             <span>{UPEX.lang.template('数位资产记录')}</span>
                         </button>
                         <button type="button" className="btn" onClick={this.skipTo.bind(this, '/account/fiatrecord')}>
-                            <i />
                             <span>{UPEX.lang.template('法币资金记录')}</span>
                         </button>
                     </div>

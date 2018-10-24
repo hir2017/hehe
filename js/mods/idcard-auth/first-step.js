@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
+import { getUserAuthInfo } from '@/api/http';
 import { Input, Select, Checkbox, Button, Radio, DatePicker } from 'antd';
-import { isNumberOrCode } from '@/lib/util/validate';
 import moment from 'moment';
 import * as validateUtils from '@/lib/util/validate';
 import FormView from '@/mods/common/form';
@@ -29,9 +29,6 @@ export default class FirstStep extends Component {
             firstNameMes: '',
             secondName: '',
             secondNameMes: '',
-            year: '',
-            month: '',
-            day: '',
             birthday: date18.format('YYYY-MM-DD'),
             birthdayMes: '',
             idCardType: '',
@@ -49,7 +46,6 @@ export default class FirstStep extends Component {
             professionMes: '',
             annualsalary: '',
             annualsalaryMes: '',
-            selectDays: []
         };
         this.inputsData = {
             firstName: {
@@ -103,21 +99,54 @@ export default class FirstStep extends Component {
         }
     }
 
+    componentDidMount() {
+        const {userInfo = {}} = this.props.userInfoStore;
+        if(userInfo.isAuthPrimary === -1) {
+            getUserAuthInfo().then(res => {
+                if(res.status === 200) {
+                    console.log(res)
+                    const data = res.attachment;
+                    let birthday = data.birthDay.split(' ')[0];
+                    this.defaultDate.birthday = moment(birthday, 'YYYY-MM-DD');
+                    this.setState({
+                        firstName: data.firstName,
+                        secondName: data.secondName,
+                        birthday,
+                        idCardType: data.idType * 1,
+                        idCard: data.idNumber,
+                        resortType: data.resortType * 1,
+                        resortTypeOther: data.resortTypeOther,
+                        address: data.location,
+                        profession: data.propertyFrom * 1,
+                        annualsalary: data.annualSalary,
+                    })
+                }
+            })
+        }
 
-
+    }
 
     setVal(name, e) {
-        let val =  e.target.value.trim();
+        let str = e.target.value;
+        let val =  str.trim();
+        let result = '';
         if(val !== '') {
-            if(name === 'postCode' && !validateUtils.isNumber(val)) {
-                return;
+            if(['address', 'firstName', 'secondName'].indexOf(name) !== -1) {
+                if(validateUtils.checkLength(str, 200)) {
+                    return;
+                }
+                result = str;
             }
-            if(name === 'idCard' && !validateUtils.isNumberOrUpCaseCode(val)) {
-                return;
+            // 身份证校验 30位 大写字母和数字
+            if(name === 'idCard') {
+                if(!validateUtils.isNumberOrUpCaseCode(val) || validateUtils.checkLength(val, 30)) {
+                    return;
+                }
+                result = val;
             }
         }
         this.setState({
-            [name]: val
+            [name]: result
         });
     }
 
@@ -165,7 +194,7 @@ export default class FirstStep extends Component {
             firstName: UPEX.lang.template('请填写真实姓氏'),
             secondName: UPEX.lang.template('请填写真实名字'),
             address: UPEX.lang.template('请完善地址信息'),
-            postCode: UPEX.lang.template('请填写区域号码'),
+            // postCode: UPEX.lang.template('请填写区域号码'),
             idCardType: UPEX.lang.template('请选择证件类型'),
             idCard: UPEX.lang.template('请填写证件号码'),
             profession: UPEX.lang.template('请选择职业'),
@@ -215,21 +244,21 @@ export default class FirstStep extends Component {
         return (
             <AceForm className="auth-step-1">
                 <FormView>
-                    <FormItem {...inputsData.firstName} error={state.firstNameMes}/>
-                    <FormItem {...inputsData.secondName} error={state.secondNameMes}/>
+                    <FormItem {...inputsData.firstName} value={state.firstName} error={state.firstNameMes}/>
+                    <FormItem {...inputsData.secondName} value={state.secondName} error={state.secondNameMes}/>
                     <FormItem {...inputsData.birthday} error={state.birthdayMes}>
                         <DatePicker size="default" defaultValue={defaultDate.birthday} {...birthdayVals} onChange={this.dateChange.bind(this, 'birthday')} />
                     </FormItem>
-                    <FormItem {...inputsData.address} error={state.addressMes}/>
-                    <FormItem {...inputsData.postCode} value={state.postCode} error={state.postCodeMes}/>
+                    <FormItem {...inputsData.address} value={state.address} error={state.addressMes}/>
+                    {/* <FormItem {...inputsData.postCode} value={state.postCode} error={state.postCodeMes}/> */}
                     <FormItem {...inputsData.idCardType} error={state.idCardTypeMes}>
-                        <Select onChange={this.selectChange.bind(this, 'idCardTypeMes', 'idCardType')} placeholder={UPEX.lang.template('请选择')}>
-                            <Option value="1">{UPEX.lang.template('台湾身份证')}</Option>
+                        <Select onChange={this.selectChange.bind(this, 'idCardTypeMes', 'idCardType')} value={state.idCardType}  placeholder={UPEX.lang.template('请选择')}>
+                            <Option value={1}>{UPEX.lang.template('台湾身份证')}</Option>
                         </Select>
                     </FormItem>
                     <FormItem {...inputsData.idCard} value={state.idCard} error={state.idCardMes}/>
                     <FormItem {...inputsData.profession} error={state.professionMes}>
-                        <Select onChange={this.selectChange.bind(this, 'professionMes', 'profession')} placeholder={UPEX.lang.template('请选择职业')}>
+                        <Select onChange={this.selectChange.bind(this, 'professionMes', 'profession')} value={state.profession} placeholder={UPEX.lang.template('请选择职业')}>
                             <Option value={1}>{UPEX.lang.template('军公教')}</Option>
                             <Option value={2}>{UPEX.lang.template('专业技术人员')}</Option>
                             <Option value={3}>{UPEX.lang.template('行政人员')}</Option>
@@ -241,7 +270,7 @@ export default class FirstStep extends Component {
                         </Select>
                     </FormItem>
                     <FormItem {...inputsData.annualsalary} error={state.annualsalaryMes}>
-                        <Select onChange={this.selectChange.bind(this, 'annualsalaryMes', 'annualsalary')} placeholder={UPEX.lang.template('请选择年薪')}>
+                        <Select onChange={this.selectChange.bind(this, 'annualsalaryMes', 'annualsalary')} value={state.annualsalary} placeholder={UPEX.lang.template('请选择年薪')}>
                             <Option value={1}>{UPEX.lang.template('0-50万')}</Option>
                             <Option value={2}>{UPEX.lang.template('50-100万')}</Option>
                             <Option value={3}>{UPEX.lang.template('150-200万')}</Option>
@@ -250,7 +279,7 @@ export default class FirstStep extends Component {
                         </Select>
                     </FormItem>
                     <FormItem label={UPEX.lang.template('资金用途')}>
-                        <RadioGroup onChange={this.useOfFundsChange} value={this.state.resortType}>
+                        <RadioGroup onChange={this.useOfFundsChange} value={state.resortType}>
                             <Radio value={1}>{UPEX.lang.template('投资、买卖数位货币')}</Radio>
                             <Radio value={2}>{UPEX.lang.template('储存数位货币')}</Radio>
                             <Radio value={3}>{UPEX.lang.template('其他')}</Radio>

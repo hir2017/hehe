@@ -1,111 +1,110 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { observer, inject } from 'mobx-react';
+import { Pagination, Button } from 'antd';
+import TimeUtil from '@/lib/util/date';
+import List from '@/components/list';
 
-const Thead = props => (
-    <thead>
-        <tr>
-            {props.columns.map((col, i) => {
-                return (
-                    <th key={i} className={`column-${i + 1} ${col.className || ''}`}>
-                        {col.title}
-                    </th>
-                );
-            })}
-        </tr>
-    </thead>
-);
-
-// 暂不支持a.b.c
-const Cell = props => {
-    const { col, row, index } = props;
-    if (col.render) {
-        return col.render(row, col, index);
-    }
-    return <span className="list-cell-text">{row[col.dataIndex]}</span>;
-};
-
-const Tbody = props => {
-    const { dataSource, columns } = props;
-    let len = dataSource.length;
-    if (len === 0) {
-        return (
-            <tbody>
-                <tr>
-                    <td colSpan={columns.length}>{UPEX.lang.template('暂无数据')}</td>
-                </tr>
-            </tbody>
-        );
-    }
-    if (props.expandedRowRender) {
-        return (
-            <tbody>
-                {Array.apply(null, { length: len * 2 }).map((a, i) => {
-                    let rowData = null;
-                    if(i === 0 || i === 1) {
-                        rowData = dataSource[0]
-                    } else {
-                        rowData = dataSource[i%2 === 1 ? (i - 1)/2 : i/2]
-                    }
-                    if (i % 2 === 1) {
-                        return (
-                            <tr key={i} className="list-expanded-row">
-                                <td colSpan={columns.length}>{props.expandedRowRender(rowData)}</td>
-                            </tr>
-                        );
-                    } else {
-                        return (
-                            <tr key={i} className="list-row">
-                                {columns.map((col, j) => {
-                                    return (
-                                        <td key={j} className={`list-cell cell-${j + 1} ${col.className || ''}`}>
-                                            <Cell col={col} row={rowData} />
-                                        </td>
-                                    );
-                                })}
-                            </tr>
-                        );
-                    }
-
-                })}
-            </tbody>
-        );
-    }
-    return (
-        <tbody>
-            {dataSource.map((rowData, i) => {
-                return (
-                    <tr key={i} className="list-row">
-                        {columns.map((col, j) => {
-                            return (
-                                <td key={j} className={`list-cell cell-${j + 1} ${rowData.className || ''}`}>
-                                    <Cell col={col} row={rowData} />
-                                </td>
-                            );
-                        })}
-                    </tr>
-                );
-            })}
-        </tbody>
-    );
-};
-
-/*
-TODO:
-loading效果
-
-*/
-class View extends React.Component {
+@inject('fundChangeRecordStore')
+@observer
+class View extends Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+            subIndex: -1,
+            listProps: {
+                head: [
+                    { label: UPEX.lang.template('订单号'), className: 'swift-no' },
+                    { label: UPEX.lang.template('日期'), className: 'time' },
+                    { label: UPEX.lang.template('名称'), className: 'name' },
+                    { label: UPEX.lang.template('收/支'), className: 'balance' },
+                    { label: UPEX.lang.template('状态'), className: 'status' },
+                    { label: UPEX.lang.template('支付方式'), className: 'pay-method' },
+                    { label: UPEX.lang.template('操作'), className: 'action pr10' }
+                ],
+                body: [
+                    { dataIndex: 'orderNo', className: 'swift-no' },
+                    { dataIndex: 'tradeTimeStamp', className: 'time' },
+                    { dataIndex: '_actionName', className: 'name' },
+                    { dataIndex: 'amount', className: 'balance' },
+                    { dataIndex: '_status', className: 'status' },
+                    { dataIndex: 'tradeType', className: 'pay-method' },
+                    {
+                        render: (row, col, index) => {
+                            return (
+                                <Button
+                                    onClick={() => {
+                                        this.toggleSubRow(row, index);
+                                    }}
+                                >
+                                    {UPEX.lang.template('详情')}
+                                </Button>
+                            );
+                        },
+                        className: 'action pr10'
+                    }
+                ],
+                expandedRowRender(subData, rowData, index) {
+                    // 充值
+                    if(rowData.type === 1) {
+                        return (
+                            <div>
+                                <p><label>{UPEX.lang.template('创建时间')}:</label> {TimeUtil.formatDate(rowData.createTimeStamp)}</p>
+                                <p><label>{UPEX.lang.template('付款账号')}:</label> {rowData._cardNo}</p>
+                                <p><label>{UPEX.lang.template('实际付款')}:</label> {rowData.tradeAmoun }</p>
+                                <p><label>{UPEX.lang.template('手续费')}:</label> {rowData.fee}</p>
+                            </div>
+                        )
+                    }
+                    // 提现
+                    if(rowData.type === 2) {
+                        return (
+                            <div>
+                                <p><label>{UPEX.lang.template('创建时间')}:</label> {TimeUtil.formatDate(rowData.createTimeStamp)}</p>
+                                <p><label>{UPEX.lang.template('提现账号')}:</label> {rowData._cardNo}</p>
+                                <p><label>{UPEX.lang.template('到账金额')}:</label> {rowData.tradeAmoun }</p>
+                                <p><label>{UPEX.lang.template('手续费')}:</label> {rowData.fee}</p>
+                            </div>
+                        )
+                    }
+                    return '--'
+                }
+            }
+        };
     }
+
+    componentDidMount() {
+        this.props.fundChangeRecordStore.setDataType('all');
+    }
+
+    onChangePagination(page) {
+        this.props.fundChangeRecordStore.getData({
+            pageNumber: page
+        });
+    }
+
+    toggleSubRow = (row, index) => {
+        console.log('toggleSubRow', row, index);
+        if (index == this.state.subIndex) {
+            this.setState({
+                subIndex: -1
+            });
+        } else {
+            this.setState({
+                subIndex: index
+            });
+        }
+    };
+
     render() {
-        const { props } = this;
+        let store = this.props.fundChangeRecordStore;
+        let $content;
+        const { state } = this;
+
         return (
-            <div className="exc-list-wrapper">
-                <table className="exc-list">
-                    <Thead {...props} />
-                    <Tbody {...props} />
-                </table>
-            </div>
+            <List {...state.listProps} subIndex={state.subIndex} data={store.orderList}>
+                <Pagination current={store.current} total={store.total} pageSize={store.pageSize} onChange={this.onChangePagination.bind(this)} />
+            </List>
         );
     }
 }

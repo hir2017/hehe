@@ -3,7 +3,7 @@
  * @author 陈立英
  * @date 2018-10-01
  */
-import '../../../css/activity/invite.less';
+import '../../../../css/activity/invite.less';
 import React, {Component} from 'react';
 import {observer, inject} from 'mobx-react';
 import {getInviterInfoByCode} from '@/api/http';
