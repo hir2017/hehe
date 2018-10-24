@@ -56,7 +56,7 @@ export default class BindingBank extends Component {
         branche: '',
         cardNo: '',
         password: '',
-        imgUrl: '',
+        imgUrl: '1111',
         visible: false
     };
 
@@ -152,10 +152,10 @@ export default class BindingBank extends Component {
             message.error(UPEX.lang.template('请输入资金密码'));
             return;
         }
-        if (!state.imgUrl) {
-            message.error(UPEX.lang.template('请上传图片'));
-            return;
-        }
+        // if (!state.imgUrl) {
+        //     message.error(UPEX.lang.template('请上传图片'));
+        //     return;
+        // }
 
         const userInfo = props.userInfoStore.userInfo || {};
         const pwd = md5(state.password + UPEX.config.dealSalt + props.authStore.uid);
@@ -239,7 +239,7 @@ export default class BindingBank extends Component {
                     </FormItem>
                     <FormItem {...inputData.cardNo} value={state.cardNo} />
                     <FormItem {...inputData.password} value={state.password} />
-                    <FormItem>
+                    {/* <FormItem>
                         <Modal
                             title={UPEX.lang.template('示例图片')}
                             onCancel={e => {
@@ -269,7 +269,6 @@ export default class BindingBank extends Component {
                             </header>
                             <section className={`${this.state.imgUrl ? 'select' : 'no-select'} pic-upload-content`}>
                                 <Upload className="pic-upload" {...this._props()}>
-                                    {/* <img className="pic-item-img target" src={this.state.imgUrl ? UPEX.config.imgHost + '/' + this.state.imgUrl : upload_pic} /> */}
                                     <img className="pic-item-img target" src={this.state.imgUrl ? this.state.imgUrl : upload_pic} />
                                     <img className="pic-item-img hover" src={upload_pic_hover} />
                                 </Upload>
@@ -278,7 +277,7 @@ export default class BindingBank extends Component {
                         <div className="tip">
                             <p>{UPEX.lang.template('上传银行账户簿图片大小限制文案')}</p>
                         </div>
-                    </FormItem>
+                    </FormItem> */}
                     <FormItem>
                         <Button className="submit-btn" loading={loading} onClick={this.submit}>
                             {UPEX.lang.template('提交')}
@@ -286,7 +285,6 @@ export default class BindingBank extends Component {
                     </FormItem>
                     <FormItem>
                         <div className="bottom-tips">
-                            {/* <div className="warmprompt-title">{UPEX.lang.template('温馨提示')}</div> */}
                             <div
                                 className="warmprompt-content"
                                 dangerouslySetInnerHTML={{
