@@ -9,12 +9,13 @@ config.initLanguage = 'zh-TW'; // 默认语言
 config.logourl = require('../images/ace_web_logo.png');
 config.logoprourl = require('../images/logo-pro.png');
 config.csurls = {
-    telegram: '',
-    facebook: '',
-    twitter: '',
+    telegram: 'https://t.me/ACEexchange',
+    facebook: 'https://www.facebook.com/ace.exchange.tw/',
+    twitter: 'https://twitter.com/ACE_exchange',
     linkedin: '',
-    youtube: '',
+    youtube: 'https://www.youtube.com/channel/UCaYhE6pnHgqZn2XvCraiHuQ?disable_polymer=true',
     whatapp: '',
+    medium:'https://medium.com/ace-exchange',
     line: '',
 };
 // pdf文档链接
