@@ -12,6 +12,7 @@ import { createGetProp } from '@/components/utils';
 import { bindPhoneOrEmailSendCode, bindPhoneOrEmailAction } from '@/api/http';
 import CountryMap, {Countries} from '@/mods/select-country/country-list';
 
+const Option = Select.Option;
 
 @inject('userInfoStore', 'captchaStore', 'loginStore')
 @observer
@@ -88,7 +89,11 @@ export default class BindingPhone extends Component {
         })
             .then(res => {
                 if (res.status !== 200) {
-                    message.error(res.message);
+                    if([0, 9999, 9997].indexOf(res.status) === -1) {
+                        message.error(res.message);
+                    } else {
+                        console.error(res.message);
+                    }
                 }
                 return res;
             })

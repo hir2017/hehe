@@ -1,5 +1,6 @@
 @cell-height: 50px;
 @border-style:  1px solid @page-split-border-color;
+@action-btn-font-size: 12px;
 
 .exc-list-wrapper {
     width: 100%;
@@ -21,10 +22,15 @@
 }
 .exc-list {
     width: 100%;
-    .list-row .list-col {
+    .list-col{
+        display: inline-block;
+        box-sizing: border-box;
+    }
+    .list-col {
         height: @cell-height;
         line-height: @cell-height;
         text-align: right;
+        font-size: @action-btn-font-size;
         &:nth-child(1) {
             text-align: left;
             text-indent: 10px;
@@ -32,17 +38,49 @@
         &:last-child {
             padding-right: 10px;
         }
+        &.action {
+            width: 100px;
+            .ant-btn {
+                background: none;
+                border: 0 none;
+                padding: 0;
+                color: #c90;
+                font-size: @action-btn-font-size;
+                display: inline-block;
+            }
+        }
     }
+
 }
-.exc-list-thead {
+.exc-list-head {
     .list-col {
         overflow: hidden;
         color: @text-color02-light;
+        &.action {
+            padding-right: 10px;
+        }
     }
 }
-.exc-list-tbody {
+.exc-list-body {
     .list-row {
         border-bottom: @border-style;
         color: @text-color01-light;
+        .list-expanded-row {
+            font-size: @action-btn-font-size;
+            position: relative;
+            padding: 30px 10%;
+            min-height: 60px;
+            background-color: #f7f8f9;
+            color: #999;
+        }
+        &.expanded-row {
+            outline: 1px solid #c90;
+        }
     }
+}
+
+.exc-list-footer {
+    padding: 30px 0;
+    position: relative;
+    text-align: center;
 }

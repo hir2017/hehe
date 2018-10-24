@@ -15,8 +15,8 @@ class List extends Component {
                         <li key={index}>
                             <dl>
                                 <dd className="time">{item.createTime}</dd>
-                                <dd className="bank">{item.branchName}</dd>
-                                <dd className="sub">{item.openBank}</dd>
+                                <dd className="bank">{item.openBank}</dd>
+                                <dd className="sub">{item.branchName}</dd>
                                 <dd className="account">{item.cardNo}</dd>
                                 <dd className="status">{getStatus(item.status)}</dd>
                                 <dd
@@ -42,13 +42,22 @@ class List extends Component {
 @inject('userInfoStore', 'captchaStore', 'authStore')
 @observer
 export default class BankList extends Component {
-    state = {
-        visible: false,
-        vCode: '',
-        pwd: '',
-        ivCode: '',
-        id: ''
-    };
+
+    constructor() {
+        super();
+        this.state = {
+            visible: false,
+            vCode: '',
+            pwd: '',
+            ivCode: '111',
+            id: ''
+        };
+        this.smsBtnCtx = null;
+    }
+
+    getBtnCtx = (ctx) => {
+        this.smsBtnCtx = ctx;
+    }
 
     componentWillMount() {
         this.props.userInfoStore.bankCardInfo();
@@ -71,6 +80,15 @@ export default class BankList extends Component {
                 return num;
                 break;
         }
+    }
+
+    clearTimer() {
+        clearInterval(this.smsBtnCtx.time);
+        this.smsBtnCtx.setState({
+            loading: false,
+            num: 60,
+            show: true
+        });
     }
 
     bankHandle = (num, id) => {
@@ -105,6 +123,7 @@ export default class BankList extends Component {
             });
         }
     };
+
     handleOk = () => {
         const gaBindSuccess = this.props.userInfoStore.gaBindSuccess;
         if (!this.state.pwd) {
@@ -113,10 +132,6 @@ export default class BankList extends Component {
         }
         if (!this.state.vCode && gaBindSuccess) {
             message.error(UPEX.lang.template('请填写Google验证码'));
-            return;
-        }
-        if (!this.state.ivCode && !gaBindSuccess) {
-            message.error(UPEX.lang.template('请填写图片验证码'));
             return;
         }
         if (!this.state.vCode && !gaBindSuccess) {
@@ -132,15 +147,14 @@ export default class BankList extends Component {
         }
         req.then((res = {}) => {
             if(res.status !== 200) {
-                this.props.captchaStore.fetch();
             } else {
                 this.props.userInfoStore.bankCardInfo();
                 this.setState({
                     visible: false,
                     vCode: '',
                     pwd: '',
-                    ivCode: ''
                 });
+                this.clearTimer();
             }
 
         })
@@ -148,6 +162,7 @@ export default class BankList extends Component {
     };
 
     handleCancel = () => {
+        this.clearTimer();
         this.setState({
             visible: false,
             vCode: '',
@@ -168,21 +183,10 @@ export default class BankList extends Component {
         });
     };
 
-    ivCodeChange = e => {
-        this.setState({
-            ivCode: e.target.value
-        });
-    };
-
-    captchaChange = () => {
-        this.props.captchaStore.fetch();
-    };
 
     render() {
-        const codeid = this.props.captchaStore.codeid;
         const bankCardList = this.props.userInfoStore.bankCardList || [];
         const gaBindSuccess = this.props.userInfoStore.gaBindSuccess;
-        const captcha = this.props.captchaStore.captcha;
         let $content;
 
         if (bankCardList.length == 0) {
@@ -220,20 +224,13 @@ export default class BankList extends Component {
                     ) : (
                         <div className="item">
                             <Input
-                                style={{ marginBottom: '20px' }}
-                                value={this.state.ivCode}
-                                onChange={this.ivCodeChange}
-                                addonAfter={<img onClick={this.captchaChange} src={captcha} />}
-                                size="large"
-                                placeholder={UPEX.lang.template('请填写图片验证码')}
-                            />
-                            <Input
                                 value={this.state.vCode}
                                 onChange={this.vCodeChange}
                                 addonAfter={
                                     <Vcodebutton
-                                        imgCode={this.state.ivCode}
-                                        codeid={codeid}
+                                        getCtx={this.getBtnCtx}
+                                        imgCode={'1232'}
+                                        codeid={'1232'}
                                         bankAndWithdraw={true}
                                         style={{ lineHeight: 'normal', height: 'auto' }}
                                     />

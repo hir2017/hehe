@@ -554,17 +554,32 @@
  */
 
 .order-body-inner.coin-list .order-header {
-    height: 60px;
-    line-height: 60px;
+    height: 50px;
+    line-height: 50px;
+    position: relative;
+    &:after {
+        content: "";
+        width: 100%;
+        height: 1px;
+        position: absolute;
+        display: block;
+        bottom: 0;
+        left: 0;
+        background-color: transparent;
+        -webkit-box-shadow: 0 2px 2px rgba(23, 31, 39, .08);
+        -moz-box-shadow: 0 2px 2px rgba(23, 31, 39, .08);
+        box-shadow: 0 2px 2px rgba(23, 31, 39, .08);
+    }
 }
 
 .order-header {
-    border-bottom: 1px solid #f4f4f4;
+    border-bottom: 1px solid @page-split-border-color;
     h2 {
         float: left;
-        font-size: 18px;
+        font-size: 16px;
         padding: 0 20px;
         text-align: left;
+        color: @text-color01-light;
     }
     .type-select {
         float: right;
@@ -784,6 +799,16 @@
         box-sizing: border-box;
         padding-right: 10px;
     }
+    .table-hd{
+        &:before{
+            display: none;
+        }
+        &:after{
+            top: 50px;
+            background-color: @page-split-border-color;
+            box-shadow: none;
+        }
+    }
 }
 
 /**
@@ -826,6 +851,16 @@
         box-sizing: border-box;
         padding-right: 10px;
     }
+    .table-hd{
+        &:before{
+            display: none;
+        }
+        &:after{
+            top: 50px;
+            background-color: @page-split-border-color;
+            box-shadow: none;
+        }
+    }
 }
 
 .coin-withdraw-list .collapse-content-active .detail-content {
@@ -837,6 +872,13 @@
  * 资金记录
  */
 .fiat-list-table.order-table {
+    .action {
+        button:disabled {
+            color: @text-color04-light;;
+            cursor: not-allowed;
+        }
+    }
+
     .swift-no {
         width: 300px;
         text-align: left;
@@ -849,12 +891,12 @@
     }
 
     .name {
-        width: 120px;
+        width: 130px;
         text-align: right;
     }
 
     .balance {
-        width: 150px;
+        width: 140px;
         text-align: right;
     }
 
@@ -877,4 +919,15 @@
     .extra-info.show {
         display: block;
     }
+    .table-hd{
+        &:before{
+            display: none;
+        }
+        &:after{
+            top: 50px;
+            background-color: @page-split-border-color;
+            box-shadow: none;
+        }
+    }
+
 }

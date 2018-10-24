@@ -12,7 +12,7 @@ import NotFound from './pages/others/404';
 import Login from './pages/login-register/login';
 import Register from './pages/login-register/register';
 import ResetPwd from './pages/login-register/resetpwd';
-import InviteRegister from './pages/activity/invite-register';
+import InviteRegister from './pages/activity/invite/invite-register';
 
 // 授权登陆容器HOC
 import Auth from './mods/authhoc/index';
@@ -147,11 +147,13 @@ const routes = (
                 <IndexRoute component={NewsList}/>
                 <Route path="detail/:id" component={NewsDetail} />
             </Route>
-            <Route path="activity" component={Auth}>
+            <Route path="activity">
+                <Route path="invite-register" component={InviteRegister} />
+				<Route component={Auth} />
             	<IndexRoute getComponent={Invite}/>
             	<Route path="invite(-:type)" getComponent={Invite}/>
             </Route>
-            <Route path="invite-register" component={InviteRegister} />
+
             <Route path="login" component={Login} />
 			<Route path="register" component={Register} />
 			<Route path="resetpwd" component={ResetPwd} />

@@ -1,40 +1,60 @@
-import React from 'react';
-import { Breadcrumb } from 'antd';
-import List from '@/components/list';
+/**
+ * @fileoverview 充值&提现记录
+ * @author 陈立英
+ * @date 2018-05-19
+ */
+import React, { Component } from 'react';
+import { observer, inject } from 'mobx-react';
+import { Select, Breadcrumb } from 'antd';
+const Option = Select.Option;
+import RecordList from './list';
+import PageWrapper from '@/components/wrapper/full-page';
 
-import Wrapper from '@/components/wrapper';
-
-class View extends React.Component {
+@inject('accountStore', 'fundChangeRecordStore')
+@observer
+class RecordPage extends Component {
     constructor(props) {
         super(props);
-        const {type = ''} = props.params;
-        
-        this.lists = [
-            {title: 'columns1', dataIndex: 'a'},
-            {title: 'columns2', dataIndex: 'b'}
-        ];
-        this.state = {
-            data: [
-                {a: 11, b: 22},
-                {a: 211, b: 222}
-            ]
-        };
         this.pageInfo = {
-            breadcrumbs: [
-                UPEX.lang.sitename,
-                UPEX.lang.template('资产管理')
-            ]
-        }
+            title: UPEX.lang.template('资金变动记录'),
+            className: 'content-no-pad'
+        };
+    }
+
+    componentDidMount() {
+        let store = this.props.accountStore;
+
+        store.getUserCoinAccount();
     }
 
     render() {
-        const {state, lists, pageInfo} = this;
+        let store = this.props.fundChangeRecordStore;
+        let after = (
+            <Select
+                defaultValue="all"
+                onChange={val => {
+                    store.setDataType(val);
+                }}
+            >
+                <Option value="all">{UPEX.lang.template('全部')}</Option>
+                <Option value="recharge">{UPEX.lang.template('充值')}</Option>
+                <Option value="withdraw">{UPEX.lang.template('提现')}</Option>
+            </Select>
+        );
         return (
-            <Wrapper {...pageInfo}>
-                <List dataSource={state.data} columns={lists} expandedRowRender={(row) => <p>{row.a}</p>}/>
-            </Wrapper>
+            <div className="assets-change">
+                <Breadcrumb separator=">">
+                    <Breadcrumb.Item>
+                        <a href="/home">{UPEX.config.sitename}</a>
+                    </Breadcrumb.Item>
+                    <Breadcrumb.Item>{UPEX.lang.template('资产管理')}</Breadcrumb.Item>
+                </Breadcrumb>
+                <PageWrapper {...this.pageInfo} headerAfter={after}>
+                    <RecordList />
+                </PageWrapper>
+            </div>
         );
     }
 }
 
-export default View;
+export default RecordPage;

@@ -92,7 +92,11 @@ export default class extends React.Component {
                     url: res.attachment
                 });
             } else {
-                message.error(res.message);
+                if([0, 9999, 9997].indexOf(res.status) === -1) {
+                    message.error(res.message);
+                } else {
+                    console.error(res.message);
+                }
                 this.setState({
                     loading: false,
                     disable: false
