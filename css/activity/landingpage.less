@@ -45,8 +45,13 @@
             margin-top: 10px;
             font-weight: normal;
         }
-        .button,
-        .button a{
+        .button {
+            display: block;
+            background: none;
+            outline: 0 none;
+            border: 0 none;
+        }
+        .button a {
             display: block;
             background: none;
             outline: 0 none;
@@ -422,4 +427,20 @@
 .zh-CN .landpage .download-module .content-image {
     background: url("@{url}/iphone-cn.png") no-repeat center center;
     background-size: 100% 100%;
+}
+.zh-CN .landpage .banner-module h2 .count:before, 
+.zh-CN .landpage .banner-module h2 .symbol:after {
+    display: none;
+}
+.zh-CN .landpage .banner-module h2,
+.zh-CN .landpage .banner-module h2 .count, 
+.zh-CN .landpage .banner-module h2 .symbol{
+    font-size: 34px;
+    text-shadow: none;
+    line-height: 34px;
+    letter-spacing: 2px;
+    vertical-align: inherit;
+}
+.zh-CN .landpage .banner-module h3{
+    margin-top: 30px;
 }
