@@ -39,7 +39,7 @@ var cssLoader = {
 var output = {
     path: path.resolve(__dirname, "build/assets"),
     filename: '[name].js',
-    chunkFilename: '[name].[chunkhash:5].chunk.js',
+    chunkFilename: '[name].chunk.js?t=[chunkhash:5]',
     publicPath: '/'
 };
 
