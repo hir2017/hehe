@@ -174,7 +174,7 @@ export default class BindingBank extends Component {
                 this.setState({
                     cardNo: '',
                     password: '',
-                    imgUrl: ''
+                    imgUrl: '1111'
                 });
                 this.props.userInfoStore.bankCardInfo();
             }
