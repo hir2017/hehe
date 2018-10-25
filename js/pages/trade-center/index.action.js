@@ -123,7 +123,7 @@ export default (store, currencyStore) => {
          */
         getUserAccount(uid, token) {
             let { baseCurrencyId, tradeCurrencyId } = store.tradePair;
-            function start () {
+            function emitAction () {
                 socket.emit('userAccount', {
                     uid,
                     token,
@@ -136,24 +136,23 @@ export default (store, currencyStore) => {
             if(mod__count === 0) {
                 mod__count = 1;
                 setTimeout(() => {
-                    socket.emit('userAccount', {
-                        uid,
-                        token,
-                        tradeCurrencyId,
-                        baseCurrencyId
-                    });
-                }, 400);
+                    emitAction();
+                }, 300);
 
             } else {
-                socket.emit('userAccount', {
-                    uid,
-                    token,
-                    tradeCurrencyId,
-                    baseCurrencyId
-                });
+                emitAction();
             }
 
             socket.on('userAccount', data => {
+                if(data) {
+                    if(!data.hasOwnProperty('baseCoinBalance')) {
+                        console.error('userAccount false', data)
+                        setTimeout(() => {
+                            emitAction();
+                        }, 100);
+                        return ;
+                    }
+                }
                 data.baseCoinBalance = data.baseCoinBalance || 0;
                 data.tradeCoinBalance = data.tradeCoinBalance || 0;
 
