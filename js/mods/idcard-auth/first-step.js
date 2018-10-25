@@ -10,6 +10,11 @@ import InputItem from '@/components/form/input-item';
 import AceForm from '@/components/form/form';
 import { createGetProp } from '@/components/utils';
 
+import { LocaleProvider } from 'antd';
+import zh_CN from 'antd/lib/locale-provider/zh_CN';
+import en_US from 'antd/lib/locale-provider/en_US';
+import zh_TW from 'antd/lib/locale-provider/zh_TW';
+
 const Option = Select.Option;
 const RadioGroup = Radio.Group;
 
@@ -97,6 +102,15 @@ export default class FirstStep extends Component {
                 label: UPEX.lang.template('年薪'),
             },
         }
+        let _lang = UPEX.lang.language;
+        let _locale = en_US;
+        if(_lang === 'zh-CN') {
+            _locale = zh_CN;
+        }
+        if(_lang === 'zh-TW') {
+            _locale = zh_TW;
+        }
+        this.locale = _locale;
     }
 
     componentDidMount() {
@@ -247,7 +261,9 @@ export default class FirstStep extends Component {
                     <FormItem {...inputsData.firstName} value={state.firstName} error={state.firstNameMes}/>
                     <FormItem {...inputsData.secondName} value={state.secondName} error={state.secondNameMes}/>
                     <FormItem {...inputsData.birthday} error={state.birthdayMes}>
-                        <DatePicker size="default" defaultValue={defaultDate.birthday} {...birthdayVals} onChange={this.dateChange.bind(this, 'birthday')} />
+                        <LocaleProvider locale={this.locale}>
+                            <DatePicker size="default" defaultValue={defaultDate.birthday} {...birthdayVals} onChange={this.dateChange.bind(this, 'birthday')} />
+                        </LocaleProvider>
                     </FormItem>
                     <FormItem {...inputsData.address} value={state.address} error={state.addressMes}/>
                     {/* <FormItem {...inputsData.postCode} value={state.postCode} error={state.postCodeMes}/> */}
