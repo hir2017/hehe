@@ -142,7 +142,7 @@ export default (store, currencyStore) => {
                         tradeCurrencyId,
                         baseCurrencyId
                     });
-                }, 200);
+                }, 400);
 
             } else {
                 socket.emit('userAccount', {
