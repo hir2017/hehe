@@ -40,7 +40,7 @@ class SubRow extends Component {
                     { label: UPEX.lang.template('收款银行'), field: '_bankInfo' }
                 ]);
             }
-            if (!data.expire) {
+            if (!data.expire && data.openBank === 'atm') {
                 cols = cols.concat([{ label: UPEX.lang.template('支付截止日期'), field: 'expireTime' }]);
             }
         }
