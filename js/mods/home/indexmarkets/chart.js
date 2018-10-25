@@ -130,7 +130,7 @@ export default class extends Component {
                     color: '#e8b802'
                 },
                 lineStyle: {
-                    color: 'rgba(232,184,2,0.3)'
+                    color: '#f8eab3'
                 },
                 areaStyle: {
                     color: {
@@ -141,7 +141,7 @@ export default class extends Component {
                         y2: 1,
                         colorStops: [{
                             offset: 0,
-                            color: 'rgba(255,231,140,0.3)' // 0% 处的颜色
+                            color: '#fff8dc' // 0% 处的颜色
                         }, {
                             offset: 1,
                             color: '#fff' // 100% 处的颜色
