@@ -68,15 +68,15 @@ const getNavList = () => {
         [
             {
                 name: UPEX.lang.template('上币申请'),
-                path: UPEX.lang.template('上币申请网页链接')
+                path: UPEX.config.docUrls.applyCurrency
             }
         ],
-        [
+       /* [
             {
                 name: UPEX.lang.template('客户端下载'),
                 path: UPEX.lang.template('客户端下载网页链接')
             }
-        ]
+        ]*/
     ];
 };
 
@@ -120,15 +120,23 @@ class NavsView extends Component {
                                 }
                                 // 外链，如果是第一个则不支持跳转
                                 if (item.path) {
-                                    return j === 0 ? (
-                                        <a className="nav-item" key={j}>
+                                    if(UPEX.config.version =='ace'){
+                                        return (<a className="nav-item"  key={j} target="_blank" href={item.path}>
                                             {item.name}
-                                        </a>
-                                    ) : (
-                                        <a className="nav-item" key={j} target="_blank" href={item.path}>
-                                            {item.name}
-                                        </a>
-                                    );
+                                        </a>)
+                                    }
+                                    else {
+                                        return j === 0 ? (
+                                            <a className="nav-item"  key={j}>
+                                                {item.name}
+                                            </a>
+                                        ) : (
+                                            <a className="nav-item" key={j} target="_blank" href={item.path}>
+                                                {item.name}
+                                            </a>
+                                        );
+                                    }
+
                                 }
                                 // 本地跳转
                                 return (
