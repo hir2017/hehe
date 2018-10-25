@@ -1,8 +1,4 @@
-/**
- * @fileoverview  银行卡信息
- * @author xia xiang feng
- * @date 2018-05-23
- */
+
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import { observer, inject } from 'mobx-react';
@@ -18,11 +14,18 @@ import AceSection from '@/components/page-user/section';
 class BankInfo extends Component {
     constructor() {
         super();
+        this.state = {
+            loading: true
+        }
         this.passwordChange = this.passwordChange.bind(this);
     }
 
     componentWillMount() {
-        this.props.userInfoStore.getUserInfo();
+        this.props.userInfoStore.getUserInfo().then(res => {
+            this.setState({
+                loading: false
+            });
+        });
     }
 
     state = {
@@ -37,9 +40,16 @@ class BankInfo extends Component {
 
     render() {
         const userInfo = this.props.userInfoStore.userInfo || {};
-        let $content;
+        let $content = null;
         let needTitle = false;
         let bodyClass = 'height-full-sp';
+        if(this.state.loading) {
+            return (
+                <PageWrapper innerClass="bank-info" bodyClass={bodyClass} noPadding>
+                    {$content}
+                </PageWrapper>
+            )
+        }
         if (userInfo.authLevel < 1) {
             // 未通过KYC1
             needTitle = true;
