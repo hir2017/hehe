@@ -18,10 +18,10 @@ const getNavList = () => {
                 name: UPEX.lang.template('团队介绍'),
                 path: UPEX.lang.template('团队介绍网页链接')
             },
-            {
+           /* {
                 name: UPEX.lang.template('投资者关系'),
                 path: UPEX.lang.template('投资者关系网页链接')
-            },
+            }*/,
             {
                 name: UPEX.lang.template('联系我们'),
                 path: UPEX.lang.template('联系我们网页链接')
