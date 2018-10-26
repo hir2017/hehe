@@ -40,7 +40,7 @@ class View extends React.Component {
         };
         this.pageInfo = {
             title: UPEX.lang.template('账户提现'),
-            className: 'fiat-withdraw-aus header-shadow'
+            className: 'fiat-withdraw-aus header-shadow fiat-withdraw-base'
         };
 
         this.bottomTip = (

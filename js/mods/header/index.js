@@ -24,7 +24,7 @@ import ThemeSwitchView from './theme';
 import { browserHistory } from 'react-router';
 
 
-@inject('authStore','commonStore','userInfoStore')
+@inject('authStore','commonStore','userInfoStore','tradeStore')
 @observer
 class HeaderView extends Component {
 	componentDidMount() {
@@ -42,11 +42,11 @@ class HeaderView extends Component {
 	}
 
 	render() {
-		let { authStore, userInfoStore , commonStore } = this.props;
+		let { authStore, userInfoStore , commonStore, tradeStore } = this.props;
 		let username = '--';
 
 	    const usermenu = (
-	    	<dl className="menu-list">
+	    	<dl className="menu-list header-menu">
 	          	<dd className="logined-header">
 	            	<Link className="logined-header-link" to="/user">{ UPEX.lang.template('个人中心') }</Link>
 	          	</dd>
@@ -91,7 +91,7 @@ class HeaderView extends Component {
 							authStore.isLogin ? (
 								<ul>
 									<li ref="userinfo">
-										<Popover content={usermenu} placement="bottomRight" getPopupContainer={this.props.userinfo} overlayClassName="widget-tooltip">
+										<Popover content={usermenu} placement="bottomRight" getPopupContainer={()=>this.refs.userinfo} overlayClassName={tradeStore.theme=='dark'?"widget-tooltip dark":"widget-tooltip"}>
 											<Link to="/user">
 												<span className="usertxt">{ UPEX.lang.template('欢迎您，{name}', { name: username })}</span>
 												<Icon type="down" style={{ fontSize: 12, color: '#ebeff5' }}/>

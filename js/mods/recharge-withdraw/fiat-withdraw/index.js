@@ -1,21 +1,19 @@
 /**
- * 法币充值
+ * 法币提现
  */
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
-import { Select, message, AutoComplete, Button } from 'antd';
+import { Select, message, Button, Card } from 'antd';
 import { sendMessageWithdraw } from '@/api/http';
 import FormView from '@/mods/common/form';
 import FormItem from '@/mods/common/form/item';
-import toAction from './fiat-withdraw-action';
-import AutoCompleteHack from '@/mods/common/auto-complete-hack';
-import CardSelect from './bind-card-select';
-import OrderInfo from './fiat-order-info';
+import toAction from './action';
+import CardSelect from '../bind-card-select';
 import SmsBtn from '@/mods/common/sms-btn';
 
 const Option = Select.Option;
 
-@inject('fiatWithdrawStore', 'userInfoStore')
+@inject('fiatWithdrawStore', 'userInfoStore', 'accountStore')
 @observer
 class FiatRechargeView extends Component {
     constructor(props) {
@@ -54,6 +52,18 @@ class FiatRechargeView extends Component {
         this.action = toAction(this.props.fiatWithdrawStore, this.props.userInfoStore);
     }
 
+
+
+    componentDidMount() {
+        this.props.fiatWithdrawStore.resetProps();
+        this.action.getInfo();
+        this.props.accountStore.getUserActionLimit('withdraw');
+    }
+
+    componentWillUnmount() {
+        this.action.destroy();
+    }
+
     setVal(name, e) {
         let val = typeof e === 'object' ? e.target.value.trim() : e;
         if (name == 'gaCode' || name == 'smsCode') {
@@ -65,17 +75,18 @@ class FiatRechargeView extends Component {
         });
     }
 
-    componentDidMount() {
-        this.props.fiatWithdrawStore.resetProps();
-        this.action.getInfo();
-    }
-
-    componentWillUnmount() {
-        this.action.destroy();
-    }
-
     handleNextStep = e => {
         const { accountAmount, balance } = this.props.fiatWithdrawStore;
+        const {withdraw} = this.props.accountStore.cashLimit;
+        if(parseFloat(balance) < withdraw.lowLimit) {
+            message.error(UPEX.lang.template('最小提现金额为 {num}', {num: `${withdraw.lowLimit} ${UPEX.config.baseCurrencyEn}`}));
+            return;
+        }
+        if(parseFloat(balance) > withdraw.highLimit) {
+            message.error(UPEX.lang.template('最大提现金额为 {num}', {num: `${withdraw.highLimit} ${UPEX.config.baseCurrencyEn}`}));
+            return;
+        }
+
         try {
             if (parseInt(balance) > parseFloat(accountAmount)) {
                 message.error(UPEX.lang.template('请填写正确的提现金额'));
@@ -93,9 +104,11 @@ class FiatRechargeView extends Component {
             message.error(UPEX.lang.template('请填写资金密码'));
             return;
         }
-        if(userInfo.isGoogleAuth && this.state.gaCode === '') {
-            message.error(UPEX.lang.template('请填写Google验证码'));
-            return ;
+        if(userInfo.isGoogleAuth) {
+            if(this.state.gaCode === '') {
+                message.error(UPEX.lang.template('请填写Google验证码'));
+                return ;
+            }
         } else {
             if (this.state.smsCode === '') {
                 message.error(UPEX.lang.template('请填写短信验证码'));
@@ -112,28 +125,48 @@ class FiatRechargeView extends Component {
 
     render() {
         let store = this.props.fiatWithdrawStore;
+        const {withdraw} = this.props.accountStore.cashLimit;
         const { userInfo = {} } = this.props.userInfoStore;
-        let action = this.action;
         let $formContent;
         const { inputData, state } = this;
         if (store.step == 'apply') {
             let currCardInfo = store.selectBindCardInfo;
-            const orderData = {
-                labels: {
-                    title: UPEX.lang.template('提现信息确认'),
-                    card: UPEX.lang.template('提现银行卡'),
-                    count: UPEX.lang.template('提现金额')
-                },
-                count: store.balance,
-                card: currCardInfo.cardNo,
-                user: currCardInfo.cardName,
-                bank: currCardInfo.openBank
-            };
             const $sendBtn = <SmsBtn sendCode={sendMessageWithdraw.bind(this, state.imgCode, this.codeid)} />;
+            let fee = (parseInt(store.balance) - store.withdrawValue);
             $formContent = (
-                <FormView>
-                    <FormItem>
-                        <OrderInfo {...orderData} />
+                <FormView >
+                    <FormItem label={UPEX.lang.template('提现信息确认')}>
+                        <Card>
+                            <p>
+                                <label>{UPEX.lang.template('开户人')}:</label>
+                                <span className="val">{currCardInfo.cardName}</span>
+                            </p>
+                            <p>
+                                <label>{UPEX.lang.template('开户银行')}:</label>
+                                <span className="val">{currCardInfo.openBank}</span>
+                            </p>
+                            <p>
+                                <label>{UPEX.lang.template('银行账号')}:</label>
+                                <span className="val">{currCardInfo.cardNo}</span>
+                            </p>
+                            <p className="text">{UPEX.lang.template('为了您的资金安全，请确认您的银行卡信息是否正确')}</p>
+                        </Card>
+                    </FormItem>
+                    <FormItem className="amount-info">
+                        <div className="source">
+                            {UPEX.lang.template('提现金额')}
+                            <div className="val">
+                                {store.balance} {UPEX.config.baseCurrencyEn}
+                            </div>
+                        </div>
+                        <div className="real">
+                            <p>
+                                {UPEX.lang.template('到账金额')}: {UPEX.config.baseCurrencyEn} <em>{store.withdrawValue}</em>
+                            </p>
+                            <p>
+                                {UPEX.lang.template('手续费')}: {UPEX.config.baseCurrencyEn} <em>{fee}</em>
+                            </p>
+                        </div>
                     </FormItem>
                     <FormItem {...inputData.tradePwd} />
                     {userInfo.isGoogleAuth ? (
@@ -142,12 +175,6 @@ class FiatRechargeView extends Component {
                         <FormItem {...inputData.smsCode} value={state.smsCode} after={$sendBtn} />
                     )}
                     <FormItem>
-                        <div className="rw-form-info">
-                            {UPEX.config.baseCurrencySymbol}
-                            {UPEX.lang.template('实际到账金额:{num}', { num: store.withdrawValue })}
-                        </div>
-                    </FormItem>
-                    <FormItem>
                         <Button className="submit-btn" onClick={this.handleOrder}>
                             {UPEX.lang.template('确认提现')}
                         </Button>
@@ -155,14 +182,6 @@ class FiatRechargeView extends Component {
                             {UPEX.lang.template('返回修改')}
                         </Button>
                     </FormItem>
-                    {/* <div className="rw-form-item">
-                        <label className="rw-form-label" />
-                        <div className="rw-form-info">
-                            <button type="button" className="" onClick={this.handleBack}>
-                                {UPEX.lang.template('返回修改')}
-                            </button>
-                        </div>
-                    </div> */}
                 </FormView>
             );
         } else {
@@ -173,22 +192,21 @@ class FiatRechargeView extends Component {
                 },
                 cards: store.bankCardsList.filter(item => item.status === 1),
                 count: store.accountAmount,
-                labels: { card: UPEX.lang.template('选择提现的银行卡'), balance: UPEX.lang.template('提现金额') }
+                labels: { card: UPEX.lang.template('选择提现的银行卡'), balance: UPEX.lang.template('提现金额')},
+                lowLimit: `${withdraw.lowLimit} ${UPEX.config.baseCurrencyEn}`
             };
-            // FormView
-            // FormItem
+
             $formContent = (
-                <div className="rw-form">
-                    <CardSelect {...SelectData} />
-                    <div className="rw-form-item">
-                        <label className="rw-form-label" />
-                        <div className="rw-form-info">
-                            <button type="button" className="submit-btn" onClick={this.handleNextStep}>
-                                {UPEX.lang.template('下一步')}
-                            </button>
-                        </div>
-                    </div>
-                </div>
+                <FormView>
+                    <FormItem>
+                        <CardSelect {...SelectData} />
+                    </FormItem>
+                    <FormItem>
+                        <Button className="submit-btn" onClick={this.handleNextStep}>
+                            {UPEX.lang.template('下一步')}
+                        </Button>
+                    </FormItem>
+                </FormView>
             );
         }
 

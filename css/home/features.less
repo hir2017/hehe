@@ -181,3 +181,44 @@
 .features-wrapper .download-btn:hover {
     background-color: #ffdc57;
 }
+
+
+/*台湾版feature部分样式*/
+.ace .features-wrapper {
+    height: 210px;
+    ul{
+        padding-top: 25px;
+    }
+    li{
+        i{
+            width: 110px;
+            height: 70px;
+            &.icon-bank{
+                background: url('../../images/icon-feature-01.png') no-repeat center center;
+                background-size: 100% 100%;
+            }
+            &.icon-clock{
+                background: url('../../images/icon-feature-02.png') no-repeat center center;
+                background-size: 100% 100%;
+            }
+            &.icon-team{
+                background: url('../../images/icon-feature-03.png') no-repeat center center;
+                background-size: 100% 100%;
+            }
+            &.icon-coin{
+                background: url('../../images/icon-feature-04.png') no-repeat center center;
+                background-size: 100% 100%;
+            }
+
+        }
+        .title{
+            color: @text-color01-light;
+        }
+        .desc{
+            width: 225px;
+            color: @text-color02-light;
+            margin: 18px auto 0;
+        }
+    }
+
+}

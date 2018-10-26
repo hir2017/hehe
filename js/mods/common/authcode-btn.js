@@ -1,13 +1,7 @@
-/**
- * @fileoverview  密码设置
- * @author xia xiang feng
- * @date 2018-05-24
- */
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import { Button, message } from 'antd';
 
-let time;
 
 @inject('userInfoStore', 'captchaStore')
 @observer
@@ -15,6 +9,7 @@ export default class SettingTradingPassword extends Component {
     constructor() {
         super();
         this.sendCode = this.sendCode.bind(this);
+        this.time = null;
     }
 
     state = {
@@ -35,6 +30,7 @@ export default class SettingTradingPassword extends Component {
                 break;
         }
     }
+
 
     sendCode() {
         if (!this.state.show) {
@@ -93,13 +89,13 @@ export default class SettingTradingPassword extends Component {
             }
             if (res.status === 200) {
                 const ctx = this;
-                time = setInterval(() => {
+                this.time = setInterval(() => {
                     let num = ctx.state.num;
                     ctx.setState({
                         num: num - 1
                     });
                     if (num === 1) {
-                        clearInterval(time);
+                        clearInterval(this.time);
                         ctx.setState({
                             num: 60,
                             show: true
@@ -123,8 +119,16 @@ export default class SettingTradingPassword extends Component {
         return;
     }
 
+    componentDidMount() {
+        const {props} = this;
+        if(props.getCtx) {
+            props.getCtx(this);
+        }
+    }
+
+
     componentWillUnmount() {
-        clearInterval(time);
+        clearInterval(this.time);
     }
 
     render() {

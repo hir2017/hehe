@@ -11,8 +11,8 @@ import { Icon , Modal } from 'antd';
 import {  Link , browserHistory } from 'react-router';
 import toAction from './action';
 import { TabView , AreaCodeSelectView, SMSCodeView } from './views';
-import YidunCaptcha  from '../../mods/yidun-captcha';
-import UrlUtil from '../../lib/url';
+import YidunCaptcha  from '@/mods/yidun-captcha';
+import UrlUtil from '@/lib/url';
 
 @inject('loginStore', 'tradeStore')
 @observer
@@ -120,9 +120,9 @@ class Login extends Component {
             browserHistory.push(backUrl);
             return;
         } else {
-            browserHistory.push('/webtrade');    
+            browserHistory.push('/webtrade');
         }
-        
+
 
         if (result.authLevel == 0) {
             /*
@@ -242,7 +242,6 @@ class Login extends Component {
         let $selectAreaCode;
         let $inputAccount;
         let $submitBtn;
-
 
         switch(store.mode) {
             case 'phone':

@@ -269,7 +269,11 @@ export default class FirstStep extends Component {
                 if (res.status === 200) {
                     message.success(UPEX.lang.template('提交成功'));
                 } else {
-                    message.error(res.message);
+                    if([0, 9999, 9997].indexOf(res.status) === -1) {
+                        message.error(res.message);
+                    } else {
+                        console.error(res.message);
+                    }
                 }
             })
             .catch(err => {
