@@ -100,9 +100,5 @@
     "start-ace": "pm2 start server.js  -o ./logs/out.log -e ./logs/error.log ",
     "stop-ace": "pm2 stop server.js"
   },
-<<<<<<< HEAD
-  "version": "2.1.8"
-=======
   "version": "2.1.9"
->>>>>>> origin/daily/2.1.0
 }
