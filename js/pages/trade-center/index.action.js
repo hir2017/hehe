@@ -137,22 +137,13 @@ export default (store, currencyStore) => {
                 mod__count = 1;
                 setTimeout(() => {
                     emitAction();
-                }, 300);
+                }, 200);
 
             } else {
                 emitAction();
             }
 
             socket.on('userAccount', data => {
-                if(data) {
-                    if(!data.hasOwnProperty('baseCoinBalance')) {
-                        console.error('userAccount false', data)
-                        setTimeout(() => {
-                            emitAction();
-                        }, 100);
-                        return ;
-                    }
-                }
                 data.baseCoinBalance = data.baseCoinBalance || 0;
                 data.tradeCoinBalance = data.tradeCoinBalance || 0;
 

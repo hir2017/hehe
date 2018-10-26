@@ -25,7 +25,6 @@ config.docUrls = {
     privacyPolicy: '/static/docs/ace/隱私權政策.pdf',
     kycPolicy: '/static/docs/ace/使用者條款.pdf',
     userAgreement: '/static/docs/ace/使用者條款.pdf',
-    applyCurrency: '/static/docs/ace/ACE上幣申請.pdf'
 }
 
 
@@ -92,6 +91,11 @@ const origin_ws = (function() {
             break;
         default:
             origin = origin || hostname;
+    }
+
+    if(['pre.ace.io', 'www.ace.io'].indexOf(origin) !== -1) {
+        origin = origin.replace('pre', 'process');
+        origin = origin.replace('www', 'process');
     }
 
     return origin;
