@@ -6,6 +6,7 @@ import '../../../../css/activity/landingpage.less';
  */
 import React, {Component} from 'react';
 import { observer, inject } from 'mobx-react';
+import { Popover } from 'antd';
 import { Link } from 'react-router';
 import DateUtil from '../../../lib/util/date';
 import Features from '../../../mods/home/features';
@@ -131,7 +132,7 @@ class PageView extends Component {
                 <div className="download-module">
                     <div className="content-wrap">
                          <Popover
-                            placement="right"
+                            placement="bottom"
                             overlayClassName="landpage-qrcode"
                             content={
                                 <div className="qrcode-img">
@@ -143,7 +144,7 @@ class PageView extends Component {
                         </Popover>
 
                          <Popover
-                            placement="right"
+                            placement="bottom"
                             overlayClassName="landpage-qrcode"
                             content={
                                 <div className="qrcode-img">
