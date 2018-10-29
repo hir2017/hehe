@@ -8,7 +8,6 @@ import React, {Component} from 'react';
 import { observer, inject } from 'mobx-react';
 import { Popover } from 'antd';
 import { Link } from 'react-router';
-import DateUtil from '../../../lib/util/date';
 import Features from '../../../mods/home/features';
 import qrcode from '../../../lib/qrcode';
 
@@ -32,8 +31,8 @@ class PageView extends Component {
     	}
 
     	this.state = {
-    		startTime: DateUtil.formatDate(config.endTime, 'HH/mm MM/dd'),
-    		endTime: DateUtil.formatDate(config.endTime, 'HH/mm MM/dd'),
+    		startTime: config.startTime,
+    		endTime: config.endTime,
     		symbol: config.symbol,
     		count: config.count,
     		count1: config.count1,
@@ -137,7 +136,7 @@ class PageView extends Component {
                 			</dd>
                 			<dd>
                 				<label>{UPEX.lang.template('活动时间')}: </label>
-                				<span className="txt">{` ${startTime} ~ ${endTime}`}</span>
+                				<span className="txt">{` ${startTime} ~ ${endTime} (GMT+11)`}</span>
                 			</dd>
                 			<dd className="rule">
                 				<label>{UPEX.lang.template('活动规则')}: </label>
