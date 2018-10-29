@@ -11,6 +11,7 @@ import NotFound from './pages/others/404';
 import Login from './pages/login-register/login';
 import Register from './pages/login-register/register';
 import ResetPwd from './pages/login-register/resetpwd';
+import LandingPage from './pages/activity/landingpage/aus';
 
 // import Home from './pages/home';
 // 授权登陆容器HOC
@@ -132,6 +133,9 @@ const routes = (
 			<Route path="news" component={News}>
                 <IndexRoute component={NewsList}/>
                 <Route path="detail/:id" component={NewsDetail} />
+            </Route>
+            <Route path="activity">
+            	<Route path="thanksgiving" component={LandingPage} />
             </Route>
             <Route path="login" component={Login} />
 			<Route path="register" component={Register} />

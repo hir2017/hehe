@@ -15,7 +15,9 @@ let _lang = {
 
         if (!tpl) {
             return '';
-        }
+        } 
+        
+        tpl = tpl + '';
 
         // for 活动规则。段落分隔符号：@@@@
         if (tpl.indexOf('@@@@') >= 0) {
