@@ -43,7 +43,12 @@ class PageView extends Component {
     }
 
    	componentDidMount() {
-       
+       var ua = navigator.userAgent;
+       let pl = /(iPhone|iPad|iPod|iOS)/i.test(ua) ? "ios": /[aA]ndroid/i.test(ua)  ? "android" : "pc";
+
+       if (pl == 'ios' || pl == 'android') {
+            location.replace('https://h5.infinitex.com.au/h5ex/thanksgiving/index.html');
+       }
     }
 
     onClickGoogle=(e)=>{
@@ -61,6 +66,51 @@ class PageView extends Component {
         if (link) {
             location.href = link;
         }
+    }
+
+    getGoogleQrcode=(visible)=>{
+        let google = $(this.refs.google);
+
+        let link = UPEX.lang.template('landpage_android_google');
+        
+        if (!visible) {
+            return;
+        }
+        // google
+        if (google.data('rendered') == 1) {
+            return;
+        }
+        google.qrcode({
+            text: link,
+            width: 174,
+            height: 174,
+            render: "canvas"
+        });
+
+        google.data('rendered', 1)
+    }
+
+    getApkQrcode=(visible)=>{
+
+        let apk = $(this.refs.apk);
+        let link = UPEX.lang.template('landpage_android_apk');
+        
+        if (!visible) {
+            return;
+        }
+
+        // apk
+        if (apk.data('rendered') == 1) {
+            return;
+        }
+        apk.qrcode({
+            text: link,
+            width: 174,
+            height: 174,
+            render: "canvas"
+        });
+        
+        apk.data('rendered', 1)
     }
 
     render() {
@@ -129,28 +179,24 @@ class PageView extends Component {
                         <Link to="/register">{UPEX.lang.template('我要领取{symbol}', {symbol})}</Link>
                     </div>
                 </div>
-                <div className="download-module">
+                <div className="download-module" ref="download">
                     <div className="content-wrap">
                          <Popover
-                            placement="bottom"
+                            placement="top"
+                            getPopupContainer={()=>this.refs.download}
                             overlayClassName="landpage-qrcode"
-                            content={
-                                <div className="qrcode-img">
-                                    
-                                </div>
-                            }
+                            afterVisibleChange={this.getGoogleQrcode}
+                            content={<div ref="google"></div>}
                         >
-                            <button className="google" onClick={this.onClickGoogle}><span>Google Play</span></button>
+                            <button className="google" ><span>Google Play</span></button>
                         </Popover>
 
                          <Popover
-                            placement="bottom"
+                            placement="top"
+                            getPopupContainer={()=>this.refs.download}
                             overlayClassName="landpage-qrcode"
-                            content={
-                                <div className="qrcode-img">
-                                    
-                                </div>
-                            }
+                            afterVisibleChange={this.getApkQrcode}
+                            content={<div ref="apk"></div>}
                         >
                             <button className="android" onClick={this.onClickAndroid}><span>Android Apk</span></button>
                         </Popover>
