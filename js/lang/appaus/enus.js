@@ -482,7 +482,7 @@ module.exports={
     "图片验证码": "Picture verification code",
     "在INFINITE Exchange官网中的个人中心或手机app的个人中心进行身份认证。": "Get ID verification in \"ID verification\"in My Profile",
     "在完成身份认证后，您已完成了领取{symbol}的所有条件。接下来只需耐心等待揭晓结果。活动的结果将会在活动结束日期-感恩节进行揭晓。": "After ID verification, you have ready to get {symbol} . What next is just waiting for the result. The result will be published on the final date-Thanksgiving Day.",
-    "在结果揭晓后，您可以在INFINITE Exchange官网-个人中心-活动-KYC奖励中查看活动结果，并时刻关注网站动态。活动奖励将会在11.22-12.25发放，届时请前往INFINITE Exchange官网领取奖励，未在规定时间内领取的，奖励将被作废。发放时间以具体发放时间为准。": "After the result published, you can check the result in Infinite Exchange-My profile-Program-KYC Bonuses, and constantly pay attention to INFINITE Exchange. Bonuses will be distributed during 11.22-12.25, You should go to INFINITE Exchange and get bonuses, If not taken before expiration date， your bonuses will be canceled. distribute time is according to actual time.",
+    "在结果揭晓后，您可以在INFINITE Exchange官网-个人中心-活动-KYC奖励中查看活动结果，并时刻关注网站动态。活动奖励将会在11.18-12.25发放，届时请前往INFINITE Exchange官网领取奖励，未在规定时间内领取的，奖励将被作废。发放时间以具体发放时间为准。": "After the result published, you can check the result in Infinite Exchange-My profile-Program-KYC Bonuses, and constantly pay attention to INFINITE Exchange. Bonuses will be distributed during 11.18-12.25, You should go to INFINITE Exchange and get bonuses, If not taken before expiration date， your bonuses will be canceled. distribute time is according to actual time.",
     "地址": "Address",
     "地址备注": "Add Note",
     "地址描述": "Address description",

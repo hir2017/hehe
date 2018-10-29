@@ -20,7 +20,7 @@ config.csurls = {
 };
 // pdf文档链接
 config.docUrls = {
-    InfinitexDigitalCurrencyTransferAgreements: '/static/docs/ace/',
+    InfinitexDigitalCurrencyTransferAgreements: 'https://helpcenter.ace.io/hc/zh-tw/articles/360018785411-%E5%AE%A2%E6%88%B6%E5%85%A5%E5%B8%B3%E8%81%B2%E6%98%8E%E6%9B%B8',
     riskDisclosure: '/static/docs/ace/風險揭露及免責聲明.pdf',
     privacyPolicy: '/static/docs/ace/隱私權政策.pdf',
     kycPolicy: '/static/docs/ace/使用者條款.pdf',
