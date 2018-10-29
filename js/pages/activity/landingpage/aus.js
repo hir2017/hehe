@@ -187,7 +187,7 @@ class PageView extends Component {
                             afterVisibleChange={this.getGoogleQrcode}
                             content={<div ref="google"></div>}
                         >
-                            <button className="google" ><span>Google Play</span></button>
+                            <button className="google" onClick={this.onClickGoogle}><span>Google Play</span></button>
                         </Popover>
 
                          <Popover
