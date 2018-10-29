@@ -9,6 +9,7 @@ import { observer, inject } from 'mobx-react';
 import { Link } from 'react-router';
 import DateUtil from '../../../lib/util/date';
 import Features from '../../../mods/home/features';
+import qrcode from '../../../lib/qrcode';
 
 @observer
 class PageView extends Component {
@@ -28,8 +29,6 @@ class PageView extends Component {
     		count2: UPEX.lang.template('landpage_data_count2'), 
     		count3: UPEX.lang.template('landpage_data_count3'), 
     	}
-
-    	console.info(config);
 
     	this.state = {
     		startTime: DateUtil.formatDate(config.endTime, 'HH/mm MM/dd'),
@@ -131,8 +130,29 @@ class PageView extends Component {
                 </div>
                 <div className="download-module">
                     <div className="content-wrap">
-                        <button className="google" onClick={this.onClickGoogle}><span>Google Play</span></button>
-                        <button className="android" onClick={this.onClickAndroid}><span>Android Apk</span></button>
+                         <Popover
+                            placement="right"
+                            overlayClassName="landpage-qrcode"
+                            content={
+                                <div className="qrcode-img">
+                                    
+                                </div>
+                            }
+                        >
+                            <button className="google" onClick={this.onClickGoogle}><span>Google Play</span></button>
+                        </Popover>
+
+                         <Popover
+                            placement="right"
+                            overlayClassName="landpage-qrcode"
+                            content={
+                                <div className="qrcode-img">
+                                    
+                                </div>
+                            }
+                        >
+                            <button className="android" onClick={this.onClickAndroid}><span>Android Apk</span></button>
+                        </Popover>
                         <div className="content-image"></div>
                     </div>
                 </div>

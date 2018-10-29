@@ -1048,7 +1048,7 @@ module.exports={
     "问题反馈": "Feedback ",
     "问题反馈前请先登录": "Please log in before submitting your feedback.",
     "问题反馈成功": "You have successfully submitted a question feedback",
-    "问题反馈网页链接": "https://helpcenter.ace.io/hc/zh-tw/requests/new",
+    "问题反馈网页链接": "https://helpcenter.ace.io/hc/en-us/requests/new",
     "问题详情": "Problem description",
     "附带如图上所示拍照日期的字条": "Attach a note with photo shooting date as in the above demo",
     "限价委托title": "Limit",
