@@ -40,6 +40,10 @@ class BonusView extends Component {
                     isFetching: 0
                 });
             }
+        }).catch(()=>{
+            this.setState({
+                isFetching: 0
+            })
         })
     }
 
