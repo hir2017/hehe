@@ -13,7 +13,8 @@ class UserView extends Component {
         super(props);
 
         this.state = {
-            user: {}
+            user: {},
+            shareLink: ''
         }
         this.clip = null;
     }
@@ -40,8 +41,10 @@ class UserView extends Component {
         getInviteUserInfo().then((data) => {
             if (data.status == 200) {
                 this.setState({
-                    user: data.attachment
+                    user: data.attachment,
+                    shareLink: `${UPEX.config.origin}/activity/invite-register?invite_code=${data.attachment.myInvitedCode}`
                 });
+                this.insertQrcode(this.state.shareLink);
             }
         })
     }
@@ -59,10 +62,8 @@ class UserView extends Component {
 
     render() {
         let {friendCount = 0, myInvitedCode = '', amount = 0, currencyNameEn = ''} = this.state.user;
+        let shareLink = this.state.shareLink;
         let self = this;
-        let shareLink = `${UPEX.config.origin}/activity/invite-register?invite_code=${myInvitedCode}`;
-
-        shareLink && this.insertQrcode(shareLink);
         myInvitedCode = myInvitedCode.length > 0 ? myInvitedCode.replace(/(\w{3})(?=\w)/g, "$1 ") : '';
 
         return (

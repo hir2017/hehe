@@ -5,6 +5,7 @@ import React, {Component} from "react";
 import {getInviteCommissionList, getInvitationList} from '../../../api/http';
 import {Pagination} from 'antd';
 import TimeUtil from '@/lib/util/date';
+import {message} from "antd/lib/index";
 
 class OrderView extends Component {
     constructor(props) {
@@ -103,7 +104,13 @@ class BrokerageListView extends Component {
                     currentPage: page,
                     isFetching: 0
                 });
+            }else{
+                message.error(data.message);
             }
+        }).catch(()=>{
+            this.setState({
+                isFetching: 0
+            })
         })
     }
 
@@ -196,7 +203,13 @@ class InviteeListView extends Component {
                     currentPage: page,
                     isFetching: 0
                 });
+            }else{
+                message.error(data.message);
             }
+        }).catch(()=>{
+            this.setState({
+                isFetching: 0
+            })
         })
     }
 
