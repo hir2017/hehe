@@ -123,7 +123,7 @@ export default (store, currencyStore) => {
          */
         getUserAccount(uid, token) {
             let { baseCurrencyId, tradeCurrencyId } = store.tradePair;
-            function start () {
+            function emitAction () {
                 socket.emit('userAccount', {
                     uid,
                     token,
@@ -136,21 +136,11 @@ export default (store, currencyStore) => {
             if(mod__count === 0) {
                 mod__count = 1;
                 setTimeout(() => {
-                    socket.emit('userAccount', {
-                        uid,
-                        token,
-                        tradeCurrencyId,
-                        baseCurrencyId
-                    });
-                }, 400);
+                    emitAction();
+                }, 200);
 
             } else {
-                socket.emit('userAccount', {
-                    uid,
-                    token,
-                    tradeCurrencyId,
-                    baseCurrencyId
-                });
+                emitAction();
             }
 
             socket.on('userAccount', data => {
