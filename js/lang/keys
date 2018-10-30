@@ -766,7 +766,7 @@ Customer reference no.
 请填写真实身份证号，否则会影响您的资金进出
 单笔最小充值金额为 {num}
 单笔最大充值金额为 {num}
-<<<<<<< HEAD
+
 使用智付通支付操作温馨提示,如果您选择了WEBATM...
 使用智付通支付操作温馨提示,如果您选择了实体ATM....
 邀请好友注册{sitename}，巨额返现等着你
@@ -786,7 +786,7 @@ INFINITE Exchange “感恩大回馈”
 只需两步，轻松获得{symbol}
 单日充值限额 {num1}, 单月充值限额 {num2}
 提币额度
-=======
+
 选择代收银行
 使用智付通支付操作温馨提示,如果您选择了WEBATM...
 使用智付通支付操作温馨提示,如果您选择了实体ATM....
@@ -818,5 +818,29 @@ webATM
 合法合规描述
 量身定制数位产品
 量身定制数位产品描述
+银行卡提现=
+
+=============== 新增key（2018-10-30 10:08:08）=============== 
+单日提现限额 {num1}, 单月提现限额 {num2}
+landpage_data_startTime
+landpage_data_endTime
+landpage_data_symbol
+landpage_data_count
+landpage_data_count1
+landpage_data_count2
+landpage_data_count3
+landpage_android_google
+landpage_android_apk
+有效期至 {endTime}
+INFINITE Exchange “感恩大回馈”
+>> 获得的{symbol}将会在活动结束后30个工作日内进行发放
+注册新账户
+打开https://www.infinitex.com.au/register，进行账号注册。
+进行身份认证
+在INFINITE Exchange官网中的个人中心或手机app的个人中心进行身份认证。
+在完成身份认证后，您已完成了领取{symbol}的所有条件。接下来只需耐心等待揭晓结果。活动的结果将会在活动结束日期-感恩节进行揭晓。
+在结果揭晓后，您可以在INFINITE Exchange官网-个人中心-活动-KYC奖励中查看活动结果，并时刻关注网站动态。活动奖励将会在11.22-12.25发放，届时请前往INFINITE Exchange官网领取奖励，未在规定时间内领取的，奖励将被作废。发放时间以具体发放时间为准。
+我要领取{symbol}
+澳洲最权威的数字货币交易平台
+原因
 银行卡提现
->>>>>>> master

@@ -127,7 +127,7 @@ class PageView extends Component {
                 </div>
                 <div className="intro-module">
                 	<div className="content-wrap">
-                		<h2>{UPEX.lang.template('INFINITE Exchange “感恩大回馈”')}</h2>
+                		<h2>{UPEX.lang.template('INFINITE Exchange “感恩大放送”')}</h2>
                 		<h3>— {UPEX.lang.template('{count}{symbol}免费送！', { count, symbol})}</h3>
                 		<dl>
                 			<dd>
@@ -173,7 +173,7 @@ class PageView extends Component {
                     <div className="content-wrap">
                         <ul>
                             <li>{UPEX.lang.template('在完成身份认证后，您已完成了领取{symbol}的所有条件。接下来只需耐心等待揭晓结果。活动的结果将会在活动结束日期-感恩节进行揭晓。', { symbol})}</li>
-                            <li>{UPEX.lang.template('在结果揭晓后，您可以在INFINITE Exchange官网-个人中心-活动-KYC奖励中查看活动结果，并时刻关注网站动态。活动奖励将会在11.22-12.25发放，届时请前往INFINITE Exchange官网领取奖励，未在规定时间内领取的，奖励将被作废。发放时间以具体发放时间为准。')}</li>
+                            <li>{UPEX.lang.template('在结果揭晓后，您可以在INFINITE Exchange官网-个人中心-活动-KYC奖励中查看活动结果，并时刻关注网站动态。活动奖励将会在11.18-12.25发放，届时请前往INFINITE Exchange官网领取奖励，未在规定时间内领取的，奖励将被作废。发放时间以具体发放时间为准。')}</li>
                         </ul>
                         <Link to="/register">{UPEX.lang.template('我要领取{symbol}', {symbol})}</Link>
                     </div>
