@@ -368,7 +368,7 @@ module.exports={
     "充值银行卡": "Deposit bank account",
     "充币": "Deposit",
     "充币地址": "Deposit address",
-    "充币提醒信息内容": "Depositting to below address means you agree to our 『ACE crypto currency deposit& withdrawal agreements』. You can only deposit the same type of crypto currency to this address.",
+    "充币提醒信息内容": "Attention: You can only deposit the same type of crypto currency to this address.",
     "充币温馨提示内容": "@@@@ Deposit to non {name} address is prohibited. Any non {name} assets deposit to {name} addresses may not be retrieved.\n@@@@24h deposit limit(DIGICCY) 10BTC.\n@@@@ Deposit with {name} address requires more than {num} Internet confirmations before it is available.\n@@@@ After the deposit completed, you can track the progress on the right-hand side or on the <em className=\"r-coin-record\">crypto currency records</em> page.\n@@@@ I hereby represent and warrant that I fully accept and compliance<a target=\"_blank\" href=\"{link}\">『crypto currency transfer agreements』</a>.\n",
     "充币记录": "Deposit record",
     "充提币记录": "Crypto currency records",

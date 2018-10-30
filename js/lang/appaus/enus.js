@@ -316,10 +316,7 @@ module.exports={
     "下载客户端": "Clients Download",
     "下载客户端链接": "https://play.google.com/store/apps/details?id=com.asiainnovations.ace.australia",
     "下载并安裝Google验证器": "Download and install Google Authenticator",
-<<<<<<< HEAD
     "下载描述": "You can download app to get verification",
-=======
->>>>>>> 6e4e6d7... footer UI修改，澳洲版添加下载客户端链接
     "不方便接短信？可使用": "SMS unavailable? Choose",
     "不能大于可提币数量": "Over the account available balance",
     "不能大于最大提币数量": "Over the withdrawal limit for single transaction",
@@ -339,10 +336,7 @@ module.exports={
     "为了您的资金安全，忘记资金密码并修改成功后，24小时内不可以提现充币": "For fund security, fiat or crypto currency withdrawal will be disabled for 24 hours after password is reset.",
     "为了您的资金安全，请确认您的银行卡信息是否正确": "For security of fund, please ensure that the bank account details you have entered are correct.",
     "为保证款项可能有退还的情形，因此填写真实身份证号": "Please enter your real ID number in case of refund.",
-<<<<<<< HEAD
     "主页h5标题": "Thanks Giving",
-=======
->>>>>>> 6e4e6d7... footer UI修改，澳洲版添加下载客户端链接
     "买": "Buy",
     "买入": "Buy",
     "买入价": "Buying price",
@@ -396,10 +390,7 @@ module.exports={
     "充提币记录": "Crypto currency records",
     "免责声明": "Disclaimer",
     "免费声明": "Disclaimer",
-<<<<<<< HEAD
     "免费赠送{count}{symbol}！": "{count} {symbol} for free delievery!",
-=======
->>>>>>> 6e4e6d7... footer UI修改，澳洲版添加下载客户端链接
     "入账金额": "Receive Amount",
     "入账金额: {count1} = {count2}": "Receive Amount：{count1} = {count2}",
     "全屏": "Full screen",
@@ -463,18 +454,12 @@ module.exports={
     "取消买单": "Cancal buy order",
     "取消全部": "Cancel all",
     "取消卖单": "Cancel sell order",
-<<<<<<< HEAD
     "另外，我们还会进行线下抽奖活动。那时，所有获奖的完成身份认证的幸运用户，每人也将获得{count}{symbol}，并且，抽奖活动将在INFINITE Exchange官方Youtube进行直播。": "Otherwise，a lucky draw will be conducted, at that time, lucky draw for all ID verification  participants, each participants gets {count} {symbol},and lucky draw will live stream at Infinite Exchange’s official Youtube.",
-=======
->>>>>>> 6e4e6d7... footer UI修改，澳洲版添加下载客户端链接
     "只看收藏": "Favorites",
     "只能在{min}至{max}之间": "Only between {min} and {max}",
     "只能输入数字": "Please enter numbers only.",
     "只能输入英文字母": "Please enter English letters only.",
-<<<<<<< HEAD
     "只需两步，轻松获得{symbol}": "With Two Steps, Get The {symbol}",
-=======
->>>>>>> 6e4e6d7... footer UI修改，澳洲版添加下载客户端链接
     "可上传1个附件": "You can upload 1 attachment",
     "可上傳1個附件": "Please upload only one attachment.",
     "可用": "Available",
@@ -611,10 +596,7 @@ module.exports={
     "您的申请审核失败了，失败原因是": "Your application was successful due to the following reasons.",
     "您还未进行安全级别认证": "No ID verification",
     "您还未进行身份认证": "ID Verification Incompleted",
-<<<<<<< HEAD
     "感恩大放送": "“Thanks Giving”",
-=======
->>>>>>> 6e4e6d7... footer UI修改，澳洲版添加下载客户端链接
     "成交价": "Price",
     "成交价格": "Close Price",
     "成交均价": "Average Price",
@@ -719,10 +701,7 @@ module.exports={
     "新手机号": "NEW mobile",
     "新手机短信确认码": "SMS verification code sent to your NEW mobile.",
     "新手机短信验证码": "SMS code on NEW mobile",
-<<<<<<< HEAD
     "新用户专享": "New user exclusive",
-=======
->>>>>>> 6e4e6d7... footer UI修改，澳洲版添加下载客户端链接
     "新登录密码": "New login password",
     "新登录密码和确认密码不一致": "Password inconsistent",
     "新资金密码": "New fund password",
@@ -754,11 +733,8 @@ module.exports={
     "最近登录信息": "Login History",
     "最高价": "Highest price",
     "月": "Month",
-<<<<<<< HEAD
     "有效期": "Validity: ",
     "有效期至 {endTime}": "Validity to {endTime} (GMT+11)",
-=======
->>>>>>> 6e4e6d7... footer UI修改，澳洲版添加下载客户端链接
     "服务支持": "Customer Service",
     "服务支持网页链接": "无",
     "服务条款": "Terms of Use",
@@ -803,10 +779,7 @@ module.exports={
     "添加提币地址": "Add withdrawal address",
     "温馨提示": "Reminder:",
     "澳州驾照": "Australian Driver License",
-<<<<<<< HEAD
     "澳洲最权威的数字货币交易平台": "The Most Trustworthy Fiat-Crypto Currency Exchange In Australia",
-=======
->>>>>>> 6e4e6d7... footer UI修改，澳洲版添加下载客户端链接
     "点击上传": "Click to upload",
     "状态": "Status",
     "独家银行担保交易": "Proven and Trusted",
