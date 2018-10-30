@@ -865,6 +865,9 @@ export function isUsedGoogleAuth() {
  */
 
 export function bindPhoneOrEmailAction(params) {
+    if(params.type === 2) {
+        params.phoneOrEmail = checkTWPhone(params.phoneOrEmail);
+    }
     return axios.post('/user/bindPhoneOrEmailAction', params)
 }
 
@@ -886,6 +889,7 @@ export function modifyPhoneSendMsg(params) {
  *  type=1:验证google和新手机验证码，type=2:验证旧手机，新手机验证码
  */
 export function modifyPhoneAction(params) {
+    params.newPhone = checkTWPhone(params.newPhone);
     return axios.post('/user/modifyPhoneAction', params)
 }
 /**
