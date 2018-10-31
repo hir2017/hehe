@@ -20,6 +20,10 @@ function checkTWPhone(str) {
     if(str.indexOf('0886') !== 0) {
         return str;
     }
+    // 手机号第一是0
+    if(str[4] !== '0') {
+        return str;
+    }
     let _str = '0886' + str.substr(5);
     return _str;
 }
