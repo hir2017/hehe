@@ -192,6 +192,7 @@ export function userLogin(data) {
  * 用户登录 － 需要验证第二步
  */
 export function userLogin2(data) {
+    data.emailOrPhone = checkTWPhone(data.emailOrPhone);
     return axios.post('/user/loginGASecond', qs.stringify({
         ...data,
         source: 1
