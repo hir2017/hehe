@@ -201,6 +201,10 @@ export function userLogin2(data) {
  * 邮箱登录 －  发送短信验证码
  */
 export function sendLoginCodeSend(data) {
+    // console.log(data.authType, data.emailOrPhone)
+    if (data.authType === 1) {
+        data.emailOrPhone = checkTWPhone(data.emailOrPhone)
+    }
     return axios.post('/user/loginCodeSend', qs.stringify({
         authType: data.authType || 1, // 1.手机 2.邮箱
         emailOrPhone: data.emailOrPhone,
