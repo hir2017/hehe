@@ -45,6 +45,22 @@ class LoginInfoBaseStore {
                 name: 'Taiwan'
             };
         }
+        // 缓存本地areacode
+        let lcoalSelectedCountry = UPEX.cache.getCache('selectedCountry');
+        if(lcoalSelectedCountry) {
+            try {
+                let data = JSON.parse(lcoalSelectedCountry);
+                this.selectedCountry = {
+                    areacode: data.areacode,
+                    code: data.code,
+                    name: data.name,
+                };
+            } catch (error) {
+                console.error('lcoalSelectedCountry', error);
+            }
+
+        }
+
     }
 
     @action

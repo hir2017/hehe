@@ -146,6 +146,14 @@ class Login extends Component {
         }
     }
 
+    updateSelectedCountry() {
+        try {
+            UPEX.cache.setCache('selectedCountry', JSON.stringify(this.props.loginStore.selectedCountry));
+        } catch (error) {
+            console.error('updateSelectedCountry', error);
+        }
+    }
+
     handleLoginVerifyCode=(e)=>{
         let { step } =  this.state;
 
@@ -154,6 +162,7 @@ class Login extends Component {
                 then((data)=>{
                     switch(data.status){
                         case 200:
+                            this.updateSelectedCountry();
                             this.handleLoginSuccess(data.attachment);
                             break;
                         default:
