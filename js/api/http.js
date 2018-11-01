@@ -1,6 +1,5 @@
 import axios from "axios";
 import qs from "qs";
-import { hashHistory, browserHistory } from 'react-router';
 import { message } from 'antd';
 import NumberUtils from '@/lib/util/number';
 
@@ -335,9 +334,21 @@ export function getUserBindCards() {
 }
 
 export function orderFiatRecharge(data) {
-    data.currencyId = 1;
+    return axios.post('/pay/getFrontPageJsonData', {
+        ...data,
+        currencyId: 1
+    })
+}
 
-    return axios.post('/pay/getFrontPageJsonData', qs.stringify(data))
+/*
+    获取充值提现费率
+    actionId	币种行为Id	number	1：充值，2：提现
+    currencyId	币种Id	number
+*/
+export function getCurrencyFee(data) {
+    return axios.get('/twdCommon/currencyFee', {
+        params: data
+    })
 }
 
 /**

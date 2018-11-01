@@ -11,6 +11,7 @@ import NumberUtils from '@/lib/util/number';
 import FormView from '@/mods/common/form';
 import FormItem from '@/mods/common/form/item';
 import Step2 from './step2';
+import {getCurrencyFee} from '@/api/http';
 
 @inject('fiatRechargeStore')
 @observer
@@ -23,7 +24,8 @@ class View extends Component {
             bank: '1',
             fee: 0,
             amountLowLimit: 2, // 500
-            disabled: false
+            disabled: false,
+            feeInfo: {}
         };
         this.bankList = [
             { val: '1', label: UPEX.lang.template('玉山银行'), key: 'Esun' },
@@ -68,9 +70,19 @@ class View extends Component {
 
     componentDidMount() {
         // 调接口获取最小充值金额
+        getCurrencyFee({
+            actionId: 1,
+            currencyId: 1
+        }).then(res => {
+            this.setState({
+                feeInfo: res.attachment
+            })
+        })
     }
 
     setVal(name, e) {
+        const {feeInfo} = this.state;
+
         let val = typeof e === 'object' ? e.target.value.trim() : e;
         let data = {};
         if(name === 'amount' && val !== '') {
@@ -79,8 +91,14 @@ class View extends Component {
             }
             val = parseInt(val);
             // 计算手续费 1% 最大13 向上取整
-            let fee = val * 0.01;
-            data.fee = fee >= 13 ? 13 : Math.ceil(fee);
+            let fee = 0;
+            if(feeInfo.feeType === 1) {
+                fee = feeInfo.fee;
+            } else {
+                fee = val * feeInfo.fee;
+                fee = fee >= feeInfo.feeHighLimit ? feeInfo.feeHighLimit : Math.ceil(fee);
+            }
+            data.fee = fee;
         }
         data[name] = val;
         this.setState(data);
