@@ -117,7 +117,7 @@ class HeaderView extends Component {
                                 <a target="_blank" href={UPEX.lang.template("帮助中心网站链接")}>{ UPEX.lang.template('帮助中心')}</a>
 							</li>
 							<li className="split">|</li>
-							<li ref="lang">
+							<li ref="lang" className="language">
 								<LanguageSwitchView root={()=>this.refs.lang}/>
 							</li>
 						</ul>

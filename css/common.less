@@ -88,7 +88,7 @@ select:-webkit-autofill {
     line-height: 50px;
     width: 100%;
     color: #fff;
-    border-bottom: 1px solid @border-color;
+    border-bottom: 1px solid #32373f;
     background-color: @bg-color;
     overflow: hidden;
 
@@ -112,9 +112,10 @@ select:-webkit-autofill {
             float: left;
             li {
                 float: left;
-                min-width: 120px;
+                /*min-width: 120px;*/
+                margin: 0 25px;
                 text-align: center;
-                font-size: 16px;
+                font-size: 14px;
                 color: @text-color;
                 a {
                     display: block;
@@ -132,9 +133,12 @@ select:-webkit-autofill {
                 vertical-align: middle;
                 li {
                     display: inline-block;
-                    color: @text-color02;
+                    color: @text-color01;
                     padding: 0 20px;
                     font-size: 14px;
+                    &.language{
+                        padding: 0 0 0 20px;
+                    }
                     a {
                         /*display: inline-block;*/
                         vertical-align: middle;
@@ -173,12 +177,28 @@ select:-webkit-autofill {
     }
 }
 
+.infinitex .app-header .header-box .logo img{
+    height: 22px;
+}
+
 .app-header .header-box .logo {
-    width: 140px;
+    width: 88px;
+    margin-right: 25px;
 }
 
 .app-trade .app-header .header-box .logo {
+    width: 136px;
+    margin-right: 25px;
+}
+
+.infinitex .app-header .header-box .logo {
+    width: 112px;
+    margin-right: 25px;
+}
+
+.infinitex .app-trade .app-header .header-box .logo {
     width: 160px;
+    margin-right: 25px;
 }
 
 .app-trade .app-header .header-box-l li.trade a {
@@ -420,7 +440,7 @@ body .ant-back-top-inner:hover {
 .header-box .header-box-l a,
 .header-box .header-box-l a:hover {
     text-decoration: none;
-    color: #fff;
+    color: @text-color01;
 }
 
 .header-box .header-box-r a,
@@ -522,7 +542,7 @@ body .ant-back-top-inner:hover {
 .app-footer .footer-box .nav-list li {
     float: left;
     padding-right: 30px;
-    font-size: 14px;
+    font-size: 12px;
 }
 
 .app-footer .footer-box .nav-list li .nav-item {
@@ -555,12 +575,12 @@ body .ant-back-top-inner:hover {
         height: 30px;
         line-height: 30px;
         font-size: 24px;
-        color: #fff;
+        color: @text-color01;
         letter-spacing: 1px;
     }
     .mail {
         position: relative;
-        font-size: 14px;
+        font-size: 12px;
         line-height: 30px;
         color: #838891;
         &:before {
@@ -571,7 +591,7 @@ body .ant-back-top-inner:hover {
             background: url("../images/footer-icon-mail.png") no-repeat center;
             background-size: 100%;
             top: 11px;
-            left: 48px;
+            left: 70px;
         }
     }
     .brand {
@@ -629,7 +649,7 @@ body .ant-back-top-inner:hover {
 .ace .app-footer .footer-box .info {
     .mail{
         &:before{
-            left: 108px;
+            left: 122px;
         }
     }
     .brand {
@@ -647,10 +667,10 @@ body .ant-back-top-inner:hover {
     border-top: 1px solid #303336;
     .footer-icon {
         float: left;
-        width: 116px;
+        width: 112px;
         height: 100%;
-        background: url("../images/footer-icon-infinitex.png") no-repeat left center;
-        background-size: 116px 21px;
+        background: url("../images/aus/infinite-logo.png") no-repeat left center;
+        background-size: 112px 22px;
         opacity: 0.5;
         &:hover {
             opacity: 1;
