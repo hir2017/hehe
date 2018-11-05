@@ -70,14 +70,14 @@ class View extends Component {
 
     componentDidMount() {
         // 调接口获取最小充值金额
-        getCurrencyFee({
-            actionId: 1,
-            currencyId: 1
-        }).then(res => {
-            this.setState({
-                feeInfo: res.attachment
-            })
-        })
+        // getCurrencyFee({
+        //     actionId: 1,
+        //     currencyId: 1
+        // }).then(res => {
+        //     this.setState({
+        //         feeInfo: res.attachment
+        //     })
+        // })
     }
 
     setVal(name, e) {
@@ -92,12 +92,15 @@ class View extends Component {
             val = parseInt(val);
             // 计算手续费 1% 最大13 向上取整
             let fee = 0;
-            if(feeInfo.feeType === 1) {
-                fee = feeInfo.fee;
-            } else {
-                fee = val * feeInfo.fee;
-                fee = fee >= feeInfo.feeHighLimit ? feeInfo.feeHighLimit : Math.ceil(fee);
-            }
+            // if(feeInfo.feeType === 1) {
+            //     fee = feeInfo.fee;
+            // } else {
+            //     fee = val * feeInfo.fee;
+            //     fee = fee >= feeInfo.feeHighLimit ? feeInfo.feeHighLimit : Math.ceil(fee);
+            // }
+            fee = val * 0.01;
+            fee = fee >= 13 ? 13 : Math.ceil(fee);
+
             data.fee = fee;
         }
         data[name] = val;
