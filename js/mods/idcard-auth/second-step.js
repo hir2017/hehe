@@ -85,9 +85,9 @@ export default class SecondStep extends Component {
             postCode: info.postCode,
             profession: info.profession,
             annualSalary: info.annualsalary,
-            positiveImages: this.state.oneUrl,
-            oppositeImages: this.state.twoUrl,
-            handImages: this.state.threeUrl
+            positiveImages: this.state.oneUrl_fileKey,
+            oppositeImages: this.state.twoUrl_fileKey,
+            handImages: this.state.threeUrl_fileKey
         }).then(res => {
             if (res.status === 200) {
 
@@ -149,9 +149,11 @@ export default class SecondStep extends Component {
                         loading: false
                     });
                     if (info.file.response.status === 200) {
-                        const url = info.file.response.attachment ? info.file.response.attachment.url : '';
+                        let data = info.file.response.attachment;
+                        const url = data ? data.result.url : '';
                         ctx.setState({
-                            [urlKey]: url
+                            [urlKey]: url,
+                            [urlKey + '_fileKey']: data.result.fileKey
                         });
                         message.success(`${info.file.name} ${UPEX.lang.template('上传成功')}`);
                     } else {
