@@ -496,7 +496,7 @@ module.exports={
     "安卓下载Google验证器网址": "https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2",
     "完全漏出双手，手臂": "Show both hands and arms completely.",
     "完成此步骤确认，可获得每日NT$300.000提现额度": "Complete this verification step and you will get a daily withdrawal limit of $100,000 TWD.",
-    "完成此步骤确认，可获得每日{num}提现额度": "Complete this verification step and you will get a daily withdrawal limit of {num} .",
+    "完成此步骤确认，可获得每日{num}提现额度": "Complete this verification step and you will get a daily withdrawal limit of {num}TWD .",
     "完成认证": "Security level A",
     "完成身份认证注意内容": "Attention: @@@@ Please contact our customer service at support@ace.io if you want to make changes to any incorrect information entered.  @@@@ Daily withdrawal limit = Total amount of daily withdrawal to bank account .\n@@@@Daily crypto withdrawal limit = Total NTD amount of daily crypto withdrawal",
     "官方服务、交流": "Official services, communication",
