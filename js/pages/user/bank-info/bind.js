@@ -68,7 +68,7 @@ export default class BindingBank extends Component {
         return {
             accept: 'image/jpg,image/Jpeg,image/png',
             name: 'file',
-            action: UPEX.config.uploadImgHost + '?token=' + token + '&uid=' + uid,
+            action: UPEX.config.uploadImgHost + '?token=' + token + '&uid=' + uid + '&secret=' + 1,
             headers: {
                 authorization: 'authorization-text'
             },
