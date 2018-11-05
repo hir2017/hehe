@@ -17,6 +17,7 @@ import { Icon, Switch, Popover, Tooltip } from 'antd';
 import TradeCoinList from './market';
 import UDFCompatibleDatafeed from './tv-jsapi';
 import DepthChart from './depth-chart';
+import Gtag from '@/lib/ga-analytics';
 
 @inject('tradeStore','commonStore')
 @observer
@@ -552,6 +553,8 @@ class TVChartContainer extends Component {
     }
 
     showChart=(item)=>{
+        // 谷歌埋点
+        Gtag.click(`webtrade${item.id.replace(/\w{1}/i,(str) => {return str.toUpperCase()})}Chart`);
         this.setState({
             chartType: item.id
         }, function() {
@@ -561,6 +564,10 @@ class TVChartContainer extends Component {
     }
 
     handleFullScreen=(e)=>{
+        // 谷歌埋点
+        if(!this.state.fullscreen) {
+            Gtag.click('webtradeFullScreenChart');
+        }
         this.setState({
             fullscreen: !this.state.fullscreen
         })
@@ -570,7 +577,7 @@ class TVChartContainer extends Component {
         let x = 0;
         let tabs = $(this.refs.tabs);
         let bar = $(this.refs.bar);
-        
+
         if (tabs.length == 0 || bar.length == 0) {
             return;
         }

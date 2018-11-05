@@ -109,6 +109,6 @@ config.uploadImgHost = config.host + '/upload/uploadImg';
 config.imgHost = protocol + '//' + origin_java + '/img';
 
 // ga 统计
-config.gtagId = 'UA-128599443-1';
+config.gtagId = 'UA-127488086-1';
 
 window.$config = config;

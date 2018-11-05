@@ -15,6 +15,7 @@ import '../css/antd-reset.less';
 
 import './lib/object.assign';
 import './lib/promise';
+
 import React, {Component} from 'react';
 import ReactDOM, {render} from 'react-dom';
 import { Router, Route, hashHistory, browserHistory, useRouterHistory} from 'react-router';
@@ -28,7 +29,8 @@ window.LangPack = LangPack;
 import './config-aus';
 import './global';
 // 谷歌埋点
-// import './mods/ga';
+import Gtag from './lib/ga-analytics';
+
 import routes from './routes-aus';
 import RootStore from './stores/index';
 
@@ -61,6 +63,10 @@ class App extends Component {
     }
 
     static onUpdate() {
+        const {pathname} = this.state.location;
+        // 谷歌统计 openXXXPage
+        Gtag.openPage(pathname);
+
 		rootStore.commonStore.updatePathName(this.state.location.pathname);
         window.scrollTo(0,0);
 	}

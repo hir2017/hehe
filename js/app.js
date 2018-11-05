@@ -26,7 +26,8 @@ window.LangPack = LangPack;
 import './config';
 import './global';
 // 谷歌埋点
-// import './mods/ga';
+import Gtag from './lib/ga-analytics';
+
 import routes from './routes';
 import RootStore from './stores/index';
 
@@ -58,7 +59,11 @@ class App extends Component {
         }
     }
 
-    static onUpdate() {
+    static onUpdate(...params) {
+        const {pathname} = this.state.location;
+        // 谷歌统计 openXXXPage
+        Gtag.openPage(pathname);
+
 		rootStore.commonStore.updatePathName(this.state.location.pathname);
         window.scrollTo(0,0);
 	}

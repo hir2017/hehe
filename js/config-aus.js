@@ -97,11 +97,7 @@ config.websocketHost = socket_protocol + '//' + origin_ws + '/';
 config.uploadImgHost = config.host + '/upload/uploadQN';
 config.imgHost = protocol + '//' + origin_java + '/img';
 
-// 谷歌埋点UACode
-config.GACodeData = '';
-// 谷歌推广UACode
-config.GAdsCodeData = 'AW-784233641';
-// zenDesk token
-config.zenToken = '';
+// ga 统计
+config.gtagId = 'UA-127408882-1';
 
 window.$config = config;

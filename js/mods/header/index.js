@@ -22,7 +22,7 @@ import { Popover , message , Icon } from 'antd';
 import LanguageSwitchView from './language';
 import ThemeSwitchView from './theme';
 import { browserHistory } from 'react-router';
-
+import Gtag from '@/lib/ga-analytics';
 
 @inject('authStore','commonStore','userInfoStore','tradeStore')
 @observer
@@ -40,6 +40,11 @@ class HeaderView extends Component {
 			}
 		});
 	}
+
+    gaTagTigger(path) {
+        // 谷歌埋点
+       Gtag.click(`header${path}`);
+   }
 
 	render() {
 		let { authStore, userInfoStore , commonStore, tradeStore } = this.props;
@@ -102,11 +107,11 @@ class HeaderView extends Component {
 							) : (
 								<ul className="login-register">
 									<li className="login">
-										<Link to={{ pathname: '/login', state: { step: 'login'}}}>{ UPEX.lang.template('登录')}</Link>
+										<Link onClick={e => {this.gaTagTigger('Login')}} to={{ pathname: '/login', state: { step: 'login'}}}>{ UPEX.lang.template('登录')}</Link>
 									</li>
 									<li className="split">|</li>
 									<li className="register">
-										<Link to="/register">{ UPEX.lang.template('注册') }</Link>
+										<Link onClick={e => {this.gaTagTigger('Register')}} to="/register">{ UPEX.lang.template('注册') }</Link>
 									</li>
 								</ul>
 							)

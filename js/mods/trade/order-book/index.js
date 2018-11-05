@@ -7,10 +7,11 @@ import { observer, inject } from 'mobx-react';
 import { Icon } from 'antd';
 import BuyOrderView from './buy';
 import SellOrderView from './sell';
+import Gtag from '@/lib/ga-analytics';
 
 @inject('tradeStore')
 @observer
-class OrderBook extends Component { 
+class OrderBook extends Component {
     static defaultProps = {
         tabs: ['all', 'sell', 'buy']
     }
@@ -25,7 +26,8 @@ class OrderBook extends Component {
     }
 
 	onChangeEntrustType=(type)=>{
-    
+        // 谷歌埋点
+        Gtag.click(`webtradeOrderBookIn${type.replace(/\w{1}/i,(str) => {return str.toUpperCase()})}`);
         this.setState({
             selectedTab: type
         });
