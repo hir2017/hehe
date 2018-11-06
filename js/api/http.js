@@ -150,6 +150,7 @@ export function sendEmailForRegister(data) {
 
 // 发送验证码，找回密码。邮箱验证和手机验证码都用该API。TODO check
 export function sendMail(data) {
+    data.account = checkPhoneNum(data.account);
     return axios.post('/user/sendMail', qs.stringify({
         email: data.account,
         NECaptchaValidate: data.validate,
@@ -217,6 +218,7 @@ export function userLogout() {
 
 // 重置密码
 export function resetPwd(data) {
+    data.account = checkPhoneNum(data.account);
     return axios.post('/user/resetPwd', qs.stringify({
         email: data.account,
         newPwd: data.pwd,
