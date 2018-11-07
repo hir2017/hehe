@@ -1181,3 +1181,13 @@ export function getInvitationList(data){
         ...data
     }));
 }
+
+/**
+ * 拒绝理由查询
+ */
+export function getRefuseReason(id){
+    return axios.post('/refuseStrategy/failReason',{
+        id
+    });
+}
+

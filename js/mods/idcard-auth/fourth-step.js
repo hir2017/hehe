@@ -3,7 +3,7 @@ import { observer, inject } from 'mobx-react';
 import { browserHistory } from 'react-router';
 import { Modal, Button, Icon } from 'antd';
 import NumberUtils from '@/lib/util/number';
-import { twdGetQuotaManagementInfo } from '@/api/http';
+import { twdGetQuotaManagementInfo, getRefuseReason } from '@/api/http';
 
 import AceForm from '@/components/form/form';
 
@@ -15,7 +15,8 @@ export default class FourthStep extends Component {
         this.state = {
             visible: false,
             cashLimit: 0,
-            coinLimit: 0
+            coinLimit: 0,
+            reson: ''
         };
     }
 
@@ -48,7 +49,17 @@ export default class FourthStep extends Component {
             .catch(err => {
                 console.error('AusGetQuotaManagementInfo', err);
             });
-
+        const {userInfo} = this.props.userInfoStore;
+        if(userInfo.isAuthVideo === -1) {
+            getRefuseReason(userInfo.refuseReasonId).then(res => {
+                if(res.status === 200) {
+                    const {reason} = res.attachment;
+                    this.setState({
+                        reason
+                    })
+                }
+            })
+        }
     }
 
     submitKycC = () => {
@@ -122,7 +133,7 @@ export default class FourthStep extends Component {
                                         <header>{UPEX.lang.template('您之前一次的申请被驳回')}</header>
                                         <p>
                                             <label className="label"> {UPEX.lang.template('驳回原因:')}</label>
-                                            {userInfo.authFailReason}
+                                            {state.reason}
                                         </p>
                                     </article>
                                 </div>

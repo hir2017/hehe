@@ -1,11 +1,10 @@
 /**
  * @fileoverview  用户个人信息
- * @author xia xiang feng
- * @date 2018-05-21
  */
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import { Button } from 'antd';
+import {getRefuseReason} from '@/api/http';
 
 import AceForm from '../../components/form/form';
 
@@ -15,6 +14,23 @@ export default class ThirdStep extends Component {
     constructor() {
         super();
         this.next = this.next.bind(this);
+        this.state = {
+            reason: ''
+        }
+    }
+
+    componentDidMount() {
+        const {userInfo} = this.props.userInfoStore;
+        if(userInfo.isAuthPrimary === -1) {
+            getRefuseReason(userInfo.refuseReasonId).then(res => {
+                if(res.status === 200) {
+                    const {reason} = res.attachment;
+                    this.setState({
+                        reason
+                    })
+                }
+            })
+        }
     }
 
     next() {
@@ -33,7 +49,7 @@ export default class ThirdStep extends Component {
                 ) : (
                     <div className="info-line fail">
                         <p className="title">{UPEX.lang.template('您的申请审核失败了，失败原因是')}</p>
-                        <p className="info">{userInfo.authFailReason}</p>
+                        <p className="info">{this.state.reason}</p>
                         <p className="tip">{UPEX.lang.template('请重新提交审核申请')}</p>
                     </div>
                 )}
@@ -44,11 +60,6 @@ export default class ThirdStep extends Component {
                                 {UPEX.lang.template('重新提交')}
                             </Button>
                         )}
-                        {/* <Button onClick={this.next} className="exc-submit-item">
-                            {
-                                userInfo.isAuthPrimary == 1 ? UPEX.lang.template('撤回重新提交') : UPEX.lang.template('重新提交')
-                            }
-                        </Button> */}
                     </div>
                 </div>
             </AceForm>
