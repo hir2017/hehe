@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import TimeUtil from '@/lib/util/date';
+import { getRefuseReason } from '@/api/http';
 
 class SubRow extends Component {
     constructor(props) {
@@ -28,9 +29,27 @@ class SubRow extends Component {
             { label: UPEX.lang.template('到账金额'), field: 'tradeAmount' },
             { label: UPEX.lang.template('手续费'), field: 'fee' }
         ];
+        this.state = {
+            reason: ''
+        };
     }
+
+    componentWillReceiveProps({isShow, data}) {
+        if(isShow && data.status === 6 && data._type === 'withdraw') {
+            getRefuseReason(data.refuseStrategyId).then(res => {
+                if(res.status === 200) {
+                    const {reason} = res.attachment;
+                    this.setState({
+                        reason
+                    })
+                }
+            })
+        }
+    }
+
     render() {
         let { rechargeCol, withdrawCol } = this;
+        const {state} = this;
         const { type, data } = this.props;
         let cols = type === 'recharge' ? rechargeCol : withdrawCol;
         if (type === 'recharge' && data.status === 3) {
@@ -44,8 +63,16 @@ class SubRow extends Component {
                 cols = cols.concat([{ label: UPEX.lang.template('支付截止日期'), field: 'expireTime' }]);
             }
         }
-        if(data.status === 6 && data._type === 'withdraw') {
-            cols = cols.concat([{ label: UPEX.lang.template('原因'), field: 'refuseReason' }]);
+        if (data.status === 6 && data._type === 'withdraw') {
+            // cols = cols.concat([{ label: UPEX.lang.template('原因'), field: 'refuseReason' }]);
+            cols = cols.concat([
+                {
+                    label: UPEX.lang.template('原因'),
+                    render(row) {
+                        return state.reason;
+                    }
+                }
+            ]);
         }
         return (
             <div className="detail-content">

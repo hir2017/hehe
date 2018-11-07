@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { getRefuseReason } from '@/api/http';
 
 class SubRow extends Component {
     constructor(props) {
@@ -26,12 +27,39 @@ class SubRow extends Component {
                 { label: UPEX.lang.template('手续费'), field: 'fee' }
             ]
         };
+        this.state = {
+            reason: ''
+        };
     }
+
+    componentWillReceiveProps({isShow, data}) {
+        if(isShow && data.status === 6 && data._type === 'withdraw') {
+            getRefuseReason(data.refuseStrategyId).then(res => {
+                if(res.status === 200) {
+                    const {reason} = res.attachment;
+                    this.setState({
+                        reason
+                    })
+                }
+            })
+        }
+    }
+
     render() {
+        const { state } = this;
         const { rechargeCol, withdrawCol } = this.columns;
         const { type, data } = this.props;
         let cols = type === 'recharge' ? rechargeCol : withdrawCol;
-
+        if (data.status === 6 && data._type === 'withdraw') {
+            cols = cols.concat([
+                {
+                    label: UPEX.lang.template('原因'),
+                    render(row) {
+                        return state.reason;
+                    }
+                }
+            ]);
+        }
         return (
             <div className="detail-content">
                 {cols.map((col, colIndex) => {

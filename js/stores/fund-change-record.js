@@ -190,10 +190,9 @@ class FundChangeRecordStore {
         item._actionName = dataType === 'recharge' ? UPEX.lang.template('充值') : UPEX.lang.template('提现');
         item._payMethod = dataType === 'recharge' ?  payMap.recharge[item.type] : UPEX.lang.template('银行卡转账');
         item._tradeType = dataType === 'recharge' ? item.type : 'withdraw';
-        if(item.status === 6 && item._type === 'withdraw') {
-            item._status += ',' + UPEX.lang.template('原因：{reason}', {reason: item.refuseReason});
-
-        }
+        // if(item.status === 6 && item._type === 'withdraw') {
+        //     item._status += ',' + UPEX.lang.template('原因：{reason}', {reason: item.refuseReason});
+        // }
     });
     return arr;
 }

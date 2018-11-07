@@ -66,7 +66,7 @@ class List extends Component {
                                         <button type="button" disabled={item._disabled} onClick={()=>this.toggleSubRow(item.id)}>{UPEX.lang.template('详情')}</button>
                                     </dd>
                                 </dl>
-                                <SubRow type={item._type} data={item}/>
+                                <SubRow type={item._type} data={item} isShow={this.state.displayIndex == item.id}/>
                             </li>
                         );
                     })}

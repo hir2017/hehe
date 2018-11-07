@@ -53,7 +53,6 @@ class List extends Component {
                         return (
                             <li key={index} className={this.state.displayIndex == item.id ? 'collapse-content-active' : ''}>
                                 <dl className="row">
-                                    {/* <dd className="swift-no">{item[item._type === 'recharge' ? 'thdNo' : 'orderNo']}</dd> */}
                                     <dd className="swift-no">{item.orderNo}</dd>
                                     <dd className="time">{item[timeStr] ? TimeUtil.formatDate(item[timeStr]) : ''}</dd>
                                     <dd className="name">{item._actionName}</dd>
@@ -69,7 +68,7 @@ class List extends Component {
                                          {item._type === 'recharge' ? '--' : (<button type="button" onClick={()=>this.toggleSubRow(item.id)}>{UPEX.lang.template('详情')}</button>)}
                                     </dd>
                                 </dl>
-                                <DetailRow type={item._type} data={item}/>
+                                <DetailRow type={item._type} data={item} isShow={this.state.displayIndex == item.id}/>
                             </li>
                         );
                     })}
