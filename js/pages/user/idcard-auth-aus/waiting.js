@@ -5,13 +5,25 @@ import {updateAuthFailReasonStatus} from '@/api/http';
 
 import AceForm from '@/components/form/form';
 
-@inject('userInfoStore')
+@inject('userInfoStore', 'UtilStore')
 @observer
 export default class View extends React.Component {
     constructor() {
         super();
         this.state = {
-            loading: false
+            loading: false,
+            reason: ''
+        }
+    }
+
+    componentDidMount() {
+        const {userInfo} = this.props.userInfoStore;
+        if(userInfo.isAuthPrimary === -1) {
+            this.props.UtilStore.getRefuseReason(userInfo.refuseReasonId).then(reason => {
+                this.setState({
+                    reason
+                })
+            })
         }
     }
 
@@ -55,7 +67,7 @@ export default class View extends React.Component {
                 ) : (
                     <div className="info-line fail">
                         <p className="title">{UPEX.lang.template('您的申请审核失败了，失败原因是')}</p>
-                        <p className="info">{userInfo.authFailReason}</p>
+                        <p className="info">{this.state.reason}</p>
                         <p className="tip">{UPEX.lang.template('请重新提交审核申请')}</p>
                     </div>
                 )}
