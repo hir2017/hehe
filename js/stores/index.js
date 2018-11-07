@@ -23,6 +23,7 @@ import CoinWithdrawStore from './coin-withdraw';
 import FiatRechargeStore from './fiat-recharge';
 import FiatWithdrawStore from './fiat-withdraw';
 import FundChangeRecordStore from './fund-change-record';
+import UtilStore from './utilStore';
 
 class RootStore {
     constructor() {
@@ -44,7 +45,7 @@ class RootStore {
         this.openStore = new OrderOpenStore(this);
         this.historyStore = new OrderHistoryStore(this);
         this.successStore = new OrderSuccessStore(this);
-        
+
         this.tradeStore = new TradeStore(this);
 
         this.accountStore = new AccountStore(this);
@@ -56,6 +57,10 @@ class RootStore {
         this.fiatWithdrawStore = new FiatWithdrawStore(this);
         this.addressStore = new AddressStore(this);
         this.fundChangeRecordStore = new FundChangeRecordStore(this);
+        /**
+         * 工具类
+         */
+        this.UtilStore = new UtilStore(this);
     }
 }
 

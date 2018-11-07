@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import TimeUtil from '@/lib/util/date';
-import { getRefuseReason } from '@/api/http';
+import { inject } from 'mobx-react';
 
+@inject('UtilStore')
 class SubRow extends Component {
     constructor(props) {
         super(props);
@@ -36,13 +37,10 @@ class SubRow extends Component {
 
     componentWillReceiveProps({isShow, data}) {
         if(isShow && data.status === 6 && data._type === 'withdraw') {
-            getRefuseReason(data.refuseStrategyId).then(res => {
-                if(res.status === 200) {
-                    const {reason} = res.attachment;
-                    this.setState({
-                        reason
-                    })
-                }
+            this.props.UtilStore.getRefuseReason(data.refuseStrategyId).then(reason => {
+                this.setState({
+                    reason
+                })
             })
         }
     }

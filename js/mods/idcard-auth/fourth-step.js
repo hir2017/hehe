@@ -3,11 +3,11 @@ import { observer, inject } from 'mobx-react';
 import { browserHistory } from 'react-router';
 import { Modal, Button, Icon } from 'antd';
 import NumberUtils from '@/lib/util/number';
-import { twdGetQuotaManagementInfo, getRefuseReason } from '@/api/http';
+import { twdGetQuotaManagementInfo } from '@/api/http';
 
 import AceForm from '@/components/form/form';
 
-@inject('userInfoStore')
+@inject('userInfoStore', 'UtilStore')
 @observer
 export default class FourthStep extends Component {
     constructor(props) {
@@ -51,13 +51,10 @@ export default class FourthStep extends Component {
             });
         const {userInfo} = this.props.userInfoStore;
         if(userInfo.isAuthVideo === -1) {
-            getRefuseReason(userInfo.refuseReasonId).then(res => {
-                if(res.status === 200) {
-                    const {reason} = res.attachment;
-                    this.setState({
-                        reason
-                    })
-                }
+            this.props.UtilStore.getRefuseReason(userInfo.refuseReasonId).then(reason => {
+                this.setState({
+                    reason
+                })
             })
         }
     }

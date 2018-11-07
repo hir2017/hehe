@@ -8,9 +8,8 @@
 import React, {Component} from 'react';
 import { observer, inject } from 'mobx-react';
 import { Pagination, Icon} from 'antd';
-import { getRefuseReason } from '@/api/http';
 
-@inject('coinWithdrawRecordStore')
+@inject('coinWithdrawRecordStore', 'UtilStore')
 @observer
 class List extends Component {
 	static defaultProps = {
@@ -55,13 +54,10 @@ class List extends Component {
             });
             // 获取驳回原因
             if(item.confirms === 'Reject') {
-                getRefuseReason(item.reasonId).then(res => {
-                    if(res.status === 200) {
-                        const {reason} = res.attachment;
-                        this.setState({
-                            reason
-                        })
-                    }
+                this.props.UtilStore.getRefuseReason(item.reasonId).then(reason => {
+                    this.setState({
+                        reason
+                    })
                 })
             }
     	}

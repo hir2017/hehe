@@ -4,11 +4,10 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import { Button } from 'antd';
-import {getRefuseReason} from '@/api/http';
 
 import AceForm from '../../components/form/form';
 
-@inject('userInfoStore')
+@inject('userInfoStore', 'UtilStore')
 @observer
 export default class ThirdStep extends Component {
     constructor() {
@@ -22,13 +21,10 @@ export default class ThirdStep extends Component {
     componentDidMount() {
         const {userInfo} = this.props.userInfoStore;
         if(userInfo.isAuthPrimary === -1) {
-            getRefuseReason(userInfo.refuseReasonId).then(res => {
-                if(res.status === 200) {
-                    const {reason} = res.attachment;
-                    this.setState({
-                        reason
-                    })
-                }
+            this.props.UtilStore.getRefuseReason(userInfo.refuseReasonId).then(reason => {
+                this.setState({
+                    reason
+                })
             })
         }
     }
