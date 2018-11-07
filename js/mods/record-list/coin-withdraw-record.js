@@ -8,6 +8,7 @@
 import React, {Component} from 'react';
 import { observer, inject } from 'mobx-react';
 import { Pagination, Icon} from 'antd';
+import { getRefuseReason } from '@/api/http';
 
 @inject('coinWithdrawRecordStore')
 @observer
@@ -20,7 +21,8 @@ class List extends Component {
 		super(props);
 
 		this.state = {
-			displayIndex: -1
+            displayIndex: -1,
+            reason: ''
 		}
         this.typeMap = {
             '1': UPEX.lang.template('提币'),
@@ -40,20 +42,33 @@ class List extends Component {
 		});
 	}
 
-
-    triggerShowDetail=(index)=>{
+    triggerShowDetail=(index, item)=>{
     	if (index == this.state.displayIndex) {
     		this.setState({
 	        	displayIndex: -1
 	        });
     	} else {
+
     		this.setState({
+                reason: '',
 	        	displayIndex: index
-	        });
+            });
+            // 获取驳回原因
+            if(item.confirms === 'Reject') {
+                getRefuseReason(item.reasonId).then(res => {
+                    if(res.status === 200) {
+                        const {reason} = res.attachment;
+                        this.setState({
+                            reason
+                        })
+                    }
+                })
+            }
     	}
     }
 
 	render() {
+        const {state} = this;
 		let store = this.props.coinWithdrawRecordStore;
 		let $content;
         const {typeMap} = this;
@@ -80,7 +95,7 @@ class List extends Component {
 								case 'Reject':
 									status =  UPEX.lang.template('审核拒绝');
 									visible = true;
-									info = UPEX.lang.template('审核拒绝，原因是:{reason}', {reason: item.reason || '' });
+									info = UPEX.lang.template('审核拒绝，原因是:{reason}', {reason: state.reason || '' });
 									break;
 								case 'Verify':
 									status =  UPEX.lang.template('审核中');
@@ -105,7 +120,7 @@ class List extends Component {
 										<dd className="address">{UPEX.lang.template('地址')} : {item.address}</dd>
 										<dd className="action">
 											{
-												visible ? <button type="button" onClick={this.triggerShowDetail.bind(this, item.id)}>{ this.state.displayIndex == item.id ? UPEX.lang.template('收起') : UPEX.lang.template('展开')}</button> : '--'
+												visible ? <button type="button" onClick={this.triggerShowDetail.bind(this, item.id, item)}>{ this.state.displayIndex == item.id ? UPEX.lang.template('收起') : UPEX.lang.template('展开')}</button> : '--'
 											}
 										</dd>
 									</dl>
