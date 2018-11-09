@@ -29,9 +29,33 @@ class LoginInfoBaseStore {
     @observable pwdResult = [true, ''];
     @observable twicePwdResult = [true, ''];
 
+
+
+
     constructor(stores) {
         this.authStore = stores.authStore;
 
+        // 缓存本地areacode
+        let lcoalSelectedCountry = UPEX.cache.getCache('selectedCountry');
+        if(lcoalSelectedCountry) {
+            try {
+                let data = JSON.parse(lcoalSelectedCountry);
+                this.selectedCountry = {
+                    areacode: data.areacode,
+                    code: data.code,
+                    name: data.name,
+                };
+            } catch (error) {
+                console.error('lcoalSelectedCountry', error);
+                this.initSelectedCountry();
+            }
+        } else {
+            this.initSelectedCountry();
+        }
+
+    }
+
+    initSelectedCountry(params) {
         if (UPEX.config.version == 'infinitex') {
             this.selectedCountry = {
                 areacode: '0061',
@@ -45,22 +69,6 @@ class LoginInfoBaseStore {
                 name: 'Taiwan'
             };
         }
-        // 缓存本地areacode
-        let lcoalSelectedCountry = UPEX.cache.getCache('selectedCountry');
-        if(lcoalSelectedCountry) {
-            try {
-                let data = JSON.parse(lcoalSelectedCountry);
-                this.selectedCountry = {
-                    areacode: data.areacode,
-                    code: data.code,
-                    name: data.name,
-                };
-            } catch (error) {
-                console.error('lcoalSelectedCountry', error);
-            }
-
-        }
-
     }
 
     @action
