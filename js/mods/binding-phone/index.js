@@ -4,6 +4,8 @@ import { Button, Switch, Modal, Input, message, Row, Col } from 'antd';
 import { browserHistory } from 'react-router';
 import Vcodebutton from '../common/authcode-btn';
 
+import {Loading} from '@/mods/authhoc/user';
+
 @inject('userInfoStore')
 @observer
 export default class Phone extends Component {
@@ -44,7 +46,7 @@ export default class Phone extends Component {
             return;
         }
         this.props.userInfoStore.phoneSwitch(vCode, checked ? 1 : 0).then(res => {
-            
+
             let nextState = {
                 visible: false
             };
@@ -65,8 +67,8 @@ export default class Phone extends Component {
     };
 
     render() {
-        const loading = this.props.userInfoStore.submit_loading;
-        const userInfo = this.props.userInfoStore.userInfo || {};
+        const store = this.props.userInfoStore;
+        const {submit_loading: loading, userInfo = {}} = store;
         const checked = userInfo.isPhoneAuth ? true : false;
         let optData = {
             set: {
@@ -82,6 +84,7 @@ export default class Phone extends Component {
         }
         let currBtn = optData[userInfo.phone ? 'modify' : 'set'];
         return (
+            <Loading init={store.getUserInfo}>
             <div className="common-setting-box">
                 <Row className="pwd top-radius-6 bottom-radius-6">
                     <Col className="title col-exc" span={8}>
@@ -120,6 +123,7 @@ export default class Phone extends Component {
                     </div>
                 </Modal>
             </div>
+            </Loading>
         );
     }
 }

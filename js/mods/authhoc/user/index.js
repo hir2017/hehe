@@ -1,5 +1,6 @@
 import React from 'react';
 
+// TODO: 以后这里面可以添加各种校验
 export class Loading extends React.Component {
     constructor() {
         super();
