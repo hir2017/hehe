@@ -10,6 +10,9 @@ import FourthStep from '@/mods/idcard-auth/fourth-step';
 
 import PageWrapper from '@/components/page-user/page-wrapper';
 
+import {Loading} from '@/mods/authhoc/user';
+
+
 @inject('userInfoStore')
 @observer
 class IdentityAuthentication extends Component {
@@ -21,10 +24,6 @@ class IdentityAuthentication extends Component {
         step: null
     };
 
-    componentWillMount() {
-        const userInfo = this.props.userInfoStore.userInfo || {};
-        this.props.userInfoStore.getUserInfo();
-    }
 
     changeStep = (num) => {
         this.setState({
@@ -48,7 +47,7 @@ class IdentityAuthentication extends Component {
     }
 
     render() {
-        const userInfo = this.props.userInfoStore.userInfo || {};
+        const {userInfo = {}, getUserInfo} = this.props.userInfoStore;
         let step = 0;
 
         switch (userInfo.isAuthPrimary) {
@@ -83,16 +82,18 @@ class IdentityAuthentication extends Component {
         return (
             <PageWrapper innerClass="authentication" bodyClass={bodyClass} title={UPEX.lang.template('身份认证')} rightContent={$rightContent}>
                 <div className="authentication-content">
-                    {userInfo.isValidatePhone ? (
-                        this.nowStep(_step)
-                    ) : (
-                        <div className="no-auth-message  authentication-message">
-                            <p>{UPEX.lang.template('请绑定手机')}</p>
-                            <Link className="exc-btn" to="/user/setting-phone">
-                                {UPEX.lang.template('手机绑定')}
-                            </Link>
-                        </div>
-                    )}
+                    <Loading init={getUserInfo}>
+                        {userInfo.isValidatePhone ? (
+                            this.nowStep(_step)
+                        ) : (
+                            <div className="no-auth-message  authentication-message">
+                                <p>{UPEX.lang.template('请绑定手机')}</p>
+                                <Link className="exc-btn" to="/user/setting-phone">
+                                    {UPEX.lang.template('手机绑定')}
+                                </Link>
+                            </div>
+                        )}
+                    </Loading>
                 </div>
             </PageWrapper>
         );
