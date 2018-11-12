@@ -6,15 +6,14 @@ import BindingGoogle from '@/mods/binding-google/index';
 import Success from '@/mods/binding-google/success';
 
 import PageWrapper from '@/components/page-user/page-wrapper';
+import {Loading} from '@/mods/authhoc/user';
 
 @inject('userInfoStore')
 @observer
 class GoogleAuthenticator extends Component {
-    componentWillMount() {
-        const userInfo = this.props.userInfoStore.userInfo || {};
-        const gaBindSuccess = this.props.userInfoStore.gaBindSuccess;
-        Object.keys(userInfo).length || this.props.userInfoStore.getUserInfo();
-        gaBindSuccess || this.props.userInfoStore.isGoogleAuth();
+
+    initData = () => {
+        return Promise.all([this.props.userInfoStore.getUserInfo(), this.props.userInfoStore.isGoogleAuth()]);
     }
 
     render() {
@@ -39,7 +38,9 @@ class GoogleAuthenticator extends Component {
         }
         return (
             <PageWrapper title={UPEX.lang.template('Google验证器')}>
-                {$content}
+                <Loading init={this.initData}>
+                    {$content}
+                </Loading>
             </PageWrapper>
         );
     }
