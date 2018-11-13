@@ -150,10 +150,10 @@ export default class SecondStep extends Component {
                     });
                     if (info.file.response.status === 200) {
                         let data = info.file.response.attachment;
-                        const url = data ? data.result.url : '';
+                        const url = data ? data.url : '';
                         ctx.setState({
                             [urlKey]: url,
-                            [urlKey + '_fileKey']: data.result.fileKey
+                            [urlKey + '_fileKey']: data.fileKey
                         });
                         message.success(`${info.file.name} ${UPEX.lang.template('上传成功')}`);
                     } else {
