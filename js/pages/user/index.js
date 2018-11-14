@@ -88,7 +88,7 @@ class UserPage extends Component {
         		isLogin: true
         	})
         } else {
-            message.error(UPEX.lang.template('登录超时，请重新登录'));
+            // message.error(UPEX.lang.template('登录超时，请重新登录'));
 
             browserHistory.push('/login');
 
