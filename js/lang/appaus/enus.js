@@ -422,7 +422,7 @@ module.exports={
     "到账金额": "Amount received",
     "前往反馈列表": "Go to the feedback list",
     "前往资金记录": "Account statement",
-    "勾选选项表示您同意我们的用户条款和隐私条款": "By ticking this box, you agree to our <a href=\"https://helpcenter.ace.io/hc/zh-tw/articles/360018785411-%E5%AE%A2%E6%88%B6%E8%81%B2%E6%98%8E%E6%9B%B8\" target=\"_blank\">Customer Statement terms</a>",
+    "勾选选项表示您同意我们的用户条款和隐私条款": "By ticking this box, you agree to our <a href=\"{href1}\" target=\"_blank\">Customer Statement terms</a> and <a href=\"{href2}\" target=\"_blank\"> Private Policy</a>",
     "单日充值限额 {num1}": "Daily deposit limited to {num1}",
     "单日充值限额 {num1}, 单月充值限额 {num2}": "Daily deposit limit {num1}, monthly deposit limit {num2}",
     "单日提现限额 {num1}": "24h withdrawal limit(AUD) {num1}",
