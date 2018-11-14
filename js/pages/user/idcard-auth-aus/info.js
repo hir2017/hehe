@@ -360,7 +360,8 @@ export default class FirstStep extends Component {
                             className="checkbox-text"
                             dangerouslySetInnerHTML={{
                                 __html: UPEX.lang.template('勾选选项表示您同意我们的用户条款和隐私条款', {
-                                    href1: UPEX.config.docUrls.kycPolicy,
+                                    href1: UPEX.lang.template('用户协议网页链接'),
+                                    href2: UPEX.lang.template('隐私保护网页链接')
                                 })
                             }}
                         />

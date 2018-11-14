@@ -61,7 +61,6 @@ class WithdrawCoin extends Component {
 
         this.props.commonStore.getAllCoinPoint().then(() => {
             this.fetchCoinList();
-
         });
 
         // 用户提币限制
@@ -137,7 +136,7 @@ class WithdrawCoin extends Component {
         if (coin.withdrawStatus !== 1 || this.actionRole !== 1) {
             this.actionDisabledTip = this.actionRole !== 1 ? this.tipArr[1] : this.tipArr[0];
             this.setState({
-                actionDisabled: true,
+                actionDisabled: true
             });
             return false;
         } else {
@@ -149,7 +148,6 @@ class WithdrawCoin extends Component {
     }
 
     selectWithdrawCoin = value => {
-
         this.checkCoinStatus(value.label);
 
         this.action
@@ -239,15 +237,15 @@ class WithdrawCoin extends Component {
         if (state.actionDisabled) {
             $selectAfterNode = (
                 <Alert
-                        message={
-                            <span className="warn-text">
-                                <Icon type="exclamation-circle" />
-                                {this.actionDisabledTip}
-                            </span>
-                        }
-                        type="error"
-                    />
-            )
+                    message={
+                        <span className="warn-text">
+                            <Icon type="exclamation-circle" />
+                            {this.actionDisabledTip}
+                        </span>
+                    }
+                    type="error"
+                />
+            );
             $content = null;
         } else {
             $addressOptions2 = store.addressList.map((cur, index) => {
@@ -262,12 +260,14 @@ class WithdrawCoin extends Component {
                 <AmountInfo
                     left={
                         <p className="balance">
-                            <span className="text">{UPEX.lang.template('可用提币数量')}</span><em>{store.cashAmount || 0}</em> {store.currentCoin.currencyNameEn}
+                            <span className="text">{UPEX.lang.template('可用提币数量')}</span>
+                            <em>{store.cashAmount || 0}</em> {store.currentCoin.currencyNameEn}
                         </p>
                     }
                     right={
                         <p className="balance">
-                            <span className="text">{UPEX.lang.template('实际到账金额')}</span><em>{store.withdrawValue}</em> {store.currentCoin.currencyNameEn}
+                            <span className="text">{UPEX.lang.template('实际到账金额')}</span>
+                            <em>{store.withdrawValue}</em> {store.currentCoin.currencyNameEn}
                         </p>
                     }
                 />
@@ -361,7 +361,7 @@ class WithdrawCoin extends Component {
                             <div
                                 className="warmprompt-content"
                                 dangerouslySetInnerHTML={{
-                                    __html: UPEX.lang.template('提币温馨提示内容', { link: UPEX.config.docUrls.InfinitexDigitalCurrencyTransferAgreements })
+                                    __html: UPEX.lang.template('提币温馨提示内容', { link: UPEX.lang.template('提币温馨提示内容网页链接')})
                                 }}
                             />
                         </div>

@@ -288,7 +288,7 @@ export default class BindingBank extends Component {
                             <div
                                 className="warmprompt-content"
                                 dangerouslySetInnerHTML={{
-                                    __html: UPEX.lang.template('注意内容', { link: UPEX.config.docUrls.InfinitexDigitalCurrencyTransferAgreements })
+                                    __html: UPEX.lang.template('注意内容', { link: UPEX.lang.template('用户协议网页链接')})
                                 }}
                             />
                         </div>

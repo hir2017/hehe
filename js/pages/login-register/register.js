@@ -267,13 +267,13 @@ class Register extends Component {
                             <div className="input-wrapper">
                                 <div className="input-box user-protocol">
                                     <Checkbox onChange={action.onChangeAgreeCheckBox}>{UPEX.lang.template('我已阅读并同意')}</Checkbox>
-                                    <a target="_blank" href={UPEX.config.docUrls.privacyPolicy}>
+                                    <a target="_blank" href={UPEX.lang.template('隐私条款网页链接')}>
                                         《{UPEX.lang.template('隐私条款')}》
                                     </a>
-                                    <a target="_blank" href={UPEX.config.docUrls.userAgreement}>
+                                    <a target="_blank" href={UPEX.lang.template('用户协议网页链接')}>
                                         《{UPEX.lang.template('用户协议')}》
                                     </a>
-                                    <a target="_blank" href={UPEX.config.docUrls.riskDisclosure}>
+                                    <a target="_blank" href={UPEX.lang.template('免费声明网页链接')}>
                                         《{UPEX.lang.template('免责声明')}》
                                     </a>
                                 </div>
