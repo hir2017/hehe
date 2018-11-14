@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
-import { Button, message, Select } from 'antd';
+import { Button, message } from 'antd';
 import NumberUtil from '@/lib/util/number';
 import { isPhone } from '@/lib/util/validate';
 import { browserHistory } from 'react-router';
@@ -10,9 +10,7 @@ import FormItem from '@/mods/common/form/item';
 import PageForm from '@/components/page-user/page-form';
 import { createGetProp } from '@/components/utils';
 import { bindPhoneOrEmailSendCode, bindPhoneOrEmailAction } from '@/api/http';
-import CountryMap, {Countries} from '@/mods/select-country/country-list';
-
-const Option = Select.Option;
+import AreaSelect from '@/mods/common/area-select';
 
 @inject('userInfoStore', 'captchaStore', 'loginStore')
 @observer
@@ -74,7 +72,7 @@ export default class BindingPhone extends Component {
         });
     }
 
-    onAreaCodeChange(val) {
+    onAreaCodeChange(val, CountryMap) {
         this.setState({
             areacode: CountryMap[val].areacode
         });
@@ -149,23 +147,13 @@ export default class BindingPhone extends Component {
         const loginStore = this.props.loginStore;
         let options = [];
 
-        $.each(Countries, (index, item) => {
-            options[options.length] = (
-                <Option value={item.code} key={item.code}>
-                    {UPEX.lang.template(item.code)}(+{item.areacode})
-                </Option>
-            );
-        });
-
         const { inputsData, PageProps } = this;
         let afterNode = <SendVCodeBtn sendCode={this.sendCode.bind(this)} validateFn={this.validateFrom.bind(this, 'partical')} />;
         return (
             <PageForm {...PageProps}>
                 <FormView>
                     <FormItem className="item-area">
-                        <Select showSearch size="large" style={{ width: '100%' }} onChange={this.onAreaCodeChange} defaultValue={loginStore.selectedCountry.code}>
-                            {options}
-                        </Select>
+                        <AreaSelect onChange={this.onAreaCodeChange} defaultValue={loginStore.selectedCountry.code} />
                     </FormItem>
                     <FormItem {...inputsData.phone} value={state.phone} />
                     <FormItem {...inputsData.vCode} value={state.vCode} after={afterNode} />

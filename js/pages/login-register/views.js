@@ -42,7 +42,16 @@ export class AreaCodeSelectView extends Component  {
 
     filterOption = (input, option) => {
         let arr = option.props.children || [];
-        return arr.join('').indexOf(input) !== -1;
+        let str = arr.join('');
+        let result = false;
+        try {
+            let reg = new RegExp(input, 'i');
+            result = reg.test(str);
+
+        } catch (error) {
+            console.error('filterOption', input, str, arr, error);
+        }
+        return result;
     }
 
     render(){

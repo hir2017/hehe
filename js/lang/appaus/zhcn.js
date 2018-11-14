@@ -403,7 +403,7 @@ module.exports={
     "公告中心": "公告中心",
     "关于我们": "关于我们",
     "关于我们网页链接": "无",
-    "关于网站": "关于我们",
+    "关于网站": "关于Infinite Exchange",
     "关于网站网页链接": "https://helpcenter.infinitex.com.au/hc/zh-cn/articles/360014707332-%E5%85%B3%E4%BA%8E%E6%88%91%E4%BB%AC",
     "关灯": "关灯",
     "其他": "其他",

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import { browserHistory } from 'react-router';
-import { Button, message, Select, Alert } from 'antd';
+import { Button, message, Alert } from 'antd';
 import NumberUtil from '@/lib/util/number';
 import { isPhone } from '@/lib/util/validate';
 import SendVCodeBtn from '@/mods/common/v-code-btn';
@@ -10,8 +10,7 @@ import FormView from '@/mods/common/form';
 import FormItem from '@/mods/common/form/item';
 import { createGetProp } from '@/components/utils';
 import { modifyPhoneSendMsg, modifyPhoneAction } from '@/api/http';
-import CountryMap, {Countries} from '@/mods/select-country/country-list';
-const Option = Select.Option;
+import AreaSelect from '@/mods/common/area-select';
 
 @inject('userInfoStore', 'captchaStore', 'loginStore')
 @observer
@@ -19,7 +18,6 @@ export default class BindingPhone extends Component {
     constructor() {
         super();
         this.submit = this.submit.bind(this);
-        this.onAreaCodeChange = this.onAreaCodeChange.bind(this);
         const getProp = createGetProp(this);
         this.state = {
             phone: '',
@@ -87,7 +85,7 @@ export default class BindingPhone extends Component {
         });
     }
 
-    onAreaCodeChange(val) {
+    onAreaCodeChange = (val, CountryMap) => {
         this.setState({
             areacode: CountryMap[val].areacode
         });
@@ -181,14 +179,6 @@ export default class BindingPhone extends Component {
         const { inputsData, PageProps, nvCodeBtn, vCodeBtn, state, props } = this;
         const loginStore = props.loginStore;
         const { userInfo = {} } = props.userInfoStore;
-        let options = [];
-        $.each(Countries, (index, item) => {
-            options[options.length] = (
-                <Option value={item.code} key={item.code}>
-                    {UPEX.lang.template(item.code)}(+{item.areacode})
-                </Option>
-            );
-        });
 
         let $vCode = null;
         if(userInfo.isGoogleAuth) {
@@ -199,10 +189,9 @@ export default class BindingPhone extends Component {
         return (
             <PageForm {...PageProps}>
                 <FormView>
+
                     <FormItem className="item-area">
-                        <Select showSearch size="large" style={{ width: '100%' }} onChange={this.onAreaCodeChange} defaultValue={loginStore.selectedCountry.code}>
-                            {options}
-                        </Select>
+                        <AreaSelect onChange={this.onAreaCodeChange} defaultValue={loginStore.selectedCountry.code} />
                     </FormItem>
                     <FormItem {...inputsData.phone} value={state.phone} />
                     <FormItem {...inputsData.nvCode} value={state.nvCode} after={nvCodeBtn} />
