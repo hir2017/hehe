@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
-import { Select, Button, Icon, message, Upload, Modal } from 'antd';
+import { Select, Button,  message } from 'antd';
 const Option = Select.Option;
 
 import { createGetProp } from '@/components/utils';
-import upload_pic from '@/../images/upload-pic.png';
-import upload_pic_hover from '@/../images/upload-pic-hover.png';
 import BankList from './banklist.json';
-import banckCardImg from '@/../images/bank-card.jpg';
 import AceSection from '@/components/page-user/section';
 import AutoCompleteHack from '@/mods/common/auto-complete-hack';
+import * as ValidateUtils from '@/lib/util/validate';
 
 import FormView from '@/mods/common/form';
 import FormItem from '@/mods/common/form/item';
@@ -60,50 +58,15 @@ export default class BindingBank extends Component {
         visible: false
     };
 
-    _props = () => {
-        const token = UPEX.cache.getCache('token');
-        const uid = UPEX.cache.getCache('uid');
-        const ctx = this;
-
-        return {
-            accept: 'image/jpg,image/Jpeg,image/png',
-            name: 'file',
-            action: UPEX.config.uploadImgHost + '?token=' + token + '&uid=' + uid + '&secret=' + 1,
-            headers: {
-                authorization: 'authorization-text'
-            },
-            // 限制图片大小10M
-            beforeUpload: file => {
-                const isLtM = file.size / 1024 / 1024 < 10;
-
-                if (!isLtM) {
-                    message.error('文件大小请控制在10MB以内!');
-                }
-                return isLtM;
-            },
-            onChange(info) {
-                if (info.file.status !== 'uploading') {
-                }
-                if (info.file.status === 'done') {
-                    if (info.file.response.status === 200) {
-                        const url = info.file.response.attachment ? info.file.response.attachment.url : '';
-                        ctx.setState({
-                            imgUrl: url
-                        });
-                        message.success(`${info.file.name} ${UPEX.lang.template('上传成功')}`);
-                    } else {
-                        message.error(`${info.file.name} ${UPEX.lang.template('上传失败')}`);
-                    }
-                } else if (info.file.status === 'error') {
-                    message.error(`${info.file.name} ${UPEX.lang.template('上传失败')}`);
-                }
-            }
-        };
-    };
-
     setVal(name, e) {
         const data = {};
-        data[name] = e.target.value;
+        let val = e.target.value;
+        data[name] = val;
+        if(name === 'cardNo' && val !== '') {
+            if(!ValidateUtils.isNumber(val) || val.length > 16) {
+                return ;
+            }
+        }
         this.setState(data);
     }
 
@@ -148,14 +111,14 @@ export default class BindingBank extends Component {
             message.error(UPEX.lang.template('请填写银行卡号'));
             return;
         }
+        if (!/^[0-9]{8,16}$/.test(state.cardNo)) {
+            message.error(UPEX.lang.template('银行字号不符合要求'));
+            return;
+        }
         if (!state.password) {
             message.error(UPEX.lang.template('请输入资金密码'));
             return;
         }
-        // if (!state.imgUrl) {
-        //     message.error(UPEX.lang.template('请上传图片'));
-        //     return;
-        // }
 
         const userInfo = props.userInfoStore.userInfo || {};
         const pwd = md5(state.password + UPEX.config.dealSalt + props.authStore.uid);
@@ -239,45 +202,7 @@ export default class BindingBank extends Component {
                     </FormItem>
                     <FormItem {...inputData.cardNo} value={state.cardNo} />
                     <FormItem {...inputData.password} value={state.password} />
-                    {/* <FormItem>
-                        <Modal
-                            title={UPEX.lang.template('示例图片')}
-                            onCancel={e => {
-                                this.setState({
-                                    visible: false
-                                });
-                            }}
-                            visible={this.state.visible}
-                            footer={null}
-                            style={{ textAlign: 'center' }}
-                        >
-                            <img src={banckCardImg} style={{ width: '300px', height: '180px' }} />
-                        </Modal>
-                        <div className="pic-item exc-upload-mod">
-                            <header>
-                                <span className="item-title">{UPEX.lang.template('上传银行账户簿图片')}</span>
-                                <span
-                                    className="item-tip"
-                                    onClick={e => {
-                                        this.setState({
-                                            visible: true
-                                        });
-                                    }}
-                                >
-                                    {UPEX.lang.template('图片示例')}
-                                </span>
-                            </header>
-                            <section className={`${this.state.imgUrl ? 'select' : 'no-select'} pic-upload-content`}>
-                                <Upload className="pic-upload" {...this._props()}>
-                                    <img className="pic-item-img target" src={this.state.imgUrl ? this.state.imgUrl : upload_pic} />
-                                    <img className="pic-item-img hover" src={upload_pic_hover} />
-                                </Upload>
-                            </section>
-                        </div>
-                        <div className="tip">
-                            <p>{UPEX.lang.template('上传银行账户簿图片大小限制文案')}</p>
-                        </div>
-                    </FormItem> */}
+
                     <FormItem>
                         <Button className="submit-btn" loading={loading} onClick={this.submit}>
                             {UPEX.lang.template('提交')}
