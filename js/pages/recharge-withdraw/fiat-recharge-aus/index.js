@@ -38,8 +38,8 @@ class View extends Component {
             if (res.status === 200) {
                 this.setState({
                     referenceNo: res.attachment,
-                    Biller: 'Infinite Exchange Pty Ltd',
-                    BillerCode: '288795'
+                    Biller: 'INFINITE EXCHANGE PTY LTD',
+                    BillerCode: '286146'
                 });
             }
         });
