@@ -238,7 +238,7 @@ class CoinRecharge extends Component {
                                     __html: UPEX.lang.template('充币温馨提示内容', {
                                         name: currencyNameEn || '--',
                                         num: addressInfo.confirmNum || '--',
-                                        link: UPEX.config.docUrls.InfinitexDigitalCurrencyTransferAgreements
+                                        link: UPEX.lang.template('充币温馨提示内容网页链接')
                                     })
                                 }}
                             />

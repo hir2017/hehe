@@ -50,7 +50,7 @@ export default class CardSelect extends Component {
             }
         };
         let $after = state.number === '' ? <span className="placeholder-hack">{UPEX.lang.template('最小提现金额为 {num}', {num: props.lowLimit})}</span> : null;
-        let $tip = UPEX.lang.template('当前余额: {count}', { count: `NT$${count}` });
+        let $tip = UPEX.lang.template('当前余额: {count}', { count: `${count} ${UPEX.config.baseCurrencyEn}` });
         return (
             <div>
                 <FormItem label={labels.card}>

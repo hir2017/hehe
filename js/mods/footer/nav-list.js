@@ -1,9 +1,47 @@
-import React, {Component} from 'react';
-import {inject} from 'mobx-react';
-import {Link, browserHistory} from 'react-router';
-import {message} from 'antd';
+import React, { Component } from 'react';
+import { inject } from 'mobx-react';
+import { Link, browserHistory } from 'react-router';
+import { message } from 'antd';
 
 const getNavList = () => {
+    let agreementArr =
+        UPEX.config.version === 'ace'
+            ? [
+                  {
+                      name: UPEX.lang.template('客户声明'),
+                      path: UPEX.lang.template('客户声明网页链接')
+                  },
+                  {
+                      name: UPEX.lang.template('隐私条款'),
+                      path: UPEX.lang.template('隐私条款网页链接'),
+                  },
+                  {
+                      name: UPEX.lang.template('免责声明'),
+                      path: UPEX.lang.template('免费声明网页链接'),
+                  },
+                  {
+                      name: UPEX.lang.template('用户协议'),
+                      path: UPEX.lang.template('用户协议网页链接'),
+                  }
+              ]
+            : [
+                  {
+                      name: UPEX.lang.template('客户声明'),
+                      path: UPEX.lang.template('客户声明网页链接')
+                  },
+                  {
+                      name: UPEX.lang.template('隐私条款'),
+                      path: UPEX.lang.template('隐私保护网页链接')
+                  },
+                  {
+                      name: UPEX.lang.template('免责声明'),
+                      path: UPEX.lang.template('免费声明网页链接')
+                  },
+                  {
+                      name: UPEX.lang.template('用户协议'),
+                      path: UPEX.lang.template('用户协议网页链接'),
+                  }
+              ];
     return [
         [
             {
@@ -18,11 +56,11 @@ const getNavList = () => {
                 name: UPEX.lang.template('团队介绍'),
                 path: UPEX.lang.template('团队介绍网页链接')
             },
+            ,
             /* {
                  name: UPEX.lang.template('投资者关系'),
                  path: UPEX.lang.template('投资者关系网页链接')
-             }*/,
-            {
+             }*/ {
                 name: UPEX.lang.template('联系我们'),
                 path: UPEX.lang.template('联系我们网页链接')
             }
@@ -35,7 +73,6 @@ const getNavList = () => {
             {
                 name: UPEX.lang.template('问题反馈'),
                 path: UPEX.lang.template('问题反馈网页链接')
-                // route: 'feedback'
             },
             {
                 name: UPEX.lang.template('帮助中心'),
@@ -46,25 +83,7 @@ const getNavList = () => {
                 path: UPEX.lang.template('费率说明网页链接')
             }
         ],
-        [
-            {
-                name: UPEX.lang.template('用户协议'),
-                path: UPEX.lang.template('用户协议网页链接')
-            },
-            {
-                name: UPEX.lang.template('隐私条款'),
-                path: UPEX.config.docUrls.privacyPolicy
-            },
-            {
-                name: UPEX.lang.template('免责声明'),
-                path: UPEX.config.docUrls.riskDisclosure
-            },
-            {
-                name: UPEX.lang.template('反洗钱及认证条款'),
-                path: UPEX.config.docUrls.kycPolicy
-            }
-        ],
-
+        agreementArr,
         [
             {
                 name: UPEX.lang.template('上币申请'),
@@ -92,8 +111,7 @@ class NavsView extends Component {
             // navs[1].splice(1, 1);
             // 去掉上币申请
             navs.splice(3, 1);
-        }
-        else if (UPEX.config.version === 'ace') {
+        } else if (UPEX.config.version === 'ace') {
             // 台湾版没有客户端下载
             navs.splice(4, 1);
         }
@@ -125,16 +143,19 @@ class NavsView extends Component {
                                 // 外链，如果是第一个则不支持跳转
                                 if (item.path) {
                                     if (UPEX.config.version == 'ace') {
-                                        return (<a className="nav-item" key={j} target="_blank" href={item.path}>
-                                            {item.name}
-                                        </a>)
-                                    }
-                                    else {
+                                        return (
+                                            <a className="nav-item" key={j} target="_blank" href={item.path}>
+                                                {item.name}
+                                            </a>
+                                        );
+                                    } else {
                                         //澳洲版客户端下载
                                         if (i == 3) {
-                                            return (<a className="nav-item" key={j} target="_blank" href={item.path}>
-                                                {item.name}
-                                            </a>);
+                                            return (
+                                                <a className="nav-item" key={j} target="_blank" href={item.path}>
+                                                    {item.name}
+                                                </a>
+                                            );
                                         } else {
                                             return j === 0 ? (
                                                 <a className="nav-item" key={j}>
@@ -147,7 +168,6 @@ class NavsView extends Component {
                                             );
                                         }
                                     }
-
                                 }
                                 // 本地跳转
                                 return (
