@@ -83,6 +83,9 @@ export default class BankList extends Component {
     }
 
     clearTimer() {
+        if(this.smsBtnCtx === null) {
+            return;
+        }
         clearInterval(this.smsBtnCtx.time);
         this.smsBtnCtx.setState({
             loading: false,
