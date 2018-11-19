@@ -129,14 +129,24 @@ export default class SecondStep extends Component {
             // 限制图片大小10M
             beforeUpload: file => {
                 const isLtM = file.size / 1024 / 1024 < 10;
+                const fileType = ['image/jpeg', 'image/jpg', 'image/png'];
+                const isPic = fileType.indexOf(file.type);
+                console.log(isPic);
+
+                if (isPic === -1) {
+                    message.error(UPEX.lang.template('只支持jpg|jpeg|png格式的图片上传'));
+                    return false;
+                }
 
                 if (!isLtM) {
-                    message.error('文件大小请控制在10MB以内!');
+                    message.error(UPEX.lang.template('文件大小请控制在10MB以内'));
+                    return false;
                 }
-                return isLtM;
+                return isPic && isLtM;
             },
 
             onChange: info => {
+                console.log(info);
                 if (info.file.status !== 'uploading') {
                 }
                 if (info.file.status == 'uploading') {
