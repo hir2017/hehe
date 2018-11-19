@@ -90,7 +90,8 @@ export default class TradeStore {
         this.tradeNumberErr = '';
         this.tradeBuyPassword = '';
         this.tradeSellPassword = '';
-        this.submiting = 0; 
+        this.submiting = 0;
+        this.tradeHistory = { content: [] };
     }
 
     @computed get contentHeight() {
@@ -146,7 +147,7 @@ export default class TradeStore {
         this.bids = data;
     }
 
-    @action updatePersonalAccount(data) {        
+    @action updatePersonalAccount(data) {
         let obj = Object.assign(this.personalAccount, data);
         let key = [obj.baseCurrencyId, data.tradeCurrencyId].join('_');
         let cfg = this.currencyStore.getCurrencyById(key);
@@ -332,7 +333,7 @@ export default class TradeStore {
 
     @action setSellSliderValue(value) {
         let balance = this.personalAccount.tradeCoinBalance;
-        
+
         if (balance == 0) {
             return;
         }
