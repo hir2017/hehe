@@ -53,9 +53,6 @@ import ModifyPhone from './mods/binding-phone/modify-phone'
 import SettingPhone from './mods/binding-phone/binding-phone'
 import BindingEmail from './pages/user/binding-email'
 import SettingEmail from './mods/binding-email/binding-email'
-// import GoogleAuth from './pages/user/google-auth'
-// import UnbindingGoogle from './mods/binding-google/unbind'
-// import GoogleGuide from './pages/user/google-guide'
 import GoogleAuth from './pages/user/google-auth'
 import UnbindingGoogle from './mods/binding-google/unbind'
 import GoogleGuide from './pages/user/google-guide'
@@ -117,7 +114,7 @@ const routes = (
                     <Route path="history" component={HistoryRecordList}/>
                     <Route path="success" component={SuccessRecordList}/>
                 </Route>
-                <Route path="record-assets-change">
+                <Route path="asset-change">
                     <IndexRoute component={RecordAssetsChange}/>
                     <Route path=":type" component={RecordAssetsChange}/>
                 </Route>

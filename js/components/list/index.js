@@ -73,7 +73,7 @@ class View extends React.Component {
         const { props } = this;
         return (
             <div className="exc-list-wrapper">
-                <div className="exc-list">
+                <div className={`exc-list ${props.className || ''}`}>
                     <Head {...props} />
                     <Body {...props} />
                     {props.children ? <Footer>{props.children}</Footer> : null}
