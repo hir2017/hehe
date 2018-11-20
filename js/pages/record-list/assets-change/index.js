@@ -14,6 +14,19 @@ import * as action from './action';
 import SubRow from './legal-sub-row';
 import CoinSubRow from './coin-sub-row';
 
+
+const TabNode = ({data, switchTab, type}) => {
+    return (
+        <div className="swtich-tabs">
+            {data.map((item, i) => (
+                <div className={`tab ${type === item.type ? 'active' : ''}`} key={i} onClick={e => {switchTab(item)}}>
+                    {item.label}
+                </div>
+            ))}
+        </div>
+    );
+}
+
 @inject('accountStore', 'fundChangeRecordStore')
 @observer
 class RecordPage extends Component {
@@ -23,14 +36,14 @@ class RecordPage extends Component {
         this.pageInfo = {
             className: 'content-no-pad'
         };
-        let tabs = [
+        this.tabs = [
             { label: UPEX.lang.template('充值'), type: 'deposit' },
             { label: UPEX.lang.template('提现'), type: 'withdraw' },
             { label: UPEX.lang.template('充币'), type: 'coin-deposit' },
             { label: UPEX.lang.template('提币'), type: 'coin-withdraw' },
             { label: UPEX.lang.template('分发'), type: 'reward' },
         ];
-        let _targetTab = tabs.some(item => item.type === type) ? type : 'deposit';
+        let _targetTab = this.tabs.some(item => item.type === type) ? type : 'deposit';
 
         this.state = {
             type: _targetTab,
@@ -39,20 +52,11 @@ class RecordPage extends Component {
             current: 0,
             total: 0,
             pageSize: 10,
-            loading: false,
+            loading: true,
             subData: {},
             subIndex: -1
         };
 
-        this.tabNode = (
-            <div className="swtich-tabs">
-                {tabs.map((item, i) => (
-                    <div className="tab" key={i} onClick={this.switchTab.bind(this, item)}>
-                        {item.label}
-                    </div>
-                ))}
-            </div>
-        );
     }
 
     getListConfig(type) {
@@ -61,16 +65,17 @@ class RecordPage extends Component {
             _type = 'deposit';
         }
         return listConfig[_type];
-        // let _type = type || this.state.type;
-        // let result = _type.replace(/\-\w/, function(match){
-        //     return match.toLocaleUpperCase().replace('-', '')
-        // })
-        // return listConfig[this.getListConfig(result)].call(this);
     }
 
     updateList(type) {
+        this.setState({
+            loading: true
+        })
         action.getList(type).then(res => {
-            this.setState(res);
+            this.setState({
+                ...res,
+                loading: false
+            });
         });
     }
 
@@ -78,7 +83,7 @@ class RecordPage extends Component {
         this.updateList(this.state.type);
     }
 
-    switchTab({ type }) {
+    switchTab = ({ type }) =>  {
         if(type === this.state.type) {
             return;
         }
@@ -120,18 +125,20 @@ class RecordPage extends Component {
 
     render() {
         const { state } = this;
+
         return (
             <div className="assets-change">
-                <Breadcrumb separator=">">
+                <Breadcrumb separator=">" className="exc-breadcrumb">
                     <Breadcrumb.Item>
                         <a href="/home">{UPEX.config.sitename}</a>
                     </Breadcrumb.Item>
                     <Breadcrumb.Item>{UPEX.lang.template('资产管理')}</Breadcrumb.Item>
                 </Breadcrumb>
-                <PageWrapper {...this.pageInfo} headerAfter={this.tabNode}>
+                <PageWrapper {...this.pageInfo} headerAfter={<TabNode data={this.tabs} type={state.type} switchTab={this.switchTab} />}>
                     <List expandedRowRender={this.detail} {...state.listProps} className={state.type} subIndex={state.subIndex} data={state.listData}>
                         <Pagination current={state.current} total={state.total} pageSize={state.pageSize} onChange={this.onChangePagination} />
                     </List>
+                    {state.loading ? <div className="mini-loading" /> : null}
                 </PageWrapper>
             </div>
         );

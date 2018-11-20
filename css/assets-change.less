@@ -1,31 +1,60 @@
+@import './variable.less';
+
 .assets-change {
+    .exc-full-page > .page-title {
+        padding: 0;
+    }
     .swtich-tabs {
         display: flex;
         .tab {
             width: 20%;
+            box-sizing: border-box;
             cursor: pointer;
             text-align: center;
+            background-color: #f5f7f9;
+            font-size: 14px;
+            border-right: 1px solid @space-color-light;
+            color: @text-color02-light;
+            position: relative;
+            &:last-child {
+                border-right: none;
+            }
+
+            &.active, &:hover {
+                color: @text-color01-light;
+                background-color: #fff;
+            }
+
+            &.active::before {
+                content: "";
+                height: 2px;
+                width: 24px;
+                background: #e8b802;
+                position: absolute;
+                left: 50%;
+                bottom: 0;
+                transform: translateX(-50%);
+                border-radius: 1px;
+            }
         }
     }
     .exc-list {
-        .action .ant-btn {
-            &:disabled {
-                color: #cad1d5;
-                cursor: not-allowed;
-            }
-        }
-        .time {
-            color: #969da9;
-        }
-        &.deposit,
-        &.withdraw {
-            .action {
-                button:disabled {
+        .action {
+            box-sizing: border-box;
+            padding-right: 10px;
+            text-align: right;
+            .ant-btn {
+                &:disabled {
                     color: @text-color04-light;
-                    ;
                     cursor: not-allowed;
                 }
             }
+        }
+        .time {
+            color: @text-color02-light;
+        }
+        &.deposit,
+        &.withdraw {
             .order-no {
                 width: 300px;
                 text-align: left;
@@ -59,16 +88,6 @@
             .extra-info.show {
                 display: block;
             }
-            .table-hd {
-                &:before {
-                    display: none;
-                }
-                &:after {
-                    top: 50px;
-                    background-color: @page-split-border-color;
-                    box-shadow: none;
-                }
-            }
         }
         &.coin-deposit {
             .status {
@@ -99,18 +118,7 @@
             .action {
                 width: 100px;
                 text-align: right;
-                box-sizing: border-box;
-                padding-right: 10px;
-            }
-            .table-hd {
-                &:before {
-                    display: none;
-                }
-                &:after {
-                    top: 50px;
-                    background-color: @page-split-border-color;
-                    box-shadow: none;
-                }
+
             }
         }
         &.coin-withdraw {
@@ -145,27 +153,30 @@
             }
             .action {
                 width: 100px;
-                text-align: right;
-                box-sizing: border-box;
-                padding-right: 10px;
             }
         }
+        // 1160
         &.reward {
             .time {
-                width: 20%;
+                width: 17%;
             }
             .type {
-                width: 20%;
+                width: 18%;
             }
             .name {
                 width: 20%;
             }
             .num {
-                width: 20%;
+                width: 18%;
             }
             .note {
-                width: 20%;
+                width: 27%;
+                box-sizing: border-box;
+                padding-right: 30px;
             }
         }
+    }
+    .exc-full-page .page-content {
+        min-height: 500px;
     }
 }

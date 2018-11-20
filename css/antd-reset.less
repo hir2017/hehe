@@ -215,4 +215,16 @@ body {
     .ant-btn-clicked:after {
         border: 0 solid @theme-yellow;
     }
+
+
+    .ant-pagination-next, .ant-pagination-prev {
+        &:focus, &:hover {
+            .ant-pagination-item-link {
+                color: @theme-yellow;
+                border-color: @theme-yellow;
+            }
+        }
+    }
 }
+
+
