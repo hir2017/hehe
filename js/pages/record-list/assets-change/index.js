@@ -132,13 +132,12 @@ class RecordPage extends Component {
                     <Breadcrumb.Item>
                         <a href="/home">{UPEX.config.sitename}</a>
                     </Breadcrumb.Item>
-                    <Breadcrumb.Item>{UPEX.lang.template('资产管理')}</Breadcrumb.Item>
+                    <Breadcrumb.Item><a href="/account">{UPEX.lang.template('资产管理')}</a></Breadcrumb.Item>
                 </Breadcrumb>
                 <PageWrapper {...this.pageInfo} headerAfter={<TabNode data={this.tabs} type={state.type} switchTab={this.switchTab} />}>
-                    <List expandedRowRender={this.detail} {...state.listProps} className={state.type} subIndex={state.subIndex} data={state.listData}>
-                        <Pagination current={state.current} total={state.total} pageSize={state.pageSize} onChange={this.onChangePagination} />
+                    <List expandedRowRender={this.detail} loading={state.loading} {...state.listProps} className={state.type} subIndex={state.subIndex} data={state.listData}>
+                        {state.total === 0 ? null : <Pagination current={state.current} total={state.total} pageSize={state.pageSize} onChange={this.onChangePagination} />}
                     </List>
-                    {state.loading ? <div className="mini-loading" /> : null}
                 </PageWrapper>
             </div>
         );

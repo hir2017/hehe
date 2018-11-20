@@ -24,29 +24,39 @@ class Cell extends React.Component {
 // subData: Object,详情数据 subIndex:Number,详情的key subShow:Boolean,是否显示 subLoading:Boolean,subShow=true是否显示加载中
 const Body = props => {
     const { data, body, subData, subIndex, subLoading = false, expandedRowRender } = props;
+    let $content = null;
+    if(props.loading) {
+        $content = <div className="mini-loading" />
+    } else {
+        if ( data.length > 0) {
+            $content = data.map((rowData, i) => {
+                let $expandedRow = null;
+                let isExpanded = subIndex === i;
+                if (isExpanded) {
+                    $expandedRow = <div className="list-expanded-row">{expandedRowRender(subData, rowData, i)}</div>;
+                }
+                return (
+                    <dl key={i} className={`list-row ${isExpanded ? 'expanded-row' : ''}`}>
+                        {body.map((col, j) => {
+                            return (
+                                <dd key={j} className={`list-col row-cell cell-${j + 1} ${col.className || ''}`}>
+                                    <Cell col={col} row={rowData} index={i}/>
+                                </dd>
+                            );
+                        })}
+                        {$expandedRow}
+                    </dl>
+                );
+            })
+        } else {
+            $content = <div className="mini-tip exc-list-empty">{UPEX.lang.template('暫無数据')}</div>
+        }
+    }
 
     return (
         <div className="exc-list-body-wrapper">
             <div className="exc-list-body">
-                {data.map((rowData, i) => {
-                    let $expandedRow = null;
-                    let isExpanded = subIndex === i;
-                    if (isExpanded) {
-                        $expandedRow = <div className="list-expanded-row">{expandedRowRender(subData, rowData, i)}</div>;
-                    }
-                    return (
-                        <dl key={i} className={`list-row ${isExpanded ? 'expanded-row' : ''}`}>
-                            {body.map((col, j) => {
-                                return (
-                                    <dd key={j} className={`list-col row-cell cell-${j + 1} ${col.className || ''}`}>
-                                        <Cell col={col} row={rowData} index={i}/>
-                                    </dd>
-                                );
-                            })}
-                            {$expandedRow}
-                        </dl>
-                    );
-                })}
+                {$content}
             </div>
         </div>
     );
