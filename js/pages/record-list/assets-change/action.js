@@ -53,35 +53,34 @@ const getParams = (type, page) => {
 // 充提现、充提币返回数据格式整理
 const FormatSourceData = (type, res) => {
     let result = {};
-    let _source = res.attachment;
+    let _source = res.attachment || {};
     switch (type) {
         case 'coin-deposit':
             result = {
-                listData: _source.points,
-                total: _source.total
+                listData: _source.points || [],
+                total: typeof _source.total === 'undefined' ? 0 : _source.total
             };
             break;
         case 'coin-withdraw':
             result = {
-                listData: _source.list,
-                total: _source.total
+                listData: _source.list || [],
+                total: typeof _source.total === 'undefined' ? 0 : _source.total
             };
             break;
         case 'reward':
             result = {
-                listData: _source.points,
-                total: _source.total
+                listData: _source.points || [],
+                total: typeof _source.total === 'undefined' ? 0 : _source.total
             };
             break;
         default:
             result = {
                 listData: _source.list,
                 current: _source.pageNumber,
-                total: _source.pageCount
+                total: typeof _source.pageCount === 'undefined' ? 0 : _source.pageCount
             };
             break;
     }
-    console.log(result)
     result.listData = formatItem(result.listData, type);
     return result;
 };
@@ -187,8 +186,7 @@ const formatFn = {
     },
         // 分发记录
         reward(valMap, item) {
-            item._type = valMap.type[item.rechargeType] || '';
-            item._walletSn = item.walletSn ? `${UPEX.lang.template('地址')} : ${item.walletSn}` : '';
+            item._changeType = valMap.type[item.changeType] || '';
             item._createTime = item.createTimeStamp ? TimeUtil.formatDate(item.createTimeStamp) : '--';
             return item;
         },
@@ -298,12 +296,16 @@ const getlegalMap = type => {
 
 // 充提币状态值转义
 const getCoinMap = type => {
-    let typeMap = {
+    let depositeTypeMap = {
         '1': UPEX.lang.template('自动充币'),
         '3': UPEX.lang.template('虚拟充币')
     };
+    let rewardTypeMap = {
+        '15': UPEX.lang.template('邀请返佣金'),
+        '20': UPEX.lang.template('币空投活动')
+    }
     return {
-        type: typeMap
+        type: type === 'reward' ? rewardTypeMap: depositeTypeMap
     };
 };
 

@@ -122,14 +122,14 @@ export const reward = function () {
             {label: UPEX.lang.template('类型'), className: 'type'},
             {label: UPEX.lang.template('币种'), className: 'name'},
             {label: UPEX.lang.template('数量'), className: 'num'},
-            {label: UPEX.lang.template('备注'), className: 'note'},
+            // {label: UPEX.lang.template('备注'), className: 'note'},
         ],
         body: [
-            { dataIndex: '_time', className: 'time'},
-            { dataIndex: '_type', className: 'type'},
+            { dataIndex: '_createTime', className: 'time'},
+            { dataIndex: '_changeType', className: 'type'},
             { dataIndex: 'currencyNameEn', className: 'name'},
             { dataIndex: 'coinNum', className: 'num'},
-            { dataIndex: '_note', className: 'note'},
+            // { dataIndex: '_note', className: 'note'},
         ]
     };
 };

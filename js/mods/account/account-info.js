@@ -35,7 +35,7 @@ class InfoView extends Component {
                         <label>{UPEX.config.baseCurrencyEn}</label>
                         <label>≈</label>
                         <em>
-                            {`NT$${store.allMoney || '0.00'}`} {UPEX.config.baseCurrencyEn}
+                            {`${store.allMoney || '0.00'}`} {UPEX.config.baseCurrencyEn}
                         </em>
                     </div>
                 </div>
@@ -91,10 +91,10 @@ class InfoView extends Component {
                         </ul>
                     </div>
                     <div className="account-record">
-                        <button type="button" className="btn" onClick={this.skipTo.bind(this, '/account/coinrecord')}>
+                        <button type="button" className="btn" onClick={this.skipTo.bind(this, '/account/asset-change/coin-deposit')}>
                             <span>{UPEX.lang.template('数位资产记录')}</span>
                         </button>
-                        <button type="button" className="btn" onClick={this.skipTo.bind(this, '/account/fiatrecord')}>
+                        <button type="button" className="btn" onClick={this.skipTo.bind(this, '/account/asset-change/deposit')}>
                             <span>{UPEX.lang.template('法币资金记录')}</span>
                         </button>
                     </div>

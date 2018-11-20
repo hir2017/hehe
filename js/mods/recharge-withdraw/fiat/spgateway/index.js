@@ -3,7 +3,7 @@
  */
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
-import { Button, Select, Radio, Icon } from 'antd';
+import { Button, Select, Radio, Icon, message } from 'antd';
 import Action from '../action';
 const Option = Select.Option;
 const RadioGroup = Radio.Group;
@@ -70,14 +70,14 @@ class View extends Component {
 
     componentDidMount() {
         // 调接口获取最小充值金额
-        // getCurrencyFee({
-        //     actionId: 1,
-        //     currencyId: 1
-        // }).then(res => {
-        //     this.setState({
-        //         feeInfo: res.attachment
-        //     })
-        // })
+        getCurrencyFee({
+            actionId: 1,
+            currencyId: 1
+        }).then(res => {
+            this.setState({
+                feeInfo: res.attachment
+            })
+        })
     }
 
     setVal(name, e) {
@@ -90,17 +90,21 @@ class View extends Component {
                 return ;
             }
             val = parseInt(val);
-            // 计算手续费 1% 最大13 向上取整
+            // 计算手续费 feeType = 1, 为固定手续费；不为1 取fee字段计算，最大为feeHighLimit， 向上取整
             let fee = 0;
-            // if(feeInfo.feeType === 1) {
-            //     fee = feeInfo.fee;
-            // } else {
-            //     fee = val * feeInfo.fee;
-            //     fee = fee >= feeInfo.feeHighLimit ? feeInfo.feeHighLimit : Math.ceil(fee);
-            // }
-            fee = val * 0.01;
-            fee = fee >= 13 ? 13 : Math.ceil(fee);
-
+            if(feeInfo.feeType === 1) {
+                fee = feeInfo.fee;
+            } else {
+                fee = val * feeInfo.fee;
+                fee = fee >= feeInfo.feeHighLimit ? feeInfo.feeHighLimit : Math.ceil(fee);
+            }
+             // 计算手续费 1% 最大13 向上取整
+            // fee = val * 0.01;
+            // fee = fee >= 13 ? 13 : Math.ceil(fee);
+            if(isNaN(fee)) {
+                console.warn('手续费计算错误, 请查询接口返回', feeInfo);
+                fee = 0;
+            }
             data.fee = fee;
         }
         data[name] = val;
@@ -112,6 +116,10 @@ class View extends Component {
         if (!this.action.validate(state, this.props.fiatRechargeStore)) {
             return;
         };
+        if (state.amount < state.fee) {
+            message.error(UPEX.lang.template('充值金额不能小于手续费'));
+            return ;
+        }
         let typeKey = typeList.filter(item => item.val === state.type)[0].key;
         let bankKey = bankList.filter(item => item.val === state.bank)[0].key;
         this.setState({
