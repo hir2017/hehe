@@ -38,7 +38,7 @@ class View extends Component {
             if (res.status === 200) {
                 this.setState({
                     referenceNo: res.attachment,
-                    Biller: 'INFINITE EXCHANGE PTY LTD',
+                    Biller: 'Infinitex Co., Ltd',
                     BillerCode: '286146'
                 });
             }

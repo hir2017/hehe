@@ -1,7 +1,7 @@
 import React from 'react';
 import FormItem from '@/mods/common/form/item';
 import ClipboardJS from 'clipboard';
-import { Button, message } from 'antd';
+import {Button, message, Icon} from 'antd';
 import TableView from '@/mods/common/form/table';
 
 export default class extends React.Component {
@@ -28,7 +28,7 @@ export default class extends React.Component {
     }
 
     render() {
-        const { props } = this;
+        const {props} = this;
         const disableTxt = UPEX.lang.template('此功能暂停');
         let tableData = [
             {
@@ -54,7 +54,7 @@ export default class extends React.Component {
         if (props.actionStatus === 1) {
             tableData[0].text = props.Biller;
             tableData[1].text = (
-                <div>
+                <div className="right-part">
                     <span className="val" id="biller-code">
                         {props.BillerCode}
                     </span>
@@ -64,7 +64,7 @@ export default class extends React.Component {
                 </div>
             );
             tableData[2].text = (
-                <div>
+                <div className="right-part">
                     <span className="val" id="reference-no">
                         {props.referenceNo}
                     </span>
@@ -78,10 +78,35 @@ export default class extends React.Component {
         return (
             <div>
                 <FormItem label={UPEX.lang.template('请通过BPAY向如下账号进行汇款来完成充值:')}>
-                    <TableView data={tableData} />
+                    {/*<TableView data={tableData} />*/}
+                    <div className="bpay-wrap">
+                        <p className="bpay-title">
+                            <span>{tableData[0].label}</span>
+                            <span>{tableData[0].text}</span>
+                        </p>
+                        <ul className="bpay-content">
+                            <li>
+                                <div className="left-part">{tableData[1].label}</div>
+                                {tableData[1].text}
+                            </li>
+                            <li>
+                                <div className="left-part">{tableData[2].label}</div>
+                                {tableData[2].text}
+                            </li>
+                        </ul>
+
+                        {
+                            //TODO:从后台获取充值手续费收取方式，再判断是否显示充值提示
+                            /* <div className="warn-tip">
+                                <Icon type="exclamation-circle" theme="outlined"/>
+                                {UPEX.lang.template('bpay充值提示')}
+                            </div>*/
+                        }
+                    </div>
                 </FormItem>
                 <FormItem>
-                    <div className="bottom-tips" dangerouslySetInnerHTML={{ __html: UPEX.lang.template('使用BPAY充值操作温馨提示,受银行处理时间影响...') }} />
+                    <div className="bottom-tips"
+                         dangerouslySetInnerHTML={{__html: UPEX.lang.template('使用BPAY充值操作温馨提示,受银行处理时间影响...')}}/>
                 </FormItem>
             </div>
         );

@@ -1,4 +1,5 @@
 @import '../variable.less';
+
 .page-content-inner.base-info .grade-label {
     height: 12px;
     opacity: 0;
@@ -22,9 +23,11 @@
         }
     }
 }
-.auth-base-info .exc-form-item.default input.ant-calendar-picker-input{
+
+.auth-base-info .exc-form-item.default input.ant-calendar-picker-input {
     color: transparent;
 }
+
 /* fiat-recharge */
 .modal-poli-content-wrapper {
     .ant-modal-body {
@@ -49,14 +52,16 @@
         z-index: 999;
     }
 }
+
 .fiat-recharge-aus {
     .exc-form {
         padding: 0 0 30px;
     }
-    .max-tip em{
+    .max-tip em {
         color: #ea6060;
     }
 }
+
 .fiat-recharge-aus .poli-img {
     width: 100%;
     position: relative;
@@ -64,7 +69,8 @@
     box-sizing: border-box;
     border-radius: 6px;
 }
-.fiat-recharge-aus .poli-img::before{
+
+.fiat-recharge-aus .poli-img::before {
     content: '';
     display: inline-block;
     width: 21px;
@@ -76,6 +82,7 @@
     background: url('../../images/aus/poli-arrow.png') no-repeat center center;
     background-size: 100% 100%;
 }
+
 .fiat-recharge-aus .poli-img .ant-col-12 {
     height: 100px;
     line-height: 100px;
@@ -87,20 +94,24 @@
     color: #323e48;
     font-size: 18px;
 }
+
 .fiat-recharge-aus .poli-img img {
     height: 60px;
     cursor: pointer;
 }
-.fiat-recharge-aus .poli-img .ant-col-12:nth-child(2) .empty{
+
+.fiat-recharge-aus .poli-img .ant-col-12:nth-child(2) .empty {
     position: absolute;
     width: 100%;
     height: 100%;
     background-color: ~'rgba(255,255,255, 0.6)';
     cursor: not-allowed;
 }
-.fiat-recharge-aus .poli-img .ant-col-12:nth-child(2) .empty.not{
+
+.fiat-recharge-aus .poli-img .ant-col-12:nth-child(2) .empty.not {
     height: 0;
 }
+
 /* fiat-withdraw */
 
 .fiat-withdraw-aus {
@@ -112,7 +123,6 @@
         right: 15px;
         top: 33px;
     }
-
 
     .ie11-placeholder-hack {
         top: 27px;
@@ -130,7 +140,7 @@
         }
         &:nth-child(2) {
             font-size: 20px;
-            padding: 0  0 20px;
+            padding: 0 0 20px;
         }
     }
     .success-opt .link-btn {
@@ -142,7 +152,6 @@
     }
 }
 
-
 /* coin-recharge + coin-withdraw */
 .coin-recharge-aus .anticon-qrcode {
     position: absolute;
@@ -150,9 +159,11 @@
     top: 35px;
     font-size: 18px;
 }
+
 .coin-recharge-aus .fee {
     padding: 10px 0;
 }
+
 .coin-recharge-aus .exchange-input.address {
     padding-right: 60px;
     background-color: #f7f9fa;
@@ -168,6 +179,7 @@
     text-align: center;
     cursor: pointer;
 }
+
 .coin-recharge-aus .input-right-tag::before {
     content: '';
     width: 1px;
@@ -176,16 +188,104 @@
     float: left;
     margin-top: 15px;
 }
+
 .coin-recharge-aus .all-success .anticon-check-circle-o {
     color: #1dc199;
     margin-right: 6px;
 }
+
 .order-table .table-bd dl {
     height: 50px;
     line-height: 50px;
 }
+
 .order-table .table-bd dl dd {
     font-size: 12px;
 }
 
+/* 充值Bay样式 */
+.bpay-wrap {
+    .bpay-title {
+        border-radius: 3px;
+        height: 40px;
+        line-height: 40px;
+        background-color: #f0f3f5;
+        span {
+            position: relative;
+            display: inline-block;
+            width: 50%;
+            text-align: center;
+            &:first-child {
+                &::after {
+                    position: absolute;
+                    content: '';
+                    width: 1px;
+                    height: 14px;
+                    background-color: #c3c8d1;
+                    right: 0;
+                    top: 13px;
+                }
+            }
+        }
+    }
+    .bpay-content {
+        margin-top: 10px;
+        border-radius: 3px;
+        border: 1px solid #002d6a;
+        height: 98px;
+        background: url("../../images/aus/bpay-icon.png") no-repeat 10px 10px;
+        background-size: 50px 77px;
+        padding: 10px;
+        li {
+            position: relative;
+            &:first-child{
+                &::after{
+                    position: absolute;
+                    content: '';
+                    width: 335px;
+                    height: 1px;
+                    background-color: #edf0f1;
+                    right: 10px;
+                    top: 38px;
+                }
+            }
+            .left-part, .right-part {
+                display: inline-block;
+                width: 50%;
+                height: 38px;
+                line-height: 38px;
+            }
+            .left-part{
+                padding-left: 84px;
+            }
+            .right-part{
+                padding-left: 62px;
+                .copy-btn{
+                    width: 48px;
+                    height: 24px;
+                    line-height: 24px;
+                    background-color: #e8b802;
+                    -webkit-border-radius: 2px;
+                    -moz-border-radius: 2px;
+                    border-radius: 2px;
+                    float: right;
+                    margin-right: 10px;
+                    margin-top: 7px;
+                }
+            }
 
+        }
+    }
+    .warn-tip {
+        margin-top: 10px;
+        padding: 10px;
+        color: @text-red-color01;
+        border-radius: 3px;
+        background-color: @bg-color-light02;
+        font-size: 12px;
+        .anticon-exclamation-circle{
+            margin-right: 6px;
+        }
+    }
+
+}

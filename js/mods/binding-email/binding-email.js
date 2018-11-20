@@ -1,16 +1,16 @@
-import React, { Component } from 'react';
-import { observer, inject } from 'mobx-react';
-import { Button, message } from 'antd';
+import React, {Component} from 'react';
+import {observer, inject} from 'mobx-react';
+import {Button, message} from 'antd';
 import SendVCodeBtn from '../common/v-code-btn';
-import { browserHistory } from 'react-router';
+import {browserHistory} from 'react-router';
 import FormView from '@/mods/common/form';
 import FormItem from '@/mods/common/form/item';
 import SmsBtn from '@/mods/common/sms-btn';
 import InputItem from '../../components/form/input-item';
 import PageForm from '../../components/page-user/page-form';
-import { createGetProp } from '../../components/utils';
+import {createGetProp} from '../../components/utils';
 
-import { bindPhoneOrEmailSendCode, bindPhoneOrEmailAction } from '../../api/http';
+import {bindPhoneOrEmailSendCode, bindPhoneOrEmailAction} from '../../api/http';
 
 @inject('userInfoStore')
 @observer
@@ -39,7 +39,8 @@ export default class BindingEmail extends Component {
             title: UPEX.lang.template('绑定邮箱'),
             formClass: 'modify-password-box'
         };
-        this.afterNode = <SendVCodeBtn sendCode={this.sendCode.bind(this)} validateFn={this.validateFrom.bind(this, 'partical')} />;
+        this.afterNode =
+            <SendVCodeBtn sendCode={this.sendCode.bind(this)} validateFn={this.validateFrom.bind(this, 'partical')}/>;
     }
 
     setVal(e, name) {
@@ -48,7 +49,7 @@ export default class BindingEmail extends Component {
         });
     }
 
-    sendCode({ validate, captchaId }) {
+    sendCode({validate, captchaId}) {
         return bindPhoneOrEmailSendCode({
             NECaptchaValidate: validate,
             captchaId,
@@ -57,7 +58,7 @@ export default class BindingEmail extends Component {
         })
             .then(res => {
                 if (res.status !== 200) {
-                    if([0, 9999, 9997].indexOf(res.status) === -1) {
+                    if ([0, 9999, 9997].indexOf(res.status) === -1) {
                         message.error(res.message);
                     } else {
                         console.error(res.message);
@@ -73,7 +74,7 @@ export default class BindingEmail extends Component {
     }
 
     validateFrom(type = 'all') {
-        const { state } = this;
+        const {state} = this;
         if (!state.email) {
             message.error(UPEX.lang.template('请填写邮箱'));
             return false;
@@ -88,7 +89,7 @@ export default class BindingEmail extends Component {
     }
 
     submit() {
-        const { state } = this;
+        const {state} = this;
         if (!this.validateFrom()) {
             return;
         }
@@ -114,19 +115,34 @@ export default class BindingEmail extends Component {
     }
 
     render() {
-        const { state, inputsData, PageProps, afterNode } = this;
-        return (
-            <PageForm {...PageProps}>
-                <FormView>
-                    <FormItem {...inputsData.email} />
-                    <FormItem {...inputsData.vCode} after={afterNode} />
-                    <FormItem>
-                        <Button loading={state.loading} className="exc-submit-item" onClick={this.submit.bind(this)}>
-                            {UPEX.lang.template('提交')}
-                        </Button>
-                    </FormItem>
-                </FormView>
-            </PageForm>
-        );
+        const {state, inputsData, PageProps, afterNode} = this;
+        const userInfo = this.props.userInfoStore.userInfo || {};
+
+        if (userInfo.isValidateEmail === 0) {
+            return (
+                <PageForm {...PageProps}>
+                    <FormView>
+                        <FormItem {...inputsData.email} />
+                        <FormItem {...inputsData.vCode} after={afterNode}/>
+                        <FormItem>
+                            <Button loading={state.loading} className="exc-submit-item"
+                                    onClick={this.submit.bind(this)}>
+                                {UPEX.lang.template('提交')}
+                            </Button>
+                        </FormItem>
+                    </FormView>
+                </PageForm>
+            )
+        } else if (userInfo.isValidateEmail === 1) {
+            return (
+                <PageForm {...PageProps}>
+                    <div className="has-bind">{UPEX.lang.template('您已绑定过邮箱')}</div>
+                </PageForm>
+            )
+        }
+        else {
+            return null
+        }
+
     }
 }
