@@ -35,7 +35,7 @@ class InfoView extends Component {
                         <label>{UPEX.config.baseCurrencyEn}</label>
                         <label>≈</label>
                         <em>
-                            {`NT$${store.allMoney || '0.00'}`} {UPEX.config.baseCurrencyEn}
+                            {`${store.allMoney || '0.00'}`} {UPEX.config.baseCurrencyEn}
                         </em>
                     </div>
                 </div>
