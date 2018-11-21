@@ -43,11 +43,12 @@ class RecordPage extends Component {
             { label: UPEX.lang.template('提币'), type: 'coin-withdraw' },
             { label: UPEX.lang.template('分发'), type: 'reward' },
         ];
+
         let _targetTab = this.tabs.some(item => item.type === type) ? type : 'deposit';
 
         this.state = {
             type: _targetTab,
-            listProps: this.getListConfig(type).call(this),
+            listProps: this.getListConfig(_targetTab).call(this),
             listData: [],
             current: 0,
             total: 0,

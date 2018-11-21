@@ -115,7 +115,7 @@ const routes = (
                     <Route path="success" component={SuccessRecordList}/>
                 </Route>
                 <Route path="asset-change">
-                    <IndexRoute component={RecordAssetsChange}/>
+                    <IndexRedirect to='deposit'/>
                     <Route path=":type" component={RecordAssetsChange}/>
                 </Route>
             </Route>
