@@ -37,11 +37,11 @@ class RecordPage extends Component {
             className: 'content-no-pad'
         };
         this.tabs = [
-            { label: UPEX.lang.template('充值'), type: 'deposit' },
-            { label: UPEX.lang.template('提现'), type: 'withdraw' },
-            { label: UPEX.lang.template('充币'), type: 'coin-deposit' },
-            { label: UPEX.lang.template('提币'), type: 'coin-withdraw' },
-            { label: UPEX.lang.template('分发'), type: 'reward' },
+            { label: UPEX.lang.template('充值记录'), type: 'deposit' },
+            { label: UPEX.lang.template('提现记录'), type: 'withdraw' },
+            { label: UPEX.lang.template('充币记录'), type: 'coin-deposit' },
+            { label: UPEX.lang.template('提币记录'), type: 'coin-withdraw' },
+            { label: UPEX.lang.template('分发记录'), type: 'reward' },
         ];
 
         let _targetTab = this.tabs.some(item => item.type === type) ? type : 'deposit';
