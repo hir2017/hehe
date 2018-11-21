@@ -39,6 +39,11 @@
         }
     }
     .exc-list {
+        .exc-list-body .address {
+            display: inline-flex;
+            line-height: 16px;
+            align-items: center;
+        }
         .action {
             box-sizing: border-box;
             padding-right: 10px;
@@ -89,6 +94,11 @@
                 display: block;
             }
         }
+        &.coin-deposit , &.coin-withdraw{
+             .detail-content {
+                 text-align: center;
+             }
+         }
         &.coin-deposit {
             .status {
                 width: 100px;
@@ -180,5 +190,17 @@
     }
     .exc-full-page .page-content {
         min-height: 500px;
+    }
+    .all-success.has-ico .anticon-check-circle-o {
+        width: 14px;
+        color: #1dc199;
+        margin-right: 6px;
+        padding-bottom: 2px;
+        font-size: 14px;
+        background: ~'url(../images/green-check-circle-o.png) right 1px no-repeat';
+        background-size: 14px 14px;
+        &::before {
+            opacity: 0;
+        }
     }
 }

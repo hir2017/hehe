@@ -12,6 +12,7 @@ import FormView from '@/mods/common/form';
 import FormItem from '@/mods/common/form/item';
 import Step2 from './step2';
 import {getCurrencyFee} from '@/api/http';
+import {aceComputeFee} from '@/mods/recharge-withdraw/util';
 
 @inject('fiatRechargeStore')
 @observer
@@ -90,15 +91,8 @@ class View extends Component {
                 return ;
             }
             val = parseInt(val);
-            // 计算手续费 feeType = 1, 为固定手续费；不为1 取fee字段计算，最大为feeHighLimit， 向上取整
-            let fee = 0;
-            if(feeInfo.feeType === 1) {
-                fee = feeInfo.fee;
-            } else {
-                fee = val * feeInfo.fee;
-                fee = fee >= feeInfo.feeHighLimit ? feeInfo.feeHighLimit : Math.ceil(fee);
-            }
-             // 计算手续费 1% 最大13 向上取整
+            let fee = aceComputeFee(val, feeInfo);
+            // 计算手续费 1% 最大13 向上取整
             // fee = val * 0.01;
             // fee = fee >= 13 ? 13 : Math.ceil(fee);
             if(isNaN(fee)) {

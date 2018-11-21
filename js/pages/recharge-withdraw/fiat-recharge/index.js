@@ -8,9 +8,9 @@ import PageWrapper from '@/mods/common/wrapper/full-page';
 import { twdGetQuotaManagementInfo, ausGetQuotaManagementInfo } from '@/api/http';
 import FormView from '@/mods/common/form';
 import FormItem from '@/mods/common/form/item';
-// import BankCard from '@/mods/recharge-withdraw/fiat/bank-card';
+// import BankCard from '@/mods/recharge-withdraw/fiat-recharge/bank-card';
 import Numberutils from  '@/lib/util/number';
-import Spgateway from '@/mods/recharge-withdraw/fiat/spgateway';
+import Spgateway from '@/mods/recharge-withdraw/fiat-recharge/spgateway';
 import NumberUtils from '@/lib/util/number';
 import AuthWrapper from '@/mods/authhoc/recharge-withdraw';
 

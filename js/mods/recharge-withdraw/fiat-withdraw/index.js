@@ -4,14 +4,14 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import { Select, message, Button, Card, Alert } from 'antd';
-import { sendMessageWithdraw, twdGetQuotaManagementInfo } from '@/api/http';
+import { sendMessageWithdraw, twdGetQuotaManagementInfo, getCurrencyFee } from '@/api/http';
 import Numberutils from  '@/lib/util/number';
 import FormView from '@/mods/common/form';
 import FormItem from '@/mods/common/form/item';
 import toAction from './action';
-import CardSelect from '../bind-card-select';
+import CardSelect from './bind-card-select';
 import SmsBtn from '@/mods/common/sms-btn';
-
+import {aceComputeFee} from '@/mods/recharge-withdraw/util';
 const Option = Select.Option;
 
 @inject('fiatWithdrawStore', 'userInfoStore', 'accountStore')
@@ -26,6 +26,7 @@ class FiatRechargeView extends Component {
             gaCode: '',
             dayLimit: 0,
             monthLimit: 0,
+            feeInfo: {}
         };
         this.inputData = {
             tradePwd: {
@@ -73,7 +74,17 @@ class FiatRechargeView extends Component {
             }
         }).catch(err => {
             console.error('getUserActionLimit', err)
+        });
+        // 调接口获取提现手续费信息
+        getCurrencyFee({
+            actionId: 2,
+            currencyId: 1
+        }).then(res => {
+            this.setState({
+                feeInfo: res.attachment
+            })
         })
+
     }
 
     componentWillUnmount() {
@@ -110,6 +121,10 @@ class FiatRechargeView extends Component {
             }
         } catch (error) {
             console.error(error);
+        }
+        if (parseFloat(balance) < aceComputeFee(balance, this.state.feeInfo)) {
+            message.error(UPEX.lang.template('提现金额不能小于手续费'));
+            return ;
         }
         this.action.nextStep();
     };
@@ -159,6 +174,7 @@ class FiatRechargeView extends Component {
         );
 
         if (store.step == 'apply') {
+            // 第二步
             let currCardInfo = store.selectBindCardInfo;
             const $sendBtn = <SmsBtn sendCode={sendMessageWithdraw.bind(this, state.imgCode, this.codeid)} />;
             let fee = parseInt(store.balance) - store.withdrawValue;
@@ -214,6 +230,7 @@ class FiatRechargeView extends Component {
                 </FormView>
             );
         } else {
+            // 第一步
             const SelectData = {
                 type: 'withdraw',
                 setVal: (val, field) => {
@@ -228,7 +245,7 @@ class FiatRechargeView extends Component {
             $formContent = (
                 <FormView>
                     <FormItem>
-                        <CardSelect {...SelectData} />
+                        <CardSelect {...SelectData} feeInfo={state.feeInfo}/>
                     </FormItem>
                     <FormItem>
                         <Button className="submit-btn" onClick={this.handleNextStep}>

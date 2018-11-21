@@ -36,7 +36,7 @@ import SuccessRecordList from './pages/record-list/order/success';
 // 充值＋充币＋提现＋提币
 import CoinRecord from './pages/record-list/coin';
 import FiatRecord from './pages/record-list/fiat-aus/index';
-
+import RecordAssetsChange from './pages/record-list/assets-change';
 // 个人中心
 import UserInfo from './pages/user';
 import BasicInfo from './pages/user/basic-info/index';
@@ -108,6 +108,10 @@ const routes = (
 		        	<Route path="history" component={HistoryRecordList} />
 		        	<Route path="success" component={SuccessRecordList} />
 		        </Route>
+                <Route path="asset-change">
+                    <IndexRedirect to='deposit'/>
+                    <Route path=":type" component={RecordAssetsChange}/>
+                </Route>
 	        </Route>
 
 	        <Route path="user" component={UserInfo}>

@@ -16,7 +16,6 @@ class SubRow extends Component {
 
     componentDidMount() {
         const {data} = this.props;
-        console.log('componentDidMount', data)
         if(data.confirms === 'Reject' && data.type === 2) {
             this.props.UtilStore.getRefuseReason(data.refuseStrategyId).then(reason => {
                 this.setState({
@@ -28,12 +27,12 @@ class SubRow extends Component {
 
     content() {
         const {data} = this.props;
-        if(data.type === 1) {
-            return UPEX.lang.template('Txid:{value}', { value: item.txId || '--'});
+        if(data.rechargeType === 1) {
+            return UPEX.lang.template('Txid:{value}', { value: data.txId || '--'});
         } else {
             let result = null;
             if(data.confirms === 'Success') {
-                result = UPEX.lang.template('Txid:{value}', { value: item.walletWaterSn || '--'});
+                result = UPEX.lang.template('Txid:{value}', { value: data.walletWaterSn || '--'});
             }
             if(data.confirms === 'Reject') {
                 result =  UPEX.lang.template('审核拒绝，原因是:{reason}', {reason: this.state.reason || '' });
