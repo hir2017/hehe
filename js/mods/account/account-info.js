@@ -91,11 +91,8 @@ class InfoView extends Component {
                         </ul>
                     </div>
                     <div className="account-record">
-                        <button type="button" className="btn" onClick={this.skipTo.bind(this, '/account/asset-change/coin-deposit')}>
-                            <span>{UPEX.lang.template('数位资产记录')}</span>
-                        </button>
                         <button type="button" className="btn" onClick={this.skipTo.bind(this, '/account/asset-change/deposit')}>
-                            <span>{UPEX.lang.template('法币资金记录')}</span>
+                            <span>{UPEX.lang.template('资产变动记录')}</span>
                         </button>
                     </div>
                 </div>

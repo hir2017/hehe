@@ -1,4 +1,4 @@
-import react from 'react';
+import React from 'react';
 import TimeUtil from '@/lib/util/date';
 
 import { getFundChangeList, ausGetFundChangeList, getCoinRechargeList, getCoinWithdrawList, getAssetChangeReward } from '@/api/http';

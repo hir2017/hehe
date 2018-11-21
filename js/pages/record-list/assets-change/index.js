@@ -5,7 +5,7 @@
  */
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
-import { Breadcrumb, Row, Col, Pagination } from 'antd';
+import { Breadcrumb,  Pagination } from 'antd';
 import { browserHistory } from 'react-router';
 import PageWrapper from '@/components/wrapper/full-page';
 import * as listConfig from './list-config';
