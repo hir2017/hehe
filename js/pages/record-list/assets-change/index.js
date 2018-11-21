@@ -92,7 +92,10 @@ class RecordPage extends Component {
 
     onChangePagination = (page) => {
         action.getList(this.state.type, page).then(res => {
-            this.setState(res);
+            this.setState({
+                ...res,
+                subIndex: -1
+            });
         });
     }
 
