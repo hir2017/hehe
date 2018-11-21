@@ -15,18 +15,6 @@ import SubRow from './legal-sub-row';
 import CoinSubRow from './coin-sub-row';
 
 
-const TabNode = ({data, switchTab, type}) => {
-    return (
-        <div className="swtich-tabs">
-            {data.map((item, i) => (
-                <div className={`tab ${type === item.type ? 'active' : ''}`} key={i} onClick={e => {switchTab(item)}}>
-                    {item.label}
-                </div>
-            ))}
-        </div>
-    );
-}
-
 @inject('accountStore', 'fundChangeRecordStore')
 @observer
 class RecordPage extends Component {
@@ -126,7 +114,15 @@ class RecordPage extends Component {
 
     render() {
         const { state } = this;
-
+        let $TabNode = (
+            <div className="swtich-tabs">
+                {this.tabs.map((item, i) => (
+                    <div className={`tab ${state.type === item.type ? 'active' : ''}`} key={i} onClick={e => {this.switchTab(item)}}>
+                        {item.label}
+                    </div>
+                ))}
+            </div>
+        )
         return (
             <div className="assets-change">
                 <Breadcrumb separator=">" className="exc-breadcrumb">
@@ -135,7 +131,7 @@ class RecordPage extends Component {
                     </Breadcrumb.Item>
                     <Breadcrumb.Item><a href="/account">{UPEX.lang.template('资产管理')}</a></Breadcrumb.Item>
                 </Breadcrumb>
-                <PageWrapper {...this.pageInfo} headerAfter={<TabNode data={this.tabs} type={state.type} switchTab={this.switchTab} />}>
+                <PageWrapper {...this.pageInfo} headerAfter={$TabNode}>
                     <List expandedRowRender={this.detail} loading={state.loading} {...state.listProps} className={state.type} subIndex={state.subIndex} data={state.listData}>
                         {state.total === 0 ? null : <Pagination current={state.current} total={state.total} pageSize={state.pageSize} onChange={this.onChangePagination} />}
                     </List>
