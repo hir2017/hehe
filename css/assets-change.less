@@ -39,6 +39,11 @@
         }
     }
     .exc-list {
+        .exc-list-body .address {
+            display: inline-flex;
+            line-height: 16px;
+            align-items: center;
+        }
         .action {
             box-sizing: border-box;
             padding-right: 10px;
@@ -89,6 +94,11 @@
                 display: block;
             }
         }
+        &.coin-deposit , &.coin-withdraw{
+             .detail-content {
+                 text-align: center;
+             }
+         }
         &.coin-deposit {
             .status {
                 width: 100px;
