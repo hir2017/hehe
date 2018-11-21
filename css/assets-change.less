@@ -40,9 +40,19 @@
     }
     .exc-list {
         .exc-list-body .address {
-            display: inline-flex;
+            // display: inline-flex;
             line-height: 16px;
-            align-items: center;
+            // align-items: center;
+            &:before{
+                content: '';
+                height: 100%;
+                display: inline-block;
+                vertical-align: middle;
+            }
+            span {
+                display: inline-block;
+                vertical-align: middle;
+            }
         }
         .action {
             box-sizing: border-box;
