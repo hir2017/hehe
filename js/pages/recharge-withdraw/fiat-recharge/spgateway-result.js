@@ -8,6 +8,8 @@ import PageWrapper from '@/mods/common/wrapper/full-page';
 import FormView from '@/mods/common/form';
 import FormItem from '@/mods/common/form/item';
 import TableView from '@/mods/common/form/table';
+import {aceComputeFee} from '@/mods/recharge-withdraw/util';
+import { getCurrencyFee } from '@/api/http';
 
 class View extends Component {
     constructor(props) {
@@ -19,17 +21,18 @@ class View extends Component {
 
     componentDidMount() {
         const {query = {}} = this.props.location;
-        let fee = 0;
-        try {
-            fee = parseInt(query.Amt) * 0.01;
-            fee = fee >= 13 ? 13 : Math.ceil(fee);
-        } catch (error) {
-            console.error('componentDidMount 111', error)
-        }
 
+        getCurrencyFee({
+            actionId: 1,
+            currencyId: 1
+        }).then(res => {
+            let feeInfo =  res.attachment || {};
+            this.setState({
+                fee: aceComputeFee(query.Amt || 0, feeInfo),
+            })
+        })
         this.setState({
             ...query,
-            fee
         });
     }
 
