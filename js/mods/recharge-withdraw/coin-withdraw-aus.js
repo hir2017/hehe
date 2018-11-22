@@ -27,7 +27,8 @@ class WithdrawCoin extends Component {
             smsCode: '',
             gaCode: '',
             msgCode: '',
-            actionDisabled: false
+            actionDisabled: false,
+            loading: true
         };
         this.tipArr = [UPEX.lang.template('钱包维护中，暂停提币'), UPEX.lang.template('账号被限制提币，如有疑问请联系客服')];
         this.inputData = {
@@ -82,6 +83,10 @@ class WithdrawCoin extends Component {
             })
             .catch(err => {
                 console.error('AusGetQuotaManagementInfo', err);
+            }).then(res => {
+                this.setState({
+                    loading: false
+                })
             });
     }
 
@@ -348,7 +353,7 @@ class WithdrawCoin extends Component {
                     type="warning"
                 />
                 <FormView>
-                    {store.isFetching ? <div className="mini-loading" /> : null}
+                    {state.loading ? <div className="mini-loading" /> : null}
                     <FormItem label={UPEX.lang.template('选择币种')} after={$selectAfterNode}>
                         <Select labelInValue value={{ key: store.currentCoin.currencyNameEn }} onChange={this.selectWithdrawCoin}>
                             {$options}

@@ -25,13 +25,20 @@ class Withdraw extends Component {
                 className: 'header-shadow record'
             }
         }
+        this.state = {
+            loading: true
+        }
     }
 
     componentDidMount() {
         let {userInfoStore} = this.props;
 
         // 获取用户信息
-        userInfoStore.getUserInfo();
+        userInfoStore.getUserInfo().then(res => {
+            this.setState({
+                loading: false
+            })
+        });
     }
 
     clickSetTradePwd = e => {
@@ -47,10 +54,10 @@ class Withdraw extends Component {
         let {userInfoStore} = this.props;
         let $content;
 
-        if (userInfoStore.isFetchingInfo == false) {
-            $content = <WithdrawCoinView {...this.props} />;
-        } else {
+        if (this.state.loading) {
             $content = <div className="mini-loading"/>;
+        } else {
+            $content = <WithdrawCoinView {...this.props} />;
         }
 
         return (

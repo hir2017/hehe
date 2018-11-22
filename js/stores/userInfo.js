@@ -161,6 +161,9 @@ class UserInfo {
             })
             .catch(err => {
                 console.error(err, 'getUserInfo');
+                runInAction(() => {
+                    this.isFetchingInfo = false;
+                });
                 return false;
             });
     }
