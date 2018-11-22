@@ -682,6 +682,7 @@ module.exports={
     "提现账号": "Withdrawal account",
     "提现遇到了问题,我们只支持本人开户的银行卡提现...": "@@@@ Fund processing time varies for different banks. Please contact your bank if the funds do not appear in your bank account in time. @@@@• If there is any question, please contact our customers services at\nsupport@infinitex.com.au\"",
     "提现金额": "Withdrawal Amount",
+    "提现金额不能小于手续费": "Withdrawal amount can not less than fees",
     "提现金额大于单笔提现限额": "Withdrawal amount has exceeded single withdrawal limit.",
     "提现金额大于单笔最大提现限额": "Over the maximum single maximum withdrawal limit",
     "提现金额小于单笔最小提现限额": "Withdrawal amount under minimum withdrwal limit.",
