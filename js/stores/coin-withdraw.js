@@ -1,5 +1,5 @@
 import { observable, computed, autorun, action, runInAction } from 'mobx';
-import { takeCoin, getTakeCoinInfo, getUserActionLimit} from '../api/http';
+import { takeCoin, getTakeCoinInfo, getUserActionLimit } from '../api/http';
 import NumberUtil from '../lib/util/number';
 import md5 from '../lib/md5';
 
@@ -16,7 +16,7 @@ class CoinWithdrawStore {
     @observable currentCoin = {
         currencyId: '',
         currencyNameEn: ''
-    }
+    };
     // 地址
     @observable address = '';
     @observable validAddress = true;
@@ -49,7 +49,6 @@ class CoinWithdrawStore {
     // 最大提现额度
     @observable amountHightLimit = 99999999;
 
-
     // 图片id
     codeid = '';
 
@@ -80,12 +79,14 @@ class CoinWithdrawStore {
 
         // 提币详细信息
         let result = getTakeCoinInfo(currencyId)
-            .then((data) => {
+            .then(data => {
                 runInAction(() => {
                     if (data.status == 200) {
-                        this.takeCoinInfo = data.attachment;
-                        this.addressList = data.attachment.resp.addressList;
-                        this.defaultAddress = data.attachment.resp.defaultAddress;
+                        // 防止返回值为null
+                        let _response = data.attachment || { detail: {}, resp: {} };
+                        this.takeCoinInfo = _response;
+                        this.addressList = _response.resp.addressList;
+                        this.defaultAddress = _response.resp.defaultAddress;
 
                         if (this.defaultAddress.address) {
                             this.address = this.defaultAddress.address;
@@ -94,15 +95,15 @@ class CoinWithdrawStore {
                     }
 
                     this.isFetching = false;
-                })
-            }).catch(() => {
-                this.isFetching = false;
+                });
             })
+            .catch(() => {
+                this.isFetching = false;
+            });
         // 提币限制信息
-        getUserActionLimit(4, currencyId).then((data)=>{
+        getUserActionLimit(4, currencyId).then(data => {
             runInAction(() => {
-                if (data.status ==  200) {
-
+                if (data.status == 200) {
                     let dayLimit = data.attachment.dayLimit;
                     let limit = data.attachment.limits[0];
 
@@ -114,8 +115,8 @@ class CoinWithdrawStore {
                         this.oneLimit = NumberUtil.separate(Number(limit.highLimit), ',') + '' + limit.currencyNameEn;
                     }
                 }
-            })
-        })
+            });
+        });
         return result;
     }
     /**
@@ -157,17 +158,15 @@ class CoinWithdrawStore {
         } else {
             return 0;
         }
-
     }
-
 
     @action
     getNoteByAddress(address) {
-        let item = this.addressList.filter((item) => {
+        let item = this.addressList.filter(item => {
             return item.address === address;
-        })
+        });
 
-        return item[0].note
+        return item[0].note;
     }
 
     @action
@@ -230,7 +229,6 @@ class CoinWithdrawStore {
         return md5(this.tradepwd + UPEX.config.dealSalt + this.authStore.uid);
     }
 
-
     @action
     setGoogleCode(value) {
         this.googleCode = value;
@@ -261,7 +259,7 @@ class CoinWithdrawStore {
         let result = {
             pass: true,
             message: ''
-        }
+        };
         let amount = Number(this.amount);
 
         // if (!this.note) {
@@ -287,7 +285,7 @@ class CoinWithdrawStore {
             result.pass = false;
             result.message = UPEX.lang.template('不能大于可提币数量');
             this.validAmount = false;
-        } else if(amount > Number(this.amountHightLimit)) {
+        } else if (amount > Number(this.amountHightLimit)) {
             result.pass = false;
             result.message = UPEX.lang.template('不能大于最大提币数量');
             this.validAmount = false;
@@ -330,7 +328,7 @@ class CoinWithdrawStore {
     }
 
     @action.bound
-    reset(){
+    reset() {
         this.addressList = [];
         this.defaultAddress = {};
         this.takeCoinInfo = {
@@ -341,7 +339,7 @@ class CoinWithdrawStore {
         this.currentCoin = {
             currencyId: '',
             currencyNameEn: ''
-        }
+        };
 
         this.dayLimit = '';
         this.oneLimit = '';
@@ -355,7 +353,6 @@ class CoinWithdrawStore {
     changeSubmitingStatusTo(status) {
         this.$submiting = status;
     }
-
 }
 
 export default CoinWithdrawStore;

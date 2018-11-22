@@ -162,7 +162,8 @@ class WithdrawCoin extends Component {
             })
             .then(res => {
                 const { resp } = this.props.coinWithdrawStore.takeCoinInfo;
-                let item = resp.addressList.filter(item => {
+                let _addressList = resp.addressList || [];
+                let item = _addressList.filter(item => {
                     return item.currencyId === value.key;
                 });
                 if (item.length > 0) {
