@@ -71,6 +71,7 @@ class GoogleGuide extends Component {
                             <Link to="/user/google" className="link">{UPEX.lang.template('返回Google验证器')}</Link>
                         </div>
                         <span className="right">
+                            <Link to="/user/google"/>
                             <Icon type="check" />
                         </span>
                     </div>
