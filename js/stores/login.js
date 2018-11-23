@@ -28,6 +28,7 @@ class LoginInfoBaseStore {
     @observable phoneResult = [true, ''];
     @observable pwdResult = [true, ''];
     @observable twicePwdResult = [true, ''];
+    @observable loginComplete = false; // 屏蔽 登陆后login再次挂载的bug
 
 
 
@@ -93,6 +94,8 @@ class LoginInfoBaseStore {
         this.phoneResult = [true, ''];
         this.pwdResult = [true, ''];
         this.twicePwdResult = [true, ''];
+
+        this.loginComplete = true;
     }
 
     @computed get account() {
@@ -307,6 +310,10 @@ class LoginInfoBaseStore {
 
     @action clearTwicePwdResult(field) {
         this.twicePwdResult = [true, ''];
+    }
+
+    @action updateLoginComplete(status) {
+        this.loginComplete = status;
     }
 }
 

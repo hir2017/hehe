@@ -67,7 +67,12 @@ class Login extends Component {
         }
     }
 
+    componentWillMount(){
+        // console.log('login componentWillMount', 1, this.props.route.path, location.href)
+    }
+
     componentWillUnmount(){
+        // console.log('login componentWillUnmount', 2, this.props.route.path, location.href)
         this.action.destroy();
     }
 
@@ -251,6 +256,10 @@ class Login extends Component {
         let $selectAreaCode;
         let $inputAccount;
         let $submitBtn;
+        // 防止login二次挂载
+        if(store.loginComplete) {
+            return <div className="mini-loading" />;
+        }
 
         switch(store.mode) {
             case 'phone':
