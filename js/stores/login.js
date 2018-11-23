@@ -312,9 +312,7 @@ class LoginInfoBaseStore {
         this.twicePwdResult = [true, ''];
     }
 
-    @action updateLoginComplete(status) {
-        this.loginComplete = status;
-    }
+
 }
 
 export default LoginInfoBaseStore;

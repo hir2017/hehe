@@ -456,9 +456,7 @@ export default (store) => {
             this.timer && this.timer.destroy();
             this.timer2 && this.timer2.destroy();
             store.reset();
-            setTimeout(() => {
-                store.updateLoginComplete(false);
-            }, 300)
+
         }
     }
 }

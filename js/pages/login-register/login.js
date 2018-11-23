@@ -256,10 +256,7 @@ class Login extends Component {
         let $selectAreaCode;
         let $inputAccount;
         let $submitBtn;
-        // 防止login二次挂载
-        if(store.loginComplete) {
-            return <div className="mini-loading" />;
-        }
+
 
         switch(store.mode) {
             case 'phone':
