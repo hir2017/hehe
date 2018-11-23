@@ -59,7 +59,8 @@ export default (store) => {
                     this.verifyTwicePassword();
                     break
                 case 'inviteCode':
-                    store.setInviteCode(value);
+                    let _value = value.replace(/\s/g, '');
+                    store.setInviteCode(_value);
                     break;
             }
 

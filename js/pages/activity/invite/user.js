@@ -64,7 +64,7 @@ class UserView extends Component {
         let {friendCount = 0, myInvitedCode = '', amount = 0, currencyNameEn = ''} = this.state.user;
         let shareLink = this.state.shareLink;
         let self = this;
-        myInvitedCode = myInvitedCode.length > 0 ? myInvitedCode.replace(/(\w{3})(?=\w)/g, "$1 ") : '';
+        // myInvitedCode = myInvitedCode.length > 0 ? myInvitedCode.replace(/(\w{3})(?=\w)/g, "$1 ") : '';
 
         return (
             <div className="invite-user clearfix">
