@@ -52,25 +52,28 @@ const getParams = (type, page) => {
 };
 
 // 充提现、充提币返回数据格式整理
-const FormatSourceData = (type, res) => {
+const FormatSourceData = (type, res, params) => {
     let result = {};
     let _source = res.attachment || {};
     switch (type) {
         case 'coin-deposit':
             result = {
                 listData: _source.points || [],
+                current: params.start,
                 total: typeof _source.total === 'undefined' ? 0 : _source.total
             };
             break;
         case 'coin-withdraw':
             result = {
                 listData: _source.list || [],
+                current: params.start,
                 total: typeof _source.total === 'undefined' ? 0 : _source.total
             };
             break;
         case 'reward':
             result = {
                 listData: _source.points || [],
+                current: params.start,
                 total: typeof _source.total === 'undefined' ? 0 : _source.total
             };
             break;
@@ -100,7 +103,7 @@ export const getList = function(type, page = 1) {
             total: 0
         };
         if (res.status === 200) {
-            result = FormatSourceData(type, res);
+            result = FormatSourceData(type, res, params);
         }
         return result;
     });

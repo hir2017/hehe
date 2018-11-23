@@ -38,7 +38,7 @@ class RecordPage extends Component {
             type: _targetTab,
             listProps: this.getListConfig(_targetTab).call(this),
             listData: [],
-            current: 0,
+            current: 1,
             total: 0,
             pageSize: 10,
             loading: true,
@@ -80,7 +80,7 @@ class RecordPage extends Component {
             type,
             listProps: this.getListConfig(type).call(this),
             listData: [],
-            current: 0,
+            current: 1,
             total: 0,
             pageSize: 10,
             loading: true,
@@ -92,7 +92,10 @@ class RecordPage extends Component {
 
     onChangePagination = (page) => {
         action.getList(this.state.type, page).then(res => {
-            this.setState(res);
+            this.setState({
+                ...res,
+                subIndex: -1
+            });
         });
     }
 
