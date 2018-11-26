@@ -1113,7 +1113,16 @@ export function ausOrderFiatWithdraw(data) {
 export function ausGetPoliUrl(data) {
     return axios.post('/ausRecharge/getFrontPageJsonData', data)
 }
-
+/*
+    澳洲版获取充值提现费率
+    actionId 币种行为Id number 1：充值，2：提现
+    currencyId 币种Id number
+*/
+export function ausGetCurrencyFee(data) {
+    return axios.get('/ausCommon/currencyFee', {
+        params: data
+    })
+}
 
 /**
  *  更新驳回原因读取状态

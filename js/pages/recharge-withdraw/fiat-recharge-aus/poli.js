@@ -4,6 +4,7 @@ import FormItem from '@/mods/common/form/item';
 import { ausGetPoliUrl } from '@/api/http';
 import NumberUtils from '@/lib/util/number';
 import { Row, Col, message, Modal } from 'antd';
+import {aceComputeFee} from '@/mods/recharge-withdraw/util';
 
 export default class extends React.Component {
     constructor(props) {
@@ -14,7 +15,8 @@ export default class extends React.Component {
             success: '',
             loading: false,
             visible: false,
-            disable: false
+            disable: false,
+            fee: 0
         };
         this.MaxLimit = 2000;
         // poli窗体
@@ -39,11 +41,12 @@ export default class extends React.Component {
                     } else {
                         _state.amount = '';
                     }
+                    _state.fee = aceComputeFee(_state.amount, this.props.feeInfo);
                     this.setState(_state);
-                }
+                },
+                suffix : UPEX.config.baseCurrencyEn
             }
         };
-        this.$tip = <div className="input-right-tag">{UPEX.config.baseCurrencyEn}</div>;
         this.$max = (
             <div className="max-tip">
                 {UPEX.lang.template('充值金额')}{' '}
@@ -80,11 +83,19 @@ export default class extends React.Component {
             return;
         }
     }
+
+
     handleSubmit() {
         this.setState({
             loading: true,
             disable: true
         });
+
+        if(this.state.amount < this.state.fee) {
+            message.error(UPEX.lang.template('充值金额不能小于手续费'));
+            return;
+        }
+
         this.getUrl().then(res => {
             if (res.status === 200) {
                 this.setState({
@@ -151,6 +162,7 @@ export default class extends React.Component {
     render() {
         const { $max, state, inputData, $tip } = this;
         let poliDisable = 'not';
+        let $fee = <div className="fee-tip" dangerouslySetInnerHTML={{__html: UPEX.lang.template('手续费 {count} {unit}/笔', { count: state.fee, unit: UPEX.config.baseCurrencyEn })}}></div>;
 
         // 检测充值状态
         inputData.inputProps.disabled = this.props.actionStatus === 2 ? true : false;
@@ -175,7 +187,7 @@ export default class extends React.Component {
                         <iframe id="poli-win" width="100%" height="100%" onLoad={this.handleOpen.bind(this, 'load')} src={state.url} frameBorder="0" />
                     </div>
                 </Modal>
-                <FormItem label={$max} value={state.amount} {...inputData} after={$tip} />
+                <FormItem label={$max} value={state.amount} {...inputData} after={$fee} />
                 <FormItem>
                     <Row className="poli-img">
                         <Col span={12}>{UPEX.lang.template('唯一正确入口')}</Col>
