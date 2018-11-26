@@ -15,7 +15,10 @@ class MarketCoinList extends Component {
         this.props.tradeStore.marketListStore.sortByCondition(field);
 	}
 
-	handleCurrency=(item, e)=>{ 
+	handleCurrency=(item, e)=>{
+        // 清空市场交易记录
+        this.props.tradeStore.updateTradeHistory({content: []});
+
         if ($(e.target).parents('.action').length > 0) {
             return;
         }
@@ -41,7 +44,7 @@ class MarketCoinList extends Component {
 
     collectIcon(data) {
         const collectCoinsList = this.props.tradeStore.marketListStore.collectCoinsList;
-        
+
         const res = collectCoinsList.some(item => {
             if (item.tradeCurrencyId === data.currencyId && item.baseCurrencyId === data.baseCurrencyId){
                 return true;
@@ -64,7 +67,7 @@ class MarketCoinList extends Component {
 	render(){
 		let store = this.props.tradeStore;
         let marketListStore = this.props.tradeStore.marketListStore;
-		
+
 		return (
 			<div className="coin-list">
 				<div className="coin-list-content">
@@ -91,10 +94,10 @@ class MarketCoinList extends Component {
                                 {
                                     marketListStore.selectedCurrencies.map((item, index) => {
                                     	let path, ratecolor, trendIcon, trendColor;
-                                    	
+
                                     	if (item.baseCurrencyNameEn && item.currencyNameEn) {
-                                    		path = `/webtrade/${item.baseCurrencyNameEn}_${item.currencyNameEn}`;	
-                                    	} 
+                                    		path = `/webtrade/${item.baseCurrencyNameEn}_${item.currencyNameEn}`;
+                                    	}
 
                                         if (item.changeRate >= 0 ) {
                                             ratecolor = 'greenrate';
@@ -121,7 +124,7 @@ class MarketCoinList extends Component {
                                                 <span className={`cell rate ${ratecolor}`}>{item.changeRateText}</span>
                                                 <span className="cell volume">{item.volumeText}</span>
                                                 <span className="cell action">{this.collectIcon(item)}</span>
-                                            </li> 
+                                            </li>
                                         );
                                     })
                                 }

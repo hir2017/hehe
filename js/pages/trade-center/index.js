@@ -7,11 +7,11 @@ import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import { Icon, message } from 'antd';
 
-import ChartContainer from '../../mods/trade/chart/index';
-import TradeHistory from '../../mods/trade/trade-history';
-import OrderBook from '../../mods/trade/order-book';
-import OrderForm from '../../mods/trade/order-form';
-import MyOrder from '../../mods/trade/myorder/index';
+import ChartContainer from '@/mods/trade/chart/index';
+import TradeHistory from '@/mods/trade/trade-history';
+import OrderBook from '@/mods/trade/order-book';
+import OrderForm from '@/mods/trade/order-form';
+import MyOrder from '@/mods/trade/myorder/index';
 import toAction from './index.action';
 
 @inject('commonStore', 'currencyStore', 'tradeStore')
