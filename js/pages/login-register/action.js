@@ -30,8 +30,8 @@ export default (store) => {
             switch (field) {
                 case 'email':
                     // 不允许输入汉字
-                    value = value.replace(UPEX.replaceHZReg, '');
-
+                    // value = value.replace(UPEX.replaceHZReg, '');
+                    value = value.replace(/[\u4e00-\u9fa5]/g, '');
                     store.setEmail(value);
                     this.verifyEmail();
                     break;
