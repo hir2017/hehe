@@ -44,8 +44,10 @@ export default class BindingEmail extends Component {
     }
 
     setVal(e, name) {
+        let value  =  e.target.value.trim();
+        value = value.replace(/[\u4e00-\u9fa5]/g, '');
         this.setState({
-            [name]: e.target.value.trim()
+            [name]: value
         });
     }
 
@@ -77,6 +79,11 @@ export default class BindingEmail extends Component {
         const {state} = this;
         if (!state.email) {
             message.error(UPEX.lang.template('请填写邮箱'));
+            return false;
+        }
+        // 校验邮箱 UPEX.emailReg
+        if (!UPEX.emailReg.test(state.email)) {
+            message.error(UPEX.lang.template('请填写正确的邮箱地址'));
             return false;
         }
         if (type === 'all') {
@@ -122,8 +129,8 @@ export default class BindingEmail extends Component {
             return (
                 <PageForm {...PageProps}>
                     <FormView>
-                        <FormItem {...inputsData.email} />
-                        <FormItem {...inputsData.vCode} after={afterNode}/>
+                        <FormItem {...inputsData.email} value={state.email}/>
+                        <FormItem {...inputsData.vCode} value={state.vCode} after={afterNode}/>
                         <FormItem>
                             <Button loading={state.loading} className="exc-submit-item"
                                     onClick={this.submit.bind(this)}>
