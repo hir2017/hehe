@@ -8,6 +8,7 @@ import '../css/user.less';
 import '../css/news.css';
 import '../css/account.less';
 import '../css/order.less';
+import '../css/ieo/index.less';
 import '../css/recharge-withdraw.less';
 import '../css/antd-reset.less';
 

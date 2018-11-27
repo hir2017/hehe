@@ -1,5 +1,5 @@
 /**
- * @fileoverview IEO token信息
+ * @fileoverview IEO 优势展示
  */
 import React, { Component } from 'react';
 
@@ -14,8 +14,8 @@ class View extends Component {
     render() {
 
         return (
-            <div className="token-info">
-                token-info
+            <div className="advantage">
+                advantage
             </div>
         );
     }

@@ -58,7 +58,9 @@ import UnbindingGoogle from './mods/binding-google/unbind'
 import GoogleGuide from './pages/user/google-guide'
 import EmailSuccess from './mods/binding-email/success'
 import PhoneSuccess from './mods/binding-phone/success'
-
+// IEO
+import IEO from './pages/ieo/main'
+import IEODetail from './pages/ieo/detail'
 
 const Home = (location, cb) => {
     require.ensure([], require => {
@@ -151,7 +153,10 @@ const routes = (
                     <Route path="invite(-:type)" getComponent={Invite}/>
                 </Route>
             </Route>
-
+            <Route path="ieo">
+                <IndexRoute component={IEO}/>
+                <Route path="detail/:id" component={IEODetail}/>
+            </Route>
             <Route path="login" component={Login}/>
             <Route path="register" component={Register}/>
             <Route path="resetpwd" component={ResetPwd}/>
