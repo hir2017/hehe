@@ -93,6 +93,10 @@ export default class extends React.Component {
 
         if(this.state.amount < this.state.fee) {
             message.error(UPEX.lang.template('充值金额不能小于手续费'));
+            this.setState({
+                disable: false
+            });
+            //console.log(this.state.disable);
             return;
         }
 
