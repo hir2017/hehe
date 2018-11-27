@@ -4,7 +4,7 @@ import FormItem from '@/mods/common/form/item';
 import { ausGetPoliUrl } from '@/api/http';
 import NumberUtils from '@/lib/util/number';
 import { Row, Col, message, Modal } from 'antd';
-import {aceComputeFee} from '@/mods/recharge-withdraw/util';
+import {ausComputeFee} from '@/mods/recharge-withdraw/util';
 
 export default class extends React.Component {
     constructor(props) {
@@ -41,7 +41,7 @@ export default class extends React.Component {
                     } else {
                         _state.amount = '';
                     }
-                    _state.fee = aceComputeFee(_state.amount, this.props.feeInfo);
+                    _state.fee = ausComputeFee(_state.amount, this.props.feeInfo);
                     this.setState(_state);
                 },
                 suffix : UPEX.config.baseCurrencyEn

@@ -18,7 +18,7 @@ export const aceComputeFee = (val, feeInfo) => {
 }
 export const ausComputeFee = (val, feeInfo) => {
     let fee = 0;
-    // 计算手续费 feeType = 1, 为固定手续费；不为1 取fee字段计算，最大为feeHighLimit， 保留小数后两位(不分大小一律进位)，入 1.126=>1.13, 1.121=>1.13
+    // 计算手续费 feeType = 1, 为固定手续费；不为1 取fee字段计算，最大为feeHighLimit， 保留小数后两位(不分大小一律进位)，如 1.126=>1.13, 1.121=>1.13
     function fee_ceil(val) {
         return Math.ceil(val * 100)/100;
     }
