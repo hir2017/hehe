@@ -666,7 +666,7 @@ module.exports={
     "提现信息确认": "Withdrawal request confirmed",
     "提现失败": "Withdraw failed",
     "提现成功": "Withdrawal request submitted",
-    "提现手续费为固定值提示{num}": "Your withdrawal can not arrive to your account if your withdrawal amount is not more than fees",
+    "提现手续费为固定值提示{num}": "Your entry will be failed if your withdrawal amount is not more than fees {num}",
     "提现申请已提交": "Withdrawal request has been submitted",
     "提现记录": "Withdraw record",
     "提现账号": "Withdrawal account",
