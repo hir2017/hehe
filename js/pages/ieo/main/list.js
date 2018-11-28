@@ -1,7 +1,7 @@
 /**
  * @fileoverview IEO 数字币列表
  */
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 
 class View extends Component {
     constructor(props) {
@@ -16,14 +16,28 @@ class View extends Component {
 
     render() {
         let $content = null;
-        $content = this.state.list.map((item, i) => {
-            return (<li className="item">
-                <img src={item.pic} alt=""/>
-            </li>)
-        })
+        $content = this.state.list.map((item, i) => (
+            <li className="token-item">
+                <a href="">
+                    <div className="token-pic">
+                        <img src={item.pic} alt=""/>
+                    </div>
+                    <div className="token-status"></div>
+                    <div className="token-content">
+                        <h3 className="name"></h3>
+                        <p className="desc"></p>
+                        <div className="progress"></div>
+                        <div className="detail">
+                            <div className="amount"></div>
+                            <div className="time"></div>
+                        </div>
+                    </div>
+                </a>
+            </li>
+        ));
         return (
-            <div className="list-wrapper">
-                <ul className="list">
+            <div className="token-list-wrapper">
+                <ul className="token-list">
                     {$content}
                 </ul>
             </div>

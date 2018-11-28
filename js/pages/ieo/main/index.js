@@ -16,6 +16,9 @@ class Page extends Component {
     render() {
         return (
             <div className="ieo-wrapper">
+                <div className="apply-wrap">
+                    <a href="" target="_blank" className="apply-btn">{UPEX.lang.template('申请发布IEO')}</a>
+                </div>
                 <List />
                 <Advantage />
             </div>
