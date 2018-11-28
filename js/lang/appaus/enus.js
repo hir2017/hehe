@@ -356,7 +356,7 @@ module.exports={
     "低": "Low",
     "住址": "Address",
     "余额": "Available",
-    "使用BPAY充值操作温馨提示,受银行处理时间影响...": "Reminder for BPAY users:\n@@@@. Payment via BPAY will normally show in your account within one businbess day. Please check with your financial institution for more information. @@@@You can track the progress of payment at <a href=\"/account/fiatrecord\">Fiat Currency Records</a>.\n@@@@· Bpay has a single transaction limit of 2,000 AUD.\n@@@@  We will deposit the funds into your account as per your instruction. Please double check the amount for each deposit.",
+    "使用BPAY充值操作温馨提示,受银行处理时间影响...": "Reminder for BPAY users:\n@@@@. Payment via BPAY will normally show in your account within one businbess day. Please check with your financial institution for more information. @@@@You can track the progress of payment at <a href=\"/account/asset-change/deposit\">Fiat Currency Records</a>.\n@@@@· Bpay has a single transaction limit of 2,000 AUD.\n@@@@  We will deposit the funds into your account as per your instruction. Please double check the amount for each deposit.",
     "使用BPAY支付": "BPAY",
     "使用Google认证请详细阅读": "Please read carefully when using Google Authenticator",
     "使用POLi充值操作温馨提示,受银行处理时间影响...": "Reminder:\n @@@@Deposit via POLi will direct you to the official website of POLi, please confirm the url is the sublink of polipayments.com.\n @@@@Your deposit will show in your account within 2 hours. You can check the progress in the \"Fiat Currency Record\".",
