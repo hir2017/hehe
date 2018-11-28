@@ -44,22 +44,22 @@ export default class View extends React.Component {
     }
 
     componentDidMount() {
-        const { info } = this.props;
-        ausGetWithdrawCashFee({
-            amount: info.amount
-        })
-            .then(res => {
-                if (res.status === 200) {
-                    let number = info.amount * 100 - res.attachment * 100;
-                    this.setState({
-                        fee: res.attachment,
-                        real: parseFloat(number / 100, 10)
-                    });
-                }
-            })
-            .catch(err => {
-                console.error(err, 'ausGetWithdrawCashFee');
-            });
+        // const { info } = this.props;
+        // ausGetWithdrawCashFee({
+        //     amount: info.amount
+        // })
+        //     .then(res => {
+        //         if (res.status === 200) {
+        //             let number = info.amount * 100 - res.attachment * 100;
+        //             this.setState({
+        //                 fee: res.attachment,
+        //                 real: parseFloat(number / 100, 10)
+        //             });
+        //         }
+        //     })
+        //     .catch(err => {
+        //         console.error(err, 'ausGetWithdrawCashFee');
+        //     });
     }
 
     setVal(name, e) {
@@ -142,10 +142,10 @@ export default class View extends React.Component {
                     </div>
                     <div className="real">
                         <p>
-                            {UPEX.lang.template('到账金额')}: {UPEX.config.baseCurrencyEn} <em>{state.real}</em>
+                            {UPEX.lang.template('到账金额')}: {UPEX.config.baseCurrencyEn} <em>{info.withdrawVal}</em>
                         </p>
                         <p>
-                            {UPEX.lang.template('手续费')}: {UPEX.config.baseCurrencyEn} <em>{state.fee}</em>
+                            {UPEX.lang.template('手续费')}: {UPEX.config.baseCurrencyEn} <em>{info.fee}</em>
                         </p>
                     </div>
                 </FormItem>

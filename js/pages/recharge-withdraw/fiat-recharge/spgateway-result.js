@@ -37,7 +37,7 @@ class View extends Component {
     }
 
     onSubmit() {
-        browserHistory.push('/account/fiatrecord');
+        browserHistory.push('/account/asset-change/deposit');
     }
 
     render() {

@@ -94,13 +94,11 @@ export default class extends React.Component {
                                 {tableData[2].text}
                             </li>
                         </ul>
-
                         {
-                            //TODO:从后台获取充值手续费收取方式，再判断是否显示充值提示
-                            /* <div className="warn-tip">
+                            props.feeInfo.feeType === 1 ? <div className="warn-tip">
                                 <Icon type="exclamation-circle" theme="outlined"/>
-                                {UPEX.lang.template('bpay充值提示')}
-                            </div>*/
+                                {UPEX.lang.template('bpay充值提示{num}', {num: props.feeInfo.fee})}
+                            </div> : null
                         }
                     </div>
                 </FormItem>

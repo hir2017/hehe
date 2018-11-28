@@ -1,15 +1,16 @@
 import React from 'react';
-import { Button, message, Input } from 'antd';
-import { ausGetUserAvailableAmount, getUserActionLimit, getTakeCoinInfo } from '@/api/http';
+import {Button, message, Input, Icon} from 'antd';
+import {ausGetUserAvailableAmount, getUserActionLimit, getTakeCoinInfo} from '@/api/http';
 import NumberUtils from '@/lib/util/number';
 import AmountInfo from '@/mods/common/form/amount-info-row';
 import FormView from '@/mods/common/form';
 import FormItem from '@/mods/common/form/item';
+import {ausComputeFee} from "@/mods/recharge-withdraw/util";
 
 export default class View extends React.Component {
     constructor(props) {
         super(props);
-        const { init } = props;
+        const {init} = props;
         this.state = {
             balance: 12,
             BSB: init.BSB || '',
@@ -17,6 +18,7 @@ export default class View extends React.Component {
             amount: init.amount || '',
             name: init.name || '',
             withdrawVal: 0,
+            fee: 0,
             amountLowLimit: 0,
             amountHighLimit: 0,
         };
@@ -50,8 +52,8 @@ export default class View extends React.Component {
                 label: UPEX.lang.template('提现金额'),
                 inputProps: {
                     onChange: e => {
-                        const { balance } = this.state;
-                        let { value = '' } = e.target;
+                        const {balance} = this.state;
+                        let {value = ''} = e.target;
                         // 保留两位小数
                         if (value !== '') {
                             if (!NumberUtils.isFloatWithTwoDecimal(value)) {
@@ -61,7 +63,7 @@ export default class View extends React.Component {
                         // 去除首位的0
                         let withdrawVal = 0;
                         let temp = ['0.', '0', '0.0'].indexOf(value) !== -1 ? value : value.replace(/^(0+)/gi, '');
-                        if(temp.indexOf('.') === 0) {
+                        if (temp.indexOf('.') === 0) {
                             temp = '0' + temp;
                         }
                         let _data = {
@@ -75,8 +77,17 @@ export default class View extends React.Component {
                         } else {
                             _data.show = false;
                         }
-                        withdrawVal = NumberUtils.toFixed(_data.amount * this.rate, 2);
-                        _data.withdrawVal = isNaN(withdrawVal) ? '0' : withdrawVal;
+
+                        _data.fee = ausComputeFee(_data.amount, this.props.feeInfo);
+
+                        if (this.props.feeInfo.feeType === 1) {
+                            _data.withdrawVal = (_data.amount < _data.fee ? 0 : (_data.amount - _data.fee).toFixed(2));
+                        } else {
+                            _data.withdrawVal = ((_data.amount * 100 - _data.fee * 100) / 100).toFixed(2);
+                        }
+
+                        _data.withdrawVal = isNaN(_data.withdrawVal) ? 0 : _data.withdrawVal;
+
                         this.setState(_data);
 
                     },
@@ -96,20 +107,20 @@ export default class View extends React.Component {
             }
         });
         // 获取法币信息，费率，充值限制
-        getTakeCoinInfo(1).then(res => {
-            if(res.status === 200) {
-                const {detail} = res.attachment;
-                this.fee = detail.fee;
-                this.rate = 1 - detail.fee;
+        /* getTakeCoinInfo(1).then(res => {
+             if (res.status === 200) {
+                 const {detail} = res.attachment;
+                 this.fee = detail.fee;
+                 this.rate = 1 - detail.fee;
 
-            } else {
-                console.error('getTakeCoinInfo status not 200', res)
-            }
-        }).catch(err => {
-            console.error('getTakeCoinInfo', err)
-        })
+             } else {
+                 console.error('getTakeCoinInfo status not 200', res)
+             }
+         }).catch(err => {
+             console.error('getTakeCoinInfo', err)
+         })*/
         getUserActionLimit(2, 1).then(res => {
-            if(res.status === 200) {
+            if (res.status === 200) {
                 this.setState({
                     amountLowLimit: res.attachment.limits[0].lowLimit,
                     amountHighLimit: res.attachment.limits[0].highLimit
@@ -148,11 +159,17 @@ export default class View extends React.Component {
             message.error(UPEX.lang.template('请填写提现金额'));
             return false;
         }
-        if(state.amount < state.amountLowLimit) {
-            message.error(UPEX.lang.template('提现金额小于单笔最小提现限额'));
+
+        if (state.amount <= this.props.feeInfo.fee){
+            message.error(UPEX.lang.template('提现金额不能小于手续费'));
             return false;
         }
-        if(state.amount > state.amountHighLimit) {
+
+            if (state.amount < state.amountLowLimit) {
+                message.error(UPEX.lang.template('提现金额小于单笔最小提现限额'));
+                return false;
+            }
+        if (state.amount > state.amountHighLimit) {
             message.error(UPEX.lang.template('提现金额大于单笔最大提现限额'));
             return false;
         }
@@ -160,7 +177,7 @@ export default class View extends React.Component {
     }
 
     submit() {
-        const { state, props } = this;
+        const {state, props} = this;
         // 检测用户行为
         if (props.actionStatus === 2) {
             message.error(UPEX.lang.template('此功能暂停，请稍后再试'));
@@ -174,33 +191,38 @@ export default class View extends React.Component {
             name: state.name,
             BSB: state.BSB,
             account: state.account,
-            amount: state.amount
+            amount: state.amount,
+            withdrawVal: state.withdrawVal,
+            fee: state.fee
         });
     }
 
     // isGoogleAuth
     render() {
-        const { props, state, inputData } = this;
+        const {props, state, inputData} = this;
+        console.log(props.feeInfo)
         let $beforNode = <span className="exc-unit">{UPEX.config.baseCurrencyEn}</span>;
         let $afterNode = (
             <AmountInfo
                 left={
                     <p className="balance">
-                        <span className="text">{UPEX.lang.template('当前余额')}</span><em>{state.balance}</em> {UPEX.config.baseCurrencyEn}
+                        <span
+                            className="text">{UPEX.lang.template('当前余额')}</span><em>{state.balance}</em> {UPEX.config.baseCurrencyEn}
                     </p>
                 }
                 right={
                     <p className="balance">
-                        <span className="text">{UPEX.lang.template('入账金额')}</span><em>{state.withdrawVal}</em> {UPEX.config.baseCurrencyEn}
+                        <span
+                            className="text">{UPEX.lang.template('入账金额')}</span><em>{state.withdrawVal}</em> {UPEX.config.baseCurrencyEn}
                     </p>
                 }
             />
         );
         return (
             <FormView>
-                <FormItem {...inputData.name} value={state.name} />
-                <FormItem {...inputData.BSB} value={state.BSB} />
-                <FormItem {...inputData.account} value={state.account} />
+                <FormItem {...inputData.name} value={state.name}/>
+                <FormItem {...inputData.BSB} value={state.BSB}/>
+                <FormItem {...inputData.account} value={state.account}/>
                 <FormItem label={inputData.amount.label} className="amount" after={$afterNode}>
                     {state.amount ? null : (
                         <span className="ie11-placeholder-hack">
@@ -209,7 +231,14 @@ export default class View extends React.Component {
                             })}
                         </span>
                     )}
-                    <Input  className="exc-input" {...inputData.amount.inputProps} value={state.amount} suffix={$beforNode}/>
+                    <Input className="exc-input" {...inputData.amount.inputProps} value={state.amount}
+                           suffix={$beforNode}/>
+                    {
+                        props.feeInfo.feeType === 1 ? <div className="warn-tip">
+                            <Icon type="exclamation-circle" theme="outlined"/>
+                            {UPEX.lang.template('提现手续费为固定值提示{num}', {num: props.feeInfo.fee})}
+                        </div> : null
+                    }
                 </FormItem>
                 <FormItem>
                     <Button className="submit-btn" onClick={this.submit.bind(this)}>

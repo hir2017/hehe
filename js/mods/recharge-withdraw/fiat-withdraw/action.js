@@ -159,7 +159,7 @@ export default (store, userInfoStore) => {
                     switch (data.status) {
                         case 200:
                             message.success(UPEX.lang.template('提现成功'));
-                            browserHistory.push('/account/fiatrecord');
+                            browserHistory.push('/account/asset-change/withdraw');
                             store.resetForm();
                             break;
                         default:

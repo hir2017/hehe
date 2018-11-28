@@ -113,7 +113,7 @@ class CoinRecharge extends Component {
         let box = $(this.refs.wrapper);
 
         box.on('click', '.r-coin-record', e => {
-            browserHistory.push('/account/coinrecord');
+            browserHistory.push('/account/asset-change/coin-deposit');
         });
     }
 

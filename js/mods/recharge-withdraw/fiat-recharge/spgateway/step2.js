@@ -62,7 +62,7 @@ class View extends Component {
         }
         // 实体ATM
         if (action === 'go-record') {
-            browserHistory.push('/account/fiatrecord');
+            browserHistory.push('/account/asset-change/deposit');
         }
     }
 

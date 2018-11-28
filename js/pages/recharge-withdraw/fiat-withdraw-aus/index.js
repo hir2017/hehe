@@ -2,10 +2,10 @@
  * 法币提现
  */
 import React from 'react';
-import { observer, inject } from 'mobx-react';
-import { Button, message, Alert } from 'antd';
-import { browserHistory } from 'react-router';
-import { ausOrderFiatWithdraw, ausGetQuotaManagementInfo } from '@/api/http';
+import {observer, inject} from 'mobx-react';
+import {Button, message, Alert} from 'antd';
+import {browserHistory} from 'react-router';
+import {ausOrderFiatWithdraw, ausGetQuotaManagementInfo, ausGetCurrencyFee} from '@/api/http';
 import PageWrapper from '@/mods/common/wrapper/full-page';
 import NumberUtils from '@/lib/util/number';
 import FormView from '@/mods/common/form';
@@ -27,6 +27,7 @@ class View extends React.Component {
             dayLimit: 0,
             perLimit: 0,
             actionStatus: 0, // 提现行为限制  0:未获取 1:允许  2:禁止
+            feeInfo: {}
         };
         this.errorMsgMap = {
             // 用户当日提现总额超过当日限制额度
@@ -46,7 +47,8 @@ class View extends React.Component {
         this.bottomTip = (
             <FormView>
                 <FormItem>
-                    <div className="bottom-tips" dangerouslySetInnerHTML={{ __html: UPEX.lang.template('提现遇到了问题,我们只支持本人开户的银行卡提现...') }} />
+                    <div className="bottom-tips"
+                         dangerouslySetInnerHTML={{__html: UPEX.lang.template('提现遇到了问题,我们只支持本人开户的银行卡提现...')}}/>
                 </FormItem>
             </FormView>
         );
@@ -84,11 +86,11 @@ class View extends React.Component {
             .catch(err => {
                 console.error('componentDidMount withdraw aus', err);
             }).then(res => {
-                this.setState({
-                    step: 1,
-                    loading: false
-                });
+            this.setState({
+                step: 1,
+                loading: false
             });
+        });
 
         // kyc限额信息
         ausGetQuotaManagementInfo({
@@ -98,7 +100,7 @@ class View extends React.Component {
             .then(res => {
                 let result = {};
                 if (res.status === 200) {
-                    const { authLevel = 1 } = this.props.userInfoStore.userInfo;
+                    const {authLevel = 1} = this.props.userInfoStore.userInfo;
                     result.dayLimit = NumberUtils.separate(res.attachment[0][`kyc${authLevel}DayLimit`]);
                     result.perLimit = NumberUtils.separate(res.attachment[0][`kyc${authLevel}PerLimit`]);
                 }
@@ -108,11 +110,22 @@ class View extends React.Component {
             .catch(err => {
                 console.error('AusGetQuotaManagementInfo', err);
             });
+        // 获取提现手续费信息
+        ausGetCurrencyFee({
+            actionId: 2,
+            currencyId: 1
+        }).then(res => {
+            if (res.status === 200) {
+                this.setState({
+                    feeInfo: res.attachment
+                })
+            }
+        })
     }
 
     next(step, data) {
-        const { userInfoStore, authStore } = this.props;
-        const { userInfo } = userInfoStore;
+        const {userInfoStore, authStore} = this.props;
+        const {userInfo} = userInfoStore;
         if (step === 1) {
             this.setState({
                 step: 1,
@@ -126,7 +139,7 @@ class View extends React.Component {
             });
         }
         if (step === 3) {
-            const { info } = this.state;
+            const {info} = this.state;
             const params = {
                 currencyId: 1,
                 tradePwd: md5(data.tradePwd + UPEX.config.dealSalt + authStore.uid),
@@ -159,7 +172,7 @@ class View extends React.Component {
 
     step3Action(action) {
         if (action === 'record') {
-            browserHistory.push('/account/fiatrecord');
+            browserHistory.push('/account/asset-change/withdraw');
         }
         if (action === 'reset') {
             this.setState({
@@ -170,15 +183,15 @@ class View extends React.Component {
     }
 
     render() {
-        const { state } = this;
+        const {state} = this;
         const userInfo = this.props.userInfoStore.userInfo || {};
 
         let $alert = null;
         let $step = null;
         let $bottomTip = null;
         if ([1, 2].indexOf(state.step) !== -1) {
-            let alertMsg = UPEX.lang.template('单日提现限额 {num1}', { num1: state.dayLimit }) + ' ' + UPEX.config.baseCurrencyEn;
-            if(state.actionStatus === 2) {
+            let alertMsg = UPEX.lang.template('单日提现限额 {num1}', {num1: state.dayLimit}) + ' ' + UPEX.config.baseCurrencyEn;
+            if (state.actionStatus === 2) {
                 alertMsg = UPEX.lang.template('当前币种暂停此操作');
             }
             $alert = (
@@ -194,11 +207,13 @@ class View extends React.Component {
         // 一二步骤 有alert和bottom
         switch (state.step) {
             case 1:
-                $step = <Step1 init={state.info} actionStatus={state.actionStatus} perLimit={state.perLimit} next={this.next.bind(this)} />;
+                $step = <Step1 init={state.info} actionStatus={state.actionStatus} perLimit={state.perLimit} feeInfo={state.feeInfo}
+                               next={this.next.bind(this)}/>;
                 $bottomTip = this.bottomTip;
                 break;
             case 2:
-                $step = <Step2 name={state.info.name} isGa={userInfo.isGoogleAuth} info={state.info} next={this.next.bind(this)} />;
+                $step = <Step2 name={state.info.name} isGa={userInfo.isGoogleAuth} info={state.info}
+                               next={this.next.bind(this)}/>;
                 $bottomTip = this.bottomTip;
                 break;
             case 3:

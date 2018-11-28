@@ -1,5 +1,5 @@
 import React from 'react';
-import {Icon} from 'antd';
+import { Icon } from 'antd';
 import TimeUtil from '@/lib/util/date';
 
 import { getFundChangeList, ausGetFundChangeList, getCoinRechargeList, getCoinWithdrawList, getAssetChangeReward } from '@/api/http';
@@ -112,29 +112,43 @@ export const getList = function(type, page = 1) {
 // 数据格式化函数
 const formatFn = {
     // 法定货币
-    legal(valMap, item) {
+    legal(valMap, type, item) {
+        item._actionType = type;
         // 状态
         item._status = valMap.status[item.status] || '--';
-        // 行为
-        item._actionName = item.type === 1 ? UPEX.lang.template('充值') : UPEX.lang.template('提现');
         // 卡号
         item._cardNo = item.cardNo || (item.payerAccount5Code ? `*******${item.payerAccount5Code || ''}` : '');
         // 支付方式
-        item._payMethod = item.type === 1 ? `${valMap.payMethods[item.openBank] || '--'}` : UPEX.lang.template('银行卡提现');
         // 付款银行
         item._bankInfo = item.type === 1 ? `${valMap.banks[item.payBankCode] || ''}(${item.payBankCode || ''})` : '';
-        // 金额
-        item._amount = `${item.type === 1 ? '+' : '-'}${item.amount}`;
-        // 交易时间
-        item._tradeTime = item.tradeTimeStamp ? TimeUtil.formatDate(item.tradeTimeStamp) : '--';
-        // 充值详情禁止
-        if (item.type === 1) {
-            item._disabled = item.status === 9;
+        // 行为 金额 交易时间 支付方式 充值详情禁止
+        if (UPEX.config.version === 'ace') {
+            item._actionName = item.type === 1 ? UPEX.lang.template('充值') : UPEX.lang.template('提现');
+            item._amount = `${item.type === 1 ? '+' : '-'}${item.amount}`;
+            item._tradeTime = item.tradeTimeStamp ? TimeUtil.formatDate(item.tradeTimeStamp) : '--';
+            item._payMethod = item.type === 1 ? `${valMap.payMethods[item.openBank] || '--'}` : UPEX.lang.template('银行卡提现');
+            if (item.type === 1) {
+                item._disabled = item.status === 9;
+            }
+        } else {
+            item._actionName = type === 'deposit' ? UPEX.lang.template('充值') : UPEX.lang.template('提现');
+            item._amount = type === 'deposit' ? `+${item.amount}` : `-${item.withdrawAmount}`;
+            let _time = type === 'deposit' ? item.tradeTimeStamp : item.createTimeStamp;
+            item._tradeTime = _time ? TimeUtil.formatDate(_time) : '--';
+            let payMap = {
+                '1': 'BPAY',
+                '2': 'POLI',
+            }
+            item._payMethod = type === 'deposit' ?  payMap[item.type] : UPEX.lang.template('银行卡转账');
+            if (type === 'deposit') {
+                item._disabled = true;
+            }
         }
+
         return item;
     },
     // 加密货币
-    coin_deposit(valMap, item) {
+    coin_deposit(valMap, type, item) {
         item._disabled = true;
         switch (item.confirms) {
             case 'success':
@@ -155,7 +169,7 @@ const formatFn = {
         item._createTime = item.createTimeStamp ? TimeUtil.formatDate(item.createTimeStamp) : '--';
         return item;
     },
-    coin_withdraw(valMap, item) {
+    coin_withdraw(valMap, type, item) {
         item._disabled = true;
         switch (item.confirms) {
             case 'Success':
@@ -188,12 +202,12 @@ const formatFn = {
 
         return item;
     },
-        // 分发记录
-        reward(valMap, item) {
-            item._changeType = valMap.type[item.changeType] || '';
-            item._createTime = item.createTimeStamp ? TimeUtil.formatDate(item.createTimeStamp) : '--';
-            return item;
-        },
+    // 分发记录
+    reward(valMap, type, item) {
+        item._changeType = valMap.type[item.changeType] || '';
+        item._createTime = item.createTimeStamp ? TimeUtil.formatDate(item.createTimeStamp) : '--';
+        return item;
+    }
 };
 // 列表数据格式整理
 const formatItem = (arr, type) => {
@@ -214,7 +228,7 @@ const formatItem = (arr, type) => {
             break;
     }
     let valMap = isLegal ? getlegalMap(type) : getCoinMap(type);
-    _filter = _filter.bind(this, valMap);
+    _filter = _filter.bind(this, valMap, type);
     let result = arr.map(_filter);
     return result;
 };
@@ -307,9 +321,9 @@ const getCoinMap = type => {
     let rewardTypeMap = {
         '15': UPEX.lang.template('邀请返佣金'),
         '20': UPEX.lang.template('币空投活动')
-    }
+    };
     return {
-        type: type === 'reward' ? rewardTypeMap: depositeTypeMap
+        type: type === 'reward' ? rewardTypeMap : depositeTypeMap
     };
 };
 

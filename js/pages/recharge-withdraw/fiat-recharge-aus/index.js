@@ -7,7 +7,7 @@ import { Alert } from 'antd';
 import PageWrapper from '@/mods/common/wrapper/full-page';
 import FormView from '@/mods/common/form';
 import FormItem from '@/mods/common/form/item';
-import { ausGetQuotaManagementInfo, getBPAYreferenceNo } from '@/api/http';
+import { ausGetQuotaManagementInfo, getBPAYreferenceNo, ausGetCurrencyFee } from '@/api/http';
 import NumberUtils from '@/lib/util/number';
 import Bpay from './bpay';
 import Poli from './poli';
@@ -25,7 +25,8 @@ class View extends Component {
             referenceNo: '',
             singleLimit: '2,000',
             actionStatus: 0, // 充值行为限制  0:未获取 1:允许  2:禁止
-            dayLimit: 0
+            dayLimit: 0,
+            feeInfo: {}
         };
         this.pageInfo = {
             title: UPEX.lang.template('账户充值'),
@@ -62,15 +63,17 @@ class View extends Component {
 
     componentDidMount() {
         const {userInfoStore, commonStore} = this.props;
-
+        // 校验: 平台法币币种是否禁止充值、用户充值是否受限
         Promise.all([commonStore.getAllCoinPoint(), userInfoStore.getActionLimit()])
             .then(([res1, res2]) => {
                 if (res2.status !== 200) {
                     return;
                 }
+                // 获取用户充值操作限制信息
                 const {recharge} = userInfoStore.actionRoles;
+                // 获取平台法币操作限制信息
                 let baseCurrency = commonStore.coinsMap[UPEX.config.baseCurrencyEn];
-                // 检测充值限制
+                // 检测当前用户充值操作限制（用户充值操作限制 + 平台法币操作限制）
                 let disabled = parseInt(userInfoStore.actionRoles.recharge) !== 1 || parseInt(baseCurrency.rechargeStatus) !== 1;
                 if (disabled) {
                     this.setState({
@@ -89,6 +92,16 @@ class View extends Component {
                     loading: false
                 });
             });
+        ausGetCurrencyFee({
+            actionId: 1,
+            currencyId: 1
+        }).then(res => {
+            if(res.status === 200) {
+                this.setState({
+                    feeInfo: res.attachment
+                })
+            }
+        })
     }
 
     render() {
