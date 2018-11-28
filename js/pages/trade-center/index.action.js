@@ -64,10 +64,10 @@ export default (store, currencyStore) => {
                     return;
                 }
                 store.openStore.updateItem(item);
-
                 store.updatePersonalAccount({
                     baseCoinBalance: item.baseCurrencyNum,
-                    tradeCoinBalance: item.currencyNum
+                    tradeCoinBalance: item.currencyNum,
+                    tradeCurrencyId: item.currencyId
                 })
             }
 
@@ -92,10 +92,10 @@ export default (store, currencyStore) => {
                 item = item || {};
                 store.successStore.updateItem(item);
                 store.openStore.updateItem(item); // 删除委托中的该订单
-
                 store.updatePersonalAccount({
                     baseCoinBalance: item.baseCurrencyNum,
-                    tradeCoinBalance: item.currencyNum
+                    tradeCoinBalance: item.currencyNum,
+                    tradeCurrencyId: item.currencyId
                 })
             }
 
@@ -146,7 +146,6 @@ export default (store, currencyStore) => {
             socket.on('userAccount', data => {
                 data.baseCoinBalance = data.baseCoinBalance || 0;
                 data.tradeCoinBalance = data.tradeCoinBalance || 0;
-
                 store.updatePersonalAccount(data);
             });
         },
