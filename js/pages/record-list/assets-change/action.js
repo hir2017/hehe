@@ -113,6 +113,7 @@ export const getList = function(type, page = 1) {
 const formatFn = {
     // 法定货币
     legal(valMap, type, item) {
+        item._actionType = type;
         // 状态
         item._status = valMap.status[item.status] || '--';
         // 卡号

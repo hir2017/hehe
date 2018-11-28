@@ -22,6 +22,10 @@ export const deposit = function () {
             { dataIndex: '_payMethod', className: 'pay-method' },
             {
                 render: (row, col, index) => {
+                    // 澳洲充值无详情
+                    if(UPEX.config.version !== 'ace' && row._actionType === 'deposit') {
+                        return '--'
+                    }
                     return (
                         <Button
                             disabled={row._disabled}
