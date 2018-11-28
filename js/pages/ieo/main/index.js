@@ -3,19 +3,21 @@
  */
 import React, { Component } from 'react';
 
+import List from './list';
+import Advantage from './advantage';
+
 class Page extends Component {
     constructor(props) {
         super(props);
     }
 
-    componentDidMount() {
-    }
+    componentDidMount() {}
 
     render() {
-
         return (
             <div className="ieo-wrapper">
-                ieo
+                <List />
+                <Advantage />
             </div>
         );
     }
