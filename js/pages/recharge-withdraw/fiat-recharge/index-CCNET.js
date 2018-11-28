@@ -61,7 +61,7 @@ class View extends Component {
     }
 
     onSubmit(action) {
-        let url = action === 'back' ? '/account' : '/account/fiatrecord';
+        let url = action === 'back' ? '/account' : '/account/asset-change/deposit';
         browserHistory.push(url);
     }
 

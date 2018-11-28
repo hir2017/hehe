@@ -12,6 +12,7 @@ import * as listConfig from './list-config';
 import List from '@/components/list';
 import * as action from './action';
 import SubRow from './legal-sub-row';
+import AusSubRow from './aus-legal-sub-row';
 import CoinSubRow from './coin-sub-row';
 
 
@@ -101,11 +102,13 @@ class RecordPage extends Component {
 
     detail = (subData, rowData, i)  => {
         const {type} = this.state;
+        let detail = null;
         if(['deposit', 'withdraw'].indexOf(type) !== -1) {
-            return <SubRow type={type} data={rowData}/>;
+            detail = UPEX.config.version === 'ace' ? <SubRow type={type} data={rowData}/> : <AusSubRow type={type} data={rowData}/>;
         } else {
-            return <CoinSubRow type={type} data={rowData}/>;
+            detail = <CoinSubRow type={type} data={rowData}/>;
         }
+        return detail;
     }
 
     toggleSubRow = (row, index) => {

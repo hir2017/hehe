@@ -16,8 +16,8 @@ class SubRow extends Component {
 
     componentDidMount() {
         const {data} = this.props;
-        if(data.confirms === 'Reject' && data.type === 2) {
-            this.props.UtilStore.getRefuseReason(data.refuseStrategyId).then(reason => {
+        if(data.confirms === 'Reject') {
+            this.props.UtilStore.getRefuseReason(data.reasonId).then(reason => {
                 this.setState({
                     reason
                 })
