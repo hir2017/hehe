@@ -155,7 +155,7 @@ export default class extends React.Component {
                         disable: false
                     });
                     setTimeout(() => {
-                        browserHistory.push('/account/fiatrecord');
+                        browserHistory.push('/account/asset-change/deposit');
                     }, 100);
                 }
             },

@@ -172,7 +172,7 @@ class View extends React.Component {
 
     step3Action(action) {
         if (action === 'record') {
-            browserHistory.push('/account/fiatrecord');
+            browserHistory.push('/account/asset-change/withdraw');
         }
         if (action === 'reset') {
             this.setState({
