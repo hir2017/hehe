@@ -31,7 +31,7 @@ const getNavList = () => {
                   },
                   {
                       name: UPEX.lang.template('隐私条款'),
-                      path: UPEX.lang.template('隐私保护网页链接')
+                      path: UPEX.lang.template('隐私条款网页链接')
                   },
                   {
                       name: UPEX.lang.template('免责声明'),

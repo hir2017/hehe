@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {observer, inject} from 'mobx-react';
-import {getUserActionLimit} from '../../api/http';
+import {twdGetQuotaManagementInfo} from '../../api/http';
 import NumberUtil from '../../lib/util/number';
 import {Button, Icon, Upload, message, Tooltip, Alert} from 'antd';
 import upload_pic from '../../../images/upload-pic.png';
@@ -10,6 +10,7 @@ import IDcard1 from '../../../images/idcard-2.png';
 import IDcard2 from '../../../images/idcard-3.png';
 
 import AceForm from '../../components/form/form';
+
 
 const IDcardPics = {
     IDcard0,
@@ -48,15 +49,17 @@ export default class SecondStep extends Component {
     }
 
     componentDidMount() {
-        getUserActionLimit()
-            .then(res => {
-                this.setState({
-                    withdrawLimit: NumberUtil.separate(res.attachment.dayLimit)
-                });
-            })
-            .catch(err => {
-                console.error(err);
+        //获取KYC1每日提币限额
+        twdGetQuotaManagementInfo({
+            actionId: 4,
+            currencyId: 2
+        }).then(res => {
+            this.setState({
+                withdrawLimit: NumberUtil.separate(res.attachment[0].kyc1DayLimit)
             });
+        }).catch(err => {
+            console.error(err);
+        })
     }
 
     getPopvoer(i) {
