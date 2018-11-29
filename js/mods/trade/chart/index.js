@@ -167,15 +167,18 @@ class TVChartContainer extends Component {
     }
 
     asyncTradingView = ()=>{
+        console.log('asyncTradingView')
         if (typeof TradingView == 'undefined') {
             // 注释不可省略，否则不能显示文件名称
             import(/*webpackChunkName: "charting_library"*/'./../../../lib/tradingview/charting_library.min').then(module => {
+                console.log(1111, 23123)
                 this.visibleKlineMask(true);
                 this.createTradingView();
             }).catch(err => {
                 console.error("Chunk loading failed", err);
             });
         } else {
+            console.log(2222, 23123)
             if (!this.tvwidget) {
                 this.visibleKlineMask(true);
                 this.createTradingView();
