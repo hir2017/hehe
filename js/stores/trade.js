@@ -139,6 +139,11 @@ export default class TradeStore {
         this.currentTradeCoin = data;
     }
 
+    // @action updateCurrentTradeCoinNameEn({currencyNameEn, baseCurrencyNameEn}) {
+    //     this.currentTradeCoin.currencyNameEn = currencyNameEn;
+    //     this.currentTradeCoin.baseCurrencyNameEn = baseCurrencyNameEn;
+    // }
+
     @action updateAsks(data) {
         this.asks = data;
     }

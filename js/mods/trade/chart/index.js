@@ -140,6 +140,7 @@ class TVChartContainer extends Component {
         }
     }
 
+
     componentDidMount(){
         this.drawChart();
 
@@ -167,18 +168,15 @@ class TVChartContainer extends Component {
     }
 
     asyncTradingView = ()=>{
-        console.log('asyncTradingView')
         if (typeof TradingView == 'undefined') {
             // 注释不可省略，否则不能显示文件名称
             import(/*webpackChunkName: "charting_library"*/'./../../../lib/tradingview/charting_library.min').then(module => {
-                console.log(1111, 23123)
                 this.visibleKlineMask(true);
                 this.createTradingView();
             }).catch(err => {
                 console.error("Chunk loading failed", err);
             });
         } else {
-            console.log(2222, 23123)
             if (!this.tvwidget) {
                 this.visibleKlineMask(true);
                 this.createTradingView();
@@ -648,7 +646,7 @@ class TVChartContainer extends Component {
                             trigger="click"
                             overlayClassName={ store.theme === 'dark' ? 'popover-tradecoins popover-tradecoins-dark' : 'popover-tradecoins popover-tradecoins-light'}
                             >
-                               <label>{store.currentTradeCoin.currencyNameEn}/{store.currentTradeCoin.baseCurrencyNameEn}</label>
+                                <label>{store.currentTradeCoin.currencyNameEn}/{store.currentTradeCoin.baseCurrencyNameEn}</label>
                                <Icon type="caret-down" style={arrowCls} />
                            </Popover>
                            <span className={`current-amount ${trendColor}`}>
