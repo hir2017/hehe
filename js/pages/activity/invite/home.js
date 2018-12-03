@@ -42,12 +42,23 @@ class PageView extends Component {
                     <div className="invite-rule">
                         <div className="rule-hd">{UPEX.lang.template('活动规则')}</div>
                         <div className="rule-bd">
-                            <ul>
-                                <li>{UPEX.lang.template('一级返佣')}</li>
-                                <li dangerouslySetInnerHTML={{__html: UPEX.lang.template('每邀请一个用户进行注册，则该用户交易产生的手续费的{value}作为佣金返还到您的账户。', { value: '50%'},1) }}></li>
-                                <li>{UPEX.lang.template('二级返佣')}</li>
-                                <li dangerouslySetInnerHTML={{__html: UPEX.lang.template('如果您邀请的用户再次邀请用户A，则用户A的产生的交易手续费的{value}也作为佣金返还到您的账户。', { value: '10%'}, 1)}}></li>
-                            </ul>
+                            {
+                                UPEX.config.version === 'ace' ?(
+                                    <ul>
+                                        <li>{UPEX.lang.template('一级返佣')}</li>
+                                        <li dangerouslySetInnerHTML={{__html: UPEX.lang.template('每邀请一个用户进行注册，则该用户交易产生的手续费的{value}作为佣金返还到您的账户。', { value: '50%'},1) }}></li>
+                                        <li>{UPEX.lang.template('二级返佣')}</li>
+                                        <li dangerouslySetInnerHTML={{__html: UPEX.lang.template('如果您邀请的用户再次邀请用户A，则用户A的产生的交易手续费的{value}也作为佣金返还到您的账户。', { value: '10%'}, 1)}}></li>
+                                    </ul>
+                                ):(
+                                    <ul>
+                                        <li>{UPEX.lang.template('一级返佣')}</li>
+                                        <li dangerouslySetInnerHTML={{__html: UPEX.lang.template('每邀请一个用户进行注册，则该用户交易产生的手续费的{value}作为佣金返还到您的账户。', { value: '20%'},1) }}></li>
+                                        <li>{UPEX.lang.template('二级返佣')}</li>
+                                        <li dangerouslySetInnerHTML={{__html: UPEX.lang.template('如果您邀请的用户再次邀请用户A，则用户A的产生的交易手续费的{value}也作为佣金返还到您的账户。', { value: '10%'}, 1)}}></li>
+                                    </ul>
+                                )
+                            }
                         </div>
                         <div className="rule-ft">
                             <h4>{UPEX.lang.template('温馨提示')}</h4>
