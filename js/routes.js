@@ -82,7 +82,7 @@ const Invite = (location, cb) => {
     require.ensure([], require => {
         cb(null, require('./pages/activity/invite/index').default);
     }, 'invite');
-}
+};
 
 
 const routes = (

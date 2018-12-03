@@ -76,8 +76,6 @@ class UserPage extends Component {
 
         if(UPEX.config.version === 'infinitex') {
             navData[0].subItems.pop();
-            // 临时移除活动
-            navData.pop();
         }
         this.navData = navData;
     }

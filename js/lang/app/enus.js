@@ -591,7 +591,7 @@ module.exports={
     "您暂时没有提币记录": "No data",
     "您的条件尚不符合提额条件": "You are not yet eligible for increasing withdrawal limit",
     "您的申请审核失败了，失败原因是": "Your application is failed due to:",
-    "您的返佣将会为您实时记录，并在每周的特定时间为您结算。": "You cashback will be  real-time recorded, and checked out every week.",
+    "您的返佣将会为您实时记录，并在每周的特定时间为您结算。": "You cashback will be  real-time recorded, and timing checked out .",
     "您获得的佣金中，法币的佣金将不计入返佣金额，只为您计算并结算数字货币的佣金。": "Due to relevant laws and regulations，fiat cashback will not be included in your cashback, and just record and pay out you crypto cashback.",
     "您还未进行安全级别认证": "No ID verification",
     "您还未进行身份认证": "You have not completed the ID verification",
