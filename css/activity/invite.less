@@ -233,11 +233,13 @@
         padding: 10px 20px;
       }
       .share-item {
-        height: 50px;
-        line-height: 50px;
+        display: flex;
+        align-items: center;
         p,
         label {
           display: inline-block;
+          height: 50px;
+          line-height: 50px;
         }
         label {
           width: 110px;
@@ -253,6 +255,9 @@
             &.link {
               width: 388px;
               text-indent: 10px;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: nowrap;
             }
             &.copy-txt {
               color: #cc9900;
