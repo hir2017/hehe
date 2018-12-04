@@ -130,7 +130,7 @@ class UserView extends Component {
                                     <div className="hover-bd">
                                         <div className="bd-top" id="shareDes">
                                             <p className="des">{UPEX.lang.template('邀请好友注册{sitename}，巨额返现等着你', {sitename: UPEX.config.sitename})}</p>
-                                            <p className="link">{shareLink}</p>
+                                            <p>{shareLink}</p>
                                         </div>
                                         <div className="btns">
                                             <button data-clipboard-target=".bd-top"
