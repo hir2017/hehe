@@ -1019,7 +1019,7 @@ module.exports={
     "选择银行": "Select Bank",
     "选择银行分行": "Select bank branch",
     "逻辑删除": "Logical deletion",
-    "邀请好友注册{sitename}，巨额返现等着你": "Invite friends to register {sitename}, and get large cashback",
+    "邀请好友注册{sitename}，巨额返现等着你": "Invite friends to register {sitename}, cashback is awaiting for you",
     "邀请好友注册{sitename}，轻松获得交易返佣": "Invite friends to register {sitename}，get cashback easily",
     "邀请您注册{sitename}": "invite you to register {sitename}",
     "邀请明细": "Invitation History",

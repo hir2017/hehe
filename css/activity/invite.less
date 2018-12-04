@@ -7,115 +7,115 @@
  * 活动注册页样式
  */
 .invite-register {
-  width: 100%;
-  min-height: 650px;
-  background: url(../../images/activity/invite-bg.png) no-repeat center top;
-  background-size: cover;
-  overflow: hidden;
-  color: #fff;
-  .register-wrap {
-    width: 1200px;
-    margin: 0 auto;
-    .wrap-left {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      margin-top: -90px;
-      margin-left: -500px;
-      opacity: 0;
-      transition: all ease-in-out 2s;
-      &.show-ani {
-        opacity: 1;
-        margin-top: -100px;
-      }
-      .friend {
-        opacity: 0;
-        color: #c5cedd;
-        font-size: 20px;
-        font-weight: 300;
-        transition: all ease-in-out 2s;
-        &.show-ani {
-          opacity: 1;
-        }
-      }
-      .title {
-        opacity: 0;
-        font-size: 36px;
-        color: #cad1d5;
-        margin-top: 25px;
-        transition: all ease-in-out 2s .5s;
-        &.show-ani {
-          opacity: 1;
-        }
-      }
-      .btn {
-        opacity: 0;
-        margin-top: 30px;
-        transition: all ease-in-out 2s 1s;
-        &.show-ani {
-          opacity: 1;
-        }
-        a {
-          display: inline-block;
-          width: 180px;
-          height: 40px;
-          line-height: 40px;
-          text-align: center;
-          font-size: 16px;
-          border-radius: 20px;
-          border: 1px solid #cc9900;
-          color: #cc9900;
-          cursor: pointer;
-          text-decoration: none;
-          &:hover {
-            background-color: #cc9900;
-            color: #fff;
-          }
-        }
-      }
-    }
-    .wrap-right {
-      position: absolute;
-      width: 720px;
-      background: url("../../images/activity/register-computer.png") no-repeat center;
-      background-size: 720px 425px;
-      padding-top: 440px;
-      right: 50%;
-      top: 50%;
-      margin-top: -200px;
-      margin-right: -600px;
-      opacity: 0;
-      transition: all ease-in-out 2s;
-      &.show-ani {
-        opacity: 1;
-        margin-top: -230px;
-      }
-      .des {
-        text-align: center;
-        color: #838891;
-        span {
-          display: inline-block;
-          margin: 0 22px;
-          position: relative;
-          &:before {
+    width: 100%;
+    min-height: 650px;
+    background: url(../../images/activity/invite-bg.png) no-repeat center top;
+    background-size: cover;
+    overflow: hidden;
+    color: #fff;
+    .register-wrap {
+        width: 1200px;
+        margin: 0 auto;
+        .wrap-left {
             position: absolute;
-            content: '';
-            width: 1px;
-            height: 8px;
-            background-color: #838891;
-            left: -22px;
-            top: 4px;
-          }
-          &:first-child {
-            &:before {
-              width: 0;
+            left: 50%;
+            top: 50%;
+            margin-top: -90px;
+            margin-left: -500px;
+            opacity: 0;
+            transition: all ease-in-out 2s;
+            &.show-ani {
+                opacity: 1;
+                margin-top: -100px;
             }
-          }
+            .friend {
+                opacity: 0;
+                color: #c5cedd;
+                font-size: 20px;
+                font-weight: 300;
+                transition: all ease-in-out 2s;
+                &.show-ani {
+                    opacity: 1;
+                }
+            }
+            .title {
+                opacity: 0;
+                font-size: 36px;
+                color: #cad1d5;
+                margin-top: 25px;
+                transition: all ease-in-out 2s .5s;
+                &.show-ani {
+                    opacity: 1;
+                }
+            }
+            .btn {
+                opacity: 0;
+                margin-top: 30px;
+                transition: all ease-in-out 2s 1s;
+                &.show-ani {
+                    opacity: 1;
+                }
+                a {
+                    display: inline-block;
+                    width: 180px;
+                    height: 40px;
+                    line-height: 40px;
+                    text-align: center;
+                    font-size: 16px;
+                    border-radius: 20px;
+                    border: 1px solid #cc9900;
+                    color: #cc9900;
+                    cursor: pointer;
+                    text-decoration: none;
+                    &:hover {
+                        background-color: #cc9900;
+                        color: #fff;
+                    }
+                }
+            }
         }
-      }
+        .wrap-right {
+            position: absolute;
+            width: 720px;
+            background: url("../../images/activity/register-computer.png") no-repeat center;
+            background-size: 720px 425px;
+            padding-top: 440px;
+            right: 50%;
+            top: 50%;
+            margin-top: -200px;
+            margin-right: -600px;
+            opacity: 0;
+            transition: all ease-in-out 2s;
+            &.show-ani {
+                opacity: 1;
+                margin-top: -230px;
+            }
+            .des {
+                text-align: center;
+                color: #838891;
+                span {
+                    display: inline-block;
+                    margin: 0 22px;
+                    position: relative;
+                    &:before {
+                        position: absolute;
+                        content: '';
+                        width: 1px;
+                        height: 8px;
+                        background-color: #838891;
+                        left: -22px;
+                        top: 4px;
+                    }
+                    &:first-child {
+                        &:before {
+                            width: 0;
+                        }
+                    }
+                }
+            }
 
+        }
     }
-  }
 
 }
 
@@ -123,608 +123,623 @@
  * 活动主页样式
  */
 .invite-wrap {
-  .invite-banner {
-    width: 980px;
-    height: 180px;
-    background: url("../../images/activity/banner.png") no-repeat center;
-    background-size: 100%;
-    overflow: hidden;
-    img {
-      width: 100%;
-      height: 100%;
-    }
-  }
-  .invite-rank {
-    position: relative;
-    border-radius: 0 0 6px 6px;
-    background-color: #fff;
-    padding: 0 20px;
-    color: @text-color02-light;
-    ul {
-      display: flex;
-      display: -webkit-box;
-      li {
-        position: relative;
-        flex: 1;
-        -webkit-flex: 1;
-        padding-left: 45px;
-        padding-top: 10px;
-        padding-bottom: 10px;
-        &[data-rank="1"] {
-          background: url('../../images/activity/no1.png') no-repeat left center;
-          background-size: 37px 37px;
-        }
-        &[data-rank="2"] {
-          background: url('../../images/activity/no2.png') no-repeat left center;
-          background-size: 37px 37px;
-        }
-        &[data-rank="3"] {
-          background: url('../../images/activity/no3.png') no-repeat left center;
-          background-size: 37px 37px;
-        }
-        &.no-data {
-          padding-top: 20px;
-          padding-bottom: 20px;
-        }
-        &:after {
-          position: absolute;
-          right: 10px;
-          top: 50%;
-          margin-top: -12px;
-          content: '';
-          width: 2px;
-          height: 24px;
-          background-color: #f0f3f5;
-        }
-        &:last-child:after {
-          display: none;
-        }
-        .name {
-          color: #31353f;
-          font-size: 12px;
-        }
-        .desc {
-          font-size: 12px;
-          width: 270px;
-          .num {
-            color: #31353f;
-            padding: 0 6px;
-          }
-        }
-      }
-    }
-  }
-  .invite-user {
-    margin-top: 10px;
-    .user-left {
-      float: left;
-      width: 360px;
-      height: 170px;
-    }
-    .user-mod {
-      color: @text-color02-light;
-      background-color: #fff;
-      border-radius: 6px;
-      padding: 0 20px;
-      height: 80px;
-      line-height: 80px;
-      p,
-      label {
-        display: inline-block;
-      }
-      label {
-        width: 108px;
-      }
-      em {
-        color: #31353f;
-        font-size: 18px;
-        font-weight: bold;
-        padding: 0 8px 0 3px;
-      }
-    }
-
-    .user-right {
-      float: right;
-      width: 610px;
-      height: 170px;
-      background-color: #fff;
-      border-radius: 6px;
-      ul {
-        padding: 10px 20px;
-      }
-      .share-item {
-        display: flex;
-        align-items: center;
-        p,
-        label {
-          display: inline-block;
-          height: 50px;
-          line-height: 50px;
-        }
-        label {
-          width: 110px;
-          color: @text-color02-light;
-        }
-        p.link-wrap {
-          width: 450px;
-          border-radius: 3px;
-          background-color: #f7f8f9;
-          color: @text-color01-light;
-          span {
-            display: inline-block;
-            &.link {
-              width: 388px;
-              text-indent: 10px;
-              overflow: hidden;
-              text-overflow: ellipsis;
-              white-space: nowrap;
-            }
-            &.copy-txt {
-              color: #cc9900;
-              margin: 0 16px;
-              position: relative;
-              float: right;
-              &:before {
-                position: absolute;
-                content: '';
-                width: 1px;
-                height: 10px;
-                background-color: #cad1d5;
-                left: -18px;
-                top: 50%;
-                margin-top: -5px;
-              }
-              &:hover {
-                cursor: pointer;
-              }
-            }
-          }
-        }
-        em.code {
-          color: #cc9900;
-          font-size: 18px;
-          letter-spacing: 1px;
-        }
-        .icon-bd {
-          display: inline-block;
-          margin-right: 20px;
-          i.icon {
-            position: relative;
-            display: inline-block;
-            vertical-align: middle;
-            width: 20px;
-            height: 20px;
-            background: url("../../images/activity/share-icon.png") no-repeat 0 0;
-            background-size: auto 40px;
-            font-style: normal;
-            .qrcode-big {
-              display: none;
-              position: absolute;
-              width: 150px;
-              height: 150px;
-              background: url("../../images/activity/hover-bg.png") no-repeat center;
-              background-size: 100%;
-              left: -65px;
-              top: 20px;
-              z-index: 9;
-              box-sizing: border-box;
-              padding: 28px 25px;
-            }
-            .hover-bd {
-              display: none;
-              position: absolute;
-              width: 417px;
-              height: 188px;
-              background: url("../../images/activity/sharehover-bg.png") no-repeat center;
-              background-size: 100% 100%;
-              z-index: 9;
-              left: -208px;
-              top: 20px;
-              text-align: center;
-              .bd-top{
-                margin: 48px auto 34px;
-                p {
-                  display: block;
-                  color: #545960;
-                  line-height: normal;
-                  margin-bottom: 12px;
-                  &.des{
-                    font-size: 16px;
-                    font-weight: 500;
-                  }
-                }
-              }
-              .btns{
-                margin: 0 12px;
-                font-size: 14px;
-                color: @text-color02-light;
-                button{
-                  width: 50%;
-                  background: none;
-                }
-                a{
-                  display: inline-block;
-                  width: 50%;
-                  color: inherit;
-                  text-decoration: none;
-                }
-                button,a{
-                  &:hover{
-                    color: @text-yellow-color;
-                  }
-                }
-              }
-            }
-
-            &:hover {
-              .qrcode-big, .hover-bd {
-                display: block;
-              }
-              cursor: pointer;
-              background-position-y: -20px;
-            }
-            &.qrcode {
-              background-position-x: 0;
-            }
-            &.facebook {
-              background-position-x: -20px;
-            }
-            &.twitter {
-              background-position-x: -40px;
-            }
-          }
-        }
-      }
-    }
-  }
-  .invite-order {
-    margin-top: 10px;
-    .order-left {
-      float: left;
-      width: 360px;
-      height: 550px;
-      background-color: #fff;
-      border-radius: 6px;
-      .invite-bonus {
-        .bonus-hd {
-          height: 51px;
-          line-height: 51px;
-          border-bottom: 1px solid #f2f2f2;
-          background-color: #fff;
-          font-size: 14px;
-          padding-left: 20px;
-          border-radius: 6px 6px 0 0;
-          color: #323e48;
-        }
-        .bonus-bd {
-          position: relative;
-          min-height: 500px;
-          color: @text-color02-light;
-          .name {
-            width: 160px;
-            float: left;
-            text-align: left;
-          }
-          .number {
-            width: 160px;
-            float: right;
-            text-align: right;
-          }
-          .table-hd {
-            height: 50px;
-            line-height: 50px;
-            padding: 0 20px;
-            border-bottom: 1px solid #edf0f1;
-          }
-          .table-bd {
-            padding: 0 20px;
-            height: 400px;
-            .exc-list-empty.mini-tip{
-              margin-top: 155px;
-            }
-          }
-          .table-bd li {
+    .invite-banner {
+        width: 980px;
+        height: 180px;
+        background: url("../../images/activity/banner.png") no-repeat center;
+        background-size: 100%;
+        overflow: hidden;
+        img {
             width: 100%;
-            height: 50px;
-            line-height: 50px;
-            border-bottom: 1px solid #edf0f1;
-            overflow: hidden;
-            color: @text-color01-light;
-            .symbol,
-            img {
-              display: inline-block;
-              vertical-align: middle;
-            }
-            img {
-              width: 20px;
-              height: 20px;
-              margin-right: 6px;
-              background: url('../../images/coin-default.png') no-repeat center center;
-              background-size: 100% 100%;
-            }
-            &:hover {
-              background-color: @list-hoverbg-color01-light;
-            }
-          }
-          .table-ft {
-            padding: 0 20px;
-            .ant-pagination {
-              float: right;
-              margin-top: 8px;
-              margin-right: -14px;
-            }
-          }
-
+            height: 100%;
         }
-
-      }
     }
-    .order-right {
-      float: right;
-      width: 610px;
-      height: 550px;
-      background-color: #fff;
-      border-radius: 6px;
-      .invite-record {
-        .record-menu ul {
-          height: 51px;
-          border-bottom: 1px solid #f2f2f2;
-          li {
-            position: relative;
-            width: 305px;
-            float: left;
-            cursor: pointer;
-            height: 50px;
-            line-height: 50px;
-            background-color: #f5f7f9;
-            font-size: 14px;
-            text-align: center;
-            border-right: 1px solid #f2f2f2;
-            transition: all 0.5s ease;
-            border-radius: 6px 0 0 0;
-            &:last-child {
-              border-radius: 0 6px 0 0;
-            }
-            &:hover {
-              background-color: #fff;
-              h3 {
-                color: @text-color01-light;
-              }
-            }
-            &:last-child {
-              border-right: 0 none;
-            }
-            &.selected {
-              background-color: #fff;
-              h3 {
-                color: @text-color01-light;
-                &:before {
-                  content: '';
-                  height: 2px;
-                  width: 24px;
-                  background: #e8b802;
-                  position: absolute;
-                  left: 50%;
-                  top: 100%;
-                  bottom: 0;
-                  margin-top: -1px;
-                  margin-left: -12px;
-                  border-radius: 1px;
-                }
-              }
-            }
-            h3 {
-              position: relative;
-              display: inline-block;
-              color: @text-color02-light;
-              padding: 0 5px;
-            }
-          }
-        }
-        .record-main {
-          .record-rebate, .record-detail {
-            position: relative;
-            .table-hd, .table-bd, .table-ft {
-              padding: 0 20px;
-            }
-            .table-hd {
-              color: @text-color02-light;
-            }
-            .table-bd {
-              height: 400px;
-              .exc-list-empty.mini-tip{
-                margin-top: 155px;
-              }
-            }
-            .time, .name, .number, .user, .status, .level {
-              display: inline-block;
-            }
-            .list {
-              .time {
-                color: @text-color02-light;
-              }
-              .name, .number, .user, .status {
-                color: @text-color01-light;
-              }
-            }
-            .table-hd, .list li {
-              height: 50px;
-              line-height: 50px;
-              border-bottom: 1px solid #edf0f1;
-            }
-            .list li {
-              &:hover {
-                background-color: @list-hoverbg-color01-light;
-                .time {
-                  color: @text-color01-light;
-                }
-              }
-            }
-            .table-ft {
-              .tips {
-                float: left;
-                margin-top: 12px;
-                color: @text-color02-light;
-              }
-              .ant-pagination {
-                float: right;
-                margin-top: 8px;
-                margin-right: -14px;
-              }
-            }
-          }
-          .record-rebate {
-            .time {
-              width: 110px;
-            }
-            .name {
-              width: 80px;
-            }
-            .number {
-              width: 150px;
-            }
-            .user {
-              width: 130px;
-            }
-            .status {
-              width: 100px;
-              text-align: right;
-            }
-
-          }
-          .record-detail {
-            .time {
-              width: 230px;
-            }
-            .user {
-              width: 190px;
-            }
-            .level {
-              width: 150px;
-              text-align: right;
-            }
-          }
-        }
-      }
-    }
-    .mini-loading {
-      background-color: rgba(255, 255, 255, 0.5);
-    }
-
-  }
-  .invite-rule {
-    background-color: #fff;
-    border-radius: 6px;
-    overflow: hidden;
-    margin-top: 10px;
-    .rule-hd {
-      height: 50px;
-      line-height: 50px;
-      border-bottom: 1px solid @page-split-border-color;
-      background-color: #fff;
-      font-size: 16px;
-      padding-left: 20px;
-      border-radius: 6px 6px 0 0;
-      color: @text-color01-light;
-      box-shadow: 0 2px 3px 1px rgba(23, 31, 39, 0.02);
-    }
-    .rule-bd {
-      padding: 14px 20px 0;
-      li {
-        font-size: 12px;
-        color: @text-color01-light;
-        line-height: 26px;
-        margin-bottom: 10px;
-      }
-      em {
-        font-size: 18px;
-        color: #cc9900;
-        padding: 0 8px;
-      }
-    }
-    .rule-ft {
-      width: 940px;
-      margin: 0 auto 20px;
-      border-radius: 6px;
-      background-color: #f7f8f9;
-      color: @text-color02-light;
-      h4 {
-        font-weight: normal;
-        padding: 10px 20px 0;
+    .invite-rank {
+        position: relative;
+        border-radius: 0 0 6px 6px;
+        background-color: #fff;
+        padding: 0 20px;
         color: @text-color02-light;
-      }
-      ul {
-        padding: 4px 30px;
-        li {
-          list-style: disc;
-          margin-bottom: 6px;
+        ul {
+            display: flex;
+            display: -webkit-box;
+            li {
+                position: relative;
+                flex: 1;
+                -webkit-flex: 1;
+                padding-left: 45px;
+                padding-top: 10px;
+                padding-bottom: 10px;
+                &[data-rank="1"] {
+                    background: url('../../images/activity/no1.png') no-repeat left center;
+                    background-size: 37px 37px;
+                }
+                &[data-rank="2"] {
+                    background: url('../../images/activity/no2.png') no-repeat left center;
+                    background-size: 37px 37px;
+                }
+                &[data-rank="3"] {
+                    background: url('../../images/activity/no3.png') no-repeat left center;
+                    background-size: 37px 37px;
+                }
+                &.no-data {
+                    padding-top: 20px;
+                    padding-bottom: 20px;
+                }
+                &:after {
+                    position: absolute;
+                    right: 10px;
+                    top: 50%;
+                    margin-top: -12px;
+                    content: '';
+                    width: 2px;
+                    height: 24px;
+                    background-color: #f0f3f5;
+                }
+                &:last-child:after {
+                    display: none;
+                }
+                .name {
+                    color: #31353f;
+                    font-size: 12px;
+                }
+                .desc {
+                    font-size: 12px;
+                    width: 270px;
+                    .num {
+                        color: #31353f;
+                        padding: 0 6px;
+                    }
+                }
+            }
         }
-      }
     }
-  }
-}
-.en-US .invite-wrap{
-  .invite-banner{
-    background: url("../../images/activity/banner-en.jpg") no-repeat center;
-    background-size: 100%;
-  }
+    .invite-user {
+        margin-top: 10px;
+        .user-left {
+            float: left;
+            width: 360px;
+            height: 170px;
+        }
+        .user-mod {
+            color: @text-color02-light;
+            background-color: #fff;
+            border-radius: 6px;
+            padding: 0 20px;
+            height: 80px;
+            line-height: 80px;
+            p,
+            label {
+                display: inline-block;
+            }
+            label {
+                width: 108px;
+            }
+            em {
+                color: #31353f;
+                font-size: 18px;
+                font-weight: bold;
+                padding: 0 8px 0 3px;
+            }
+        }
+
+        .user-right {
+            float: right;
+            width: 610px;
+            height: 170px;
+            background-color: #fff;
+            border-radius: 6px;
+            ul {
+                padding: 10px 20px;
+            }
+            .share-item {
+                display: flex;
+                align-items: center;
+                p,
+                label {
+                    display: inline-block;
+                }
+                label {
+                    width: 110px;
+                    color: @text-color02-light;
+                    height: 50px;
+                    line-height: 50px;
+                }
+                p.link-wrap {
+                    width: 450px;
+                    border-radius: 3px;
+                    background-color: #f7f8f9;
+                    color: @text-color01-light;
+                    height: 50px;
+                    line-height: 50px;
+                    span {
+                        display: inline-block;
+                        &.link {
+                            width: 388px;
+                            text-indent: 10px;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            white-space: nowrap;
+                        }
+                        &.copy-txt {
+                            color: #cc9900;
+                            margin: 0 16px;
+                            position: relative;
+                            float: right;
+                            &:before {
+                                position: absolute;
+                                content: '';
+                                width: 1px;
+                                height: 10px;
+                                background-color: #cad1d5;
+                                left: -18px;
+                                top: 50%;
+                                margin-top: -5px;
+                            }
+                            &:hover {
+                                cursor: pointer;
+                            }
+                        }
+                    }
+                }
+                em.code {
+                    color: #cc9900;
+                    font-size: 18px;
+                    letter-spacing: 1px;
+                }
+                .icon-bd {
+                    display: inline-block;
+                    margin-right: 20px;
+                    i.icon {
+                        position: relative;
+                        display: inline-block;
+                        vertical-align: middle;
+                        width: 20px;
+                        height: 20px;
+                        background: url("../../images/activity/share-icon.png") no-repeat 0 0;
+                        background-size: auto 40px;
+                        font-style: normal;
+                        .qrcode-big {
+                            display: none;
+                            position: absolute;
+                            width: 150px;
+                            height: 150px;
+                            background: url("../../images/activity/hover-bg.png") no-repeat center;
+                            background-size: 100%;
+                            left: -65px;
+                            top: 20px;
+                            z-index: 9;
+                            box-sizing: border-box;
+                            padding: 28px 25px;
+                        }
+                        .hover-bd {
+                            display: none;
+                            position: absolute;
+                            width: 417px;
+                            height: 188px;
+                            background: url("../../images/activity/sharehover-bg.png") no-repeat center;
+                            background-size: 100% 100%;
+                            z-index: 9;
+                            left: -208px;
+                            top: 20px;
+                            text-align: center;
+                            .bd-top {
+                                height: 128px;
+                                display: flex;
+                                flex-direction: column;
+                                justify-content: center;
+                                padding-top: 20px;
+                                p {
+                                    display: block;
+                                    color: #545960;
+                                    line-height: normal;
+                                    width: 380px;
+                                    margin: 0 auto 12px;
+                                    &.des {
+                                        font-size: 16px;
+                                        font-weight: 500;
+                                    }
+                                    &.link {
+                                        overflow: hidden;
+                                        white-space: nowrap;
+                                        text-overflow: ellipsis;
+                                    }
+                                }
+                            }
+                            .btns {
+                                margin: 0 12px;
+                                font-size: 14px;
+                                color: @text-color02-light;
+                                height: 52px;
+                                line-height: 52px;
+                                button {
+                                    width: 50%;
+                                    background: none;
+                                }
+                                a {
+                                    display: inline-block;
+                                    width: 50%;
+                                    color: inherit;
+                                    text-decoration: none;
+                                }
+                                button, a {
+                                    &:hover {
+                                        color: @text-yellow-color;
+                                    }
+                                }
+                            }
+                        }
+
+                        &:hover {
+                            .qrcode-big, .hover-bd {
+                                display: block;
+                            }
+                            cursor: pointer;
+                            background-position-y: -20px;
+                        }
+                        &.qrcode {
+                            background-position-x: 0;
+                        }
+                        &.facebook {
+                            background-position-x: -20px;
+                        }
+                        &.twitter {
+                            background-position-x: -40px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .invite-order {
+        margin-top: 10px;
+        .order-left {
+            float: left;
+            width: 360px;
+            height: 550px;
+            background-color: #fff;
+            border-radius: 6px;
+            .invite-bonus {
+                .bonus-hd {
+                    height: 51px;
+                    line-height: 51px;
+                    border-bottom: 1px solid #f2f2f2;
+                    background-color: #fff;
+                    font-size: 14px;
+                    padding-left: 20px;
+                    border-radius: 6px 6px 0 0;
+                    color: #323e48;
+                }
+                .bonus-bd {
+                    position: relative;
+                    min-height: 500px;
+                    color: @text-color02-light;
+                    .name {
+                        width: 160px;
+                        float: left;
+                        text-align: left;
+                    }
+                    .number {
+                        width: 160px;
+                        float: right;
+                        text-align: right;
+                    }
+                    .table-hd {
+                        height: 50px;
+                        line-height: 50px;
+                        padding: 0 20px;
+                        border-bottom: 1px solid #edf0f1;
+                    }
+                    .table-bd {
+                        padding: 0 20px;
+                        height: 400px;
+                        .exc-list-empty.mini-tip {
+                            margin-top: 155px;
+                        }
+                    }
+                    .table-bd li {
+                        width: 100%;
+                        height: 50px;
+                        line-height: 50px;
+                        border-bottom: 1px solid #edf0f1;
+                        overflow: hidden;
+                        color: @text-color01-light;
+                        .symbol,
+                        img {
+                            display: inline-block;
+                            vertical-align: middle;
+                        }
+                        img {
+                            width: 20px;
+                            height: 20px;
+                            margin-right: 6px;
+                            background: url('../../images/coin-default.png') no-repeat center center;
+                            background-size: 100% 100%;
+                        }
+                        &:hover {
+                            background-color: @list-hoverbg-color01-light;
+                        }
+                    }
+                    .table-ft {
+                        padding: 0 20px;
+                        .ant-pagination {
+                            float: right;
+                            margin-top: 8px;
+                            margin-right: -14px;
+                        }
+                    }
+
+                }
+
+            }
+        }
+        .order-right {
+            float: right;
+            width: 610px;
+            height: 550px;
+            background-color: #fff;
+            border-radius: 6px;
+            .invite-record {
+                .record-menu ul {
+                    height: 51px;
+                    border-bottom: 1px solid #f2f2f2;
+                    li {
+                        position: relative;
+                        width: 305px;
+                        float: left;
+                        cursor: pointer;
+                        height: 50px;
+                        line-height: 50px;
+                        background-color: #f5f7f9;
+                        font-size: 14px;
+                        text-align: center;
+                        border-right: 1px solid #f2f2f2;
+                        transition: all 0.5s ease;
+                        border-radius: 6px 0 0 0;
+                        &:last-child {
+                            border-radius: 0 6px 0 0;
+                        }
+                        &:hover {
+                            background-color: #fff;
+                            h3 {
+                                color: @text-color01-light;
+                            }
+                        }
+                        &:last-child {
+                            border-right: 0 none;
+                        }
+                        &.selected {
+                            background-color: #fff;
+                            h3 {
+                                color: @text-color01-light;
+                                &:before {
+                                    content: '';
+                                    height: 2px;
+                                    width: 24px;
+                                    background: #e8b802;
+                                    position: absolute;
+                                    left: 50%;
+                                    top: 100%;
+                                    bottom: 0;
+                                    margin-top: -1px;
+                                    margin-left: -12px;
+                                    border-radius: 1px;
+                                }
+                            }
+                        }
+                        h3 {
+                            position: relative;
+                            display: inline-block;
+                            color: @text-color02-light;
+                            padding: 0 5px;
+                        }
+                    }
+                }
+                .record-main {
+                    .record-rebate, .record-detail {
+                        position: relative;
+                        .table-hd, .table-bd, .table-ft {
+                            padding: 0 20px;
+                        }
+                        .table-hd {
+                            color: @text-color02-light;
+                        }
+                        .table-bd {
+                            height: 400px;
+                            .exc-list-empty.mini-tip {
+                                margin-top: 155px;
+                            }
+                        }
+                        .time, .name, .number, .user, .status, .level {
+                            display: inline-block;
+                        }
+                        .list {
+                            .time {
+                                color: @text-color02-light;
+                            }
+                            .name, .number, .user, .status {
+                                color: @text-color01-light;
+                            }
+                        }
+                        .table-hd, .list li {
+                            height: 50px;
+                            line-height: 50px;
+                            border-bottom: 1px solid #edf0f1;
+                        }
+                        .list li {
+                            &:hover {
+                                background-color: @list-hoverbg-color01-light;
+                                .time {
+                                    color: @text-color01-light;
+                                }
+                            }
+                        }
+                        .table-ft {
+                            .tips {
+                                float: left;
+                                margin-top: 12px;
+                                color: @text-color02-light;
+                            }
+                            .ant-pagination {
+                                float: right;
+                                margin-top: 8px;
+                                margin-right: -14px;
+                            }
+                        }
+                    }
+                    .record-rebate {
+                        .time {
+                            width: 110px;
+                        }
+                        .name {
+                            width: 80px;
+                        }
+                        .number {
+                            width: 150px;
+                        }
+                        .user {
+                            width: 130px;
+                        }
+                        .status {
+                            width: 100px;
+                            text-align: right;
+                        }
+
+                    }
+                    .record-detail {
+                        .time {
+                            width: 230px;
+                        }
+                        .user {
+                            width: 190px;
+                        }
+                        .level {
+                            width: 150px;
+                            text-align: right;
+                        }
+                    }
+                }
+            }
+        }
+        .mini-loading {
+            background-color: rgba(255, 255, 255, 0.5);
+        }
+
+    }
+    .invite-rule {
+        background-color: #fff;
+        border-radius: 6px;
+        overflow: hidden;
+        margin-top: 10px;
+        .rule-hd {
+            height: 50px;
+            line-height: 50px;
+            border-bottom: 1px solid @page-split-border-color;
+            background-color: #fff;
+            font-size: 16px;
+            padding-left: 20px;
+            border-radius: 6px 6px 0 0;
+            color: @text-color01-light;
+            box-shadow: 0 2px 3px 1px rgba(23, 31, 39, 0.02);
+        }
+        .rule-bd {
+            padding: 14px 20px 0;
+            li {
+                font-size: 12px;
+                color: @text-color01-light;
+                line-height: 26px;
+                margin-bottom: 10px;
+            }
+            em {
+                font-size: 18px;
+                color: #cc9900;
+                padding: 0 8px;
+            }
+        }
+        .rule-ft {
+            width: 940px;
+            margin: 0 auto 20px;
+            border-radius: 6px;
+            background-color: #f7f8f9;
+            color: @text-color02-light;
+            h4 {
+                font-weight: normal;
+                padding: 10px 20px 0;
+                color: @text-color02-light;
+            }
+            ul {
+                padding: 4px 30px;
+                li {
+                    list-style: disc;
+                    margin-bottom: 6px;
+                }
+            }
+        }
+    }
 }
 
-.zh-CN.infinitex .invite-wrap{
-  .invite-banner{
-    background: url("../../images/activity/banner-cn.png") no-repeat center;
-    background-size: 100%;
-  }
+.en-US .invite-wrap {
+    .invite-banner {
+        background: url("../../images/activity/banner-en.jpg") no-repeat center;
+        background-size: 100%;
+    }
+}
+
+.zh-CN.infinitex .invite-wrap {
+    .invite-banner {
+        background: url("../../images/activity/banner-cn.png") no-repeat center;
+        background-size: 100%;
+    }
 }
 
 /**
  * 活动banner样式
  */
 .invite-welcome {
-  width: 100%;
-  min-height: 650px;
-  background: url(../../images/activity/invite-bg.png) no-repeat center top;
-  background-size: cover;
-  overflow: hidden;
-  color: #fff;
-  text-align: center;
-  .title {
-    font-size: 40px;
-    line-height: 50px;
-    height: 126px;
-    color: #f9eac5;
-    margin-top: 300px;
-  }
-  .btn {
-    a {
-      padding: 0 65px;
-      font-size: 20px;
-      line-height: 50px;
-      display: inline-block;
-      border-radius: 4px;
-      background-color: #f8edce;
-      color: #181821;
-      cursor: pointer;
-      text-decoration: none;
+    width: 100%;
+    min-height: 650px;
+    background: url(../../images/activity/invite-bg.png) no-repeat center top;
+    background-size: cover;
+    overflow: hidden;
+    color: #fff;
+    text-align: center;
+    .title {
+        font-size: 40px;
+        line-height: 50px;
+        height: 126px;
+        color: #f9eac5;
+        margin-top: 300px;
     }
-  }
+    .btn {
+        a {
+            padding: 0 65px;
+            font-size: 20px;
+            line-height: 50px;
+            display: inline-block;
+            border-radius: 4px;
+            background-color: #f8edce;
+            color: #181821;
+            cursor: pointer;
+            text-decoration: none;
+        }
+    }
 }
 
 .ant-pagination-simple .ant-pagination-simple-pager input {
-  &:hover {
-    border-color: @text-yellow-color;
-  }
+    &:hover {
+        border-color: @text-yellow-color;
+    }
 }
 
 .ant-pagination-simple .ant-pagination-next .ant-pagination-item-link, .ant-pagination-simple .ant-pagination-prev .ant-pagination-item-link {
-  &:hover {
-    color: @text-yellow-color;
-    text-decoration: none;
-  }
+    &:hover {
+        color: @text-yellow-color;
+        text-decoration: none;
+    }
 }
 
-.app-page.en-US{
-  .invite-wrap .invite-user .user-mod label{
-    width: auto;
-  }
+.app-page.en-US {
+    .invite-wrap .invite-user .user-mod label {
+        width: auto;
+    }
 }
