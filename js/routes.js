@@ -85,6 +85,18 @@ const Invite = (location, cb) => {
 };
 
 
+const onEnterHandle = (nextState, replace) => {
+    const {location} = nextState;
+    let ua = navigator.userAgent;
+    let isMobile = /(iPhone|iPad|iPod|iOS)/i.test(ua) || /[aA]ndroid/i.test(ua);
+    if(['/login', '/register', '/user/authentication'].indexOf(location.pathname) !== -1 && isMobile){
+        replace(location.pathname === '/user/authentication' ? '/h5ace/#/kyc-auth' : '/h5ace');
+        return false;
+    }
+
+}
+
+
 const routes = (
     <Route>
         <Route path="/" component={Layout}>
@@ -122,7 +134,7 @@ const routes = (
 
             <Route path="user" component={UserInfo}>
                 <IndexRoute component={BasicInfo}/>
-                <Route path="authentication" component={IdCardAuth}/>
+                <Route path="authentication" onEnter={onEnterHandle} component={IdCardAuth}/>
                 <Route path="bankInfo" component={BankInfo}/>
                 <Route path="setpwd" component={PasswordSetting}/>
                 <Route path="resetpwd" component={ModifyPwd}/>
@@ -152,8 +164,8 @@ const routes = (
                 </Route>
             </Route>
 
-            <Route path="login" component={Login}/>
-            <Route path="register" component={Register}/>
+            <Route path="login" onEnter={onEnterHandle} component={Login}/>
+            <Route path="register" onEnter={onEnterHandle} component={Register}/>
             <Route path="resetpwd" component={ResetPwd}/>
         </Route>
         <Route path="*" component={NotFound}/>

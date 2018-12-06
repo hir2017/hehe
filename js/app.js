@@ -64,12 +64,12 @@ class App extends Component {
         // 谷歌统计 openXXXPage
         Gtag.openPage(pathname);
         // 判断移动端 跳转到移动端链接
-        let ua = navigator.userAgent;
-        let isMobile = /(iPhone|iPad|iPod|iOS)/i.test(ua) || /[aA]ndroid/i.test(ua);
-        if(['/login', '/register', '/user/authentication'].indexOf(pathname) !== -1 && isMobile){
-            location.replace('https://www.ace.io/h5ace');
-            return false;
-        }
+        // let ua = navigator.userAgent;
+        // let isMobile = /(iPhone|iPad|iPod|iOS)/i.test(ua) || /[aA]ndroid/i.test(ua);
+        // if(['/login', '/register', '/user/authentication'].indexOf(pathname) !== -1 && isMobile){
+        //     location.replace('https://www.ace.io/h5ace');
+        //     return false;
+        // }
 		rootStore.commonStore.updatePathName(this.state.location.pathname);
         window.scrollTo(0,0);
 	}
