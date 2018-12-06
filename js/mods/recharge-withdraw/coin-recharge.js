@@ -237,7 +237,7 @@ class CoinRecharge extends Component {
                                 dangerouslySetInnerHTML={{
                                     __html: UPEX.lang.template('充币温馨提示内容', {
                                         name: currencyNameEn || '--',
-                                        num: addressInfo.confirmNum || '--',
+                                        num: typeof addressInfo.confirmNum === 'undefined' ? 0 : addressInfo.confirmNum,
                                         link: UPEX.lang.template('充币温馨提示内容网页链接')
                                     })
                                 }}
