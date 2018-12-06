@@ -381,7 +381,25 @@ export function orderFiatWithdraw(data) {
     data.currencyId = 1;
     return axios.post('/withdraw/createWithdrawCashBill', qs.stringify(data))
 }
+/**
+ * 台湾-获取当前充值单上账记录
+ * @param {orderNo}
+ */
+export function getAusAccountEntryRecords(data) {
+    return axios.get('/ausRecharge/getAccountEntryRecords', {
+        params: data
+    })
+}
+/**
+ * 台湾-获取当前充值单上账记录
+ * @param {orderNo}
+ */
+export function getAccountEntryRecords(data) {
+    return axios.get('/recharge/getAccountEntryRecords', {
+        params: data
+    })
 
+}
 /*----------------------------- 充值相关接口：}}------------------------------------*/
 
 /*----------------------------- 提币相关接口：{{------------------------------------*/
