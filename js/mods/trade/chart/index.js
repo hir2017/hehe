@@ -140,6 +140,7 @@ class TVChartContainer extends Component {
         }
     }
 
+
     componentDidMount(){
         this.drawChart();
 
@@ -645,7 +646,7 @@ class TVChartContainer extends Component {
                             trigger="click"
                             overlayClassName={ store.theme === 'dark' ? 'popover-tradecoins popover-tradecoins-dark' : 'popover-tradecoins popover-tradecoins-light'}
                             >
-                               <label>{store.currentTradeCoin.currencyNameEn}/{store.currentTradeCoin.baseCurrencyNameEn}</label>
+                                <label>{store.currentTradeCoin.currencyNameEn}/{store.currentTradeCoin.baseCurrencyNameEn}</label>
                                <Icon type="caret-down" style={arrowCls} />
                            </Popover>
                            <span className={`current-amount ${trendColor}`}>

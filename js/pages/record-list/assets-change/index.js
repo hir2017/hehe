@@ -21,10 +21,12 @@ import CoinSubRow from './coin-sub-row';
 class RecordPage extends Component {
     constructor(props) {
         super(props);
+        // 获取路由中的tab参数
         const { type } = props.routeParams;
         this.pageInfo = {
             className: 'content-no-pad'
         };
+        // 页面切换tab
         this.tabs = [
             { label: UPEX.lang.template('充值记录'), type: 'deposit' },
             { label: UPEX.lang.template('提现记录'), type: 'withdraw' },
@@ -32,12 +34,15 @@ class RecordPage extends Component {
             { label: UPEX.lang.template('提币记录'), type: 'coin-withdraw' },
             { label: UPEX.lang.template('分发记录'), type: 'reward' },
         ];
-
+        // 获取当前切换tab
         let _targetTab = this.tabs.some(item => item.type === type) ? type : 'deposit';
 
         this.state = {
+            // 当前tab
             type: _targetTab,
+            // 输入当前tab，获取对应的列表配置参数
             listProps: this.getListConfig(_targetTab).call(this),
+            // 列表数据
             listData: [],
             current: 1,
             total: 0,
@@ -51,6 +56,7 @@ class RecordPage extends Component {
 
     getListConfig(type) {
         let _type = type.replace('-', '_')
+        // 充值提现使用一个列表配置参数
         if (_type === 'withdraw') {
             _type = 'deposit';
         }
@@ -77,6 +83,7 @@ class RecordPage extends Component {
         if(type === this.state.type) {
             return;
         }
+        // tab切换，更新列表配置，清空分页信息，清除详情信息
         this.setState({
             type,
             listProps: this.getListConfig(type).call(this),
@@ -99,13 +106,15 @@ class RecordPage extends Component {
             });
         });
     }
-
+    // 详情展示
     detail = (subData, rowData, i)  => {
         const {type} = this.state;
         let detail = null;
         if(['deposit', 'withdraw'].indexOf(type) !== -1) {
+            // 充提现使用同一个详情模板，ace和aus的区分开
             detail = UPEX.config.version === 'ace' ? <SubRow type={type} data={rowData}/> : <AusSubRow type={type} data={rowData}/>;
         } else {
+            // 充提币使用同一个详情模板，参数不同
             detail = <CoinSubRow type={type} data={rowData}/>;
         }
         return detail;
@@ -120,6 +129,7 @@ class RecordPage extends Component {
 
     render() {
         const { state } = this;
+        // tab标签循环获取
         let $TabNode = (
             <div className="swtich-tabs">
                 {this.tabs.map((item, i) => (

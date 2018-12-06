@@ -12,6 +12,7 @@ import Login from './pages/login-register/login';
 import Register from './pages/login-register/register';
 import ResetPwd from './pages/login-register/resetpwd';
 import LandingPage from './pages/activity/landingpage/aus';
+import InviteRegister from './pages/activity/invite/invite-register';
 
 // import Home from './pages/home';
 // 授权登陆容器HOC
@@ -61,6 +62,7 @@ import PhoneSuccess from './mods/binding-phone/success'
 
 
 
+
 const Home = (location, cb)=>{
     require.ensure([], require=>{
         cb(null, require('./pages/home').default);
@@ -78,6 +80,12 @@ const Assets = (location, cb)=>{
     require.ensure([], require=>{
         cb(null, require('./pages/account/index').default);
     }, 'assets');
+};
+
+const Invite = (location, cb) => {
+    require.ensure([], require => {
+        cb(null, require('./pages/activity/invite/index').default);
+    }, 'invite');
 };
 
 const routes = (
@@ -139,6 +147,11 @@ const routes = (
                 <Route path="detail/:id" component={NewsDetail} />
             </Route>
             <Route path="activity">
+                <Route path="invite-register" component={InviteRegister}/>
+                <Route component={Auth}>
+                    <IndexRoute getComponent={Invite}/>
+                    <Route path="invite(-:type)" getComponent={Invite}/>
+                </Route>
             	<Route path="thanksgiving" component={LandingPage} />
             </Route>
             <Route path="login" component={Login} />
