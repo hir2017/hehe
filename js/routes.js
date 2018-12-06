@@ -89,9 +89,13 @@ const onEnterHandle = (nextState, replace) => {
     const {location} = nextState;
     let ua = navigator.userAgent;
     let isMobile = /(iPhone|iPad|iPod|iOS)/i.test(ua) || /[aA]ndroid/i.test(ua);
-    if(['/login', '/register', '/user/authentication'].indexOf(location.pathname) !== -1 && isMobile){
-        replace(location.pathname === '/user/authentication' ? '/h5ace/#/kyc-auth' : '/h5ace');
-        return false;
+    const pathMap = {
+        '/login':'/h5ace#/login',
+        '/register':'/h5ace#/register',
+        '/user/authentication':'/h5ace#/kyc-auth',
+    }
+    if (isMobile && pathMap[location.pathname]){
+        replace(pathMap[location.pathname]);
     }
 
 }
