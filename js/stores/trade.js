@@ -139,11 +139,6 @@ export default class TradeStore {
         this.currentTradeCoin = data;
     }
 
-    // @action updateCurrentTradeCoinNameEn({currencyNameEn, baseCurrencyNameEn}) {
-    //     this.currentTradeCoin.currencyNameEn = currencyNameEn;
-    //     this.currentTradeCoin.baseCurrencyNameEn = baseCurrencyNameEn;
-    // }
-
     @action updateAsks(data) {
         this.asks = data;
     }
@@ -374,6 +369,17 @@ export default class TradeStore {
 
     @computed get sellSliderPercent() {
         return this.sellSliderValue + '%';
+    }
+    // 获取当前交易币的法币价格
+    @computed get currentTradeCoinFiatCount() {
+        // 基础币为法币：直接显示(乘1)； 基础币为数字币：获取基础币的对应法币价值(乘rmbScale)   rmbScale: 基础币兑法币笔录
+        let { baseCurrencyNameEn, currentAmount, rmbScale } = this.currentTradeCoin;
+        if(baseCurrencyNameEn) {
+            //
+            let _scale = baseCurrencyNameEn === UPEX.config.baseCurrencyEn ? 1 : rmbScale;
+            return NumberUtil.formatNumber(currentAmount * _scale, 2);
+        }
+
     }
     /**
      * 买入手续费

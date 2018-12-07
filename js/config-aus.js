@@ -34,7 +34,10 @@ config.docUrls = {
 }
 
 config.baseCurrencyEn = 'AUD';
+// 这个是哪来的
 config.baseCurrencySymbol = 'AUD';
+// 交易中心价格加法币价格提示需求 添加
+config.baseCurrencySymbol2 = 'A$';
 
 const protocol = 'https:';
 const socket_protocol = 'wss:';
