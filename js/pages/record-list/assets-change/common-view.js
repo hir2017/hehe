@@ -15,7 +15,7 @@ export const DepositDetailList = (props) => {
                     return (
                         <div key={i} className="text">
                             <span className="label">{UPEX.lang.template('时间')}：</span>
-                            {TimeUtil.formatDate(item.entryAmount)}
+                            {TimeUtil.formatDate(item.entryTime)}
                             <span className="label num">{UPEX.lang.template('上账金额')}：</span>
                             {item.entryAmount}
                         </div>
