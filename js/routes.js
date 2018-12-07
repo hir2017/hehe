@@ -86,17 +86,18 @@ const Invite = (location, cb) => {
 
 
 const onEnterHandle = (nextState, replace) => {
-    const {location} = nextState;
-    let ua = navigator.userAgent;
-    let isMobile = /(iPhone|iPad|iPod|iOS)/i.test(ua) || /[aA]ndroid/i.test(ua);
-    const pathMap = {
-        '/login':'/h5ace/#/login',
-        '/register':'/h5ace/#/register',
-        '/user/authentication':'/h5ace/#/kyc-auth',
-    }
-    if (isMobile && pathMap[location.pathname]){
-        replace(pathMap[location.pathname]);
-    }
+    // const {location} = nextState;
+    // let ua = navigator.userAgent;
+    // let isMobile = /(iPhone|iPad|iPod|iOS)/i.test(ua) || /[aA]ndroid/i.test(ua);
+    // const pathMap = {
+    //     '/login':'/h5ace/#/login',
+    //     '/register':'/h5ace/#/register',
+    //     '/user/authentication':'/h5ace/#/kyc-auth',
+    // }
+    // if (isMobile && pathMap[location.pathname]){
+    //     window.location.href = pathMap[location.pathname]
+    //     // replace(pathMap[location.pathname]);
+    // }
 
 }
 
