@@ -1,3 +1,120 @@
-.ieo-wrapper{
+.ieo-apply {
+    position: relative;
+    height: 250px;
+    text-align: center;
+    padding-top: 105px;
+    box-sizing: border-box;
+    .apply-btn {
+        display: block;
+        width: 300px;
+        height: 50px;
+        line-height: 50px;
+        margin: 0 auto;
+        border-radius: 25px;
+        border: 1px solid @theme-yellow;
+        color: @text-yellow-color;
+        font-size: 18px;
+        font-weight: 500;
+        background-color: rgba(232, 184, 2, 0.2);
+        &:hover {
+            text-decoration: none;
+        }
+    }
+}
+
+.ieo-main {
+    position: relative;
+    background-color: @bg-color-light;
+    .content {
+        width: 1200px;
+        margin: 0 auto;
+        padding: 30px 0;
+    }
+    .token-list {
+        li {
+            height: 180px;
+            color: @text-color02-light;
+            border-radius: 6px;
+            background-color: #fff;
+            box-shadow: 0 0 1px 4px rgba(208, 214, 218, .6);
+            margin-bottom: 30px;
+            a.token-item {
+                position: relative;
+                color: inherit;
+                &:hover {
+                    text-decoration: none;
+                    color: inherit;
+                }
+            }
+            .token-pic {
+                float: left;
+                width: 180px;
+                height: 180px;
+                background-repeat: no-repeat;
+                background-position: center;
+                background-size: 80% 80%;
+            }
+            .token-status {
+                position: absolute;
+                width: 80px;
+                height: 50px;
+                line-height: 50px;
+                top: 0;
+                right: 20px;
+                color: #fff;
+                text-align: center;
+                text-indent: 8px;
+                background-size: 80px 20px;
+                background-position: center;
+                background-repeat: no-repeat;
+                &.start {
+                    background-image: url("../../images/ieo/icon-start.png");
+                }
+                &.on {
+                    background-image: url("../../images/ieo/icon-on.png");
+                }
+                &.end {
+                    background-image: url("../../images/ieo/icon-end.png");
+                }
+            }
+            .token-content {
+                float: left;
+                width: 990px;
+                margin: 10px 20px 20px 10px;
+                text-align: left;
+                .content-top {
+                    border-bottom: 1px solid @space-color-light;
+                    span {
+                        display: inline-block;
+                        height: 40px;
+                        line-height: 40px;
+                        &.name {
+                            width: 100px;
+                            font-size: 16px;
+                            color: @text-color01-light;
+                        }
+                        &.time {
+                            margin-left: 40px;
+                        }
+                    }
+                }
+                .content-bottom {
+                    height: 90px;
+                    margin: 20px auto;
+                    .token-desc {
+                        float: left;
+                        width: 520px;
+                        margin-right: 40px;
+                    }
+                    .progress {
+                        float: left;
+                        width: 290px;
+                        height: 75px;
+                        padding: 0 70px;
+                    }
+                }
+            }
+        }
+    }
 
 }

@@ -1,7 +1,8 @@
 /**
  * @fileoverview IEO 主页
  */
-import React, { Component } from 'react';
+import React, {Component} from 'react';
+import Constellation from '@/lib/constellation';
 
 import List from './list';
 import Advantage from './advantage';
@@ -11,16 +12,22 @@ class Page extends Component {
         super(props);
     }
 
-    componentDidMount() {}
+    componentDidMount() {
+    }
 
     render() {
         return (
             <div className="ieo-wrapper">
-                <div className="apply-wrap">
-                    <a href="" target="_blank" className="apply-btn">{UPEX.lang.template('申请发布IEO')}</a>
+                <Constellation/>
+                <div className="ieo-apply">
+                    <a href={UPEX.lang.template('申请发布IEO google文档链接')} target="_blank" className="apply-btn">{UPEX.lang.template('申请发布IEO')}</a>
                 </div>
-                <List />
-                <Advantage />
+                <div className="ieo-main">
+                    <div className="content">
+                        <List/>
+                        <Advantage/>
+                    </div>
+                </div>
             </div>
         );
     }

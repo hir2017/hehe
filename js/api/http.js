@@ -1206,3 +1206,24 @@ export function getRefuseReason(id){
 export function getAssetChangeReward(data) {
     return axios.post('/coin/selectActivitiesCustomerAccountWaterList', data);
 }
+
+
+/**
+ * ------------- IEO-----------------
+ */
+
+/**
+ * 获取所有IEO项目列表
+ */
+export function getIEOList() {
+    return axios.post('http://www.mocky.io/v2/5c0a29593500006a00a85f8b');
+}
+/**
+ * 根据项目ID获取单个IEO项目详细信息
+ */
+export function getSingleIEOInfo(data) {
+    return axios.post('',qs.stringify({
+        ...data
+    }));
+}
+
