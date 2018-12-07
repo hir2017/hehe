@@ -72,7 +72,7 @@ class App extends Component {
             '/user/authentication':'/#/kyc-auth',
         }
         if(isMobile  && pathMap[location.pathname]){
-            window.location.href = 'https://www.ace.io/h5ace' + pathMap[location.pathname] + search;
+            window.location.href = window.location.origin + '/h5ace' + pathMap[location.pathname] + search;
             return false;
         }
 
