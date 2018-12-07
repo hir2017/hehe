@@ -2,6 +2,7 @@
  * @fileoverview IEO 数字币列表
  */
 import React, {Component} from 'react';
+import {StatusIcon} from "../view";
 import CountDown from '../countdown';
 import {getIEOList} from '@/api/http';
 
@@ -71,9 +72,7 @@ class View extends Component {
                                 <a className="token-item clearfix" href="">
                                     <div className="token-pic" style={{backgroundImage: `url(${item.logoUrl})`}}>
                                     </div>
-                                    <div className={"token-status " + this.getStatusIcon(item.status).className}>{
-                                        this.getStatusIcon(item.status).text
-                                    }</div>
+                                    <StatusIcon status={item.status}/>
                                     <div className="token-content">
                                         <div className="content-top">
                                             <span className="name">{item.tokenName}</span>
@@ -88,7 +87,8 @@ class View extends Component {
                                             </div>
                                             <div className="progress">
                                                 {
-                                                    item.status == 1 ? <CountDown remainTime="100000"/> : <div>已募集。。。</div>
+                                                    item.status == 1 ? <CountDown remainTime="100000"/> :
+                                                        <div>已募集。。。</div>
                                                 }
                                             </div>
                                         </div>

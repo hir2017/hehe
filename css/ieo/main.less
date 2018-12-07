@@ -36,8 +36,10 @@
             color: @text-color02-light;
             border-radius: 6px;
             background-color: #fff;
-            box-shadow: 0 0 1px 4px rgba(208, 214, 218, .6);
             margin-bottom: 30px;
+            &:hover{
+                box-shadow: 0 0 1px 2px rgba(208, 214, 218, .4);
+            }
             a.token-item {
                 position: relative;
                 color: inherit;
@@ -54,28 +56,10 @@
                 background-position: center;
                 background-size: 80% 80%;
             }
-            .token-status {
+            .status-icon {
                 position: absolute;
-                width: 80px;
-                height: 50px;
-                line-height: 50px;
-                top: 0;
+                top: 15px;
                 right: 20px;
-                color: #fff;
-                text-align: center;
-                text-indent: 8px;
-                background-size: 80px 20px;
-                background-position: center;
-                background-repeat: no-repeat;
-                &.start {
-                    background-image: url("../../images/ieo/icon-start.png");
-                }
-                &.on {
-                    background-image: url("../../images/ieo/icon-on.png");
-                }
-                &.end {
-                    background-image: url("../../images/ieo/icon-end.png");
-                }
             }
             .token-content {
                 float: left;
