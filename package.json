@@ -102,6 +102,6 @@
     "stop-ace": "pm2 stop server.js"
   },
   "version": "2.1.25",
-  "ace-version": "1.0.8",
+  "ace-version": "1.0.9",
   "aus-version": "1.0.7"
 }
