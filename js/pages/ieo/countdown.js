@@ -4,7 +4,7 @@
  */
 
 import React, {Component} from 'react';
-import Timer from 'c-timer';
+import Timer from '@/lib/timer';
 
 class CountDown extends Component {
     constructor(props) {
