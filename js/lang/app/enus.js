@@ -801,7 +801,7 @@ module.exports={
     "用户条款": "Terms of use",
     "用户（邀请用户）": "Friend (invitee)",
     "申請更高限額": "Apply for higher limit",
-    "申请成功": "Application successfully",
+    "申请成功": "Application successful",
     "申请进度请通过资金记录查询": "Please check withdrawal process in Fiat Currency Record",
     "电子邮箱绑定": "Bind Email",
     "登录": "Login",

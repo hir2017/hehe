@@ -11,7 +11,8 @@ import NotFound from './pages/others/404';
 import Login from './pages/login-register/login';
 import Register from './pages/login-register/register';
 import ResetPwd from './pages/login-register/resetpwd';
-import LandingPage from './pages/activity/landingpage/aus';
+// import LandingPage from './pages/activity/landingpage/aus';
+import LandingPageBtc from './pages/activity/landingpage/aus-btc';
 import InviteRegister from './pages/activity/invite/invite-register';
 
 // import Home from './pages/home';
@@ -152,7 +153,7 @@ const routes = (
                     <IndexRoute getComponent={Invite}/>
                     <Route path="invite(-:type)" getComponent={Invite}/>
                 </Route>
-            	<Route path="thanksgiving" component={LandingPage} />
+            	<Route path="bitcoin" component={LandingPageBtc} />
             </Route>
             <Route path="login" component={Login} />
 			<Route path="register" component={Register} />
