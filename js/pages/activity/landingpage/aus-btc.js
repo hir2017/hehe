@@ -48,7 +48,7 @@ class PageView extends Component {
        let pl = /(iPhone|iPad|iPod|iOS)/i.test(ua) ? "ios": /[aA]ndroid/i.test(ua)  ? "android" : "pc";
 
        if (pl == 'ios' || pl == 'android') {
-            location.replace('https://h5.infinitex.com.au/h5ex/thanksgiving/index.html');
+            location.replace('https://h5.infinitex.com.au/h5ex/ausbitcoin/index.html');
        }
     }
 
@@ -155,7 +155,7 @@ class PageView extends Component {
                             </dd>
                             <dd className="rule">
                                 <label>{UPEX.lang.template('Terms and Conditions')}: </label>
-                                <span className="txt" dangerouslySetInnerHTML={{__html: UPEX.lang.template('First 100 ID verification registrations will get {count1} {symbol} during the activity@@@@First 101～300 ID verification registrations will get {count2} {symbol} during the activity@@@@First 301~ 1000 ID verification  registrations will get {count3} {symbol} during the activity', { count1, count2, count3 , symbol })}}></span>
+                                <span className="txt" dangerouslySetInnerHTML={{__html: UPEX.lang.template('活动规则内容', { count1, count2, count3 , symbol })}}></span>
                             </dd>
                         </dl>
                         <div className="content-image"></div>
@@ -163,7 +163,7 @@ class PageView extends Component {
                 </div>
                 <div className="steps-tip"> 
                     <div className="content-wrap">
-                        <div dangerouslySetInnerHTML={{__html: UPEX.lang.template('活动规则内容', { count1, count2, count3 , symbol })}}></div>
+                        <div dangerouslySetInnerHTML={{__html: UPEX.lang.template('注意事项内容', { count1, count2, count3 , symbol })}}></div>
                         <Link to="/register">{UPEX.lang.template('COLLECT MY BTC NOW')}</Link>
                     </div>
                 </div>
@@ -196,7 +196,33 @@ class PageView extends Component {
                     <div className="content-wrap">
                         <h2>INFINITE Exchange</h2>
                         <h3>{UPEX.lang.template('Inspiring Australians to trade cryptocurrency.')}</h3>
-                        <Features/>
+                        <div className="features-wrapper">
+                            <div className="features-box clearfix">
+                                <ul>
+                                    <li>
+                                        <i className="icon-bank"></i>
+                                        <div className="title">{UPEX.lang.template('Proven and Trusted')}</div>
+                                        <div className="desctxt">{UPEX.lang.template('Registered with AUSTRAC and in compliance with ADCA, AFCA')}</div>
+                                    </li>
+                                    <li>
+                                        <i className="icon-clock"></i>
+                                        <div className="title">{UPEX.lang.template('24/7 Trade')}</div>
+                                        <div className="desctxt">{UPEX.lang.template('Easy to use and best return. We are here to support you anytime, anywhere.')}</div>
+                                    </li>
+                                    <li>
+                                        <i className="icon-team"></i>
+                                        <div className="title">{UPEX.lang.template('Professional Risk Management')}</div>
+                                        <div className="desctxt">{UPEX.lang.template('Fund security guaranteed')}</div>
+                                    </li>
+                                    <li>
+                                        <i className="icon-coin"></i>
+                                        <div className="title">{UPEX.lang.template('Ample Choices of Trading Pairs')}</div>
+                                        <div className="desctxt">{UPEX.lang.template('Continuous listing of all reliable currencies')}</div>
+                                    </li>
+                                </ul>
+                                <div className="download-btn  hidden">{UPEX.lang.template('下载客户端')}</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
