@@ -61,9 +61,21 @@ class App extends Component {
     }
 
     static onUpdate(...params) {
-        const {pathname} = this.state.location;
+        const {pathname, search} = this.state.location;
         // 谷歌统计 openXXXPage
         Gtag.openPage(pathname);
+        // 判断移动端 跳转到移动端链接
+        let ua = navigator.userAgent;
+        let isMobile = /(iPhone|iPad|iPod|iOS)/i.test(ua) || /[aA]ndroid/i.test(ua);
+        const pathMap = {
+            '/login':'/#/login',
+            '/register':'/#/register',
+            '/user/authentication':'/#/kyc-auth',
+        }
+        if(isMobile  && pathMap[location.pathname]){
+            window.location.href = window.location.origin + '/h5ace' + pathMap[location.pathname] + search;
+            return false;
+        }
 
 		rootStore.commonStore.updatePathName(this.state.location.pathname);
         window.scrollTo(0,0);

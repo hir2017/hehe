@@ -145,7 +145,7 @@ export default (store, userInfoStore) => {
             if (true) {
                 store.changeSubmitingStatusTo(true);
                 // amount, currencyId, cardId（此用户当前绑定银行卡id）, validateType, tradePwd, gAuth/phoneCode
-                orderFiatWithdraw({
+              return orderFiatWithdraw({
 		            tradePwd: md5(state.tradePwd + UPEX.config.dealSalt + userInfo.uid),
 		            phoneCode: state.smsCode,
 		            cardId: store.selectedCard,
@@ -158,15 +158,17 @@ export default (store, userInfoStore) => {
                     store.changeSubmitingStatusTo(false);
                     switch (data.status) {
                         case 200:
-                            message.success(UPEX.lang.template('提现成功'));
-                            browserHistory.push('/account/asset-change/withdraw');
-                            store.resetForm();
+                            //message.success(UPEX.lang.template('提现成功'));
+                            //browserHistory.push('/account/asset-change/withdraw');
+                            //store.resetForm();
                             break;
                         default:
                             message.error(data.message);
                     }
+                    return data;
 		        }).catch(()=>{
                     store.changeSubmitingStatusTo(false);
+                    return {};
                 })
 			} else {
                 if (result.message) {

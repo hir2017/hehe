@@ -1,5 +1,10 @@
 {
-  "_depComponent": [],
+  "_depComponent": [
+    "c-timer",
+    "c-base"
+  ],
+  "ace-version": "1.0.6",
+  "aus-version": "1.0.6",
   "author": "zhenn",
   "babel": {
     "presets": [
@@ -95,11 +100,14 @@
     "dev": "sudo webpack-dev-server",
     "product": "NODE_ENV=product webpack -p",
     "restart": "pm2 restart server-aus.js --name='upexchange-front'  -o ./logs/out.log -e ./logs/error.log",
-    "start": "pm2 start server-aus.js  -o ./logs/out.log -e ./logs/error.log ",
-    "stop": "pm2 stop server-aus.js",
     "restart-ace": "pm2 restart server.js --name='upexchange-acefront'  -o ./logs/out.log -e ./logs/error.log",
+    "start": "pm2 start server-aus.js  -o ./logs/out.log -e ./logs/error.log ",
     "start-ace": "pm2 start server.js  -o ./logs/out.log -e ./logs/error.log ",
+    "stop": "pm2 stop server-aus.js",
     "stop-ace": "pm2 stop server.js"
   },
-  "version": "2.1.25"
+  "version": "2.1.25",
+  "ace-version": "1.0.9",
+  "aus-version": "1.0.7"
 }
+

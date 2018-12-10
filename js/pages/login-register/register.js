@@ -251,18 +251,18 @@ class Register extends Component {
                                     ) : null
                                 }
                             </div>
-                            <div className="input-wrapper" style={{display: UPEX.config.version !== 'ace' ? 'none' : 'block'}}>
+                            <div className="input-wrapper">
                                 <div className="input-box">
                                     <input
                                         type="text"
-                                        ref="invitecode"
+                                        ref="inviteId"
                                         value={store.inviteId}
                                         autoComplete="off"
                                         placeholder={UPEX.lang.template('邀请码')}
                                         onChange={(e)=>action.onChangeField('inviteCode', e)}
                                     />
                                 </div>
-                                { store.inviteId ? <div className="icon-delete" onClick={this.clearInput.bind(this, 'phone')}></div> : null}
+                                { store.inviteId ? <div className="icon-delete" onClick={this.clearInput.bind(this, 'inviteId')}></div> : null}
                             </div>
                             <div className="input-wrapper">
                                 <div className="input-box user-protocol">

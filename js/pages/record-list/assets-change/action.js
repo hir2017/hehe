@@ -51,7 +51,7 @@ const getParams = (type, page) => {
     };
 };
 
-// 充提现、充提币返回数据格式整理
+// 充提现、充提币返回数据格式整理，不同接口返回的数据结构不一致
 const FormatSourceData = (type, res, params) => {
     let result = {};
     let _source = res.attachment || {};
@@ -91,6 +91,7 @@ const FormatSourceData = (type, res, params) => {
 
 // 发起请求 获取数据
 export const getList = function(type, page = 1) {
+    // 获取对应tab的请求函数，和请求参数
     let { request, params } = getParams(type, page);
     if (request === null) {
         console.error('record: getList type is lose');
@@ -103,6 +104,7 @@ export const getList = function(type, page = 1) {
             total: 0
         };
         if (res.status === 200) {
+            // 数据格式化
             result = FormatSourceData(type, res, params);
         }
         return result;
@@ -252,9 +254,12 @@ const getlegalMap = type => {
         deposit: {
             '1': UPEX.lang.template('已完成'),
             '3': UPEX.lang.template('充值失败'),
-            '4': UPEX.lang.template('充值取消')
+            '4': UPEX.lang.template('充值取消'),
+            '5': UPEX.lang.template('等待上账'),
+            '6': UPEX.lang.template('部分上账')
         }
     };
+
     // 状态值
     let statusMap = {
         withdraw: {
@@ -281,7 +286,9 @@ const getlegalMap = type => {
             '11': UPEX.lang.template('已退款'),
             '12': UPEX.lang.template('退款失败'),
             '13': UPEX.lang.template('待退款'),
-            '14': UPEX.lang.template('退款资料已补充')
+            '14': UPEX.lang.template('待退款'),
+            '15': UPEX.lang.template('部分上账'),
+            '16': UPEX.lang.template('等待上账')
         }
     };
     // 支付方式

@@ -84,6 +84,23 @@ const Invite = (location, cb) => {
     require.ensure([], require => {
         cb(null, require('./pages/activity/invite/index').default);
     }, 'invite');
+};
+
+
+const onEnterHandle = (nextState, replace) => {
+    // const {location} = nextState;
+    // let ua = navigator.userAgent;
+    // let isMobile = /(iPhone|iPad|iPod|iOS)/i.test(ua) || /[aA]ndroid/i.test(ua);
+    // const pathMap = {
+    //     '/login':'/h5ace/#/login',
+    //     '/register':'/h5ace/#/register',
+    //     '/user/authentication':'/h5ace/#/kyc-auth',
+    // }
+    // if (isMobile && pathMap[location.pathname]){
+    //     window.location.href = pathMap[location.pathname]
+    //     // replace(pathMap[location.pathname]);
+    // }
+
 }
 
 
@@ -124,7 +141,7 @@ const routes = (
 
             <Route path="user" component={UserInfo}>
                 <IndexRoute component={BasicInfo}/>
-                <Route path="authentication" component={IdCardAuth}/>
+                <Route path="authentication" onEnter={onEnterHandle} component={IdCardAuth}/>
                 <Route path="bankInfo" component={BankInfo}/>
                 <Route path="setpwd" component={PasswordSetting}/>
                 <Route path="resetpwd" component={ModifyPwd}/>
@@ -153,12 +170,8 @@ const routes = (
                     <Route path="invite(-:type)" getComponent={Invite}/>
                 </Route>
             </Route>
-            <Route path="ieo">
-                <IndexRoute component={IEO}/>
-                <Route path="detail/:id" component={IEODetail}/>
-            </Route>
-            <Route path="login" component={Login}/>
-            <Route path="register" component={Register}/>
+            <Route path="login" onEnter={onEnterHandle} component={Login}/>
+            <Route path="register" onEnter={onEnterHandle} component={Register}/>
             <Route path="resetpwd" component={ResetPwd}/>
         </Route>
         <Route path="*" component={NotFound}/>

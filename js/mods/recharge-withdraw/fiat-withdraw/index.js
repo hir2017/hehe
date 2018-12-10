@@ -3,6 +3,7 @@
  */
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
+import {browserHistory} from 'react-router';
 import { Select, message, Button, Card, Alert } from 'antd';
 import { sendMessageWithdraw, twdGetQuotaManagementInfo, getCurrencyFee } from '@/api/http';
 import Numberutils from  '@/lib/util/number';
@@ -26,7 +27,8 @@ class FiatRechargeView extends Component {
             gaCode: '',
             dayLimit: 0,
             monthLimit: 0,
-            feeInfo: {}
+            feeInfo: {},
+            showSuccess: false
         };
         this.inputData = {
             tradePwd: {
@@ -147,11 +149,31 @@ class FiatRechargeView extends Component {
             }
         }
 
-        this.action.handleSubmit(this.state, userInfo);
+        this.action.handleSubmit(this.state, userInfo).then(data => {
+            console.log(data);
+            if(data.status == 200){
+                message.success(UPEX.lang.template('提现成功'));
+                this.setState({
+                    showSuccess: true
+                })
+            }
+        });
     };
 
     handleBack = e => {
         this.props.fiatWithdrawStore.nextStep('step1');
+    };
+
+    goOtherPage = (type) =>{
+        if(type == 'reset'){
+            this.props.fiatWithdrawStore.nextStep('step1');
+              this.setState({
+                  showSuccess: false
+              })
+        }
+        if(type == 'record'){
+            browserHistory.push('/account/asset-change/withdraw')
+        }
     };
 
     render() {
@@ -256,12 +278,31 @@ class FiatRechargeView extends Component {
             );
         }
 
-        return (
-            <div>
-                {$alert}
-                {$formContent}
-            </div>
-        );
+        if(state.showSuccess){
+            return (
+                <FormView>
+                    <FormItem className="success-info">
+                        <p>{UPEX.lang.template('提现申请已提交')}</p>
+                        <p>{UPEX.lang.template('申请进度请通过资金记录查询')}</p>
+                    </FormItem>
+                    <FormItem className="success-opt">
+                        <Button className="submit-btn width-auto" onClick={this.goOtherPage.bind(this, 'record')}>
+                            {UPEX.lang.template('前往资金记录')}
+                        </Button>
+                        <Button className="link-btn " onClick={this.goOtherPage.bind(this, 'reset')}>
+                            {UPEX.lang.template('继续提现')}
+                        </Button>
+                    </FormItem>
+                </FormView>
+            )
+        }else {
+            return (
+                <div>
+                    {$alert}
+                    {$formContent}
+                </div>
+            );
+        }
     }
 }
 
