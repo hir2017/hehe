@@ -142,7 +142,7 @@ class PageView extends Component {
                 </div>
                 <div className="intro-module">
                     <div className="content-wrap">
-                         <h2>{UPEX.lang.template('INFINITE Exchange')}</h2>
+                         <h2>{UPEX.lang.template('INFINITE EXCHANGE')}</h2>
                          <h2>{UPEX.lang.template('“Grand Opening in Australia”')}</h2>
                         <h3>— {UPEX.lang.template('Free {symbol}  Up for Grabs', { count, symbol: symbolname})}</h3>
                         <dl>
