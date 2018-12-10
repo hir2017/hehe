@@ -1222,6 +1222,31 @@ export function getIEOList() {
  * 根据项目ID获取单个IEO项目详细信息
  */
 export function getSingleIEOInfo(data) {
+    return axios.post('/coin/selectActivitiesCustomerAccountWaterList', data).then(res => {
+        return {
+            "message": null,
+            "status": 200,
+            "attachment": {
+                    logoUrl: 'https://cdn-images-1.medium.com/max/1600/1*etdAVqiney-yYSLLBKaZUw.png', //'logo链接'
+                    tokenName: 'GIFTO', //代币名称
+                    beginTime: 1543568105293, //开始时间，返回时间戳，单位毫秒
+                    endTime: 1543568105293, //结束时间，同上
+                    systemTime: 1543568105293, //系统时间，同上
+                    totalCirculation: 100,   //发行量
+                    tokenDesc: '授权新设备您最近尝试从一个新设备或新位置登录到您的币安帐户。作为一种安全措施，我们需要您授权新设备授权新设备您最近尝试从一个新',  //token介绍
+                    status: 0, // 发行状态，'0:未开始 1:进行中 2:已结束(募集成功) 3:已结束(募集失败) 4:已上币
+                    raisedAmount: 10, //已募集数量
+                    price: 10000, //IEO价格
+                    homepageUrl: '', //token详情主页URL
+                    whitePaperUrl: '', //token详情白皮书URL
+                    tokenDistributionUrl: '',//token分配图URL
+                    softTop: 1000000,  //软顶
+                    hardTop: 2000000, //硬顶
+                    minBuyCount: 10, //最低购买量
+                    buyWay:'',
+                }
+        }
+    });
     return axios.post('',qs.stringify({
         ...data
     }));

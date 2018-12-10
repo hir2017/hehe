@@ -5,6 +5,10 @@
  */
 import React from 'react';
 
+/**
+ * @fn  状态标签
+ * @param {status} props
+ */
 export const StatusIcon = (props) => {
     const {status} = props;
     const statusMap = {
