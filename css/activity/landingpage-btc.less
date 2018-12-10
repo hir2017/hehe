@@ -25,7 +25,7 @@
             color: #fff;
             font-size: 25px;
             text-shadow: none;
-            width: 400px;
+            width: 460px;
             text-align: center;
             letter-spacing: 2px;
             vertical-align: inherit;
@@ -38,7 +38,7 @@
         h3 {
             color: #cbbde8;
             font-size: 14px;
-            width: 400px;
+            width: 460px;
             text-align: center;
             margin-bottom: 30px;
             margin-top: 30px;
@@ -286,8 +286,8 @@
         line-height: 30px;
         border-top: 1px solid #f0f3f5;
         ul {
-            margin-bottom: 140px;
             width: 1000px;
+            margin: 0 auto 140px;
         }
         li {
             padding-left: 24px;
@@ -344,9 +344,9 @@
         .content-image {
             position: absolute;
             right: 0;
-            bottom: -544px;
-            width: 599px;
-            height: 600px;
+            bottom: -590px;
+            width: 605px;
+            height: 655px;
             background: url("@{url}/iphone.png") no-repeat center center;
             background-size: 100% 100%;
         }
@@ -355,14 +355,12 @@
             background: none;
             outline: 0 none;
             border: 0 none;
-            height: 50px;
-            min-width: 188px;
+            height: 54px;
+            min-width: 180px;
             text-align: center;
-            color: #ffffff;
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            font-size: 18px;
-            border-radius: 50px;
+            color: #ffffff;            
             margin-right: 30px;
+            text-indent: -9999px;
 
             span {
                 display: inline-block;
@@ -374,49 +372,17 @@
             &.google {
                 position: absolute;
                 top: 250px;
-                left: 20px;
-
-                &:before {
-                    content: '';
-                    display: inline-block;
-                    vertical-align: middle;
-                    width: 30px;
-                    height: 30px;
-                    background: url("@{url}/icon-dl.png") no-repeat center center;
-                    background-size: 25px 120px;
-                    background-position: 0 -28px;
-                }
-
-                &:hover:before {
-                    background-position: 0 2px;
-                }
+                left: 55px;
+                background: url("@{url}/google-play.png") no-repeat center center;
+                background-size: 180px 54px;
             }
 
             &.android {
                 position: absolute;
                 top: 250px;
                 left: 260px;
-
-                &:before {
-                    content: '';
-                    display: inline-block;
-                    vertical-align: middle;
-                    width: 30px;
-                    height: 30px;
-                    background: url("@{url}/icon-dl.png") no-repeat center center;
-                    background-size: 25px 120px;
-                    background-position: 0 -90px;
-                }
-
-                &:hover:before {
-                    background-position: 0px -60px;
-                }
-            }
-
-            &:hover {
-                color: #6076ff;
-                background-color: #fff;
-                box-shadow: 0px 8px 21px 0px rgba(13, 0, 100, 0.4);
+                background: url("@{url}/android-apk.png") no-repeat center center;
+                background-size: 180px 54px;
             }
         }
     }
@@ -454,7 +420,7 @@
                     color: #fff;
                 }
 
-                .desc {
+                .desctxt {
                     width: 90%;
                     margin-left: auto;
                     margin-right: auto;
@@ -510,7 +476,7 @@
             margin-top: 60px;
             margin-bottom: 20px;
             background: url("@{url}/logo.png") no-repeat center center;
-            background-size: 388px 79px;
+            background-size: 388px 112px;
         }
 
         h3 {
