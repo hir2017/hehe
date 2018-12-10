@@ -2,9 +2,11 @@
  * @fileoverview IEO 数字币列表
  */
 import React, {Component} from 'react';
+import {browserHistory} from 'react-router';
 import {StatusIcon} from "../view";
 import CountDown from '../countdown';
 import {getIEOList} from '@/api/http';
+import TimeUtil from '@/lib/util/date';
 
 class View extends Component {
     constructor(props) {
@@ -39,61 +41,56 @@ class View extends Component {
         })
     }
 
-    getStatusIcon(status) {
-        let obj = {};
-        switch (status) {
-            case 0:
-                obj.text = UPEX.lang.template('即将开始');
-                obj.className = 'start';
-                break;
-            case 1:
-                obj.text = UPEX.lang.template('进行中');
-                obj.className = 'on';
-                break;
-            case 2:
-                obj.text = UPEX.lang.template('已达成');
-                obj.className = 'end';
-                break;
-        }
-        return obj;
-    };
+    toDetail = (item) => {
+        browserHistory.push(`/ieo/detail/${item.ieoId}`);
+    }
 
     render() {
         let $content = null;
         let {isFetching, list} = this.state;
-        console.log(isFetching);
 
         if (list.length > 0) {
             $content = (
                 <ul className="token-list">
                     {
                         list.map((item, i) => (
-                            <li key={i}>
-                                <a className="token-item clearfix" href="">
-                                    <div className="token-pic" style={{backgroundImage: `url(${item.logoUrl})`}}>
+                            <li key={i} className="token-item clearfix" onClick={this.toDetail.bind(this, item)}>
+                                <div className="token-pic" style={{backgroundImage: `url(${item.logoUrl})`}}>
+                                </div>
+                                <StatusIcon status={item.status}/>
+                                <div className="token-content">
+                                    <div className="content-top">
+                                        <span className="name">{item.tokenName}</span>
+                                        <span
+                                            dangerouslySetInnerHTML={{__html: UPEX.lang.template('发行数量:{count}', {count: item.totalCirculation}, 1)}}></span>
+                                        <span className="time"
+                                              dangerouslySetInnerHTML={{__html: UPEX.lang.template('抢购结束时间:{time}', {time: TimeUtil.formatDate(item.endTime)}, 1)}}></span>
                                     </div>
-                                    <StatusIcon status={item.status}/>
-                                    <div className="token-content">
-                                        <div className="content-top">
-                                            <span className="name">{item.tokenName}</span>
-                                            <span
-                                                dangerouslySetInnerHTML={{__html: UPEX.lang.template('发行数量:{count}', {count: item.totalCirculation}, 1)}}></span>
-                                            <span className="time"
-                                                  dangerouslySetInnerHTML={{__html: UPEX.lang.template('抢购结束时间:{time}', {time: item.endTime}, 1)}}></span>
+                                    <div className="content-bottom">
+                                        <div className="token-desc">
+                                            {item.tokenDesc}
                                         </div>
-                                        <div className="content-bottom">
-                                            <div className="token-desc">
-                                                {item.tokenDesc}
-                                            </div>
-                                            <div className="progress">
-                                                {
-                                                    item.status == 1 ? <CountDown remainTime="100000"/> :
-                                                        <div>已募集。。。</div>
-                                                }
-                                            </div>
+                                        <div className="progress">
+                                            {
+                                                item.status == 2 ? <div
+                                                        className="amount" dangerouslySetInnerHTML={{
+                                                        __html: UPEX.lang.template('已募集{count}{name}', {
+                                                            count: item.raisedAmount,
+                                                            name: item.tokenName
+                                                        })
+                                                    }}></div> :
+                                                    <CountDown order={i + 1}
+                                                               startTime={item.beginTime / 1000}
+                                                               endTime={item.endTime / 1000}
+                                                               serverTime={+new Date() / 1000}
+                                                               flag={item.status}
+                                                               skin={item.status == 0 ? 'light' : 'dark'}
+                                                               showtxt={true}/>
+
+                                            }
                                         </div>
                                     </div>
-                                </a>
+                                </div>
                             </li>
                         ))
                     }

@@ -1,39 +1,54 @@
 @import "../variable";
+
 .ieo-wrapper {
     @import './main.less';
     @import './detail.less';
     // 通用
 
-    #J-Countdown{
-        .day-wrap, .hour-wrap, .minute-wrap, .second-wrap{
-            display: inline-block;
+    .countdown {
+        .main{
+            display: flex;
+        }
+        .day-wrap, .hour-wrap, .minute-wrap, .second-wrap {
             text-align: center;
         }
-        em{
-            display: inline-block;
-            width: 40px;
-            height: 40px;
+        em {
+            display: block;
+            background-repeat: no-repeat;
+            background-position: center;
+            color: #fff;
         }
+        &.light em {
+            background-image: url("../../images/ieo/time-light.png");
+        }
+        &.dark em {
+            background-image: url("../../images/ieo/time-dark.png");
+        }
+
+        .hide{
+            display: none;
+        }
+
     }
 
-   //状态Icon
-     .status-icon{
-         color: #fff;
-         text-align: center;
-         text-indent: 8px;
-         width: 80px;
-         height: 20px;
-         background-size: 100%;
-         background-position: center;
-         background-repeat: no-repeat;
-         &.start {
-             background-image: url("../../images/ieo/icon-start.png");
-         }
-         &.on {
-             background-image: url("../../images/ieo/icon-on.png");
-         }
-         &.end {
-             background-image: url("../../images/ieo/icon-end.png");
-         }
-     }
+    //状态Icon
+    .status-icon {
+        color: #fff;
+        text-align: center;
+        text-indent: 8px;
+        width: 80px;
+        height: 20px;
+        background-size: 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+        &.start {
+            background-image: url("../../images/ieo/icon-start.png");
+        }
+        &.on {
+            background-image: url("../../images/ieo/icon-on.png");
+        }
+        &.end {
+            background-image: url("../../images/ieo/icon-end.png");
+        }
+    }
 }

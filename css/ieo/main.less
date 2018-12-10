@@ -28,25 +28,19 @@
     .content {
         width: 1200px;
         margin: 0 auto;
-        padding: 30px 0;
+        padding: 30px 0 0;
     }
     .token-list {
-        li {
+        li.token-item {
+            position: relative;
             height: 180px;
             color: @text-color02-light;
             border-radius: 6px;
             background-color: #fff;
             margin-bottom: 30px;
+            cursor: pointer;
             &:hover{
                 box-shadow: 0 0 1px 2px rgba(208, 214, 218, .4);
-            }
-            a.token-item {
-                position: relative;
-                color: inherit;
-                &:hover {
-                    text-decoration: none;
-                    color: inherit;
-                }
             }
             .token-pic {
                 float: left;
@@ -64,7 +58,7 @@
             .token-content {
                 float: left;
                 width: 990px;
-                margin: 10px 20px 20px 10px;
+                margin: 10px 20px 0 10px;
                 text-align: left;
                 .content-top {
                     border-bottom: 1px solid @space-color-light;
@@ -80,6 +74,11 @@
                         &.time {
                             margin-left: 40px;
                         }
+                        em{
+                            color: @text-color01-light;
+                            display: inline-block;
+                            margin-left: 10px;
+                        }
                     }
                 }
                 .content-bottom {
@@ -93,8 +92,31 @@
                     .progress {
                         float: left;
                         width: 290px;
-                        height: 75px;
-                        padding: 0 70px;
+                        height: 100%;
+                        margin: 0 70px;
+                        .countdown{
+                            em{
+                                font-size: 24px;
+                                width: 40px;
+                                height: 40px;
+                                line-height: 40px;
+                                margin-right: 43px;
+                                margin-top: 15px;
+                                background-size: 100% 100%;
+                                &:last-child{
+                                    margin-right: 0;
+                                }
+                            }
+                            .txt{
+                                width: 40px;
+                                text-align: center;
+                                margin: 10px 0;
+                            }
+                        }
+                        .amount{
+                            color: @text-color03;
+                            font-size: 14px;
+                        }
                     }
                 }
             }

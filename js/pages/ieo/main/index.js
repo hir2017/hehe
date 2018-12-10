@@ -5,7 +5,7 @@ import React, {Component} from 'react';
 import Constellation from '@/lib/constellation';
 
 import List from './list';
-import Advantage from './advantage';
+import Features from '@/mods/home/features';
 
 class Page extends Component {
     constructor(props) {
@@ -25,7 +25,7 @@ class Page extends Component {
                 <div className="ieo-main">
                     <div className="content">
                         <List/>
-                        <Advantage/>
+                        <Features/>
                     </div>
                 </div>
             </div>
