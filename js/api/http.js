@@ -1210,6 +1210,15 @@ export function getInvitationList(data){
 }
 
 /**
+ * 获取返佣比例
+ */
+export function getCommissionRate(){
+    return axios.post('/user/getUserCommissionRate');
+}
+
+
+
+/**
  * 拒绝理由查询
  */
 export function getRefuseReason(id){

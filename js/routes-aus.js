@@ -147,11 +147,11 @@ const routes = (
                 <Route path="detail/:id" component={NewsDetail} />
             </Route>
             <Route path="activity">
-                <Route path="invite-register" component={InviteRegister}/>
-                <Route component={Auth}>
-                    <IndexRoute getComponent={Invite}/>
-                    <Route path="invite(-:type)" getComponent={Invite}/>
-                </Route>
+                {/*<Route path="invite-register" component={InviteRegister}/>*/}
+                {/*<Route component={Auth}>*/}
+                    {/*<IndexRoute getComponent={Invite}/>*/}
+                    {/*<Route path="invite(-:type)" getComponent={Invite}/>*/}
+                {/*</Route>*/}
             	<Route path="thanksgiving" component={LandingPage} />
             </Route>
             <Route path="login" component={Login} />
