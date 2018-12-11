@@ -23,7 +23,10 @@ class Page extends Component {
         data._beginTimeStamp = data.beginTime / 1000;
         data._endTimeStamp = data.endTime / 1000;
         data._systemTimeStamp = data.systemTime / 1000;
-        data._percent = data.raisedAmount / data.totalCirculation;
+        // IEO进度 取整
+        let _percent = data.raisedAmount / data.totalCirculation;
+        _percent = Math.floor(_percent * 100);
+        data._percent = _percent;
         return data;
     }
 
@@ -48,8 +51,8 @@ class Page extends Component {
         const {ieoInfo} = this.state;
         return (
             <div className="ieo-wrapper detail">
-                <CoinInfo data={ieoInfo}/>
-                <TokenInfo data={ieoInfo}/>
+                <CoinInfo data={ieoInfo} ieoId={this.ieoId} />
+                <TokenInfo data={ieoInfo} ieoId={this.ieoId} />
             </div>
         );
     }
