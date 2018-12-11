@@ -19,6 +19,7 @@ class UserPage extends Component {
         };
         let navData = [
             {
+                key: 'baseinfo',
                 title: UPEX.lang.template('个人信息'),
                 subItems: [
                     {
@@ -39,6 +40,7 @@ class UserPage extends Component {
                 ]
             },
             {
+                key: 'setting',
                 title: UPEX.lang.template('安全设置'),
                 subItems: [
                     {
@@ -64,6 +66,7 @@ class UserPage extends Component {
                 ]
             },
             {
+                key: 'activity',
                 title: UPEX.lang.template('活动'),
                 subItems: [{
                     active: 'invite-home',
@@ -71,12 +74,8 @@ class UserPage extends Component {
                     text: UPEX.lang.template('邀请返佣')
                 }]
             }
-
         ];
 
-        if(UPEX.config.version === 'infinitex') {
-            navData[0].subItems.pop();
-        }
         this.navData = navData;
     }
 
@@ -114,9 +113,12 @@ class UserPage extends Component {
 
     render() {
         const store = this.props.userInfoStore;
-        if(!this.state.isLogin) {
+        const infinitexActivityDisable =  UPEX.config.version === 'infinitex' && [10004,10014,10076,10077,10080,10079,10068,10069,10013,10003,10071,10064].indexOf(store.userInfo.uid) == -1;
+
+        if (!this.state.isLogin) {
             return null;
         }
+        
         return (
             <div className="user-wrapper">
                 <Breadcrumb className="user-breadcrumb" separator=">">
@@ -126,20 +128,26 @@ class UserPage extends Component {
                 <div className="user-body-inner clearfix">
                     <div className="aside-left">
                         <div className="info">
-                            <p className="id">UID:{store.userInfo ? store.userInfo.uid + '' : ''}</p>
+                            <p className="id">UID:{store.userInfo && store.userInfo.uid ? store.userInfo.uid + '' : ''}</p>
                         </div>
                         <div className="menu">
                             {this.navData.map((item, i) => {
+                                // 澳洲屏蔽活动
+                                if (item.key == 'activity' && infinitexActivityDisable) {
+                                    return  null;
+                                }
                                 return (
                                     <dl className="menu-submenu" key={i}>
                                         <dt className="menu-submenu-title">{item.title}</dt>
-                                        {item.subItems.map((sub, j) => {
-                                            return (
-                                                <dd key={j} className={`menu-submenu-item ${this.activeMenu(sub.active)}`}>
-                                                    <Link to={sub.route}>{sub.text}</Link>
-                                                </dd>
-                                            );
-                                        })}
+                                        {
+                                            item.subItems.map((sub, j) => {
+                                                return (
+                                                    <dd key={j} className={`menu-submenu-item ${this.activeMenu(sub.active)}`}>
+                                                        <Link to={sub.route}>{sub.text}</Link>
+                                                    </dd>
+                                                );
+                                            })
+                                        }
                                     </dl>
                                 );
                             })}

@@ -89,6 +89,17 @@ const Invite = (location, cb) => {
     }, 'invite');
 };
 
+
+const onEnterHandle = (nextState, replace) => {
+    const {location} = nextState;
+    const uid = UPEX.cache.getCache('uid');
+    const infinitexActivityDisable =  UPEX.config.version === 'infinitex' && [10004,10014,10076,10077,10080,10079,10068,10069,10013,10003,10071,10064].indexOf(uid) == -1;
+    
+    if (location.pathname == '/activity/invite-home' && infinitexActivityDisable) {
+    	replace('/user');
+    }
+}
+
 const routes = (
     <Route>
         <Route path="/" component={ Layout }>
@@ -149,7 +160,7 @@ const routes = (
             </Route>
             <Route path="activity">
                 <Route path="invite-register" component={InviteRegister}/>
-                <Route component={Auth}>
+                <Route component={Auth} onEnter={onEnterHandle}>
                     <IndexRoute getComponent={Invite}/>
                     <Route path="invite(-:type)" getComponent={Invite}/>
                 </Route>
