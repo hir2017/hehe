@@ -11,6 +11,7 @@ export default (store, currencyStore) => {
          */
         sendSubscribe() {
             let { baseCurrencyId, tradeCurrencyId } = store.tradePair;
+
             socket.off('subscribe');
             socket.emit('subscribe', {
                 baseCurrencyId,
@@ -167,7 +168,7 @@ export default (store, currencyStore) => {
 
                 if (data.length > 0 && data[0].tradeCoins.length > 0) {
                     ret = this.parseCoinItem(data[0].tradeCoins[0]);
-
+                    
                     store.updateCurrentTradeCoin(ret);
 
                     store.setDealBuyPrice(ret.currentAmountInt);
@@ -201,10 +202,18 @@ export default (store, currencyStore) => {
          * 行情通知
          */
         listenQuoteNotify() {
+            let { baseCurrencyId, tradeCurrencyId } = store.tradePair;
+
             socket.off('quoteNotify');
             socket.emit('quoteNotify');
             socket.on('quoteNotify', (data) => {
                 let ret = this.parseCoinItem(data);
+                
+                if (baseCurrencyId != data.baseCurrencyId || tradeCurrencyId != data.currencyId) {
+                    console.log('no match id');
+                    return;
+                }
+                
                 store.updateCurrentTradeCoin(ret);
 
                 if (store.tradeType == 'market') {
