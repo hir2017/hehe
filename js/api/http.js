@@ -1222,5 +1222,6 @@ export function getRefuseReason(id){
  * 获取分发记录
  */
 export function getAssetChangeReward(data) {
-    return axios.post('/coin/selectCustomerAccountWaterList', data);
+    // return axios.post('/coin/selectCustomerAccountWaterList', data);
+    return axios.post('/coin/selectActivitiesCustomerAccountWaterList', data);
 }
