@@ -377,7 +377,8 @@ export default class TradeStore {
         if(baseCurrencyNameEn) {
             //
             let _scale = baseCurrencyNameEn === UPEX.config.baseCurrencyEn ? 1 : rmbScale;
-            return NumberUtil.formatNumber(currentAmount * _scale, 2);
+            let _number = currentAmount * _scale;
+            return _number === 0 || isNaN(_number) ? false : NumberUtil.formatNumber(_number, 2);
         }
 
     }
