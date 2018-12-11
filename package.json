@@ -90,7 +90,7 @@
       "澳州站多语言定制",
       "PC通用多语言翻译文档",
       "CountryCode",
-      "澳洲站Landpage"
+      "澳州站BITCOIN"
     ]
   },
   "license": "ISC",
@@ -108,6 +108,6 @@
   },
   "version": "2.1.25",
   "ace-version": "1.0.9",
-  "aus-version": "1.0.7"
+  "aus-version": "1.0.9"
 }
 

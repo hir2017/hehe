@@ -11,7 +11,8 @@ import NotFound from './pages/others/404';
 import Login from './pages/login-register/login';
 import Register from './pages/login-register/register';
 import ResetPwd from './pages/login-register/resetpwd';
-import LandingPage from './pages/activity/landingpage/aus';
+// import LandingPage from './pages/activity/landingpage/aus';
+import LandingPageBtc from './pages/activity/landingpage/aus-btc';
 import InviteRegister from './pages/activity/invite/invite-register';
 
 // import Home from './pages/home';
@@ -88,6 +89,17 @@ const Invite = (location, cb) => {
     }, 'invite');
 };
 
+
+const onEnterHandle = (nextState, replace) => {
+    const {location} = nextState;
+    const uid = UPEX.cache.getCache('uid');
+    const infinitexActivityDisable =  UPEX.config.version === 'infinitex' && [10004,10014,10076,10077,10080,10079,10068,10069,10013,10003,10071,10064].indexOf(uid) == -1;
+
+    if (location.pathname == '/activity/invite-home' && infinitexActivityDisable) {
+    	replace('/user');
+    }
+}
+
 const routes = (
     <Route>
         <Route path="/" component={ Layout }>
@@ -147,12 +159,12 @@ const routes = (
                 <Route path="detail/:id" component={NewsDetail} />
             </Route>
             <Route path="activity">
-                {/*<Route path="invite-register" component={InviteRegister}/>*/}
-                {/*<Route component={Auth}>*/}
-                    {/*<IndexRoute getComponent={Invite}/>*/}
-                    {/*<Route path="invite(-:type)" getComponent={Invite}/>*/}
-                {/*</Route>*/}
-            	<Route path="thanksgiving" component={LandingPage} />
+                <Route path="invite-register" component={InviteRegister}/>
+                <Route component={Auth} onEnter={onEnterHandle}>
+                    <IndexRoute getComponent={Invite}/>
+                    <Route path="invite(-:type)" getComponent={Invite}/>
+                </Route>
+            	<Route path="bitcoin" component={LandingPageBtc} />
             </Route>
             <Route path="login" component={Login} />
 			<Route path="register" component={Register} />
