@@ -75,7 +75,12 @@ class UserPage extends Component {
                 }]
             }
         ];
-
+        if(UPEX.config.version === 'infinitex') {
+            // 移除银行卡
+            navData[0].subItems.pop();
+            //移除返佣
+            // navData.pop();
+        }
         this.navData = navData;
     }
 
@@ -118,7 +123,7 @@ class UserPage extends Component {
         if (!this.state.isLogin) {
             return null;
         }
-        
+
         return (
             <div className="user-wrapper">
                 <Breadcrumb className="user-breadcrumb" separator=">">
