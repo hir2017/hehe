@@ -2,26 +2,44 @@
  * @fileoverview IEO 详情页
  */
 import React, { Component } from 'react';
-
+import {getSingleIEOInfo} from '@/api/http';
 import CoinInfo from './coin-info';
 import TokenInfo from './token-info';
-import Allocation from './allocation';
-
-import * as Mock from './mock';
+import TimeUtil from '@/lib/util/date';
 
 class Page extends Component {
     constructor(props) {
         super(props);
-
+        const {params} = props;
+        this.ieoId = params.id;
         this.state = {
-            coin: {}
+            ieoInfo: {}
         };
+    }
+
+    formatData(data) {
+        data._beginTime = TimeUtil.formatDate(data.beginTime);
+        data._endTime = TimeUtil.formatDate(data.endTime);
+        data._beginTimeStamp = data.beginTime / 1000;
+        data._endTimeStamp = data.endTime / 1000;
+        data._systemTimeStamp = data.systemTime / 1000;
+        // IEO进度 取整
+        let _percent = data.raisedAmount / data.totalCirculation;
+        _percent = Math.floor(_percent * 100);
+        data._percent = _percent;
+        return data;
     }
 
     // 获取数据信息
     getData() {
-        this.setState({
-            coin: Mock.coinInfo
+        getSingleIEOInfo({
+            ieoId: this.ieoId
+        }).then(res => {
+            if(res.status === 200) {
+                this.setState({
+                    ieoInfo: this.formatData(res.attachment)
+                })
+            }
         })
     }
 
@@ -30,12 +48,11 @@ class Page extends Component {
     }
 
     render() {
-        const {coin} = this.state;
+        const {ieoInfo} = this.state;
         return (
             <div className="ieo-wrapper detail">
-                <CoinInfo data={coin}/>
-                <TokenInfo data={coin}/>
-                <Allocation data={coin}/>
+                <CoinInfo data={ieoInfo} ieoId={this.ieoId} />
+                <TokenInfo data={ieoInfo} ieoId={this.ieoId} />
             </div>
         );
     }

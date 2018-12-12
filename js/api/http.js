@@ -1,18 +1,18 @@
 import axios from "axios";
 import qs from "qs";
-import { message } from 'antd';
+import {message} from 'antd';
 import NumberUtils from '@/lib/util/number';
 
 function checkPhoneNum(str) {
     // 校验是否全数字，有可能输入的是邮箱
-    if(!NumberUtils.isInteger(str)) {
+    if (!NumberUtils.isInteger(str)) {
         return str;
     }
     let result = str;
     //  0886开头，台湾手机号
-    if(str.indexOf('0886') === 0) {
+    if (str.indexOf('0886') === 0) {
         // 14位， 手机号10位，且手机号第一位是0
-        if(str.length === 14 && str[4] === '0') {
+        if (str.length === 14 && str[4] === '0') {
             result = '0886' + str.substr(5);
         }
     }
@@ -26,7 +26,7 @@ const urlWhiteList = ['/quote/klineHistory'];
 axios.defaults.baseURL = UPEX.config.host;
 
 // 添加请求拦截器
-axios.interceptors.request.use(function(config) {
+axios.interceptors.request.use(function (config) {
     // 在发送请求之前做些什么
     const token = UPEX.cache.getCache('token');
     const uid = UPEX.cache.getCache('uid');
@@ -47,7 +47,7 @@ axios.interceptors.request.use(function(config) {
         return config
     }
 
-    let _path =  config.url.replace(config.baseURL, '');
+    let _path = config.url.replace(config.baseURL, '');
 
     if (config.method === 'post') {
         let data = qs.parse(config.data)
@@ -86,7 +86,7 @@ axios.interceptors.request.use(function(config) {
         }
     }
     return config;
-}, function(error) {
+}, function (error) {
     // 对请求错误做些什么
     return Promise.reject(error);
 })
@@ -94,7 +94,7 @@ axios.interceptors.request.use(function(config) {
 let preTime = +new Date(), nowTime;
 
 // 添加响应拦截器
-axios.interceptors.response.use(function(res) {
+axios.interceptors.response.use(function (res) {
     let tempData = res.data || {
         id: 'SYSTEM_ERROR',
         status: -1,
@@ -117,7 +117,7 @@ axios.interceptors.response.use(function(res) {
 
     return tempData;
 
-}, function(error) {
+}, function (error) {
     // 对响应错误做点什么
     return Promise.reject(error);
 });
@@ -194,6 +194,7 @@ export function userLogin2(data) {
         source: 1
     }))
 }
+
 /**
  * 邮箱登录 －  发送短信验证码
  */
@@ -208,6 +209,7 @@ export function sendLoginCodeSend(data) {
         source: 1
     }))
 }
+
 /**
  * 用户登录 － 退出
  */
@@ -226,6 +228,7 @@ export function resetPwd(data) {
         codeid: 0
     }))
 }
+
 /*
  *
  */
@@ -251,6 +254,7 @@ export function getBannerList() {
         type: 1
     }))
 }
+
 /**
  *  基本币种列表
  */
@@ -275,6 +279,7 @@ export function getUserOrderList(data) {
         ...data
     }))
 }
+
 /**
  * 生成委托单 -> 限价买/卖
  */
@@ -298,12 +303,14 @@ export function getCoinAccount(type = 1) {
         type
     }))
 }
+
 /**
  * 我的余额
  */
 export function getCNYBalance() {
     return axios.post('/property')
 }
+
 /**
  * 查询当前币种地址及二维码
  * @return {
@@ -393,6 +400,7 @@ export function getCoinWithdrawList(data) {
         ...data
     }))
 }
+
 /**
  * 提币前查询信息接口
  */
@@ -401,6 +409,7 @@ export function getTakeCoinInfo(currencyId) {
         currencyId
     }))
 }
+
 /**
  * 删除提币地址接口
  */
@@ -410,6 +419,7 @@ export function deleteCoinAddress(data) {
         walletAddressId: data.walletAddressId
     }))
 }
+
 /**
  * 添加提币地址接口
  */
@@ -421,6 +431,7 @@ export function addWithdrawAddress(data) {
         address: data.address, // 地址
     }))
 }
+
 /**
  * 提币发送邮箱短信验证码: 10分钟有效期，可以错误5次。
  */
@@ -431,6 +442,7 @@ export function takeCoinSendPhoneCode(data) {
         codeid: data.codeid
     }))
 }
+
 /**
  * 提币接口
  */
@@ -442,6 +454,7 @@ export function takeCoin(data) {
         ...data
     }))
 }
+
 /*-----------------------------}} 提币相关接口：------------------------------------*/
 /**
  * 提币记录
@@ -463,12 +476,14 @@ export function getCoinRechargeList(data) {
         ...data
     }))
 }
+
 /**
  * 币种列表
  */
 export function getAllCoinPoint() {
     return axios.post('/coin/coinPoint')
 }
+
 /**
  * 充值/提现查询记录
  * {
@@ -482,6 +497,7 @@ export function getFundChangeList(data) {
         ...data
     }))
 }
+
 /**
  * 提现记录
  * selectListByUuid
@@ -502,6 +518,7 @@ export function getFundWithdrawList(data) {
         ...data
     }))
 }
+
 /**
  * 我的订单 —— 委托历史记录
  */
@@ -510,6 +527,7 @@ export function getOrderListByCustomer(data) {
         ...data
     }))
 }
+
 /**
  * 我的订单 —— 委托中订单
  */
@@ -518,6 +536,7 @@ export function getUserOpenOrderList(data) {
         ...data
     }))
 }
+
 /**
  * 我的订单 —— 历史订单
  */
@@ -526,6 +545,7 @@ export function getUserHistoryOrderList(data) {
         ...data
     }))
 }
+
 /**
  * 我的订单 —— 历史订单详情
  */
@@ -534,6 +554,7 @@ export function getUserHistoryOrderDetail(data) {
         ...data
     }))
 }
+
 /**
  * 我的订单 —— 已成交订单
  * @param {Object} data
@@ -553,6 +574,7 @@ export function getUserSuccessOrderList(data) {
         ...data
     }))
 }
+
 /**
  * 撤销订单
  */
@@ -561,6 +583,7 @@ export function cancelOrder(data) {
         ...data
     }))
 }
+
 /**
  * 添加收藏
  */
@@ -570,6 +593,7 @@ export function addOptional(data) {
         baseCurrencyId: data.baseCurrencyId
     }))
 }
+
 /**
  * 取消收藏
  */
@@ -580,6 +604,7 @@ export function cancleOptional(data) {
         baseCurrencyId: data.baseCurrencyId
     }))
 }
+
 /**
  * 收藏列表
  */
@@ -601,6 +626,7 @@ export function getTradeDeep(pair, limit) {
         }
     })
 }
+
 /**
  * K线数据
  * @param pair交易币对。TWD_LTC
@@ -672,6 +698,7 @@ export function sendCodeInUserCenter(type, imgCode, imgCodeId) {
         codeid: imgCodeId
     })
 }
+
 /**
  * 发送验证码 设置、忘记交易密码
  */
@@ -853,6 +880,7 @@ export function bindPhone(newDevice, oldDevice, oldVercode, vercode, codeid, img
         vercode
     })
 }
+
 /**
  *  绑定手机或邮箱发送验证码
  *  type=1、手机注册用户;type=2、邮箱注册用户;
@@ -879,7 +907,7 @@ export function isUsedGoogleAuth() {
  */
 
 export function bindPhoneOrEmailAction(params) {
-    if(params.type === 2) {
+    if (params.type === 2) {
         params.phoneOrEmail = checkPhoneNum(params.phoneOrEmail);
     }
     return axios.post('/user/bindPhoneOrEmailAction', params)
@@ -906,13 +934,14 @@ export function modifyPhoneAction(params) {
     params.newPhone = checkPhoneNum(params.newPhone);
     return axios.post('/user/modifyPhoneAction', params)
 }
+
 /**
  *  手机二级认证开关
  *
  */
 
 export function phoneAuthSwitch(smsCode, status) {
-    return axios.post('/user/phoneAuthSwitch', { smsCode, status })
+    return axios.post('/user/phoneAuthSwitch', {smsCode, status})
 }
 
 /**
@@ -921,7 +950,7 @@ export function phoneAuthSwitch(smsCode, status) {
  */
 
 export function updateFdPwdEnabled(fdPwd, enabled) {
-    return axios.post('/user/updateFdPwdEnabled', { fdPwd, enabled })
+    return axios.post('/user/updateFdPwdEnabled', {fdPwd, enabled})
 }
 
 /**
@@ -1025,6 +1054,7 @@ export function sendMessageWithdraw(vercode, codeid) {
         codeid: '11'
     })
 }
+
 /**
  * 获取提币、充币、提现、充值的风控限额
  * 1: 充值；2：提现；3：充币；4：提币；5：买入；6：卖出；7:转账
@@ -1035,6 +1065,7 @@ export function getUserActionLimit(actionId, currencyId) {
         currencyId
     })
 }
+
 /**
  * 查询币对显示位数
  */
@@ -1062,12 +1093,14 @@ export function twdGetQuotaManagementInfo(data) {
 export function ausGetQuotaManagementInfo(data) {
     return axios.post('/ausCommon/getQuotaManagementInfo', data)
 }
+
 /**
  * 澳洲版bpay充值获取referenceID
  */
 export function getBPAYreferenceNo() {
     return axios.post('/ausCommon/getBpayRefId')
 }
+
 /**
  * 澳洲版充值/提现查询记录
  * @param {type， pageNumber， pageSize}
@@ -1079,6 +1112,7 @@ export function ausGetFundChangeList(data) {
         ...data
     }))
 }
+
 /**
  * 澳洲版获取用户资金可用余额
  * @param {currencyId} data
@@ -1088,6 +1122,7 @@ export function ausGetUserAvailableAmount(data) {
         currencyId: 1
     }))
 }
+
 /**
  * 澳洲版获取用户提现手续费
  * @param {currencyId, amount（提现金额）, actionId（行为id，2代表提现）: 2} data
@@ -1113,6 +1148,7 @@ export function ausOrderFiatWithdraw(data) {
 export function ausGetPoliUrl(data) {
     return axios.post('/ausRecharge/getFrontPageJsonData', data)
 }
+
 /*
     澳洲版获取充值提现费率
     actionId 币种行为Id number 1：充值，2：提现
@@ -1145,7 +1181,7 @@ export function getUserAuthInfo(info) {
 /**
  * 根据邀请码获取邀请者昵称等信息
  */
-export function getInviterInfoByCode(code){
+export function getInviterInfoByCode(code) {
     return axios.post('/user/getUserNameByCode', qs.stringify({
         invitedCode: code
     }))
@@ -1154,39 +1190,41 @@ export function getInviterInfoByCode(code){
 /**
  * 获取邀请top3排榜榜信息
  */
-export function getInviteTopList(){
+export function getInviteTopList() {
     return axios.post('/user/getTopThreeCommissionInfo');
 }
 
 /**
  * 获取用户信息
  */
-export function getInviteUserInfo(){
+export function getInviteUserInfo() {
     return axios.post('/user/getMyCmsnAndFrndCountInfo');
 }
 
 /**
  * 我的返佣资产列表
  */
-export function getInviteAssets(data){
-    return  axios.post('/user/getUserCommissionSumInfoList', qs.stringify({
+export function getInviteAssets(data) {
+    return axios.post('/user/getUserCommissionSumInfoList', qs.stringify({
         ...data
     }));
 }
+
 /**
  * 返佣记录
  */
-export function getInviteCommissionList(data){
-    return axios.post('/user/getUserCommissionWaterListByUuid',qs.stringify({
+export function getInviteCommissionList(data) {
+    return axios.post('/user/getUserCommissionWaterListByUuid', qs.stringify({
         ...data
     }));
 
 }
+
 /**
  * 邀请明细
  */
-export function getInvitationList(data){
-    return axios.post('/user/getInvitedList',qs.stringify({
+export function getInvitationList(data) {
+    return axios.post('/user/getInvitedList', qs.stringify({
         ...data
     }));
 }
@@ -1194,8 +1232,8 @@ export function getInvitationList(data){
 /**
  * 拒绝理由查询
  */
-export function getRefuseReason(id){
-    return axios.post('/refuseStrategy/failReason',{
+export function getRefuseReason(id) {
+    return axios.post('/refuseStrategy/failReason', {
         id
     });
 }
@@ -1218,14 +1256,74 @@ export function getAssetChangeReward(data) {
 export function getIEOList() {
     return axios.post('http://www.mocky.io/v2/5c0ddea32e00006600043b8c');
 }
+
 /**
  * 根据项目ID获取单个IEO项目详细信息
  */
 export function getSingleIEOInfo(data) {
-    return axios.post('',qs.stringify({
+    return axios.post('/coin/selectActivitiesCustomerAccountWaterList', data).then(res => {
+        return {
+            "message": null,
+            "status": 200,
+            "attachment": {
+                logoUrl: 'https://cdn-images-1.medium.com/max/1600/1*etdAVqiney-yYSLLBKaZUw.png', //'logo链接'
+                tokenName: 'GIFTO', //代币名称
+                beginTime: 1543568105293, //开始时间，返回时间戳，单位毫秒
+                endTime: 1543568105293, //结束时间，同上
+                systemTime: 1543568105293, //系统时间，同上
+                totalCirculation: 30000000,   //发行量
+                tokenDesc: '授权新设备您最近尝试从一个新设备或新位置登录到您的币安帐户。作为一种安全措施，我们需要您授权新设备授权新设备您最近尝试从一个新',  //token介绍
+                status: 0, // 发行状态，'0:未开始 1:进行中 2:已结束(募集成功) 3:已结束(募集失败) 4:已上币
+                raisedAmount: 1132320, //已募集数量
+                price: 10000, //IEO价格
+                homepageUrl: 'https://cdn-images-1.medium.com/', //token详情主页URL
+                whitePaperUrl: 'https://cdn-images-1.medium.com/', //token详情白皮书URL
+                tokenDistributionUrl: '',//token分配图URL
+                softTop: 1000000,  //软顶
+                hardTop: 2000000, //硬顶
+                minBuyCount: 10, //最低购买量
+                buyWay: 'TWD/ACE/BTC',
+            }
+        }
+    });
+    return axios.post('', qs.stringify({
         ...data
     }));
 }
+
+/**
+ * 根据项目ID获取单个IEO项目购买信息接口
+ */
+export function getSingleIEOPurchaseInfo(data) {
+    return axios.post('/coin/selectActivitiesCustomerAccountWaterList', data).then(res => {
+        return {
+            "message": null,
+            "status": 200,
+            "attachment": {
+                list: [
+                    {
+                        tokenId: 1,
+                        tokenName: 'TWD', //
+                        tokenAmount: 1233221,  //代币余额
+                        tokenAgreement: '11111点击购买按钮，即表示您同意接受ieo促销条款和条件以及kryptono一般使用 条款',
+                        tokenRate: 0.1   //换算比率
+                    },
+                    {
+                        tokenId: 2,
+                        tokenName: 'BTC', //
+                        tokenAmount: 232,  //代币余额
+                        tokenAgreement: '22222点击购买按钮，即表示您同意接受ieo促销条款和条件以及kryptono一般使用 条款',
+                        tokenRate: 3   //换算比率
+                    }
+                ]
+            }
+        }
+    });
+    return axios.post('', qs.stringify({
+        ...data
+    }));
+}
+
 /**
  * 获取IEO资产列表
  */
@@ -1237,5 +1335,5 @@ export function getIEOAssetsList() {
  * IEO购买记录
  */
 export function getIEORecordList(data) {
-    return axios.post('http://www.mocky.io/v2/5c0f7c83310000b51124ec76',data);
+    return axios.post('http://www.mocky.io/v2/5c0f7c83310000b51124ec76', data);
 }

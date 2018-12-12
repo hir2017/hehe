@@ -7,7 +7,10 @@ export default class View extends React.Component {
         return (
             <div className={`exc-full-page-wrapper ${props.className}`}>
                 <div className="exc-full-page">
-                    <header className="page-title">{props.title}</header>
+                    <header className="page-title">
+                        {props.title}
+                        {props.titleAfter ? props.titleAfter : null}
+                    </header>
                     <div className="page-content">
                         {props.children}
                     </div>
