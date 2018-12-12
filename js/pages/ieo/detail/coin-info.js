@@ -3,14 +3,15 @@
  */
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
-import { Button, Modal, Row, Col, Progress, Select } from 'antd';
+import { Button, Modal, Row, Col, Progress, Select, message } from 'antd';
 import FormView from '@/mods/common/form';
 import FormItem from '@/mods/common/form/item';
 import { StatusIcon } from '../view';
 import CountDown from '../countdown';
 import NumberUtil from '@/lib/util/number';
-import ValidateUtil from '@/lib/util/validate';
-import {getSingleIEOPurchaseInfo} from '@/api/http';
+import TimeUtil from '@/lib/util/date';
+import { isNumber } from '@/lib/util/validate';
+import {getSingleIEOPurchaseInfo, buyIEOToken, getIEOIsSubscribe, IEOToDoSubscribe} from '@/api/http';
 
 const Option = Select.Option;
 
@@ -25,7 +26,12 @@ class View extends Component {
         this.state = {
             // 购买弹窗触发状态
             projectState: '',
+            // 购买弹窗状态
             visible: false,
+            // 购买结果弹窗状态
+            msgVisible: false,
+            // 购买结果信息 message status
+            msgData: {},
             // 购买-当前选择币种
             selectCoin: {},
             // 购买-购买方式所有币种
@@ -34,6 +40,14 @@ class View extends Component {
             number: 0,
             // 购买-购买总价
             amount: 0,
+        };
+        // 发行状态，'0:未开始 1:进行中 2:已结束(募集成功) 3:已结束(募集失败) 4:已上币
+        // 购买弹窗触发按钮的状态映射
+        this.btnStatusMap = {
+            '0': ['login', 'not-subscribed', 'subscribed'],
+            '1': 'start',
+            '2': 'done',
+            '3': 'done',
         };
         // 购买弹窗触发按钮文案
         this.btnTxtMap = {
@@ -61,6 +75,23 @@ class View extends Component {
             wrapClassName: "ieo-buy",
             title: null,
             footer: null,
+            onCancel: () => {
+                this.setState({
+                    visible: false
+                })
+            }
+        };
+        // 弹窗属性
+        this.msgModalProp = {
+            wrapClassName: "ieo-buy-msg",
+            title: null,
+            footer: null,
+            closable: false,
+            onCancel: () => {
+                this.setState({
+                    msgVisible: false
+                })
+            }
         };
     }
 
@@ -75,7 +106,7 @@ class View extends Component {
             number: 0,
             amount: 0,
         })
-        getSingleIEOPurchaseInfo({
+        return getSingleIEOPurchaseInfo({
             ieoId: this.props.ieoId
         }).then(res => {
             if(res.status === 200) {
@@ -89,49 +120,199 @@ class View extends Component {
                 })
             }
         }).catch(err => {
-            console.log('ieo getSingleIEOPurchaseInfo', err)
+            console.error('ieo getSingleIEOPurchaseInfo', err)
         })
     }
 
     checkProjectState() {
-        // 判断用户是否登录，该IEO是否开始
-        this.setState({
-            projectState: 'not-subscribed'
-        });
+
+        /**
+         * 判断用户是否登录，该IEO是否开始 status 0:未开始 1:进行中 2:已结束(募集成功) 3:已结束(募集失败) 4:已上币
+         * 未开始: 未登录=>提示登录  登录=>发起订阅
+         */
+        const {status} = this.props.data;
+        let projectState = this.btnStatusMap[status];
+        // 是否已开始
+        if(status !== 0) {
+            this.setState({
+                projectState
+            });
+            return ;
+        }
+        // 未开始
+        const { data, authStore, userInfoStore } = this.props;
+        // 是否已登录
+        if(!authStore.isLogin) {
+            // 未登录
+            this.setState({
+                projectState: projectState[0]
+            });
+            return;
+        }
+        // 获取订阅结果
+        getIEOIsSubscribe({
+            ieoId: this.props.ieoId
+        }).catch(err => {
+
+            console.error('getIEOIsSubscribe', err);
+            return {status: 50000}
+        }).then(res => {
+            let _state = projectState[0];
+            if(res.status === 200) {
+                _state = projectState[res.attachment.isSubscribe === 1 ? 2 : 1]
+            }
+            this.setState({
+                projectState: _state
+            });
+        })
+
     }
 
     onSubmit = () => {
-        console.log('onSubmit')
+        const {selectCoin, number, amount} = this.state;
+        // TODO: 校验 余额、币种最小购买、token剩余数量
+        this.setState({
+            visible: false,
+            selectCoin: {},
+            coins: [],
+            number: 0,
+            amount: 0,
+            msgData: {}
+        })
+        let _order = {
+            ieoId: this.props.ieoId,
+            tokenId: selectCoin.tokenId, //购买使用的代币ID
+            count: number
+        };
+        buyIEOToken(_order).then(res => {
+            let msgData = {
+                selectCoin,
+                status: res.status === 200 ? 'success' : 'fail',
+                title: res.status === 200 ? UPEX.lang.template('购买成功, 请在资产管理中查看') : UPEX.lang.template('购买失败, 请重新尝试购买'),
+            };
+            // 成功 显示时间
+            if(res.status === 200) {
+                msgData.order = {
+                    ..._order,
+                    amount: res.attachment.payCount
+                };
+                msgData.date = TimeUtil.formatDate(res.attachment.buyTime);
+            }
+            let _state = {
+                msgVisible: true,
+                msgData
+            }
+            this.setState(_state)
+
+        }).catch(err => {
+            console.error('buyIEOToken', err)
+        })
+    }
+    // 计算金额
+    computeAmount(value, tokenRate) {
+        // 换算总额精确度到小数点后8位
+        let _amount = NumberUtil.mul(value, tokenRate);
+        _amount = isNaN(_amount) ? 0 : _amount;
+        return NumberUtil.toFixed(_amount, 8);
     }
 
+    formateNumber(value, total) {
+        if(value === '') {
+            // 清空金额
+            return {
+                amount: 0,
+                number: ''
+            }
+        }
+        // 小数过滤
+        if(!isNumber(value)) {
+            return;
+        }
+        let param = {};
+        value = parseInt(value);
+        // 数量最大为发行量
+        value = value > total ? total : value;
+        param.number = value;
+        const {tokenRate} = this.state.selectCoin;
+        param.amount = this.computeAmount(value, tokenRate);
+
+        return param;
+    }
     setVal(name, e) {
-        const {selectCoin} = this.state;
+        const {data} = this.props;
         let {value} = e.target;
-        let data = {};
+        let _param = {};
         // 数量:正整数 换算总额:两位小数
         if(name === 'number') {
-            if(!ValidateUtil.isNumber(value)) {
-                return;
-            }
-            let _amount = parseFloat(value) * selectCoin.tokenRate;
-            // TODO: 精确度到小数点后几位
-            data.amount = isNaN(_amount) ? 0 : _amount;
-            // 添加小数过滤
-            data.number = value;
+            _param = this.formateNumber(value, data.totalCirculation);
         }
-        this.setState(data);
+        this.setState(_param);
     }
 
-    // 操作按钮
+    handleSubscribe() {
+        IEOToDoSubscribe({
+            ieoId: this.props.ieoId
+        }).then(res => {
+            if(res.status === 200) {
+                if(res.attachment.success === 1) {
+                    message.success(UPEX.lang.template('订阅成功'))
+                } else {
+                    message.warning(res.message);
+                }
+            }
+        }).catch(err => {
+            console.error('IEOToDoSubscribe', err);
+        }).then(res => {
+            this.checkProjectState();
+        })
+    }
+
+    // 订阅、购买操作按钮
     handleClick = () => {
-        this.getPurchaseInfo();
+        const {projectState} = this.state;
         // 登录判断
         // IEO是否已开始判断, 购买|订阅
         // IEO未开始，是否已订阅判断 订阅|未订阅
+        // 是否允许操作
+        let _disabled = false;
+        switch (projectState) {
+            case 'login':
+                message.warning(UPEX.lang.template('请先登录'));
+                _disabled = true;
+                break;
+            case 'not-subscribed':
+                this.handleSubscribe();
+                _disabled = true;
+                break;
+            case 'subscribed':
+                // message.warning(UPEX.lang.template('请先登录'));
+                _disabled = true;
+                break;
+            default:
+                break;
+        }
+        if(_disabled) {
+            return ;
+        }
+        this.getPurchaseInfo();
         this.setState({
-            visible: true
+            visible: true,
+            msgVisible: false
         });
     };
+    // 操作按钮
+    handleMsgClick = () => {
+        const {msgData} = this.state;
+        let _state = {
+            msgVisible: false
+        }
+        if(msgData.status === 'fail') {
+            _state.visible = true;
+            this.getPurchaseInfo();
+        }
+        this.setState(_state);
+    }
+
     // 切换弹窗状态
     handleModalVisite(action) {
         this.setState({
@@ -141,19 +322,23 @@ class View extends Component {
     // 币种切换
     handleSelect = (value, option) => {
         let _coin = this.state.coins.filter(item => item.tokenId === value);
-        // TODO: 重新计算数值
+        let selectCoin = _coin[0] || {};
+        // 重新计算数值
+        let amount = this.computeAmount(this.state.number, selectCoin.tokenRate);
         this.setState({
-            selectCoin: _coin[0] || {}
-        })
+            selectCoin,
+            amount
+        });
+
     }
 
 
     render() {
-        const { state, btnTxtMap, CountDownProp, props, ModalProp } = this;
+        const { state, btnTxtMap, CountDownProp, props, ModalProp, msgModalProp } = this;
         // 父级传递的数据
         const { data, authStore, userInfoStore } = props;
-        // 选中的coin
-        const {selectCoin} = state;
+        // 选中的coin 购买结果
+        const {selectCoin, msgData} = state;
         // 可选币种
         let $coinOptions = state.coins.map((item, i) => {
             return <Option key={i} value={item.tokenId}>{item.tokenName}</Option>
@@ -182,7 +367,31 @@ class View extends Component {
                 {selectCoin.tokenAgreement}
             </div>);
         }
+        let $msgContent = null, $msgBtn = null;
+        if(state.msgVisible) {
+            // 订单显示信息 成功|失败
+            $msgContent = msgData.status === 'success' ? (
+                <div className="content">
+                    <p>
+                        <label>{UPEX.lang.template('支付时间')}</label>{msgData.date}
+                    </p>
+                    <p>
+                        <label>{UPEX.lang.template('购买方式')}</label>{msgData.selectCoin.tokenName}
+                    </p>
+                    <p>
+                        <label>{UPEX.lang.template('购买数量')}</label>{msgData.order.count} {data.tokenName}
+                    </p>
+                    <p>
+                        <label>{UPEX.lang.template('购买金额')}</label>{msgData.order.amount} {msgData.selectCoin.tokenName}
+                    </p>
+                </div>
+            ) : (
+                <div className="content">
 
+                </div>
+            );
+            $msgBtn = <Button className="close" onClick={this.handleMsgClick}>{msgData.status === 'success' ? UPEX.lang.template('关闭') : UPEX.lang.template('重新购买')}</Button>
+        }
         return (
             <div className="coin-info clearfix">
                 <div className="left-box">
@@ -247,9 +456,13 @@ class View extends Component {
                             </Button>
                         </FormItem>
                     </FormView>
-                    <div className="bottom-tip">
-
+                </Modal>
+                <Modal {...msgModalProp} visible={state.msgVisible}>
+                    <div className={`msg-box ${msgData.status}`}>
+                        <h3><span className="inner">{msgData.title}</span></h3>
+                        { $msgContent }
                     </div>
+                    {$msgBtn}
                 </Modal>
             </div>
         );

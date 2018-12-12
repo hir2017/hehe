@@ -13,6 +13,7 @@ class Page extends Component {
         const {params} = props;
         this.ieoId = params.id;
         this.state = {
+            loading: true,
             ieoInfo: {}
         };
     }
@@ -32,7 +33,7 @@ class Page extends Component {
 
     // 获取数据信息
     getData() {
-        getSingleIEOInfo({
+        return getSingleIEOInfo({
             ieoId: this.ieoId
         }).then(res => {
             if(res.status === 200) {
@@ -40,6 +41,12 @@ class Page extends Component {
                     ieoInfo: this.formatData(res.attachment)
                 })
             }
+        }).catch(err => {
+            console.error('getSingleIEOInfo', err);
+        }).then(res => {
+            this.setState({
+                loading: false
+            })
         })
     }
 
@@ -48,7 +55,10 @@ class Page extends Component {
     }
 
     render() {
-        const {ieoInfo} = this.state;
+        const {ieoInfo, loading} = this.state;
+        if(loading) {
+            return <div className="ieo-wrapper detail" />
+        }
         return (
             <div className="ieo-wrapper detail">
                 <CoinInfo data={ieoInfo} ieoId={this.ieoId} />
