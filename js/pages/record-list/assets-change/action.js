@@ -1,8 +1,15 @@
 import React from 'react';
-import { Icon } from 'antd';
+import {Icon} from 'antd';
 import TimeUtil from '@/lib/util/date';
 
-import { getFundChangeList, ausGetFundChangeList, getCoinRechargeList, getCoinWithdrawList, getAssetChangeReward } from '@/api/http';
+import {
+    getFundChangeList,
+    ausGetFundChangeList,
+    getCoinRechargeList,
+    getCoinWithdrawList,
+    getAssetChangeReward,
+    getIEORecordList
+} from '@/api/http';
 
 // 请求、请求参数 逻辑判断
 const getParams = (type, page) => {
@@ -44,6 +51,12 @@ const getParams = (type, page) => {
                 currentyId: 0
             };
             break;
+        case type === 'ieo':
+            request = getIEORecordList;
+            params = {
+                page: page,
+                pageSize: 10
+            }
     }
     return {
         request,
@@ -77,6 +90,13 @@ const FormatSourceData = (type, res, params) => {
                 total: typeof _source.total === 'undefined' ? 0 : _source.total
             };
             break;
+        case 'ieo':
+            result = {
+                listData: _source.list || [],
+                current: params.page,
+                total: typeof _source.total === 'undefined' ? 0 : _source.total
+            };
+            break;
         default:
             result = {
                 listData: _source.list,
@@ -90,8 +110,8 @@ const FormatSourceData = (type, res, params) => {
 };
 
 // 发起请求 获取数据
-export const getList = function(type, page = 1) {
-    let { request, params } = getParams(type, page);
+export const getList = function (type, page = 1) {
+    let {request, params} = getParams(type, page);
     if (request === null) {
         console.error('record: getList type is lose');
         return;
@@ -139,7 +159,7 @@ const formatFn = {
                 '1': 'BPAY',
                 '2': 'POLI',
             }
-            item._payMethod = type === 'deposit' ?  payMap[item.type] : UPEX.lang.template('银行卡转账');
+            item._payMethod = type === 'deposit' ? payMap[item.type] : UPEX.lang.template('银行卡转账');
             if (type === 'deposit') {
                 item._disabled = true;
             }
@@ -154,7 +174,7 @@ const formatFn = {
             case 'success':
                 item._status = (
                     <span className="all-success has-ico">
-                        <Icon type="check-circle-o" />
+                        <Icon type="check-circle-o"/>
                         {UPEX.lang.template('已完成')}
                     </span>
                 );
@@ -175,12 +195,12 @@ const formatFn = {
             case 'Success':
                 item._status = (
                     <span className="all-success has-ico">
-                        <Icon type="check-circle-o" />
+                        <Icon type="check-circle-o"/>
                         {UPEX.lang.template('已完成')}
                     </span>
                 );
                 item._disabled = false;
-                item._info = UPEX.lang.template('Txid:{value}', { value: item.walletWaterSn || '--' });
+                item._info = UPEX.lang.template('Txid:{value}', {value: item.walletWaterSn || '--'});
                 break;
             case 'Reject':
                 item._status = UPEX.lang.template('审核拒绝');
@@ -207,6 +227,11 @@ const formatFn = {
         item._changeType = valMap.type[item.changeType] || '';
         item._createTime = item.createTimeStamp ? TimeUtil.formatDate(item.createTimeStamp) : '--';
         return item;
+    },
+    //IEO记录
+    ieo(valMap, type, item){
+        item._createTime = item.createTime ? TimeUtil.formatDate(item.createTime) : '--';
+        return item;
     }
 };
 // 列表数据格式整理
@@ -222,6 +247,9 @@ const formatItem = (arr, type) => {
             break;
         case 'reward':
             _filter = formatFn.reward;
+            break;
+        case 'ieo':
+            _filter = formatFn.ieo;
             break;
         default:
             _filter = formatFn.legal;

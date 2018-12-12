@@ -8,9 +8,11 @@ import React from 'react';
 export const StatusIcon = (props) => {
     const {status} = props;
     const statusMap = {
-        0: ['未开始', 'start'],
+        0: ['即将开始', 'start'],
         1: ['进行中', 'on'],
-        2: ['已结束', 'end']
+        2: ['已结束', 'end'],
+        3: ['已结束', 'end'],
+        4: ['已结束', 'end']
     };
     let current = statusMap[status];
     return (<div className={`status-icon ${current[1]}`}>

@@ -1226,4 +1226,16 @@ export function getSingleIEOInfo(data) {
         ...data
     }));
 }
+/**
+ * 获取IEO资产列表
+ */
+export function getIEOAssetsList() {
+    return axios.post('http://www.mocky.io/v2/5c0f1f90310000640024ead3');
+}
 
+/**
+ * IEO购买记录
+ */
+export function getIEORecordList(data) {
+    return axios.post('http://www.mocky.io/v2/5c0f7c83310000b51124ec76',data);
+}

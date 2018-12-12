@@ -286,9 +286,9 @@
         height: 50px;
         line-height: 50px;
         font-size: 12px;
-        &:last-child {
-            border-bottom: none;
-        }
+        //&:last-child {
+        //    border-bottom: none;
+        //}
         dd {
             display: inline-block;
             vertical-align: middle;
@@ -455,3 +455,18 @@
     }
 }
 
+/*IEO 资产列表样式*/
+.ieo-list {
+    .table-bd{
+        min-height: 110px;
+    }
+    li{
+        border-bottom: 1px solid #edf0f1;
+        height: 50px;
+        line-height: 50px;
+        font-size: 12px;
+        &:first-child:hover{
+            background: none;
+        }
+    }
+}

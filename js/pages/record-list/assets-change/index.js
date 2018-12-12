@@ -3,10 +3,10 @@
  * @author lihaiyang
  * @date 2018-11-19
  */
-import React, { Component } from 'react';
-import { observer, inject } from 'mobx-react';
-import { Breadcrumb,  Pagination } from 'antd';
-import { browserHistory } from 'react-router';
+import React, {Component} from 'react';
+import {observer, inject} from 'mobx-react';
+import {Breadcrumb, Pagination} from 'antd';
+import {browserHistory} from 'react-router';
 import PageWrapper from '@/components/wrapper/full-page';
 import * as listConfig from './list-config';
 import List from '@/components/list';
@@ -21,17 +21,31 @@ import CoinSubRow from './coin-sub-row';
 class RecordPage extends Component {
     constructor(props) {
         super(props);
-        const { type } = props.routeParams;
+        const {type} = props.routeParams;
         this.pageInfo = {
             className: 'content-no-pad'
         };
-        this.tabs = [
-            { label: UPEX.lang.template('充值记录'), type: 'deposit' },
-            { label: UPEX.lang.template('提现记录'), type: 'withdraw' },
-            { label: UPEX.lang.template('充币记录'), type: 'coin-deposit' },
-            { label: UPEX.lang.template('提币记录'), type: 'coin-withdraw' },
-            { label: UPEX.lang.template('分发记录'), type: 'reward' },
-        ];
+
+        //澳洲隐藏IEO部分
+        if(UPEX.config.version == 'ace'){
+            this.tabs = [
+                {label: UPEX.lang.template('充值记录'), type: 'deposit'},
+                {label: UPEX.lang.template('提现记录'), type: 'withdraw'},
+                {label: UPEX.lang.template('充币记录'), type: 'coin-deposit'},
+                {label: UPEX.lang.template('提币记录'), type: 'coin-withdraw'},
+                {label: UPEX.lang.template('分发记录'), type: 'reward'},
+                {label: UPEX.lang.template('IEO购买记录'), type: 'ieo'}
+            ];
+        }else{
+            this.tabs = [
+                {label: UPEX.lang.template('充值记录'), type: 'deposit'},
+                {label: UPEX.lang.template('提现记录'), type: 'withdraw'},
+                {label: UPEX.lang.template('充币记录'), type: 'coin-deposit'},
+                {label: UPEX.lang.template('提币记录'), type: 'coin-withdraw'},
+                {label: UPEX.lang.template('分发记录'), type: 'reward'},
+            ];
+        }
+
 
         let _targetTab = this.tabs.some(item => item.type === type) ? type : 'deposit';
 
@@ -73,8 +87,8 @@ class RecordPage extends Component {
         this.updateList(this.state.type);
     }
 
-    switchTab = ({ type }) =>  {
-        if(type === this.state.type) {
+    switchTab = ({type}) => {
+        if (type === this.state.type) {
             return;
         }
         this.setState({
@@ -100,11 +114,12 @@ class RecordPage extends Component {
         });
     }
 
-    detail = (subData, rowData, i)  => {
+    detail = (subData, rowData, i) => {
         const {type} = this.state;
         let detail = null;
-        if(['deposit', 'withdraw'].indexOf(type) !== -1) {
-            detail = UPEX.config.version === 'ace' ? <SubRow type={type} data={rowData}/> : <AusSubRow type={type} data={rowData}/>;
+        if (['deposit', 'withdraw'].indexOf(type) !== -1) {
+            detail = UPEX.config.version === 'ace' ? <SubRow type={type} data={rowData}/> :
+                <AusSubRow type={type} data={rowData}/>;
         } else {
             detail = <CoinSubRow type={type} data={rowData}/>;
         }
@@ -119,11 +134,13 @@ class RecordPage extends Component {
     }
 
     render() {
-        const { state } = this;
+        const {state} = this;
         let $TabNode = (
             <div className="swtich-tabs">
                 {this.tabs.map((item, i) => (
-                    <div className={`tab ${state.type === item.type ? 'active' : ''}`} key={i} onClick={e => {this.switchTab(item)}}>
+                    <div className={`tab ${state.type === item.type ? 'active' : ''}`} key={i} onClick={e => {
+                        this.switchTab(item)
+                    }}>
                         {item.label}
                     </div>
                 ))}
@@ -138,8 +155,11 @@ class RecordPage extends Component {
                     <Breadcrumb.Item><a href="/account">{UPEX.lang.template('资产管理')}</a></Breadcrumb.Item>
                 </Breadcrumb>
                 <PageWrapper {...this.pageInfo} headerAfter={$TabNode}>
-                    <List expandedRowRender={this.detail} loading={state.loading} {...state.listProps} className={state.type} subIndex={state.subIndex} data={state.listData}>
-                        {state.total === 0 ? null : <Pagination current={state.current} total={state.total} pageSize={state.pageSize} onChange={this.onChangePagination} />}
+                    <List expandedRowRender={this.detail} loading={state.loading} {...state.listProps}
+                          className={state.type} subIndex={state.subIndex} data={state.listData}>
+                        {state.total === 0 ? null :
+                            <Pagination current={state.current} total={state.total} pageSize={state.pageSize}
+                                        onChange={this.onChangePagination}/>}
                     </List>
                 </PageWrapper>
             </div>
