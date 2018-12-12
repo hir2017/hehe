@@ -9,16 +9,21 @@ import FormItem from '@/mods/common/form/item';
 import { StatusIcon } from '../view';
 import CountDown from '../countdown';
 import NumberUtil from '@/lib/util/number';
+import ValidateUtil from '@/lib/util/validate';
 import {getSingleIEOPurchaseInfo} from '@/api/http';
 
 const Option = Select.Option;
 
-@inject('userInfoStore')
+@inject('userInfoStore', 'authStore')
 @observer
 class View extends Component {
     constructor(props) {
         super(props);
+        const {data} = props;
+        // 法币购买-身份认证判断等级
+        this.level = UPEX.config.version === 'ace' ? 2 : 1;
         this.state = {
+            // 购买弹窗触发状态
             projectState: '',
             visible: false,
             // 购买-当前选择币种
@@ -30,6 +35,7 @@ class View extends Component {
             // 购买-购买总价
             amount: 0,
         };
+        // 购买弹窗触发按钮文案
         this.btnTxtMap = {
             // 未登录
             login: UPEX.lang.template('加入 IEO'),
@@ -42,20 +48,27 @@ class View extends Component {
             // 结束
             done: UPEX.lang.template('已结束')
         };
-        this.inputProps = {
-            // 购买方式
-            type: {
-                label: UPEX.lang.template('购买方式')
-            }
+        // 倒计时属性
+        this.CountDownProp = {
+            startTime: data._beginTimeStamp,
+            skin: 'dark',
+            endTime: data._endTimeStamp,
+            serverTime: data._systemTimeStamp,
+            flag: 0,
+        };
+        // 弹窗属性
+        this.ModalProp = {
+            wrapClassName: "ieo-buy",
+            title: null,
+            footer: null,
         };
     }
 
     componentDidMount() {
         this.checkProjectState();
     }
-
+    // 获取购买信息（购买方式）
     getPurchaseInfo() {
-        console.log('getPurchaseInfo')
         this.setState({
             selectCoin: {},
             coins: [],
@@ -87,15 +100,25 @@ class View extends Component {
         });
     }
 
+    onSubmit = () => {
+        console.log('onSubmit')
+    }
+
     setVal(name, e) {
         const {selectCoin} = this.state;
         let {value} = e.target;
         let data = {};
+        // 数量:正整数 换算总额:两位小数
         if(name === 'number') {
-            data.amount = parseFloat(value) * selectCoin.tokenRate;
+            if(!ValidateUtil.isNumber(value)) {
+                return;
+            }
+            let _amount = parseFloat(value) * selectCoin.tokenRate;
+            // TODO: 精确度到小数点后几位
+            data.amount = isNaN(_amount) ? 0 : _amount;
+            // 添加小数过滤
+            data.number = value;
         }
-        // 添加小数过滤
-        data[name] = value;
         this.setState(data);
     }
 
@@ -109,39 +132,28 @@ class View extends Component {
             visible: true
         });
     };
-
+    // 切换弹窗状态
     handleModalVisite(action) {
-
         this.setState({
-            visible: false
+            visible: action
         });
     }
-
+    // 币种切换
     handleSelect = (value, option) => {
-        let _coin = this.state.coins.filter(item => item.tokenId === value)
+        let _coin = this.state.coins.filter(item => item.tokenId === value);
+        // TODO: 重新计算数值
         this.setState({
             selectCoin: _coin[0] || {}
         })
     }
 
-    onSubmit = () => {
-        console.log('onSubmit')
-    }
 
     render() {
-        const { state, btnTxtMap, formatTime } = this;
+        const { state, btnTxtMap, CountDownProp, props, ModalProp } = this;
         // 父级传递的数据
-        const { data } = this.props;
+        const { data, authStore, userInfoStore } = props;
         // 选中的coin
         const {selectCoin} = state;
-        // 倒计时属性
-        let CountDownProp = {
-            startTime: data._beginTimeStamp,
-            skin: 'dark',
-            endTime: data._endTimeStamp,
-            serverTime: data._systemTimeStamp,
-            flag: 0,
-        };
         // 可选币种
         let $coinOptions = state.coins.map((item, i) => {
             return <Option key={i} value={item.tokenId}>{item.tokenName}</Option>
@@ -149,7 +161,7 @@ class View extends Component {
         // 余额信息
         let $amount = (
             <div className="amount-info">
-                {UPEX.lang.template('余额')} {NumberUtil.separate(selectCoin.tokenAmount)} {selectCoin.tokenName}
+                {UPEX.lang.template('余额')} <em>{NumberUtil.separate(selectCoin.tokenAmount)}</em> {selectCoin.tokenName}
                 {
                     UPEX.config.baseCurrencyEn === selectCoin.tokenName ?
                     (<a className="deposit" href="/account/balance/recharge" target="_blank">{UPEX.lang.template('充值')}</a>) :
@@ -157,6 +169,20 @@ class View extends Component {
                 }
             </div>
         );
+        // 协议条款
+        let $coinAgreement = (
+            <div className="coin-agreement">
+                {selectCoin.tokenAgreement}
+            </div>
+        )
+        // 法币购买-身份认证提示
+        let $authTip = null;
+        if(userInfoStore.authLevel < this.level && selectCoin.tokenName === UPEX.config.baseCurrencyEn) {
+            $authTip = (<div className="coin-condition">
+                {selectCoin.tokenAgreement}
+            </div>);
+        }
+
         return (
             <div className="coin-info clearfix">
                 <div className="left-box">
@@ -196,19 +222,14 @@ class View extends Component {
                     </Row>
                 </div>
 
-                <Modal
-                    wrapClassName="ieo-buy"
-                    title={null}
-                    visible={state.visible}
-                    footer={null}
-                >
+                <Modal {...ModalProp} visible={state.visible}>
                     <FormView>
                         <FormItem label={UPEX.lang.template('购买单价')}>
                             <div className="text">
                                 1 {data.tokenName} ≈ {selectCoin.tokenRate} {selectCoin.tokenName}  <span className="tip">{UPEX.lang.template('当前比例是根据 ACE 10分钟内价格计算')}</span>
                             </div>
                         </FormItem>
-                        <FormItem label={UPEX.lang.template('购买方式')}>
+                        <FormItem label={UPEX.lang.template('购买方式')} after={$authTip}>
                             <Select defaultValue={selectCoin.tokenId} value={selectCoin.tokenId} onChange={this.handleSelect}>
                                 {$coinOptions}
                             </Select>
@@ -216,16 +237,19 @@ class View extends Component {
                         <FormItem label={UPEX.lang.template('购买数量')} value={state.number} inputProps={{onChange: this.setVal.bind(this, 'number'), suffix: data.tokenName}}/>
                         <FormItem label={UPEX.lang.template('金额')} after={$amount}>
                             <div className="text">
-                            ≈ {state.amount}
+                            ≈ {state.amount} {selectCoin.tokenName}
                             </div>
                         </FormItem>
 
-                        <FormItem >
+                        <FormItem after={$coinAgreement}>
                             <Button className="submit-btn" onClick={this.onSubmit}>
                                 {UPEX.lang.template('购买')}
                             </Button>
                         </FormItem>
                     </FormView>
+                    <div className="bottom-tip">
+
+                    </div>
                 </Modal>
             </div>
         );

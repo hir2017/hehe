@@ -1266,12 +1266,14 @@ export function getSingleIEOPurchaseInfo(data) {
                         tokenId: 1,
                         tokenName: 'TWD', //
                         tokenAmount: 1233221,  //代币余额
+                        tokenAgreement: '11111点击购买按钮，即表示您同意接受ieo促销条款和条件以及kryptono一般使用 条款',
                         tokenRate: 0.1   //换算比率
                     },
                     {
                         tokenId: 2,
                         tokenName: 'BTC', //
                         tokenAmount: 232,  //代币余额
+                        tokenAgreement: '22222点击购买按钮，即表示您同意接受ieo促销条款和条件以及kryptono一般使用 条款',
                         tokenRate: 3   //换算比率
                     }
                 ]

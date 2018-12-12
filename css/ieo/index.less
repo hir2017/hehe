@@ -58,16 +58,32 @@
     .exc-form-item {
         .text {
             border-radius: 3px;
-            padding: 0 7px;
+            padding: 0 9px;
             height: 40px;
             line-height: 40px;
             background-color: @list-hoverbg-color01-light;
+            color: @text-color01-light;
+            .tip {
+                color: @text-color02-light;
+                float: right;
+                font-size: 12px;
+            }
         }
+
+    }
+    .amount-info, .coin-agreement{
+        padding-top: 4px;
+        font-size: 12px;
+        color: @text-color02-light;
     }
     .amount-info {
         overflow: hidden;
+        em {
+            color: @text-color01-light;
+        }
         .deposit {
             float: right;
         }
     }
+
 }
