@@ -1261,7 +1261,7 @@ export function getIEOList() {
  * 根据项目ID获取单个IEO项目详细信息
  */
 export function getSingleIEOInfo(data) {
-    return axios.post('/coin/selectActivitiesCustomerAccountWaterList', data).then(res => {
+    return axios.post('http://www.mocky.io/v2/5c0f7c83310000b51124ec76', data).then(res => {
         return {
             "message": null,
             "status": 200,
@@ -1273,7 +1273,7 @@ export function getSingleIEOInfo(data) {
                 systemTime: 1543568105293, //系统时间，同上
                 totalCirculation: 30000000,   //发行量
                 tokenDesc: '授权新设备您最近尝试从一个新设备或新位置登录到您的币安帐户。作为一种安全措施，我们需要您授权新设备授权新设备您最近尝试从一个新',  //token介绍
-                status: 0, // 发行状态，'0:未开始 1:进行中 2:已结束(募集成功) 3:已结束(募集失败) 4:已上币
+                status: 1, // 发行状态，'0:未开始 1:进行中 2:已结束(募集成功) 3:已结束(募集失败) 4:已上币
                 raisedAmount: 1132320, //已募集数量
                 price: 10000, //IEO价格
                 homepageUrl: 'https://cdn-images-1.medium.com/', //token详情主页URL
@@ -1286,16 +1286,13 @@ export function getSingleIEOInfo(data) {
             }
         }
     });
-    return axios.post('', qs.stringify({
-        ...data
-    }));
 }
 
 /**
  * 根据项目ID获取单个IEO项目购买信息接口
  */
 export function getSingleIEOPurchaseInfo(data) {
-    return axios.post('/coin/selectActivitiesCustomerAccountWaterList', data).then(res => {
+    return axios.post('http://www.mocky.io/v2/5c0f7c83310000b51124ec76', data).then(res => {
         return {
             "message": null,
             "status": 200,
@@ -1319,9 +1316,7 @@ export function getSingleIEOPurchaseInfo(data) {
             }
         }
     });
-    return axios.post('', qs.stringify({
-        ...data
-    }));
+
 }
 
 /**
@@ -1336,4 +1331,50 @@ export function getIEOAssetsList() {
  */
 export function getIEORecordList(data) {
     return axios.post('http://www.mocky.io/v2/5c0f7c83310000b51124ec76', data);
+}
+
+/**
+ * IEO 购买
+ */
+export function buyIEOToken(data) {
+    return axios.post('http://www.mocky.io/v2/5c0f7c83310000b51124ec76', data).then(res => {
+        return {
+            "message": null,
+            "status": 200,
+            "attachment": {
+                payCount: 332,
+                buyTime: 1543568105293   //购买时间
+            }
+        }
+    });
+}
+
+/**
+ * IEO 获取订阅情况
+ */
+export function getIEOIsSubscribe(data) {
+    return axios.post('http://www.mocky.io/v2/5c0f7c83310000b51124ec76', data).then(res => {
+        return {
+            "message": null,
+            "status": 200,
+            "attachment": {
+                isSubscribe: 0   //1：订阅过，0：未订阅
+            }
+        }
+    });
+}
+
+/**
+ * IEO 订阅动作
+ */
+export function IEOToDoSubscribe(data) {
+    return axios.post('http://www.mocky.io/v2/5c0f7c83310000b51124ec76', data).then(res => {
+        return {
+            "message": 'seqwe',
+            "status": 200,
+            "attachment": {
+                success: 2   //成功订阅
+            }
+        }
+    });
 }
