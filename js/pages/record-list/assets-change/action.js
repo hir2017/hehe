@@ -54,8 +54,8 @@ const getParams = (type, page) => {
         case type === 'ieo':
             request = getIEORecordList;
             params = {
-                page: page,
-                pageSize: 10
+                start: page,
+                size: 10
             }
     }
     return {
@@ -93,7 +93,7 @@ const FormatSourceData = (type, res, params) => {
         case 'ieo':
             result = {
                 listData: _source.list || [],
-                current: params.page,
+                current: params.start,
                 total: typeof _source.total === 'undefined' ? 0 : _source.total
             };
             break;

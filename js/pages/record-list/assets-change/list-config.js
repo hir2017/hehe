@@ -152,11 +152,11 @@ export const ieo = function () {
         ],
         body: [
             {dataIndex: '_createTime', className: 'time'},
-            {dataIndex: 'buyWay', className: 'way'},
-            {dataIndex: 'tokenName', className: 'name'},
-            {dataIndex: 'amount', className: 'num'},
-            {dataIndex: 'price', className: 'price'},
-            {dataIndex: 'totalPrice', className: 'total'},
+            {dataIndex: 'payCurrencyNameEn', className: 'way'},
+            {dataIndex: 'ieoCurrencyNameEn', className: 'name'},
+            {dataIndex: 'ieoCount', className: 'num'},
+            {dataIndex: 'rate', className: 'price'},
+            {dataIndex: 'payCount', className: 'total'},
             {dataIndex: '_status', className: 'status'},
         ]
     };

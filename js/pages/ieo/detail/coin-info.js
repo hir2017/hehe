@@ -203,7 +203,7 @@ class View extends Component {
                         </Col>
                         <Col className="text count" span={12}>
                             <label>{UPEX.lang.template('已经募集')}:</label>
-                            {NumberUtil.separate(data.raisedAmount)}
+                            {NumberUtil.separate(data.raisedAmount)} {data.tokenName}
                         </Col>
                         <Col className="text price" span={12}>
                             <label>{UPEX.lang.template('IEO价格')}:</label>1 {data.tokenName} ≈ {data.price} {UPEX.config.baseCurrencyEn}

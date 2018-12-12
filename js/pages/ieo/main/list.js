@@ -72,7 +72,7 @@ class View extends Component {
                                         </div>
                                         <div className="progress">
                                             {
-                                                item.status == 2 || 3 || 4 ? <div
+                                                [2, 3, 4].indexOf(item.status) > 0 ? <div
                                                         className="amount" dangerouslySetInnerHTML={{
                                                         __html: UPEX.lang.template('已募集{count}{name}', {
                                                             count: item.raisedAmount,

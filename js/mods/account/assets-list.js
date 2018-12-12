@@ -3,7 +3,7 @@
  */
 import React, {Component} from 'react';
 import {observer, inject} from 'mobx-react';
-import {Checkbox, Icon, message, Input} from 'antd';
+import {Checkbox, Icon, message, Input, Tooltip} from 'antd';
 import {Link, browserHistory} from 'react-router';
 import {getIEOAssetsList} from '@/api/http';
 
@@ -169,8 +169,6 @@ class IEOListView extends Component {
                     list: res.attachment.list,
                     isFetching: 0
                 });
-                this.isFetching = 0;
-                console.log(this.isFetching);
             }
         }).catch(() => {
             console.log('getIEOAssetsList err');
@@ -201,7 +199,9 @@ class IEOListView extends Component {
                             <button type="button" onClick={this.goIEODetail.bind(this, item.ieoId)}>
                                 {UPEX.lang.template('购买')}
                             </button>
-                            {/*<span className="tip">{UPEX.lang.template('锁仓期间不可交易，等待公告')}</span>*/}
+                            <Tooltip placement="topLeft" title={UPEX.lang.template('锁仓期间不可交易，等待公告')} overlayClassName="buy-tooltip">
+                                <span className="tip"/>
+                            </Tooltip>
                         </dd>
                     </dl>
                 </li>
@@ -217,7 +217,7 @@ class IEOListView extends Component {
                     <ul>
                         <li>
                             <dl>
-                                <dd className="name">{UPEX.lang.template('IEO资产')}</dd>
+                                <dd className="name">IEO{UPEX.lang.template('资产')}</dd>
                                 <dd className="total"></dd>
                                 <dd className="balance"></dd>
                                 <dd className="freeze"></dd>
