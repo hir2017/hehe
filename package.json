@@ -3,8 +3,6 @@
     "c-timer",
     "c-base"
   ],
-  "ace-version": "1.0.6",
-  "aus-version": "1.0.6",
   "author": "zhenn",
   "babel": {
     "presets": [
@@ -107,7 +105,7 @@
     "stop-ace": "pm2 stop server.js"
   },
   "version": "2.1.25",
-  "ace-version": "1.0.9",
-  "aus-version": "1.0.9"
+  "ace-version": "1.0.10",
+  "aus-version": "1.0.10"
 }
 
