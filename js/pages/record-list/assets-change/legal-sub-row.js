@@ -63,8 +63,8 @@ class SubRow extends Component {
             cols = cols.concat([
                 {
                     label: UPEX.lang.template('原因'),
-                    render(row) {
-                        return state.reason;
+                    render: (row) => {
+                        return this.state.reason;
                     }
                 }
             ]);
