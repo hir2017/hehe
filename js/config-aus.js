@@ -9,18 +9,18 @@ config.initLanguage = 'en-US'; // 默认语言
 config.logourl = require('../images/aus/infinite-logo.png');
 config.logoprourl = require('../images/aus/infinite-logo-pro.png');
 /*
-facebook：https://www.facebook.com/InfiniteX-Exchange-250034108956916/?modal=admin_todo_tour
-youtube： https://www.youtube.com/channel/UCC304QtP-XWL3BY8Bf-CnuA
-linkedin  https://www.linkedin.com/company/infinitex/
-twitter:       https://www.twitter.com/infinitex20
-telegram:   https://t.me/infinite_exchange
+Telegram:      https://t.me/InfiniteExchangeCommunity
+Twitter:          https://twitter.com/Infinit_xchange
+Facebook:     https://facebook.com/Infinitex.Exchange
+Youtube:        https://youtube.com/channel/UCGckOll6_IT-KVFOMZj7HxQ?view_as=subscriber
+Linkedin:        https://linkedin.com/company/infinite-exchange
 */
 config.csurls = {
-    telegram: 'https://t.me/infinite_exchange',
-    facebook: 'https://www.facebook.com/InfiniteX-Exchange-250034108956916/?modal=admin_todo_tour',
-    twitter: 'https://www.twitter.com/infinitex20',
-    linkedin: 'https://www.linkedin.com/company/infinitex/',
-    youtube: 'https://www.youtube.com/channel/UCC304QtP-XWL3BY8Bf-CnuA',
+    telegram: 'https://t.me/InfiniteExchangeCommunity',
+    facebook: 'https://facebook.com/Infinitex.Exchange',
+    twitter: 'https://twitter.com/Infinit_xchange',
+    linkedin: 'https://linkedin.com/company/infinite-exchange',
+    youtube: 'https://youtube.com/channel/UCGckOll6_IT-KVFOMZj7HxQ?view_as=subscriber',
     whatapp: 'https://t.me/infinite_exchange',
     line: '',
 };
