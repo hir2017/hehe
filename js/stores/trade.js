@@ -154,7 +154,7 @@ export default class TradeStore {
         let { pointNum, pointPrice } = cfg;
 
         this.personalAccount.baseCoinBalanceText = NumberUtil.initNumber(data.baseCoinBalance, pointPrice);
-        this.personalAccount.tradeCoinBalanceText = NumberUtil.initNumber(data.tradeCoinBalance, pointNum);
+        this.personalAccount.tradeCoinBalanceText = NumberUtil.initNumber_fullNum(data.tradeCoinBalance, pointNum);
     }
 
     @action updateTradePasswordStatus(value) {

@@ -129,6 +129,34 @@ const NumberUtil = {
 
         return number;
     },
+    initNumber_fullNum(number, num) {
+        if (typeof number == 'undefined') {
+            return '--';
+        }
+
+        let length = parseInt(num, 10);
+
+        let _fullNum = this.getFullNum(number);
+
+        number = this.toFixed(_fullNum, length); // 保留小时后N位
+
+        return number;
+    },
+    /**
+     * 科学计数法转字符串
+     * @param num {Number} 数字
+     * @return {String} 转换后的字符串
+     */
+    getFullNum(num){
+        //处理非数字
+        if(isNaN(num)){return num};
+
+        //处理不需要转换的数字
+        var str = ''+num;
+        if(!/e/i.test(str)){return num;};
+
+        return (num).toFixed(18).replace(/\.?0+$/, "");
+    },
     /**
      * 截取N位小数（非四舍五入）
      * @param num {Number} 数字
