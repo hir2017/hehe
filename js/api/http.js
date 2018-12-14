@@ -1254,127 +1254,57 @@ export function getAssetChangeReward(data) {
  * 获取所有IEO项目列表
  */
 export function getIEOList() {
-    return axios.post('http://www.mocky.io/v2/5c0ddea32e00006600043b8c');
+    //return axios.post('http://www.mocky.io/v2/5c135e8a3400005100ecdfab');
+    return axios.post('/ieo/ieoInfo/list');
 }
 
 /**
  * 根据项目ID获取单个IEO项目详细信息
  */
 export function getSingleIEOInfo(data) {
-    return axios.post('http://www.mocky.io/v2/5c0f7c83310000b51124ec76', data).then(res => {
-        return {
-            "message": null,
-            "status": 200,
-            "attachment": {
-                logoUrl: 'https://cdn-images-1.medium.com/max/1600/1*etdAVqiney-yYSLLBKaZUw.png', //'logo链接'
-                tokenName: 'GIFTO', //代币名称
-                beginTime: 1543568105293, //开始时间，返回时间戳，单位毫秒
-                endTime: 1543568105293, //结束时间，同上
-                systemTime: 1543568105293, //系统时间，同上
-                totalCirculation: 30000000,   //发行量
-                tokenDesc: '授权新设备您最近尝试从一个新设备或新位置登录到您的币安帐户。作为一种安全措施，我们需要您授权新设备授权新设备您最近尝试从一个新',  //token介绍
-                status: 1, // 发行状态，'0:未开始 1:进行中 2:已结束(募集成功) 3:已结束(募集失败) 4:已上币
-                raisedAmount: 1132320, //已募集数量
-                price: 10000, //IEO价格
-                homepageUrl: 'https://cdn-images-1.medium.com/', //token详情主页URL
-                whitePaperUrl: 'https://cdn-images-1.medium.com/', //token详情白皮书URL
-                tokenDistributionUrl: '',//token分配图URL
-                softTop: 1000000,  //软顶
-                hardTop: 2000000, //硬顶
-                minBuyCount: 10, //最低购买量
-                buyWay: 'TWD/ACE/BTC',
-            }
-        }
-    });
+    return axios.post('/ieo/ieoInfo/getById', data);
 }
 
 /**
  * 根据项目ID获取单个IEO项目购买信息接口
  */
 export function getSingleIEOPurchaseInfo(data) {
-    return axios.post('http://www.mocky.io/v2/5c0f7c83310000b51124ec76', data).then(res => {
-        return {
-            "message": null,
-            "status": 200,
-            "attachment": {
-                list: [
-                    {
-                        tokenId: 1,
-                        tokenName: 'TWD', //
-                        tokenAmount: 1233221,  //代币余额
-                        tokenAgreement: '11111点击购买按钮，即表示您同意接受ieo促销条款和条件以及kryptono一般使用 条款',
-                        tokenRate: 0.1   //换算比率
-                    },
-                    {
-                        tokenId: 2,
-                        tokenName: 'BTC', //
-                        tokenAmount: 232,  //代币余额
-                        tokenAgreement: '22222点击购买按钮，即表示您同意接受ieo促销条款和条件以及kryptono一般使用 条款',
-                        tokenRate: 3   //换算比率
-                    }
-                ]
-            }
-        }
-    });
-
-}
-
-/**
- * 获取IEO资产列表
- */
-export function getIEOAssetsList() {
-    return axios.post('http://www.mocky.io/v2/5c0f1f90310000640024ead3');
-}
-
-/**
- * IEO购买记录
- */
-export function getIEORecordList(data) {
-    return axios.post('http://www.mocky.io/v2/5c0f7c83310000b51124ec76', data);
+    return axios.post('/ieo/ieoTransferRecord/advanceBuy', data);
 }
 
 /**
  * IEO 购买
  */
 export function buyIEOToken(data) {
-    return axios.post('http://www.mocky.io/v2/5c0f7c83310000b51124ec76', data).then(res => {
-        return {
-            "message": null,
-            "status": 200,
-            "attachment": {
-                payCount: 332,
-                buyTime: 1543568105293   //购买时间
-            }
-        }
-    });
+    return axios.post('/ieo/ieoTransferRecord/transfer', data);
 }
 
 /**
  * IEO 获取订阅情况
  */
 export function getIEOIsSubscribe(data) {
-    return axios.post('http://www.mocky.io/v2/5c0f7c83310000b51124ec76', data).then(res => {
-        return {
-            "message": null,
-            "status": 200,
-            "attachment": {
-                isSubscribe: 0   //1：订阅过，0：未订阅
-            }
-        }
-    });
+    return axios.post('/ieo/ieoUserSubscribe/hasUserSubscribe', data);
 }
 
 /**
  * IEO 订阅动作
  */
 export function IEOToDoSubscribe(data) {
-    return axios.post('http://www.mocky.io/v2/5c0f7c83310000b51124ec76', data).then(res => {
-        return {
-            "message": 'seqwe',
-            "status": 200,
-            "attachment": {
-                success: 2   //成功订阅
-            }
-        }
-    });
+    return axios.post('/ieo/ieoUserSubscribe/subscribe', data);
+}
+
+/**
+ * 获取IEO资产列表
+ */
+export function getIEOAssetsList() {
+    //return axios.post('http://www.mocky.io/v2/5c0f1f90310000640024ead3');
+    return axios.post('/ieo/ieoTransferRecord/userAssetsList');
+}
+
+/**
+ * IEO购买记录
+ */
+export function getIEORecordList(data) {
+    //return axios.post('http://www.mocky.io/v2/5c0f7c83310000b51124ec76', data);
+    return axios.post('/ieo/ieoTransferRecord/transferRecordList', data);
 }

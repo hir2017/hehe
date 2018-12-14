@@ -10,7 +10,7 @@ export default class View extends React.Component {
         super();
         this.style = {
             width: '100%',
-            height: '100%',
+            height: '',
             zIndex: '0',
             position: 'absolute',
             left: '0',
@@ -21,30 +21,38 @@ export default class View extends React.Component {
 
     componentDidMount() {
         // TODO: 回来在优化吧
-        +(function($, window) {
-            var c = { name: 'TheSaaS', version: '1.5.0' };
-            (c.constellation = function() {
+
+        ($.fn.dataAttr = function (a, b) {
+            return $(this)[0].getAttribute('data-' + a) || b;
+        });
+
+        +(function ($, window) {
+            var c = {name: 'TheSaaS', version: '1.5.0'};
+            (c.constellation = function () {
                 var c = 'rgba(255, 255, 255, .8)',
                     d = 120;
                 $(window).width() < 700 && (d = 25),
-                    $('.constellation').each(function() {
+                    $('.constellation').each(function () {
                         'dark' == $(this).data('color') && (c = 'rgba(0, 0, 0, .5)');
                         var b = $(this).dataAttr('length', 100),
                             e = $(this).dataAttr('radius', 150);
-                        $(this).constellation({ distance: d, length: b, radius: e, star: { color: c, width: 1 }, line: { color: c, width: 0.2 } });
+                        $(this).constellation({
+                            distance: d,
+                            length: b,
+                            radius: e,
+                            star: {color: c, width: 1},
+                            line: {color: c, width: 0.2}
+                        });
                     });
             }),
                 (window.thesaas = c);
         })($, window);
-        $(function() {
+        $(function () {
             thesaas.constellation();
-        }),
-            ($.fn.dataAttr = function(a, b) {
-                return $(this)[0].getAttribute('data-' + a) || b;
-            });
+        })
     }
 
     render() {
-        return <canvas className="constellation" style={this.style} />;
+        return <canvas className="constellation" style={this.style}/>;
     }
 }

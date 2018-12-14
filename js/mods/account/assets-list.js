@@ -166,7 +166,7 @@ class IEOListView extends Component {
         getIEOAssetsList().then(res => {
             if (res.status == 200) {
                 this.setState({
-                    list: res.attachment.list,
+                    list: res.attachment,
                     isFetching: 0
                 });
             }

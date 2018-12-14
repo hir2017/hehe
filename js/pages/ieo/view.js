@@ -18,7 +18,8 @@ export const StatusIcon = (props) => {
         3: ['已结束', 'end'],
         4: ['已结束', 'end']
     };
-    let current = statusMap[status];
+    let current = statusMap[status] ? statusMap[status] : ['已结束', 'end'];
+
     return (<div className={`status-icon ${current[1]}`}>
         {UPEX.lang.template(current[0])}
     </div>);

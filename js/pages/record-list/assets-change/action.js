@@ -229,8 +229,34 @@ const formatFn = {
         return item;
     },
     //IEO记录
-    ieo(valMap, type, item){
+    ieo(valMap, type, item) {
         item._createTime = item.createTime ? TimeUtil.formatDate(item.createTime) : '--';
+        switch (item.status) {
+            case 0:
+                item._status = UPEX.lang.template('初始');
+                break;
+            case 1:
+                item._status = UPEX.lang.template('交易成功');
+                break;
+            case 2:
+                item._status = UPEX.lang.template('交易失败');
+                break;
+            case 3:
+                item._status = UPEX.lang.template('资金已转移');
+                break;
+            case 4:
+                item._status = UPEX.lang.template('资金转移失败');
+                break;
+            case 5:
+                item._status = UPEX.lang.template('已退款');
+                break;
+            case 6:
+                item._status = UPEX.lang.template('退款失败');
+                break;
+            default:
+                item._status = '--';
+                break;
+        }
         return item;
     }
 };

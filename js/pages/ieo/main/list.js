@@ -15,6 +15,7 @@ class View extends Component {
             isFetching: 1,
             list: []
         }
+
     }
 
     componentDidMount() {
@@ -29,12 +30,12 @@ class View extends Component {
         getIEOList().then(res => {
             if (res.status == 200) {
                 this.setState({
-                    list: res.attachment.list,
+                    list: res.attachment,
                     isFetching: 0
                 })
             }
-        }).catch(() => {
-            console.log('getIEOList err');
+        }).catch((err) => {
+            console.log('getIEOList' + err);
             this.setState({
                 isFetching: 0
             })
@@ -50,9 +51,11 @@ class View extends Component {
         let {isFetching, list} = this.state;
 
         if (list.length > 0) {
+
             $content = (
                 <ul className="token-list">
                     {
+
                         list.map((item, i) => (
                             <li key={i} className="token-item clearfix" onClick={this.toDetail.bind(this, item)}>
                                 <div className="token-pic" style={{backgroundImage: `url(${item.logoUrl})`}}>
@@ -72,20 +75,22 @@ class View extends Component {
                                         </div>
                                         <div className="progress">
                                             {
-                                                [2, 3, 4].indexOf(item.status) > 0 ? <div
-                                                        className="amount" dangerouslySetInnerHTML={{
-                                                        __html: UPEX.lang.template('已募集{count}{name}', {
-                                                            count: item.raisedAmount,
-                                                            name: item.tokenName
-                                                        })
-                                                    }}></div> :
+                                                [0, 1].indexOf(item.status) >= 0 ?
                                                     <CountDown order={i + 1}
                                                                startTime={item.beginTime / 1000}
                                                                endTime={item.endTime / 1000}
                                                                serverTime={+new Date() / 1000}
                                                                flag={item.status}
                                                                skin={item.status == 0 ? 'light' : 'dark'}
-                                                               showtxt={true}/>
+                                                               showtxt={true}/> :
+                                                    (<div
+                                                        className="amount" dangerouslySetInnerHTML={{
+                                                        __html: UPEX.lang.template('已募集{count}{name}', {
+                                                            count: item.raisedAmount,
+                                                            name: item.tokenName
+                                                        })
+                                                    }}></div>)
+
 
                                             }
                                         </div>

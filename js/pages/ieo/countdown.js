@@ -20,15 +20,18 @@ class CountDown extends Component {
         this.createCountDown();
     }
 
-    //获取倒计时剩余时间。状态flag为0时表示未开始，flag为1表示进行中
+    //获取倒计时剩余时间。状态flag为0时表示未开始；flag为1表示进行中；flag为其他时，不进行倒计时
     getRemainTime() {
         let {startTime, endTime, serverTime, flag} = this.props;
         let remainTime;
 
+        console.log(flag);
         if (flag == 0) {
             remainTime = startTime - serverTime;
         } else if (flag == 1) {
             remainTime = endTime - serverTime;
+        } else {
+            remainTime = 0;
         }
 
         return remainTime;
@@ -53,7 +56,7 @@ class CountDown extends Component {
 
             //倒计时结束进行的操作
             this.countdown.on('end', () => {
-
+                location.reload();
             });
         }
     }
