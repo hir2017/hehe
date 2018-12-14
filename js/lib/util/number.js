@@ -100,12 +100,22 @@ const NumberUtil = {
             return '--';
         }
         let length = parseInt(num, 10);
+        let _number = number;
 
-        number = this.toFixed(number, length); // 保留小时后N位
+        // 防止传进来的数据已经 分隔符号数字
+        if (typeof number == 'string') {
+            try {
+                _number = _number.replace(/\,/g, '');
+            } catch (error) {
+                console.error('formatNumber', error, _number)
+            }
+        }
 
-        number = this.separate(number); // ,分隔符号数字
+        _number = this.toFixed(_number, length); // 保留小时后N位
 
-        return number;
+        _number = this.separate(_number); // ,分隔符号数字
+
+        return _number;
     },
 
     initNumber(number, num) {
