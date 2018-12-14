@@ -319,12 +319,15 @@ export default class TradeStore {
     @action setBuySliderValue(value) {
         let balance = this.personalAccount.baseCoinBalance;
         let num;
-
-        if (balance == 0) {
+        if (balance <= Math.pow(10, this.pointPrice * -1) ) {
             return;
         }
         if (this.dealBuyPrice) {
             num = balance * value * 0.01 / this.dealBuyPrice;
+            num = isNaN(num) ? 0 : num;
+            if ((num + '').indexOf('e') !== -1) {
+                num = NumberUtil.scientificToNumber(num);
+            }
             this.dealBuyNum = NumberUtil.initNumber(num, this.pointNum);
         }
 
@@ -333,8 +336,7 @@ export default class TradeStore {
 
     @action setSellSliderValue(value) {
         let balance = this.personalAccount.tradeCoinBalance;
-
-        if (balance == 0) {
+        if (balance <= Math.pow(10, this.pointNum * -1) ) {
             return;
         }
 
