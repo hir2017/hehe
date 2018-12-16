@@ -91,7 +91,6 @@ export default class TradeStore {
         this.tradeBuyPassword = '';
         this.tradeSellPassword = '';
         this.submiting = 0;
-        this.tradeHistory = { content: [] };
     }
 
     @computed get contentHeight() {
