@@ -7,6 +7,7 @@ import {StatusIcon} from "../view";
 import CountDown from '../countdown';
 import {getIEOList} from '@/api/http';
 import TimeUtil from '@/lib/util/date';
+import NumberUtil from '@/lib/util/number';
 
 class View extends Component {
     constructor(props) {
@@ -71,7 +72,7 @@ class View extends Component {
                                     </div>
                                     <div className="content-bottom">
                                         <div className="token-desc">
-                                            {item.tokenDesc}
+                                            <div className="inner">{item.tokenDesc}</div>
                                         </div>
                                         <div className="progress">
                                             {
@@ -83,13 +84,10 @@ class View extends Component {
                                                                flag={item.status}
                                                                skin={item.status == 0 ? 'light' : 'dark'}
                                                                showtxt={true}/> :
-                                                    (<div
-                                                        className="amount" dangerouslySetInnerHTML={{
-                                                        __html: UPEX.lang.template('已募集{count}{name}', {
-                                                            count: item.raisedAmount,
-                                                            name: item.tokenName
-                                                        })
-                                                    }}></div>)
+                                                    (<div className="amount">
+                                                        <em>{UPEX.lang.template('已募集')}</em>
+                                                        <span className="num">{NumberUtil.separate(item.raisedAmount)}</span>{item.tokenName}
+                                                    </div>)
 
 
                                             }

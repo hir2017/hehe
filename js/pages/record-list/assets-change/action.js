@@ -1,5 +1,5 @@
 import React from 'react';
-import {Icon} from 'antd';
+import {Icon, Tooltip} from 'antd';
 import TimeUtil from '@/lib/util/date';
 
 import {
@@ -239,7 +239,9 @@ const formatFn = {
                 item._status = UPEX.lang.template('交易成功');
                 break;
             case 2:
-                item._status = UPEX.lang.template('交易失败');
+                item._status = (<div>{UPEX.lang.template('交易失败')}<Tooltip placement="top" title={UPEX.lang.template('IEO募集失败提示')} overlayClassName="buy-tooltip">
+                    <span className="tip"/>
+                </Tooltip></div>);
                 break;
             case 3:
                 item._status = UPEX.lang.template('资金已转移');

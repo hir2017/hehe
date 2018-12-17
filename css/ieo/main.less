@@ -12,12 +12,19 @@
         margin: 0 auto;
         border-radius: 25px;
         border: 1px solid @theme-yellow;
-        color: @text-yellow-color;
+        color: #fff;
         font-size: 18px;
         font-weight: 500;
         background-color: rgba(232, 184, 2, 0.2);
-        &:hover {
+        &:hover, &:focus {
             text-decoration: none;
+            background-color: @theme-yellow;
+            em{
+                color: @text-color01-light;
+            }
+        }
+        em{
+            color: @text-yellow-color;
         }
     }
 }
@@ -40,7 +47,7 @@
             margin-bottom: 30px;
             cursor: pointer;
             &:hover{
-                box-shadow: 0 0 1px 2px rgba(208, 214, 218, .4);
+                box-shadow: 0 0 6px 4px rgba(208, 214, 218, .4);
             }
             .token-pic {
                 float: left;
@@ -88,6 +95,23 @@
                         float: left;
                         width: 520px;
                         margin-right: 40px;
+                        position: relative;
+                        height: 90px;
+                        display: table;
+                        .inner{
+                            display: table-cell;
+                            vertical-align: middle;
+                            line-height: 22px;
+                        }
+                        &::after{
+                            position: absolute;
+                            content: '';
+                            width: 1px;
+                            height: 60px;
+                            background-color: #f0f3f5;
+                            right: -40px;
+                            top: 15px;
+                        }
                     }
                     .progress {
                         float: left;
@@ -114,8 +138,22 @@
                             }
                         }
                         .amount{
-                            color: @text-color03;
+                            height: 90px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
                             font-size: 14px;
+                            em{
+                                color: @text-color03;
+                                font-weight: bold;
+                            }
+                            .num{
+                                width: 160px;
+                                text-align: center;
+                                color: #00a184;
+                                font-size: 24px;
+                            }
+
                         }
                     }
                 }

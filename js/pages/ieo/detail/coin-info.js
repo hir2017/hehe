@@ -118,14 +118,14 @@ class View extends Component {
             ieoId: this.props.ieoId
         }).then(res => {
             if (res.status === 200) {
-                let list = res.attachment;
+                let list = res.attachment.advanceBuyRespList;
                 // 默认选第一个
                 let selectCoin = list.length > 0 ? list[0] : {};
                 this.setState({
                     selectCoin,
                     coins: list,
                     number: 0,
-                    agreementUrl: res.agreementUrl
+                    agreementUrl: res.attachment.userProtocolUrl
                 })
             }
         }).catch(err => {
@@ -426,9 +426,8 @@ class View extends Component {
         let $coinAgreement = (
             <Checkbox onChange={this.checkHandel}>
                 <span className="coin-agreement">
-                    {UPEX.lang.template('勾选表示同意接受IEO条款及kryptono使用条款')}
-                    {agreementUrl ?
-                        <a href={agreementUrl} target="_blank"> {agreementUrl}</a> : null}
+                    {UPEX.lang.template('勾选表示同意接受《IEO使用条款》与《ACE使用者条款》')}{agreementUrl ?
+                        <a href={agreementUrl} target="_blank">{agreementUrl}</a> : null}
                 </span>
             </Checkbox>
 
