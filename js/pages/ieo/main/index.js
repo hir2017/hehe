@@ -20,7 +20,7 @@ class Page extends Component {
             <div className="ieo-wrapper">
                 <Constellation/>
                 <div className="ieo-apply">
-                    <a href={UPEX.lang.template('申请发布IEO google文档链接')} target="_blank" className="apply-btn">{UPEX.lang.template('申请发布IEO')}</a>
+                    <a href={UPEX.lang.template('申请发布IEO google文档链接')} target="_blank" className="apply-btn" dangerouslySetInnerHTML={{__html: UPEX.lang.template('申请发布IEO')}}></a>
                 </div>
                 <div className="ieo-main">
                     <div className="content">

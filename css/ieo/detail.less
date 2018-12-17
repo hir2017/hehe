@@ -21,6 +21,9 @@
                 border-radius: 6px;
                 border: none;
             }
+            .label{
+                color: @text-color02-light;
+            }
             .status-icon {
                 margin: 15px auto;
             }
@@ -42,6 +45,9 @@
                         width: 23px;
                         height: 23px;
                         line-height: 23px;
+                        &:after{
+                            display: none;
+                        }
                     }
                 }
             }
@@ -77,9 +83,12 @@
                 background-color: @theme-yellow;
                 border-radius: 3px;
                 border: 0;
+                &:hover{
+                    background-color: @btn-bg-hover-scolor;
+                }
             }
             .ant-progress {
-                width: 350px;
+                width: 300px;
                 .ant-progress-bg {
                     background-color: @theme-yellow;
                 }
@@ -102,6 +111,8 @@
         .exc-full-page-wrapper.detail {
              .page-content {
                 padding: 20px;
+                 font-size: 12px;
+                 min-height: 270px;
             }
             p.item {
                 width: 100%;
@@ -119,6 +130,9 @@
                 a {
                     color: @text-color01-light;
                     text-decoration: none;
+                    &:hover{
+                        color: #cc9900;
+                    }
                 }
             }
             .ant-col-12 {
@@ -129,7 +143,7 @@
                     padding-right: 20px;
                 }
                 .inner {
-                    padding: 0 20px;
+                    padding: 0 12px;
                     height: 50px;
                     line-height: 50px;
                     border-radius: 3px;
@@ -137,6 +151,12 @@
                 }
                 em {
                     color: @text-color01-light;
+                    font-size: 16px;
+                }
+                &:first-child{
+                    em{
+                        font-size: 12px;
+                    }
                 }
             }
         }
@@ -157,7 +177,8 @@
                 margin: 0 auto;
             }
             .page-content{
-                padding: 20px;
+                //padding: 20px;
+                min-height: 270px;
             }
         }
     }

@@ -25,7 +25,6 @@ class CountDown extends Component {
         let {startTime, endTime, serverTime, flag} = this.props;
         let remainTime;
 
-        console.log(flag);
         if (flag == 0) {
             remainTime = startTime - serverTime;
         } else if (flag == 1) {
@@ -74,7 +73,7 @@ class CountDown extends Component {
                     </div>
                     <div className="hour-wrap">
                         <em className="hour">00</em>
-                        <div className={`txt ${showtxt}`}>{UPEX.lang.template('小时')}</div>
+                        <div className={`txt ${showtxt}`}>{UPEX.lang.template('时')}</div>
                     </div>
                     <div className="minute-wrap">
                         <em className="minute">00</em>

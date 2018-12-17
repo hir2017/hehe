@@ -199,7 +199,7 @@ class IEOListView extends Component {
                             <button type="button" onClick={this.goIEODetail.bind(this, item.ieoId)}>
                                 {UPEX.lang.template('购买')}
                             </button>
-                            <Tooltip placement="topLeft" title={UPEX.lang.template('锁仓期间不可交易，等待公告')} overlayClassName="buy-tooltip">
+                            <Tooltip placement="topRight" title={UPEX.lang.template('锁仓期间不可交易，等待公告')} overlayClassName="buy-tooltip">
                                 <span className="tip"/>
                             </Tooltip>
                         </dd>
