@@ -5,21 +5,21 @@ import { Button } from 'antd';
 export const deposit = function() {
     return {
         head: [
-            { label: UPEX.lang.template('订单号'), className: 'order-no' },
-            { label: UPEX.lang.template('日期'), className: 'time' },
-            { label: UPEX.lang.template('名称'), className: 'name' },
-            { label: UPEX.lang.template('收/支'), className: 'balance' },
-            { label: UPEX.lang.template('状态'), className: 'status' },
-            { label: UPEX.lang.template('支付方式'), className: 'pay-method' },
-            { label: UPEX.lang.template('操作'), className: 'action pr10' }
+            {label: UPEX.lang.template('订单号'), className: 'order-no'},
+            {label: UPEX.lang.template('日期'), className: 'time'},
+            {label: UPEX.lang.template('名称'), className: 'name'},
+            {label: UPEX.lang.template('收/支'), className: 'balance'},
+            {label: UPEX.lang.template('状态'), className: 'status'},
+            {label: UPEX.lang.template('支付方式'), className: 'pay-method'},
+            {label: UPEX.lang.template('操作'), className: 'action pr10'}
         ],
         body: [
-            { dataIndex: 'orderNo', className: 'order-no' },
-            { dataIndex: '_tradeTime', className: 'time' },
-            { dataIndex: '_actionName', className: 'name' },
-            { dataIndex: '_amount', className: 'balance' },
-            { dataIndex: '_status', className: 'status' },
-            { dataIndex: '_payMethod', className: 'pay-method' },
+            {dataIndex: 'orderNo', className: 'order-no'},
+            {dataIndex: '_tradeTime', className: 'time'},
+            {dataIndex: '_actionName', className: 'name'},
+            {dataIndex: '_amount', className: 'balance'},
+            {dataIndex: '_status', className: 'status'},
+            {dataIndex: '_payMethod', className: 'pay-method'},
             {
                 render: (row, col, index) => {
                     // 澳洲充值无详情
@@ -150,3 +150,30 @@ export const reward = function() {
         ]
     };
 };
+
+//IEO购买记录
+export const ieo = function () {
+    return {
+        head: [
+            {label: UPEX.lang.template('购买时间'), className: 'time'},
+            {label: UPEX.lang.template('购买方式'), className: 'way'},
+            {label: UPEX.lang.template('购买IEO币种'), className: 'name'},
+            {label: UPEX.lang.template('购买数量'), className: 'num'},
+            {label: UPEX.lang.template('购买单价'), className: 'price'},
+            {label: UPEX.lang.template('购买金额'), className: 'total'},
+            {label: UPEX.lang.template('状态'), className: 'status'}
+        ],
+        body: [
+            {dataIndex: '_createTime', className: 'time'},
+            {dataIndex: 'payCurrencyNameEn', className: 'way'},
+            {dataIndex: 'ieoCurrencyNameEn', className: 'name'},
+            {dataIndex: 'ieoCount', className: 'num'},
+            {dataIndex: 'rate', className: 'price'},
+            {dataIndex: 'payCount', className: 'total'},
+            {dataIndex: '_status', className: 'status'},
+        ]
+    };
+};
+
+
+

@@ -2,41 +2,20 @@
  * @fileoverview IEO 数字币列表
  */
 import React, {Component} from 'react';
+import {browserHistory} from 'react-router';
+import {StatusIcon} from "../view";
 import CountDown from '../countdown';
+import {getIEOList} from '@/api/http';
+import TimeUtil from '@/lib/util/date';
 
 class View extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isFetching: 0,
-            list: [
-                {
-                    symbol: 'GIFTO',
-                    numDesc: 'Amount',
-                    projectType: 1,
-                    purchase: false,
-                    purchasedNumber: 12500000,
-                    purchasedCount: 1011,
-                    projectStatusName: 'Success',
-                    feeRate: 0.0,
-                    picPath: 'https://ex.bnbstatic.com/file/resources/img/20171212/image_1513078271488.jpg',
-                    projectStatus: '45',
-                    number: 15000000,
-                    projectDetailDesc:
-                        '<img src="https://resource.binance.com/file/resources/img/kindeditor/attached/image/20171212/20171212184332_490.jpg" width="1200" height="876" alt="" /><img src="https://resource.binance.com/file/resources/img/kindeditor/attached/image/20171212/20171212184627_75.jpg" width="1200" height="1124" alt="" /><img src="https://resource.binance.com/file/resources/img/kindeditor/attached/image/20171212/20171212184411_971.jpg" width="1200" height="354" alt="" /><img src="https://resource.binance.com/file/resources/img/kindeditor/attached/image/20171212/20171212184422_574.jpg" width="1200" height="856" alt="" /><img src="https://resource.binance.com/file/resources/img/kindeditor/attached/image/20171212/20171212184433_777.jpg" width="1200" height="902" alt="" /><img src="https://glht.bjadm.net/file/resources/img/kindeditor/attached/image/20171214/20171214064224_4.jpg" width="1200" height="1025" alt="" /><img src="https://resource.binance.com/file/resources/img/kindeditor/attached/image/20171212/20171212184453_571.jpg" width="1200" height="771" alt="" /><img src="https://resource.binance.com/file/resources/img/kindeditor/attached/image/20171212/20171212184505_250.jpg" width="1200" height="640" alt="" />',
-                    price: 0.035,
-                    timeDesc: 'End Time',
-                    projectDesc:
-                        'GIFTO Protocol, a new blockchain protocol that will integrate seamlessly with any content platform to allow content creators and influencers to generate income with virtual gifts.  Gifto Protocol will be powered by Gifto tokens.',
-                    distributeNum: 15000000,
-                    time: 1513857600000,
-                    asset: 'BNB',
-                    projectName: 'GIFTO-BNB Session',
-                    projectId: '19',
-                    priceDesc: 'Price'
-                }
-            ],
+            isFetching: 1,
+            list: []
         }
+
     }
 
     componentDidMount() {
@@ -48,51 +27,90 @@ class View extends Component {
             isFetching: 1
         });
 
-        // getIEOList().then(res => {
-        //     if (res.status == 200) {
-        //         this.setState({
-        //             list: res.attachment,
-        //             isFetching: 0
-        //         })
-        //     }
-        // }).catch(()=>{
-        //     console.log('getIEOList err')
-        //     this.setState({
-        //         isFetching: 0
-        //     })
-        // })
+        getIEOList().then(res => {
+            if (res.status == 200) {
+                this.setState({
+                    list: res.attachment,
+                    isFetching: 0
+                })
+            }
+        }).catch((err) => {
+            console.log('getIEOList' + err);
+            this.setState({
+                isFetching: 0
+            })
+        })
+    }
+
+    toDetail = (item) => {
+        browserHistory.push(`/ieo/detail/${item.ieoId}`);
     }
 
     render() {
         let $content = null;
-        $content = this.state.list.map((item, i) => (
-            <li className="token-item" key={i}>
-                <a href="">
-                    <div className="token-pic">
-                        <img src={item.picPath} alt=""/>
-                    </div>
-                    <div className="token-status"></div>
-                    <div className="token-content">
-                        <h3 className="name"></h3>
-                        <p className="desc"></p>
-                        <div className="progress">
-                            {
-                                item.projectType == 1 ? <CountDown remainTime="100000"/> : <div>已募集。。。</div>
-                            }
-                        </div>
-                        <div className="detail">
-                            <div className="amount"></div>
-                            <div className="time"></div>
-                        </div>
-                    </div>
-                </a>
-            </li>
-        ));
+        let {isFetching, list} = this.state;
+
+        if (list.length > 0) {
+
+            $content = (
+                <ul className="token-list">
+                    {
+
+                        list.map((item, i) => (
+                            <li key={i} className="token-item clearfix" onClick={this.toDetail.bind(this, item)}>
+                                <div className="token-pic" style={{backgroundImage: `url(${item.logoUrl})`}}>
+                                </div>
+                                <StatusIcon status={item.status}/>
+                                <div className="token-content">
+                                    <div className="content-top">
+                                        <span className="name">{item.tokenName}</span>
+                                        <span
+                                            dangerouslySetInnerHTML={{__html: UPEX.lang.template('发行数量:{count}', {count: item.totalCirculation}, 1)}}></span>
+                                        <span className="time"
+                                              dangerouslySetInnerHTML={{__html: UPEX.lang.template('抢购结束时间:{time}', {time: TimeUtil.formatDate(item.endTime)}, 1)}}></span>
+                                    </div>
+                                    <div className="content-bottom">
+                                        <div className="token-desc">
+                                            {item.tokenDesc}
+                                        </div>
+                                        <div className="progress">
+                                            {
+                                                [0, 1].indexOf(item.status) >= 0 ?
+                                                    <CountDown order={i + 1}
+                                                               startTime={item.beginTime / 1000}
+                                                               endTime={item.endTime / 1000}
+                                                               serverTime={+new Date() / 1000}
+                                                               flag={item.status}
+                                                               skin={item.status == 0 ? 'light' : 'dark'}
+                                                               showtxt={true}/> :
+                                                    (<div
+                                                        className="amount" dangerouslySetInnerHTML={{
+                                                        __html: UPEX.lang.template('已募集{count}{name}', {
+                                                            count: item.raisedAmount,
+                                                            name: item.tokenName
+                                                        })
+                                                    }}></div>)
+
+
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        ))
+                    }
+                </ul>
+            )
+
+        }
+        else if (isFetching === 0 && list.length === 0) {
+            $content = (<div>{UPEX.lang.template('暂无IEO项目')}</div>);
+        }
+
         return (
             <div className="token-list-wrapper">
-                <ul className="token-list">
-                    {$content}
-                </ul>
+                {$content}
+                {isFetching == 1 ? <div className="mini-loading"></div> : null}
             </div>
         );
     }
