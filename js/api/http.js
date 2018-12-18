@@ -1283,21 +1283,14 @@ export function getAssetChangeReward(data) {
  */
 export function getIEOList() {
     //return axios.post('http://www.mocky.io/v2/5c135e8a3400005100ecdfab');
-    return axios.post('/ieo/ieoInfo/list').then(res => {
-        res.attachment[0].tokenDesc = 'GIFTO是一個去中心化虛擬禮物贈送協議，可以激勵全球使用者的內容創作並變現。對內容創作者來說，虛擬禮物贈送是一個極其有效的變GIFTO是一個去中心化虛擬禮物贈送協議，可以激勵全球使用者的內容創作並變現。';
-        return res;
-    });
+    return axios.post('/ieo/ieoInfo/list');
 }
 
 /**
  * 根据项目ID获取单个IEO项目详细信息
  */
 export function getSingleIEOInfo(data) {
-    return axios.post('/ieo/ieoInfo/getById', data).then(res =>{
-        res.attachment.tokenDesc = 'GIFTO是一個去中心化虛擬禮物贈送協議，可以激勵全球使用者的內容創作並變現。對內容創作者來說，虛擬禮物贈送是一個極其有效的變GIFTO是一個去中心化虛擬禮物贈送協議，可以激勵全球使用者的內容創作並變現。GIFTO是一個去中心化虛擬禮物贈送協議，可以激勵全球使用者的內容創作並變現。對內容創作者來說，虛擬禮物贈送是一個極其有效的變GIFTO是一個去中心化虛擬禮物贈送協議，可以激勵全球使用者的內容創作並變現。';
-        res.attachment.raisedAmount = 1000;
-        return res
-    });
+    return axios.post('/ieo/ieoInfo/getById', data);
 }
 
 /**

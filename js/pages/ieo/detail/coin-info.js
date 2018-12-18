@@ -75,7 +75,8 @@ class View extends Component {
             skin: data.status == 0 ? 'light' : 'dark',
             endTime: data._endTimeStamp,
             serverTime: data._systemTimeStamp,
-            flag: data.status
+            flag: data.status,
+            showtxt: true
         };
         // 弹窗属性
         this.ModalProp = {
@@ -139,7 +140,7 @@ class View extends Component {
          * 未开始: 未登录=>提示登录  登录=>发起订阅
          */
         const {status} = this.props.data;
-        let projectState = this.btnStatusMap[status] ? this.btnStatusMap[status] : this.btnStatusMap[4]; //其余状态值均显示已结束
+        let projectState = this.btnStatusMap[status] ? this.btnStatusMap[status] : this.btnStatusMap[3]; //其余状态值均显示已结束
         // 是否已开始
         if (status !== 0) {
             this.setState({
@@ -499,7 +500,7 @@ class View extends Component {
                             {data.tokenDesc}
                         </Col>
                         <Col span={24} className="text buy">
-                            <Button onClick={this.handleClick}>{btnTxtMap[state.projectState] || ''}</Button>
+                            <Button onClick={this.handleClick}>{btnTxtMap[state.projectState] || UPEX.lang.template('已结束')}</Button>
                         </Col>
                     </Row>
                 </div>

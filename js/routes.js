@@ -170,6 +170,10 @@ const routes = (
                     <Route path="invite(-:type)" getComponent={Invite}/>
                 </Route>
             </Route>
+            <Route path="ieo">
+                <IndexRoute component={IEO}/>
+                <Route path="detail/:id" component={IEODetail}/>
+            </Route>
             <Route path="login" onEnter={onEnterHandle} component={Login}/>
             <Route path="register" onEnter={onEnterHandle} component={Register}/>
             <Route path="resetpwd" component={ResetPwd}/>

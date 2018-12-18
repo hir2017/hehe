@@ -6,6 +6,7 @@ import {observer, inject} from 'mobx-react';
 import {Checkbox, Icon, message, Input, Tooltip} from 'antd';
 import {Link, browserHistory} from 'react-router';
 import {getIEOAssetsList} from '@/api/http';
+import NumberUtil from '@/lib/util/number';
 
 const Search = Input.Search;
 
@@ -191,10 +192,10 @@ class IEOListView extends Component {
                 <li key={i}>
                     <dl>
                         <dd className="name">{item.tokenName}</dd>
-                        <dd className="total">{item.tokenCount}</dd>
+                        <dd className="total">{NumberUtil.formatNumber(item.tokenCount)}</dd>
                         <dd className="balance">-</dd>
                         <dd className="freeze">-</dd>
-                        <dd className="value">{item.tokenPrice}</dd>
+                        <dd className="value">{NumberUtil.formatNumber(item.tokenPrice)}</dd>
                         <dd className="actions">
                             <button type="button" onClick={this.goIEODetail.bind(this, item.ieoId)}>
                                 {UPEX.lang.template('购买')}

@@ -233,6 +233,8 @@ const formatFn = {
     //IEO记录
     ieo(valMap, type, item) {
         item._createTime = item.createTime ? TimeUtil.formatDate(item.createTime) : '--';
+        //0-初始 1-交易成功 2-交易失败 3-IEO冻结资金已扣减 4-扣减IEO冻结资金失败 5-已退款  6-退款失败 7-用户资金已转移 8-用户资金转移失败
+        // 前端显示：1、3、4、6、8-交易成功  2-交易失败 5-已退款 7-资产已转正
         switch (item.status) {
             case 0:
                 item._status = UPEX.lang.template('初始');
@@ -245,20 +247,14 @@ const formatFn = {
                     <span className="tip"/>
                 </Tooltip></div>);
                 break;
-            case 3:
-                item._status = UPEX.lang.template('资金已转移');
-                break;
-            case 4:
-                item._status = UPEX.lang.template('资金转移失败');
-                break;
             case 5:
                 item._status = UPEX.lang.template('已退款');
                 break;
-            case 6:
-                item._status = UPEX.lang.template('退款失败');
+            case 7:
+                item._status = UPEX.lang.template('资产已转正');
                 break;
             default:
-                item._status = '--';
+                item._status = UPEX.lang.template('交易成功');
                 break;
         }
         return item;
