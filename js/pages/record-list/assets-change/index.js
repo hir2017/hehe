@@ -14,7 +14,7 @@ import * as action from './action';
 import SubRow from './legal-sub-row';
 import AusSubRow from './aus-legal-sub-row';
 import CoinSubRow from './coin-sub-row';
-
+import LocaleProvider from '@/components/locale-provider';
 
 @inject('accountStore', 'fundChangeRecordStore')
 @observer
@@ -165,8 +165,10 @@ class RecordPage extends Component {
                     <List expandedRowRender={this.detail} loading={state.loading} {...state.listProps}
                           className={state.type} subIndex={state.subIndex} data={state.listData}>
                         {state.total === 0 ? null :
-                            <Pagination current={state.current} total={state.total} pageSize={state.pageSize}
-                                        onChange={this.onChangePagination}/>}
+                            <LocaleProvider>
+                                <Pagination current={state.current} total={state.total} pageSize={state.pageSize} onChange={this.onChangePagination} />
+                            </LocaleProvider>
+                        }
                     </List>
                 </PageWrapper>
             </div>
