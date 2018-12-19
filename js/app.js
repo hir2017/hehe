@@ -91,7 +91,7 @@ class App extends Component {
     render() {
         return (
         	<div
-                key={rootStore.commonStore.language + rootStore.authStore.uid }
+                key={rootStore.commonStore.language + rootStore.authStore.pageid }
                 className={`app-page ${rootStore.commonStore.language} ${UPEX.config.version}`}
                 data-path={rootStore.commonStore.currentPathName}
             >

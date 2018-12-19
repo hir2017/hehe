@@ -3,7 +3,8 @@ import { userLogout } from '../api/http';
 
 class AuthStore {
 	@observable uid = UPEX.cache.getCache('uid') || '';
-	@observable token = UPEX.cache.getCache('token') || '';
+    @observable token = UPEX.cache.getCache('token') || '';
+    @observable pageid = UPEX.cache.getCache('uid') || '';
 
 	constructor() {
         var handler = autorun(() => {
@@ -35,12 +36,18 @@ class AuthStore {
 	update = (user)=>{
 		this.token = user.token;
 		this.uid = user.uid;
-	}
+    }
+
+    @action
+    updatePageId(value){
+        this.pageid = value;
+    }
 
 	@action
 	clear() {
 		this.uid = '';
-		this.token = '';
+        this.token = '';
+        this.pageid = '';
 	}
 
 	@action
