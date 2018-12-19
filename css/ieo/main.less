@@ -38,6 +38,7 @@
         padding: 30px 0 0;
     }
     .token-list {
+        overflow: hidden;
         li.token-item {
             position: relative;
             height: 180px;
@@ -159,6 +160,85 @@
                 }
             }
         }
+    }
+
+}
+
+.feature-wrap{
+    position: relative;
+    width: 1200px;
+    margin: 0 auto;
+    color: #fff;
+    padding: 30px 0 40px;
+    text-align: center;
+    h2.title{
+        height: 50px;
+        line-height: 50px;
+        font-size: 20px;
+        color: #fff;
+        margin-bottom: 12px;
+        em{
+            color: #cc9900;
+        }
+    }
+    ul.content{
+        display: -webkit-box;
+        -webkit-box-pack: center;
+      li.feature{
+          width: 224px;
+          height: 240px;
+          background: url("../../images/ieo/border.png") no-repeat center;
+          background-size: 100%;
+          margin-right: 20px;
+          padding: 0 16px;
+          .feature-icon{
+              width: 192px;
+              height: 100px;
+              background-repeat: no-repeat;
+              margin: 16px auto 6px;
+              &.icon1{
+                  background: url("../../images/ieo/feature1.png");
+                  background-size: 100%;
+              }
+              &.icon2{
+                  background: url("../../images/ieo/feature2.png");
+                  background-size: 100%;
+              }
+              &.icon3{
+                  background: url("../../images/ieo/feature3.png");
+                  background-size: 100%;
+              }
+              &.icon4{
+                  background: url("../../images/ieo/feature4.png");
+                  background-size: 100%;
+              }
+              &.icon5{
+                  background: url("../../images/ieo/feature5.png");
+                  background-size: 100%;
+              }
+          }
+          h3{
+              position: relative;
+              height: 30px;
+              line-height: 30px;
+              font-size: 14px;
+              color: #fff;
+              margin-bottom: 10px;
+              &::after{
+                  position: absolute;
+                  content: '';
+                  width: 192px;
+                  height: 1px;
+                  background: url('../../images/ieo/text-line.png') no-repeat center;
+                  background-size: 100%;
+                  left: 0;
+                  bottom: 0;
+              }
+          }
+          .des{
+              text-align: left;
+          }
+      }
     }
 
 }

@@ -10,9 +10,9 @@ export default class View extends React.Component {
         super();
         this.style = {
             width: '100%',
-            height: '',
+            height: '100%',
             zIndex: '0',
-            position: 'absolute',
+            position: 'fixed',
             left: '0',
             top: '0',
             backgroundImage: 'linear-gradient(to bottom, #08090b 0%, #202326 100%)'
