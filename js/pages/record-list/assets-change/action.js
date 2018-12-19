@@ -332,7 +332,7 @@ const getlegalMap = type => {
             '2': UPEX.lang.template('已付款,系统入账中'),
             '3': UPEX.lang.template('待付款'),
             '5': UPEX.lang.template('已付款,系统入账中'),
-            '6': UPEX.lang.template('已付款,系统入账中'),
+            '6': UPEX.lang.template('待退款'),
             '9': UPEX.lang.template('超时取消'),
             '10': UPEX.lang.template('充值失败'),
             '11': UPEX.lang.template('已退款'),
