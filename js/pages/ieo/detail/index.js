@@ -8,6 +8,8 @@ import CoinInfo from './coin-info';
 import TokenInfo from './token-info';
 import TimeUtil from '@/lib/util/date';
 
+const contentHeight = document.body.clientHeight - 50;
+
 class Page extends Component {
     constructor(props) {
         super(props);
@@ -18,6 +20,10 @@ class Page extends Component {
             ieoInfo: {},
             showErrorPage: false
         };
+    }
+
+    componentDidMount() {
+        this.getData();
     }
 
     formatData(data) {
@@ -43,23 +49,23 @@ class Page extends Component {
                     ieoInfo: this.formatData(res.attachment)
                 })
             }
-            //IEO信息为空
-            if (res.status == 21006) {
+            //IEO信息为空或已下线
+            if (res.status == 21006||res.status==21011) {
                 this.setState({
                     showErrorPage: true
                 })
             }
+
         }).catch(err => {
+            this.setState({
+                showErrorPage: true
+            })
             console.error('getSingleIEOInfo', err);
         }).then(res => {
             this.setState({
                 loading: false
             })
         })
-    }
-
-    componentDidMount() {
-        this.getData();
     }
 
     render() {
@@ -69,7 +75,12 @@ class Page extends Component {
         }
 
         if (showErrorPage) {
-            return <div className="ieo-wrapper detail">{UPEX.lang.template('无此IEO项目')}</div>
+            return <div className="ieo-wrapper detail" style={{height: `${contentHeight}px`}}>
+                <div className="error">
+                    {UPEX.lang.template('无此IEO项目')}
+                    <a href="/ieo" className="go-other">{UPEX.lang.template('看看其他IEO项目')}</a>
+                </div>
+            </div>
         }
 
         return (

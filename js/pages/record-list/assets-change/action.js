@@ -51,7 +51,7 @@ const getParams = (type, page) => {
                 currentyId: 0
             };
             break;
-        case type === 'ieo':
+        case type === 'token-record':
             request = getIEORecordList;
             params = {
                 start: page,
@@ -90,7 +90,7 @@ const FormatSourceData = (type, res, params) => {
                 total: typeof _source.total === 'undefined' ? 0 : _source.total
             };
             break;
-        case 'ieo':
+        case 'token-record':
             result = {
                 listData: _source.list || [],
                 current: params.start,
@@ -231,7 +231,7 @@ const formatFn = {
         return item;
     },
     //IEO记录
-    ieo(valMap, type, item) {
+    token_record(valMap, type, item) {
         item._createTime = item.createTime ? TimeUtil.formatDate(item.createTime) : '--';
         //0-初始 1-交易成功 2-交易失败 3-IEO冻结资金已扣减 4-扣减IEO冻结资金失败 5-已退款  6-退款失败 7-用户资金已转移 8-用户资金转移失败
         // 前端显示：1、3、4、6、8-交易成功  2-交易失败 5-已退款 7-资产已转正
@@ -274,8 +274,8 @@ const formatItem = (arr, type) => {
         case 'reward':
             _filter = formatFn.reward;
             break;
-        case 'ieo':
-            _filter = formatFn.ieo;
+        case 'token-record':
+            _filter = formatFn.token_record;
             break;
         default:
             _filter = formatFn.legal;

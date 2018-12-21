@@ -427,8 +427,8 @@ class View extends Component {
         let $coinAgreement = (
             <Checkbox onChange={this.checkHandel}>
                 <span className="coin-agreement">
-                    {UPEX.lang.template('勾选表示同意接受《IEO使用条款》与《ACE使用者条款》')}{agreementUrl ?
-                        <a href={agreementUrl} target="_blank">{agreementUrl}</a> : null}
+                    {UPEX.lang.template('勾选表示同意接受《IEO使用条款》与《ACE使用者条款》')} {agreementUrl ?
+                    <a href={agreementUrl} target="_blank">{agreementUrl}</a> : null}
                 </span>
             </Checkbox>
 
@@ -500,7 +500,10 @@ class View extends Component {
                             {data.tokenDesc}
                         </Col>
                         <Col span={24} className="text buy">
-                            <Button onClick={this.handleClick}>{btnTxtMap[state.projectState] || UPEX.lang.template('已结束')}</Button>
+                            <Button
+                                onClick={this.handleClick}
+                                disabled={['subscribed', 'done', 'error'].indexOf(state.projectState) > -1 ? true : false}
+                            >{btnTxtMap[state.projectState] || UPEX.lang.template('已结束')}</Button>
                         </Col>
                     </Row>
                 </div>
@@ -509,8 +512,8 @@ class View extends Component {
                     <FormView>
                         <FormItem label={UPEX.lang.template('购买单价')}>
                             <div className="text">
-                                1 {data.tokenName} ≈ {selectCoin.tokenRate} {selectCoin.tokenName} <span
-                                className="tip">{UPEX.lang.template('当前比例是根据 ACE 10分钟内价格计算')}</span>
+                                1 <em>{data.tokenName}</em> ≈ {selectCoin.tokenRate} <em>{selectCoin.tokenName}</em>
+                                <span className="tip">{UPEX.lang.template('当前比例是根据 ACE 10分钟内价格计算')}</span>
                             </div>
                         </FormItem>
                         <FormItem label={UPEX.lang.template('购买方式')} after={$authTip}>
@@ -519,8 +522,10 @@ class View extends Component {
                                 {$coinOptions}
                             </Select>
                         </FormItem>
-                        <FormItem label={UPEX.lang.template('购买数量')} value={state.number}
-                                  inputProps={{onChange: this.setVal.bind(this, 'number'), suffix: data.tokenName}}/>
+                        <FormItem label={UPEX.lang.template('购买数量')}
+                                  value={state.number}
+                                  inputProps={{onChange: this.setVal.bind(this, 'number'), suffix: data.tokenName}}
+                        />
                         <FormItem label={UPEX.lang.template('金额')} after={$amount}>
                             <div className="text">
                                 ≈ {state.amount} {selectCoin.tokenName}

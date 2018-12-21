@@ -1282,7 +1282,6 @@ export function getAssetChangeReward(data) {
  * 获取所有IEO项目列表
  */
 export function getIEOList() {
-    //return axios.post('http://www.mocky.io/v2/5c135e8a3400005100ecdfab');
     return axios.post('/ieo/ieoInfo/list');
 }
 
@@ -1325,7 +1324,6 @@ export function IEOToDoSubscribe(data) {
  * 获取IEO资产列表
  */
 export function getIEOAssetsList() {
-    //return axios.post('http://www.mocky.io/v2/5c0f1f90310000640024ead3');
     return axios.post('/ieo/ieoTransferRecord/userAssetsList');
 }
 
@@ -1333,6 +1331,5 @@ export function getIEOAssetsList() {
  * IEO购买记录
  */
 export function getIEORecordList(data) {
-    //return axios.post('http://www.mocky.io/v2/5c0f7c83310000b51124ec76', data);
     return axios.post('/ieo/ieoTransferRecord/transferRecordList', data);
 }

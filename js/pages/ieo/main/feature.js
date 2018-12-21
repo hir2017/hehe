@@ -14,8 +14,7 @@ class View extends Component {
     }
 
     render() {
-        let arr = new Array(5).fill(0);
-        console.log(arr);
+        let arr = [0, 0, 0, 0, 0];
         return (
             <div className="feature-wrap">
                 <h2 className="title">{UPEX.lang.template('特点标题')}</h2>
@@ -23,7 +22,7 @@ class View extends Component {
                     {
                         arr.map((item, i) => (
                             <li className="feature" key={i}>
-                                <div className={`feature-icon icon${i+1}`}></div>
+                                <div className={`feature-icon icon${i + 1}`}></div>
                                 <h3 className="sub-tit">{UPEX.lang.template('特点' + (i + 1))}</h3>
                                 <p className="des">{UPEX.lang.template('特点' + (i + 1) + '描述')}</p>
                             </li>

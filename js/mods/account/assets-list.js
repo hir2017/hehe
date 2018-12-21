@@ -218,7 +218,7 @@ class IEOListView extends Component {
                     <ul>
                         <li>
                             <dl>
-                                <dd className="name">IEO{UPEX.lang.template('资产')}</dd>
+                                <dd className="name"><em>{UPEX.lang.template('Launcher')}</em>{UPEX.lang.template('资产')}</dd>
                                 <dd className="total"></dd>
                                 <dd className="balance"></dd>
                                 <dd className="freeze"></dd>

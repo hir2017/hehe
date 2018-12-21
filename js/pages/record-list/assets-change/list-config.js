@@ -152,7 +152,7 @@ export const reward = function() {
 };
 
 //IEO购买记录
-export const ieo = function () {
+export const token_record = function () {
     return {
         head: [
             {label: UPEX.lang.template('购买时间'), className: 'time'},

@@ -1,8 +1,35 @@
 @import "../variable";
+
 &.detail {
     width: 1200px;
     margin: 0 auto;
-    padding: 30px 0 0; // coin-info
+    padding: 30px 0 0;
+    .error {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%) translateX(-50%);
+        left: 50%;
+        text-align: center;
+        font-size: 24px;
+        color: @text-color02-light;
+        a {
+            display: block;
+            width: 200px;
+            height: 34px;
+            line-height: 34px;
+            border-radius: 3px;
+            background: @theme-yellow;
+            font-size: 14px;
+            color: @text-color01-light;
+            margin-top: 25px;
+            &:hover, &:active {
+                background: @btn-bg-hover-scolor;
+                text-decoration: none;
+            }
+        }
+    }
+
+    // coin-info
     .coin-info {
         background-color: #fff;
         .left-box,
@@ -21,7 +48,7 @@
                 border-radius: 6px;
                 border: none;
             }
-            .label{
+            .label {
                 color: @text-color02-light;
             }
             .status-icon {
@@ -46,9 +73,12 @@
                         height: 23px;
                         line-height: 23px;
                         margin-bottom: 5px;
-                        &:after{
+                        &:after {
                             display: none;
                         }
+                    }
+                    .txt {
+                        color: @text-color02-light;
                     }
                 }
             }
@@ -56,24 +86,32 @@
         .right-box {
             float: left;
             width: 1020px;
+            padding: 0 20px;
             .name {
-                padding-bottom: 2px;
                 font-size: 20px;
                 color: @text-color01-light;
                 font-weight: bold;
                 border-bottom: 1px solid @bg-color-light;
+                height: 60px;
+                line-height: 60px;
+                margin-bottom: 10px;
             }
             .text {
                 position: relative;
                 padding-left: 100px;
-                padding-top: 20px;
                 font-size: 12px;
                 color: @text-color01-light;
+                height: 40px;
+                line-height: 40px;
                 label {
                     position: absolute;
-                    top: 20px;
                     left: 0;
                     color: @text-color02-light;
+                }
+                &.description {
+                    height: 80px;
+                    line-height: 20px;
+                    padding-top: 10px;
                 }
             }
             .buy .ant-btn {
@@ -84,8 +122,13 @@
                 background-color: @theme-yellow;
                 border-radius: 3px;
                 border: 0;
-                &:hover{
+                &:hover {
                     background-color: @btn-bg-hover-scolor;
+                }
+                &:disabled, &:disabled:hover {
+                    color: rgba(0, 0, 0, .25);
+                    background-color: #f5f5f5;
+                    border-color: #d9d9d9;
                 }
             }
             .ant-progress {
@@ -108,12 +151,15 @@
             width: 100%;
             padding-top: 0;
             padding-bottom: 30px;
+            .page-title {
+                font-size: 14px;
+            }
         }
         .exc-full-page-wrapper.detail {
-             .page-content {
+            .page-content {
                 padding: 20px;
-                 font-size: 12px;
-                 min-height: 270px;
+                font-size: 12px;
+                min-height: 270px;
             }
             p.item {
                 width: 100%;
@@ -131,7 +177,7 @@
                 a {
                     color: @text-color01-light;
                     text-decoration: none;
-                    &:hover{
+                    &:hover {
                         color: #cc9900;
                     }
                 }
@@ -154,8 +200,8 @@
                     color: @text-color01-light;
                     font-size: 16px;
                 }
-                &:first-child{
-                    em{
+                &:first-child {
+                    em {
                         font-size: 12px;
                     }
                 }
@@ -177,7 +223,7 @@
                 height: 260px;
                 margin: 0 auto;
             }
-            .page-content{
+            .page-content {
                 //padding: 20px;
                 min-height: 270px;
             }

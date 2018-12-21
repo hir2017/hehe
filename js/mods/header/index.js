@@ -91,7 +91,7 @@ class HeaderView extends Component {
                             {
                                 UPEX.config.version == 'ace' ? (
                                     <li className="ieo">
-                                        <Link to="/ieo">{UPEX.lang.template('IEOS')}</Link>
+                                        <Link to="/ieo">{UPEX.lang.template('Launcher')}</Link>
                                     </li>) : null
                             }
                         </ul>
