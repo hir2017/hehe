@@ -10,7 +10,6 @@ import { observer, inject } from 'mobx-react';
 import { Row, Col } from 'antd';
 import { Link } from 'react-router';
 
-
 @observer
 class PageView extends Component {
     static defaultProps = {};
@@ -22,38 +21,29 @@ class PageView extends Component {
             symbolname: UPEX.lang.template('landpage_eth_data_symbolname')
         };
 
-
         this.state = {
             symbolname: config.symbolname,
             symbol: config.symbol,
             count: config.count,
             winnerList: []
         };
-        let originArr = [
-            'https://stage-h5.infinitex.com.au',
-            'https://h5.infinitex.com.au',
-        ];
+        let originArr = ['https://stage-h5.infinitex.com.au', 'https://h5.infinitex.com.au'];
         this.winnerOrgin = UPEX.config.host.indexOf('stage.infinitex.com') !== -1 ? originArr[0] : originArr[1];
         this.winnerUrl = this.winnerOrgin + '/h5ex/aus-static-data/landpage-eth-winners/index.html';
         this.winnerWin = null;
     }
 
     componentDidMount() {
-        window.addEventListener(
-            'message',this.listenMessage,
-            false
-        );
+        window.addEventListener('message', this.listenMessage, false);
     }
 
     componentWillUnmount() {
-        window.removeEventListener(
-            'message',this.listenMessage,
-        );
+        window.removeEventListener('message', this.listenMessage);
     }
 
-    listenMessage = (event) => {
+    listenMessage = event => {
         var origin = event.origin || event.originalEvent.origin;
-        if(origin === this.winnerOrgin) {
+        if (origin === this.winnerOrgin) {
             let _list = [];
             try {
                 _list = JSON.parse(event.data);
@@ -62,11 +52,9 @@ class PageView extends Component {
             }
             this.setState({
                 winnerList: _list
-            })
+            });
         }
-    }
-
-
+    };
 
     render() {
         let { symbolname, winnerList } = this.state;
@@ -124,27 +112,39 @@ class PageView extends Component {
                         <section>
                             <header>{UPEX.lang.template('Rules:')}</header>
                             <article>
-                                <p>{UPEX.lang.template('- 20 lucky users who complete the three steps will be chosen at random every day')}</p>
-                                <p>
-                                    {UPEX.lang.template(
-                                        '- After the draws have been conducted, our winners will have their rewards deposited into their account every Friday.'
-                                    )}
-                                </p>
+                                <p
+                                    dangerouslySetInnerHTML={{
+                                        __html: UPEX.lang.template('- 20 lucky users who complete the three steps will be chosen at random every day')
+                                    }}
+                                />
+                                <p
+                                    dangerouslySetInnerHTML={{
+                                        __html: UPEX.lang.template(
+                                            '- After the draws have been conducted, our winners will have their rewards deposited into their account every Friday.'
+                                        )
+                                    }}
+                                />
                             </article>
                             <header>{UPEX.lang.template('Key Dates:')}</header>
                             <article className="key">
-                                <p>{UPEX.lang.template('- Draw dates (0.1 ETH) : 20/12/2018 – 8/01/2019')}</p>
+                                <p dangerouslySetInnerHTML={{ __html: UPEX.lang.template('- Draw dates (0.1 ETH) : 20/12/2018 – 8/01/2019') }} />
                                 <ul>
-                                    <li>
-                                        {UPEX.lang.template(
-                                            '· Every day starting from the 20th Dec 2018, 20 users will have the opportunity to get 0.1 ETH. Draws will be conducted over the event period of 30 days.'
-                                        )}
-                                    </li>
-                                    <li>{UPEX.lang.template('· 599 lucky users will get 0.1 ETH.')}</li>
+                                    <li
+                                        dangerouslySetInnerHTML={{
+                                            __html: UPEX.lang.template(
+                                                '· Every day starting from the 20th Dec 2018, 20 users will have the opportunity to get 0.1 ETH. Draws will be conducted over the event period of 30 days.'
+                                            )
+                                        }}
+                                    />
+                                    <li dangerouslySetInnerHTML={{ __html: UPEX.lang.template('· 599 lucky users will get 0.1 ETH.') }} />
                                 </ul>
-                                <p>{UPEX.lang.template('- Final Draw Date ( 10 ETH) :  8/01/2019')}</p>
+                                <p dangerouslySetInnerHTML={{ __html: UPEX.lang.template('- Final Draw Date ( 10 ETH) :  8/01/2019') }} />
                                 <ul>
-                                    <li>{UPEX.lang.template('Only one user will have the opportunity to get  10 ETH in the final day.')}</li>
+                                    <li
+                                        dangerouslySetInnerHTML={{
+                                            __html: UPEX.lang.template('Only one user will have the opportunity to get  10 ETH in the final day.')
+                                        }}
+                                    />
                                 </ul>
                             </article>
                             <Link to="/register">{UPEX.lang.template('GET NOW')}</Link>
@@ -154,7 +154,7 @@ class PageView extends Component {
                 </div>
                 <div className="winner-module">
                     <div className="module-inner">
-                        <iframe src={this.winnerUrl} frameBorder="0"></iframe>
+                        <iframe src={this.winnerUrl} frameBorder="0" />
                         <div className="content-wrap">
                             <h2>{UPEX.lang.template('Lucky Draw Winners')}</h2>
                             <section className="list">
