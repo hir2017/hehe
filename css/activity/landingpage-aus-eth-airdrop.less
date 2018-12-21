@@ -89,7 +89,7 @@
             width: 623px;
             height: 653px;
             background: url("@{url}/gif.png") no-repeat center center;
-            background-size: 100% 100%;
+            background-size: 85% auto;
             transform: translateZ(0);
             animation-name: hvr-bob-float, hvr-bob;
             backface-visibility: hidden;
@@ -101,8 +101,6 @@
             animation-direction: normal, alternate;
         }
     }
-
-
 
     .steps-module {
         padding-bottom: 60px;
@@ -152,14 +150,37 @@
     .intro-module {
         background-color: #f9fafb;
         color: #323e48;
-        padding-bottom: 20px;
+        padding-bottom: 80px;
 
         .content-wrap {
-            padding-top: 120px;
-            padding-left: 520px;
+            // padding-top: 120px;
+            // padding-left: 520px;
             min-height: 560px;
         }
-
+        section {
+            padding-left: 520px;
+            header {
+                font-size: 18px;
+                font-size: bold;
+            }
+            article {
+                line-height: 36px;
+                 li {
+                     padding-left: 10px;
+                 }
+                 &.key {
+                     p {
+                         font-weight: bold;
+                     }
+                 }
+            }
+            a {
+                display: block;
+                font-size: 20px;
+                padding-top: 20px;
+                padding-left: 10px;
+            }
+        }
         .intro-tip {
             width: 1120px;
             margin: 0 auto;
@@ -168,6 +189,12 @@
             padding-top: 30px;
             margin-top: 30px;
             border-top: 1px solid #f0f3f5;
+        }
+
+        h2 {
+            padding-top: 60px;
+            padding-bottom: 60px;
+            text-align: center;
         }
 
         h2,
@@ -179,43 +206,66 @@
             color: #747e96;
         }
 
-        dl {
-            margin-top: 60px;
-            dd {
-                display: block;
-                font-size: 14px;
-                line-height: 30px;
-                width: 540px;
-                color: #31353f;
-            }
-
-            dd.rule {
-                label {
-                    display: block;
-                }
-
-                ul {
-                    padding-left: 16px;
-                }
-
-                li {
-                    list-style: decimal;
-                }
-            }
-
-            .minitip {
-                color: #969da9;
-            }
-        }
-
         .content-image {
             position: absolute;
             left: 0;
-            top: 110px;
+            top: 140px;
             width: 442px;
             height: 446px;
-            background: url("@{url}/image1.png") no-repeat center center;
-            background-size: 100% 100%;
+            background: url("@{url}/image1.png") no-repeat center 10px;
+            background-size: 100% auto;
+        }
+
+
+
+    }
+    .winner-module {
+        background: linear-gradient(to right, #3b84ff 30%, #5e4efd 50%, #6643fe 70%, #851aff);
+        h2 {
+            font-size: 30px;
+            padding: 40px 0;
+            text-align: center;
+            font-weight: 700;
+            color: #fff;
+        }
+        iframe {
+            display: none;
+        }
+        .module-inner {
+            height: 500px;
+            background: url("@{url}/winner-bg.png") center center no-repeat;
+            background-size: auto 100%;
+        }
+        .list {
+            width: 800px;
+            margin: 0 auto;
+            height: 340px;
+            text-align: center;
+            overflow-y: auto;
+            font-size: 20px;
+            color: #fff;
+            .item {
+                line-height: 70px;
+            }
+
+        }
+        .list::-webkit-scrollbar {/*滚动条整体样式*/
+            width: 6px;     /*高宽分别对应横竖滚动条的尺寸*/
+            border-radius: 5px;
+            padding: 2px;
+            background: transparent;
+            box-shadow: 0 0 2px #fff;
+            // border: 1px solid #b7b7b7;
+
+        }
+        .list::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
+            border-radius: 3px;
+            background: #fff;
+        }
+        .list::-webkit-scrollbar-track {/*滚动条里面轨道*/
+            // -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+            border-radius: 5px;
+            background-color: transparent;
         }
     }
 }
