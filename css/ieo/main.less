@@ -32,13 +32,13 @@
 .ieo-main {
     position: relative;
     background-color: @bg-color-light;
+    min-height: 210px;
     .content {
         width: 1200px;
         margin: 0 auto;
-        padding: 30px 0 0;
+        padding: 30px 0 30px;
     }
     .token-list {
-        overflow: hidden;
         li.token-item {
             position: relative;
             height: 180px;
@@ -47,6 +47,9 @@
             background-color: #fff;
             margin-bottom: 30px;
             cursor: pointer;
+            &:last-child{
+                margin-bottom: 0;
+            }
             &:hover{
                 box-shadow: 0 0 6px 4px rgba(208, 214, 218, .4);
             }
@@ -161,6 +164,17 @@
             }
         }
     }
+    .no-data{
+        height: 180px;
+        line-height: 140px;
+        text-align: center;
+        padding: 20px;
+        color: @text-color02-light;
+        border-radius: 6px;
+        background: url("../../images/ieo/main-placeholder.png") no-repeat 20px center #fff;
+        background-size: 140px 140px;
+        font-size: 20px;
+    }
 
 }
 
@@ -237,6 +251,7 @@
           }
           .des{
               text-align: left;
+              font-weight: 300;
           }
       }
     }

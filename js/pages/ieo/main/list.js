@@ -102,7 +102,7 @@ class View extends Component {
 
         }
         else if (isFetching === 0 && list.length === 0) {
-            $content = (<div>{UPEX.lang.template('暂无IEO项目')}</div>);
+            $content = (<div className="no-data">{UPEX.lang.template('暂无IEO项目')}</div>);
         }
 
         return (

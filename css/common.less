@@ -90,8 +90,9 @@ select:-webkit-autofill {
     color: #fff;
     border-bottom: 1px solid #32373f;
     background-color: @bg-color;
-    overflow: hidden;
-
+    //overflow: hidden;
+    position: relative;
+    z-index: 9;
     .header-box {
         padding: 0 20px;
         margin: 0 auto;
@@ -136,7 +137,7 @@ select:-webkit-autofill {
                     color: @text-color01;
                     padding: 0 20px;
                     font-size: 14px;
-                    &.language{
+                    &.language {
                         padding: 0 0 0 20px;
                     }
                     a {
@@ -177,7 +178,7 @@ select:-webkit-autofill {
     }
 }
 
-.infinitex .app-header .header-box .logo img{
+.infinitex .app-header .header-box .logo img {
     height: 22px;
 }
 
@@ -206,6 +207,10 @@ select:-webkit-autofill {
 }
 
 .app-news .app-header .header-box-l li.news a {
+    color: @text-yellow-color;
+}
+
+.app-ieo .app-header .header-box-l li.ieo a {
     color: @text-yellow-color;
 }
 
@@ -329,10 +334,11 @@ body .ant-back-top-inner:hover {
     }
 }
 
-/*交易中心、登录页、Home页的气泡框*/
+/*交易中心、登录页、Home页、IEO页面的气泡框*/
 .app-trade .widget-tooltip.dark,
 .login-register + .help-language .widget-tooltip.dark,
-.app-page[data-path='/home'] .widget-tooltip.dark {
+.app-page[data-path='/home'] .widget-tooltip,
+.app-page[data-path='/ieo'] .widget-tooltip {
     .ant-popover-arrow, .ant-popover-inner {
         background-color: #2f343b;
     }
@@ -598,17 +604,17 @@ body .ant-back-top-inner:hover {
     .brand {
         position: relative;
         height: 60px;
-        span{
+        span {
             display: inline-block;
         }
-        .AFCA{
+        .AFCA {
             width: 78px;
             height: 100%;
             margin-right: 10px;
             background: url('../images/footer-brand.png') no-repeat 0 5px;
             background-size: 170px 30px;
         }
-        .ADCA{
+        .ADCA {
             width: 86px;
             height: 100%;
             background: url('../images/footer-brand.png') no-repeat -86px 5px;
@@ -660,8 +666,8 @@ body .ant-back-top-inner:hover {
 }
 
 .ace .app-footer .footer-box .info {
-    .mail{
-        &:before{
+    .mail {
+        &:before {
             left: 122px;
         }
     }
@@ -693,9 +699,9 @@ body .ant-back-top-inner:hover {
 
 .ace .app-footer .footer-box .copyright {
     .footer-icon {
-        width: 75px;
-        background: url("../images/footer-icon-ace.png") no-repeat left;
-        background-size: 75px 21px;
+        width: 65px;
+        background: url("../images/footer-icon-ace.png") no-repeat left center;
+        background-size: 65px 21px;
     }
 }
 
