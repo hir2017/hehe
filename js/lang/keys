@@ -876,6 +876,7 @@ bpay充值提示
 ==============================新增key（2018-11-28 12:06:46）==============================
 bpay充值提示{num}
 提现手续费为固定值提示{num}
+=============== 新增key（2018-12-11 12:04:48）===============
 landpage_data_symbolname
 RECEIVE <p> FREE {symbol}</p>When You Register
 Terms & Conditions apply
@@ -903,7 +904,6 @@ Professional Risk Management
 Fund security guaranteed
 Ample Choices of Trading Pairs
 Continuous listing of all reliable currencies
-=======
 ==============================新增key（2018-12-12 20:04:51）==============================
 购买
 锁仓期间不可交易，等待公告
@@ -981,3 +981,24 @@ IEO冻结资金已扣减
 等待上账
 部分上账
 上账金额
+=======
+=============== 新增key（2018/12/20 下午5:18:18）===============
+landpage_eth_data_symbolname
+landpage_eth ETHEREUM AIRDROP
+<p> Daily Draws </p>Up to <b>60 {symbol}</b> to be Given Away
+HOW TO GET YOUR FREE {symbol}
+Sign up for a new account
+Get ID verification in your account
+Deposit a minimum value of 50 AUD or more in your account.
+{symbol} AIRDROP-LUCKY DRAW
+Rules:
+- 20 lucky users who complete the three steps will be chosen at random every day
+- After the draws have been conducted, our winners will have their rewards deposited into their account every Friday.
+Key Dates:
+- Draw dates (0.1 ETH) : 20/12/2018 – 8/01/2019
+· Every day starting from the 20th Dec 2018, 20 users will have the opportunity to get 0.1 ETH. Draws will be conducted over the event period of 30 days.
+· 599 lucky users will get 0.1 ETH.
+- Final Draw Date ( 10 ETH) :  8/01/2019
+Only one user will have the opportunity to get  10 ETH in the final day.
+Lucky Draw Winners
+{name} got a lucky draw of {count} {symbol}
