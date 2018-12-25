@@ -356,9 +356,9 @@ const getlegalMap = type => {
     };
     // 银行
     let banks = {
-        // '808': UPEX.lang.template('玉山银行'),
+        '808': UPEX.lang.template('玉山银行'),
         '004': UPEX.lang.template('臺灣銀行'),
-        // '008': UPEX.lang.template('華南銀行')
+        '008': UPEX.lang.template('華南銀行')
     };
     // 当前使用的状态值映射
     let _map = UPEX.config.version === 'ace' ? statusMap : ausStatusMap;

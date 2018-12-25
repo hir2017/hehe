@@ -22,16 +22,16 @@ class View extends Component {
         this.state = {
             type: '1',
             amount: 0,
-            bank: '1',
+            bank: '2',
             fee: 0,
             amountLowLimit: 2, // 500
             disabled: false,
             feeInfo: {}
         };
         this.bankList = [
-            { val: '1', label: UPEX.lang.template('玉山银行'), key: 'Esun' },
+            // { val: '1', label: UPEX.lang.template('玉山银行'), key: 'Esun' },
             { val: '2', label: UPEX.lang.template('臺灣銀行'), key: 'BOT' },
-            { val: '3', label: UPEX.lang.template('華南銀行'), key: 'HNCB' }
+            // { val: '3', label: UPEX.lang.template('華南銀行'), key: 'HNCB' }
         ];
         this.typeList = [
             { val: '1', label: UPEX.lang.template('网络银行转账'), key: 'webatm' },
@@ -144,13 +144,15 @@ class View extends Component {
         const { state, inputData, typeList, bankList } = this;
         // 进入第二步
         if (state.step === 2) {
+            let _typeItem = typeList.filter(item => item.val === state.type)[0];
+            let _bankItem = bankList.filter(item => item.val === state.bank)[0];
             let data = {
                 amount: state.amount,
                 fee: state.fee,
                 arrival: state.amount - state.fee,
                 type: state.type,
-                bankName: bankList[state.bank - 1].label,
-                typeName: typeList[state.type - 1].label
+                bankName: _bankItem.label,
+                typeName: _typeItem.label
             };
             return <Step2 data={data} formData={this.formData} parentCtx={this} />;
         }
