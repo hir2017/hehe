@@ -65,7 +65,7 @@ var config = {
         vendor: ['react', 'react-dom', 'react-router', 'mobx-react']
     },
     output: output,
-    devtool: 'source-map', // 输出source-map
+    // devtool: 'source-map', // 输出source-map
     module: {
         loaders: [
             {
