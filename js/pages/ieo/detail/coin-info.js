@@ -470,7 +470,7 @@ class View extends Component {
                     <img src={data.logoUrl} alt=""/>
                     <StatusIcon status={data.status}/>
                     <p className="label">{UPEX.lang.template('剩余时间')}</p>
-                    {/*<CountDown {...CountDownProp} />*/}
+                    <CountDown {...CountDownProp} />
                 </div>
 
                 <div className="right-box">
