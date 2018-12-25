@@ -340,7 +340,7 @@ module.exports={
     "landpage_eth_data_symbolname": "ETH",
     "sign up for a new account": "Sign up for a new account",
     "webATM": "WEB-ATM",
-    "{name} won a lucky draw of {count} {symbol}": "{name} won a lucky draw of {count} {symbol}",
+    "{name} got a lucky draw of {count} {symbol}": "{name} won a lucky draw of {count} {symbol}",
     "{name}充值地址": "{name}充币地址",
     "{name}市场": "{name}市场",
     "{symbol} AIRDROP-LUCKY DRAW": "{symbol} AIRDROP-LUCKY DRAW",
