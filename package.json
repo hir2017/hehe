@@ -89,7 +89,8 @@
       "澳州站多语言定制",
       "PC通用多语言翻译文档",
       "CountryCode",
-      "澳州站BITCOIN"
+      "澳州站BITCOIN",
+      "澳州站landingPageETH空投"
     ]
   },
   "license": "ISC",
@@ -107,6 +108,5 @@
   },
   "version": "2.1.25",
   "ace-version": "1.0.12",
-  "aus-version": "1.0.12"
+  "aus-version": "1.0.13"
 }
-

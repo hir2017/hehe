@@ -13,6 +13,7 @@ import Register from './pages/login-register/register';
 import ResetPwd from './pages/login-register/resetpwd';
 // import LandingPage from './pages/activity/landingpage/aus';
 import LandingPageBtc from './pages/activity/landingpage/aus-btc';
+import LandingPageEthAirDrop from './pages/activity/landingpage/aus-airdrop-eth';
 import InviteRegister from './pages/activity/invite/invite-register';
 
 // import Home from './pages/home';
@@ -165,6 +166,7 @@ const routes = (
                     <Route path="invite(-:type)" getComponent={Invite}/>
                 </Route>
             	<Route path="bitcoin" component={LandingPageBtc} />
+            	<Route path="eth-airdrop" component={LandingPageEthAirDrop} />
             </Route>
             <Route path="login" component={Login} />
 			<Route path="register" component={Register} />
