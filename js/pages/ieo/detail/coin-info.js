@@ -288,11 +288,9 @@ class View extends Component {
             ieoId: this.props.ieoId
         }).then(res => {
             if (res.status === 200) {
-                if (res.attachment === 1) {
-                    message.success(UPEX.lang.template('订阅成功'))
-                } else {
-                    message.warning(res.message);
-                }
+                message.success(UPEX.lang.template('订阅成功'))
+            } else {
+                message.warning(res.message);
             }
         }).catch(err => {
             console.error('IEOToDoSubscribe', err);
@@ -466,13 +464,13 @@ class View extends Component {
             $msgBtn = <Button className="close"
                               onClick={this.handleMsgClick}>{msgData.status === 'success' ? UPEX.lang.template('关闭') : UPEX.lang.template('重新购买')}</Button>
         }
-        return (
+        return state.projectState ? (
             <div className="coin-info clearfix">
                 <div className="left-box">
                     <img src={data.logoUrl} alt=""/>
                     <StatusIcon status={data.status}/>
                     <p className="label">{UPEX.lang.template('剩余时间')}</p>
-                    <CountDown {...CountDownProp} />
+                    {/*<CountDown {...CountDownProp} />*/}
                 </div>
 
                 <div className="right-box">
@@ -547,7 +545,7 @@ class View extends Component {
                     {$msgBtn}
                 </Modal>
             </div>
-        );
+        ) : null;
     }
 }
 
