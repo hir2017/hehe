@@ -16,6 +16,7 @@
     s.parentNode.insertBefore(t, s);
 })(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
 window.fbq('init', '1204891356188050');
+window.fbq('init', '582886408821653');
 
 export default window.fbq;
 
