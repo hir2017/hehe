@@ -497,13 +497,13 @@ class View extends Component {
                         </Col>
                         <Col className="text description" span={24}>
                             <label>{UPEX.lang.template('项目介绍')}:</label>
-                            {data.tokenDesc}
+                            <span className="des-text">{data.tokenDesc}</span>
                         </Col>
                         <Col span={24} className="text buy">
                             <Button
                                 onClick={this.handleClick}
                                 disabled={['subscribed', 'done', 'error'].indexOf(state.projectState) > -1 ? true : false}
-                            >{btnTxtMap[state.projectState] || UPEX.lang.template('已结束')}</Button>
+                            >{btnTxtMap[state.projectState]}</Button>
                         </Col>
                     </Row>
                 </div>

@@ -15,14 +15,15 @@ class View extends Component {
 
     render() {
         const { data } = this.props;
-        let $homepageUrl = data.homepageUrl ? <a href={data.homepageUrl}>{data.homepageUrl}</a> : null;
-        let $whitePaperUrl = data.whitePaperUrl ? <a href={data.whitePaperUrl}>{data.whitePaperUrl}</a> : null;
+        let $homepageUrl = data.homepageUrl ? <a href={data.homepageUrl} target="_blank">{data.homepageUrl}</a> : null;
+        let $whitePaperUrl = data.whitePaperUrl ? <a href={data.whitePaperUrl} target="_blank">{data.whitePaperUrl}</a> : null;
         let $titleAfter = (
             <span className="total-circulation">
                 {UPEX.lang.template('总发行数量')}: {NumberUtil.separate(data.totalCirculation)}
             </span>
         );
         let $tokenDistributionUrl = data.tokenDistributionUrl ? <img src={data.tokenDistributionUrl} /> : null;
+
         return (
             <Row className="token-info" gutter={20}>
                 <Col span={12}>

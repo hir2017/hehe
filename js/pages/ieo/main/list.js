@@ -47,6 +47,19 @@ class View extends Component {
         browserHistory.push(`/ieo/detail/${item.ieoId}`);
     }
 
+    //字符串隐藏处理
+    hideStr = function (string) {
+        let newStr = '';
+
+        if (UPEX.lang.language == 'en-US') {
+            newStr = string.length > 180 ? string.substring(0, 180) + '...' : string;
+        } else {
+            newStr = string.length > 80 ? string.substring(0, 80) + '...' : string;
+        }
+        return newStr;
+    };
+
+
     render() {
         let $content = null;
         let {isFetching, list} = this.state;
@@ -56,7 +69,6 @@ class View extends Component {
             $content = (
                 <ul className="token-list">
                     {
-
                         list.map((item, i) => (
                             <li key={i} className="token-item clearfix" onClick={this.toDetail.bind(this, item)}>
                                 <div className="token-pic" style={{backgroundImage: `url(${item.logoUrl})`}}>
@@ -72,7 +84,9 @@ class View extends Component {
                                     </div>
                                     <div className="content-bottom">
                                         <div className="token-desc">
-                                            <div className="inner">{item.tokenDesc}</div>
+                                            <div className="inner">
+                                                {this.hideStr(item.tokenDesc)}
+                                            </div>
                                         </div>
                                         <div className="progress">
                                             {
@@ -86,7 +100,8 @@ class View extends Component {
                                                                showtxt={true}/> :
                                                     (<div className="amount">
                                                         <em>{UPEX.lang.template('已募集')}</em>
-                                                        <span className="num">{NumberUtil.separate(item.raisedAmount)}</span>{item.tokenName}
+                                                        <span
+                                                            className="num">{NumberUtil.separate(item.raisedAmount)}</span>{item.tokenName}
                                                     </div>)
 
 
