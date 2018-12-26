@@ -33,7 +33,6 @@ Timer.prototype = Object.assign({
         this.options = Object.assign({}, defaultOptions, cfg);
 
         this.toListenPointed = false;
-
         this.toHook();
         this.startCountDown();
     },
@@ -94,8 +93,8 @@ Timer.prototype = Object.assign({
      *      @key hour {string|number} 时
      *      @key minute {string|number} 分
      *      @key second {string|number} 秒
-     * @return result {number} 
-     
+     * @return result {number}
+
      */
     combineTime(time) {
         return time.day * 86400 + time.hour * 3600 + time.minute * 60 + time.second;
@@ -129,11 +128,14 @@ Timer.prototype = Object.assign({
      */
     render(result) {
         var self = this;
-        
-        self.isNeed('day') && self.dayWrap.html(result.day);
-        self.isNeed('hour') && self.hourWrap.html(result.hour);
-        self.isNeed('minute') && self.minuteWrap.html(result.minute);
-        self.isNeed('second') && self.secondWrap.html(result.second);
+        if(self.options.updateTime) {
+            self.options.updateTime(result)
+        } else {
+            self.isNeed('day')  && self.dayWrap.text(result.day);
+            self.isNeed('hour')  && self.hourWrap.text(result.hour);
+            self.isNeed('minute')  && self.minuteWrap.text(result.minute);
+            self.isNeed('second')  && self.secondWrap.text(result.second);
+        }
     },
 
     /**

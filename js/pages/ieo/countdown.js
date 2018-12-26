@@ -13,7 +13,10 @@ import Timer from '@/lib/timer';
  */
 class CountDown extends Component {
     constructor(props) {
-        super(props)
+        super(props);
+        this.state = {
+            timeInfo: {}
+        }
     }
 
     componentDidMount() {
@@ -50,6 +53,11 @@ class CountDown extends Component {
                     hour: countdownCls + " .hour",
                     minute: countdownCls + " .minute",
                     second: countdownCls + " .second"
+                },
+                updateTime: (params) => {
+                    this.setState({
+                        timeInfo: params
+                    })
                 }
             });
 
@@ -62,25 +70,25 @@ class CountDown extends Component {
 
     render() {
         let {skin, order} = this.props;
+        const times = this.state.timeInfo;
         let showtxt = this.props.showtxt === true ? '' : 'hide';
-
         return (
             <div className={`countdown countdown${order} ${skin}`}>
                 <div className="main">
                     <div className="day-wrap">
-                        <em className="day">00</em>
+                        <em className="day">{times.day ? times.day : '00'}</em>
                         <div className={`txt ${showtxt}`}>{UPEX.lang.template('天')}</div>
                     </div>
                     <div className="hour-wrap">
-                        <em className="hour">00</em>
+                        <em className="hour">{times.hour ? times.hour : '00'}</em>
                         <div className={`txt ${showtxt}`}>{UPEX.lang.template('时')}</div>
                     </div>
                     <div className="minute-wrap">
-                        <em className="minute">00</em>
+                        <em className="minute">{times.minute ? times.minute : '00'}</em>
                         <div className={`txt ${showtxt}`}>{UPEX.lang.template('分')}</div>
                     </div>
                     <div className="second-wrap">
-                        <em className="second">00</em>
+                        <em className="second">{times.second ? times.second : '00'}</em>
                         <div className={`txt ${showtxt}`}>{UPEX.lang.template('秒')}</div>
                     </div>
                 </div>
