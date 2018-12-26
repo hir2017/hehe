@@ -168,8 +168,8 @@ export const token_record = function () {
             {dataIndex: 'payCurrencyNameEn', className: 'way'},
             {dataIndex: 'ieoCurrencyNameEn', className: 'name'},
             {dataIndex: 'ieoCount', className: 'num'},
-            {dataIndex: 'rate', className: 'price'},
-            {dataIndex: 'payCount', className: 'total'},
+            {dataIndex: '_rate', className: 'price'},
+            {dataIndex: '_payCount', className: 'total'},
             {dataIndex: '_status', className: 'status'},
         ]
     };

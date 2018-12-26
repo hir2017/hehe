@@ -4,7 +4,7 @@
 import React, {Component} from 'react';
 import {browserHistory} from 'react-router';
 import {observer, inject} from 'mobx-react';
-import {Button, Modal, Row, Col, Progress, Select, message, Checkbox} from 'antd';
+import {Button, Modal, Row, Col, Progress, Select, message, Checkbox, Icon} from 'antd';
 import FormView from '@/mods/common/form';
 import FormItem from '@/mods/common/form/item';
 import {StatusIcon} from '../view';
@@ -126,12 +126,14 @@ class View extends Component {
                     selectCoin,
                     coins: list,
                     number: 0,
-                    agreementUrl: res.attachment.userProtocolUrl
+                    agreementUrl: res.attachment.userProtocolUrl,
                 })
             }
+            //只有成功获取信息，才返回true，否则为false(如status为21009，表示IEO项目未启动或已完成)
+            return res.status === 200;
         }).catch(err => {
             console.error('ieo getSingleIEOPurchaseInfo', err)
-        })
+        });
     }
 
     checkProjectState() {
@@ -348,15 +350,22 @@ class View extends Component {
             this.handleSubscribe();
             return;
         }
-
-        this.getPurchaseInfo();
-        this.setState({
-            visible: true,
-            msgVisible: false
+        //购买操作
+        this.getPurchaseInfo().then(res => {
+            if (res) {
+                this.setState({
+                    visible: true,
+                    msgVisible: false
+                });
+            }
+            else {
+                message.warning(UPEX.lang.template('IEO项目已完成，无法购买'));
+            }
         });
+
     };
 
-    // 操作按钮
+    // 购买成功/失败弹窗操作按钮
     handleMsgClick = () => {
         const {msgData} = this.state;
         let _state = {
@@ -408,6 +417,13 @@ class View extends Component {
             return <Option key={i} value={item.tokenId}>{item.tokenName}</Option>
         });
 
+        //没有完成KYC2认证
+        let noKYC = userInfoStore.userInfo.authLevel < this.level && selectCoin.tokenName === UPEX.config.baseCurrencyEn;
+
+        //如果购买币种，单价比例为-1，则该币无法进行购买
+        let coinCanBuy = selectCoin.tokenRate != -1 ? true : false;
+
+
         // 余额信息
         let $amount = (
             <div className="amount-info">
@@ -433,7 +449,7 @@ class View extends Component {
         );
         // 法币购买-身份认证提示
         let $authTip = null;
-        if (userInfoStore.userInfo.authLevel < this.level && selectCoin.tokenName === UPEX.config.baseCurrencyEn) {
+        if (noKYC) {
             $authTip = (<div className="coin-condition">
                 {UPEX.lang.template('去认证KYC2可通过法币直接购买，')}<a href="/user/bankInfo">{UPEX.lang.template('点击认证')}</a>
             </div>);
@@ -509,9 +525,14 @@ class View extends Component {
                 <Modal {...ModalProp} visible={state.visible}>
                     <FormView>
                         <FormItem label={UPEX.lang.template('购买单价')}>
-                            <div className="text">
-                                1 <em>{data.tokenName}</em> ≈ {selectCoin.tokenRate} <em>{selectCoin.tokenName}</em>
-                                <span className="tip">{UPEX.lang.template('当前比例是根据 ACE 10分钟内价格计算')}</span>
+                            <div className="text price">
+                                {selectCoin.tokenRate === -1 ? <div className="warn-tip"><Icon type="exclamation-circle"
+                                                                                               theme="outlined"/>{UPEX.lang.template('暂不支持该交易对')}
+                                    </div> :
+                                    <div> 1 <em> {data.tokenName}</em> ≈ {selectCoin.tokenRate}
+                                        <em>{selectCoin.tokenName}</em>
+                                        <span className="tip">{UPEX.lang.template('当前比例是根据 ACE 10分钟内价格计算')}</span></div>
+                                }
                             </div>
                         </FormItem>
                         <FormItem label={UPEX.lang.template('购买方式')} after={$authTip}>
@@ -531,7 +552,8 @@ class View extends Component {
                         </FormItem>
 
                         <FormItem after={$coinAgreement}>
-                            <Button className="submit-btn" onClick={this.onSubmit} disabled={!state.check}>
+                            <Button className="submit-btn" onClick={this.onSubmit}
+                                    disabled={!(state.check && !noKYC && coinCanBuy)}>
                                 {UPEX.lang.template('购买')}
                             </Button>
                         </FormItem>

@@ -105,7 +105,7 @@
             }
         }
         // 分批上账
-        &.deposit .list-expanded-row .deposit-detail-list{
+        &.deposit .list-expanded-row .deposit-detail-list {
             margin: 15px 0;
             padding: 20px 0 0;
             border-top: 1px solid @space-color-light;
@@ -118,11 +118,11 @@
                 margin-left: 30px;
             }
         }
-        &.coin-deposit , &.coin-withdraw{
-             .detail-content {
-                 text-align: center;
-             }
-         }
+        &.coin-deposit, &.coin-withdraw {
+            .detail-content {
+                text-align: center;
+            }
+        }
         &.coin-deposit {
             .status {
                 width: 100px;
@@ -216,18 +216,34 @@
         }
         //IEO 购买记录列表
         &.token-record {
-            .list-col{
+            .list-col {
                 height: auto;
             }
-            .way, .name {
+            .way, .name, .num, .total, .status {
+                text-align: right;
+            }
+            .time {
+                text-align: left;
+                width: 160px;
+                text-indent: 10px;
+            }
+            .way{
                 width: 100px;
-                text-align: left;
             }
-            .time, .num, .price, .total, .status {
-                width: 192px;
-                text-align: left;
+             .name, .num {
+                width: 160px;
             }
-            .tip{
+            .num{
+                padding-right: 20px;
+            }
+            .price, .total {
+                width: 180px;
+            }
+            .status {
+                width: 220px;
+                text-indent: 10px;
+            }
+            .tip {
                 display: inline-block;
                 vertical-align: middle;
                 width: 14px;
@@ -235,7 +251,7 @@
                 background: url("../images/ieo/tip-icon.png") no-repeat center 4px;
                 background-size: 14px 14px;
                 margin-left: 3px;
-                &:hover{
+                &:hover {
                     background-image: url("../images/ieo/tip-icon-hover.png");
                 }
             }
@@ -259,9 +275,9 @@
 }
 
 //澳洲隐藏IEO购买记录,修改tab样式
-.infinitex .assets-change{
-    .swtich-tabs{
-        .tab{
+.infinitex .assets-change {
+    .swtich-tabs {
+        .tab {
             width: 20%;
         }
     }

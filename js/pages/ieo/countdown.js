@@ -23,6 +23,10 @@ class CountDown extends Component {
         this.createCountDown();
     }
 
+    // componentWillUnmount(){
+    //     //this.countdown && this.countdown.destroy();
+    // }
+
     //获取倒计时剩余时间。状态flag为0时表示未开始；flag为1表示进行中；flag为其他时，不进行倒计时
     getRemainTime() {
         let {startTime, endTime, serverTime, flag} = this.props;
@@ -46,6 +50,8 @@ class CountDown extends Component {
         let countdownCls = `.countdown${order}`;
 
         if (remainTime > 0) {
+            //this.countdown && this.countdown.destroy();
+
             this.countdown = new Timer({
                 remainTime: remainTime,
                 selector: {

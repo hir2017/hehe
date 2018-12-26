@@ -6,7 +6,7 @@
     // 通用
 
     .countdown {
-        .main{
+        .main {
             display: flex;
         }
         .day-wrap, .hour-wrap, .minute-wrap, .second-wrap {
@@ -19,7 +19,7 @@
             background-position: center;
             background-size: 100%;
             color: #fff;
-            &.day:after, &.hour:after, &.minute:after{
+            &.day:after, &.hour:after, &.minute:after {
                 position: absolute;
                 content: '';
                 width: 3px;
@@ -37,7 +37,7 @@
             background-image: url("../../images/ieo/time-dark.png");
         }
 
-        .hide{
+        .hide {
             display: none;
         }
 
@@ -68,12 +68,12 @@
 
 // ieo购买弹窗
 .ant-modal-wrap.ieo-buy {
-    .ant-modal-body{
+    .ant-modal-body {
         padding: 10px;
     }
     .exc-form-item {
         margin-bottom: 20px;
-        &:last-child{
+        &:last-child {
             margin-bottom: 0;
         }
         .text {
@@ -83,6 +83,14 @@
             line-height: 40px;
             background-color: @list-hoverbg-color01-light;
             color: @text-color01-light;
+            &.price {
+                .warn-tip {
+                    color: @text-red-color01;
+                    .anticon-exclamation-circle {
+                        margin-right: 5px;
+                    }
+                }
+            }
             .tip {
                 color: @text-color02-light;
                 position: absolute;
@@ -90,11 +98,11 @@
                 bottom: 35px;
                 font-size: 12px;
             }
-            em{
+            em {
                 color: @text-color02-light;
             }
         }
-        .ant-checkbox-wrapper{
+        .ant-checkbox-wrapper {
             margin: 10px auto;
             font-size: 12px;
             color: @text-color02-light;
@@ -116,7 +124,10 @@
             float: right;
         }
     }
-    .ant-modal-close-x{
+    .coin-condition {
+        color: @text-red-color01;
+    }
+    .ant-modal-close-x {
         position: absolute;
         width: 30px;
         height: 30px;
@@ -124,15 +135,16 @@
         background-size: 100%;
         right: -50px;
         opacity: 0.6;
-        &:hover{
+        &:hover {
             opacity: 1;
         }
-        &:before{
+        &:before {
             content: '';
         }
     }
 
 }
+
 .ant-modal-wrap.ieo-buy-msg {
     .ant-modal-body {
         position: relative;
@@ -153,8 +165,15 @@
         }
     }
 
-    .fail h3 .inner {
-        background-image: url('../../images/icon-close.png');
+    .fail {
+
+        h3 .inner {
+            background-image: url('../../images/icon-close.png');
+        }
+        .content p {
+            text-align: center;
+        }
+
     }
     .content {
         p {
@@ -188,14 +207,14 @@
 }
 
 //英文特殊样式
-.app-page.en-US .ieo-wrapper{
-    .feature-wrap{
-        ul.content{
-            li.feature{
-                h3{
+.app-page.en-US .ieo-wrapper {
+    .feature-wrap {
+        ul.content {
+            li.feature {
+                h3 {
                     margin-bottom: 6px;
                 }
-                .des{
+                .des {
                     line-height: 14px;
                     font-weight: 300;
                 }

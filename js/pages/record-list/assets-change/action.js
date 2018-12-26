@@ -110,9 +110,9 @@ const FormatSourceData = (type, res, params) => {
 };
 
 // 发起请求 获取数据
-export const getList = function(type, page = 1) {
+export const getList = function (type, page = 1) {
     // 获取对应tab的请求函数，和请求参数
-    let { request, params } = getParams(type, page);
+    let {request, params} = getParams(type, page);
     if (request === null) {
         console.error('record: getList type is lose');
         return;
@@ -243,9 +243,11 @@ const formatFn = {
                 item._status = UPEX.lang.template('交易成功');
                 break;
             case 2:
-                item._status = (<div>{UPEX.lang.template('交易失败')}<Tooltip placement="top" title={UPEX.lang.template('IEO募集失败提示')} overlayClassName="buy-tooltip">
-                    <span className="tip"/>
-                </Tooltip></div>);
+                item._status = (
+                    <div>{UPEX.lang.template('交易失败')}<Tooltip placement="top" title={UPEX.lang.template('IEO募集失败提示')}
+                                                              overlayClassName="buy-tooltip">
+                        <span className="tip"/>
+                    </Tooltip></div>);
                 break;
             case 5:
                 item._status = UPEX.lang.template('已退款');
@@ -257,6 +259,9 @@ const formatFn = {
                 item._status = UPEX.lang.template('交易成功');
                 break;
         }
+        item._rate = (<span>{item.rate} {item.payCurrencyNameEn}/{item.ieoCurrencyNameEn}</span>);
+        item._payCount = (<span>{item.payCount} {item.payCurrencyNameEn}</span>);
+
         return item;
     }
 };
