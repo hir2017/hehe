@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Route, IndexRedirect, IndexRoute} from 'react-router';
+import FbqAd from '@/lib/fb-ads/ace';
 
 import Layout from './pages/layout';
 
@@ -100,7 +101,7 @@ const onEnterHandle = (nextState, replace) => {
     //     window.location.href = pathMap[location.pathname]
     //     // replace(pathMap[location.pathname]);
     // }
-
+    FbqAd('track', 'PageView');
 }
 
 

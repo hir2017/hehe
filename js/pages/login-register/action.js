@@ -4,6 +4,7 @@ import { browserHistory } from 'react-router';
 import Timer from '../../lib/timer';
 import VerifyRules from '../../lib/util/verify';
 import md5 from '../../lib/md5';
+import FbqAd from '@/lib/fb-ads/ace';
 
 export default (store) => {
     return {
@@ -257,6 +258,7 @@ export default (store) => {
 
                 switch (data.status) {
                     case 200:
+                        FbqAd('track', 'CompleteRegistration');
                         store.disabledSMSOrPhoneCode(false);
                         message.success(UPEX.lang.template('成功，将跳转登录页面'));
 
