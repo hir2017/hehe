@@ -40,8 +40,8 @@ class Page extends Component {
     }
 
     // 获取数据信息
-    getData() {
-        return getSingleIEOInfo({
+    getData = () => {
+        getSingleIEOInfo({
             ieoId: this.ieoId
         }).then(res => {
             if (res.status == 200) {
@@ -50,7 +50,7 @@ class Page extends Component {
                 })
             }
             //IEO信息为空或已下线
-            if (res.status == 21006||res.status==21011) {
+            if (res.status == 21006 || res.status == 21011) {
                 this.setState({
                     showErrorPage: true
                 })
@@ -85,8 +85,8 @@ class Page extends Component {
 
         return (
             <div className="ieo-wrapper detail">
-                <CoinInfo data={ieoInfo} ieoId={this.ieoId}/>
-                <TokenInfo data={ieoInfo} ieoId={this.ieoId}/>
+                <CoinInfo data={ieoInfo} ieoId={this.ieoId} refresh={this.getData}/>
+                <TokenInfo data={ieoInfo} ieoId={this.ieoId} refresh={this.getData}/>
             </div>
         );
     }

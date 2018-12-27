@@ -227,6 +227,8 @@ class View extends Component {
                     amount: res.attachment.payCount
                 };
                 msgData.date = TimeUtil.formatDate(res.attachment.buyTime);
+                //购买成功后刷新IEO币种信息
+                this.props.refresh();
             } else {
                 msgData.message = res.message;
             }

@@ -29,7 +29,7 @@ class View extends Component {
                 <Col span={12}>
                     <PageWrapper title={UPEX.lang.template('Token 详情')} className="header-shadow detail">
                         <p className="item">
-                            <span className="label">{UPEX.lang.template('主页')}</span>
+                            <span className="label home">{UPEX.lang.template('主页')}</span>
                             {$homepageUrl}
                         </p>
                         <p className="item">

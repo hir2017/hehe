@@ -14,18 +14,15 @@ import Timer from '@/lib/timer';
 class CountDown extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            timeInfo: {}
-        }
     }
 
     componentDidMount() {
         this.createCountDown();
     }
 
-    // componentWillUnmount(){
-    //     //this.countdown && this.countdown.destroy();
-    // }
+    componentWillUnmount() {
+        this.countdown && clearTimeout(this.countdown);
+    }
 
     //获取倒计时剩余时间。状态flag为0时表示未开始；flag为1表示进行中；flag为其他时，不进行倒计时
     getRemainTime() {
@@ -45,26 +42,24 @@ class CountDown extends Component {
 
     createCountDown() {
         let remainTime = this.getRemainTime();
-        //页面上需要显示多个倒计时需传入的参数
-        let order = this.props.order || '';
-        let countdownCls = `.countdown${order}`;
+
+        let dayNode = this.refs.day;
+        let hourNode = this.refs.hour;
+        let minuteNode = this.refs.minute;
+        let secondNode = this.refs.second;
 
         if (remainTime > 0) {
-            //this.countdown && this.countdown.destroy();
+            this.countdown && clearTimeout(this.countdown);
 
             this.countdown = new Timer({
                 remainTime: remainTime,
                 selector: {
-                    day: countdownCls + " .day",
-                    hour: countdownCls + " .hour",
-                    minute: countdownCls + " .minute",
-                    second: countdownCls + " .second"
+                    day: dayNode,
+                    hour: hourNode,
+                    minute: minuteNode,
+                    second: secondNode
                 },
-                updateTime: (params) => {
-                    this.setState({
-                        timeInfo: params
-                    })
-                }
+
             });
 
             //倒计时结束进行的操作
@@ -76,25 +71,24 @@ class CountDown extends Component {
 
     render() {
         let {skin, order} = this.props;
-        const times = this.state.timeInfo;
         let showtxt = this.props.showtxt === true ? '' : 'hide';
         return (
-            <div className={`countdown countdown${order} ${skin}`}>
+            <div className={`countdown countdown${order} ${skin}`} ref="time">
                 <div className="main">
                     <div className="day-wrap">
-                        <em className="day">{times.day ? times.day : '00'}</em>
+                        <em className="day" ref="day">00</em>
                         <div className={`txt ${showtxt}`}>{UPEX.lang.template('天')}</div>
                     </div>
                     <div className="hour-wrap">
-                        <em className="hour">{times.hour ? times.hour : '00'}</em>
+                        <em className="hour" ref="hour">00</em>
                         <div className={`txt ${showtxt}`}>{UPEX.lang.template('时')}</div>
                     </div>
                     <div className="minute-wrap">
-                        <em className="minute">{times.minute ? times.minute : '00'}</em>
+                        <em className="minute" ref="minute">00</em>
                         <div className={`txt ${showtxt}`}>{UPEX.lang.template('分')}</div>
                     </div>
                     <div className="second-wrap">
-                        <em className="second">{times.second ? times.second : '00'}</em>
+                        <em className="second" ref="second">00</em>
                         <div className={`txt ${showtxt}`}>{UPEX.lang.template('秒')}</div>
                     </div>
                 </div>
