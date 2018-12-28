@@ -18,7 +18,7 @@ class Page extends Component {
     render() {
         return (
             <div className="ieo-wrapper">
-                <Constellation/>
+                {/*<Constellation/>*/}
                 <div className="ieo-apply">
                     <a href={UPEX.lang.template('申请发布IEO google文档链接')} target="_blank" className="apply-btn" dangerouslySetInnerHTML={{__html: UPEX.lang.template('申请发布IEO')}}></a>
                 </div>
