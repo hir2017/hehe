@@ -54,7 +54,7 @@ class PageView extends Component {
                 <div className="register-wrap clearfix" >
                     <div className={`wrap-left ${this.state.addClass}`}>
                         <p className={`friend ${this.state.addClass}`}>{UPEX.lang.template('你的好友')}</p>
-                        {/* <p className={`friend ${this.state.addClass}`}>{this.state.username}</p> */}
+                         <p className={`friend ${this.state.addClass}`}>{this.state.username}</p>
                         <p className={`title ${this.state.addClass}`}>{UPEX.lang.template('邀请您注册{sitename}', {sitename: UPEX.config.sitename})}</p>
                         <div className={`btn ${this.state.addClass}`}>
                             <a href={`/register?invite_code=${this.invitedCode}`}>{UPEX.lang.template('立即注册')}</a>
