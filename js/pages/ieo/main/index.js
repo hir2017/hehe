@@ -3,9 +3,18 @@
  */
 import React, {Component} from 'react';
 import Constellation from '@/lib/constellation';
+import BgAnimation from '@/lib/constellation/BgAnimation';
 
 import List from './list';
 import Features from './feature';
+
+function getBgAnimationProps() {
+    try {
+        return window.innerWidth < 500 ? {max_particles: 50, maxdistance: 20} : {};
+    } catch (e) {
+        return {max_particles: 50, maxdistance: 20};
+    }
+}
 
 class Page extends Component {
     constructor(props) {
@@ -18,7 +27,7 @@ class Page extends Component {
     render() {
         return (
             <div className="ieo-wrapper">
-                {/*<Constellation/>*/}
+                <BgAnimation  {...getBgAnimationProps()} />
                 <div className="ieo-apply">
                     <a href={UPEX.lang.template('申请发布IEO google文档链接')} target="_blank" className="apply-btn" dangerouslySetInnerHTML={{__html: UPEX.lang.template('申请发布IEO')}}></a>
                 </div>

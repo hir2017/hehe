@@ -23,7 +23,7 @@ class View extends Component {
         this.fetchData();
     }
 
-    fetchData() {
+    fetchData = () => {
         this.setState({
             isFetching: 1
         });
