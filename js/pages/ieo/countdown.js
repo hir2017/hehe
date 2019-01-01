@@ -29,6 +29,8 @@ class CountDown extends Component {
         let {startTime, endTime, serverTime, flag} = this.props;
         let remainTime;
 
+        serverTime = serverTime - 6;
+
         if (flag == 0) {
             remainTime = startTime - serverTime;
         } else if (flag == 1) {
