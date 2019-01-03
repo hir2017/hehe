@@ -2,7 +2,6 @@
  * @fileoverview IEO 主页
  */
 import React, {Component} from 'react';
-import Constellation from '@/lib/constellation';
 import BgAnimation from '@/lib/constellation/BgAnimation';
 
 import List from './list';

@@ -127,10 +127,13 @@ class View extends Component {
                     coins: list,
                     number: 0,
                     agreementUrl: res.attachment.userProtocolUrl,
+                    visible: true,
+                    msgVisible: false
                 })
             }
-            //只有成功获取信息，才返回true，否则为false(如status为21009，表示IEO项目未启动或已完成)
-            return res.status === 200;
+            else {
+                message.warning(res.message);
+            }
         }).catch(err => {
             console.error('ieo getSingleIEOPurchaseInfo', err)
         });
@@ -227,7 +230,7 @@ class View extends Component {
                     amount: res.attachment.payCount
                 };
                 msgData.date = TimeUtil.formatDate(res.attachment.buyTime);
-                //购买成功后刷新IEO币种信息
+                //购买成功后刷新IEO项目信息
                 this.props.refresh();
             } else {
                 msgData.message = res.message;
@@ -353,17 +356,7 @@ class View extends Component {
             return;
         }
         //购买操作
-        this.getPurchaseInfo().then(res => {
-            if (res) {
-                this.setState({
-                    visible: true,
-                    msgVisible: false
-                });
-            }
-            else {
-                message.warning(UPEX.lang.template('IEO项目已完成，无法购买'));
-            }
-        });
+        this.getPurchaseInfo()
 
     };
 
@@ -442,9 +435,10 @@ class View extends Component {
         // 协议条款
         let $coinAgreement = (
             <Checkbox onChange={this.checkHandel}>
-                <span className="coin-agreement">
-                    {UPEX.lang.template('勾选表示同意接受《IEO使用条款》与《ACE使用者条款》')} {agreementUrl ?
-                    <a href={agreementUrl} target="_blank">{agreementUrl}</a> : null}
+                <span className="coin-agreement" dangerouslySetInnerHTML={{
+                    __html:
+                        UPEX.lang.template('勾选表示同意接受《IEO使用条款》', {link: agreementUrl ? agreementUrl : null})
+                }}>
                 </span>
             </Checkbox>
 

@@ -429,7 +429,7 @@ module.exports={
     "前往资金记录": "Go to asset record",
     "剩余时间": "Remaining Time",
     "加入 IEO": "Join IEO",
-    "勾选表示同意接受《IEO使用条款》与《ACE使用者条款》": "I agree to \"IEO User Terms\" & \"ACE User Terms\"",
+    "勾选表示同意接受《IEO使用条款》": "I agree to <a target=\"_blank\" href={link}>\"IEO User Terms\" </a>",
     "勾选选项表示您同意我们的用户条款和隐私条款": "By ticking this box, you agree to our <a href=\"{href1}\" target=\"_blank\">Customer Statement terms</a> and <a href=\"{href2}\" target=\"_blank\"> Private Policy</a>",
     "单日充值限额 {num1}": "Daily deposit limit {num1}",
     "单日充值限额 {num1} ，充值時請勿超過限額": "Daily limit {num1}, Monthly limit {num1}, Please do not exceed the limit.",
