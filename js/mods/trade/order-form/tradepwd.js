@@ -4,6 +4,7 @@
 import React, {Component} from 'react';
 import ReactDOM, {render} from 'react-dom';
 import { Modal,message} from 'antd';
+import AutoCompleteHack from '@/mods/common/auto-complete-hack';
 
 class PopupTradePwd extends Component{
     static defaultProps = {
@@ -75,6 +76,7 @@ class PopupTradePwd extends Component{
             >
                 <div className="popup-trade-password">
                     <div className="input-area clearfix">
+                    <AutoCompleteHack></AutoCompleteHack>
                         <div className={ !this.state.validPwd ? 'input-box': 'input-box' }>
                             <input
                                 ref="input"

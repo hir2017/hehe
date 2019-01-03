@@ -6,6 +6,7 @@ import PopupTradePwd from './tradepwd';
 import InputNumber from '../../input-number';
 import toAction from './action';
 import Gtag from '@/lib/ga-analytics';
+import AutoCompleteHack from '@/mods/common/auto-complete-hack';
 
 @inject('tradeStore', 'authStore', 'userInfoStore')
 @observer
@@ -425,6 +426,7 @@ class TradeForm extends Component {
         let marketcontent = (
             <div className={store.tradeType == 'market' ? 'trade-form-mod' : 'trade-form-mod hidden'}>
                 <div className="trade-form-l">
+                    <AutoCompleteHack />
                     <ul className="form-mod-hd">
                         <li className="name">
                             {UPEX.lang.template('买入')} {currencyNameEn}
@@ -502,6 +504,7 @@ class TradeForm extends Component {
                     </ul>
                 </div>
                 <div className="trade-form-r">
+                    <AutoCompleteHack />
                     <ul className="form-mod-hd">
                         <li className="name">
                             {UPEX.lang.template('卖出')} {currencyNameEn}
@@ -588,6 +591,7 @@ class TradeForm extends Component {
 
         return (
             <div className="trade-form">
+                <AutoCompleteHack />
                 <div className="trade-form-hd" data-type={store.tradeType}>
                     <ul ref="tabs">
                         {this.tabs.map((item, index) => {
