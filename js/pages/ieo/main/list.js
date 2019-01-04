@@ -99,9 +99,9 @@ class View extends Component {
                                                                skin={item.status == 0 ? 'light' : 'dark'}
                                                                showtxt={true}/> :
                                                     (<div className="amount">
-                                                        <em>{UPEX.lang.template('已募集')}</em>
-                                                        <span
-                                                            className="num">{NumberUtil.separate(item.raisedAmount)}</span>{item.tokenName}
+                                                        <span className="txt">{UPEX.lang.template('已募集')}</span>
+                                                        <span className="num">{NumberUtil.separate(item.raisedAmount)}</span>
+                                                        <span className="token">{item.tokenName}</span>
                                                     </div>)
 
 
