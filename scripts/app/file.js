@@ -34,7 +34,7 @@ var exportLangFile = {
         var package = require(cwd + '/package.json');
         var spreadsheetId = package.googleSpreadsheetId;
         var googleWorksheet = package.googleWorksheet || 0; // 从0开始
-        var fileContent = package.googleFileExport || 'module.exports'
+        var fileContent = package.googleFileExport || 'module.exports';
 
         if (cfg.multi) {
             for (var entername in googleWorksheet) {
@@ -62,9 +62,10 @@ var exportLangFile = {
             }
             return;
         }
+        let result = null;
         if (spreadsheetId) {
             console.log(spreadsheetId, googleWorksheet);
-            this.spreadsheetToJson({
+            result =  this.spreadsheetToJson({
                     spreadsheetId: spreadsheetId,
                     vertical: true,
                     hash: 'key',
@@ -81,13 +82,14 @@ var exportLangFile = {
         } else {
             console.log('googleSpreadsheetId未配置，请在package.json中进行配置');
         }
+        return result;
     },
 
     save: function(data, fileContent, cfg, entername) {
-        var gsfile = process.cwd() + '/js/lang/' + (entername ? (entername + '/') : '') + 'pack.js';
+        var gsfile = process.cwd() + '/static/lang/' + (entername ? (entername + '/') : '') + 'pack.js';
         var split = cfg.split;
 
-        var content = stringify(data, { space: '    ' });
+        var content = stringify(data, { space: '' });
 
         content = fileContent + '=' + content;
 
@@ -98,7 +100,6 @@ var exportLangFile = {
             this.splitFile(content, gsfile);
         }
         console.log('多语言文件已生成:' + ' ==========> ' + (gsfile));
-
         this.check(content);
     },
 
@@ -125,7 +126,7 @@ var exportLangFile = {
             return;
         }
 
-        content = JSON.parse(content.replace('module.exports=', ''));
+        content = JSON.parse(content.replace('window.LangPack=', ''));
 
         let remains = [];
 
@@ -152,12 +153,12 @@ var exportLangFile = {
 
 
     splitFile(content, _path) {
-        content = JSON.parse(content.replace('module.exports=', ''));
+        content = JSON.parse(content.replace('window.LangPack=', ''));
         var itemPath;
         for (var i in content) {
             itemPath = _path.replace('pack', i);
             // console.log(content[i])
-            filetool.writefile(itemPath, 'module.exports=' + stringify(content[i], {
+            filetool.writefile(itemPath, 'window.LangPack=' + stringify(content[i], {
                 space: '    '
             }) + ';');
             console.log('多语言文件已生成:' + ' ==========> ' + (itemPath));

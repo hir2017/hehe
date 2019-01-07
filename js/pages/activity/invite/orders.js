@@ -3,9 +3,8 @@
  */
 import React, {Component} from "react";
 import {getInviteCommissionList, getInvitationList} from '../../../api/http';
-import {Pagination} from 'antd';
+import {Pagination, message} from 'antd';
 import TimeUtil from '@/lib/util/date';
-import {message} from "antd/lib/index";
 
 class OrderView extends Component {
     constructor(props) {
