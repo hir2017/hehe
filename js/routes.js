@@ -63,6 +63,11 @@ import PhoneSuccess from './mods/binding-phone/success'
 import IEO from './pages/ieo/main'
 import IEODetail from './pages/ieo/detail'
 
+//用户成长体系
+import UserPoint from './pages/user-point/home';
+import PointWelcome from './pages/user-point/welcome';
+
+
 const Home = (location, cb) => {
     require.ensure([], require => {
         cb(null, require('./pages/home').default);
@@ -86,7 +91,6 @@ const Invite = (location, cb) => {
         cb(null, require('./pages/activity/invite/index').default);
     }, 'invite');
 };
-
 
 const onEnterHandle = (nextState, replace) => {
     // const {location} = nextState;
@@ -171,6 +175,12 @@ const routes = (
                     <Route path="invite(-:type)" getComponent={Invite}/>
                 </Route>
             </Route>
+            <Route path="user-point" component={Auth}>
+                <IndexRoute component={UserPoint}/>
+                <Route path="home" component={UserPoint}/>
+            </Route>
+            <Route path="user-point/welcome" component={PointWelcome}/>
+            <Route path="welcome" component={PointWelcome}/>
             <Route path="login" onEnter={onEnterHandle} component={Login}/>
             <Route path="register" onEnter={onEnterHandle} component={Register}/>
             <Route path="resetpwd" component={ResetPwd}/>

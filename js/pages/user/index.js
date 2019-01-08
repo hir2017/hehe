@@ -3,10 +3,10 @@
  * @author 陈立英
  * @date 2018-05-19
  */
-import React, { Component } from 'react';
-import { Link, browserHistory } from 'react-router';
-import { observer, inject } from 'mobx-react';
-import { Breadcrumb, message } from 'antd';
+import React, {Component} from 'react';
+import {Link, browserHistory} from 'react-router';
+import {observer, inject} from 'mobx-react';
+import {Breadcrumb, message} from 'antd';
 
 @inject('userInfoStore', 'authStore')
 @observer
@@ -68,11 +68,17 @@ class UserPage extends Component {
             {
                 key: 'activity',
                 title: UPEX.lang.template('活动'),
-                subItems: [{
-                    active: 'invite-home',
-                    route: '/activity/invite-home',
-                    text: UPEX.lang.template('邀请返佣')
-                }]
+                subItems: [
+                    {
+                        active: 'userpoint',
+                        route: '/user-point/home',
+                        text: UPEX.lang.template('我的Ace Point')
+                    }, {
+                        active: 'invite-home',
+                        route: '/activity/invite-home',
+                        text: UPEX.lang.template('邀请返佣')
+                    }
+                ]
             }
         ];
         if(UPEX.config.version === 'infinitex') {
