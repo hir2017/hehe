@@ -21,7 +21,9 @@ class IdentityAuthentication extends Component {
     }
 
     state = {
-        step: null
+        step: null,
+        cacheBase: {},
+        cacheImg: {}
     };
 
 
@@ -31,12 +33,22 @@ class IdentityAuthentication extends Component {
         });
     }
 
+    updateCache = (field, data) => {
+        this.setState({
+            [field]: data
+        })
+    }
+
     nowStep(step) {
+        let _props = {
+            updateCache: this.updateCache,
+            cacheData: this.state.cacheBase
+        }
         if (step === 1) {
-            return <FirstStep changeStep={this.changeStep} />;
+            return <FirstStep {..._props} changeStep={this.changeStep} />;
         }
         if (step === 2) {
-            return <SecondStep changeStep={this.changeStep} />;
+            return <SecondStep {..._props} changeStep={this.changeStep} />;
         }
         if (step === 3) {
             return <ThirdStep changeStep={this.changeStep} />;
@@ -56,7 +68,9 @@ class IdentityAuthentication extends Component {
                 break;
             case 1:
             case -1:
-                step = 3;
+                step = userInfo.readFailReason === 1 ? 3 : 1;
+
+
                 break;
             case 2:
                 step = 4;

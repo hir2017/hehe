@@ -1234,3 +1234,13 @@ export function getAssetChangeReward(data) {
     // return axios.post('/coin/selectCustomerAccountWaterList', data);
     return axios.post('/coin/selectActivitiesCustomerAccountWaterList', data);
 }
+
+
+/**
+ * 所在地区查询
+ * @language	语种 1:中简 2:中繁 3:英文
+ * @locationId	地区id
+ */
+export function getRealLocation(data) {
+    return axios.post('/param/realLocations', data);
+}
