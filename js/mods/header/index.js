@@ -49,6 +49,8 @@ class HeaderView extends Component {
     render() {
         let {authStore, userInfoStore, commonStore, tradeStore} = this.props;
         let username = '--';
+        let ableSeeIEO = [10001, 10005, 10032, 10028, 10012, 10003, 10002, 10050, 10055, 10059, 10051, 10052, 10054, 10056, 10030, 10067, 10006, 10020, 10014, 10017, 10047, 10011, 10016, 10021, 10009, 10574, 11486, 10043, 10041, 10207, 10196, 10023, 10045, 10033, 10394, 12228].indexOf(userInfoStore.userInfo.uid) >= 0;
+
 
         const usermenu = (
             <dl className="menu-list header-menu">
@@ -89,7 +91,7 @@ class HeaderView extends Component {
                                 <Link to="/news">{UPEX.lang.template('公告中心')}</Link>
                             </li>
                             {
-                                UPEX.config.version == 'ace' ? (
+                                UPEX.config.version == 'ace' && ableSeeIEO ? (
                                     <li className="ieo">
                                         <Link to="/ieo">{UPEX.lang.template('Launcher')}</Link>
                                     </li>) : null
