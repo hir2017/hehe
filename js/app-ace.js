@@ -21,8 +21,8 @@ import { observer, Provider } from 'mobx-react';
 import { message } from 'antd';
 import Url from './lib/url';
 
-import LangPack from './lang/app/pack.js';
-window.LangPack = LangPack;
+// import LangPack from './lang/app/pack.js';
+// window.LangPack = LangPack;
 
 import './config';
 import './global';
