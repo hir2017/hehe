@@ -57,8 +57,7 @@ export default class SecondStep extends Component {
             }
         ];
         const {cacheData} = props;
-        console.log(props, cacheData)
-        this.isPassPort = cacheData.locationCode !== '1';
+        this.isPassPort = cacheData.realLocation != '1';
         this.picsData =  this.isPassPort ? passPortData : picsData;
         this.next = this.next.bind(this);
     }
@@ -108,25 +107,14 @@ export default class SecondStep extends Component {
             message.error(UPEX.lang.template('请上传照片'));
             return;
         }
-
-        const info = this.props.userInfoStore.identityInfo;
+        const info = this.props.cacheData;
+        // 基础信息
         this.props.userInfoStore
-            .identityAuthentication({
-                firstName: info.firstName,
-                secondName: info.secondName,
-                birthday: info.birthday,
-                idType: info.idType,
-                idNumber: info.idNumber,
-                resortType: info.resortType,
-                resortTypeOther: info.resortTypeOther,
-                address: info.address,
-                postCode: info.postCode,
-                profession: info.profession,
-                annualSalary: info.annualsalary,
+            .identityAuthentication(Object.assign({
                 positiveImages: this.state.oneUrl_fileKey,
                 oppositeImages: this.state.twoUrl_fileKey,
                 handImages: this.state.threeUrl_fileKey
-            })
+            }, info))
             .then(res => {
                 if (res.status === 200) {
                     this.props.changeStep(3);

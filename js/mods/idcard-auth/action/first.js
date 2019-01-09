@@ -22,8 +22,8 @@ action.validate = function() {
         idCard: UPEX.lang.template('请填写证件号码'),
         profession: UPEX.lang.template('请选择职业'),
         annualsalary: UPEX.lang.template('请选择年薪'),
-        sex: UPEX.lang.template('请选择性别'),
-        locationCode: UPEX.lang.template('请选择国家/地区'),
+        gender: UPEX.lang.template('请选择性别'),
+        realLocation: UPEX.lang.template('请选择国家/地区'),
     };
     // 对字段做遍历
     for (let _name in mesMap) {
@@ -52,6 +52,7 @@ action.submit = function() {
         return;
     }
     const { state } = this;
+
     let data = {
         firstName: state.firstName,
         secondName: state.secondName,
@@ -63,11 +64,13 @@ action.submit = function() {
         address: state.address,
         postCode: state.postCode,
         profession: state.profession,
-        annualsalary: state.annualsalary,
-        sex: state.sex,
-        locationCode: state.locationCode
+        annualSalary: state.annualsalary,
+        gender: state.gender,
+        realLocation: state.realLocation,
     };
+    // 缓存数据
     this.props.updateCache('cacheBase', data);
+    // 保存数据到store
     this.props.userInfoStore.addIdentityInfo(data);
     this.props.changeStep(2);
 };
@@ -126,6 +129,8 @@ action.checkIsAuthPrimary = function() {
                     address: data.location,
                     profession: data.profession + '',
                     annualsalary: data.annualSalary + '',
+                    realLocation: userInfo.realLocation + '',
+                    gender: userInfo.gender + '',
                 });
             }
         });
@@ -142,8 +147,8 @@ action.onSelectChange = function(...assets) {
         [_name]: _val
     };
     // 如果是地区 且不等于 1(本地)
-    if(_name === 'locationCode') {
-        _state.idCardType = _val == '1' ? '1' : '2';
+    if(_name === 'realLocation') {
+        _state.idCardType = _val == '1' ? '1' : '3'; // 1:身份证  3: 护照
     }
     this.setState(_state);
 };
@@ -242,7 +247,7 @@ action.locationList = function() {
 action.idCardList = function() {
     let list = [
         { value: '1', label: UPEX.lang.template('台湾身份证') },
-        { value: '2', label: UPEX.lang.template('护照') },
+        { value: '3', label: UPEX.lang.template('护照') },
     ];
     return list.map((item, i) => {
         return (
@@ -254,10 +259,11 @@ action.idCardList = function() {
 };
 
 // 性别列表
-action.sexList = function() {
+action.genderList = function() {
     let list = [
         { value: '1', label: UPEX.lang.template('男') },
         { value: '2', label: UPEX.lang.template('女') },
+        { value: '3', label: UPEX.lang.template('其他') },
     ];
     return list.map((item, i) => {
         return (

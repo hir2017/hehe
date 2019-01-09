@@ -67,10 +67,10 @@ class IdentityAuthentication extends Component {
                 step = 1;
                 break;
             case 1:
+                step = 3;
+                break;
             case -1:
                 step = userInfo.readFailReason === 1 ? 3 : 1;
-
-
                 break;
             case 2:
                 step = 4;

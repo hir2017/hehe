@@ -38,7 +38,7 @@ export default class FirstStep extends Component {
             address: '',
             profession: '',
             annualsalary: '',
-            locationCode: '1',
+            realLocation: '1',
             locationArr: [],
             errorMsg: {},
         };
@@ -98,8 +98,8 @@ export default class FirstStep extends Component {
         return (
             <AceForm className="auth-step-1">
                 <FormView>
-                    <FormItem label={UPEX.lang.template('国家/地区')} error={state.errorMsg.locationCode}>
-                        <Select onChange={this.onSelectChange.bind(this, 'locationCode')} value={state.locationCode}  placeholder={UPEX.lang.template('请选择')}>
+                    <FormItem label={UPEX.lang.template('国家/地区')} error={state.errorMsg.realLocation}>
+                        <Select onChange={this.onSelectChange.bind(this, 'realLocation')} value={state.realLocation}  placeholder={UPEX.lang.template('请选择')}>
                             {this.locationList()}
                         </Select>
                     </FormItem>
@@ -111,9 +111,9 @@ export default class FirstStep extends Component {
                     <FormItem {...inputsData.idCard} value={state.idCard} error={state.errorMsg.idCard}/>
                     <FormItem {...inputsData.firstName} value={state.firstName} error={state.errorMsg.firstName}/>
                     <FormItem {...inputsData.secondName} value={state.secondName} error={state.errorMsg.secondName}/>
-                    <FormItem label={UPEX.lang.template('性别')} error={state.errorMsg.sex}>
-                        <Select onChange={this.onSelectChange.bind(this, 'sex')} value={state.sex}  placeholder={UPEX.lang.template('请选择')}>
-                            {this.sexList()}
+                    <FormItem label={UPEX.lang.template('性别')} error={state.errorMsg.gender}>
+                        <Select onChange={this.onSelectChange.bind(this, 'gender')} value={state.gender}  placeholder={UPEX.lang.template('请选择')}>
+                            {this.genderList()}
                         </Select>
                     </FormItem>
                     <FormItem  label={UPEX.lang.template('出生日期')} error={state.errorMsg.birthday}>
