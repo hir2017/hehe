@@ -1,6 +1,7 @@
 /**
  * @fileoverview IEO 数字币信息
  */
+//TODO:购买按钮状态拆分，拆分完再进行处理
 import React, {Component} from 'react';
 import {browserHistory} from 'react-router';
 import {observer, inject} from 'mobx-react';
@@ -146,7 +147,7 @@ class View extends Component {
          */
         const {status} = this.props.data;
         let projectState = this.btnStatusMap[status] ? this.btnStatusMap[status] : this.btnStatusMap[3]; //其余状态值均显示已结束
-        // 是否已开始
+        // 是否已开始，status为0时对应的状态有三种，其余均是一一对应
         if (status !== 0) {
             this.setState({
                 projectState
