@@ -138,15 +138,35 @@
                     border-color: #d9d9d9;
                 }
             }
-            .ant-progress {
-                width: 300px;
-                .ant-progress-bg {
-                    background-color: @theme-yellow;
+            .progress {
+                .base-line{
+                    position: relative;
+                    display: inline-block;
+                    width: 160px;
+                    height: 6px;
+                    border-radius: 3px;
+                    background-color: #f0f3f5;
+                    margin-right: 7px;
                 }
-                .ant-progress-text {
-                    color: @theme-yellow;
+                .real-line{
+                    position: absolute;
+                    height: 6px;
+                    border-radius: 3px;
+                    background-color: #e8b802;
+                    left: 100px;
+                    top: 18px;
                 }
+
             }
+            //.ant-progress {
+            //    width: 300px;
+            //    .ant-progress-bg {
+            //        background-color: @theme-yellow;
+            //    }
+            //    .ant-progress-text {
+            //        color: @theme-yellow;
+            //    }
+            //}
         }
     }
     .token-info {

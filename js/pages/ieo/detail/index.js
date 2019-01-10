@@ -33,7 +33,7 @@ class Page extends Component {
         data._endTimeStamp = data.endTime / 1000;
         data._systemTimeStamp = data.systemTime / 1000;
         // IEO进度 取整
-        let _percent = data.raisedAmount / data.hardTop;
+        let _percent = data.raisedAmount / data.softTop;
         _percent = Math.floor(_percent * 100);
         data._percent = _percent;
         return data;

@@ -5,7 +5,7 @@
 import React, {Component} from 'react';
 import {browserHistory} from 'react-router';
 import {observer, inject} from 'mobx-react';
-import {Button, Modal, Row, Col, Progress, Select, message, Checkbox, Icon} from 'antd';
+import {Button, Modal, Row, Col, Select, message, Checkbox, Icon} from 'antd';
 import FormView from '@/mods/common/form';
 import FormItem from '@/mods/common/form/item';
 import {StatusIcon} from '../view';
@@ -419,11 +419,15 @@ class View extends Component {
         //如果购买币种，单价比例为-1，则该币无法进行购买
         let coinCanBuy = selectCoin.tokenRate != -1 ? true : false;
 
+        //购买进度条宽度
+        let progressWith = data._percent >= 100 ? 160 : (data._percent / 100 * 160);
+
 
         // 余额信息
         let $amount = (
             <div className="amount-info">
-                {UPEX.lang.template('余额')} <em>{NumberUtil.separate(selectCoin.tokenAmount)}</em> {selectCoin.tokenName}
+                {UPEX.lang.template('余额')}
+                <em>{NumberUtil.separate(selectCoin.tokenAmount)}</em> {selectCoin.tokenName}
                 {
                     UPEX.config.baseCurrencyEn === selectCoin.tokenName ?
                         (<a className="deposit" href="/account/balance/recharge"
@@ -504,7 +508,9 @@ class View extends Component {
                         </Col>
                         <Col className="text progress" span={12}>
                             <label>{UPEX.lang.template('IEO进度')}:</label>
-                            <Progress percent={data._percent} size="small"/>
+                            <div className="base-line"></div>
+                            <div className="real-line" style={{width: `${progressWith}px`}}></div>
+                            {data._percent}%
                         </Col>
                         <Col className="text description" span={24}>
                             <label>{UPEX.lang.template('项目介绍')}:</label>
