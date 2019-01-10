@@ -41,7 +41,8 @@ export default class SecondStep extends Component {
             {
                 title: UPEX.lang.template('手持证件照'),
                 showTip: UPEX.lang.template('查看手持证件照实例'),
-                url: 'threeUrl'
+                url: 'threeUrl',
+                bottomTip: UPEX.lang.template('请手持當天日期紙條,請勿遮挡住證件號碼'),
             }
         ];
         let passPortData = [
@@ -53,7 +54,8 @@ export default class SecondStep extends Component {
             {
                 title: UPEX.lang.template('手持证件照'),
                 showTip: UPEX.lang.template('手持证件照示例'),
-                url: 'threeUrl'
+                url: 'threeUrl',
+                bottomTip: UPEX.lang.template('请手持當天日期紙條,請勿遮挡住證件號碼'),
             }
         ];
         const {cacheData} = props;
@@ -71,7 +73,8 @@ export default class SecondStep extends Component {
         samplePic: '',
         sampleTitle: '',
         sampleIndex: 0,
-        uploading: false
+        uploading: false,
+        activeIndex: 'none',
     };
 
     componentDidMount() {
@@ -128,7 +131,11 @@ export default class SecondStep extends Component {
             });
     }
 
-
+    onHover(index, action) {
+        this.setState({
+            activeIndex: action === 'enter' ? index : 'none'
+        })
+    }
 
     _props = urlKey => {
         const token = UPEX.cache.getCache('token');
@@ -222,16 +229,18 @@ export default class SecondStep extends Component {
                                 </Upload>
                                 {_url ? null : <span className="upload-icon-text">{UPEX.lang.template('点击上传')}</span>}
                             </section>
-                            <section className="pic-item-child sample-img">
+                            <section className="pic-item-child sample-img" >
                                 <p className="pic-title">
                                     <Icon className="block-space" type="check" />
                                     {item.showTip}
-                                    <Tooltip overlayClassName="auth-step-2" placement="rightTop" arrowPointAtCenter={true} title={this.getPopvoer(i)}>
-                                        <Icon type="question" />
-                                    </Tooltip>
+                                    <Icon type="question" onMouseEnter={this.onHover.bind(this, i, 'enter')} onMouseLeave={this.onHover.bind(this, i, 'leave')}/>
                                 </p>
-                                <img src={IDcardPics[`IDcard${i}`]} alt="" />
+                                <div className={`img-content ${this.state.activeIndex === i ? 'active' : ''}`}>
+                                    <img src={IDcardPics[`IDcard${i}`]} alt="" />
+                                    {this.getPopvoer(i)}
+                                </div>
                             </section>
+                            {item.bottomTip ? <div className="bottom-tip" dangerouslySetInnerHTML={{ __html: item.bottomTip }}/> : null}
                         </div>
                     );
                 })}

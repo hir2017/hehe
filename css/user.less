@@ -653,6 +653,39 @@ body .user-main .ant-select-dropdown-menu-item {
   }
 
   .authentication-content {
+    .name-row , .profession {
+        > .inner-item {
+            overflow: hidden;
+        }
+        .exc-form-item {
+            margin-bottom: 0;
+        }
+        .exc-form-item:nth-child(1) {
+            float: left;
+        }
+        .exc-form-item:nth-child(2) {
+            float: right;
+        }
+    }
+    .name-row {
+        .exc-form-item:nth-child(1) {
+            width: 250px;
+        }
+        .exc-form-item:nth-child(2) {
+            width: 178px;
+        }
+    }
+
+
+    .resort-type {
+        .inner-label {
+            border-bottom: @space-color-light 1px solid;
+            margin-bottom: 20px;
+        }
+        .ant-radio-group .ant-radio-wrapper {
+            margin-bottom: 5px;
+        }
+    }
     .item {
       margin-top: 0;
       > span {
@@ -1038,6 +1071,15 @@ body .user-main .ant-select-dropdown-menu-item {
     height: auto;
     padding-bottom: 40px;
     padding-left: 150px;
+    .bottom-tip {
+        width: 100%;
+        display: inline-block;
+        padding-right: 150px;
+        padding-top: 5px;
+        box-sizing: border-box;
+        text-align: left;
+        line-height: 25px;
+    }
   }
 
   .pic-item-child {
@@ -1087,7 +1129,33 @@ body .user-main .ant-select-dropdown-menu-item {
         }
       }
     }
+    &.sample-img img {
+        position: relative;
+        z-index: 2;
+    }
+    &.sample-img .img-content {
+        position: relative;
+        overflow: hidden;
+        border-radius: 4px;
+        &.active .tip-lines{
+            opacity: 1;
+        }
+        .tip-lines {
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            line-height: 25px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            padding: 15px;
+            color: #fff;
+            text-align: left;
+            z-index: 4;
+            background: url(../images/filter06-black.png) 0 0 repeat;
+        }
 
+    }
     .pic-title {
       font-size: 14px;
       color: @text-color02-light;
