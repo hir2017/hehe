@@ -510,7 +510,7 @@ class View extends Component {
                             <label>{UPEX.lang.template('IEO进度')}:</label>
                             <div className="base-line"></div>
                             <div className="real-line" style={{width: `${progressWith}px`}}></div>
-                            {data._percent}%
+                            <span className="percent">{data._percent}%</span>
                         </Col>
                         <Col className="text description" span={24}>
                             <label>{UPEX.lang.template('项目介绍')}:</label>
