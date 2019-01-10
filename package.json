@@ -73,7 +73,8 @@
     "webpack-dev-middleware": "^1.12.0",
     "webpack-dev-server": "^1.16.2",
     "webpack-hot-middleware": "^2.22.1",
-    "writefile": "^0.2.8"
+    "writefile": "^0.2.8",
+    "recompose": "^0.27.1"
   },
   "gitlabGroup": "webex",
   "googleFileExport": "module.exports",
@@ -82,7 +83,8 @@
     "app": [
       "台湾站多语言定制",
       "PC通用多语言翻译文档",
-      "CountryCode"
+      "CountryCode",
+      "IEO多语言翻译文档"
     ],
     "appaus": [
       "澳州站多语言定制",
@@ -106,6 +108,6 @@
     "stop-ace": "pm2 stop server.js"
   },
   "version": "2.1.25",
-  "ace-version": "1.0.18",
+  "ace-version": "1.0.19",
   "aus-version": "1.0.13"
 }

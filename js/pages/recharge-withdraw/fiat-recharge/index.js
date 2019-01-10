@@ -21,8 +21,8 @@ class View extends Component {
         super(props);
         this.state = {
             type: 'a',
-            dayLimit: 0,
-            monthLimit: 0
+            limitLoading: true,
+            limitInfo: {}
         };
         this.pageInfo = {
             title :UPEX.lang.template('账户充值'),
@@ -37,16 +37,19 @@ class View extends Component {
             actionId: 1,
             currencyId: 1
         }).then(res => {
-            const { authLevel = 1 } = this.props.userInfoStore.userInfo || {};
             if(res.status === 200) {
                 let data = res.attachment[0] || {};
                 this.setState({
-                    dayLimit: Numberutils.separate(data[`kyc${authLevel}DayLimit`]),
-                    monthLimit: Numberutils.separate(data[`kyc${authLevel}MonthLimit`])
+                    limitInfo: data,
+                    limitLoading: false
                 })
             }
         }).catch(err => {
-            console.error('getUserActionLimit', err)
+            console.error('getUserActionLimit', err);
+            this.setState({
+                limitInfo: {},
+                limitLoading: false
+            })
         })
     }
 
@@ -62,6 +65,16 @@ class View extends Component {
         };
         let $alert = null;
         let $switch = null;
+        const {limitInfo} = state;
+        // 等待个人信息请求
+        const { authLevel } = this.props.userInfoStore.userInfo;
+        let dayLimit = 0;
+        let monthLimit = 0;
+        if(authLevel && !state.limitLoading) {
+            dayLimit = Numberutils.separate(limitInfo[`kyc${authLevel}DayLimit`]);
+            monthLimit = Numberutils.separate(limitInfo[`kyc${authLevel}MonthLimit`]);
+        }
+
         if (store.currStep === 'start') {
             $alert = (
                 <Alert
@@ -69,7 +82,7 @@ class View extends Component {
                     type="info"
                     showIcon
                     message={
-                        UPEX.lang.template('单日充值限额 {num1}, 单月充值限额 {num2}', { num1: ` ${state.dayLimit} ${UPEX.config.baseCurrencyEn}`, num2: ` ${state.monthLimit} ${UPEX.config.baseCurrencyEn}` })
+                        UPEX.lang.template('单日充值限额 {num1}, 单月充值限额 {num2}', { num1: ` ${dayLimit} ${UPEX.config.baseCurrencyEn}`, num2: ` ${monthLimit} ${UPEX.config.baseCurrencyEn}` })
                     }
                     type="warning"
                 />

@@ -123,6 +123,7 @@ class Login extends Component {
 
         if (backUrl) {
             browserHistory.push(backUrl);
+            this.props.loginStore.authStore.updatePageId(result.uid);
             return;
         } else {
             browserHistory.push('/webtrade');
@@ -149,6 +150,7 @@ class Login extends Component {
                 }
             });
         }
+        this.props.loginStore.authStore.updatePageId(result.uid);
     }
 
     updateSelectedCountry() {

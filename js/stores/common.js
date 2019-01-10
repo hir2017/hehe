@@ -1,9 +1,10 @@
 /**
  * 全局用户界面状态的store
  */
-import { observable, autorun, computed, action, runInAction } from 'mobx';
-import { socket } from '../api/socket';
-import { getBaseCoin , getCurrencyPoints } from '../api/http';
+import {observable, autorun, computed, action, runInAction} from 'mobx';
+import {socket} from '../api/socket';
+import {getBaseCoin, getCurrencyPoints} from '../api/http';
+
 let isFirst = true;
 
 const getWindowDimensions = () => {
@@ -31,7 +32,7 @@ class CommonStore {
         // TODO: 临时方案
         setTimeout(() => {
             try {
-                zE && zE(function() {
+                zE && zE(function () {
                     zE.setLocale(UPEX.cache.getCache('lang'));
                 });
             } catch (error) {
@@ -50,7 +51,7 @@ class CommonStore {
             // 切换zendesk语言
             setTimeout(() => {
                 try {
-                    zE(function() {
+                    zE(function () {
                         zE.setLocale(lang);
                     });
                 } catch (error) {
@@ -70,9 +71,12 @@ class CommonStore {
     @computed get pageClassName() {
         if (this.currentPathName.indexOf('/webtrade') > -1) {
             return 'app-trade';
-        } else if (this.currentPathName.indexOf('/news') > -1){
+        } else if (this.currentPathName.indexOf('/news') > -1) {
             return 'app-news';
-        } else {
+        } else if (this.currentPathName.indexOf('/ieo') > -1) {
+            return 'app-ieo';
+        }
+        else {
             return '';
         }
     }
@@ -123,7 +127,7 @@ class CommonStore {
                 this.productDataReady = true;
             })
             return data;
-        }).catch(()=>{
+        }).catch(() => {
             this.productDataReady = true;
         })
     }
@@ -147,6 +151,7 @@ class CommonStore {
 
         return map;
     }
+
     /**
      * 根据ID获取币信息
      */
@@ -155,27 +160,30 @@ class CommonStore {
 
         return ret;
     }
+
     /**
      * 根据币名称获取币信息
      */
     @action.bound getTradeCoinByName(name) {
         return this.coinsMap[name] || {};
     }
+
     /**
      * 价格小数点后几位
      */
     @action.bound getPointPrice(name) {
         if (!name) {
-            return ;
+            return;
         }
         return Number(this.coinsMap[name].pointPrice);
     }
+
     /**
      * 数量小数点后几位
      */
     @action.bound getPointNum(name) {
         if (!name) {
-            return ;
+            return;
         }
         return Number(this.coinsMap[name].pointNum);
     }
@@ -184,7 +192,7 @@ class CommonStore {
     @computed get pointPrice() {
         let point;
 
-        let product = this.productList.filter(function(item) {
+        let product = this.productList.filter(function (item) {
             return item.currencyNameEn === UPEX.config.baseCurrencyEn && item.baseType == 1;
         })[0]
 
@@ -197,7 +205,7 @@ class CommonStore {
     @computed get pointNum() {
         let point;
 
-        let product = this.productList.filter(function(item) {
+        let product = this.productList.filter(function (item) {
             return item.currencyNameEn === UPEX.config.baseCurrencyEn && item.baseType == 1;
         })[0]
 

@@ -89,18 +89,14 @@ const Invite = (location, cb) => {
 
 
 const onEnterHandle = (nextState, replace) => {
-    // const {location} = nextState;
-    // let ua = navigator.userAgent;
-    // let isMobile = /(iPhone|iPad|iPod|iOS)/i.test(ua) || /[aA]ndroid/i.test(ua);
-    // const pathMap = {
-    //     '/login':'/h5ace/#/login',
-    //     '/register':'/h5ace/#/register',
-    //     '/user/authentication':'/h5ace/#/kyc-auth',
-    // }
-    // if (isMobile && pathMap[location.pathname]){
-    //     window.location.href = pathMap[location.pathname]
-    //     // replace(pathMap[location.pathname]);
-    // }
+    const {location} = nextState;
+    const uid = UPEX.cache.getCache('uid');
+    let ableArr = [10001, 10005, 10032, 10028, 10012, 10003, 10002, 10050, 10055, 10059, 10051, 10052, 10054, 10056, 10030, 10067, 10006, 10020, 10014, 10017, 10047, 10011, 10016, 10021, 10009, 10574, 11486, 10043, 10041, 10207, 10196, 10023, 10045, 10033, 10394, 12228];
+    let DisableSeeIEO = ableArr.indexOf(uid) == -1;
+
+    if (location.pathname.indexOf('/ieo') >= 0 && DisableSeeIEO) {
+        replace('/home');
+    }
     FbqAd('track', 'PageView');
 }
 
@@ -170,6 +166,10 @@ const routes = (
                     <IndexRoute getComponent={Invite}/>
                     <Route path="invite(-:type)" getComponent={Invite}/>
                 </Route>
+            </Route>
+            <Route path="ieo" onEnter={onEnterHandle}>
+                <IndexRoute component={IEO}/>
+                <Route path="detail/:id" component={IEODetail}/>
             </Route>
             <Route path="login" onEnter={onEnterHandle} component={Login}/>
             <Route path="register" onEnter={onEnterHandle} component={Register}/>
