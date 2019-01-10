@@ -1,8 +1,15 @@
 import React from 'react';
-import { Icon } from 'antd';
+import {Icon, Tooltip} from 'antd';
 import TimeUtil from '@/lib/util/date';
 
-import { getFundChangeList, ausGetFundChangeList, getCoinRechargeList, getCoinWithdrawList, getAssetChangeReward } from '@/api/http';
+import {
+    getFundChangeList,
+    ausGetFundChangeList,
+    getCoinRechargeList,
+    getCoinWithdrawList,
+    getAssetChangeReward,
+    getIEORecordList
+} from '@/api/http';
 
 // 请求、请求参数 逻辑判断
 const getParams = (type, page) => {
@@ -44,6 +51,12 @@ const getParams = (type, page) => {
                 currentyId: 0
             };
             break;
+        case type === 'token-record':
+            request = getIEORecordList;
+            params = {
+                start: page,
+                size: 10
+            }
     }
     return {
         request,
@@ -77,6 +90,13 @@ const FormatSourceData = (type, res, params) => {
                 total: typeof _source.total === 'undefined' ? 0 : _source.total
             };
             break;
+        case 'token-record':
+            result = {
+                listData: _source.list || [],
+                current: params.start,
+                total: typeof _source.total === 'undefined' ? 0 : _source.total
+            };
+            break;
         default:
             result = {
                 listData: _source.list,
@@ -90,9 +110,9 @@ const FormatSourceData = (type, res, params) => {
 };
 
 // 发起请求 获取数据
-export const getList = function(type, page = 1) {
+export const getList = function (type, page = 1) {
     // 获取对应tab的请求函数，和请求参数
-    let { request, params } = getParams(type, page);
+    let {request, params} = getParams(type, page);
     if (request === null) {
         console.error('record: getList type is lose');
         return;
@@ -141,7 +161,7 @@ const formatFn = {
                 '1': 'BPAY',
                 '2': 'POLI',
             }
-            item._payMethod = type === 'deposit' ?  payMap[item.type] : UPEX.lang.template('银行卡转账');
+            item._payMethod = type === 'deposit' ? payMap[item.type] : UPEX.lang.template('银行卡转账');
             if (type === 'deposit') {
                 item._disabled = true;
             }
@@ -156,7 +176,7 @@ const formatFn = {
             case 'success':
                 item._status = (
                     <span className="all-success has-ico">
-                        <Icon type="check-circle-o" />
+                        <Icon type="check-circle-o"/>
                         {UPEX.lang.template('已完成')}
                     </span>
                 );
@@ -177,12 +197,12 @@ const formatFn = {
             case 'Success':
                 item._status = (
                     <span className="all-success has-ico">
-                        <Icon type="check-circle-o" />
+                        <Icon type="check-circle-o"/>
                         {UPEX.lang.template('已完成')}
                     </span>
                 );
                 item._disabled = false;
-                item._info = UPEX.lang.template('Txid:{value}', { value: item.walletWaterSn || '--' });
+                item._info = UPEX.lang.template('Txid:{value}', {value: item.walletWaterSn || '--'});
                 break;
             case 'Reject':
                 item._status = UPEX.lang.template('审核拒绝');
@@ -209,6 +229,40 @@ const formatFn = {
         item._changeType = valMap.type[item.changeType] || '';
         item._createTime = item.createTimeStamp ? TimeUtil.formatDate(item.createTimeStamp) : '--';
         return item;
+    },
+    //IEO记录
+    token_record(valMap, type, item) {
+        item._createTime = item.createTime ? TimeUtil.formatDate(item.createTime) : '--';
+        //0-初始 1-交易成功 2-交易失败 3-IEO冻结资金已扣减 4-扣减IEO冻结资金失败 5-已退款  6-退款失败 7-用户资金已转移 8-用户资金转移失败
+        // 前端显示：1、3、4、6、8-交易成功  2-交易失败 5-已退款 7-资产已转正
+        switch (item.status) {
+            case 0:
+                item._status = UPEX.lang.template('初始');
+                break;
+            case 1:
+                item._status = UPEX.lang.template('交易成功');
+                break;
+            case 2:
+                item._status = (
+                    <div>{UPEX.lang.template('交易失败')}<Tooltip placement="top" title={UPEX.lang.template('IEO募集失败提示')}
+                                                              overlayClassName="buy-tooltip">
+                        <span className="tip"/>
+                    </Tooltip></div>);
+                break;
+            case 5:
+                item._status = UPEX.lang.template('已退款');
+                break;
+            case 7:
+                item._status = UPEX.lang.template('资产已转正');
+                break;
+            default:
+                item._status = UPEX.lang.template('交易成功');
+                break;
+        }
+        item._rate = (<span>{item.rate} {item.payCurrencyNameEn}/{item.ieoCurrencyNameEn}</span>);
+        item._payCount = (<span>{item.payCount} {item.payCurrencyNameEn}</span>);
+
+        return item;
     }
 };
 // 列表数据格式整理
@@ -224,6 +278,9 @@ const formatItem = (arr, type) => {
             break;
         case 'reward':
             _filter = formatFn.reward;
+            break;
+        case 'token-record':
+            _filter = formatFn.token_record;
             break;
         default:
             _filter = formatFn.legal;
