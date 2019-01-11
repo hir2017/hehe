@@ -37,6 +37,7 @@ export default class FirstStep extends Component {
             resortTypeOther: '',
             address: '',
             profession: '',
+            gender: '1',
             annualsalary: '',
             realLocation: '1',
             locationArr: [],
