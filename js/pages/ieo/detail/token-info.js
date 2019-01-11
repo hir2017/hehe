@@ -15,8 +15,8 @@ class View extends Component {
 
     render() {
         const { data } = this.props;
-        let $homepageUrl = data.homepageUrl ? <a href={data.homepageUrl} target="_blank">{data.homepageUrl}</a> : null;
-        let $whitePaperUrl = data.whitePaperUrl ? <a href={data.whitePaperUrl} target="_blank">{data.whitePaperUrl}</a> : null;
+        let $homepageUrl = data.homepageUrl ? <a href={data.homepageUrl} title={data.homepageUrl} target="_blank">{data.homepageUrl}</a> : null;
+        let $whitePaperUrl = data.whitePaperUrl ? <a href={data.whitePaperUrl} title={data.whitePaperUrl} target="_blank">{data.whitePaperUrl}</a> : null;
         let $titleAfter = (
             <span className="total-circulation">
                 {UPEX.lang.template('总发行数量')}: {NumberUtil.separate(data.totalCirculation)}
