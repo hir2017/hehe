@@ -1,0 +1,124 @@
+@import "../variable";
+//个人中心-我的积分
+.user-point.home {
+    //公共样式抽离
+    .block {
+        background-color: #fff;
+        border-radius: 6px;
+        margin-bottom: 20px;
+        .title {
+            font-size: 14px;
+            border-bottom: 1px solid @page-split-border-color;
+            box-shadow: 0 2px 3px 1px rgba(23, 31, 39, .02);
+            color: @text-color01-light;
+            height: 49px;
+            line-height: 49px;
+            padding: 0 20px;
+        }
+        .content {
+            padding: 0 20px;
+        }
+    }
+    //用户积分基础信息
+    .point-info {
+        padding: 30px 0;
+        color: @text-color02-light;
+        .left-info{
+            .level-box {
+                float: left;
+                width: 60px;
+                height: 60px;
+                margin-right: 20px;
+                border-radius: 3px;
+                background: linear-gradient(top, #f6d18b, #f8eab3);
+                padding: 10px 0;
+                text-align: center;
+                color: #8f3e1a;
+                .unit {
+                    opacity: .5;
+                }
+                .level {
+                    font-size: 14px;
+                    font-weight: 500;
+                }
+            }
+            .info-panel{
+                float: left;
+                width: 580px;
+                .username, .other{
+                    height: 30px;
+                    line-height: 30px;
+                }
+                .username{
+                    font-size: 18px;
+                    color: @text-color01-light;
+                }
+                .other{
+                    span{
+                        display: inline-block;
+                        margin-right: 10px;
+                        &:last-child{
+                            margin-left: 20px;
+                        }
+                        &.total{
+                            color: #31353f;
+                            font-size: 14px;
+                        }
+                        em{
+                            margin: 0 3px;
+                        }
+                    }
+                }
+            }
+        }
+        .right-info{
+            float: left;
+            border-left: 1px solid @page-split-border-color;
+            padding-left: 20px;
+            p{
+                height: 30px;
+                line-height: 30px;
+                &.txt{
+                    color: @text-color01-light;
+                }
+                .value{
+                    color: #31353f;
+                    font-size: 14px;
+                    margin-right: 10px;
+                }
+            }
+        }
+
+    }
+
+    //专享折扣
+    .discount-wrap{
+        .discount{
+            float: left;
+            width: 480px;
+            height: 100px;
+            padding: 20px 20px 20px 100px;
+            margin-right: 20px;
+            &:last-child{
+                margin-right: 0;
+            }
+            background-size: 60px 60px;
+            background-repeat: no-repeat;
+            background-position: 20px 20px;
+            &.off{
+                background-image: url("../../images/ap/off.png");
+
+            }
+            &.more{
+                background-image: url("../../images/ap/wait.png");
+
+            }
+        }
+    }
+
+}
+
+//积分入口页
+.user-point.welcome {
+
+}

@@ -4,26 +4,54 @@
  * @date: 2019/1/8
  */
 
-import React, { Component } from "react";
+import React, {Component} from "react";
+import {inject, observer} from 'mobx-react';
+import NumberUtil from '@/lib/util/number';
 
-export default class UserView extends Component{
-    constructor(props){
+@inject('userInfoStore')
+@observer
+export default class UserView extends Component {
+    constructor(props) {
         super(props);
     }
 
-    componentDidMount(){
+    componentDidMount() {
 
     }
 
-    render(){
-        const {data} = this.props;
+    render() {
+        const {userInfoStore, data} = this.props;
+        let username = '--';
+
+        if (userInfoStore.userInfo) {
+            username = userInfoStore.userInfo.phone || userInfoStore.userInfo.email || '--';
+        }
 
         return (
-            <div className="point-info">
-                <div>{data.level}</div>
-                <div>{data.totalPoint}</div>
-                <div>{data.availablePoint}</div>
-                <div>{data.diffPoint}</div>
+            <div className="point-info clearfix">
+                <div className="left-info">
+                    <div className="level-box">
+                        <p className="unit">lv</p>
+                        <p className="level">{data.level}</p>
+                    </div>
+                    <div className="info-panel">
+                        <p className="username">{username}</p>
+                        <div className="other">
+                            <span>{UPEX.lang.template('30日获得')}</span>
+                            <span className="total">{NumberUtil.separate(data.totalPoint) || 0}</span>
+                            <span>AP</span>
+                            <span
+                                dangerouslySetInnerHTML={{__html: UPEX.lang.template('距离下个级别还剩{num}AP', {num: NumberUtil.separate(data.diffPoint) || 0}, 1)}}></span>
+                        </div>
+                    </div>
+                </div>
+                <div className="right-info">
+                    <p className="txt">{UPEX.lang.template('Ace Point余额')}</p>
+                    <p>
+                        <span className="value">{NumberUtil.separate(data.availablePoint) || 0}</span>
+                        <span>AP</span>
+                    </p>
+                </div>
             </div>
         );
     }

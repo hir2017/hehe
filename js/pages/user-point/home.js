@@ -35,18 +35,32 @@ class PageView extends Component {
     }
 
     render() {
-        let {userInfo} = this.state
+        let {userInfo} = this.state;
 
         return (
             <UserInfo pathname="userpoint">
-                <UserPointInfo data={userInfo}/>
-                <div>
-                    <p>挂单手续费:{userInfo.sellFee}</p>
-                    <p>吃单手续费:{userInfo.buyFee}</p>
-                </div>
-                <Fee/>
-                <Detail/>
+                <div className="user-point home">
+                    <div className="user-info block">
+                        <div className="title">{UPEX.lang.template('我的Ace Point')}</div>
+                        <div className="content">
+                            <UserPointInfo data={userInfo}/>
+                        </div>
+                    </div>
 
+                    <div className="discount-wrap clearfix">
+                        <div className="discount off block">
+                            <p>挂单手续费:{userInfo.makerFee}</p>
+                            <p>吃单手续费:{userInfo.takerFee}</p>
+                        </div>
+                        <div className="discount more block">
+
+                        </div>
+
+                    </div>
+
+                    <Fee/>
+                    <Detail/>
+                </div>
             </UserInfo>
         );
 
@@ -82,30 +96,32 @@ class Fee extends Component {
     render() {
         const {feeList} = this.state;
         return (
-            <div className="point-fee">
-                <h2>手续费折扣</h2>
-                <p className="fee-desc">{UPEX.lang.template('手续费折扣描述')}</p>
-                <table>
-                    <tbody>
-                    <tr>
-                        <th>用户等级</th>
-                        <th>30天获得AcePoint</th>
-                        <th>掛單手續費折扣</th>
-                        <th>吃單手續費折扣</th>
-                    </tr>
-                    {
-                        feeList.length > 0 && feeList.map((item, index) => (
-                            <tr key={index}>
-                                <td>{item.level}</td>
-                                <td>{item.lowLimitPoint}-{item.highLimitPoint}</td>
-                                <td>{item.sellFee}</td>
-                                <td>{item.buyFee}</td>
-                            </tr>
-                        ))
+            <div className="fee-wrap block">
+                <div className="title">{UPEX.lang.template('手续费折扣')}</div>
+                <div className="content">
+                    <p className="fee-desc">{UPEX.lang.template('手续费折扣描述')}</p>
+                    <table>
+                        <tbody>
+                        <tr>
+                            <th>用户等级</th>
+                            <th>30天获得AcePoint</th>
+                            <th>掛單手續費折扣</th>
+                            <th>吃單手續費折扣</th>
+                        </tr>
+                        {
+                            feeList.length > 0 && feeList.map((item, index) => (
+                                <tr key={index}>
+                                    <td>{item.level}</td>
+                                    <td>{item.lowLimitPoint}-{item.highLimitPoint}</td>
+                                    <td>{item.sellFee}</td>
+                                    <td>{item.buyFee}</td>
+                                </tr>
+                            ))
 
-                    }
-                    </tbody>
-                </table>
+                        }
+                        </tbody>
+                    </table>
+                </div>
 
             </div>
         );

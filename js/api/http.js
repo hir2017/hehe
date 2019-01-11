@@ -1354,7 +1354,7 @@ export function getIEORecordList(data) {
  * 获取用户积分信息
  */
 export function getUserPointInfo(){
-    return axios.post('http://www.mocky.io/v2/5c3452742e00001000378d6c');
+    return axios.post('user/getUserPointInfo');
 }
 
 /**
