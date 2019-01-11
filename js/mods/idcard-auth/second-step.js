@@ -5,16 +5,20 @@ import NumberUtil from '../../lib/util/number';
 import { Button, Icon, Upload, message, Tooltip, Alert } from 'antd';
 import upload_pic from '../../../images/upload-pic.png';
 import upload_pic_hover from '../../../images/upload-pic-hover.png';
-import IDcard0 from '../../../images/idcard-1.png';
-import IDcard1 from '../../../images/idcard-2.png';
-import IDcard2 from '../../../images/idcard-3.png';
+import IDcard0 from '@/../images/idcard-1.png';
+import IDcard1 from '@/../images/idcard-2.png';
+import IDcard2 from '@/../images/idcard-3.png';
+import passport0 from '@/../images/passport-1.png';
+import passport1 from '@/../images/passport-2.png';
 
-import AceForm from '../../components/form/form';
+import AceForm from '@/components/form/form';
 
 const IDcardPics = {
     IDcard0,
     IDcard1,
-    IDcard2
+    IDcard2,
+    passport0,
+    passport1,
 };
 
 @inject('userInfoStore')
@@ -154,7 +158,7 @@ export default class SecondStep extends Component {
                 const isLtM = file.size / 1024 / 1024 < 10;
                 const fileType = ['image/jpeg', 'image/jpg', 'image/png'];
                 const isPic = fileType.indexOf(file.type);
-                console.log(isPic);
+                // console.log(isPic);
 
                 if (isPic === -1) {
                     message.error(UPEX.lang.template('只支持jpg|jpeg|png格式的图片上传'));
@@ -201,6 +205,7 @@ export default class SecondStep extends Component {
 
     render() {
         const { sameTips, picsData } = this;
+        let imgField = this.isPassPort ? 'passport' : 'IDcard';
         return (
             <AceForm className={`auth-step-2 ${this.isPassPort ? 'passport' : ''}`}>
                 <Alert
@@ -215,6 +220,7 @@ export default class SecondStep extends Component {
                 />
                 {picsData.map((item, i) => {
                     let _url = this.state[item.url];
+
                     return (
                         <div key={i} className="pic-item exc-upload-mod clearfix">
                             <section className={`${this.state[item.url] ? 'select' : 'no-select'} pic-item-child pic-upload-content`}>
@@ -236,7 +242,7 @@ export default class SecondStep extends Component {
                                     <Icon type="question" onMouseEnter={this.onHover.bind(this, i, 'enter')} onMouseLeave={this.onHover.bind(this, i, 'leave')}/>
                                 </p>
                                 <div className={`img-content ${this.state.activeIndex === i ? 'active' : ''}`}>
-                                    <img src={IDcardPics[`IDcard${i}`]} alt="" />
+                                    <img src={IDcardPics[`${imgField}${i}`]} alt="" />
                                     {this.getPopvoer(i)}
                                 </div>
                             </section>
