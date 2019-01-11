@@ -24,7 +24,7 @@ let defaultOptions = {
     }
 };
 
-let Timer = function() {
+let Timer = function () {
     this.initialize.apply(this, arguments);
 }
 
@@ -43,15 +43,26 @@ Timer.prototype = Object.assign({
      * @param void
      * @return void
      */
-    toHook: function() {
+    toHook() {
         var self = this,
-            selector = self.options.selector;
+            selector = this.options.selector;
 
-        self.dayWrap = $(selector.day);
-        self.hourWrap = $(selector.hour);
-        self.minuteWrap = $(selector.minute);
-        self.secondWrap = $(selector.second);
+        self.dayWrap = selector.day;
+        self.hourWrap = selector.hour;
+        self.minuteWrap = selector.minute;
+        self.secondWrap = selector.second;
+
     },
+
+    /**
+     * 是否需要某个时间维度
+     * @param key {string} 时间维度,day.
+     * @return boolean
+     */
+    isNeed(key) {
+        return this[key + 'Wrap'].length > 0
+    },
+
     /**
      * 分割剩余时间，天、时、分、秒
      * @param time {number} 时间,单位s
@@ -76,15 +87,6 @@ Timer.prototype = Object.assign({
             second: second >= 0 ? second : 0
         }
 
-    },
-
-    /**
-     * 是否需要某个时间维度
-     * @param key {string} 时间维度,day.
-     * @return boolean
-     */
-    isNeed: function(key) {
-        return this[key + 'Wrap'].length > 0
     },
 
     /**
@@ -129,11 +131,10 @@ Timer.prototype = Object.assign({
      */
     render(result) {
         var self = this;
-
-        self.isNeed('day') && self.dayWrap.html(result.day);
-        self.isNeed('hour') && self.hourWrap.html(result.hour);
-        self.isNeed('minute') && self.minuteWrap.html(result.minute);
-        self.isNeed('second') && self.secondWrap.html(result.second);
+        self.dayWrap.innerText = result.day;
+        self.hourWrap.innerText = result.hour;
+        self.minuteWrap.innerText = result.minute;
+        self.secondWrap.innerText = result.second;
     },
 
     /**
@@ -159,18 +160,17 @@ Timer.prototype = Object.assign({
             now,
             realRemainTime,
             splitTime,
-            isToListenPoint,
             renderData,
+            isToListenPoint,
             isEnd;
 
         self.countDown && clearTimeout(self.countDown);
-        self.countDown = setTimeout(function() {
+        self.countDown = setTimeout(function () {
             localTimeGap = new Date().getTime() - localTimeStamp;
             realRemainTime = self.options.remainTime - localTimeGap / 1000;
 
             // 设置真正的剩余时间
             self.options.remainTime = realRemainTime;
-            // self.set('remainTime', realRemainTime);
 
             splitTime = self.splitTime(realRemainTime);
 
@@ -204,18 +204,6 @@ Timer.prototype = Object.assign({
             self.startCountDown(true);
         }, flag ? 1000 : 0);
     },
-    /**
-     * 判断当前倒计时是否到监听的时间点
-     * @param realTime {object} 参考render参数
-     * @return boolean
-     */
-    isToListenPoint: function(realTime) {
-        var self = this,
-            listenPoint = self.options.listenPoint,
-            realTime = self.combineTime(realTime);
-
-        return realTime <= listenPoint
-    },
 
     /**
      * 判断当前倒计时是否结束
@@ -226,11 +214,24 @@ Timer.prototype = Object.assign({
         return realTime.second <= 0 && realTime.minute == 0 && realTime.hour == 0 && realTime.day == 0
     },
 
-    destroys() {
-        clearTimeout(this.countDown);
+    /**
+     * 判断当前倒计时是否到监听的时间点
+     * @param realTime {object} 参考render参数
+     * @return boolean
+     */
+    isToListenPoint(realTime) {
+        var self = this,
+            listenPoint = this.options.listenPoint,
+            realTime = self.combineTime(realTime);
+
+        return realTime <= listenPoint
     },
 
     destroy() {
+        clearTimeout(this.countDown);
+    },
+
+    destroys() {
         clearTimeout(this.countDown);
     }
 

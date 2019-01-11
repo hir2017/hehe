@@ -4,7 +4,7 @@
  */
 
 import React, {Component} from 'react';
-import Timer from '@/lib/timer';
+import Timer from '@/lib/timer/index-new';
 
 /**
  * @param {order: any(倒计时元素index), startTime: timeStamp, skin: string(主题) linght|dark, endTime: timeStamp, serverTime: timeStamp, flag: number(倒计时类型) 0(开始时间)|1(结束时间), showtxt: string(是否显示时间单位)} props
