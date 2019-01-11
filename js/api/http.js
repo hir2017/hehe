@@ -1282,6 +1282,8 @@ export function getAssetChangeReward(data) {
 export function getRealLocation(data) {
     return axios.post('/param/realLocations', data);
 }
+
+
 /**
  * ------------- IEO-----------------
  */
@@ -1340,4 +1342,31 @@ export function getIEOAssetsList() {
  */
 export function getIEORecordList(data) {
     return axios.post('/ieo/ieoTransferRecord/transferRecordList', data);
+}
+
+
+
+/**
+ * ------------- 用户成长体系-----------------
+ */
+
+/**
+ * 获取用户积分信息
+ */
+export function getUserPointInfo(){
+    return axios.post('http://www.mocky.io/v2/5c3452742e00001000378d6c');
+}
+
+/**
+ * 获取积分等级对应的手续费
+ */
+export function getLevelFee(){
+    return axios.post('http://www.mocky.io/v2/5c34698d2e00007400378df0');
+}
+
+/**
+ * 用户积分收支明细
+ */
+export function getPointConsumeList(){
+    return axios.post('http://www.mocky.io/v2/5c3485f32e00000f00378ef0');
 }

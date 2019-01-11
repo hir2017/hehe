@@ -63,6 +63,11 @@ import PhoneSuccess from './mods/binding-phone/success'
 import IEO from './pages/ieo/main'
 import IEODetail from './pages/ieo/detail'
 
+//用户成长体系
+import UserPoint from './pages/user-point/home';
+import PointWelcome from './pages/user-point/welcome';
+
+
 const Home = (location, cb) => {
     require.ensure([], require => {
         cb(null, require('./pages/home').default);
@@ -87,16 +92,15 @@ const Invite = (location, cb) => {
     }, 'invite');
 };
 
-
 const onEnterHandle = (nextState, replace) => {
-    const {location} = nextState;
-    const uid = UPEX.cache.getCache('uid');
-    let ableArr = [10001, 10005, 10032, 10028, 10012, 10003, 10002, 10050, 10055, 10059, 10051, 10052, 10054, 10056, 10030, 10067, 10006, 10020, 10014, 10017, 10047, 10011, 10016, 10021, 10009, 10574, 11486, 10043, 10041, 10207, 10196, 10023, 10045, 10033, 10394, 12228];
-    let DisableSeeIEO = ableArr.indexOf(uid) == -1;
-
-    if (location.pathname.indexOf('/ieo') >= 0 && DisableSeeIEO) {
-        replace('/home');
-    }
+    // const {location} = nextState;
+    // const uid = UPEX.cache.getCache('uid');
+    // let ableArr = [10001, 10005, 10032, 10028, 10012, 10003, 10002, 10050, 10055, 10059, 10051, 10052, 10054, 10056, 10030, 10067, 10006, 10020, 10014, 10017, 10047, 10011, 10016, 10021, 10009, 10574, 11486, 10043, 10041, 10207, 10196, 10023, 10045, 10033, 10394, 12228];
+    // let DisableSeeIEO = ableArr.indexOf(uid) == -1;
+    //
+    // if (location.pathname.indexOf('/ieo') >= 0 && DisableSeeIEO) {
+    //     replace('/home');
+    // }
     FbqAd('track', 'PageView');
 }
 
@@ -171,6 +175,12 @@ const routes = (
                 <IndexRoute component={IEO}/>
                 <Route path="detail/:id" component={IEODetail}/>
             </Route>
+            <Route path="user-point" component={Auth}>
+                <IndexRoute component={UserPoint}/>
+                <Route path="home" component={UserPoint}/>
+            </Route>
+            <Route path="user-point/welcome" component={PointWelcome}/>
+            <Route path="welcome" component={PointWelcome}/>
             <Route path="login" onEnter={onEnterHandle} component={Login}/>
             <Route path="register" onEnter={onEnterHandle} component={Register}/>
             <Route path="resetpwd" component={ResetPwd}/>
