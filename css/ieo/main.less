@@ -1,3 +1,268 @@
-.ieo-wrapper{
+.ieo-apply {
+    position: relative;
+    height: 250px;
+    text-align: center;
+    padding-top: 105px;
+    box-sizing: border-box;
+    .apply-btn {
+        display: block;
+        width: 300px;
+        height: 50px;
+        line-height: 50px;
+        margin: 0 auto;
+        border-radius: 25px;
+        border: 1px solid @theme-yellow;
+        color: #fff;
+        font-size: 18px;
+        font-weight: 500;
+        background-color: rgba(232, 184, 2, 0.2);
+        &:hover, &:focus {
+            text-decoration: none;
+            background-color: @theme-yellow;
+            em{
+                color: @text-color01-light;
+            }
+        }
+        em{
+            color: @text-yellow-color;
+        }
+    }
+}
+
+.ieo-main {
+    position: relative;
+    background-color: @bg-color-light;
+    min-height: 260px;
+    .content {
+        width: 1200px;
+        margin: 0 auto;
+        padding: 40px 0;
+    }
+    .token-list {
+        li.token-item {
+            position: relative;
+            height: 180px;
+            color: @text-color02-light;
+            border-radius: 6px;
+            background-color: #fff;
+            margin-bottom: 30px;
+            cursor: pointer;
+            &:last-child{
+                margin-bottom: 0;
+            }
+            &:hover{
+                box-shadow: 0 0 6px 4px rgba(208, 214, 218, .4);
+            }
+            .token-pic {
+                float: left;
+                width: 180px;
+                height: 180px;
+                background-repeat: no-repeat;
+                background-position: center;
+                background-size: 80% 80%;
+            }
+            .status-icon {
+                position: absolute;
+                top: 15px;
+                right: 20px;
+            }
+            .token-content {
+                float: left;
+                width: 990px;
+                margin: 10px 20px 0 10px;
+                text-align: left;
+                .content-top {
+                    border-bottom: 1px solid @space-color-light;
+                    span {
+                        display: inline-block;
+                        height: 40px;
+                        line-height: 40px;
+                        &.name {
+                            width: 100px;
+                            font-size: 16px;
+                            color: @text-color01-light;
+                        }
+                        &.time {
+                            margin-left: 40px;
+                        }
+                        em{
+                            color: @text-color01-light;
+                            display: inline-block;
+                            margin-left: 10px;
+                        }
+                    }
+                }
+                .content-bottom {
+                    height: 90px;
+                    margin: 20px auto;
+                    .token-desc {
+                        float: left;
+                        width: 520px;
+                        margin-right: 40px;
+                        position: relative;
+                        height: 90px;
+                        padding: 25px 0;
+                        .inner{
+                            position: relative;
+                            line-height: 20px;
+                            height: 40px;
+                            overflow: hidden;
+                            white-space: normal;
+                            word-break: break-word;
+                        }
+                        &::after{
+                            position: absolute;
+                            content: '';
+                            width: 1px;
+                            height: 60px;
+                            background-color: #f0f3f5;
+                            right: -40px;
+                            top: 15px;
+                        }
+                    }
+                    .progress {
+                        float: left;
+                        width: 290px;
+                        height: 100%;
+                        margin: 0 70px;
+                        .countdown{
+                            em{
+                                font-size: 24px;
+                                width: 40px;
+                                height: 40px;
+                                line-height: 40px;
+                                margin-right: 43px;
+                                margin-top: 15px;
+                                background-size: 100% 100%;
+                                &:last-child{
+                                    margin-right: 0;
+                                }
+                            }
+                            .txt{
+                                width: 40px;
+                                text-align: center;
+                                margin: 10px 0;
+                            }
+                        }
+                        .amount{
+                            height: 90px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-size: 14px;
+                            .txt{
+                                width: 50px;
+                                color: @text-color03;
+                                font-weight: bold;
+                                text-align: left;
+                            }
+                            .num{
+                                width: 160px;
+                                text-align: center;
+                                color: #00a184;
+                                font-size: 24px;
+                            }
+                            .token{
+                                width: 80px;
+                                text-align: right;
+                            }
+
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .no-data{
+        height: 180px;
+        line-height: 140px;
+        text-align: center;
+        padding: 20px;
+        color: @text-color02-light;
+        border-radius: 6px;
+        background: url("../../images/ieo/main-placeholder.png") no-repeat 20px center #fff;
+        background-size: 140px 140px;
+        font-size: 20px;
+    }
+
+}
+
+.feature-wrap{
+    position: relative;
+    width: 1200px;
+    margin: 0 auto;
+    color: #fff;
+    padding: 30px 0 40px;
+    text-align: center;
+    h2.title{
+        height: 50px;
+        line-height: 50px;
+        font-size: 20px;
+        color: #fff;
+        margin-bottom: 12px;
+        em{
+            color: #cc9900;
+        }
+    }
+    ul.content{
+        display: -webkit-box;
+        -webkit-box-pack: center;
+      li.feature{
+          width: 224px;
+          height: 240px;
+          background: url("../../images/ieo/border.png") no-repeat center;
+          background-size: 100%;
+          margin-right: 20px;
+          padding: 0 16px;
+          .feature-icon{
+              width: 192px;
+              height: 100px;
+              background-repeat: no-repeat;
+              margin: 16px auto 6px;
+              &.icon1{
+                  background: url("../../images/ieo/feature1.png");
+                  background-size: 100%;
+              }
+              &.icon2{
+                  background: url("../../images/ieo/feature2.png");
+                  background-size: 100%;
+              }
+              &.icon3{
+                  background: url("../../images/ieo/feature3.png");
+                  background-size: 100%;
+              }
+              &.icon4{
+                  background: url("../../images/ieo/feature4.png");
+                  background-size: 100%;
+              }
+              &.icon5{
+                  background: url("../../images/ieo/feature5.png");
+                  background-size: 100%;
+              }
+          }
+          h3{
+              position: relative;
+              height: 30px;
+              line-height: 30px;
+              font-size: 14px;
+              color: #fff;
+              margin-bottom: 10px;
+              &::after{
+                  position: absolute;
+                  content: '';
+                  width: 192px;
+                  height: 1px;
+                  background: url('../../images/ieo/text-line.png') no-repeat center;
+                  background-size: 100%;
+                  left: 0;
+                  bottom: 0;
+              }
+          }
+          .des{
+              text-align: left;
+              font-weight: 300;
+          }
+      }
+    }
 
 }

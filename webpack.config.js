@@ -2,20 +2,24 @@ var path = require('path');
 var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');  // 导出额外的文件插件
 var StringReplacePlugin = require('string-replace-webpack-plugin'); // 字符串替换插件
-// var CopyWebpackPlugin = require('copy-webpack-plugin');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
+// 单行日志输出
+const singleLog = require('single-line-log').stdout;
+
+// bundle分析
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 // 获取环境变量, 方便做不同处理
 // stage, product打包处理方式略有不同, 如assets资源的引用路径
 var env = process.env.NODE_ENV;
-
 // 读取项目配置文件
 // 获得项目名称及版本, 方便做打包处理assets cdn路径
-var package = require('./package.json');
-var projectVersion = package.version;
-var projectName = package.name;
-var cssmode = package.cssmode;
-var gitlabGroup = package.gitlabGroup;
-var cdnDomain = package.cdnDomain;
+var packageJSON = require('./package.json');
+var projectVersion = packageJSON.version;
+var projectName = packageJSON.name;
+var cssmode = packageJSON.cssmode;
+var gitlabGroup = packageJSON.gitlabGroup;
+var cdnDomain = packageJSON.cdnDomain;
 
 function resolve (dir) {
     return path.join(__dirname, './', dir)
@@ -26,52 +30,57 @@ const extractCSS = new ExtractTextPlugin({
     filename: '[name].css'
 });
 
-// 输出口
-var output = {
-    path: path.resolve(__dirname, "build/assets"),
-    filename: '[name].js',
-    chunkFilename: '[name].[chunkhash:5].chunk.js'
-};
-
 // 声明cssloader
 var cssLoader = {
     test: /\.(css|less)$/,
-    use: [
-        'style-loader',
+    loader: ExtractTextPlugin.extract([
         'css-loader?minimize=true',
         'postcss-loader',
         'less-loader'
-    ]
-}
+    ])
+};
+
+// 输出口
+var output = {
+    path: path.resolve(__dirname, "build"),
+    filename: '[name].js',
+    chunkFilename: '[name].chunk.js?t=[chunkhash:5]',
+    publicPath: '/'
+};
 
 // 为product环境打包时
 if (env == 'product') {
     // 定制cdn路径
-    output.publicPath = 'https://' + cdnDomain + '/' + gitlabGroup + '/' + projectName + '/' + projectVersion + '/assets/';
-    cssLoader.loader = extractCSS.extract(['css-loader', 'postcss-loader', 'less-loader']);
+    output.publicPath = '//' + cdnDomain + '/' + gitlabGroup + '/' + projectName + '/' + projectVersion + '/assets/';
+    cssLoader.loader = ExtractTextPlugin.extract("css-loader", "postcss-loader");
     delete cssLoader.use;
 }
 
 if (env == 'stage') {
      // 定制cdn路径
     output.publicPath = '/' + gitlabGroup + '/' + projectName + '/' + projectVersion + '/assets/';
-    cssLoader.loader = extractCSS.extract(['css-loader', 'postcss-loader', 'less-loader']);
+    cssLoader.loader = ExtractTextPlugin.extract("css-loader", "postcss-loader");
     delete cssLoader.use;
 }
 
 var config = {
     entry: {
         // 可对应多个入口文件
-        webapp: ['./js/app-aus.js'],
-        app: ['./js/app.js'],
-        test: ['./js/test.js'],
-        vendor: ['react', 'react-dom', 'react-router', 'mobx-react']
+        webapp: ['./js/app-ace.js'],
+        vendor: ['react', 'react-dom', 'react-router', 'mobx-react', 'echarts']
     },
     output: output,
-    devtool: 'source-map', // 输出source-map
+    // devtool: 'source-map', // 输出source-map
     module: {
         loaders: [
-             {
+            {
+                test: /\.tmpl$/,
+                loader: "underscore-template-loader",
+                query: {
+                    engine: 'lodash'
+                }
+            },
+            {
                 test: /\.jsx?$/,
                 loader: 'babel-loader',
                 exclude: /node_modules/,
@@ -91,11 +100,11 @@ var config = {
             },
             cssLoader,
             {
-                test: /\.css|less|jsx?$/,
+                test: /\.(css|less|jsx?)$/,
                 loader: StringReplacePlugin.replace({
                     replacements: [
                         {
-                            pattern: /\d+?px[; ',"]/ig,
+                            pattern: /\d+?px['"; ]/ig,
                             replacement: function (res) {
                                 // 若cssmode为0, 则不需要额处理单位
                                 // 可选: 640 | 750
@@ -112,7 +121,7 @@ var config = {
             },
             {
                 test: /\.png$/,
-                loader: "url-loader?limit=6000" // 小于3k, 转成base64
+                loader: "url-loader?limit=300" // 小于3k, 转成base64
             },
             {
                 test: /\.jpg|eot|ttf|woff|mp3|mp4|gif$/,
@@ -140,13 +149,52 @@ var config = {
 
     // 插件
     plugins: [
+        // 如果更改顺序记得把 scripts/util.js 对应html模板 判断改了
+        new HtmlWebpackPlugin({
+            filename: 'index.html',
+            template: './template/index-ace.html',
+            hash: true,
+            // 指定要加载的模块
+            chunks: ['vendor', 'webapp']
+        }),
+        new BundleAnalyzerPlugin(),
         extractCSS,
+        new webpack.optimize.UglifyJsPlugin({
+            compress: {
+                warnings: false
+            },
+            output: {
+                comments: false,
+            }
+        }),
         new StringReplacePlugin(),
         new webpack.optimize.CommonsChunkPlugin({
-            names: ['vendor']
-        })
-    ]
-};
+            name: 'vendor',
+            filename: 'vendor.bundle.js',
+            minChunks: function(module) {
+              let flag =  module.context && module.context.indexOf('node_modules') !== -1;
+              console.log(module.context, flag);
+              return flag;
+            }
+        }),
+        new webpack.ProgressPlugin((percentage, message, ...args) => {
+            // e.g. Output each progress message directly to the console:
+            let str = '';
+            if(percentage === 1) {
+                str = '打包完成 \n';
+            } else {
+                _percent = (percentage * 100).toFixed(2);
+                str = `打包进度: ${_percent}%`;
+                if(message === 'building modules') {
+                    str += `      ${args[0]} \n`;
+                } else {
+                    str += `      正在进行 => ${message} \n`;
+                }
 
+            }
+            singleLog(str);
+        })
+]
+};
 
 module.exports = config;

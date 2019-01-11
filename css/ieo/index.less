@@ -1,17 +1,225 @@
+@import "../variable";
+
 .ieo-wrapper {
     @import './main.less';
     @import './detail.less';
     // 通用
 
-    #J-Countdown{
-        .day-wrap, .hour-wrap, .minute-wrap, .second-wrap{
-            display: inline-block;
+    .countdown {
+        .main {
+            display: flex;
+        }
+        .day-wrap, .hour-wrap, .minute-wrap, .second-wrap {
             text-align: center;
         }
-        em{
-            display: inline-block;
-            width: 40px;
+        em {
+            position: relative;
+            display: block;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 100%;
+            color: #fff;
+            &.day:after, &.hour:after, &.minute:after {
+                position: absolute;
+                content: '';
+                width: 3px;
+                height: 40px;
+                background: url("../../images/ieo/separator.png") no-repeat center;
+                background-size: 100%;
+                top: 0;
+                right: -20px;
+            }
+        }
+        &.light em {
+            background-image: url("../../images/ieo/time-light.png");
+        }
+        &.dark em {
+            background-image: url("../../images/ieo/time-dark.png");
+        }
+
+        .hide {
+            display: none;
+        }
+
+    }
+
+    //状态Icon
+    .status-icon {
+        color: #fff;
+        text-align: center;
+        text-indent: 8px;
+        width: 80px;
+        height: 20px;
+        line-height: 20px;
+        background-size: 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+        &.start {
+            background-image: url("../../images/ieo/icon-start.png");
+        }
+        &.on {
+            background-image: url("../../images/ieo/icon-on.png");
+        }
+        &.end {
+            background-image: url("../../images/ieo/icon-end.png");
+        }
+    }
+}
+
+// ieo购买弹窗
+.ant-modal-wrap.ieo-buy {
+    .ant-modal-body {
+        padding: 10px;
+    }
+    .exc-form-item {
+        margin-bottom: 20px;
+        &:last-child {
+            margin-bottom: 0;
+        }
+        .text {
+            border-radius: 3px;
+            padding: 0 9px;
             height: 40px;
+            line-height: 40px;
+            background-color: @list-hoverbg-color01-light;
+            color: @text-color01-light;
+            &.price {
+                .warn-tip {
+                    color: @text-red-color01;
+                    .anticon-exclamation-circle {
+                        margin-right: 5px;
+                    }
+                }
+            }
+            .tip {
+                color: @text-color02-light;
+                position: absolute;
+                right: 0;
+                bottom: 35px;
+                font-size: 12px;
+            }
+            em {
+                color: @text-color02-light;
+            }
+        }
+        .ant-checkbox-wrapper {
+            margin: 10px auto;
+            font-size: 12px;
+            color: @text-color02-light;
+            text-align: center;
+            width: 100%;
+        }
+
+    }
+
+    .amount-info, .coin-condition {
+        height: 24px;
+        line-height: 24px;
+        font-size: 12px;
+        color: @text-color02-light;
+        overflow: hidden;
+        em {
+            color: @text-color01-light;
+        }
+        .deposit {
+            float: right;
+        }
+    }
+    .coin-condition {
+        color: @text-red-color01;
+    }
+    .ant-modal-close-x {
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        background: url('../../images/ieo/close.png') no-repeat center;
+        background-size: 100%;
+        right: -50px;
+        opacity: 0.6;
+        &:hover {
+            opacity: 1;
+        }
+        &:before {
+            content: '';
+        }
+    }
+
+}
+
+.ant-modal-wrap.ieo-buy-msg {
+    .ant-modal-body {
+        position: relative;
+    }
+    h3 {
+        padding: 40px 0 10px;
+        text-align: center;
+        font-size: 18px;
+        box-sizing: content-box;
+        line-height: 20px;
+        color: @text-color01-light;
+        .inner {
+            display: inline-block;
+            height: 20px;
+            padding-left: 24px;
+            background: url('../../images/icon-checked.png') 0 center no-repeat;
+            background-size: 18px 18px;
+        }
+    }
+
+    .fail {
+
+        h3 .inner {
+            background-image: url('../../images/icon-close.png');
+        }
+        .content p {
+            text-align: center;
+        }
+
+    }
+    .content {
+        p {
+            padding-bottom: 10px;
+            text-align: left;
+            font-size: 12px;
+            color: @text-color02-light;
+            label {
+                display: inline-block;
+                width: 50%;
+                text-align: right;
+                box-sizing: border-box;
+                padding-right: 16px;
+            }
+        }
+        padding-bottom: 40px;
+    }
+    .ant-btn.close {
+        width: 100%;
+        height: 50px;
+        border-color: transparent;
+        border-top-color: @bg-color-light;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        color: @text-yellow-color;
+        &:hover {
+            background-color: transparent;
+        }
+    }
+}
+
+//英文特殊样式
+.app-page.en-US .ieo-wrapper {
+    .feature-wrap {
+        ul.content {
+            li.feature {
+                h3 {
+                    margin-bottom: 6px;
+                }
+                .des {
+                    line-height: 14px;
+                    font-weight: 300;
+                }
+            }
         }
     }
 }

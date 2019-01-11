@@ -5,6 +5,7 @@ import { Pagination } from 'antd';
 import TimeUtil from '@/lib/util/date';
 import toAction from './page-action';
 import Filter from './head-filter';
+import LocaleProvider from '@/components/locale-provider';
 
 @inject('commonStore', 'historyStore', 'authStore')
 @observer
@@ -89,7 +90,7 @@ class List extends Component {
         });
     }
 
-    handleMore=(e)=>{ 
+    handleMore=(e)=>{
         browserHistory.push('/account/record/history');
     }
 
@@ -234,7 +235,7 @@ class List extends Component {
         }
 
         if (this.props.from !== 'tradecenter' && store.total > 0) {
-            $footer = <Pagination current={store.current} total={store.total} pageSize={store.pageSize} onChange={this.onChangePagination.bind(this)} />;
+            $footer = <LocaleProvider><Pagination current={store.current} total={store.total} pageSize={store.pageSize} onChange={this.onChangePagination.bind(this)} /></LocaleProvider>;
         }
 
         return (

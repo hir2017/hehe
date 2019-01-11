@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
-import { Input, Select, Checkbox, Button, Radio, DatePicker, LocaleProvider } from 'antd';
+import { Input, Select, Checkbox, Button, Radio, DatePicker, LocaleProvider, Row, Col } from 'antd';
 import moment from 'moment';
 import FormView from '@/mods/common/form';
 import FormItem from '@/mods/common/form/item';
@@ -38,7 +38,7 @@ export default class FirstStep extends Component {
             address: '',
             profession: '',
             annualsalary: '',
-            locationCode: '1',
+            realLocation: '1',
             locationArr: [],
             errorMsg: {},
         };
@@ -46,28 +46,27 @@ export default class FirstStep extends Component {
             firstName: {
                 label: UPEX.lang.template('真实姓氏'),
                 inputProps: {
-                    onChange: this.setVal.bind(this, 'firstName')
+                    onChange: this.onInput.bind(this, 'firstName')
                 },
-                tip: UPEX.lang.template('填写之姓名必须与日后提领的银行账户名相同')
             },
             secondName: {
                 label: UPEX.lang.template('真实名字'),
                 className: 'last',
                 inputProps: {
-                    onChange: this.setVal.bind(this, 'secondName')
+                    onChange: this.onInput.bind(this, 'secondName')
                 },
             },
             address: {
                 label: UPEX.lang.template('住址'),
                 inputProps: {
-                    onChange: this.setVal.bind(this, 'address')
+                    onChange: this.onInput.bind(this, 'address')
                 },
                 tip: UPEX.lang.template('请如实填写地址，我们可能会给您邮寄活动礼品或其他物品'),
             },
             idCard: {
                 label: UPEX.lang.template('证件号码'),
                 inputProps: {
-                    onChange: this.setVal.bind(this, 'idCard')
+                    onChange: this.idCardOnInput.bind(this)
                 },
                 tip: UPEX.lang.template('请填写真实身份证号，否则会影响您的资金进出'),
             }
@@ -98,22 +97,24 @@ export default class FirstStep extends Component {
         return (
             <AceForm className="auth-step-1">
                 <FormView>
-                    <FormItem label={UPEX.lang.template('国家/地区')} error={state.errorMsg.locationCode}>
-                        <Select onChange={this.onSelectChange.bind(this, 'locationCode')} value={state.locationCode}  placeholder={UPEX.lang.template('请选择')}>
+                    <FormItem label={UPEX.lang.template('国家/地区')} error={state.errorMsg.realLocation}>
+                        <Select showSearch onChange={this.locationOnSelect.bind(this)} value={state.realLocation}  placeholder={UPEX.lang.template('请选择')}>
                             {this.locationList()}
                         </Select>
                     </FormItem>
                     <FormItem label={UPEX.lang.template('证件类型')}  error={state.errorMsg.idCardType}>
-                        <Select disabled onChange={this.onSelectChange.bind(this, 'idCardType')} value={state.idCardType}  placeholder={UPEX.lang.template('请选择')}>
+                        <Select disabled onChange={this.onSelect.bind(this, 'idCardType')} value={state.idCardType}  placeholder={UPEX.lang.template('请选择')}>
                             {this.idCardList()}
                         </Select>
                     </FormItem>
                     <FormItem {...inputsData.idCard} value={state.idCard} error={state.errorMsg.idCard}/>
-                    <FormItem {...inputsData.firstName} value={state.firstName} error={state.errorMsg.firstName}/>
-                    <FormItem {...inputsData.secondName} value={state.secondName} error={state.errorMsg.secondName}/>
-                    <FormItem label={UPEX.lang.template('性别')} error={state.errorMsg.sex}>
-                        <Select onChange={this.onSelectChange.bind(this, 'sex')} value={state.sex}  placeholder={UPEX.lang.template('请选择')}>
-                            {this.sexList()}
+                    <FormItem className="name-row" tip={UPEX.lang.template('填写之姓名必须与日后提领的银行账户名相同')} >
+                        <FormItem {...inputsData.secondName} value={state.secondName} error={state.errorMsg.secondName}/>
+                        <FormItem {...inputsData.firstName} value={state.firstName} error={state.errorMsg.firstName}/>
+                    </FormItem>
+                    <FormItem label={UPEX.lang.template('性别')} error={state.errorMsg.gender}>
+                        <Select onChange={this.onSelect.bind(this, 'gender')} value={state.gender}  placeholder={UPEX.lang.template('请选择')}>
+                            {this.genderList()}
                         </Select>
                     </FormItem>
                     <FormItem  label={UPEX.lang.template('出生日期')} error={state.errorMsg.birthday}>
@@ -123,23 +124,24 @@ export default class FirstStep extends Component {
                     </FormItem>
                     <FormItem {...inputsData.address} value={state.address} error={state.errorMsg.address}/>
                     <FormItem label={UPEX.lang.template('职业')} error={state.errorMsg.profession}>
-                        <Select onChange={this.onSelectChange.bind(this, 'profession')} value={state.profession} placeholder={UPEX.lang.template('请选择职业')}>
+                        <Select onChange={this.onSelect.bind(this, 'profession')} value={state.profession} placeholder={UPEX.lang.template('请选择职业')}>
                             {this.professionList()}
                         </Select>
                     </FormItem>
                     <FormItem label={UPEX.lang.template('年薪')} error={state.errorMsg.annualsalary}>
-                        <Select onChange={this.onSelectChange.bind(this, 'annualsalary')} value={state.annualsalary} placeholder={UPEX.lang.template('请选择年薪')}>
+                        <Select onChange={this.onSelect.bind(this, 'annualsalary')} value={state.annualsalary} placeholder={UPEX.lang.template('请选择年薪')}>
                             {this.annualsalaryList()}
                         </Select>
                     </FormItem>
-                    <FormItem label={UPEX.lang.template('资金用途')}>
-                        <RadioGroup onChange={this.onSelectChange.bind(this, 'resortType', 'value')} value={state.resortType}>
+                    <FormItem className="resort-type" label={UPEX.lang.template('资金用途')}>
+                        <RadioGroup onChange={this.onChecked.bind(this, 'resortType')} value={state.resortType}>
                             {this.useOfFundsList()}
                         </RadioGroup>
-                        {this.state.resortType === 3 ? <Input onChange={this.onSelectChange.bind(this, 'resortTypeOther', 'value')} /> : null}
+                        {this.state.resortType == '3' ? <Input onChange={this.onInput.bind(this, 'resortTypeOther')} value={state.resortTypeOther}/> : null}
                     </FormItem>
                     <FormItem>
-                        <Checkbox onChange={this.onSelectChange.bind(this, 'check', 'checked')}>
+                        <Button onClick={this.submit.bind(this)} className="submit-btn" disabled={!state.check}>{UPEX.lang.template('下一步')}</Button>
+                        <Checkbox onChange={this.onChecked.bind(this, 'check')}>
                             <span
                                 className="checkbox-text"
                                 dangerouslySetInnerHTML={{
@@ -150,9 +152,6 @@ export default class FirstStep extends Component {
                                 }}
                             />
                         </Checkbox>
-                    </FormItem>
-                    <FormItem>
-                        <Button onClick={this.submit.bind(this)} className="submit-btn" disabled={!state.check}>{UPEX.lang.template('下一步')}</Button>
                     </FormItem>
                 </FormView>
             </AceForm>

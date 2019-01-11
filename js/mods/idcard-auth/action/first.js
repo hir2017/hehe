@@ -22,8 +22,8 @@ action.validate = function() {
         idCard: UPEX.lang.template('请填写证件号码'),
         profession: UPEX.lang.template('请选择职业'),
         annualsalary: UPEX.lang.template('请选择年薪'),
-        sex: UPEX.lang.template('请选择性别'),
-        locationCode: UPEX.lang.template('请选择国家/地区'),
+        gender: UPEX.lang.template('请选择性别'),
+        realLocation: UPEX.lang.template('请选择国家/地区'),
     };
     // 对字段做遍历
     for (let _name in mesMap) {
@@ -52,6 +52,7 @@ action.submit = function() {
         return;
     }
     const { state } = this;
+
     let data = {
         firstName: state.firstName,
         secondName: state.secondName,
@@ -63,40 +64,54 @@ action.submit = function() {
         address: state.address,
         postCode: state.postCode,
         profession: state.profession,
-        annualsalary: state.annualsalary,
-        sex: state.sex,
-        locationCode: state.locationCode
+        annualSalary: state.annualsalary,
+        gender: state.gender,
+        realLocation: state.realLocation,
     };
+    // 缓存数据
     this.props.updateCache('cacheBase', data);
+    // 保存数据到store
     this.props.userInfoStore.addIdentityInfo(data);
     this.props.changeStep(2);
 };
 
-// 属性值设置
-action.setVal = function(name, e) {
+// 身份证输入 校验 30位 大写字母和数字
+action.idCardOnInput = function(e) {
     let str = e.target.value;
     let val = str.trim();
     let result = '';
     if (val !== '') {
-        if (['address', 'firstName', 'secondName'].indexOf(name) !== -1) {
-            if (validateUtils.checkLength(str, 200)) {
-                return;
-            }
-            result = str;
+        val = val.toUpperCase();
+        if (!validateUtils.isNumberOrUpCaseCode(val) || validateUtils.checkLength(val, 30)) {
+            return;
         }
-        // 身份证校验 30位 大写字母和数字
-        if (name === 'idCard') {
-            val = val.toUpperCase();
-            if (!validateUtils.isNumberOrUpCaseCode(val) || validateUtils.checkLength(val, 30)) {
+        result = val;
+    }
+    this.setState({
+        idCard: result
+    });
+};
+// 属性值设置
+action.onInput = function(name, e) {
+    let str = e.target.value;
+    let val = str.trim();
+    if (val !== '') {
+        if (['address', 'firstName', 'secondName'].indexOf(name) !== -1) {
+            if (validateUtils.checkLength(val, 200)) {
                 return;
             }
-            result = val;
         }
     }
     this.setState({
-        [name]: result
+        [name]: val
     });
 };
+
+action.onChecked = function(name, e) {
+    this.setState({
+        [name]: e.target.type === 'checkbox' ? e.target.checked : e.target.value
+    });
+}
 
 // 日期变更
 action.dateChange = function(name, date, dateString) {
@@ -111,7 +126,6 @@ action.checkIsAuthPrimary = function() {
     if (userInfo.isAuthPrimary === -1) {
         getUserAuthInfo().then(res => {
             if (res.status === 200) {
-                // console.log(res)
                 const data = res.attachment;
                 let birthday = data.birthDay.split(' ')[0];
                 this.defaultDate.birthday = moment(birthday, 'YYYY-MM-DD');
@@ -126,26 +140,35 @@ action.checkIsAuthPrimary = function() {
                     address: data.location,
                     profession: data.profession + '',
                     annualsalary: data.annualSalary + '',
+                    realLocation: userInfo.realLocation + '',
+                    gender: userInfo.gender + '',
                 });
             }
         });
     }
 };
 
+
 /**
- * @assets field, [targetKey], event
+ * 国家、地区选择  如果是地区 且不等于 1(本地)
+ * @val: Array
  */
-action.onSelectChange = function(...assets) {
-    let _name = assets[0];
-    let _val = assets.length === 3 ? assets[2].target[assets[1]] : assets[1];
+action.locationOnSelect = function (val) {
     let _state = {
-        [_name]: _val
+        realLocation: val,
+        idCardType: val == '1' ? '1' : '3', // 1:身份证  3: 护照
     };
-    // 如果是地区 且不等于 1(本地)
-    if(_name === 'locationCode') {
-        _state.idCardType = _val == '1' ? '1' : '2';
-    }
+
     this.setState(_state);
+}
+/**
+ * @name: String
+ * @val: Array
+ */
+action.onSelect = function(name, val) {
+    this.setState({
+        [name]: val
+    });
 };
 
 // 获取地区
@@ -160,7 +183,6 @@ action.getRealLocation = function() {
         language: langMap[local] || 1
     }).then(res => {
         if (res.status === 200) {
-            console.log(res);
             this.setState({
                 locationArr: res.attachment.map(item => {
                     return {
@@ -242,7 +264,7 @@ action.locationList = function() {
 action.idCardList = function() {
     let list = [
         { value: '1', label: UPEX.lang.template('台湾身份证') },
-        { value: '2', label: UPEX.lang.template('护照') },
+        { value: '3', label: UPEX.lang.template('护照') },
     ];
     return list.map((item, i) => {
         return (
@@ -254,10 +276,11 @@ action.idCardList = function() {
 };
 
 // 性别列表
-action.sexList = function() {
+action.genderList = function() {
     let list = [
         { value: '1', label: UPEX.lang.template('男') },
         { value: '2', label: UPEX.lang.template('女') },
+        { value: '3', label: UPEX.lang.template('其他') },
     ];
     return list.map((item, i) => {
         return (

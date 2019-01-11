@@ -21,7 +21,7 @@
     "d3": "^5.5.0",
     "d3fc": "^13.1.1",
     "dayjs": "^1.6.0",
-    "echarts": "^4.1.0",
+    "echarts": "^4.2.0-rc.2",
     "express": "^4.16.3",
     "mobx": "^4.2.0",
     "mobx-react": "^5.0.0",
@@ -65,24 +65,28 @@
     "less-loader": "^4.0.5",
     "postcss-loader": "^2.0.6",
     "rmdir-sync": "^1.0.1",
+    "single-line-log": "^1.1.2",
     "string-replace-webpack-plugin": "0.0.5",
     "style-loader": "^0.18.2",
     "underscore-template-loader": "^0.8.0",
     "url-loader": "^0.5.9",
     "webpack": "^3.5.5",
+    "webpack-bundle-analyzer": "^3.0.3",
     "webpack-dev-middleware": "^1.12.0",
     "webpack-dev-server": "^1.16.2",
     "webpack-hot-middleware": "^2.22.1",
-    "writefile": "^0.2.8"
+    "writefile": "^0.2.8",
+    "recompose": "^0.27.1"
   },
   "gitlabGroup": "webex",
-  "googleFileExport": "module.exports",
+  "googleFileExport": "window.LangPack",
   "googleSpreadsheetId": "1SAiY0rhwJl01xfA6BZdS53z1JJwg0XvEEEYCiv6mrNM",
   "googleWorksheet": {
     "app": [
       "台湾站多语言定制",
       "PC通用多语言翻译文档",
-      "CountryCode"
+      "CountryCode",
+      "IEO多语言翻译文档"
     ],
     "appaus": [
       "澳州站多语言定制",
@@ -96,16 +100,20 @@
   "main": "index.js",
   "name": "primex",
   "scripts": {
-    "dev": "sudo webpack-dev-server",
     "product": "NODE_ENV=product webpack -p",
-    "restart": "pm2 restart server-aus.js --name='upexchange-front'  -o ./logs/out.log -e ./logs/error.log",
-    "restart-ace": "pm2 restart server.js --name='upexchange-acefront'  -o ./logs/out.log -e ./logs/error.log",
-    "start": "pm2 start server-aus.js  -o ./logs/out.log -e ./logs/error.log ",
-    "start-ace": "pm2 start server.js  -o ./logs/out.log -e ./logs/error.log ",
-    "stop": "pm2 stop server-aus.js",
-    "stop-ace": "pm2 stop server.js"
+    "dev": "node ./serve/server-dev.js --aus",
+    "dev-ace": "node ./serve/server-dev.js",
+    "restart": "pm2 restart pm2-aus.json",
+    "restart-ace": "pm2 restart pm2-ace.json",
+    "start": "pm2 start pm2-aus.json",
+    "start-ace": "pm2 start pm2-ace.json",
+    "stop": "pm2 stop pm2-aus.json",
+    "stop-ace": "pm2 stop pm2-ace.json",
+    "build": "node ./scripts/build.js --aus",
+    "build-ace": "node ./scripts/build.js",
+    "langfile": "node ./scripts/file.js"
   },
   "version": "2.1.25",
-  "ace-version": "1.0.18",
+  "ace-version": "1.0.22",
   "aus-version": "1.0.13"
 }
