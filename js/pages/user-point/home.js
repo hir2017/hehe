@@ -9,6 +9,8 @@ import UserInfo from '../user';
 import UserPointInfo from './user';
 import {getUserPointInfo, getLevelFee, getPointConsumeList} from '../../api/http';
 import {Pagination} from 'antd';
+import TimeUtil from '@/lib/util/date';
+import NumberUtil from '@/lib/util/number';
 
 class PageView extends Component {
     constructor(props) {
@@ -36,6 +38,8 @@ class PageView extends Component {
 
     render() {
         let {userInfo} = this.state;
+        let makerFee = NumberUtil.formatNumber(userInfo.makerFee * 100, 2);
+        let takerFee = NumberUtil.formatNumber(userInfo.takerFee * 100, 2);
 
         return (
             <UserInfo pathname="userpoint">
@@ -48,13 +52,20 @@ class PageView extends Component {
                     </div>
 
                     <div className="discount-wrap clearfix">
-                        <div className="discount off block">
-                            <p>挂单手续费:{userInfo.makerFee}</p>
-                            <p>吃单手续费:{userInfo.takerFee}</p>
-                        </div>
-                        <div className="discount more block">
-
-                        </div>
+                        <ul className="discount off block">
+                            <li className="txt">{UPEX.lang.template('当前等级享')}</li>
+                            <li className="info">
+                                <p className="fee">
+                                    <label>{UPEX.lang.template('挂单手续费')}</label>{makerFee}% off
+                                </p>
+                                <p className="fee">
+                                    <label>{UPEX.lang.template('吃单手续费')}</label>{takerFee}% off
+                                </p>
+                            </li>
+                        </ul>
+                        <ul className="discount more block">
+                            {UPEX.lang.template('更多等级特权在开发中...')}
+                        </ul>
 
                     </div>
 
@@ -84,12 +95,23 @@ class Fee extends Component {
     getData() {
         getLevelFee().then(res => {
             if (res.status == 200) {
+                //不管后端返回的数据有几条，只展示前十条等级对应的手续费信息
                 this.setState({
-                    feeList: res.attachment
+                    feeList: this.formatData(res.attachment.slice(0, 9))
                 })
             }
 
         })
+    }
+
+    formatData(data) {
+        data.map((item, index) => {
+            item._bottomPoint = NumberUtil.formatNumber(item.bottomPoint, 0);
+            item._topPoint = NumberUtil.formatNumber(item.topPoint, 0);
+            item._makerFee = NumberUtil.formatNumber(item.makerFee * 100, 2);
+            item._takerFee = NumberUtil.formatNumber(item.takerFee * 100, 2);
+        });
+        return data;
     }
 
 
@@ -103,18 +125,21 @@ class Fee extends Component {
                     <table>
                         <tbody>
                         <tr>
-                            <th>用户等级</th>
-                            <th>30天获得AcePoint</th>
-                            <th>掛單手續費折扣</th>
-                            <th>吃單手續費折扣</th>
+                            <th>{UPEX.lang.template('用户等级')}</th>
+                            <th>{UPEX.lang.template('30天获得AcePoint')}</th>
+                            <th>{UPEX.lang.template('挂单手续费折扣')}</th>
+                            <th>{UPEX.lang.template('吃单手续费折扣')}</th>
                         </tr>
                         {
                             feeList.length > 0 && feeList.map((item, index) => (
                                 <tr key={index}>
-                                    <td>{item.level}</td>
-                                    <td>{item.lowLimitPoint}-{item.highLimitPoint}</td>
-                                    <td>{item.sellFee}</td>
-                                    <td>{item.buyFee}</td>
+                                    <td className="level">Lv.{item.level}</td>
+                                    {
+                                        index == feeList.length - 1 ? (<td>>={item._bottomPoint}</td>) :
+                                            <td>{item._bottomPoint}-{item._topPoint}</td>
+                                    }
+                                    <td>{item._makerFee}%</td>
+                                    <td>{item._takerFee}%</td>
                                 </tr>
                             ))
 
@@ -147,14 +172,19 @@ class Detail extends Component {
 
     fetchData(page) {
         getPointConsumeList({
-            start: page,
+            page: page,
             size: this.state.pageSize
         }).then(res => {
-            let {attachment, total, status} = res;
+            let {attachment, status} = res;
             if (status == 200) {
                 this.setState({
-                    list: attachment,
-                    totalCount: total,
+                    list: this.formatData(attachment.list),
+                    totalCount: attachment.count,
+                    currentPage: page,
+                    isFetching: 0
+                })
+            } else {
+                this.setState({
                     isFetching: 0
                 })
             }
@@ -165,6 +195,14 @@ class Detail extends Component {
             })
         })
 
+    }
+
+    formatData(data) {
+        data.map((item, index) => {
+            item._createTime = TimeUtil.formatDate(item.createTime * 1000);
+            item.affix = item.flag == 1 ? '+' : '-';
+        });
+        return data;
     }
 
 
@@ -184,9 +222,9 @@ class Detail extends Component {
                     {
                         list.map((item, index) => {
                             return (
-                                <li>
-                                    <div className="time">{item.createTime}</div>
-                                    <div className="change">{item.change}</div>
+                                <li key={index}>
+                                    <div className="time">{item._createTime}</div>
+                                    <div className="change">{item.affix}{item.points}</div>
                                     <div className="remark">{item.remark}</div>
                                 </li>
                             );
@@ -197,25 +235,29 @@ class Detail extends Component {
         }
 
         if (list.length > 0 && totalCount > 0) {
-            $footer = <Pagination current={currentPage} total={totalCount} pageSize={pageSize} simple defaultCurrent={1}
+            $footer = <Pagination current={currentPage} total={totalCount} pageSize={pageSize}
                                   onChange={this.onChangePagination.bind(this)}/>;
         }
 
         return (
-            <div className="point-detail">
-                <h2>Ace Point 收支记录</h2>
-                <div className="table-hd">
-                    <div className="time">时间</div>
-                    <div className="change">AP 变动</div>
-                    <div className="remark">备注</div>
+            <div className="point-detail block">
+                <div className="title">{UPEX.lang.template('Ace Point 收支记录')}</div>
+                <div className="content">
+                    <div className="table-hd">
+                        <li>
+                            <div className="time">{UPEX.lang.template('时间')}</div>
+                            <div className="change">{UPEX.lang.template('AP 变动')}</div>
+                            <div className="remark">{UPEX.lang.template('备注')}</div>
+                        </li>
+                    </div>
+                    <ul className="table-bd">
+                        {$content}
+                    </ul>
+                    <div className="table-ft">
+                        {$footer}
+                    </div>
+                    {isFetching == 1 ? <div className="mini-loading"></div> : null}
                 </div>
-                <ul className="table-bd">
-                    {$content}
-                </ul>
-                <div className="table-ft">
-                    {$footer}
-                </div>
-                {isFetching == 1 ? <div className="mini-loading"></div> : null}
             </div>
         );
     }

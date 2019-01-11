@@ -1358,15 +1358,15 @@ export function getUserPointInfo(){
 }
 
 /**
- * 获取积分等级对应的手续费
+ * 获取用户积分等级列表
  */
 export function getLevelFee(){
-    return axios.post('http://www.mocky.io/v2/5c34698d2e00007400378df0');
+    return axios.post('user/getPointLevelList');
 }
 
 /**
  * 用户积分收支明细
  */
-export function getPointConsumeList(){
-    return axios.post('http://www.mocky.io/v2/5c3485f32e00000f00378ef0');
+export function getPointConsumeList(data){
+    return axios.post('user/getPointRecordListForPage', data);
 }
