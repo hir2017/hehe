@@ -173,7 +173,7 @@ var config = {
             filename: 'vendor.bundle.js',
             minChunks: function(module) {
               let flag =  module.context && module.context.indexOf('node_modules') !== -1;
-              console.log(module.context, flag);
+            //   console.log(module.context, flag);
               return flag;
             }
         }),
