@@ -10,7 +10,7 @@ import NumberUtil from '@/lib/util/number';
 
 const Search = Input.Search;
 
-@inject('accountStore')
+@inject('accountStore', 'userInfoStore')
 @observer
 class List extends Component {
     componentWillUnmount() {
@@ -43,6 +43,8 @@ class List extends Component {
             $content = <AssetsListView/>;
         }
 
+        let ableSeeIEO = [10001, 10005, 10032, 10028, 10012, 10003, 10002, 10050, 10055, 10059, 10051, 10052, 10054, 10056, 10030, 10067, 10006, 10020, 10014, 10017, 10047, 10011, 10016, 10021, 10009, 10574, 11486, 10043, 10041, 10207, 10196, 10023, 10045, 10033, 10394, 12228].indexOf(this.props.userInfoStore.userInfo.uid) >= 0;
+
         return (
             <div className="account-list">
                 <div className="account-filter-box">
@@ -73,7 +75,7 @@ class List extends Component {
                     <div className="table-bd">
                         {$content}
                         {
-                            UPEX.config.version == 'ace' ? <IEOListView/> : null
+                            UPEX.config.version == 'ace' && ableSeeIEO ? <IEOListView/> : null
                         }
                         {store.isFetching ? <div className="mini-loading"/> : null}
                     </div>
@@ -170,6 +172,11 @@ class IEOListView extends Component {
                     list: res.attachment,
                     isFetching: 0
                 });
+            } else {
+                //message.error(res.message);
+                this.setState({
+                    isFetching: 0
+                });
             }
         }).catch(() => {
             console.log('getIEOAssetsList err');
@@ -200,7 +207,8 @@ class IEOListView extends Component {
                             <button type="button" onClick={this.goIEODetail.bind(this, item.ieoId)}>
                                 {UPEX.lang.template('购买')}
                             </button>
-                            <Tooltip placement="topRight" title={UPEX.lang.template('锁仓期间不可交易，等待公告')} overlayClassName="buy-tooltip">
+                            <Tooltip placement="topRight" title={UPEX.lang.template('锁仓期间不可交易，等待公告')}
+                                     overlayClassName="buy-tooltip">
                                 <span className="tip"/>
                             </Tooltip>
                         </dd>
