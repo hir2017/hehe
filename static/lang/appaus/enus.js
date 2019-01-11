@@ -681,7 +681,7 @@ window.LangPack={
     "我邀请的好友": "My Invitees",
     "或": "or",
     "所在地": "Location",
-    "手持证件照": "Photo of holding photo ID next to the face",
+    "手持证件照": "Hand-held photo",
     "手持证件照实例提示文字": "The face image should be clear and focused, without any obstruction or make-up. @@@@ The face and hands should be fully exposed. @@@@ Your photo ID should be kept as close to your face as possible to ensure clear focus. @@@@ Please attach the note showing the date of shooting as shown in the demo picture.",
     "手机": "Mobile",
     "手机号": "Mobile ",
