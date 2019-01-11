@@ -52,7 +52,6 @@ class AnimationBg extends React.Component {
             top: 0,
             bottom: 0,
             zIndex: 0,
-            marginTop: 50,
             pointerEvents: 'none',
             background: 'linear-gradient(to bottom, #08090b 0%, #202326 100%)'
         }}/>;
