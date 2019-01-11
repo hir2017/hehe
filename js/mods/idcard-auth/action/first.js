@@ -221,7 +221,7 @@ action.annualsalaryList = function() {
     let list = [
         { value: '1', label: UPEX.lang.template('0-50万') },
         { value: '2', label: UPEX.lang.template('50-100万') },
-        { value: '3', label: UPEX.lang.template('150-200万') },
+        { value: '3', label: UPEX.lang.template('100-200万') },
         { value: '4', label: UPEX.lang.template('200-250万') },
         { value: '5', label: UPEX.lang.template('250万以上') }
     ];

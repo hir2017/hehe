@@ -1,7 +1,7 @@
 window.LangPack={
     "0-50万": "0-500K",
+    "100-200万": "1M-2M",
     "10min": "10min",
-    "150-200万": "1M-2M",
     "15min": "15min",
     "1day": "1day",
     "1hour": "1hour",
