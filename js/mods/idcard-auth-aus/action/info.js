@@ -67,6 +67,7 @@ action.submit = function() {
         captchaId
     };
     // TODO: 两个方向 直接提交 转成上传图片
+    // console.log(params)
     if(params.realLocation == '1') {
         this.props.submit(params).catch(err => {
             console.error('submitUserInfo', err);
@@ -131,7 +132,7 @@ action.onChecked = function(name, e) {
 action.dateChange = function(name, date, dateString) {
 
     this.defaultDate[name + 'Init'] = true;
-    this.setVal(name, dateString);
+    // this.setVal(name, dateString);
     this.setState({
         birthday: dateString
     });
@@ -180,7 +181,6 @@ action.locationOnSelect = function(val) {
     if(val !== '1') {
         _state.idCardType = '3';  // 2:驾驶照  3: 护照
     }
-    console.log('locationOnSelect', _state)
     this.setState(_state);
 };
 /**

@@ -1,11 +1,10 @@
 import { twdGetQuotaManagementInfo } from '@/api/http';
 import React from 'react';
+import { message } from 'antd';
+
 const action = {};
 
 
-action.getPopvoer = function (i) {
-    return <div className="tip-lines" dangerouslySetInnerHTML={{ __html: this.sameTips[i] }} />;
-}
 
 action.getLimit = function () {
     twdGetQuotaManagementInfo({
@@ -23,52 +22,62 @@ action.getLimit = function () {
 }
 
 action.submit = function () {
-    // 非护照
-    if (!this.isPassPort) {
-        if (!this.state.twoUrl) {
-            message.error(UPEX.lang.template('请上传照片'));
-            return;
-        }
-    }
-    if (!this.state.oneUrl || !this.state.threeUrl) {
+    if (!this.state.url0 || !this.state.url2) {
         message.error(UPEX.lang.template('请上传照片'));
         return;
     }
-    const info = this.props.cacheData;
-    // 基础信息
-    this.props.userInfoStore
-        .identityAuthentication(
-            Object.assign(
-                {
-                    positiveImages: this.state.oneUrl_fileKey,
-                    oppositeImages: this.state.twoUrl_fileKey,
-                    handImages: this.state.threeUrl_fileKey
-                },
-                info
-            )
-        )
-        .then(res => {
-            if (res.status === 200) {
-                this.props.changeStep(3);
-            } else {
-                this.props.changeStep(1);
-            }
-            this.props.userInfoStore.getUserInfo();
-        })
-        .catch(e => {
-            console.error('idcard-auth-step-2 next', e);
-        });
-}
-
-action.onHover = function (index, action) {
+    let params = {
+        positiveImages: this.state.url0_fileKey,
+        oppositeImages: this.state.url1_fileKey,
+        handImages: this.state.url2_fileKey
+    };
     this.setState({
-        activeIndex: action === 'enter' ? index : 'none'
+        loading: true
     });
+
+    this.props.submit(Object.assign(params, this.props.data)).then(res => {
+        this.setState({
+            loading: false
+        });
+        this.props.userInfoStore.getUserInfo();
+    })
 }
 
-action.upload = function(urlKey) {
-};
+action.onChange = function(urlKey, {file}) {
+    if(file.status == 'done') {
+        const {attachment, status} = file.response;
+        if (status === 200) {
+            this.setState({
+                [urlKey]: attachment.url,
+                [urlKey + '_fileKey']: attachment.key
+            });
+            message.success(`${file.name} ${UPEX.lang.template('上传成功')}`);
+        } else {
+            message.error(`${file.name} ${UPEX.lang.template('上传失败')}`);
+        }
+    }
+    if(file.status == 'error') {
+        message.error(`${file.name} ${UPEX.lang.template('上传失败')}`);
+    }
+}
+// 限制图片大小10M
+action.beforeUpload = function(file) {
+    const isLtM = file.size / 1024 / 1024 < 10;
+    const fileType = ['image/jpeg', 'image/jpg', 'image/png'];
+    const isPic = fileType.indexOf(file.type);
+    // console.log(isPic);
 
+    if (isPic === -1) {
+        message.error(UPEX.lang.template('只支持jpg|jpeg|png格式的图片上传'));
+        return false;
+    }
+
+    if (!isLtM) {
+        message.error(UPEX.lang.template('文件大小请控制在10MB以内'));
+        return false;
+    }
+    return isPic && isLtM;
+}
 
 export default function(target, name, descriptor) {
     Object.assign(target.prototype, action);

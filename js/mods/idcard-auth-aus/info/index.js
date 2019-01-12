@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Info from './info';
 import Upload from './upload';
 import {  submitUserInfo } from '@/api/http';
+import { message } from 'antd';
 
 export default class FirstStep extends Component {
     constructor(props) {
@@ -38,17 +39,21 @@ export default class FirstStep extends Component {
 
     render() {
         let $content = null;
-        $content = <Upload submit={this.submit}/>;
-        // switch (this.state.step) {
-        //     case 'info':
-        //         $content = <Info goToUpload={this.goToUpload} submit={this.submit}/>;
-        //         break;
-        //     case 'upload':
-        //         $content = <Upload submit={this.submit}/>;
-        //         break;
-        //     default:
-        //         break;
-        // }
+        let _props = {
+            submit: this.submit,
+            data: this.state.store,
+            goToUpload: this.goToUpload
+        }
+        switch (this.state.step) {
+            case 'info':
+                $content = <Info {..._props} />;
+                break;
+            case 'upload':
+                $content = <Upload  {..._props} />;
+                break;
+            default:
+                break;
+        }
         return $content;
     }
 }

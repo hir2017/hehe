@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
-import { Select, Checkbox, Button, DatePicker } from 'antd';
+import { Select, Checkbox, Button, DatePicker, message } from 'antd';
 import moment from 'moment';
 import FormItem from '@/mods/common/form/item';
 import AceForm from '@/components/form/form';
@@ -16,8 +16,6 @@ export default class FirstStep extends Component {
         this.defaultDate = {
             birthdayInit: false,
             birthday: moment().subtract(18, 'years'),
-            idCardValidityInit: false,
-            idCardValidity: moment().add(1, 'days')
         };
         this.state = {
             firstName: '',
@@ -26,7 +24,6 @@ export default class FirstStep extends Component {
             birthday: '',
             idCardType: '3',
             idCard: '',
-            idCardValidity: '',
             address: '',
             validate: '',
             captchaId: '',
@@ -65,15 +62,19 @@ export default class FirstStep extends Component {
                     msg: UPEX.lang.template('请填写证件号码')
                 },
                 {
-                    name: 'idCardValidity',
-                    target: 'IDCardOutOfTime',
-                    initField: 'outofTime',
-                    msg: UPEX.lang.template('请填写证件有效期')
-                },
-                {
                     name: 'address',
                     initField: 'location',
                     msg: UPEX.lang.template('请填写住址')
+                },
+                {
+                    name: 'realLocation',
+                    initField: 'realLocation',
+                    msg: UPEX.lang.template('请选择国家/地区')
+                },
+                {
+                    name: 'gender',
+                    initField: 'gender',
+                    msg: UPEX.lang.template('请选择性别')
                 }
             ]
         };
