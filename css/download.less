@@ -1,0 +1,167 @@
+/**
+ * app下载页样式
+ */
+@import 'variable';
+
+.download-wrapper {
+    width: 100%;
+    min-height: 650px;
+    background: url(../images/activity/invite-bg.png) no-repeat center top;
+    background-size: cover;
+    color: @text-color02;
+    .content {
+        width: 1200px;
+        margin: 0 auto;
+        padding: 75px 0;
+    }
+    .left-content {
+        margin: 100px 0 0 55px;
+        float: left;
+        .desc {
+            span {
+                display: inline-block;
+                margin: 0 22px;
+                position: relative;
+                &:before {
+                    position: absolute;
+                    content: '';
+                    width: 1px;
+                    height: 8px;
+                    background-color: #838891;
+                    left: -22px;
+                    top: 4px;
+                }
+                &:first-child {
+                    margin-left: 0;
+                    &:before {
+                        width: 0;
+                    }
+                }
+            }
+        }
+        .txt {
+            font-size: 48px;
+            font-weight: 300;
+            color: #fff;
+            margin: 12px auto 26px;
+        }
+        .down-btn {
+            color: @text-color01;
+            .btn {
+                position: relative;
+                display: inline-block;
+                width: 180px;
+                height: 40px;
+                line-height: 40px;
+                border: 1px solid @text-color01;
+                border-radius: 2px;
+                text-align: center;
+                padding-left: 10px;
+                background-repeat: no-repeat;
+                &.ios {
+                    background-image: url("../images/download-icon-ios.png");
+                    background-position: 62px center;
+                    background-size: 14px 16px;
+                }
+                &.android {
+                    background-image: url("../images/download-icon-android.png");
+                    background-position: 50px center;
+                    background-size: 14px 16px;
+                    margin-left: 30px;
+                }
+                .code-wrap{
+                    display: none;
+                    transition: all .5s ease-in-out;
+                    position: absolute;
+                    width: 180px;
+                    height: 200px;
+                    background-color: #262a2e;
+                    border-radius: 3px;
+                    bottom: -210px;
+                    left: 0;
+                    padding: 15px 15px 0;
+                    .qrcode{
+                        height: 150px;
+                        margin-bottom: 10px;
+                        padding: 10px;
+                        background-color: #fff;
+                    }
+                    p{
+                        position: relative;
+                        line-height: 15px;
+                        padding-left: 15px;
+                        &:before{
+                            position: absolute;
+                            content: '';
+                            width: 11px;
+                            height: 11px;
+                            background: url("../images/download-icon-scan.png") no-repeat center;
+                            background-size: 100%;
+                            left: 44px;
+                            top: 1px;
+                        }
+                    }
+                }
+                &:hover {
+                    border: 1px solid #fff;
+                    background-color: #26292e;
+                    .code-wrap{
+                        display: block;
+                        transition: all .5s ease-in-out;
+                    }
+                }
+
+            }
+
+        }
+    }
+    .right-content {
+        float: left;
+        margin-left: 185px;
+        .phone-wrap{
+            position: relative;
+            width: 296px;
+            height: 576px;
+            padding: 26px 32px 41px 27px;
+        }
+        .phone{
+            position: absolute;
+            width: 296px;
+            height: 576px;
+            left: 0;
+            top: 0;
+            background: url("../images/iphonex.png") no-repeat center;
+            background-size: 100%;
+        }
+        .slider-item{
+            width: 237px;
+            height: 509px;
+            background-repeat: no-repeat;
+            background-position: center;
+            &.item0{
+                background-image: url("../images/app-1.png");
+                background-size: 100%;
+            }
+            &.item1{
+                background-image: url("../images/app-2.png");
+                background-size: 100%;
+            }
+            &.item2{
+                background-image: url("../images/app-3.png");
+                background-size: 100%;
+            }
+            &.item3{
+                background-image: url("../images/app-4.png");
+                background-size: 100%;
+            }
+            &.item4{
+                background-image: url("../images/app-5.png");
+                background-size: 100%;
+            }
+        }
+        .ant-carousel .slick-dots{
+            bottom: -28px;
+        }
+    }
+
+}
