@@ -19,7 +19,7 @@ class Download extends Component {
     }
 
     insertQrcode() {
-        let url = 'https://stage-h5.ace.io/h5ex/app-download/index.html';
+        let url = UPEX.lang.template('app下载中转页链接');
         let el = $('.qrcode');
         el.qrcode({
             text: url,
