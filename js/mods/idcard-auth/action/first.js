@@ -12,7 +12,7 @@ const action = {};
 action.validate = function() {
     // TODO: 优化下
     const { state } = this;
-    let allPass = true;
+    let allPass = 0;
     let mesData = state.errorMsg;
     let mesMap = {
         firstName: UPEX.lang.template('请填写真实姓氏'),
@@ -27,24 +27,33 @@ action.validate = function() {
     };
     // 对字段做遍历
     for (let _name in mesMap) {
-        if (!state[_name]) {
+        let _val = state[_name];
+        if (_val === '' || _val === null) {
             mesData[_name] = mesMap[_name];
-            allPass = false;
+            allPass += 1;
         } else {
-            mesData[_name] = '';
+            // 全是空格
+            let _status = true;
+            if(typeof _val == 'string') {
+                _status = _val.trim() != '';
+            }
+            if(!_status) {
+                allPass += 1;
+            }
+            mesData[_name] = !_status ? mesMap[_name] : '';
         }
     }
     // 校验日期
     if (!state.birthday) {
         mesData.birthday = UPEX.lang.template('请完善出生日期');
-        allPass = false;
+        allPass += 1;
     } else {
         mesData.birthday = '';
     }
     this.setState({
         errorMsg: mesData
     });
-    return allPass;
+    return allPass === 0;
 };
 // 提交，上传数据
 action.submit = function() {
@@ -68,7 +77,13 @@ action.submit = function() {
         gender: state.gender,
         realLocation: state.realLocation,
     };
-    // 缓存数据
+    // 清除前后空格
+    for(let _field in data) {
+        if(typeof data[_field] === 'string') {
+            data[_field] = data[_field].trim();
+        }
+    }
+    // 缓存数据 用于和之后的图片提交合并
     this.props.updateCache('cacheBase', data);
     // 保存数据到store
     this.props.userInfoStore.addIdentityInfo(data);
@@ -81,8 +96,8 @@ action.idCardOnInput = function(e) {
     let val = str.trim();
     let result = '';
     if (val !== '') {
-        val = val.toUpperCase();
-        if (!validateUtils.isNumberOrUpCaseCode(val) || validateUtils.checkLength(val, 30)) {
+        // val = val.toUpperCase();
+        if (!validateUtils.isIdcardOrPassport(val) || validateUtils.checkLength(val, 30)) {
             return;
         }
         result = val;
@@ -93,8 +108,8 @@ action.idCardOnInput = function(e) {
 };
 // 属性值设置
 action.onInput = function(name, e) {
-    let str = e.target.value;
-    let val = str.trim();
+    let val = e.target.value;
+    // val = val.trim();
     if (val !== '') {
         if (['address', 'firstName', 'secondName'].indexOf(name) !== -1) {
             if (validateUtils.checkLength(val, 200)) {
@@ -111,6 +126,18 @@ action.onChecked = function(name, e) {
     this.setState({
         [name]: e.target.type === 'checkbox' ? e.target.checked : e.target.value
     });
+}
+
+// 地区过滤
+action.filterOption = function (inputValue, option) {
+    let result = true;
+    try {
+        let reg = new RegExp(inputValue, 'i');
+        result = reg.test(option.props.children);
+    } catch (error) {
+        console.error('location filterOption', error)
+    }
+    return result;
 }
 
 // 日期变更
