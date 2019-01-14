@@ -3,7 +3,7 @@ import { observer, inject } from 'mobx-react';
 import { browserHistory } from 'react-router';
 import { ausGetQuotaManagementInfo } from '@/api/http';
 import { Modal, Button, Icon } from 'antd';
-import getIdTypes from './getIdTypes';
+import {idCardList} from './action/info';
 import AceForm from '@/components/form/form';
 
 @inject('userInfoStore')
