@@ -112,7 +112,7 @@ body .user-main .ant-select-dropdown-menu-item {
     }
     & .ant-btn:hover,
     & .ant-btn:active {
-      color: #e8b802;
+      color: @theme-yellow;
     }
     & .ant-btn.ant-btn-loading:focus {
       outline: none;
@@ -129,7 +129,7 @@ body .user-main .ant-select-dropdown-menu-item {
       &.exc-btn-large,
       &.exc-btn-middle,
       &.exc-btn-small {
-        background-color: #e8b802;
+        background-color: @theme-yellow;
         border: none;
         color: @text-color01-light;
       }
@@ -151,8 +151,8 @@ body .user-main .ant-select-dropdown-menu-item {
         font-size: 12px;
       }
       &.exc-btn-white:hover {
-        background-color: #e8b802;
-        border-color: #e8b802;
+        background-color: @theme-yellow;
+        border-color: @theme-yellow;
       }
     }
   }
@@ -179,7 +179,7 @@ body .user-main .ant-select-dropdown-menu-item {
     }
   }
   .ant-btn.exc-main {
-    background-color: #e8b802;
+    background-color: @theme-yellow;
     color: @text-color01-light;
     height: 40px;
   }
@@ -188,7 +188,7 @@ body .user-main .ant-select-dropdown-menu-item {
       border-radius: 3px;
       height: 40px;
       line-height: 40px;
-      background-color: #e8b802;
+      background-color: @theme-yellow;
       color: @text-color01-light;
       display: inline-block;
       min-width: 160px;
@@ -591,8 +591,8 @@ body .user-main .ant-select-dropdown-menu-item {
           color: @text-color01-light;
         }
         &:nth-child(3) .ant-steps-item-icon {
-          background-color: #e8b802;
-          border-color: #e8b802;
+          background-color: @theme-yellow;
+          border-color: @theme-yellow;
         }
         &:nth-child(3) .ant-steps-item-icon > .ant-steps-icon {
           color: #fff;
@@ -653,6 +653,39 @@ body .user-main .ant-select-dropdown-menu-item {
   }
 
   .authentication-content {
+    .name-row , .profession {
+        > .inner-item {
+            overflow: hidden;
+        }
+        .exc-form-item {
+            margin-bottom: 0;
+        }
+        .exc-form-item:nth-child(1) {
+            float: left;
+        }
+        .exc-form-item:nth-child(2) {
+            float: right;
+        }
+    }
+    .name-row {
+        .exc-form-item:nth-child(1) {
+            width: 250px;
+        }
+        .exc-form-item:nth-child(2) {
+            width: 178px;
+        }
+    }
+
+
+    .resort-type {
+        .inner-label {
+            border-bottom: @space-color-light 1px solid;
+            margin-bottom: 20px;
+        }
+        .ant-radio-group .ant-radio-wrapper {
+            margin-bottom: 5px;
+        }
+    }
     .item {
       margin-top: 0;
       > span {
@@ -818,6 +851,122 @@ body .user-main .ant-select-dropdown-menu-item {
         margin-top: 0;
       }
     }
+
+    .auth-upload-img {
+        padding-top: 10px;
+        text-align: center;
+        .upload-box {
+            width: 640px;
+            margin: 0 auto 40px;
+            overflow: hidden;
+            .wrapper {
+                float: left;
+                width: 300px;
+                height: 260px;
+                box-sizing: border-box;
+                padding: 18px;
+                border: 1px dashed #e9e9e9;
+                overflow: hidden;
+                border-radius: 6px;
+                position: relative;
+                &:nth-child(1) {
+                    margin-right: 40px;
+                }
+            }
+            header {
+                padding: 10px 0 20px;
+                color: #323e48;
+                font-size: 14px;
+                text-emphasis: center;
+                i.anticon {
+                    opacity: 0;
+                    &.show {
+                        opacity: 1;
+                    }
+                }
+                .anticon-question {
+                    border-radius: 8px;
+                    border: 1px solid @theme-yellow;
+                    margin-left: 10px;
+                    color: @theme-yellow;
+                    &:hover {
+                        color: @text-color01-light;
+                        background-color: @theme-yellow;
+                    }
+                }
+                .anticon-check.show {
+                    margin-left: 10px;
+                    color: @theme-yellow;
+                }
+            }
+        }
+        .ant-upload {
+            padding: 0;
+            border: none;
+
+        }
+        .target {
+            .ant-upload-list-item-done {
+              display: none;
+            }
+            .ant-upload-list {
+                position: absolute;
+                bottom: 44px;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            .img-content {
+                background: url(../images/upload-pic.png) 0 0 no-repeat;
+                background-size: 100% 100%;
+                &:hover {
+                    background-image: url(../images/upload-pic-hover.png);
+                    .text {
+                        color: @theme-yellow;
+                    }
+                }
+            }
+        }
+
+        .img-content {
+            width: 260px;
+            height: 160px;
+            border-radius: 4px;
+            img {
+                width: 100%;
+                height: 100%;
+            }
+            .text {
+                font-size: 14px;
+                color: #ccc;
+                text-align: center;
+                position: absolute;
+                width: 260px;
+                top: 75%;
+            }
+        }
+        &.passport .example .img-content {
+            background: url(../images/passport-1.png) 0 0 no-repeat;
+            background-size: 100%;
+        }
+        &.passport .pic2 .example .img-content {
+            background-image: url(../images/passport-2.png);
+        }
+        .tip-content {
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            line-height: 25px;
+            position: relative;
+            padding: 15px;
+            color: #fff;
+            text-align: left;
+            z-index: 4;
+            background-color: rgba(0,0,0, 0.6);
+            &.show {
+                opacity: 1;
+            }
+        }
+    }
   }
   /* 邮箱绑定 */
   .bind-email-content {
@@ -868,7 +1017,7 @@ body .user-main .ant-select-dropdown-menu-item {
       color: @text-color02-light;
     }
     &.fail .info {
-      color: #e8b802;
+      color: @theme-yellow;
     }
   }
   .submit {
@@ -940,7 +1089,7 @@ body .user-main .ant-select-dropdown-menu-item {
       }
 
       &:hover {
-        color: #e8b802;
+        color: @theme-yellow;
       }
 
       &.none {
@@ -1038,6 +1187,15 @@ body .user-main .ant-select-dropdown-menu-item {
     height: auto;
     padding-bottom: 40px;
     padding-left: 150px;
+    .bottom-tip {
+        width: 100%;
+        display: inline-block;
+        padding-right: 150px;
+        padding-top: 5px;
+        box-sizing: border-box;
+        text-align: left;
+        line-height: 25px;
+    }
   }
 
   .pic-item-child {
@@ -1068,26 +1226,52 @@ body .user-main .ant-select-dropdown-menu-item {
       top: 75%;
     }
     &:hover .upload-icon-text {
-      color: #e8b802;
+      color: @theme-yellow;
     }
 
     .pic-title .anticon {
       margin-left: 10px;
-      color: #e8b802;
+      color: @theme-yellow;
     }
 
     &.sample-img .pic-title {
       .anticon {
         margin-top: -1px;
         border-radius: 8px;
-        border: solid 1px #e8b802;
+        border: solid 1px @theme-yellow;
         &:hover {
           color: @text-color01-light;
-          background-color: #e8b802;
+          background-color: @theme-yellow;
         }
       }
     }
+    &.sample-img img {
+        position: relative;
+        z-index: 2;
+    }
+    &.sample-img .img-content {
+        position: relative;
+        overflow: hidden;
+        border-radius: 4px;
+        &.active .tip-lines{
+            opacity: 1;
+        }
+        .tip-lines {
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            line-height: 25px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            padding: 15px;
+            color: #fff;
+            text-align: left;
+            z-index: 4;
+            background: url(../images/filter06-black.png) 0 0 repeat;
+        }
 
+    }
     .pic-title {
       font-size: 14px;
       color: @text-color02-light;

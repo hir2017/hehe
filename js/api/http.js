@@ -1275,6 +1275,16 @@ export function getAssetChangeReward(data) {
 
 
 /**
+ * 所在地区查询
+ * @language	语种 1:中简 2:中繁 3:英文
+ * @locationId	地区id
+ */
+export function getRealLocation(data) {
+    return axios.post('/param/realLocations', data);
+}
+
+
+/**
  * ------------- IEO-----------------
  */
 
@@ -1332,4 +1342,31 @@ export function getIEOAssetsList() {
  */
 export function getIEORecordList(data) {
     return axios.post('/ieo/ieoTransferRecord/transferRecordList', data);
+}
+
+
+
+/**
+ * ------------- 用户成长体系-----------------
+ */
+
+/**
+ * 获取用户积分信息
+ */
+export function getUserPointInfo(){
+    return axios.post('user/getUserPointInfo');
+}
+
+/**
+ * 获取用户积分等级列表
+ */
+export function getLevelFee(){
+    return axios.post('user/getPointLevelList');
+}
+
+/**
+ * 用户积分收支明细
+ */
+export function getPointConsumeList(data){
+    return axios.post('user/getPointRecordListForPage', data);
 }

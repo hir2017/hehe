@@ -58,3 +58,14 @@ export function checkLength(str, param) {
         return false;
     }
 }
+
+
+// 检测身份证或者护照 大小写字母和数字
+export function isIdcardOrPassport(str) {
+    try {
+        return /^[0-9A-Za-z]+$/.test(str);
+    } catch (error) {
+        console.error('validate isNumberOrCode', error);
+        return false;
+    }
+}

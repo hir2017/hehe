@@ -75,7 +75,7 @@ class List extends Component {
                     <div className="table-bd">
                         {$content}
                         {
-                            UPEX.config.version == 'ace' && ableSeeIEO ? <IEOListView/> : null
+                            UPEX.config.version == 'ace' && ableSeeIEO  ? <IEOListView/> : null
                         }
                         {store.isFetching ? <div className="mini-loading"/> : null}
                     </div>

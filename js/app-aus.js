@@ -21,10 +21,10 @@ import ReactDOM, {render} from 'react-dom';
 import { Router, Route, hashHistory, browserHistory, useRouterHistory} from 'react-router';
 import { observer, Provider } from 'mobx-react';
 import { message } from 'antd';
-import Url from './lib/url';
+// import Url from './lib/url';
 
-import LangPack from './lang/appaus/pack.js';
-window.LangPack = LangPack;
+// import LangPack from './lang/appaus/pack.js';
+// window.LangPack = LangPack;
 
 import './config-aus';
 import './global';

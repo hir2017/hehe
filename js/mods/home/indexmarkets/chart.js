@@ -9,13 +9,7 @@ import NumberUtil from '../../../lib/util/number';
 import DateUtil from '../../../lib/util/date';
 import { getTradeKline }  from '../../../api/http';
 // 引入 ECharts 主模块
-var echarts = require('echarts/lib/echarts');
-// 引入图
-require('echarts/lib/chart/line');
-// 引入提示框和标题组件
-require('echarts/lib/component/tooltip');
-require('echarts/lib/component/title');
-
+import echarts from 'echarts';
 
 @inject('commonStore')
 @observer

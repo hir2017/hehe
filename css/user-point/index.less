@@ -1,0 +1,225 @@
+@import "../variable";
+//个人中心-我的积分
+.user-point.home {
+    //公共样式抽离
+    .block {
+        background-color: #fff;
+        border-radius: 6px;
+        margin-bottom: 20px;
+        .title {
+            font-size: 14px;
+            border-bottom: 1px solid @page-split-border-color;
+            box-shadow: 0 2px 3px 1px rgba(23, 31, 39, .02);
+            color: @text-color01-light;
+            height: 49px;
+            line-height: 49px;
+            padding: 0 20px;
+        }
+        .content {
+            padding: 0 20px;
+        }
+    }
+    //用户积分基础信息
+    .point-info {
+        padding: 30px 0;
+        color: @text-color02-light;
+        .left-info {
+            .level-box {
+                float: left;
+                width: 60px;
+                height: 60px;
+                margin-right: 20px;
+                border-radius: 3px;
+                background: linear-gradient(top, #f6d18b, #f8eab3);
+                padding: 10px 0;
+                text-align: center;
+                color: #8f3e1a;
+                .unit {
+                    opacity: .5;
+                }
+                .level {
+                    font-size: 14px;
+                    font-weight: 500;
+                }
+            }
+            .info-panel {
+                float: left;
+                width: 580px;
+                .username, .other {
+                    height: 30px;
+                    line-height: 30px;
+                }
+                .username {
+                    font-size: 18px;
+                    color: @text-color01-light;
+                }
+                .other {
+                    span {
+                        display: inline-block;
+                        margin-right: 10px;
+                        &:last-child {
+                            margin-left: 20px;
+                            height: 24px;
+                            line-height: 24px;
+                            border-radius: 3px;
+                            background-color: #f0f3f5;
+                            text-align: center;
+                            padding: 0 20px;
+                        }
+                        &.total {
+                            color: #31353f;
+                            font-size: 14px;
+                        }
+                        em {
+                            margin: 0 3px;
+                        }
+                    }
+                }
+            }
+        }
+        .right-info {
+            float: left;
+            border-left: 1px solid @page-split-border-color;
+            padding-left: 20px;
+            p {
+                height: 30px;
+                line-height: 30px;
+                &.txt {
+                    color: @text-color01-light;
+                }
+                .value {
+                    color: #31353f;
+                    font-size: 14px;
+                    margin-right: 10px;
+                }
+            }
+        }
+
+    }
+
+    //专享折扣
+    .discount-wrap {
+        .discount {
+            float: left;
+            width: 480px;
+            height: 100px;
+            padding: 20px 20px 20px 100px;
+            margin-right: 20px;
+            &:last-child {
+                margin-right: 0;
+            }
+            background-size: 60px 60px;
+            background-repeat: no-repeat;
+            background-position: 20px 20px;
+            li {
+                display: inline-block;
+                vertical-align: middle;
+            }
+            &.off {
+                background-image: url("../../images/ap/off.png");
+                .txt {
+                    width: 150px;
+                    font-size: 20px;
+                    color: @text-color01-light;
+                }
+                p.fee {
+                    height: 30px;
+                    line-height: 30px;
+                    color: #31353f;
+                    label {
+                        display: inline-block;
+                        width: 110px;
+                        color: @text-color02-light;
+                    }
+                }
+
+            }
+            &.more {
+                background-image: url("../../images/ap/wait.png");
+                color: @text-color02-light;
+                font-size: 20px;
+                font-weight: 300;
+                line-height: 60px;
+            }
+        }
+    }
+    //用户等级对应手续费列表
+    .fee-wrap {
+        .content {
+            padding-bottom: 20px;
+        }
+        .fee-desc {
+            padding: 20px 0;
+            color: @text-color01-light;
+        }
+        table {
+            color: @text-color01-light;
+            th {
+                background-color: #f7f8f9;
+                font-size: 12px;
+                color: @text-color02;
+            }
+            tr:hover {
+                background-color: #f7f8f9;
+            }
+            td, th {
+                width: 243px;
+                height: 40px;
+            }
+            tr, td, th {
+                border: 1px solid @page-split-border-color;
+            }
+            .level{
+                font-size: 14px;
+            }
+        }
+    }
+    //收支记录详情
+    .point-detail {
+        position: relative;
+        color: @text-color01-light;
+        .content{
+            min-height: 300px;
+            padding-bottom: 20px;
+        }
+        .table-hd{
+            color: @text-color02-light;
+        }
+        .time, .change, .remark {
+            display: inline-block;
+            vertical-align: middle;
+            height: 50px;
+            line-height: 50px;
+            border-bottom: 1px solid @page-split-border-color;
+        }
+        .time {
+            width: 410px;
+            padding-left: 10px;
+        }
+        .change {
+            width: 240px;
+        }
+        .remark {
+            width: 290px;
+            text-align: right;
+            padding-right: 10px;
+        }
+        .table-bd{
+            li:hover{
+                background-color: #f7f8f9;
+            }
+        }
+        .table-ft{
+            .ant-pagination{
+                margin-top: 15px;
+                text-align: center;
+            }
+        }
+    }
+
+}
+
+//积分入口页
+.user-point.welcome {
+
+}

@@ -4,6 +4,7 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import { Button } from 'antd';
+import {updateAuthFailReasonStatus} from '@/api/http';
 
 import AceForm from '../../components/form/form';
 
@@ -30,6 +31,15 @@ export default class ThirdStep extends Component {
     }
 
     next() {
+        updateAuthFailReasonStatus({
+            status: 0
+        }).then(res => {
+            if(res.status === 200) {
+                setTimeout(() => {
+                    this.props.userInfoStore.getUserInfo();
+                }, 50);
+            }
+        });
         this.props.changeStep(1);
     }
 

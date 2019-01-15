@@ -73,7 +73,7 @@ export default class BindingBank extends Component {
     render() {
         const store = this.props.userInfoStore;
         const {submit_loading: loading, userInfo = {}} = store;
-        const isEnableFdPassword = userInfo.isEnableFdPassword !== 2 ? true : false;
+        const isEnableFdPassword = userInfo.isEnableFdPassword == 1 ? true : false;
         let tradePwdData = {
             noPhone: {
                 path: '/user/setting-phone',

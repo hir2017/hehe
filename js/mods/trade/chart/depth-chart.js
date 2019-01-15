@@ -10,12 +10,7 @@
  */
 import React, {Component} from 'react';
 // 引入 ECharts 主模块
-var echarts = require('echarts/lib/echarts');
-// 引入图
-require('echarts/lib/chart/line');
-// 引入提示框和标题组件
-require('echarts/lib/component/tooltip');
-require('echarts/lib/component/title');
+import echarts from 'echarts';
 
 
 class DepthChart extends Component{
@@ -23,7 +18,7 @@ class DepthChart extends Component{
 		depthAsks: [], // 卖方深度
 		depthBids: []  // 买方深度
 	}
-	
+
 	constructor(props) {
 		super(props);
 	}
@@ -47,7 +42,7 @@ class DepthChart extends Component{
 		this.setDepthData({
 			bids: nextProps.depthBids,
 			asks: nextProps.depthAsks
-		});     
+		});
     }
 
 	// 深度图数据处理方法
@@ -68,7 +63,7 @@ class DepthChart extends Component{
         	i[i.length] = item.price;
 			a[a.length] = item.totalvolume;
         })
-        
+
         chart.setOption({
         	grid: {
                 top: 10,
@@ -97,8 +92,8 @@ class DepthChart extends Component{
                 boundaryGap: false,
                 splitLine: {
                     show: !0,
-                    lineStyle: { 
-                    	type:'dashed',     
+                    lineStyle: {
+                    	type:'dashed',
                         color: 'rgba(102,102,102,0.1)'
                     }
                 },
@@ -116,8 +111,8 @@ class DepthChart extends Component{
                 },
                 splitLine: {
                     show: !0,
-                    lineStyle: {  
-                    	type:'dashed',    
+                    lineStyle: {
+                    	type:'dashed',
                         color: 'rgba(102,102,102,0.1)'
                     }
                 },

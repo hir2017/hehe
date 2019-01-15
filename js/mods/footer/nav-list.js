@@ -93,7 +93,7 @@ const getNavList = () => {
         [
             {
                 name: UPEX.lang.template('下载客户端'),
-                path: UPEX.lang.template('下载客户端链接')
+                path: '/download-app'
             }
         ]
     ];
