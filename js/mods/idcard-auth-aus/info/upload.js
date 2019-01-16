@@ -119,7 +119,7 @@ export default class SecondStep extends Component {
                 <Alert className="ace-form-tips" type="warning" showIcon message={msgText} />
                 {
                     this.picsData.map((item, i) => {
-                        return <UploadImg key={i} value={state[item.url]} onChange={this.onChange.bind(this, item.url)} {...this.handlePorps} className="pic1" {...item} tips={this.sameTips[item.url]}/>
+                        return <UploadImg key={i} value={state[item.url]} onChange={this.onChange.bind(this, item.url)} {...this.handlePorps} className={`pic${i + 1}`} {...item} tips={this.sameTips[item.url]}/>
                     })
                 }
                 <p className="bottom-tip">{UPEX.lang.template('请手持當天日期紙條,請勿遮挡住證件號碼')}</p>
