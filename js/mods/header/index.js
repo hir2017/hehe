@@ -88,7 +88,7 @@ class HeaderView extends Component {
                                 <Link to="/news">{UPEX.lang.template('公告中心')}</Link>
                             </li>
                             {
-                                UPEX.config.version == 'ace'  ? (
+                                UPEX.config.version == 'ace' ? (
                                     <li className="ieo">
                                         <Link to="/ieo">{UPEX.lang.template('Launcher')}</Link>
                                     </li>) : null
@@ -133,14 +133,14 @@ class HeaderView extends Component {
                         }
                         <ul className="help-language">
                             <li className="split">|</li>
-                            {/*{*/}
-                            {/*UPEX.config.version == 'ace' ? (<li className="point">*/}
-                            {/*<Link to="/user-point/welcome">{UPEX.lang.template('AcePoint')}</Link>*/}
-                            {/*</li>) : null*/}
+                            {
+                                UPEX.config.version == 'ace' ? (<li className="point">
+                                    <Link to="/user-point/welcome">{UPEX.lang.template('AcePoint')}</Link>
+                                </li>) : null
 
-                            {/*}*/}
+                            }
 
-                            {/*<li className="split">|</li>*/}
+                            <li className="split">|</li>
 
                             <li className="help">
                                 <a target="_blank"

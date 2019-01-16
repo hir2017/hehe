@@ -69,11 +69,11 @@ class UserPage extends Component {
                 key: 'activity',
                 title: UPEX.lang.template('活动'),
                 subItems: [
-                    // {
-                    //     active: 'userpoint',
-                    //     route: '/user-point/home',
-                    //     text: UPEX.lang.template('我的Ace Point')
-                    // },
+                    {
+                        active: 'userpoint',
+                        route: '/user-point/home',
+                        text: UPEX.lang.template('我的Ace Point')
+                    },
                     {
                         active: 'invite-home',
                         route: '/activity/invite-home',

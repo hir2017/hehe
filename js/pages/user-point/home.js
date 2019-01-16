@@ -38,8 +38,8 @@ class PageView extends Component {
 
     render() {
         let {userInfo} = this.state;
-        let makerFee = NumberUtil.formatNumber(userInfo.makerFee * 100, 2);
-        let takerFee = NumberUtil.formatNumber(userInfo.takerFee * 100, 2);
+        let makerFee = userInfo.makerFee && NumberUtil.formatNumber((1 - userInfo.makerFee) * 100, 2);
+        let takerFee = userInfo.takerFee && NumberUtil.formatNumber((1 - userInfo.takerFee) * 100, 2);
 
         return (
             <UserInfo pathname="userpoint">
@@ -52,17 +52,22 @@ class PageView extends Component {
                     </div>
 
                     <div className="discount-wrap clearfix">
-                        <ul className="discount off block">
-                            <li className="txt">{UPEX.lang.template('当前等级享')}</li>
-                            <li className="info">
-                                <p className="fee">
-                                    <label>{UPEX.lang.template('挂单手续费')}</label>{makerFee}% off
-                                </p>
-                                <p className="fee">
-                                    <label>{UPEX.lang.template('吃单手续费')}</label>{takerFee}% off
-                                </p>
-                            </li>
-                        </ul>
+                        {
+                            userInfo.makerFee >= 1 ? null : (
+                                <ul className="discount off block">
+                                    <li className="txt">{UPEX.lang.template('当前等级享')}</li>
+                                    <li className="info">
+                                        <p className="fee">
+                                            <label>{UPEX.lang.template('挂单手续费')}</label>{makerFee || '--'}% off
+                                        </p>
+                                        <p className="fee">
+                                            <label>{UPEX.lang.template('吃单手续费')}</label>{takerFee || '--'}% off
+                                        </p>
+                                    </li>
+                                </ul>
+                            )
+                        }
+
                         <ul className="discount more block">
                             {UPEX.lang.template('更多等级特权在开发中...')}
                         </ul>
@@ -108,8 +113,8 @@ class Fee extends Component {
         data.map((item, index) => {
             item._bottomPoint = NumberUtil.formatNumber(item.bottomPoint, 0);
             item._topPoint = NumberUtil.formatNumber(item.topPoint, 0);
-            item._makerFee = NumberUtil.formatNumber(item.makerFee * 100, 2);
-            item._takerFee = NumberUtil.formatNumber(item.takerFee * 100, 2);
+            item._makerFee = NumberUtil.formatNumber((1 - item.makerFee) * 100, 2);
+            item._takerFee = NumberUtil.formatNumber((1 - item.takerFee) * 100, 2);
         });
         return data;
     }
@@ -127,8 +132,8 @@ class Fee extends Component {
                         <tr>
                             <th>{UPEX.lang.template('用户等级')}</th>
                             <th>{UPEX.lang.template('30天获得AcePoint')}</th>
-                            <th>{UPEX.lang.template('挂单手续费折扣')}</th>
-                            <th>{UPEX.lang.template('吃单手续费折扣')}</th>
+                            <th>{UPEX.lang.template('挂单手续费折扣(off)')}</th>
+                            <th>{UPEX.lang.template('吃单手续费折扣(off)')}</th>
                         </tr>
                         {
                             feeList.length > 0 && feeList.map((item, index) => (
