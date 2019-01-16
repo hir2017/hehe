@@ -123,7 +123,7 @@ export default class FirstStep extends Component {
         return (
             <AceForm className="auth-base-info">
                 <FormItem label={UPEX.lang.template('国家/地区')} error={errMsg.realLocation}>
-                    <Select defaultValue="1" value={state.realLocation} onChange={this.locationOnSelect.bind(this)}>
+                    <Select showSearch filterOption={this.filterOption} defaultValue="1" value={state.realLocation} onChange={this.locationOnSelect.bind(this)}>
                         {this.locationList()}
                     </Select>
                 </FormItem>

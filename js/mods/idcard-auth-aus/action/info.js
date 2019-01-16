@@ -228,6 +228,18 @@ action.locationList = function() {
     });
 };
 
+// 地区过滤
+action.filterOption = function (inputValue, option) {
+    let result = true;
+    try {
+        let reg = new RegExp(inputValue, 'i');
+        result = reg.test(option.props.children);
+    } catch (error) {
+        console.error('location filterOption', error)
+    }
+    return result;
+}
+
 // 身份证列表
 export const idCardList = function(val) {
     let list = [
