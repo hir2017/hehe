@@ -51,11 +51,12 @@ class View extends Component {
     hideStr = function (string) {
         let newStr = '';
 
-        if (UPEX.lang.language == 'en-US') {
-            newStr = string.length > 180 ? string.substring(0, 180) + '...' : string;
-        } else {
-            newStr = string.length > 80 ? string.substring(0, 80) + '...' : string;
-        }
+        // if (UPEX.lang.language == 'en-US') {
+        //     newStr = string.length > 180 ? string.substring(0, 180) + '...' : string;
+        // } else {
+        //     newStr = string.length > 80 ? string.substring(0, 80) + '...' : string;
+        // }
+        newStr = string.length > 80 ? string.substring(0, 80) + '...' : string;
         return newStr;
     };
 
