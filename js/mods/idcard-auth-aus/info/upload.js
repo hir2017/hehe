@@ -131,7 +131,7 @@ export default class SecondStep extends Component {
                             </Button>
                         ) : (
                             <Button className="submit-btn" onClick={this.submit.bind(this)}>
-                                {UPEX.lang.template('下一步')}
+                                {UPEX.lang.template('提交')}
                             </Button>
                         )}
                     </FormItem>
