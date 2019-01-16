@@ -162,6 +162,8 @@ action.checkIsAuthPrimary = function() {
                     }
                     params[item.name] = val;
                 });
+                params.realLocation = userInfo.realLocation + '';
+                params.gender = userInfo.gender + '';
                 this.defaultDate.birthdayInit = true;
                 this.defaultDate.idCardValidityInit = true;
                 this.setState(params);

@@ -183,7 +183,7 @@ export default class FirstStep extends Component {
                         </Button>
                     ) : (
                         <Button className="submit-btn" disabled={!(this.state.checked && this.state.isSlide)} onClick={this.submit.bind(this)}>
-                            {UPEX.lang.template('下一步')}
+                            {this.state.realLocation == '1' ? UPEX.lang.template('提交') : UPEX.lang.template('下一步')}
                         </Button>
                     )}
                 </FormItem>
