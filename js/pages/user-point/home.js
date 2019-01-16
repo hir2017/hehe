@@ -38,8 +38,8 @@ class PageView extends Component {
 
     render() {
         let {userInfo} = this.state;
-        let makerFee = userInfo.makerFee && NumberUtil.formatNumber((1 - userInfo.makerFee) * 100, 2);
-        let takerFee = userInfo.takerFee && NumberUtil.formatNumber((1 - userInfo.takerFee) * 100, 2);
+        let makerFee = userInfo.makerFee && NumberUtil.formatNumber(userInfo.makerFee * 100, 2);
+        let takerFee = userInfo.takerFee && NumberUtil.formatNumber(userInfo.takerFee * 100, 2);
 
         return (
             <UserInfo pathname="userpoint">
@@ -113,8 +113,8 @@ class Fee extends Component {
         data.map((item, index) => {
             item._bottomPoint = NumberUtil.formatNumber(item.bottomPoint, 0);
             item._topPoint = NumberUtil.formatNumber(item.topPoint, 0);
-            item._makerFee = NumberUtil.formatNumber((1 - item.makerFee) * 100, 2);
-            item._takerFee = NumberUtil.formatNumber((1 - item.takerFee) * 100, 2);
+            item._makerFee = NumberUtil.formatNumber(item.makerFee * 100, 2);
+            item._takerFee = NumberUtil.formatNumber(item.takerFee * 100, 2);
         });
         return data;
     }
