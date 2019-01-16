@@ -51,11 +51,12 @@ class View extends Component {
     hideStr = function (string) {
         let newStr = '';
 
-        if (UPEX.lang.language == 'en-US') {
-            newStr = string.length > 180 ? string.substring(0, 180) + '...' : string;
-        } else {
-            newStr = string.length > 80 ? string.substring(0, 80) + '...' : string;
-        }
+        // if (UPEX.lang.language == 'en-US') {
+        //     newStr = string.length > 180 ? string.substring(0, 180) + '...' : string;
+        // } else {
+        //     newStr = string.length > 80 ? string.substring(0, 80) + '...' : string;
+        // }
+        newStr = string.length > 80 ? string.substring(0, 80) + '...' : string;
         return newStr;
     };
 
@@ -100,7 +101,8 @@ class View extends Component {
                                                                showtxt={true}/> :
                                                     (<div className="amount">
                                                         <span className="txt">{UPEX.lang.template('已募集')}</span>
-                                                        <span className="num">{NumberUtil.separate(item.raisedAmount)}</span>
+                                                        <span
+                                                            className="num">{NumberUtil.separate(item.raisedAmount)}</span>
                                                         <span className="token">{item.tokenName}</span>
                                                     </div>)
 
