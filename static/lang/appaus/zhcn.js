@@ -113,7 +113,7 @@ window.LangPack={
     "ET": "ET埃塞俄比亚",
     "Easy to use and best return. We are here to support you anytime, anywhere.": "Easy to use and best return. We are here to support you anytime, anywhere.",
     "FI": "FI芬兰",
-    "FJ": "FJ斐",
+    "FJ": "FJ斐济",
     "FK": "FK福克兰群岛",
     "FM": "FM密克罗尼西亚",
     "FO": "FO法罗群岛",

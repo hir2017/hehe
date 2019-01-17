@@ -175,6 +175,9 @@ class Detail extends Component {
             totalCount: 0,
             currentPage: 1,
             pageSize: 8
+        };
+        this.remarkMap = {
+            0: UPEX.lang.template('成长值增加结算')
         }
     }
 
@@ -213,6 +216,7 @@ class Detail extends Component {
         data.map((item, index) => {
             item._createTime = TimeUtil.formatDate(item.createTime * 1000);
             item.affix = item.flag == 1 ? '+' : '-';
+            item.remark = this.remarkMap[item.type];
         });
         return data;
     }
