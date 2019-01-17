@@ -650,6 +650,7 @@ window.LangPack={
     "成交额": "Volume ",
     "成交额 {num}{unit}": "Volume {num}{unit}",
     "成功，将跳转登录页面": "Successful, redirecting to the login page",
+    "成长值增加结算": "AP gains settlement",
     "我了解风险，继续": "I acknowledge the risk and continue",
     "我再想想": "Skip",
     "我已阅读并同意": "I'm 20 and agree to",

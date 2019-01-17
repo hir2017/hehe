@@ -109,7 +109,7 @@ class Fee extends Component {
             if (res.status == 200) {
                 //不管后端返回的数据有几条，只展示前十条等级对应的手续费信息
                 this.setState({
-                    feeList: this.formatData(res.attachment.slice(0, 9))
+                    feeList: this.formatData(res.attachment.slice(0, 10))
                 })
             }
 
