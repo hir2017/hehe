@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {observer, inject} from 'mobx-react';
 import {Icon, Popover} from 'antd';
+import {browserHistory} from 'react-router';
 
 @inject('commonStore', 'tradeStore')
 @observer
@@ -10,6 +11,16 @@ class LanguageSwitchView extends Component {
     }
 
     onSwitch(item) {
+        // 拿不到router
+        // console.log(this.props, this.props.router , this.props.route)
+        try {
+            if (window.location.pathname.indexOf('/news/detail') !== -1) {
+                browserHistory.push('/news');
+            }
+        } catch (error) {
+            console.error('language onSwitch', error);
+        }
+
         this.props.commonStore.changeLanguageTo(item);
     }
 
