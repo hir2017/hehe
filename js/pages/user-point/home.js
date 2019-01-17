@@ -41,6 +41,7 @@ class PageView extends Component {
         let makerFee = userInfo.makerFee && NumberUtil.formatNumber(userInfo.makerFee * 100, 2);
         let takerFee = userInfo.takerFee && NumberUtil.formatNumber(userInfo.takerFee * 100, 2);
 
+
         return (
             <UserInfo pathname="userpoint">
                 <div className="user-point home">
@@ -53,15 +54,21 @@ class PageView extends Component {
 
                     <div className="discount-wrap clearfix">
                         {
-                            userInfo.makerFee >= 1 ? null : (
+                            (userInfo.makerFee == 0) && (userInfo.takerFee == 0) ? null : (
                                 <ul className="discount off block">
                                     <li className="txt">{UPEX.lang.template('当前等级享')}</li>
                                     <li className="info">
                                         <p className="fee">
-                                            <label>{UPEX.lang.template('挂单手续费')}</label>{makerFee || '--'}% off
+                                            <label>{UPEX.lang.template('挂单手续费')}</label>
+                                            {
+                                                userInfo.makerFee >= 1 ? UPEX.lang.template('免费') : `${makerFee || '--'}% off`
+                                            }
                                         </p>
                                         <p className="fee">
-                                            <label>{UPEX.lang.template('吃单手续费')}</label>{takerFee || '--'}% off
+                                            <label>{UPEX.lang.template('吃单手续费')}</label>
+                                            {
+                                                userInfo.takerFee >= 1 ? UPEX.lang.template('免费') : `${takerFee || '--'}% off`
+                                            }
                                         </p>
                                     </li>
                                 </ul>
@@ -113,8 +120,8 @@ class Fee extends Component {
         data.map((item, index) => {
             item._bottomPoint = NumberUtil.formatNumber(item.bottomPoint, 0);
             item._topPoint = NumberUtil.formatNumber(item.topPoint, 0);
-            item._makerFee = NumberUtil.formatNumber(item.makerFee * 100, 2);
-            item._takerFee = NumberUtil.formatNumber(item.takerFee * 100, 2);
+            item._makerFee = item.makerFee >= 1 ? UPEX.lang.template('免费') : NumberUtil.formatNumber(item.makerFee * 100, 2) + '%';
+            item._takerFee = item.takerFee >= 1 ? UPEX.lang.template('免费') : NumberUtil.formatNumber(item.takerFee * 100, 2) + '%';
         });
         return data;
     }
@@ -143,8 +150,8 @@ class Fee extends Component {
                                         index == feeList.length - 1 ? (<td>>={item._bottomPoint}</td>) :
                                             <td>{item._bottomPoint}-{item._topPoint}</td>
                                     }
-                                    <td>{item._makerFee}%</td>
-                                    <td>{item._takerFee}%</td>
+                                    <td>{item._makerFee}</td>
+                                    <td>{item._takerFee}</td>
                                 </tr>
                             ))
 

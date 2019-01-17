@@ -41,7 +41,7 @@ class View extends Component {
                                 <div className="inner">
                                     <span className="label">{UPEX.lang.template('购买方式')}</span>
                                     <div className="buyway">
-                                        {data.buyWay}
+                                        {data._buyWay}
                                     </div>
                                 </div>
                             </Col>

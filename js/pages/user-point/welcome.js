@@ -11,7 +11,7 @@ import {observer, inject} from 'mobx-react';
 import {getUserPointInfo} from "@/api/http";
 import {browserHistory} from "react-router";
 
-@inject('authStore')
+@inject('authStore', 'userInfoStore')
 @observer
 class PageView extends Component {
     constructor(props) {
@@ -41,22 +41,37 @@ class PageView extends Component {
 
     handleLogin = (e) => {
         browserHistory.push('/login');
-    }
+    };
+
+    handleKYC = (e) => {
+        browserHistory.push('/user/authentication');
+    };
 
 
     render() {
         let {userInfo} = this.state;
-        let {authStore} = this.props;
+        let {authStore, userInfoStore} = this.props;
         let $content;
 
         if (!authStore.isLogin) {
             $content = <div className="no-login">
-                您尚未登录，请登录后使用AcePoint
+                {UPEX.lang.template('您尚未登录，请登录后使用AcePoint')}
                 <button type="button" className="login-btn"
                         onClick={this.handleLogin}>{UPEX.lang.template('登录')}</button>
             </div>
         } else {
-            $content = <UserPointInfo data={userInfo}/>
+            if (userInfoStore.userInfo.authLevel == 0) {
+                $content = [
+                    <UserPointInfo data={userInfo} key="userinfo"/>,
+                    <div className="no-kyc" key="kycinfo">
+                        {UPEX.lang.template('您的积分需要通过身份认证后方可使用，点击跳转')}
+                        <button type="button" className="kyc-btn"
+                                onClick={this.handleKYC}>{UPEX.lang.template('身份认证')}</button>
+                    </div>];
+            } else {
+                $content = <UserPointInfo data={userInfo}/>
+            }
+
         }
 
         return (
