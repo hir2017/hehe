@@ -101,7 +101,8 @@ class View extends Component {
                                                                showtxt={true}/> :
                                                     (<div className="amount">
                                                         <span className="txt">{UPEX.lang.template('已募集')}</span>
-                                                        <span className="num">{NumberUtil.separate(item.raisedAmount)}</span>
+                                                        <span
+                                                            className="num">{NumberUtil.separate(item.raisedAmount)}</span>
                                                         <span className="token">{item.tokenName}</span>
                                                     </div>)
 

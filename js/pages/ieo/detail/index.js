@@ -37,7 +37,7 @@ class Page extends Component {
         _percent = Math.floor(_percent * 100);
         data._percent = _percent;
         //支持购买的币种字符串加空格处理
-        data._buyWay = data.buyWay.replace(/,/i, ', ');
+        data._buyWay = data.buyWay.replace(/,/g, ', ');
         return data;
     }
 
