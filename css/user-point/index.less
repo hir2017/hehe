@@ -169,7 +169,7 @@
             tr, td, th {
                 border: 1px solid @page-split-border-color;
             }
-            .level{
+            .level {
                 font-size: 14px;
             }
         }
@@ -178,11 +178,11 @@
     .point-detail {
         position: relative;
         color: @text-color01-light;
-        .content{
+        .content {
             min-height: 300px;
             padding-bottom: 20px;
         }
-        .table-hd{
+        .table-hd {
             color: @text-color02-light;
         }
         .time, .change, .remark {
@@ -204,13 +204,13 @@
             text-align: right;
             padding-right: 10px;
         }
-        .table-bd{
-            li:hover{
+        .table-bd {
+            li:hover {
                 background-color: #f7f8f9;
             }
         }
-        .table-ft{
-            .ant-pagination{
+        .table-ft {
+            .ant-pagination {
                 margin-top: 15px;
                 text-align: center;
             }
@@ -221,5 +221,106 @@
 
 //积分入口页
 .user-point.welcome {
+    .content {
+        width: 1200px;
+        margin: 0 auto;
+        color: @text-color02-light;
+        padding-top: 200px;
+        .desc-wrap {
+            background-color: #fff;
+            padding: 50px 100px;
+            .desc {
+                height: 150px;
+                .title {
+                    font-size: 24px;
+                    height: 60px;
+                    line-height: 60px;
+                    color: @text-color01-light;
+                }
+                &.right {
+                    position: relative;
+                    padding-left: 320px;
+                    margin-bottom: 100px;
+                    &::after {
+                        position: absolute;
+                        content: '';
+                        width: 1000px;
+                        height: 1px;
+                        background-color: #f4f5f6;
+                        bottom: -51px;
+                        left: 0;
+                    }
+                }
+                &.left {
+                    padding-right: 320px;
+                }
+            }
+        }
+        .detail-wrap {
+            margin-top: 40px;
+            .title {
+                height: 40px;
+                line-height: 40px;
+                font-size: 24px;
+                color: @text-color01-light;
+                text-align: center;
+            }
+            .detail-txt {
+                margin-bottom: 20px;
+                text-align: center;
+                padding: 0 325px;
+            }
+
+            ul {
+                display: flex;
+                height: 255px;
+                margin-bottom: 60px;
+                .way {
+                    flex: 1;
+                    margin: 0 30px;
+                    background: #fff;
+                    font-size: 14px;
+                    color: @text-color01-light;
+                    padding-top: 190px;
+                    text-align: center;
+                    &:first-child {
+                        margin-left: 0;
+                    }
+                    &:last-child {
+                        margin-right: 0;
+                    }
+                }
+            }
+
+        }
+    }
+    .footer {
+        height: 240px;
+        background: linear-gradient(#1d1f21, #313a42);
+        padding: 50px 0 0;
+        text-align: center;
+        p {
+            &.greet {
+                font-size: 24px;
+                color: #fff;
+            }
+            font-size: 18px;
+            color: #e8b802;
+            margin-bottom: 10px;
+        }
+        button {
+            height: 40px;
+            line-height: 40px;
+            border-radius: 20px;
+            background-color: #e8b802;
+            color: @text-color03;
+            padding: 0 40px;
+            margin-top: 15px;
+            &:hover {
+                background-color: #ffdc57;
+                color: @text-color01-light;
+            }
+        }
+    }
 
 }
