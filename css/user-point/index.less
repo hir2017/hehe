@@ -221,14 +221,26 @@
 
 //积分入口页
 .user-point.welcome {
+    background: url("../../images/ap/ap-banner.png") no-repeat top;
+    background-size: 1920px 449px;
     .content {
         width: 1200px;
         margin: 0 auto;
         color: @text-color02-light;
         padding-top: 200px;
         .desc-wrap {
+            position: relative;
             background-color: #fff;
             padding: 50px 100px;
+            &:before{
+                position: absolute;
+                content: '';
+                width: 1200px;
+                height: 3px;
+                background: linear-gradient(left,#ff5e43,#fff89c);
+                top: -3px;
+                left: 0;
+            }
             .desc {
                 height: 150px;
                 .title {
@@ -241,6 +253,8 @@
                     position: relative;
                     padding-left: 320px;
                     margin-bottom: 100px;
+                    background: url("../../images/ap/banner-icon-1.png") no-repeat left;
+                    background-size: 300px 150px;
                     &::after {
                         position: absolute;
                         content: '';
@@ -252,7 +266,10 @@
                     }
                 }
                 &.left {
+                    height: 155px;
                     padding-right: 320px;
+                    background: url("../../images/ap/banner-icon-2.png") no-repeat right;
+                    background-size: 300px 155px;
                 }
             }
         }
@@ -278,16 +295,51 @@
                 .way {
                     flex: 1;
                     margin: 0 30px;
-                    background: #fff;
+                    background-color: #fff;
                     font-size: 14px;
                     color: @text-color01-light;
                     padding-top: 190px;
                     text-align: center;
+                    background-repeat: no-repeat;
+                    background-position: center 40px;
                     &:first-child {
                         margin-left: 0;
                     }
                     &:last-child {
                         margin-right: 0;
+                    }
+                    &.way1{
+                        background-image: url("../../images/ap/icon1.png");
+                        background-size: 102px 127px;
+                    }
+                    &.way2{
+                        background-image: url("../../images/ap/icon2.png");
+                        background-size: 109px 125px;
+                    }
+                    &.way3{
+                        background-image: url("../../images/ap/icon3.png");
+                        background-size: 125px 133px;
+                    }
+                    &.way4{
+                        background-image: url("../../images/ap/icon4.png");
+                        background-size: 120px 140px;
+                    }
+                    &.way5{
+                        background-image: url("../../images/ap/icon5.png");
+                        background-size: 134px 127px;
+                    }
+                    &.way6{
+                        background-image: url("../../images/ap/icon6.png");
+                        background-size: 139px 104px;
+                        background-position-y: 50px;
+                    }
+                    &.way7{
+                        background-image: url("../../images/ap/icon7.png");
+                        background-size: 145px 125px;
+                    }
+                    &.way8{
+                        background-image: url("../../images/ap/icon8.png");
+                        background-size: 124px 122px;
                     }
                 }
             }
@@ -295,14 +347,16 @@
         }
     }
     .footer {
+        width: 1200px;
         height: 240px;
-        background: linear-gradient(#1d1f21, #313a42);
+        margin: 0 auto 40px;
+        background: #fff;
         padding: 50px 0 0;
         text-align: center;
         p {
             &.greet {
                 font-size: 24px;
-                color: #fff;
+                color: @text-color01-light;
             }
             font-size: 18px;
             color: #e8b802;

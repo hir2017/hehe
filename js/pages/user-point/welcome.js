@@ -59,16 +59,16 @@ class PageView extends Component {
                         <div className="title">{UPEX.lang.template('如何获得ACE Point')}</div>
                         <div className="detail-txt">{UPEX.lang.template('如何获得ACE Point内容')}</div>
                         <ul>
-                            <li className="way">{UPEX.lang.template('进行有手续费的交易活动')}</li>
-                            <li className="way">{UPEX.lang.template('每日登入 ACE')}</li>
-                            <li className="way">{UPEX.lang.template('完成新手任务')}</li>
-                            <li className="way">{UPEX.lang.template('邀请朋友注册ACE')}</li>
+                            <li className="way way1">{UPEX.lang.template('进行有手续费的交易活动')}</li>
+                            <li className="way way2">{UPEX.lang.template('每日登入 ACE')}</li>
+                            <li className="way way3">{UPEX.lang.template('完成新手任务')}</li>
+                            <li className="way way4">{UPEX.lang.template('邀请朋友注册ACE')}</li>
                         </ul>
                         <ul>
-                            <li className="way">{UPEX.lang.template('问题回报')}</li>
-                            <li className="way">{UPEX.lang.template('参加交易所活动')}</li>
-                            <li className="way">{UPEX.lang.template('数位资产购买')}</li>
-                            <li className="way">{UPEX.lang.template('其他神秘挑战')}</li>
+                            <li className="way way5">{UPEX.lang.template('问题回报')}</li>
+                            <li className="way way6">{UPEX.lang.template('参加交易所活动')}</li>
+                            <li className="way way7">{UPEX.lang.template('数位资产购买')}</li>
+                            <li className="way way8">{UPEX.lang.template('其他神秘挑战')}</li>
                         </ul>
 
                     </div>
