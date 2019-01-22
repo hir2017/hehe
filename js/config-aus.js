@@ -97,7 +97,7 @@ const origin_ws = (function() {
 config.origin = protocol + '//' + origin_java;
 config.host = protocol + '//' + origin_java + '/polarisex';
 config.websocketHost = socket_protocol + '//' + origin_ws + '/';
-config.uploadImgHost = config.host + '/upload/uploadQN';
+config.uploadImgHost = config.host + '/upload/uploadImg';
 config.imgHost = protocol + '//' + origin_java + '/img';
 
 // ga 统计
