@@ -56,7 +56,8 @@ class Account extends Component {
     render() {
         let visible = false;
         const { userInfo } = this.props.userInfoStore;
-        if ([-1, 0, 1].indexOf(userInfo.isAuthPrimary) !== -1) {
+        // 驳回 未提交 审核中 复审中
+        if ([-1, 0, 1, 3].indexOf(userInfo.isAuthPrimary) !== -1) {
             visible = true;
         }
         return (
