@@ -49,7 +49,7 @@ action.onChange = function(urlKey, {file}) {
         if (status === 200) {
             this.setState({
                 [urlKey]: attachment.url,
-                [urlKey + '_fileKey']: attachment.key
+                [urlKey + '_fileKey']: attachment.fileKey
             });
             message.success(`${file.name} ${UPEX.lang.template('上传成功')}`);
         } else {
