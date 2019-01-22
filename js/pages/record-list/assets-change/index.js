@@ -26,26 +26,14 @@ class RecordPage extends Component {
             className: 'content-no-pad'
         };
 
-        //澳洲隐藏IEO部分
-        if(UPEX.config.version == 'ace'){
-            this.tabs = [
-                {label: UPEX.lang.template('充值记录'), type: 'deposit'},
-                {label: UPEX.lang.template('提现记录'), type: 'withdraw'},
-                {label: UPEX.lang.template('充币记录'), type: 'coin-deposit'},
-                {label: UPEX.lang.template('提币记录'), type: 'coin-withdraw'},
-                {label: UPEX.lang.template('分发记录'), type: 'reward'},
-                {label: UPEX.lang.template('IEO购买记录'), type: 'token-record'}
-            ];
-        }else{
-            this.tabs = [
-                {label: UPEX.lang.template('充值记录'), type: 'deposit'},
-                {label: UPEX.lang.template('提现记录'), type: 'withdraw'},
-                {label: UPEX.lang.template('充币记录'), type: 'coin-deposit'},
-                {label: UPEX.lang.template('提币记录'), type: 'coin-withdraw'},
-                {label: UPEX.lang.template('分发记录'), type: 'reward'},
-            ];
-        }
-
+        this.tabs = [
+            {label: UPEX.lang.template('充值记录'), type: 'deposit'},
+            {label: UPEX.lang.template('提现记录'), type: 'withdraw'},
+            {label: UPEX.lang.template('充币记录'), type: 'coin-deposit'},
+            {label: UPEX.lang.template('提币记录'), type: 'coin-withdraw'},
+            {label: UPEX.lang.template('分发记录'), type: 'reward'},
+            {label: UPEX.lang.template('IEO购买记录'), type: 'token-record'}
+        ];
 
         let _targetTab = this.tabs.some(item => item.type === type) ? type : 'deposit';
 
@@ -119,12 +107,13 @@ class RecordPage extends Component {
         });
     }
     // 详情展示
-    detail = (subData, rowData, i)  => {
+    detail = (subData, rowData, i) => {
         const {type} = this.state;
         let detail = null;
-        if(['deposit', 'withdraw'].indexOf(type) !== -1) {
+        if (['deposit', 'withdraw'].indexOf(type) !== -1) {
             // 充提现使用同一个详情模板，ace和aus的区分开
-            detail = UPEX.config.version === 'ace' ? <SubRow type={type} data={rowData}/> : <AusSubRow type={type} data={rowData}/>;
+            detail = UPEX.config.version === 'ace' ? <SubRow type={type} data={rowData}/> :
+                <AusSubRow type={type} data={rowData}/>;
         } else {
             // 充提币使用同一个详情模板，参数不同
             detail = <CoinSubRow type={type} data={rowData}/>;
@@ -140,7 +129,7 @@ class RecordPage extends Component {
     }
 
     render() {
-        const { state } = this;
+        const {state} = this;
         // tab标签循环获取
         let $TabNode = (
             <div className="swtich-tabs">
@@ -166,7 +155,8 @@ class RecordPage extends Component {
                           className={state.type} subIndex={state.subIndex} data={state.listData}>
                         {state.total === 0 ? null :
                             <LocaleProvider>
-                                <Pagination current={state.current} total={state.total} pageSize={state.pageSize} onChange={this.onChangePagination} />
+                                <Pagination current={state.current} total={state.total} pageSize={state.pageSize}
+                                            onChange={this.onChangePagination}/>
                             </LocaleProvider>
                         }
                     </List>

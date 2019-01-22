@@ -935,7 +935,7 @@ window.LangPack={
     "用户身份认证未完成": "用户身份认证未完成",
     "用户（邀请用户）": "好友（邀请的好友）",
     "申請更高限額": "申请更高限额",
-    "申请发布IEO": "<em>申请发布<em/> IEO",
+    "申请发布IEO": "<em>申请发布</em> IEO",
     "申请发布IEO google文档链接": "https://docs.google.com/forms/d/e/1FAIpQLSdI1dlkViUqWXNrnxy5yL6byX9nztHRk8aA7Gv1JsbV9KZNxg/formrestricted",
     "申请成功": "申请成功",
     "申请进度请通过资金记录查询": "申请进度请通过资金记录查询",
