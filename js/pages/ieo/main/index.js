@@ -6,6 +6,7 @@ import BgAnimation from '@/lib/constellation/BgAnimation';
 
 import List from './list';
 import Features from './feature';
+import AusFeatures from './feature-aus';
 
 function getBgAnimationProps() {
     try {
@@ -28,14 +29,20 @@ class Page extends Component {
             <div className="ieo-wrapper main">
                 <BgAnimation  {...getBgAnimationProps()} />
                 <div className="ieo-apply">
-                    <a href={UPEX.lang.template('申请发布IEO google文档链接')} target="_blank" className="apply-btn" dangerouslySetInnerHTML={{__html: UPEX.lang.template('申请发布IEO')}}></a>
+                    <a href={
+                        UPEX.config.version == 'ace' ? UPEX.lang.template('申请发布IEO google文档链接') : UPEX.lang.template('aus申请发布IEO google文档链接')}
+                       target="_blank" className="apply-btn"
+                       dangerouslySetInnerHTML={{__html: UPEX.lang.template('申请发布IEO')}}></a>
                 </div>
                 <div className="ieo-main">
                     <div className="content">
                         <List/>
                     </div>
                 </div>
-                <Features/>
+                {
+                    UPEX.config.version == 'ace' ? <Features/> : <AusFeatures/>
+                }
+
             </div>
         );
     }

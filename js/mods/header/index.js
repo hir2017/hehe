@@ -87,12 +87,11 @@ class HeaderView extends Component {
                             <li className="news">
                                 <Link to="/news">{UPEX.lang.template('公告中心')}</Link>
                             </li>
-                            {
-                                UPEX.config.version == 'ace'  ? (
-                                    <li className="ieo">
-                                        <Link to="/ieo">{UPEX.lang.template('Launcher')}</Link>
-                                    </li>) : null
-                            }
+
+                            <li className="ieo">
+                                <Link to="/ieo">{UPEX.lang.template('Launcher')}</Link>
+                            </li>
+
                         </ul>
                     </div>
                     <div className="header-box-r">
