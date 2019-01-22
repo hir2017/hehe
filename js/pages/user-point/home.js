@@ -40,6 +40,7 @@ class PageView extends Component {
         let {userInfo} = this.state;
         let makerFee = userInfo.makerFee && NumberUtil.formatNumber(userInfo.makerFee * 100, 2);
         let takerFee = userInfo.takerFee && NumberUtil.formatNumber(userInfo.takerFee * 100, 2);
+        let addCls = (userInfo.makerFee == 0) && (userInfo.takerFee == 0) ? 'full' : ' ';
 
 
         return (
@@ -75,7 +76,7 @@ class PageView extends Component {
                             )
                         }
 
-                        <ul className="discount more block">
+                        <ul className={`discount more block ${addCls}`}>
                             {UPEX.lang.template('更多等级特权在开发中...')}
                         </ul>
 
