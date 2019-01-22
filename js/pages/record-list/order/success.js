@@ -54,7 +54,8 @@ class List extends Component {
         }
         this.action.getData({
             ...this.params,
-            size: this.props.from == 'tradecenter' ? this.props.pageSize : 10
+            size: this.props.from == 'tradecenter' ? this.props.pageSize : 10,
+            start: 1
         });
     }
 

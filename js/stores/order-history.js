@@ -136,7 +136,12 @@ class OrderStore {
         if (params.start && params.start !== this.current) {
             this.current = params.start;
         }
-
+        // 截止时间 添加后缀，防止查不到当天的订单
+        if(this.params) {
+            if(this.params.endTime != '') {
+                this.params.endTime = this.params.endTime + ' 23:59:59'
+            }
+        }
         return getUserHistoryOrderList(this.params)
             .then(data => {
                 runInAction(() => {
