@@ -32,7 +32,7 @@ class RecordPage extends Component {
             {label: UPEX.lang.template('充币记录'), type: 'coin-deposit'},
             {label: UPEX.lang.template('提币记录'), type: 'coin-withdraw'},
             {label: UPEX.lang.template('分发记录'), type: 'reward'},
-            {label: UPEX.lang.template('IEO购买记录'), type: 'token-record'}
+            // {label: UPEX.lang.template('IEO购买记录'), type: 'token-record'}
         ];
 
         let _targetTab = this.tabs.some(item => item.type === type) ? type : 'deposit';

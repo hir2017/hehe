@@ -88,9 +88,9 @@ class HeaderView extends Component {
                                 <Link to="/news">{UPEX.lang.template('公告中心')}</Link>
                             </li>
 
-                            <li className="ieo">
+                            {/* <li className="ieo">
                                 <Link to="/ieo">{UPEX.lang.template('Launcher')}</Link>
-                            </li>
+                            </li> */}
 
                         </ul>
                     </div>

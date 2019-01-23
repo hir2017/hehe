@@ -73,7 +73,7 @@ class List extends Component {
                     </div>
                     <div className="table-bd">
                         {$content}
-                        <IEOListView/>
+                        {/* <IEOListView/> */}
                         {store.isFetching ? <div className="mini-loading"/> : null}
                     </div>
                 </div>

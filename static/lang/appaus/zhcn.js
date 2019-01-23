@@ -747,7 +747,7 @@ window.LangPack={
     "打开facebook分享": "打开Facebook分享",
     "打开twitter分享": "打开Twitter分享",
     "扫描页面上的二维码，并用纸记录下16位密码，以防丢失恢复使用": "扫描页面上的二维码，并用纸记录下16位密码，以防丢失恢复使用",
-    "投诉机制": "投诉机制",
+    "投诉机制": "申诉流程",
     "投诉机制网页链接": "https://helpcenter.infinitex.com.au/hc/en-us/articles/360022301831-Complaints-Procedure",
     "投资、买卖数位货币": "投资、买卖数位货币",
     "投资者关系": "投资者关系",
