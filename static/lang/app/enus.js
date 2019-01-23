@@ -357,6 +357,7 @@ window.LangPack={
     "交易成功": "Purchased successfully",
     "交易记录": "Transaction records",
     "人": "Friend",
+    "什么是ACE Point": "What is ACE Point?",
     "什么是ACE Point内容": "What ever you are professional of just a new guy, ACE will offer the best services and make you easier to get ACE Point, come on and get super spree.\n<br/>ACE Point is a point system for members in ACE Exchange, we will let you know,we are always beside you",
     "仅供参考": "for reference only",
     "付款账号": "Payment account",
