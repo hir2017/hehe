@@ -34,7 +34,7 @@ class PageView extends Component {
         let _header_step = {
             '-1': 1, // 驳回
             '1': 1, // 审核中
-            '3': 4, // 复审中
+            '3': 1, // 复审中
             '2': 4 // 通过
         };
         let $rightContent = (

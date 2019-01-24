@@ -1,4 +1,4 @@
-import { twdGetQuotaManagementInfo } from '@/api/http';
+import { ausGetQuotaManagementInfo } from '@/api/http';
 import React from 'react';
 import { message } from 'antd';
 
@@ -7,7 +7,7 @@ const action = {};
 
 
 action.getLimit = function () {
-    twdGetQuotaManagementInfo({
+    ausGetQuotaManagementInfo({
         actionId: 4,
         currencyId: 2
     })
