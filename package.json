@@ -115,6 +115,6 @@
     "langfile": "node ./scripts/file.js"
   },
   "version": "2.1.25",
-  "ace-version": "1.1.4",
+  "ace-version": "1.1.5",
   "aus-version": "1.1.1"
 }
