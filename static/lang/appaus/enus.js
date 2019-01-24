@@ -504,7 +504,7 @@ window.LangPack={
     "删除成功": "Delete successfully",
     "到账金额": "Amount received",
     "前往反馈列表": "Go to the feedback list",
-    "前往资金记录": "Account statement",
+    "前往资金记录": "Asset record",
     "剩余时间": "Remaining Time",
     "加入 IEO": "Join IEO",
     "勾选表示同意接受《IEO使用条款》": "I agree to <a target=\"_blank\" href={link}>\"IEO User Terms\" </a>",
