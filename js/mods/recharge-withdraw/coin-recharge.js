@@ -202,7 +202,7 @@ class CoinRecharge extends Component {
         }
         return (
             <div>
-                <Modal closable={false} visible={this.state.visible} footer={null} width={540} wrapClassName="exc-modal-alert coin-recharge">
+                <Modal closable={false} visible={this.state.visible} footer={null} width={540} wrapClassName="exc-modal-alert modal-coin-recharge">
                     <p className="warn-text">
                         {UPEX.lang.template('充值 {name} 到 {ACE} 同时需要一个充值地址和 {name} 标签!', { name: currencyNameEn, ACE: UPEX.config.sitename })}
                     </p>
