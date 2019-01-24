@@ -73,6 +73,7 @@ class List extends Component {
                     </div>
                     <div className="table-bd">
                         {$content}
+                        {UPEX.config.version == 'ace' ? <IEOListView/> : null }
                         {/* <IEOListView/> */}
                         {store.isFetching ? <div className="mini-loading"/> : null}
                     </div>
