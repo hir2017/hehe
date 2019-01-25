@@ -224,7 +224,6 @@ class View extends React.Component {
                             <p>{UPEX.lang.template('申请进度请通过资金记录查询')}</p>
                         </FormItem>
                         <FormItem className="success-opt">
-                            <Button className="link-btn ">{UPEX.lang.template('继续提现')}</Button>
                             <Button className="submit-btn width-auto" onClick={this.step3Action.bind(this, 'record')}>
                                 {UPEX.lang.template('前往资金记录')}
                             </Button>

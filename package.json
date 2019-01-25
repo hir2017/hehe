@@ -93,7 +93,8 @@
       "PC通用多语言翻译文档",
       "CountryCode",
       "澳州站BITCOIN",
-      "澳州站landingPageETH空投"
+      "澳州站landingPageETH空投",
+      "IEO多语言翻译文档"
     ]
   },
   "license": "ISC",
@@ -114,6 +115,6 @@
     "langfile": "node ./scripts/file.js"
   },
   "version": "2.1.25",
-  "ace-version": "1.1.4",
-  "aus-version": "1.0.13"
+  "ace-version": "1.1.6",
+  "aus-version": "1.1.1"
 }

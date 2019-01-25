@@ -111,6 +111,10 @@ class Info extends Component {
                 case 1:
                     $state = <p className="no-auth">{UPEX.lang.template('身份認證資料審核中...')}</p>;
                     break;
+                // 复审中
+                case 3:
+                    $state = <p className="no-auth">{UPEX.lang.template('身份認證資料審核中...')}</p>;
+                    break;
                 // 驳回
                 case -1:
                     $state = <p className="no-auth">{UPEX.lang.template('身份認證審核失敗')}</p>;

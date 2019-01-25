@@ -47,7 +47,7 @@ export default class FourthStep extends Component {
     render() {
         const userInfo = this.props.userInfoStore.userInfo || {};
         const { state } = this;
-        let IdtypeName = getIdTypes(userInfo.idType);
+        let IdtypeName = idCardList(userInfo.idType);
         return (
             <AceForm className="auth-step-4">
                 <h3 className="title">{UPEX.lang.template('您已完成安全认证！')}</h3>

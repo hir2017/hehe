@@ -32,9 +32,10 @@ class PageView extends Component {
         const userInfo = this.props.userInfoStore.userInfo || {};
 
         let _header_step = {
-            '-1': 1,
-            '1': 1,
-            '2': 4
+            '-1': 1, // 驳回
+            '1': 1, // 审核中
+            '3': 1, // 复审中
+            '2': 4 // 通过
         };
         let $rightContent = (
             <Steps size="small" current={_header_step[userInfo.isAuthPrimary] || userInfo.isAuthPrimary}>
@@ -80,6 +81,10 @@ class PageView extends Component {
                 break;
             // 审核中
             case 1:
+            $content = <WaitView />;
+                break;
+            // 复审中
+            case 3:
             $content = <WaitView />;
                 break;
             // 成功

@@ -73,9 +73,8 @@ class List extends Component {
                     </div>
                     <div className="table-bd">
                         {$content}
-                        {
-                            UPEX.config.version == 'ace'   ? <IEOListView/> : null
-                        }
+                        {UPEX.config.version == 'ace' ? <IEOListView/> : null }
+                        {/* <IEOListView/> */}
                         {store.isFetching ? <div className="mini-loading"/> : null}
                     </div>
                 </div>
@@ -225,7 +224,8 @@ class IEOListView extends Component {
                     <ul>
                         <li>
                             <dl>
-                                <dd className="name header"><em>{UPEX.lang.template('Launcher')}</em>{UPEX.lang.template('资产')}</dd>
+                                <dd className="name header">
+                                    <em>{UPEX.lang.template('Launcher')}</em>{UPEX.lang.template('资产')}</dd>
                                 <dd className="total"></dd>
                                 <dd className="balance"></dd>
                                 <dd className="freeze"></dd>

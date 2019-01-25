@@ -534,7 +534,9 @@ class View extends Component {
                                     </div> :
                                     <div> 1 <em> {data.tokenName}</em> ≈ {selectCoin.tokenRate}
                                         <em>{selectCoin.tokenName}</em>
-                                        <span className="tip">{UPEX.lang.template('当前比例是根据 ACE 10分钟内价格计算')}</span></div>
+                                        <span className="tip">{
+                                            UPEX.lang.version == 'ace' ? UPEX.lang.template('当前比例是根据 ACE 10分钟内价格计算') : UPEX.lang.template('当前比例是根据 INFINITEX 10分钟内价格计算')}</span>
+                                    </div>
                                 }
                             </div>
                         </FormItem>

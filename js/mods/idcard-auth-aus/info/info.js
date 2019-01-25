@@ -123,7 +123,7 @@ export default class FirstStep extends Component {
         return (
             <AceForm className="auth-base-info">
                 <FormItem label={UPEX.lang.template('国家/地区')} error={errMsg.realLocation}>
-                    <Select defaultValue="1" value={state.realLocation} onChange={this.locationOnSelect.bind(this)}>
+                    <Select showSearch filterOption={this.filterOption} defaultValue="1" value={state.realLocation} onChange={this.locationOnSelect.bind(this)}>
                         {this.locationList()}
                     </Select>
                 </FormItem>
@@ -183,7 +183,7 @@ export default class FirstStep extends Component {
                         </Button>
                     ) : (
                         <Button className="submit-btn" disabled={!(this.state.checked && this.state.isSlide)} onClick={this.submit.bind(this)}>
-                            {UPEX.lang.template('下一步')}
+                            {this.state.realLocation == '1' ? UPEX.lang.template('提交') : UPEX.lang.template('下一步')}
                         </Button>
                     )}
                 </FormItem>
