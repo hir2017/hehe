@@ -9,9 +9,14 @@ export default class View extends React.Component {
 
     render() {
         const { props } = this;
-        const temp = { ...props.inputProps };
+        const {inputProps = {}} = props;
+        const temp = { inputProps };
         if (props.hasOwnProperty('value')) {
             temp.value = props.value;
+        }
+        temp.placeholder = props.placeholder || inputProps.placeholder;
+        if(props.onChange) {
+            temp.onChange = props.onChange;
         }
         return (
             <div className={`exc-form-item ${props.className || ''}`}>

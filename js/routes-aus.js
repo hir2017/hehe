@@ -64,6 +64,8 @@ import PhoneSuccess from './mods/binding-phone/success'
 // IEO
 import IEO from './pages/ieo/main'
 import IEODetail from './pages/ieo/detail'
+// OTC
+import OTC from './pages/otc';
 
 
 const Home = (location, cb) => {
@@ -78,7 +80,6 @@ const TradeCenter = (location, cb) => {
     }, 'webtrade');
 };
 
-
 const Assets = (location, cb) => {
     require.ensure([], require => {
         cb(null, require('./pages/account/index').default);
@@ -90,7 +91,6 @@ const Invite = (location, cb) => {
         cb(null, require('./pages/activity/invite/index').default);
     }, 'invite');
 };
-
 
 const onEnterHandle = (nextState, replace) => {
     const {location} = nextState;
@@ -176,6 +176,7 @@ const routes = (
             <Route path="login" component={Login}/>
             <Route path="register" component={Register}/>
             <Route path="resetpwd" component={ResetPwd}/>
+            <Route path="otc" component={OTC} />
         </Route>
         <Route path="*" component={NotFound}/>
     </Route>

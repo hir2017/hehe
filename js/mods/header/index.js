@@ -98,6 +98,11 @@ class HeaderView extends Component {
                                     <Link to="/ieo">{UPEX.lang.template('Launcher')}</Link>
                                 </li>
                             ) : null}
+                            {UPEX.config.version == 'infinitex' ? (
+                                <li className="otc">
+                                    <Link to="/otc">{UPEX.lang.template('大宗OTC')}</Link>
+                                </li>
+                            ) : null}
                         </ul>
                     </div>
                     <div className="header-box-r">
