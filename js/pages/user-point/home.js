@@ -40,8 +40,8 @@ class PageView extends Component {
         let {userInfo} = this.state;
         let makerFee = userInfo.makerFee && NumberUtil.formatNumber(userInfo.makerFee * 100, 2);
         let takerFee = userInfo.takerFee && NumberUtil.formatNumber(userInfo.takerFee * 100, 2);
-        let addCls = (userInfo.makerFee == 0) && (userInfo.takerFee == 0) ? 'full' : ' ';
-
+        //let addCls = (userInfo.makerFee == 0) && (userInfo.takerFee == 0) ? 'full' : ' ';
+        let addCls = 'full';
 
         return (
             <UserInfo pathname="userpoint">
@@ -54,27 +54,27 @@ class PageView extends Component {
                     </div>
 
                     <div className="discount-wrap clearfix">
-                        {
-                            (userInfo.makerFee == 0) && (userInfo.takerFee == 0) ? null : (
-                                <ul className="discount off block">
-                                    <li className="txt">{UPEX.lang.template('当前等级享')}</li>
-                                    <li className="info">
-                                        <p className="fee">
-                                            <label>{UPEX.lang.template('挂单手续费')}</label>
-                                            {
-                                                userInfo.makerFee >= 1 ? UPEX.lang.template('免费') : `${makerFee || '--'}% off`
-                                            }
-                                        </p>
-                                        <p className="fee">
-                                            <label>{UPEX.lang.template('吃单手续费')}</label>
-                                            {
-                                                userInfo.takerFee >= 1 ? UPEX.lang.template('免费') : `${takerFee || '--'}% off`
-                                            }
-                                        </p>
-                                    </li>
-                                </ul>
-                            )
-                        }
+                        {/*{*/}
+                            {/*(userInfo.makerFee == 0) && (userInfo.takerFee == 0) ? null : (*/}
+                                {/*<ul className="discount off block">*/}
+                                    {/*<li className="txt">{UPEX.lang.template('当前等级享')}</li>*/}
+                                    {/*<li className="info">*/}
+                                        {/*<p className="fee">*/}
+                                            {/*<label>{UPEX.lang.template('挂单手续费')}</label>*/}
+                                            {/*{*/}
+                                                {/*userInfo.makerFee >= 1 ? UPEX.lang.template('免费') : `${makerFee || '--'}% off`*/}
+                                            {/*}*/}
+                                        {/*</p>*/}
+                                        {/*<p className="fee">*/}
+                                            {/*<label>{UPEX.lang.template('吃单手续费')}</label>*/}
+                                            {/*{*/}
+                                                {/*userInfo.takerFee >= 1 ? UPEX.lang.template('免费') : `${takerFee || '--'}% off`*/}
+                                            {/*}*/}
+                                        {/*</p>*/}
+                                    {/*</li>*/}
+                                {/*</ul>*/}
+                            {/*)*/}
+                        {/*}*/}
 
                         <ul className={`discount more block ${addCls}`}>
                             {UPEX.lang.template('更多等级特权在开发中...')}
@@ -82,7 +82,7 @@ class PageView extends Component {
 
                     </div>
 
-                    <Fee/>
+                    {/*<Fee/>*/}
                     <Detail/>
                 </div>
             </UserInfo>
