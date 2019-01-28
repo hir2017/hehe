@@ -1292,14 +1292,26 @@ export function getRealLocation(data) {
  * 获取所有IEO项目列表
  */
 export function getIEOList() {
-    return axios.post('/ieo/ieoInfo/list');
+    return axios.post('/ieo/ieoInfo/list').then(res=>{
+        res.attachment.map((item,index)=>{
+            if(item.ieoId == 76){
+                item.raisedAmount = 2500000;
+            }
+        });
+        return res;
+    });
 }
 
 /**
  * 根据项目ID获取单个IEO项目详细信息
  */
 export function getSingleIEOInfo(data) {
-    return axios.post('/ieo/ieoInfo/getById', data);
+    return axios.post('/ieo/ieoInfo/getById', data).then(res=>{
+        if(res.attachment.ieoId == 76){
+            res.attachment.raisedAmount = 2500000;
+        }
+        return res;
+    });
 }
 
 /**
