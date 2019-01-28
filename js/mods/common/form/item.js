@@ -9,13 +9,11 @@ export default class View extends React.Component {
 
     render() {
         const { props } = this;
-        const {inputProps = {}} = props;
-        const temp = { inputProps };
+        const temp = { ...props.inputProps };
         if (props.hasOwnProperty('value')) {
             temp.value = props.value;
         }
-        temp.placeholder = props.placeholder || inputProps.placeholder;
-        if(props.onChange) {
+        if(props.hasOwnProperty('onChange')) {
             temp.onChange = props.onChange;
         }
         return (

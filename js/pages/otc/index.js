@@ -25,7 +25,7 @@ class View extends Component {
     render() {
         return (
             <div className="otc main">
-                <BgAnimation  {...getBgAnimationProps()} />
+                {/* <BgAnimation  {...getBgAnimationProps()} /> */}
                 <div className="inner">
                     <div className="apply">
                         <p className="title">{UPEX.lang.template('大宗交易平台')}</p>
@@ -37,30 +37,30 @@ class View extends Component {
                             <li className="item">
                                 <div className="img"></div>
                                 <h4>{UPEX.lang.template('OTC-多法币数字币选择')}</h4>
-                                <p>
+                                <div className="desc">
                                     {UPEX.lang.template(
                                         'OTC-通过Infinitex客户渠道，我们支持一系列数字币和本地法币，包括并不仅限于BTC, ETH, AUD, USD，未来会有更多'
                                     )}
-                                </p>
+                                </div>
                             </li>
                             <li className="item">
                                 <div className="img"></div>
                                 <h4>{UPEX.lang.template('OTC-合规性')}</h4>
-                                <p>{UPEX.lang.template('OTC-平台作为Austrac，AFCA和ADCA的成员，完全符合KYC/AML标准')}</p>
+                                <div className="desc">{UPEX.lang.template('OTC-平台作为Austrac，AFCA和ADCA的成员，完全符合KYC/AML标准')}</div>
                             </li>
                             <li className="item">
                                 <div className="img"></div>
                                 <h4>{UPEX.lang.template('OTC-高流动性')}</h4>
-                                <p>{UPEX.lang.template('OTC-除平台内部交易，我们与多家合作方有稳定长期合作，提供充足的资产流动性')}</p>
+                                <div className="desc">{UPEX.lang.template('OTC-除平台内部交易，我们与多家合作方有稳定长期合作，提供充足的资产流动性')}</div>
                             </li>
                             <li className="item">
                                 <div className="img"></div>
                                 <h4>{UPEX.lang.template('OTC-算法交易')}</h4>
-                                <p>
+                                <div className="desc">
                                     {UPEX.lang.template(
                                         'OTC-基于我们的多种算法交易，包括TWAP, Snipper, Gorillar等算法，大多数交易将以连续稳定的价格在1-2天内成交'
                                     )}
-                                </p>
+                                </div>
                             </li>
                         </ul>
                     </div>

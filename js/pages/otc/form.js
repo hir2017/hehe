@@ -16,7 +16,6 @@ class View extends Component {
     constructor(props) {
         super(props);
         const store = props.loginStore;
-
         this.state = {
             secondName: '',
             firstName: '',
@@ -27,7 +26,6 @@ class View extends Component {
             msg: '',
             success: false
         };
-
         this.yidunCaptcha = new YidunCaptcha({
             type: 'register-login',
             lang: UPEX.lang.language == 'en-US' ? 'en' : UPEX.lang.language
@@ -42,15 +40,14 @@ class View extends Component {
         const { state } = this;
         Api.otc
             .submit({
-                validate: validate,
+                NECaptchaValidate: validate,
                 captchaId: captchaId,
-                areaCode: state.areaCode,
                 email: state.email,
                 hasRegister: state.hasRegister,
-                phone: state.phone,
+                mobile: state.areaCode + state.phone,
                 firstName: state.firstName,
                 secondName: state.secondName,
-                msg: state.msg
+                note: state.msg
             })
             .then(res => {
                 if (res.status == 200) {
@@ -109,7 +106,6 @@ class View extends Component {
                 return;
             }
         }
-        console.log('onInput', name, e)
         this.setState({
             [name]: str
         });
@@ -121,6 +117,7 @@ class View extends Component {
         };
         if (name == 'code') {
             state.areaCode = map[val].areacode;
+            state.code = val;
         }
         this.setState(state);
     }
