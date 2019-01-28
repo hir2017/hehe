@@ -333,7 +333,7 @@ class View extends Component {
             return;
         }
         //kyc未认证
-        if (userInfoStore.userInfo.authLevel == 0) {
+        if (userInfoStore.userInfo.hasOwnProperty('authLevel') && userInfoStore.userInfo.authLevel == 0) {
             Modal.confirm({
                 prefixCls: "exc-dialog",
                 className: 'exc-dialog-light',
