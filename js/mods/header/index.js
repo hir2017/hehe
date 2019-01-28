@@ -93,11 +93,11 @@ class HeaderView extends Component {
                             <li className="news">
                                 <Link to="/news">{UPEX.lang.template('公告中心')}</Link>
                             </li>
-                            {UPEX.config.version == 'ace' ? (
+                            {/*{UPEX.config.version == 'ace' ? (*/}
                                 <li className="ieo">
                                     <Link to="/ieo">{UPEX.lang.template('Launcher')}</Link>
                                 </li>
-                            ) : null}
+                            {/*) : null}*/}
                             {UPEX.config.version == 'infinitex' ? (
                                 <li className="otc">
                                     <Link to="/otc">{UPEX.lang.template('大宗OTC')}</Link>
