@@ -38,8 +38,10 @@ class PageView extends Component {
 
     render() {
         let {userInfo} = this.state;
-        let makerFee = NumberUtil.formatNumber(userInfo.makerFee * 100, 2);
-        let takerFee = NumberUtil.formatNumber(userInfo.takerFee * 100, 2);
+        let makerFee = userInfo.makerFee && NumberUtil.formatNumber(userInfo.makerFee * 100, 2);
+        let takerFee = userInfo.takerFee && NumberUtil.formatNumber(userInfo.takerFee * 100, 2);
+        //let addCls = (userInfo.makerFee == 0) && (userInfo.takerFee == 0) ? 'full' : ' ';
+        let addCls = 'full';
 
         return (
             <UserInfo pathname="userpoint">
@@ -52,24 +54,35 @@ class PageView extends Component {
                     </div>
 
                     <div className="discount-wrap clearfix">
-                        <ul className="discount off block">
-                            <li className="txt">{UPEX.lang.template('当前等级享')}</li>
-                            <li className="info">
-                                <p className="fee">
-                                    <label>{UPEX.lang.template('挂单手续费')}</label>{makerFee}% off
-                                </p>
-                                <p className="fee">
-                                    <label>{UPEX.lang.template('吃单手续费')}</label>{takerFee}% off
-                                </p>
-                            </li>
-                        </ul>
-                        <ul className="discount more block">
+                        {/*{*/}
+                            {/*(userInfo.makerFee == 0) && (userInfo.takerFee == 0) ? null : (*/}
+                                {/*<ul className="discount off block">*/}
+                                    {/*<li className="txt">{UPEX.lang.template('当前等级享')}</li>*/}
+                                    {/*<li className="info">*/}
+                                        {/*<p className="fee">*/}
+                                            {/*<label>{UPEX.lang.template('挂单手续费')}</label>*/}
+                                            {/*{*/}
+                                                {/*userInfo.makerFee >= 1 ? UPEX.lang.template('免费') : `${makerFee || '--'}% off`*/}
+                                            {/*}*/}
+                                        {/*</p>*/}
+                                        {/*<p className="fee">*/}
+                                            {/*<label>{UPEX.lang.template('吃单手续费')}</label>*/}
+                                            {/*{*/}
+                                                {/*userInfo.takerFee >= 1 ? UPEX.lang.template('免费') : `${takerFee || '--'}% off`*/}
+                                            {/*}*/}
+                                        {/*</p>*/}
+                                    {/*</li>*/}
+                                {/*</ul>*/}
+                            {/*)*/}
+                        {/*}*/}
+
+                        <ul className={`discount more block ${addCls}`}>
                             {UPEX.lang.template('更多等级特权在开发中...')}
                         </ul>
 
                     </div>
 
-                    <Fee/>
+                    {/*<Fee/>*/}
                     <Detail/>
                 </div>
             </UserInfo>
@@ -97,7 +110,7 @@ class Fee extends Component {
             if (res.status == 200) {
                 //不管后端返回的数据有几条，只展示前十条等级对应的手续费信息
                 this.setState({
-                    feeList: this.formatData(res.attachment.slice(0, 9))
+                    feeList: this.formatData(res.attachment.slice(0, 10))
                 })
             }
 
@@ -108,8 +121,8 @@ class Fee extends Component {
         data.map((item, index) => {
             item._bottomPoint = NumberUtil.formatNumber(item.bottomPoint, 0);
             item._topPoint = NumberUtil.formatNumber(item.topPoint, 0);
-            item._makerFee = NumberUtil.formatNumber(item.makerFee * 100, 2);
-            item._takerFee = NumberUtil.formatNumber(item.takerFee * 100, 2);
+            item._makerFee = item.makerFee >= 1 ? UPEX.lang.template('免费') : NumberUtil.formatNumber(item.makerFee * 100, 2) + '%';
+            item._takerFee = item.takerFee >= 1 ? UPEX.lang.template('免费') : NumberUtil.formatNumber(item.takerFee * 100, 2) + '%';
         });
         return data;
     }
@@ -127,8 +140,8 @@ class Fee extends Component {
                         <tr>
                             <th>{UPEX.lang.template('用户等级')}</th>
                             <th>{UPEX.lang.template('30天获得AcePoint')}</th>
-                            <th>{UPEX.lang.template('挂单手续费折扣')}</th>
-                            <th>{UPEX.lang.template('吃单手续费折扣')}</th>
+                            <th>{UPEX.lang.template('挂单手续费折扣(off)')}</th>
+                            <th>{UPEX.lang.template('吃单手续费折扣(off)')}</th>
                         </tr>
                         {
                             feeList.length > 0 && feeList.map((item, index) => (
@@ -138,8 +151,8 @@ class Fee extends Component {
                                         index == feeList.length - 1 ? (<td>>={item._bottomPoint}</td>) :
                                             <td>{item._bottomPoint}-{item._topPoint}</td>
                                     }
-                                    <td>{item._makerFee}%</td>
-                                    <td>{item._takerFee}%</td>
+                                    <td>{item._makerFee}</td>
+                                    <td>{item._takerFee}</td>
                                 </tr>
                             ))
 
@@ -163,6 +176,9 @@ class Detail extends Component {
             totalCount: 0,
             currentPage: 1,
             pageSize: 8
+        };
+        this.remarkMap = {
+            0: UPEX.lang.template('成长值增加结算')
         }
     }
 
@@ -201,6 +217,7 @@ class Detail extends Component {
         data.map((item, index) => {
             item._createTime = TimeUtil.formatDate(item.createTime * 1000);
             item.affix = item.flag == 1 ? '+' : '-';
+            item.remark = this.remarkMap[item.type];
         });
         return data;
     }

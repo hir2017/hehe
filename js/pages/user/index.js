@@ -69,11 +69,11 @@ class UserPage extends Component {
                 key: 'activity',
                 title: UPEX.lang.template('活动'),
                 subItems: [
-                    // {
-                    //     active: 'userpoint',
-                    //     route: '/user-point/home',
-                    //     text: UPEX.lang.template('我的Ace Point')
-                    // },
+                    {
+                        active: 'userpoint',
+                        route: '/user-point/home',
+                        text: UPEX.lang.template('我的Ace Point')
+                    },
                     {
                         active: 'invite-home',
                         route: '/activity/invite-home',
@@ -145,9 +145,9 @@ class UserPage extends Component {
                         <div className="menu">
                             {this.navData.map((item, i) => {
                                 // 澳洲屏蔽活动
-                                if (item.key == 'activity' && infinitexActivityDisable) {
-                                    return  null;
-                                }
+                                // if (item.key == 'activity' && infinitexActivityDisable) {
+                                //     return  null;
+                                // }
                                 return (
                                     <dl className="menu-submenu" key={i}>
                                         <dt className="menu-submenu-title">{item.title}</dt>

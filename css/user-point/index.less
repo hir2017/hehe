@@ -57,7 +57,7 @@
                     span {
                         display: inline-block;
                         margin-right: 10px;
-                        &:last-child {
+                        &.diff-point {
                             margin-left: 20px;
                             height: 24px;
                             line-height: 24px;
@@ -140,6 +140,9 @@
                 font-size: 20px;
                 font-weight: 300;
                 line-height: 60px;
+                &.full{
+                    width: 100%;
+                }
             }
         }
     }
@@ -169,7 +172,7 @@
             tr, td, th {
                 border: 1px solid @page-split-border-color;
             }
-            .level{
+            .level {
                 font-size: 14px;
             }
         }
@@ -178,11 +181,11 @@
     .point-detail {
         position: relative;
         color: @text-color01-light;
-        .content{
+        .content {
             min-height: 300px;
             padding-bottom: 20px;
         }
-        .table-hd{
+        .table-hd {
             color: @text-color02-light;
         }
         .time, .change, .remark {
@@ -204,13 +207,13 @@
             text-align: right;
             padding-right: 10px;
         }
-        .table-bd{
-            li:hover{
+        .table-bd {
+            li:hover {
                 background-color: #f7f8f9;
             }
         }
-        .table-ft{
-            .ant-pagination{
+        .table-ft {
+            .ant-pagination {
                 margin-top: 15px;
                 text-align: center;
             }
@@ -221,5 +224,160 @@
 
 //积分入口页
 .user-point.welcome {
+    background: url("../../images/ap/ap-banner.png") no-repeat top;
+    background-size: 1920px 449px;
+    .content {
+        width: 1200px;
+        margin: 0 auto;
+        color: @text-color02-light;
+        padding-top: 200px;
+        .desc-wrap {
+            position: relative;
+            background-color: #fff;
+            padding: 50px 100px;
+            &:before{
+                position: absolute;
+                content: '';
+                width: 1200px;
+                height: 3px;
+                background: linear-gradient(left,#ff5e43,#fff89c);
+                top: -3px;
+                left: 0;
+            }
+            .desc {
+                height: 150px;
+                .title {
+                    font-size: 24px;
+                    height: 60px;
+                    line-height: 60px;
+                    color: @text-color01-light;
+                }
+                &.right {
+                    position: relative;
+                    padding-left: 320px;
+                    margin-bottom: 100px;
+                    background: url("../../images/ap/banner-icon-1.png") no-repeat left;
+                    background-size: 300px 150px;
+                    &::after {
+                        position: absolute;
+                        content: '';
+                        width: 1000px;
+                        height: 1px;
+                        background-color: #f4f5f6;
+                        bottom: -51px;
+                        left: 0;
+                    }
+                }
+                &.left {
+                    height: 155px;
+                    padding-right: 320px;
+                    background: url("../../images/ap/banner-icon-2.png") no-repeat right;
+                    background-size: 300px 155px;
+                }
+            }
+        }
+        .detail-wrap {
+            margin-top: 40px;
+            .title {
+                height: 40px;
+                line-height: 40px;
+                font-size: 24px;
+                color: @text-color01-light;
+                text-align: center;
+            }
+            .detail-txt {
+                margin-bottom: 20px;
+                text-align: center;
+                padding: 0 325px;
+            }
+
+            ul {
+                display: flex;
+                height: 255px;
+                margin-bottom: 60px;
+                .way {
+                    flex: 1;
+                    margin: 0 30px;
+                    background-color: #fff;
+                    font-size: 14px;
+                    color: @text-color01-light;
+                    padding-top: 190px;
+                    text-align: center;
+                    background-repeat: no-repeat;
+                    background-position: center 40px;
+                    &:first-child {
+                        margin-left: 0;
+                    }
+                    &:last-child {
+                        margin-right: 0;
+                    }
+                    &.way1{
+                        background-image: url("../../images/ap/icon1.png");
+                        background-size: 102px 127px;
+                    }
+                    &.way2{
+                        background-image: url("../../images/ap/icon2.png");
+                        background-size: 109px 125px;
+                    }
+                    &.way3{
+                        background-image: url("../../images/ap/icon3.png");
+                        background-size: 125px 133px;
+                    }
+                    &.way4{
+                        background-image: url("../../images/ap/icon4.png");
+                        background-size: 120px 140px;
+                    }
+                    &.way5{
+                        background-image: url("../../images/ap/icon5.png");
+                        background-size: 134px 127px;
+                    }
+                    &.way6{
+                        background-image: url("../../images/ap/icon6.png");
+                        background-size: 139px 104px;
+                        background-position-y: 50px;
+                    }
+                    &.way7{
+                        background-image: url("../../images/ap/icon7.png");
+                        background-size: 145px 125px;
+                    }
+                    &.way8{
+                        background-image: url("../../images/ap/icon8.png");
+                        background-size: 124px 122px;
+                    }
+                }
+            }
+
+        }
+    }
+    .footer {
+        width: 1200px;
+        height: 240px;
+        margin: 0 auto 40px;
+        background: #fff;
+        padding: 50px 0 0;
+        text-align: center;
+        p {
+            &.greet {
+                font-size: 24px;
+                color: @text-color01-light;
+            }
+            font-size: 18px;
+            color: #e8b802;
+            margin-bottom: 10px;
+        }
+        button {
+            height: 40px;
+            line-height: 40px;
+            border-radius: 20px;
+            background-color: #e8b802;
+            color: @text-color03;
+            padding: 0 40px;
+            margin-top: 15px;
+            &:hover {
+                background-color: #ffdc57;
+                color: @text-color01-light;
+            }
+        }
+    }
 
 }
