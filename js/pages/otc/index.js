@@ -20,7 +20,17 @@ class View extends Component {
         super(props);
     }
 
-    scrollTo() {}
+    scrollTo() {
+        if(window.scrollTo) {
+            window.scrollTo({
+                top: 860,
+                behavior: "smooth"
+            });
+        } else {
+            $(window).scrollTop(860);
+        }
+
+    }
 
     render() {
         return (
