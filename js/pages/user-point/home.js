@@ -7,7 +7,7 @@ import '@/../css/user-point/index.less';
 import React, {Component} from "react";
 import UserInfo from '../user';
 import UserPointInfo from './user';
-import {getUserPointInfo, getLevelFee, getPointConsumeList} from '../../api/http';
+import Api from '@/api';
 import {Pagination} from 'antd';
 import TimeUtil from '@/lib/util/date';
 import NumberUtil from '@/lib/util/number';
@@ -25,14 +25,16 @@ class PageView extends Component {
     }
 
     fetchUserPoint() {
-        getUserPointInfo().then((res) => {
-            if (res.status == 200) {
-                this.setState({
-                    userInfo: res.attachment
-                })
-            }
+        Api.userPoint
+            .getUserPointInfo()
+            .then((res) => {
+                if (res.status == 200) {
+                    this.setState({
+                        userInfo: res.attachment
+                    })
+                }
 
-        })
+            })
 
     }
 
@@ -55,25 +57,25 @@ class PageView extends Component {
 
                     <div className="discount-wrap clearfix">
                         {/*{*/}
-                            {/*(userInfo.makerFee == 0) && (userInfo.takerFee == 0) ? null : (*/}
-                                {/*<ul className="discount off block">*/}
-                                    {/*<li className="txt">{UPEX.lang.template('当前等级享')}</li>*/}
-                                    {/*<li className="info">*/}
-                                        {/*<p className="fee">*/}
-                                            {/*<label>{UPEX.lang.template('挂单手续费')}</label>*/}
-                                            {/*{*/}
-                                                {/*userInfo.makerFee >= 1 ? UPEX.lang.template('免费') : `${makerFee || '--'}% off`*/}
-                                            {/*}*/}
-                                        {/*</p>*/}
-                                        {/*<p className="fee">*/}
-                                            {/*<label>{UPEX.lang.template('吃单手续费')}</label>*/}
-                                            {/*{*/}
-                                                {/*userInfo.takerFee >= 1 ? UPEX.lang.template('免费') : `${takerFee || '--'}% off`*/}
-                                            {/*}*/}
-                                        {/*</p>*/}
-                                    {/*</li>*/}
-                                {/*</ul>*/}
-                            {/*)*/}
+                        {/*(userInfo.makerFee == 0) && (userInfo.takerFee == 0) ? null : (*/}
+                        {/*<ul className="discount off block">*/}
+                        {/*<li className="txt">{UPEX.lang.template('当前等级享')}</li>*/}
+                        {/*<li className="info">*/}
+                        {/*<p className="fee">*/}
+                        {/*<label>{UPEX.lang.template('挂单手续费')}</label>*/}
+                        {/*{*/}
+                        {/*userInfo.makerFee >= 1 ? UPEX.lang.template('免费') : `${makerFee || '--'}% off`*/}
+                        {/*}*/}
+                        {/*</p>*/}
+                        {/*<p className="fee">*/}
+                        {/*<label>{UPEX.lang.template('吃单手续费')}</label>*/}
+                        {/*{*/}
+                        {/*userInfo.takerFee >= 1 ? UPEX.lang.template('免费') : `${takerFee || '--'}% off`*/}
+                        {/*}*/}
+                        {/*</p>*/}
+                        {/*</li>*/}
+                        {/*</ul>*/}
+                        {/*)*/}
                         {/*}*/}
 
                         <ul className={`discount more block ${addCls}`}>
@@ -106,15 +108,17 @@ class Fee extends Component {
     }
 
     getData() {
-        getLevelFee().then(res => {
-            if (res.status == 200) {
-                //不管后端返回的数据有几条，只展示前十条等级对应的手续费信息
-                this.setState({
-                    feeList: this.formatData(res.attachment.slice(0, 10))
-                })
-            }
+        Api.userPoint
+            .getLevelFee()
+            .then(res => {
+                if (res.status == 200) {
+                    //不管后端返回的数据有几条，只展示前十条等级对应的手续费信息
+                    this.setState({
+                        feeList: this.formatData(res.attachment.slice(0, 10))
+                    })
+                }
 
-        })
+            })
     }
 
     formatData(data) {
@@ -187,29 +191,32 @@ class Detail extends Component {
     }
 
     fetchData(page) {
-        getPointConsumeList({
-            page: page,
-            size: this.state.pageSize
-        }).then(res => {
-            let {attachment, status} = res;
-            if (status == 200) {
-                this.setState({
-                    list: this.formatData(attachment.list),
-                    totalCount: attachment.count,
-                    currentPage: page,
-                    isFetching: 0
-                })
-            } else {
-                this.setState({
-                    isFetching: 0
-                })
-            }
-
-        }).catch(() => {
-            this.setState({
-                isFetching: 0
+        Api.userPoint
+            .getPointConsumeList({
+                page: page,
+                size: this.state.pageSize
             })
-        })
+            .then(res => {
+                let {attachment, status} = res;
+                if (status == 200) {
+                    this.setState({
+                        list: this.formatData(attachment.list),
+                        totalCount: attachment.count,
+                        currentPage: page,
+                        isFetching: 0
+                    })
+                } else {
+                    this.setState({
+                        isFetching: 0
+                    })
+                }
+
+            })
+            .catch(() => {
+                this.setState({
+                    isFetching: 0
+                })
+            })
 
     }
 

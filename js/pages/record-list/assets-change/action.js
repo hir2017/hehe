@@ -8,8 +8,9 @@ import {
     getCoinRechargeList,
     getCoinWithdrawList,
     getAssetChangeReward,
-    getIEORecordList
 } from '@/api/http';
+
+import Api from '@/api';
 
 // 请求、请求参数 逻辑判断
 const getParams = (type, page) => {
@@ -52,7 +53,7 @@ const getParams = (type, page) => {
             };
             break;
         case type === 'token-record':
-            request = getIEORecordList;
+            request = Api.ieo.getIEORecordList;
             params = {
                 start: page,
                 size: 10
