@@ -6,18 +6,35 @@
         background: #191b1d;
     }
     .inner {
-        width: 1200px;
-        margin: 0 auto;
         position: relative;
         z-index: 9;
     }
     .apply {
+        width: 1200px;
+        margin: 0 auto;
         color: #fff;
         padding: 100px 80px 200px;
-        background: url(../images/otc-banner.png) 673px 6px no-repeat;
-        background-size: auto 450px;
+        position: relative;
+        .banner {
+            right: 74px;
+            top: 25px;
+            position: absolute;
+            width: 380px;
+            height: 450px;
+            background: url(../images/otc-banner.png) -57px 0 no-repeat;
+            background-size: auto 450px;
+            transform: translateZ(0);
+            animation-name: hvr-bob-float, hvr-bob;
+            backface-visibility: hidden;
+            animation-duration: .3s, 2s;
+            animation-delay: 0s, .3s;
+            animation-timing-function: ease-out, ease-in-out;
+            animation-iteration-count: 1, infinite;
+            animation-fill-mode: forwards;
+            animation-direction: normal, alternate;
+        }
         .title {
-            height: 70px;
+            height: 66px;
             line-height: 50px;
             font-size: 50px;
         }
@@ -30,11 +47,13 @@
                 display: block;
                 height: 30px;
                 line-height: 30px;
+                margin-bottom: 10px;
             }
-            padding-bottom: 30px;
+            padding-bottom: 76px;
         }
         .ant-btn {
             height: 40px;
+            width: 160px;
             color: #fff;
             background: #8d90ff;
             border: none;
@@ -45,6 +64,8 @@
         }
     }
     .feature {
+        width: 1200px;
+        margin: 0 auto;
         padding-left: 80px;
         margin-bottom: 120px;
         color: #fff;
@@ -161,6 +182,7 @@
         color: #fff;
         font-size: 24px;
         padding: 120px 0 200px;
+        background: linear-gradient(to bottom, #191b1d 0, #080a0c);
     }
 }
 .ant-select-dropdown.otc-form {

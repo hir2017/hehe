@@ -4,7 +4,7 @@
 import React, { Component } from 'react';
 import Form from './form';
 import { Button } from 'antd';
-import BgAnimation from '@/lib/constellation/BgAnimation';
+// import BgAnimation from '@/lib/constellation/BgAnimation';
 
 
 function getBgAnimationProps() {
@@ -31,6 +31,7 @@ class View extends Component {
                         <p className="title">{UPEX.lang.template('大宗交易平台')}</p>
                         <p className="sub" dangerouslySetInnerHTML={{__html: UPEX.lang.template('7*24小时不间断提供大宗交易个性化服务')}}></p>
                         <Button onClick={this.scrollTo}>{UPEX.lang.template('与Infinitex交易')}</Button>
+                        <div className="banner"></div>
                     </div>
                     <div className="feature">
                         <ul className="list">

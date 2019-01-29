@@ -24,6 +24,7 @@ class View extends Component {
             areaCode: store.selectedCountry.areacode,
             phone: '',
             msg: '',
+            disabled: false,
             success: false
         };
         this.yidunCaptcha = new YidunCaptcha({
@@ -38,6 +39,9 @@ class View extends Component {
 
     handleSubmit = (validate, captchaId) => {
         const { state } = this;
+        this.setState({
+            disabled: true
+        })
         Api.otc
             .submit({
                 NECaptchaValidate: validate,
@@ -60,6 +64,18 @@ class View extends Component {
             })
             .catch(err => {
                 console.error('Api.otc.submit', err);
+            }).then(res => {
+                this.setState({
+                    disabled: false,
+                    NECaptchaValidate: '',
+                    captchaId: '',
+                    email: '',
+                    hasRegister: '',
+                    phone: '',
+                    firstName: '',
+                    secondName: '',
+                    note: '',
+                })
             });
     };
 
@@ -163,7 +179,7 @@ class View extends Component {
                     <FormItem className="msg" label={UPEX.lang.template('消息')} >
                         <textarea  value={state.msg} onChange={this.onInput.bind(this, 'msg')} placeholder={UPEX.lang.template('OTC-例如 “我想用100,000 AUD 购买BTC” 或 “我想用美元在大约5,100价格购买200个BTC”')}></textarea>
                     </FormItem>
-                    <Button onClick={this.onSubmit}>{UPEX.lang.template('提交')}</Button>
+                    <Button onClick={this.onSubmit} disabled={state.disabled}>{UPEX.lang.template('提交')}</Button>
 
                 </section>
             </div>
