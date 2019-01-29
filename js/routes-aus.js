@@ -66,6 +66,8 @@ import IEO from './pages/ieo/main'
 import IEODetail from './pages/ieo/detail'
 // OTC
 import OTC from './pages/otc';
+import PointWelcome from "@/pages/user-point/welcome";
+import UserPoint from "@/pages/user-point/home";
 
 
 const Home = (location, cb) => {
@@ -97,9 +99,9 @@ const onEnterHandle = (nextState, replace) => {
     const uid = UPEX.cache.getCache('uid');
     const infinitexActivityDisable = UPEX.config.version === 'infinitex' && [10004, 10014, 10076, 10077, 10080, 10079, 10068, 10069, 10013, 10003, 10071, 10064].indexOf(uid) == -1;
 
-    if (location.pathname == '/activity/invite-home' && infinitexActivityDisable) {
-        replace('/user');
-    }
+    // if (location.pathname == '/activity/invite-home' && infinitexActivityDisable) {
+    //     replace('/user');
+    // }
 }
 
 const routes = (
@@ -173,6 +175,11 @@ const routes = (
                 <IndexRoute component={IEO}/>
                 <Route path="detail/:id" component={IEODetail}/>
             </Route>
+            <Route path="user-point" component={Auth}>
+                <IndexRoute component={UserPoint}/>
+                <Route path="home" component={UserPoint}/>
+            </Route>
+            <Route path="user-point/welcome" component={PointWelcome}/>
             <Route path="login" component={Login}/>
             <Route path="register" component={Register}/>
             <Route path="resetpwd" component={ResetPwd}/>
