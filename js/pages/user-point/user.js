@@ -22,6 +22,13 @@ export default class UserView extends Component {
     render() {
         const {userInfoStore, data} = this.props;
         let username = '--';
+        let diffPoint = 0;
+
+        if (data.diffPoint == '-') {
+            diffPoint = data.diffPoint.replace(/-/, ' - ');
+        } else {
+            diffPoint = NumberUtil.formatNumber(data.diffPoint, 0)
+        }
 
 
         if (userInfoStore.userInfo) {
@@ -42,10 +49,11 @@ export default class UserView extends Component {
                             <span>{UPEX.lang.template('30日获得')}</span>
                             <span className="total">{NumberUtil.formatNumber(data.totalPoint, 0) || 0}</span>
                             <span>AP</span>
-                            {data.levelModifyType == 0 ?
-                                <span className="diff-point"
-                                    dangerouslySetInnerHTML={{__html: UPEX.lang.template('距离下个级别还剩{num}AP', {num: NumberUtil.formatNumber(data.diffPoint) || 0}, 1)}}></span> : null}
-
+                            {
+                                data.levelModifyType == 0 ?
+                                    <span className="diff-point"
+                                          dangerouslySetInnerHTML={{__html: UPEX.lang.template('距离下个级别还剩{num}AP', {num: diffPoint}, 1)}}></span> : null
+                            }
                         </div>
                     </div>
                 </div>
