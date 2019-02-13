@@ -95,7 +95,7 @@ class View extends Component {
                                                     <CountDown order={i + 1}
                                                                startTime={item.beginTime / 1000}
                                                                endTime={item.endTime / 1000}
-                                                               serverTime={+new Date() / 1000}
+                                                               serverTime={item.systemTime / 1000}
                                                                flag={item.status}
                                                                skin={item.status == 0 ? 'light' : 'dark'}
                                                                showtxt={true}/> :
