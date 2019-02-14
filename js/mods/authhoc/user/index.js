@@ -21,7 +21,7 @@ export class Loading extends React.Component {
         if(this.state.loading) {
             return null;
         }
-        return this.props.isAuth ? <Auth store={this.props.store}>{this.props.children}</Auth> : this.props.children;
+        return this.props.isAuth ? <Auth authList={this.props.authList} store={this.props.store}>{this.props.children}</Auth> : this.props.children;
     }
 
 }

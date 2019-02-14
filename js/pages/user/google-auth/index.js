@@ -18,7 +18,7 @@ class View extends React.Component {
     render() {
         return (
             <PageWrapper title={UPEX.lang.template('Google验证器')}>
-                <Loading init={this.init} isAuth store={this.props.userInfoStore}>
+                <Loading init={this.init} isAuth authList={['phone']} store={this.props.userInfoStore}>
                     <div>2222 22</div>
                 </Loading>
             </PageWrapper>

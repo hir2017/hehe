@@ -2,19 +2,116 @@ import React from 'react';
 import { Button} from 'antd';
 import { browserHistory } from 'react-router';
 
+const NoAuth = ({title, link, linkTxt, name = 'phone'}) => {
+    return (
+        <div className={`no-auth-content ${name}`}>
+            {title}
+            <div>
+                <Button onClick={() => {
+                    browserHistory.push(link);
+                }}>
+                    {linkTxt}
+                </Button>
+            </div>
+        </div>
+    )
+}
+
 /**
- * @param: {store, title, render }
+ * @fn: 校验
+ * @param: {store, title, render, authList }
+ * authList: [phone, kyc1, kyc2]
  */
 // TODO: 由于react14 还不支持Fragment，所以children不能是string/array, 只能是单一节点的
 class Auth extends React.Component {
 
+    authInfo = {
+        phone: {
+            title: UPEX.lang.template('添加Google绑定前，请先绑定手机号'),
+            link: '/user/setting-phone',
+            linkTxt: UPEX.lang.template('去绑定手机'),
+        },
+        kyc1: {
+            title: UPEX.lang.template('请先身份认证'),
+            link: '/user/authentication',
+            linkTxt: UPEX.lang.template('身份认证'),
+        },
+        tradePwd: {
+            title: UPEX.lang.template('请先设置资金密码'),
+            link: '/user/set-trade-pwd',
+            linkTxt: UPEX.lang.template('设置资金密码'),
+        },
+        kyc2: {
+            title: UPEX.lang.template('请先身份认证'),
+            link: '/user/authentication',
+            linkTxt: UPEX.lang.template('身份认证'),
+        },
+    }
+
     goTo(link = '/user/setting-phone') {
         browserHistory.push(link);
     }
+    // 校验是否绑定手机
+    phone() {
+        const {store, title, render} = this.props;
+        if (store.userInfo.isValidatePhone == 0) {
+            if(render) {
+                return render(store);
+            }
+            let authProps = {
+                name: 'phone',
+                ...this.authInfo.phone,
+                title: title || this.authInfo.phone.title
+            }
+            return (
+                <NoAuth {...authProps}/>
+            )
+        } else {
+            return false;
+        }
+    }
+    // 校验是否进行身份验证
+    kyc1() {
+        const {store, title, render} = this.props;
+        if (store.userInfo.authLevel < 1) {
+            if(render) {
+                return render(store);
+            }
+            let authProps = {
+                name: 'kyc1',
+                ...this.authInfo.kyc1,
+                title: title || this.authInfo.kyc1.title
+            }
+            return (
+                <NoAuth {...authProps}/>
+            )
+        } else {
+            return false;
+        }
+    }
+    // 资金密码
+    tradePwd() {
+        const {store, title, render} = this.props;
+        if (store.userInfo.isValidatePass == 0) {
+            if(render) {
+                return render(store);
+            }
+            let authProps = {
+                name: 'tradePwd',
+                ...this.authInfo.tradePwd,
+                title: title || this.authInfo.tradePwd.title
+            }
+            return (
+                <NoAuth {...authProps}/>
+            )
+        } else {
+            return false;
+        }
+    }
 
-    render() {
-        const {props} = this;
-        const {store, title, render} = props;
+    // 校验是否进行身份验证  TODO: 条件不对
+    kyc2() {
+        const {store, title, render} = this.props;
         if (store.userInfo.isValidatePhone == 0) {
             if(render) {
                 return render(store);
@@ -29,8 +126,27 @@ class Auth extends React.Component {
                     </div>
                 </div>
             )
+        } else {
+            return false;
         }
-        return props.children;
+    }
+
+    render() {
+        const {props} = this;
+        const {authList = []} = this.props;
+        let $content = props.children;
+        if(authList.length !== 0) {
+            for(let auth of authList) {
+                if(this[auth]) {
+                    let fobidContent = this[auth]();
+                    if(fobidContent) {
+                        $content = fobidContent;
+                        break;
+                    }
+                }
+            }
+        }
+        return $content;
     }
 }
 
