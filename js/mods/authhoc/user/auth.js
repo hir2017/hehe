@@ -4,10 +4,10 @@ import { browserHistory } from 'react-router';
 
 const NoAuth = ({title, link, linkTxt, name = 'phone'}) => {
     return (
-        <div className={`no-auth-content ${name}`}>
+        <div className={`exc-no-auth-content ${name}`}>
             {title}
             <div>
-                <Button onClick={() => {
+                <Button className="link-btn" onClick={() => {
                     browserHistory.push(link);
                 }}>
                     {linkTxt}
@@ -46,6 +46,11 @@ class Auth extends React.Component {
             link: '/user/authentication',
             linkTxt: UPEX.lang.template('身份认证'),
         },
+        GA: {
+            title: UPEX.lang.template('请先绑定谷歌验证码'),
+            link: '/user/google',
+            linkTxt: UPEX.lang.template('绑定谷歌验证码'),
+        },
     }
 
     goTo(link = '/user/setting-phone') {
@@ -70,7 +75,7 @@ class Auth extends React.Component {
             return false;
         }
     }
-    // 校验是否进行身份验证
+    // 校验是否已完成身份验证
     kyc1() {
         const {store, title, render} = this.props;
         if (store.userInfo.authLevel < 1) {
@@ -89,7 +94,7 @@ class Auth extends React.Component {
             return false;
         }
     }
-    // 资金密码
+    // 资金密码设置
     tradePwd() {
         const {store, title, render} = this.props;
         if (store.userInfo.isValidatePass == 0) {
@@ -108,7 +113,6 @@ class Auth extends React.Component {
             return false;
         }
     }
-
     // 校验是否进行身份验证  TODO: 条件不对
     kyc2() {
         const {store, title, render} = this.props;
@@ -116,20 +120,38 @@ class Auth extends React.Component {
             if(render) {
                 return render(store);
             }
+            let authProps = {
+                name: 'kyc2',
+                ...this.authInfo.kyc2,
+                title: title || this.authInfo.kyc2.title
+            }
             return (
-                <div className="no-auth-content phone">
-                    {title || UPEX.lang.template('添加Google绑定前，请先绑定手机号')}
-                    <div>
-                        <Button onClick={this.goTo}>
-                            {UPEX.lang.template('去绑定手机')}
-                        </Button>
-                    </div>
-                </div>
+                <NoAuth {...authProps}/>
             )
         } else {
             return false;
         }
     }
+    // 谷歌验证绑定
+    GA() {
+        const {store, title, render} = this.props;
+        if (store.userInfo.isGoogleAuth == 0) {
+            if(render) {
+                return render(store);
+            }
+            let authProps = {
+                name: 'GA',
+                ...this.authInfo.GA,
+                title: title || this.authInfo.GA.title
+            }
+            return (
+                <NoAuth {...authProps}/>
+            )
+        } else {
+            return false;
+        }
+    }
+
 
     render() {
         const {props} = this;

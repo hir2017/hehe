@@ -13,7 +13,6 @@ import '../css/recharge-withdraw.less';
 import '../css/aus/exchange-base.less';
 import '../css/aus/style-aus.less';
 import '../css/antd-reset.less';
-import '../css/excui/index.less';
 
 import './lib/object.assign';
 import './lib/promise';

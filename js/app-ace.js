@@ -12,7 +12,6 @@ import '../css/ieo/index.less';
 import '../css/recharge-withdraw.less';
 import '../css/antd-reset.less';
 import '../css/download.less';
-import '../css/excui/index.less';
 
 import './lib/object.assign';
 import './lib/promise';

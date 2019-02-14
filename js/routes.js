@@ -54,8 +54,9 @@ import ModifyPhone from './mods/binding-phone/modify-phone'
 import SettingPhone from './mods/binding-phone/binding-phone'
 import BindingEmail from './pages/user/binding-email'
 import SettingEmail from './mods/binding-email/binding-email'
-import GoogleAuth from './pages/user/google-auth'
-import UnbindingGoogle from './mods/binding-google/unbind'
+import GoogleAuth from './pages/user/google-auth';
+import UnbindingGoogle from './pages/user/google-auth/remove';
+// import UnbindingGoogle from './mods/binding-google/unbind'
 import GoogleGuide from './pages/user/google-guide'
 import EmailSuccess from './mods/binding-email/success'
 import PhoneSuccess from './mods/binding-phone/success'
