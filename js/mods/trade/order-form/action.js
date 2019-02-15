@@ -73,13 +73,13 @@ export default (store, authStore) => {
                 data.price = 0;
             }
 
-            submitOrder(data)
+            return submitOrder(data)
                 .then(data => {
                     store.updateSubmiting(0);
 
                     switch (data.status) {
                         case 200:
-                        
+
                             if (type == 'buy') {
                                 store.setDealBuyPrice('');
                                 store.setDealBuyNum('');
@@ -104,6 +104,7 @@ export default (store, authStore) => {
                             message.error(data.message);
                             break;
                         default:
+
                             message.error(data.message);
                     }
                 })

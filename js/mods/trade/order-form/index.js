@@ -186,7 +186,10 @@ class TradeForm extends Component {
                         this.props.tradeStore.setTradeSellPassword(value);
                     }
 
-                    this.action.createTradeOrder(type);
+                    this.action.createTradeOrder(type).then(res => {
+                        this.props.tradeStore.setTradeBuyPassword('');
+                        this.props.tradeStore.setTradeSellPassword('');
+                    });
                 });
             } else {
                 message.error(result['message']);
