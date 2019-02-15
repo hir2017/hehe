@@ -2,17 +2,21 @@ import React from 'react';
 import { Button} from 'antd';
 import { browserHistory } from 'react-router';
 
-const NoAuth = ({title, link, linkTxt, name = 'phone'}) => {
+export const NoAuth = ({title, link, linkTxt, name = 'phone'}) => {
     return (
         <div className={`exc-no-auth-content ${name}`}>
             {title}
-            <div>
-                <Button className="link-btn" onClick={() => {
-                    browserHistory.push(link);
-                }}>
-                    {linkTxt}
-                </Button>
-            </div>
+            {
+                link ? (
+                    <div>
+                        <Button className="link-btn" onClick={() => {
+                            browserHistory.push(link);
+                        }}>
+                            {linkTxt}
+                        </Button>
+                    </div>
+                ) : null
+            }
         </div>
     )
 }
@@ -20,7 +24,7 @@ const NoAuth = ({title, link, linkTxt, name = 'phone'}) => {
 /**
  * @fn: 校验
  * @param: {store, title, render, authList }
- * authList: [phone, kyc1, kyc2]
+ * authList: [phone, kyc1, tradePwd, kyc2, GA]
  */
 // TODO: 由于react14 还不支持Fragment，所以children不能是string/array, 只能是单一节点的
 class Auth extends React.Component {

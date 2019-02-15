@@ -9,6 +9,7 @@ import SmsBtn from '@/mods/common/sms-btn';
 import Numberutils from  '@/lib/util/number';
 import PageWrapper from '@/components/page-user/page-wrapper';
 import { createGetProp } from '@/components/utils';
+import { Loading } from '@/mods/authhoc/user';
 
 @inject('userInfoStore')
 @observer
@@ -79,19 +80,27 @@ export default class ReBinding extends Component {
         });
     }
 
+    init = () => {
+        return this.props.userInfoStore.getUserInfo();
+    }
+
     render() {
-        const loading = this.props.userInfoStore.submit_loading;
+        let store = this.props.userInfoStore;
+        const loading = store.submit_loading;
         const {inputsData, $sendBtn, state} = this;
         return (
             <PageWrapper title={UPEX.lang.template('解绑Google验证器')}>
-             <Alert className="ace-form-tips" type="warning" showIcon message={UPEX.lang.template('为了您的资金安全，修改Google验证码后，24小时内不可以提币')} />
-                <FormView className="modify-password-box modify-google-box">
-                    <FormItem {...inputsData.vCode} value={state.vCode} after={$sendBtn} />
-                    <FormItem {...inputsData.google} value={state.google} tip={<Link to="/user/google-guide" className="exc-link underline">{UPEX.lang.template('Google验证器使用教程')}</Link>}/>
-                    <Button className="exc-submit-item" loading={loading} onClick={this.submit}>
-                        {UPEX.lang.template('解绑')}
-                    </Button>
-                </FormView>
+
+                <Alert className="ace-form-tips" type="warning" showIcon message={UPEX.lang.template('为了您的资金安全，修改Google验证码后，24小时内不可以提币')} />
+                <Loading init={this.init} isAuth authList={['GA']} store={store}>
+                    <FormView className="modify-password-box modify-google-box">
+                        <FormItem {...inputsData.vCode} value={state.vCode} after={$sendBtn} />
+                        <FormItem {...inputsData.google} value={state.google} tip={<Link to="/user/google-guide" className="exc-link underline">{UPEX.lang.template('Google验证器使用教程')}</Link>}/>
+                        <Button className="exc-submit-item" loading={loading} onClick={this.submit}>
+                            {UPEX.lang.template('解绑')}
+                        </Button>
+                    </FormView>
+                </Loading>
 
             </PageWrapper>
 

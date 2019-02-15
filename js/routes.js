@@ -55,7 +55,8 @@ import SettingPhone from './mods/binding-phone/binding-phone'
 import BindingEmail from './pages/user/binding-email'
 import SettingEmail from './mods/binding-email/binding-email'
 import GoogleAuth from './pages/user/google-auth';
-import UnbindingGoogle from './pages/user/google-auth/remove';
+import BindGA from './pages/user/google-auth/bind';
+import UnbindingGoogle from './pages/user/google-auth/unbind';
 // import UnbindingGoogle from './mods/binding-google/unbind'
 import GoogleGuide from './pages/user/google-guide'
 import EmailSuccess from './mods/binding-email/success'
@@ -150,6 +151,7 @@ const routes = (
                 <Route path="binding-email" component={BindingEmail}/>
                 <Route path="setting-email" component={SettingEmail}/>
                 <Route path="google" component={GoogleAuth}/>
+                <Route path="bind-google" component={BindGA}/>
                 <Route path="unbinding-google" component={UnbindingGoogle}/>
                 <Route path="google-guide" component={GoogleGuide}/>
                 <Route path="emailSuccess" component={EmailSuccess}/>
