@@ -2,7 +2,7 @@
 
 html {
     color: #333;
-    backgroundround: #fff
+    background: #fff;
 }
 
 body,
@@ -334,7 +334,7 @@ input:-moz-placeholder {
 
 input::-moz-placeholder {
     /* Mozilla Firefox 19+*/
-    color: #ccc;    
+    color: #ccc;
 }
 
 
