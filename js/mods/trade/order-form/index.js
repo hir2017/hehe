@@ -163,7 +163,7 @@ class TradeForm extends Component {
     submitOrder = type => {
         let { verifyInfoBeforeSubmit, createTradeOrder } = this.props.tradeStore;
         let userInfoStore = this.props.userInfoStore;
-
+        console.log('submitOrder', userInfoStore.userInfo.isValidatePass)
         if (userInfoStore.userInfo.authLevel == 0) {
             this.showDialogGuideAuth();
             return;
