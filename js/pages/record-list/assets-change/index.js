@@ -32,11 +32,11 @@ class RecordPage extends Component {
             {label: UPEX.lang.template('充币记录'), type: 'coin-deposit'},
             {label: UPEX.lang.template('提币记录'), type: 'coin-withdraw'},
             {label: UPEX.lang.template('分发记录'), type: 'reward'},
-            {label: UPEX.lang.template('IEO购买记录'), type: 'token-record'}
+            // {label: UPEX.lang.template('IEO购买记录'), type: 'token-record'}
         ];
-        // if(UPEX.config.version == 'ace') {
-        //     this.tabs.push({label: UPEX.lang.template('IEO购买记录'), type: 'token-record'})
-        // }
+        if(UPEX.config.version == 'ace') {
+            this.tabs.push({label: UPEX.lang.template('IEO购买记录'), type: 'token-record'})
+        }
         let _targetTab = this.tabs.some(item => item.type === type) ? type : 'deposit';
 
         this.state = {
@@ -134,7 +134,7 @@ class RecordPage extends Component {
         const {state} = this;
         // tab标签循环获取
         let $TabNode = (
-            <div className="swtich-tabs">
+            <div className={`swtich-tabs ${UPEX.config.version}`}>
                 {this.tabs.map((item, i) => (
                     <div className={`tab ${state.type === item.type ? 'active' : ''}`} key={i} onClick={e => {
                         this.switchTab(item)
