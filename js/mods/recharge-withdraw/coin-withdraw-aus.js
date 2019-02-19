@@ -48,7 +48,7 @@ class WithdrawCoin extends Component {
                 }
             },
             msgCode: {
-                label: UPEX.lang.template('标签'),
+                label: UPEX.lang.template('标签') + UPEX.lang.template('(请务必确保标签是正确的!)'),
                 target: '',
                 inputProps: {
                     onChange: this.setVal.bind(this, 'msgCode')
@@ -208,9 +208,13 @@ class WithdrawCoin extends Component {
             message.error(UPEX.lang.template('提币到账数量为0'));
             return;
         }
-
         let msgCode = '';
         const info = this.props.coinWithdrawStore.takeCoinInfo;
+        // 带标签的货币 标签必填
+        if(info.resp.needMsgCode === 1 && this.state.msgCode == '') {
+            message.error(UPEX.lang.template('请输入标签信息'));
+            return;
+        }
         if (info.resp.needMsgCode === 1) {
             msgCode = this.state.msgCode;
         }
