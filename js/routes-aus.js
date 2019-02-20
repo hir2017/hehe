@@ -61,6 +61,8 @@ import UnbindingGoogle from './mods/binding-google/unbind'
 import GoogleGuide from './pages/user/google-guide'
 import EmailSuccess from './mods/binding-email/success'
 import PhoneSuccess from './mods/binding-phone/success'
+import DownloadApp from './pages/others/download';
+
 // IEO
 import IEO from './pages/ieo/main'
 import IEODetail from './pages/ieo/detail'
@@ -176,6 +178,7 @@ const routes = (
             <Route path="login" component={Login}/>
             <Route path="register" component={Register}/>
             <Route path="resetpwd" component={ResetPwd}/>
+            <Route path="download-app" component={DownloadApp}/>
         </Route>
         <Route path="*" component={NotFound}/>
     </Route>
