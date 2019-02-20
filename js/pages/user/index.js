@@ -145,9 +145,9 @@ class UserPage extends Component {
                         <div className="menu">
                             {this.navData.map((item, i) => {
                                 // 澳洲屏蔽活动
-                                if (item.key == 'activity' && infinitexActivityDisable) {
-                                    return  null;
-                                }
+                                // if (item.key == 'activity' && infinitexActivityDisable) {
+                                //     return  null;
+                                // }
                                 return (
                                     <dl className="menu-submenu" key={i}>
                                         <dt className="menu-submenu-title">{item.title}</dt>

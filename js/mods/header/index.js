@@ -15,13 +15,13 @@
  * FAQ
  * 推出
  */
-import React, {Component} from 'react';
-import {Link} from 'react-router';
-import {observer, inject} from 'mobx-react';
-import {Popover, message, Icon} from 'antd';
+import React, { Component } from 'react';
+import { Link } from 'react-router';
+import { observer, inject } from 'mobx-react';
+import { Popover, message, Icon } from 'antd';
 import LanguageSwitchView from './language';
 import ThemeSwitchView from './theme';
-import {browserHistory} from 'react-router';
+import { browserHistory } from 'react-router';
 import Gtag from '@/lib/ga-analytics';
 
 @inject('authStore', 'commonStore', 'userInfoStore', 'tradeStore')
@@ -47,7 +47,7 @@ class HeaderView extends Component {
     }
 
     render() {
-        let {authStore, userInfoStore, commonStore, tradeStore} = this.props;
+        let { authStore, userInfoStore, commonStore, tradeStore } = this.props;
         let username = '--';
 
         const usermenu = (
@@ -82,7 +82,7 @@ class HeaderView extends Component {
                 <div className="header-box clearfix">
                     <h1 className="logo">
                         <Link to="/">
-                            <img src={commonStore.isTradeCenter ? UPEX.config.logoprourl : UPEX.config.logourl}/>
+                            <img src={commonStore.isTradeCenter ? UPEX.config.logoprourl : UPEX.config.logourl} />
                         </Link>
                     </h1>
                     <div className="header-box-l">
@@ -98,10 +98,15 @@ class HeaderView extends Component {
                                     <Link to="/ieo">{UPEX.lang.template('Launcher')}</Link>
                                 </li>
                             ) : null}
+                            {UPEX.config.version == 'infinitex' ? (
+                                <li className="otc">
+                                    <Link to="/otc">{UPEX.lang.template('大宗OTC')}</Link>
+                                </li>
+                            ) : null}
                         </ul>
                     </div>
                     <div className="header-box-r">
-                        <ThemeSwitchView/>
+                        <ThemeSwitchView />
                         {authStore.isLogin ? (
                             <ul>
                                 <li ref="userinfo">
@@ -112,9 +117,8 @@ class HeaderView extends Component {
                                         overlayClassName={tradeStore.theme == 'dark' ? 'widget-tooltip dark' : 'widget-tooltip'}
                                     >
                                         <Link to="/user">
-                                            <span
-                                                className="usertxt">{UPEX.lang.template('欢迎您，{name}', {name: username})}</span>
-                                            <Icon type="down" style={{fontSize: 12, color: '#ebeff5'}}/>
+                                            <span className="usertxt">{UPEX.lang.template('欢迎您，{name}', { name: username })}</span>
+                                            <Icon type="down" style={{ fontSize: 12, color: '#ebeff5' }} />
                                         </Link>
                                     </Popover>
                                 </li>
@@ -128,7 +132,7 @@ class HeaderView extends Component {
                                         }}
                                         to={{
                                             pathname: '/login',
-                                            state: {step: 'login'}
+                                            state: { step: 'login' }
                                         }}
                                     >
                                         {UPEX.lang.template('登录')}
@@ -150,10 +154,11 @@ class HeaderView extends Component {
                         <ul className="help-language">
                             <li className="split">|</li>
                             {
-                                UPEX.config.version == 'ace' ? (<li className="point">
+                                UPEX.config.version == 'ace' ? (
+                                <li className="point">
                                     <Link to="/user-point/welcome">{UPEX.lang.template('AcePoint')}</Link>
-                                </li>) : null
-
+                                </li>
+                                ) : null
                             }
 
                             <li className="split">|</li>
@@ -165,7 +170,7 @@ class HeaderView extends Component {
                             </li>
                             <li className="split">|</li>
                             <li ref="lang" className="language">
-                                <LanguageSwitchView root={() => this.refs.lang}/>
+                                <LanguageSwitchView root={() => this.refs.lang} />
                             </li>
                         </ul>
                     </div>

@@ -1,0 +1,224 @@
+@import './variable.less';
+.otc.main {
+    background-color: #191b1d;
+    position: relative;
+    z-index: 4;
+    canvas {
+        // background: linear-gradient(180deg, #08090b 0, #202326);
+        background: #191b1d;
+    }
+    .inner {
+        position: relative;
+        z-index: 9;
+    }
+    .apply {
+        width: 1200px;
+        margin: 0 auto;
+        color: #fff;
+        padding: 100px 80px 200px;
+        position: relative;
+        .banner {
+            right: 74px;
+            top: 25px;
+            position: absolute;
+            width: 380px;
+            height: 450px;
+            background: url(../images/otc-banner.png) -57px 0 no-repeat;
+            background-size: auto 450px;
+            transform: translateZ(0);
+            animation-name: hvr-bob-float, hvr-bob;
+            backface-visibility: hidden;
+            animation-duration: .3s, 2s;
+            animation-delay: 0s, .3s;
+            animation-timing-function: ease-out, ease-in-out;
+            animation-iteration-count: 1, infinite;
+            animation-fill-mode: forwards;
+            animation-direction: normal, alternate;
+        }
+        .title {
+            height: 66px;
+            line-height: 50px;
+            font-size: 50px;
+        }
+        .sub {
+            line-height: 24px;
+            font-size: 24px;
+            color: #c5cedd;
+            b {
+                color: #8d90ff;
+                display: block;
+                height: 30px;
+                line-height: 30px;
+                margin-bottom: 10px;
+            }
+            padding-bottom: 76px;
+        }
+        .ant-btn {
+            height: 40px;
+            width: 160px;
+            color: #fff;
+            background: #8d90ff;
+            border: none;
+            &:hover,
+            &:active {
+                background: #8d90ff;
+            }
+        }
+    }
+    .feature {
+        width: 1200px;
+        margin: 0 auto;
+        padding-left: 80px;
+        margin-bottom: 120px;
+        color: #fff;
+        .list {
+            overflow: hidden;
+        }
+        .item {
+            float: left;
+            background-color: #232534;
+            border-radius: 7px;
+            margin-right: 60px;
+            width: 215px;
+            height: 300px;
+            box-sizing: border-box;
+            padding: 0 16px;
+            .img {
+                height: 80px;
+                width: 80px;
+                margin: 55px auto 20px;
+                background: url(../images/otc-features.png) 0 0 no-repeat;
+                background-size: auto 100%;
+            }
+            &:nth-child(2) .img {
+                background-position-x: -90px;
+            }
+            &:nth-child(3) .img {
+                background-position-x: -180px;
+            }
+            &:nth-child(4) .img {
+                background-position-x: -270px;
+            }
+            h4 {
+                height: 20px;
+                line-height: 20px;
+                text-align: center;
+                margin-bottom: 16px;
+                color: #fff;
+            }
+            .desc {
+                color: #c5cedd;
+                line-height: 20px;
+            }
+        }
+    }
+    .form {
+        color: #fff;
+        width: 650px;
+        margin: 0 auto;
+        padding-bottom: 200px;
+        header {
+            text-align: center;
+            h3 {
+                color: #fff;
+                font-size: 24px;
+                height: 50px;
+                line-height: 50px;
+            }
+            p {
+                color: #c5cedd;
+                height: 20px;
+                line-height: 20px;
+            }
+            padding-bottom: 84px;
+        }
+        .exc-form-item {
+            margin-bottom: 50px;
+            .ant-input, .ant-select-selection {
+                border: none;
+                background-color: #26292c;
+                color: #fff;
+                box-shadow: none;
+            }
+            .ant-input:hover, .ant-input:focus, .ant-select-selection:hover, .ant-select-selection:focus {
+                background-color: #44484d;
+
+            }
+            .ant-select-selection-selected-value {
+                color: #fff;
+            }
+            .ant-select-search__field {
+                border: none;
+            }
+        }
+        .exc-form-item.msg textarea{
+            height: 160px;
+            width: 100%;
+            background-color: #26292c;
+            border-radius: 4px;
+            border: none;
+            padding: 10px;
+            &:active, &:focus {
+                outline: none;
+            }
+        }
+        .exc-form-item.msg textarea::-webkit-input-placeholder {
+                color: #545960;
+        }
+        .ant-btn {
+            margin: 0 auto;
+            color: #cc9900;
+            display: block;
+            width: 310px;
+            height: 50px;
+            background-color: transparent;
+            border-color: #cc9900;
+        }
+        .ant-btn:active {
+            color: #191b1d;
+            background-color: #cc9900;
+        }
+    }
+    .success {
+        text-align: center;
+        color: #fff;
+        font-size: 24px;
+        padding: 120px 0 200px;
+        background: linear-gradient(to bottom, #191b1d 0, #080a0c);
+    }
+}
+.ant-select-dropdown.otc-form {
+    &.ant-select-dropdown{
+        background: #202225;
+    }
+    .ant-select-dropdown-menu {
+        padding: 10px 0;
+        background: #202225;
+    }
+    .ant-select-dropdown-menu-item {
+        height: 40px;
+        line-height: 40px;
+        font-size: 14px;
+        color: @text-color02;
+        box-shadow: 0px 0 0 0px transparent;
+        background-color: #202225;
+        padding: 0 20px;
+    }
+    .ant-select-dropdown-menu-item:hover {
+        background-color: #44484d ;
+        text-decoration: none;
+        color: @text-color01;
+    }
+    .ant-select-dropdown-menu-item-selected,
+    .ant-select-dropdown-menu-item-selected:hover{
+        color: #c5cedd !important;
+        background-color: #202225;
+    }
+    ::-webkit-scrollbar,::-webkit-scrollbar-track {
+        background-color: #202225;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background-color: @bg-module;
+    }
+}

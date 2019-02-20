@@ -134,7 +134,7 @@ class RecordPage extends Component {
         const {state} = this;
         // tab标签循环获取
         let $TabNode = (
-            <div className="swtich-tabs">
+            <div className={`swtich-tabs ${UPEX.config.version}`}>
                 {this.tabs.map((item, i) => (
                     <div className={`tab ${state.type === item.type ? 'active' : ''}`} key={i} onClick={e => {
                         this.switchTab(item)

@@ -5,7 +5,7 @@ import React, {Component} from 'react';
 import {browserHistory} from 'react-router';
 import {StatusIcon} from "../view";
 import CountDown from '../countdown';
-import {getIEOList} from '@/api/http';
+import Api from '@/api';
 import TimeUtil from '@/lib/util/date';
 import NumberUtil from '@/lib/util/number';
 
@@ -28,7 +28,8 @@ class View extends Component {
             isFetching: 1
         });
 
-        getIEOList().then(res => {
+        Api.ieo
+            .getIEOList().then(res => {
             if (res.status == 200) {
                 this.setState({
                     list: res.attachment,

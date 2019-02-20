@@ -5,7 +5,7 @@ import React, {Component} from 'react';
 import {observer, inject} from 'mobx-react';
 import {Checkbox, Icon, message, Input, Tooltip} from 'antd';
 import {Link, browserHistory} from 'react-router';
-import {getIEOAssetsList} from '@/api/http';
+import Api from '@/api';
 import NumberUtil from '@/lib/util/number';
 
 const Search = Input.Search;
@@ -164,24 +164,27 @@ class IEOListView extends Component {
     }
 
     fetchData() {
-        getIEOAssetsList().then(res => {
-            if (res.status == 200) {
-                this.setState({
-                    list: res.attachment,
+        Api.ieo
+            .getIEOAssetsList()
+            .then(res => {
+                if (res.status == 200) {
+                    this.setState({
+                        list: res.attachment,
+                        isFetching: 0
+                    });
+                } else {
+                    //message.error(res.message);
+                    this.setState({
+                        isFetching: 0
+                    });
+                }
+            })
+            .catch(() => {
+                console.log('getIEOAssetsList err');
+                this.setState = {
                     isFetching: 0
-                });
-            } else {
-                //message.error(res.message);
-                this.setState({
-                    isFetching: 0
-                });
-            }
-        }).catch(() => {
-            console.log('getIEOAssetsList err');
-            this.setState = {
-                isFetching: 0
-            }
-        })
+                }
+            })
     }
 
     goIEODetail = (id) => {

@@ -13,7 +13,7 @@ import CountDown from '../countdown';
 import NumberUtil from '@/lib/util/number';
 import TimeUtil from '@/lib/util/date';
 import {isNumber} from '@/lib/util/validate';
-import {getSingleIEOPurchaseInfo, buyIEOToken, getIEOIsSubscribe, IEOToDoSubscribe} from '@/api/http';
+import Api from '@/api';
 
 const Option = Select.Option;
 
@@ -116,28 +116,31 @@ class View extends Component {
             number: 0,
             amount: 0,
         });
-        return getSingleIEOPurchaseInfo({
-            ieoId: this.props.ieoId
-        }).then(res => {
-            if (res.status === 200) {
-                let list = res.attachment.advanceBuyRespList;
-                // 默认选第一个
-                let selectCoin = list.length > 0 ? list[0] : {};
-                this.setState({
-                    selectCoin,
-                    coins: list,
-                    number: 0,
-                    agreementUrl: res.attachment.userProtocolUrl,
-                    visible: true,
-                    msgVisible: false
-                })
-            }
-            else {
-                message.warning(res.message);
-            }
-        }).catch(err => {
-            console.error('ieo getSingleIEOPurchaseInfo', err)
-        });
+        return Api.ieo
+            .getSingleIEOPurchaseInfo({
+                ieoId: this.props.ieoId
+            })
+            .then(res => {
+                if (res.status === 200) {
+                    let list = res.attachment.advanceBuyRespList;
+                    // 默认选第一个
+                    let selectCoin = list.length > 0 ? list[0] : {};
+                    this.setState({
+                        selectCoin,
+                        coins: list,
+                        number: 0,
+                        agreementUrl: res.attachment.userProtocolUrl,
+                        visible: true,
+                        msgVisible: false
+                    })
+                }
+                else {
+                    message.warning(res.message);
+                }
+            })
+            .catch(err => {
+                console.error('ieo getSingleIEOPurchaseInfo', err)
+            });
     }
 
     checkProjectState() {
@@ -165,23 +168,26 @@ class View extends Component {
             return;
         }
         // 获取订阅结果
-        getIEOIsSubscribe({
-            ieoId: this.props.ieoId
-        }).catch(err => {
-            console.error('getIEOIsSubscribe', err);
-        }).then(res => {
-            let _state = projectState[0];
-            if (res.status === 200) {
-                _state = projectState[res.attachment === 1 ? 2 : 1]
-            }
-            else {
-                message.error(res.message);
-                _state = projectState[3];
-            }
-            this.setState({
-                projectState: _state
-            });
-        })
+        Api.ieo
+            .getIEOIsSubscribe({
+                ieoId: this.props.ieoId
+            })
+            .catch(err => {
+                console.error('getIEOIsSubscribe', err);
+            })
+            .then(res => {
+                let _state = projectState[0];
+                if (res.status === 200) {
+                    _state = projectState[res.attachment === 1 ? 2 : 1]
+                }
+                else {
+                    message.error(res.message);
+                    _state = projectState[3];
+                }
+                this.setState({
+                    projectState: _state
+                });
+            })
 
     }
 
@@ -218,7 +224,8 @@ class View extends Component {
             count: number
         };
 
-        buyIEOToken(_order).then(res => {
+        Api.ieo
+            .buyIEOToken(_order).then(res => {
             let msgData = {
                 selectCoin,
                 status: res.status === 200 ? 'success' : 'fail',
@@ -292,19 +299,23 @@ class View extends Component {
     }
 
     handleSubscribe() {
-        IEOToDoSubscribe({
-            ieoId: this.props.ieoId
-        }).then(res => {
-            if (res.status === 200) {
-                message.success(UPEX.lang.template('订阅成功'))
-            } else {
-                message.warning(res.message);
-            }
-        }).catch(err => {
-            console.error('IEOToDoSubscribe', err);
-        }).then(res => {
-            this.checkProjectState();
-        })
+        Api.ieo
+            .IEOToDoSubscribe({
+                ieoId: this.props.ieoId
+            })
+            .then(res => {
+                if (res.status === 200) {
+                    message.success(UPEX.lang.template('订阅成功'))
+                } else {
+                    message.warning(res.message);
+                }
+            })
+            .catch(err => {
+                console.error('IEOToDoSubscribe', err);
+            })
+            .then(res => {
+                this.checkProjectState();
+            })
     }
 
     // 订阅、购买操作按钮

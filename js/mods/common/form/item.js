@@ -13,6 +13,9 @@ export default class View extends React.Component {
         if (props.hasOwnProperty('value')) {
             temp.value = props.value;
         }
+        if(props.hasOwnProperty('onChange')) {
+            temp.onChange = props.onChange;
+        }
         return (
             <div className={`exc-form-item ${props.className || ''}`}>
                 {props.label ? <label className="inner-label">{props.label}</label> : null}

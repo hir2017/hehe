@@ -55,7 +55,7 @@ const VerifyRules = {
 
         if (min && value < min || max && value > max) {
             let data = {
-                min: min, 
+                min: min,
                 max: max
             }
             errInfo = errInfo.replace(/\{([\s\S]+?)\}/ig, function($0, $1) {
@@ -69,27 +69,27 @@ const VerifyRules = {
 
     number: function(value, info) {
         if (value === '') return [true];
-        
+
         if (/^\d+$/.test(value)) return [true];
-        
+
         return [false, info ? info : UPEX.lang.template('只能输入数字')];
     },
 
     loginpassword: function(value, info) {
         if (value === '') return [true];
-        
+
         if (/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z\d\S]{8,16}$/.test(value)) return [true];
-        
+
         return [false, info ? info : UPEX.lang.template('密码至少由大写字母+小写字母+数字，8-16位组成')];
     },
 
     equalPassword: function(pwd, twicePwd, info){
         if (twicePwd == '') return [true];
-        
+
         if (twicePwd && twicePwd !== pwd) {
             return [false, info ? info : UPEX.lang.template('两次密码输入不一致')]
-        } 
-        
+        }
+
         return [true];
     },
 
@@ -97,6 +97,15 @@ const VerifyRules = {
         if (value === '') return [true];
         if (/^(\d{4})(-|\/)(\d{2})\2(\d{2})$/.test(value)) return [true];
         return [false, info ? info : UPEX.lang.template('请填写正确的日期格式：YYYY-MM-DD。')];
+    },
+    stringLength(str, len) {
+        let _len = 0;
+        try {
+            _len = str.replace(/[\u4e00-\u9fa5]/g, 'aa').length
+        } catch (error) {
+            console.error(str. len, error);
+        }
+        return _len > len;
     }
 };
 

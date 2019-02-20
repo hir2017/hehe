@@ -68,11 +68,9 @@ class Login extends Component {
     }
 
     componentWillMount(){
-        // console.log('login componentWillMount', 1, this.props.route.path, location.href)
     }
 
     componentWillUnmount(){
-        // console.log('login componentWillUnmount', 2, this.props.route.path, location.href)
         this.action.destroy();
     }
 
