@@ -293,7 +293,7 @@ window.LangPack={
     "ZA": "ZA南非",
     "ZM": "ZM尚比亞\t",
     "ZW": "ZW辛巴威\t",
-    "app下载中转页链接": "https://stage-h5.ace.io/h5ex/app-download/index.html",
+    "app下载中转页链接": "https://h5.ace.io/h5ex/app-download/index.html",
     "bpay充值提示": "充值金額不得低於手續費{num}，低於此限制的打款將無法上帳且無法返還",
     "ios下载Google验证器网址": "https://itunes.apple.com/us/app/google-authenticator/id388497605?mt=8",
     "webATM": "WEB-ATM",

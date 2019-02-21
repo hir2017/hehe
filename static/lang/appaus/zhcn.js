@@ -351,7 +351,7 @@ window.LangPack={
     "ZA": "ZA南非",
     "ZM": "ZM赞比亚",
     "ZW": "ZW津巴布韦",
-    "app下载中转页链接": "https://stage-h5.ace.io/h5ex/app-download/index.html",
+    "app下载中转页链接": "https://h5.ace.io/h5ex/app-download/index-aus.html",
     "aus特点1": "权威认证",
     "aus特点1描述": "平台立足澳洲悉尼，权威机构监管认证，保障用户放心参与新项目",
     "aus特点2": "一键式服务",
