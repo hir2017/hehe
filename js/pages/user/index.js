@@ -8,6 +8,7 @@ import {Link, browserHistory} from 'react-router';
 import {observer, inject} from 'mobx-react';
 import {Breadcrumb, message} from 'antd';
 
+
 @inject('userInfoStore', 'authStore')
 @observer
 class UserPage extends Component {
@@ -17,6 +18,7 @@ class UserPage extends Component {
         this.state = {
             isLogin: true
         };
+
         let navData = [
             {
                 key: 'baseinfo',
@@ -82,13 +84,80 @@ class UserPage extends Component {
                 ]
             }
         ];
+        let ausNavData = [
+            {
+                key: 'baseinfo',
+                title: UPEX.lang.template('个人信息'),
+                subItems: [
+                    {
+                        active: 'user',
+                        route: '/user',
+                        text: UPEX.lang.template('基本信息')
+                    },
+                    {
+                        active: 'authentication',
+                        route: '/user/authentication',
+                        text: UPEX.lang.template('身份认证')
+                    }
+                ]
+            },
+            {
+                key: 'setting',
+                title: UPEX.lang.template('安全设置'),
+                subItems: [
+                    {
+                        active: 'setpwd',
+                        route: '/user/setpwd',
+                        text: UPEX.lang.template('密码设置')
+                    },
+                    {
+                        active: 'binding-phone',
+                        route: '/user/binding-phone',
+                        text: UPEX.lang.template('手机绑定')
+                    },
+                    {
+                        active: 'binding-email',
+                        route: '/user/binding-email',
+                        text: UPEX.lang.template('电子邮箱绑定')
+                    },
+                    {
+                        active: 'google',
+                        route: '/user/google',
+                        text: UPEX.lang.template('Google验证器')
+                    }
+                ]
+            },
+            {
+                key: 'activity',
+                title: UPEX.lang.template('活动'),
+                subItems: [
+                    {
+                        active: 'userpoint',
+                        route: '/user-point/home',
+                        text: UPEX.lang.template('我的Ace Point')
+                    },
+                    // {
+                    //     active: 'invite-home',
+                    //     route: '/activity/invite-home',
+                    //     text: UPEX.lang.template('邀请返佣')
+                    // }
+                ]
+            }
+        ];
         if(UPEX.config.version === 'infinitex') {
-            // 移除银行卡
-            navData[0].subItems.pop();
-            //移除返佣
-            // navData.pop();
+            let ausIDs = [10010,10004,10014,10076,10077,10080,10079,10068,10069,10013,10003,10071,10064,10012];
+            const uid = UPEX.cache.getCache('uid');
+            if(ausIDs.indexOf(uid) !== -1) {
+                ausNavData[2].subItems.push({
+                    active: 'invite-home',
+                    route: '/activity/invite-home',
+                    text: UPEX.lang.template('邀请返佣')
+                })
+            }
+            this.navData = ausNavData;
+        } else {
+            this.navData = navData;
         }
-        this.navData = navData;
     }
 
     componentWillReceiveProps() {
