@@ -90,14 +90,17 @@
                         position: relative;
                         line-height: 15px;
                         padding-left: 15px;
+                        text-align: center;
                         &:before{
-                            position: absolute;
                             content: '';
+                            position: relative;
                             width: 11px;
                             height: 11px;
+                            display: inline-block;
                             background: url("../images/download-icon-scan.png") no-repeat center;
                             background-size: 100%;
-                            left: 44px;
+                            // left: 44px;
+                            margin-right: 3px;
                             top: 1px;
                         }
                     }
@@ -116,8 +119,8 @@
         }
     }
     .right-content {
-        float: left;
-        margin-left: 185px;
+        float: right;
+        margin-right: 155px;
         .phone-wrap{
             position: relative;
             width: 296px;
@@ -159,9 +162,29 @@
                 background-size: 100%;
             }
         }
+
         .ant-carousel .slick-dots{
             bottom: -28px;
         }
     }
 
+}
+.download-wrapper.infinitex {
+    .slider-item{
+        &.item0{
+            background-image: url("../images/aus/app-1.jpg");
+        }
+        &.item1{
+            background-image: url("../images/aus/app-2.png");
+        }
+        &.item2{
+            background-image: url("../images/aus/app-3.png");
+        }
+        &.item3{
+            background-image: url("../images/aus/app-4.png");
+        }
+        &.item4{
+            background-image: url("../images/aus/app-5.png");
+        }
+    }
 }
