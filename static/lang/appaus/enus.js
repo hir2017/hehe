@@ -794,6 +794,7 @@ window.LangPack={
     "打开facebook分享": "Open Facebook to share",
     "打开twitter分享": "Open Twitter to share",
     "扫描页面上的二维码，并用纸记录下16位密码，以防丢失恢复使用": "Scan the QR code on the page and write down the 16-digit password for recovery use.",
+    "扫码下载": "Scan to download",
     "投诉机制": "Complaints Procedure",
     "投诉机制网页链接": "https://helpcenter.infinitex.com.au/hc/en-us/articles/360022301831-Complaints-Procedure",
     "投资、买卖数位货币": "Crypto currency investment and trade",
