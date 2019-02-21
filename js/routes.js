@@ -174,7 +174,6 @@ const routes = (
                 <Route path="home" component={UserPoint}/>
             </Route>
             <Route path="user-point/welcome" component={PointWelcome}/>
-            <Route path="welcome" component={PointWelcome}/>
             <Route path="login" onEnter={onEnterHandle} component={Login}/>
             <Route path="register" onEnter={onEnterHandle} component={Register}/>
             <Route path="resetpwd" component={ResetPwd}/>

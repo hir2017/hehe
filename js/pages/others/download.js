@@ -33,7 +33,7 @@ class Download extends Component {
         let list = [0, 0, 0, 0, 0];
 
         return (
-            <div className="download-wrapper">
+            <div className={`download-wrapper ${UPEX.config.version}`}>
                 <div className="content clearfix">
                     <div className="left-content">
                         <div className="desc">

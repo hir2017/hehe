@@ -14,6 +14,7 @@ import '../css/aus/exchange-base.less';
 import '../css/aus/style-aus.less';
 import '../css/antd-reset.less';
 import '../css/otc.less';
+import '../css/download.less';
 
 import './lib/object.assign';
 import './lib/promise';
