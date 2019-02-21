@@ -351,7 +351,7 @@ window.LangPack={
     "ZA": "South Africa",
     "ZM": "Zambia",
     "ZW": "Zimbabwe",
-    "app下载中转页链接": "https://stage-h5.ace.io/h5ex/app-download/index.html",
+    "app下载中转页链接": "https://h5.ace.io/h5ex/app-download/index-aus.html",
     "aus特点1": "Proven and Trusted",
     "aus特点1描述": "As a registered digital currency exchange service provider, the security of your personal information is our priority",
     "aus特点2": "Simple and convenient",
