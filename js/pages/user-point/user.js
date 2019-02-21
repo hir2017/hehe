@@ -48,7 +48,7 @@ export default class UserView extends Component {
                         <div className="other">
                             <span>{UPEX.lang.template('30日获得')}</span>
                             <span className="total">{NumberUtil.formatNumber(data.totalPoint, 0) || 0}</span>
-                            <span>AP</span>
+                            <span>{UPEX.config.version === 'infinitex' ? 'UP' : 'AP'}</span>
                             {
                                 data.levelModifyType == 0 ?
                                     <span className="diff-point"
@@ -61,7 +61,7 @@ export default class UserView extends Component {
                     <p className="txt">{UPEX.lang.template('Ace Point余额')}</p>
                     <p>
                         <span className="value">{NumberUtil.formatNumber(data.availablePoint) || 0}</span>
-                        <span>AP</span>
+                        <span>{UPEX.config.version === 'infinitex' ? 'UP' : 'AP'}</span>
                     </p>
                 </div>
             </div>
