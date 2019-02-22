@@ -16,7 +16,7 @@ config.csurls = {
     youtube: 'https://www.youtube.com/channel/UCaYhE6pnHgqZn2XvCraiHuQ?disable_polymer=true',
     whatapp: '',
     medium:'https://medium.com/ace-exchange',
-    line: '',
+    line: 'https://line.me/R/ti/p/@ace.exchange',
 };
 // pdf文档链接
 config.docUrls = {
