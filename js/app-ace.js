@@ -73,18 +73,19 @@ class App extends Component {
             '/register':'/#/register',
             '/user/authentication':'/#/kyc-auth',
         }
-        // if(isMobile  && pathMap[location.pathname]){
-        //     window.location.href = window.location.origin + '/h5ace' + pathMap[location.pathname] + search;
-        //     return false;
-        // }
-        if (isMobile) {
-            if (pathMap[location.pathname]) {
-                window.location.href = window.location.origin + '/h5ace' + pathMap[location.pathname] + search;
-                return false;
-            } else {
-                window.location.href = window.location.origin + '/h5ace' + '/#/download-app';
-            }
+        if(isMobile  && pathMap[location.pathname]){
+            window.location.href = window.location.origin + '/h5ace' + pathMap[location.pathname] + search;
+            return false;
         }
+        // if (isMobile) {
+        //     if (pathMap[location.pathname]) {
+        //         window.location.href = window.location.origin + '/h5ace' + pathMap[location.pathname] + search;
+        //         return false;
+        //     }
+        //      else {
+        //         window.location.href = window.location.origin + '/h5ace' + '/#/download-app';
+        //     }
+        // }
 
 		rootStore.commonStore.updatePathName(this.state.location.pathname);
         window.scrollTo(0,0);
