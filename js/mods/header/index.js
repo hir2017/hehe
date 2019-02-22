@@ -153,13 +153,9 @@ class HeaderView extends Component {
                         )}
                         <ul className="help-language">
                             <li className="split">|</li>
-                            {
-                                UPEX.config.version == 'ace' ? (
-                                <li className="point">
-                                    <Link to="/user-point/welcome">{UPEX.lang.template('AcePoint')}</Link>
-                                </li>
-                                ) : null
-                            }
+                            <li className="point">
+                                <Link to="/user-point/welcome">{UPEX.lang.template('AcePoint')}</Link>
+                            </li>
 
                             <li className="split">|</li>
 
