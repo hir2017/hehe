@@ -1,9 +1,10 @@
-import React from 'react'
-import {Breadcrumb, message} from 'antd';
+import React from 'react';
+import { Breadcrumb, message } from 'antd';
 import Card from '@/components/card';
-import List from './list';
+import Info from './info';
 import Opt from './opt';
-import Seccess from './success';
+import Api from '@/api';
+
 
 class View extends React.Component {
     constructor() {
@@ -11,72 +12,66 @@ class View extends React.Component {
         this.state = {
             isSuccess: false,
             optVisible: false,
+            loading: true,
+            // 是否已购买
+            isPurchase: false,
+            // 用户订单信息
+            bill: {},
             // 折扣列表
-            list: [
-                {
-                    id: 1,
-                   discount: '9',
-                   price:  120,
-                },
-                {
-                    id: 2,
-                   discount: '8',
-                   price:  1200,
-                },
-                {
-                    id: 3,
-                   discount: '7',
-                   price:  6000,
-                },
-                {
-                    id: 4,
-                   discount: '6',
-                   price:  12000,
-                },
-                {
-                    id: 5,
-                   discount: '5',
-                   price:  18000,
-                }
-            ],
-            // 选中的折扣
-            item: {}
+            list: [],
         };
     }
-    // 关闭弹窗
-    close = (status) => {
-        console.log('close', status)
-        this.setState({
-            optVisible: false
-        });
-    }
-    // 选中折扣
-    onSelect= (item) => {
-        console.log('onSelect', item, )
-        this.setState({
-            optVisible: true
+
+    componentDidMount() {
+        Promise.all([Api.feeDiscount.getOne(), Api.feeDiscount.getList()]).then(([billData, listData]) => {
+            let isPurchase = false;
+            if(billData.status === 200) {
+                if(billData.attachment !== null) {
+                    isPurchase = true;
+                    this.setState({
+                        isPurchase,
+                        bill: billData.attachment.feeDiscount || {}
+                    })
+                }
+            }
+            if(!isPurchase) {
+                if(listData.status === 200) {
+                    this.setState({
+                        list: listData.attachment.feeDiscount || []
+                    })
+                }
+            }
+        }).then(res => {
+            this.setState({
+                loading: false
+            })
         });
     }
 
+
+
     render() {
-        const {state} = this;
-        // 操作成功
-        if(state.isSuccess) {
-            return <Seccess />;
+        const { state } = this;
+        let $content = null;
+        if(state.loading) {
+            $content = <div className="mini-loading"></div>
+        } else {
+            $content = state.isPurchase ? <Info data={state.bill}/> : <Opt source={state.list}/>;
         }
         return (
             <div className="user-wrapper fee-discount">
                 <Breadcrumb className="user-breadcrumb" separator=">">
-                    <Breadcrumb.Item><a href="/home">{UPEX.config.sitename}</a></Breadcrumb.Item>
+                    <Breadcrumb.Item>
+                        <a href="/home">{UPEX.config.sitename}</a>
+                    </Breadcrumb.Item>
                     <Breadcrumb.Item>{UPEX.lang.template('手续费折扣')}</Breadcrumb.Item>
                 </Breadcrumb>
-                <Opt visible={state.optVisible} sourceData={state.list} onClose={this.close}></Opt>
                 <Card title={UPEX.lang.template('开通手续费折扣特权')}>
-                    <List onClick={this.onSelect} sourceData={state.list}></List>
-                    <div className="bottom-tip" dangerouslySetInnerHTML={{__html: UPEX.lang.template('手续费折扣温馨提示...')}}></div>
+                    {$content}
+                    <div className="bottom-tip" dangerouslySetInnerHTML={{ __html: UPEX.lang.template('手续费折扣温馨提示...') }} />
                 </Card>
             </div>
-        )
+        );
     }
 }
 
