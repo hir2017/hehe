@@ -23,7 +23,7 @@ class View extends React.Component {
     }
 
     componentDidMount() {
-        Promise.all([Api.feeDiscount.getOne(), Api.feeDiscount.getList()]).then(([billData, listData]) => {
+        Promise.all([Api.feeDiscount.getPackage(), Api.feeDiscount.getList()]).then(([billData, listData]) => {
             let isPurchase = false;
             if(billData.status === 200) {
                 if(billData.attachment !== null) {

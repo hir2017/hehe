@@ -38,6 +38,7 @@ config.baseCurrencyEn = 'AUD';
 config.baseCurrencySymbol = 'AUD';
 // 交易中心价格加法币价格提示需求 添加
 config.baseCurrencySymbol2 = 'A$';
+config.feeDiscountCurrencyEn = 'GTO';
 
 const protocol = 'https:';
 const socket_protocol = 'wss:';

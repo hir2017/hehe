@@ -33,6 +33,8 @@ config.docUrls = {
 
 config.baseCurrencyEn = 'TWD';
 config.baseCurrencySymbol = 'NT$';
+config.feeDiscountCurrencyEn = 'ACEX';
+
 
 const protocol = 'https:';
 const socket_protocol = 'wss:';
