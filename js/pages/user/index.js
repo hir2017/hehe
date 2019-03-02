@@ -127,22 +127,22 @@ class UserPage extends Component {
                     }
                 ]
             },
-            {
-                key: 'activity',
-                title: UPEX.lang.template('活动'),
-                subItems: [
-                    {
-                        active: 'userpoint',
-                        route: '/user-point/home',
-                        text: UPEX.lang.template('我的Ace Point')
-                    },
-                    // {
-                    //     active: 'invite-home',
-                    //     route: '/activity/invite-home',
-                    //     text: UPEX.lang.template('邀请返佣')
-                    // }
-                ]
-            }
+            // {
+            //     key: 'activity',
+            //     title: UPEX.lang.template('活动'),
+            //     subItems: [
+            //         {
+            //             active: 'userpoint',
+            //             route: '/user-point/home',
+            //             text: UPEX.lang.template('我的Ace Point')
+            //         },
+            //         // {
+            //         //     active: 'invite-home',
+            //         //     route: '/activity/invite-home',
+            //         //     text: UPEX.lang.template('邀请返佣')
+            //         // }
+            //     ]
+            // }
         ];
         if(UPEX.config.version === 'infinitex') {
             let ausIDs = [10010,10004,10014,10076,10077,10080,10079,10068,10069,10013,10003,10071,10064,10012];
