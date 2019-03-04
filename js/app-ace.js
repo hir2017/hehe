@@ -72,6 +72,7 @@ class App extends Component {
             '/login':'/#/login',
             '/register':'/#/register',
             '/user/authentication':'/#/kyc-auth',
+            '/download-app':'/#/download-app',
         }
         if(isMobile  && pathMap[location.pathname]){
             window.location.href = window.location.origin + '/h5ace' + pathMap[location.pathname] + search;
