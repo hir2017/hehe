@@ -6,6 +6,7 @@ import AmountInfo from '@/mods/common/form/amount-info-row';
 import FormView from '@/mods/common/form';
 import FormItem from '@/mods/common/form/item';
 import {ausComputeFee} from "@/mods/recharge-withdraw/util";
+import ComplianceModal from '@/mods/recharge-withdraw/compliance-modal';
 
 export default class View extends React.Component {
     constructor(props) {
@@ -220,6 +221,7 @@ export default class View extends React.Component {
         );
         return (
             <FormView>
+                <ComplianceModal></ComplianceModal>
                 <FormItem {...inputData.name} value={state.name}/>
                 <FormItem {...inputData.BSB} value={state.BSB}/>
                 <FormItem {...inputData.account} value={state.account}/>
