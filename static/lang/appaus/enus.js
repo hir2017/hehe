@@ -661,7 +661,7 @@ window.LangPack={
     "客服反馈": "Customer service feedback",
     "家族姓氏": "Surname",
     "密码": "Login password",
-    "密码由8-16数字、字母和特殊字符组成": "Password must contain 8 to 16 characters and include both alpha and numeric characters.",
+    "密码由8-16数字、字母和特殊字符组成": "Password must be 8 - 16 digits (include letters and numbers), and the following special characters are allowed: + - @ _ = * $",
     "密码至少由大写字母+小写字母+数字，8-16位组成": "8-16 length password, including digits uppercase and lowercase letters",
     "密码设置": "Set Password",
     "展开": "Expand",

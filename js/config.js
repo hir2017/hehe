@@ -34,6 +34,8 @@ config.docUrls = {
 config.baseCurrencyEn = 'TWD';
 config.baseCurrencySymbol = 'NT$';
 config.feeDiscountCurrencyEn = 'ACEX';
+// TODO: ACEX的id未定
+config.feeDiscountCurrencyId = 54;
 
 
 const protocol = 'https:';
