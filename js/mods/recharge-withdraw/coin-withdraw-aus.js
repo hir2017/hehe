@@ -11,6 +11,7 @@ import FormView from '@/mods/common/form';
 import FormItem from '@/mods/common/form/item';
 import AmountInfo from '@/mods/common/form/amount-info-row';
 import SmsBtn from '@/mods/common/sms-btn';
+import ComplianceModal from '@/mods/recharge-withdraw/compliance-modal';
 
 const AutoOption = AutoComplete.Option;
 
@@ -357,6 +358,9 @@ class WithdrawCoin extends Component {
                     }
                     type="warning"
                 />
+                {
+                    UPEX.config.version === 'infinitex' ? <ComplianceModal /> : null
+                }
                 <FormView>
                     {state.loading ? <div className="mini-loading" /> : null}
                     <FormItem label={UPEX.lang.template('选择币种')} after={$selectAfterNode}>

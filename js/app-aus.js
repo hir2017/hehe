@@ -1,6 +1,7 @@
 import '../css/reset.css';
 import '../css/common.less';
 import '../css/exc-style/index.less';
+import '../css/excui/index.less';
 import '../css/home.less';
 import '../css/login-register.less';
 import '../css/trade.less';
@@ -15,6 +16,7 @@ import '../css/aus/style-aus.less';
 import '../css/antd-reset.less';
 import '../css/otc.less';
 import '../css/download.less';
+import '../css/fee-discount.less';
 
 import './lib/object.assign';
 import './lib/promise';

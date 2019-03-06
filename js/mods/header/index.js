@@ -52,21 +52,29 @@ class HeaderView extends Component {
 
         const usermenu = (
             <dl className="menu-list header-menu">
-                <dd className="logined-header">
+                <dd className="logined-header user">
                     <Link className="logined-header-link" to="/user">
                         {UPEX.lang.template('个人中心')}
                     </Link>
                 </dd>
-                <dd className="logined-header">
+                <dd className="logined-header account">
                     <Link className="logined-header-link" to="/account">
                         {UPEX.lang.template('资产管理')}
                     </Link>
                 </dd>
-                <dd className="logined-header">
+                <dd className="logined-header record">
                     <Link className="logined-header-link" to="/account/record">
                         {UPEX.lang.template('订单中心')}
                     </Link>
                 </dd>
+                {UPEX.config.version === 'infinitex' ? (
+                    <dd className="logined-header discount">
+                        <Link className="logined-header-link" to="/fee-discount">
+                            {UPEX.lang.template('手续费折扣')}
+                        </Link>
+                    </dd>
+                ) : null}
+
                 <dd className="logined-header" onClick={this.logout}>
                     {UPEX.lang.template('退出登录')}
                 </dd>
