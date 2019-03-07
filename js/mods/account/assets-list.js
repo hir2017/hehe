@@ -1,10 +1,10 @@
 /**
  * 资产列表
  */
-import React, {Component} from 'react';
-import {observer, inject} from 'mobx-react';
-import {Checkbox, Icon, message, Input, Tooltip} from 'antd';
-import {Link, browserHistory} from 'react-router';
+import React, { Component } from 'react';
+import { observer, inject } from 'mobx-react';
+import { Checkbox, Icon, message, Input, Tooltip } from 'antd';
+import { Link, browserHistory } from 'react-router';
 import Api from '@/api';
 import NumberUtil from '@/lib/util/number';
 
@@ -32,7 +32,6 @@ class List extends Component {
         this.props.accountStore.filterZeroAmount(checked);
     };
 
-
     render() {
         let store = this.props.accountStore;
         let $content;
@@ -40,9 +39,8 @@ class List extends Component {
         if (!store.isFetching && store.coinList.length == 0) {
             $content = <div className="mini-tip exc-list-empty">{UPEX.lang.template('暂无数据')}</div>;
         } else {
-            $content = <AssetsListView/>;
+            $content = <AssetsListView />;
         }
-
 
         return (
             <div className="account-list">
@@ -51,7 +49,7 @@ class List extends Component {
                         <Checkbox onChange={this.onChangeCheckBox}>{UPEX.lang.template('隐藏资产为０的货币')}</Checkbox>
                     </div>
                     <div className="filter-input">
-                        <Search onChange={this.handleSearch} placeholder={UPEX.lang.template('搜索数字币')}/>
+                        <Search onChange={this.handleSearch} placeholder={UPEX.lang.template('搜索数字币')} />
                     </div>
                 </div>
                 <div className="account-result-list">
@@ -73,9 +71,10 @@ class List extends Component {
                     </div>
                     <div className="table-bd">
                         {$content}
-                        {UPEX.config.version == 'ace' ? <IEOListView/> : null }
+                        {UPEX.config.version == 'ace' ? <IEOListView /> : null}
+                        {UPEX.config.host.indexOf('stage.infinitex.com.au') !== -1 ? <IEOListView /> : null}
                         {/* <IEOListView/> */}
-                        {store.isFetching ? <div className="mini-loading"/> : null}
+                        {store.isFetching ? <div className="mini-loading" /> : null}
                     </div>
                 </div>
             </div>
@@ -100,21 +99,21 @@ class AssetsListView extends Component {
 
     render() {
         // TODO: 放到store里取计算
-        const {coinsMap} = this.props.commonStore;
-        const {actionRoles} = this.props.userInfoStore;
+        const { coinsMap } = this.props.commonStore;
+        const { actionRoles } = this.props.userInfoStore;
         return (
             <ul>
                 {this.props.accountStore.coinList.map((item, index) => {
                     let coin = coinsMap[item.currencyNameEn] || {};
                     let btnDisable = {
                         recharge: actionRoles['recharge coin'] == 2 || coin.rechargeStatus === 2,
-                        withdraw: actionRoles['withdraw coin'] == 2 || coin.withdrawStatus === 2,
-                    }
+                        withdraw: actionRoles['withdraw coin'] == 2 || coin.withdrawStatus === 2
+                    };
                     return (
                         <li key={index}>
                             <dl>
                                 <dd className="name">
-                                    <img src={`${item.icoUrl}`} alt=""/>
+                                    <img src={`${item.icoUrl}`} alt="" />
                                     {item.currencyNameEn}
                                 </dd>
                                 <dd className="total">{item.amount}</dd>
@@ -122,17 +121,21 @@ class AssetsListView extends Component {
                                 <dd className="freeze">{item.freezeAmount}</dd>
                                 <dd className="value">{item.twd_value}</dd>
                                 <dd className="actions">
-                                    <button type="button"
-                                            title={btnDisable.recharge ? UPEX.lang.template('当前币种暂停此操作') : ''}
-                                            disabled={btnDisable.recharge}
-                                            onClick={this.handleCoinRecharge.bind(this, item)}>
+                                    <button
+                                        type="button"
+                                        title={btnDisable.recharge ? UPEX.lang.template('当前币种暂停此操作') : ''}
+                                        disabled={btnDisable.recharge}
+                                        onClick={this.handleCoinRecharge.bind(this, item)}
+                                    >
                                         {UPEX.lang.template('充币')}
                                     </button>
                                     <span className="split">|</span>
-                                    <button type="button"
-                                            title={btnDisable.withdraw ? UPEX.lang.template('当前币种暂停此操作') : ''}
-                                            disabled={btnDisable.withdraw}
-                                            onClick={this.handleCoinWithdraw.bind(this, item)}>
+                                    <button
+                                        type="button"
+                                        title={btnDisable.withdraw ? UPEX.lang.template('当前币种暂停此操作') : ''}
+                                        disabled={btnDisable.withdraw}
+                                        onClick={this.handleCoinWithdraw.bind(this, item)}
+                                    >
                                         {UPEX.lang.template('提币')}
                                     </button>
                                     <span className="split">|</span>
@@ -183,16 +186,16 @@ class IEOListView extends Component {
                 console.log('getIEOAssetsList err');
                 this.setState = {
                     isFetching: 0
-                }
-            })
+                };
+            });
     }
 
-    goIEODetail = (id) => {
+    goIEODetail = id => {
         browserHistory.push(`/ieo/detail/${id}`);
-    }
+    };
 
     render() {
-        let {list, isFetching} = this.state;
+        let { list, isFetching } = this.state;
         let $content = null;
 
         if (list.length > 0) {
@@ -208,17 +211,15 @@ class IEOListView extends Component {
                             <button type="button" onClick={this.goIEODetail.bind(this, item.ieoId)}>
                                 {UPEX.lang.template('购买')}
                             </button>
-                            <Tooltip placement="topRight" title={UPEX.lang.template('锁仓期间不可交易，等待公告')}
-                                     overlayClassName="buy-tooltip">
-                                <span className="tip"/>
+                            <Tooltip placement="topRight" title={UPEX.lang.template('锁仓期间不可交易，等待公告')} overlayClassName="buy-tooltip">
+                                <span className="tip" />
                             </Tooltip>
                         </dd>
                     </dl>
                 </li>
-            ))
-        }
-        else if (isFetching == 0 && list.length == 0) {
-            $content = <div className="mini-tip exc-list-empty">{UPEX.lang.template('暂无IEO资产')}</div>
+            ));
+        } else if (isFetching == 0 && list.length == 0) {
+            $content = <div className="mini-tip exc-list-empty">{UPEX.lang.template('暂无IEO资产')}</div>;
         }
 
         return (
@@ -228,26 +229,25 @@ class IEOListView extends Component {
                         <li>
                             <dl>
                                 <dd className="name header">
-                                    <em>{UPEX.lang.template('Launcher')}</em>{UPEX.lang.template('资产')}</dd>
-                                <dd className="total"></dd>
-                                <dd className="balance"></dd>
-                                <dd className="freeze"></dd>
-                                <dd className="value"></dd>
-                                <dd className="actions"></dd>
+                                    <em>{UPEX.lang.template('Launcher')}</em>
+                                    {UPEX.lang.template('资产')}
+                                </dd>
+                                <dd className="total" />
+                                <dd className="balance" />
+                                <dd className="freeze" />
+                                <dd className="value" />
+                                <dd className="actions" />
                             </dl>
                         </li>
                     </ul>
                 </div>
                 <div className="table-bd">
                     {$content}
-                    {isFetching == 1 ? <div className="mini-loading"></div> : null}
+                    {isFetching == 1 ? <div className="mini-loading" /> : null}
                 </div>
             </div>
-        )
+        );
     }
-
 }
 
 export default List;
-
-

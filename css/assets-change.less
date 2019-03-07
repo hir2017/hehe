@@ -273,10 +273,14 @@
         }
     }
 }
-.app-page.infinitex {
-   .assets-change .swtich-tabs {
-       .tab {
-           width: 20%;
-       }
-   }
-}
+
+.app-page {
+    .assets-change .swtich-tabs {
+        &.tab-len-5 .tab {
+            width: 20%;
+        }
+        &.tab-len-6 .tab {
+            width: 200px;
+        }
+    }
+ }
