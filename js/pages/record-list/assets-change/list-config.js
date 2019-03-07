@@ -70,7 +70,7 @@ export const coin_deposit = function() {
         body: [
             { dataIndex: '_status', className: 'status' },
             { dataIndex: 'currencyNameEn', className: 'name' },
-            { dataIndex: 'coinNum', className: 'num' },
+            { dataIndex: '_coinNum', className: 'num' },
             { dataIndex: '_type', className: 'type' },
             { dataIndex: '_createTime', className: 'time' },
             { dataIndex: '_walletSn', className: 'address' },

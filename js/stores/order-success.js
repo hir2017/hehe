@@ -83,6 +83,10 @@ class OrderStore {
         item.tradeAmount = NumberUtil.formatNumber(item.tradeAmount, pointPrice);
         item.tradePrice = NumberUtil.formatNumber(item.tradePrice, pointPrice);
         item.fee = NumberUtil.scientificToNumber(item.fee);
+        // 手续费折扣节省
+        if(UPEX.config.version === 'infinitex') {
+            item.feeSave = NumberUtil.scientificToNumber(item.feeSave);
+        }
         // 成交数量
         item.tradeNum = NumberUtil.formatNumber(item.tradeNum, pointNum);
         item.num = NumberUtil.formatNumber(item.num, pointNum);

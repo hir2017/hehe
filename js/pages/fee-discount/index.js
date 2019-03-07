@@ -75,8 +75,10 @@ class View extends React.Component {
                     <Breadcrumb.Item>{UPEX.lang.template('手续费折扣')}</Breadcrumb.Item>
                 </Breadcrumb>
                 <Card title={UPEX.lang.template('开通手续费折扣特权')}>
-                    {$content}
-                    <div className="bottom-tip" dangerouslySetInnerHTML={{ __html: UPEX.lang.template('手续费折扣温馨提示...') }} />
+                    <div className="container">
+                        {$content}
+                        <div className="bottom-tip" dangerouslySetInnerHTML={{ __html: UPEX.lang.template('手续费折扣温馨提示...') }} />
+                    </div>
                 </Card>
             </div>
         );
