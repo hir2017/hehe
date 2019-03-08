@@ -174,10 +174,12 @@ const routes = (
                 <Route path="bitcoin" component={LandingPageBtc}/>
                 <Route path="eth-airdrop" component={LandingPageEthAirDrop}/>
             </Route>
-            {/* <Route path="ieo">
+            {UPEX.config.host.indexOf('stage.infinitex.com.au') !== -1 ?
+            <Route path="ieo">
                 <IndexRoute component={IEO}/>
                 <Route path="detail/:id" component={IEODetail}/>
-            </Route> */}
+            </Route>
+            : null}
             <Route path="user-point" component={Auth}>
                 <IndexRoute component={UserPoint}/>
                 <Route path="home" component={UserPoint}/>
