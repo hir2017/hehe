@@ -19,7 +19,7 @@ export default ({ data }) => {
                 <Item isUsed={true} data={_bill} unit={UPEX.config.feeDiscountCurrencyEn} />
             </div>
             <div className="deadline" >
-                <label>{UPEX.lang.template('有效期')}:</label> {TimeUtil.formatDate(data.endTimeStamp)}
+                <label>{UPEX.lang.template('有效期')}:</label> {TimeUtil.formatDate(data.endTimeStamp, 'yyyy-MM-dd HH') + ':00'}
             </div>
             <FormView>
                 <FormItem>
@@ -29,7 +29,7 @@ export default ({ data }) => {
                             browserHistory.push('/webtrade');
                         }}
                     >
-                        {UPEX.lang.template('去行情中心')}
+                        {UPEX.lang.template('去交易')}
                     </Button>
                 </FormItem>
             </FormView>

@@ -19,18 +19,11 @@ class View extends React.Component {
             // 折扣列表
             list: [],
             dateStamp: 0,
-            dateStr: ''
         };
     }
 
     componentDidMount() {
-        Api.common.getSeverTime().then(res => {
-            if(res.status === 200) {
-                this.setState({
-                    dateStamp: res.attachment
-                })
-            }
-        });
+
         Promise.all([Api.feeDiscount.getPackage(), Api.feeDiscount.getList()]).then(([billData, listData]) => {
             let isPurchase = false;
             if(billData.status === 200) {
@@ -64,7 +57,7 @@ class View extends React.Component {
         if(state.loading) {
             $content = <div className="mini-loading"></div>
         } else {
-            $content = state.isPurchase ? <Info data={state.bill} dateStamp={state.dateStamp}/> : <Opt source={state.list} dateStamp={state.dateStamp}/>;
+            $content = state.isPurchase ? <Info data={state.bill} /> : <Opt source={state.list} />;
         }
         return (
             <div className="user-wrapper fee-discount">

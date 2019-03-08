@@ -2,7 +2,7 @@
  * filename: 手续费开通操作弹窗
  */
 import React from 'react';
-import { Modal, Button, message, Icon, Select } from 'antd';
+import { Modal, Button, message, Icon } from 'antd';
 import { transLabel_discount } from './util';
 import { Link, browserHistory } from 'react-router';
 import FormView from '@/mods/common/form';
@@ -11,34 +11,39 @@ import Api from '@/api';
 import { getTakeCoinInfo } from '@/api/http';
 import { observer, inject } from 'mobx-react';
 import { Item } from './mod';
-const Option = Select.Option;
 import moment from 'moment';
 
 const Success = ({ data, deadline }) => {
     let discount = transLabel_discount(data.discount);
     return (
-        <FormView className="success-info">
-            <FormItem className="text title">
-                {UPEX.lang.template('已开通')}: <span dangerouslySetInnerHTML={{ __html: discount }} />
-            </FormItem>
-            <FormItem className="text content">
-                <label>{UPEX.lang.template('服务内容')}:</label>{' '}
-                <span dangerouslySetInnerHTML={{ __html: UPEX.lang.template('{discount}交易手续费折扣特权', { discount }) }} />
-            </FormItem>
-            <FormItem className="text deadline">
-                <label>{UPEX.lang.template('有效期')}:</label> {deadline}
-            </FormItem>
-            <FormItem>
-                <Button
-                    className="submit-btn"
-                    onClick={e => {
-                        browserHistory.push('/webtrade');
-                    }}
-                >
-                    {UPEX.lang.template('去行情中心')}
-                </Button>
-            </FormItem>
-        </FormView>
+        <div className="success-info">
+            <div className="text-warpper">
+                <ul className="inner">
+                    <li className="text title">
+                        {UPEX.lang.template('已开通')}: <span dangerouslySetInnerHTML={{ __html: discount }} />
+                    </li>
+                    <li className="text content">
+                        <label>{UPEX.lang.template('服务内容')}:</label>{' '}
+                        <span dangerouslySetInnerHTML={{ __html: UPEX.lang.template('{discount}交易手续费折扣特权', { discount }) }} />
+                    </li>
+                    <li className="text deadline">
+                        <label>{UPEX.lang.template('有效期')}:</label> {deadline}
+                    </li>
+                </ul>
+            </div>
+            <FormView>
+                <FormItem>
+                    <Button
+                        className="submit-btn"
+                        onClick={e => {
+                            browserHistory.push('/webtrade');
+                        }}
+                    >
+                        {UPEX.lang.template('去交易')}
+                    </Button>
+                </FormItem>
+            </FormView>
+        </div>
     );
 };
 
@@ -53,11 +58,13 @@ class View extends React.Component {
             month: 1,
             pwd: '',
             success: false,
-            coinAccount: 0
+            coinAccount: 0,
+            dateStamp: 0
         };
     }
 
     componentDidMount() {
+        this.getSeverTime();
         // 获取GIFTO或者ACEX的id然后调用那个接口获取数量
         getTakeCoinInfo(UPEX.config.feeDiscountCurrencyId).then(res => {
             if (res.status == 200) {
@@ -65,6 +72,16 @@ class View extends React.Component {
                 this.setState({
                     coinAccount: resp.cashAmount
                 });
+            }
+        });
+    }
+
+    getSeverTime() {
+        Api.common.getSeverTime().then(res => {
+            if(res.status === 200) {
+                this.setState({
+                    dateStamp: res.attachment
+                })
             }
         });
     }
@@ -102,10 +119,9 @@ class View extends React.Component {
         return selectItem.price * month;
     }
 
-    close = status => {};
     // 选中折扣
     openDialog = item => {
-        // console.log('onSelect', item);
+        this.getSeverTime();
         this.setState({
             visible: true,
             selectItem: item
@@ -155,9 +171,9 @@ class View extends React.Component {
     };
 
     get deadline() {
-        const { dateStamp } = this.props;
+        const { dateStamp } = this.state;
         var _date = moment(new Date(dateStamp)).add(1, 'months');
-        return _date.format('YYYY-MM-DD HH:MM:SS');
+        return _date.format('YYYY-MM-DD HH') + ':00' ;
     }
 
     get account() {
@@ -208,13 +224,6 @@ class View extends React.Component {
                             {$discounts}
                         </FormItem>
                         <FormItem className="inline expiry-date" label={UPEX.lang.template('开通时长')}>
-                            {/* <Select defaultValue={this.months[0].num} onChange={this.dateOnSelect}>
-                                {this.months.map((item, i) => (
-                                    <Option value={item.num} key={i}>
-                                        {UPEX.lang.template('{num}月', { num: item.num })}
-                                    </Option>
-                                ))}
-                            </Select> */}
                             <div className="bill">{UPEX.lang.template('{num}月', { num: 1 })}</div>
                             <div className="deadline">{UPEX.lang.template('有效期至: {date}', { date: this.deadline })}</div>
                         </FormItem>
