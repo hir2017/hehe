@@ -14,10 +14,7 @@ export function getList() {
  * 查询用户手续费折扣
  */
 export function getPackage() {
-    return request.post('/feeDiscount/getByUser').then(res => {
-        res.attachment = null;
-        return res;
-    });
+    return request.post('/feeDiscount/getByUser');
 }
 
 /**
