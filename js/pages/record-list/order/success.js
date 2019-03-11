@@ -39,7 +39,7 @@ class List extends Component {
     }
 
     componentWillUnmount() {
-        this.action.handleFilter('dateArr', ['', '']);
+        this.action.handleFilter('dateArr', ['', ''], true);
     }
 
     onChangePagination(page) {

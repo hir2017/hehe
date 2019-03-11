@@ -14,6 +14,8 @@ class View extends React.Component {
             loading: true,
             // 是否已购买
             isPurchase: false,
+            // 是否已过期
+            isExpire: false,
             // 用户订单信息
             bill: {},
             // 折扣列表
@@ -27,7 +29,8 @@ class View extends React.Component {
         Promise.all([Api.feeDiscount.getPackage(), Api.feeDiscount.getList()]).then(([billData, listData]) => {
             let isPurchase = false;
             if(billData.status === 200) {
-                if(billData.attachment !== null) {
+                // 存在信息且未过期
+                if(billData.attachment !== null && billData.attachment.status == 1) {
                     isPurchase = true;
                     this.setState({
                         isPurchase,

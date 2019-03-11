@@ -538,7 +538,7 @@ export function getFundWithdrawList(data) {
 }
 
 /**
- * 我的订单 —— 委托历史记录
+ * 我的订单 —— 委托历史记录 (未使用，废弃)
  */
 export function getOrderListByCustomer(data) {
     return axios.post('/user/trOrderListByCustomer', qs.stringify({
