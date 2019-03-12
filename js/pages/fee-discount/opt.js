@@ -239,7 +239,7 @@ class View extends React.Component {
                             </div>
                             <div className="inline account">
                                 {UPEX.lang.template('可用 {num} {unit}', { num: this.account, unit: Currency })}
-                                <Link to={`/account/coin/withdraw/${Currency}`}>{UPEX.lang.template('充币')}</Link>
+                                <Link to={`/account/coin/recharge/${Currency}`}>{UPEX.lang.template('充币')}</Link>
                             </div>
                         </FormItem>
                         <FormItem
