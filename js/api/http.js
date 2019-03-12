@@ -679,6 +679,10 @@ export function getTradeKline(data) {
 
 export function personalInfo() {
     return axios.post('/user/personalInfo')
+    // .then(res => {
+    //     res.attachment.isValidatePass = 2;
+    //     return res;
+    // })
 }
 
 /**

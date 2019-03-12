@@ -532,40 +532,37 @@ body .ant-back-top-inner:hover {
     text-align: center;
     margin: 0 auto;
     color: #b3b3b3;
-}
-
-.app-footer .footer-box .footer-box-top {
-    padding: 20px 0 30px;
-}
-
-.app-footer .footer-box .nav-list {
-    float: left;
-}
-
-.app-footer .footer-box .info {
-    float: right;
-}
-
-.app-footer .footer-box .nav-list li {
-    float: left;
-    padding-right: 30px;
-    font-size: 12px;
-}
-
-.app-footer .footer-box .nav-list li .nav-item {
-    display: block;
-    width: 120px;
-    text-align: left;
-    line-height: 30px;
-    white-space: nowrap;
-}
-
-.app-footer .footer-box .nav-list li .nav-item:nth-child(1) {
-    color: #c5cedd;
-    &:focus {
-        text-decoration: none;
+    .footer-box-top {
+        padding: 20px 0 30px;
+    }
+    .nav-list {
+        float: left;
+    }
+    .info {
+        float: right;
+    }
+    .nav-list {
+        li {
+            float: left;
+            padding-right: 30px;
+            font-size: 12px;
+            .nav-item {
+                display: block;
+                width: 120px;
+                text-align: left;
+                line-height: 30px;
+                white-space: nowrap;
+            }
+            .nav-item:nth-child(1) {
+                color: #c5cedd;
+                &:focus {
+                    text-decoration: none;
+                }
+            }
+        }
     }
 }
+
 
 .app-footer .footer-box .nav-list li a {
     color: #838891;
@@ -599,7 +596,7 @@ body .ant-back-top-inner:hover {
             background: url("../images/footer-icon-mail.png") no-repeat center;
             background-size: 100%;
             top: 11px;
-            left: 70px;
+            left: 114px;
         }
     }
     .brand {
@@ -620,6 +617,13 @@ body .ant-back-top-inner:hover {
             height: 100%;
             background: url('../images/footer-brand.png') no-repeat -86px 5px;
             background-size: 170px 30px;
+        }
+        .GTO {
+            width: 86px;
+            height: 100%;
+            margin-right: 10px;
+            background: url('../images/footer-brand-gto.png') no-repeat 0 6px;
+            background-size: auto 30px;
         }
     }
 
@@ -672,7 +676,7 @@ body .ant-back-top-inner:hover {
 .ace .app-footer .footer-box .info {
     .mail {
         &:before {
-            left: 122px;
+            left: 165px;
         }
     }
     .brand {

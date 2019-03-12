@@ -9,6 +9,9 @@ class InfoView extends Component {
                 <p className="mail">{UPEX.lang.template('CustomerServiceEmail')}</p>
                 {UPEX.config.version == 'infinitex' ? (
                     <div className="brand">
+                        <Tooltip title={UPEX.lang.template('GTOfooterbrand提示语')} placement="left" overlayClassName="footer-tooltip">
+                            <span className="GTO" />
+                        </Tooltip>
                         <Tooltip title={UPEX.lang.template('AFCA')} placement="left" overlayClassName="footer-tooltip">
                             <span className="AFCA" />
                         </Tooltip>

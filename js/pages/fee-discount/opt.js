@@ -121,6 +121,13 @@ class View extends React.Component {
 
     // 选中折扣
     openDialog = item => {
+        const {userInfo} = this.props.userInfoStore;
+        if(userInfo.isValidatePass !== 1) {
+            message.destroy();
+            message.warning(UPEX.lang.template('请先设置资金密码'));
+            return;
+        }
+
         this.getSeverTime();
         this.setState({
             visible: true,
