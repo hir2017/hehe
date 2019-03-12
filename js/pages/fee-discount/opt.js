@@ -137,10 +137,15 @@ class View extends React.Component {
     onSubmit = () => {
         const { pwd, selectItem } = this.state;
         const { userInfo } = this.props.userInfoStore;
-        if (pwd === '') {
-            message.error('请输入资金密码');
+        if (parseFloat(this.state.coinAccount) < selectItem.price) {
+            message.error(UPEX.lang.template('余额不足'));
             return;
         }
+        if (pwd === '') {
+            message.error(UPEX.lang.template('请输入资金密码'));
+            return;
+        }
+
         const params = {
             fdPwd: md5(pwd + UPEX.config.dealSalt + userInfo.uid),
             goodsName: selectItem.goodsName,
@@ -173,7 +178,7 @@ class View extends React.Component {
     get deadline() {
         const { dateStamp } = this.state;
         var _date = moment(new Date(dateStamp)).add(1, 'months');
-        return _date.format('YYYY-MM-DD HH') + ':00' ;
+        return _date.format('YYYY-MM-DD HH:mm') + ':00';
     }
 
     get account() {

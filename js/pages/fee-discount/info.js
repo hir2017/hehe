@@ -19,7 +19,7 @@ export default ({ data }) => {
                 <Item isUsed={true} data={_bill} unit={UPEX.config.feeDiscountCurrencyEn} />
             </div>
             <div className="deadline" >
-                <label>{UPEX.lang.template('有效期')}:</label> {TimeUtil.formatDate(data.endTimeStamp, 'yyyy-MM-dd HH') + ':00'}
+                <label>{UPEX.lang.template('有效期')}:</label> {TimeUtil.formatDate(data.endTimeStamp, 'yyyy-MM-dd HH:mm' + ':00')}
             </div>
             <FormView>
                 <FormItem>
