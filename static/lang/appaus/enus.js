@@ -512,7 +512,7 @@ window.LangPack={
     "全部记录": "All records",
     "公告中心": "Announcements",
     "关于GTO": "About GTO",
-    "关于GTO网页链接": "https://infinitex.zendesk.com/knowledge/articles/360024572112/en-us?brand_id=360001190551",
+    "关于GTO网页链接": "https://helpcenter.infinitex.com.au/hc/en-us/articles/360024572112/preview/eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzYwMDI0NTcyMTEyLCJleHAiOjE1NTI0NDg2MDZ9.q29l9m48m-DU4xON5wBIVEGpJ9iTi_i-c2awWBgYURQ",
     "关于我们": "InfiniteX",
     "关于我们网页链接": "无",
     "关于网站": "About Us",
