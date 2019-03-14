@@ -71,7 +71,7 @@ import OTC from './pages/otc';
 import PointWelcome from "@/pages/user-point/welcome";
 import UserPoint from "@/pages/user-point/home";
 // 手续费折扣
-import feeDiscount from './pages/fee-discount';
+// import feeDiscount from './pages/fee-discount';
 
 const Home = (location, cb) => {
     require.ensure([], require => {
@@ -190,9 +190,9 @@ const routes = (
             <Route path="resetpwd" component={ResetPwd}/>
             <Route path="otc" component={OTC} />
             <Route path="download-app" component={DownloadApp}/>
-            <Route path="fee-discount" component={Auth}>
+            {/* <Route path="fee-discount" component={Auth}>
                 <IndexRoute component={feeDiscount}/>
-            </Route>
+            </Route> */}
         </Route>
         <Route path="*" component={NotFound}/>
     </Route>

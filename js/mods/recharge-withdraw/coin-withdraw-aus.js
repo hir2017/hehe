@@ -358,9 +358,9 @@ class WithdrawCoin extends Component {
                     }
                     type="warning"
                 />
-                {
+                {/* {
                     UPEX.config.version === 'infinitex' ? <ComplianceModal /> : null
-                }
+                } */}
                 <FormView>
                     {state.loading ? <div className="mini-loading" /> : null}
                     <FormItem label={UPEX.lang.template('选择币种')} after={$selectAfterNode}>

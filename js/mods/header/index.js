@@ -67,13 +67,13 @@ class HeaderView extends Component {
                         {UPEX.lang.template('订单中心')}
                     </Link>
                 </dd>
-                {UPEX.config.version === 'infinitex' ? (
+                {/* {UPEX.config.version === 'infinitex' ? (
                     <dd className="logined-header discount">
                         <Link className="logined-header-link" to="/fee-discount">
                             {UPEX.lang.template('手续费折扣')}
                         </Link>
                     </dd>
-                ) : null}
+                ) : null} */}
 
                 <dd className="logined-header" onClick={this.logout}>
                     {UPEX.lang.template('退出登录')}
