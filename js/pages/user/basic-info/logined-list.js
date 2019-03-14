@@ -2,12 +2,11 @@ import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import TimeUtil from '@/lib/util/date';
 
-import AceSection from '@/components/page-user/section';
-
+import Card from '@ui/card';
 
 class LoginListView extends Component {
     render() {
-        const {dataSource} = this.props
+        const { dataSource } = this.props;
         return (
             <ul>
                 {dataSource.map((item, index) => {
@@ -40,10 +39,10 @@ export default class List extends Component {
         if (loginRecord.length == 0) {
             $content = <div className="mini-tip exc-list-empty">{UPEX.lang.template('暂无数据')}</div>;
         } else {
-            $content = <LoginListView dataSource={loginRecord}/>;
+            $content = <LoginListView dataSource={loginRecord} />;
         }
         return (
-            <AceSection title={UPEX.lang.template('最近登录信息')} className="list">
+            <Card title={UPEX.lang.template('最近登录信息')} className="list">
                 <div className="account-result-list login-log">
                     <div className="table-hd">
                         <ul>
@@ -56,11 +55,9 @@ export default class List extends Component {
                             </li>
                         </ul>
                     </div>
-                    <div className="table-bd">
-                        {$content}
-                    </div>
+                    <div className="table-bd">{$content}</div>
                 </div>
-            </AceSection>
+            </Card>
         );
     }
 }

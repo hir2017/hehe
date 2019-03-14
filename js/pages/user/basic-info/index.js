@@ -4,8 +4,6 @@ import Info from './info';
 import InfoAus from './info-aus';
 import List from './logined-list';
 
-import PageWrapper from '@/components/page-user/page-wrapper';
-
 @inject('userInfoStore')
 @observer
 class Information extends Component {
@@ -19,10 +17,10 @@ class Information extends Component {
 
     render() {
         return (
-            <PageWrapper innerClass="base-info" noPadding>
+            <div className="page-content-inner  clearfix base-info">
                 { UPEX.config.version === 'ace' ?<Info /> : <InfoAus/>}
                 <List />
-            </PageWrapper>
+            </div>
         );
     }
 }
