@@ -221,7 +221,7 @@ export default class View extends React.Component {
         );
         return (
             <FormView>
-                <ComplianceModal></ComplianceModal>
+                {/* <ComplianceModal></ComplianceModal> */}
                 <FormItem {...inputData.name} value={state.name}/>
                 <FormItem {...inputData.BSB} value={state.BSB}/>
                 <FormItem {...inputData.account} value={state.account}/>
