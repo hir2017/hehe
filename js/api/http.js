@@ -9,13 +9,23 @@ function checkPhoneNum(str) {
         return str;
     }
     let result = str;
-    //  0886开头，台湾手机号
-    if (str.indexOf('0886') === 0) {
-        // 14位， 手机号10位，且手机号第一位是0
-        if (str.length === 14 && str[4] === '0') {
-            result = '0886' + str.substr(5);
-        }
+    //  0886 + (0886|886) + \d({9}, {10}) ,台湾手机号, 用户自己输入了0886或者886,
+    if(/^08860?886\d{9,10}$/.test(str)) {
+        let _num = str.substr(str.indexOf('08860886') == 0 ? 8 : 7);
+        _num = /^0\d{9}$/.test(_num) ? _num.substr(1) : _num;
+        result = '0086' + _num;
     }
+    //  0886开头，台湾手机号, 14位,手机号10位，且手机号第一位是0  /^08860\d{9}/
+    if(/^08860\d{9}$/.test(str)) {
+        result = '0886' + str.substr(5);
+    }
+    // if (str.indexOf('0886') === 0) {
+    //     // 14位， 手机号10位，且手机号第一位是0
+    //     if (str.length === 14 && str[4] === '0') {
+    //         result = '0886' + str.substr(5);
+    //     }
+    // }
+
     return result;
 }
 
