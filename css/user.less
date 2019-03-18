@@ -8,6 +8,31 @@
     box-sizing: border-box;
 }
 
+/*------重构样式 start-------*/
+.user-main {
+    .page-content-inner.bind-email {
+        .excui-card .card-body {
+            min-height: 500px;
+        }
+    }
+    .base-info {
+        .upgrade {
+            a::after {
+                content: '';
+                display: inline-block;
+                height: 7px;
+                width: 30px;
+                background: url('../images/up-grade-btn.png') center center no-repeat;
+                background-size: auto 7px;
+            }
+
+        }
+    }
+
+}
+/*------重构样式 end-------*/
+
+
 /* 面包屑导航 */
 
 .user-wrapper .user-breadcrumb.ant-breadcrumb {
@@ -22,13 +47,7 @@ body .user-main .ant-select-dropdown-menu-item {
 /* 头部提示 */
 
 .user-main {
-    // 重构样式 start
-    .page-content-inner.bind-email {
-        .excui-card .card-body {
-            min-height: 500px;
-        }
-    }
-    // 重构样式 end
+
     .page-content-inner {
         min-height: 620px;
         .exc-top-tips {
@@ -477,10 +496,6 @@ body .user-main .ant-select-dropdown-menu-item {
             }
             a:hover {
                 text-decoration: underline;
-            }
-            img {
-                height: 7px;
-                margin-left: 6px;
             }
         }
     }
