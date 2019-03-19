@@ -54,15 +54,19 @@ import forgetTradePwd from './pages/user/trade-pwd-forget';
 import BindingPhone from './pages/user/binding-phone';
 import ModifyPhone from './mods/binding-phone/modify-phone';
 import SettingPhone from './mods/binding-phone/binding-phone';
+import PhoneSuccess from './mods/binding-phone/success';
 // email
 import BindingEmail from './pages/user/binding-email';
 import SettingEmail from './pages/user/binding-email/bind';
 // import EmailSuccess from './pages/user/binding-email/success';
 
+// GA
 import GoogleAuth from './pages/user/google-auth';
-import UnbindingGoogle from './mods/binding-google/unbind';
+// import UnbindingGoogle from './mods/binding-google/unbind';
 import GoogleGuide from './pages/user/google-guide';
-import PhoneSuccess from './mods/binding-phone/success';
+import BindGA from './pages/user/google-auth/bind';
+import UnbindingGoogle from './pages/user/google-auth/unbind';
+// import UnbindingGoogle from './mods/binding-google/unbind'
 import DownloadApp from './pages/others/download';
 
 // IEO
@@ -179,6 +183,7 @@ const routes = (
                 <Route path="google-guide" component={GoogleGuide} />
                 {/* <Route path="emailSuccess" component={EmailSuccess} /> */}
                 <Route path="phoneSuccess" component={PhoneSuccess} />
+                <Route path="bind-google" component={BindGA}/>
             </Route>
             <Route path="news" component={News}>
                 <IndexRoute component={NewsList} />

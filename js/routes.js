@@ -52,15 +52,19 @@ import forgetTradePwd from './pages/user/trade-pwd-forget';
 import BindingPhone from './pages/user/binding-phone';
 import ModifyPhone from './mods/binding-phone/modify-phone';
 import SettingPhone from './mods/binding-phone/binding-phone';
+import PhoneSuccess from './mods/binding-phone/success';
 // email
 import BindingEmail from './pages/user/binding-email';
 import SettingEmail from './pages/user/binding-email/bind';
 // import EmailSuccess from './pages/user/binding-email/success';
-
+// import SettingEmail from './mods/binding-email/binding-email'
+// GA
 import GoogleAuth from './pages/user/google-auth';
-import UnbindingGoogle from './mods/binding-google/unbind';
 import GoogleGuide from './pages/user/google-guide';
-import PhoneSuccess from './mods/binding-phone/success';
+import BindGA from './pages/user/google-auth/bind';
+import UnbindingGoogle from './pages/user/google-auth/unbind';
+// import UnbindingGoogle from './mods/binding-google/unbind';
+
 // IEO
 import IEO from './pages/ieo/main';
 import IEODetail from './pages/ieo/detail';
@@ -168,6 +172,7 @@ const routes = (
                 <Route path="binding-email" component={BindingEmail} />
                 <Route path="setting-email" component={SettingEmail} />
                 <Route path="google" component={GoogleAuth} />
+                <Route path="bind-google" component={BindGA}/>
                 <Route path="unbinding-google" component={UnbindingGoogle} />
                 <Route path="google-guide" component={GoogleGuide} />
                 {/* <Route path="emailSuccess" component={EmailSuccess} /> */}
