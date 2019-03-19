@@ -589,14 +589,15 @@ body .ant-back-top-inner:hover {
         line-height: 30px;
         color: #838891;
         &:before {
+            content: '';
+            display: inline-block;
             width: 13px;
             height: 10px;
-            position: absolute;
-            content: '';
+            transform: translateY(2px);
+            margin-right: 6px;
+            position: relative;
             background: url("../images/footer-icon-mail.png") no-repeat center;
             background-size: 100%;
-            top: 11px;
-            left: 114px;
         }
     }
     .brand {
@@ -674,11 +675,7 @@ body .ant-back-top-inner:hover {
 }
 
 .ace .app-footer .footer-box .info {
-    .mail {
-        &:before {
-            left: 165px;
-        }
-    }
+
     .brand {
         background: none;
     }
@@ -686,9 +683,6 @@ body .ant-back-top-inner:hover {
 
 .infinitex .app-footer .footer-box .info {
     .mail {
-        &:before {
-            left: 70px;
-        }
     }
 }
 

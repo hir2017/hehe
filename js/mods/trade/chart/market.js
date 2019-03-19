@@ -5,7 +5,7 @@
  */
 import React, {Component} from 'react';
 import { observer, inject } from 'mobx-react';
-import { Input, Icon, Checkbox } from 'antd';
+import { Input, Icon, Badge } from 'antd';
 import { Link } from 'react-router'
 import CoinList from './coin-list';
 
@@ -26,7 +26,7 @@ class Markets extends Component{
         $.channel.on('selectedMarketCode', ()=>{
             let timer = setTimeout(()=>{
                 clearTimeout(timer);
-                this.getBarTransform();        
+                this.getBarTransform();
             }, 300);
         })
     }
@@ -37,7 +37,7 @@ class Markets extends Component{
 
 	handleTab=(code)=>{
 		let store = this.props.tradeStore.marketListStore;
-		
+
 		store.updateMarketCode(code);
 		store.initMarket();
         this.getBarTransform();
@@ -64,8 +64,8 @@ class Markets extends Component{
         let ulOffset = tabs.offset();
         let barOffset = $(bar).offset();
         let selectedLi = $('[data-key="' + key + '"]', tabs);
-        
-        
+
+
         let liOffset = selectedLi.offset();
 
         x = liOffset.left -  ulOffset.left + (liOffset.width / 2  - barOffset.width / 2);
@@ -85,7 +85,7 @@ class Markets extends Component{
 		let pair;
 
 		return (
-  			<div className="coin-list-wrap">
+  			<div className={`coin-list-wrap ${UPEX.config.version}`}>
      			<div className="coin-list-nav">
                     <h3 className="title hidden">{store.selectedMarketCode == 'Marked' ? UPEX.lang.template('收藏') : store.selectedMarketCode }</h3>
                     <div className="search">
@@ -100,8 +100,14 @@ class Markets extends Component{
      					{
      						store.marketNav.map((item, index)=>{
      							let clsName = item == store.selectedMarketCode ? 'selected' : '';
- 								
-     							return ( 
+ 								if(UPEX.config.version === 'infinitex' && item === 'GTO') {
+                                    return (
+                                        <li data-role="tab" data-key={item} className={clsName} key={item} onClick={this.handleTab.bind(this, item)}>
+     									     <Badge offset={[0, 3]} dot>{item}</Badge>
+     								    </li>
+                                    )
+                                 }
+     							return (
      								<li data-role="tab" data-key={item} className={clsName} key={item} onClick={this.handleTab.bind(this, item)}>
      									{item}
      								</li>
@@ -110,7 +116,7 @@ class Markets extends Component{
      					}
      					<li data-role="tab" data-key="Marked" className={`marked${store.selectedMarketCode == 'Marked' ? ' selected' : ''}`} onClick={this.handleTab.bind(this, 'Marked')}>
      						{
-     							store.selectedMarketCode == 'Marked' ?  
+     							store.selectedMarketCode == 'Marked' ?
      							<i className='exc-star selected' /> :
                                 <i className='exc-star' />
      						}

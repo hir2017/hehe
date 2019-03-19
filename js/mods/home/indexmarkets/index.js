@@ -6,7 +6,7 @@
 
 import React, {Component} from 'react';
 import { observer, inject } from 'mobx-react';
-import { Input, Icon, Checkbox } from 'antd';
+import { Input, Icon, Badge } from 'antd';
 import { Link , browserHistory} from 'react-router'
 import CoinList from './coin-list';
 import CoinChart from './chart';
@@ -48,7 +48,7 @@ class IndexMarkets extends Component{
 
 	handleTab=(code)=>{
 		let store = this.props.homeStore.marketListStore;
-		
+
 		store.updateMarketCode(code);
 		store.initMarket();
 	}
@@ -81,7 +81,7 @@ class IndexMarkets extends Component{
 		        				<img className="icon" src={store.selectedCurrency.icoUrl || ''} alt="" />
 			                    <span className="name">{store.selectedCurrency.currencyNameEn}<i>/{store.selectedCurrency.baseCurrencyNameEn}</i></span>
 			                    <em>{store.selectedCurrency.currentAmountText}</em>
-		                    </h4> 
+		                    </h4>
 		                    <span className={store.selectedCurrency.changeRate >= 0 ? 'rate greenrate' : 'rate redrate'}>
 		                    	{ store.selectedCurrency.changeRateText }
 		                    </span>
@@ -119,8 +119,14 @@ class IndexMarkets extends Component{
      					{
      						store.marketNav.map((item, index)=>{
      							let clsName = item == store.selectedMarketCode ? 'selected' : '';
- 								
-     							return ( 
+ 								if(UPEX.config.version === 'infinitex' && item === 'GTO') {
+                                    return (
+                                        <li className={clsName} key={item} onClick={this.handleTab.bind(this, item)}>
+     									    <Badge offset={[0, 3]} dot>{UPEX.lang.template('{name}市场',{ name: item})}</Badge>
+     								    </li>
+                                    )
+                                 }
+     							return (
      								<li className={clsName} key={item} onClick={this.handleTab.bind(this, item)}>
      									{UPEX.lang.template('{name}市场',{ name: item})}
      								</li>
@@ -129,9 +135,9 @@ class IndexMarkets extends Component{
      					}
      					<li className={`marked${store.selectedMarketCode == 'Marked' ? ' selected' : ''}`} onClick={this.handleTab.bind(this, 'Marked')}>
      						{
-     							store.selectedMarketCode == 'Marked' ?  
+     							store.selectedMarketCode == 'Marked' ?
      							<i  className='exc-star selected' /> :
-     							<i  className='exc-star' />  
+     							<i  className='exc-star' />
      						}
      					</li>
      				</ul>

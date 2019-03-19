@@ -115,7 +115,9 @@ class List extends Component {
         }
         return (
             <div className="order-main-box">
-                <Filter onClick={this.onQuery.bind(this)} action="success"/>
+                {
+                    this.props.from  === 'tradecenter' ? null : <Filter onClick={this.onQuery.bind(this)} action="success"/>
+                }
                 <div className={`order-table success-list-table ${this.isAus ? 'fee-discount' : ''} `}>
                     <div className="table-hd">
                         <table>

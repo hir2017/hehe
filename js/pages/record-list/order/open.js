@@ -18,7 +18,6 @@ class List extends Component {
 
     constructor(props) {
         super(props);
-
         this.action = toAction(this.props.openStore, this.props.authStore);
         this.currentOrderNo = '';
         this.params = {
@@ -157,7 +156,10 @@ class List extends Component {
 
         return (
             <div className="order-main-box">
-                <Filter onClick={this.onQuery.bind(this)} action="open" />
+                {
+                    this.props.from === 'tradecenter' ? null : <Filter onClick={this.onQuery.bind(this)} action="open" />
+                }
+
                 <div className="order-table open-list-table">
                     <div className="table-hd">
                         <table>

@@ -8,7 +8,7 @@ import React, {Component} from "react";
 import {observer, inject} from "mobx-react";
 
 import NavsView from "./nav-list";
-import AusNavsView from "./aus-nav-list";
+import AusNavsView from "./nav-list-aus";
 import InfoView from "./info";
 
 
