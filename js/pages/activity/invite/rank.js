@@ -86,13 +86,14 @@ class RankItemTop1to3 extends Component {
 
     render() {
         let data = this.state.data;
+        let _unit = UPEX.config.version === 'infinitex' ? UPEX.config.baseCurrencyEn : data.currencyNameEn;
         return (
             <div>
                 <p className="name">{data.userRegAccount}</p>
                 <p className="desc" dangerouslySetInnerHTML={{
                     __html: UPEX.lang.template('获得佣金估值{num}{unit}', {
                         num: data.amount,
-                        unit: data.currencyNameEn
+                        unit: _unit
                     }, 1)
                 }}></p>
             </div>

@@ -38,18 +38,20 @@ config.baseCurrencyEn = 'AUD';
 config.baseCurrencySymbol = 'AUD';
 // 交易中心价格加法币价格提示需求 添加
 config.baseCurrencySymbol2 = 'A$';
+config.feeDiscountCurrencyEn = 'GTO';
+config.feeDiscountCurrencyId = 54;
 
 const protocol = 'https:';
 const socket_protocol = 'wss:';
 
-const website = ['stage.infinitex.com.au', 'pre.infinitex.com.au', 'www.infinitex.com.au'];
+const website = ['stage.infinitex.com.au', 'www.infinitex.com.au', 'www.infinitex.co','infinitex.co'];
 const origin_java = (function() {
     let hostname = location.hostname;
     let env = Url.query('env');
     let origin;
 
     if (website.indexOf(hostname) > -1) {
-        origin = hostname;
+        origin = ['infinitex.co', 'www.infinitex.co'].indexOf(hostname) !== -1 ? 'www.infinitex.com.au' : hostname;
     } else {
         origin = website[0];
     }
@@ -74,7 +76,8 @@ const origin_ws = (function() {
     let origin;
 
     if (website.indexOf(hostname) > -1) {
-        origin = hostname;
+        // origin = hostname;
+        origin = ['infinitex.co', 'www.infinitex.co'].indexOf(hostname) !== -1 ? 'www.infinitex.com.au' : hostname;
     } else {
         origin = website[0];
     }

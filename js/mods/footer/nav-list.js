@@ -65,12 +65,12 @@ const getNavList = () => {
                 path: UPEX.config.docUrls.applyCurrency
             }
         ],
-        // [
-        //     {
-        //         name: UPEX.lang.template('下载客户端'),
-        //         route: '/download-app'
-        //     }
-        // ]
+        [
+            {
+                name: UPEX.lang.template('下载客户端'),
+                route: 'download-app'
+            }
+        ]
     ];
 };
 

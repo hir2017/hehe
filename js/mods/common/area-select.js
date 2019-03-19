@@ -38,9 +38,12 @@ export default class View extends Component {
 
 
     render() {
-
+        let _prop = {...this.self_porps};
+        if(this.props.hasOwnProperty('value')) {
+            _prop.value = this.props.value;
+        }
         return (
-            <Select showSearch filterOption={this.filterOption} size="large" style={{ width: '100%' }} {...this.self_porps}>
+            <Select showSearch filterOption={this.filterOption} size="large" style={{ width: '100%' }} {..._prop}>
                 {this.options}
             </Select>
         );

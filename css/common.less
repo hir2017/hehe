@@ -289,14 +289,14 @@ body .ant-back-top-inner:hover {
             background-repeat: no-repeat;
             background-position: 20px 14px;
             background-size: 17px 17px;
-            &:nth-child(2) {
+            &.account {
                 background-image: url("../images/header/icon-assets.png");
             }
-            &:nth-child(3) {
+            &.record {
                 background-image: url("../images/header/icon-order.png");
                 margin-bottom: 5px;
             }
-            &:nth-child(4) {
+            &:last-child {
                 background-image: url("../images/header/icon-logout.png");
                 border-top: 1px solid #eee;
                 border-radius: 0 0 4px 4px;
@@ -306,13 +306,13 @@ body .ant-back-top-inner:hover {
             &:hover {
                 color: @text-color01-light;
                 background-image: url("../images/header/icon-person-hover.png");
-                &:nth-child(2) {
+                &.account {
                     background-image: url("../images/header/icon-assets-hover.png");
                 }
-                &:nth-child(3) {
+                &.record {
                     background-image: url("../images/header/icon-order-hover.png");
                 }
-                &:nth-child(4) {
+                &:last-child {
                     background-image: url("../images/header/icon-logout-hover.png");
                 }
             }
@@ -532,40 +532,37 @@ body .ant-back-top-inner:hover {
     text-align: center;
     margin: 0 auto;
     color: #b3b3b3;
-}
-
-.app-footer .footer-box .footer-box-top {
-    padding: 20px 0 30px;
-}
-
-.app-footer .footer-box .nav-list {
-    float: left;
-}
-
-.app-footer .footer-box .info {
-    float: right;
-}
-
-.app-footer .footer-box .nav-list li {
-    float: left;
-    padding-right: 30px;
-    font-size: 12px;
-}
-
-.app-footer .footer-box .nav-list li .nav-item {
-    display: block;
-    width: 120px;
-    text-align: left;
-    line-height: 30px;
-    white-space: nowrap;
-}
-
-.app-footer .footer-box .nav-list li .nav-item:nth-child(1) {
-    color: #c5cedd;
-    &:focus {
-        text-decoration: none;
+    .footer-box-top {
+        padding: 20px 0 30px;
+    }
+    .nav-list {
+        float: left;
+    }
+    .info {
+        float: right;
+    }
+    .nav-list {
+        li {
+            float: left;
+            padding-right: 30px;
+            font-size: 12px;
+            .nav-item {
+                display: block;
+                width: 120px;
+                text-align: left;
+                line-height: 30px;
+                white-space: nowrap;
+            }
+            .nav-item:nth-child(1) {
+                color: #c5cedd;
+                &:focus {
+                    text-decoration: none;
+                }
+            }
+        }
     }
 }
+
 
 .app-footer .footer-box .nav-list li a {
     color: #838891;
@@ -599,7 +596,7 @@ body .ant-back-top-inner:hover {
             background: url("../images/footer-icon-mail.png") no-repeat center;
             background-size: 100%;
             top: 11px;
-            left: 70px;
+            left: 114px;
         }
     }
     .brand {
@@ -620,6 +617,13 @@ body .ant-back-top-inner:hover {
             height: 100%;
             background: url('../images/footer-brand.png') no-repeat -86px 5px;
             background-size: 170px 30px;
+        }
+        .GTO {
+            width: 86px;
+            height: 100%;
+            margin-right: 10px;
+            background: url('../images/footer-brand-gto.png') no-repeat 0 6px;
+            background-size: auto 30px;
         }
     }
 
@@ -663,17 +667,28 @@ body .ant-back-top-inner:hover {
         &.twitter {
             background-position-x: -150px;
         }
+        &.line {
+            background-position-x: -180px;
+        }
     }
 }
 
 .ace .app-footer .footer-box .info {
     .mail {
         &:before {
-            left: 122px;
+            left: 165px;
         }
     }
     .brand {
         background: none;
+    }
+}
+
+.infinitex .app-footer .footer-box .info {
+    .mail {
+        &:before {
+            left: 70px;
+        }
     }
 }
 

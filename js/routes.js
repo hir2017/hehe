@@ -71,6 +71,8 @@ import PointWelcome from './pages/user-point/welcome';
 
 //app下载页
 import DownloadApp from './pages/others/download';
+// 手续费折扣
+// import feeDiscount from './pages/fee-discount';
 
 const Home = (location, cb) => {
     require.ensure([], require => {
@@ -177,11 +179,13 @@ const routes = (
                 <Route path="home" component={UserPoint}/>
             </Route>
             <Route path="user-point/welcome" component={PointWelcome}/>
-            <Route path="welcome" component={PointWelcome}/>
             <Route path="login" onEnter={onEnterHandle} component={Login}/>
             <Route path="register" onEnter={onEnterHandle} component={Register}/>
             <Route path="resetpwd" component={ResetPwd}/>
             <Route path="download-app" component={DownloadApp}/>
+            {/* <Route path="fee-discount" component={Auth}>
+                <IndexRoute component={feeDiscount}/>
+            </Route> */}
         </Route>
         <Route path="*" component={NotFound}/>
     </Route>

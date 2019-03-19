@@ -63,10 +63,17 @@ import UnbindingGoogle from './pages/user/google-auth/unbind';
 import GoogleGuide from './pages/user/google-guide'
 import EmailSuccess from './mods/binding-email/success'
 import PhoneSuccess from './mods/binding-phone/success'
+import DownloadApp from './pages/others/download';
+
 // IEO
 import IEO from './pages/ieo/main'
 import IEODetail from './pages/ieo/detail'
-
+// OTC
+import OTC from './pages/otc';
+import PointWelcome from "@/pages/user-point/welcome";
+import UserPoint from "@/pages/user-point/home";
+// 手续费折扣
+// import feeDiscount from './pages/fee-discount';
 
 const Home = (location, cb) => {
     require.ensure([], require => {
@@ -80,7 +87,6 @@ const TradeCenter = (location, cb) => {
     }, 'webtrade');
 };
 
-
 const Assets = (location, cb) => {
     require.ensure([], require => {
         cb(null, require('./pages/account/index').default);
@@ -93,15 +99,14 @@ const Invite = (location, cb) => {
     }, 'invite');
 };
 
-
 const onEnterHandle = (nextState, replace) => {
     const {location} = nextState;
     const uid = UPEX.cache.getCache('uid');
     const infinitexActivityDisable = UPEX.config.version === 'infinitex' && [10004, 10014, 10076, 10077, 10080, 10079, 10068, 10069, 10013, 10003, 10071, 10064].indexOf(uid) == -1;
 
-    if (location.pathname == '/activity/invite-home' && infinitexActivityDisable) {
-        replace('/user');
-    }
+    // if (location.pathname == '/activity/invite-home' && infinitexActivityDisable) {
+    //     replace('/user');
+    // }
 }
 
 const routes = (
@@ -172,13 +177,25 @@ const routes = (
                 <Route path="bitcoin" component={LandingPageBtc}/>
                 <Route path="eth-airdrop" component={LandingPageEthAirDrop}/>
             </Route>
+            {UPEX.config.host.indexOf('stage.infinitex.com.au') !== -1 ?
             <Route path="ieo">
                 <IndexRoute component={IEO}/>
                 <Route path="detail/:id" component={IEODetail}/>
             </Route>
+            : null}
+            <Route path="user-point" component={Auth}>
+                <IndexRoute component={UserPoint}/>
+                <Route path="home" component={UserPoint}/>
+            </Route>
+            <Route path="user-point/welcome" component={PointWelcome}/>
             <Route path="login" component={Login}/>
             <Route path="register" component={Register}/>
             <Route path="resetpwd" component={ResetPwd}/>
+            <Route path="otc" component={OTC} />
+            <Route path="download-app" component={DownloadApp}/>
+            {/* <Route path="fee-discount" component={Auth}>
+                <IndexRoute component={feeDiscount}/>
+            </Route> */}
         </Route>
         <Route path="*" component={NotFound}/>
     </Route>

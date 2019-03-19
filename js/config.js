@@ -16,7 +16,7 @@ config.csurls = {
     youtube: 'https://www.youtube.com/channel/UCaYhE6pnHgqZn2XvCraiHuQ?disable_polymer=true',
     whatapp: '',
     medium:'https://medium.com/ace-exchange',
-    line: '',
+    line: 'https://line.me/R/ti/p/@ace.exchange',
 };
 // pdf文档链接
 config.docUrls = {
@@ -33,6 +33,10 @@ config.docUrls = {
 
 config.baseCurrencyEn = 'TWD';
 config.baseCurrencySymbol = 'NT$';
+config.feeDiscountCurrencyEn = 'ACEX';
+// TODO: ACEX的id未定
+config.feeDiscountCurrencyId = 54;
+
 
 const protocol = 'https:';
 const socket_protocol = 'wss:';

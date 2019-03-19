@@ -2,7 +2,9 @@
  * @fileoverview 充值&提现&充币&提币 记录
  * @author lihaiyang
  * @date 2018-11-19
+ * @fn 切换tab -> 触发list配置切换 -> 触发列表数据更新
  */
+// TODO: 还是拆开吧,这样写太绕了
 import React, {Component} from 'react';
 import {observer, inject} from 'mobx-react';
 import {Breadcrumb, Pagination} from 'antd';
@@ -26,17 +28,24 @@ class RecordPage extends Component {
             className: 'content-no-pad'
         };
 
+        let _tokenRecord = {label: UPEX.lang.template('IEO购买记录'), type: 'token-record'};
+        let _Reward = {label: UPEX.lang.template('其他记录'), type: 'reward'};
         this.tabs = [
             {label: UPEX.lang.template('充值记录'), type: 'deposit'},
             {label: UPEX.lang.template('提现记录'), type: 'withdraw'},
             {label: UPEX.lang.template('充币记录'), type: 'coin-deposit'},
             {label: UPEX.lang.template('提币记录'), type: 'coin-withdraw'},
-            {label: UPEX.lang.template('分发记录'), type: 'reward'},
-            // {label: UPEX.lang.template('IEO购买记录'), type: 'token-record'}
         ];
         if(UPEX.config.version == 'ace') {
-            this.tabs.push({label: UPEX.lang.template('IEO购买记录'), type: 'token-record'})
+            this.tabs.push(_tokenRecord)
         }
+        // aus stage环境开放IEO测试
+        if(UPEX.config.host.indexOf('stage.infinitex.com.au') !== -1) {
+            this.tabs.push(_tokenRecord);
+        }
+        // 其他记录 放在最后面
+        this.tabs.push(_Reward);
+        // 遍历，获取当前列表类型
         let _targetTab = this.tabs.some(item => item.type === type) ? type : 'deposit';
 
         this.state = {
@@ -70,10 +79,12 @@ class RecordPage extends Component {
             loading: true
         })
         action.getList(type).then(res => {
-            this.setState({
-                ...res,
-                loading: false
-            });
+            if(type === this.state.type) {
+                this.setState({
+                    ...res,
+                    loading: false
+                });
+            }
         });
     }
 
@@ -101,11 +112,15 @@ class RecordPage extends Component {
     }
 
     onChangePagination = (page) => {
-        action.getList(this.state.type, page).then(res => {
-            this.setState({
-                ...res,
-                subIndex: -1
-            });
+        let _type = this.state.type;
+        action.getList(_type, page).then(res => {
+            // 防止快速切换导致数据混乱
+            if(_type === this.state.type) {
+                this.setState({
+                    ...res,
+                    subIndex: -1
+                });
+            }
         });
     }
     // 详情展示
@@ -134,7 +149,7 @@ class RecordPage extends Component {
         const {state} = this;
         // tab标签循环获取
         let $TabNode = (
-            <div className="swtich-tabs">
+            <div className={`swtich-tabs ${UPEX.config.version} tab-len-${this.tabs.length}`}>
                 {this.tabs.map((item, i) => (
                     <div className={`tab ${state.type === item.type ? 'active' : ''}`} key={i} onClick={e => {
                         this.switchTab(item)

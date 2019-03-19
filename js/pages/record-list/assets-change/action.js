@@ -8,8 +8,9 @@ import {
     getCoinRechargeList,
     getCoinWithdrawList,
     getAssetChangeReward,
-    getIEORecordList
 } from '@/api/http';
+
+import Api from '@/api';
 
 // 请求、请求参数 逻辑判断
 const getParams = (type, page) => {
@@ -52,7 +53,7 @@ const getParams = (type, page) => {
             };
             break;
         case type === 'token-record':
-            request = getIEORecordList;
+            request = Api.ieo.getIEORecordList;
             params = {
                 start: page,
                 size: 10
@@ -131,7 +132,7 @@ export const getList = function (type, page = 1) {
     });
 };
 
-// 数据格式化函数
+// 数据格式化函数集合
 const formatFn = {
     // 法定货币
     legal(valMap, type, item) {
@@ -169,7 +170,7 @@ const formatFn = {
 
         return item;
     },
-    // 加密货币
+    // 充币
     coin_deposit(valMap, type, item) {
         item._disabled = true;
         switch (item.confirms) {
@@ -191,6 +192,7 @@ const formatFn = {
         item._createTime = item.createTimeStamp ? TimeUtil.formatDate(item.createTimeStamp) : '--';
         return item;
     },
+    // 提币
     coin_withdraw(valMap, type, item) {
         item._disabled = true;
         switch (item.confirms) {
@@ -228,6 +230,10 @@ const formatFn = {
     reward(valMap, type, item) {
         item._changeType = valMap.type[item.changeType] || '';
         item._createTime = item.createTimeStamp ? TimeUtil.formatDate(item.createTimeStamp) : '--';
+        // 27 手续费折扣
+        if(item.changeType == 27) {
+            item._coinNum =  '-' + item.coinNum;
+        }
         return item;
     },
     //IEO记录
@@ -286,6 +292,7 @@ const formatItem = (arr, type) => {
             _filter = formatFn.legal;
             break;
     }
+
     let valMap = isLegal ? getlegalMap(type) : getCoinMap(type);
     _filter = _filter.bind(this, valMap, type);
     let result = arr.map(_filter);
@@ -384,7 +391,8 @@ const getCoinMap = type => {
     };
     let rewardTypeMap = {
         '15': UPEX.lang.template('邀请返佣金'),
-        '20': UPEX.lang.template('币空投活动')
+        '20': UPEX.lang.template('币空投活动'),
+        '27': UPEX.lang.template('手续费折扣套餐'),
     };
     return {
         type: type === 'reward' ? rewardTypeMap : depositeTypeMap

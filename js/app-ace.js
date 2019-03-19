@@ -1,6 +1,7 @@
 import '../css/reset.css';
 import '../css/common.less';
 import '../css/exc-style/index.less';
+import '../css/excui/index.less';
 import '../css/home.less';
 import '../css/login-register.less';
 import '../css/trade.less';
@@ -12,6 +13,7 @@ import '../css/ieo/index.less';
 import '../css/recharge-withdraw.less';
 import '../css/antd-reset.less';
 import '../css/download.less';
+import '../css/fee-discount.less';
 
 import './lib/object.assign';
 import './lib/promise';
@@ -72,11 +74,21 @@ class App extends Component {
             '/login':'/#/login',
             '/register':'/#/register',
             '/user/authentication':'/#/kyc-auth',
+            '/download-app':'/#/download-app',
         }
         if(isMobile  && pathMap[location.pathname]){
             window.location.href = window.location.origin + '/h5ace' + pathMap[location.pathname] + search;
             return false;
         }
+        // if (isMobile) {
+        //     if (pathMap[location.pathname]) {
+        //         window.location.href = window.location.origin + '/h5ace' + pathMap[location.pathname] + search;
+        //         return false;
+        //     }
+        //      else {
+        //         window.location.href = window.location.origin + '/h5ace' + '/#/download-app';
+        //     }
+        // }
 
 		rootStore.commonStore.updatePathName(this.state.location.pathname);
         window.scrollTo(0,0);

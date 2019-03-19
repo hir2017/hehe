@@ -28,6 +28,7 @@ class List extends Component {
             baseCurrencyId: '0',
             priceType: 0,
         };
+        this.isAus = UPEX.config.version === 'infinitex';
     }
 
     componentDidMount() {
@@ -38,7 +39,7 @@ class List extends Component {
     }
 
     componentWillUnmount() {
-        this.action.handleFilter('dateArr', ['', '']);
+        this.action.handleFilter('dateArr', ['', ''], true);
     }
 
     onChangePagination(page) {
@@ -90,6 +91,13 @@ class List extends Component {
                                     <dd className="tradeprice">{item.tradePrice}</dd>
                                     <dd className="num">{item.tradeNum}</dd>
                                     <dd className="fee">{item.fee} {item.buyOrSell == 1 ? item.currencyNameEn : item.baseCurrencyNameEn}</dd>
+                                    {
+                                        this.isAus ? (
+                                            <dd className="fee-save">
+                                                {item.feeSave} {item.buyOrSell == 1 ? item.currencyNameEn : item.baseCurrencyNameEn}
+                                            </dd>
+                                        ) : null
+                                    }
                                     <dd className="amount">
                                         <span className="pr10">{item.tradeAmount}</span>
                                     </dd>
@@ -105,11 +113,10 @@ class List extends Component {
         if (this.props.from !== 'tradecenter' && store.total > 0) {
             $footer = <LocaleProvider><Pagination current={store.current} total={store.total} pageSize={store.pageSize} onChange={this.onChangePagination.bind(this)} /></LocaleProvider>;
         }
-
         return (
             <div className="order-main-box">
                 <Filter onClick={this.onQuery.bind(this)} action="success"/>
-                <div className="order-table success-list-table">
+                <div className={`order-table success-list-table ${this.isAus ? 'fee-discount' : ''} `}>
                     <div className="table-hd">
                         <table>
                             <tbody>
@@ -120,6 +127,11 @@ class List extends Component {
                                     <th className="tradeprice">{UPEX.lang.template('成交价格')}</th>
                                     <th className="num">{UPEX.lang.template('成交数量')}</th>
                                     <th className="fee">{UPEX.lang.template('手续费')}</th>
+                                    {
+                                        this.isAus ? (
+                                            <th className="fee-save">{UPEX.lang.template('抵扣手续费')}</th>
+                                        ) : null
+                                    }
                                     <th className="amount pr10">{UPEX.lang.template('成交金额')}</th>
                                 </tr>
                             </tbody>

@@ -11,6 +11,7 @@ import FormView from '@/mods/common/form';
 import FormItem from '@/mods/common/form/item';
 import AmountInfo from '@/mods/common/form/amount-info-row';
 import SmsBtn from '@/mods/common/sms-btn';
+import ComplianceModal from '@/mods/recharge-withdraw/compliance-modal';
 
 const AutoOption = AutoComplete.Option;
 
@@ -48,7 +49,7 @@ class WithdrawCoin extends Component {
                 }
             },
             msgCode: {
-                label: UPEX.lang.template('标签'),
+                label: UPEX.lang.template('标签') + UPEX.lang.template('(请务必确保标签是正确的!)'),
                 target: '',
                 inputProps: {
                     onChange: this.setVal.bind(this, 'msgCode')
@@ -208,9 +209,13 @@ class WithdrawCoin extends Component {
             message.error(UPEX.lang.template('提币到账数量为0'));
             return;
         }
-
         let msgCode = '';
         const info = this.props.coinWithdrawStore.takeCoinInfo;
+        // 带标签的货币 标签必填
+        if(info.resp.needMsgCode === 1 && this.state.msgCode == '') {
+            message.error(UPEX.lang.template('请输入标签信息'));
+            return;
+        }
         if (info.resp.needMsgCode === 1) {
             msgCode = this.state.msgCode;
         }
@@ -353,6 +358,9 @@ class WithdrawCoin extends Component {
                     }
                     type="warning"
                 />
+                {/* {
+                    UPEX.config.version === 'infinitex' ? <ComplianceModal /> : null
+                } */}
                 <FormView>
                     {state.loading ? <div className="mini-loading" /> : null}
                     <FormItem label={UPEX.lang.template('选择币种')} after={$selectAfterNode}>

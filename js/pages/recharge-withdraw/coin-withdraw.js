@@ -32,7 +32,6 @@ class Withdraw extends Component {
 
     componentDidMount() {
         let {userInfoStore} = this.props;
-
         // 获取用户信息
         userInfoStore.getUserInfo().then(res => {
             this.setState({

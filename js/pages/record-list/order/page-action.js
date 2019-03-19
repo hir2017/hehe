@@ -72,7 +72,7 @@ export default (store, authStore, tradeStore) => {
             })
         },
 
-        handleFilter(condition, data) {
+        handleFilter(condition, data, isReset = false) {
             let params;
             switch (condition) {
                 case 'page': // 页码
@@ -119,8 +119,9 @@ export default (store, authStore, tradeStore) => {
                     break;
 
             }
-
-            this.getData(params);
+            if(!isReset) {
+                this.getData(params);
+            }
         },
 
         cancelOrder(currencyId, orderNo) {
