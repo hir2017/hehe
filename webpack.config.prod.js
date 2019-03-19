@@ -130,6 +130,7 @@ var config = {
         extensions: ['.js', '.vue'], // 确保引用时省略模块扩展名
         alias:{
             '@': path.resolve(__dirname, './js'),
+            '@ui': path.resolve(__dirname, './js/components/ui'),
         }
     },
     externals: {

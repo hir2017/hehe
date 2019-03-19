@@ -67,7 +67,7 @@ var config = {
     entry: {
         // 可对应多个入口文件
         webapp: ['./js/app-ace.js'],
-        vendor: ['react', 'react-dom', 'react-router', 'mobx-react', 'echarts']
+        vendor: ['react', 'react-dom', 'react-router', 'mobx-react']
     },
     output: output,
     // devtool: 'source-map', // 输出source-map
@@ -132,8 +132,13 @@ var config = {
     resolve: {
         extensions: ['.js', '.vue'], // 确保引用时省略模块扩展名
         alias:{
-            '@': path.resolve(__dirname, './js')
+            '@': path.resolve(__dirname, './js'),
+            '@ui': path.resolve(__dirname, './js/components/ui'),
         }
+    },
+    externals: {
+        echarts: 'echarts',
+        moment: 'moment'
     },
     // server配置
     // sudo webpack-dev-server
@@ -173,7 +178,7 @@ var config = {
             filename: 'vendor.bundle.js',
             minChunks: function(module) {
               let flag =  module.context && module.context.indexOf('node_modules') !== -1;
-              console.log(module.context, flag);
+            //   console.log(module.context, flag);
               return flag;
             }
         }),

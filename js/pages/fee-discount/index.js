@@ -1,6 +1,6 @@
 import React from 'react';
 import { Breadcrumb, message } from 'antd';
-import Card from '@/components/card';
+import Card from '@ui/card';
 import Info from './info';
 import Opt from './opt';
 import Api from '@/api';

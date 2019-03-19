@@ -113,7 +113,8 @@
     "stop-ace": "pm2 stop pm2-ace.json",
     "build": "node ./scripts/build.js --aus",
     "build-ace": "node ./scripts/build.js",
-    "langfile": "node ./scripts/file.js"
+    "langfile": "node ./scripts/file.js",
+    "dev-analyzer": "node ./serve/server-analyzer.js"
   },
   "version": "2.1.25",
   "ace-version": "1.1.14",
