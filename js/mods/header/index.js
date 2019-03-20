@@ -51,7 +51,7 @@ class HeaderView extends Component {
         let username = '--';
 
         const usermenu = (
-            <dl className="menu-list header-menu">
+            <dl className={`menu-list header-menu ${UPEX.config.version}`}>
                 <dd className="logined-header user">
                     <Link className="logined-header-link" to="/user">
                         {UPEX.lang.template('个人中心')}
