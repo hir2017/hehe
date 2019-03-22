@@ -246,8 +246,7 @@ class View extends React.Component {
                         </FormItem>
                         <FormItem className="inline cost" label={UPEX.lang.template('应付')}>
                             <div className="bill">
-                                {this.billCost}
-                                {Currency}
+                                {`${this.billCost} ${Currency}`}
                             </div>
                             <div className="inline account">
                                 {UPEX.lang.template('可用 {num} {unit}', { num: this.account, unit: Currency })}
