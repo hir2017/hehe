@@ -98,6 +98,13 @@ class HeaderView extends Component {
                             <li className="trade">
                                 <Link to="/webtrade">{UPEX.lang.template('行情中心')}</Link>
                             </li>
+
+                            {UPEX.config.version === 'infinitex' ? (
+                                <li className="discount">
+                                    <Link to="/fee-discount">{UPEX.lang.template('手续费折扣')}</Link>
+                                </li>
+                            ) : null}
+
                             <li className="news">
                                 <Link to="/news">{UPEX.lang.template('公告中心')}</Link>
                             </li>
