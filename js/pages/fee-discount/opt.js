@@ -47,7 +47,7 @@ const Success = ({ data, deadline }) => {
     );
 };
 
-@inject('userInfoStore')
+@inject('userInfoStore', 'authStore')
 @observer
 class View extends React.Component {
     constructor(props) {
@@ -122,6 +122,11 @@ class View extends React.Component {
     // 选中折扣
     openDialog = item => {
         const {userInfo} = this.props.userInfoStore;
+        // 登录校验
+        if(!this.props.authStore.checkLoginState()) {
+            browserHistory.push('/login');
+            return;
+        }
         if(userInfo.isValidatePass !== 1) {
             message.destroy();
             message.warning(UPEX.lang.template('请先设置资金密码'));
@@ -241,8 +246,7 @@ class View extends React.Component {
                         </FormItem>
                         <FormItem className="inline cost" label={UPEX.lang.template('应付')}>
                             <div className="bill">
-                                {this.billCost}
-                                {Currency}
+                                {`${this.billCost} ${Currency}`}
                             </div>
                             <div className="inline account">
                                 {UPEX.lang.template('可用 {num} {unit}', { num: this.account, unit: Currency })}

@@ -1,3 +1,7 @@
+
+/**
+ * 折扣手续费-公共模块
+ */
 import React from 'react';
 import { Button } from 'antd';
 import { transLabel_discount } from './util';
@@ -28,7 +32,7 @@ export class Item extends React.Component {
                 <div className="item-inner">
                     <div className="label">{UPEX.lang.template('交易手续费折扣')}</div>
                     <div className="discount" dangerouslySetInnerHTML={{__html: transLabel_discount(data.discount)}} />
-                    <div className="price">{UPEX.lang.template('{num}/月', { num: data.price + (unit || '') })}</div>
+                    <div className="price">{UPEX.lang.template('{num}/月', { num: data.price + ' ' + (unit || '') })}</div>
                     {isUsed ? (
                          <Button disabled>
                          {UPEX.lang.template('使用中')}

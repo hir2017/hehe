@@ -98,9 +98,13 @@ class HeaderView extends Component {
                             <li className="trade">
                                 <Link to="/webtrade">{UPEX.lang.template('行情中心')}</Link>
                             </li>
-                            <li className="news">
-                                <Link to="/news">{UPEX.lang.template('公告中心')}</Link>
-                            </li>
+
+                            {UPEX.config.version === 'infinitex' ? (
+                                <li className="discount">
+                                    <Link to="/fee-discount">{UPEX.lang.template('手续费折扣')}</Link>
+                                </li>
+                            ) : null}
+
                             {UPEX.config.version == 'ace' ? (
                                 <li className="ieo">
                                     <Link to="/ieo">{UPEX.lang.template('Launcher')}</Link>
@@ -116,6 +120,10 @@ class HeaderView extends Component {
                                     <Link to="/otc">{UPEX.lang.template('大宗OTC')}</Link>
                                 </li>
                             ) : null}
+
+                            <li className="news">
+                                <Link to="/news">{UPEX.lang.template('公告中心')}</Link>
+                            </li>
                         </ul>
                     </div>
                     <div className="header-box-r">

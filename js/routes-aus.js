@@ -214,9 +214,10 @@ const routes = (
             <Route path="resetpwd" component={ResetPwd} />
             <Route path="otc" component={OTC} />
             <Route path="download-app" component={DownloadApp}/>
-            <Route path="fee-discount" component={Auth}>
+            <Route path="fee-discount" component={feeDiscount}/>
+            {/* <Route path="fee-discount" component={Auth}>
                 <IndexRoute component={feeDiscount}/>
-            </Route>
+            </Route> */}
         </Route>
         <Route path="*" component={NotFound} />
     </Route>
