@@ -117,6 +117,6 @@
     "dev-analyzer": "node ./serve/server-analyzer.js"
   },
   "version": "2.1.25",
-  "ace-version": "1.1.14",
+  "ace-version": "1.1.15",
   "aus-version": "1.1.12"
 }
