@@ -149,17 +149,17 @@ class UserPage extends Component {
             let ausIDs = [10010,10004,10014,10076,10077,10080,10079,10068,10069,10013,10003,10071,10064,10012];
             const uid = UPEX.cache.getCache('uid');
             if(ausIDs.indexOf(uid) !== -1) {
-                ausNavData.push({
-                    key: 'activity',
-                    title: UPEX.lang.template('活动'),
-                    subItems: [
-                        {
-                            active: 'invite-home',
-                            route: '/activity/invite-home',
-                            text: UPEX.lang.template('邀请返佣')
-                        }
-                    ]
-                });
+                // ausNavData.push({
+                //     key: 'activity',
+                //     title: UPEX.lang.template('活动'),
+                //     subItems: [
+                //         {
+                //             active: 'invite-home',
+                //             route: '/activity/invite-home',
+                //             text: UPEX.lang.template('邀请返佣')
+                //         }
+                //     ]
+                // });
                 // 部分用户开启
                 // ausNavData[2].subItems.push({
                 //     active: 'invite-home',
