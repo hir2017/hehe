@@ -64,10 +64,10 @@ const getNavList = () => {
                 name: UPEX.lang.template('用户协议'),
                 path: UPEX.lang.template('用户协议网页链接')
             },
-            {
-                name: UPEX.lang.template('AML&CTF Program'),
-                path: UPEX.lang.template('AML&CTF Program网页链接')
-            }
+            // {
+            //     name: UPEX.lang.template('AML&CTF Program'),
+            //     path: UPEX.lang.template('AML&CTF Program网页链接')
+            // }
         ],
         [
             {

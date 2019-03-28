@@ -12,9 +12,9 @@ import Login from './pages/login-register/login';
 import Register from './pages/login-register/register';
 import ResetPwd from './pages/login-register/resetpwd';
 // import LandingPage from './pages/activity/landingpage/aus';
-import LandingPageBtc from './pages/activity/landingpage/aus-btc';
-import LandingPageEthAirDrop from './pages/activity/landingpage/aus-airdrop-eth';
-import InviteRegister from './pages/activity/invite/invite-register';
+// import LandingPageBtc from './pages/activity/landingpage/aus-btc';
+// import LandingPageEthAirDrop from './pages/activity/landingpage/aus-airdrop-eth';
+// import InviteRegister from './pages/activity/invite/invite-register';
 
 // import Home from './pages/home';
 // 授权登陆容器HOC
@@ -70,14 +70,14 @@ import UnbindingGoogle from './pages/user/google-auth/unbind';
 import DownloadApp from './pages/others/download';
 
 // IEO
-import IEO from './pages/ieo/main';
-import IEODetail from './pages/ieo/detail';
+// import IEO from './pages/ieo/main';
+// import IEODetail from './pages/ieo/detail';
 // OTC
-import OTC from './pages/otc';
-import PointWelcome from '@/pages/user-point/welcome';
-import UserPoint from '@/pages/user-point/home';
+// import OTC from './pages/otc';
+// import PointWelcome from '@/pages/user-point/welcome';
+// import UserPoint from '@/pages/user-point/home';
 // 手续费折扣
-import feeDiscount from './pages/fee-discount';
+// import feeDiscount from './pages/fee-discount';
 
 const Home = (location, cb) => {
     require.ensure(
@@ -189,7 +189,7 @@ const routes = (
                 <IndexRoute component={NewsList} />
                 <Route path="detail/:id" component={NewsDetail} />
             </Route>
-            <Route path="activity">
+            {/* <Route path="activity">
                 <Route path="invite-register" component={InviteRegister} />
                 <Route component={Auth} onEnter={onEnterHandle}>
                     <IndexRoute getComponent={Invite} />
@@ -197,27 +197,24 @@ const routes = (
                 </Route>
                 <Route path="bitcoin" component={LandingPageBtc} />
                 <Route path="eth-airdrop" component={LandingPageEthAirDrop} />
-            </Route>
-            {UPEX.config.host.indexOf('stage.infinitex.com.au') !== -1 ? (
+            </Route> */}
+            {/* {UPEX.config.host.indexOf('stage.infinitex.com.au') !== -1 ? (
                 <Route path="ieo">
                     <IndexRoute component={IEO} />
                     <Route path="detail/:id" component={IEODetail} />
                 </Route>
-            ) : null}
-            <Route path="user-point" component={Auth}>
+            ) : null} */}
+            {/* <Route path="user-point" component={Auth}>
                 <IndexRoute component={UserPoint} />
                 <Route path="home" component={UserPoint} />
-            </Route>
-            <Route path="user-point/welcome" component={PointWelcome} />
+            </Route> */}
+            {/* <Route path="user-point/welcome" component={PointWelcome} /> */}
             <Route path="login" component={Login} />
             <Route path="register" component={Register} />
             <Route path="resetpwd" component={ResetPwd} />
-            <Route path="otc" component={OTC} />
+            {/* <Route path="otc" component={OTC} /> */}
             <Route path="download-app" component={DownloadApp}/>
-            <Route path="fee-discount" component={feeDiscount}/>
-            {/* <Route path="fee-discount" component={Auth}>
-                <IndexRoute component={feeDiscount}/>
-            </Route> */}
+            {/* <Route path="fee-discount" component={feeDiscount}/> */}
         </Route>
         <Route path="*" component={NotFound} />
     </Route>

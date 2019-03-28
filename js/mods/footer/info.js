@@ -7,7 +7,7 @@ class InfoView extends Component {
             <div className="info">
                 <p className="phone">{UPEX.lang.template('CustomerServicePhone')}</p>
                 <p className="mail">{UPEX.lang.template('CustomerServiceEmail')}</p>
-                {UPEX.config.version == 'infinitex' ? (
+                {/* {UPEX.config.version == 'infinitex' ? (
                     <div className="brand">
                         <Tooltip title={UPEX.lang.template('GTOfooterbrand提示语')} placement="left" overlayClassName="footer-tooltip">
                             <span className="GTO" />
@@ -21,7 +21,7 @@ class InfoView extends Component {
                     </div>
                 ) : (
                     <p className="brand" />
-                )}
+                )} */}
                 <div className="icons">
                     {
                         UPEX.config.version === 'ace' ? (
