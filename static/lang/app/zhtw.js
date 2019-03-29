@@ -300,7 +300,7 @@ window.LangPack={
     "{discount}交易手续费折扣特权": "{discount}交易手續費折扣",
     "{name}充值地址": "{name}入幣地址",
     "{name}市场": "{name}市場",
-    "{num}/月": "{num} /月",
+    "{num}/月": "{num}/月",
     "{num}折": "<em>{num}%</em> off",
     "{num}月": "{num}月",
     "一级": "L1",
