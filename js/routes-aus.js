@@ -144,7 +144,7 @@ const routes = (
                 <Route path="coinrecord" component={CoinRecord} />
                 <Route path="fiatrecord" component={FiatRecord} />
                 <Route path="balance">
-                    <Route path="recharge" component={FiatRecharge} />
+                    {/* <Route path="recharge" component={FiatRecharge} /> */}
                     <Route path="withdraw" component={FiatWithdraw} />
                 </Route>
                 <Route path="coin">
