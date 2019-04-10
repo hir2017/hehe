@@ -271,9 +271,13 @@ class TradeForm extends Component {
                             <em>{store.personalAccount.baseCoinBalanceText}</em>
                             <label>{baseCurrencyNameEn}</label>
                         </li>
-                        <Tooltip placement="top" overlayClassName={store.theme == 'dark' ? 'ant-tooltip-dark' : 'ant-tooltip-light'} title={rechargeTitle}>
-                            <li className="icon" onClick={this.goRecharge.bind(this, 'fiat', baseCurrencyNameEn)} />
-                        </Tooltip>
+                        {
+                            baseCurrencyNameEn === UPEX.config.baseCurrencyEn ? null : (
+                                <Tooltip placement="top" overlayClassName={store.theme == 'dark' ? 'ant-tooltip-dark' : 'ant-tooltip-light'} title={rechargeTitle}>
+                                    <li className="icon" onClick={this.goRecharge.bind(this, 'fiat', baseCurrencyNameEn)} />
+                                </Tooltip>
+                            )
+                        }
                     </ul>
                     <ul className="form-mod-bd">
                         <li className="hidden">
@@ -439,9 +443,13 @@ class TradeForm extends Component {
                             <em>{store.personalAccount.baseCoinBalanceText}</em>
                             <label>{baseCurrencyNameEn}</label>
                         </li>
-                        <Tooltip placement="top" overlayClassName={store.theme == 'dark' ? 'ant-tooltip-dark' : 'ant-tooltip-light'} title={rechargeTitle}>
-                            <li className="icon" onClick={this.goRecharge.bind(this, 'fiat', baseCurrencyNameEn)} />
-                        </Tooltip>
+                        {
+                            baseCurrencyNameEn === UPEX.config.baseCurrencyEn ? null : (
+                                <Tooltip placement="top" overlayClassName={store.theme == 'dark' ? 'ant-tooltip-dark' : 'ant-tooltip-light'} title={rechargeTitle}>
+                                    <li className="icon" onClick={this.goRecharge.bind(this, 'fiat', baseCurrencyNameEn)} />
+                                </Tooltip>
+                            )
+                        }
                     </ul>
                     <ul className="form-mod-bd">
                         <li className="hidden">

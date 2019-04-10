@@ -63,11 +63,11 @@ class InfoView extends Component {
                                 )}
                             </div>
                             <div className="actions">
-                                <button type="button" title={btnDisable.recharge ? UPEX.lang.template('当前币种暂停此操作') : ''}
+                                {/* <button type="button" title={btnDisable.recharge ? UPEX.lang.template('当前币种暂停此操作') : ''}
                                         disabled={btnDisable.recharge} className="btn recharge-btn"
                                         onClick={this.skipTo.bind(this, '/account/balance/recharge')}>
                                     {UPEX.lang.template('充值')}
-                                </button>
+                                </button> */}
                                 <button type="button" title={btnDisable.withdraw ? UPEX.lang.template('当前币种暂停此操作') : ''}
                                         disabled={btnDisable.withdraw} className="btn withdraw-btn"
                                         onClick={this.skipTo.bind(this, '/account/balance/withdraw')}>

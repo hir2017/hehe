@@ -22,10 +22,10 @@ const getNavList = () => {
                 name: UPEX.lang.template('联系我们'),
                 path: UPEX.lang.template('联系我们网页链接')
             },
-            {
-                name: UPEX.lang.template('关于GTO'),
-                path: UPEX.lang.template('关于GTO网页链接')
-            }
+            // {
+            //     name: UPEX.lang.template('关于GTO'),
+            //     path: UPEX.lang.template('关于GTO网页链接')
+            // }
         ],
         [
             {
@@ -78,12 +78,12 @@ const getNavList = () => {
                 path: UPEX.lang.template('币种介绍网页链接')
             }
         ],
-        [
-            {
-                name: UPEX.lang.template('下载客户端'),
-                route: 'download-app'
-            }
-        ]
+        // [
+        //     {
+        //         name: UPEX.lang.template('下载客户端'),
+        //         route: 'download-app'
+        //     }
+        // ]
     ];
 };
 
