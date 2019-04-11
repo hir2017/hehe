@@ -87,7 +87,7 @@ class Info extends Component {
                 <div className="state-inner aus">
                     <img className="aus" src={authOk} />
                     <p className="text">{UPEX.lang.template('身份已认证')}</p>
-                    <p className="money">
+                    {/* <p className="money">
                         {UPEX.lang.template('当前日提现限额')}：
                         <span className="amount-space">
                             {props.cashLimit} {UPEX.config.baseCurrencySymbol}
@@ -98,7 +98,7 @@ class Info extends Component {
                         <span className="amount-space">
                             {props.coinLimit} {UPEX.config.baseCurrencySymbol}
                         </span>
-                    </p>
+                    </p> */}
                 </div>
             );
         }

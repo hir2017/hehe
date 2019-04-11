@@ -31,9 +31,9 @@ class Home extends Component {
         return  (
             <div className="home-wrapper">
                 { !this.props.authStore.isLogin ? <LoginGuide/> : null }
-                <Banner>
+                {/* <Banner>
                     <NoticeList/>
-                </Banner>
+                </Banner> */}
                 <HotMarkets />
                 <IndexMarkets/>
                 <Features/>

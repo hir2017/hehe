@@ -69,15 +69,15 @@ const getNavList = () => {
             //     path: UPEX.lang.template('AML&CTF Program网页链接')
             // }
         ],
-        [
-            {
-                name: UPEX.lang.template('其他资料')
-            },
-            {
-                name: UPEX.lang.template('币种介绍'),
-                path: UPEX.lang.template('币种介绍网页链接')
-            }
-        ],
+        // [
+        //     {
+        //         name: UPEX.lang.template('其他资料')
+        //     },
+        //     {
+        //         name: UPEX.lang.template('币种介绍'),
+        //         path: UPEX.lang.template('币种介绍网页链接')
+        //     }
+        // ],
         // [
         //     {
         //         name: UPEX.lang.template('下载客户端'),

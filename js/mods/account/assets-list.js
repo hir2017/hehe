@@ -61,9 +61,9 @@ class List extends Component {
                                     <dd className="total">{UPEX.lang.template('总额')}</dd>
                                     <dd className="balance">{UPEX.lang.template('可用余额')}</dd>
                                     <dd className="freeze">{UPEX.config.version === 'ace' ? UPEX.lang.template('委托冻结') : UPEX.lang.template('冻结')}</dd>
-                                    <dd className="value">
+                                    {/* <dd className="value">
                                         {UPEX.lang.template('价值')}({UPEX.config.baseCurrencyEn})
-                                    </dd>
+                                    </dd> */}
                                     <dd className="actions">{UPEX.lang.template('操作')}</dd>
                                 </dl>
                             </li>
@@ -71,8 +71,8 @@ class List extends Component {
                     </div>
                     <div className="table-bd">
                         {$content}
-                        {UPEX.config.version == 'ace' ? <IEOListView /> : null}
-                        {UPEX.config.host.indexOf('stage.infinitex.com.au') !== -1 ? <IEOListView /> : null}
+                        {/* {UPEX.config.version == 'ace' ? <IEOListView /> : null} */}
+                        {/* {UPEX.config.host.indexOf('stage.infinitex.com.au') !== -1 ? <IEOListView /> : null} */}
                         {/* <IEOListView/> */}
                         {store.isFetching ? <div className="mini-loading" /> : null}
                     </div>
@@ -119,7 +119,7 @@ class AssetsListView extends Component {
                                 <dd className="total">{item.amount}</dd>
                                 <dd className="balance">{item.cashAmount}</dd>
                                 <dd className="freeze">{item.freezeAmount}</dd>
-                                <dd className="value">{item.twd_value}</dd>
+                                {/* <dd className="value">{item.twd_value}</dd> */}
                                 <dd className="actions">
                                     <button
                                         type="button"

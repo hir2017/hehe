@@ -31,8 +31,8 @@ class RecordPage extends Component {
         let _tokenRecord = {label: UPEX.lang.template('IEO购买记录'), type: 'token-record'};
         let _Reward = {label: UPEX.lang.template('其他记录'), type: 'reward'};
         this.tabs = [
-            {label: UPEX.lang.template('充值记录'), type: 'deposit'},
-            {label: UPEX.lang.template('提现记录'), type: 'withdraw'},
+            // {label: UPEX.lang.template('充值记录'), type: 'deposit'},
+            // {label: UPEX.lang.template('提现记录'), type: 'withdraw'},
             {label: UPEX.lang.template('充币记录'), type: 'coin-deposit'},
             {label: UPEX.lang.template('提币记录'), type: 'coin-withdraw'},
         ];

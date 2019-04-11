@@ -30,17 +30,17 @@ class InfoView extends Component {
             <div className="account-hd-box">
                 <div className="account-title">
                     <h2>{UPEX.lang.template('我的资产')}</h2>
-                    <div className="account-count">
+                    {/* <div className="account-count">
                         <label>{UPEX.lang.template('总资产折合')}</label>
                         <label>{UPEX.config.baseCurrencyEn}</label>
                         <label>≈</label>
                         <em>
                             {`${store.allMoney || '0.00'}`} {UPEX.config.baseCurrencyEn}
                         </em>
-                    </div>
+                    </div> */}
                 </div>
                 <div className="account-content clearfix">
-                    <div className="account-amount">
+                    {/* <div className="account-amount">
                         <div className="amount-hd">
                             <label>{UPEX.lang.template('可用余额')} </label>
                             <span className={store.visibleMoney ? "switch hide" : "switch"}
@@ -63,11 +63,11 @@ class InfoView extends Component {
                                 )}
                             </div>
                             <div className="actions">
-                                {/* <button type="button" title={btnDisable.recharge ? UPEX.lang.template('当前币种暂停此操作') : ''}
+                                <button type="button" title={btnDisable.recharge ? UPEX.lang.template('当前币种暂停此操作') : ''}
                                         disabled={btnDisable.recharge} className="btn recharge-btn"
                                         onClick={this.skipTo.bind(this, '/account/balance/recharge')}>
                                     {UPEX.lang.template('充值')}
-                                </button> */}
+                                </button>
                                 <button type="button" title={btnDisable.withdraw ? UPEX.lang.template('当前币种暂停此操作') : ''}
                                         disabled={btnDisable.withdraw} className="btn withdraw-btn"
                                         onClick={this.skipTo.bind(this, '/account/balance/withdraw')}>
@@ -89,7 +89,7 @@ class InfoView extends Component {
                                 </em>
                             </li>
                         </ul>
-                    </div>
+                    </div> */}
                     <div className="account-record">
                         <button type="button" className="btn" onClick={this.skipTo.bind(this, '/account/asset-change/deposit')}>
                             <span>{UPEX.lang.template('资产变动记录')}</span>
