@@ -46,8 +46,8 @@ config.feeDiscountCurrencyId = 54;
 const protocol = 'https:';
 const socket_protocol = 'wss:';
 
-// const website = ['www.proex.io'];
-const website = ['stage.infinitex.com.au', 'www.infinitex.com.au', 'www.infinitex.co','infinitex.co'];
+const website = ['www.proex.io'];
+// const website = ['stage.infinitex.com.au', 'www.infinitex.com.au', 'www.infinitex.co','infinitex.co'];
 
 const origin_java = (function() {
     let hostname = location.hostname;
