@@ -30,7 +30,7 @@ class Home extends Component {
 
         return  (
             <div className="home-wrapper">
-                { !this.props.authStore.isLogin ? <LoginGuide/> : null }
+                {/* { !this.props.authStore.isLogin ? <LoginGuide/> : null } */}
                 {/* <Banner>
                     <NoticeList/>
                 </Banner> */}

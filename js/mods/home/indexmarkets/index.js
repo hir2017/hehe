@@ -126,6 +126,9 @@ class IndexMarkets extends Component{
      								    </li>
                                     )
                                  }
+                                 if(item === 'AUD') {
+                                    return null
+                                 }
      							return (
      								<li className={clsName} key={item} onClick={this.handleTab.bind(this, item)}>
      									{UPEX.lang.template('{name}市场',{ name: item})}

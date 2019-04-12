@@ -107,6 +107,9 @@ class Markets extends Component{
      								    </li>
                                     )
                                  }
+                                 if(item === 'AUD') {
+                                    return ;
+                                 }
      							return (
      								<li data-role="tab" data-key={item} className={clsName} key={item} onClick={this.handleTab.bind(this, item)}>
      									{item}
