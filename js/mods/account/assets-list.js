@@ -139,7 +139,9 @@ class AssetsListView extends Component {
                                     >
                                         {UPEX.lang.template('提币')}
                                     </button>
-                                    <span className="split">|</span>
+                                    {
+                                        item.currencyNameEn === 'USDT' ? null : <span className="split">|</span>
+                                    }
                                     {
                                         item.currencyNameEn === 'USDT' ? null : (
                                             <button type="button" onClick={this.handleCoinTrade.bind(this, item)}>
