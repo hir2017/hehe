@@ -94,7 +94,8 @@ class AssetsListView extends Component {
     };
 
     handleCoinTrade = (item, e) => {
-        browserHistory.push(`/webtrade/${UPEX.config.baseCurrencyEn}_${item.currencyNameEn}`);
+        // browserHistory.push(`/webtrade/${UPEX.config.baseCurrencyEn}_${item.currencyNameEn}`);
+        browserHistory.push(`/webtrade/USDT_${item.currencyNameEn}`);
     };
 
     render() {
@@ -139,9 +140,13 @@ class AssetsListView extends Component {
                                         {UPEX.lang.template('提币')}
                                     </button>
                                     <span className="split">|</span>
-                                    <button type="button" onClick={this.handleCoinTrade.bind(this, item)}>
-                                        {UPEX.lang.template('交易')}
-                                    </button>
+                                    {
+                                        item.currencyNameEn === 'USDT' ? null : (
+                                            <button type="button" onClick={this.handleCoinTrade.bind(this, item)}>
+                                                {UPEX.lang.template('交易')}
+                                            </button>
+                                        )
+                                    }
                                 </dd>
                             </dl>
                         </li>
