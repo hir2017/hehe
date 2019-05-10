@@ -3,7 +3,7 @@ import Url from './lib/url';
 let config = {};
 
 config.version = "infinitex";
-config.sitename = 'PROEX';
+config.sitename = 'ABSBASE';
 config.languages = ['zh-CN', 'zh-TW', 'en-US']; // 网站支持的语言列表
 config.initLanguage = 'en-US'; // 默认语言
 config.logourl = require('../images/aus-tokyo/logo.png');
@@ -18,12 +18,12 @@ Youtube:        https://youtube.com/channel/UCGckOll6_IT-KVFOMZj7HxQ?view_as=sub
 Linkedin:        https://linkedin.com/company/infinite-exchange
 */
 config.csurls = {
-    telegram: 'https://proex.io',
-    facebook: 'https://proex.io',
-    twitter: 'https://proex.io',
-    linkedin: 'https://proex.io',
-    youtube: 'https://proex.io',
-    whatapp: 'https://proex.io',
+    telegram: 'https://absbase.io',
+    facebook: 'https://absbase.io',
+    twitter: 'https://absbase.io',
+    linkedin: 'https://absbase.io',
+    youtube: 'https://absbase.io',
+    whatapp: 'https://absbase.io',
     line: '',
 };
 // pdf文档链接
@@ -46,8 +46,7 @@ config.feeDiscountCurrencyId = 54;
 const protocol = 'https:';
 const socket_protocol = 'wss:';
 
-const website = ['www.proex.io'];
-// const website = ['stage.infinitex.com.au', 'www.infinitex.com.au', 'www.infinitex.co','infinitex.co'];
+const website = ['www.absbase.io'];
 
 const origin_java = (function() {
     let hostname = location.hostname;
@@ -55,7 +54,7 @@ const origin_java = (function() {
     let origin;
 
     if (website.indexOf(hostname) > -1) {
-        origin = ['infinitex.co', 'www.infinitex.co'].indexOf(hostname) !== -1 ? 'www.proex.io' : hostname;
+        origin = ['infinitex.co', 'www.infinitex.co'].indexOf(hostname) !== -1 ? 'www.absbase.io' : hostname;
     } else {
         origin = website[0];
     }
@@ -81,7 +80,7 @@ const origin_ws = (function() {
 
     if (website.indexOf(hostname) > -1) {
         // origin = hostname;
-        origin = ['infinitex.co', 'www.infinitex.co'].indexOf(hostname) !== -1 ? 'www.proex.io' : hostname;
+        origin = ['infinitex.co', 'www.infinitex.co'].indexOf(hostname) !== -1 ? 'www.absbase.io' : hostname;
     } else {
         origin = website[0];
     }
