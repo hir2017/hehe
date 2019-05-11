@@ -18,12 +18,12 @@ Youtube:        https://youtube.com/channel/UCGckOll6_IT-KVFOMZj7HxQ?view_as=sub
 Linkedin:        https://linkedin.com/company/infinite-exchange
 */
 config.csurls = {
-    telegram: 'https://proex.io',
-    facebook: 'https://proex.io',
-    twitter: 'https://proex.io',
-    linkedin: 'https://proex.io',
-    youtube: 'https://proex.io',
-    whatapp: 'https://proex.io',
+    telegram: 'https://absbase.io',
+    facebook: 'https://absbase.io',
+    twitter: 'https://absbase.io',
+    linkedin: 'https://absbase.io',
+    youtube: 'https://absbase.io',
+    whatapp: 'https://absbase.io',
     line: '',
 };
 // pdf文档链接
@@ -47,7 +47,6 @@ const protocol = 'https:';
 const socket_protocol = 'wss:';
 
 const website = ['www.proex.io'];
-// const website = ['stage.infinitex.com.au', 'www.infinitex.com.au', 'www.infinitex.co','infinitex.co'];
 
 const origin_java = (function() {
     let hostname = location.hostname;
