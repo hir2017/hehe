@@ -18,12 +18,12 @@ Youtube:        https://youtube.com/channel/UCGckOll6_IT-KVFOMZj7HxQ?view_as=sub
 Linkedin:        https://linkedin.com/company/infinite-exchange
 */
 config.csurls = {
-    telegram: 'https://absbase.io',
-    facebook: 'https://absbase.io',
-    twitter: 'https://absbase.io',
-    linkedin: 'https://absbase.io',
-    youtube: 'https://absbase.io',
-    whatapp: 'https://absbase.io',
+    telegram: 'http://absbase.io',
+    facebook: 'http://absbase.io',
+    twitter: 'http://absbase.io',
+    linkedin: 'http://absbase.io',
+    youtube: 'http://absbase.io',
+    whatapp: 'http://absbase.io',
     line: '',
 };
 // pdf文档链接
@@ -43,10 +43,11 @@ config.baseCurrencySymbol2 = 'A$';
 config.feeDiscountCurrencyEn = 'GTO';
 config.feeDiscountCurrencyId = 54;
 
-const protocol = 'https:';
-const socket_protocol = 'wss:';
+const protocol = 'http:';
+const socket_protocol = 'ws:';
 
-const website = ['www.proex.io'];
+const absHost = 'absbase.io';
+const website = [absHost];
 
 const origin_java = (function() {
     let hostname = location.hostname;
@@ -54,7 +55,7 @@ const origin_java = (function() {
     let origin;
 
     if (website.indexOf(hostname) > -1) {
-        origin = ['infinitex.co', 'www.infinitex.co'].indexOf(hostname) !== -1 ? 'www.proex.io' : hostname;
+        origin = ['infinitex.co', 'www.infinitex.co'].indexOf(hostname) !== -1 ? absHost : hostname;
     } else {
         origin = website[0];
     }
@@ -80,7 +81,7 @@ const origin_ws = (function() {
 
     if (website.indexOf(hostname) > -1) {
         // origin = hostname;
-        origin = ['infinitex.co', 'www.infinitex.co'].indexOf(hostname) !== -1 ? 'www.proex.io' : hostname;
+        origin = ['infinitex.co', 'www.infinitex.co'].indexOf(hostname) !== -1 ? absHost : hostname;
     } else {
         origin = website[0];
     }
