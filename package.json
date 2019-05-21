@@ -80,15 +80,12 @@
   },
   "gitlabGroup": "webex",
   "googleFileExport": "window.LangPack",
-  "googleSpreadsheetId": "1tJsb4BEuAezHZszgOXZJwQMH9a05U539FfKWww0y0QI",
+  "googleSpreadsheetId": "1FZE9sCX2drVFfqzo18PJrrDevkfPU0T_KOuBrnyTEA8",
   "googleWorksheet": {
     "appaus": [
-      "澳州站多语言定制",
+      "absbase",
       "PC通用多语言翻译文档",
       "CountryCode",
-      "澳州站BITCOIN",
-      "澳州站landingPageETH空投",
-      "东京版多语言定制"
     ]
   },
   "license": "ISC",
