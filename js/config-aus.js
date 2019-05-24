@@ -3,7 +3,7 @@ import Url from './lib/url';
 let config = {};
 
 config.version = "infinitex";
-config.sitename = 'PROEX';
+config.sitename = 'AbsBase';
 config.languages = ['zh-CN', 'zh-TW', 'en-US']; // 网站支持的语言列表
 config.initLanguage = 'en-US'; // 默认语言
 config.logourl = require('../images/aus-tokyo/logo.png');
