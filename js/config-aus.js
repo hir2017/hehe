@@ -18,12 +18,12 @@ Youtube:        https://youtube.com/channel/UCGckOll6_IT-KVFOMZj7HxQ?view_as=sub
 Linkedin:        https://linkedin.com/company/infinite-exchange
 */
 config.csurls = {
-    telegram: 'http://absbase.io',
-    facebook: 'http://absbase.io',
-    twitter: 'http://absbase.io',
-    linkedin: 'http://absbase.io',
-    youtube: 'http://absbase.io',
-    whatapp: 'http://absbase.io',
+    telegram: 'https://absbase.io',
+    facebook: 'https://absbase.io',
+    twitter: 'https://absbase.io',
+    linkedin: 'https://absbase.io',
+    youtube: 'https://absbase.io',
+    whatapp: 'https://absbase.io',
     line: '',
 };
 // pdf文档链接
@@ -43,8 +43,8 @@ config.baseCurrencySymbol2 = 'A$';
 config.feeDiscountCurrencyEn = 'GTO';
 config.feeDiscountCurrencyId = 54;
 
-const protocol = 'http:';
-const socket_protocol = 'ws:';
+const protocol = 'https:';
+const socket_protocol = 'wss:';
 
 const absHost = 'absbase.io';
 const website = [absHost];
